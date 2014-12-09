@@ -1,0 +1,556 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.romanText.clercqTemperley &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.romanText.translate" href="moduleRomanTextTranslate.html" />
+    <link rel="prev" title="music21.romanText" href="moduleRomanText.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleRomanTextTranslate.html" title="music21.romanText.translate"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleRomanText.html" title="music21.romanText"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleRomanText.html"
+                        title="previous chapter">music21.romanText</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleRomanTextTranslate.html"
+                        title="next chapter">music21.romanText.translate</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.romanText.clercqTemperley</a><ul>
+<li><a class="reference internal" href="#ctsong">CTSong</a></li>
+<li><a class="reference internal" href="#ctrule">CTRule</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleRomanTextClercqTemperley.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-romantext-clercqtemperley">
+<span id="moduleromantextclercqtemperley"></span><h1>music21.romanText.clercqTemperley<a class="headerlink" href="#music21-romantext-clercqtemperley" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.romanText.clercqTemperley"></span><p>Parses the de Clercq-Temperley popular music flavor of RomanText.
+The Clercq-Temperley file format and additional rock corpus analysis
+information may be located at <a class="reference external" href="http://theory.esm.rochester.edu/rock_corpus/">http://theory.esm.rochester.edu/rock_corpus/</a></p>
+<div class="section" id="ctsong">
+<h2>CTSong<a class="headerlink" href="#ctsong" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.romanText.clercqTemperley.CTSong">
+<em class="property">class </em><tt class="descclassname">music21.romanText.clercqTemperley.</tt><tt class="descname">CTSong</tt><big>(</big><em>textFile</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.romanText.clercqTemperley.CTSong" title="Permalink to this definition">¶</a></dt>
+<dd><p>This parser is an object-oriented approach to parsing clercqTemperley text files into music.</p>
+<p>Create a CTSong object one of two ways:
+1) by passing in the string, with newline characters (n) at the end of each line
+2) by passing in the text file as a string, and have python open the file and read the text</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">exampleClercqTemperley</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="gp">... </span><span class="s">% Brown-Eyed Girl</span>
+<span class="gp">... </span><span class="s">VP: I \| IV \| I \| V \|</span>
+<span class="gp">... </span><span class="s">In: $VP\*2</span>
+<span class="gp">... </span><span class="s">Vr: $VP\*4 IV \| V \| I \| vi \| IV \| V \| I \| V \|       % Second part of verse could be called chorus</span>
+<span class="gp">... </span><span class="s">Ch: V \| \| $VP\*2 I \|\*4 </span>
+<span class="gp">... </span><span class="s">Ch2: V \| \| $VP\*3     </span><span class="si">% F</span><span class="s">adeout</span>
+<span class="gp">... </span><span class="s">S: [G] $In $Vr $Vr $Ch $VP $Vr $Ch2</span>
+<span class="gp">... </span><span class="s">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTSong</span><span class="p">(</span><span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">exampleClercqTemperley</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTSong</span><span class="p">(</span><span class="s">&#39;C:/Brown-Eyed_Girl.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When you call the .toScore() method on the newly created CTSong object,
+the code extracts meaningful properties (such as title, text, comments,
+year, rules, home time Signature, and home Key Signature) from the textfile
+and makes these accessible as below.</p>
+<p>The toScore() method has two optional labeling parameters, labelRomanNumerals and 
+labelSubsectionsOnScore. Both are set to True by default. Thus, the created score
+will have labels (on the chord&#8217;s lyric) for each roman numeral as well as for each 
+section in the song (LHS). In case of a recursive definition (a rule contains a reference
+to another rule), both labels are printed, with the deepest reference on the smallest lyric line.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">toScore</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/ClercqTemperleyExbrown-eyed_girl.png" src="../_images/ClercqTemperleyExbrown-eyed_girl.png" style="width: 500px;" />
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">title</span>
+<span class="go">&#39;Brown-Eyed Girl&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">homeTimeSig</span>
+<span class="go">&lt;music21.meter.TimeSignature 4/4&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">homeKeySig</span>
+<span class="go">&lt;music21.key.Key of G major&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">comments</span>
+<span class="go">[[&#39;Vr:&#39;, &#39;Second part of verse could be called chorus&#39;], [&#39;Ch2:&#39;, &#39;Fadeout&#39;]]</span>
+</pre></div>
+</div>
+<p>Year is not defined as part of the clercq-temperley format, but it will be helpful
+to have it as a property. So let&#8217;s assign a year to this song:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="mi">1967</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">year</span>
+<span class="go">1967</span>
+</pre></div>
+</div>
+<p>Upon calling toScore(), CTRule objects are also created. CTRule objects are
+the individual rules that make up the song object. For example,</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">rules</span>
+<span class="go">[&lt;music21.CTRule.CTRule text = VP: I | IV | I | V | , &lt;music21.CTRule.CTRule text = In: $VP*2 , &lt;music21.CTRule.CTRule text = Vr: $VP*4 IV | V | I | vi | IV | V | I | V |       % Second part of verse could be called chorus , &lt;music21.CTRule.CTRule text = Ch: V | | $VP*2 I |*4  , &lt;music21.CTRule.CTRule text = Ch2: V | | $VP*3     % Fadeout ]</span>
+</pre></div>
+</div>
+<p>The parser extracts meaningful properties to each rule, such as sectionName,
+home time signature of that rule, home key of that rule, and of course the individual
+stream from the song corresponding to the rule.</p>
+<p>The following examples display the instantiated properties of the second rule (list indexes
+start at one) as created above.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">rule</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">rules</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rule</span><span class="o">.</span><span class="n">text</span>
+<span class="go">&#39;In: $VP*2&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">rule</span><span class="o">.</span><span class="n">sectionName</span>
+<span class="go">&#39;Introduction&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">rule</span><span class="o">.</span><span class="n">homeTimeSig</span>
+<span class="go">&lt;music21.meter.TimeSignature 4/4&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">rule</span><span class="o">.</span><span class="n">homeKeySig</span>
+<span class="go">&lt;music21.key.Key of G major&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">rule</span><span class="o">.</span><span class="n">streamFromCTSong</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/ClercqTemperleyIntroduction.png" src="../_images/ClercqTemperleyIntroduction.png" style="width: 500px;" />
+<p>With this object-oriented approach to parsing the clercq-temperley text file format, 
+we now have the ability to analyze a large corpus (200 files) of popular music
+using the full suite of harmonic tools of music21. We can not only analyze each
+song as a whole, as presented in Clercq and Temperley&#8217;s research, but we can also analyze each
+individual section (or rule) of a song. This may provide interesting insight
+into popular music beyond our current understanding.</p>
+<p>Examples used throughout this class utilize the following Clercq-Temperley text file</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">BlitzkriegBopCT</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="gp">... </span><span class="s">% Blitzkrieg Bop</span>
+<span class="gp">... </span><span class="s">BP: I \| IV V \| %THIS IS A COMMENT</span>
+<span class="gp">... </span><span class="s">In: $BP\*3 I IV \| I \| $BP\*3 I IV \| I \| R \|\*4 I \|\*4</span>
+<span class="gp">... </span><span class="s">Vr: $BP\*3 I IV \| I \|</span>
+<span class="gp">... </span><span class="s">Br: IV \| \| I \| IV I \| IV \| \| ii \| IV V \|</span>
+<span class="gp">... </span><span class="s">Co: R \|\*4 I \|\*4</span>
+<span class="gp">... </span><span class="s">S: [A] $In $Vr $Vr $Br $Vr $Vr $Br $Vr $Vr $Co</span>
+<span class="gp">... </span><span class="s">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.romanText.clercqTemperley.CTSong" title="music21.romanText.clercqTemperley.CTSong"><tt class="xref py py-class docutils literal"><span class="pre">CTSong</span></tt></a> read/write properties</p>
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTSong.comments">
+<tt class="descclassname">CTSong.</tt><tt class="descname">comments</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTSong.comments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the comments list of a CTRule object. setting comments does not alter self.text</p>
+<p>comments are stored as a list of comments, each comment on a line as a list. If the
+comment is on a rule line, the list contains both the line&#8217;s LHS (like In:) and the comment
+if the comment is on a line of its own, only the comment is appended as a list of length one.</p>
+<p>The title is not a comment. The title is stored under self.title</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">textString = &#8216;&#8217;&#8216;</div>
+<div class="line">%Simple Gifts</div>
+<div class="line">% A wonderful shaker melody</div>
+<div class="line">Vr: I | I | %incomplete verse</div>
+<div class="line">S: [A] $Vr % Not quite finished!&#8217;&#8216;&#8217;</div>
+</div>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTSong</span><span class="p">(</span><span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">textString</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">comments</span>
+<span class="go">[[&#39;A wonderful shaker melody&#39;], [&#39;Vr:&#39;, &#39;incomplete verse&#39;], [&#39;S:&#39;, &#39;Not quite finished!&#39;]]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">comments</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a new list of comments&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">comments</span>
+<span class="go">[&#39;a new list of comments&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">appendComment</span><span class="p">(</span><span class="s">&#39;please append this comment to list&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">comments</span>
+<span class="go">[&#39;a new list of comments&#39;, &#39;please append this comment to list&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTSong.homeKeySig">
+<tt class="descclassname">CTSong.</tt><tt class="descname">homeKeySig</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTSong.homeKeySig" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the initial, or &#8216;home&#8217;, key signature by looking at the musictext and locating
+the key signature in the first few characters in the song rule. A key signature in the song
+rule might look like this: S: [A] $In $Vr</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTSong</span><span class="p">(</span><span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">BlitzkriegBopCT</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">homeKeySig</span>
+<span class="go">&lt;music21.key.Key of A major&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTSong.homeTimeSig">
+<tt class="descclassname">CTSong.</tt><tt class="descname">homeTimeSig</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTSong.homeTimeSig" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the initial, or &#8216;home&#8217;, time signature in a song by looking at the &#8216;S&#8217; substring
+and returning the provided time signature. If not present, returns a default music21
+time signature of 4/4</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTSong</span><span class="p">(</span><span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">BlitzkriegBopCT</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">homeTimeSig</span>
+<span class="go">&lt;music21.meter.TimeSignature 4/4&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTSong.rules">
+<tt class="descclassname">CTSong.</tt><tt class="descname">rules</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTSong.rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the rules of a CTSong. the Rules is a list of objects of type CTRule. If only a textfile
+provided, this goes through text file and creates the rule object out of each line containing
+a LHS...NOT including the Song line</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTSong</span><span class="p">(</span><span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">BlitzkriegBopCT</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">rules</span><span class="p">)</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">rules</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="k">print</span><span class="p">(</span><span class="n">rule</span><span class="o">.</span><span class="n">LHS</span><span class="p">)</span>
+<span class="go">BP</span>
+<span class="go">In</span>
+<span class="go">Vr</span>
+<span class="go">Br</span>
+<span class="go">Co</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTSong.text">
+<tt class="descclassname">CTSong.</tt><tt class="descname">text</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTSong.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the text of the CTSong.</p>
+<p>This is the full text of the Clercq-Temperley file. This
+attribute is typically instantiated when the CTSong object is created, either by passing 
+in the full string, with newline characters (
+) at the end of each line or by passing 
+in the text file as a string, and have python do the parsing.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTSong</span><span class="p">(</span><span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">BlitzkriegBopCT</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTSong</span><span class="p">(</span><span class="s">&#39;C:/BlitzkriegBop.txt&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTSong.title">
+<tt class="descclassname">CTSong.</tt><tt class="descname">title</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTSong.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the title of the CTSong. If not specified explicitly but the clercq-Temperley text exists, 
+this attribute searches first few lines of text file for title (a string preceded by a &#8216;%&#8217;) 
+if found, sets title attribute to this string and returns this title)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTSong</span><span class="p">(</span><span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">BlitzkriegBopCT</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">title</span>
+<span class="go">&#39;Blitzkrieg Bop&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.romanText.clercqTemperley.CTSong" title="music21.romanText.clercqTemperley.CTSong"><tt class="xref py py-class docutils literal"><span class="pre">CTSong</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.romanText.clercqTemperley.CTSong.appendComment">
+<tt class="descclassname">CTSong.</tt><tt class="descname">appendComment</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#music21.romanText.clercqTemperley.CTSong.appendComment" title="Permalink to this definition">¶</a></dt>
+<dd><p>append a comment to self.text at the end of the text file. Only strings or lists of strings are
+acceptible to append to the text file. this list of comments (self.comments) is also appended</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">textString = &#8216;&#8217;&#8216;</div>
+<div class="line">%Simple Gifts</div>
+<div class="line">% A wonderful shaker melody</div>
+<div class="line">Vr: I | I | %incomplete verse</div>
+<div class="line">S: [A] $Vr % Not quite finished!&#8217;&#8216;&#8217;</div>
+</div>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTSong</span><span class="p">(</span><span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">textString</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">comments</span>
+<span class="go">[[&#39;A wonderful shaker melody&#39;], [&#39;Vr:&#39;, &#39;incomplete verse&#39;], [&#39;S:&#39;, &#39;Not quite finished!&#39;]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">appendComment</span><span class="p">(</span><span class="s">&#39;please append this comment to list&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">comments</span>
+<span class="go">[[&#39;A wonderful shaker melody&#39;], [&#39;Vr:&#39;, &#39;incomplete verse&#39;], [&#39;S:&#39;, &#39;Not quite finished!&#39;], &#39;please append this comment to list&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.romanText.clercqTemperley.CTSong.labelRomanNumerals">
+<tt class="descclassname">CTSong.</tt><tt class="descname">labelRomanNumerals</tt><big>(</big><em>scoreObj</em><big>)</big><a class="headerlink" href="#music21.romanText.clercqTemperley.CTSong.labelRomanNumerals" title="Permalink to this definition">¶</a></dt>
+<dd><p>provided a scoreObject, labels the roman numerals on each chord.
+The CTSong.toScore() method calls this function by default unless
+labelRomanNumerals=False is passed as a parameter. Method labeling 
+doesn&#8217;t relabel tied roman numeral chords.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.romanText.clercqTemperley.CTSong.toScore">
+<tt class="descclassname">CTSong.</tt><tt class="descname">toScore</tt><big>(</big><em>labelRomanNumerals=True</em>, <em>labelSubsectionsOnScore=True</em><big>)</big><a class="headerlink" href="#music21.romanText.clercqTemperley.CTSong.toScore" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates Score object out of a from CTSong...also creates CTRule objects in the process,
+filling their .streamFromCTSong attribute with the corresponding smaller inner stream. 
+Individual attributes of a rule are defined by the entire CTSong, such as 
+meter and time signature, so creation of CTRule objects typically occurs
+only from this method and directly from the clercqTemperly text.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTSong</span><span class="p">(</span><span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">BlitzkriegBopCT</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scoreObj</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">toScore</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">scoreObj</span><span class="o">.</span><span class="n">highestOffset</span>   
+<span class="go">380.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.romanText.clercqTemperley.CTSong" title="music21.romanText.clercqTemperley.CTSong"><tt class="xref py py-class docutils literal"><span class="pre">CTSong</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTSong.year">
+<tt class="descclassname">CTSong.</tt><tt class="descname">year</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTSong.year" title="Permalink to this definition">¶</a></dt>
+<dd><p>the year of the CTSong; not formally defined by the Clercq-Temperley format</p>
+</dd></dl>
+
+</div>
+<div class="section" id="ctrule">
+<h2>CTRule<a class="headerlink" href="#ctrule" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.romanText.clercqTemperley.CTRule">
+<em class="property">class </em><tt class="descclassname">music21.romanText.clercqTemperley.</tt><tt class="descname">CTRule</tt><big>(</big><em>text=''</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.romanText.clercqTemperley.CTRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>CTRule objects correspond to the individual lines defined in a 
+<a class="reference internal" href="#music21.romanText.clercqTemperley.CTSong" title="music21.romanText.clercqTemperley.CTSong"><tt class="xref py py-class docutils literal"><span class="pre">CTSong</span></tt></a> object. They are typically
+created by the parser after a CTSong object has been created and the .toScore() method
+has been called on that object. The usefullness of each CTRule object is that each 
+has a <tt class="xref py py-meth docutils literal"><span class="pre">streamFromCTSong()</span></tt> attribute, 
+which is the stream from the entire score that the rule corresponds to.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.romanText.clercqTemperley.CTRule" title="music21.romanText.clercqTemperley.CTRule"><tt class="xref py py-class docutils literal"><span class="pre">CTRule</span></tt></a> read/write properties</p>
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTRule.LHS">
+<tt class="descclassname">CTRule.</tt><tt class="descname">LHS</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTRule.LHS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the LHS (Left Hand Side) of the CTRule. If not specified explicitly but CTtext present, searches
+first characters up until &#8216;:&#8217; for rule and returns string)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTRule</span><span class="p">(</span><span class="s">&#39;In: $BP*3 I IV | I | $BP*3 I IV | I | R |*4 I |*4 % This is a comment&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">LHS</span>
+<span class="go">&#39;In&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTRule.comments">
+<tt class="descclassname">CTRule.</tt><tt class="descname">comments</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTRule.comments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the comments of a CTRule object. Functionality is identical to CTRule comments</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTRule</span><span class="p">(</span><span class="s">&#39;In: $BP*3 I IV | I | $BP*3 I IV | I | R |*4 I |*4 % This is a comment&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">comments</span>
+<span class="go">[[&#39;In:&#39;, &#39;This is a comment&#39;]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTRule.homeKeySig">
+<tt class="descclassname">CTRule.</tt><tt class="descname">homeKeySig</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTRule.homeKeySig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the beginning of the line&#8217;s key signature. If not specified explicitly but 
+CTtextfile present, searches first characters of text file for a key signature 
+(of the form [D#] or [Cb] or [a] uppercase for major, lowercase for minor) if not found, returns default of C Major</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTRule</span><span class="p">(</span><span class="s">&#39;In: $BP*3 I IV | I | &#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">homeKeySig</span>
+<span class="go">&lt;music21.key.Key of C major&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTRule</span><span class="p">(</span><span class="s">&#39;In: [Db] [12/8] $BP*3 I IV | I | &#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">homeKeySig</span>
+<span class="go">&lt;music21.key.Key of D- major&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTRule.homeTimeSig">
+<tt class="descclassname">CTRule.</tt><tt class="descname">homeTimeSig</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTRule.homeTimeSig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the beginning of the line&#8217;s time signature. If not specified explicitly but CTtextfile present, 
+searches first characters of text file for a time signature (of the form [4/4] ) 
+if not found, returns default of 4/4</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTRule</span><span class="p">(</span><span class="s">&#39;In: $BP*3 I IV | I | &#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">homeTimeSig</span>
+<span class="go">&lt;music21.meter.TimeSignature 4/4&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTRule</span><span class="p">(</span><span class="s">&#39;In: [C] [12/8] $BP*3 I IV | I | &#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">homeTimeSig</span>
+<span class="go">&lt;music21.meter.TimeSignature 12/8&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTRule.musicText">
+<tt class="descclassname">CTRule.</tt><tt class="descname">musicText</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTRule.musicText" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets just the music text of the CTRule, excluding the left hand side and comments</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTRule</span><span class="p">(</span><span class="s">&#39;In: $BP*3 I IV | I | $BP*3 I IV | I | R |*4 I |*4 % This is a comment&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">text</span>
+<span class="go">&#39;In: $BP*3 I IV | I | $BP*3 I IV | I | R |*4 I |*4 % This is a comment&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">musicText</span>
+<span class="go">&#39;$BP*3 I IV | I | $BP*3 I IV | I | R |*4 I |*4&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTRule.sectionName">
+<tt class="descclassname">CTRule.</tt><tt class="descname">sectionName</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTRule.sectionName" title="Permalink to this definition">¶</a></dt>
+<dd><p>stores the expanded version of the Left hand side (LHS) such as Introduction, Verse, etc. if
+text present uses LHS to expand)</p>
+<p>Currently supported abbreviations: In: Introduction, Br: Bridge, Vr: Verse, S: Song, Fadeout: Fadeout</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">romanText</span><span class="o">.</span><span class="n">clercqTemperley</span><span class="o">.</span><span class="n">CTRule</span><span class="p">(</span><span class="s">&#39;Vr2: $BP*3 I IV | I |&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">sectionName</span>
+<span class="go">&#39;Verse2&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.romanText.clercqTemperley.CTRule" title="music21.romanText.clercqTemperley.CTRule"><tt class="xref py py-class docutils literal"><span class="pre">CTRule</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.romanText.clercqTemperley.CTRule.appendComment">
+<tt class="descclassname">CTRule.</tt><tt class="descname">appendComment</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#music21.romanText.clercqTemperley.CTRule.appendComment" title="Permalink to this definition">¶</a></dt>
+<dd><p>append a comment to self.text at the end of the text file. Only strings or lists of strings are
+acceptible to append to the text file. Identical to 
+<a class="reference internal" href="#music21.romanText.clercqTemperley.CTSong.appendComment" title="music21.romanText.clercqTemperley.CTSong.appendComment"><tt class="xref py py-meth docutils literal"><span class="pre">appendComment()</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.romanText.clercqTemperley.CTRule.streamFromCTSong">
+<tt class="descclassname">CTRule.</tt><tt class="descname">streamFromCTSong</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.romanText.clercqTemperley.CTRule.streamFromCTSong" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the stream associated with this CTRule only if present; would be generated
+by the <a class="reference internal" href="#music21.romanText.clercqTemperley.CTSong.toScore" title="music21.romanText.clercqTemperley.CTSong.toScore"><tt class="xref py py-meth docutils literal"><span class="pre">toScore()</span></tt></a> method on a 
+<a class="reference internal" href="#music21.romanText.clercqTemperley.CTSong" title="music21.romanText.clercqTemperley.CTSong"><tt class="xref py py-class docutils literal"><span class="pre">CTSong</span></tt></a> object</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.romanText.clercqTemperley.CTRule" title="music21.romanText.clercqTemperley.CTRule"><tt class="xref py py-class docutils literal"><span class="pre">CTRule</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.romanText.clercqTemperley.CTRule.text">
+<tt class="descclassname">CTRule.</tt><tt class="descname">text</tt><a class="headerlink" href="#music21.romanText.clercqTemperley.CTRule.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>the full text of the CTRule, including the LHS, chords, and comments</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleRomanTextTranslate.html" title="music21.romanText.translate"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleRomanText.html" title="music21.romanText"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

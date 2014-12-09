@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.contour &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.converter" href="moduleConverter.html" />
+    <link rel="prev" title="music21.composition.seeger" href="moduleCompositionSeeger.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleConverter.html" title="music21.converter"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleCompositionSeeger.html" title="music21.composition.seeger"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleCompositionSeeger.html"
+                        title="previous chapter">music21.composition.seeger</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleConverter.html"
+                        title="next chapter">music21.converter</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.contour</a><ul>
+<li><a class="reference internal" href="#contourfinder">ContourFinder</a></li>
+<li><a class="reference internal" href="#aggregatecontour">AggregateContour</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleContour.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-contour">
+<span id="modulecontour"></span><h1>music21.contour<a class="headerlink" href="#music21-contour" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.contour"></span><p>This module defines the ContourFinder and AggregateContour objects.</p>
+<div class="section" id="contourfinder">
+<h2>ContourFinder<a class="headerlink" href="#contourfinder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.contour.ContourFinder">
+<em class="property">class </em><tt class="descclassname">music21.contour.</tt><tt class="descname">ContourFinder</tt><big>(</big><em>s=None</em><big>)</big><a class="headerlink" href="#music21.contour.ContourFinder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.contour.ContourFinder" title="music21.contour.ContourFinder"><tt class="xref py py-class docutils literal"><span class="pre">ContourFinder</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.contour.ContourFinder.dissonanceMetric">
+<tt class="descclassname">ContourFinder.</tt><tt class="descname">dissonanceMetric</tt><big>(</big><em>inpStream</em><big>)</big><a class="headerlink" href="#music21.contour.ContourFinder.dissonanceMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>inpStream is a stream containing some number of measures which each contain chords.  
+Output is a number between 0 and 1 which is proportional to the number of dissonant chords.</p>
+<p>To work correctly, input must contain measures and no parts.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv102.7&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">chordify</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">contour</span><span class="o">.</span><span class="n">ContourFinder</span><span class="p">()</span><span class="o">.</span><span class="n">dissonanceMetric</span><span class="p">(</span> <span class="n">c</span><span class="o">.</span><span class="n">measures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">)</span>
+<span class="go">0.25</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">contour</span><span class="o">.</span><span class="n">ContourFinder</span><span class="p">()</span><span class="o">.</span><span class="n">dissonanceMetric</span><span class="p">(</span> <span class="n">c</span><span class="o">.</span><span class="n">measures</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="p">)</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">contour</span><span class="o">.</span><span class="n">ContourFinder</span><span class="p">()</span><span class="o">.</span><span class="n">dissonanceMetric</span><span class="p">(</span> <span class="n">c</span><span class="o">.</span><span class="n">measures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">1.0</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.contour.ContourFinder.getContour">
+<tt class="descclassname">ContourFinder.</tt><tt class="descname">getContour</tt><big>(</big><em>cType</em>, <em>window=None</em>, <em>slide=None</em>, <em>overwrite=False</em>, <em>metric=None</em>, <em>needsChordify=False</em>, <em>normalized=False</em><big>)</big><a class="headerlink" href="#music21.contour.ContourFinder.getContour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores and then returns a normalized contour of the type cType.  
+cType can be either &#8216;spacing&#8217;, &#8216;tonality&#8217;, or &#8216;dissonance&#8217;.</p>
+<p>If using a metric that is not predefined, cType is any string that signifies what your metric measures.  
+In this case, you must pass getContour a metric function which takes in a music21 stream and outputs a score.
+If passing a metric that requires the music21 stream be just chords, specify needsChordify=True.</p>
+<p>Window is how many measures are considered at a time and slide is the number of measures the window moves
+over each time.  By default, measure and slide are both 1.</p>
+<p>Each time you call getContour for a cType, the result is cached.  If you wish to get the contour 
+for the same cType more than once, with different parameters (with a different window and slide, for example)
+then specify overwrite=True</p>
+<p>To get a contour where measures map to the metric values, use normalized=False (the default), but to get a contour
+which evenly divides time between 1.0 and 100.0, use normalized=True</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cf</span> <span class="o">=</span> <span class="n">contour</span><span class="o">.</span><span class="n">ContourFinder</span><span class="p">(</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv10.7&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mycontour</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getContour</span><span class="p">(</span><span class="s">&#39;dissonance&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">mycontour</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mycontour</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
+<span class="go">[0.0, 0.25, 0.5, 0.5, 0.0, 0.0, 0.25, 0.75, 0.0, 0.0, 0.5, 0.75, 0.75, 0.0, 0.5, 0.5, 0.5, 0.5, 0.75, 0.75, 0.75, 0.0]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mycontour</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getContour</span><span class="p">(</span><span class="s">&#39;always one&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">mycontour</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mycontour</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
+<span class="go">[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mycontour</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getContour</span><span class="p">(</span><span class="s">&#39;spacing&#39;</span><span class="p">,</span> <span class="n">metric</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">OverwriteException</span>: <span class="n">Attempted to overwrite &#39;spacing&#39; metric but did not specify overwrite=True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mycontour</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getContour</span><span class="p">(</span><span class="s">&#39;spacing&#39;</span><span class="p">,</span> <span class="n">slide</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">metric</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">mycontour</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mycontour</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
+<span class="go">[2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mycontour</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">getContour</span><span class="p">(</span><span class="s">&#39;spacing&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">mycontour</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mycontour</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
+<span class="go">[2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.contour.ContourFinder.getContourValuesForMetric">
+<tt class="descclassname">ContourFinder.</tt><tt class="descname">getContourValuesForMetric</tt><big>(</big><em>metric</em>, <em>window=1</em>, <em>slide=1</em>, <em>needChordified=False</em><big>)</big><a class="headerlink" href="#music21.contour.ContourFinder.getContourValuesForMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary mapping measure numbers to that measure&#8217;s score under the provided metric.
+Ignores pickup measures entirely.</p>
+<p>Window is a positive integer indicating how many measure the metric should look at at once, and slide is 
+a positive integer indicating by how many measures the window should slide over each time the metric is measured.</p>
+<p>e.g. if window=4 and slide=2, metric = f, the result will be of the form:
+{ measures 1-4: f(measures 1-4), measures 3-6: f(measures 3-6), measures 5-8: f( measures5-8), ...}</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">metric</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">measureOffsetMap</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv10.7&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">contour</span><span class="o">.</span><span class="n">ContourFinder</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">getContourValuesForMetric</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">resList</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">resList</span>
+<span class="go">[1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">res</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">resList</span><span class="p">]</span>
+<span class="go">[3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.contour.ContourFinder.plot">
+<tt class="descclassname">ContourFinder.</tt><tt class="descname">plot</tt><big>(</big><em>cType</em>, <em>contour=None</em>, <em>regression=True</em>, <em>order=4</em>, <em>title='Contour Plot'</em>, <em>fileName=None</em><big>)</big><a class="headerlink" href="#music21.contour.ContourFinder.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.contour.ContourFinder.randomize">
+<tt class="descclassname">ContourFinder.</tt><tt class="descname">randomize</tt><big>(</big><em>contourDict</em><big>)</big><a class="headerlink" href="#music21.contour.ContourFinder.randomize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a version of contourDict where the keys-to-values mapping is scrambled.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">myDict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">:</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span> 
+<span class="gp">... </span>          <span class="mi">14</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">:</span><span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">:</span><span class="mi">20</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">=</span> <span class="n">contour</span><span class="o">.</span><span class="n">ContourFinder</span><span class="p">()</span><span class="o">.</span><span class="n">randomize</span><span class="p">(</span><span class="n">myDict</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">res</span> <span class="o">==</span> <span class="n">myDict</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">myDict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">myDict</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+<span class="go">True         </span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.contour.ContourFinder.setKey">
+<tt class="descclassname">ContourFinder.</tt><tt class="descname">setKey</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#music21.contour.ContourFinder.setKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the key of ContourFinder&#8217;s internal stream.  If not set manually, self.key will
+be determined by self.s.analyze(&#8216;key&#8217;).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.contour.ContourFinder.spacingMetric">
+<tt class="descclassname">ContourFinder.</tt><tt class="descname">spacingMetric</tt><big>(</big><em>inpStream</em><big>)</big><a class="headerlink" href="#music21.contour.ContourFinder.spacingMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a metric which takes a music21 stream containng measures and no parts.
+This metric measures how spaced out notes in a piece are.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.contour.ContourFinder.tonalDistanceMetric">
+<tt class="descclassname">ContourFinder.</tt><tt class="descname">tonalDistanceMetric</tt><big>(</big><em>inpStream</em><big>)</big><a class="headerlink" href="#music21.contour.ContourFinder.tonalDistanceMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a number between 0.0 and 1.0 that is a measure of how far away the key of
+inpStream is from the key of ContourFinder&#8217;s internal stream.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="aggregatecontour">
+<h2>AggregateContour<a class="headerlink" href="#aggregatecontour" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.contour.AggregateContour">
+<em class="property">class </em><tt class="descclassname">music21.contour.</tt><tt class="descname">AggregateContour</tt><big>(</big><em>aggContours=None</em><big>)</big><a class="headerlink" href="#music21.contour.AggregateContour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.contour.AggregateContour" title="music21.contour.AggregateContour"><tt class="xref py py-class docutils literal"><span class="pre">AggregateContour</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.contour.AggregateContour.addPieceToContour">
+<tt class="descclassname">AggregateContour.</tt><tt class="descname">addPieceToContour</tt><big>(</big><em>piece</em>, <em>cType</em>, <em>metric=None</em>, <em>window=1</em>, <em>slide=1</em>, <em>order=8</em>, <em>needsChordify=False</em><big>)</big><a class="headerlink" href="#music21.contour.AggregateContour.addPieceToContour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a piece to the aggregate contour.</p>
+<p>piece is either a music21 stream, or a ContourFinder object (which should have a stream wrapped inside of it).</p>
+<p>cType is the contour type.</p>
+<p>If using a metric that is not predefined, cType is any string that signifies what your metric measures.  
+In this case, you must pass getContour a metric function which takes in a music21 stream and outputs a score.
+If passing a metric that requires the music21 stream be just chords, specify needsChordify=True.</p>
+<p>Window is how many measures are considered at a time and slide is the number of measures the window moves
+over each time.  By default, measure and slide are both 1.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.contour.AggregateContour.dissimilarityScore">
+<tt class="descclassname">AggregateContour.</tt><tt class="descname">dissimilarityScore</tt><big>(</big><em>cType</em>, <em>contourDict</em><big>)</big><a class="headerlink" href="#music21.contour.AggregateContour.dissimilarityScore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a score based on how dissimilar the input contourDict is from 
+the aggregate contour of type cType.</p>
+<p>Requires contourDict be normalized with values from 1.0 to 100.0</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.contour.AggregateContour.getCombinedContour">
+<tt class="descclassname">AggregateContour.</tt><tt class="descname">getCombinedContour</tt><big>(</big><em>cType</em><big>)</big><a class="headerlink" href="#music21.contour.AggregateContour.getCombinedContour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the combined contour of the type specified by cType.  Instead of a dictionary,
+this contour is just a list of ordered pairs (tuples) with the first value being time and the
+second value being the score.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.contour.AggregateContour.getCombinedContourPoly">
+<tt class="descclassname">AggregateContour.</tt><tt class="descname">getCombinedContourPoly</tt><big>(</big><em>cType</em>, <em>order=8</em><big>)</big><a class="headerlink" href="#music21.contour.AggregateContour.getCombinedContourPoly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the polynomial fit for the aggregate contour of type cType.</p>
+<p>Order is the order of the resulting polynomial.  e.g. For a linear regression, order=1.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.contour.AggregateContour.plot">
+<tt class="descclassname">AggregateContour.</tt><tt class="descname">plot</tt><big>(</big><em>cType</em>, <em>showPoints=True</em>, <em>comparisonContour=None</em>, <em>regression=True</em>, <em>order=6</em><big>)</big><a class="headerlink" href="#music21.contour.AggregateContour.plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleConverter.html" title="music21.converter"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleCompositionSeeger.html" title="music21.composition.seeger"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

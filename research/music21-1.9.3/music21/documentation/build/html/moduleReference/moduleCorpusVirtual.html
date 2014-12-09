@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.corpus.virtual &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.counterpoint.species" href="moduleCounterpointSpecies.html" />
+    <link rel="prev" title="music21.corpus.corpora" href="moduleCorpusCorpora.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleCounterpointSpecies.html" title="music21.counterpoint.species"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleCorpusCorpora.html" title="music21.corpus.corpora"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleCorpusCorpora.html"
+                        title="previous chapter">music21.corpus.corpora</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleCounterpointSpecies.html"
+                        title="next chapter">music21.counterpoint.species</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.corpus.virtual</a><ul>
+<li><a class="reference internal" href="#bachbwv1007prelude">BachBWV1007Prelude</a></li>
+<li><a class="reference internal" href="#bachbwv772">BachBWV772</a></li>
+<li><a class="reference internal" href="#bachbwv773">BachBWV773</a></li>
+<li><a class="reference internal" href="#coltranegiantsteps">ColtraneGiantSteps</a></li>
+<li><a class="reference internal" href="#pachelbelcanond">PachelbelCanonD</a></li>
+<li><a class="reference internal" href="#schubertd576">SchubertD576</a></li>
+<li><a class="reference internal" href="#schubertd5762">SchubertD5762</a></li>
+<li><a class="reference internal" href="#schubertd5763">SchubertD5763</a></li>
+<li><a class="reference internal" href="#schubertd5764">SchubertD5764</a></li>
+<li><a class="reference internal" href="#virtualwork">VirtualWork</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleCorpusVirtual.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-corpus-virtual">
+<span id="modulecorpusvirtual"></span><h1>music21.corpus.virtual<a class="headerlink" href="#music21-corpus-virtual" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.corpus.virtual"></span><p>The virtual.py module is a library of references to remotely stored music data files, as well as meta-data necessary to download and, if available, access an already downloaded file.</p>
+<div class="section" id="bachbwv1007prelude">
+<h2>BachBWV1007Prelude<a class="headerlink" href="#bachbwv1007prelude" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.virtual.BachBWV1007Prelude">
+<em class="property">class </em><tt class="descclassname">music21.corpus.virtual.</tt><tt class="descname">BachBWV1007Prelude</tt><a class="headerlink" href="#music21.corpus.virtual.BachBWV1007Prelude" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.BachBWV1007Prelude" title="music21.corpus.virtual.BachBWV1007Prelude"><tt class="xref py py-class docutils literal"><span class="pre">BachBWV1007Prelude</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.BachBWV1007Prelude" title="music21.corpus.virtual.BachBWV1007Prelude"><tt class="xref py py-class docutils literal"><span class="pre">BachBWV1007Prelude</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork.getUrlByExt" title="music21.corpus.virtual.VirtualWork.getUrlByExt"><tt class="xref py py-meth docutils literal"><span class="pre">getUrlByExt()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="bachbwv772">
+<h2>BachBWV772<a class="headerlink" href="#bachbwv772" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.virtual.BachBWV772">
+<em class="property">class </em><tt class="descclassname">music21.corpus.virtual.</tt><tt class="descname">BachBWV772</tt><a class="headerlink" href="#music21.corpus.virtual.BachBWV772" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.BachBWV772" title="music21.corpus.virtual.BachBWV772"><tt class="xref py py-class docutils literal"><span class="pre">BachBWV772</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.BachBWV772" title="music21.corpus.virtual.BachBWV772"><tt class="xref py py-class docutils literal"><span class="pre">BachBWV772</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork.getUrlByExt" title="music21.corpus.virtual.VirtualWork.getUrlByExt"><tt class="xref py py-meth docutils literal"><span class="pre">getUrlByExt()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="bachbwv773">
+<h2>BachBWV773<a class="headerlink" href="#bachbwv773" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.virtual.BachBWV773">
+<em class="property">class </em><tt class="descclassname">music21.corpus.virtual.</tt><tt class="descname">BachBWV773</tt><a class="headerlink" href="#music21.corpus.virtual.BachBWV773" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.BachBWV773" title="music21.corpus.virtual.BachBWV773"><tt class="xref py py-class docutils literal"><span class="pre">BachBWV773</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.BachBWV773" title="music21.corpus.virtual.BachBWV773"><tt class="xref py py-class docutils literal"><span class="pre">BachBWV773</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork.getUrlByExt" title="music21.corpus.virtual.VirtualWork.getUrlByExt"><tt class="xref py py-meth docutils literal"><span class="pre">getUrlByExt()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="coltranegiantsteps">
+<h2>ColtraneGiantSteps<a class="headerlink" href="#coltranegiantsteps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.virtual.ColtraneGiantSteps">
+<em class="property">class </em><tt class="descclassname">music21.corpus.virtual.</tt><tt class="descname">ColtraneGiantSteps</tt><a class="headerlink" href="#music21.corpus.virtual.ColtraneGiantSteps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.ColtraneGiantSteps" title="music21.corpus.virtual.ColtraneGiantSteps"><tt class="xref py py-class docutils literal"><span class="pre">ColtraneGiantSteps</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.ColtraneGiantSteps" title="music21.corpus.virtual.ColtraneGiantSteps"><tt class="xref py py-class docutils literal"><span class="pre">ColtraneGiantSteps</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork.getUrlByExt" title="music21.corpus.virtual.VirtualWork.getUrlByExt"><tt class="xref py py-meth docutils literal"><span class="pre">getUrlByExt()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="pachelbelcanond">
+<h2>PachelbelCanonD<a class="headerlink" href="#pachelbelcanond" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.virtual.PachelbelCanonD">
+<em class="property">class </em><tt class="descclassname">music21.corpus.virtual.</tt><tt class="descname">PachelbelCanonD</tt><a class="headerlink" href="#music21.corpus.virtual.PachelbelCanonD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.PachelbelCanonD" title="music21.corpus.virtual.PachelbelCanonD"><tt class="xref py py-class docutils literal"><span class="pre">PachelbelCanonD</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.PachelbelCanonD" title="music21.corpus.virtual.PachelbelCanonD"><tt class="xref py py-class docutils literal"><span class="pre">PachelbelCanonD</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork.getUrlByExt" title="music21.corpus.virtual.VirtualWork.getUrlByExt"><tt class="xref py py-meth docutils literal"><span class="pre">getUrlByExt()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="schubertd576">
+<h2>SchubertD576<a class="headerlink" href="#schubertd576" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.virtual.SchubertD576">
+<em class="property">class </em><tt class="descclassname">music21.corpus.virtual.</tt><tt class="descname">SchubertD576</tt><a class="headerlink" href="#music21.corpus.virtual.SchubertD576" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.SchubertD576" title="music21.corpus.virtual.SchubertD576"><tt class="xref py py-class docutils literal"><span class="pre">SchubertD576</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.SchubertD576" title="music21.corpus.virtual.SchubertD576"><tt class="xref py py-class docutils literal"><span class="pre">SchubertD576</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork.getUrlByExt" title="music21.corpus.virtual.VirtualWork.getUrlByExt"><tt class="xref py py-meth docutils literal"><span class="pre">getUrlByExt()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="schubertd5762">
+<h2>SchubertD5762<a class="headerlink" href="#schubertd5762" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.virtual.SchubertD5762">
+<em class="property">class </em><tt class="descclassname">music21.corpus.virtual.</tt><tt class="descname">SchubertD5762</tt><a class="headerlink" href="#music21.corpus.virtual.SchubertD5762" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.SchubertD5762" title="music21.corpus.virtual.SchubertD5762"><tt class="xref py py-class docutils literal"><span class="pre">SchubertD5762</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.SchubertD5762" title="music21.corpus.virtual.SchubertD5762"><tt class="xref py py-class docutils literal"><span class="pre">SchubertD5762</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork.getUrlByExt" title="music21.corpus.virtual.VirtualWork.getUrlByExt"><tt class="xref py py-meth docutils literal"><span class="pre">getUrlByExt()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="schubertd5763">
+<h2>SchubertD5763<a class="headerlink" href="#schubertd5763" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.virtual.SchubertD5763">
+<em class="property">class </em><tt class="descclassname">music21.corpus.virtual.</tt><tt class="descname">SchubertD5763</tt><a class="headerlink" href="#music21.corpus.virtual.SchubertD5763" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.SchubertD5763" title="music21.corpus.virtual.SchubertD5763"><tt class="xref py py-class docutils literal"><span class="pre">SchubertD5763</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.SchubertD5763" title="music21.corpus.virtual.SchubertD5763"><tt class="xref py py-class docutils literal"><span class="pre">SchubertD5763</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork.getUrlByExt" title="music21.corpus.virtual.VirtualWork.getUrlByExt"><tt class="xref py py-meth docutils literal"><span class="pre">getUrlByExt()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="schubertd5764">
+<h2>SchubertD5764<a class="headerlink" href="#schubertd5764" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.virtual.SchubertD5764">
+<em class="property">class </em><tt class="descclassname">music21.corpus.virtual.</tt><tt class="descname">SchubertD5764</tt><a class="headerlink" href="#music21.corpus.virtual.SchubertD5764" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.SchubertD5764" title="music21.corpus.virtual.SchubertD5764"><tt class="xref py py-class docutils literal"><span class="pre">SchubertD5764</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.SchubertD5764" title="music21.corpus.virtual.SchubertD5764"><tt class="xref py py-class docutils literal"><span class="pre">SchubertD5764</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.virtual.VirtualWork.getUrlByExt" title="music21.corpus.virtual.VirtualWork.getUrlByExt"><tt class="xref py py-meth docutils literal"><span class="pre">getUrlByExt()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="virtualwork">
+<h2>VirtualWork<a class="headerlink" href="#virtualwork" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.virtual.VirtualWork">
+<em class="property">class </em><tt class="descclassname">music21.corpus.virtual.</tt><tt class="descname">VirtualWork</tt><a class="headerlink" href="#music21.corpus.virtual.VirtualWork" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.virtual.VirtualWork" title="music21.corpus.virtual.VirtualWork"><tt class="xref py py-class docutils literal"><span class="pre">VirtualWork</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.corpus.virtual.VirtualWork.getUrlByExt">
+<tt class="descclassname">VirtualWork.</tt><tt class="descname">getUrlByExt</tt><big>(</big><em>extList=None</em><big>)</big><a class="headerlink" href="#music21.corpus.virtual.VirtualWork.getUrlByExt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a request for an extension, find a best match for a URL from 
+the list of known URLs. If ext is None, return the first URL.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleCounterpointSpecies.html" title="music21.counterpoint.species"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleCorpusCorpora.html" title="music21.corpus.corpora"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

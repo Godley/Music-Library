@@ -1,0 +1,1397 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.common &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.composition.aug30" href="moduleCompositionAug30.html" />
+    <link rel="prev" title="music21.clef" href="moduleClef.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleCompositionAug30.html" title="music21.composition.aug30"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleClef.html" title="music21.clef"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleClef.html"
+                        title="previous chapter">music21.clef</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleCompositionAug30.html"
+                        title="next chapter">music21.composition.aug30</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.common</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#iterator">Iterator</a></li>
+<li><a class="reference internal" href="#singletoncounter">SingletonCounter</a></li>
+<li><a class="reference internal" href="#slottedobject">SlottedObject</a></li>
+<li><a class="reference internal" href="#testmock">TestMock</a></li>
+<li><a class="reference internal" href="#timer">Timer</a></li>
+<li><a class="reference internal" href="#defaultlist">defaultlist</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleCommon.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-common">
+<span id="modulecommon"></span><h1>music21.common<a class="headerlink" href="#music21-common" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.common"></span><p>Utility constants, dictionaries, functions, and objects used throughout music21.</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="music21.common.fromRoman">
+<tt class="descclassname">music21.common.</tt><tt class="descname">fromRoman</tt><big>(</big><em>num</em><big>)</big><a class="headerlink" href="#music21.common.fromRoman" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a Roman numeral (upper or lower) to an int</p>
+<p><a class="reference external" href="http://code.activestate.com/recipes/81611-roman-numerals/">http://code.activestate.com/recipes/81611-roman-numerals/</a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">fromRoman</span><span class="p">(</span><span class="s">&#39;ii&#39;</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">fromRoman</span><span class="p">(</span><span class="s">&#39;vii&#39;</span><span class="p">)</span>
+<span class="go">7</span>
+</pre></div>
+</div>
+<p>Works with both IIII and IV forms:
+&gt;&gt;&gt; common.fromRoman(&#8216;MCCCCLXXXIX&#8217;)
+1489
+&gt;&gt;&gt; common.fromRoman(&#8216;MCDLXXXIX&#8217;)
+1489</p>
+<p>Some people consider this an error, but you see it in medieval documents:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">fromRoman</span><span class="p">(</span><span class="s">&#39;ic&#39;</span><span class="p">)</span>
+<span class="go">99</span>
+</pre></div>
+</div>
+<p>But things like this are never seen, and thus cause an error:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">fromRoman</span><span class="p">(</span><span class="s">&#39;vx&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">Music21CommonException</span>: <span class="n">input contains an invalid subtraction element: vx</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.toRoman">
+<tt class="descclassname">music21.common.</tt><tt class="descname">toRoman</tt><big>(</big><em>num</em><big>)</big><a class="headerlink" href="#music21.common.toRoman" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a number from 1 to 3999 to a roman numeral</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">toRoman</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">&#39;II&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">toRoman</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="go">&#39;VII&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">toRoman</span><span class="p">(</span><span class="mi">1999</span><span class="p">)</span>
+<span class="go">&#39;MCMXCIX&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">toRoman</span><span class="p">(</span><span class="s">&quot;hi&quot;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">TypeError</span>: <span class="n">expected integer, got &lt;... &#39;str&#39;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.almostEquals">
+<tt class="descclassname">music21.common.</tt><tt class="descname">almostEquals</tt><big>(</big><em>x</em>, <em>y=0.0</em>, <em>grain=1e-07</em><big>)</big><a class="headerlink" href="#music21.common.almostEquals" title="Permalink to this definition">¶</a></dt>
+<dd><p>The following four routines work for comparisons between floats that are normally inconsistent.</p>
+<p>almostEquals(x, y) &#8211; returns True if x and y are within 0.0000001 of each other</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">common</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">almostEquals</span><span class="p">(</span><span class="mf">1.000000001</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">almostEquals</span><span class="p">(</span><span class="mf">1.001</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">almostEquals</span><span class="p">(</span><span class="mf">1.001</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">grain</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.approximateGCD">
+<tt class="descclassname">music21.common.</tt><tt class="descname">approximateGCD</tt><big>(</big><em>values</em>, <em>grain=0.0001</em><big>)</big><a class="headerlink" href="#music21.common.approximateGCD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of values, find the lowest common divisor of floating point values.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">approximateGCD</span><span class="p">([</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">])</span>
+<span class="go">0.25</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">approximateGCD</span><span class="p">([</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="go">2.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">approximateGCD</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">approximateGCD</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">approximateGCD</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">approximateGCD</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">.</span><span class="mi">25</span><span class="p">])</span>
+<span class="go">0.25</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">strTrimFloat</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">approximateGCD</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mf">3.</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mf">3.</span><span class="p">]))</span>
+<span class="go">&#39;0.3333&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">strTrimFloat</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">approximateGCD</span><span class="p">([</span><span class="mi">5</span><span class="o">/</span><span class="mf">3.</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mf">3.</span><span class="p">,</span><span class="mi">4</span><span class="p">]))</span>
+<span class="go">&#39;0.3333&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">strTrimFloat</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">approximateGCD</span><span class="p">([</span><span class="mi">5</span><span class="o">/</span><span class="mf">3.</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mf">3.</span><span class="p">,</span><span class="mi">5</span><span class="p">]))</span>
+<span class="go">&#39;0.3333&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">strTrimFloat</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">approximateGCD</span><span class="p">([</span><span class="mi">5</span><span class="o">/</span><span class="mf">3.</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mf">3.</span><span class="p">,</span><span class="mi">5</span><span class="o">/</span><span class="mf">6.</span><span class="p">,</span><span class="mi">3</span><span class="o">/</span><span class="mf">6.</span><span class="p">]))</span>
+<span class="go">&#39;0.1667&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.basicallyEqual">
+<tt class="descclassname">music21.common.</tt><tt class="descname">basicallyEqual</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#music21.common.basicallyEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns true if a and b are equal except for whitespace differences</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="s">&quot; hello there &quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="s">&quot;hello there&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="s">&quot; bye there &quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">basicallyEqual</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">basicallyEqual</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.classToClassStr">
+<tt class="descclassname">music21.common.</tt><tt class="descname">classToClassStr</tt><big>(</big><em>classObj</em><big>)</big><a class="headerlink" href="#music21.common.classToClassStr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a class object to a class string.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">classToClassStr</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">)</span>
+<span class="go">&#39;Note&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">classToClassStr</span><span class="p">(</span><span class="n">chord</span><span class="o">.</span><span class="n">Chord</span><span class="p">)</span>
+<span class="go">&#39;Chord&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.cleanupFloat">
+<tt class="descclassname">music21.common.</tt><tt class="descname">cleanupFloat</tt><big>(</big><em>floatNum</em>, <em>maxDenominator=1000</em><big>)</big><a class="headerlink" href="#music21.common.cleanupFloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleans up a floating point number by converting
+it to a fractions.Fraction object limited to
+a denominator of maxDenominator</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">cleanupFloat</span><span class="p">(</span><span class="mf">0.33333327824</span><span class="p">)</span>
+<span class="go">0.333333333333...</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">cleanupFloat</span><span class="p">(</span><span class="mf">0.142857</span><span class="p">)</span>
+<span class="go">0.1428571428571...</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">cleanupFloat</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="go">1.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.contiguousList">
+<tt class="descclassname">music21.common.</tt><tt class="descname">contiguousList</tt><big>(</big><em>inputListOrTuple</em><big>)</big><a class="headerlink" href="#music21.common.contiguousList" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns bool True or False if a list containing ints contains only contiguous (increasing) values</p>
+<p>requires the list to be sorted first</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">contiguousList</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">contiguousList</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>Sorting matters</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">contiguousList</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">contiguousList</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">l</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.decimalToTuplet">
+<tt class="descclassname">music21.common.</tt><tt class="descname">decimalToTuplet</tt><big>(</big><em>decNum</em><big>)</big><a class="headerlink" href="#music21.common.decimalToTuplet" title="Permalink to this definition">¶</a></dt>
+<dd><p>For simple decimals (usually &gt; 1), a quick way to figure out the
+fraction in lowest terms that gives a valid tuplet.</p>
+<p>No it does not work really fast.  No it does not return tuplets with
+denominators over 100.  Too bad, math geeks.  This is real life.  :-)</p>
+<p>returns (numerator, denominator)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">decimalToTuplet</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="go">(3, 2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">decimalToTuplet</span><span class="p">(</span><span class="mf">1.25</span><span class="p">)</span>
+<span class="go">(5, 4)</span>
+</pre></div>
+</div>
+<p>If decNum is &lt; 1, the denominator will be greater than the numerator:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">decimalToTuplet</span><span class="p">(</span><span class="o">.</span><span class="mi">8</span><span class="p">)</span>
+<span class="go">(4, 5)</span>
+</pre></div>
+</div>
+<p>If decNum is &lt;= 0, returns a ZeroDivisionError:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">decimalToTuplet</span><span class="p">(</span><span class="o">-.</span><span class="mo">02</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">ZeroDivisionError</span>: <span class="n">number must be greater than zero</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.dirPartitioned">
+<tt class="descclassname">music21.common.</tt><tt class="descname">dirPartitioned</tt><big>(</big><em>obj, skipLeading=['__']</em><big>)</big><a class="headerlink" href="#music21.common.dirPartitioned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an object, return three lists of names: methods, attributes, and properties.</p>
+<p>Note that if a name/attribute is dynamically created by a property it
+cannot be found until that attribute is created.</p>
+<p>TODO: this cannot properly partiton properties from methods</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.dotMultiplier">
+<tt class="descclassname">music21.common.</tt><tt class="descname">dotMultiplier</tt><big>(</big><em>dots</em><big>)</big><a class="headerlink" href="#music21.common.dotMultiplier" title="Permalink to this definition">¶</a></dt>
+<dd><p>dotMultiplier(dots) returns how long to multiply the note length of a note in order to get the note length with n dots</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">dotMultiplier</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">1.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">dotMultiplier</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">1.75</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">dotMultiplier</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">1.875</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.euclidGCD">
+<tt class="descclassname">music21.common.</tt><tt class="descname">euclidGCD</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#music21.common.euclidGCD" title="Permalink to this definition">¶</a></dt>
+<dd><p>use Euclid&#8217;s algorithm to find the GCD of a and b</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">euclidGCD</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">euclidGCD</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">euclidGCD</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">16</span><span class="p">)</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.findFormat">
+<tt class="descclassname">music21.common.</tt><tt class="descname">findFormat</tt><big>(</big><em>fmt</em><big>)</big><a class="headerlink" href="#music21.common.findFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a format defined either by a format name, abbreviation, or
+an extension, return the regularized format name as well as 
+the output exensions.</p>
+<p>DEPRECATED May 2014 &#8211; moving to converter</p>
+<p>All but the first element of the tuple are deprecated for use, since
+the extension can vary by subconverter (e.g., lily.png)</p>
+<p>Note that .mxl and .mx are only considered MusicXML input formats.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;mx&#39;</span><span class="p">)</span>
+<span class="go">(&#39;musicxml&#39;, &#39;.xml&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;.mxl&#39;</span><span class="p">)</span>
+<span class="go">(&#39;musicxml&#39;, &#39;.xml&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;musicxml&#39;</span><span class="p">)</span>
+<span class="go">(&#39;musicxml&#39;, &#39;.xml&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;lily&#39;</span><span class="p">)</span>
+<span class="go">(&#39;lilypond&#39;, &#39;.ly&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;lily.png&#39;</span><span class="p">)</span>
+<span class="go">(&#39;lilypond&#39;, &#39;.ly&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;humdrum&#39;</span><span class="p">)</span>
+<span class="go">(&#39;humdrum&#39;, &#39;.krn&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;txt&#39;</span><span class="p">)</span>
+<span class="go">(&#39;text&#39;, &#39;.txt&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;textline&#39;</span><span class="p">)</span>
+<span class="go">(&#39;textline&#39;, &#39;.txt&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;midi&#39;</span><span class="p">)</span>
+<span class="go">(&#39;midi&#39;, &#39;.mid&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="p">)</span>
+<span class="go">(&#39;abc&#39;, &#39;.abc&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;scl&#39;</span><span class="p">)</span>
+<span class="go">(&#39;scala&#39;, &#39;.scl&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;braille&#39;</span><span class="p">)</span>
+<span class="go">(&#39;braille&#39;, &#39;.txt&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;vexflow&#39;</span><span class="p">)</span>
+<span class="go">(&#39;vexflow&#39;, &#39;.html&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;capx&#39;</span><span class="p">)</span>
+<span class="go">(&#39;capella&#39;, &#39;.capx&#39;)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;mx&#39;</span><span class="p">)</span>
+<span class="go">(&#39;musicxml&#39;, &#39;.xml&#39;)</span>
+</pre></div>
+</div>
+<p>#&gt;&gt;&gt; common.findFormat(&#8216;png&#8217;)
+#(&#8216;musicxml.png&#8217;, &#8216;.png&#8217;)</p>
+<p>#&gt;&gt;&gt; common.findFormat(&#8216;ipython&#8217;)
+#(&#8216;ipython&#8217;, &#8216;.png&#8217;)
+#     &gt;&gt;&gt; common.findFormat(&#8216;ipython.png&#8217;)
+#     (&#8216;ipython&#8217;, &#8216;.png&#8217;)
+#     &gt;&gt;&gt; common.findFormat(&#8216;musicxml.png&#8217;)
+#     (&#8216;musicxml.png&#8217;, &#8216;.png&#8217;)</p>
+<p>Works the same whether you have a leading dot or not:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;md&#39;</span><span class="p">)</span>
+<span class="go">(&#39;musedata&#39;, &#39;.md&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;.md&#39;</span><span class="p">)</span>
+<span class="go">(&#39;musedata&#39;, &#39;.md&#39;)</span>
+</pre></div>
+</div>
+<p>If you give something we can&#8217;t deal with, returns a Tuple of None, None:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormat</span><span class="p">(</span><span class="s">&#39;wpd&#39;</span><span class="p">)</span>
+<span class="go">(None, None)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.findFormatExtFile">
+<tt class="descclassname">music21.common.</tt><tt class="descname">findFormatExtFile</tt><big>(</big><em>fp</em><big>)</big><a class="headerlink" href="#music21.common.findFormatExtFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a file path (relative or absolute) find format and extension used (not the output extension)</p>
+<p>DEPRECATED May 2014 &#8211; moving to converter</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormatExtFile</span><span class="p">(</span><span class="s">&#39;test.mx&#39;</span><span class="p">)</span>
+<span class="go">(&#39;musicxml&#39;, &#39;.mx&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormatExtFile</span><span class="p">(</span><span class="s">&#39;long/file/path/test-2009.03.02.xml&#39;</span><span class="p">)</span>
+<span class="go">(&#39;musicxml&#39;, &#39;.xml&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormatExtFile</span><span class="p">(</span><span class="s">&#39;long/file/path.intermediate.png/test-2009.03.xml&#39;</span><span class="p">)</span>
+<span class="go">(&#39;musicxml&#39;, &#39;.xml&#39;)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormatExtFile</span><span class="p">(</span><span class="s">&#39;test&#39;</span><span class="p">)</span>
+<span class="go">(None, None)</span>
+</pre></div>
+</div>
+<p>Windows drive
+&gt;&gt;&gt; common.findFormatExtFile(&#8216;d:/long/file/path/test.xml&#8217;)
+(&#8216;musicxml&#8217;, &#8216;.xml&#8217;)</p>
+<p>On a windows networked filesystem
+&gt;&gt;&gt; common.findFormatExtFile(&#8216;\longfilepathtest.krn&#8217;)
+(&#8216;humdrum&#8217;, &#8216;.krn&#8217;)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.findFormatExtURL">
+<tt class="descclassname">music21.common.</tt><tt class="descname">findFormatExtURL</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#music21.common.findFormatExtURL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a URL, attempt to find the extension. This may scrub arguments in a URL, or simply look at the last characters.</p>
+<p>DEPRECATED May 2014 &#8211; moving to converter</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">urlA</span> <span class="o">=</span> <span class="s">&#39;http://kern.ccarh.org/cgi-bin/ksdata?l=cc/schubert/piano/d0576&amp;file=d0576-06.krn&amp;f=xml&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">urlB</span> <span class="o">=</span> <span class="s">&#39;http://kern.ccarh.org/cgi-bin/ksdata?l=cc/schubert/piano/d0576&amp;file=d0576-06.krn&amp;f=kern&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">urlC</span> <span class="o">=</span> <span class="s">&#39;http://kern.ccarh.org/cgi-bin/ksdata?l=cc/bach/cello&amp;file=bwv1007-01.krn&amp;f=xml&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">urlF</span> <span class="o">=</span> <span class="s">&#39;http://junk&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormatExtURL</span><span class="p">(</span><span class="n">urlA</span><span class="p">)</span>
+<span class="go">(&#39;musicxml&#39;, &#39;.xml&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormatExtURL</span><span class="p">(</span><span class="n">urlB</span><span class="p">)</span>
+<span class="go">(&#39;humdrum&#39;, &#39;.krn&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormatExtURL</span><span class="p">(</span><span class="n">urlC</span><span class="p">)</span>
+<span class="go">(&#39;musicxml&#39;, &#39;.xml&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormatExtURL</span><span class="p">(</span><span class="n">urlF</span><span class="p">)</span>
+<span class="go">(None, None)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.findFormatFile">
+<tt class="descclassname">music21.common.</tt><tt class="descname">findFormatFile</tt><big>(</big><em>fp</em><big>)</big><a class="headerlink" href="#music21.common.findFormatFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a file path (relative or absolute) return the format</p>
+<p>DEPRECATED May 2014 &#8211; moving to converter</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormatFile</span><span class="p">(</span><span class="s">&#39;test.xml&#39;</span><span class="p">)</span>
+<span class="go">&#39;musicxml&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormatFile</span><span class="p">(</span><span class="s">&#39;long/file/path/test-2009.03.02.xml&#39;</span><span class="p">)</span>
+<span class="go">&#39;musicxml&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findFormatFile</span><span class="p">(</span><span class="s">&#39;long/file/path.intermediate.png/test-2009.03.xml&#39;</span><span class="p">)</span>
+<span class="go">&#39;musicxml&#39;</span>
+</pre></div>
+</div>
+<p>On a windows networked filesystem
+&gt;&gt;&gt; common.findFormatFile(&#8216;\longfilepathtest.krn&#8217;)
+&#8216;humdrum&#8217;</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.findInputExtension">
+<tt class="descclassname">music21.common.</tt><tt class="descname">findInputExtension</tt><big>(</big><em>fmt</em><big>)</big><a class="headerlink" href="#music21.common.findInputExtension" title="Permalink to this definition">¶</a></dt>
+<dd><p>DEPRECATED May 2014 &#8211; moving to converter</p>
+<p>Given an input format or music21 format, find and return all possible 
+input extensions.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">findInputExtension</span><span class="p">(</span><span class="s">&#39;musicxml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">(&#39;.xml&#39;, &#39;.mxl&#39;, &#39;.mx&#39;, &#39;.musicxml&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">findInputExtension</span><span class="p">(</span><span class="s">&#39;humdrum&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">(&#39;.krn&#39;,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findInputExtension</span><span class="p">(</span><span class="s">&#39;musedata&#39;</span><span class="p">)</span>
+<span class="go">(&#39;.md&#39;, &#39;.musedata&#39;, &#39;.zip&#39;)</span>
+</pre></div>
+</div>
+<p>mx is not a music21 format but it is a file format</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findInputExtension</span><span class="p">(</span><span class="s">&#39;mx&#39;</span><span class="p">)</span>
+<span class="go">(&#39;.xml&#39;, &#39;.mxl&#39;, &#39;.mx&#39;, &#39;.musicxml&#39;)</span>
+</pre></div>
+</div>
+<p>Leading dots don&#8217;t matter...</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findInputExtension</span><span class="p">(</span><span class="s">&#39;.mx&#39;</span><span class="p">)</span>
+<span class="go">(&#39;.xml&#39;, &#39;.mxl&#39;, &#39;.mx&#39;, &#39;.musicxml&#39;)</span>
+</pre></div>
+</div>
+<p>blah is neither</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findInputExtension</span><span class="p">(</span><span class="s">&#39;blah&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.findSubConverterForFormat">
+<tt class="descclassname">music21.common.</tt><tt class="descname">findSubConverterForFormat</tt><big>(</big><em>fmt</em><big>)</big><a class="headerlink" href="#music21.common.findSubConverterForFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a converter.subConverter.SubConverter subclass
+for a given format &#8211; this is a music21 format name,
+not a file extension. Or returns None</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findSubConverterForFormat</span><span class="p">(</span><span class="s">&#39;musicxml&#39;</span><span class="p">)</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterMusicXML&#39;&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findSubConverterForFormat</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterText&#39;&gt;</span>
+</pre></div>
+</div>
+<p>Some subconverters have format aliases</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">findSubConverterForFormat</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">)</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterText&#39;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.findWeakRef">
+<tt class="descclassname">music21.common.</tt><tt class="descname">findWeakRef</tt><big>(</big><em>target</em><big>)</big><a class="headerlink" href="#music21.common.findWeakRef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an object or composition of objects, find an attribute that is a weakref. This is a diagnostic tool.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.formatStr">
+<tt class="descclassname">music21.common.</tt><tt class="descname">formatStr</tt><big>(</big><em>msg</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.common.formatStr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format one or more data elements into string suitable for printing
+straight to stderr or other outputs</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">formatStr</span><span class="p">(</span><span class="s">&#39;test&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">test 1 2 3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getBuildDocFilePath">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getBuildDocFilePath</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.getBuildDocFilePath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the directory that contains the documentation RST files.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getBuildDocRstFilePath">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getBuildDocRstFilePath</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.getBuildDocRstFilePath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the directory that contains the documentation RST files.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getCorpusContentDirs">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getCorpusContentDirs</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.getCorpusContentDirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all dirs that are found in the corpus that contain content; that is, exclude dirst that have code or other resoures.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fp</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">getCorpusContentDirs</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fp</span> <span class="c"># this test will be fragile, depending on composition of dirs</span>
+<span class="go">[&#39;airdsAirs&#39;, &#39;bach&#39;, &#39;beethoven&#39;, &#39;ciconia&#39;, &#39;corelli&#39;, &#39;cpebach&#39;,</span>
+<span class="go">&#39;demos&#39;, &#39;essenFolksong&#39;, &#39;handel&#39;, &#39;haydn&#39;, &#39;josquin&#39;, &#39;leadSheet&#39;,</span>
+<span class="go">&#39;luca&#39;, &#39;miscFolk&#39;, &#39;monteverdi&#39;, &#39;mozart&#39;, &#39;oneills1850&#39;, &#39;palestrina&#39;,</span>
+<span class="go">&#39;ryansMammoth&#39;, &#39;schoenberg&#39;, &#39;schumann&#39;, &#39;schumann_clara&#39;,</span>
+<span class="go">&#39;theoryExercises&#39;, &#39;trecento&#39;, &#39;verdi&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getCorpusFilePath">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getCorpusFilePath</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.getCorpusFilePath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the stored music21 directory that contains the corpus metadata cache.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fp</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">getCorpusFilePath</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fp</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;music21/corpus&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">fp</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">r&#39;music21\corpus&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getMd5">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getMd5</tt><big>(</big><em>value=None</em><big>)</big><a class="headerlink" href="#music21.common.getMd5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an md5 hash from a string.  If no value is given then
+the current time plus a random number is encoded.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">getMd5</span><span class="p">(</span><span class="s">&#39;test&#39;</span><span class="p">)</span>
+<span class="go">&#39;098f6bcd4621d373cade4e832627b4f6&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getMetadataCacheFilePath">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getMetadataCacheFilePath</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.getMetadataCacheFilePath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the stored music21 directory that contains the corpus metadata cache.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fp</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">getMetadataCacheFilePath</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fp</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;corpus/metadataCache&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">fp</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">r&#39;corpus\metadataCache&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getMissingImportStr">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getMissingImportStr</tt><big>(</big><em>modNameList</em><big>)</big><a class="headerlink" href="#music21.common.getMissingImportStr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of missing module names, returns a nicely-formatted message to the user
+that gives instructions on how to expand music21 with optional packages.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">getMissingImportStr</span><span class="p">([</span><span class="s">&#39;matplotlib&#39;</span><span class="p">])</span>
+<span class="go">&#39;Certain music21 functions might need the optional package matplotlib; if you run into errors, install it by following the instructions at http://mit.edu/music21/doc/installing/installAdditional.html&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">getMissingImportStr</span><span class="p">([</span><span class="s">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s">&#39;numpy&#39;</span><span class="p">])</span>
+<span class="go">&#39;Certain music21 functions might need these optional packages: matplotlib, numpy; if you run into errors, install it by following the instructions at http://mit.edu/music21/doc/installing/installAdditional.html&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getNumFromStr">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getNumFromStr</tt><big>(</big><em>usrStr</em>, <em>numbers='0123456789'</em><big>)</big><a class="headerlink" href="#music21.common.getNumFromStr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a string, extract any numbers. Return two strings, the numbers (as strings) and the remaining characters.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">getNumFromStr</span><span class="p">(</span><span class="s">&#39;23a&#39;</span><span class="p">)</span>
+<span class="go">(&#39;23&#39;, &#39;a&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">getNumFromStr</span><span class="p">(</span><span class="s">&#39;23a954sdfwer&#39;</span><span class="p">)</span>
+<span class="go">(&#39;23954&#39;, &#39;asdfwer&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">getNumFromStr</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+<span class="go">(&#39;&#39;, &#39;&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getPackageData">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getPackageData</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.getPackageData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of package data in the format specified by setup.py. This creates a very inclusive list of all data types.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getPackageDir">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getPackageDir</tt><big>(</big><em>fpMusic21=None</em>, <em>relative=True</em>, <em>remapSep='.'</em>, <em>packageOnly=True</em><big>)</big><a class="headerlink" href="#music21.common.getPackageDir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manually get all directories in the music21 package, including the top level directory. This is used in setup.py.</p>
+<p>If <cite>relative</cite> is True, relative paths will be returned.</p>
+<p>If <cite>remapSep</cite> is set to anything other than None, the path separator will be replaced.</p>
+<p>If <cite>packageOnly</cite> is true, only directories with __init__.py files are colllected.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getPlatform">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getPlatform</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.getPlatform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the platform, where platforms are divided
+between &#8216;win&#8217; (for Windows), &#8216;darwin&#8217; (for MacOS X), and &#8216;nix&#8217; for (GNU/Linux and other variants).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getSourceFilePath">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getSourceFilePath</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.getSourceFilePath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the music21 directory that contains source files. This is not the same as the
+outermost package development directory.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.getTestDocsFilePath">
+<tt class="descclassname">music21.common.</tt><tt class="descname">getTestDocsFilePath</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.getTestDocsFilePath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the directory that contains the documentation RST files.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.greaterThan">
+<tt class="descclassname">music21.common.</tt><tt class="descname">greaterThan</tt><big>(</big><em>x</em>, <em>y=0.0</em>, <em>grain=1e-07</em><big>)</big><a class="headerlink" href="#music21.common.greaterThan" title="Permalink to this definition">¶</a></dt>
+<dd><p>greaterThan returns True if x is greater than and not almostEquals y</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">greaterThan</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">greaterThan</span><span class="p">(</span><span class="mf">5.05</span><span class="p">,</span> <span class="mf">5.02</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">greaterThan</span><span class="p">(</span><span class="mf">5.000000000005</span><span class="p">,</span> <span class="mf">5.000000000006</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">greaterThan</span><span class="p">(</span><span class="mf">5.000000000006</span><span class="p">,</span> <span class="mf">5.000000000005</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.greaterThanOrEqual">
+<tt class="descclassname">music21.common.</tt><tt class="descname">greaterThanOrEqual</tt><big>(</big><em>x</em>, <em>y=0.0</em>, <em>grain=1e-07</em><big>)</big><a class="headerlink" href="#music21.common.greaterThanOrEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>greaterThan returns True if x is greater than or almostEquals y</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.groupContiguousIntegers">
+<tt class="descclassname">music21.common.</tt><tt class="descname">groupContiguousIntegers</tt><big>(</big><em>src</em><big>)</big><a class="headerlink" href="#music21.common.groupContiguousIntegers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of integers, group contiguous values into sub lists</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">groupContiguousIntegers</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="go">[[3], [5, 6]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">groupContiguousIntegers</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="go">[[3, 4], [6]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">groupContiguousIntegers</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="go">[[3, 4], [6, 7]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">groupContiguousIntegers</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="go">[[3, 4], [6, 7], [20]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">groupContiguousIntegers</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="go">[[3, 4, 5, 6, 7]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">groupContiguousIntegers</span><span class="p">([</span><span class="mi">3</span><span class="p">])</span>
+<span class="go">[[3]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">groupContiguousIntegers</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">200</span><span class="p">])</span>
+<span class="go">[[3], [200]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.isIterable">
+<tt class="descclassname">music21.common.</tt><tt class="descname">isIterable</tt><big>(</big><em>usrData</em><big>)</big><a class="headerlink" href="#music21.common.isIterable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if is the object can be iter&#8217;d over and is NOT a string</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isIterable</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isIterable</span><span class="p">(</span><span class="s">&#39;sharp&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isIterable</span><span class="p">((</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isIterable</span><span class="p">(</span><span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">())</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.isListLike">
+<tt class="descclassname">music21.common.</tt><tt class="descname">isListLike</tt><big>(</big><em>usrData</em><big>)</big><a class="headerlink" href="#music21.common.isListLike" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if is a List or a Set or a Tuple</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isListLike</span><span class="p">([])</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isListLike</span><span class="p">(</span><span class="s">&#39;sharp&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isListLike</span><span class="p">((</span><span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">))</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isListLike</span><span class="p">(</span> <span class="nb">set</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">])</span> <span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isListLike</span><span class="p">(</span><span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">())</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.isNum">
+<tt class="descclassname">music21.common.</tt><tt class="descname">isNum</tt><big>(</big><em>usrData</em><big>)</big><a class="headerlink" href="#music21.common.isNum" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if usrData is a number (float, int, long, Decimal), return boolean
+IMPROVE: when 2.6 is everywhere: add numbers class.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isNum</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isNum</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isNum</span><span class="p">(</span><span class="s">&#39;three&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.isPowerOfTwo">
+<tt class="descclassname">music21.common.</tt><tt class="descname">isPowerOfTwo</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#music21.common.isPowerOfTwo" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns True if argument is either a power of 2 or a reciprocal
+of a power of 2. Uses almostEquals so that a float whose reminder after
+taking a log is nearly zero is still True</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isPowerOfTwo</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isPowerOfTwo</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isPowerOfTwo</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isPowerOfTwo</span><span class="p">(</span><span class="mf">1024.01</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isPowerOfTwo</span><span class="p">(</span><span class="mf">1024.00001</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.isStr">
+<tt class="descclassname">music21.common.</tt><tt class="descname">isStr</tt><big>(</big><em>usrData</em><big>)</big><a class="headerlink" href="#music21.common.isStr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check of usrData is some form of string, including unicode.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isStr</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isStr</span><span class="p">(</span><span class="s">&#39;sharp&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isStr</span><span class="p">(</span><span class="s">u&#39;flat&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.isWeakref">
+<tt class="descclassname">music21.common.</tt><tt class="descname">isWeakref</tt><big>(</big><em>referent</em><big>)</big><a class="headerlink" href="#music21.common.isWeakref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if an object is a weakref</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a2</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isWeakref</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isWeakref</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">isWeakref</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">wrapWeakref</span><span class="p">(</span><span class="n">a1</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.lcm">
+<tt class="descclassname">music21.common.</tt><tt class="descname">lcm</tt><big>(</big><em>filterList</em><big>)</big><a class="headerlink" href="#music21.common.lcm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the least common multiple of a list of values</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lcm</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="go">60</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lcm</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="go">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lcm</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lcm</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.lessThan">
+<tt class="descclassname">music21.common.</tt><tt class="descname">lessThan</tt><big>(</big><em>x</em>, <em>y=0.0</em>, <em>grain=1e-07</em><big>)</big><a class="headerlink" href="#music21.common.lessThan" title="Permalink to this definition">¶</a></dt>
+<dd><p>lessThan &#8211; returns True if x is less than and not almostEquals y</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lessThan</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lessThan</span><span class="p">(</span><span class="mf">5.2</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lessThan</span><span class="p">(</span><span class="mf">5.2</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="n">grain</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lessThan</span><span class="p">(</span><span class="mf">5.000000000005</span><span class="p">,</span> <span class="mf">5.000000000006</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lessThan</span><span class="p">(</span><span class="mf">5.000000000006</span><span class="p">,</span> <span class="mf">5.000000000005</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.lessThanOrEqual">
+<tt class="descclassname">music21.common.</tt><tt class="descname">lessThanOrEqual</tt><big>(</big><em>x</em>, <em>y=0.0</em>, <em>grain=1e-07</em><big>)</big><a class="headerlink" href="#music21.common.lessThanOrEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>lessThan &#8211; returns True if x is less than and not almostEquals y</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lessThanOrEqual</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lessThanOrEqual</span><span class="p">(</span><span class="mf">5.2</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lessThanOrEqual</span><span class="p">(</span><span class="mf">5.2</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">lessThanOrEqual</span><span class="p">(</span><span class="mf">5.000000000005</span><span class="p">,</span> <span class="mf">5.000000000006</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.mixedNumeral">
+<tt class="descclassname">music21.common.</tt><tt class="descname">mixedNumeral</tt><big>(</big><em>expr</em>, <em>limitDenominator=100</em><big>)</big><a class="headerlink" href="#music21.common.mixedNumeral" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string representing a mixedNumeral form of a number</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">mixedNumeral</span><span class="p">(</span><span class="mf">1.333333</span><span class="p">)</span>
+<span class="go">&#39;1 1/3&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">mixedNumeral</span><span class="p">(</span><span class="mf">0.333333</span><span class="p">)</span>
+<span class="go">&#39;1/3&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">mixedNumeral</span><span class="p">(</span><span class="mf">2.0001</span><span class="p">)</span>
+<span class="go">&#39;2&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">mixedNumeral</span><span class="p">(</span><span class="mf">2.0001</span><span class="p">,</span> <span class="n">limitDenominator</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="go">&#39;2 1/10000&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.nearestCommonFraction">
+<tt class="descclassname">music21.common.</tt><tt class="descname">nearestCommonFraction</tt><big>(</big><em>x</em>, <em>grain=0.01</em><big>)</big><a class="headerlink" href="#music21.common.nearestCommonFraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a value that suggests a floating point fraction, like .33,
+return a float that provides greater specification, such as .333333333</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">nearestCommonFraction</span><span class="p">(</span><span class="o">.</span><span class="mi">333</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="o">/</span><span class="mf">3.</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">nearestCommonFraction</span><span class="p">(</span><span class="o">.</span><span class="mi">33</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="o">/</span><span class="mf">3.</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">nearestCommonFraction</span><span class="p">(</span><span class="o">.</span><span class="mi">35</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="o">/</span><span class="mf">3.</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">nearestCommonFraction</span><span class="p">(</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="o">.</span><span class="mi">2</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">nearestCommonFraction</span><span class="p">(</span><span class="o">.</span><span class="mi">125</span><span class="p">)</span>
+<span class="go">0.125</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.nearestMultiple">
+<tt class="descclassname">music21.common.</tt><tt class="descname">nearestMultiple</tt><big>(</big><em>n</em>, <em>unit</em><big>)</big><a class="headerlink" href="#music21.common.nearestMultiple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a positive value <cite>n</cite>, return the nearest multiple of the supplied <cite>unit</cite> as well as the difference (error) to
+seven significant digits.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">nearestMultiple</span><span class="p">(</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">))</span>
+<span class="go">(0.25, 0.0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">nearestMultiple</span><span class="p">(</span><span class="o">.</span><span class="mi">35</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">))</span>
+<span class="go">(0.25, 0.1...)</span>
+</pre></div>
+</div>
+<p>Note that this one also has an error of .1 but it&#8217;s a positive error off of 0.5
+&gt;&gt;&gt; print(common.nearestMultiple(.4, .25))
+(0.5, 0.1...)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">nearestMultiple</span><span class="p">(</span><span class="o">.</span><span class="mi">4</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">nearestMultiple</span><span class="p">(</span><span class="mf">23404.001</span><span class="p">,</span> <span class="o">.</span><span class="mi">125</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">23404.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">nearestMultiple</span><span class="p">(</span><span class="mf">23404.134</span><span class="p">,</span> <span class="o">.</span><span class="mi">125</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">23404.125</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">nearestMultiple</span><span class="p">(</span><span class="o">.</span><span class="mo">001</span><span class="p">,</span> <span class="o">.</span><span class="mi">125</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">almostEquals</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">nearestMultiple</span><span class="p">(</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mf">3.</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="o">.</span><span class="mi">33333333</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">almostEquals</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">nearestMultiple</span><span class="p">(</span><span class="o">.</span><span class="mi">55</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mf">3.</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="o">.</span><span class="mi">66666666</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">almostEquals</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">nearestMultiple</span><span class="p">(</span><span class="mf">234.69</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mf">3.</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">234.6666666</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">almostEquals</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">nearestMultiple</span><span class="p">(</span><span class="mf">18.123</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mf">6.</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="mf">18.16666666</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.normalizeFilename">
+<tt class="descclassname">music21.common.</tt><tt class="descname">normalizeFilename</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#music21.common.normalizeFilename" title="Permalink to this definition">¶</a></dt>
+<dd><p>take a name that might contain unicode characters, punctuation,
+or spaces and
+normalize it so that it is POSIX compliant (except for the limit
+on length).</p>
+<p>Takes in a string or unicode string and returns a string (unicode in Py3)
+without any accented characters.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">normalizeFilename</span><span class="p">(</span><span class="s">u&#39;03-Niccolò all’lessandra.not really.xml&#39;</span><span class="p">)</span>
+<span class="go">&#39;03-Niccolo_alllessandra_not_really.xml&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.numToIntOrFloat">
+<tt class="descclassname">music21.common.</tt><tt class="descname">numToIntOrFloat</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#music21.common.numToIntOrFloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a number, return an integer if it is very close to an integer, otherwise, return a float.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">numToIntOrFloat</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">numToIntOrFloat</span><span class="p">(</span><span class="mf">1.00003</span><span class="p">)</span>
+<span class="go">1.00003</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">numToIntOrFloat</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="go">1.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">numToIntOrFloat</span><span class="p">(</span><span class="mf">1.0000000005</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.ordinalAbbreviation">
+<tt class="descclassname">music21.common.</tt><tt class="descname">ordinalAbbreviation</tt><big>(</big><em>value</em>, <em>plural=False</em><big>)</big><a class="headerlink" href="#music21.common.ordinalAbbreviation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ordinal abbreviations for integers</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">common</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">ordinalAbbreviation</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">&#39;rd&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">ordinalAbbreviation</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="go">&#39;th&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">ordinalAbbreviation</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="n">plural</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">&#39;ths&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.pitchList">
+<tt class="descclassname">music21.common.</tt><tt class="descname">pitchList</tt><big>(</big><em>pitchList</em><big>)</big><a class="headerlink" href="#music21.common.pitchList" title="Permalink to this definition">¶</a></dt>
+<dd><p>utility method that replicates the previous behavior of lists of pitches</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.relativepath">
+<tt class="descclassname">music21.common.</tt><tt class="descname">relativepath</tt><big>(</big><em>path</em>, <em>start='.'</em><big>)</big><a class="headerlink" href="#music21.common.relativepath" title="Permalink to this definition">¶</a></dt>
+<dd><p>A cross-platform wrapper for <cite>os.path.relpath()</cite>, which returns <cite>path</cite> if
+under Windows, otherwise returns the relative path of <cite>path</cite>.</p>
+<p>This avoids problems under Windows when the current working directory is
+on a different drive letter from <cite>path</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.roundToHalfInteger">
+<tt class="descclassname">music21.common.</tt><tt class="descname">roundToHalfInteger</tt><big>(</big><em>num</em><big>)</big><a class="headerlink" href="#music21.common.roundToHalfInteger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a floating-point number, round to the nearest half-integer.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">roundToHalfInteger</span><span class="p">(</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">roundToHalfInteger</span><span class="p">(</span><span class="mf">1.35</span><span class="p">)</span>
+<span class="go">1.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">roundToHalfInteger</span><span class="p">(</span><span class="mf">1.8</span><span class="p">)</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">roundToHalfInteger</span><span class="p">(</span><span class="mf">1.6234</span><span class="p">)</span>
+<span class="go">1.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.runningUnderIPython">
+<tt class="descclassname">music21.common.</tt><tt class="descname">runningUnderIPython</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.runningUnderIPython" title="Permalink to this definition">¶</a></dt>
+<dd><p>return bool if we are running under iPython Notebook (not iPython)</p>
+<p>(no tests, since will be different)</p>
+<p>This post:
+<a class="reference external" href="http://stackoverflow.com/questions/15411967/how-can-i-check-if-code-is-executed-in-the-ipython-notebook">http://stackoverflow.com/questions/15411967/how-can-i-check-if-code-is-executed-in-the-ipython-notebook</a>
+says not to do this, but really, I can&#8217;t think of another way to have different output as default.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.sortFilesRecent">
+<tt class="descclassname">music21.common.</tt><tt class="descname">sortFilesRecent</tt><big>(</big><em>fileList</em><big>)</big><a class="headerlink" href="#music21.common.sortFilesRecent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given two files, sort by most recent. Return only the file
+paths.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">curdir</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">sortFilesRecent</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.sortModules">
+<tt class="descclassname">music21.common.</tt><tt class="descname">sortModules</tt><big>(</big><em>moduleList</em><big>)</big><a class="headerlink" href="#music21.common.sortModules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort a lost of imported module names such that most recently modified is
+first</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.spaceCamelCase">
+<tt class="descclassname">music21.common.</tt><tt class="descname">spaceCamelCase</tt><big>(</big><em>usrStr</em>, <em>replaceUnderscore=True</em><big>)</big><a class="headerlink" href="#music21.common.spaceCamelCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a camel-cased string, or a mixture of numbers and characters, create a space separated string.</p>
+<p>If replaceUnderscore is True (default) then underscores also become spaces (but without the _)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">spaceCamelCase</span><span class="p">(</span><span class="s">&#39;thisIsATest&#39;</span><span class="p">)</span>
+<span class="go">&#39;this Is A Test&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">spaceCamelCase</span><span class="p">(</span><span class="s">&#39;ThisIsATest&#39;</span><span class="p">)</span>
+<span class="go">&#39;This Is A Test&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">spaceCamelCase</span><span class="p">(</span><span class="s">&#39;movement3&#39;</span><span class="p">)</span>
+<span class="go">&#39;movement 3&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">spaceCamelCase</span><span class="p">(</span><span class="s">&#39;opus41no1&#39;</span><span class="p">)</span>
+<span class="go">&#39;opus 41 no 1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">spaceCamelCase</span><span class="p">(</span><span class="s">&#39;opus23402no219235&#39;</span><span class="p">)</span>
+<span class="go">&#39;opus 23402 no 219235&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">spaceCamelCase</span><span class="p">(</span><span class="s">&#39;opus23402no219235&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+<span class="go">&#39;Opus 23402 No 219235&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">spaceCamelCase</span><span class="p">(</span><span class="s">&#39;hello_myke&#39;</span><span class="p">)</span>
+<span class="go">&#39;hello myke&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">spaceCamelCase</span><span class="p">(</span><span class="s">&#39;hello_myke&#39;</span><span class="p">,</span> <span class="n">replaceUnderscore</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+<span class="go">&#39;hello_myke&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.standardDeviation">
+<tt class="descclassname">music21.common.</tt><tt class="descname">standardDeviation</tt><big>(</big><em>coll</em>, <em>bassel=False</em><big>)</big><a class="headerlink" href="#music21.common.standardDeviation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a collection of values, return the standard deviation.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">standardDeviation</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
+<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">standardDeviation</span><span class="p">([</span><span class="mi">600</span><span class="p">,</span> <span class="mi">470</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">430</span><span class="p">,</span> <span class="mi">300</span><span class="p">])</span>
+<span class="go">147.3227...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">standardDeviation</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="n">bassel</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">2.23606...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.strTrimFloat">
+<tt class="descclassname">music21.common.</tt><tt class="descname">strTrimFloat</tt><big>(</big><em>floatNum</em>, <em>maxNum=4</em><big>)</big><a class="headerlink" href="#music21.common.strTrimFloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a string from a float that is at most maxNum of
+decimial digits long, but never less than 1.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">strTrimFloat</span><span class="p">(</span><span class="mf">42.3333333333</span><span class="p">)</span>
+<span class="go">&#39;42.3333&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">strTrimFloat</span><span class="p">(</span><span class="mf">42.3333333333</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">&#39;42.33&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">strTrimFloat</span><span class="p">(</span><span class="mf">6.66666666666666</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">&#39;6.67&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">strTrimFloat</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="go">&#39;2.0&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">strTrimFloat</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">&#39;-5.0&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.stripAccents">
+<tt class="descclassname">music21.common.</tt><tt class="descname">stripAccents</tt><big>(</big><em>inputString</em><big>)</big><a class="headerlink" href="#music21.common.stripAccents" title="Permalink to this definition">¶</a></dt>
+<dd><p>removes accents from unicode strings.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s">u&#39;tr</span><span class="se">\u00e8</span><span class="s">s vite&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">u&#39;</span><span class="se">\u00e8</span><span class="s">&#39;</span> <span class="ow">in</span> <span class="n">s</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">stripAccents</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">u&#39;tres vite&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.stripAddresses">
+<tt class="descclassname">music21.common.</tt><tt class="descname">stripAddresses</tt><big>(</big><em>textString</em>, <em>replacement='ADDRESS'</em><big>)</big><a class="headerlink" href="#music21.common.stripAddresses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that changes all memory addresses in the given
+textString with (replacement).  This is useful for testing
+that a function gives an expected result even if the result
+contains references to memory locations.  So for instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">stripAddresses</span><span class="p">(</span><span class="s">&quot;{0.0} &lt;music21.clef.TrebleClef object at 0x02A87AD0&gt;&quot;</span><span class="p">)</span>
+<span class="go">&#39;{0.0} &lt;music21.clef.TrebleClef object at ADDRESS&gt;&#39;</span>
+</pre></div>
+</div>
+<p>while this is left alone:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">stripAddresses</span><span class="p">(</span><span class="s">&quot;{0.0} &lt;music21.humdrum.MiscTandem *&gt;I humdrum control&gt;&quot;</span><span class="p">)</span>
+<span class="go">&#39;{0.0} &lt;music21.humdrum.MiscTandem *&gt;I humdrum control&gt;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.subConverterList">
+<tt class="descclassname">music21.common.</tt><tt class="descname">subConverterList</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.subConverterList" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of subconverter classes available to music21
+in converter/subConverters, including the stub SubConverter class</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">sc</span> <span class="ow">in</span> <span class="n">common</span><span class="o">.</span><span class="n">subConverterList</span><span class="p">():</span>
+<span class="gp">... </span>   <span class="n">sc</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterABC&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterBraille&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterCapella&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterHumdrum&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterIPython&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterLilypond&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterMidi&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterMuseData&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterMusicXML&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterNoteworthy&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterNoteworthyBinary&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterRomanText&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterScala&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterText&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterTextLine&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterTinyNotation&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.ConverterVexflow&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.converter.subConverters.SubConverter&#39;&gt;    </span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.toUnicode">
+<tt class="descclassname">music21.common.</tt><tt class="descname">toUnicode</tt><big>(</big><em>usrStr</em><big>)</big><a class="headerlink" href="#music21.common.toUnicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert this tring to a uncode string; if already a unicode string, do nothing.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">toUnicode</span><span class="p">(</span><span class="s">&#39;test&#39;</span><span class="p">)</span>
+<span class="go">u&#39;test&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">toUnicode</span><span class="p">(</span><span class="s">u&#39;test&#39;</span><span class="p">)</span>
+<span class="go">u&#39;test&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.unitBoundaryProportion">
+<tt class="descclassname">music21.common.</tt><tt class="descname">unitBoundaryProportion</tt><big>(</big><em>series</em><big>)</big><a class="headerlink" href="#music21.common.unitBoundaryProportion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take a series of parts with an implied sum, and create unit-interval boundaries proportional to the series components.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">unitBoundaryProportion</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="go">[(0, 0.25), (0.25, 0.5), (0.5, 1.0)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">unitBoundaryProportion</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">[(0, 0.8...), (0.8..., 0.9...), (0.9..., 1.0)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.unitNormalizeProportion">
+<tt class="descclassname">music21.common.</tt><tt class="descname">unitNormalizeProportion</tt><big>(</big><em>values</em><big>)</big><a class="headerlink" href="#music21.common.unitNormalizeProportion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize values within the unit interval, where max is determined by the sum of the series.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">unitNormalizeProportion</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="go">[0.0, 0.42857142857142855, 0.5714285714285714]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">unitNormalizeProportion</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">[0.3333333..., 0.333333..., 0.333333...]</span>
+</pre></div>
+</div>
+<p>On 32-bit computers this number is inexact.  On 64-bit it works fine.</p>
+<p>#&gt;&gt;&gt; common.unitNormalizeProportion([.2, .6, .2])
+#[0.20000000000000001, 0.59999999999999998, 0.20000000000000001]</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.unwrapWeakref">
+<tt class="descclassname">music21.common.</tt><tt class="descname">unwrapWeakref</tt><big>(</big><em>referent</em><big>)</big><a class="headerlink" href="#music21.common.unwrapWeakref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility function that gets an object that might be an object itself
+or a weak reference to an object.  It returns obj() if it&#8217;s a weakref
+and obj if it&#8217;s not.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a2</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a2</span><span class="o">.</span><span class="n">strong</span> <span class="o">=</span> <span class="n">a1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a2</span><span class="o">.</span><span class="n">weak</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">wrapWeakref</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">unwrapWeakref</span><span class="p">(</span><span class="n">a2</span><span class="o">.</span><span class="n">strong</span><span class="p">)</span> <span class="ow">is</span> <span class="n">a1</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">unwrapWeakref</span><span class="p">(</span><span class="n">a2</span><span class="o">.</span><span class="n">weak</span><span class="p">)</span> <span class="ow">is</span> <span class="n">a1</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">common</span><span class="o">.</span><span class="n">unwrapWeakref</span><span class="p">(</span><span class="n">a2</span><span class="o">.</span><span class="n">strong</span><span class="p">)</span> <span class="ow">is</span> <span class="n">common</span><span class="o">.</span><span class="n">unwrapWeakref</span><span class="p">(</span><span class="n">a2</span><span class="o">.</span><span class="n">weak</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.weightedSelection">
+<tt class="descclassname">music21.common.</tt><tt class="descname">weightedSelection</tt><big>(</big><em>values</em>, <em>weights</em>, <em>randomGenerator=None</em><big>)</big><a class="headerlink" href="#music21.common.weightedSelection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of values and an equal-sized list of weights,
+return a randomly selected value using the weight.</p>
+<p>Example: sum -1 and 1 for 100 values; should be
+around 0 or at least between -30 and 30</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="o">-</span><span class="mi">30</span> <span class="o">&lt;</span> <span class="nb">sum</span><span class="p">([</span><span class="n">common</span><span class="o">.</span><span class="n">weightedSelection</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)])</span> <span class="o">&lt;</span> <span class="mi">30</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.common.wrapWeakref">
+<tt class="descclassname">music21.common.</tt><tt class="descname">wrapWeakref</tt><big>(</big><em>referent</em><big>)</big><a class="headerlink" href="#music21.common.wrapWeakref" title="Permalink to this definition">¶</a></dt>
+<dd><p>utility function that wraps objects as weakrefs but does not wrap
+already wrapped objects; also prevents wrapping the unwrapable &#8220;None&#8221; type, etc.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="iterator">
+<h2>Iterator<a class="headerlink" href="#iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.common.Iterator">
+<em class="property">class </em><tt class="descclassname">music21.common.</tt><tt class="descname">Iterator</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#music21.common.Iterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple Iterator object used to handle iteration of Streams and other
+list-like objects.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.common.Iterator" title="music21.common.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.common.Iterator.next">
+<tt class="descclassname">Iterator.</tt><tt class="descname">next</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.Iterator.next" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="singletoncounter">
+<h2>SingletonCounter<a class="headerlink" href="#singletoncounter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.common.SingletonCounter">
+<em class="property">class </em><tt class="descclassname">music21.common.</tt><tt class="descname">SingletonCounter</tt><a class="headerlink" href="#music21.common.SingletonCounter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple counter that can produce unique numbers regardless of how many instances exist.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="slottedobject">
+<h2>SlottedObject<a class="headerlink" href="#slottedobject" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.common.SlottedObject">
+<em class="property">class </em><tt class="descclassname">music21.common.</tt><tt class="descname">SlottedObject</tt><a class="headerlink" href="#music21.common.SlottedObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides template for classes implementing slots.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="testmock">
+<h2>TestMock<a class="headerlink" href="#testmock" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.common.TestMock">
+<em class="property">class </em><tt class="descclassname">music21.common.</tt><tt class="descname">TestMock</tt><a class="headerlink" href="#music21.common.TestMock" title="Permalink to this definition">¶</a></dt>
+<dd><p>A test object with attributes, methods, and properties</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.common.TestMock" title="music21.common.TestMock"><tt class="xref py py-class docutils literal"><span class="pre">TestMock</span></tt></a> read/write properties</p>
+<dl class="attribute">
+<dt id="music21.common.TestMock.property1">
+<tt class="descclassname">TestMock.</tt><tt class="descname">property1</tt><a class="headerlink" href="#music21.common.TestMock.property1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.common.TestMock.property2">
+<tt class="descclassname">TestMock.</tt><tt class="descname">property2</tt><a class="headerlink" href="#music21.common.TestMock.property2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.common.TestMock" title="music21.common.TestMock"><tt class="xref py py-class docutils literal"><span class="pre">TestMock</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.common.TestMock.method1">
+<tt class="descclassname">TestMock.</tt><tt class="descname">method1</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.TestMock.method1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.common.TestMock.method2">
+<tt class="descclassname">TestMock.</tt><tt class="descname">method2</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.TestMock.method2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="timer">
+<h2>Timer<a class="headerlink" href="#timer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.common.Timer">
+<em class="property">class </em><tt class="descclassname">music21.common.</tt><tt class="descname">Timer</tt><a class="headerlink" href="#music21.common.Timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object for timing.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.common.Timer" title="music21.common.Timer"><tt class="xref py py-class docutils literal"><span class="pre">Timer</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.common.Timer.clear">
+<tt class="descclassname">Timer.</tt><tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.Timer.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.common.Timer.start">
+<tt class="descclassname">Timer.</tt><tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.Timer.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Explicit start method; will clear previous values. Start always happens on initialization.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.common.Timer.stop">
+<tt class="descclassname">Timer.</tt><tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.common.Timer.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="defaultlist">
+<h2>defaultlist<a class="headerlink" href="#defaultlist" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.common.defaultlist">
+<em class="property">class </em><tt class="descclassname">music21.common.</tt><tt class="descname">defaultlist</tt><big>(</big><em>fx</em><big>)</big><a class="headerlink" href="#music21.common.defaultlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call a function for every time something is missing:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">defaultlist</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<span class="go">True    </span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleCompositionAug30.html" title="music21.composition.aug30"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleClef.html" title="music21.clef"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

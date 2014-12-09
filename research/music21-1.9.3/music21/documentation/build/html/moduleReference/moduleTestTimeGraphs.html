@@ -1,0 +1,817 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.test.timeGraphs &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.test.toggleDebug" href="moduleTestToggleDebug.html" />
+    <link rel="prev" title="music21.test.timeGraphImportStar" href="moduleTestTimeGraphImportStar.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleTestToggleDebug.html" title="music21.test.toggleDebug"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleTestTimeGraphImportStar.html" title="music21.test.timeGraphImportStar"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleTestTimeGraphImportStar.html"
+                        title="previous chapter">music21.test.timeGraphImportStar</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleTestToggleDebug.html"
+                        title="next chapter">music21.test.toggleDebug</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.test.timeGraphs</a><ul>
+<li><a class="reference internal" href="#callgraph">CallGraph</a></li>
+<li><a class="reference internal" href="#calltest">CallTest</a></li>
+<li><a class="reference internal" href="#m21calltest">M21CallTest</a></li>
+<li><a class="reference internal" href="#testabcimport">TestABCImport</a></li>
+<li><a class="reference internal" href="#testbigmusicxml">TestBigMusicXML</a></li>
+<li><a class="reference internal" href="#testcommoncontextsearches">TestCommonContextSearches</a></li>
+<li><a class="reference internal" href="#testcreatedurations">TestCreateDurations</a></li>
+<li><a class="reference internal" href="#testcreatetimesignature">TestCreateTimeSignature</a></li>
+<li><a class="reference internal" href="#testgetcontextbyclassa">TestGetContextByClassA</a></li>
+<li><a class="reference internal" href="#testgetcontextbyclassb">TestGetContextByClassB</a></li>
+<li><a class="reference internal" href="#testgetelementsbyclassa">TestGetElementsByClassA</a></li>
+<li><a class="reference internal" href="#testgetelementsbyclassb">TestGetElementsByClassB</a></li>
+<li><a class="reference internal" href="#testimportcorpus2">TestImportCorpus2</a></li>
+<li><a class="reference internal" href="#testimportcorpus3">TestImportCorpus3</a></li>
+<li><a class="reference internal" href="#testmakeaccidentals">TestMakeAccidentals</a></li>
+<li><a class="reference internal" href="#testmakebeams">TestMakeBeams</a></li>
+<li><a class="reference internal" href="#testmakemeasures">TestMakeMeasures</a></li>
+<li><a class="reference internal" href="#testmaketies">TestMakeTies</a></li>
+<li><a class="reference internal" href="#testmeasuresa">TestMeasuresA</a></li>
+<li><a class="reference internal" href="#testmeasuresb">TestMeasuresB</a></li>
+<li><a class="reference internal" href="#testmetadatabundle">TestMetadataBundle</a></li>
+<li><a class="reference internal" href="#testmusicxmlmultipartoutput">TestMusicXMLMultiPartOutput</a></li>
+<li><a class="reference internal" href="#testmusicxmlobjecttypechecking">TestMusicXMLObjectTypeChecking</a></li>
+<li><a class="reference internal" href="#testmusicxmloutput">TestMusicXMLOutput</a></li>
+<li><a class="reference internal" href="#testmusicxmloutputparts">TestMusicXMLOutputParts</a></li>
+<li><a class="reference internal" href="#testmusicxmloutputscore">TestMusicXMLOutputScore</a></li>
+<li><a class="reference internal" href="#testparseabc">TestParseABC</a></li>
+<li><a class="reference internal" href="#testparserntext">TestParseRNText</a></li>
+<li><a class="reference internal" href="#testromantextparse">TestRomantextParse</a></li>
+<li><a class="reference internal" href="#testtimecapua1">TestTimeCapua1</a></li>
+<li><a class="reference internal" href="#testtimecapua2">TestTimeCapua2</a></li>
+<li><a class="reference internal" href="#testtimehumdrum">TestTimeHumdrum</a></li>
+<li><a class="reference internal" href="#testtimeismir">TestTimeIsmir</a></li>
+<li><a class="reference internal" href="#testtimemozart">TestTimeMozart</a></li>
+<li><a class="reference internal" href="#timer">Timer</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleTestTimeGraphs.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-test-timegraphs">
+<span id="moduletesttimegraphs"></span><h1>music21.test.timeGraphs<a class="headerlink" href="#music21-test-timegraphs" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.test.timeGraphs"></span><div class="section" id="callgraph">
+<h2>CallGraph<a class="headerlink" href="#callgraph" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.CallGraph">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">CallGraph</tt><a class="headerlink" href="#music21.test.timeGraphs.CallGraph" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.CallGraph" title="music21.test.timeGraphs.CallGraph"><tt class="xref py py-class docutils literal"><span class="pre">CallGraph</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.CallGraph.run">
+<tt class="descclassname">CallGraph.</tt><tt class="descname">run</tt><big>(</big><em>runWithEnviron=True</em><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.CallGraph.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main code runner for testing. To set a new test, update the self.callTest attribute in __init__().</p>
+<p>Note that the default of runWithEnviron imports music21.environment.  That might
+skew results</p>
+</dd></dl>
+
+</div>
+<div class="section" id="calltest">
+<h2>CallTest<a class="headerlink" href="#calltest" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.CallTest">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">CallTest</tt><a class="headerlink" href="#music21.test.timeGraphs.CallTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for timed tests</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.CallTest.testFocus">
+<tt class="descclassname">CallTest.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.CallTest.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls to be timed</p>
+</dd></dl>
+
+</div>
+<div class="section" id="m21calltest">
+<h2>M21CallTest<a class="headerlink" href="#m21calltest" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.M21CallTest">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">M21CallTest</tt><a class="headerlink" href="#music21.test.timeGraphs.M21CallTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for timed tests that need music21 importerd</p>
+</dd></dl>
+
+</div>
+<div class="section" id="testabcimport">
+<h2>TestABCImport<a class="headerlink" href="#testabcimport" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestABCImport">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestABCImport</tt><a class="headerlink" href="#music21.test.timeGraphs.TestABCImport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestABCImport" title="music21.test.timeGraphs.TestABCImport"><tt class="xref py py-class docutils literal"><span class="pre">TestABCImport</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.M21CallTest" title="music21.test.timeGraphs.M21CallTest"><tt class="xref py py-class docutils literal"><span class="pre">M21CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestABCImport" title="music21.test.timeGraphs.TestABCImport"><tt class="xref py py-class docutils literal"><span class="pre">TestABCImport</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestABCImport.testFocus">
+<tt class="descclassname">TestABCImport.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestABCImport.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testbigmusicxml">
+<h2>TestBigMusicXML<a class="headerlink" href="#testbigmusicxml" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestBigMusicXML">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestBigMusicXML</tt><a class="headerlink" href="#music21.test.timeGraphs.TestBigMusicXML" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestBigMusicXML" title="music21.test.timeGraphs.TestBigMusicXML"><tt class="xref py py-class docutils literal"><span class="pre">TestBigMusicXML</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestBigMusicXML" title="music21.test.timeGraphs.TestBigMusicXML"><tt class="xref py py-class docutils literal"><span class="pre">TestBigMusicXML</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestBigMusicXML.testFocus">
+<tt class="descclassname">TestBigMusicXML.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestBigMusicXML.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testcommoncontextsearches">
+<h2>TestCommonContextSearches<a class="headerlink" href="#testcommoncontextsearches" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestCommonContextSearches">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestCommonContextSearches</tt><a class="headerlink" href="#music21.test.timeGraphs.TestCommonContextSearches" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestCommonContextSearches" title="music21.test.timeGraphs.TestCommonContextSearches"><tt class="xref py py-class docutils literal"><span class="pre">TestCommonContextSearches</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestCommonContextSearches" title="music21.test.timeGraphs.TestCommonContextSearches"><tt class="xref py py-class docutils literal"><span class="pre">TestCommonContextSearches</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestCommonContextSearches.testFocus">
+<tt class="descclassname">TestCommonContextSearches.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestCommonContextSearches.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testcreatedurations">
+<h2>TestCreateDurations<a class="headerlink" href="#testcreatedurations" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestCreateDurations">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestCreateDurations</tt><a class="headerlink" href="#music21.test.timeGraphs.TestCreateDurations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestCreateDurations" title="music21.test.timeGraphs.TestCreateDurations"><tt class="xref py py-class docutils literal"><span class="pre">TestCreateDurations</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestCreateDurations" title="music21.test.timeGraphs.TestCreateDurations"><tt class="xref py py-class docutils literal"><span class="pre">TestCreateDurations</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestCreateDurations.testFocus">
+<tt class="descclassname">TestCreateDurations.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestCreateDurations.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testcreatetimesignature">
+<h2>TestCreateTimeSignature<a class="headerlink" href="#testcreatetimesignature" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestCreateTimeSignature">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestCreateTimeSignature</tt><a class="headerlink" href="#music21.test.timeGraphs.TestCreateTimeSignature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestCreateTimeSignature" title="music21.test.timeGraphs.TestCreateTimeSignature"><tt class="xref py py-class docutils literal"><span class="pre">TestCreateTimeSignature</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestCreateTimeSignature" title="music21.test.timeGraphs.TestCreateTimeSignature"><tt class="xref py py-class docutils literal"><span class="pre">TestCreateTimeSignature</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestCreateTimeSignature.testFocus">
+<tt class="descclassname">TestCreateTimeSignature.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestCreateTimeSignature.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testgetcontextbyclassa">
+<h2>TestGetContextByClassA<a class="headerlink" href="#testgetcontextbyclassa" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestGetContextByClassA">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestGetContextByClassA</tt><a class="headerlink" href="#music21.test.timeGraphs.TestGetContextByClassA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestGetContextByClassA" title="music21.test.timeGraphs.TestGetContextByClassA"><tt class="xref py py-class docutils literal"><span class="pre">TestGetContextByClassA</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestGetContextByClassA" title="music21.test.timeGraphs.TestGetContextByClassA"><tt class="xref py py-class docutils literal"><span class="pre">TestGetContextByClassA</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestGetContextByClassA.testFocus">
+<tt class="descclassname">TestGetContextByClassA.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestGetContextByClassA.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testgetcontextbyclassb">
+<h2>TestGetContextByClassB<a class="headerlink" href="#testgetcontextbyclassb" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestGetContextByClassB">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestGetContextByClassB</tt><a class="headerlink" href="#music21.test.timeGraphs.TestGetContextByClassB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestGetContextByClassB" title="music21.test.timeGraphs.TestGetContextByClassB"><tt class="xref py py-class docutils literal"><span class="pre">TestGetContextByClassB</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestGetContextByClassB" title="music21.test.timeGraphs.TestGetContextByClassB"><tt class="xref py py-class docutils literal"><span class="pre">TestGetContextByClassB</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestGetContextByClassB.testFocus">
+<tt class="descclassname">TestGetContextByClassB.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestGetContextByClassB.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testgetelementsbyclassa">
+<h2>TestGetElementsByClassA<a class="headerlink" href="#testgetelementsbyclassa" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestGetElementsByClassA">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestGetElementsByClassA</tt><a class="headerlink" href="#music21.test.timeGraphs.TestGetElementsByClassA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestGetElementsByClassA" title="music21.test.timeGraphs.TestGetElementsByClassA"><tt class="xref py py-class docutils literal"><span class="pre">TestGetElementsByClassA</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestGetElementsByClassA" title="music21.test.timeGraphs.TestGetElementsByClassA"><tt class="xref py py-class docutils literal"><span class="pre">TestGetElementsByClassA</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestGetElementsByClassA.testFocus">
+<tt class="descclassname">TestGetElementsByClassA.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestGetElementsByClassA.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testgetelementsbyclassb">
+<h2>TestGetElementsByClassB<a class="headerlink" href="#testgetelementsbyclassb" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestGetElementsByClassB">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestGetElementsByClassB</tt><a class="headerlink" href="#music21.test.timeGraphs.TestGetElementsByClassB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestGetElementsByClassB" title="music21.test.timeGraphs.TestGetElementsByClassB"><tt class="xref py py-class docutils literal"><span class="pre">TestGetElementsByClassB</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestGetElementsByClassB" title="music21.test.timeGraphs.TestGetElementsByClassB"><tt class="xref py py-class docutils literal"><span class="pre">TestGetElementsByClassB</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestGetElementsByClassB.testFocus">
+<tt class="descclassname">TestGetElementsByClassB.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestGetElementsByClassB.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testimportcorpus2">
+<h2>TestImportCorpus2<a class="headerlink" href="#testimportcorpus2" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestImportCorpus2">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestImportCorpus2</tt><a class="headerlink" href="#music21.test.timeGraphs.TestImportCorpus2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestImportCorpus2" title="music21.test.timeGraphs.TestImportCorpus2"><tt class="xref py py-class docutils literal"><span class="pre">TestImportCorpus2</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.M21CallTest" title="music21.test.timeGraphs.M21CallTest"><tt class="xref py py-class docutils literal"><span class="pre">M21CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestImportCorpus2" title="music21.test.timeGraphs.TestImportCorpus2"><tt class="xref py py-class docutils literal"><span class="pre">TestImportCorpus2</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestImportCorpus2.testFocus">
+<tt class="descclassname">TestImportCorpus2.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestImportCorpus2.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testimportcorpus3">
+<h2>TestImportCorpus3<a class="headerlink" href="#testimportcorpus3" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestImportCorpus3">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestImportCorpus3</tt><a class="headerlink" href="#music21.test.timeGraphs.TestImportCorpus3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestImportCorpus3" title="music21.test.timeGraphs.TestImportCorpus3"><tt class="xref py py-class docutils literal"><span class="pre">TestImportCorpus3</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestImportCorpus3" title="music21.test.timeGraphs.TestImportCorpus3"><tt class="xref py py-class docutils literal"><span class="pre">TestImportCorpus3</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestImportCorpus3.testFocus">
+<tt class="descclassname">TestImportCorpus3.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestImportCorpus3.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmakeaccidentals">
+<h2>TestMakeAccidentals<a class="headerlink" href="#testmakeaccidentals" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMakeAccidentals">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMakeAccidentals</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMakeAccidentals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMakeAccidentals" title="music21.test.timeGraphs.TestMakeAccidentals"><tt class="xref py py-class docutils literal"><span class="pre">TestMakeAccidentals</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMakeAccidentals" title="music21.test.timeGraphs.TestMakeAccidentals"><tt class="xref py py-class docutils literal"><span class="pre">TestMakeAccidentals</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMakeAccidentals.testFocus">
+<tt class="descclassname">TestMakeAccidentals.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMakeAccidentals.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmakebeams">
+<h2>TestMakeBeams<a class="headerlink" href="#testmakebeams" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMakeBeams">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMakeBeams</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMakeBeams" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMakeBeams" title="music21.test.timeGraphs.TestMakeBeams"><tt class="xref py py-class docutils literal"><span class="pre">TestMakeBeams</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMakeBeams" title="music21.test.timeGraphs.TestMakeBeams"><tt class="xref py py-class docutils literal"><span class="pre">TestMakeBeams</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMakeBeams.testFocus">
+<tt class="descclassname">TestMakeBeams.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMakeBeams.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmakemeasures">
+<h2>TestMakeMeasures<a class="headerlink" href="#testmakemeasures" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMakeMeasures">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMakeMeasures</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMakeMeasures" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMakeMeasures" title="music21.test.timeGraphs.TestMakeMeasures"><tt class="xref py py-class docutils literal"><span class="pre">TestMakeMeasures</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMakeMeasures" title="music21.test.timeGraphs.TestMakeMeasures"><tt class="xref py py-class docutils literal"><span class="pre">TestMakeMeasures</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMakeMeasures.testFocus">
+<tt class="descclassname">TestMakeMeasures.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMakeMeasures.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmaketies">
+<h2>TestMakeTies<a class="headerlink" href="#testmaketies" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMakeTies">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMakeTies</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMakeTies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMakeTies" title="music21.test.timeGraphs.TestMakeTies"><tt class="xref py py-class docutils literal"><span class="pre">TestMakeTies</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMakeTies" title="music21.test.timeGraphs.TestMakeTies"><tt class="xref py py-class docutils literal"><span class="pre">TestMakeTies</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMakeTies.testFocus">
+<tt class="descclassname">TestMakeTies.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMakeTies.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmeasuresa">
+<h2>TestMeasuresA<a class="headerlink" href="#testmeasuresa" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMeasuresA">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMeasuresA</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMeasuresA" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMeasuresA" title="music21.test.timeGraphs.TestMeasuresA"><tt class="xref py py-class docutils literal"><span class="pre">TestMeasuresA</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMeasuresA" title="music21.test.timeGraphs.TestMeasuresA"><tt class="xref py py-class docutils literal"><span class="pre">TestMeasuresA</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMeasuresA.testFocus">
+<tt class="descclassname">TestMeasuresA.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMeasuresA.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmeasuresb">
+<h2>TestMeasuresB<a class="headerlink" href="#testmeasuresb" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMeasuresB">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMeasuresB</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMeasuresB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMeasuresB" title="music21.test.timeGraphs.TestMeasuresB"><tt class="xref py py-class docutils literal"><span class="pre">TestMeasuresB</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMeasuresB" title="music21.test.timeGraphs.TestMeasuresB"><tt class="xref py py-class docutils literal"><span class="pre">TestMeasuresB</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMeasuresB.testFocus">
+<tt class="descclassname">TestMeasuresB.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMeasuresB.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmetadatabundle">
+<h2>TestMetadataBundle<a class="headerlink" href="#testmetadatabundle" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMetadataBundle">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMetadataBundle</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMetadataBundle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMetadataBundle" title="music21.test.timeGraphs.TestMetadataBundle"><tt class="xref py py-class docutils literal"><span class="pre">TestMetadataBundle</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMetadataBundle" title="music21.test.timeGraphs.TestMetadataBundle"><tt class="xref py py-class docutils literal"><span class="pre">TestMetadataBundle</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMetadataBundle.testFocus">
+<tt class="descclassname">TestMetadataBundle.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMetadataBundle.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmusicxmlmultipartoutput">
+<h2>TestMusicXMLMultiPartOutput<a class="headerlink" href="#testmusicxmlmultipartoutput" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMusicXMLMultiPartOutput">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMusicXMLMultiPartOutput</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMusicXMLMultiPartOutput" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMusicXMLMultiPartOutput" title="music21.test.timeGraphs.TestMusicXMLMultiPartOutput"><tt class="xref py py-class docutils literal"><span class="pre">TestMusicXMLMultiPartOutput</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMusicXMLMultiPartOutput" title="music21.test.timeGraphs.TestMusicXMLMultiPartOutput"><tt class="xref py py-class docutils literal"><span class="pre">TestMusicXMLMultiPartOutput</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMusicXMLMultiPartOutput.testFocus">
+<tt class="descclassname">TestMusicXMLMultiPartOutput.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMusicXMLMultiPartOutput.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmusicxmlobjecttypechecking">
+<h2>TestMusicXMLObjectTypeChecking<a class="headerlink" href="#testmusicxmlobjecttypechecking" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMusicXMLObjectTypeChecking">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMusicXMLObjectTypeChecking</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMusicXMLObjectTypeChecking" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMusicXMLObjectTypeChecking" title="music21.test.timeGraphs.TestMusicXMLObjectTypeChecking"><tt class="xref py py-class docutils literal"><span class="pre">TestMusicXMLObjectTypeChecking</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMusicXMLObjectTypeChecking" title="music21.test.timeGraphs.TestMusicXMLObjectTypeChecking"><tt class="xref py py-class docutils literal"><span class="pre">TestMusicXMLObjectTypeChecking</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMusicXMLObjectTypeChecking.testFocus">
+<tt class="descclassname">TestMusicXMLObjectTypeChecking.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMusicXMLObjectTypeChecking.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmusicxmloutput">
+<h2>TestMusicXMLOutput<a class="headerlink" href="#testmusicxmloutput" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMusicXMLOutput">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMusicXMLOutput</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMusicXMLOutput" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMusicXMLOutput" title="music21.test.timeGraphs.TestMusicXMLOutput"><tt class="xref py py-class docutils literal"><span class="pre">TestMusicXMLOutput</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMusicXMLOutput" title="music21.test.timeGraphs.TestMusicXMLOutput"><tt class="xref py py-class docutils literal"><span class="pre">TestMusicXMLOutput</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMusicXMLOutput.testFocus">
+<tt class="descclassname">TestMusicXMLOutput.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMusicXMLOutput.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmusicxmloutputparts">
+<h2>TestMusicXMLOutputParts<a class="headerlink" href="#testmusicxmloutputparts" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMusicXMLOutputParts">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMusicXMLOutputParts</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMusicXMLOutputParts" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tries to isolate a problem whereby part creation is much faster than score creation.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMusicXMLOutputParts" title="music21.test.timeGraphs.TestMusicXMLOutputParts"><tt class="xref py py-class docutils literal"><span class="pre">TestMusicXMLOutputParts</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMusicXMLOutputParts" title="music21.test.timeGraphs.TestMusicXMLOutputParts"><tt class="xref py py-class docutils literal"><span class="pre">TestMusicXMLOutputParts</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMusicXMLOutputParts.testFocus">
+<tt class="descclassname">TestMusicXMLOutputParts.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMusicXMLOutputParts.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testmusicxmloutputscore">
+<h2>TestMusicXMLOutputScore<a class="headerlink" href="#testmusicxmloutputscore" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestMusicXMLOutputScore">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestMusicXMLOutputScore</tt><a class="headerlink" href="#music21.test.timeGraphs.TestMusicXMLOutputScore" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tries to isolate a problem whereby part creation is much faster than score creation.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMusicXMLOutputScore" title="music21.test.timeGraphs.TestMusicXMLOutputScore"><tt class="xref py py-class docutils literal"><span class="pre">TestMusicXMLOutputScore</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestMusicXMLOutputScore" title="music21.test.timeGraphs.TestMusicXMLOutputScore"><tt class="xref py py-class docutils literal"><span class="pre">TestMusicXMLOutputScore</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestMusicXMLOutputScore.testFocus">
+<tt class="descclassname">TestMusicXMLOutputScore.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestMusicXMLOutputScore.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testparseabc">
+<h2>TestParseABC<a class="headerlink" href="#testparseabc" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestParseABC">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestParseABC</tt><a class="headerlink" href="#music21.test.timeGraphs.TestParseABC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestParseABC" title="music21.test.timeGraphs.TestParseABC"><tt class="xref py py-class docutils literal"><span class="pre">TestParseABC</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestParseABC" title="music21.test.timeGraphs.TestParseABC"><tt class="xref py py-class docutils literal"><span class="pre">TestParseABC</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestParseABC.testFocus">
+<tt class="descclassname">TestParseABC.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestParseABC.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testparserntext">
+<h2>TestParseRNText<a class="headerlink" href="#testparserntext" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestParseRNText">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestParseRNText</tt><a class="headerlink" href="#music21.test.timeGraphs.TestParseRNText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestParseRNText" title="music21.test.timeGraphs.TestParseRNText"><tt class="xref py py-class docutils literal"><span class="pre">TestParseRNText</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestParseRNText" title="music21.test.timeGraphs.TestParseRNText"><tt class="xref py py-class docutils literal"><span class="pre">TestParseRNText</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestParseRNText.testFocus">
+<tt class="descclassname">TestParseRNText.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestParseRNText.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testromantextparse">
+<h2>TestRomantextParse<a class="headerlink" href="#testromantextparse" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestRomantextParse">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestRomantextParse</tt><a class="headerlink" href="#music21.test.timeGraphs.TestRomantextParse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestRomantextParse" title="music21.test.timeGraphs.TestRomantextParse"><tt class="xref py py-class docutils literal"><span class="pre">TestRomantextParse</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.CallTest" title="music21.test.timeGraphs.CallTest"><tt class="xref py py-class docutils literal"><span class="pre">CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestRomantextParse" title="music21.test.timeGraphs.TestRomantextParse"><tt class="xref py py-class docutils literal"><span class="pre">TestRomantextParse</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestRomantextParse.testFocus">
+<tt class="descclassname">TestRomantextParse.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestRomantextParse.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testtimecapua1">
+<h2>TestTimeCapua1<a class="headerlink" href="#testtimecapua1" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestTimeCapua1">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestTimeCapua1</tt><a class="headerlink" href="#music21.test.timeGraphs.TestTimeCapua1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestTimeCapua1" title="music21.test.timeGraphs.TestTimeCapua1"><tt class="xref py py-class docutils literal"><span class="pre">TestTimeCapua1</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.M21CallTest" title="music21.test.timeGraphs.M21CallTest"><tt class="xref py py-class docutils literal"><span class="pre">M21CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestTimeCapua1" title="music21.test.timeGraphs.TestTimeCapua1"><tt class="xref py py-class docutils literal"><span class="pre">TestTimeCapua1</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestTimeCapua1.testFocus">
+<tt class="descclassname">TestTimeCapua1.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestTimeCapua1.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testtimecapua2">
+<h2>TestTimeCapua2<a class="headerlink" href="#testtimecapua2" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestTimeCapua2">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestTimeCapua2</tt><a class="headerlink" href="#music21.test.timeGraphs.TestTimeCapua2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestTimeCapua2" title="music21.test.timeGraphs.TestTimeCapua2"><tt class="xref py py-class docutils literal"><span class="pre">TestTimeCapua2</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.M21CallTest" title="music21.test.timeGraphs.M21CallTest"><tt class="xref py py-class docutils literal"><span class="pre">M21CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestTimeCapua2" title="music21.test.timeGraphs.TestTimeCapua2"><tt class="xref py py-class docutils literal"><span class="pre">TestTimeCapua2</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestTimeCapua2.testFocus">
+<tt class="descclassname">TestTimeCapua2.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestTimeCapua2.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testtimehumdrum">
+<h2>TestTimeHumdrum<a class="headerlink" href="#testtimehumdrum" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestTimeHumdrum">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestTimeHumdrum</tt><a class="headerlink" href="#music21.test.timeGraphs.TestTimeHumdrum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestTimeHumdrum" title="music21.test.timeGraphs.TestTimeHumdrum"><tt class="xref py py-class docutils literal"><span class="pre">TestTimeHumdrum</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.M21CallTest" title="music21.test.timeGraphs.M21CallTest"><tt class="xref py py-class docutils literal"><span class="pre">M21CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestTimeHumdrum" title="music21.test.timeGraphs.TestTimeHumdrum"><tt class="xref py py-class docutils literal"><span class="pre">TestTimeHumdrum</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestTimeHumdrum.testFocus">
+<tt class="descclassname">TestTimeHumdrum.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestTimeHumdrum.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testtimeismir">
+<h2>TestTimeIsmir<a class="headerlink" href="#testtimeismir" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestTimeIsmir">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestTimeIsmir</tt><a class="headerlink" href="#music21.test.timeGraphs.TestTimeIsmir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestTimeIsmir" title="music21.test.timeGraphs.TestTimeIsmir"><tt class="xref py py-class docutils literal"><span class="pre">TestTimeIsmir</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.M21CallTest" title="music21.test.timeGraphs.M21CallTest"><tt class="xref py py-class docutils literal"><span class="pre">M21CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestTimeIsmir" title="music21.test.timeGraphs.TestTimeIsmir"><tt class="xref py py-class docutils literal"><span class="pre">TestTimeIsmir</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestTimeIsmir.testFocus">
+<tt class="descclassname">TestTimeIsmir.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestTimeIsmir.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="testtimemozart">
+<h2>TestTimeMozart<a class="headerlink" href="#testtimemozart" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.TestTimeMozart">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">TestTimeMozart</tt><a class="headerlink" href="#music21.test.timeGraphs.TestTimeMozart" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestTimeMozart" title="music21.test.timeGraphs.TestTimeMozart"><tt class="xref py py-class docutils literal"><span class="pre">TestTimeMozart</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.test.timeGraphs.M21CallTest" title="music21.test.timeGraphs.M21CallTest"><tt class="xref py py-class docutils literal"><span class="pre">M21CallTest</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.TestTimeMozart" title="music21.test.timeGraphs.TestTimeMozart"><tt class="xref py py-class docutils literal"><span class="pre">TestTimeMozart</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.TestTimeMozart.testFocus">
+<tt class="descclassname">TestTimeMozart.</tt><tt class="descname">testFocus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.TestTimeMozart.testFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="timer">
+<h2>Timer<a class="headerlink" href="#timer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.test.timeGraphs.Timer">
+<em class="property">class </em><tt class="descclassname">music21.test.timeGraphs.</tt><tt class="descname">Timer</tt><a class="headerlink" href="#music21.test.timeGraphs.Timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object for timing.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.test.timeGraphs.Timer" title="music21.test.timeGraphs.Timer"><tt class="xref py py-class docutils literal"><span class="pre">Timer</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.test.timeGraphs.Timer.clear">
+<tt class="descclassname">Timer.</tt><tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.Timer.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.test.timeGraphs.Timer.start">
+<tt class="descclassname">Timer.</tt><tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.Timer.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Explicit start method; will clear previous values. Start always happens on initialization.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.test.timeGraphs.Timer.stop">
+<tt class="descclassname">Timer.</tt><tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.test.timeGraphs.Timer.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleTestToggleDebug.html" title="music21.test.toggleDebug"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleTestTimeGraphImportStar.html" title="music21.test.timeGraphImportStar"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

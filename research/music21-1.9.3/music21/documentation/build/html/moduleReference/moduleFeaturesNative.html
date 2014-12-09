@@ -1,0 +1,927 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.features.native &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.figuredBass.checker" href="moduleFiguredBassChecker.html" />
+    <link rel="prev" title="music21.features.jSymbolic" href="moduleFeaturesJSymbolic.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleFiguredBassChecker.html" title="music21.figuredBass.checker"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleFeaturesJSymbolic.html" title="music21.features.jSymbolic"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleFeaturesJSymbolic.html"
+                        title="previous chapter">music21.features.jSymbolic</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleFiguredBassChecker.html"
+                        title="next chapter">music21.figuredBass.checker</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.features.native</a><ul>
+<li><a class="reference internal" href="#chordbassmotionfeature">ChordBassMotionFeature</a></li>
+<li><a class="reference internal" href="#composerpopularity">ComposerPopularity</a></li>
+<li><a class="reference internal" href="#diminishedseventhsimultaneityprevalence">DiminishedSeventhSimultaneityPrevalence</a></li>
+<li><a class="reference internal" href="#diminishedtriadsimultaneityprevalence">DiminishedTriadSimultaneityPrevalence</a></li>
+<li><a class="reference internal" href="#dominantseventhsimultaneityprevalence">DominantSeventhSimultaneityPrevalence</a></li>
+<li><a class="reference internal" href="#firstbeatattackprevalence">FirstBeatAttackPrevalence</a></li>
+<li><a class="reference internal" href="#incorrectlyspelledtriadprevalence">IncorrectlySpelledTriadPrevalence</a></li>
+<li><a class="reference internal" href="#landinicadence">LandiniCadence</a></li>
+<li><a class="reference internal" href="#languagefeature">LanguageFeature</a></li>
+<li><a class="reference internal" href="#majortriadsimultaneityprevalence">MajorTriadSimultaneityPrevalence</a></li>
+<li><a class="reference internal" href="#minortriadsimultaneityprevalence">MinorTriadSimultaneityPrevalence</a></li>
+<li><a class="reference internal" href="#mostcommonnotequarterlength">MostCommonNoteQuarterLength</a></li>
+<li><a class="reference internal" href="#mostcommonnotequarterlengthprevalence">MostCommonNoteQuarterLengthPrevalence</a></li>
+<li><a class="reference internal" href="#mostcommonpitchclasssetsimultaneityprevalence">MostCommonPitchClassSetSimultaneityPrevalence</a></li>
+<li><a class="reference internal" href="#mostcommonsetclasssimultaneityprevalence">MostCommonSetClassSimultaneityPrevalence</a></li>
+<li><a class="reference internal" href="#qualityfeature">QualityFeature</a></li>
+<li><a class="reference internal" href="#rangeofnotequarterlengths">RangeOfNoteQuarterLengths</a></li>
+<li><a class="reference internal" href="#tonalcertainty">TonalCertainty</a></li>
+<li><a class="reference internal" href="#triadsimultaneityprevalence">TriadSimultaneityPrevalence</a></li>
+<li><a class="reference internal" href="#urlopenerui">URLOpenerUI</a></li>
+<li><a class="reference internal" href="#uniquenotequarterlengths">UniqueNoteQuarterLengths</a></li>
+<li><a class="reference internal" href="#uniquepitchclasssetsimultaneities">UniquePitchClassSetSimultaneities</a></li>
+<li><a class="reference internal" href="#uniquesetclasssimultaneities">UniqueSetClassSimultaneities</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleFeaturesNative.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-features-native">
+<span id="modulefeaturesnative"></span><h1>music21.features.native<a class="headerlink" href="#music21-features-native" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.features.native"></span><p>Original music21 feature extractors.</p>
+<div class="section" id="chordbassmotionfeature">
+<h2>ChordBassMotionFeature<a class="headerlink" href="#chordbassmotionfeature" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.ChordBassMotionFeature">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">ChordBassMotionFeature</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.ChordBassMotionFeature" title="Permalink to this definition">¶</a></dt>
+<dd><p>A twelve element feature that reports the fraction
+of all chord motion of music21.harmony.Harmony objects
+that move up by i-half-steps. (a half-step motion down would
+be stored in i = 11).  i = 0 is always 0.0 since consecutive
+chords on the same pitch are ignored (unless there are 0 or 1 harmonies, in which case it is 1)</p>
+<p>Sample test on the BlowinInTheWind, showing all motion is 3rds, 6ths, or especially 4ths and 5ths.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;demos/BlowinInTheWind&#39;</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">ChordBassMotionFeature</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span> 
+<span class="go">[0.0, 0.0, 0.0, 0.0416..., 0.0416..., 0.166..., 0.0, 0.54166..., 0.0, 0.0, 0.2083... 0.0]</span>
+</pre></div>
+</div>
+<p>For comparison, the Beatles Here Comes the Sun has more tone motion</p>
+<p>[0.0, 0.05..., 0.14..., 0.03..., 0.06..., 0.3..., 0.008..., 0.303..., 0.0, 0.0, 0.07..., 0.008...]</p>
+<p>Post 1990s music has a lot more semitone motion.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.ChordBassMotionFeature" title="music21.features.native.ChordBassMotionFeature"><tt class="xref py py-class docutils literal"><span class="pre">ChordBassMotionFeature</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.ChordBassMotionFeature" title="music21.features.native.ChordBassMotionFeature"><tt class="xref py py-class docutils literal"><span class="pre">ChordBassMotionFeature</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="composerpopularity">
+<h2>ComposerPopularity<a class="headerlink" href="#composerpopularity" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.ComposerPopularity">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">ComposerPopularity</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.ComposerPopularity" title="Permalink to this definition">¶</a></dt>
+<dd><p>composer&#8217;s popularity today, as measured by the number of
+Google search results (log-10)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;mozart/k155&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">ComposerPopularity</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">6.0</span> 
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.ComposerPopularity" title="music21.features.native.ComposerPopularity"><tt class="xref py py-class docutils literal"><span class="pre">ComposerPopularity</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.ComposerPopularity" title="music21.features.native.ComposerPopularity"><tt class="xref py py-class docutils literal"><span class="pre">ComposerPopularity</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="diminishedseventhsimultaneityprevalence">
+<h2>DiminishedSeventhSimultaneityPrevalence<a class="headerlink" href="#diminishedseventhsimultaneityprevalence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.DiminishedSeventhSimultaneityPrevalence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">DiminishedSeventhSimultaneityPrevalence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.DiminishedSeventhSimultaneityPrevalence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Percentage of all simultaneities that are diminished seventh chords.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">DiminishedSeventhSimultaneityPrevalence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span> 
+<span class="go">[0.0]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.DiminishedSeventhSimultaneityPrevalence" title="music21.features.native.DiminishedSeventhSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">DiminishedSeventhSimultaneityPrevalence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.DiminishedSeventhSimultaneityPrevalence" title="music21.features.native.DiminishedSeventhSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">DiminishedSeventhSimultaneityPrevalence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="diminishedtriadsimultaneityprevalence">
+<h2>DiminishedTriadSimultaneityPrevalence<a class="headerlink" href="#diminishedtriadsimultaneityprevalence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.DiminishedTriadSimultaneityPrevalence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">DiminishedTriadSimultaneityPrevalence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.DiminishedTriadSimultaneityPrevalence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Percentage of all simultaneities that are diminished triads.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv66.6&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">DiminishedTriadSimultaneityPrevalence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span> 
+<span class="go">[0.018867924528...]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.DiminishedTriadSimultaneityPrevalence" title="music21.features.native.DiminishedTriadSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">DiminishedTriadSimultaneityPrevalence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.DiminishedTriadSimultaneityPrevalence" title="music21.features.native.DiminishedTriadSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">DiminishedTriadSimultaneityPrevalence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="dominantseventhsimultaneityprevalence">
+<h2>DominantSeventhSimultaneityPrevalence<a class="headerlink" href="#dominantseventhsimultaneityprevalence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.DominantSeventhSimultaneityPrevalence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">DominantSeventhSimultaneityPrevalence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.DominantSeventhSimultaneityPrevalence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Percentage of all simultaneities that are dominant seventh.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">DominantSeventhSimultaneityPrevalence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span> 
+<span class="go">[0.0]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.DominantSeventhSimultaneityPrevalence" title="music21.features.native.DominantSeventhSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">DominantSeventhSimultaneityPrevalence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.DominantSeventhSimultaneityPrevalence" title="music21.features.native.DominantSeventhSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">DominantSeventhSimultaneityPrevalence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="firstbeatattackprevalence">
+<h2>FirstBeatAttackPrevalence<a class="headerlink" href="#firstbeatattackprevalence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.FirstBeatAttackPrevalence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">FirstBeatAttackPrevalence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.FirstBeatAttackPrevalence" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">FirstBeatAttackPrevalence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.FirstBeatAttackPrevalence" title="music21.features.native.FirstBeatAttackPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">FirstBeatAttackPrevalence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.FirstBeatAttackPrevalence" title="music21.features.native.FirstBeatAttackPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">FirstBeatAttackPrevalence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="incorrectlyspelledtriadprevalence">
+<h2>IncorrectlySpelledTriadPrevalence<a class="headerlink" href="#incorrectlyspelledtriadprevalence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.IncorrectlySpelledTriadPrevalence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">IncorrectlySpelledTriadPrevalence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.IncorrectlySpelledTriadPrevalence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Percentage of all triads that are spelled incorrectly.</p>
+<p>example:</p>
+<p>Mozart k155 movement 2 has a single instance of an incorrectly spelled
+triad (m. 17, where the C# of an A-major chord has a lower neighbor B#
+thus temporarily creating an incorrectly spelled A-minor chord).</p>
+<p>We would expect highly chromatic music such as Reger or Wagner to have
+a higher percentage, or automatically rendered MIDI
+transcriptions (which don&#8217;t distinguish between D# and Eb).</p>
+<p>(Aside to Mozart experts: shouldn&#8217;t m. 18 beat 2 also be B#? seems a
+mistake in most editions... &#8211; it doesn&#8217;t alter this analysis though
+since the A and E in the bass are gone)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;mozart/k155&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">IncorrectlySpelledTriadPrevalence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span> 
+<span class="go">[0.007...]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.IncorrectlySpelledTriadPrevalence" title="music21.features.native.IncorrectlySpelledTriadPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">IncorrectlySpelledTriadPrevalence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.IncorrectlySpelledTriadPrevalence" title="music21.features.native.IncorrectlySpelledTriadPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">IncorrectlySpelledTriadPrevalence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="landinicadence">
+<h2>LandiniCadence<a class="headerlink" href="#landinicadence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.LandiniCadence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">LandiniCadence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.LandiniCadence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a bolean if one or more Parts end with a Landini-like cadential figure.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.LandiniCadence" title="music21.features.native.LandiniCadence"><tt class="xref py py-class docutils literal"><span class="pre">LandiniCadence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.LandiniCadence" title="music21.features.native.LandiniCadence"><tt class="xref py py-class docutils literal"><span class="pre">LandiniCadence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="languagefeature">
+<h2>LanguageFeature<a class="headerlink" href="#languagefeature" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.LanguageFeature">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">LanguageFeature</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.LanguageFeature" title="Permalink to this definition">¶</a></dt>
+<dd><p>language of text as a number
+the number is the index of text.LanguageDetector.languageCodes + 1
+or 0 if there is no language.</p>
+<p>Detect that the language of &#8220;For unto us a child is born&#8221; is English.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;handel/hwv56/movement1-13.md&#39;</span><span class="p">)</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">LanguageFeature</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span>
+<span class="go">[1]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.LanguageFeature" title="music21.features.native.LanguageFeature"><tt class="xref py py-class docutils literal"><span class="pre">LanguageFeature</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.LanguageFeature" title="music21.features.native.LanguageFeature"><tt class="xref py py-class docutils literal"><span class="pre">LanguageFeature</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="majortriadsimultaneityprevalence">
+<h2>MajorTriadSimultaneityPrevalence<a class="headerlink" href="#majortriadsimultaneityprevalence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.MajorTriadSimultaneityPrevalence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">MajorTriadSimultaneityPrevalence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.MajorTriadSimultaneityPrevalence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Percentage of all simultaneities that are major triads.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">MajorTriadSimultaneityPrevalence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span>
+<span class="go">[0.1333333...]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MajorTriadSimultaneityPrevalence" title="music21.features.native.MajorTriadSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">MajorTriadSimultaneityPrevalence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MajorTriadSimultaneityPrevalence" title="music21.features.native.MajorTriadSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">MajorTriadSimultaneityPrevalence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="minortriadsimultaneityprevalence">
+<h2>MinorTriadSimultaneityPrevalence<a class="headerlink" href="#minortriadsimultaneityprevalence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.MinorTriadSimultaneityPrevalence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">MinorTriadSimultaneityPrevalence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.MinorTriadSimultaneityPrevalence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Percentage of all simultaneities that are minor triads.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">MinorTriadSimultaneityPrevalence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span> <span class="c"># same as major in this work</span>
+<span class="go">[0.13333333...]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MinorTriadSimultaneityPrevalence" title="music21.features.native.MinorTriadSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">MinorTriadSimultaneityPrevalence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MinorTriadSimultaneityPrevalence" title="music21.features.native.MinorTriadSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">MinorTriadSimultaneityPrevalence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="mostcommonnotequarterlength">
+<h2>MostCommonNoteQuarterLength<a class="headerlink" href="#mostcommonnotequarterlength" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.MostCommonNoteQuarterLength">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">MostCommonNoteQuarterLength</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.MostCommonNoteQuarterLength" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">MostCommonNoteQuarterLength</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span> 
+<span class="go">[0.5]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MostCommonNoteQuarterLength" title="music21.features.native.MostCommonNoteQuarterLength"><tt class="xref py py-class docutils literal"><span class="pre">MostCommonNoteQuarterLength</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MostCommonNoteQuarterLength" title="music21.features.native.MostCommonNoteQuarterLength"><tt class="xref py py-class docutils literal"><span class="pre">MostCommonNoteQuarterLength</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="mostcommonnotequarterlengthprevalence">
+<h2>MostCommonNoteQuarterLengthPrevalence<a class="headerlink" href="#mostcommonnotequarterlengthprevalence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.MostCommonNoteQuarterLengthPrevalence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">MostCommonNoteQuarterLengthPrevalence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.MostCommonNoteQuarterLengthPrevalence" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">MostCommonNoteQuarterLengthPrevalence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span> 
+<span class="go">[0.533333...]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MostCommonNoteQuarterLengthPrevalence" title="music21.features.native.MostCommonNoteQuarterLengthPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">MostCommonNoteQuarterLengthPrevalence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MostCommonNoteQuarterLengthPrevalence" title="music21.features.native.MostCommonNoteQuarterLengthPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">MostCommonNoteQuarterLengthPrevalence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="mostcommonpitchclasssetsimultaneityprevalence">
+<h2>MostCommonPitchClassSetSimultaneityPrevalence<a class="headerlink" href="#mostcommonpitchclasssetsimultaneityprevalence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.MostCommonPitchClassSetSimultaneityPrevalence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">MostCommonPitchClassSetSimultaneityPrevalence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.MostCommonPitchClassSetSimultaneityPrevalence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fraction of all pitch class simultaneities that are the most common simultaneity.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">MostCommonPitchClassSetSimultaneityPrevalence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span>
+<span class="go">[0.1333333333333...]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MostCommonPitchClassSetSimultaneityPrevalence" title="music21.features.native.MostCommonPitchClassSetSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">MostCommonPitchClassSetSimultaneityPrevalence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MostCommonPitchClassSetSimultaneityPrevalence" title="music21.features.native.MostCommonPitchClassSetSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">MostCommonPitchClassSetSimultaneityPrevalence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="mostcommonsetclasssimultaneityprevalence">
+<h2>MostCommonSetClassSimultaneityPrevalence<a class="headerlink" href="#mostcommonsetclasssimultaneityprevalence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.MostCommonSetClassSimultaneityPrevalence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">MostCommonSetClassSimultaneityPrevalence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.MostCommonSetClassSimultaneityPrevalence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fraction of all set class simultaneities that the most common simultaneity 
+occupies.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">MostCommonSetClassSimultaneityPrevalence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span>
+<span class="go">[0.43333333...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;schoenberg/opus19&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe2</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">MostCommonSetClassSimultaneityPrevalence</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe2</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span>
+<span class="go">[0.184...]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MostCommonSetClassSimultaneityPrevalence" title="music21.features.native.MostCommonSetClassSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">MostCommonSetClassSimultaneityPrevalence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.MostCommonSetClassSimultaneityPrevalence" title="music21.features.native.MostCommonSetClassSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">MostCommonSetClassSimultaneityPrevalence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="qualityfeature">
+<h2>QualityFeature<a class="headerlink" href="#qualityfeature" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.QualityFeature">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">QualityFeature</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.QualityFeature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends the jSymbolic QualityFeature to automatically find mode</p>
+<p>Set to 0 if the key signature indicates that 
+a recording is major, set to 1 if it indicates 
+that it is minor.  A Music21
+addition: if no key mode is found in the piece, analyze the piece to
+discover what mode it is most likely in.</p>
+<p>Example: Mozart k155, mvmt 2 (musicxml) is explicitly encoded as being in Major:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mozart155mvmt2</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;mozart/k155&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">QualityFeature</span><span class="p">(</span><span class="n">mozart155mvmt2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">vector</span>
+<span class="go">[0]</span>
+</pre></div>
+</div>
+<p>now we will try it with the last movement of Schoenberg&#8217;s opus 19 which has
+no mode explicitly encoded in the musicxml but which our analysis routines
+believe (having very little to go on) fits the profile of e-minor best.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">schoenberg19mvmt6</span><span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;schoenberg/opus19&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe2</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">QualityFeature</span><span class="p">(</span><span class="n">schoenberg19mvmt6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span> <span class="o">=</span> <span class="n">fe2</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span><span class="o">.</span><span class="n">vector</span>
+<span class="go">[1]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.QualityFeature" title="music21.features.native.QualityFeature"><tt class="xref py py-class docutils literal"><span class="pre">QualityFeature</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.QualityFeature" title="music21.features.native.QualityFeature"><tt class="xref py py-class docutils literal"><span class="pre">QualityFeature</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="rangeofnotequarterlengths">
+<h2>RangeOfNoteQuarterLengths<a class="headerlink" href="#rangeofnotequarterlengths" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.RangeOfNoteQuarterLengths">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">RangeOfNoteQuarterLengths</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.RangeOfNoteQuarterLengths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Difference between the longest and shortest quarter lengths.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">RangeOfNoteQuarterLengths</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span> 
+<span class="go">[3.75]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.RangeOfNoteQuarterLengths" title="music21.features.native.RangeOfNoteQuarterLengths"><tt class="xref py py-class docutils literal"><span class="pre">RangeOfNoteQuarterLengths</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.RangeOfNoteQuarterLengths" title="music21.features.native.RangeOfNoteQuarterLengths"><tt class="xref py py-class docutils literal"><span class="pre">RangeOfNoteQuarterLengths</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="tonalcertainty">
+<h2>TonalCertainty<a class="headerlink" href="#tonalcertainty" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.TonalCertainty">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">TonalCertainty</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.TonalCertainty" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">TonalCertainty</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">vector</span>
+<span class="go">[1.18093058...]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.TonalCertainty" title="music21.features.native.TonalCertainty"><tt class="xref py py-class docutils literal"><span class="pre">TonalCertainty</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.TonalCertainty" title="music21.features.native.TonalCertainty"><tt class="xref py py-class docutils literal"><span class="pre">TonalCertainty</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="triadsimultaneityprevalence">
+<h2>TriadSimultaneityPrevalence<a class="headerlink" href="#triadsimultaneityprevalence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.TriadSimultaneityPrevalence">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">TriadSimultaneityPrevalence</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.TriadSimultaneityPrevalence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives the proportion of all simultaneities which form triads (major,
+minor, diminished, or augmented)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv66.6&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">TriadSimultaneityPrevalence</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span> 
+<span class="go">[0.71698...]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;schoenberg/opus19&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe2</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">TriadSimultaneityPrevalence</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe2</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span>
+<span class="go">[0.022727...]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.TriadSimultaneityPrevalence" title="music21.features.native.TriadSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">TriadSimultaneityPrevalence</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.TriadSimultaneityPrevalence" title="music21.features.native.TriadSimultaneityPrevalence"><tt class="xref py py-class docutils literal"><span class="pre">TriadSimultaneityPrevalence</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="urlopenerui">
+<h2>URLOpenerUI<a class="headerlink" href="#urlopenerui" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.URLOpenerUI">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">URLOpenerUI</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#music21.features.native.URLOpenerUI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="uniquenotequarterlengths">
+<h2>UniqueNoteQuarterLengths<a class="headerlink" href="#uniquenotequarterlengths" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.UniqueNoteQuarterLengths">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">UniqueNoteQuarterLengths</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.UniqueNoteQuarterLengths" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">UniqueNoteQuarterLengths</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span> 
+<span class="go">[7]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.UniqueNoteQuarterLengths" title="music21.features.native.UniqueNoteQuarterLengths"><tt class="xref py py-class docutils literal"><span class="pre">UniqueNoteQuarterLengths</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.UniqueNoteQuarterLengths" title="music21.features.native.UniqueNoteQuarterLengths"><tt class="xref py py-class docutils literal"><span class="pre">UniqueNoteQuarterLengths</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="uniquepitchclasssetsimultaneities">
+<h2>UniquePitchClassSetSimultaneities<a class="headerlink" href="#uniquepitchclasssetsimultaneities" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.UniquePitchClassSetSimultaneities">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">UniquePitchClassSetSimultaneities</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.UniquePitchClassSetSimultaneities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of unique pitch class simultaneities.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">UniquePitchClassSetSimultaneities</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span>
+<span class="go">[16]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.UniquePitchClassSetSimultaneities" title="music21.features.native.UniquePitchClassSetSimultaneities"><tt class="xref py py-class docutils literal"><span class="pre">UniquePitchClassSetSimultaneities</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.UniquePitchClassSetSimultaneities" title="music21.features.native.UniquePitchClassSetSimultaneities"><tt class="xref py py-class docutils literal"><span class="pre">UniquePitchClassSetSimultaneities</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="uniquesetclasssimultaneities">
+<h2>UniqueSetClassSimultaneities<a class="headerlink" href="#uniquesetclasssimultaneities" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.features.native.UniqueSetClassSimultaneities">
+<em class="property">class </em><tt class="descclassname">music21.features.native.</tt><tt class="descname">UniqueSetClassSimultaneities</tt><big>(</big><em>dataOrStream=None</em>, <em>*arguments</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.features.native.UniqueSetClassSimultaneities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of unique set class simultaneities.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;hwv56/movement3-05.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span> <span class="o">=</span> <span class="n">features</span><span class="o">.</span><span class="n">native</span><span class="o">.</span><span class="n">UniqueSetClassSimultaneities</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fe</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span><span class="o">.</span><span class="n">vector</span>
+<span class="go">[5]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.features.native.UniqueSetClassSimultaneities" title="music21.features.native.UniqueSetClassSimultaneities"><tt class="xref py py-class docutils literal"><span class="pre">UniqueSetClassSimultaneities</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.features.native.UniqueSetClassSimultaneities" title="music21.features.native.UniqueSetClassSimultaneities"><tt class="xref py py-class docutils literal"><span class="pre">UniqueSetClassSimultaneities</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor" title="music21.features.base.FeatureExtractor"><tt class="xref py py-class docutils literal"><span class="pre">FeatureExtractor</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.extract" title="music21.features.base.FeatureExtractor.extract"><tt class="xref py py-meth docutils literal"><span class="pre">extract()</span></tt></a></li>
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getAttributeLabels" title="music21.features.base.FeatureExtractor.getAttributeLabels"><tt class="xref py py-meth docutils literal"><span class="pre">getAttributeLabels()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.getBlankFeature" title="music21.features.base.FeatureExtractor.getBlankFeature"><tt class="xref py py-meth docutils literal"><span class="pre">getBlankFeature()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleFeaturesBase.html#music21.features.base.FeatureExtractor.setData" title="music21.features.base.FeatureExtractor.setData"><tt class="xref py py-meth docutils literal"><span class="pre">setData()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleFiguredBassChecker.html" title="music21.figuredBass.checker"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleFeaturesJSymbolic.html" title="music21.features.jSymbolic"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

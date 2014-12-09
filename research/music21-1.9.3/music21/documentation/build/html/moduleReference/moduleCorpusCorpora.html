@@ -1,0 +1,838 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.corpus.corpora &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.corpus.virtual" href="moduleCorpusVirtual.html" />
+    <link rel="prev" title="music21.corpus.chorales" href="moduleCorpusChorales.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleCorpusVirtual.html" title="music21.corpus.virtual"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleCorpusChorales.html" title="music21.corpus.chorales"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleCorpusChorales.html"
+                        title="previous chapter">music21.corpus.chorales</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleCorpusVirtual.html"
+                        title="next chapter">music21.corpus.virtual</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.corpus.corpora</a><ul>
+<li><a class="reference internal" href="#corpus">Corpus</a></li>
+<li><a class="reference internal" href="#corecorpus">CoreCorpus</a></li>
+<li><a class="reference internal" href="#localcorpus">LocalCorpus</a></li>
+<li><a class="reference internal" href="#virtualcorpus">VirtualCorpus</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleCorpusCorpora.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-corpus-corpora">
+<span id="modulecorpuscorpora"></span><h1>music21.corpus.corpora<a class="headerlink" href="#music21-corpus-corpora" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.corpus.corpora"></span><div class="section" id="corpus">
+<h2>Corpus<a class="headerlink" href="#corpus" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.corpora.Corpus">
+<em class="property">class </em><tt class="descclassname">music21.corpus.corpora.</tt><tt class="descname">Corpus</tt><a class="headerlink" href="#music21.corpus.corpora.Corpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract base class of all corpora subclasses.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.Corpus" title="music21.corpus.corpora.Corpus"><tt class="xref py py-class docutils literal"><span class="pre">Corpus</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.corpus.corpora.Corpus.metadataBundle">
+<tt class="descclassname">Corpus.</tt><tt class="descname">metadataBundle</tt><a class="headerlink" href="#music21.corpus.corpora.Corpus.metadataBundle" title="Permalink to this definition">¶</a></dt>
+<dd><p>The metadata bundle for a corpus:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span><span class="o">.</span><span class="n">metadataBundle</span>
+<span class="go">&lt;music21.metadata.bundles.MetadataBundle &#39;core&#39;: {14958 entries}&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.corpus.corpora.Corpus.name">
+<tt class="descclassname">Corpus.</tt><tt class="descname">name</tt><a class="headerlink" href="#music21.corpus.corpora.Corpus.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of a given corpus.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.Corpus" title="music21.corpus.corpora.Corpus"><tt class="xref py py-class docutils literal"><span class="pre">Corpus</span></tt></a> methods</p>
+<dl class="staticmethod">
+<dt id="music21.corpus.corpora.Corpus.fromName">
+<em class="property">static </em><tt class="descclassname">Corpus.</tt><tt class="descname">fromName</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.Corpus.fromName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate a specific corpus based on <cite>name</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">Corpus</span><span class="o">.</span><span class="n">fromName</span><span class="p">(</span><span class="s">&#39;core&#39;</span><span class="p">)</span>
+<span class="go">&lt;music21.corpus.corpora.CoreCorpus&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">Corpus</span><span class="o">.</span><span class="n">fromName</span><span class="p">(</span><span class="s">&#39;virtual&#39;</span><span class="p">)</span>
+<span class="go">&lt;music21.corpus.corpora.VirtualCorpus&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">Corpus</span><span class="o">.</span><span class="n">fromName</span><span class="p">(</span><span class="s">&#39;local&#39;</span><span class="p">)</span>
+<span class="go">&lt;music21.corpus.corpora.LocalCorpus: &#39;local&#39;&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">Corpus</span><span class="o">.</span><span class="n">fromName</span><span class="p">(</span><span class="s">&#39;test&#39;</span><span class="p">)</span>
+<span class="go">&lt;music21.corpus.corpora.LocalCorpus: &#39;test&#39;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.Corpus.getPaths">
+<tt class="descclassname">Corpus.</tt><tt class="descname">getPaths</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.corpus.corpora.Corpus.getPaths" title="Permalink to this definition">¶</a></dt>
+<dd><p>The paths of the files in a given corpus.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="music21.corpus.corpora.Corpus.listSearchFields">
+<em class="property">static </em><tt class="descclassname">Corpus.</tt><tt class="descname">listSearchFields</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.corpus.corpora.Corpus.listSearchFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all available search field names:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">corpus</span><span class="o">.</span><span class="n">Corpus</span><span class="o">.</span><span class="n">listSearchFields</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">field</span>
+<span class="gp">...</span>
+<span class="go">&#39;alternativeTitle&#39;</span>
+<span class="go">&#39;ambitus&#39;</span>
+<span class="go">&#39;composer&#39;</span>
+<span class="go">&#39;date&#39;</span>
+<span class="go">&#39;keySignatureFirst&#39;</span>
+<span class="go">&#39;keySignatures&#39;</span>
+<span class="go">&#39;localeOfComposition&#39;</span>
+<span class="go">&#39;movementName&#39;</span>
+<span class="go">&#39;movementNumber&#39;</span>
+<span class="go">&#39;noteCount&#39;</span>
+<span class="go">&#39;number&#39;</span>
+<span class="go">&#39;opusNumber&#39;</span>
+<span class="go">&#39;pitchHighest&#39;</span>
+<span class="go">&#39;pitchLowest&#39;</span>
+<span class="go">&#39;quarterLength&#39;</span>
+<span class="go">&#39;tempoFirst&#39;</span>
+<span class="go">&#39;tempos&#39;</span>
+<span class="go">&#39;timeSignatureFirst&#39;</span>
+<span class="go">&#39;timeSignatures&#39;</span>
+<span class="go">&#39;title&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="music21.corpus.corpora.Corpus.parse">
+<em class="property">static </em><tt class="descclassname">Corpus.</tt><tt class="descname">parse</tt><big>(</big><em>workName</em>, <em>movementNumber=None</em>, <em>number=None</em>, <em>fileExtensions=None</em>, <em>forceSource=False</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.Corpus.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>The most important method call for corpus.</p>
+<p>Similar to the <a class="reference internal" href="moduleConverter.html#music21.converter.parse" title="music21.converter.parse"><tt class="xref py py-meth docutils literal"><span class="pre">parse()</span></tt></a> method of converter
+(which takes in a filepath on the local hard drive), this method
+searches the corpus (including the virtual corpus) for a work fitting
+the workName description and returns a <a class="reference internal" href="moduleStream.html#music21.stream.Stream" title="music21.stream.Stream"><tt class="xref py py-class docutils literal"><span class="pre">music21.stream.Stream</span></tt></a>.</p>
+<p>If <cite>movementNumber</cite> is defined, and a movement is included in the
+corpus, that movement will be returned.</p>
+<p>If <cite>number</cite> is defined, and the work is a collection with multiple
+components, that work number will be returned.  For instance, some of
+our ABC documents contain dozens of folk songs within a single file.</p>
+<p>Advanced: if <cite>forceSource</cite> is True, the original file will always be
+loaded freshly and pickled (e.g., pre-parsed) files will be ignored.
+This should not be needed if the file has been changed, since the
+filetime of the file and the filetime of the pickled version are
+compared.  But it might be needed if the music21 parsing routine has
+changed.</p>
+<p>Example, get a chorale by Bach.  Note that the source type does not
+need to be specified, nor does the name Bach even (since it&#8217;s the only
+piece with the title BWV 66.6)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bachChorale</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">Corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv66.6&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">bachChorale</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>After parsing, the file path within the corpus is stored as
+<tt class="docutils literal"><span class="pre">.corpusFilePath</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bachChorale</span><span class="o">.</span><span class="n">corpusFilepath</span>
+<span class="go">u&#39;bach/bwv66.6.mxl&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="music21.corpus.corpora.Corpus.search">
+<em class="property">static </em><tt class="descclassname">Corpus.</tt><tt class="descname">search</tt><big>(</big><em>query</em>, <em>field=None</em>, <em>corpusNames=None</em>, <em>fileExtensions=None</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.Corpus.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search all stored metadata bundles and return a list of file paths.</p>
+<p>The <tt class="docutils literal"><span class="pre">names</span></tt> parameter can be used to specify which corpora to search,
+for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">Corpus</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s">&#39;bach&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">corpusNames</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;core&#39;</span><span class="p">,</span> <span class="s">&#39;virtual&#39;</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="go">&lt;music21.metadata.bundles.MetadataBundle {150 entries}&gt;</span>
+</pre></div>
+</div>
+<p>If <tt class="docutils literal"><span class="pre">names</span></tt> is None, all corpora known to music21 will be searched.</p>
+<p>This method uses stored metadata and thus, on first usage, will incur a
+performance penalty during metadata loading.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.Corpus.updateMetadataBundle">
+<tt class="descclassname">Corpus.</tt><tt class="descname">updateMetadataBundle</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.corpus.corpora.Corpus.updateMetadataBundle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a corpus&#8217; metadata bundle from its stored JSON file on disk.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="corecorpus">
+<h2>CoreCorpus<a class="headerlink" href="#corecorpus" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.corpora.CoreCorpus">
+<em class="property">class </em><tt class="descclassname">music21.corpus.corpora.</tt><tt class="descname">CoreCorpus</tt><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>A model of the <em>core</em> corpus.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.CoreCorpus" title="music21.corpus.corpora.CoreCorpus"><tt class="xref py py-class docutils literal"><span class="pre">CoreCorpus</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus" title="music21.corpus.corpora.Corpus"><tt class="xref py py-class docutils literal"><span class="pre">Corpus</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.CoreCorpus" title="music21.corpus.corpora.CoreCorpus"><tt class="xref py py-class docutils literal"><span class="pre">CoreCorpus</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.corpus.corpora.CoreCorpus.name">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">name</tt><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.corpus.corpora.CoreCorpus.noCorpus">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">noCorpus</tt><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.noCorpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True or False if this is a <cite>corpus</cite> or <cite>noCoprus</cite> distribution.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span><span class="o">.</span><span class="n">noCorpus</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.corpus.corpora.Corpus" title="music21.corpus.corpora.Corpus"><tt class="xref py py-class docutils literal"><span class="pre">Corpus</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.metadataBundle" title="music21.corpus.corpora.Corpus.metadataBundle"><tt class="xref py py-attr docutils literal"><span class="pre">metadataBundle</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.CoreCorpus" title="music21.corpus.corpora.CoreCorpus"><tt class="xref py py-class docutils literal"><span class="pre">CoreCorpus</span></tt></a> read/write properties</p>
+<dl class="attribute">
+<dt id="music21.corpus.corpora.CoreCorpus.manualCoreCorpusPath">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">manualCoreCorpusPath</tt><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.manualCoreCorpusPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set music21&#8217;s core corpus to a directory, and save that information in
+the user settings.</p>
+<p>This is specifically for use with &#8220;no corpus&#8221; music21 packages, where
+the core corpus was not included with the rest of the package
+functionality, and had to be installed separately.</p>
+<p>Set it to a directory:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">manualCoreCorpusPath</span> <span class="o">=</span> <span class="s">&#39;~/Desktop&#39;</span>
+</pre></div>
+</div>
+<p>Unset it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">manualCoreCorpusPath</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">manualCoreCorpusPath</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.CoreCorpus" title="music21.corpus.corpora.CoreCorpus"><tt class="xref py py-class docutils literal"><span class="pre">CoreCorpus</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.corpus.corpora.CoreCorpus.getBachChorales">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">getBachChorales</tt><big>(</big><em>fileExtensions='xml'</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.getBachChorales" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the file name of all Bach chorales.</p>
+<p>By default, only Bach Chorales in xml format are returned, because the
+quality of the encoding and our parsing of those is superior.</p>
+<p>N.B. Look at the module corpus.chorales for many better ways to work
+with the chorales.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getBachChorales</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">400</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getBachChorales</span><span class="p">(</span><span class="s">&#39;krn&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getBachChorales</span><span class="p">(</span><span class="s">&#39;xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">400</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">u&#39;/Users/cuthbert/Documents/music21/corpus/bach/bwv1.6.mxl&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.CoreCorpus.getBeethovenStringQuartets">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">getBeethovenStringQuartets</tt><big>(</big><em>fileExtensions=None</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.getBeethovenStringQuartets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all Beethoven String Quartet filenames.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getBeethovenStringQuartets</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getBeethovenStringQuartets</span><span class="p">(</span><span class="s">&#39;krn&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getBeethovenStringQuartets</span><span class="p">(</span><span class="s">&#39;xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">400</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.CoreCorpus.getComposer">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">getComposer</tt><big>(</big><em>composerName</em>, <em>fileExtensions=None</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.getComposer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all filenames in the corpus that match a composer&#8217;s or a
+collection&#8217;s name. An <cite>fileExtensions</cite>, if provided, defines which
+extensions are returned. An <cite>fileExtensions</cite> of None (default) returns
+all extensions.</p>
+<p>Note that xml and mxl are treated equivalently.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getComposer</span><span class="p">(</span><span class="s">&#39;beethoven&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getComposer</span><span class="p">(</span><span class="s">&#39;mozart&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getComposer</span><span class="p">(</span><span class="s">&#39;bach&#39;</span><span class="p">,</span> <span class="s">&#39;krn&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getComposer</span><span class="p">(</span><span class="s">&#39;bach&#39;</span><span class="p">,</span> <span class="s">&#39;xml&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.CoreCorpus.getComposerDirectoryPath">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">getComposerDirectoryPath</tt><big>(</big><em>composerName</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.getComposerDirectoryPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the name of a composer, get the path to the top-level directory
+of that composer:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getComposerDirectoryPath</span><span class="p">(</span><span class="s">&#39;beethoven&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;corpus&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="s">&#39;beethoven&#39;</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getComposerDirectoryPath</span><span class="p">(</span><span class="s">&#39;bach&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;corpus&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="s">&#39;bach&#39;</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getComposerDirectoryPath</span><span class="p">(</span><span class="s">&#39;mozart&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;corpus&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="s">&#39;mozart&#39;</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.CoreCorpus.getHandelMessiah">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">getHandelMessiah</tt><big>(</big><em>fileExtensions='md'</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.getHandelMessiah" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the filenames of all parts of Handel&#8217;s Messiah:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getHandelMessiah</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">43</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.CoreCorpus.getMonteverdiMadrigals">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">getMonteverdiMadrigals</tt><big>(</big><em>fileExtensions='xml'</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.getMonteverdiMadrigals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the filenames of all Monteverdi madrigals.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getMonteverdiMadrigals</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">40</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.CoreCorpus.getPaths">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">getPaths</tt><big>(</big><em>fileExtensions=None</em>, <em>expandExtensions=True</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.getPaths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all paths in the core corpus that match a known extension, or an
+extenion provided by an argument.</p>
+<p>If <cite>expandExtensions</cite> is True, a format for an extension, and related
+extensions, will replaced by all known input extensions.</p>
+<p>This is convenient when an input format might match for multiple
+extensions.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpusFilePaths</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getPaths</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">corpusFilePaths</span><span class="p">)</span>
+<span class="go">3045</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">kernFilePaths</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getPaths</span><span class="p">(</span><span class="s">&#39;krn&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">kernFilePaths</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">500</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">abcFilePaths</span> <span class="o">=</span> <span class="n">coreCorpus</span><span class="o">.</span><span class="n">getPaths</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">abcFilePaths</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">100</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.CoreCorpus.getWorkList">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">getWorkList</tt><big>(</big><em>workName</em>, <em>movementNumber=None</em>, <em>fileExtensions=None</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.getWorkList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the corpus and return a list of filenames of works, always in a
+list.</p>
+<p>If no matches are found, an empty list is returned.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">coreCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">getWorkList</span><span class="p">(</span><span class="s">&#39;beethoven/opus18no1&#39;</span><span class="p">))</span>
+<span class="go">8</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">getWorkList</span><span class="p">(</span><span class="s">&#39;beethoven/opus18no1&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">getWorkList</span><span class="p">(</span><span class="s">&#39;beethoven/opus18no1&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;.krn&#39;</span><span class="p">))</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">getWorkList</span><span class="p">(</span><span class="s">&#39;beethoven/opus18no1&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;.xml&#39;</span><span class="p">))</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">getWorkList</span><span class="p">(</span><span class="s">&#39;beethoven/opus18no1&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;.xml&#39;</span><span class="p">))</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">getWorkList</span><span class="p">(</span><span class="s">&#39;handel/hwv56&#39;</span><span class="p">,</span> <span class="s">&#39;1-02&#39;</span><span class="p">,</span> <span class="s">&#39;.md&#39;</span><span class="p">))</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">getWorkList</span><span class="p">(</span><span class="s">&#39;handel/hwv56&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s">&#39;.md&#39;</span><span class="p">))</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">getWorkList</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s">&#39;bach/artOfFugue_bwv1080&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;.md&#39;</span><span class="p">))</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>Make sure that &#8216;verdi&#8217; just gets the single Verdi piece and not the
+Monteverdi pieces:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">coreCorpus</span><span class="o">.</span><span class="n">getWorkList</span><span class="p">(</span><span class="s">&#39;verdi&#39;</span><span class="p">))</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.CoreCorpus.search">
+<tt class="descclassname">CoreCorpus.</tt><tt class="descname">search</tt><big>(</big><em>query</em>, <em>field=None</em>, <em>fileExtensions=None</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.CoreCorpus.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the core corpus for metadata entries:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;3/4&#39;</span><span class="p">)</span>
+<span class="go">&lt;music21.metadata.bundles.MetadataBundle {2012 entries}&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+<span class="gp">... </span>     <span class="s">&#39;bach&#39;</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="n">field</span><span class="o">=</span><span class="s">&#39;composer&#39;</span><span class="p">,</span>
+<span class="gp">... </span>     <span class="p">)</span>
+<span class="go">&lt;music21.metadata.bundles.MetadataBundle {21 entries}&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">predicate</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">noteCount</span><span class="p">:</span> <span class="n">noteCount</span> <span class="o">&lt;</span> <span class="mi">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">CoreCorpus</span><span class="p">()</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">predicate</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">field</span><span class="o">=</span><span class="s">&#39;noteCount&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="go">&lt;music21.metadata.bundles.MetadataBundle {131 entries}&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.corpora.Corpus" title="music21.corpus.corpora.Corpus"><tt class="xref py py-class docutils literal"><span class="pre">Corpus</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.fromName" title="music21.corpus.corpora.Corpus.fromName"><tt class="xref py py-meth docutils literal"><span class="pre">fromName()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.listSearchFields" title="music21.corpus.corpora.Corpus.listSearchFields"><tt class="xref py py-meth docutils literal"><span class="pre">listSearchFields()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.parse" title="music21.corpus.corpora.Corpus.parse"><tt class="xref py py-meth docutils literal"><span class="pre">parse()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.updateMetadataBundle" title="music21.corpus.corpora.Corpus.updateMetadataBundle"><tt class="xref py py-meth docutils literal"><span class="pre">updateMetadataBundle()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="localcorpus">
+<h2>LocalCorpus<a class="headerlink" href="#localcorpus" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.corpora.LocalCorpus">
+<em class="property">class </em><tt class="descclassname">music21.corpus.corpora.</tt><tt class="descname">LocalCorpus</tt><big>(</big><em>name=None</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.LocalCorpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>A model of a <em>local</em> corpus.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">localCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">LocalCorpus</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The default local corpus is unnamed, but an arbitrary number of
+independent, named local corpora can be defined and persisted:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">namedLocalCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">LocalCorpus</span><span class="p">(</span><span class="s">&#39;with a name&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.LocalCorpus" title="music21.corpus.corpora.LocalCorpus"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorpus</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus" title="music21.corpus.corpora.Corpus"><tt class="xref py py-class docutils literal"><span class="pre">Corpus</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.LocalCorpus" title="music21.corpus.corpora.LocalCorpus"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorpus</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.corpus.corpora.LocalCorpus.directoryPaths">
+<tt class="descclassname">LocalCorpus.</tt><tt class="descname">directoryPaths</tt><a class="headerlink" href="#music21.corpus.corpora.LocalCorpus.directoryPaths" title="Permalink to this definition">¶</a></dt>
+<dd><p>The directory paths in use by a given local corpus.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.corpus.corpora.LocalCorpus.existsInSettings">
+<tt class="descclassname">LocalCorpus.</tt><tt class="descname">existsInSettings</tt><a class="headerlink" href="#music21.corpus.corpora.LocalCorpus.existsInSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if this local corpus has a corresponding entry in music21&#8217;s user
+settings, otherwise false.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.corpus.corpora.LocalCorpus.name">
+<tt class="descclassname">LocalCorpus.</tt><tt class="descname">name</tt><a class="headerlink" href="#music21.corpus.corpora.LocalCorpus.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of a given local corpus.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">LocalCorpus</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;local&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">LocalCorpus</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;Bach Chorales&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;Bach Chorales&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.corpus.corpora.Corpus" title="music21.corpus.corpora.Corpus"><tt class="xref py py-class docutils literal"><span class="pre">Corpus</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.metadataBundle" title="music21.corpus.corpora.Corpus.metadataBundle"><tt class="xref py py-attr docutils literal"><span class="pre">metadataBundle</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.LocalCorpus" title="music21.corpus.corpora.LocalCorpus"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorpus</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.corpus.corpora.LocalCorpus.addPath">
+<tt class="descclassname">LocalCorpus.</tt><tt class="descname">addPath</tt><big>(</big><em>directoryPath</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.LocalCorpus.addPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a directory path to a local corpus:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">localCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">LocalCorpus</span><span class="p">(</span><span class="s">&#39;a new corpus&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">localCorpus</span><span class="o">.</span><span class="n">addPath</span><span class="p">(</span><span class="s">&#39;~/Desktop&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Paths added in this way will not be persisted from session to session
+unless explicitly saved by a call to <tt class="docutils literal"><span class="pre">LocalCorpus.save()</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.LocalCorpus.delete">
+<tt class="descclassname">LocalCorpus.</tt><tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.corpus.corpora.LocalCorpus.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a non-default local corpus from the user settings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.LocalCorpus.getPaths">
+<tt class="descclassname">LocalCorpus.</tt><tt class="descname">getPaths</tt><big>(</big><em>fileExtensions=None</em>, <em>expandExtensions=True</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.LocalCorpus.getPaths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Access files in additional directories supplied by the user and defined
+in environment settings in the &#8216;localCorpusSettings&#8217; list.</p>
+<p>If additional paths are added on a per-session basis with the
+<a class="reference internal" href="moduleCorpus.html#music21.corpus.addPath" title="music21.corpus.addPath"><tt class="xref py py-func docutils literal"><span class="pre">addPath()</span></tt></a> function, these paths are also returned
+with this method.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="music21.corpus.corpora.LocalCorpus.listLocalCorporaNames">
+<em class="property">static </em><tt class="descclassname">LocalCorpus.</tt><tt class="descname">listLocalCorporaNames</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.corpus.corpora.LocalCorpus.listLocalCorporaNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the names of all user-defined local corpora.</p>
+<p>The entry for None refers to the default local corpus.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.LocalCorpus.removePath">
+<tt class="descclassname">LocalCorpus.</tt><tt class="descname">removePath</tt><big>(</big><em>directoryPath</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.LocalCorpus.removePath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a directory path from a local corpus.</p>
+<p>If that path is included in the list of persisted paths for the given
+corpus, it will be removed permanently.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.LocalCorpus.save">
+<tt class="descclassname">LocalCorpus.</tt><tt class="descname">save</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.corpus.corpora.LocalCorpus.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the current list of directory paths in use by a given corpus in
+the user settings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.LocalCorpus.search">
+<tt class="descclassname">LocalCorpus.</tt><tt class="descname">search</tt><big>(</big><em>query</em>, <em>field=None</em>, <em>fileExtensions=None</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.LocalCorpus.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search a local corpus.</p>
+<p>See <a class="reference internal" href="#music21.corpus.corpora.Corpus.search" title="music21.corpus.corpora.Corpus.search"><tt class="xref py py-class docutils literal"><span class="pre">music21.corpus.corpora.Corpus.search</span></tt></a> for examples, as
+the interface is the same.</p>
+</dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.corpora.Corpus" title="music21.corpus.corpora.Corpus"><tt class="xref py py-class docutils literal"><span class="pre">Corpus</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.fromName" title="music21.corpus.corpora.Corpus.fromName"><tt class="xref py py-meth docutils literal"><span class="pre">fromName()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.listSearchFields" title="music21.corpus.corpora.Corpus.listSearchFields"><tt class="xref py py-meth docutils literal"><span class="pre">listSearchFields()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.parse" title="music21.corpus.corpora.Corpus.parse"><tt class="xref py py-meth docutils literal"><span class="pre">parse()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.updateMetadataBundle" title="music21.corpus.corpora.Corpus.updateMetadataBundle"><tt class="xref py py-meth docutils literal"><span class="pre">updateMetadataBundle()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="virtualcorpus">
+<h2>VirtualCorpus<a class="headerlink" href="#virtualcorpus" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.corpus.corpora.VirtualCorpus">
+<em class="property">class </em><tt class="descclassname">music21.corpus.corpora.</tt><tt class="descname">VirtualCorpus</tt><a class="headerlink" href="#music21.corpus.corpora.VirtualCorpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>A model of the <em>virtual</em> corpus.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">virtualCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">VirtualCorpus</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.VirtualCorpus" title="music21.corpus.corpora.VirtualCorpus"><tt class="xref py py-class docutils literal"><span class="pre">VirtualCorpus</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus" title="music21.corpus.corpora.Corpus"><tt class="xref py py-class docutils literal"><span class="pre">Corpus</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.VirtualCorpus" title="music21.corpus.corpora.VirtualCorpus"><tt class="xref py py-class docutils literal"><span class="pre">VirtualCorpus</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.corpus.corpora.VirtualCorpus.name">
+<tt class="descclassname">VirtualCorpus.</tt><tt class="descname">name</tt><a class="headerlink" href="#music21.corpus.corpora.VirtualCorpus.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the virtual corpus:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">corpus</span><span class="o">.</span><span class="n">VirtualCorpus</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;virtual&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.corpus.corpora.Corpus" title="music21.corpus.corpora.Corpus"><tt class="xref py py-class docutils literal"><span class="pre">Corpus</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.metadataBundle" title="music21.corpus.corpora.Corpus.metadataBundle"><tt class="xref py py-attr docutils literal"><span class="pre">metadataBundle</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.corpus.corpora.VirtualCorpus" title="music21.corpus.corpora.VirtualCorpus"><tt class="xref py py-class docutils literal"><span class="pre">VirtualCorpus</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.corpus.corpora.VirtualCorpus.getPaths">
+<tt class="descclassname">VirtualCorpus.</tt><tt class="descname">getPaths</tt><big>(</big><em>fileExtensions=None</em>, <em>expandExtensions=True</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.VirtualCorpus.getPaths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all paths in the virtual corpus that match a known extension.</p>
+<p>An extension of None will return all known extensions.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">corpus</span><span class="o">.</span><span class="n">VirtualCorpus</span><span class="p">()</span><span class="o">.</span><span class="n">getPaths</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">6</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.VirtualCorpus.getWorkList">
+<tt class="descclassname">VirtualCorpus.</tt><tt class="descname">getWorkList</tt><big>(</big><em>workName</em>, <em>movementNumber=None</em>, <em>fileExtensions=None</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.VirtualCorpus.getWorkList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a work name, search all virtual works and return a list of URLs
+for any matches.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">corpus</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">virtualCorpus</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">VirtualCorpus</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">virtualCorpus</span><span class="o">.</span><span class="n">getWorkList</span><span class="p">(</span><span class="s">&#39;bach/bwv1007/prelude&#39;</span><span class="p">)</span>
+<span class="go">[&#39;http://kern.ccarh.org/cgi-bin/ksdata?l=cc/bach/cello&amp;file=bwv1007-01.krn&amp;f=xml&#39;]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">virtualCorpus</span><span class="o">.</span><span class="n">getWorkList</span><span class="p">(</span><span class="s">&#39;junk&#39;</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.corpus.corpora.VirtualCorpus.search">
+<tt class="descclassname">VirtualCorpus.</tt><tt class="descname">search</tt><big>(</big><em>query</em>, <em>field=None</em>, <em>fileExtensions=None</em><big>)</big><a class="headerlink" href="#music21.corpus.corpora.VirtualCorpus.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the virtual corpus.</p>
+<p>See <a class="reference internal" href="#music21.corpus.corpora.Corpus.search" title="music21.corpus.corpora.Corpus.search"><tt class="xref py py-class docutils literal"><span class="pre">music21.corpus.corpora.Corpus.search</span></tt></a> for examples, as
+the interface is the same.</p>
+</dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.corpus.corpora.Corpus" title="music21.corpus.corpora.Corpus"><tt class="xref py py-class docutils literal"><span class="pre">Corpus</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.fromName" title="music21.corpus.corpora.Corpus.fromName"><tt class="xref py py-meth docutils literal"><span class="pre">fromName()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.listSearchFields" title="music21.corpus.corpora.Corpus.listSearchFields"><tt class="xref py py-meth docutils literal"><span class="pre">listSearchFields()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.parse" title="music21.corpus.corpora.Corpus.parse"><tt class="xref py py-meth docutils literal"><span class="pre">parse()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.corpus.corpora.Corpus.updateMetadataBundle" title="music21.corpus.corpora.Corpus.updateMetadataBundle"><tt class="xref py py-meth docutils literal"><span class="pre">updateMetadataBundle()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleCorpusVirtual.html" title="music21.corpus.virtual"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleCorpusChorales.html" title="music21.corpus.chorales"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

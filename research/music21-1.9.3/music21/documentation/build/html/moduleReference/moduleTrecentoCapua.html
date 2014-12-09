@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.trecento.capua &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.trecento.capuaProbabilities" href="moduleTrecentoCapuaProbabilities.html" />
+    <link rel="prev" title="music21.trecento.cadencebook" href="moduleTrecentoCadencebook.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleTrecentoCapuaProbabilities.html" title="music21.trecento.capuaProbabilities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleTrecentoCadencebook.html" title="music21.trecento.cadencebook"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleTrecentoCadencebook.html"
+                        title="previous chapter">music21.trecento.cadencebook</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleTrecentoCapuaProbabilities.html"
+                        title="next chapter">music21.trecento.capuaProbabilities</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.trecento.capua</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleTrecentoCapua.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-trecento-capua">
+<span id="moduletrecentocapua"></span><h1>music21.trecento.capua<a class="headerlink" href="#music21-trecento-capua" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.trecento.capua"></span><p>The <cite>regola</cite> of Nicolaus de Capua are four rules for determining
+proper <cite>musica ficta</cite>, that is unnotated accidentals.  These rules
+look only at a single melodic voice (which is corresponds to how 
+fourteenth-century music was notated, as successive voices) even
+though they affect the harmony of the period.</p>
+<p>The module contains methods for automatically applying the rules
+of Nicolaus de Capua, for putting these accidentals into the Stream,
+and, by running the <a class="reference internal" href="moduleStream.html#music21.stream.Stream.attachIntervalsBetweenStreams" title="music21.stream.Stream.attachIntervalsBetweenStreams"><tt class="xref py py-meth docutils literal"><span class="pre">attachIntervalsBetweenStreams()</span></tt></a> 
+method of <a class="reference internal" href="moduleStream.html#music21.stream.Stream" title="music21.stream.Stream"><tt class="xref py py-class docutils literal"><span class="pre">Stream</span></tt></a> objects, seeing how well these rules correct certain
+harmonic problems in the music.</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="music21.trecento.capua.applyCapuaToCadencebookWork">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">applyCapuaToCadencebookWork</tt><big>(</big><em>thisWork</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.applyCapuaToCadencebookWork" title="Permalink to this definition">¶</a></dt>
+<dd><p>runs Nicolaus de Capua&#8217;s rules on a set of incipits and cadences as
+<a class="reference internal" href="moduleTrecentoPolyphonicSnippet.html#music21.trecento.polyphonicSnippet.PolyphonicSnippet" title="music21.trecento.polyphonicSnippet.PolyphonicSnippet"><tt class="xref py py-class docutils literal"><span class="pre">PolyphonicSnippet</span></tt></a> objects
+(a Score subclass)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">copy</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">trecento</span><span class="o">.</span><span class="n">cadencebook</span><span class="o">.</span><span class="n">BallataSheet</span><span class="p">()</span><span class="o">.</span><span class="n">makeWork</span><span class="p">(</span><span class="mi">331</span><span class="p">)</span> <span class="c"># Francesco, Non Creder Donna</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bOrig</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trecento</span><span class="o">.</span><span class="n">capua</span><span class="o">.</span><span class="n">applyCapuaToCadencebookWork</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bFN</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">asScore</span><span class="p">()</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">bFN</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="n">trecento</span><span class="o">.</span><span class="n">capua</span><span class="o">.</span><span class="n">capuaFictaToAccidental</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bOrigFN</span> <span class="o">=</span> <span class="n">bOrig</span><span class="o">.</span><span class="n">asScore</span><span class="p">()</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bFN</span><span class="p">)):</span>
+<span class="gp">... </span>   <span class="k">if</span> <span class="n">bFN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">pitch</span> <span class="o">!=</span> <span class="n">bOrigFN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">pitch</span><span class="p">:</span> 
+<span class="gp">... </span>       <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">bFN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">pitch</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">bOrigFN</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">pitch</span><span class="p">)))</span>
+<span class="go">F#3 F3</span>
+<span class="go">C#3 C3</span>
+<span class="go">C#3 C3</span>
+<span class="go">F#3 F3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.applyCapuaToScore">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">applyCapuaToScore</tt><big>(</big><em>thisWork</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.applyCapuaToScore" title="Permalink to this definition">¶</a></dt>
+<dd><p>runs Nicolaus de Capua&#8217;s rules on a Score object,</p>
+<p>calls <cite>applyCapuaToStream</cite> to each <cite>part.flat</cite> in <cite>parts</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.applyCapuaToStream">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">applyCapuaToStream</tt><big>(</big><em>thisStream</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.applyCapuaToStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply all the Capua rules to a Stream.  Runs <cite>clearFicta</cite>, <cite>capuaRuleOne</cite>, <cite>capuaRuleTwo</cite>,
+<cite>capuaRuleThree</cite> and <cite>capuaRuleFourB</cite>.</p>
+<p>Runs in place.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.capuaFictaToAccidental">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">capuaFictaToAccidental</tt><big>(</big><em>note1</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.capuaFictaToAccidental" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves Capua&#8217;s ficta from <cite>Note.editorial.misc[&#8216;capua-ficta&#8217;]</cite> to the 
+<cite>Note.pitch.accidental</cite> object.  Saves the previous accidental by calling
+<cite>clearAccidental</cite> first.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.capuaRuleFourA">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">capuaRuleFourA</tt><big>(</big><em>srcStream</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.capuaRuleFourA" title="Permalink to this definition">¶</a></dt>
+<dd><p>See capuaRuleOne for precise instructions.</p>
+<p>Applies one interpretation of Capua&#8217;s fourth rule to the given srcStream,
+i.e. if a descending minor third is followed by a descending major second,
+the intervals will be changed to a major third followed by a minor second.
+Also changes note.editorial.color for rule 4 (orange green orange).</p>
+<p>returns the number of notes that were changed</p>
+<p>This rule is a less likely interpretation of the ambiguous rule 4, thus
+applyCapuaToStream uses capuaRuleFourB instead.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.capuaRuleFourB">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">capuaRuleFourB</tt><big>(</big><em>srcStream</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.capuaRuleFourB" title="Permalink to this definition">¶</a></dt>
+<dd><p>See capuaRuleOne for precise instructions.</p>
+<p>Applies more probable interpretation of Capua&#8217;s fourth rule to the given
+srcStream, i.e. if a descending minor third is followed by a descending major
+second, the intervals will be changed to a major third followed by a minor
+second. Also copies any relevant accidental to note.editorial.misc under
+&#8220;saved-accidental&#8221; and changes note.editorial.color for rule 4 (orange
+green orange).</p>
+<p>returns the number of times a note was changed.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.capuaRuleOne">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">capuaRuleOne</tt><big>(</big><em>srcStream</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.capuaRuleOne" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies Nicolaus de Capua&#8217;s first rule to the given srcStream, i.e. if a line descends
+a major second then ascends back to the original note, the major second is
+made into a minor second. Also copies the relevant accidentals into
+<cite>Note.editorial.misc[&#8220;saved-accidental&#8221;]</cite> and changes <cite>Note.editorial.color</cite>
+for rule 1 (blue green blue).</p>
+<p>The relevant Rule number is also stored in <cite>Note.editorial.misc[&#8216;capua_rule_number&#8217;]</cite> which
+can be got out by OR-ing this.</p>
+<p>Returns the number of notes that were changed (not counting notes whose colors were changed).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.capuaRuleThree">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">capuaRuleThree</tt><big>(</big><em>srcStream</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.capuaRuleThree" title="Permalink to this definition">¶</a></dt>
+<dd><p>See capuaRuleOne for precise instructions.</p>
+<p>Applies Capua&#8217;s third rule to the given srcStream, i.e. if there is a
+descending major third followed by an ascending major second, the second
+note will be made a half-step higher so that there is a descending minor
+third followed by an ascending minor second. Also changes
+note.editorial.color for rule 3 (pink green pink).</p>
+<p>returns the number of times a note was changed</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.capuaRuleTwo">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">capuaRuleTwo</tt><big>(</big><em>srcStream</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.capuaRuleTwo" title="Permalink to this definition">¶</a></dt>
+<dd><p>See capuaRuleOne for precise instructions.</p>
+<p>Applies Capua&#8217;s second rule to the given srcStream, i.e. if four notes are
+ascending with the pattern M2 m2 M2, the intervals shall be made M2 M2 m2.
+Also changes note.editorial.color for rule 2 (purple purple green purple).</p>
+<p>returns the number of times any note was changed</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.clearAccidental">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">clearAccidental</tt><big>(</big><em>note1</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.clearAccidental" title="Permalink to this definition">¶</a></dt>
+<dd><p>moves the accidental to <cite>Note.editorial.misc[&#8216;saved-accidental&#8217;]</cite> and clears <cite>Note.pitch.accidental</cite></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.clearFicta">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">clearFicta</tt><big>(</big><em>srcStream1</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.clearFicta" title="Permalink to this definition">¶</a></dt>
+<dd><p>In the given srcStream, moves anything under note.editorial.ficta into
+note.editorial.misc under &#8220;saved-ficta&#8221;.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.colorCapuaFicta">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">colorCapuaFicta</tt><big>(</big><em>srcStream1</em>, <em>srcStream2</em>, <em>oneOrBoth='both'</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.colorCapuaFicta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given two srcStreams, applies the capua rules and colors each note (in
+note.editorial.misc under &#8220;ficta-color&#8221;) as compared to the srcStreams with no ficta,
+using betterColor, worseColor, and neutralColor.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.colorNote">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">colorNote</tt><big>(</big><em>note1</em>, <em>oneOrBoth='both'</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.colorNote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies all rules to a note according to what harmonies are better/worse/neutral.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.compareNoteCapuaToEditor">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">compareNoteCapuaToEditor</tt><big>(</big><em>note1</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.compareNoteCapuaToEditor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in a single note and returns a dictionary showing how many notes
+are there <cite>totalNotes</cite>, how many the editors of PMFC altered, how many
+the Capua program altered, how many PMFC but not Capua altered and how
+many both altered.</p>
+<p>To be added up by compareSrcStreamCapuaToEditor.  To be run after applyCapua.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.compareOnesrcStream">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">compareOnesrcStream</tt><big>(</big><em>srcStream1</em>, <em>srcStream2</em>, <em>fictaType='editor'</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.compareOnesrcStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper function for evaluating Harmony that for each note in srcStream1 determines
+that notes starting interval in relation to srcStream2, and assigns identifiers to
+the fictaHarmony and fictaInterval in note.editorial if there is ficta, or to the
+noFictaHarmony if there is no ficta for that note. Returns a list of the number
+of perfect consonances, imperfect consonances, and other (dissonances) for srcStream1.
+For the fictaType variable, write &#8220;editor&#8221; or &#8220;capua&#8221;, &#8220;capua1srcStream&#8221; or &#8220;capua2srcStream&#8221;.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.compareSrcStreamCapuaToEditor">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">compareSrcStreamCapuaToEditor</tt><big>(</big><em>srcStream1</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.compareSrcStreamCapuaToEditor" title="Permalink to this definition">¶</a></dt>
+<dd><p>takes a Stream (can be flat.notesAndRests or not) and
+returns a dictionary showing how many notes
+are there <cite>totalNotes</cite>, how many the editors of PMFC altered, how many
+the Capua program altered, how many PMFC but not Capua altered and how
+many both altered.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.compareThreeFictas">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">compareThreeFictas</tt><big>(</big><em>srcStream1</em>, <em>srcStream2</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.compareThreeFictas" title="Permalink to this definition">¶</a></dt>
+<dd><p>compares the output of noFicta, pmfcFicta, and capuaFicta and attaches each interval
+to a note.editorial.misc tag.</p>
+<p>srcStream1 and srcStream2 should be .flat.notesAndRests</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">trecento</span><span class="o">.</span><span class="n">cadencebook</span><span class="o">.</span><span class="n">BallataSheet</span><span class="p">()</span><span class="o">.</span><span class="n">makeWork</span><span class="p">(</span><span class="mi">331</span><span class="p">)</span><span class="o">.</span><span class="n">asScore</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trecento</span><span class="o">.</span><span class="n">capua</span><span class="o">.</span><span class="n">applyCapuaToStream</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notesAndRests</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trecento</span><span class="o">.</span><span class="n">capua</span><span class="o">.</span><span class="n">compareThreeFictas</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notesAndRests</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notesAndRests</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">b</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notesAndRests</span><span class="p">:</span>
+<span class="gp">... </span>   <span class="k">pass</span> <span class="c">#print n.pitch, n.editorial.misc[&#39;normal-harmonicInterval&#39;], n.editorial.misc[&#39;pmfc-harmonicInterval&#39;], n.editorial.misc[&#39;capua-harmonicInterval&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.evaluateCapuaOnesrcStream">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">evaluateCapuaOnesrcStream</tt><big>(</big><em>srcStream1</em>, <em>srcStream2</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.evaluateCapuaOnesrcStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs Capua rules on one srcStream only and evaluates the harmonies; stores harmonies
+under &#8220;capua1FictaHarmony&#8221; in note.editorial.misc; returns a list of the number of
+[perfect cons, imperfect cons, dissonances].</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.evaluateCapuaTwoStreams">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">evaluateCapuaTwoStreams</tt><big>(</big><em>srcStream1</em>, <em>srcStream2</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.evaluateCapuaTwoStreams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs Capua rules on both srcStreams and evaluates the harmonies; stores harmonies
+under &#8220;capua2FictaHarmony&#8221; in note.editorial.misc; returns a dictionary that contains
+the number of [perfect cons, imperfect cons, dissonances] for each srcStream, which can
+be obtained with keys &#8220;srcStream1Count&#8221; and &#8220;srcStream2Count&#8221;.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.evaluateEditorsFicta">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">evaluateEditorsFicta</tt><big>(</big><em>srcStream1</em>, <em>srcStream2</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.evaluateEditorsFicta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs pmfcFictaToAccidental, then runs the evaluation method on the two srcStreams.
+Returns editorProfile, a list of lists with the number of perfect cons, imperfect
+cons, and dissonances for each srcStream.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.evaluateRules">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">evaluateRules</tt><big>(</big><em>srcStream1</em>, <em>srcStream2</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.evaluateRules" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs evaluation method for capua on one srcStream only, and evaluating harmonies,
+for each srcStream; then runs method for applying capua rules to both and evaluating
+the resulting harmonies.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.evaluateWithoutFicta">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">evaluateWithoutFicta</tt><big>(</big><em>srcStream1</em>, <em>srcStream2</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.evaluateWithoutFicta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears all ficta, then evaluates the harmonies of the two srcStreams. Returns
+a list of lists of the interval counts for each.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.fictaToAccidental">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">fictaToAccidental</tt><big>(</big><em>note1</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.fictaToAccidental" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves the ficta (if any) in <cite>Note.editorial.ficta</cite> to the accidental</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.findCorrections">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">findCorrections</tt><big>(</big><em>correctionType='Maj3'</em>, <em>startPiece=2</em>, <em>endPiece=459</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.findCorrections" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Find all cases where a Major 3rd moves inward to unison (within the next two or three notes, excluding rests)</dt>
+<dd><p class="first">and see how often the PMFC editors correct it to minor 3rd and how often Capua gets it.</p>
+<p class="last">or if correctionType == &#8220;min6&#8221; find all instances of a minor 6th moving outward to octave and see how often the PMFC
+editors correct it to a Major 6th and how often Capua gets it.</p>
+</dd>
+</dl>
+<p>#    
+#    &gt;&gt;&gt; (totalDict, foundPieceOpus) = findCorrections(correctionType=&#8221;Maj3&#8221;, 2, 50)
+#    &gt;&gt;&gt; print(totalDict)
+#    {&#8216;potentialChange&#8217;: 82, &#8216;capuaAlt&#8217;: 30, &#8216;pmfcAndCapua&#8217;: 3, &#8216;capuaNotPmfc&#8217;: 27, &#8216;pmfcAlt&#8217;: 4, &#8216;pmfcNotCapua&#8217;: 1, &#8216;totalNotes&#8217;: 82}
+#    &gt;&gt;&gt; foundPieceOpus.show(&#8216;lily.pdf&#8217;)</p>
+<p>#    &gt;&gt;&gt; (totalDict, foundPieceOpus) = findCorrections(correctionType=&#8221;min6&#8221;)
+#    &gt;&gt;&gt; print(totalDict)
+#    {&#8216;potentialChange&#8217;: 82, &#8216;capuaAlt&#8217;: 30, &#8216;pmfcAndCapua&#8217;: 3, &#8216;capuaNotPmfc&#8217;: 27, &#8216;pmfcAlt&#8217;: 4, &#8216;pmfcNotCapua&#8217;: 1, &#8216;totalNotes&#8217;: 82}
+#    &gt;&gt;&gt; foundPieceOpus.show(&#8216;lily.pdf&#8217;)</p>
+<p>#    &gt;&gt;&gt; (totalDict, foundPieceOpus) = trecento.capua.correctedMin6()
+#    &gt;&gt;&gt; print(totalDict)
+#    {&#8216;alterAll&#8217;: 82, &#8216;capuaAlt&#8217;: 30, &#8216;pmfcAndCapua&#8217;: 3, &#8216;capuaNotPmfc&#8217;: 27, &#8216;pmfcAlt&#8217;: 4, &#8216;pmfcNotCapua&#8217;: 1, &#8216;totalNotes&#8217;: 82}
+#    &gt;&gt;&gt; foundPieceOpus.show(&#8216;lily.pdf&#8217;)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.getIntervalType">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">getIntervalType</tt><big>(</big><em>interval1</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.getIntervalType" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns either None (if interval is undef),  &#8220;perfect cons&#8221;, &#8220;imperfect cons&#8221;, &#8220;dissonance&#8221;
+or an error depending on how the interval fits into 14th century harmonic principles</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.improvedHarmony">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">improvedHarmony</tt><big>(</big><em>startPiece=2</em>, <em>endPiece=459</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.improvedHarmony" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find how often an augmented or diminished interval was corrected to a perfect interval and vice-versa
+by capua.</p>
+<p>Returns a dict showing the results</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">trecento</span><span class="o">.</span><span class="n">capua</span><span class="o">.</span><span class="n">improvedHarmony</span><span class="p">()</span>
+<span class="go">{&#39;imperfCapua&#39;: 22, &#39;imperfIgnored&#39;: 155, &#39;perfCapua&#39;: 194, &#39;perfIgnored&#39;: 4057}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.pmfcFictaToAccidental">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">pmfcFictaToAccidental</tt><big>(</big><em>note1</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.pmfcFictaToAccidental" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves any ficta in <cite>Note.editorial.misc[&#8216;pmfc-ficta&#8217;]</cite> to the <cite>Note.pitch.accidental</cite>
+object and saves the previous accidental by calling <cite>clearAccidental()</cite> first.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.restoreAccidental">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">restoreAccidental</tt><big>(</big><em>note1</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.restoreAccidental" title="Permalink to this definition">¶</a></dt>
+<dd><p>takes <cite>Note.editorial.music[&#8216;saved-accidental&#8217;]</cite> and moves it back to the <cite>Note.pitch.accidental</cite></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.restoreFicta">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">restoreFicta</tt><big>(</big><em>srcStream1</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.restoreFicta" title="Permalink to this definition">¶</a></dt>
+<dd><p>In the given srcStream, moves anything under note.editorial.misc[&#8220;saved-ficta&#8221;]
+back to note.editorial.ficta.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.ruleFrequency">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">ruleFrequency</tt><big>(</big><em>startNumber=2</em>, <em>endNumber=459</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.ruleFrequency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.ruleOne">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">ruleOne</tt><big>(</big><em>nonCapuaHarmony</em>, <em>capuaHarmony</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.ruleOne" title="Permalink to this definition">¶</a></dt>
+<dd><p>Colors a note based on the rule dissonance -&gt; perfect cons is better,
+perfect cons -&gt; dissonance is worse.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.trecento.capua.runPiece">
+<tt class="descclassname">music21.trecento.capua.</tt><tt class="descname">runPiece</tt><big>(</big><em>pieceNum=331</em>, <em>snipNum=0</em><big>)</big><a class="headerlink" href="#music21.trecento.capua.runPiece" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleTrecentoCapuaProbabilities.html" title="music21.trecento.capuaProbabilities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleTrecentoCadencebook.html" title="music21.trecento.cadencebook"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

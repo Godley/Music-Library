@@ -1,0 +1,801 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.musedata &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.musedata.base40" href="moduleMusedataBase40.html" />
+    <link rel="prev" title="music21.midi.translate" href="moduleMidiTranslate.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleMusedataBase40.html" title="music21.musedata.base40"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleMidiTranslate.html" title="music21.midi.translate"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleMidiTranslate.html"
+                        title="previous chapter">music21.midi.translate</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleMusedataBase40.html"
+                        title="next chapter">music21.musedata.base40</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.musedata</a><ul>
+<li><a class="reference internal" href="#musedatawork">MuseDataWork</a></li>
+<li><a class="reference internal" href="#musedatadirectory">MuseDataDirectory</a></li>
+<li><a class="reference internal" href="#musedatafile">MuseDataFile</a></li>
+<li><a class="reference internal" href="#musedatameasure">MuseDataMeasure</a></li>
+<li><a class="reference internal" href="#musedatameasureiterator">MuseDataMeasureIterator</a></li>
+<li><a class="reference internal" href="#musedatapart">MuseDataPart</a></li>
+<li><a class="reference internal" href="#musedatarecord">MuseDataRecord</a></li>
+<li><a class="reference internal" href="#musedatarecorditerator">MuseDataRecordIterator</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleMusedata.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-musedata">
+<span id="modulemusedata"></span><h1>music21.musedata<a class="headerlink" href="#music21-musedata" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.musedata"></span><p>Objects and resources for processing MuseData.</p>
+<p>MuseData conversion from a file or URL to a <a class="reference internal" href="moduleStream.html#music21.stream.Stream" title="music21.stream.Stream"><tt class="xref py py-class docutils literal"><span class="pre">Stream</span></tt></a> is available through the music21 converter module&#8217;s <a class="reference internal" href="moduleConverter.html#music21.converter.parse" title="music21.converter.parse"><tt class="xref py py-func docutils literal"><span class="pre">parse()</span></tt></a> function.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">abcScore</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;d:/data/musedata/myScore.stage2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Low level MuseData conversion is facilitated by the objects in this module and <tt class="xref py py-func docutils literal"><span class="pre">music21.musedata.translate.museDataToStreamScore()</span></tt>.</p>
+<div class="section" id="musedatawork">
+<h2>MuseDataWork<a class="headerlink" href="#musedatawork" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.musedata.MuseDataWork">
+<em class="property">class </em><tt class="descclassname">music21.musedata.</tt><tt class="descname">MuseDataWork</tt><a class="headerlink" href="#music21.musedata.MuseDataWork" title="Permalink to this definition">¶</a></dt>
+<dd><p>A work might consist of one ore more files.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.musedata.MuseDataWork" title="music21.musedata.MuseDataWork"><tt class="xref py py-class docutils literal"><span class="pre">MuseDataWork</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.musedata.MuseDataWork.addFile">
+<tt class="descclassname">MuseDataWork.</tt><tt class="descname">addFile</tt><big>(</big><em>fp</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataWork.addFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open and read this file path as</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataWork.addString">
+<tt class="descclassname">MuseDataWork.</tt><tt class="descname">addString</tt><big>(</big><em>input_str</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataWork.addString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a string representation acting like a part file</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataWork.getParts">
+<tt class="descclassname">MuseDataWork.</tt><tt class="descname">getParts</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataWork.getParts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all parts contained in all files associated with this work. A list of MuseDataPart objects that were created in a MuseDataFile.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="musedatadirectory">
+<h2>MuseDataDirectory<a class="headerlink" href="#musedatadirectory" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.musedata.MuseDataDirectory">
+<em class="property">class </em><tt class="descclassname">music21.musedata.</tt><tt class="descname">MuseDataDirectory</tt><big>(</big><em>dirOrList</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataDirectory" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class manages finding musedata files stored in a directory, comparing file names and examining sub directories to determine which files are parts.</p>
+<p>Once found, a MuseDataWork, or a list of paths, can be returned</p>
+<p>A directory, or a list of file path stubs, such as that obtained within a zip file, can both be provided</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.musedata.MuseDataDirectory" title="music21.musedata.MuseDataDirectory"><tt class="xref py py-class docutils literal"><span class="pre">MuseDataDirectory</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.musedata.MuseDataDirectory.getPaths">
+<tt class="descclassname">MuseDataDirectory.</tt><tt class="descname">getPaths</tt><big>(</big><em>group=None</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataDirectory.getPaths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return sorted paths for a group, or None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataDirectory.isMusedataFile">
+<tt class="descclassname">MuseDataDirectory.</tt><tt class="descname">isMusedataFile</tt><big>(</big><em>fp</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataDirectory.isMusedataFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="musedatafile">
+<h2>MuseDataFile<a class="headerlink" href="#musedatafile" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.musedata.MuseDataFile">
+<em class="property">class </em><tt class="descclassname">music21.musedata.</tt><tt class="descname">MuseDataFile</tt><a class="headerlink" href="#music21.musedata.MuseDataFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>A MuseDataFile file may describe one or more MuseDataPart; a Score might need multiple files for complete definition. A MuseDataFile object can be created from a string.</p>
+<p>When read, one or more MuseDataPart objects are created and stored on self.parts.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.musedata.MuseDataFile" title="music21.musedata.MuseDataFile"><tt class="xref py py-class docutils literal"><span class="pre">MuseDataFile</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.musedata.MuseDataFile.close">
+<tt class="descclassname">MuseDataFile.</tt><tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataFile.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataFile.open">
+<tt class="descclassname">MuseDataFile.</tt><tt class="descname">open</tt><big>(</big><em>fp</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataFile.open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataFile.read">
+<tt class="descclassname">MuseDataFile.</tt><tt class="descname">read</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataFile.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataFile.readstr">
+<tt class="descclassname">MuseDataFile.</tt><tt class="descname">readstr</tt><big>(</big><em>input_str</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataFile.readstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a string, dividing it into individual parts.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="musedatameasure">
+<h2>MuseDataMeasure<a class="headerlink" href="#musedatameasure" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.musedata.MuseDataMeasure">
+<em class="property">class </em><tt class="descclassname">music21.musedata.</tt><tt class="descname">MuseDataMeasure</tt><big>(</big><em>src=</em><span class="optional">[</span><span class="optional">]</span>, <em>parent=None</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataMeasure" title="Permalink to this definition">¶</a></dt>
+<dd><p>A MuseDataMeasure is an abstraction of the data contained within a measure definitions.</p>
+<p>This needs to be an object to gracefully handle the following cases. Some Measures do not have any notes, for example, and the end of encoding where a final bar line is defined. Some measures do not have numbers or barlin definitions, such as pickup notes. Some measures define barline characteristics. Backup and forward presumably only is contained within a measure.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.musedata.MuseDataMeasure" title="music21.musedata.MuseDataMeasure"><tt class="xref py py-class docutils literal"><span class="pre">MuseDataMeasure</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.musedata.MuseDataMeasure.getBarObject">
+<tt class="descclassname">MuseDataMeasure.</tt><tt class="descname">getBarObject</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataMeasure.getBarObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a configured music21 bar object. This can be used with the current Measure or applied to a previous Measure.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataMeasure.getMeasureObject">
+<tt class="descclassname">MuseDataMeasure.</tt><tt class="descname">getMeasureObject</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataMeasure.getMeasureObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a configured music21 <a class="reference internal" href="moduleStream.html#music21.stream.Measure" title="music21.stream.Measure"><tt class="xref py py-class docutils literal"><span class="pre">Measure</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataMeasure.getRecords">
+<tt class="descclassname">MuseDataMeasure.</tt><tt class="descname">getRecords</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataMeasure.getRecords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a lost of all records stored in this measure as MuseDataRecord.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataMeasure.hasNotes">
+<tt class="descclassname">MuseDataMeasure.</tt><tt class="descname">hasNotes</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataMeasure.hasNotes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True of if this Measure return Notes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataMeasure.hasVoices">
+<tt class="descclassname">MuseDataMeasure.</tt><tt class="descname">hasVoices</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataMeasure.hasVoices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True of if this Measure defines one or more &#8216;back&#8217; indication.</p>
+<p>Note: this does not instantiate MuseDataRecord instances.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="musedatameasureiterator">
+<h2>MuseDataMeasureIterator<a class="headerlink" href="#musedatameasureiterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.musedata.MuseDataMeasureIterator">
+<em class="property">class </em><tt class="descclassname">music21.musedata.</tt><tt class="descname">MuseDataMeasureIterator</tt><big>(</big><em>src</em>, <em>boundaries</em>, <em>parent</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataMeasureIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create MuseDataMeasure objects on demand, in order</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.musedata.MuseDataMeasureIterator" title="music21.musedata.MuseDataMeasureIterator"><tt class="xref py py-class docutils literal"><span class="pre">MuseDataMeasureIterator</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.musedata.MuseDataMeasureIterator.next">
+<tt class="descclassname">MuseDataMeasureIterator.</tt><tt class="descname">next</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataMeasureIterator.next" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="musedatapart">
+<h2>MuseDataPart<a class="headerlink" href="#musedatapart" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.musedata.MuseDataPart">
+<em class="property">class </em><tt class="descclassname">music21.musedata.</tt><tt class="descname">MuseDataPart</tt><big>(</big><em>src=</em><span class="optional">[</span><span class="optional">]</span>, <em>stage=None</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>A MuseData part is defined by collection of lines</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.musedata.MuseDataPart" title="music21.musedata.MuseDataPart"><tt class="xref py py-class docutils literal"><span class="pre">MuseDataPart</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getClefObject">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getClefObject</tt><big>(</big><em>voice=1</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getClefObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a music21 clef object based on a two character clef definition.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getClefObject</span><span class="p">()</span><span class="o">.</span><span class="n">sign</span>
+<span class="go">&#39;C&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getDirective">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getDirective</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getDirective" title="Permalink to this definition">¶</a></dt>
+<dd><p>The directive field is generally used to store tempo indications.This indication, however, is frequently not provided.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">hwv56_movement1_17</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">getDirective</span><span class="p">()</span>
+<span class="go">&#39;Largo e piano&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getDivisionsPerQuarterNote">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getDivisionsPerQuarterNote</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getDivisionsPerQuarterNote" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getDivisionsPerQuarterNote</span><span class="p">()</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getDivisionsPerQuarterNote</span><span class="p">()</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getDivisionsPerQuarterNote</span><span class="p">()</span>
+<span class="go">8</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bachContrapunctus1_part1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getDivisionsPerQuarterNote</span><span class="p">()</span>
+<span class="go">4.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getGroupMembershipNumber">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getGroupMembershipNumber</tt><big>(</big><em>membership='score'</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getGroupMembershipNumber" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getGroupMembershipNumber</span><span class="p">()</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getGroupMembershipNumber</span><span class="p">()</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">getGroupMembershipNumber</span><span class="p">()</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bachContrapunctus1_part2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getGroupMembershipNumber</span><span class="p">()</span>
+<span class="go">&#39;2&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bachContrapunctus1_part1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getGroupMembershipNumber</span><span class="p">()</span>
+<span class="go">&#39;1&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getGroupMemberships">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getGroupMemberships</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getGroupMemberships" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getGroupMemberships</span><span class="p">()</span>
+<span class="go">[&#39;score&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getGroupMembershipsTotal">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getGroupMembershipsTotal</tt><big>(</big><em>membership='score'</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getGroupMembershipsTotal" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getGroupMembershipsTotal</span><span class="p">()</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bachContrapunctus1_part2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getGroupMembershipsTotal</span><span class="p">()</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getKeySignature">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getKeySignature</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getKeySignature" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getKeySignature</span><span class="p">()</span>
+<span class="go">&lt;music21.key.KeySignature of 3 flats&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bachContrapunctus1_part1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getKeySignature</span><span class="p">()</span>
+<span class="go">&lt;music21.key.KeySignature of 1 flat&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getMeasures">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getMeasures</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getMeasures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all measures stored in this part as MuseDataMeasure objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getMovementNumber">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getMovementNumber</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getMovementNumber" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getMovementNumber</span><span class="p">()</span>
+<span class="go">&#39;3&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bachContrapunctus1_part2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getMovementNumber</span><span class="p">()</span>
+<span class="go">&#39;1&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getMovementTitle">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getMovementTitle</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getMovementTitle" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getMovementTitle</span><span class="p">()</span>
+<span class="go">&#39;Aria&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getPartName">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getPartName</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getPartName" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getPartName</span><span class="p">()</span>
+<span class="go">&#39;Viola Solo&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getPartName</span><span class="p">()</span>
+<span class="go">&#39;TENORE&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getSource">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getSource</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getSource" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getSource</span><span class="p">()</span>
+<span class="go">&#39;Bach Gesellschaft i&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bachContrapunctus1_part2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getSource</span><span class="p">()</span>
+<span class="go">&#39;Bach Gesellschaft xxv,1&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getTimeSignatureObject">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getTimeSignatureObject</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getTimeSignatureObject" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getTimeSignatureObject</span><span class="p">()</span>
+<span class="go">&lt;music21.meter.TimeSignature 3/4&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getTranspositionIntervalObject">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getTranspositionIntervalObject</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getTranspositionIntervalObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this part defines a transposition, return a corresponding Interval object.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os.path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fp1</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">getSourceFilePath</span><span class="p">(),</span> <span class="s">&#39;musedata&#39;</span><span class="p">,</span> <span class="s">&#39;testPrimitive&#39;</span><span class="p">,</span> <span class="s">&#39;test01&#39;</span><span class="p">,</span> <span class="s">&#39;01.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fp2</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">common</span><span class="o">.</span><span class="n">getSourceFilePath</span><span class="p">(),</span> <span class="s">&#39;musedata&#39;</span><span class="p">,</span> <span class="s">&#39;testPrimitive&#39;</span><span class="p">,</span> <span class="s">&#39;test01&#39;</span><span class="p">,</span> <span class="s">&#39;02.md&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">fp1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addFile</span><span class="p">(</span><span class="n">fp2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getTranspositionIntervalObject</span><span class="p">()</span>
+<span class="go">&lt;music21.interval.Interval m-3&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getWorkNumber">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getWorkNumber</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getWorkNumber" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getWorkNumber</span><span class="p">()</span>
+<span class="go">&#39;5&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bachContrapunctus1_part2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getWorkNumber</span><span class="p">()</span>
+<span class="go">&#39;1080&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.getWorkTitle">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">getWorkTitle</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.getWorkTitle" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.musedata</span> <span class="kn">import</span> <span class="n">testFiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bach_cantata5_mvmt3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getWorkTitle</span><span class="p">()</span>
+<span class="go">&#39;Wo soll ich fliehen hin&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataWork</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">addString</span><span class="p">(</span><span class="n">testFiles</span><span class="o">.</span><span class="n">bachContrapunctus1_part2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdw</span><span class="o">.</span><span class="n">getParts</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getWorkTitle</span><span class="p">()</span>
+<span class="go">&#39;381&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataPart.update">
+<tt class="descclassname">MuseDataPart.</tt><tt class="descname">update</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataPart.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>After setting the source string, this method must be called to configure the _measureNumberToLine method and set additional attributes.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="musedatarecord">
+<h2>MuseDataRecord<a class="headerlink" href="#musedatarecord" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.musedata.MuseDataRecord">
+<em class="property">class </em><tt class="descclassname">music21.musedata.</tt><tt class="descname">MuseDataRecord</tt><big>(</big><em>src=''</em>, <em>parent=None</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object for extracting data from a Note or other related record, or a single line of musedata data.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.musedata.MuseDataRecord" title="music21.musedata.MuseDataRecord"><tt class="xref py py-class docutils literal"><span class="pre">MuseDataRecord</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.getArticulationObjects">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">getArticulationObjects</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.getArticulationObjects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of 0 or more music21 Articulation objects</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;C4    12        e     u  [      .p&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getArticulationObjects</span><span class="p">()</span>
+<span class="go">[&lt;music21.articulations.Staccato&gt;]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;C4    12        e     u  [      .p&gt;&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getArticulationObjects</span><span class="p">()</span>
+<span class="go">[&lt;music21.articulations.Staccato&gt;, &lt;music21.articulations.Accent&gt;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.getBeams">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">getBeams</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.getBeams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return complete span of characters defining beams.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;E2     1        s     u  =&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getBeams</span><span class="p">()</span>
+<span class="go">&#39;=&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;E2     1        s     u  ]&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getBeams</span><span class="p">()</span>
+<span class="go">&#39;]&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;E2     4        q     u&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getBeams</span><span class="p">()</span> <span class="o">==</span> <span class="bp">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.getDots">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">getDots</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.getDots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.getDynamicObjects">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">getDynamicObjects</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.getDynamicObjects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of 0 or more music21 Dynamic objects</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;C5    12        e     u         ff&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getDynamicObjects</span><span class="p">()</span>
+<span class="go">[&lt;music21.dynamics.Dynamic ff &gt;]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;E4    48        h     u        (pp&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getDynamicObjects</span><span class="p">()</span>
+<span class="go">[&lt;music21.dynamics.Dynamic pp &gt;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.getExpressionObjects">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">getExpressionObjects</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.getExpressionObjects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of 0 or more music21 Articulation objects</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;C4    12        e     u  [      t&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getExpressionObjects</span><span class="p">()</span>
+<span class="go">[&lt;music21.expressions.Trill&gt;]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;C4    12        e     u  [      .p&gt;F&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getExpressionObjects</span><span class="p">()</span>
+<span class="go">[&lt;music21.expressions.Fermata&gt;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.getLyrics">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">getLyrics</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.getLyrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return lyrics as a list.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;D4     2        e     u                    con-&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">stage</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getLyrics</span><span class="p">()</span>
+<span class="go">[&#39;con-&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.getPitchObject">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">getPitchObject</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.getPitchObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Pitch object defined by this record. This may be a note, chord, or grace pitch.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;Ef4    1        s     d  ==&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">mdr</span><span class="o">.</span><span class="n">getPitchObject</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">nameWithOctave</span>
+<span class="go">&#39;E-4&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;F#4    1        s #   d  ==&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">mdr</span><span class="o">.</span><span class="n">getPitchObject</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">nameWithOctave</span>
+<span class="go">&#39;F#4&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">accidental</span><span class="o">.</span><span class="n">displayStatus</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.getQuarterLength">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">getQuarterLength</tt><big>(</big><em>divisionsPerQuarterNote=None</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.getQuarterLength" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;Ef4    1        s     d  ==&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getQuarterLength</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">0.25</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;Ef4    6        s     d  ==&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getQuarterLength</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">1.5</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;back   4&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">getQuarterLength</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.hasCautionaryAccidental">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">hasCautionaryAccidental</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.hasCautionaryAccidental" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a boolean if this note has a cautionary accidental.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;F5     3        t n   d  ==[   (+&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">hasCautionaryAccidental</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;C4    12        e     u  [&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">hasCautionaryAccidental</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.isBack">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">isBack</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.isBack" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;back   4&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">isBack</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.isChord">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">isChord</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.isChord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chords are specified as additional note records following a main chord tone. The blank space defines this as chord tone.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.isCueOrGrace">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">isCueOrGrace</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.isCueOrGrace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.isNote">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">isNote</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.isNote" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.isRest">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">isRest</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.isRest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a boolean if this record is a rest.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;D4     1        s     d  ]]&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">isRest</span><span class="p">()</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;measure 1       A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">isRest</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecord.isTied">
+<tt class="descclassname">MuseDataRecord.</tt><tt class="descname">isTied</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecord.isTied" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a boolean if this record is tied.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;D4     8-       h     d        -&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">isTied</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span> <span class="o">=</span> <span class="n">musedata</span><span class="o">.</span><span class="n">MuseDataRecord</span><span class="p">(</span><span class="s">&#39;C4     1        s     u  [[&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mdr</span><span class="o">.</span><span class="n">isTied</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="musedatarecorditerator">
+<h2>MuseDataRecordIterator<a class="headerlink" href="#musedatarecorditerator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.musedata.MuseDataRecordIterator">
+<em class="property">class </em><tt class="descclassname">music21.musedata.</tt><tt class="descname">MuseDataRecordIterator</tt><big>(</big><em>src</em>, <em>parent</em><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecordIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create MuseDataRecord objects on demand, in order</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.musedata.MuseDataRecordIterator" title="music21.musedata.MuseDataRecordIterator"><tt class="xref py py-class docutils literal"><span class="pre">MuseDataRecordIterator</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.musedata.MuseDataRecordIterator.next">
+<tt class="descclassname">MuseDataRecordIterator.</tt><tt class="descname">next</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.musedata.MuseDataRecordIterator.next" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleMusedataBase40.html" title="music21.musedata.base40"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleMidiTranslate.html" title="music21.midi.translate"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

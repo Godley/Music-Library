@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.documentation.library.cleaners &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.documentation.library.documenters" href="moduleDocumentationLibraryDocumenters.html" />
+    <link rel="prev" title="music21.derivation" href="moduleDerivation.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryDocumenters.html" title="music21.documentation.library.documenters"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleDerivation.html" title="music21.derivation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleDerivation.html"
+                        title="previous chapter">music21.derivation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleDocumentationLibraryDocumenters.html"
+                        title="next chapter">music21.documentation.library.documenters</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.documentation.library.cleaners</a><ul>
+<li><a class="reference internal" href="#cleaner">Cleaner</a></li>
+<li><a class="reference internal" href="#corpusreferencecleaner">CorpusReferenceCleaner</a></li>
+<li><a class="reference internal" href="#ipythonnotebookcleaner">IPythonNotebookCleaner</a></li>
+<li><a class="reference internal" href="#modulereferencecleaner">ModuleReferenceCleaner</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleDocumentationLibraryCleaners.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-documentation-library-cleaners">
+<span id="moduledocumentationlibrarycleaners"></span><h1>music21.documentation.library.cleaners<a class="headerlink" href="#music21-documentation-library-cleaners" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.documentation.library.cleaners"></span><div class="section" id="cleaner">
+<h2>Cleaner<a class="headerlink" href="#cleaner" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.cleaners.Cleaner">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.cleaners.</tt><tt class="descname">Cleaner</tt><a class="headerlink" href="#music21.documentation.library.cleaners.Cleaner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract base class for documentation cleaning classes.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner" title="music21.documentation.library.cleaners.Cleaner"><tt class="xref py py-class docutils literal"><span class="pre">Cleaner</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.documentation.library.cleaners.Cleaner.documentationSourcePath">
+<tt class="descclassname">Cleaner.</tt><tt class="descname">documentationSourcePath</tt><a class="headerlink" href="#music21.documentation.library.cleaners.Cleaner.documentationSourcePath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner" title="music21.documentation.library.cleaners.Cleaner"><tt class="xref py py-class docutils literal"><span class="pre">Cleaner</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.documentation.library.cleaners.Cleaner.removeFile">
+<tt class="descclassname">Cleaner.</tt><tt class="descname">removeFile</tt><big>(</big><em>filePath</em><big>)</big><a class="headerlink" href="#music21.documentation.library.cleaners.Cleaner.removeFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="corpusreferencecleaner">
+<h2>CorpusReferenceCleaner<a class="headerlink" href="#corpusreferencecleaner" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.cleaners.CorpusReferenceCleaner">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.cleaners.</tt><tt class="descname">CorpusReferenceCleaner</tt><a class="headerlink" href="#music21.documentation.library.cleaners.CorpusReferenceCleaner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleans the corpus reference rst file.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.cleaners.CorpusReferenceCleaner" title="music21.documentation.library.cleaners.CorpusReferenceCleaner"><tt class="xref py py-class docutils literal"><span class="pre">CorpusReferenceCleaner</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner" title="music21.documentation.library.cleaners.Cleaner"><tt class="xref py py-class docutils literal"><span class="pre">Cleaner</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.cleaners.CorpusReferenceCleaner" title="music21.documentation.library.cleaners.CorpusReferenceCleaner"><tt class="xref py py-class docutils literal"><span class="pre">CorpusReferenceCleaner</span></tt></a> read-only properties</p>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner" title="music21.documentation.library.cleaners.Cleaner"><tt class="xref py py-class docutils literal"><span class="pre">Cleaner</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner.documentationSourcePath" title="music21.documentation.library.cleaners.Cleaner.documentationSourcePath"><tt class="xref py py-attr docutils literal"><span class="pre">documentationSourcePath</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.cleaners.CorpusReferenceCleaner" title="music21.documentation.library.cleaners.CorpusReferenceCleaner"><tt class="xref py py-class docutils literal"><span class="pre">CorpusReferenceCleaner</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner" title="music21.documentation.library.cleaners.Cleaner"><tt class="xref py py-class docutils literal"><span class="pre">Cleaner</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner.removeFile" title="music21.documentation.library.cleaners.Cleaner.removeFile"><tt class="xref py py-meth docutils literal"><span class="pre">removeFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="ipythonnotebookcleaner">
+<h2>IPythonNotebookCleaner<a class="headerlink" href="#ipythonnotebookcleaner" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.cleaners.IPythonNotebookCleaner">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.cleaners.</tt><tt class="descname">IPythonNotebookCleaner</tt><a class="headerlink" href="#music21.documentation.library.cleaners.IPythonNotebookCleaner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleans rst files generated from IPython notebooks.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.cleaners.IPythonNotebookCleaner" title="music21.documentation.library.cleaners.IPythonNotebookCleaner"><tt class="xref py py-class docutils literal"><span class="pre">IPythonNotebookCleaner</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner" title="music21.documentation.library.cleaners.Cleaner"><tt class="xref py py-class docutils literal"><span class="pre">Cleaner</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.cleaners.IPythonNotebookCleaner" title="music21.documentation.library.cleaners.IPythonNotebookCleaner"><tt class="xref py py-class docutils literal"><span class="pre">IPythonNotebookCleaner</span></tt></a> read-only properties</p>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner" title="music21.documentation.library.cleaners.Cleaner"><tt class="xref py py-class docutils literal"><span class="pre">Cleaner</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner.documentationSourcePath" title="music21.documentation.library.cleaners.Cleaner.documentationSourcePath"><tt class="xref py py-attr docutils literal"><span class="pre">documentationSourcePath</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.cleaners.IPythonNotebookCleaner" title="music21.documentation.library.cleaners.IPythonNotebookCleaner"><tt class="xref py py-class docutils literal"><span class="pre">IPythonNotebookCleaner</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner" title="music21.documentation.library.cleaners.Cleaner"><tt class="xref py py-class docutils literal"><span class="pre">Cleaner</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner.removeFile" title="music21.documentation.library.cleaners.Cleaner.removeFile"><tt class="xref py py-meth docutils literal"><span class="pre">removeFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="modulereferencecleaner">
+<h2>ModuleReferenceCleaner<a class="headerlink" href="#modulereferencecleaner" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.cleaners.ModuleReferenceCleaner">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.cleaners.</tt><tt class="descname">ModuleReferenceCleaner</tt><a class="headerlink" href="#music21.documentation.library.cleaners.ModuleReferenceCleaner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleans auto-generated module reference rst files.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.cleaners.ModuleReferenceCleaner" title="music21.documentation.library.cleaners.ModuleReferenceCleaner"><tt class="xref py py-class docutils literal"><span class="pre">ModuleReferenceCleaner</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner" title="music21.documentation.library.cleaners.Cleaner"><tt class="xref py py-class docutils literal"><span class="pre">Cleaner</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.cleaners.ModuleReferenceCleaner" title="music21.documentation.library.cleaners.ModuleReferenceCleaner"><tt class="xref py py-class docutils literal"><span class="pre">ModuleReferenceCleaner</span></tt></a> read-only properties</p>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner" title="music21.documentation.library.cleaners.Cleaner"><tt class="xref py py-class docutils literal"><span class="pre">Cleaner</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner.documentationSourcePath" title="music21.documentation.library.cleaners.Cleaner.documentationSourcePath"><tt class="xref py py-attr docutils literal"><span class="pre">documentationSourcePath</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.cleaners.ModuleReferenceCleaner" title="music21.documentation.library.cleaners.ModuleReferenceCleaner"><tt class="xref py py-class docutils literal"><span class="pre">ModuleReferenceCleaner</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner" title="music21.documentation.library.cleaners.Cleaner"><tt class="xref py py-class docutils literal"><span class="pre">Cleaner</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.cleaners.Cleaner.removeFile" title="music21.documentation.library.cleaners.Cleaner.removeFile"><tt class="xref py py-meth docutils literal"><span class="pre">removeFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryDocumenters.html" title="music21.documentation.library.documenters"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleDerivation.html" title="music21.derivation"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

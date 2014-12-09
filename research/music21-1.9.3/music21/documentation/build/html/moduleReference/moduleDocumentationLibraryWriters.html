@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.documentation.library.writers &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.documentation.upload" href="moduleDocumentationUpload.html" />
+    <link rel="prev" title="music21.documentation.library.iterators" href="moduleDocumentationLibraryIterators.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationUpload.html" title="music21.documentation.upload"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryIterators.html" title="music21.documentation.library.iterators"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleDocumentationLibraryIterators.html"
+                        title="previous chapter">music21.documentation.library.iterators</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleDocumentationUpload.html"
+                        title="next chapter">music21.documentation.upload</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.documentation.library.writers</a><ul>
+<li><a class="reference internal" href="#corpusreferencerestwriter">CorpusReferenceReSTWriter</a></li>
+<li><a class="reference internal" href="#ipythonnotebookrestwriter">IPythonNotebookReSTWriter</a></li>
+<li><a class="reference internal" href="#modulereferencerestwriter">ModuleReferenceReSTWriter</a></li>
+<li><a class="reference internal" href="#restwriter">ReSTWriter</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleDocumentationLibraryWriters.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-documentation-library-writers">
+<span id="moduledocumentationlibrarywriters"></span><h1>music21.documentation.library.writers<a class="headerlink" href="#music21-documentation-library-writers" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.documentation.library.writers"></span><div class="section" id="corpusreferencerestwriter">
+<h2>CorpusReferenceReSTWriter<a class="headerlink" href="#corpusreferencerestwriter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.writers.CorpusReferenceReSTWriter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.writers.</tt><tt class="descname">CorpusReferenceReSTWriter</tt><a class="headerlink" href="#music21.documentation.library.writers.CorpusReferenceReSTWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the corpus reference ReST file.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.writers.CorpusReferenceReSTWriter" title="music21.documentation.library.writers.CorpusReferenceReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">CorpusReferenceReSTWriter</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.writers.ReSTWriter" title="music21.documentation.library.writers.ReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">ReSTWriter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.writers.CorpusReferenceReSTWriter" title="music21.documentation.library.writers.CorpusReferenceReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">CorpusReferenceReSTWriter</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.writers.ReSTWriter" title="music21.documentation.library.writers.ReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">ReSTWriter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.writers.ReSTWriter.write" title="music21.documentation.library.writers.ReSTWriter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="ipythonnotebookrestwriter">
+<h2>IPythonNotebookReSTWriter<a class="headerlink" href="#ipythonnotebookrestwriter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.writers.IPythonNotebookReSTWriter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.writers.</tt><tt class="descname">IPythonNotebookReSTWriter</tt><a class="headerlink" href="#music21.documentation.library.writers.IPythonNotebookReSTWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts IPython notebooks into ReST, and handles their associated image
+files.</p>
+<p>This class wraps the 3rd-party <tt class="docutils literal"><span class="pre">nbconvert</span></tt> Python script.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.writers.IPythonNotebookReSTWriter" title="music21.documentation.library.writers.IPythonNotebookReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">IPythonNotebookReSTWriter</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.writers.ReSTWriter" title="music21.documentation.library.writers.ReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">ReSTWriter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.writers.IPythonNotebookReSTWriter" title="music21.documentation.library.writers.IPythonNotebookReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">IPythonNotebookReSTWriter</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.writers.ReSTWriter" title="music21.documentation.library.writers.ReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">ReSTWriter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.writers.ReSTWriter.write" title="music21.documentation.library.writers.ReSTWriter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="modulereferencerestwriter">
+<h2>ModuleReferenceReSTWriter<a class="headerlink" href="#modulereferencerestwriter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.writers.ModuleReferenceReSTWriter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.writers.</tt><tt class="descname">ModuleReferenceReSTWriter</tt><a class="headerlink" href="#music21.documentation.library.writers.ModuleReferenceReSTWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes module reference ReST files, and their index ReST file.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.writers.ModuleReferenceReSTWriter" title="music21.documentation.library.writers.ModuleReferenceReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">ModuleReferenceReSTWriter</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.writers.ReSTWriter" title="music21.documentation.library.writers.ReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">ReSTWriter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.writers.ModuleReferenceReSTWriter" title="music21.documentation.library.writers.ModuleReferenceReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">ModuleReferenceReSTWriter</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.writers.ReSTWriter" title="music21.documentation.library.writers.ReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">ReSTWriter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.writers.ReSTWriter.write" title="music21.documentation.library.writers.ReSTWriter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="restwriter">
+<h2>ReSTWriter<a class="headerlink" href="#restwriter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.writers.ReSTWriter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.writers.</tt><tt class="descname">ReSTWriter</tt><a class="headerlink" href="#music21.documentation.library.writers.ReSTWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract base class for ReST writers.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.writers.ReSTWriter" title="music21.documentation.library.writers.ReSTWriter"><tt class="xref py py-class docutils literal"><span class="pre">ReSTWriter</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.documentation.library.writers.ReSTWriter.write">
+<tt class="descclassname">ReSTWriter.</tt><tt class="descname">write</tt><big>(</big><em>filePath</em>, <em>rst</em><big>)</big><a class="headerlink" href="#music21.documentation.library.writers.ReSTWriter.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write <tt class="docutils literal"><span class="pre">lines</span></tt> to <tt class="docutils literal"><span class="pre">filePath</span></tt>, only overwriting an existing file
+if the content differs.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationUpload.html" title="music21.documentation.upload"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryIterators.html" title="music21.documentation.library.iterators"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

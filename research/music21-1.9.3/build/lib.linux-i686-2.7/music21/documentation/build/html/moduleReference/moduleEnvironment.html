@@ -1,0 +1,900 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.environment &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.expressions" href="moduleExpressions.html" />
+    <link rel="prev" title="music21.editorial" href="moduleEditorial.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleExpressions.html" title="music21.expressions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleEditorial.html" title="music21.editorial"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleEditorial.html"
+                        title="previous chapter">music21.editorial</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleExpressions.html"
+                        title="next chapter">music21.expressions</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.environment</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#usersettings">UserSettings</a></li>
+<li><a class="reference internal" href="#environment">Environment</a></li>
+<li><a class="reference internal" href="#preference">Preference</a></li>
+<li><a class="reference internal" href="#localcorporasettings">LocalCorporaSettings</a></li>
+<li><a class="reference internal" href="#localcorpuspath">LocalCorpusPath</a></li>
+<li><a class="reference internal" href="#localcorpussettings">LocalCorpusSettings</a></li>
+<li><a class="reference internal" href="#settings">Settings</a></li>
+<li><a class="reference internal" href="#settingshandler">SettingsHandler</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleEnvironment.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-environment">
+<span id="moduleenvironment"></span><h1>music21.environment<a class="headerlink" href="#music21-environment" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.environment"></span><div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="music21.environment.get">
+<tt class="descclassname">music21.environment.</tt><tt class="descname">get</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#music21.environment.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current setting of a UserSettings key.</p>
+<p>This will create a user settings file if necessary:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">environment</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">...</span>
+<span class="go">&#39;autoDownload&#39;</span>
+<span class="go">&#39;braillePath&#39;</span>
+<span class="go">&#39;debug&#39;</span>
+<span class="go">&#39;directoryScratch&#39;</span>
+<span class="go">&#39;graphicsPath&#39;</span>
+<span class="go">&#39;ipythonShowFormat&#39;</span>
+<span class="go">&#39;lilypondBackend&#39;</span>
+<span class="go">&#39;lilypondFormat&#39;</span>
+<span class="go">&#39;lilypondPath&#39;</span>
+<span class="go">&#39;lilypondVersion&#39;</span>
+<span class="go">&#39;localCorporaSettings&#39;</span>
+<span class="go">&#39;localCorpusPath&#39;</span>
+<span class="go">&#39;localCorpusSettings&#39;</span>
+<span class="go">&#39;manualCoreCorpusPath&#39;</span>
+<span class="go">&#39;midiPath&#39;</span>
+<span class="go">&#39;musescoreDirectPNGPath&#39;</span>
+<span class="go">&#39;musicxmlPath&#39;</span>
+<span class="go">&#39;pdfPath&#39;</span>
+<span class="go">&#39;showFormat&#39;</span>
+<span class="go">&#39;vectorPath&#39;</span>
+<span class="go">&#39;warnings&#39;</span>
+<span class="go">&#39;writeFormat&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">environment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;musicxmlPath&#39;</span><span class="p">)</span>
+<span class="go">&#39;/Applications/Finale Reader.app&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.environment.keys">
+<tt class="descclassname">music21.environment.</tt><tt class="descname">keys</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all valid UserSettings keys.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.environment.set">
+<tt class="descclassname">music21.environment.</tt><tt class="descname">set</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#music21.environment.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directly set a single UserSettings key, by providing a key and the
+appropriate value. This will create a user settings file if necessary.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">environment</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">...</span>
+<span class="go">&#39;autoDownload&#39;</span>
+<span class="go">&#39;braillePath&#39;</span>
+<span class="go">&#39;debug&#39;</span>
+<span class="go">&#39;directoryScratch&#39;</span>
+<span class="go">&#39;graphicsPath&#39;</span>
+<span class="go">&#39;ipythonShowFormat&#39;</span>
+<span class="go">&#39;lilypondBackend&#39;</span>
+<span class="go">&#39;lilypondFormat&#39;</span>
+<span class="go">&#39;lilypondPath&#39;</span>
+<span class="go">&#39;lilypondVersion&#39;</span>
+<span class="go">&#39;localCorporaSettings&#39;</span>
+<span class="go">&#39;localCorpusPath&#39;</span>
+<span class="go">&#39;localCorpusSettings&#39;</span>
+<span class="go">&#39;manualCoreCorpusPath&#39;</span>
+<span class="go">&#39;midiPath&#39;</span>
+<span class="go">&#39;musescoreDirectPNGPath&#39;</span>
+<span class="go">&#39;musicxmlPath&#39;</span>
+<span class="go">&#39;pdfPath&#39;</span>
+<span class="go">&#39;showFormat&#39;</span>
+<span class="go">&#39;vectorPath&#39;</span>
+<span class="go">&#39;warnings&#39;</span>
+<span class="go">&#39;writeFormat&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">environment</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;wer&#39;</span><span class="p">,</span> <span class="s">&#39;asdf&#39;</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">EnvironmentException</span>: <span class="n">no preference: wer</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">environment</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;musicxmlPath&#39;</span><span class="p">,</span> <span class="s">&#39;/Applications/Finale Reader.app&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="usersettings">
+<h2>UserSettings<a class="headerlink" href="#usersettings" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.environment.UserSettings">
+<em class="property">class </em><tt class="descclassname">music21.environment.</tt><tt class="descname">UserSettings</tt><a class="headerlink" href="#music21.environment.UserSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>The UserSettings object provides a simple interface for configuring the
+user preferences in the <a class="reference internal" href="#music21.environment.Environment" title="music21.environment.Environment"><tt class="xref py py-class docutils literal"><span class="pre">Environment</span></tt></a> object.</p>
+<p>First, create an instance of UserSettings:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">us</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">UserSettings</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Second, view the available settings keys.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">us</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+<span class="gp">... </span>    <span class="n">key</span>
+<span class="gp">...</span>
+<span class="go">&#39;autoDownload&#39;</span>
+<span class="go">&#39;braillePath&#39;</span>
+<span class="go">&#39;debug&#39;</span>
+<span class="go">&#39;directoryScratch&#39;</span>
+<span class="go">&#39;graphicsPath&#39;</span>
+<span class="go">&#39;ipythonShowFormat&#39;</span>
+<span class="go">&#39;lilypondBackend&#39;</span>
+<span class="go">&#39;lilypondFormat&#39;</span>
+<span class="go">&#39;lilypondPath&#39;</span>
+<span class="go">&#39;lilypondVersion&#39;</span>
+<span class="go">&#39;localCorporaSettings&#39;</span>
+<span class="go">&#39;localCorpusPath&#39;</span>
+<span class="go">&#39;localCorpusSettings&#39;</span>
+<span class="go">&#39;manualCoreCorpusPath&#39;</span>
+<span class="go">&#39;midiPath&#39;</span>
+<span class="go">&#39;musescoreDirectPNGPath&#39;</span>
+<span class="go">&#39;musicxmlPath&#39;</span>
+<span class="go">&#39;pdfPath&#39;</span>
+<span class="go">&#39;showFormat&#39;</span>
+<span class="go">&#39;vectorPath&#39;</span>
+<span class="go">&#39;warnings&#39;</span>
+<span class="go">&#39;writeFormat&#39;</span>
+</pre></div>
+</div>
+<p>Third, after finding the desired setting, supply the new value as a Python
+dictionary key value pair. Setting this value updates the user&#8217;s settings
+file. For example, to set the file path to the Application that will be
+used to open MusicXML files, use the &#8216;musicxmlPath&#8217; key.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">us</span><span class="p">[</span><span class="s">&#39;musicxmlPath&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;/Applications/Finale Reader.app&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">us</span><span class="p">[</span><span class="s">&#39;musicxmlPath&#39;</span><span class="p">]</span>
+<span class="go">u&#39;/Applications/Finale Reader.app&#39;</span>
+</pre></div>
+</div>
+<p>Note that the &#8216;localCorpusPath&#8217; setting operates in a slightly different
+manner than other settings. Each time the &#8216;localCorpusPath&#8217; setting is set,
+an additional local corpus file path is added to the list of local corpus
+paths (unless that path is already defined in the list of local corpus
+paths). To view all local corpus paths, access the &#8216;localCorpusSettings&#8217;
+settings. This setting can also be used to set a complete list of file
+paths.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">us</span><span class="p">[</span><span class="s">&#39;localCorpusPath&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;~/Documents&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">us</span><span class="p">[</span><span class="s">&#39;localCorpusSettings&#39;</span><span class="p">]</span>
+<span class="go">[&#39;~/Documents&#39;]</span>
+</pre></div>
+</div>
+<p>Alternatively, the environment.py module provides convenience functions for
+setting these settings: <a class="reference internal" href="#music21.environment.keys" title="music21.environment.keys"><tt class="xref py py-func docutils literal"><span class="pre">keys()</span></tt></a>,
+<a class="reference internal" href="#music21.environment.get" title="music21.environment.get"><tt class="xref py py-func docutils literal"><span class="pre">get()</span></tt></a>, and <a class="reference internal" href="#music21.environment.set" title="music21.environment.set"><tt class="xref py py-func docutils literal"><span class="pre">set()</span></tt></a>.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.environment.UserSettings" title="music21.environment.UserSettings"><tt class="xref py py-class docutils literal"><span class="pre">UserSettings</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.environment.UserSettings.create">
+<tt class="descclassname">UserSettings.</tt><tt class="descname">create</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.UserSettings.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>If a environment configuration file does not exist, create one based on
+the default settings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.UserSettings.delete">
+<tt class="descclassname">UserSettings.</tt><tt class="descname">delete</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.UserSettings.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Permanently remove the user configuration file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.UserSettings.getSettingsPath">
+<tt class="descclassname">UserSettings.</tt><tt class="descname">getSettingsPath</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.UserSettings.getSettingsPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the path to the platform specific settings file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.UserSettings.keys">
+<tt class="descclassname">UserSettings.</tt><tt class="descname">keys</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.UserSettings.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the keys found in the user&#8217;s
+<a class="reference internal" href="#music21.environment.Environment" title="music21.environment.Environment"><tt class="xref py py-class docutils literal"><span class="pre">Environment</span></tt></a> object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.UserSettings.restoreDefaults">
+<tt class="descclassname">UserSettings.</tt><tt class="descname">restoreDefaults</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.UserSettings.restoreDefaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore platform specific defaults.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="environment">
+<h2>Environment<a class="headerlink" href="#environment" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.environment.Environment">
+<em class="property">class </em><tt class="descclassname">music21.environment.</tt><tt class="descname">Environment</tt><big>(</big><em>modName=None</em>, <em>forcePlatform=None</em><big>)</big><a class="headerlink" href="#music21.environment.Environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>The environment.Environment object stores user preferences as a
+dictionary-like object.  Additionally, the Environment object provides
+convenience methods to music21 modules for getting temporary files,
+launching files with external applications, and printing debug and warning
+messages.</p>
+<p>Generally, each module creates a single, module-level instance of
+Environment, passing the module&#8217;s name during creation. (This is an
+efficient operation since the Environment module caches most information
+from module to module)</p>
+<p>For more a user-friendly interface for creating and editing settings, see
+the <a class="reference internal" href="#music21.environment.UserSettings" title="music21.environment.UserSettings"><tt class="xref py py-class docutils literal"><span class="pre">UserSettings</span></tt></a> object.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">env</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">Environment</span><span class="p">(</span><span class="n">forcePlatform</span><span class="o">=</span><span class="s">&#39;darwin&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">env</span><span class="p">[</span><span class="s">&#39;musicxmlPath&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;/Applications/Finale Reader.app&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">env</span><span class="p">[</span><span class="s">&#39;musicxmlPath&#39;</span><span class="p">]</span>
+<span class="go">&#39;/Applications/Finale Reader.app&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.environment.Environment" title="music21.environment.Environment"><tt class="xref py py-class docutils literal"><span class="pre">Environment</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.environment.Environment.formatToApp">
+<tt class="descclassname">Environment.</tt><tt class="descname">formatToApp</tt><big>(</big><em>m21Format</em><big>)</big><a class="headerlink" href="#music21.environment.Environment.formatToApp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.formatToKey">
+<tt class="descclassname">Environment.</tt><tt class="descname">formatToKey</tt><big>(</big><em>m21Format</em><big>)</big><a class="headerlink" href="#music21.environment.Environment.formatToKey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.getDefaultRootTempDir">
+<tt class="descclassname">Environment.</tt><tt class="descname">getDefaultRootTempDir</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.Environment.getDefaultRootTempDir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the Python tempfile.gettempdir() to get the system specified
+temporary directory, and try to add a new &#8216;music21&#8217; directory, and then
+return this directory.</p>
+<p>This method is only called if the no scratch directory preference has
+been set.</p>
+<p>If not able to create a &#8216;music21&#8217; directory, the standard default is
+returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.getKeysToPaths">
+<tt class="descclassname">Environment.</tt><tt class="descname">getKeysToPaths</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.Environment.getKeysToPaths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the keys that refer to file paths.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">Environment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">getKeysToPaths</span><span class="p">()):</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">...</span>
+<span class="go">&#39;braillePath&#39;</span>
+<span class="go">&#39;graphicsPath&#39;</span>
+<span class="go">&#39;lilypondPath&#39;</span>
+<span class="go">&#39;localCorpusPath&#39;</span>
+<span class="go">&#39;manualCoreCorpusPath&#39;</span>
+<span class="go">&#39;midiPath&#39;</span>
+<span class="go">&#39;musescoreDirectPNGPath&#39;</span>
+<span class="go">&#39;musicxmlPath&#39;</span>
+<span class="go">&#39;pdfPath&#39;</span>
+<span class="go">&#39;vectorPath&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.getRefKeys">
+<tt class="descclassname">Environment.</tt><tt class="descname">getRefKeys</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.Environment.getRefKeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the raw keys stored in the internal reference dictionary.</p>
+<p>These are different than the keys() method in that the
+&#8216;localCorpusPath&#8217; entry is not included.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">Environment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">getRefKeys</span><span class="p">()):</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">...</span>
+<span class="go">&#39;autoDownload&#39;</span>
+<span class="go">&#39;braillePath&#39;</span>
+<span class="go">&#39;debug&#39;</span>
+<span class="go">&#39;directoryScratch&#39;</span>
+<span class="go">&#39;graphicsPath&#39;</span>
+<span class="go">&#39;ipythonShowFormat&#39;</span>
+<span class="go">&#39;lilypondBackend&#39;</span>
+<span class="go">&#39;lilypondFormat&#39;</span>
+<span class="go">&#39;lilypondPath&#39;</span>
+<span class="go">&#39;lilypondVersion&#39;</span>
+<span class="go">&#39;localCorporaSettings&#39;</span>
+<span class="go">&#39;localCorpusSettings&#39;</span>
+<span class="go">&#39;manualCoreCorpusPath&#39;</span>
+<span class="go">&#39;midiPath&#39;</span>
+<span class="go">&#39;musescoreDirectPNGPath&#39;</span>
+<span class="go">&#39;musicxmlPath&#39;</span>
+<span class="go">&#39;pdfPath&#39;</span>
+<span class="go">&#39;showFormat&#39;</span>
+<span class="go">&#39;vectorPath&#39;</span>
+<span class="go">&#39;warnings&#39;</span>
+<span class="go">&#39;writeFormat&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.getRootTempDir">
+<tt class="descclassname">Environment.</tt><tt class="descname">getRootTempDir</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.Environment.getRootTempDir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a directory for writing temporary files. This does not create a
+new directory for each use, but either uses the user-set preference or
+gets the system-provided directory (with a music21 subdirectory, if
+possible).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.getSettingsPath">
+<tt class="descclassname">Environment.</tt><tt class="descname">getSettingsPath</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.Environment.getSettingsPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the path to the platform specific settings file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.getTempFile">
+<tt class="descclassname">Environment.</tt><tt class="descname">getTempFile</tt><big>(</big><em>suffix=''</em><big>)</big><a class="headerlink" href="#music21.environment.Environment.getTempFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a file path to a temporary file with the specified suffix (file
+extension).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.keys">
+<tt class="descclassname">Environment.</tt><tt class="descname">keys</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.Environment.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return valid keys to get and set values for the Environment instance.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">Environment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">...</span>
+<span class="go">&#39;autoDownload&#39;</span>
+<span class="go">&#39;braillePath&#39;</span>
+<span class="go">&#39;debug&#39;</span>
+<span class="go">&#39;directoryScratch&#39;</span>
+<span class="go">&#39;graphicsPath&#39;</span>
+<span class="go">&#39;ipythonShowFormat&#39;</span>
+<span class="go">&#39;lilypondBackend&#39;</span>
+<span class="go">&#39;lilypondFormat&#39;</span>
+<span class="go">&#39;lilypondPath&#39;</span>
+<span class="go">&#39;lilypondVersion&#39;</span>
+<span class="go">&#39;localCorporaSettings&#39;</span>
+<span class="go">&#39;localCorpusPath&#39;</span>
+<span class="go">&#39;localCorpusSettings&#39;</span>
+<span class="go">&#39;manualCoreCorpusPath&#39;</span>
+<span class="go">&#39;midiPath&#39;</span>
+<span class="go">&#39;musescoreDirectPNGPath&#39;</span>
+<span class="go">&#39;musicxmlPath&#39;</span>
+<span class="go">&#39;pdfPath&#39;</span>
+<span class="go">&#39;showFormat&#39;</span>
+<span class="go">&#39;vectorPath&#39;</span>
+<span class="go">&#39;warnings&#39;</span>
+<span class="go">&#39;writeFormat&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.launch">
+<tt class="descclassname">Environment.</tt><tt class="descname">launch</tt><big>(</big><em>fmt</em>, <em>filePath</em>, <em>options=''</em>, <em>app=None</em><big>)</big><a class="headerlink" href="#music21.environment.Environment.launch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens a file with an either default or user-specified applications.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.printDebug">
+<tt class="descclassname">Environment.</tt><tt class="descname">printDebug</tt><big>(</big><em>msg</em>, <em>statusLevel=1</em>, <em>debugFormat=None</em><big>)</big><a class="headerlink" href="#music21.environment.Environment.printDebug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format one or more data elements into string, and print it to stderr.
+The first arg can be a list of strings or a string; lists are
+concatenated with common.formatStr().</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.read">
+<tt class="descclassname">Environment.</tt><tt class="descname">read</tt><big>(</big><em>filePath=None</em><big>)</big><a class="headerlink" href="#music21.environment.Environment.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load an XML preference file if and only if the file is available
+and has been written in the past. This means that no preference file
+will ever be written unless manually done so. If no preference file
+exists, the method returns None.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.restoreDefaults">
+<tt class="descclassname">Environment.</tt><tt class="descname">restoreDefaults</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.Environment.restoreDefaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore only defaults for all parameters. Useful for testing.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">Environment</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="s">&#39;debug&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">restoreDefaults</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="s">&#39;debug&#39;</span><span class="p">]</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<p>And we can <tt class="docutils literal"><span class="pre">read()</span></tt> the environment settings back from our
+configuration file to restore our normal working environment.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">Environment</span><span class="p">()</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.warn">
+<tt class="descclassname">Environment.</tt><tt class="descname">warn</tt><big>(</big><em>msg</em>, <em>header=None</em><big>)</big><a class="headerlink" href="#music21.environment.Environment.warn" title="Permalink to this definition">¶</a></dt>
+<dd><p>To print a warning to the user, send a list of strings to this method.
+Similar to printDebug but even if debug is off.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.Environment.write">
+<tt class="descclassname">Environment.</tt><tt class="descname">write</tt><big>(</big><em>filePath=None</em><big>)</big><a class="headerlink" href="#music21.environment.Environment.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write an XML preference file. This must be manually called to store
+any changes made to the object and access preferences later.
+If <cite>filePath</cite> is None, the default storage location will be used.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.environment.Environment" title="music21.environment.Environment"><tt class="xref py py-class docutils literal"><span class="pre">Environment</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.environment.Environment.modNameParent">
+<tt class="descclassname">Environment.</tt><tt class="descname">modNameParent</tt><a class="headerlink" href="#music21.environment.Environment.modNameParent" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string representation of the module that contains this
+Environment instance.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="preference">
+<h2>Preference<a class="headerlink" href="#preference" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.environment.Preference">
+<em class="property">class </em><tt class="descclassname">music21.environment.</tt><tt class="descname">Preference</tt><a class="headerlink" href="#music21.environment.Preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>An xmlnode.XMLNode subclass representing a single environment preference:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">Preference</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.environment.Preference" title="music21.environment.Preference"><tt class="xref py py-class docutils literal"><span class="pre">Preference</span></tt></a> bases</p>
+<ul class="simple">
+<li><tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.environment.Preference" title="music21.environment.Preference"><tt class="xref py py-class docutils literal"><span class="pre">Preference</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-attr docutils literal"><span class="pre">tag</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.environment.Preference" title="music21.environment.Preference"><tt class="xref py py-class docutils literal"><span class="pre">Preference</span></tt></a> methods</p>
+<p>Methods inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">getNewDoc()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">hasAttrs()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">loadAttrs()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">merge()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">set()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">setDefaults()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">toxml()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">xmlStr()</span></tt></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="localcorporasettings">
+<h2>LocalCorporaSettings<a class="headerlink" href="#localcorporasettings" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.environment.LocalCorporaSettings">
+<em class="property">class </em><tt class="descclassname">music21.environment.</tt><tt class="descname">LocalCorporaSettings</tt><a class="headerlink" href="#music21.environment.LocalCorporaSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>An xmlnode.XMLNode subclass representing information about various
+secondary local corpora:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">localCorpora</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">LocalCorporaSettings</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpusA</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">LocalCorpusSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpusA</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">environment</span><span class="o">.</span><span class="n">LocalCorpusPath</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s">&#39;foo&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpusA</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">environment</span><span class="o">.</span><span class="n">LocalCorpusPath</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpusB</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">LocalCorpusSettings</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;B&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">corpusB</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">environment</span><span class="o">.</span><span class="n">LocalCorpusPath</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s">&#39;baz&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">localCorpora</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">corpusA</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">localCorpora</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">corpusB</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">localCorpora</span><span class="o">.</span><span class="n">xmlStr</span><span class="p">())</span>
+<span class="go">&lt;?xml version=&quot;1.0&quot; ...?&gt;</span>
+<span class="go">&lt;localCorporaSettings&gt;</span>
+<span class="go">  &lt;localCorpusSettings name=&quot;A&quot;&gt;</span>
+<span class="go">    &lt;localCorpusPath&gt;foo&lt;/localCorpusPath&gt;</span>
+<span class="go">    &lt;localCorpusPath&gt;bar&lt;/localCorpusPath&gt;</span>
+<span class="go">  &lt;/localCorpusSettings&gt;</span>
+<span class="go">  &lt;localCorpusSettings name=&quot;B&quot;&gt;</span>
+<span class="go">    &lt;localCorpusPath&gt;baz&lt;/localCorpusPath&gt;</span>
+<span class="go">  &lt;/localCorpusSettings&gt;</span>
+<span class="go">&lt;/localCorporaSettings&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.environment.LocalCorporaSettings" title="music21.environment.LocalCorporaSettings"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorporaSettings</span></tt></a> bases</p>
+<ul class="simple">
+<li><tt class="xref py py-class docutils literal"><span class="pre">XMLNodeList</span></tt></li>
+<li><tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.environment.LocalCorporaSettings" title="music21.environment.LocalCorporaSettings"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorporaSettings</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-attr docutils literal"><span class="pre">tag</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.environment.LocalCorporaSettings" title="music21.environment.LocalCorporaSettings"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorporaSettings</span></tt></a> methods</p>
+<p>Methods inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNodeList</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">append()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p>Methods inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">getNewDoc()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">hasAttrs()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">loadAttrs()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">merge()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">set()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">setDefaults()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">toxml()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">xmlStr()</span></tt></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="localcorpuspath">
+<h2>LocalCorpusPath<a class="headerlink" href="#localcorpuspath" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.environment.LocalCorpusPath">
+<em class="property">class </em><tt class="descclassname">music21.environment.</tt><tt class="descname">LocalCorpusPath</tt><big>(</big><em>path=None</em><big>)</big><a class="headerlink" href="#music21.environment.LocalCorpusPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>An xmlnode.XMLNode subclass representing a list of environment
+preference:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lcs</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">LocalCorpusSettings</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lcp</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">LocalCorpusPath</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lcp</span><span class="o">.</span><span class="n">charData</span> <span class="o">=</span> <span class="s">&#39;testing&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lcs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lcp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">lcs</span><span class="o">.</span><span class="n">xmlStr</span><span class="p">())</span>
+<span class="go">&lt;?xml version=&quot;1.0&quot; ...?&gt;</span>
+<span class="go">&lt;localCorpusSettings&gt;</span>
+<span class="go">&lt;localCorpusPath&gt;testing&lt;/localCorpusPath&gt;</span>
+<span class="go">&lt;/localCorpusSettings&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.environment.LocalCorpusPath" title="music21.environment.LocalCorpusPath"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorpusPath</span></tt></a> bases</p>
+<ul class="simple">
+<li><tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.environment.LocalCorpusPath" title="music21.environment.LocalCorpusPath"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorpusPath</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-attr docutils literal"><span class="pre">tag</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.environment.LocalCorpusPath" title="music21.environment.LocalCorpusPath"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorpusPath</span></tt></a> methods</p>
+<p>Methods inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">getNewDoc()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">hasAttrs()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">loadAttrs()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">merge()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">set()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">setDefaults()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">toxml()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">xmlStr()</span></tt></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="localcorpussettings">
+<h2>LocalCorpusSettings<a class="headerlink" href="#localcorpussettings" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.environment.LocalCorpusSettings">
+<em class="property">class </em><tt class="descclassname">music21.environment.</tt><tt class="descname">LocalCorpusSettings</tt><big>(</big><em>name=None</em><big>)</big><a class="headerlink" href="#music21.environment.LocalCorpusSettings" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">LocalCorpusSettings</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.environment.LocalCorpusSettings" title="music21.environment.LocalCorpusSettings"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorpusSettings</span></tt></a> bases</p>
+<ul class="simple">
+<li><tt class="xref py py-class docutils literal"><span class="pre">XMLNodeList</span></tt></li>
+<li><tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.environment.LocalCorpusSettings" title="music21.environment.LocalCorpusSettings"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorpusSettings</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-attr docutils literal"><span class="pre">tag</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.environment.LocalCorpusSettings" title="music21.environment.LocalCorpusSettings"><tt class="xref py py-class docutils literal"><span class="pre">LocalCorpusSettings</span></tt></a> methods</p>
+<p>Methods inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNodeList</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">append()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p>Methods inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">getNewDoc()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">hasAttrs()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">loadAttrs()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">merge()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">set()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">setDefaults()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">toxml()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">xmlStr()</span></tt></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="settings">
+<h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.environment.Settings">
+<em class="property">class </em><tt class="descclassname">music21.environment.</tt><tt class="descname">Settings</tt><a class="headerlink" href="#music21.environment.Settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>A settings object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">Settings</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.environment.Settings" title="music21.environment.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> bases</p>
+<ul class="simple">
+<li><tt class="xref py py-class docutils literal"><span class="pre">XMLNodeList</span></tt></li>
+<li><tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.environment.Settings" title="music21.environment.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-attr docutils literal"><span class="pre">tag</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.environment.Settings" title="music21.environment.Settings"><tt class="xref py py-class docutils literal"><span class="pre">Settings</span></tt></a> methods</p>
+<p>Methods inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNodeList</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">append()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p>Methods inherited from <tt class="xref py py-class docutils literal"><span class="pre">XMLNode</span></tt>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">getNewDoc()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">hasAttrs()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">loadAttrs()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">merge()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">set()</span></tt></li>
+</ul>
+</td><td><ul class="simple">
+<li><tt class="xref py py-meth docutils literal"><span class="pre">setDefaults()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">toxml()</span></tt></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">xmlStr()</span></tt></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="settingshandler">
+<h2>SettingsHandler<a class="headerlink" href="#settingshandler" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.environment.SettingsHandler">
+<em class="property">class </em><tt class="descclassname">music21.environment.</tt><tt class="descname">SettingsHandler</tt><big>(</big><em>tagLib=None</em><big>)</big><a class="headerlink" href="#music21.environment.SettingsHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>An xml.sax.ContentHandler subclass holding settings:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sh</span> <span class="o">=</span> <span class="n">environment</span><span class="o">.</span><span class="n">SettingsHandler</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.environment.SettingsHandler" title="music21.environment.SettingsHandler"><tt class="xref py py-class docutils literal"><span class="pre">SettingsHandler</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.environment.SettingsHandler.characters">
+<tt class="descclassname">SettingsHandler.</tt><tt class="descname">characters</tt><big>(</big><em>characters</em><big>)</big><a class="headerlink" href="#music21.environment.SettingsHandler.characters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.SettingsHandler.endElement">
+<tt class="descclassname">SettingsHandler.</tt><tt class="descname">endElement</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#music21.environment.SettingsHandler.endElement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.SettingsHandler.getSettings">
+<tt class="descclassname">SettingsHandler.</tt><tt class="descname">getSettings</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.environment.SettingsHandler.getSettings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.environment.SettingsHandler.startElement">
+<tt class="descclassname">SettingsHandler.</tt><tt class="descname">startElement</tt><big>(</big><em>name</em>, <em>attrs</em><big>)</big><a class="headerlink" href="#music21.environment.SettingsHandler.startElement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleExpressions.html" title="music21.expressions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleEditorial.html" title="music21.editorial"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

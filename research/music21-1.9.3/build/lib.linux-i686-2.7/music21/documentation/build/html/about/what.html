@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>What Is Music21? &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="About Music21" href="index.html" />
+    <link rel="next" title="Quick Start: Getting Started with music21" href="quickStart.html" />
+    <link rel="prev" title="About Music21" href="index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="quickStart.html" title="Quick Start: Getting Started with music21"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="About Music21"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">About Music21</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">About Music21</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="quickStart.html"
+                        title="next chapter">Quick Start: Getting Started with music21</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What Is Music21?</a><ul>
+<li><a class="reference internal" href="#finding-solutions-with-small-scripts">Finding Solutions with Small Scripts</a></li>
+<li><a class="reference internal" href="#getting-musical-data">Getting Musical Data</a></li>
+<li><a class="reference internal" href="#visualizing-musical-data">Visualizing Musical Data</a></li>
+<li><a class="reference internal" href="#authoring-and-transforming-musical-data">Authoring and Transforming Musical Data</a></li>
+<li><a class="reference internal" href="#learning-music21">Learning music21</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">About Music21</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">What Is Music21?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickStart.html">Quick Start: Getting Started with music21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Examples and Demonstrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="applications.html">Applications and Extensions of music21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about.html">Authors, Acknowledgments, Contributing, and Licensing</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../moduleReference/index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/about/what.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="what-is-music21">
+<span id="what"></span><h1>What Is Music21?<a class="headerlink" href="#what-is-music21" title="Permalink to this headline">¶</a></h1>
+<p>Music21 is a Python-based toolkit for computer-aided musicology.</p>
+<p>Applications of this toolkit include computational musicology, music informations, musical example extraction and generation, music notation editing and scripting, and a wide variety of approaches to composition, both algorithmic and directly specified.</p>
+<p>Music21, while newly created from the ground up, leverages many approaches and traditions from previous software systems. See <a class="reference internal" href="about.html#about"><em>Authors, Acknowledgments, Contributing, and Licensing</em></a> for information on the authors and the background of this project.</p>
+<p>The 21 in <cite>music21</cite> refers to the traditional MIT course number for music and some other humanities departments &#8211; a nod to the place that helped us create this toolkit.</p>
+<div class="section" id="finding-solutions-with-small-scripts">
+<h2>Finding Solutions with Small Scripts<a class="headerlink" href="#finding-solutions-with-small-scripts" title="Permalink to this headline">¶</a></h2>
+<p>With music21, a collection specialized objects and tools are made available inside of Python. This is a Python extension library. With a script, a short collection Python code, you can easily find and display a solution to a wide range of musicological problems.</p>
+<p>For some examples of these scripts, see <a class="reference internal" href="examples.html#examples"><em>Examples and Demonstrations</em></a>.</p>
+</div>
+<div class="section" id="getting-musical-data">
+<h2>Getting Musical Data<a class="headerlink" href="#getting-musical-data" title="Permalink to this headline">¶</a></h2>
+<p>Music21 is specialized for working with musical data represented symbolically: most commonly, this is a musical score or notation. This data can be obtained from a wide variety of sources.</p>
+<p>If you use Finale, you can easily output scores or notation from
+these programs as MusicXML (Sibelius can also do so with a commercial add-in).
+Music21 can then import the MusicXML data. Additionally, there exist
+numerous on-line repositories of MusicXML data. See <a class="reference internal" href="../overview/overviewFormats.html#overviewformats"><em>Overview: Importing File and Data Formats</em></a>
+for links.</p>
+<p>There are numerous additional symbolic music representations. In addition
+to MusicXML import and export, music21 presently supports import of
+Humdrum and its Kern format, MIDI, and ABC, as well as export of MIDI
+and Lilypond. MuseData and additional formats will be forthcoming.</p>
+</div>
+<div class="section" id="visualizing-musical-data">
+<h2>Visualizing Musical Data<a class="headerlink" href="#visualizing-musical-data" title="Permalink to this headline">¶</a></h2>
+<p>Music21 provides a wide variety of tools for visualizing musical data
+and output. Musical notation can be output in a variety of formats, and
+graphics can be created of musical data or events. For some examples, see <a class="reference internal" href="../moduleReference/moduleGraph.html#modulegraph"><em>music21.graph</em></a>.</p>
+</div>
+<div class="section" id="authoring-and-transforming-musical-data">
+<h2>Authoring and Transforming Musical Data<a class="headerlink" href="#authoring-and-transforming-musical-data" title="Permalink to this headline">¶</a></h2>
+<p>Music21 permits easily creating and transforming musical data. Say you
+want to re-arrange the measures of score, transpose a part, or replace
+every G# with a B: all these actions can be done easily with short Python scripts.</p>
+</div>
+<div class="section" id="learning-music21">
+<h2>Learning music21<a class="headerlink" href="#learning-music21" title="Permalink to this headline">¶</a></h2>
+<p>To learn to use music21, some familiarity with Python is needed. Python is
+widely regarded as one of the easiest languages to learn, has clear and concise
+syntax, and is often taught as a first programing language. You do not need
+to be a seasoned programmer, or even have complete knowledge of Python.
+Just a little bit of Python and you will be able to get started with music21.
+You might skim the following chapters of Python documentation tutorial for a bit of guidance.</p>
+<p>Starting the Python interpreter:
+<a class="reference external" href="http://docs.python.org/tutorial/interpreter.html">http://docs.python.org/tutorial/interpreter.html</a></p>
+<p>Basic Python operations:
+<a class="reference external" href="http://docs.python.org/tutorial/introduction.html">http://docs.python.org/tutorial/introduction.html</a></p>
+<p>Basic Python loops and conditional statements:
+<a class="reference external" href="http://docs.python.org/tutorial/controlflow.html">http://docs.python.org/tutorial/controlflow.html</a></p>
+<p>To install music21, view <a class="reference internal" href="../installing/install.html#install"><em>Installing Music21</em></a>. With some basic Python knowledge,
+start with <a class="reference internal" href="quickStart.html#quickstart"><em>Quick Start: Getting Started with music21</em></a> for a rapid introduction to music21.</p>
+<p>The <a class="reference internal" href="../usersGuide/usersGuide_02_notes.html#usersguide-02-notes"><em>User&#8217;s Guide, Chapter 2: Notes</em></a>, <a class="reference internal" href="../overview/overviewStreams.html#overviewstreams"><em>Overview: Streams, Scores, Parts, and Measures</em></a>, <a class="reference internal" href="../overview/overviewFormats.html#overviewformats"><em>Overview: Importing File and Data Formats</em></a>,
+and <a class="reference internal" href="../overview/overviewPostTonal.html#overviewposttonal"><em>Overview: Post-Tonal Tools</em></a> chapters provide surveys of important features of key components of the music21 toolkit.</p>
+<p>The main body of the documentation, however, is the module documentation.
+This provides detailed documentation and examples for nearly every object, method, and function
+in music21. Surveying the module documentation and the example code will demonstrate
+much of music21 functionality. The module documentation will also be your primary reference when writing music21 scripts.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="quickStart.html" title="Quick Start: Getting Started with music21"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="About Music21"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >About Music21</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

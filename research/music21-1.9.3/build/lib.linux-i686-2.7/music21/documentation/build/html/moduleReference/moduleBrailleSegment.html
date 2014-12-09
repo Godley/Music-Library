@@ -1,0 +1,910 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.braille.segment &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.braille.text" href="moduleBrailleText.html" />
+    <link rel="prev" title="music21.braille.examples" href="moduleBrailleExamples.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleBrailleText.html" title="music21.braille.text"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleBrailleExamples.html" title="music21.braille.examples"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleBrailleExamples.html"
+                        title="previous chapter">music21.braille.examples</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleBrailleText.html"
+                        title="next chapter">music21.braille.text</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.braille.segment</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#brailleelementgrouping">BrailleElementGrouping</a></li>
+<li><a class="reference internal" href="#braillegrandsegment">BrailleGrandSegment</a></li>
+<li><a class="reference internal" href="#braillesegment">BrailleSegment</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleBrailleSegment.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-braille-segment">
+<span id="modulebraillesegment"></span><h1>music21.braille.segment<a class="headerlink" href="#music21-braille-segment" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.braille.segment"></span><p>Inner classes and methods for transcribing musical segments into braille.</p>
+<p>This module was made in consultation with the manual &#8220;Introduction to Braille 
+Music Transcription, Second Edition&#8221; by Mary Turner De Garmo, 2005. It is
+available from the Library of Congress <a class="reference external" href="http://www.loc.gov/nls/music/">here</a>,
+and will henceforth be referred to as BMTM.</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="music21.braille.segment.addGroupingAttributes">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">addGroupingAttributes</tt><big>(</big><em>allSegments</em>, <em>**partKeywords</em><big>)</big><a class="headerlink" href="#music21.braille.segment.addGroupingAttributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies the attributes of all <a class="reference internal" href="#music21.braille.segment.BrailleElementGrouping" title="music21.braille.segment.BrailleElementGrouping"><tt class="xref py py-class docutils literal"><span class="pre">BrailleElementGrouping</span></tt></a>
+instances in a list of <a class="reference internal" href="#music21.braille.segment.BrailleSegment" title="music21.braille.segment.BrailleSegment"><tt class="xref py py-class docutils literal"><span class="pre">BrailleSegment</span></tt></a> instances. The
+necessary information is retrieved both by passing in partKeywords as an argument and
+by taking into account the linear progression of the groupings and segments.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.braille.segment.addSegmentAttributes">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">addSegmentAttributes</tt><big>(</big><em>allSegments</em>, <em>**partKeywords</em><big>)</big><a class="headerlink" href="#music21.braille.segment.addSegmentAttributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies the attributes of a <a class="reference internal" href="#music21.braille.segment.BrailleSegment" title="music21.braille.segment.BrailleSegment"><tt class="xref py py-class docutils literal"><span class="pre">BrailleSegment</span></tt></a>
+by passing partKeywords as an argument.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.braille.segment.compareNoteGroupings">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">compareNoteGroupings</tt><big>(</big><em>noteGroupingA</em>, <em>noteGroupingB</em><big>)</big><a class="headerlink" href="#music21.braille.segment.compareNoteGroupings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in two note groupings, noteGroupingA and noteGroupingB. Returns True
+if both groupings have identical contents. False otherwise.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.braille.segment.extractBrailleElements">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">extractBrailleElements</tt><big>(</big><em>music21Measure</em><big>)</big><a class="headerlink" href="#music21.braille.segment.extractBrailleElements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in a <a class="reference internal" href="moduleStream.html#music21.stream.Measure" title="music21.stream.Measure"><tt class="xref py py-class docutils literal"><span class="pre">Measure</span></tt></a> and returns a 
+<a class="reference internal" href="#music21.braille.segment.BrailleElementGrouping" title="music21.braille.segment.BrailleElementGrouping"><tt class="xref py py-class docutils literal"><span class="pre">BrailleElementGrouping</span></tt></a> of correctly ordered
+<a class="reference internal" href="moduleBase.html#music21.base.Music21Object" title="music21.base.Music21Object"><tt class="xref py py-class docutils literal"><span class="pre">Music21Object</span></tt></a> instances which can be directly transcribed to
+braille.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.braille</span> <span class="kn">import</span> <span class="n">segment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">spanner</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">tinyNotation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tn</span> <span class="o">=</span> <span class="n">tinyNotation</span><span class="o">.</span><span class="n">TinyNotationStream</span><span class="p">(</span><span class="s">&quot;2/4 c16 c c c d d d d&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tn</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">makeNotation</span><span class="p">(</span><span class="n">cautionaryNotImmediateRepeat</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">measure</span> <span class="o">=</span> <span class="n">tn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">measure</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spanner</span><span class="o">.</span><span class="n">Slur</span><span class="p">(</span><span class="n">measure</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">measure</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">measure</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">)</span>
+<span class="go">{0.0} &lt;music21.clef.TrebleClef&gt;</span>
+<span class="go">{0.0} &lt;music21.meter.TimeSignature 2/4&gt;</span>
+<span class="go">{0.0} &lt;music21.note.Note C&gt;</span>
+<span class="go">{0.25} &lt;music21.note.Note C&gt;</span>
+<span class="go">{0.5} &lt;music21.note.Note C&gt;</span>
+<span class="go">{0.75} &lt;music21.note.Note C&gt;</span>
+<span class="go">{1.0} &lt;music21.note.Note D&gt;</span>
+<span class="go">{1.25} &lt;music21.note.Note D&gt;</span>
+<span class="go">{1.5} &lt;music21.note.Note D&gt;</span>
+<span class="go">{1.75} &lt;music21.note.Note D&gt;</span>
+<span class="go">{2.0} &lt;music21.spanner.Slur &lt;music21.note.Note C&gt;&lt;music21.note.Note D&gt;&gt;</span>
+<span class="go">{2.0} &lt;music21.bar.Barline style=final&gt;</span>
+</pre></div>
+</div>
+<p>Spanners are dealt with in <a class="reference internal" href="#music21.braille.segment.prepareSlurredNotes" title="music21.braille.segment.prepareSlurredNotes"><tt class="xref py py-meth docutils literal"><span class="pre">prepareSlurredNotes()</span></tt></a>,
+so they are not returned by this method, as seen below.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">segment</span><span class="o">.</span><span class="n">extractBrailleElements</span><span class="p">(</span><span class="n">measure</span><span class="p">)</span>
+<span class="go">&lt;music21.meter.TimeSignature 2/4&gt;</span>
+<span class="go">&lt;music21.clef.TrebleClef&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.note.Note D&gt;</span>
+<span class="go">&lt;music21.note.Note D&gt;</span>
+<span class="go">&lt;music21.note.Note D&gt;</span>
+<span class="go">&lt;music21.note.Note D&gt;</span>
+<span class="go">&lt;music21.bar.Barline style=final&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.braille.segment.findSegments">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">findSegments</tt><big>(</big><em>music21Part</em>, <em>**partKeywords</em><big>)</big><a class="headerlink" href="#music21.braille.segment.findSegments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in a <a class="reference internal" href="moduleStream.html#music21.stream.Part" title="music21.stream.Part"><tt class="xref py py-class docutils literal"><span class="pre">Part</span></tt></a> or <a class="reference internal" href="moduleTinyNotation.html#music21.tinyNotation.TinyNotationStream" title="music21.tinyNotation.TinyNotationStream"><tt class="xref py py-class docutils literal"><span class="pre">TinyNotationStream</span></tt></a>
+and a list of partKeywords. Returns a list of <tt class="xref py py-class docutils literal"><span class="pre">BrailleSegment</span></tt> instances.</p>
+<p>Five methods get called in the generation of segments:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.braille.segment.prepareSlurredNotes" title="music21.braille.segment.prepareSlurredNotes"><tt class="xref py py-meth docutils literal"><span class="pre">prepareSlurredNotes()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.braille.segment.getRawSegments" title="music21.braille.segment.getRawSegments"><tt class="xref py py-meth docutils literal"><span class="pre">getRawSegments()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.braille.segment.addGroupingAttributes" title="music21.braille.segment.addGroupingAttributes"><tt class="xref py py-meth docutils literal"><span class="pre">addGroupingAttributes()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.braille.segment.addSegmentAttributes" title="music21.braille.segment.addSegmentAttributes"><tt class="xref py py-meth docutils literal"><span class="pre">addSegmentAttributes()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.braille.segment.fixArticulations" title="music21.braille.segment.fixArticulations"><tt class="xref py py-meth docutils literal"><span class="pre">fixArticulations()</span></tt></a></li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.braille</span> <span class="kn">import</span> <span class="n">test</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">example</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">example11_2</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">allSegments</span> <span class="o">=</span> <span class="n">braille</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">findSegments</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">segmentBreaks</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">allSegments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">---begin segment---</span>
+<span class="go">&lt;music21.braille.segment BrailleSegment&gt;</span>
+<span class="go">Measure 0, Signature Grouping 1:</span>
+<span class="go">&lt;music21.key.KeySignature of 3 flats&gt;</span>
+<span class="go">&lt;music21.meter.TimeSignature 4/4&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 0, Note Grouping 1:</span>
+<span class="go">&lt;music21.clef.TrebleClef&gt;</span>
+<span class="go">&lt;music21.note.Note B-&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 1, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">&lt;music21.note.Note E-&gt;</span>
+<span class="go">&lt;music21.note.Note D&gt;</span>
+<span class="go">&lt;music21.note.Note E-&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 2, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">&lt;music21.note.Note F&gt;</span>
+<span class="go">&lt;music21.note.Note E-&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 3, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note A-&gt;</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 4, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note B-&gt;</span>
+<span class="go">&lt;music21.note.Note B-&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 5, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note E-&gt;</span>
+<span class="go">&lt;music21.note.Note B-&gt;</span>
+<span class="go">&lt;music21.note.Note A-&gt;</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 6, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">&lt;music21.note.Note F&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 7, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.note.Note F&gt;</span>
+<span class="go">&lt;music21.note.Note A-&gt;</span>
+<span class="go">&lt;music21.note.Note D&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 8, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note E-&gt;</span>
+<span class="go">** Music Hyphen **</span>
+<span class="go">===</span>
+<span class="go">---end segment---</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">allSegments</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">---begin segment---</span>
+<span class="go">&lt;music21.braille.segment BrailleSegment&gt;</span>
+<span class="go">Measure 8, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 9, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">&lt;music21.note.Note F&gt;</span>
+<span class="go">&lt;music21.note.Note F&gt;</span>
+<span class="go">&lt;music21.note.Note F&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 10, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note A-&gt;</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">&lt;music21.note.Note B-&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 11, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note B-&gt;</span>
+<span class="go">&lt;music21.note.Note A&gt;</span>
+<span class="go">&lt;music21.note.Note A&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 12, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note B-&gt;</span>
+<span class="go">&lt;music21.note.Note B-&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 13, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note E-&gt;</span>
+<span class="go">&lt;music21.note.Note B-&gt;</span>
+<span class="go">&lt;music21.note.Note A-&gt;</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 14, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">&lt;music21.note.Note F&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 15, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.note.Rest rest&gt;</span>
+<span class="go">&lt;music21.note.Note F&gt;</span>
+<span class="go">&lt;music21.note.Rest rest&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 16, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note A-&gt;</span>
+<span class="go">&lt;music21.note.Note D&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 17, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note E-&gt;</span>
+<span class="go">&lt;music21.bar.Barline style=final&gt;</span>
+<span class="go">===</span>
+<span class="go">---end segment---</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.braille.segment.fixArticulations">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">fixArticulations</tt><big>(</big><em>allSegments</em><big>)</big><a class="headerlink" href="#music21.braille.segment.fixArticulations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Goes through each <a class="reference internal" href="#music21.braille.segment.BrailleSegment" title="music21.braille.segment.BrailleSegment"><tt class="xref py py-class docutils literal"><span class="pre">BrailleSegment</span></tt></a> and modifies the 
+list of <a class="reference internal" href="moduleNote.html#music21.note.GeneralNote.articulations" title="music21.note.GeneralNote.articulations"><tt class="xref py py-attr docutils literal"><span class="pre">articulations</span></tt></a> of a <a class="reference internal" href="moduleNote.html#music21.note.Note" title="music21.note.Note"><tt class="xref py py-class docutils literal"><span class="pre">Note</span></tt></a> 
+if appropriate. In particular, two rules are applied:</p>
+<ul class="simple">
+<li>Doubling rule =&gt; If four or more of the same <a class="reference internal" href="moduleArticulations.html#music21.articulations.Articulation" title="music21.articulations.Articulation"><tt class="xref py py-class docutils literal"><span class="pre">Articulation</span></tt></a>
+are found in a row, the first instance of the articulation is doubled and the rest are 
+omitted.</li>
+<li>Staccato, Tenuto rule =&gt; &#8220;If two repeated notes appear to be tied, but either is marked 
+staccato or tenuto, they are treated as slurred instead of tied.&#8221; (BMTM, 112)</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.braille.segment.getRawSegments">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">getRawSegments</tt><big>(</big><em>music21Part</em>, <em>segmentBreaks=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#music21.braille.segment.getRawSegments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in a <a class="reference internal" href="moduleStream.html#music21.stream.Part" title="music21.stream.Part"><tt class="xref py py-class docutils literal"><span class="pre">Part</span></tt></a> and a segmentBreaks list which 
+contains (measureNumber, offsetStart) tuples. These tuples determine how
+the Part is divided up into segments (i.e. instances of
+<a class="reference internal" href="#music21.braille.segment.BrailleSegment" title="music21.braille.segment.BrailleSegment"><tt class="xref py py-class docutils literal"><span class="pre">BrailleSegment</span></tt></a>). This method assumes 
+that the Part is already divided up into measures 
+(see <a class="reference internal" href="moduleStream.html#music21.stream.Measure" title="music21.stream.Measure"><tt class="xref py py-class docutils literal"><span class="pre">Measure</span></tt></a>). An acceptable input is shown below.</p>
+<p>Two methods are called on each measure during the creation of segments:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.braille.segment.prepareBeamedNotes" title="music21.braille.segment.prepareBeamedNotes"><tt class="xref py py-meth docutils literal"><span class="pre">prepareBeamedNotes()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.braille.segment.extractBrailleElements" title="music21.braille.segment.extractBrailleElements"><tt class="xref py py-meth docutils literal"><span class="pre">extractBrailleElements()</span></tt></a></li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">tinyNotation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tn</span> <span class="o">=</span> <span class="n">tinyNotation</span><span class="o">.</span><span class="n">TinyNotationStream</span><span class="p">(</span><span class="s">&quot;3/4 c4 c c e e e g g g c&#39;2.&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tn</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">makeNotation</span><span class="p">(</span><span class="n">cautionaryNotImmediateRepeat</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tn</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">)</span>
+<span class="go">{0.0} &lt;music21.stream.Measure 1 offset=0.0&gt;</span>
+<span class="go">    {0.0} &lt;music21.clef.TrebleClef&gt;</span>
+<span class="go">    {0.0} &lt;music21.meter.TimeSignature 3/4&gt;</span>
+<span class="go">    {0.0} &lt;music21.note.Note C&gt;</span>
+<span class="go">    {1.0} &lt;music21.note.Note C&gt;</span>
+<span class="go">    {2.0} &lt;music21.note.Note C&gt;</span>
+<span class="go">{3.0} &lt;music21.stream.Measure 2 offset=3.0&gt;</span>
+<span class="go">    {0.0} &lt;music21.note.Note E&gt;</span>
+<span class="go">    {1.0} &lt;music21.note.Note E&gt;</span>
+<span class="go">    {2.0} &lt;music21.note.Note E&gt;</span>
+<span class="go">{6.0} &lt;music21.stream.Measure 3 offset=6.0&gt;</span>
+<span class="go">    {0.0} &lt;music21.note.Note G&gt;</span>
+<span class="go">    {1.0} &lt;music21.note.Note G&gt;</span>
+<span class="go">    {2.0} &lt;music21.note.Note G&gt;</span>
+<span class="go">{9.0} &lt;music21.stream.Measure 4 offset=9.0&gt;</span>
+<span class="go">    {0.0} &lt;music21.note.Note C&gt;</span>
+<span class="go">    {3.0} &lt;music21.bar.Barline style=final&gt;</span>
+</pre></div>
+</div>
+<p>By default, there is no break anywhere within the Part,
+and a segmentList of size 1 is returned.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.braille</span> <span class="kn">import</span> <span class="n">segment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tnA</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">tn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">segment</span><span class="o">.</span><span class="n">getRawSegments</span><span class="p">(</span><span class="n">tnA</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">---begin segment---</span>
+<span class="go">&lt;music21.braille.segment BrailleSegment&gt;</span>
+<span class="go">Measure 1, Signature Grouping 1:</span>
+<span class="go">&lt;music21.meter.TimeSignature 3/4&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 1, Note Grouping 1:</span>
+<span class="go">&lt;music21.clef.TrebleClef&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 2, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note E&gt;</span>
+<span class="go">&lt;music21.note.Note E&gt;</span>
+<span class="go">&lt;music21.note.Note E&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 3, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 4, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.bar.Barline style=final&gt;</span>
+<span class="go">===</span>
+<span class="go">---end segment---</span>
+</pre></div>
+</div>
+<p>Now, a segment break occurs at measure 2, offset 1.0 within that measure.
+The two segments are shown below.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tnB</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">tn</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">allSegments</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">getRawSegments</span><span class="p">(</span><span class="n">tnB</span><span class="p">,</span> <span class="n">segmentBreaks</span><span class="o">=</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">allSegments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">---begin segment---</span>
+<span class="go">&lt;music21.braille.segment BrailleSegment&gt;</span>
+<span class="go">Measure 1, Signature Grouping 1:</span>
+<span class="go">&lt;music21.meter.TimeSignature 3/4&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 1, Note Grouping 1:</span>
+<span class="go">&lt;music21.clef.TrebleClef&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 2, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note E&gt;</span>
+<span class="go">===</span>
+<span class="go">---end segment---</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">allSegments</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">---begin segment---</span>
+<span class="go">&lt;music21.braille.segment BrailleSegment&gt;</span>
+<span class="go">Measure 2, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note E&gt;</span>
+<span class="go">&lt;music21.note.Note E&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 3, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">&lt;music21.note.Note G&gt;</span>
+<span class="go">===</span>
+<span class="go">Measure 4, Note Grouping 1:</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="go">&lt;music21.bar.Barline style=final&gt;</span>
+<span class="go">===</span>
+<span class="go">---end segment---</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.braille.segment.prepareBeamedNotes">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">prepareBeamedNotes</tt><big>(</big><em>music21Measure</em><big>)</big><a class="headerlink" href="#music21.braille.segment.prepareBeamedNotes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in a <a class="reference internal" href="moduleStream.html#music21.stream.Measure" title="music21.stream.Measure"><tt class="xref py py-class docutils literal"><span class="pre">Measure</span></tt></a> and labels beamed notes
+of smaller value than an 8th with beamStart and beamContinue keywords
+in accordance with beaming rules in braille music.</p>
+<p>A more in-depth explanation of beaming in braille can be found in 
+Chapter 15 of Introduction to Braille Music Transcription, Second 
+Edition, by Mary Turner De Garmo.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.braille</span> <span class="kn">import</span> <span class="n">segment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">tinyNotation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tn</span> <span class="o">=</span> <span class="n">tinyNotation</span><span class="o">.</span><span class="n">TinyNotationStream</span><span class="p">(</span><span class="s">&quot;2/4 c16 c c c d d d d&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tn</span> <span class="o">=</span> <span class="n">tn</span><span class="o">.</span><span class="n">makeNotation</span><span class="p">(</span><span class="n">cautionaryNotImmediateRepeat</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tn</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">)</span>
+<span class="go">{0.0} &lt;music21.stream.Measure 1 offset=0.0&gt;</span>
+<span class="go">    {0.0} &lt;music21.clef.TrebleClef&gt;</span>
+<span class="go">    {0.0} &lt;music21.meter.TimeSignature 2/4&gt;</span>
+<span class="go">    {0.0} &lt;music21.note.Note C&gt;</span>
+<span class="go">    {0.25} &lt;music21.note.Note C&gt;</span>
+<span class="go">    {0.5} &lt;music21.note.Note C&gt;</span>
+<span class="go">    {0.75} &lt;music21.note.Note C&gt;</span>
+<span class="go">    {1.0} &lt;music21.note.Note D&gt;</span>
+<span class="go">    {1.25} &lt;music21.note.Note D&gt;</span>
+<span class="go">    {1.5} &lt;music21.note.Note D&gt;</span>
+<span class="go">    {1.75} &lt;music21.note.Note D&gt;</span>
+<span class="go">    {2.0} &lt;music21.bar.Barline style=final&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">measure</span> <span class="o">=</span> <span class="n">tn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">segment</span><span class="o">.</span><span class="n">prepareBeamedNotes</span><span class="p">(</span><span class="n">measure</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">measure</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">beamStart</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">measure</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">beamContinue</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">measure</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">beamContinue</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">measure</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">beamContinue</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.braille.segment.prepareSlurredNotes">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">prepareSlurredNotes</tt><big>(</big><em>music21Part</em>, <em>slurLongPhraseWithBrackets=True</em>, <em>showShortSlursAndTiesTogether=False</em>, <em>showLongSlursAndTiesTogether=False</em><big>)</big><a class="headerlink" href="#music21.braille.segment.prepareSlurredNotes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in a <a class="reference internal" href="moduleStream.html#music21.stream.Part" title="music21.stream.Part"><tt class="xref py py-class docutils literal"><span class="pre">Part</span></tt></a> and three keywords:</p>
+<ul class="simple">
+<li>slurLongPhraseWithBrackets</li>
+<li>showShortSlursAndTiesTogether</li>
+<li>showLongSlursAndTiesTogether</li>
+</ul>
+<p>For any slurs present in the Part, the appropriate notes are labeled
+with attributes indicating where to put the symbols that represent 
+slurring in braille. For purposes of slurring in braille, there is 
+a distinction between short and long phrases. In a short phrase, a 
+slur covers up to four notes. A short slur symbol should follow each 
+note except the last.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.braille</span> <span class="kn">import</span> <span class="n">segment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">spanner</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">tinyNotation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">short</span> <span class="o">=</span> <span class="n">tinyNotation</span><span class="o">.</span><span class="n">TinyNotationStream</span><span class="p">(</span><span class="s">&quot;3/4 c4 d e&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">spanner</span><span class="o">.</span><span class="n">Slur</span><span class="p">(</span><span class="n">short</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">short</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">short</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">short</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">)</span>
+<span class="go">{0.0} &lt;music21.meter.TimeSignature 3/4&gt;</span>
+<span class="go">{0.0} &lt;music21.note.Note C&gt;</span>
+<span class="go">{1.0} &lt;music21.note.Note D&gt;</span>
+<span class="go">{2.0} &lt;music21.note.Note E&gt;</span>
+<span class="go">{3.0} &lt;music21.spanner.Slur &lt;music21.note.Note C&gt;&lt;music21.note.Note E&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shortA</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">short</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">segment</span><span class="o">.</span><span class="n">prepareSlurredNotes</span><span class="p">(</span><span class="n">shortA</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shortA</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shortSlur</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shortA</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shortSlur</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>In a long phrase, a slur covers more than four notes. There are two 
+options for slurring long phrases. The first is by using the bracket 
+slur. By default, slurLongPhraseWithBrackets is True. The opening
+bracket sign is put before the first note, and the closing bracket
+sign is put before the last note.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">long</span> <span class="o">=</span> <span class="n">tinyNotation</span><span class="o">.</span><span class="n">TinyNotationStream</span><span class="p">(</span><span class="s">&quot;3/4 c8 d e f g a&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">spanner</span><span class="o">.</span><span class="n">Slur</span><span class="p">(</span><span class="nb">long</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="nb">long</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">long</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">long</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">)</span>
+<span class="go">{0.0} &lt;music21.meter.TimeSignature 3/4&gt;</span>
+<span class="go">{0.0} &lt;music21.note.Note C&gt;</span>
+<span class="go">{0.5} &lt;music21.note.Note D&gt;</span>
+<span class="go">{1.0} &lt;music21.note.Note E&gt;</span>
+<span class="go">{1.5} &lt;music21.note.Note F&gt;</span>
+<span class="go">{2.0} &lt;music21.note.Note G&gt;</span>
+<span class="go">{2.5} &lt;music21.note.Note A&gt;</span>
+<span class="go">{3.0} &lt;music21.spanner.Slur &lt;music21.note.Note C&gt;&lt;music21.note.Note A&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">longA</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="nb">long</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">segment</span><span class="o">.</span><span class="n">prepareSlurredNotes</span><span class="p">(</span><span class="n">longA</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">longA</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">beginLongBracketSlur</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">longA</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">endLongBracketSlur</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>The other way is by using the double slur, setting slurLongPhraseWithBrackets
+to False. The opening sign of the double slur is put after the first note
+(i.e. before the second note) and the closing sign is put before the last
+note (i.e. before the second to last note).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">longB</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="nb">long</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">segment</span><span class="o">.</span><span class="n">prepareSlurredNotes</span><span class="p">(</span><span class="n">longB</span><span class="p">,</span> <span class="n">slurLongPhraseWithBrackets</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">longB</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">beginLongDoubleSlur</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">longB</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">endLongDoubleSlur</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>In the event that slurs and ties are shown together in print, the slur is
+redundant. Examples are shown for slurring a short phrase; the process is
+identical for slurring a long phrase.</p>
+<p>Below, a tie has been added between the first two notes of the short phrase
+defined above. If showShortSlursAndTiesTogether is set to its default value of 
+False, then the slur on either side of the phrase is reduced by the amount that 
+ties are present, as shown below.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">tie</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">short</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tie</span> <span class="o">=</span> <span class="n">tie</span><span class="o">.</span><span class="n">Tie</span><span class="p">(</span><span class="s">&quot;start&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shortB</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">short</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">segment</span><span class="o">.</span><span class="n">prepareSlurredNotes</span><span class="p">(</span><span class="n">shortB</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shortB</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shortSlur</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">AttributeError</span>: <span class="n">&#39;Note&#39; object has no attribute &#39;shortSlur&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shortB</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tie</span>
+<span class="go">&lt;music21.tie.Tie start&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shortB</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shortSlur</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>If showShortSlursAndTiesTogether is set to True, then the slurs and ties are 
+shown together (i.e. the note has both a shortSlur and a tie).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">shortC</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">short</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">segment</span><span class="o">.</span><span class="n">prepareSlurredNotes</span><span class="p">(</span><span class="n">shortC</span><span class="p">,</span> <span class="n">showShortSlursAndTiesTogether</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shortC</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shortSlur</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shortC</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tie</span>
+<span class="go">&lt;music21.tie.Tie start&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.braille.segment.setAffinityCode">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">setAffinityCode</tt><big>(</big><em>music21Object</em><big>)</big><a class="headerlink" href="#music21.braille.segment.setAffinityCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in a <a class="reference internal" href="moduleBase.html#music21.base.Music21Object" title="music21.base.Music21Object"><tt class="xref py py-class docutils literal"><span class="pre">Music21Object</span></tt></a>, and does two things:</p>
+<ul class="simple">
+<li>Modifies the <a class="reference internal" href="moduleBase.html#music21.base.Music21Object.classSortOrder" title="music21.base.Music21Object.classSortOrder"><tt class="xref py py-attr docutils literal"><span class="pre">classSortOrder</span></tt></a> attribute of the 
+object to fit the slightly modified ordering of objects in braille music.</li>
+<li>Adds an affinity code to the object. This code indicates which surrounding
+objects the object should be grouped with.</li>
+</ul>
+<p>A BrailleSegmentException is raised if an affinity code cannot be assigned to
+the object.</p>
+<p>As seen in the following example, the affinity code of a <a class="reference internal" href="moduleNote.html#music21.note.Note" title="music21.note.Note"><tt class="xref py py-class docutils literal"><span class="pre">Note</span></tt></a>
+and a <a class="reference internal" href="moduleClef.html#music21.clef.TrebleClef" title="music21.clef.TrebleClef"><tt class="xref py py-class docutils literal"><span class="pre">TrebleClef</span></tt></a> are the same, because they should be grouped
+together. However, the classSortOrder indicates that the TrebleClef should come first
+in the braille.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;D5&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">braille</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">setAffinityCode</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">affinityCode</span>
+<span class="go">9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">classSortOrder</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span> <span class="o">=</span> <span class="n">clef</span><span class="o">.</span><span class="n">TrebleClef</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">braille</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">setAffinityCode</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span><span class="o">.</span><span class="n">affinityCode</span>
+<span class="go">9</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span><span class="o">.</span><span class="n">classSortOrder</span>
+<span class="go">7</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.braille.segment.splitMeasure">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">splitMeasure</tt><big>(</big><em>music21Measure</em>, <em>value=2</em>, <em>beatDivisionOffset=0</em>, <em>useTimeSignature=None</em><big>)</big><a class="headerlink" href="#music21.braille.segment.splitMeasure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a <a class="reference internal" href="moduleStream.html#music21.stream.Measure" title="music21.stream.Measure"><tt class="xref py py-class docutils literal"><span class="pre">Measure</span></tt></a>, divides it in two parts, and returns a
+<a class="reference internal" href="moduleStream.html#music21.stream.Part" title="music21.stream.Part"><tt class="xref py py-class docutils literal"><span class="pre">Part</span></tt></a> containing the two halves. The parameters are as
+follows:</p>
+<ul class="simple">
+<li>value =&gt; the number of partitions to split a time signature into. The first half will
+contain all elements found within the offsets of the first partition, while the last
+half will contain all other elements.</li>
+<li>beatDivisionOffset =&gt; Adjusts the end offset of the first partition by a certain amount
+of beats to the left.</li>
+<li>useTimeSignature =&gt; In the event that the Measure comes from the middle of a Part
+and thus does not define an explicit <a class="reference internal" href="moduleMeter.html#music21.meter.TimeSignature" title="music21.meter.TimeSignature"><tt class="xref py py-class docutils literal"><span class="pre">TimeSignature</span></tt></a>. If not
+provided, a TimeSignature is retrieved by using <a class="reference internal" href="moduleStream.html#music21.stream.Measure.bestTimeSignature" title="music21.stream.Measure.bestTimeSignature"><tt class="xref py py-meth docutils literal"><span class="pre">bestTimeSignature()</span></tt></a>.</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.braille.segment.splitNoteGrouping">
+<tt class="descclassname">music21.braille.segment.</tt><tt class="descname">splitNoteGrouping</tt><big>(</big><em>noteGrouping</em>, <em>value=2</em>, <em>beatDivisionOffset=0</em><big>)</big><a class="headerlink" href="#music21.braille.segment.splitNoteGrouping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Almost identical to <a class="reference internal" href="#music21.braille.segment.splitMeasure" title="music21.braille.segment.splitMeasure"><tt class="xref py py-meth docutils literal"><span class="pre">splitMeasure()</span></tt></a>, but
+functions on a <a class="reference internal" href="#music21.braille.segment.BrailleElementGrouping" title="music21.braille.segment.BrailleElementGrouping"><tt class="xref py py-class docutils literal"><span class="pre">BrailleElementGrouping</span></tt></a>
+instead.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="brailleelementgrouping">
+<h2>BrailleElementGrouping<a class="headerlink" href="#brailleelementgrouping" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.braille.segment.BrailleElementGrouping">
+<em class="property">class </em><tt class="descclassname">music21.braille.segment.</tt><tt class="descname">BrailleElementGrouping</tt><a class="headerlink" href="#music21.braille.segment.BrailleElementGrouping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.braille.segment.BrailleElementGrouping" title="music21.braille.segment.BrailleElementGrouping"><tt class="xref py py-class docutils literal"><span class="pre">BrailleElementGrouping</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleElementGrouping.descendingChords">
+<tt class="descclassname">BrailleElementGrouping.</tt><tt class="descname">descendingChords</tt><a class="headerlink" href="#music21.braille.segment.BrailleElementGrouping.descendingChords" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if a <a class="reference internal" href="moduleChord.html#music21.chord.Chord" title="music21.chord.Chord"><tt class="xref py py-class docutils literal"><span class="pre">Chord</span></tt></a> should be spelled from highest to lowest pitch                 in braille, False if the opposite is the case.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleElementGrouping.keySignature">
+<tt class="descclassname">BrailleElementGrouping.</tt><tt class="descname">keySignature</tt><a class="headerlink" href="#music21.braille.segment.BrailleElementGrouping.keySignature" title="Permalink to this definition">¶</a></dt>
+<dd><p>The last <a class="reference internal" href="moduleKey.html#music21.key.KeySignature" title="music21.key.KeySignature"><tt class="xref py py-class docutils literal"><span class="pre">KeySignature</span></tt></a> preceding the grouping.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleElementGrouping.numRepeats">
+<tt class="descclassname">BrailleElementGrouping.</tt><tt class="descname">numRepeats</tt><a class="headerlink" href="#music21.braille.segment.BrailleElementGrouping.numRepeats" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of times this grouping is repeated.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleElementGrouping.showClefSigns">
+<tt class="descclassname">BrailleElementGrouping.</tt><tt class="descname">showClefSigns</tt><a class="headerlink" href="#music21.braille.segment.BrailleElementGrouping.showClefSigns" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, clef signs are shown in braille. Representation of music in braille is not                 dependent upon clefs and staves, so the clef signs would be displayed for referential or historical purposes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleElementGrouping.timeSignature">
+<tt class="descclassname">BrailleElementGrouping.</tt><tt class="descname">timeSignature</tt><a class="headerlink" href="#music21.braille.segment.BrailleElementGrouping.timeSignature" title="Permalink to this definition">¶</a></dt>
+<dd><p>The last <a class="reference internal" href="moduleMeter.html#music21.meter.TimeSignature" title="music21.meter.TimeSignature"><tt class="xref py py-class docutils literal"><span class="pre">TimeSignature</span></tt></a> preceding the grouping.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleElementGrouping.upperFirstInNoteFingering">
+<tt class="descclassname">BrailleElementGrouping.</tt><tt class="descname">upperFirstInNoteFingering</tt><a class="headerlink" href="#music21.braille.segment.BrailleElementGrouping.upperFirstInNoteFingering" title="Permalink to this definition">¶</a></dt>
+<dd><p>No documentation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleElementGrouping.withHyphen">
+<tt class="descclassname">BrailleElementGrouping.</tt><tt class="descname">withHyphen</tt><a class="headerlink" href="#music21.braille.segment.BrailleElementGrouping.withHyphen" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, this grouping will end with a music hyphen.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="braillegrandsegment">
+<h2>BrailleGrandSegment<a class="headerlink" href="#braillegrandsegment" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.braille.segment.BrailleGrandSegment">
+<em class="property">class </em><tt class="descclassname">music21.braille.segment.</tt><tt class="descname">BrailleGrandSegment</tt><big>(</big><em>rightSegment</em>, <em>leftSegment</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleGrandSegment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.braille.segment.BrailleGrandSegment" title="music21.braille.segment.BrailleGrandSegment"><tt class="xref py py-class docutils literal"><span class="pre">BrailleGrandSegment</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.braille.segment.BrailleGrandSegment.combineGroupingKeys">
+<tt class="descclassname">BrailleGrandSegment.</tt><tt class="descname">combineGroupingKeys</tt><big>(</big><em>rightSegment</em>, <em>leftSegment</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleGrandSegment.combineGroupingKeys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleGrandSegment.extractHeading">
+<tt class="descclassname">BrailleGrandSegment.</tt><tt class="descname">extractHeading</tt><big>(</big><em>brailleKeyboard</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleGrandSegment.extractHeading" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleGrandSegment.extractLongExpressionGrouping">
+<tt class="descclassname">BrailleGrandSegment.</tt><tt class="descname">extractLongExpressionGrouping</tt><big>(</big><em>brailleKeyboard</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleGrandSegment.extractLongExpressionGrouping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleGrandSegment.extractNoteGrouping">
+<tt class="descclassname">BrailleGrandSegment.</tt><tt class="descname">extractNoteGrouping</tt><big>(</big><em>brailleKeyboard</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleGrandSegment.extractNoteGrouping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleGrandSegment.extractSignatureGrouping">
+<tt class="descclassname">BrailleGrandSegment.</tt><tt class="descname">extractSignatureGrouping</tt><big>(</big><em>brailleKeyboard</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleGrandSegment.extractSignatureGrouping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleGrandSegment.extractTempoTextGrouping">
+<tt class="descclassname">BrailleGrandSegment.</tt><tt class="descname">extractTempoTextGrouping</tt><big>(</big><em>brailleKeyboard</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleGrandSegment.extractTempoTextGrouping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleGrandSegment.transcribe">
+<tt class="descclassname">BrailleGrandSegment.</tt><tt class="descname">transcribe</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleGrandSegment.transcribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="braillesegment">
+<h2>BrailleSegment<a class="headerlink" href="#braillesegment" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.braille.segment.BrailleSegment">
+<em class="property">class </em><tt class="descclassname">music21.braille.segment.</tt><tt class="descname">BrailleSegment</tt><a class="headerlink" href="#music21.braille.segment.BrailleSegment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.braille.segment.BrailleSegment" title="music21.braille.segment.BrailleSegment"><tt class="xref py py-class docutils literal"><span class="pre">BrailleSegment</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.braille.segment.BrailleSegment.addDummyRests">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">addDummyRests</tt><big>(</big><em>brailleText</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleSegment.addDummyRests" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleSegment.addMeasureNumber">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">addMeasureNumber</tt><big>(</big><em>brailleText</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleSegment.addMeasureNumber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in a braille text instance and adds a measure number</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleSegment.consolidate">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">consolidate</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleSegment.consolidate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleSegment.extractHeading">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">extractHeading</tt><big>(</big><em>brailleText</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleSegment.extractHeading" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract a <a class="reference internal" href="moduleKey.html#music21.key.KeySignature" title="music21.key.KeySignature"><tt class="xref py py-class docutils literal"><span class="pre">KeySignature</span></tt></a>, <tt class="xref py py-class docutils literal"><span class="pre">TempoText</span></tt> and <a class="reference internal" href="moduleTempo.html#music21.tempo.MetronomeMark" title="music21.tempo.MetronomeMark"><tt class="xref py py-class docutils literal"><span class="pre">MetronomeMark</span></tt></a> and
+add an appropriate braille heading to the brailleText object inputted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleSegment.extractInaccordGrouping">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">extractInaccordGrouping</tt><big>(</big><em>brailleText</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleSegment.extractInaccordGrouping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleSegment.extractLongExpressionGrouping">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">extractLongExpressionGrouping</tt><big>(</big><em>brailleText</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleSegment.extractLongExpressionGrouping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleSegment.extractNoteGrouping">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">extractNoteGrouping</tt><big>(</big><em>brailleText</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleSegment.extractNoteGrouping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleSegment.extractSignatureGrouping">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">extractSignatureGrouping</tt><big>(</big><em>brailleText</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleSegment.extractSignatureGrouping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleSegment.extractTempoTextGrouping">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">extractTempoTextGrouping</tt><big>(</big><em>brailleText</em><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleSegment.extractTempoTextGrouping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.segment.BrailleSegment.transcribe">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">transcribe</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.braille.segment.BrailleSegment.transcribe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Heading (if applicable)
+Measure Number
+Rest of Note Groupings</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.braille.segment.BrailleSegment" title="music21.braille.segment.BrailleSegment"><tt class="xref py py-class docutils literal"><span class="pre">BrailleSegment</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleSegment.cancelOutgoingKeySig">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">cancelOutgoingKeySig</tt><a class="headerlink" href="#music21.braille.segment.BrailleSegment.cancelOutgoingKeySig" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, the previous key signature should be cancelled immediately before a new key signature is encountered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleSegment.dummyRestLength">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">dummyRestLength</tt><a class="headerlink" href="#music21.braille.segment.BrailleSegment.dummyRestLength" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a given positive integer n, adds n &#8220;dummy rests&#8221; near the beginning of a segment. Designed for test purposes, as they                 are used to demonstrate measure division at the end of braille lines.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleSegment.endHyphen">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">endHyphen</tt><a class="headerlink" href="#music21.braille.segment.BrailleSegment.endHyphen" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, then the last <a class="reference internal" href="#music21.braille.segment.BrailleElementGrouping" title="music21.braille.segment.BrailleElementGrouping"><tt class="xref py py-class docutils literal"><span class="pre">BrailleElementGrouping</span></tt></a> of this segment will be followed by a music hyphen.                 The last grouping is incomplete, because a segment break occured in the middle of a measure.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleSegment.maxLineLength">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">maxLineLength</tt><a class="headerlink" href="#music21.braille.segment.BrailleSegment.maxLineLength" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum amount of braille characters that should be present in a line. The standard is 40 characters.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleSegment.measureNumberWithDot">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">measureNumberWithDot</tt><a class="headerlink" href="#music21.braille.segment.BrailleSegment.measureNumberWithDot" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, then the initial measure number of this segment should be followed by a dot. This segment                 is starting in the middle of a measure.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleSegment.showFirstMeasureNumber">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">showFirstMeasureNumber</tt><a class="headerlink" href="#music21.braille.segment.BrailleSegment.showFirstMeasureNumber" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, then a measure number is shown following the heading (if applicable) and preceding the music.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleSegment.showHand">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">showHand</tt><a class="headerlink" href="#music21.braille.segment.BrailleSegment.showHand" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set to &#8220;right&#8221; or &#8220;left&#8221;, shows the corresponding hand sign at the beginning of the first line.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleSegment.showHeading">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">showHeading</tt><a class="headerlink" href="#music21.braille.segment.BrailleSegment.showHeading" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, then a braille heading is displayed. See <a class="reference internal" href="moduleBrailleBasic.html#music21.braille.basic.transcribeHeading" title="music21.braille.basic.transcribeHeading"><tt class="xref py py-meth docutils literal"><span class="pre">transcribeHeading()</span></tt></a> for more details on headings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.braille.segment.BrailleSegment.suppressOctaveMarks">
+<tt class="descclassname">BrailleSegment.</tt><tt class="descname">suppressOctaveMarks</tt><a class="headerlink" href="#music21.braille.segment.BrailleSegment.suppressOctaveMarks" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, then all octave marks are suppressed. Designed for test purposes, as octave marks were not presented                 until Chapter 7 of BMTM.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleBrailleText.html" title="music21.braille.text"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleBrailleExamples.html" title="music21.braille.examples"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

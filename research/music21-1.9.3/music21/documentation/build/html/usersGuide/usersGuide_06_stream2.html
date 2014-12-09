@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User’s Guide, Chapter 6: Streams (II): Hierarchies, Recursion, and Flattening &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Users Guide" href="index.html" />
+    <link rel="next" title="User’s Guide, Chapter 7: Chords" href="usersGuide_07_chords.html" />
+    <link rel="prev" title="User’s Guide, Chapter 5: Lists of Lists, Functions, and Recursion" href="usersGuide_05_listsOfLists.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_07_chords.html" title="User’s Guide, Chapter 7: Chords"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_05_listsOfLists.html" title="User’s Guide, Chapter 5: Lists of Lists, Functions, and Recursion"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usersGuide_05_listsOfLists.html"
+                        title="previous chapter">User&#8217;s Guide, Chapter 5: Lists of Lists, Functions, and Recursion</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usersGuide_07_chords.html"
+                        title="next chapter">User&#8217;s Guide, Chapter 7: Chords</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">User&#8217;s Guide, Chapter 6: Streams (II): Hierarchies, Recursion, and Flattening</a><ul>
+<li><a class="reference internal" href="#recursion-in-streams">Recursion in Streams</a></li>
+<li><a class="reference internal" href="#flattening-a-stream">Flattening a Stream</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Users Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_99_Table_of_Contents.html">User&#8217;s Guide, Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_00_introduction.html">User&#8217;s Guide: Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_01_installing.html">User&#8217;s Guide, Chapter 1: Installing and Getting Started with <tt class="docutils literal"><span class="pre">music21</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_02_notes.html">User&#8217;s Guide, Chapter 2: Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_03_pitches.html">User&#8217;s Guide, Chapter 3: Pitches, Durations, and Notes again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_04_stream1.html">User&#8217;s Guide, Chapter 4: Lists, Streams (I) and Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_05_listsOfLists.html">User&#8217;s Guide, Chapter 5: Lists of Lists, Functions, and Recursion</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">User&#8217;s Guide, Chapter 6: Streams (II): Hierarchies, Recursion, and Flattening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_07_chords.html">User&#8217;s Guide, Chapter 7: Chords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_09_chordify.html">User&#8217;s Guide: Chapter 9: Chordify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_11_corpusSearching.html">User&#8217;s Guide: Chapter 11: Corpus Searching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_14_timeSignatures.html">User&#8217;s Guide: Chapter 14: Time Signatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_17_derivations.html">User&#8217;s Guide: Chapter 17: Derivations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_54_extendingConverter.html">User&#8217;s Guide: Chapter 54: Extending Converter with New Formats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../moduleReference/index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usersGuide/usersGuide_06_stream2.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="user-s-guide-chapter-6-streams-ii-hierarchies-recursion-and-flattening">
+<h1>User&#8217;s Guide, Chapter 6: Streams (II): Hierarchies, Recursion, and Flattening<a class="headerlink" href="#user-s-guide-chapter-6-streams-ii-hierarchies-recursion-and-flattening" title="Permalink to this headline">¶</a></h1>
+<p>We ended Chapter 4 (<a class="reference internal" href="usersGuide_04_stream1.html#usersguide-04-stream1"><em>User&#8217;s Guide, Chapter 4: Lists, Streams (I) and Output</em></a>) with a
+<a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Stream" title="music21.stream.Stream"><tt class="xref py py-class docutils literal"><span class="pre">Stream</span></tt></a> that was contained within another
+<tt class="docutils literal"><span class="pre">Stream</span></tt> object. Let&#8217;s recreate that class:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">note1</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;C4&quot;</span><span class="p">)</span>
+<span class="n">note1</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="s">&#39;half&#39;</span>
+<span class="n">note2</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;F#4&quot;</span><span class="p">)</span>
+<span class="n">note3</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;B-2&quot;</span><span class="p">)</span>
+
+<span class="n">stream1</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="n">stream1</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="s">&#39;some notes&#39;</span>
+<span class="n">stream1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note1</span><span class="p">)</span>
+<span class="n">stream1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note2</span><span class="p">)</span>
+<span class="n">stream1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note3</span><span class="p">)</span>
+
+<span class="n">biggerStream</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="n">note2</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;D#5&quot;</span><span class="p">)</span>
+<span class="n">biggerStream</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">note2</span><span class="p">)</span>
+<span class="n">biggerStream</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stream1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The only way to find out what was in the contained Stream that we
+demonstrated so far was the <a class="reference internal" href="../moduleReference/moduleBase.html#music21.base.Music21Object.show" title="music21.base.Music21Object.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a>
+method using the <tt class="docutils literal"><span class="pre">('text')</span></tt> argument.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">biggerStream</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> {0.0} &lt;music21.note.Note D#&gt;
+ {1.0} &lt;music21.stream.Stream some notes&gt;
+     {0.0} &lt;music21.note.Note C&gt;
+     {2.0} &lt;music21.note.Note F#&gt;
+     {3.0} &lt;music21.note.Note B-&gt;</pre>
+</div>
+<p>As Chapter 4 noted, there&#8217;s</p>
+<div class="section" id="recursion-in-streams">
+<h2>Recursion in Streams<a class="headerlink" href="#recursion-in-streams" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="flattening-a-stream">
+<h2>Flattening a Stream<a class="headerlink" href="#flattening-a-stream" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_07_chords.html" title="User’s Guide, Chapter 7: Chords"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_05_listsOfLists.html" title="User’s Guide, Chapter 5: Lists of Lists, Functions, and Recursion"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,581 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User’s Guide, Chapter 2: Notes &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Users Guide" href="index.html" />
+    <link rel="next" title="User’s Guide, Chapter 3: Pitches, Durations, and Notes again" href="usersGuide_03_pitches.html" />
+    <link rel="prev" title="User’s Guide, Chapter 1: Installing and Getting Started with music21" href="usersGuide_01_installing.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_03_pitches.html" title="User’s Guide, Chapter 3: Pitches, Durations, and Notes again"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_01_installing.html" title="User’s Guide, Chapter 1: Installing and Getting Started with music21"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usersGuide_01_installing.html"
+                        title="previous chapter">User&#8217;s Guide, Chapter 1: Installing and Getting Started with <tt class="docutils literal docutils literal docutils literal"><span class="pre">music21</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usersGuide_03_pitches.html"
+                        title="next chapter">User&#8217;s Guide, Chapter 3: Pitches, Durations, and Notes again</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">User&#8217;s Guide, Chapter 2: Notes</a><ul>
+<li><a class="reference internal" href="#creating-and-working-with-notes">Creating and working with Notes</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Users Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_99_Table_of_Contents.html">User&#8217;s Guide, Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_00_introduction.html">User&#8217;s Guide: Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_01_installing.html">User&#8217;s Guide, Chapter 1: Installing and Getting Started with <tt class="docutils literal"><span class="pre">music21</span></tt></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">User&#8217;s Guide, Chapter 2: Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_03_pitches.html">User&#8217;s Guide, Chapter 3: Pitches, Durations, and Notes again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_04_stream1.html">User&#8217;s Guide, Chapter 4: Lists, Streams (I) and Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_05_listsOfLists.html">User&#8217;s Guide, Chapter 5: Lists of Lists, Functions, and Recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_06_stream2.html">User&#8217;s Guide, Chapter 6: Streams (II): Hierarchies, Recursion, and Flattening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_07_chords.html">User&#8217;s Guide, Chapter 7: Chords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_09_chordify.html">User&#8217;s Guide: Chapter 9: Chordify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_11_corpusSearching.html">User&#8217;s Guide: Chapter 11: Corpus Searching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_14_timeSignatures.html">User&#8217;s Guide: Chapter 14: Time Signatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_17_derivations.html">User&#8217;s Guide: Chapter 17: Derivations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_54_extendingConverter.html">User&#8217;s Guide: Chapter 54: Extending Converter with New Formats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../moduleReference/index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usersGuide/usersGuide_02_notes.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="user-s-guide-chapter-2-notes">
+<span id="usersguide-02-notes"></span><h1>User&#8217;s Guide, Chapter 2: Notes<a class="headerlink" href="#user-s-guide-chapter-2-notes" title="Permalink to this headline">¶</a></h1>
+<p>Notated music, by its very name, consists of a bunch of
+notes that are put one after another or simultaneously on
+a staff.  There are other things, clefs, key signatures,
+slurs, etc. but the heart of music is the notes; so to
+get anywhere in music21 you&#8217;ll need to know what the toolkit
+thinks about notes and how to work with them.</p>
+<p>Go ahead and start IDLE or type &#8220;python&#8221; at the command line
+(Terminal on the Mac or &#8220;run: cmd&#8221; on Windows) and let&#8217;s get started.</p>
+<div class="section" id="creating-and-working-with-notes">
+<h2>Creating and working with Notes<a class="headerlink" href="#creating-and-working-with-notes" title="Permalink to this headline">¶</a></h2>
+<p>The music21 concept of a standard note is contained in the
+<a class="reference internal" href="../moduleReference/moduleNote.html#music21.note.Note" title="music21.note.Note"><tt class="xref py py-class docutils literal"><span class="pre">Note</span></tt></a> object, which is found in the
+<cite>note</cite> module.</p>
+<p><strong>Read this if you&#8217;re new to Python</strong> <em>(others can skip ahead):</em> Notice the
+difference between object names and
+module names.  Modules, which can contain one, many, or even
+zero objects, always begin with a lowercase letter.  Music21&#8217;s
+objects always begin with a captial letter.  So the <cite>Note</cite> object
+is found in the <cite>note</cite> module.  The distinction between uppercase
+and lowercase is crucial to Python: if you type the name of an
+object with the wrong case it won&#8217;t know what to do and won&#8217;t
+give you any help in distinguishing between them.</p>
+<p>In the <cite>note</cite> module, there are other classes besides <cite>note.Note</cite>.
+The most important one is <cite>note.Rest</cite>, which as you imagine
+represents a rest.  If we load music21 with the command:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>then you&#8217;ll now be able to access the <cite>note</cite> module just by
+typing <cite>note</cite> at any command line.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">note</span> 
+<span class="go">&lt;module &#39;music21.note&#39; from &#39;D:\music21files\music21\note.pyc&#39;&gt;</span>
+</pre></div>
+</div>
+<p>If you get something like this you&#8217;ll have access to the music21
+<cite>note</cite> module any time you type <cite>&#8220;note&#8221;</cite>.  The filename after
+&#8220;from &#8216;D:\music21files...&#8217;&#8221; will differ for you.  It will show
+you where you have music21 installed (if you ever forget where
+you have music21 installed, this is an easy way to figure it out).
+As long as it ends in <cite>note.pyc</cite> or <cite>note.py</cite> or something like that
+you&#8217;re fine.</p>
+<p>If you want to know what else the <cite>note</cite> module contains besides
+the Note and Rest objects you can type &#8220;<cite>dir(note)</cite>&#8221; to find out:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+<span class="go">[..., &#39;GeneralNote&#39;, ..., &#39;Lyric&#39;, &#39;LyricException&#39;, &#39;NotRest&#39;, &#39;NotRestException&#39;, &#39;Note&#39;, &#39;NoteException&#39;,...]</span>
+</pre></div>
+</div>
+<p>Some of these Objects are just easier ways of making specific kinds of Note objects
+(half notes, etc.).  Others of them are things that we&#8217;ll get to later, like
+<a class="reference internal" href="../moduleReference/moduleNote.html#music21.note.Lyric" title="music21.note.Lyric"><tt class="xref py py-class docutils literal"><span class="pre">Lyric</span></tt></a> objects.  (By the way: I&#8217;m highlighting the names of
+most objects so they become links to the full documentation for the object. You
+can read it later when you&#8217;re curious, frustrated, or <em>Mad Men</em> is a re-run; you
+certainly don&#8217;t need to click them now).</p>
+<p>(Advanced digression):</p>
+<blockquote>
+<div><p>If you&#8217;re more of a Python guru and you&#8217;re afraid of &#8220;polluting your namespace,&#8221;
+instead of typing &#8220;<cite>from music21 import *</cite>&#8221; you can type:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+</pre></div>
+</div>
+<p>in which case instead of using the word <cite>note</cite>, you&#8217;ll need to call it <cite>music21.note</cite></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">music21</span><span class="o">.</span><span class="n">note</span> 
+<span class="go">&lt;module &#39;music21.note&#39; from &#39;D:\music21files\music21\note.pyc&#39;&gt;</span>
+</pre></div>
+</div>
+<p>If you are a Python guru, you already knew that.  Probably if you didn&#8217;t already
+know that, but you&#8217;ve heard about &#8220;polluting your namespace,&#8221; you have a Python
+guru friend who has screamed, &#8220;Never use <cite>import *</cite>!&#8221;  Trust me for now that
+this tutorial will be easier if you ignore your friend for a bit; by the end of
+it you&#8217;ll know enough to be able to follow whatever advice seems most natural to
+you.</p>
+</div></blockquote>
+<p><em>(Back from the Python digression and especially the digression of the digression):</em></p>
+<p>Okay, so now you now enough about modules and
+objects.  Let&#8217;s create a <cite>note.Note</cite> object.  How about the F at the top of the
+treble clef staff:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;F5&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We use the convention where middle-C is C4, the octave above it is C5, etc.</p>
+<p>Now you have a Note.  Where is it?  It&#8217;s stored in the variable <cite>f</cite>.  You can
+verify this just by typing <cite>f</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span>
+<span class="go">&lt;music21.note.Note F&gt;</span>
+</pre></div>
+</div>
+<p>And you can see that it&#8217;s actually an F and actually in octave 5 by requesting the
+<cite>.name</cite> and <cite>.octave</cite> attributes on the <cite>Note</cite> object, <cite>f</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;F&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">octave</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+<p>Well, that didn&#8217;t tell you anything you didn&#8217;t know already! Let&#8217;s look at
+some other attributes that might tell you something you didn&#8217;t know:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">frequency</span>
+<span class="go">698.4564628...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">pitchClassString</span>
+<span class="go">&#39;5&#39;</span>
+</pre></div>
+</div>
+<p>That&#8217;s a bit better! So an f is about 698hz (if A4 = 440hz), and it is pitch
+class 5 (where C = 0, C# and Db = 1, etc.).</p>
+<p>A couple of things that you&#8217;ll notice:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Your <cite>frequency</cite> probably has a bunch more numbers instead of ending with
+&#8221;...&#8221;.  Mine gives me &#8220;698.456462866008&#8221;.  In the docs, we&#8217;ll sometimes
+write &#8221;...&#8221; instead of putting in all those numbers (or long strings); it&#8217;s
+partly a way of saving space, and also because the length of a long number
+and even the last few digits will differ from computer to computer depending
+on whether it&#8217;s 32-bit or 64-bit, Mac or PC, number of sunspots last Autumn, etc.
+Since I don&#8217;t know what computer you&#8217;re using, don&#8217;t worry if you get slightly
+different results.</p>
+</li>
+<li><p class="first">There are single quotes around some of the output (like the <cite>&#8216;F&#8217;</cite> in <cite>f.name</cite>) and
+none around others (like the <cite>5</cite> in <cite>f.octave</cite>).  The quotes mean that that attribute
+is returning a String (a bunch of letters or numbers or simple symbols).
+The lack of quotes means that it&#8217;s returning a number (either an integer
+or if there&#8217;s a decimal point, a sneakingly decimal-like thingy called a
+<cite>float</cite> (or &#8220;floating-point number&#8221;) which looks and acts just like a decimal,
+except when it doesn&#8217;t, which is never when you&#8217;d expect.</p>
+<blockquote>
+<div><p><em>(The history
+and theory behind</em> <cite>floats</cite> <em>will be explained to you at length by any
+computer scientist, usually when he or she is
+the only thing standing between you and the bar at a party. Really, we
+shouldn&#8217;t be using them anymore, except for the fact that for our computers
+they&#8217;re so much faster to work with than decimals.)</em></p>
+</div></blockquote>
+<p>The difference between the string <cite>&#8216;5&#8217;</cite> and
+the number <cite>5</cite> is essential to keep in mind.  In Python (like most
+modern programming languages) we use two equal signs (<cite>==</cite>) to ask if
+two things are equal.  So:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">octave</span> <span class="o">==</span> <span class="mi">5</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>That&#8217;s what we&#8217;d expect.  But try:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">pitchClassString</span> <span class="o">==</span> <span class="mi">5</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>That&#8217;s because <cite>5 == &#8216;5&#8217;</cite> is <cite>False</cite>.  (There are some lovely languages
+such as JavaScript and Perl where it&#8217;s <cite>True</cite>; Python&#8217;s not one of them.
+This has many disadvantages at first, but as you go on, you might see
+this as an advantage).  So to see if <cite>f.pitchClassString</cite> is <cite>&#8216;5&#8217;</cite> we need
+to make <cite>&#8216;5&#8217;</cite> a string by putting it in quotes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">pitchClassString</span> <span class="o">==</span> <span class="s">&quot;5&quot;</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>In Python it doesn&#8217;t matter if you put the <cite>5</cite> in single or double quotes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">pitchClassString</span> <span class="o">==</span> <span class="s">&#39;5&#39;</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p><cite>pitchClassString</cite> tells you that you should expect a string, because we&#8217;ve
+put it in the name.  There&#8217;s also a <cite>.pitchClass</cite> which returns a number:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">pitchClass</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+<p>These two ways of getting a pitch class are basically the same for the note &#8220;F&#8221;
+(except that one&#8217;s a string
+and the other is an integer) but for a B-flat,
+which is <cite>.pitchClass</cite> 10 and <cite>.pitchClassString</cite> &#8220;A&#8221;, it makes a difference.</p>
+</li>
+</ol>
+</div></blockquote>
+<p>Let&#8217;s go ahead and make that B-flat note.  In <cite>music21</cite>, sharps are &#8220;#&#8221; as you
+might expect, but flats are &#8220;-&#8221;.  That&#8217;s because it&#8217;s otherwise hard to tell the
+difference between the <cite>Note</cite> &#8220;b&#8221; (in this instance, you can write it in upper or
+lower case) and the symbol &#8220;flat&#8221;.  So let&#8217;s make that B-flat note:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bflat</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;B-2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>I&#8217;ve called the variable &#8220;<cite>bflat</cite>&#8221; here.  You could call it &#8220;<cite>Bb</cite>&#8221; if you want or
+&#8220;<cite>b_flat</cite>&#8221;, but not &#8220;<cite>b-flat</cite>&#8221; because dashes aren&#8217;t allowed in variable names:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">-</span><span class="n">flat</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;B-2&quot;</span><span class="p">)</span> 
+<span class="go">SyntaxError: can&#39;t assign to operator</span>
+</pre></div>
+</div>
+<p>Since this note has an accidental you can get it by using the <cite>.accidental</cite> property:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bflat</span><span class="o">.</span><span class="n">accidental</span>
+<span class="go">&lt;accidental flat&gt;</span>
+</pre></div>
+</div>
+<p>Here we have something that isn&#8217;t a number and doesn&#8217;t have quotes around it.  That
+usually means that what <cite>.accidental</cite> returns is another object &#8211; in this case an
+<a class="reference internal" href="../moduleReference/modulePitch.html#music21.pitch.Accidental" title="music21.pitch.Accidental"><tt class="xref py py-class docutils literal"><span class="pre">Accidental</span></tt></a> object.  As we saw above, objects have attributes
+(and other goodies we&#8217;ll get to in a second) and the <cite>Accidental</cite> object is no
+exception.  So let&#8217;s make a new variable that will store <cite>bflat</cite>&#8216;s accidental:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">acc</span> <span class="o">=</span> <span class="n">bflat</span><span class="o">.</span><span class="n">accidental</span>
+</pre></div>
+</div>
+<p>We&#8217;ll get to all the attributes of <cite>Accidental</cite> objects in a bit, but here are two of
+them: <cite>.alter</cite> and <cite>.displayLocation</cite>.  You&#8217;ll use the first one quite a bit: it shows
+how many semitones this <cite>Accidental</cite> changes the <cite>Note</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">acc</span><span class="o">.</span><span class="n">alter</span>
+<span class="go">-1.0</span>
+</pre></div>
+</div>
+<p>Since this <cite>Accidental</cite> is a flat, its <cite>.alter</cite> is a negative number.  Notice that it&#8217;s also not an integer,
+but a float.  That might indicate that music21 supports things like quarter-tones,
+and in this case you&#8217;d be right.</p>
+<p>Look back at the two lines &#8220;<cite>acc = bflat.accidental</cite>&#8221;
+and &#8220;<cite>acc.alter</cite>&#8221;.  We set <cite>acc</cite> to be the value of <cite>bflat</cite>&#8216;s <cite>.accidental</cite> attribute
+and then we get the value of that variable&#8217;s <cite>.alter</cite> attribute. We could have skipped the first step altogether and &#8220;chained&#8221; the
+two attributes together in one step:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bflat</span><span class="o">.</span><span class="n">accidental</span><span class="o">.</span><span class="n">alter</span>
+<span class="go">-1.0</span>
+</pre></div>
+</div>
+<p>That&#8217;s a bit of a space and time savings and we&#8217;ll do that from time to time
+if we don&#8217;t need to do anything more with <cite>.accidental</cite> except to get a single
+one of its attributes.</p>
+<p>The <cite>Accidental</cite> object also has a <cite>.displayLocation</cite> attribute
+that shows whether the accidental should be put above the note (like in modern editions
+of Medieval music) or in its normal location:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">acc</span><span class="o">.</span><span class="n">displayLocation</span>
+<span class="go">&#39;normal&#39;</span>
+</pre></div>
+</div>
+<p>Good to know that we&#8217;ve set a sensible default.  If you want to have the accidental
+display above the note, you&#8217;ll have to set that yourself:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">acc</span><span class="o">.</span><span class="n">displayLocation</span> <span class="o">=</span> <span class="s">&#39;above&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">acc</span><span class="o">.</span><span class="n">displayLocation</span>
+<span class="go">&#39;above&#39;</span>
+</pre></div>
+</div>
+<p>Our variable <cite>&#8220;acc&#8221;</cite> is the <strong>exact</strong> accidental that is attached to the B-flat
+Note stored as <cite>bflat</cite>.  It&#8217;s not a flat that&#8217;s similar to B-flat&#8217;s flat, but
+the same one. (in computer-speak, <cite>acc</cite> is a <em>reference</em> to <cite>.accidental</cite>). So
+now if we look at the <cite>.displayLocation</cite> of <cite>bflat.accidental</cite> we see that it
+too is set to the silly &#8220;above&#8221; position:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bflat</span><span class="o">.</span><span class="n">accidental</span><span class="o">.</span><span class="n">displayLocation</span>
+<span class="go">&#39;above&#39;</span>
+</pre></div>
+</div>
+<p>Python is one of those cool computer languages where if an object doesn&#8217;t have
+a particular attribute but you think it should, you can add it to the object
+(some people find that this makes objects messy, but I don&#8217;t mind it).  For
+what I hope are obvious reasons, the <cite>Note</cite> object does not have an attribute called
+&#8220;<cite>wasWrittenByStockhausen</cite>&#8221;.  So if you try to access it, you&#8217;ll get an error:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bflat</span><span class="o">.</span><span class="n">wasWrittenByStockhausen</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">AttributeError</span>: <span class="n">&#39;Note&#39; object has no attribute &#39;wasWrittenByStockhausen&#39;</span>
+</pre></div>
+</div>
+<p>But if you set the value of that weird attribute, you can use it later:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bflat</span><span class="o">.</span><span class="n">wasWrittenByStockhausen</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">wasWrittenByStockhausen</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<p>Then you can write an &#8220;if&#8221; statement to see if this is True or not:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">bflat</span><span class="o">.</span><span class="n">wasWrittenByStockhausen</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Hope you&#39;re enjoying Sirius!&quot;</span><span class="p">)</span>
+<span class="go">Hope you&#39;re enjoying Sirius!</span>
+</pre></div>
+</div>
+<p>Just as you don&#8217;t type the &#8220;&gt;&gt;&gt;&#8221; at the beginning of the line, don&#8217;t
+type the &#8221;...&#8221; either.  But you will need to put the spaces before the
+&#8220;<cite>print</cite>&#8221; command; Python uses spaces to keep track of what is inside of
+an <cite>if</cite> statement (or lots of other things) and what isn&#8217;t.
+(if you don&#8217;t get the joke, see: <a class="reference external" href="http://en.wikipedia.org/wiki/Karlheinz_Stockhausen#Sirius_star_system">wikipedia</a> . )</p>
+<p>Nothing will print for the note <cite>f</cite> since we set <cite>.wasWrittenByStockhausen</cite> to <cite>False</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">wasWrittenByStockhausen</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;I love Helicopters!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>At this point you might be tired of all this programming and
+just want to see or play your damn note!  If you&#8217;ve
+installed a MusicXML reader such as MuseScore, Finale, Sibelius, or Finale
+Notepad, you can type:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;musicxml&#39;</span><span class="p">)</span>  
+</pre></div>
+</div>
+<p>and see it. We make the default note length a quarter-note.  We&#8217;ll get to
+other note lengths in a minute.  Notice that we put in a sensible clef
+also, since otherwise you won&#8217;t know that this note really is <cite>F5</cite>.</p>
+<img alt="../_images/02_noteF.png" src="../_images/02_noteF.png" style="width: 136px;" />
+<p>If you want to hear it instead (and you&#8217;re
+on Windows or Unix or an older-Mac (10.5 or older)) type:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;midi&#39;</span><span class="p">)</span>  
+</pre></div>
+</div>
+<blockquote>
+<div>Maddeningly, Apple removed MIDI support in the version of QuickTime
+(QuickTime X) included in OS X 10.6 (Snow Leopard) and above (including
+Mountain Lion), so you&#8217;ll need to get the older QuickTime 7 from <a class="reference external" href="http://support.apple.com/kb/DL923">appleQuicktime</a> to
+make that work.</div></blockquote>
+<p>When we typed <cite>f.octave</cite> we didn&#8217;t put any parentheses after it, but when we
+call <cite>f.show()</cite> we always need to put parentheses after it, even if there&#8217;s
+nothing in them (in which case, we&#8217;ll use the default <cite>.show</cite> format, which
+is usually <cite>musicxml</cite>).</p>
+<p><cite>.show()</cite> is what&#8217;s called a method on the <cite>Note</cite>
+object, while <cite>.octave</cite> is an attribute.  Think of methods as like verbs
+(<em>&#8220;O Note: show thyself!&#8221;</em>) while attributes are like adjectives that describe
+the object.  All methods need to have parentheses after them and inside the
+parentheses you can usually put other things (&#8220;parameters&#8221;) that control how
+to perform the action.  For instance, let&#8217;s create a new note, &#8220;d&#8221; by transposing
+our B-flat up a major-third (&#8220;<cite>M3</cite>&#8221;):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">bflat</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s">&quot;M3&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span>
+<span class="go">&lt;music21.note.Note D&gt;</span>
+</pre></div>
+</div>
+<p>In music21, we try to make it so that most methods don&#8217;t change the original
+object.  So our good old <cite>bflat</cite> wasn&#8217;t transposed.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bflat</span>
+<span class="go">&lt;music21.note.Note B-&gt;</span>
+</pre></div>
+</div>
+<p>Instead of changing the original note, the <cite>transpose()</cite> method
+&#8220;returns&#8221; (that is, spits out) a new <cite>note.Note</cite>
+object that represents the operation of transposing it up (or down if you
+want to try &#8220;-M3&#8221;) a certain interval.</p>
+<p>If you want to change <cite>bflat</cite> itself, you can add &#8220;inPlace = True&#8221; to the
+parameters of <cite>.transpose()</cite> separating it from the interval by a comma.
+Let&#8217;s take it up a perfect fourth:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bflat</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s">&quot;P4&quot;</span><span class="p">,</span> <span class="n">inPlace</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bflat</span>
+<span class="go">&lt;music21.note.Note E-&gt;</span>
+</pre></div>
+</div>
+<p>Of course now <cite>bflat</cite> is a terrible name for our variable!  You could type
+&#8220;<cite>eflat = bflat</cite>&#8221; and now you can call the note <cite>eflat</cite>.  But you&#8217;ll probably not
+need to do this too often.  By the way, music21 handles some pretty wacky intervals,
+so if we go back to our variable <cite>d</cite> (which is still a <cite>d</cite> &#8211; transposing bflat
+in place didn&#8217;t change it; they&#8217;re not connected anymore, barely on speaking terms
+even), let&#8217;s transpose it up a doubly-diminished sixth:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">whatNoteIsThis</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s">&#39;dd6&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">whatNoteIsThis</span>
+<span class="go">&lt;music21.note.Note B---&gt;</span>
+</pre></div>
+</div>
+<p>B-triple-flat! Haven&#8217;t seen one of those in a <a class="reference external" href="http://www.music.vt.edu/musicdictionary/textt/Tripleflat.html">while</a> ! Let&#8217;s check that note&#8217;s
+<cite>.accidental.alter</cite> and its <cite>.accidental.name</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">whatNoteIsThis</span><span class="o">.</span><span class="n">accidental</span><span class="o">.</span><span class="n">alter</span>
+<span class="go">-3.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">whatNoteIsThis</span><span class="o">.</span><span class="n">accidental</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;triple-flat&#39;</span>
+</pre></div>
+</div>
+<p>One last thing: not every note has an accidental.  The <cite>d</cite> for instance doesn&#8217;t
+have one, so it returns <cite>None</cite>, which is a special value that puts nothing on the
+output.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">accidental</span>
+</pre></div>
+</div>
+<p>If you want to be sure that it is <cite>None</cite>, you can print the value:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">accidental</span><span class="p">)</span>
+<span class="go">None</span>
+</pre></div>
+</div>
+<p>Since <cite>d.accidental</cite> is <cite>None</cite> does this mean that <cite>d.accidental.name</cite> is <cite>None</cite> too?</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">accidental</span><span class="o">.</span><span class="n">name</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">AttributeError</span>: <span class="n">&#39;NoneType&#39; object has no attribute &#39;name&#39;</span>
+</pre></div>
+</div>
+<p>Nope! In fact it creates an error (which we&#8217;ll also call &#8220;raising an Exception&#8221;
+for reasons that will become clear soon).  That&#8217;s because instead of
+getting an <cite>Accidental</cite> object from <cite>.accidental</cite> like we did before, we got a
+<cite>NoneType</cite> object (i.e., <cite>None</cite>).  <cite>Accidental</cite> objects have an attribute called <cite>name</cite>,
+but the object <cite>None</cite> doesn&#8217;t (it&#8217;s like trying <cite>.wasWrittenByStockhausen</cite> before you&#8217;ve
+defined it as an attribute).</p>
+<p>When you&#8217;re just typing in IDLE
+or the command line, raising an Exception is no big deal, but when you&#8217;re running
+a program, Exceptions will usually cause the program to crash (i.e., stop working).
+So we try to make sure that our <cite>Notes</cite> actually have <cite>Accidentals</cite> before we
+print the <cite>.accidental</cite>&#8216;s name, and we do that by using another <cite>if</cite> statement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">accidental</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">accidental</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This way is safer because we will only try to print <cite>d.accidental.name</cite> if
+<cite>d.accidental</cite> is not <cite>None</cite>.  Since it <em>is</em> <cite>None</cite> in this case, Python will
+never try the second line (which would otherwise cause it to crash).</p>
+<p>This might be a good place to take a rest for a second.  So make a <cite>Rest</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Rest</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Be sure to put the &#8220;()&#8221; (double parentheses) signs after <cite>note.Rest</cite> otherwise
+strange things will happen (technically you get a reference to the class <cite>note.Rest</cite>,
+which will come in handy in about 10 chapters, but not right now).</p>
+<p>You can <cite>.show()</cite> it as a &#8216;<cite>musicxml</cite>&#8216; file of course, but if you try to hear it
+as a &#8216;<cite>midi</cite>&#8216; file, don&#8217;t expect to be overwhelmed.</p>
+<blockquote>
+<div><p>One last thing: notice that we never used a variable name called &#8220;<cite>note</cite>&#8221; to
+store a <cite>note.Note</cite> object.  Don&#8217;t do this.  If you type something like this
+(don&#8217;t type this if you want to continue typing along with the user guide):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">note</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;C#3&quot;</span><span class="p">)</span> 
+</pre></div>
+</div>
+<p>Well now you&#8217;re in a bind.  You&#8217;ve got your <cite>Note</cite> object stored as <cite>note</cite>, but
+we <em>need</em> the <cite>note</cite> <em>module</em> in order to create new <cite>Note</cite> objects and now you have
+no way of getting it. (this is the problem that &#8220;polluting the namespace&#8221; causes
+that your Python guru friend might have warned you about).  So unless you&#8217;re
+Emperor Leopold of Austria who complained that there were &#8220;too many notes,&#8221;
+you&#8217;re probably going to want to make more <cite>note.Note</cite> objects in the future,
+so don&#8217;t use <cite>note</cite> as a variable name. (The same goes with <cite>pitch</cite>, <cite>scale</cite>,
+<cite>key</cite>, <cite>clef</cite>, and so on.  You&#8217;ll see me use variable names like <cite>myNote</cite> and
+<cite>myClef</cite> to avoid the problem).</p>
+</div></blockquote>
+<p>Okay, now you have the basics of <cite>Note</cite> objects down, let&#8217;s go on to <cite>Pitch</cite> and
+<cite>Duration</cite> objects by clicking &#8220;Next&#8221; below, right.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_03_pitches.html" title="User’s Guide, Chapter 3: Pitches, Durations, and Notes again"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_01_installing.html" title="User’s Guide, Chapter 1: Installing and Getting Started with music21"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

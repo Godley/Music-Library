@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User’s Guide, Chapter 4: Lists, Streams (I) and Output &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Users Guide" href="index.html" />
+    <link rel="next" title="User’s Guide, Chapter 5: Lists of Lists, Functions, and Recursion" href="usersGuide_05_listsOfLists.html" />
+    <link rel="prev" title="User’s Guide, Chapter 3: Pitches, Durations, and Notes again" href="usersGuide_03_pitches.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_05_listsOfLists.html" title="User’s Guide, Chapter 5: Lists of Lists, Functions, and Recursion"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_03_pitches.html" title="User’s Guide, Chapter 3: Pitches, Durations, and Notes again"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usersGuide_03_pitches.html"
+                        title="previous chapter">User&#8217;s Guide, Chapter 3: Pitches, Durations, and Notes again</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usersGuide_05_listsOfLists.html"
+                        title="next chapter">User&#8217;s Guide, Chapter 5: Lists of Lists, Functions, and Recursion</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">User&#8217;s Guide, Chapter 4: Lists, Streams (I) and Output</a><ul>
+<li><a class="reference internal" href="#working-with-multiple-objects-via-lists">Working with multiple objects via Lists</a></li>
+<li><a class="reference internal" href="#creating-simple-streams">Creating simple Streams</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Users Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_99_Table_of_Contents.html">User&#8217;s Guide, Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_00_introduction.html">User&#8217;s Guide: Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_01_installing.html">User&#8217;s Guide, Chapter 1: Installing and Getting Started with <tt class="docutils literal"><span class="pre">music21</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_02_notes.html">User&#8217;s Guide, Chapter 2: Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_03_pitches.html">User&#8217;s Guide, Chapter 3: Pitches, Durations, and Notes again</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">User&#8217;s Guide, Chapter 4: Lists, Streams (I) and Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_05_listsOfLists.html">User&#8217;s Guide, Chapter 5: Lists of Lists, Functions, and Recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_06_stream2.html">User&#8217;s Guide, Chapter 6: Streams (II): Hierarchies, Recursion, and Flattening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_07_chords.html">User&#8217;s Guide, Chapter 7: Chords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_09_chordify.html">User&#8217;s Guide: Chapter 9: Chordify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_11_corpusSearching.html">User&#8217;s Guide: Chapter 11: Corpus Searching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_14_timeSignatures.html">User&#8217;s Guide: Chapter 14: Time Signatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_17_derivations.html">User&#8217;s Guide: Chapter 17: Derivations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_54_extendingConverter.html">User&#8217;s Guide: Chapter 54: Extending Converter with New Formats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../moduleReference/index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usersGuide/usersGuide_04_stream1.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="user-s-guide-chapter-4-lists-streams-i-and-output">
+<span id="usersguide-04-stream1"></span><h1>User&#8217;s Guide, Chapter 4: Lists, Streams (I) and Output<a class="headerlink" href="#user-s-guide-chapter-4-lists-streams-i-and-output" title="Permalink to this headline">¶</a></h1>
+<p>In the last two chapters, I introduced the concept of
+<a class="reference internal" href="../moduleReference/moduleNote.html#music21.note.Note" title="music21.note.Note"><tt class="xref py py-class docutils literal"><span class="pre">Note</span></tt></a> objects which are made up of
+<a class="reference internal" href="../moduleReference/modulePitch.html#music21.pitch.Pitch" title="music21.pitch.Pitch"><tt class="xref py py-class docutils literal"><span class="pre">Pitch</span></tt></a> and <a class="reference internal" href="../moduleReference/moduleDuration.html#music21.duration.Duration" title="music21.duration.Duration"><tt class="xref py py-class docutils literal"><span class="pre">Duration</span></tt></a>
+objects, and we even displayed a Note on a staff and played it
+via MIDI.  But unless you&#8217;re challenging Cage and Webern for the
+status of least musical material, you will probably want to
+analyze, manipulate, or create more than one Note.</p>
+<p>Python has ways of working with multiple objects and <cite>music21</cite>
+extends those ways to be more musical.  Let&#8217;s look at how
+Python does it first and then see how <cite>music21</cite> extends these
+ways.  (If you&#8217;ve been programming for a bit, or especially
+if you have Python experience, skip to the section on
+Streams below after creating the objects <cite>note1</cite>, <cite>note2</cite> and
+<cite>note3</cite> described below).</p>
+<div class="section" id="working-with-multiple-objects-via-lists">
+<h2>Working with multiple objects via Lists<a class="headerlink" href="#working-with-multiple-objects-via-lists" title="Permalink to this headline">¶</a></h2>
+<p>Say you have two notes, a C and an F# in the middle of the treble staff.
+(If the concept of working with a tritone bothers you, go ahead and make
+the second note a G; we won&#8217;t mind; we&#8217;ll just call you Pope
+Gregory from now on).  Lets create those notes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">note1</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;C4&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">note2</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;F#4&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let&#8217;s make the first note a half note by modifying its duration (by default
+all <cite>Note</cite> objects are quarter notes):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">note1</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="s">&#39;half&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">note1</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">quarterLength</span>
+<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">note2</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">quarterLength</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<p>To print the <cite>step</cite> (that is, the name without any octave or accidental
+information) of each of these notes, you could do something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">note1</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+<span class="go">C</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">note2</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+<span class="go">F</span>
+</pre></div>
+</div>
+<p>But suppose you had thirty notes?  Then it&#8217;d be a pain to type &#8220;<cite>print noteX.step</cite>&#8221;
+thirty times.  Fortunately, there&#8217;s a solution: we can put each of the
+note objects into a <cite>List</cite> which is a built in Python object that stores multiple
+other objects (like Notes or Chords, or even things like numbers).  To create
+a list in Python, put square brackets (<cite>[]</cite>) around the things that you want
+to put in the list, separated by commas.  Let&#8217;s create a list called <cite>noteList</cite>
+that contains note1 and note2:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">noteList</span> <span class="o">=</span> <span class="p">[</span><span class="n">note1</span><span class="p">,</span> <span class="n">note2</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>We can check that <cite>noteList</cite> contains our Notes by printing it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">noteList</span><span class="p">)</span>
+<span class="go">[&lt;music21.note.Note C&gt;, &lt;music21.note.Note F#&gt;]</span>
+</pre></div>
+</div>
+<p>Now we can write a two-line program that will print the step of each note in noteList.
+Most modern languages have a way of doing some action for each member (&#8220;element&#8221;) in
+a list (also called an &#8220;array&#8221; or sometimes &#8220;row&#8221;).  In Python this is the &#8220;for&#8221; command.
+When you type these lines, don&#8217;t type the <cite>&#8221;... &#8220;</cite> just like you&#8217;re not typing the <cite>&#8220;&gt;&gt;&gt; &#8220;</cite>
+line, but do type the spaces at the start of the second line.  (When you&#8217;re done typing
+<cite>print(thisNote.step)</cite>, you&#8217;ll probably have to hit enter twice to see the results.)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">thisNote</span> <span class="ow">in</span> <span class="n">noteList</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">thisNote</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+<span class="go">C</span>
+<span class="go">F</span>
+</pre></div>
+</div>
+<p>What&#8217;s happening here? What <tt class="docutils literal"><span class="pre">for</span> <span class="pre">thisNote</span> <span class="pre">in</span> <span class="pre">noteList:</span></tt> says is that Python should
+take each note in noteList in order and temporarily call that note &#8220;<cite>thisNote</cite>&#8221; (you
+could have it called anything you want; <cite>myNote</cite>, <cite>n</cite>, <cite>currentNote</cite> are all good
+names, but <cite>note</cite> is not because <cite>note</cite> is the name of a module).  Then the &#8221;:&#8221; at
+the end of the line indicates that everything that happens for a bit will apply
+to every <cite>Note</cite> in noteList one at a time.  How does Python know when &#8220;a bit&#8221; is
+over?  Simple: every line that is a part of the loop needs to be indented by putting
+in some spaces (I usually use four spaces or hit tab.  Some people use two spaces.
+Just be consistent).</p>
+<p>Loops don&#8217;t save much time here, but imagine if noteList had dozens or hundreds
+of Notes in it?  Then the ability to do something to each object becomes more and
+more important.</p>
+<p>Let&#8217;s add another note to noteList.  First let&#8217;s create another note, a low B-flat:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">note3</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;B-2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then we&#8217;ll append that note to the end of noteList:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">noteList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can see that the length of noteList is now 3 using the <cite>len()</cite> function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">noteList</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>And if we write our looping function again, we will get a third note:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">thisNote</span> <span class="ow">in</span> <span class="n">noteList</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">thisNote</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+<span class="go">C</span>
+<span class="go">F</span>
+<span class="go">B</span>
+</pre></div>
+</div>
+<p>We can find out what the first note of noteList is by writing:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">noteList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+</pre></div>
+</div>
+<p>Notice that in a list, the first element is <cite>[0]</cite>, not <cite>[1]</cite>.  There are all
+sorts of historical reasons why computers start counting lists with zero
+rather than one&#8211;some good, some obsolete&#8211;but we need to live with this
+if we&#8217;re going to get any work done. Think of it like how floors are numbered
+in European buildings compared to American buildings.  If we go forward one note,
+to the second note, we write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">noteList</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">&lt;music21.note.Note F#&gt;</span>
+</pre></div>
+</div>
+<p>We can also ask <cite>noteList</cite> where is <cite>note2</cite> within it, using the <cite>index()</cite> method:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">noteList</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">note2</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>If we want to get the last element of a list, we can write:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">noteList</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">&lt;music21.note.Note B-&gt;</span>
+</pre></div>
+</div>
+<p>Which is how basements are numbered in Europe as well.  This is the same
+element as noteList[2] (our third Note), as we can have Python prove:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">noteList</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="n">noteList</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Lists will become important tools in your programming, but they don&#8217;t know
+anything about music.  To get some intelligence into our music we&#8217;ll need to
+know about a <cite>music21</cite> object similar to lists, called a <a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Stream" title="music21.stream.Stream"><tt class="xref py py-class docutils literal"><span class="pre">Stream</span></tt></a>.</p>
+</div>
+<div class="section" id="creating-simple-streams">
+<h2>Creating simple Streams<a class="headerlink" href="#creating-simple-streams" title="Permalink to this headline">¶</a></h2>
+<p>Streams are similar to Python lists in that they hold individual elements
+in order.  They&#8217;re different in that they can only hold <cite>music21</cite> objects
+such as Notes or <a class="reference internal" href="../moduleReference/moduleClef.html#music21.clef.Clef" title="music21.clef.Clef"><tt class="xref py py-class docutils literal"><span class="pre">Clef</span></tt></a> objects.  But they&#8217;re a lot
+smarter and more powerful.</p>
+<p>To create a Stream you&#8217;ll need to type <cite>stream.Stream()</cite> and assign it to
+a variable using the equal sign.  Let&#8217;s call our Stream <cite>stream1</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Notice that just like how the (capital) <cite>Note</cite> object lives in a module
+called (lowercase) <cite>note</cite>, the (capital) <cite>Stream</cite> object lives in a module
+called (lowercase) <cite>stream</cite>.  Variable names, like <cite>stream1</cite> can be either
+uppercase or lowercase, but I tend to use lowercase variable names (or camelCase
+like we did with <cite>noteList</cite>).  We can add the three <cite>Note</cite> objects we created
+above by using the <cite>append</cite> method of <cite>Stream</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(If you&#8217;re thinking ahead and seeing that this would be a pain to type for
+hundreds of <cite>Notes</cite>, don&#8217;t worry, we&#8217;ll introduce some quicker ways to do that
+soon).  Now we can see that our Stream has three notes using the same <cite>len()</cite>
+function that we used before:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">stream1</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>And we can still get the <cite>step</cite> of each <cite>Note</cite> using the <cite>for thisNote in ...:</cite>
+command, but we&#8217;ll now use <cite>stream1</cite> instead of <cite>noteList</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">thisNote</span> <span class="ow">in</span> <span class="n">stream1</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">thisNote</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+<span class="go">C</span>
+<span class="go">F</span>
+<span class="go">B</span>
+</pre></div>
+</div>
+<p>And we can get the first and the last <cite>Note</cite> in a <cite>Stream</cite> by using the [X] form:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">accidental</span>
+<span class="go">&lt;accidental sharp&gt;</span>
+</pre></div>
+</div>
+<p>Okay, so far we&#8217;ve seen that <cite>Streams</cite> can do the same things as lists, but
+can they do more?  Let&#8217;s call the analyze method on stream to get the
+ambitus (that is, the range from the lowest note to the highest note) of
+the <cite>Notes</cite> in the <cite>Stream</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="s">&#39;ambitus&#39;</span><span class="p">)</span>
+<span class="go">&lt;music21.interval.Interval A12&gt;</span>
+</pre></div>
+</div>
+<p>Let&#8217;s take a second to check this.  Our lowest note is note3 (B-flat in octave 2)
+and our highest note is note2 (F-sharp in octave 4).  From B-flat to the F-sharp
+above it, is an augmented fifth.  An augmented fifth plus an octave is an augmented
+twelfth.  So we&#8217;re doing well so far.  (We&#8217;ll get to other things we can analyze in
+chapter 18 and we&#8217;ll see what an <a class="reference internal" href="../moduleReference/moduleInterval.html#music21.interval.Interval" title="music21.interval.Interval"><tt class="xref py py-class docutils literal"><span class="pre">Interval</span></tt></a> object can do
+in chapter 15).</p>
+<p>Once a Note is in a Stream, we can ask for the <cite>offset</cite> of the <cite>Notes</cite> (or
+anything else) in it.  The <cite>offset</cite> is the position of a Note relative to the start
+of the <cite>Stream</cite> measured in quarter notes.  So note1&#8217;s offset will be 0.0,
+since it&#8217;s at the start of the Stream:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">note1</span><span class="o">.</span><span class="n">offset</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p><cite>note2</cite>&#8216;s offset will be 2.0, since <cite>note1</cite> is a half note, worth two quarter notes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">note2</span><span class="o">.</span><span class="n">offset</span>
+<span class="go">2.0</span>
+</pre></div>
+</div>
+<p>And <cite>note3</cite>, which follows the quarter note <cite>note2</cite> will be at offset 3.0:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">note3</span><span class="o">.</span><span class="n">offset</span>
+<span class="go">3.0</span>
+</pre></div>
+</div>
+<p>(If we made <cite>note2</cite> an eighth note, then <cite>note3</cite>&#8216;s offset would be the floating point
+[decimal] value 2.5.  But we didn&#8217;t.)  So now when we&#8217;re looping we can see the offset of
+each note.  Let&#8217;s print the note&#8217;s offset followed by its name by putting .offset and .name
+in the same line, separated by a comma:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">thisNote</span> <span class="ow">in</span> <span class="n">stream1</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="n">thisNote</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">thisNote</span><span class="o">.</span><span class="n">name</span>
+<span class="go">0.0 C</span>
+<span class="go">2.0 F#</span>
+<span class="go">3.0 B-</span>
+</pre></div>
+</div>
+<p>(Digression: It&#8217;s probably not too early to learn that a safer form of <cite>.offset</cite> is <cite>.getOffsetBySite(stream1)</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">note2</span><span class="o">.</span><span class="n">offset</span>
+<span class="go">2.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">note2</span><span class="o">.</span><span class="n">getOffsetBySite</span><span class="p">(</span><span class="n">stream1</span><span class="p">)</span>
+<span class="go">2.0</span>
+</pre></div>
+</div>
+<p>What&#8217;s the difference?  Remember how I said that <cite>.offset</cite> refers to the number of quarter notes
+that the <cite>Note</cite> is from the front of a <cite>Stream</cite>? Well, eventually you may put the same <cite>Note</cite> in
+different places in multiple <cite>Streams</cite>, so the <cite>.getOffsetBySite(X)</cite> command is a safer way that
+specifies exactly which Stream we are talking about.  End of digression...)</p>
+<p>So, what else can we do with Streams?  Like <cite>Note</cite> objects, we can <cite>show()</cite> them in a couple of different
+ways.  Let&#8217;s hear these three Notes as a MIDI file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;midi&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+<p>Or let&#8217;s see them as a score:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;musicxml&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+<img alt="../_images/04_stream1.jpg" src="../_images/04_stream1.jpg" style="width: 157px;" />
+<p>You might ask why is the piece in common-time (4/4)? This is just the default for new pieces, which is in the
+<cite>defaults</cite> module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">defaults</span><span class="o">.</span><span class="n">meterNumerator</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">defaults</span><span class="o">.</span><span class="n">meterDenominator</span>
+<span class="go">&#39;quarter&#39;</span>
+</pre></div>
+</div>
+<p>We&#8217;ll learn how to switch the <a class="reference internal" href="../moduleReference/moduleMeter.html#music21.meter.TimeSignature" title="music21.meter.TimeSignature"><tt class="xref py py-class docutils literal"><span class="pre">TimeSignature</span></tt></a> soon enough.</p>
+<p>If you don&#8217;t have MIDI or MusicXML configured yet (we&#8217;ll get to it in a second) and you don&#8217;t want to have
+other programs open up, you can show a <cite>Stream</cite> in text in your editor:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
+<span class="go">{0.0} &lt;music21.note.Note C&gt;</span>
+<span class="go">{2.0} &lt;music21.note.Note F#&gt;</span>
+<span class="go">{3.0} &lt;music21.note.Note B-&gt;</span>
+</pre></div>
+</div>
+<p>This display shows the <cite>offset</cite> for each element (that is, each object in the Stream) along with
+what class it is, and a little bit more helpful information.  The information is the same as
+what&#8217;s called the <tt class="docutils literal"><span class="pre">__repr__</span></tt> (representation) of the object, which is what you get if you type
+its variable name at the prompt:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">note1</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+</pre></div>
+</div>
+<p>By the way, Streams have a __repr__ as well:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span> 
+<span class="go">&lt;music21.stream.Stream 9723420&gt;</span>
+</pre></div>
+</div>
+<p>that number at the end is the <cite>.id</cite> of the <cite>Stream</cite>, which is a way of identifying it.  Often
+the <cite>.id</cite> of a Stream will be the name of the <cite>Part</cite> (&#8220;Violin II&#8221;), but if it&#8217;s undefined
+then a somewhat random number is used (actually the location of the Stream in your computer&#8217;s
+memory).  We can change the <cite>.id</cite> of a Stream:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="s">&#39;some notes&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span>
+<span class="go">&lt;music21.stream.Stream some notes&gt;</span>
+</pre></div>
+</div>
+<p>We could have also changed the <cite>.id</cite> of any of our <cite>Note</cite> objects, but it doesn&#8217;t show up in
+the <cite>Note</cite>&#8216;s __repr__:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">note1</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="s">&#39;my favorite C&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">note1</span>
+<span class="go">&lt;music21.note.Note C&gt;</span>
+</pre></div>
+</div>
+<p>Now, a <cite>Stream</cite> is a <a class="reference internal" href="../moduleReference/moduleBase.html#music21.base.Music21Object" title="music21.base.Music21Object"><tt class="xref py py-class docutils literal"><span class="pre">Music21Object</span></tt></a> just like a <cite>Note</cite> is.  This is why
+it has an <cite>.id</cite> attribute and, more importantly, why you can call <cite>.show()</cite> on it.</p>
+<p>What else makes a <cite>Music21Object</cite> what it is?
+It has a <cite>.duration</cite> attribute which stores a <cite>Duration</cite> object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="o">.</span><span class="n">duration</span>
+<span class="go">&lt;music21.duration.Duration 4.0&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&#39;whole&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stream1</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">quarterLength</span>
+<span class="go">4.0</span>
+</pre></div>
+</div>
+<p>(Notice that the <cite>len()</cite> of a <cite>Stream</cite>, which stands for &#8220;length&#8221;, is not the same as the duration.
+the <cite>len()</cite> of a Stream is the number of objects stored in it, so <cite>len(stream1)</cite> is 3).</p>
+<p>And, as a <cite>Music21Object</cite>, a <cite>Stream</cite> can be placed inside of another <cite>Stream</cite> object.  Let&#8217;s create
+a stream, called biggerStream (for reasons that will become obvious), that holds a <cite>Note</cite> D# at the
+beginning</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">biggerStream</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">note2</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;D#5&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">biggerStream</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">note2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we use the <cite>.append</cite> functionality to put <cite>stream1</cite> at the end of <cite>biggerStream</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">biggerStream</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stream1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notice that when we call <cite>.show(&#8216;text&#8217;)</cite> on biggerStream, we see not only the presence of <cite>note2</cite>
+and <cite>stream1</cite> but also all the contents of <cite>stream1</cite> as well:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">biggerStream</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
+<span class="go">{0.0} &lt;music21.note.Note D#&gt;</span>
+<span class="go">{1.0} &lt;music21.stream.Stream some notes&gt;</span>
+<span class="go">        {0.0} &lt;music21.note.Note C&gt;</span>
+<span class="go">        {2.0} &lt;music21.note.Note F#&gt;</span>
+<span class="go">        {3.0} &lt;music21.note.Note B-&gt;</span>
+</pre></div>
+</div>
+<p>Notice though that the offsets, the little numbers inside curly brackets, for the elements of
+<cite>stream1</cite> (&#8220;some notes&#8221;) relate only to their positions within <cite>stream1</cite>, not to their position
+within <cite>biggerStream</cite>.  This is because each <cite>Music21Object</cite> knows its offset only in relation
+to its containing <cite>Stream</cite>, not necessarily to the <cite>Stream</cite> containing <em>that</em> <cite>Stream</cite>.</p>
+<p>Also notice that <cite>note1</cite> knows that it is in <cite>stream1</cite> but doesn&#8217;t know that it is somewhere inside
+<cite>biggerStream</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">note1</span> <span class="ow">in</span> <span class="n">stream1</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">note1</span> <span class="ow">in</span> <span class="n">biggerStream</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>All this might not seem like much of a big deal, until we tell you that in music21, <cite>Scores</cite> are
+made up of <cite>Streams</cite> within <cite>Streams</cite> within <cite>Streams</cite>.  So if you have an orchestral score, it is
+a <cite>Stream</cite>, and the viola part is a <cite>Stream</cite> in that <cite>Stream</cite>, and measure 5 of the viola part is a
+<cite>Stream</cite> within that <cite>Stream</cite>, and, if there were a &#8216;&#8217;divisi&#8217;&#8216;, then each &#8216;&#8217;diviso&#8217;&#8217; voice would be
+a <cite>Stream</cite> within that <cite>Stream</cite>.  Each of these <cite>Streams</cite> has a special name and its own class
+(<a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Score" title="music21.stream.Score"><tt class="xref py py-class docutils literal"><span class="pre">Score</span></tt></a>, <a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Part" title="music21.stream.Part"><tt class="xref py py-class docutils literal"><span class="pre">Part</span></tt></a>, <a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Measure" title="music21.stream.Measure"><tt class="xref py py-class docutils literal"><span class="pre">Measure</span></tt></a>,
+and <a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Voice" title="music21.stream.Voice"><tt class="xref py py-class docutils literal"><span class="pre">Voice</span></tt></a>), but they are all types of <cite>Streams</cite>.</p>
+<p>So how do we find <cite>note1</cite> inside <cite>biggerStream</cite>?  That&#8217;s what the next two chapters are about.
+Click <tt class="docutils literal"><span class="pre">Next</span></tt> for Chapter 5.  Those with programming experience who have familiarity with
+lists of lists and defining functions might want to skip to Chapter 6 (<strong>LINK</strong>)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_05_listsOfLists.html" title="User’s Guide, Chapter 5: Lists of Lists, Functions, and Recursion"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_03_pitches.html" title="User’s Guide, Chapter 3: Pitches, Durations, and Notes again"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

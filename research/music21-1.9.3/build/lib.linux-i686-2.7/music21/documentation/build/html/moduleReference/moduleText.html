@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.text &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.theoryAnalysis.theoryAnalyzer" href="moduleTheoryAnalysisTheoryAnalyzer.html" />
+    <link rel="prev" title="music21.test.treeYield" href="moduleTestTreeYield.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleTheoryAnalysisTheoryAnalyzer.html" title="music21.theoryAnalysis.theoryAnalyzer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleTestTreeYield.html" title="music21.test.treeYield"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleTestTreeYield.html"
+                        title="previous chapter">music21.test.treeYield</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleTheoryAnalysisTheoryAnalyzer.html"
+                        title="next chapter">music21.theoryAnalysis.theoryAnalyzer</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.text</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#textbox">TextBox</a></li>
+<li><a class="reference internal" href="#textformat">TextFormat</a></li>
+<li><a class="reference internal" href="#languagedetector">LanguageDetector</a></li>
+<li><a class="reference internal" href="#trigram">Trigram</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleText.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-text">
+<span id="moduletext"></span><h1>music21.text<a class="headerlink" href="#music21-text" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.text"></span><p>Utility routines for processing text in scores and other musical objects.</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="music21.text.assembleLyrics">
+<tt class="descclassname">music21.text.</tt><tt class="descname">assembleLyrics</tt><big>(</big><em>streamIn</em>, <em>lineNumber=1</em><big>)</big><a class="headerlink" href="#music21.text.assembleLyrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenate text from a stream. The Stream is automatically flattened.</p>
+<p>The <cite>lineNumber</cite> parameter determines which line of text is assembled.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">lyric</span> <span class="o">=</span> <span class="s">&quot;Hi&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n2</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n2</span><span class="o">.</span><span class="n">lyric</span> <span class="o">=</span> <span class="s">&quot;there&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="o">.</span><span class="n">assembleLyrics</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">&#39;Hi there&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.text.postpendArticle">
+<tt class="descclassname">music21.text.</tt><tt class="descname">postpendArticle</tt><big>(</big><em>src</em>, <em>language=None</em><big>)</big><a class="headerlink" href="#music21.text.postpendArticle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a text string, if an article is found in a leading position, place it at the end with a comma.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="o">.</span><span class="n">postpendArticle</span><span class="p">(</span><span class="s">&#39;The Ale is Dear&#39;</span><span class="p">)</span>
+<span class="go">&#39;Ale is Dear, The&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="o">.</span><span class="n">postpendArticle</span><span class="p">(</span><span class="s">&#39;The Ale is Dear&#39;</span><span class="p">,</span> <span class="s">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">&#39;Ale is Dear, The&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="o">.</span><span class="n">postpendArticle</span><span class="p">(</span><span class="s">&#39;The Ale is Dear&#39;</span><span class="p">,</span> <span class="s">&#39;it&#39;</span><span class="p">)</span> 
+<span class="go">&#39;The Ale is Dear&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="o">.</span><span class="n">postpendArticle</span><span class="p">(</span><span class="s">&#39;Il Combattimento di Tancredi e Clorinda&#39;</span><span class="p">,</span> <span class="s">&#39;it&#39;</span><span class="p">)</span> 
+<span class="go">&#39;Combattimento di Tancredi e Clorinda, Il&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.text.prependArticle">
+<tt class="descclassname">music21.text.</tt><tt class="descname">prependArticle</tt><big>(</big><em>src</em>, <em>language=None</em><big>)</big><a class="headerlink" href="#music21.text.prependArticle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a text string, if an article is found in a trailing position with a comma, place the article in front and remove the comma.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="o">.</span><span class="n">prependArticle</span><span class="p">(</span><span class="s">&#39;Ale is Dear, The&#39;</span><span class="p">)</span>
+<span class="go">&#39;The Ale is Dear&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="o">.</span><span class="n">prependArticle</span><span class="p">(</span><span class="s">&#39;Ale is Dear, The&#39;</span><span class="p">,</span> <span class="s">&#39;en&#39;</span><span class="p">)</span>
+<span class="go">&#39;The Ale is Dear&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="o">.</span><span class="n">prependArticle</span><span class="p">(</span><span class="s">&#39;Ale is Dear, The&#39;</span><span class="p">,</span> <span class="s">&#39;it&#39;</span><span class="p">)</span>
+<span class="go">&#39;Ale is Dear, The&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="o">.</span><span class="n">prependArticle</span><span class="p">(</span><span class="s">&#39;Combattimento di Tancredi e Clorinda, Il&#39;</span><span class="p">,</span> <span class="s">&#39;it&#39;</span><span class="p">)</span> 
+<span class="go">&#39;Il Combattimento di Tancredi e Clorinda&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="textbox">
+<h2>TextBox<a class="headerlink" href="#textbox" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.text.TextBox">
+<em class="property">class </em><tt class="descclassname">music21.text.</tt><tt class="descname">TextBox</tt><big>(</big><em>content=None</em>, <em>x=500</em>, <em>y=500</em><big>)</big><a class="headerlink" href="#music21.text.TextBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>A TextBox is arbitrary text that might be positioned anywhere on a page, 
+independent of notes or staffs. A page attribute specifies what page this text is found on; 
+positionVertical and positionHorizontal position the text from the bottom left corner in 
+units of tenths.</p>
+<p>This object is similar to the TextExpression object, but does not have as many position 
+parameters, enclosure attributes, and the ability to convert to 
+RepeatExpressions and TempoTexts.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">text</span><span class="p">,</span> <span class="n">stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="mi">1000</span> <span class="c"># set a fixed vertical distance</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># specify character, x position, y position</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextBox</span><span class="p">(</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">alignVertical</span> <span class="o">=</span> <span class="s">&#39;bottom&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextBox</span><span class="p">(</span><span class="s">&#39;u&#39;</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">alignVertical</span> <span class="o">=</span> <span class="s">&#39;bottom&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextBox</span><span class="p">(</span><span class="s">&#39;s&#39;</span><span class="p">,</span> <span class="mi">550</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">alignVertical</span> <span class="o">=</span> <span class="s">&#39;bottom&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span>        
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextBox</span><span class="p">(</span><span class="s">&#39;ic&#39;</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">alignVertical</span> <span class="o">=</span> <span class="s">&#39;bottom&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="s">&#39;italic&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextBox</span><span class="p">(</span><span class="s">&#39;21&#39;</span><span class="p">,</span> <span class="mi">850</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">alignVertical</span> <span class="o">=</span> <span class="s">&#39;bottom&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">80</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="s">&#39;bold&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tb</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="s">&#39;italic&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tb</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/textBoxes-01.png" src="../_images/textBoxes-01.png" style="width: 600px;" />
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.text.TextBox" title="music21.text.TextBox"><tt class="xref py py-class docutils literal"><span class="pre">TextBox</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object" title="music21.base.Music21Object"><tt class="xref py py-class docutils literal"><span class="pre">Music21Object</span></tt></a></li>
+<li><a class="reference internal" href="#music21.text.TextFormat" title="music21.text.TextFormat"><tt class="xref py py-class docutils literal"><span class="pre">TextFormat</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.text.TextBox" title="music21.text.TextBox"><tt class="xref py py-class docutils literal"><span class="pre">TextBox</span></tt></a> read-only properties</p>
+<p>Read-only properties inherited from <a class="reference internal" href="moduleBase.html#music21.base.Music21Object" title="music21.base.Music21Object"><tt class="xref py py-class docutils literal"><span class="pre">Music21Object</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.beat" title="music21.base.Music21Object.beat"><tt class="xref py py-attr docutils literal"><span class="pre">beat</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.beatDuration" title="music21.base.Music21Object.beatDuration"><tt class="xref py py-attr docutils literal"><span class="pre">beatDuration</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.beatStr" title="music21.base.Music21Object.beatStr"><tt class="xref py py-attr docutils literal"><span class="pre">beatStr</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.beatStrength" title="music21.base.Music21Object.beatStrength"><tt class="xref py py-attr docutils literal"><span class="pre">beatStrength</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.classes" title="music21.base.Music21Object.classes"><tt class="xref py py-attr docutils literal"><span class="pre">classes</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.derivationHierarchy" title="music21.base.Music21Object.derivationHierarchy"><tt class="xref py py-attr docutils literal"><span class="pre">derivationHierarchy</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.fullyQualifiedClasses" title="music21.base.Music21Object.fullyQualifiedClasses"><tt class="xref py py-attr docutils literal"><span class="pre">fullyQualifiedClasses</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.isGrace" title="music21.base.Music21Object.isGrace"><tt class="xref py py-attr docutils literal"><span class="pre">isGrace</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.measureNumber" title="music21.base.Music21Object.measureNumber"><tt class="xref py py-attr docutils literal"><span class="pre">measureNumber</span></tt></a></li>
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.text.TextBox" title="music21.text.TextBox"><tt class="xref py py-class docutils literal"><span class="pre">TextBox</span></tt></a> read/write properties</p>
+<dl class="attribute">
+<dt id="music21.text.TextBox.alignHorizontal">
+<tt class="descclassname">TextBox.</tt><tt class="descname">alignHorizontal</tt><a class="headerlink" href="#music21.text.TextBox.alignHorizontal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the horicontal align.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">te</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextBox</span><span class="p">(</span><span class="s">&#39;testing&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">alignHorizontal</span> <span class="o">=</span> <span class="s">&#39;right&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">alignHorizontal</span>
+<span class="go">&#39;right&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.text.TextBox.alignVertical">
+<tt class="descclassname">TextBox.</tt><tt class="descname">alignVertical</tt><a class="headerlink" href="#music21.text.TextBox.alignVertical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the vertical align. Valid values are top, middle, bottom, and baseline</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">te</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextBox</span><span class="p">(</span><span class="s">&#39;testing&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">alignVertical</span> <span class="o">=</span> <span class="s">&#39;top&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">alignVertical</span>
+<span class="go">&#39;top&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.text.TextBox.content">
+<tt class="descclassname">TextBox.</tt><tt class="descname">content</tt><a class="headerlink" href="#music21.text.TextBox.content" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the content.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">te</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextBox</span><span class="p">(</span><span class="s">&#39;testing&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">content</span>
+<span class="go">&#39;testing&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">justify</span> <span class="o">=</span> <span class="s">&#39;center&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">justify</span>
+<span class="go">&#39;center&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.text.TextBox.page">
+<tt class="descclassname">TextBox.</tt><tt class="descname">page</tt><a class="headerlink" href="#music21.text.TextBox.page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the page number. The first page (page 1) is the default.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">te</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextBox</span><span class="p">(</span><span class="s">&#39;testing&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">content</span>
+<span class="go">&#39;testing&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">page</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.text.TextBox.positionHorizontal">
+<tt class="descclassname">TextBox.</tt><tt class="descname">positionHorizontal</tt><a class="headerlink" href="#music21.text.TextBox.positionHorizontal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the vertical position.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">te</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextBox</span><span class="p">(</span><span class="s">&#39;testing&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">positionHorizontal</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">positionHorizontal</span>
+<span class="go">200</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.text.TextBox.positionVertical">
+<tt class="descclassname">TextBox.</tt><tt class="descname">positionVertical</tt><a class="headerlink" href="#music21.text.TextBox.positionVertical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the vertical position.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">te</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextBox</span><span class="p">(</span><span class="s">&#39;testing&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">positionVertical</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">te</span><span class="o">.</span><span class="n">positionVertical</span>
+<span class="go">1000</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>Read/write properties inherited from <a class="reference internal" href="moduleBase.html#music21.base.Music21Object" title="music21.base.Music21Object"><tt class="xref py py-class docutils literal"><span class="pre">Music21Object</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.activeSite" title="music21.base.Music21Object.activeSite"><tt class="xref py py-attr docutils literal"><span class="pre">activeSite</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.duration" title="music21.base.Music21Object.duration"><tt class="xref py py-attr docutils literal"><span class="pre">duration</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.offset" title="music21.base.Music21Object.offset"><tt class="xref py py-attr docutils literal"><span class="pre">offset</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.priority" title="music21.base.Music21Object.priority"><tt class="xref py py-attr docutils literal"><span class="pre">priority</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.seconds" title="music21.base.Music21Object.seconds"><tt class="xref py py-attr docutils literal"><span class="pre">seconds</span></tt></a></li>
+</ul>
+</td></tr></table>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.text.TextFormat" title="music21.text.TextFormat"><tt class="xref py py-class docutils literal"><span class="pre">TextFormat</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.text.TextFormat.justify" title="music21.text.TextFormat.justify"><tt class="xref py py-attr docutils literal"><span class="pre">justify</span></tt></a></li>
+<li><a class="reference internal" href="#music21.text.TextFormat.letterSpacing" title="music21.text.TextFormat.letterSpacing"><tt class="xref py py-attr docutils literal"><span class="pre">letterSpacing</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.text.TextFormat.size" title="music21.text.TextFormat.size"><tt class="xref py py-attr docutils literal"><span class="pre">size</span></tt></a></li>
+<li><a class="reference internal" href="#music21.text.TextFormat.style" title="music21.text.TextFormat.style"><tt class="xref py py-attr docutils literal"><span class="pre">style</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.text.TextFormat.weight" title="music21.text.TextFormat.weight"><tt class="xref py py-attr docutils literal"><span class="pre">weight</span></tt></a></li>
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.text.TextBox" title="music21.text.TextBox"><tt class="xref py py-class docutils literal"><span class="pre">TextBox</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="moduleBase.html#music21.base.Music21Object" title="music21.base.Music21Object"><tt class="xref py py-class docutils literal"><span class="pre">Music21Object</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.findAttributeInHierarchy" title="music21.base.Music21Object.findAttributeInHierarchy"><tt class="xref py py-meth docutils literal"><span class="pre">findAttributeInHierarchy()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.getAllContextsByClass" title="music21.base.Music21Object.getAllContextsByClass"><tt class="xref py py-meth docutils literal"><span class="pre">getAllContextsByClass()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.getContextAttr" title="music21.base.Music21Object.getContextAttr"><tt class="xref py py-meth docutils literal"><span class="pre">getContextAttr()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.getContextByClass" title="music21.base.Music21Object.getContextByClass"><tt class="xref py py-meth docutils literal"><span class="pre">getContextByClass()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.getOffsetBySite" title="music21.base.Music21Object.getOffsetBySite"><tt class="xref py py-meth docutils literal"><span class="pre">getOffsetBySite()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.getSpannerSites" title="music21.base.Music21Object.getSpannerSites"><tt class="xref py py-meth docutils literal"><span class="pre">getSpannerSites()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.hasContext" title="music21.base.Music21Object.hasContext"><tt class="xref py py-meth docutils literal"><span class="pre">hasContext()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.hasSite" title="music21.base.Music21Object.hasSite"><tt class="xref py py-meth docutils literal"><span class="pre">hasSite()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.hasVariantSite" title="music21.base.Music21Object.hasVariantSite"><tt class="xref py py-meth docutils literal"><span class="pre">hasVariantSite()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.isClassOrSubclass" title="music21.base.Music21Object.isClassOrSubclass"><tt class="xref py py-meth docutils literal"><span class="pre">isClassOrSubclass()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.mergeAttributes" title="music21.base.Music21Object.mergeAttributes"><tt class="xref py py-meth docutils literal"><span class="pre">mergeAttributes()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.next" title="music21.base.Music21Object.next"><tt class="xref py py-meth docutils literal"><span class="pre">next()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.previous" title="music21.base.Music21Object.previous"><tt class="xref py py-meth docutils literal"><span class="pre">previous()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.purgeLocations" title="music21.base.Music21Object.purgeLocations"><tt class="xref py py-meth docutils literal"><span class="pre">purgeLocations()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.purgeOrphans" title="music21.base.Music21Object.purgeOrphans"><tt class="xref py py-meth docutils literal"><span class="pre">purgeOrphans()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.removeLocationBySite" title="music21.base.Music21Object.removeLocationBySite"><tt class="xref py py-meth docutils literal"><span class="pre">removeLocationBySite()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.removeLocationBySiteId" title="music21.base.Music21Object.removeLocationBySiteId"><tt class="xref py py-meth docutils literal"><span class="pre">removeLocationBySiteId()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.setContextAttr" title="music21.base.Music21Object.setContextAttr"><tt class="xref py py-meth docutils literal"><span class="pre">setContextAttr()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.setOffsetBySite" title="music21.base.Music21Object.setOffsetBySite"><tt class="xref py py-meth docutils literal"><span class="pre">setOffsetBySite()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.show" title="music21.base.Music21Object.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.sortTuple" title="music21.base.Music21Object.sortTuple"><tt class="xref py py-meth docutils literal"><span class="pre">sortTuple()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.splitAtDurations" title="music21.base.Music21Object.splitAtDurations"><tt class="xref py py-meth docutils literal"><span class="pre">splitAtDurations()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.splitAtQuarterLength" title="music21.base.Music21Object.splitAtQuarterLength"><tt class="xref py py-meth docutils literal"><span class="pre">splitAtQuarterLength()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.splitByQuarterLengths" title="music21.base.Music21Object.splitByQuarterLengths"><tt class="xref py py-meth docutils literal"><span class="pre">splitByQuarterLengths()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.write" title="music21.base.Music21Object.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.yieldSiteSearchOrder" title="music21.base.Music21Object.yieldSiteSearchOrder"><tt class="xref py py-meth docutils literal"><span class="pre">yieldSiteSearchOrder()</span></tt></a></li>
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.text.TextBox" title="music21.text.TextBox"><tt class="xref py py-class docutils literal"><span class="pre">TextBox</span></tt></a> instance variables</p>
+<p>Instance variables inherited from <a class="reference internal" href="moduleBase.html#music21.base.Music21Object" title="music21.base.Music21Object"><tt class="xref py py-class docutils literal"><span class="pre">Music21Object</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.isStream" title="music21.base.Music21Object.isStream"><tt class="xref py py-attr docutils literal"><span class="pre">isStream</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.hideObjectOnPrint" title="music21.base.Music21Object.hideObjectOnPrint"><tt class="xref py py-attr docutils literal"><span class="pre">hideObjectOnPrint</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.classSortOrder" title="music21.base.Music21Object.classSortOrder"><tt class="xref py py-attr docutils literal"><span class="pre">classSortOrder</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.groups" title="music21.base.Music21Object.groups"><tt class="xref py py-attr docutils literal"><span class="pre">groups</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.isVariant" title="music21.base.Music21Object.isVariant"><tt class="xref py py-attr docutils literal"><span class="pre">isVariant</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.id" title="music21.base.Music21Object.id"><tt class="xref py py-attr docutils literal"><span class="pre">id</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.isSpanner" title="music21.base.Music21Object.isSpanner"><tt class="xref py py-attr docutils literal"><span class="pre">isSpanner</span></tt></a></li>
+<li><a class="reference internal" href="moduleBase.html#music21.base.Music21Object.xPosition" title="music21.base.Music21Object.xPosition"><tt class="xref py py-attr docutils literal"><span class="pre">xPosition</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="textformat">
+<h2>TextFormat<a class="headerlink" href="#textformat" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.text.TextFormat">
+<em class="property">class </em><tt class="descclassname">music21.text.</tt><tt class="descname">TextFormat</tt><a class="headerlink" href="#music21.text.TextFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object for defining text formatting. 
+This object can be multiple-inherited by objects that need storage and i/o of text settings.</p>
+<p>See <a class="reference internal" href="moduleExpressions.html#music21.expressions.TextExpression" title="music21.expressions.TextExpression"><tt class="xref py py-class docutils literal"><span class="pre">music21.expressions.TextExpression</span></tt></a> for an example.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.text.TextFormat" title="music21.text.TextFormat"><tt class="xref py py-class docutils literal"><span class="pre">TextFormat</span></tt></a> read/write properties</p>
+<dl class="attribute">
+<dt id="music21.text.TextFormat.justify">
+<tt class="descclassname">TextFormat.</tt><tt class="descname">justify</tt><a class="headerlink" href="#music21.text.TextFormat.justify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the justification.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextFormat</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">justify</span> <span class="o">=</span> <span class="s">&#39;center&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">justify</span>
+<span class="go">&#39;center&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.text.TextFormat.letterSpacing">
+<tt class="descclassname">TextFormat.</tt><tt class="descname">letterSpacing</tt><a class="headerlink" href="#music21.text.TextFormat.letterSpacing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the letter spacing.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextFormat</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">letterSpacing</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">letterSpacing</span>
+<span class="go">20.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">letterSpacing</span> <span class="o">=</span> <span class="s">&#39;normal&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.text.TextFormat.size">
+<tt class="descclassname">TextFormat.</tt><tt class="descname">size</tt><a class="headerlink" href="#music21.text.TextFormat.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the size.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextFormat</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">size</span>
+<span class="go">20.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.text.TextFormat.style">
+<tt class="descclassname">TextFormat.</tt><tt class="descname">style</tt><a class="headerlink" href="#music21.text.TextFormat.style" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the style, as normal, italic, bold, and bolditalic.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextFormat</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="s">&#39;bold&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">style</span>
+<span class="go">&#39;bold&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.text.TextFormat.weight">
+<tt class="descclassname">TextFormat.</tt><tt class="descname">weight</tt><a class="headerlink" href="#music21.text.TextFormat.weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the weight, as normal, or bold.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">TextFormat</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="s">&#39;bold&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">weight</span>
+<span class="go">&#39;bold&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="languagedetector">
+<h2>LanguageDetector<a class="headerlink" href="#languagedetector" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.text.LanguageDetector">
+<em class="property">class </em><tt class="descclassname">music21.text.</tt><tt class="descname">LanguageDetector</tt><big>(</big><em>text=None</em><big>)</big><a class="headerlink" href="#music21.text.LanguageDetector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to detect language on the basis of trigrams</p>
+<p>uses code from 
+<a class="reference external" href="http://code.activestate.com/recipes/326576-language-detection-using-character-trigrams/">http://code.activestate.com/recipes/326576-language-detection-using-character-trigrams/</a>
+unknown author.  No license given.</p>
+<p>See Trigram docs below...</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.text.LanguageDetector" title="music21.text.LanguageDetector"><tt class="xref py py-class docutils literal"><span class="pre">LanguageDetector</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.text.LanguageDetector.mostLikelyLanguage">
+<tt class="descclassname">LanguageDetector.</tt><tt class="descname">mostLikelyLanguage</tt><big>(</big><em>excerpt</em><big>)</big><a class="headerlink" href="#music21.text.LanguageDetector.mostLikelyLanguage" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the code of the most likely language for a passage, works on 
+unicode or ascii. current languages: en, fr, de, it, cn</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">LanguageDetector</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="o">.</span><span class="n">mostLikelyLanguage</span><span class="p">(</span><span class="s">&quot;Hello there, how are you doing today? I haven&#39;t seen you in a while.&quot;</span><span class="p">)</span>
+<span class="go">&#39;en&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="o">.</span><span class="n">mostLikelyLanguage</span><span class="p">(</span><span class="s">&quot;Ciao come stai? Sono molto lento oggi, ma non so perche.&quot;</span><span class="p">)</span>
+<span class="go">&#39;it&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.text.LanguageDetector.mostLikelyLanguageNumeric">
+<tt class="descclassname">LanguageDetector.</tt><tt class="descname">mostLikelyLanguageNumeric</tt><big>(</big><em>excerpt=None</em><big>)</big><a class="headerlink" href="#music21.text.LanguageDetector.mostLikelyLanguageNumeric" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a number representing the most likely language for a passage
+or 0 if there is no text.</p>
+<p>Useful for feature extraction.</p>
+<p>The codes are the index of the language name in LanguageDetector.languageCodes + 1</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">LanguageDetector</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ld</span><span class="o">.</span><span class="n">languageCodes</span><span class="p">)):</span>
+<span class="gp">... </span>   <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span>  <span class="n">ld</span><span class="o">.</span><span class="n">languageCodes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="go">1 en</span>
+<span class="go">2 fr</span>
+<span class="go">3 it</span>
+<span class="go">4 de</span>
+<span class="go">5 cn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numLang</span> <span class="o">=</span> <span class="n">ld</span><span class="o">.</span><span class="n">mostLikelyLanguageNumeric</span><span class="p">(</span><span class="s">&quot;Hello there, how are you doing today? I haven&#39;t seen you in a while.&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numLang</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="o">.</span><span class="n">languageCodes</span><span class="p">[</span><span class="n">numLang</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+<span class="go">&#39;en&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.text.LanguageDetector.readExcerpts">
+<tt class="descclassname">LanguageDetector.</tt><tt class="descname">readExcerpts</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.text.LanguageDetector.readExcerpts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="trigram">
+<h2>Trigram<a class="headerlink" href="#trigram" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.text.Trigram">
+<em class="property">class </em><tt class="descclassname">music21.text.</tt><tt class="descname">Trigram</tt><big>(</big><em>excerptList=None</em><big>)</big><a class="headerlink" href="#music21.text.Trigram" title="Permalink to this definition">¶</a></dt>
+<dd><p>See LanguageDector above.  From <a class="reference external" href="http://code.activestate.com/recipes/326576-language-detection-using-character-trigrams/">http://code.activestate.com/recipes/326576-language-detection-using-character-trigrams/</a></p>
+<p>The frequency of three character
+sequences is calculated.  When treated as a vector, this information
+can be compared to other trigrams, and the difference between them
+seen as an angle.  The cosine of this angle varies between 1 for
+complete similarity, and 0 for utter difference.  Since letter
+combinations are characteristic to a language, this can be used to
+determine the language of a body of text. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">reference_en</span> <span class="o">=</span> <span class="n">Trigram</span><span class="p">(</span><span class="s">&#39;/path/to/reference/text/english&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reference_de</span> <span class="o">=</span> <span class="n">Trigram</span><span class="p">(</span><span class="s">&#39;/path/to/reference/text/german&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unknown</span> <span class="o">=</span> <span class="n">Trigram</span><span class="p">(</span><span class="s">&#39;url://pointing/to/unknown/text&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unknown</span><span class="o">.</span><span class="n">similarity</span><span class="p">(</span><span class="n">reference_de</span><span class="p">)</span>
+<span class="go">#_DOCS_SHOW 0.4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unknown</span><span class="o">.</span><span class="n">similarity</span><span class="p">(</span><span class="n">reference_en</span><span class="p">)</span>
+<span class="go">#_DOCS_SHOW 0.95</span>
+</pre></div>
+</div>
+<p>would indicate the unknown text is almost cetrtainly English.  As
+syntax sugar, the minus sign is overloaded to return the difference
+between texts, so the above objects would give you:</p>
+<p>#_DOCS_SHOW &gt;&gt;&gt; unknown - reference_de
+#_DOCS_SHOW 0.6
+#_DOCS_SHOW &gt;&gt;&gt; reference_en - unknown    # order doesn&#8217;t matter.
+#_DOCS_SHOW 0.05</p>
+<p>As it stands, the Trigram ignores character set information, which
+means you can only accurately compare within a single encoding
+(iso-8859-1 in the examples).  A more complete implementation might
+convert to unicode first.</p>
+<p>As an extra bonus, there is a method to make up nonsense words in the
+style of the Trigram&#8217;s text.</p>
+<p>#_DOCS_SHOW &gt;&gt;&gt; reference_en.makeWords(30)
+#_DOCS_SHOW My withillonquiver and ald, by now wittlectionsurper, may sequia, tory, I ad my notter. Marriusbabilly She lady for rachalle spen hat knong al elf</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.text.Trigram" title="music21.text.Trigram"><tt class="xref py py-class docutils literal"><span class="pre">Trigram</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.text.Trigram.length">
+<tt class="descclassname">Trigram.</tt><tt class="descname">length</tt><a class="headerlink" href="#music21.text.Trigram.length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.text.Trigram" title="music21.text.Trigram"><tt class="xref py py-class docutils literal"><span class="pre">Trigram</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.text.Trigram.likely">
+<tt class="descclassname">Trigram.</tt><tt class="descname">likely</tt><big>(</big><em>k</em><big>)</big><a class="headerlink" href="#music21.text.Trigram.likely" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a character likely to follow the given string
+two character string, or a space if nothing is found.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.text.Trigram.makeWords">
+<tt class="descclassname">Trigram.</tt><tt class="descname">makeWords</tt><big>(</big><em>count</em><big>)</big><a class="headerlink" href="#music21.text.Trigram.makeWords" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a string of made-up words based on the known text.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.text.Trigram.measure">
+<tt class="descclassname">Trigram.</tt><tt class="descname">measure</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.text.Trigram.measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculates the scalar length of the trigram vector and
+stores it in self.length.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.text.Trigram.parseExcerpt">
+<tt class="descclassname">Trigram.</tt><tt class="descname">parseExcerpt</tt><big>(</big><em>excerpt</em><big>)</big><a class="headerlink" href="#music21.text.Trigram.parseExcerpt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.text.Trigram.similarity">
+<tt class="descclassname">Trigram.</tt><tt class="descname">similarity</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#music21.text.Trigram.similarity" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a number between 0 and 1 indicating similarity between
+two trigrams.
+1 means an identical ratio of trigrams;
+0 means no trigrams in common.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleTheoryAnalysisTheoryAnalyzer.html" title="music21.theoryAnalysis.theoryAnalyzer"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleTestTreeYield.html" title="music21.test.treeYield"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

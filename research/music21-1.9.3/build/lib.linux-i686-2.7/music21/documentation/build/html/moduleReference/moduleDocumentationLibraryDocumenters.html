@@ -1,0 +1,1409 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.documentation.library.documenters &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.documentation.library.iterators" href="moduleDocumentationLibraryIterators.html" />
+    <link rel="prev" title="music21.documentation.library.cleaners" href="moduleDocumentationLibraryCleaners.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryIterators.html" title="music21.documentation.library.iterators"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryCleaners.html" title="music21.documentation.library.cleaners"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleDocumentationLibraryCleaners.html"
+                        title="previous chapter">music21.documentation.library.cleaners</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleDocumentationLibraryIterators.html"
+                        title="next chapter">music21.documentation.library.iterators</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.documentation.library.documenters</a><ul>
+<li><a class="reference internal" href="#attributedocumenter">AttributeDocumenter</a></li>
+<li><a class="reference internal" href="#classdocumenter">ClassDocumenter</a></li>
+<li><a class="reference internal" href="#corpusdocumenter">CorpusDocumenter</a></li>
+<li><a class="reference internal" href="#documenter">Documenter</a></li>
+<li><a class="reference internal" href="#functiondocumenter">FunctionDocumenter</a></li>
+<li><a class="reference internal" href="#memberdocumenter">MemberDocumenter</a></li>
+<li><a class="reference internal" href="#methoddocumenter">MethodDocumenter</a></li>
+<li><a class="reference internal" href="#moduledocumenter">ModuleDocumenter</a></li>
+<li><a class="reference internal" href="#objectdocumenter">ObjectDocumenter</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleDocumentationLibraryDocumenters.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-documentation-library-documenters">
+<span id="moduledocumentationlibrarydocumenters"></span><h1>music21.documentation.library.documenters<a class="headerlink" href="#music21-documentation-library-documenters" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.documentation.library.documenters"></span><div class="section" id="attributedocumenter">
+<h2>AttributeDocumenter<a class="headerlink" href="#attributedocumenter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.documenters.AttributeDocumenter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.documenters.</tt><tt class="descname">AttributeDocumenter</tt><big>(</big><em>referent</em>, <em>memberName</em>, <em>definingClass</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.AttributeDocumenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A documenter for class attributes, both read/write and read-only:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">key</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">attribute</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">KeySignature</span><span class="o">.</span><span class="n">mode</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">AttributeDocumenter</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">attribute</span><span class="p">,</span> <span class="s">&#39;mode&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">.</span><span class="n">KeySignature</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.key.KeySignature.mode&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span><span class="o">.</span><span class="n">rstCrossReferenceString</span>
+<span class="go">&#39;:attr:`~music21.key.KeySignature.mode`&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstAutodocDirectiveFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+<span class="go">&#39;.. autoattribute:: music21.key.KeySignature.mode&#39;</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.AttributeDocumenter" title="music21.documentation.library.documenters.AttributeDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">AttributeDocumenter</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter" title="music21.documentation.library.documenters.MemberDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">MemberDocumenter</span></tt></a></li>
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a></li>
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.AttributeDocumenter" title="music21.documentation.library.documenters.AttributeDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">AttributeDocumenter</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.AttributeDocumenter.rstAutodocDirectiveFormat">
+<tt class="descclassname">AttributeDocumenter.</tt><tt class="descname">rstAutodocDirectiveFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.AttributeDocumenter.rstAutodocDirectiveFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.AttributeDocumenter.sphinxCrossReferenceRole">
+<tt class="descclassname">AttributeDocumenter.</tt><tt class="descname">sphinxCrossReferenceRole</tt><a class="headerlink" href="#music21.documentation.library.documenters.AttributeDocumenter.sphinxCrossReferenceRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter" title="music21.documentation.library.documenters.MemberDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">MemberDocumenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter.definingClass" title="music21.documentation.library.documenters.MemberDocumenter.definingClass"><tt class="xref py py-attr docutils literal"><span class="pre">definingClass</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter.memberName" title="music21.documentation.library.documenters.MemberDocumenter.memberName"><tt class="xref py py-attr docutils literal"><span class="pre">memberName</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter.referentPackagesystemPath" title="music21.documentation.library.documenters.MemberDocumenter.referentPackagesystemPath"><tt class="xref py py-attr docutils literal"><span class="pre">referentPackagesystemPath</span></tt></a></li>
+</ul>
+</td></tr></table>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.referent" title="music21.documentation.library.documenters.ObjectDocumenter.referent"><tt class="xref py py-attr docutils literal"><span class="pre">referent</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString" title="music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString"><tt class="xref py py-attr docutils literal"><span class="pre">rstCrossReferenceString</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.rstEditingWarningFormat" title="music21.documentation.library.documenters.Documenter.rstEditingWarningFormat"><tt class="xref py py-attr docutils literal"><span class="pre">rstEditingWarningFormat</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.AttributeDocumenter" title="music21.documentation.library.documenters.AttributeDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">AttributeDocumenter</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeHeading" title="music21.documentation.library.documenters.Documenter.makeHeading"><tt class="xref py py-meth docutils literal"><span class="pre">makeHeading()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeRubric" title="music21.documentation.library.documenters.Documenter.makeRubric"><tt class="xref py py-meth docutils literal"><span class="pre">makeRubric()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="classdocumenter">
+<h2>ClassDocumenter<a class="headerlink" href="#classdocumenter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.documenters.ClassDocumenter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.documenters.</tt><tt class="descname">ClassDocumenter</tt><big>(</big><em>referent</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A documenter for one class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span>
+<span class="go">&lt;music21.documentation.library.documenters.ClassDocumenter: music21.documentation.library.documenters.ClassDocumenter&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span><span class="o">.</span><span class="n">rstCrossReferenceString</span>
+<span class="go">&#39;:class:`~music21.documentation.library.documenters.ClassDocumenter`&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstAutodocDirectiveFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+<span class="go">&#39;.. autoclass:: music21.documentation.library.documenters.ClassDocumenter&#39;</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+<p>Generate the ReST lines by calling the documenter:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">restructedText</span> <span class="o">=</span> <span class="n">documenter</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.ClassDocumenter" title="music21.documentation.library.documenters.ClassDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ClassDocumenter</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a></li>
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.ClassDocumenter" title="music21.documentation.library.documenters.ClassDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ClassDocumenter</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.baseClassDocumenters">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">baseClassDocumenters</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.baseClassDocumenters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.baseClasses">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">baseClasses</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.baseClasses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.docAttr">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">docAttr</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.docAttr" title="Permalink to this definition">¶</a></dt>
+<dd><p>The music21 _DOC_ATTR definition for a documented class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">documenter</span><span class="o">.</span><span class="n">docAttr</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+<span class="gp">... </span>    <span class="n">key</span>
+<span class="gp">...</span>
+<span class="go">&#39;autoSort&#39;</span>
+<span class="go">&#39;definesExplicitPageBreaks&#39;</span>
+<span class="go">&#39;definesExplicitSystemBreaks&#39;</span>
+<span class="go">&#39;flattenedRepresentationOf&#39;</span>
+<span class="go">&#39;isFlat&#39;</span>
+<span class="go">&#39;isSorted&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.docOrder">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">docOrder</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.docOrder" title="Permalink to this definition">¶</a></dt>
+<dd><p>The music21 _DOC_ORDER definition for a documented class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">docOrder</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">name</span>
+<span class="gp">...</span>
+<span class="go">&#39;append&#39;</span>
+<span class="go">&#39;insert&#39;</span>
+<span class="go">&#39;insertAndShift&#39;</span>
+<span class="go">&#39;notes&#39;</span>
+<span class="go">&#39;pitches&#39;</span>
+<span class="go">&#39;transpose&#39;</span>
+<span class="go">&#39;augmentOrDiminish&#39;</span>
+<span class="go">&#39;scaleOffsets&#39;</span>
+<span class="go">&#39;scaleDurations&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.inheritedDocAttrMapping">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">inheritedDocAttrMapping</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.inheritedDocAttrMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mapping of parent class documenters and doc-attr attribute dicts
+for a documented class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Measure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mapping</span> <span class="o">=</span> <span class="n">documenter</span><span class="o">.</span><span class="n">inheritedDocAttrMapping</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sortBy</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">referentPackagesystemPath</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">classDocumenter</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">sortBy</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">classDocumenter</span>
+<span class="gp">...</span>
+<span class="go">&lt;music21.documentation.library.documenters.ClassDocumenter: music21.base.Music21Object&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.ClassDocumenter: music21.stream.Stream&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.inheritedMethodsMapping">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">inheritedMethodsMapping</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.inheritedMethodsMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mapping of parent class documenters and inherited attributes for a
+documented class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Measure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mapping</span> <span class="o">=</span> <span class="n">documenter</span><span class="o">.</span><span class="n">inheritedMethodsMapping</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sortBy</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">referentPackagesystemPath</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">classDocumenter</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">sortBy</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s">&#39;{0}:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">classDocumenter</span><span class="o">.</span><span class="n">referentPackagesystemPath</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">attributeDocumenter</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">[</span><span class="n">classDocumenter</span><span class="p">][:</span><span class="mi">10</span><span class="p">]:</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">&#39;- {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="n">attributeDocumenter</span><span class="o">.</span><span class="n">referentPackagesystemPath</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">music21.base.Music21Object:</span>
+<span class="go">- music21.base.Music21Object.findAttributeInHierarchy</span>
+<span class="go">- music21.base.Music21Object.getAllContextsByClass</span>
+<span class="go">- music21.base.Music21Object.getContextAttr</span>
+<span class="go">- music21.base.Music21Object.getContextByClass</span>
+<span class="go">- music21.base.Music21Object.getOffsetBySite</span>
+<span class="go">- music21.base.Music21Object.getSpannerSites</span>
+<span class="go">- music21.base.Music21Object.hasContext</span>
+<span class="go">- music21.base.Music21Object.hasSite</span>
+<span class="go">- music21.base.Music21Object.hasVariantSite</span>
+<span class="go">- music21.base.Music21Object.isClassOrSubclass</span>
+<span class="go">music21.stream.Stream:</span>
+<span class="go">- music21.stream.Stream.activateVariants</span>
+<span class="go">- music21.stream.Stream.addGroupForElements</span>
+<span class="go">- music21.stream.Stream.allPlayingWhileSounding</span>
+<span class="go">- music21.stream.Stream.analyze</span>
+<span class="go">- music21.stream.Stream.append</span>
+<span class="go">- music21.stream.Stream.asTimespans</span>
+<span class="go">- music21.stream.Stream.attachIntervalsBetweenStreams</span>
+<span class="go">- music21.stream.Stream.attachMelodicIntervals</span>
+<span class="go">- music21.stream.Stream.attributeCount</span>
+<span class="go">- music21.stream.Stream.augmentOrDiminish</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.inheritedReadonlyPropertiesMapping">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">inheritedReadonlyPropertiesMapping</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.inheritedReadonlyPropertiesMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mapping of parent class documenters and inherited read-only
+properties for a documented class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Measure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mapping</span> <span class="o">=</span> <span class="n">documenter</span><span class="o">.</span><span class="n">inheritedReadonlyPropertiesMapping</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sortBy</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">referentPackagesystemPath</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">classDocumenter</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">sortBy</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s">&#39;{0}:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">classDocumenter</span><span class="o">.</span><span class="n">referentPackagesystemPath</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">attributeDocumenter</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">[</span><span class="n">classDocumenter</span><span class="p">][:</span><span class="mi">10</span><span class="p">]:</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">&#39;- {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+<span class="gp">... </span>            <span class="n">attributeDocumenter</span><span class="o">.</span><span class="n">referentPackagesystemPath</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">music21.base.Music21Object:</span>
+<span class="go">- music21.base.Music21Object.classes</span>
+<span class="go">- music21.base.Music21Object.derivationHierarchy</span>
+<span class="go">- music21.base.Music21Object.fullyQualifiedClasses</span>
+<span class="go">- music21.base.Music21Object.isGrace</span>
+<span class="go">- music21.base.Music21Object.measureNumber</span>
+<span class="go">music21.stream.Stream:</span>
+<span class="go">- music21.stream.Stream.beat</span>
+<span class="go">- music21.stream.Stream.beatDuration</span>
+<span class="go">- music21.stream.Stream.beatStr</span>
+<span class="go">- music21.stream.Stream.beatStrength</span>
+<span class="go">- music21.stream.Stream.derivation</span>
+<span class="go">- music21.stream.Stream.flat</span>
+<span class="go">- music21.stream.Stream.highestOffset</span>
+<span class="go">- music21.stream.Stream.highestTime</span>
+<span class="go">- music21.stream.Stream.isGapless</span>
+<span class="go">- music21.stream.Stream.lowestOffset</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.inheritedReadwritePropertiesMapping">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">inheritedReadwritePropertiesMapping</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.inheritedReadwritePropertiesMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mapping of parent class documenters and inherited read/write
+properties for a documented class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Measure</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mapping</span> <span class="o">=</span> <span class="n">documenter</span><span class="o">.</span><span class="n">inheritedReadwritePropertiesMapping</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sortBy</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">referentPackagesystemPath</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">classDocumenter</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mapping</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">sortBy</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s">&#39;{0}:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">classDocumenter</span><span class="o">.</span><span class="n">referentPackagesystemPath</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">attributeDocumenter</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">[</span><span class="n">classDocumenter</span><span class="p">][:</span><span class="mi">10</span><span class="p">]:</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s">&#39;- {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attributeDocumenter</span><span class="o">.</span><span class="n">referentPackagesystemPath</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">music21.base.Music21Object:</span>
+<span class="go">- music21.base.Music21Object.activeSite</span>
+<span class="go">- music21.base.Music21Object.offset</span>
+<span class="go">- music21.base.Music21Object.priority</span>
+<span class="go">music21.stream.Stream:</span>
+<span class="go">- music21.stream.Stream.atSoundingPitch</span>
+<span class="go">- music21.stream.Stream.duration</span>
+<span class="go">- music21.stream.Stream.elements</span>
+<span class="go">- music21.stream.Stream.finalBarline</span>
+<span class="go">- music21.stream.Stream.metadata</span>
+<span class="go">- music21.stream.Stream.seconds</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.methods">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">methods</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method documenters for a documented class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">methods</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">method</span>
+<span class="gp">...</span>
+<span class="go">&lt;music21.documentation.library.documenters.MethodDocumenter: music21.stream.Stream.activateVariants&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.MethodDocumenter: music21.stream.Stream.addGroupForElements&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.MethodDocumenter: music21.stream.Stream.allPlayingWhileSounding&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.MethodDocumenter: music21.stream.Stream.analyze&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.MethodDocumenter: music21.stream.Stream.append&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.MethodDocumenter: music21.stream.Stream.asTimespans&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.MethodDocumenter: music21.stream.Stream.attachIntervalsBetweenStreams&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.MethodDocumenter: music21.stream.Stream.attachMelodicIntervals&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.MethodDocumenter: music21.stream.Stream.attributeCount&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.MethodDocumenter: music21.stream.Stream.augmentOrDiminish&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.readonlyProperties">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">readonlyProperties</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.readonlyProperties" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read-only property documenters for a documented class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">readonlyProperties</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">attr</span>
+<span class="gp">...</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.beat&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.beatDuration&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.beatStr&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.beatStrength&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.derivation&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.flat&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.highestOffset&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.highestTime&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.isGapless&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.lowestOffset&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.notes&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.notesAndRests&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.offsetMap&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.pitches&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.secondsMap&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.semiFlat&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.sorted&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.spannerBundle&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.spanners&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.variants&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.voices&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.readwriteProperties">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">readwriteProperties</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.readwriteProperties" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read/write property documenters for a documented class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">readwriteProperties</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">prop</span>
+<span class="gp">...</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.atSoundingPitch&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.duration&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.elements&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.finalBarline&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.metadata&gt;</span>
+<span class="go">&lt;music21.documentation.library.documenters.AttributeDocumenter: music21.stream.Stream.seconds&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.referentPackagesystemPath">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">referentPackagesystemPath</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.referentPackagesystemPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.rstAutodocDirectiveFormat">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">rstAutodocDirectiveFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.rstAutodocDirectiveFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.rstBasesFormat">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">rstBasesFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.rstBasesFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ReST format for the bases from which the documented class
+inherits:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstBasesFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+<span class="go">&#39;.. rubric:: :class:`~music21.documentation.library.documenters.ClassDocumenter` bases&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;- :class:`~music21.documentation.library.documenters.ObjectDocumenter`&#39;</span>
+<span class="go">&#39;- :class:`~music21.documentation.library.documenters.Documenter`&#39;</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.rstDocAttrFormat">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">rstDocAttrFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.rstDocAttrFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.rstInheritedDocAttrFormat">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">rstInheritedDocAttrFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.rstInheritedDocAttrFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.rstInheritedMethodsFormat">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">rstInheritedMethodsFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.rstInheritedMethodsFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ReST format for inherited methods:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">MethodDocumenter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstInheritedMethodsFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+<span class="go">&#39;Methods inherited from :class:`~music21.documentation.library.documenters.Documenter`:&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. hlist::&#39;</span>
+<span class="go">&#39;   :columns: 3&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;   - :meth:`~music21.documentation.library.documenters.Documenter.makeHeading`&#39;</span>
+<span class="go">&#39;   - :meth:`~music21.documentation.library.documenters.Documenter.makeRubric`&#39;</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.rstInheritedReadonlyPropertiesFormat">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">rstInheritedReadonlyPropertiesFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.rstInheritedReadonlyPropertiesFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ReST format for inherited methods:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">MethodDocumenter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstInheritedReadonlyPropertiesFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+<span class="go">&#39;Read-only properties inherited from :class:`~music21.documentation.library.documenters.MemberDocumenter`:&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. hlist::&#39;</span>
+<span class="go">&#39;   :columns: 3&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;   - :attr:`~music21.documentation.library.documenters.MemberDocumenter.definingClass`&#39;</span>
+<span class="go">&#39;   - :attr:`~music21.documentation.library.documenters.MemberDocumenter.memberName`&#39;</span>
+<span class="go">&#39;   - :attr:`~music21.documentation.library.documenters.MemberDocumenter.referentPackagesystemPath`&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;Read-only properties inherited from :class:`~music21.documentation.library.documenters.ObjectDocumenter`:&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. hlist::&#39;</span>
+<span class="go">&#39;   :columns: 3&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;   - :attr:`~music21.documentation.library.documenters.ObjectDocumenter.referent`&#39;</span>
+<span class="go">&#39;   - :attr:`~music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString`&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;Read-only properties inherited from :class:`~music21.documentation.library.documenters.Documenter`:&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. hlist::&#39;</span>
+<span class="go">&#39;   :columns: 3&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;   - :attr:`~music21.documentation.library.documenters.Documenter.rstEditingWarningFormat`&#39;</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.rstInheritedReadwritePropertiesFormat">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">rstInheritedReadwritePropertiesFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.rstInheritedReadwritePropertiesFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ReST format for inherited methods:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">MethodDocumenter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstInheritedReadwritePropertiesFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.rstMethodsFormat">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">rstMethodsFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.rstMethodsFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ReST format for the documented class&#8217;s methods:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstMethodsFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+<span class="go">&#39;.. rubric:: :class:`~music21.documentation.library.documenters.ClassDocumenter` methods&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. automethod:: music21.documentation.library.documenters.ClassDocumenter.fromIdentityMap&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;Methods inherited from :class:`~music21.documentation.library.documenters.Documenter`:&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. hlist::&#39;</span>
+<span class="go">&#39;   :columns: 3&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;   - :meth:`~music21.documentation.library.documenters.Documenter.makeHeading`&#39;</span>
+<span class="go">&#39;   - :meth:`~music21.documentation.library.documenters.Documenter.makeRubric`&#39;</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.rstReadonlyPropertiesFormat">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">rstReadonlyPropertiesFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.rstReadonlyPropertiesFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ReST format for the documented class&#8217;s read-only properties:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstReadonlyPropertiesFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+<span class="go">&#39;.. rubric:: :class:`~music21.documentation.library.documenters.ClassDocumenter` read-only properties&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.baseClassDocumenters&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.baseClasses&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.docAttr&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.docOrder&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.inheritedDocAttrMapping&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.inheritedMethodsMapping&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.inheritedReadonlyPropertiesMapping&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.inheritedReadwritePropertiesMapping&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.methods&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.readonlyProperties&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.readwriteProperties&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.referentPackagesystemPath&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.rstAutodocDirectiveFormat&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.rstBasesFormat&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.rstDocAttrFormat&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.rstInheritedDocAttrFormat&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.rstInheritedMethodsFormat&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.rstInheritedReadonlyPropertiesFormat&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.rstInheritedReadwritePropertiesFormat&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.rstMethodsFormat&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.rstReadonlyPropertiesFormat&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.rstReadwritePropertiesFormat&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. autoattribute:: music21.documentation.library.documenters.ClassDocumenter.sphinxCrossReferenceRole&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;Read-only properties inherited from :class:`~music21.documentation.library.documenters.ObjectDocumenter`:&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. hlist::&#39;</span>
+<span class="go">&#39;   :columns: 3&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;   - :attr:`~music21.documentation.library.documenters.ObjectDocumenter.referent`&#39;</span>
+<span class="go">&#39;   - :attr:`~music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString`&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;Read-only properties inherited from :class:`~music21.documentation.library.documenters.Documenter`:&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;.. hlist::&#39;</span>
+<span class="go">&#39;   :columns: 3&#39;</span>
+<span class="go">&#39;&#39;</span>
+<span class="go">&#39;   - :attr:`~music21.documentation.library.documenters.Documenter.rstEditingWarningFormat`&#39;</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.rstReadwritePropertiesFormat">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">rstReadwritePropertiesFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.rstReadwritePropertiesFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ReST format for the documented class&#8217;s read-only properties:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">klass</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassDocumenter</span><span class="p">(</span><span class="n">klass</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstReadwritePropertiesFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.sphinxCrossReferenceRole">
+<tt class="descclassname">ClassDocumenter.</tt><tt class="descname">sphinxCrossReferenceRole</tt><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.sphinxCrossReferenceRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.referent" title="music21.documentation.library.documenters.ObjectDocumenter.referent"><tt class="xref py py-attr docutils literal"><span class="pre">referent</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString" title="music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString"><tt class="xref py py-attr docutils literal"><span class="pre">rstCrossReferenceString</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.rstEditingWarningFormat" title="music21.documentation.library.documenters.Documenter.rstEditingWarningFormat"><tt class="xref py py-attr docutils literal"><span class="pre">rstEditingWarningFormat</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.ClassDocumenter" title="music21.documentation.library.documenters.ClassDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ClassDocumenter</span></tt></a> methods</p>
+<dl class="classmethod">
+<dt id="music21.documentation.library.documenters.ClassDocumenter.fromIdentityMap">
+<em class="property">classmethod </em><tt class="descclassname">ClassDocumenter.</tt><tt class="descname">fromIdentityMap</tt><big>(</big><em>referent</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.ClassDocumenter.fromIdentityMap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeHeading" title="music21.documentation.library.documenters.Documenter.makeHeading"><tt class="xref py py-meth docutils literal"><span class="pre">makeHeading()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeRubric" title="music21.documentation.library.documenters.Documenter.makeRubric"><tt class="xref py py-meth docutils literal"><span class="pre">makeRubric()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="corpusdocumenter">
+<h2>CorpusDocumenter<a class="headerlink" href="#corpusdocumenter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.documenters.CorpusDocumenter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.documenters.</tt><tt class="descname">CorpusDocumenter</tt><a class="headerlink" href="#music21.documentation.library.documenters.CorpusDocumenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A documenter for music21&#8217;s corpus:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">CorpusDocumenter</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">restructuredText</span> <span class="o">=</span> <span class="n">documenter</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.CorpusDocumenter" title="music21.documentation.library.documenters.CorpusDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">CorpusDocumenter</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.CorpusDocumenter" title="music21.documentation.library.documenters.CorpusDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">CorpusDocumenter</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.CorpusDocumenter.headingText">
+<tt class="descclassname">CorpusDocumenter.</tt><tt class="descname">headingText</tt><a class="headerlink" href="#music21.documentation.library.documenters.CorpusDocumenter.headingText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.CorpusDocumenter.rstCorpusIntroductionFormat">
+<tt class="descclassname">CorpusDocumenter.</tt><tt class="descname">rstCorpusIntroductionFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.CorpusDocumenter.rstCorpusIntroductionFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.CorpusDocumenter.rstPageReferenceFormat">
+<tt class="descclassname">CorpusDocumenter.</tt><tt class="descname">rstPageReferenceFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.CorpusDocumenter.rstPageReferenceFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.rstEditingWarningFormat" title="music21.documentation.library.documenters.Documenter.rstEditingWarningFormat"><tt class="xref py py-attr docutils literal"><span class="pre">rstEditingWarningFormat</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.CorpusDocumenter" title="music21.documentation.library.documenters.CorpusDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">CorpusDocumenter</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.documentation.library.documenters.CorpusDocumenter.getRstComposerDictFormat">
+<tt class="descclassname">CorpusDocumenter.</tt><tt class="descname">getRstComposerDictFormat</tt><big>(</big><em>composerDict</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.CorpusDocumenter.getRstComposerDictFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.documentation.library.documenters.CorpusDocumenter.getRstComposerIntroductionFormat">
+<tt class="descclassname">CorpusDocumenter.</tt><tt class="descname">getRstComposerIntroductionFormat</tt><big>(</big><em>composerName</em>, <em>composerDirectory</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.CorpusDocumenter.getRstComposerIntroductionFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.documentation.library.documenters.CorpusDocumenter.getRstComposerWorksFormat">
+<tt class="descclassname">CorpusDocumenter.</tt><tt class="descname">getRstComposerWorksFormat</tt><big>(</big><em>workDict</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.CorpusDocumenter.getRstComposerWorksFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.documentation.library.documenters.CorpusDocumenter.getRstVirtualWorkFileDictFormat">
+<tt class="descclassname">CorpusDocumenter.</tt><tt class="descname">getRstVirtualWorkFileDictFormat</tt><big>(</big><em>fileDict</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.CorpusDocumenter.getRstVirtualWorkFileDictFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.documentation.library.documenters.CorpusDocumenter.getRstWorkFileDictFormat">
+<tt class="descclassname">CorpusDocumenter.</tt><tt class="descname">getRstWorkFileDictFormat</tt><big>(</big><em>fileDict</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.CorpusDocumenter.getRstWorkFileDictFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeHeading" title="music21.documentation.library.documenters.Documenter.makeHeading"><tt class="xref py py-meth docutils literal"><span class="pre">makeHeading()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeRubric" title="music21.documentation.library.documenters.Documenter.makeRubric"><tt class="xref py py-meth docutils literal"><span class="pre">makeRubric()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="documenter">
+<h2>Documenter<a class="headerlink" href="#documenter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.documenters.Documenter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.documenters.</tt><tt class="descname">Documenter</tt><a class="headerlink" href="#music21.documentation.library.documenters.Documenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract base class for documenting classes.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.Documenter.rstEditingWarningFormat">
+<tt class="descclassname">Documenter.</tt><tt class="descname">rstEditingWarningFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.Documenter.rstEditingWarningFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a> methods</p>
+<dl class="staticmethod">
+<dt id="music21.documentation.library.documenters.Documenter.makeHeading">
+<em class="property">static </em><tt class="descclassname">Documenter.</tt><tt class="descname">makeHeading</tt><big>(</big><em>text</em>, <em>heading_level</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.Documenter.makeHeading" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="music21.documentation.library.documenters.Documenter.makeRubric">
+<em class="property">static </em><tt class="descclassname">Documenter.</tt><tt class="descname">makeRubric</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.Documenter.makeRubric" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="functiondocumenter">
+<h2>FunctionDocumenter<a class="headerlink" href="#functiondocumenter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.documenters.FunctionDocumenter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.documenters.</tt><tt class="descname">FunctionDocumenter</tt><big>(</big><em>referent</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.FunctionDocumenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A documenter for one function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">common</span><span class="p">,</span> <span class="n">documentation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">function</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">almostEquals</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">FunctionDocumenter</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span>
+<span class="go">&lt;music21.documentation.library.documenters.FunctionDocumenter: music21.common.almostEquals&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span><span class="o">.</span><span class="n">rstCrossReferenceString</span>
+<span class="go">&#39;:func:`~music21.common.almostEquals`&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstAutodocDirectiveFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+<span class="go">&#39;.. autofunction:: music21.common.almostEquals&#39;</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+<p>Call the documenter to generate its ReStructuredText format:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">restructuredText</span> <span class="o">=</span> <span class="n">documenter</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.FunctionDocumenter" title="music21.documentation.library.documenters.FunctionDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">FunctionDocumenter</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a></li>
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.FunctionDocumenter" title="music21.documentation.library.documenters.FunctionDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">FunctionDocumenter</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.FunctionDocumenter.referentPackagesystemPath">
+<tt class="descclassname">FunctionDocumenter.</tt><tt class="descname">referentPackagesystemPath</tt><a class="headerlink" href="#music21.documentation.library.documenters.FunctionDocumenter.referentPackagesystemPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.FunctionDocumenter.rstAutodocDirectiveFormat">
+<tt class="descclassname">FunctionDocumenter.</tt><tt class="descname">rstAutodocDirectiveFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.FunctionDocumenter.rstAutodocDirectiveFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.FunctionDocumenter.sphinxCrossReferenceRole">
+<tt class="descclassname">FunctionDocumenter.</tt><tt class="descname">sphinxCrossReferenceRole</tt><a class="headerlink" href="#music21.documentation.library.documenters.FunctionDocumenter.sphinxCrossReferenceRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.referent" title="music21.documentation.library.documenters.ObjectDocumenter.referent"><tt class="xref py py-attr docutils literal"><span class="pre">referent</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString" title="music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString"><tt class="xref py py-attr docutils literal"><span class="pre">rstCrossReferenceString</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.rstEditingWarningFormat" title="music21.documentation.library.documenters.Documenter.rstEditingWarningFormat"><tt class="xref py py-attr docutils literal"><span class="pre">rstEditingWarningFormat</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.FunctionDocumenter" title="music21.documentation.library.documenters.FunctionDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">FunctionDocumenter</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeHeading" title="music21.documentation.library.documenters.Documenter.makeHeading"><tt class="xref py py-meth docutils literal"><span class="pre">makeHeading()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeRubric" title="music21.documentation.library.documenters.Documenter.makeRubric"><tt class="xref py py-meth docutils literal"><span class="pre">makeRubric()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="memberdocumenter">
+<h2>MemberDocumenter<a class="headerlink" href="#memberdocumenter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.documenters.MemberDocumenter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.documenters.</tt><tt class="descname">MemberDocumenter</tt><big>(</big><em>referent</em>, <em>memberName</em>, <em>definingClass</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.MemberDocumenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract base class for documenting class members.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter" title="music21.documentation.library.documenters.MemberDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">MemberDocumenter</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a></li>
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter" title="music21.documentation.library.documenters.MemberDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">MemberDocumenter</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.MemberDocumenter.definingClass">
+<tt class="descclassname">MemberDocumenter.</tt><tt class="descname">definingClass</tt><a class="headerlink" href="#music21.documentation.library.documenters.MemberDocumenter.definingClass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.MemberDocumenter.memberName">
+<tt class="descclassname">MemberDocumenter.</tt><tt class="descname">memberName</tt><a class="headerlink" href="#music21.documentation.library.documenters.MemberDocumenter.memberName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.MemberDocumenter.referentPackagesystemPath">
+<tt class="descclassname">MemberDocumenter.</tt><tt class="descname">referentPackagesystemPath</tt><a class="headerlink" href="#music21.documentation.library.documenters.MemberDocumenter.referentPackagesystemPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.referent" title="music21.documentation.library.documenters.ObjectDocumenter.referent"><tt class="xref py py-attr docutils literal"><span class="pre">referent</span></tt></a></li>
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.rstAutodocDirectiveFormat" title="music21.documentation.library.documenters.ObjectDocumenter.rstAutodocDirectiveFormat"><tt class="xref py py-attr docutils literal"><span class="pre">rstAutodocDirectiveFormat</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString" title="music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString"><tt class="xref py py-attr docutils literal"><span class="pre">rstCrossReferenceString</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.sphinxCrossReferenceRole" title="music21.documentation.library.documenters.ObjectDocumenter.sphinxCrossReferenceRole"><tt class="xref py py-attr docutils literal"><span class="pre">sphinxCrossReferenceRole</span></tt></a></li>
+</ul>
+</td></tr></table>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.rstEditingWarningFormat" title="music21.documentation.library.documenters.Documenter.rstEditingWarningFormat"><tt class="xref py py-attr docutils literal"><span class="pre">rstEditingWarningFormat</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter" title="music21.documentation.library.documenters.MemberDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">MemberDocumenter</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeHeading" title="music21.documentation.library.documenters.Documenter.makeHeading"><tt class="xref py py-meth docutils literal"><span class="pre">makeHeading()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeRubric" title="music21.documentation.library.documenters.Documenter.makeRubric"><tt class="xref py py-meth docutils literal"><span class="pre">makeRubric()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="methoddocumenter">
+<h2>MethodDocumenter<a class="headerlink" href="#methoddocumenter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.documenters.MethodDocumenter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.documenters.</tt><tt class="descname">MethodDocumenter</tt><big>(</big><em>referent</em>, <em>memberName</em>, <em>definingClass</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.MethodDocumenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A documenter for class methods:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">key</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">method</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">KeySignature</span><span class="o">.</span><span class="n">transpose</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">MethodDocumenter</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">method</span><span class="p">,</span> <span class="s">&#39;transpose&#39;</span><span class="p">,</span> <span class="n">key</span><span class="o">.</span><span class="n">KeySignature</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span>
+<span class="go">&lt;music21.documentation.library.documenters.MethodDocumenter: music21.key.KeySignature.transpose&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span><span class="o">.</span><span class="n">rstCrossReferenceString</span>
+<span class="go">&#39;:meth:`~music21.key.KeySignature.transpose`&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstAutodocDirectiveFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+<span class="go">&#39;.. automethod:: music21.key.KeySignature.transpose&#39;</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.MethodDocumenter" title="music21.documentation.library.documenters.MethodDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">MethodDocumenter</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter" title="music21.documentation.library.documenters.MemberDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">MemberDocumenter</span></tt></a></li>
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a></li>
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.MethodDocumenter" title="music21.documentation.library.documenters.MethodDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">MethodDocumenter</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.MethodDocumenter.rstAutodocDirectiveFormat">
+<tt class="descclassname">MethodDocumenter.</tt><tt class="descname">rstAutodocDirectiveFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.MethodDocumenter.rstAutodocDirectiveFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.MethodDocumenter.sphinxCrossReferenceRole">
+<tt class="descclassname">MethodDocumenter.</tt><tt class="descname">sphinxCrossReferenceRole</tt><a class="headerlink" href="#music21.documentation.library.documenters.MethodDocumenter.sphinxCrossReferenceRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter" title="music21.documentation.library.documenters.MemberDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">MemberDocumenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter.definingClass" title="music21.documentation.library.documenters.MemberDocumenter.definingClass"><tt class="xref py py-attr docutils literal"><span class="pre">definingClass</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter.memberName" title="music21.documentation.library.documenters.MemberDocumenter.memberName"><tt class="xref py py-attr docutils literal"><span class="pre">memberName</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.MemberDocumenter.referentPackagesystemPath" title="music21.documentation.library.documenters.MemberDocumenter.referentPackagesystemPath"><tt class="xref py py-attr docutils literal"><span class="pre">referentPackagesystemPath</span></tt></a></li>
+</ul>
+</td></tr></table>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.referent" title="music21.documentation.library.documenters.ObjectDocumenter.referent"><tt class="xref py py-attr docutils literal"><span class="pre">referent</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString" title="music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString"><tt class="xref py py-attr docutils literal"><span class="pre">rstCrossReferenceString</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.rstEditingWarningFormat" title="music21.documentation.library.documenters.Documenter.rstEditingWarningFormat"><tt class="xref py py-attr docutils literal"><span class="pre">rstEditingWarningFormat</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.MethodDocumenter" title="music21.documentation.library.documenters.MethodDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">MethodDocumenter</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeHeading" title="music21.documentation.library.documenters.Documenter.makeHeading"><tt class="xref py py-meth docutils literal"><span class="pre">makeHeading()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeRubric" title="music21.documentation.library.documenters.Documenter.makeRubric"><tt class="xref py py-meth docutils literal"><span class="pre">makeRubric()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="moduledocumenter">
+<h2>ModuleDocumenter<a class="headerlink" href="#moduledocumenter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.documenters.ModuleDocumenter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.documenters.</tt><tt class="descname">ModuleDocumenter</tt><big>(</big><em>referent</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.ModuleDocumenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A documenter for one module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">serial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ModuleDocumenter</span><span class="p">(</span><span class="n">serial</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span>
+<span class="go">&lt;music21.documentation.library.documenters.ModuleDocumenter: music21.serial&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">reference</span><span class="p">,</span> <span class="n">referent</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">documenter</span><span class="o">.</span><span class="n">namesMapping</span><span class="o">.</span><span class="n">items</span><span class="p">())):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">referent</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="go">ContiguousSegmentOfNotes &lt;music21.documentation.library.documenters.ClassDocumenter: music21.serial.ContiguousSegmentOfNotes&gt;</span>
+<span class="go">HistoricalTwelveToneRow &lt;music21.documentation.library.documenters.ClassDocumenter: music21.serial.HistoricalTwelveToneRow&gt;</span>
+<span class="go">ToneRow &lt;music21.documentation.library.documenters.ClassDocumenter: music21.serial.ToneRow&gt;</span>
+<span class="go">TwelveToneMatrix &lt;music21.documentation.library.documenters.ClassDocumenter: music21.serial.TwelveToneMatrix&gt;</span>
+<span class="go">TwelveToneRow &lt;music21.documentation.library.documenters.ClassDocumenter: music21.serial.TwelveToneRow&gt;</span>
+<span class="go">findMultisets &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.findMultisets&gt;</span>
+<span class="go">findSegments &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.findSegments&gt;</span>
+<span class="go">findTransformedSegments &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.findTransformedSegments&gt;</span>
+<span class="go">findTransposedAndInvertedMultisets &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.findTransposedAndInvertedMultisets&gt;</span>
+<span class="go">findTransposedMultisets &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.findTransposedMultisets&gt;</span>
+<span class="go">findTransposedSegments &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.findTransposedSegments&gt;</span>
+<span class="go">getContiguousSegmentsOfLength &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.getContiguousSegmentsOfLength&gt;</span>
+<span class="go">getHistoricalRowByName &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.getHistoricalRowByName&gt;</span>
+<span class="go">labelMultisets &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.labelMultisets&gt;</span>
+<span class="go">labelSegments &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.labelSegments&gt;</span>
+<span class="go">labelTransformedSegments &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.labelTransformedSegments&gt;</span>
+<span class="go">labelTransposedAndInvertedMultisets &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.labelTransposedAndInvertedMultisets&gt;</span>
+<span class="go">labelTransposedMultisets &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.labelTransposedMultisets&gt;</span>
+<span class="go">labelTransposedSegments &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.labelTransposedSegments&gt;</span>
+<span class="go">pcToToneRow &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.pcToToneRow&gt;</span>
+<span class="go">rowToMatrix &lt;music21.documentation.library.documenters.FunctionDocumenter: music21.serial.rowToMatrix&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span><span class="o">.</span><span class="n">rstCrossReferenceString</span>
+<span class="go">&#39;:mod:`~music21.serial`&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">rstAutodocDirectiveFormat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">line</span>
+<span class="gp">...</span>
+<span class="go">&#39;.. automodule:: music21.serial&#39;</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+<p>Call the documenter to generate the ReStructuredText format:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">restructuredText</span> <span class="o">=</span> <span class="n">documenter</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.ModuleDocumenter" title="music21.documentation.library.documenters.ModuleDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ModuleDocumenter</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a></li>
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.ModuleDocumenter" title="music21.documentation.library.documenters.ModuleDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ModuleDocumenter</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ModuleDocumenter.classDocumenters">
+<tt class="descclassname">ModuleDocumenter.</tt><tt class="descname">classDocumenters</tt><a class="headerlink" href="#music21.documentation.library.documenters.ModuleDocumenter.classDocumenters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of class documenters for classes housed in the
+module documenter&#8217;s module object, taking into account any ordering
+via the <cite>_DOC_ORDER</cite> module-level variable:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">serial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">module</span> <span class="o">=</span> <span class="n">serial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ModuleDocumenter</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">classDocumenter</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">classDocumenters</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">classDocumenter</span><span class="o">.</span><span class="n">referentPackagesystemPath</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">music21.serial.ContiguousSegmentOfNotes</span>
+<span class="go">music21.serial.HistoricalTwelveToneRow</span>
+<span class="go">music21.serial.ToneRow</span>
+<span class="go">music21.serial.TwelveToneMatrix</span>
+<span class="go">music21.serial.TwelveToneRow</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ModuleDocumenter.functionDocumenters">
+<tt class="descclassname">ModuleDocumenter.</tt><tt class="descname">functionDocumenters</tt><a class="headerlink" href="#music21.documentation.library.documenters.ModuleDocumenter.functionDocumenters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of class documenters for classes housed in the
+module documenter&#8217;s module object, taking into account any ordering
+via the <cite>_DOC_ORDER</cite> module-level variable:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">serial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">module</span> <span class="o">=</span> <span class="n">serial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ModuleDocumenter</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">functionDocumenter</span> <span class="ow">in</span> <span class="n">documenter</span><span class="o">.</span><span class="n">functionDocumenters</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">functionDocumenter</span><span class="o">.</span><span class="n">referentPackagesystemPath</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">music21.serial.findMultisets</span>
+<span class="go">music21.serial.findSegments</span>
+<span class="go">music21.serial.findTransformedSegments</span>
+<span class="go">music21.serial.findTransposedAndInvertedMultisets</span>
+<span class="go">music21.serial.findTransposedMultisets</span>
+<span class="go">music21.serial.findTransposedSegments</span>
+<span class="go">music21.serial.getContiguousSegmentsOfLength</span>
+<span class="go">music21.serial.getHistoricalRowByName</span>
+<span class="go">music21.serial.labelMultisets</span>
+<span class="go">music21.serial.labelSegments</span>
+<span class="go">music21.serial.labelTransformedSegments</span>
+<span class="go">music21.serial.labelTransposedAndInvertedMultisets</span>
+<span class="go">music21.serial.labelTransposedMultisets</span>
+<span class="go">music21.serial.labelTransposedSegments</span>
+<span class="go">music21.serial.pcToToneRow</span>
+<span class="go">music21.serial.rowToMatrix</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ModuleDocumenter.memberOrder">
+<tt class="descclassname">ModuleDocumenter.</tt><tt class="descname">memberOrder</tt><a class="headerlink" href="#music21.documentation.library.documenters.ModuleDocumenter.memberOrder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ModuleDocumenter.namesMapping">
+<tt class="descclassname">ModuleDocumenter.</tt><tt class="descname">namesMapping</tt><a class="headerlink" href="#music21.documentation.library.documenters.ModuleDocumenter.namesMapping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ModuleDocumenter.referenceName">
+<tt class="descclassname">ModuleDocumenter.</tt><tt class="descname">referenceName</tt><a class="headerlink" href="#music21.documentation.library.documenters.ModuleDocumenter.referenceName" title="Permalink to this definition">¶</a></dt>
+<dd><p>The short name of the module:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span><span class="p">,</span> <span class="n">serial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">module</span> <span class="o">=</span> <span class="n">serial</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ModuleDocumenter</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span><span class="o">.</span><span class="n">referenceName</span>
+<span class="go">&#39;moduleSerial&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21.stream</span> <span class="kn">import</span> <span class="n">makeNotation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">module</span> <span class="o">=</span> <span class="n">makeNotation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ModuleDocumenter</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">documenter</span><span class="o">.</span><span class="n">referenceName</span>
+<span class="go">&#39;moduleStreamMakeNotation&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ModuleDocumenter.referentPackagesystemPath">
+<tt class="descclassname">ModuleDocumenter.</tt><tt class="descname">referentPackagesystemPath</tt><a class="headerlink" href="#music21.documentation.library.documenters.ModuleDocumenter.referentPackagesystemPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ModuleDocumenter.rstAutodocDirectiveFormat">
+<tt class="descclassname">ModuleDocumenter.</tt><tt class="descname">rstAutodocDirectiveFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ModuleDocumenter.rstAutodocDirectiveFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ModuleDocumenter.rstPageReferenceFormat">
+<tt class="descclassname">ModuleDocumenter.</tt><tt class="descname">rstPageReferenceFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ModuleDocumenter.rstPageReferenceFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ModuleDocumenter.sphinxCrossReferenceRole">
+<tt class="descclassname">ModuleDocumenter.</tt><tt class="descname">sphinxCrossReferenceRole</tt><a class="headerlink" href="#music21.documentation.library.documenters.ModuleDocumenter.sphinxCrossReferenceRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.referent" title="music21.documentation.library.documenters.ObjectDocumenter.referent"><tt class="xref py py-attr docutils literal"><span class="pre">referent</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString" title="music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString"><tt class="xref py py-attr docutils literal"><span class="pre">rstCrossReferenceString</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.rstEditingWarningFormat" title="music21.documentation.library.documenters.Documenter.rstEditingWarningFormat"><tt class="xref py py-attr docutils literal"><span class="pre">rstEditingWarningFormat</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.ModuleDocumenter" title="music21.documentation.library.documenters.ModuleDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ModuleDocumenter</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeHeading" title="music21.documentation.library.documenters.Documenter.makeHeading"><tt class="xref py py-meth docutils literal"><span class="pre">makeHeading()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeRubric" title="music21.documentation.library.documenters.Documenter.makeRubric"><tt class="xref py py-meth docutils literal"><span class="pre">makeRubric()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="objectdocumenter">
+<h2>ObjectDocumenter<a class="headerlink" href="#objectdocumenter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.documenters.ObjectDocumenter">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.documenters.</tt><tt class="descname">ObjectDocumenter</tt><big>(</big><em>referent</em><big>)</big><a class="headerlink" href="#music21.documentation.library.documenters.ObjectDocumenter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract base class for object documenting classes.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ObjectDocumenter.referent">
+<tt class="descclassname">ObjectDocumenter.</tt><tt class="descname">referent</tt><a class="headerlink" href="#music21.documentation.library.documenters.ObjectDocumenter.referent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ObjectDocumenter.referentPackagesystemPath">
+<tt class="descclassname">ObjectDocumenter.</tt><tt class="descname">referentPackagesystemPath</tt><a class="headerlink" href="#music21.documentation.library.documenters.ObjectDocumenter.referentPackagesystemPath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ObjectDocumenter.rstAutodocDirectiveFormat">
+<tt class="descclassname">ObjectDocumenter.</tt><tt class="descname">rstAutodocDirectiveFormat</tt><a class="headerlink" href="#music21.documentation.library.documenters.ObjectDocumenter.rstAutodocDirectiveFormat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString">
+<tt class="descclassname">ObjectDocumenter.</tt><tt class="descname">rstCrossReferenceString</tt><a class="headerlink" href="#music21.documentation.library.documenters.ObjectDocumenter.rstCrossReferenceString" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.documentation.library.documenters.ObjectDocumenter.sphinxCrossReferenceRole">
+<tt class="descclassname">ObjectDocumenter.</tt><tt class="descname">sphinxCrossReferenceRole</tt><a class="headerlink" href="#music21.documentation.library.documenters.ObjectDocumenter.sphinxCrossReferenceRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.rstEditingWarningFormat" title="music21.documentation.library.documenters.Documenter.rstEditingWarningFormat"><tt class="xref py py-attr docutils literal"><span class="pre">rstEditingWarningFormat</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.documenters.ObjectDocumenter" title="music21.documentation.library.documenters.ObjectDocumenter"><tt class="xref py py-class docutils literal"><span class="pre">ObjectDocumenter</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.documentation.library.documenters.Documenter" title="music21.documentation.library.documenters.Documenter"><tt class="xref py py-class docutils literal"><span class="pre">Documenter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeHeading" title="music21.documentation.library.documenters.Documenter.makeHeading"><tt class="xref py py-meth docutils literal"><span class="pre">makeHeading()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.documenters.Documenter.makeRubric" title="music21.documentation.library.documenters.Documenter.makeRubric"><tt class="xref py py-meth docutils literal"><span class="pre">makeRubric()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryIterators.html" title="music21.documentation.library.iterators"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryCleaners.html" title="music21.documentation.library.cleaners"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.documentation.library.iterators &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.documentation.library.writers" href="moduleDocumentationLibraryWriters.html" />
+    <link rel="prev" title="music21.documentation.library.documenters" href="moduleDocumentationLibraryDocumenters.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryWriters.html" title="music21.documentation.library.writers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryDocumenters.html" title="music21.documentation.library.documenters"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleDocumentationLibraryDocumenters.html"
+                        title="previous chapter">music21.documentation.library.documenters</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleDocumentationLibraryWriters.html"
+                        title="next chapter">music21.documentation.library.writers</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.documentation.library.iterators</a><ul>
+<li><a class="reference internal" href="#classiterator">ClassIterator</a></li>
+<li><a class="reference internal" href="#codebaseiterator">CodebaseIterator</a></li>
+<li><a class="reference internal" href="#functioniterator">FunctionIterator</a></li>
+<li><a class="reference internal" href="#ipythonnotebookiterator">IPythonNotebookIterator</a></li>
+<li><a class="reference internal" href="#iterator">Iterator</a></li>
+<li><a class="reference internal" href="#moduleiterator">ModuleIterator</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleDocumentationLibraryIterators.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-documentation-library-iterators">
+<span id="moduledocumentationlibraryiterators"></span><h1>music21.documentation.library.iterators<a class="headerlink" href="#music21-documentation-library-iterators" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.documentation.library.iterators"></span><div class="section" id="classiterator">
+<h2>ClassIterator<a class="headerlink" href="#classiterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.iterators.ClassIterator">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.iterators.</tt><tt class="descname">ClassIterator</tt><big>(</big><em>verbose=True</em><big>)</big><a class="headerlink" href="#music21.documentation.library.iterators.ClassIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over music21&#8217;s packagesystem, yielding all classes discovered:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ClassIterator</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">classes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">iterator</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">__module__</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">cls</span> <span class="ow">in</span> <span class="n">classes</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">cls</span>
+<span class="gp">...</span>
+<span class="go">&lt;class &#39;music21.abcFormat.__init__.ABCAccent&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.abcFormat.__init__.ABCBar&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.abcFormat.__init__.ABCBrokenRhythmMarker&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.abcFormat.__init__.ABCChord&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.abcFormat.__init__.ABCCrescStart&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.abcFormat.__init__.ABCDimStart&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.abcFormat.__init__.ABCDownbow&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.abcFormat.__init__.ABCFile&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.abcFormat.__init__.ABCFileException&#39;&gt;</span>
+<span class="go">&lt;class &#39;music21.abcFormat.__init__.ABCGraceStart&#39;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.iterators.ClassIterator" title="music21.documentation.library.iterators.ClassIterator"><tt class="xref py py-class docutils literal"><span class="pre">ClassIterator</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.iterators.Iterator" title="music21.documentation.library.iterators.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.iterators.ClassIterator" title="music21.documentation.library.iterators.ClassIterator"><tt class="xref py py-class docutils literal"><span class="pre">ClassIterator</span></tt></a> read-only properties</p>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.iterators.Iterator" title="music21.documentation.library.iterators.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.iterators.Iterator.verbose" title="music21.documentation.library.iterators.Iterator.verbose"><tt class="xref py py-attr docutils literal"><span class="pre">verbose</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="codebaseiterator">
+<h2>CodebaseIterator<a class="headerlink" href="#codebaseiterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.iterators.CodebaseIterator">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.iterators.</tt><tt class="descname">CodebaseIterator</tt><big>(</big><em>verbose=True</em><big>)</big><a class="headerlink" href="#music21.documentation.library.iterators.CodebaseIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over music21&#8217;s packagesystem, yielding all classes and functions.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.iterators.CodebaseIterator" title="music21.documentation.library.iterators.CodebaseIterator"><tt class="xref py py-class docutils literal"><span class="pre">CodebaseIterator</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.iterators.Iterator" title="music21.documentation.library.iterators.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.iterators.CodebaseIterator" title="music21.documentation.library.iterators.CodebaseIterator"><tt class="xref py py-class docutils literal"><span class="pre">CodebaseIterator</span></tt></a> read-only properties</p>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.iterators.Iterator" title="music21.documentation.library.iterators.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.iterators.Iterator.verbose" title="music21.documentation.library.iterators.Iterator.verbose"><tt class="xref py py-attr docutils literal"><span class="pre">verbose</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="functioniterator">
+<h2>FunctionIterator<a class="headerlink" href="#functioniterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.iterators.FunctionIterator">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.iterators.</tt><tt class="descname">FunctionIterator</tt><big>(</big><em>verbose=True</em><big>)</big><a class="headerlink" href="#music21.documentation.library.iterators.FunctionIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over music21&#8217;s packagesystem, yielding all functions discovered:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">documentation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">FunctionIterator</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">functions</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">iterator</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">function</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">functions</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">__module__</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">__name__</span><span class="p">))[:</span><span class="mi">10</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">function</span><span class="o">.</span><span class="n">__module__</span><span class="p">,</span> <span class="n">function</span><span class="o">.</span><span class="n">__name__</span>
+<span class="gp">...</span>
+<span class="go">(&#39;music21.abcFormat.__init__&#39;, &#39;mergeLeadingMetaData&#39;)</span>
+<span class="go">(&#39;music21.abcFormat.translate&#39;, &#39;abcToStreamOpus&#39;)</span>
+<span class="go">(&#39;music21.abcFormat.translate&#39;, &#39;abcToStreamPart&#39;)</span>
+<span class="go">(&#39;music21.abcFormat.translate&#39;, &#39;abcToStreamScore&#39;)</span>
+<span class="go">(&#39;music21.abcFormat.translate&#39;, &#39;reBar&#39;)</span>
+<span class="go">(&#39;music21.analysis.discrete&#39;, &#39;analyzeStream&#39;)</span>
+<span class="go">(&#39;music21.analysis.metrical&#39;, &#39;labelBeatDepth&#39;)</span>
+<span class="go">(&#39;music21.analysis.metrical&#39;, &#39;thomassenMelodicAccent&#39;)</span>
+<span class="go">(&#39;music21.analysis.neoRiemannian&#39;, &#39;L&#39;)</span>
+<span class="go">(&#39;music21.analysis.neoRiemannian&#39;, &#39;LRP_combinations&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.iterators.FunctionIterator" title="music21.documentation.library.iterators.FunctionIterator"><tt class="xref py py-class docutils literal"><span class="pre">FunctionIterator</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.iterators.Iterator" title="music21.documentation.library.iterators.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.iterators.FunctionIterator" title="music21.documentation.library.iterators.FunctionIterator"><tt class="xref py py-class docutils literal"><span class="pre">FunctionIterator</span></tt></a> read-only properties</p>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.iterators.Iterator" title="music21.documentation.library.iterators.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.iterators.Iterator.verbose" title="music21.documentation.library.iterators.Iterator.verbose"><tt class="xref py py-attr docutils literal"><span class="pre">verbose</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="ipythonnotebookiterator">
+<h2>IPythonNotebookIterator<a class="headerlink" href="#ipythonnotebookiterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.iterators.IPythonNotebookIterator">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.iterators.</tt><tt class="descname">IPythonNotebookIterator</tt><big>(</big><em>verbose=True</em><big>)</big><a class="headerlink" href="#music21.documentation.library.iterators.IPythonNotebookIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over music21&#8217;s documentation directory, yielding .ipynb files.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.iterators.IPythonNotebookIterator" title="music21.documentation.library.iterators.IPythonNotebookIterator"><tt class="xref py py-class docutils literal"><span class="pre">IPythonNotebookIterator</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.iterators.Iterator" title="music21.documentation.library.iterators.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.iterators.IPythonNotebookIterator" title="music21.documentation.library.iterators.IPythonNotebookIterator"><tt class="xref py py-class docutils literal"><span class="pre">IPythonNotebookIterator</span></tt></a> read-only properties</p>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.iterators.Iterator" title="music21.documentation.library.iterators.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.iterators.Iterator.verbose" title="music21.documentation.library.iterators.Iterator.verbose"><tt class="xref py py-attr docutils literal"><span class="pre">verbose</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="iterator">
+<h2>Iterator<a class="headerlink" href="#iterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.iterators.Iterator">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.iterators.</tt><tt class="descname">Iterator</tt><big>(</big><em>verbose=True</em><big>)</big><a class="headerlink" href="#music21.documentation.library.iterators.Iterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract base class for documentation iterators.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.iterators.Iterator" title="music21.documentation.library.iterators.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.documentation.library.iterators.Iterator.verbose">
+<tt class="descclassname">Iterator.</tt><tt class="descname">verbose</tt><a class="headerlink" href="#music21.documentation.library.iterators.Iterator.verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true, print extra information.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="moduleiterator">
+<h2>ModuleIterator<a class="headerlink" href="#moduleiterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.documentation.library.iterators.ModuleIterator">
+<em class="property">class </em><tt class="descclassname">music21.documentation.library.iterators.</tt><tt class="descname">ModuleIterator</tt><big>(</big><em>verbose=True</em><big>)</big><a class="headerlink" href="#music21.documentation.library.iterators.ModuleIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over music21&#8217;s packagesystem, yielding module objects:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">iterator</span> <span class="o">=</span> <span class="n">documentation</span><span class="o">.</span><span class="n">ModuleIterator</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">modules</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">iterator</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">modules</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">__name__</span><span class="p">)[:</span><span class="mi">8</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">module</span><span class="o">.</span><span class="n">__name__</span>
+<span class="gp">...</span>
+<span class="go">&#39;music21.__init__&#39;</span>
+<span class="go">&#39;music21.abcFormat.__init__&#39;</span>
+<span class="go">&#39;music21.abcFormat.translate&#39;</span>
+<span class="go">&#39;music21.analysis.__init__&#39;</span>
+<span class="go">&#39;music21.analysis.correlate&#39;</span>
+<span class="go">&#39;music21.analysis.discrete&#39;</span>
+<span class="go">&#39;music21.analysis.metrical&#39;</span>
+<span class="go">&#39;music21.analysis.neoRiemannian&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.iterators.ModuleIterator" title="music21.documentation.library.iterators.ModuleIterator"><tt class="xref py py-class docutils literal"><span class="pre">ModuleIterator</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.iterators.Iterator" title="music21.documentation.library.iterators.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.documentation.library.iterators.ModuleIterator" title="music21.documentation.library.iterators.ModuleIterator"><tt class="xref py py-class docutils literal"><span class="pre">ModuleIterator</span></tt></a> read-only properties</p>
+<p>Read-only properties inherited from <a class="reference internal" href="#music21.documentation.library.iterators.Iterator" title="music21.documentation.library.iterators.Iterator"><tt class="xref py py-class docutils literal"><span class="pre">Iterator</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.documentation.library.iterators.Iterator.verbose" title="music21.documentation.library.iterators.Iterator.verbose"><tt class="xref py py-attr docutils literal"><span class="pre">verbose</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryWriters.html" title="music21.documentation.library.writers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryDocumenters.html" title="music21.documentation.library.documenters"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

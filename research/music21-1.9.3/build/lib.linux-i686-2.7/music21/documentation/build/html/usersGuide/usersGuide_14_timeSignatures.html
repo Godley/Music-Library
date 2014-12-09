@@ -1,0 +1,600 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User’s Guide: Chapter 14: Time Signatures &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Users Guide" href="index.html" />
+    <link rel="next" title="User’s Guide: Chapter 17: Derivations" href="usersGuide_17_derivations.html" />
+    <link rel="prev" title="User’s Guide: Chapter 11: Corpus Searching" href="usersGuide_11_corpusSearching.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_17_derivations.html" title="User’s Guide: Chapter 17: Derivations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_11_corpusSearching.html" title="User’s Guide: Chapter 11: Corpus Searching"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usersGuide_11_corpusSearching.html"
+                        title="previous chapter">User&#8217;s Guide: Chapter 11: Corpus Searching</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usersGuide_17_derivations.html"
+                        title="next chapter">User&#8217;s Guide: Chapter 17: Derivations</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">User&#8217;s Guide: Chapter 14: Time Signatures</a><ul>
+<li><a class="reference internal" href="#working-with-beats-in-timesignatures">Working with Beats in TimeSignatures</a></li>
+<li><a class="reference internal" href="#working-with-timesignatures-in-scores">Working with TimeSignatures in scores</a></li>
+<li><a class="reference internal" href="#working-with-beats-in-a-score">Working with Beats in a score</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Users Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_99_Table_of_Contents.html">User&#8217;s Guide, Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_00_introduction.html">User&#8217;s Guide: Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_01_installing.html">User&#8217;s Guide, Chapter 1: Installing and Getting Started with <tt class="docutils literal"><span class="pre">music21</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_02_notes.html">User&#8217;s Guide, Chapter 2: Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_03_pitches.html">User&#8217;s Guide, Chapter 3: Pitches, Durations, and Notes again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_04_stream1.html">User&#8217;s Guide, Chapter 4: Lists, Streams (I) and Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_05_listsOfLists.html">User&#8217;s Guide, Chapter 5: Lists of Lists, Functions, and Recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_06_stream2.html">User&#8217;s Guide, Chapter 6: Streams (II): Hierarchies, Recursion, and Flattening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_07_chords.html">User&#8217;s Guide, Chapter 7: Chords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_09_chordify.html">User&#8217;s Guide: Chapter 9: Chordify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_11_corpusSearching.html">User&#8217;s Guide: Chapter 11: Corpus Searching</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">User&#8217;s Guide: Chapter 14: Time Signatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_17_derivations.html">User&#8217;s Guide: Chapter 17: Derivations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_54_extendingConverter.html">User&#8217;s Guide: Chapter 54: Extending Converter with New Formats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../moduleReference/index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usersGuide/usersGuide_14_timeSignatures.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="user-s-guide-chapter-14-time-signatures">
+<h1>User&#8217;s Guide: Chapter 14: Time Signatures<a class="headerlink" href="#user-s-guide-chapter-14-time-signatures" title="Permalink to this headline">¶</a></h1>
+<p>Up until now almost all the music we&#8217;ve been working with has been in
+4/4. That&#8217;s not because we love common time so much, but simply because
+as we noted in <a class="reference internal" href="usersGuide_04_stream1.html#usersguide-04-stream1"><em>Chapter 4</em></a> it&#8217;s because
+4/4 is the default time signature for <tt class="docutils literal"><span class="pre">music21</span></tt>
+<a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Stream" title="music21.stream.Stream"><tt class="xref py py-class docutils literal"><span class="pre">Stream</span></tt></a> objects that don&#8217;t have another time
+signature applied to them.</p>
+<p>Everything that we need to use other time signatures is contained in the
+<tt class="docutils literal"><span class="pre">meter</span></tt> module, which is imported when you type
+<tt class="docutils literal"><span class="pre">from</span> <span class="pre">music21</span> <span class="pre">import</span> <span class="pre">*</span></tt>. There are lots of things in that module, but
+the one that we care about most is the
+<a class="reference internal" href="../moduleReference/moduleMeter.html#music21.meter.TimeSignature" title="music21.meter.TimeSignature"><tt class="xref py py-class docutils literal"><span class="pre">TimeSignature</span></tt></a> object. Let&#8217;s create a couple of
+notes and a <tt class="docutils literal"><span class="pre">TimeSignature</span></tt> object.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">noteC</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;C4&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&quot;half&quot;</span><span class="p">)</span>
+<span class="n">noteD</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;D4&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&quot;quarter&quot;</span><span class="p">)</span>
+<span class="n">noteE</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;E4&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&quot;quarter&quot;</span><span class="p">)</span>
+<span class="n">noteF</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;F4&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&quot;half&quot;</span><span class="p">)</span>
+
+<span class="n">tsThreeFour</span> <span class="o">=</span> <span class="n">meter</span><span class="o">.</span><span class="n">TimeSignature</span><span class="p">(</span><span class="s">&#39;3/4&#39;</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="n">tsThreeFour</span><span class="o">.</span><span class="n">numerator</span><span class="p">,</span> <span class="s">&#39;/&#39;</span><span class="p">,</span>  <span class="n">tsThreeFour</span><span class="o">.</span><span class="n">denominator</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><div class="highlight"><pre> <span class="mi">3</span> <span class="o">/</span> <span class="mi">4</span>
+</pre></div>
+</div>
+<p>Now that we have our objects, let&#8217;s create a <tt class="docutils literal"><span class="pre">Stream</span></tt> object that uses
+these notes and the TimeSignature object. We&#8217;ll append each object in
+order using a <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">stream1</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">thisThing</span> <span class="ow">in</span> <span class="p">[</span><span class="n">tsThreeFour</span><span class="p">,</span> <span class="n">noteC</span><span class="p">,</span> <span class="n">noteD</span><span class="p">,</span> <span class="n">noteE</span><span class="p">,</span> <span class="n">noteF</span><span class="p">]:</span>
+    <span class="n">stream1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">thisThing</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let&#8217;s look at <tt class="docutils literal"><span class="pre">stream1</span></tt> using <tt class="docutils literal"><span class="pre">.show('text')</span></tt>:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">stream1</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> {0.0} &lt;music21.meter.TimeSignature 3/4&gt;
+ {0.0} &lt;music21.note.Note C&gt;
+ {2.0} &lt;music21.note.Note D&gt;
+ {3.0} &lt;music21.note.Note E&gt;
+ {4.0} &lt;music21.note.Note F&gt;</pre>
+</div>
+<p>Notice that both the time signature and the first note begin at
+<tt class="docutils literal"><span class="pre">offset</span></tt> 0.0 in the Stream? That&#8217;s because by default TimeSignature
+objects have no length:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">tsThreeFour</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">quarterLength</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><div class="highlight"><pre> <span class="mf">0.0</span>
+</pre></div>
+</div>
+<p>If we <a class="reference internal" href="../moduleReference/moduleBase.html#music21.base.Music21Object.show" title="music21.base.Music21Object.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a> the <tt class="docutils literal"><span class="pre">Stream</span></tt> without
+using <tt class="docutils literal"><span class="pre">show('text')</span></tt>, we see that there are two measures of 3/4:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">stream1</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_043.png" src="../_images/_fig_043.png" />
+<p>The <tt class="docutils literal"><span class="pre">TimeSignature</span></tt> object helps the display module known how to
+divide the Stream into <tt class="docutils literal"><span class="pre">Measure</span></tt> objects. We can see this process
+directly if we create a new <tt class="docutils literal"><span class="pre">Stream</span></tt> from <tt class="docutils literal"><span class="pre">stream1</span></tt> that has
+measures using the <a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Stream.makeMeasures" title="music21.stream.Stream.makeMeasures"><tt class="xref py py-meth docutils literal"><span class="pre">makeMeasures()</span></tt></a>
+command:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">stream2</span> <span class="o">=</span> <span class="n">stream1</span><span class="o">.</span><span class="n">makeMeasures</span><span class="p">()</span>
+<span class="n">stream2</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> {0.0} &lt;music21.stream.Measure 1 offset=0.0&gt;
+     {0.0} &lt;music21.clef.TrebleClef&gt;
+     {0.0} &lt;music21.meter.TimeSignature 3/4&gt;
+     {0.0} &lt;music21.note.Note C&gt;
+     {2.0} &lt;music21.note.Note D&gt;
+ {3.0} &lt;music21.stream.Measure 2 offset=3.0&gt;
+     {0.0} &lt;music21.note.Note E&gt;
+     {1.0} &lt;music21.note.Note F&gt;
+     {3.0} &lt;music21.bar.Barline style=final&gt;</pre>
+</div>
+<p>The makeMeasures command, by the way, also put a TrebleClef into the
+<tt class="docutils literal"><span class="pre">Stream</span></tt> and set the last barline to &#8220;final&#8221;, which makes its output a
+little prettier in Lilypond (which is what the documentation uses; you
+are probably using MusicXML if you&#8217;re following along, which gets it
+right...)</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">stream2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_07.png" src="../_images/_fig_07.png" />
+<div class="section" id="working-with-beats-in-timesignatures">
+<h2>Working with Beats in TimeSignatures<a class="headerlink" href="#working-with-beats-in-timesignatures" title="Permalink to this headline">¶</a></h2>
+<p>Beyond just getting nicely formed measures, TimeSignature objects let us
+figure out information about what beat each
+<a class="reference internal" href="../moduleReference/moduleNote.html#music21.note.Note" title="music21.note.Note"><tt class="xref py py-class docutils literal"><span class="pre">Note</span></tt></a> (or <a class="reference internal" href="../moduleReference/moduleNote.html#music21.note.Rest" title="music21.note.Rest"><tt class="xref py py-class docutils literal"><span class="pre">Rest</span></tt></a> or
+<a class="reference internal" href="../moduleReference/moduleChord.html#music21.chord.Chord" title="music21.chord.Chord"><tt class="xref py py-class docutils literal"><span class="pre">Chord</span></tt></a>, etc.) is on. Let&#8217;s return to our Stream
+without measures and look at each note&#8217;s beat:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">stream1</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.note.Note C&gt;</pre>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">stream1</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">beat</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><div class="highlight"><pre> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<p>Okay, so the first note is on beat 1 (represented as 1.0 here). That&#8217;s
+different from its <tt class="docutils literal"><span class="pre">.offset</span></tt> which is 0.0. Remember that the offset is
+the number of quarter notes from the beginning of the containing
+<tt class="docutils literal"><span class="pre">Stream</span></tt>. The <tt class="docutils literal"><span class="pre">beat</span></tt> on the other hand uses notation that is more
+familiar to musicians. Let&#8217;s look at the beat of all the notes in the
+Stream:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">stream1</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">beat</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.note.Note C&gt; 1.0
+ &lt;music21.note.Note D&gt; 3.0
+ &lt;music21.note.Note E&gt; 1.0
+ &lt;music21.note.Note F&gt; 2.0</pre>
+</div>
+<p>If we only wanted to find notes that were on the downbeat we could
+filter on beats like so:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">stream1</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">beat</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">n</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.note.Note C&gt;
+ &lt;music21.note.Note E&gt;</pre>
+</div>
+<p>What would happen if the time signature were different? We can find out
+by changing the TimeSignature object already in the Stream:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">tsThreeFour</span><span class="o">.</span><span class="n">ratioString</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><div class="highlight"><pre> <span class="s">&#39;3/4&#39;</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">tsThreeFour</span><span class="o">.</span><span class="n">ratioString</span> <span class="o">=</span> <span class="s">&#39;2/4&#39;</span>
+</pre></div>
+</div>
+<p>Now the variable name of the TimeSignature object makes little sense,
+but we do find that the first, second, and fourth notes are on the
+downbeat.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">stream1</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">beat</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.note.Note C&gt; 1.0
+ &lt;music21.note.Note D&gt; 1.0
+ &lt;music21.note.Note E&gt; 2.0
+ &lt;music21.note.Note F&gt; 1.0</pre>
+</div>
+<p>If we change the TimeSignature again to 6/8 then the same notes will be
+on the downbeat as in the original 3/4 Stream, but they will have
+different beat numbers. This time we&#8217;ll use the <tt class="docutils literal"><span class="pre">.numerator</span></tt> and
+<tt class="docutils literal"><span class="pre">.denominator</span></tt> to change the meter. (Remember that all these different
+tricks are documented in full at <a class="reference internal" href="../moduleReference/moduleMeter.html#music21.meter.TimeSignature" title="music21.meter.TimeSignature"><tt class="xref py py-class docutils literal"><span class="pre">music21.meter.TimeSignature</span></tt></a>.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">tsThreeFour</span><span class="o">.</span><span class="n">numerator</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">tsThreeFour</span><span class="o">.</span><span class="n">denominator</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">tsThreeFour</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.meter.TimeSignature 6/8&gt;</pre>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">stream1</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">beat</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.note.Note C&gt; 1.0
+ &lt;music21.note.Note D&gt; 2.33333333333
+ &lt;music21.note.Note E&gt; 1.0
+ &lt;music21.note.Note F&gt; 1.66666666667</pre>
+</div>
+<p>Notice that by default 6/8 is assumed to be a &#8220;fast&#8221; 6/8, that is,
+having two beats and not six per measure. That&#8217;s because there&#8217;s no easy
+way to specify the former. We can see how many beats there are per
+measure by requesting the <tt class="docutils literal"><span class="pre">.beatCount</span></tt> of a <tt class="docutils literal"><span class="pre">TimeSignature</span></tt>:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">tsThreeFour</span><span class="o">.</span><span class="n">beatCount</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><div class="highlight"><pre> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>And we can change that and see how it affects the results:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">tsThreeFour</span><span class="o">.</span><span class="n">beatCount</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">stream1</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">beat</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.note.Note C&gt; 1.0
+ &lt;music21.note.Note D&gt; 5.0
+ &lt;music21.note.Note E&gt; 1.0
+ &lt;music21.note.Note F&gt; 3.0</pre>
+</div>
+<p>Using the terminology most musicians use, you can create TimeSignatures
+of 6/8 with either beat count directly:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">tsFast68</span> <span class="o">=</span> <span class="n">meter</span><span class="o">.</span><span class="n">TimeSignature</span><span class="p">(</span><span class="s">&#39;fast 6/8&#39;</span><span class="p">)</span>
+<span class="n">tsSlow68</span> <span class="o">=</span> <span class="n">meter</span><span class="o">.</span><span class="n">TimeSignature</span><span class="p">(</span><span class="s">&#39;slow 6/8&#39;</span><span class="p">)</span>
+
+<span class="n">tsFast68</span><span class="o">.</span><span class="n">beatCount</span><span class="p">,</span> <span class="n">tsSlow68</span><span class="o">.</span><span class="n">beatCount</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><div class="highlight"><pre> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="working-with-timesignatures-in-scores">
+<h2>Working with TimeSignatures in scores<a class="headerlink" href="#working-with-timesignatures-in-scores" title="Permalink to this headline">¶</a></h2>
+<p>We have been dealing with TimeSignature objects that are in a single
+Stream. However, in general, <a class="reference internal" href="../moduleReference/moduleMeter.html#music21.meter.TimeSignature" title="music21.meter.TimeSignature"><tt class="xref py py-class docutils literal"><span class="pre">TimeSignature</span></tt></a>
+objects are found within <a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Measure" title="music21.stream.Measure"><tt class="xref py py-class docutils literal"><span class="pre">Measure</span></tt></a> objects
+inside a <a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Part" title="music21.stream.Part"><tt class="xref py py-class docutils literal"><span class="pre">Part</span></tt></a> object. Both <tt class="docutils literal"><span class="pre">Measure</span></tt> and
+<tt class="docutils literal"><span class="pre">Part</span></tt> are subclasses of <tt class="docutils literal"><span class="pre">Stream</span></tt>. Let&#8217;s get a Bach chorale with
+some nice eighth-note runs from the <a class="reference internal" href="../moduleReference/moduleCorpus.html#modulecorpus"><em>music21.corpus</em></a> module&#8217;s
+<a class="reference internal" href="../moduleReference/moduleCorpus.html#music21.corpus.parse" title="music21.corpus.parse"><tt class="xref py py-func docutils literal"><span class="pre">parse()</span></tt></a> function. It returns a
+<a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Score" title="music21.stream.Score"><tt class="xref py py-class docutils literal"><span class="pre">Score</span></tt></a>, which is also a <tt class="docutils literal"><span class="pre">Stream</span></tt> subclass.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">myBach</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bach/bwv57.8&#39;</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="n">myBach</span><span class="o">.</span><span class="n">__class__</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;class 'music21.stream.Score'&gt;</pre>
+</div>
+<p>We will get the Alto part using the <tt class="docutils literal"><span class="pre">Score</span></tt> object&#8217;s <tt class="docutils literal"><span class="pre">.parts</span></tt> list:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">alto</span> <span class="o">=</span> <span class="n">myBach</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s">&#39;Alto&#39;</span><span class="p">]</span>
+
+<span class="n">alto</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.stream.Part Alto&gt;</pre>
+</div>
+<p>When we call <tt class="docutils literal"><span class="pre">.show()</span></tt> on this Part (or on <tt class="docutils literal"><span class="pre">myBach</span></tt> itself), we can
+see that this is one of the few chorales that Bach wrote that is in 3/4:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">alto</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_221.png" src="../_images/_fig_221.png" />
+<p>We can get a list of all time <tt class="docutils literal"><span class="pre">TimeSignature</span></tt>s in this <tt class="docutils literal"><span class="pre">Part</span></tt> by
+first &#8220;flattening&#8221; the Part with <tt class="docutils literal"><span class="pre">.flat</span></tt> and then calling
+<tt class="docutils literal"><span class="pre">.getElementsByClass('TimeSignature')</span></tt> on it:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">flatAlto</span> <span class="o">=</span> <span class="n">alto</span><span class="o">.</span><span class="n">flat</span>
+<span class="n">allTimeSignatures</span> <span class="o">=</span> <span class="n">flatAlto</span><span class="o">.</span><span class="n">getElementsByClass</span><span class="p">(</span><span class="s">&#39;TimeSignature&#39;</span><span class="p">)</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">allTimeSignatures</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><div class="highlight"><pre> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>We see that there is exactly one TimeSignature in the <tt class="docutils literal"><span class="pre">Part</span></tt>. We can
+see it this way:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">allTimeSignatures</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.meter.TimeSignature 3/4&gt;</pre>
+</div>
+<p>We could also suppose that the TimeSignature would be in the first
+measure, so instead of <tt class="docutils literal"><span class="pre">flattening</span></tt> the score, we can do this:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">alto</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">timeSignature</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.meter.TimeSignature 3/4&gt;</pre>
+</div>
+<p>Other measures don&#8217;t have TimeSignature objects:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">alto</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">timeSignature</span> <span class="ow">is</span> <span class="bp">None</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><div class="highlight"><pre> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>Let&#8217;s change that!</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">alto</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">timeSignature</span> <span class="o">=</span> <span class="n">meter</span><span class="o">.</span><span class="n">TimeSignature</span><span class="p">(</span><span class="s">&#39;6/8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we&#8217;ll rebeam according to the new TimeSignatures:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">alto</span><span class="o">.</span><span class="n">makeBeams</span><span class="p">(</span><span class="n">inPlace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We&#8217;ll clear all the stem directions so that we don&#8217;t get really screwy
+beams, and then show the new score.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">alto</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+    <span class="n">n</span><span class="o">.</span><span class="n">stemDirection</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="n">alto</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_28.png" src="../_images/_fig_28.png" />
+<p>We&#8217;ve sort of cheated by changing the TimeSignature to something that
+kept all the measure lengths the same. Let&#8217;s rebar everything. First
+we&#8217;ll flatten the alto part and then get everything that is NOT a
+TimeSignature. We will use <tt class="docutils literal"><span class="pre">.getElementsNotOfClass()</span></tt> and can either
+pass it the string &#8220;TimeSignature&#8221; as we did with &#8220;getElementsByClass&#8221;
+above, or for either method we can pass in a class object, which we&#8217;ll
+do here:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">newAlto</span> <span class="o">=</span> <span class="n">alto</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">getElementsNotOfClass</span><span class="p">(</span><span class="n">meter</span><span class="o">.</span><span class="n">TimeSignature</span><span class="p">)</span>
+<span class="n">newAlto</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">meter</span><span class="o">.</span><span class="n">TimeSignature</span><span class="p">(</span><span class="s">&#39;2/4&#39;</span><span class="p">))</span>
+<span class="n">newAlto</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_30.png" src="../_images/_fig_30.png" />
+<p>Whoops! Some of those measures, such as mm 2-3, are screwy. Let&#8217;s run
+the powerful command <tt class="docutils literal"><span class="pre">.makeNotation()</span></tt> first before showing:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">newAltoFixed</span> <span class="o">=</span> <span class="n">newAlto</span><span class="o">.</span><span class="n">makeNotation</span><span class="p">()</span>
+<span class="n">newAltoFixed</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_32.png" src="../_images/_fig_32.png" />
+<p>We can continue to add multiple TimeSignature objects to this Stream of
+Notes. First, we will replace the 2/4 bar previously added with a new
+TimeSignature, using the Stream <a class="reference internal" href="../moduleReference/moduleStream.html#music21.stream.Stream.replace" title="music21.stream.Stream.replace"><tt class="xref py py-meth docutils literal"><span class="pre">replace()</span></tt></a>
+method. Then, we will insert a number of additional TimeSignature
+objects at offsets further into the Stream. Again, as this Stream has no
+Measures, temporary Measures are automatically created when calling the
+<tt class="docutils literal"><span class="pre">show()</span></tt>method.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">ts</span> <span class="o">=</span> <span class="n">newAlto</span><span class="o">.</span><span class="n">getTimeSignatures</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ts</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.meter.TimeSignature 2/4&gt;</pre>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">newAlto</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">meter</span><span class="o">.</span><span class="n">TimeSignature</span><span class="p">(</span><span class="s">&#39;5/8&#39;</span><span class="p">))</span>
+<span class="n">newAlto</span><span class="o">.</span><span class="n">getTimeSignatures</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.meter.TimeSignature 5/8&gt;</pre>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">newAlto</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">meter</span><span class="o">.</span><span class="n">TimeSignature</span><span class="p">(</span><span class="s">&#39;7/8&#39;</span><span class="p">))</span>
+<span class="n">newAlto</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mf">17.0</span><span class="p">,</span> <span class="n">meter</span><span class="o">.</span><span class="n">TimeSignature</span><span class="p">(</span><span class="s">&#39;9/8&#39;</span><span class="p">))</span>
+<span class="n">newAlto</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">meter</span><span class="o">.</span><span class="n">TimeSignature</span><span class="p">(</span><span class="s">&#39;3/8&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Now we can <tt class="docutils literal"><span class="pre">makeNotation()</span></tt> again and show this wacky interpretation
+of Bach:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">newAlto</span><span class="o">.</span><span class="n">makeNotation</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_36.png" src="../_images/_fig_36.png" />
+<p>Let&#8217;s see how that looks in all the parts by putting the time signatures
+in their &#8220;proper&#8221; place in every Part. First, lets get all the
+TimeSignature objects in the score with
+<tt class="docutils literal"><span class="pre">.getElementsByClass('TimeSignature')</span></tt> or, even better, the shortcut,
+<tt class="docutils literal"><span class="pre">.getTimeSignatures()</span></tt>. This only works because we already flattened
+Alto to make newAlto</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">tsList</span> <span class="o">=</span> <span class="n">newAlto</span><span class="o">.</span><span class="n">getTimeSignatures</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>tsList is a <tt class="docutils literal"><span class="pre">Part</span></tt> object so we can show it:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">tsList</span><span class="o">.</span><span class="n">__class__</span>
+<span class="n">tsList</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;class 'music21.stream.Part'&gt;
+ {0.0} &lt;music21.meter.TimeSignature 5/8&gt;
+ {10.0} &lt;music21.meter.TimeSignature 7/8&gt;
+ {17.0} &lt;music21.meter.TimeSignature 9/8&gt;
+ {26.0} &lt;music21.meter.TimeSignature 3/8&gt;</pre>
+</div>
+<p>Now we&#8217;ll create a new <tt class="docutils literal"><span class="pre">Score</span></tt> object and flatten all the parts from
+the original <tt class="docutils literal"><span class="pre">myBach</span></tt> and get everything but the <tt class="docutils literal"><span class="pre">TimeSignature</span></tt>
+objects, run <tt class="docutils literal"><span class="pre">.makeNotation()</span></tt> and put it in the new score:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">newScore</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Score</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">myBach</span><span class="o">.</span><span class="n">parts</span><span class="p">:</span>
+    <span class="n">flatPart</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">flat</span>
+    <span class="n">noTSPart</span> <span class="o">=</span> <span class="n">flatPart</span><span class="o">.</span><span class="n">getElementsNotOfClass</span><span class="p">(</span><span class="s">&#39;TimeSignature&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">tsList</span><span class="p">:</span>
+        <span class="n">noTSPart</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">ts</span><span class="p">)</span>
+    <span class="n">noTSPart</span><span class="o">.</span><span class="n">makeNotation</span><span class="p">(</span><span class="n">inPlace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">newScore</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">noTSPart</span><span class="p">)</span>
+
+<span class="n">newScore</span><span class="o">.</span><span class="n">measures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_39.png" src="../_images/_fig_39.png" />
+</div>
+<div class="section" id="working-with-beats-in-a-score">
+<h2>Working with Beats in a score<a class="headerlink" href="#working-with-beats-in-a-score" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s see what we can do with beats in our same Bach score. Let&#8217;s use
+the <tt class="docutils literal"><span class="pre">beatStr</span></tt> for &#8220;beat string&#8221; tag to get a nicely formatted measure
+of the beat for each note in the Soprano part:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">sopr</span> <span class="o">=</span> <span class="n">myBach</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="s">&#39;Soprano&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">measures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sopr</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">beatStr</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.note.Note B-&gt; 1
+ &lt;music21.note.Note B-&gt; 2
+ &lt;music21.note.Note F&gt; 3
+ &lt;music21.note.Note D&gt; 1
+ &lt;music21.note.Note C&gt; 2 1/2
+ &lt;music21.note.Note B-&gt; 3</pre>
+</div>
+<p>Instead of just printing that though, let&#8217;s put the beatStr as a lyric
+on each note:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sopr</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+    <span class="n">n</span><span class="o">.</span><span class="n">addLyric</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">beatStr</span><span class="p">)</span>
+
+<span class="n">sopr</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_421.png" src="../_images/_fig_421.png" />
+<p>Each note also has a particular <tt class="docutils literal"><span class="pre">beatStrength</span></tt> that shows how
+metrically accented <tt class="docutils literal"><span class="pre">music21</span></tt> thinks it is, with 1.0 being most
+accented and 0 being least.</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sopr</span><span class="o">.</span><span class="n">flat</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="o">.</span><span class="n">beatStrength</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.note.Note B-&gt; 1.0
+ &lt;music21.note.Note B-&gt; 0.5
+ &lt;music21.note.Note F&gt; 0.5
+ &lt;music21.note.Note D&gt; 1.0
+ &lt;music21.note.Note C&gt; 0.25
+ &lt;music21.note.Note B-&gt; 0.5</pre>
+</div>
+<p>This chapter gives a solid introduction to the types of things you can
+do with TimeSignatures and beats. We will return again to this topic
+later in the User&#8217;s Guide to show how beaming, accentuation, and other
+elements can be controlled through meter and <tt class="docutils literal"><span class="pre">TimeSignature</span></tt> objects.
+But time is not the only thing to have a signature. The next chapter
+will guide you through working with <tt class="docutils literal"><span class="pre">KeySignature</span></tt> and <tt class="docutils literal"><span class="pre">Key</span></tt>
+objects.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_17_derivations.html" title="User’s Guide: Chapter 17: Derivations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_11_corpusSearching.html" title="User’s Guide: Chapter 11: Corpus Searching"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

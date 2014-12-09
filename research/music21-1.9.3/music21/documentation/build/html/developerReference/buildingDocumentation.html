@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Building Documentation &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Developer Reference" href="index.html" />
+    <link rel="next" title="Using music21 with Git for Eclipse" href="usingGit.html" />
+    <link rel="prev" title="Documenting music21" href="documenting.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usingGit.html" title="Using music21 with Git for Eclipse"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="documenting.html" title="Documenting music21"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Developer Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="documenting.html"
+                        title="previous chapter">Documenting music21</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usingGit.html"
+                        title="next chapter">Using music21 with Git for Eclipse</a></p>
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../moduleReference/index.html">Module Reference</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="documenting.html">Documenting music21</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Building Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usingGit.html">Using music21 with Git for Eclipse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installIPython.html">Using <tt class="docutils literal"><span class="pre">music21</span></tt> with the iPython Notebook</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/developerReference/buildingDocumentation.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="building-documentation">
+<span id="buildingdocumentation"></span><h1>Building Documentation<a class="headerlink" href="#building-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Creating or updating the music21 documentation requires a few additional programs to be installed,
+most importantly one called Sphinx. Sphinx is a documentation generator that uses
+reStructuredText (rst) as its markup language and outputs HTML documents.</p>
+<p><strong>1) Installing setuptools</strong></p>
+<p>First, you’ll need setuptools if you don’t already have it. Setuptools is a package management
+software that makes it easy to download, build, upgrade, and uninstall Python packages.
+To download, go to <a class="reference external" href="http://pypi.python.org/pypi/setuptools">http://pypi.python.org/pypi/setuptools</a> and follow the instructions for whichever
+system you’re running. Be sure to get the version of setuptools that corresponds to the
+version of python you’re using as well (they’re all listed at <a class="reference external" href="http://pypi.python.org/pypi/setuptools#files">http://pypi.python.org/pypi/setuptools#files</a>).</p>
+<p>In the terminal, enter <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">sh</span> <span class="pre">setuptools-0.6c9-py2.4.egg</span></tt> (or rather, use the filename of
+the egg version that you downloaded). For Python 2.7, it’ll look like this:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">sh</span> <span class="pre">setuptools-0.6c11-py2.7.egg</span></tt></div></blockquote>
+<p>Note: depending on where you saved the .egg when you downloaded it, you may have to change the directory.</p>
+<p>You should be prompted for your password, and then you should see something resembling this:</p>
+<blockquote>
+<div><p><tt class="docutils literal"><span class="pre">Installing</span> <span class="pre">easy_install</span> <span class="pre">script</span> <span class="pre">to</span> <span class="pre">/Library/Frameworks/Python.framework/Versions/2.7/bin</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">Installing</span> <span class="pre">easy_install-2.7</span> <span class="pre">script</span> <span class="pre">to</span> <span class="pre">/Library/Frameworks/Python.framework/Versions/2.7/bin</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">Installed</span> <span class="pre">/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/setuptools-0.6c11-py2.7.egg</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">Processing</span> <span class="pre">dependencies</span> <span class="pre">for</span> <span class="pre">setuptools==0.6c11</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">Finished</span> <span class="pre">processing</span> <span class="pre">dependencies</span> <span class="pre">for</span> <span class="pre">setuptools==0.6c11</span></tt></p>
+</div></blockquote>
+<p>If you run python in the terminal, you should be able to <tt class="docutils literal"><span class="pre">import</span> <span class="pre">easy_install</span></tt> without any errors.</p>
+<p>(Additional instructions for installing and using setuptools/easy_install are available at:
+<a class="reference external" href="http://peak.telecommunity.com/DevCenter/EasyInstall?action=highlight&amp;value=EasyInstall">http://peak.telecommunity.com/DevCenter/EasyInstall?action=highlight&amp;value=EasyInstall</a>)</p>
+<p><strong>2) Downloading and Installing Sphinx</strong></p>
+<p>Once setuptools is installed, head to <a class="reference external" href="http://pypi.python.org/pypi/Sphinx/1.0.7">http://pypi.python.org/pypi/Sphinx/1.0.7</a> to download
+the Sphinx egg that corresponds to your version of Python.</p>
+<p>In the terminal, type in <tt class="docutils literal"><span class="pre">easy_install</span> <span class="pre">Sphinx-1.0.7-py2.7.egg</span></tt> (again, you may have to change
+the directory depending on where you saved the egg).</p>
+<p><strong>3) Running build.py</strong></p>
+<p>Once that finishes running, go to Eclipse and under the <tt class="docutils literal"><span class="pre">buildDoc</span></tt> folder of <tt class="docutils literal"><span class="pre">trunk</span></tt>, open <tt class="docutils literal"><span class="pre">build.py</span></tt> and run it.
+HTML documents should be generated and stored in <tt class="docutils literal"><span class="pre">music21/docs/html</span></tt>, which you can then open in your web browser.
+Static documentation goes in the <tt class="docutils literal"><span class="pre">buildDoc/staticDocs</span></tt> folder.  It is tested by running <tt class="docutils literal"><span class="pre">test/testDocumentation.py</span></tt>.</p>
+<p>To add a module to <tt class="docutils literal"><span class="pre">buildDoc</span></tt>, it needs to be listed twice, first at the top import then in the list of modules below.
+Keep all modules in alphabetical order.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usingGit.html" title="Using music21 with Git for Eclipse"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="documenting.html" title="Documenting music21"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Developer Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

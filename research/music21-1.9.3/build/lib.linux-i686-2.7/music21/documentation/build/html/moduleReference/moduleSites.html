@@ -1,0 +1,819 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.sites &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.spanner" href="moduleSpanner.html" />
+    <link rel="prev" title="music21.sieve" href="moduleSieve.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleSpanner.html" title="music21.spanner"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleSieve.html" title="music21.sieve"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleSieve.html"
+                        title="previous chapter">music21.sieve</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleSpanner.html"
+                        title="next chapter">music21.spanner</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.sites</a><ul>
+<li><a class="reference internal" href="#siteref">SiteRef</a></li>
+<li><a class="reference internal" href="#sites">Sites</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleSites.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-sites">
+<span id="modulesites"></span><h1>music21.sites<a class="headerlink" href="#music21-sites" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.sites"></span><p>sites.py &#8211; Objects for keeping track of relationships among Music21Objects</p>
+<div class="section" id="siteref">
+<h2>SiteRef<a class="headerlink" href="#siteref" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.sites.SiteRef">
+<em class="property">class </em><tt class="descclassname">music21.sites.</tt><tt class="descname">SiteRef</tt><a class="headerlink" href="#music21.sites.SiteRef" title="Permalink to this definition">¶</a></dt>
+<dd><p>a single Site (stream, container, parent, reference, etc.) stored inside the Sites object.</p>
+<p>A very simple object.</p>
+<p>This site would be stored in the .sites.siteDict for, say a note.Note, if it were in
+st at offset 20.0</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">st</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">st</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="s">&#39;hi&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">sites</span><span class="o">.</span><span class="n">SiteRef</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">classString</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">site</span> <span class="o">=</span> <span class="n">st</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mf">20.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">isDead</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>If you call s.site, you always get an object out, but internally, there&#8217;s a .siteWeakref that
+stores a weakref to the site.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">site</span>
+<span class="go">&lt;music21.stream.Stream hi&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">siteWeakref</span>
+<span class="go">&lt;weakref at 0x...; to &#39;Stream&#39; at 0x...&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.sites.SiteRef" title="music21.sites.SiteRef"><tt class="xref py py-class docutils literal"><span class="pre">SiteRef</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleCommon.html#music21.common.SlottedObject" title="music21.common.SlottedObject"><tt class="xref py py-class docutils literal"><span class="pre">SlottedObject</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.sites.SiteRef" title="music21.sites.SiteRef"><tt class="xref py py-class docutils literal"><span class="pre">SiteRef</span></tt></a> read/write properties</p>
+<dl class="attribute">
+<dt id="music21.sites.SiteRef.site">
+<tt class="descclassname">SiteRef.</tt><tt class="descname">site</tt><a class="headerlink" href="#music21.sites.SiteRef.site" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="sites">
+<h2>Sites<a class="headerlink" href="#sites" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.sites.Sites">
+<em class="property">class </em><tt class="descclassname">music21.sites.</tt><tt class="descname">Sites</tt><big>(</big><em>containedById=None</em><big>)</big><a class="headerlink" href="#music21.sites.Sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object, stored within a Music21Object, that stores (weak) references to
+a collection of objects that may be contextually relevant to this object.</p>
+<p>Some of these objects are locations (also called sites), or Streams that
+contain this object. In this case the Sites object stores an offset value,
+used for determining position within a Stream.</p>
+<p>All defined contexts are stored as dictionaries in a dictionary. The
+outermost dictionary stores objects.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.sites.Sites" title="music21.sites.Sites"><tt class="xref py py-class docutils literal"><span class="pre">Sites</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleCommon.html#music21.common.SlottedObject" title="music21.common.SlottedObject"><tt class="xref py py-class docutils literal"><span class="pre">SlottedObject</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.sites.Sites" title="music21.sites.Sites"><tt class="xref py py-class docutils literal"><span class="pre">Sites</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.sites.Sites.add">
+<tt class="descclassname">Sites.</tt><tt class="descname">add</tt><big>(</big><em>obj</em>, <em>offset=None</em>, <em>timeValue=None</em>, <em>idKey=None</em>, <em>classString=None</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a reference to the <cite>Sites</cite> collection for this object.</p>
+<p>N.B. &#8211; like all .sites operations, this is an advanced tool not for
+standard music21 usage.  Instead of:</p>
+<blockquote>
+<div>elObj.add(streamObj, 20.0)</div></blockquote>
+<p>use this command, which will take care of <cite>.sites.add</cite> as well as
+putting <cite>elObj</cite> in <cite>streamObj.elements</cite>:</p>
+<blockquote>
+<div>streamObj.insert(20.0, elObj)</div></blockquote>
+<p>If <cite>offset</cite> is <cite>None</cite>, then <cite>obj</cite> is interpreted as a Context (such as
+a temperament, a time period, etc.)</p>
+<p>If <cite>offset</cite> is not <cite>None</cite>, then <cite>obj</cite> is interpreted as location, i.e.,
+a <a class="reference internal" href="moduleStream.html#music21.stream.Stream" title="music21.stream.Stream"><tt class="xref py py-class docutils literal"><span class="pre">Stream</span></tt></a>.</p>
+<p><cite>offset</cite> can also be the term <cite>highestTime</cite> which is the highest
+available time in the obj (used for <tt class="docutils literal"><span class="pre">streamObj.append(el)</span></tt>)</p>
+<p>The <cite>timeValue</cite> argument is used to store the time as an int
+(in milliseconds after Jan 1, 1970) when this object was added to locations. 
+If set to <cite>None</cite>, then the current time is used.</p>
+<p><cite>idKey</cite> stores the id() of the obj.  If <cite>None</cite>, then id(obj) is used.</p>
+<p><cite>classString</cite> stores the class of obj.  If <cite>None</cite> then <cite>obj.classes[0]</cite>
+is used.</p>
+<p>TODO: Tests.  Including updates.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.clear">
+<tt class="descclassname">Sites.</tt><tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.sites.Sites.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all stored data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.get">
+<tt class="descclassname">Sites.</tt><tt class="descname">get</tt><big>(</big><em>locationsTrail=False</em>, <em>sortByCreationTime=False</em>, <em>priorityTarget=None</em>, <em>excludeNone=False</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get references; order, based on dictionary keys, is from most recently added to least recently added.</p>
+<p>The <cite>locationsTrail</cite> option forces locations to come after all other defined contexts.</p>
+<p>The <cite>sortByCreationTime</cite> option will sort objects by creation time,
+where most-recently assigned objects are returned first. Can be [False, other], [True, 1] or
+[&#8216;reverse&#8217;, -1]</p>
+<p>If <cite>priorityTarget</cite> is defined, this object will be placed first in the list of objects.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cObj</span><span class="p">,</span> <span class="mi">345</span><span class="p">)</span> <span class="c"># a locations</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="n">cObj</span><span class="p">,</span> <span class="n">aObj</span><span class="p">,</span> <span class="n">bObj</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">locationsTrail</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="n">aObj</span><span class="p">,</span> <span class="n">bObj</span><span class="p">,</span> <span class="n">cObj</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sortByCreationTime</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="n">bObj</span><span class="p">,</span> <span class="n">aObj</span><span class="p">,</span> <span class="n">cObj</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getAllByClass">
+<tt class="descclassname">Sites.</tt><tt class="descname">getAllByClass</tt><big>(</big><em>className</em>, <em>found=None</em>, <em>idFound=None</em>, <em>memo=None</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.getAllByClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all known references of a given class found in any association
+with this Sites object.</p>
+<p>This will recursively search the defined contexts of existing defined
+contexts, and return a list of all objects that match the given class.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mocker</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cObj</span> <span class="o">=</span> <span class="n">Mocker</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">getAllByClass</span><span class="p">(</span><span class="n">Mock</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="n">aObj</span><span class="p">,</span> <span class="n">bObj</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getAttrByName">
+<tt class="descclassname">Sites.</tt><tt class="descname">getAttrByName</tt><big>(</big><em>attrName</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.getAttrByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an attribute name, search all objects and find the first that
+matches this attribute name; then return a reference to this attribute.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">attr1</span> <span class="o">=</span> <span class="mi">234</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aObj</span><span class="o">.</span><span class="n">attr1</span> <span class="o">=</span> <span class="mi">234</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bObj</span><span class="o">.</span><span class="n">attr1</span> <span class="o">=</span> <span class="mi">98</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">aSites</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">getAttrByName</span><span class="p">(</span><span class="s">&#39;attr1&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">234</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">aObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">getAttrByName</span><span class="p">(</span><span class="s">&#39;attr1&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">98</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getById">
+<tt class="descclassname">Sites.</tt><tt class="descname">getById</tt><big>(</big><em>siteId</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.getById" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the object specified by an id.
+Used for testing and debugging.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getObjByClass">
+<tt class="descclassname">Sites.</tt><tt class="descname">getObjByClass</tt><big>(</big><em>className</em>, <em>serialReverseSearch=True</em>, <em>callerFirst=None</em>, <em>sortByCreationTime=False</em>, <em>prioritizeActiveSite=False</em>, <em>priorityTarget=None</em>, <em>getElementMethod='getElementAtOrBefore'</em>, <em>memo=None</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.getObjByClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the most recently added reference based on className.  Class
+name can be a string or the class name.</p>
+<p>This will recursively search the sitesDicts of objects in Site objects in 
+the siteDict.</p>
+<p>The <cite>callerFirst</cite> parameters is simply used to pass a reference of the
+first caller; this is necessary if we are looking within a Stream for a
+flat offset position.</p>
+<p>If <cite>priorityTarget</cite> is specified, this location will be searched first.
+The <cite>prioritizeActiveSite</cite> is pased to to any recursively called
+getContextByClass() calls.</p>
+<p>The <cite>getElementMethod</cite> is a string that selects which Stream method is
+used to get elements for searching with getElementsByClass() calls.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># we get the most recently added object first</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">getObjByClass</span><span class="p">(</span><span class="s">&#39;Mock&#39;</span><span class="p">,</span> <span class="n">sortByCreationTime</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">==</span> <span class="n">bObj</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">getObjByClass</span><span class="p">(</span><span class="n">Mock</span><span class="p">,</span> <span class="n">sortByCreationTime</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">==</span> <span class="n">bObj</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getOffsetByObjectMatch">
+<tt class="descclassname">Sites.</tt><tt class="descname">getOffsetByObjectMatch</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.getOffsetByObjectMatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a given object, return the offset using a direct object match.  The
+stored id value is not used; instead, the id() of both the stored
+object reference and the supplied object is used.</p>
+<p>This should be replaced by getOffsetBySite(strictDeadCheck = True)...</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bSite</span><span class="p">,</span> <span class="mf">121.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">getOffsetByObjectMatch</span><span class="p">(</span><span class="n">aSite</span><span class="p">)</span>
+<span class="go">23</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">getOffsetByObjectMatch</span><span class="p">(</span><span class="n">bSite</span><span class="p">)</span>
+<span class="go">121.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getOffsetBySite">
+<tt class="descclassname">Sites.</tt><tt class="descname">getOffsetBySite</tt><big>(</big><em>siteObj</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.getOffsetBySite" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a given site return this Sites&#8217;s offset in it. The None site is
+permitted. The id() of the site is used to find the offset.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bSite</span><span class="p">,</span> <span class="mf">121.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">getOffsetBySite</span><span class="p">(</span><span class="n">aSite</span><span class="p">)</span>
+<span class="go">23</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">getOffsetBySite</span><span class="p">(</span><span class="n">bSite</span><span class="p">)</span>
+<span class="go">121.5</span>
+</pre></div>
+</div>
+<p>The object might not actually be in the _elements for the site object, because
+it may be a deep copy, etc. but the number is still returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getOffsetBySiteId">
+<tt class="descclassname">Sites.</tt><tt class="descname">getOffsetBySiteId</tt><big>(</big><em>idKey</em>, <em>strictDeadCheck=False</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.getOffsetBySiteId" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main method for getting an offset from a location key.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cSite</span><span class="p">)</span> <span class="c"># a context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bSite</span><span class="p">,</span> <span class="mi">234</span><span class="p">)</span> <span class="c"># can add at same offset or a different one</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dSite</span><span class="p">)</span> <span class="c"># a context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">getOffsetBySiteId</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">bSite</span><span class="p">))</span>
+<span class="go">234</span>
+</pre></div>
+</div>
+<p>If strictDeadCheck is False (default) we can still retrieve the context
+from a dead weakref.  This is necessary to get the offset from an
+iterated Stream often.  Eventually, this should become True &#8211; but too
+many errors for now.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">idBSite</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">bSite</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span><span class="p">(</span><span class="n">bSite</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">siteDict</span><span class="p">[</span><span class="n">idBSite</span><span class="p">]</span><span class="o">.</span><span class="n">siteWeakref</span>
+<span class="go">&lt;weakref at 0x...; dead&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">siteDict</span><span class="p">[</span><span class="n">idBSite</span><span class="p">]</span><span class="o">.</span><span class="n">siteWeakref</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">siteDict</span><span class="p">[</span><span class="n">idBSite</span><span class="p">]</span><span class="o">.</span><span class="n">site</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">getOffsetBySiteId</span><span class="p">(</span><span class="n">idBSite</span><span class="p">,</span> <span class="n">strictDeadCheck</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span> <span class="c"># default</span>
+<span class="go">234</span>
+</pre></div>
+</div>
+<p>With this, you&#8217;ll get an exception:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">getOffsetBySiteId</span><span class="p">(</span><span class="n">idBSite</span><span class="p">,</span> <span class="n">strictDeadCheck</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">SitesException</span>: <span class="n">Could not find the object with id ... in the Site marked with idKey ... (was there, now site is dead).</span>
+<span class="go">object &lt;music21.sites.Sites object at 0x...&gt;, sitesDict: {...}</span>
+<span class="go">containedById = ...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getOffsets">
+<tt class="descclassname">Sites.</tt><tt class="descname">getOffsets</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.sites.Sites.getOffsets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all offsets.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cSite</span><span class="p">)</span> <span class="c"># a context -- no offset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bSite</span><span class="p">,</span> <span class="mi">234</span><span class="p">)</span> <span class="c"># can add at same offset or another</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dSite</span><span class="p">)</span> <span class="c"># a context -- no offset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">getOffsets</span><span class="p">()</span>
+<span class="go">[0, 234]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getSiteByOffset">
+<tt class="descclassname">Sites.</tt><tt class="descname">getSiteByOffset</tt><big>(</big><em>offset</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.getSiteByOffset" title="Permalink to this definition">¶</a></dt>
+<dd><p>For a given offset return the site that fits it</p>
+<p>More than one Site may have the same offset; this at one point returned
+the last site added by sorting time, but now we use a dict, so there&#8217;s
+no guarantee that the one you want will be there &#8211; need orderedDicts!</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sitesObj</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bSite</span><span class="p">,</span> <span class="mf">23121.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="ow">is</span> <span class="n">sitesObj</span><span class="o">.</span><span class="n">getSiteByOffset</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getSiteCount">
+<tt class="descclassname">Sites.</tt><tt class="descname">getSiteCount</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.sites.Sites.getSiteCount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of non-dead sites, excluding the None site.  This does not
+unwrap weakrefs for performance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getSiteIds">
+<tt class="descclassname">Sites.</tt><tt class="descname">getSiteIds</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.sites.Sites.getSiteIds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all site Ids.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bSite</span><span class="p">)</span> <span class="c"># a context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">getSiteIds</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">aSite</span><span class="p">)]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getSites">
+<tt class="descclassname">Sites.</tt><tt class="descname">getSites</tt><big>(</big><em>idExclude=None</em>, <em>excludeNone=False</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.getSites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all Site objects in .siteDict that are locations. 
+Note that this unwraps all sites from weakrefs and is thus an expensive operation.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aObj</span><span class="p">,</span> <span class="mi">234</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bObj</span><span class="p">,</span> <span class="mi">3000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">aSites</span><span class="o">.</span><span class="n">_locationKeys</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">aSites</span><span class="o">.</span><span class="n">getSites</span><span class="p">())</span> <span class="o">==</span> <span class="mi">2</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.getSitesByClass">
+<tt class="descclassname">Sites.</tt><tt class="descname">getSitesByClass</tt><big>(</big><em>className</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.getSitesByClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of unwrapped site from siteDict.site [SiteRef.site] (generally a Stream) 
+that matches the provided class.</p>
+<p>Input can be either a Class object or a string</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">stream</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cObj</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aObj</span><span class="p">,</span> <span class="mi">234</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bObj</span><span class="p">,</span> <span class="mi">3000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cObj</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">getSitesByClass</span><span class="p">(</span><span class="n">Mock</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="n">aObj</span><span class="p">,</span> <span class="n">bObj</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">getSitesByClass</span><span class="p">(</span><span class="s">&#39;Stream&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="n">cObj</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.hasSiteId">
+<tt class="descclassname">Sites.</tt><tt class="descname">hasSiteId</tt><big>(</big><em>siteId</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.hasSiteId" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True or False if this Sites object already has this site id
+defined as a location</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bSite</span><span class="p">)</span> <span class="c"># a context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">hasSiteId</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">aSite</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dc</span><span class="o">.</span><span class="n">hasSiteId</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">bSite</span><span class="p">))</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.hasSpannerSite">
+<tt class="descclassname">Sites.</tt><tt class="descname">hasSpannerSite</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.sites.Sites.hasSpannerSite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if this object is found in any Spanner. This is determined
+by looking for a SpannerStorage Stream class as a Site.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.hasVariantSite">
+<tt class="descclassname">Sites.</tt><tt class="descname">hasVariantSite</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.sites.Sites.hasVariantSite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if this object is found in any Variant. This is determined
+by looking for a VariantStorage Stream class as a Site.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.isSite">
+<tt class="descclassname">Sites.</tt><tt class="descname">isSite</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.isSite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an object, determine if it is an object in a Site stored in this 
+Sites&#8217;s siteDict. This
+will return False if the object is simply a context and not a location.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bSite</span><span class="p">)</span> <span class="c"># a context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">isSite</span><span class="p">(</span><span class="n">aSite</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">isSite</span><span class="p">(</span><span class="n">bSite</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.purgeLocations">
+<tt class="descclassname">Sites.</tt><tt class="descname">purgeLocations</tt><big>(</big><em>rescanIsDead=False</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.purgeLocations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean all locations that refer to objects that no longer exist.</p>
+<p>The <cite>removeOrphanedSites</cite> option removes sites that may have been the
+result of deepcopy: the element has the site, but the site does not
+have the element. This results b/c Sites are shallow-copied, and then
+elements are re-added.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cSite</span><span class="p">)</span> <span class="c"># a context</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">aSite</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">aLocations</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">purgeLocations</span><span class="p">(</span><span class="n">rescanIsDead</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">aLocations</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.remove">
+<tt class="descclassname">Sites.</tt><tt class="descname">remove</tt><big>(</big><em>site</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the object (a context or location site) specified from Sites.
+Object provided can be a location site (i.e., a Stream) or a pure
+context (like a Temperament).</p>
+<p>N.B. &#8211; like all .sites operations, this is an advanced tool not for
+standard music21 usage.  Instead of:</p>
+<blockquote>
+<div>elObj.remove(streamObj)</div></blockquote>
+<p>use this command, which will take care of <cite>.sites.remove</cite> as well as
+removing <cite>elObj</cite> from <cite>streamObj.elements</cite>:</p>
+<blockquote>
+<div>streamObj.remove(elObj)</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span> <span class="o">=</span> <span class="n">sites</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">aSites</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bSite</span><span class="p">,</span> <span class="mi">233</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">aSites</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">cSite</span><span class="p">,</span> <span class="mi">232223</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">aSites</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">aSite</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">aSites</span><span class="p">)</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.removeById">
+<tt class="descclassname">Sites.</tt><tt class="descname">removeById</tt><big>(</big><em>idKey</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.removeById" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a site entry by id key,
+which is id() of the object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.setAttrByName">
+<tt class="descclassname">Sites.</tt><tt class="descname">setAttrByName</tt><big>(</big><em>attrName</em>, <em>value</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.setAttrByName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an attribute name, search all objects and find the first that
+matches this attribute name; then return a reference to this attribute.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">attr1</span> <span class="o">=</span> <span class="mi">234</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bObj</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bObj</span><span class="o">.</span><span class="n">attr1</span> <span class="o">=</span> <span class="mi">98</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bObj</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">setAttrByName</span><span class="p">(</span><span class="s">&#39;attr1&#39;</span><span class="p">,</span> <span class="s">&#39;test&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSites</span><span class="o">.</span><span class="n">getAttrByName</span><span class="p">(</span><span class="s">&#39;attr1&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;test&#39;</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.setOffsetBySite">
+<tt class="descclassname">Sites.</tt><tt class="descname">setOffsetBySite</tt><big>(</big><em>site</em>, <em>value</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.setOffsetBySite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the offset of the site specified.  Note that this can also
+be done with add, but the difference is that if the site is not in
+Sites, it will raise an exception.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">music21</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Mock</span><span class="p">(</span><span class="n">music21</span><span class="o">.</span><span class="n">Music21Object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cSite</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span> <span class="o">=</span> <span class="n">music21</span><span class="o">.</span><span class="n">Sites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bSite</span><span class="p">,</span> <span class="mf">121.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">setOffsetBySite</span><span class="p">(</span><span class="n">aSite</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">getOffsetBySite</span><span class="p">(</span><span class="n">aSite</span><span class="p">)</span>
+<span class="go">20</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aLocations</span><span class="o">.</span><span class="n">setOffsetBySite</span><span class="p">(</span><span class="n">cSite</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">SitesException</span>: <span class="n">an entry for this object (&lt;...Mock object at 0x...&gt;) is not stored in Sites</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.sites.Sites.setOffsetBySiteId">
+<tt class="descclassname">Sites.</tt><tt class="descname">setOffsetBySiteId</tt><big>(</big><em>siteId</em>, <em>value</em><big>)</big><a class="headerlink" href="#music21.sites.Sites.setOffsetBySiteId" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set an offset by siteId. This assumes that the site is valid, is best
+used for advanced, performance critical usage only.</p>
+<p>The <cite>siteId</cite> parameter can be None.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleSpanner.html" title="music21.spanner"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleSieve.html" title="music21.sieve"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

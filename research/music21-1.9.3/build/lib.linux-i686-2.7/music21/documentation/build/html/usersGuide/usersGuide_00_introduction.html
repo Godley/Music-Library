@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User’s Guide: Introduction &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Users Guide" href="index.html" />
+    <link rel="next" title="User’s Guide, Chapter 1: Installing and Getting Started with music21" href="usersGuide_01_installing.html" />
+    <link rel="prev" title="User’s Guide, Table of Contents" href="usersGuide_99_Table_of_Contents.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_01_installing.html" title="User’s Guide, Chapter 1: Installing and Getting Started with music21"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_99_Table_of_Contents.html" title="User’s Guide, Table of Contents"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usersGuide_99_Table_of_Contents.html"
+                        title="previous chapter">User&#8217;s Guide, Table of Contents</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usersGuide_01_installing.html"
+                        title="next chapter">User&#8217;s Guide, Chapter 1: Installing and Getting Started with <tt class="docutils literal"><span class="pre">music21</span></tt></a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">User&#8217;s Guide: Introduction</a><ul>
+<li><a class="reference internal" href="#what-is-music21">What is <tt class="docutils literal"><span class="pre">music21</span></tt>?</a></li>
+<li><a class="reference internal" href="#simple-solutions-with-small-scripts">Simple solutions with small scripts</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Users Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_99_Table_of_Contents.html">User&#8217;s Guide, Table of Contents</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">User&#8217;s Guide: Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_01_installing.html">User&#8217;s Guide, Chapter 1: Installing and Getting Started with <tt class="docutils literal"><span class="pre">music21</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_02_notes.html">User&#8217;s Guide, Chapter 2: Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_03_pitches.html">User&#8217;s Guide, Chapter 3: Pitches, Durations, and Notes again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_04_stream1.html">User&#8217;s Guide, Chapter 4: Lists, Streams (I) and Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_05_listsOfLists.html">User&#8217;s Guide, Chapter 5: Lists of Lists, Functions, and Recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_06_stream2.html">User&#8217;s Guide, Chapter 6: Streams (II): Hierarchies, Recursion, and Flattening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_07_chords.html">User&#8217;s Guide, Chapter 7: Chords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_09_chordify.html">User&#8217;s Guide: Chapter 9: Chordify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_11_corpusSearching.html">User&#8217;s Guide: Chapter 11: Corpus Searching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_14_timeSignatures.html">User&#8217;s Guide: Chapter 14: Time Signatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_17_derivations.html">User&#8217;s Guide: Chapter 17: Derivations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_54_extendingConverter.html">User&#8217;s Guide: Chapter 54: Extending Converter with New Formats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../moduleReference/index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usersGuide/usersGuide_00_introduction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="user-s-guide-introduction">
+<h1>User&#8217;s Guide: Introduction<a class="headerlink" href="#user-s-guide-introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-music21">
+<h2>What is <tt class="docutils literal"><span class="pre">music21</span></tt>?<a class="headerlink" href="#what-is-music21" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">Music21</span></tt> is a toolkit for computer-aided musicology.</p>
+<p>Applications of this toolkit include studying scores and music history
+with computers, music informatics and music information retrieval (MIR),
+music theory analysis and pedagogy, creating musical examples, and music
+composition, both algorithmic and directly specified.</p>
+<p>One of <tt class="docutils literal"><span class="pre">music21</span></tt>&#8216;s mottos is &#8220;Listen Faster.&#8221; With the toolkit you
+should be able to find interesting moments and get a sense of the
+overall profile of a piece or a repertory of pieces. We hope that with
+the computer you&#8217;ll have more time for listening and playing for
+enjoyment and use less of your time listening for work.</p>
+<p><tt class="docutils literal"><span class="pre">Music21</span></tt> is newly created from the ground up but has learned from
+previous approaches and traditions of computational musicology. (See
+<a class="reference internal" href="../about/about.html#about"><em>Authors, Acknowledgments, Contributing, and Licensing</em></a> for more information on the authors and the background of
+this project.) It is written in Python, a simple but powerful
+computer-programming language that comes with Macs and Unix and is
+easily installable on Windows. We have tried to make using <tt class="docutils literal"><span class="pre">music21</span></tt>
+as simple as possible. Some applications of <tt class="docutils literal"><span class="pre">music21</span></tt>, especially web
+applications, can be used without any knowledge of computer programming.
+Most others will require a bit of familiarity with Python and
+programming techniques. The point of <tt class="docutils literal"><span class="pre">music21</span></tt> and this documentation
+is to make learning and using these techniques as painless as possible.
+If you&#8217;ve never programmed before, but your research has required you to
+learn to use Excel or a database, then learning to study music with
+<tt class="docutils literal"><span class="pre">music21</span></tt> is not out of your reach.</p>
+<p>The <em>21</em> in <tt class="docutils literal"><span class="pre">music21</span></tt> refers to the traditional MIT course number for
+music and some other humanities departments &#8211; a nod to the place that
+helped us bring the toolkit from its earliest roots (at Harvard, Smith,
+and Mount Holyoke Colleges) to a mature stable release.</p>
+</div>
+<div class="section" id="simple-solutions-with-small-scripts">
+<h2>Simple solutions with small scripts<a class="headerlink" href="#simple-solutions-with-small-scripts" title="Permalink to this headline">¶</a></h2>
+<p>What can you do with <tt class="docutils literal"><span class="pre">music21</span></tt>? You can display short scores in
+musical example easily. Load <tt class="docutils literal"><span class="pre">music21</span></tt> with <tt class="docutils literal"><span class="pre">from</span> <span class="pre">music21</span> <span class="pre">import</span> <span class="pre">*</span></tt>
+and then create a score example faster than you ever could before:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">converter</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&quot;tinynotation: 3/4 c4 d8 f g16 a g f#&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_011.png" src="../_images/_fig_011.png" />
+<p>Print the twelve-tone matrix for a tone row:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">schoenberg4thQuartet</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+<span class="k">print</span> <span class="n">serial</span><span class="o">.</span><span class="n">rowToMatrix</span><span class="p">(</span><span class="n">schoenberg4thQuartet</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre>   0 11  7  8  3  1  2 10  6  5  4  9
+   1  0  8  9  4  2  3 11  7  6  5 10
+   5  4  0  1  8  6  7  3 11 10  9  2
+   4  3 11  0  7  5  6  2 10  9  8  1
+   9  8  4  5  0 10 11  7  3  2  1  6
+  11 10  6  7  2  0  1  9  5  4  3  8
+  10  9  5  6  1 11  0  8  4  3  2  7
+   2  1  9 10  5  3  4  0  8  7  6 11
+   6  5  1  2  9  7  8  4  0 11 10  3
+   7  6  2  3 10  8  9  5  1  0 11  4
+   8  7  3  4 11  9 10  6  2  1  0  5
+   3  2 10 11  6  4  5  1  9  8  7  0</pre>
+</div>
+<p>Get a quick graph showing how common various pitches are in a fourteenth
+century piece</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">dicant</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;trecento/Fava_Dicant_nunc_iudei&#39;</span><span class="p">)</span>
+<span class="n">dicant</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s">&#39;histogram&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_041.png" src="../_images/_fig_041.png" />
+<p>Prepare an incipit index (thematic catalog) of every Bach chorale that
+is in 3/4: (we&#8217;ll just look at the first 25 here)</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">catalog</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Opus</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">workName</span> <span class="ow">in</span> <span class="n">corpus</span><span class="o">.</span><span class="n">getBachChorales</span><span class="p">()[:</span><span class="mi">25</span><span class="p">]:</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">workName</span><span class="p">)</span>
+    <span class="n">firstTimeSignature</span> <span class="o">=</span> <span class="n">work</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getTimeSignatures</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">firstTimeSignature</span><span class="o">.</span><span class="n">ratioString</span> <span class="o">==</span> <span class="s">&#39;3/4&#39;</span><span class="p">:</span>
+        <span class="n">catalog</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">work</span><span class="o">.</span><span class="n">measures</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">catalog</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/_fig_061.png" src="../_images/_fig_061.png" />
+<p>We&#8217;ll show how to do this and much more in the next chapters. If you&#8217;re
+ready to give it a shot, jump in to the next chapter:
+<a class="reference internal" href="usersGuide_01_installing.html#usersguide-01-installing"><em>Installing music21</em></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_01_installing.html" title="User’s Guide, Chapter 1: Installing and Getting Started with music21"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_99_Table_of_Contents.html" title="User’s Guide, Table of Contents"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

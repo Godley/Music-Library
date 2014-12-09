@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.braille.text &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.braille.translate" href="moduleBrailleTranslate.html" />
+    <link rel="prev" title="music21.braille.segment" href="moduleBrailleSegment.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleBrailleTranslate.html" title="music21.braille.translate"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleBrailleSegment.html" title="music21.braille.segment"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleBrailleSegment.html"
+                        title="previous chapter">music21.braille.segment</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleBrailleTranslate.html"
+                        title="next chapter">music21.braille.translate</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.braille.text</a><ul>
+<li><a class="reference internal" href="#braillekeyboard">BrailleKeyboard</a></li>
+<li><a class="reference internal" href="#brailletext">BrailleText</a></li>
+<li><a class="reference internal" href="#brailletextline">BrailleTextLine</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleBrailleText.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-braille-text">
+<span id="modulebrailletext"></span><h1>music21.braille.text<a class="headerlink" href="#music21-braille-text" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.braille.text"></span><div class="section" id="braillekeyboard">
+<h2>BrailleKeyboard<a class="headerlink" href="#braillekeyboard" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.braille.text.BrailleKeyboard">
+<em class="property">class </em><tt class="descclassname">music21.braille.text.</tt><tt class="descname">BrailleKeyboard</tt><big>(</big><em>lineLength=40</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleKeyboard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.braille.text.BrailleKeyboard" title="music21.braille.text.BrailleKeyboard"><tt class="xref py py-class docutils literal"><span class="pre">BrailleKeyboard</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.braille.text.BrailleKeyboard.addElement">
+<tt class="descclassname">BrailleKeyboard.</tt><tt class="descname">addElement</tt><big>(</big><em>**elementKeywords</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleKeyboard.addElement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleKeyboard.addHeading">
+<tt class="descclassname">BrailleKeyboard.</tt><tt class="descname">addHeading</tt><big>(</big><em>heading</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleKeyboard.addHeading" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleKeyboard.addNoteGroupings">
+<tt class="descclassname">BrailleKeyboard.</tt><tt class="descname">addNoteGroupings</tt><big>(</big><em>measureNumber</em>, <em>noteGroupingR</em>, <em>noteGroupingL</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleKeyboard.addNoteGroupings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleKeyboard.makeNewLine">
+<tt class="descclassname">BrailleKeyboard.</tt><tt class="descname">makeNewLine</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleKeyboard.makeNewLine" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleKeyboard.makeNewLines">
+<tt class="descclassname">BrailleKeyboard.</tt><tt class="descname">makeNewLines</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleKeyboard.makeNewLines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleKeyboard.recenterHeadings">
+<tt class="descclassname">BrailleKeyboard.</tt><tt class="descname">recenterHeadings</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleKeyboard.recenterHeadings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="brailletext">
+<h2>BrailleText<a class="headerlink" href="#brailletext" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.braille.text.BrailleText">
+<em class="property">class </em><tt class="descclassname">music21.braille.text.</tt><tt class="descname">BrailleText</tt><big>(</big><em>lineLength=40</em>, <em>showHand=None</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleText" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object that handles all the formatting associated with braille music notation.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.braille.text.BrailleText" title="music21.braille.text.BrailleText"><tt class="xref py py-class docutils literal"><span class="pre">BrailleText</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.braille.text.BrailleText.addElement">
+<tt class="descclassname">BrailleText.</tt><tt class="descname">addElement</tt><big>(</big><em>**elementKeywords</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleText.addElement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleText.addHeading">
+<tt class="descclassname">BrailleText.</tt><tt class="descname">addHeading</tt><big>(</big><em>heading</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleText.addHeading" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleText.addInaccord">
+<tt class="descclassname">BrailleText.</tt><tt class="descname">addInaccord</tt><big>(</big><em>inaccord</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleText.addInaccord" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleText.addLongExpression">
+<tt class="descclassname">BrailleText.</tt><tt class="descname">addLongExpression</tt><big>(</big><em>longExpr</em>, <em>withHyphen=False</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleText.addLongExpression" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleText.addMeasureNumber">
+<tt class="descclassname">BrailleText.</tt><tt class="descname">addMeasureNumber</tt><big>(</big><em>measureNumber</em>, <em>withHyphen=False</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleText.addMeasureNumber" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleText.addNoteGrouping">
+<tt class="descclassname">BrailleText.</tt><tt class="descname">addNoteGrouping</tt><big>(</big><em>noteGrouping</em>, <em>showLeadingOctave=False</em>, <em>withHyphen=False</em>, <em>forceHyphen=False</em>, <em>forceNewline=False</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleText.addNoteGrouping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleText.addSignatures">
+<tt class="descclassname">BrailleText.</tt><tt class="descname">addSignatures</tt><big>(</big><em>signatures</em>, <em>withHyphen=False</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleText.addSignatures" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleText.makeNewLine">
+<tt class="descclassname">BrailleText.</tt><tt class="descname">makeNewLine</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleText.makeNewLine" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleText.recenterHeadings">
+<tt class="descclassname">BrailleText.</tt><tt class="descname">recenterHeadings</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleText.recenterHeadings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="brailletextline">
+<h2>BrailleTextLine<a class="headerlink" href="#brailletextline" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.braille.text.BrailleTextLine">
+<em class="property">class </em><tt class="descclassname">music21.braille.text.</tt><tt class="descname">BrailleTextLine</tt><big>(</big><em>lineLength</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleTextLine" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.braille.text.BrailleTextLine" title="music21.braille.text.BrailleTextLine"><tt class="xref py py-class docutils literal"><span class="pre">BrailleTextLine</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.braille.text.BrailleTextLine.append">
+<tt class="descclassname">BrailleTextLine.</tt><tt class="descname">append</tt><big>(</big><em>text</em>, <em>addSpace=True</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleTextLine.append" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleTextLine.canAppend">
+<tt class="descclassname">BrailleTextLine.</tt><tt class="descname">canAppend</tt><big>(</big><em>text</em>, <em>addSpace=True</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleTextLine.canAppend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleTextLine.canInsert">
+<tt class="descclassname">BrailleTextLine.</tt><tt class="descname">canInsert</tt><big>(</big><em>textLocation</em>, <em>text</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleTextLine.canInsert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.braille.text.BrailleTextLine.insert">
+<tt class="descclassname">BrailleTextLine.</tt><tt class="descname">insert</tt><big>(</big><em>textLocation</em>, <em>text</em><big>)</big><a class="headerlink" href="#music21.braille.text.BrailleTextLine.insert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleBrailleTranslate.html" title="music21.braille.translate"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleBrailleSegment.html" title="music21.braille.segment"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

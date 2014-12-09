@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.analysis.search &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.analysis.windowed" href="moduleAnalysisWindowed.html" />
+    <link rel="prev" title="music21.analysis.reduction" href="moduleAnalysisReduction.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleAnalysisWindowed.html" title="music21.analysis.windowed"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleAnalysisReduction.html" title="music21.analysis.reduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleAnalysisReduction.html"
+                        title="previous chapter">music21.analysis.reduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleAnalysisWindowed.html"
+                        title="next chapter">music21.analysis.windowed</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.analysis.search</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleAnalysisSearch.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-analysis-search">
+<span id="moduleanalysissearch"></span><h1>music21.analysis.search<a class="headerlink" href="#music21-analysis-search" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.analysis.search"></span><div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="music21.analysis.search.findConsecutiveScale">
+<tt class="descclassname">music21.analysis.search.</tt><tt class="descname">findConsecutiveScale</tt><big>(</big><em>source</em>, <em>targetScale</em>, <em>degreesRequired=5</em>, <em>stepSize=1</em>, <em>comparisonAttribute='name'</em>, <em>repeatsAllowed=True</em>, <em>restsAllowed=False</em><big>)</big><a class="headerlink" href="#music21.analysis.search.findConsecutiveScale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a pitch source and a concrete scale, return references to all elements found that represent consecutive scale segments in one direction.</p>
+<p>The <cite>targetScale</cite> is a concrete scale instance.</p>
+<p>The <cite>degreesRequired</cite> specifies how many consecutive scale degrees are required for grouping. Note that if more are found, the will continue to be gathered until a break is found.</p>
+<p>The <cite>stepSize</cite> determines what scale step size is examined</p>
+<p>The <cite>comparisonAttribute</cite> is the Pitch class attribute used for all pitch comparisons; this can be used to force enharmonic comparison (&#8216;name&#8217;), pitch space comparison (&#8216;nameWithOctave&#8217;) or permit pitch class matching (&#8216;pitchClass&#8217;).</p>
+<p>If <cite>repeatsAllowed</cite> is True, repeated Pitches will be counted as part of the consecutive segment.</p>
+<p>If <cite>restsAllowed</cite> is True, rests will not interrupt a consecutive segment.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleAnalysisWindowed.html" title="music21.analysis.windowed"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleAnalysisReduction.html" title="music21.analysis.reduction"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

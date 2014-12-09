@@ -1,0 +1,1196 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.converter.subConverters &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.corpus" href="moduleCorpus.html" />
+    <link rel="prev" title="music21.converter" href="moduleConverter.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleCorpus.html" title="music21.corpus"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleConverter.html" title="music21.converter"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleConverter.html"
+                        title="previous chapter">music21.converter</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleCorpus.html"
+                        title="next chapter">music21.corpus</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.converter.subConverters</a><ul>
+<li><a class="reference internal" href="#converterabc">ConverterABC</a></li>
+<li><a class="reference internal" href="#converterbraille">ConverterBraille</a></li>
+<li><a class="reference internal" href="#convertercapella">ConverterCapella</a></li>
+<li><a class="reference internal" href="#converterhumdrum">ConverterHumdrum</a></li>
+<li><a class="reference internal" href="#converteripython">ConverterIPython</a></li>
+<li><a class="reference internal" href="#converterlilypond">ConverterLilypond</a></li>
+<li><a class="reference internal" href="#convertermidi">ConverterMidi</a></li>
+<li><a class="reference internal" href="#convertermusedata">ConverterMuseData</a></li>
+<li><a class="reference internal" href="#convertermusicxml">ConverterMusicXML</a></li>
+<li><a class="reference internal" href="#converternoteworthy">ConverterNoteworthy</a></li>
+<li><a class="reference internal" href="#converternoteworthybinary">ConverterNoteworthyBinary</a></li>
+<li><a class="reference internal" href="#converterromantext">ConverterRomanText</a></li>
+<li><a class="reference internal" href="#converterscala">ConverterScala</a></li>
+<li><a class="reference internal" href="#convertertext">ConverterText</a></li>
+<li><a class="reference internal" href="#convertertextline">ConverterTextLine</a></li>
+<li><a class="reference internal" href="#convertertinynotation">ConverterTinyNotation</a></li>
+<li><a class="reference internal" href="#convertervexflow">ConverterVexflow</a></li>
+<li><a class="reference internal" href="#subconverter">SubConverter</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleConverterSubConverters.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-converter-subconverters">
+<span id="moduleconvertersubconverters"></span><h1>music21.converter.subConverters<a class="headerlink" href="#music21-converter-subconverters" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.converter.subConverters"></span><p>Each subconverter should inherit from the base SubConverter object and have at least a 
+parseData method that sets self.stream</p>
+<div class="section" id="converterabc">
+<h2>ConverterABC<a class="headerlink" href="#converterabc" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterABC">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterABC</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterABC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple class wrapper for parsing ABC.</p>
+<p>Input only</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterABC" title="music21.converter.subConverters.ConverterABC"><tt class="xref py py-class docutils literal"><span class="pre">ConverterABC</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterABC" title="music21.converter.subConverters.ConverterABC"><tt class="xref py py-class docutils literal"><span class="pre">ConverterABC</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterABC" title="music21.converter.subConverters.ConverterABC"><tt class="xref py py-class docutils literal"><span class="pre">ConverterABC</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterABC.parseData">
+<tt class="descclassname">ConverterABC.</tt><tt class="descname">parseData</tt><big>(</big><em>strData</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterABC.parseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get ABC data, as token list, from a string representation.
+If more than one work is defined in the ABC data, a
+<a class="reference internal" href="moduleStream.html#music21.stream.Opus" title="music21.stream.Opus"><tt class="xref py py-class docutils literal"><span class="pre">Opus</span></tt></a> object will be returned;
+otherwise, a <a class="reference internal" href="moduleStream.html#music21.stream.Score" title="music21.stream.Score"><tt class="xref py py-class docutils literal"><span class="pre">Score</span></tt></a> is returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterABC.parseFile">
+<tt class="descclassname">ConverterABC.</tt><tt class="descname">parseFile</tt><big>(</big><em>fp</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterABC.parseFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get MIDI data from a file path. If more than one work is defined in the ABC data, a  <a class="reference internal" href="moduleStream.html#music21.stream.Opus" title="music21.stream.Opus"><tt class="xref py py-class docutils literal"><span class="pre">Opus</span></tt></a> object will be returned; otherwise, a <a class="reference internal" href="moduleStream.html#music21.stream.Score" title="music21.stream.Score"><tt class="xref py py-class docutils literal"><span class="pre">Score</span></tt></a> is returned.</p>
+<p>If <cite>number</cite> is provided, and this ABC file defines multiple works with a X: tag, just the specified work will be returned.</p>
+</dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.write" title="music21.converter.subConverters.SubConverter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="converterbraille">
+<h2>ConverterBraille<a class="headerlink" href="#converterbraille" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterBraille">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterBraille</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterBraille" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterBraille" title="music21.converter.subConverters.ConverterBraille"><tt class="xref py py-class docutils literal"><span class="pre">ConverterBraille</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterBraille" title="music21.converter.subConverters.ConverterBraille"><tt class="xref py py-class docutils literal"><span class="pre">ConverterBraille</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterBraille" title="music21.converter.subConverters.ConverterBraille"><tt class="xref py py-class docutils literal"><span class="pre">ConverterBraille</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterBraille.write">
+<tt class="descclassname">ConverterBraille.</tt><tt class="descname">write</tt><big>(</big><em>obj</em>, <em>fmt</em>, <em>fp=None</em>, <em>subformats=None</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterBraille.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseData" title="music21.converter.subConverters.SubConverter.parseData"><tt class="xref py py-meth docutils literal"><span class="pre">parseData()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseFile" title="music21.converter.subConverters.SubConverter.parseFile"><tt class="xref py py-meth docutils literal"><span class="pre">parseFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="convertercapella">
+<h2>ConverterCapella<a class="headerlink" href="#convertercapella" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterCapella">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterCapella</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterCapella" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple class wrapper for parsing Capella .capx XML files.  See capella/fromCapellaXML.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterCapella" title="music21.converter.subConverters.ConverterCapella"><tt class="xref py py-class docutils literal"><span class="pre">ConverterCapella</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterCapella" title="music21.converter.subConverters.ConverterCapella"><tt class="xref py py-class docutils literal"><span class="pre">ConverterCapella</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterCapella" title="music21.converter.subConverters.ConverterCapella"><tt class="xref py py-class docutils literal"><span class="pre">ConverterCapella</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterCapella.parseData">
+<tt class="descclassname">ConverterCapella.</tt><tt class="descname">parseData</tt><big>(</big><em>strData</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterCapella.parseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse a data stream of uncompessed capella xml</p>
+<p>N.B. for web parsing, it gets more complex.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterCapella.parseFile">
+<tt class="descclassname">ConverterCapella.</tt><tt class="descname">parseFile</tt><big>(</big><em>fp</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterCapella.parseFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a file</p>
+</dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.write" title="music21.converter.subConverters.SubConverter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="converterhumdrum">
+<h2>ConverterHumdrum<a class="headerlink" href="#converterhumdrum" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterHumdrum">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterHumdrum</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterHumdrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple class wrapper for parsing Humdrum data provided in a file or in a string.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterHumdrum" title="music21.converter.subConverters.ConverterHumdrum"><tt class="xref py py-class docutils literal"><span class="pre">ConverterHumdrum</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterHumdrum" title="music21.converter.subConverters.ConverterHumdrum"><tt class="xref py py-class docutils literal"><span class="pre">ConverterHumdrum</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterHumdrum" title="music21.converter.subConverters.ConverterHumdrum"><tt class="xref py py-class docutils literal"><span class="pre">ConverterHumdrum</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterHumdrum.parseData">
+<tt class="descclassname">ConverterHumdrum.</tt><tt class="descname">parseData</tt><big>(</big><em>humdrumString</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterHumdrum.parseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open Humdrum data from a string &#8211; calls humdrum.parseData()</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">humdata</span> <span class="o">=</span> <span class="s">&#39;**kern</span><span class="se">\n</span><span class="s">*M2/4</span><span class="se">\n</span><span class="s">=1</span><span class="se">\n</span><span class="s">24r</span><span class="se">\n</span><span class="s">24g#</span><span class="se">\n</span><span class="s">24f#</span><span class="se">\n</span><span class="s">24e</span><span class="se">\n</span><span class="s">24c#</span><span class="se">\n</span><span class="s">24f</span><span class="se">\n</span><span class="s">24r</span><span class="se">\n</span><span class="s">24dn</span><span class="se">\n</span><span class="s">24e-</span><span class="se">\n</span><span class="s">24gn</span><span class="se">\n</span><span class="s">24e-</span><span class="se">\n</span><span class="s">24dn</span><span class="se">\n</span><span class="s">*-&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">subConverters</span><span class="o">.</span><span class="n">ConverterHumdrum</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">parseData</span><span class="p">(</span><span class="n">humdata</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
+<span class="go">{0.0} &lt;music21.stream.Part spine_0&gt;</span>
+<span class="go">    {0.0} &lt;music21.humdrum.spineParser.MiscTandem **kern humdrum control&gt;</span>
+<span class="go">    {0.0} &lt;music21.stream.Measure 1 offset=0.0&gt;</span>
+<span class="go">        {0.0} &lt;music21.meter.TimeSignature 2/4&gt;</span>
+<span class="go">        {0.0} &lt;music21.note.Rest rest&gt;</span>
+<span class="go">        {0.1667} &lt;music21.note.Note G#&gt;</span>
+<span class="go">        {0.3333} &lt;music21.note.Note F#&gt;</span>
+<span class="go">        {0.5} &lt;music21.note.Note E&gt;</span>
+<span class="go">        {0.6667} &lt;music21.note.Note C#&gt;</span>
+<span class="go">        {0.8333} &lt;music21.note.Note F&gt;</span>
+<span class="go">        {1.0} &lt;music21.note.Rest rest&gt;</span>
+<span class="go">        {1.1667} &lt;music21.note.Note D&gt;</span>
+<span class="go">        {1.3333} &lt;music21.note.Note E-&gt;</span>
+<span class="go">        {1.5} &lt;music21.note.Note G&gt;</span>
+<span class="go">        {1.6667} &lt;music21.note.Note E-&gt;</span>
+<span class="go">        {1.8333} &lt;music21.note.Note D&gt;        </span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterHumdrum.parseFile">
+<tt class="descclassname">ConverterHumdrum.</tt><tt class="descname">parseFile</tt><big>(</big><em>filepath</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterHumdrum.parseFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open Humdram data from a file path.</p>
+<p>Calls humdrum.parseFile on filepath.</p>
+<p>Number is ignored here.</p>
+</dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.write" title="music21.converter.subConverters.SubConverter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="converteripython">
+<h2>ConverterIPython<a class="headerlink" href="#converteripython" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterIPython">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterIPython</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterIPython" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterIPython" title="music21.converter.subConverters.ConverterIPython"><tt class="xref py py-class docutils literal"><span class="pre">ConverterIPython</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterIPython" title="music21.converter.subConverters.ConverterIPython"><tt class="xref py py-class docutils literal"><span class="pre">ConverterIPython</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterIPython" title="music21.converter.subConverters.ConverterIPython"><tt class="xref py py-class docutils literal"><span class="pre">ConverterIPython</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterIPython.show">
+<tt class="descclassname">ConverterIPython.</tt><tt class="descname">show</tt><big>(</big><em>obj</em>, <em>fmt</em>, <em>app=None</em>, <em>subformats=None</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterIPython.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterIPython.vfshow">
+<tt class="descclassname">ConverterIPython.</tt><tt class="descname">vfshow</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterIPython.vfshow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseData" title="music21.converter.subConverters.SubConverter.parseData"><tt class="xref py py-meth docutils literal"><span class="pre">parseData()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseFile" title="music21.converter.subConverters.SubConverter.parseFile"><tt class="xref py py-meth docutils literal"><span class="pre">parseFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.write" title="music21.converter.subConverters.SubConverter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="converterlilypond">
+<h2>ConverterLilypond<a class="headerlink" href="#converterlilypond" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterLilypond">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterLilypond</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterLilypond" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterLilypond" title="music21.converter.subConverters.ConverterLilypond"><tt class="xref py py-class docutils literal"><span class="pre">ConverterLilypond</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterLilypond" title="music21.converter.subConverters.ConverterLilypond"><tt class="xref py py-class docutils literal"><span class="pre">ConverterLilypond</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterLilypond" title="music21.converter.subConverters.ConverterLilypond"><tt class="xref py py-class docutils literal"><span class="pre">ConverterLilypond</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterLilypond.show">
+<tt class="descclassname">ConverterLilypond.</tt><tt class="descname">show</tt><big>(</big><em>obj</em>, <em>fmt</em>, <em>app=None</em>, <em>subformats=None</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterLilypond.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterLilypond.write">
+<tt class="descclassname">ConverterLilypond.</tt><tt class="descname">write</tt><big>(</big><em>obj</em>, <em>fmt</em>, <em>fp=None</em>, <em>subformats=None</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterLilypond.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseData" title="music21.converter.subConverters.SubConverter.parseData"><tt class="xref py py-meth docutils literal"><span class="pre">parseData()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseFile" title="music21.converter.subConverters.SubConverter.parseFile"><tt class="xref py py-meth docutils literal"><span class="pre">parseFile()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="convertermidi">
+<h2>ConverterMidi<a class="headerlink" href="#convertermidi" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterMidi">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterMidi</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterMidi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple class wrapper for parsing MIDI and sending MIDI data out.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterMidi" title="music21.converter.subConverters.ConverterMidi"><tt class="xref py py-class docutils literal"><span class="pre">ConverterMidi</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterMidi" title="music21.converter.subConverters.ConverterMidi"><tt class="xref py py-class docutils literal"><span class="pre">ConverterMidi</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterMidi" title="music21.converter.subConverters.ConverterMidi"><tt class="xref py py-class docutils literal"><span class="pre">ConverterMidi</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterMidi.parseData">
+<tt class="descclassname">ConverterMidi.</tt><tt class="descname">parseData</tt><big>(</big><em>strData</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterMidi.parseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get MIDI data from a binary string representation.</p>
+<p>Calls midi.translate.midiStringToStream.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterMidi.parseFile">
+<tt class="descclassname">ConverterMidi.</tt><tt class="descname">parseFile</tt><big>(</big><em>fp</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterMidi.parseFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get MIDI data from a file path.</p>
+<p>Calls midi.translate.midiFilePathToStream.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterMidi.write">
+<tt class="descclassname">ConverterMidi.</tt><tt class="descname">write</tt><big>(</big><em>obj</em>, <em>fmt</em>, <em>fp=None</em>, <em>subformats=None</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterMidi.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="convertermusedata">
+<h2>ConverterMuseData<a class="headerlink" href="#convertermusedata" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterMuseData">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterMuseData</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterMuseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple class wrapper for parsing MuseData.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterMuseData" title="music21.converter.subConverters.ConverterMuseData"><tt class="xref py py-class docutils literal"><span class="pre">ConverterMuseData</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterMuseData" title="music21.converter.subConverters.ConverterMuseData"><tt class="xref py py-class docutils literal"><span class="pre">ConverterMuseData</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterMuseData" title="music21.converter.subConverters.ConverterMuseData"><tt class="xref py py-class docutils literal"><span class="pre">ConverterMuseData</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterMuseData.parseData">
+<tt class="descclassname">ConverterMuseData.</tt><tt class="descname">parseData</tt><big>(</big><em>strData</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterMuseData.parseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get musedata from a string representation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterMuseData.parseFile">
+<tt class="descclassname">ConverterMuseData.</tt><tt class="descname">parseFile</tt><big>(</big><em>fp</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterMuseData.parseFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.write" title="music21.converter.subConverters.SubConverter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="convertermusicxml">
+<h2>ConverterMusicXML<a class="headerlink" href="#convertermusicxml" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterMusicXML">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterMusicXML</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterMusicXML" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converter for MusicXML</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterMusicXML" title="music21.converter.subConverters.ConverterMusicXML"><tt class="xref py py-class docutils literal"><span class="pre">ConverterMusicXML</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterMusicXML" title="music21.converter.subConverters.ConverterMusicXML"><tt class="xref py py-class docutils literal"><span class="pre">ConverterMusicXML</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterMusicXML" title="music21.converter.subConverters.ConverterMusicXML"><tt class="xref py py-class docutils literal"><span class="pre">ConverterMusicXML</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterMusicXML.load">
+<tt class="descclassname">ConverterMusicXML.</tt><tt class="descname">load</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterMusicXML.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load all parts from a MusicXML object representation.
+This determines the order parts are found in the stream</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterMusicXML.parseData">
+<tt class="descclassname">ConverterMusicXML.</tt><tt class="descname">parseData</tt><big>(</big><em>xmlString</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterMusicXML.parseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open MusicXML data from a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterMusicXML.parseFile">
+<tt class="descclassname">ConverterMusicXML.</tt><tt class="descname">parseFile</tt><big>(</big><em>fp</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterMusicXML.parseFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open from a file path; check to see if there is a pickled
+version available and up to date; if so, open that, otherwise
+open source.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterMusicXML.partIdToNameDict">
+<tt class="descclassname">ConverterMusicXML.</tt><tt class="descname">partIdToNameDict</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterMusicXML.partIdToNameDict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterMusicXML.runThroughMusescore">
+<tt class="descclassname">ConverterMusicXML.</tt><tt class="descname">runThroughMusescore</tt><big>(</big><em>fp</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterMusicXML.runThroughMusescore" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterMusicXML.write">
+<tt class="descclassname">ConverterMusicXML.</tt><tt class="descname">write</tt><big>(</big><em>obj</em>, <em>fmt</em>, <em>fp=None</em>, <em>subformats=None</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterMusicXML.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="converternoteworthy">
+<h2>ConverterNoteworthy<a class="headerlink" href="#converternoteworthy" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterNoteworthy">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterNoteworthy</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterNoteworthy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple class wrapper for parsing NoteworthyComposer data provided in a 
+file or in a string.</p>
+<p>Gets data with the file format .nwctxt</p>
+<p>Users should not need this routine.  The basic format is converter.parse(&#8220;file.nwctxt&#8221;)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">nwcTranslatePath</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">getSourceFilePath</span><span class="p">()</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s">&#39;noteworthy&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paertPath</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">r&#39;d:/desktop/arvo_part_o_weisheit.nwctxt&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paertStream</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">paertPath</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">paertStream</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>For developers: see the documentation for <a class="reference internal" href="#music21.converter.subConverters.ConverterNoteworthy.parseData" title="music21.converter.subConverters.ConverterNoteworthy.parseData"><tt class="xref py py-meth docutils literal"><span class="pre">parseData()</span></tt></a> and <a class="reference internal" href="#music21.converter.subConverters.ConverterNoteworthy.parseFile" title="music21.converter.subConverters.ConverterNoteworthy.parseFile"><tt class="xref py py-meth docutils literal"><span class="pre">parseFile()</span></tt></a>
+to see the low-level usage.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterNoteworthy" title="music21.converter.subConverters.ConverterNoteworthy"><tt class="xref py py-class docutils literal"><span class="pre">ConverterNoteworthy</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterNoteworthy" title="music21.converter.subConverters.ConverterNoteworthy"><tt class="xref py py-class docutils literal"><span class="pre">ConverterNoteworthy</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterNoteworthy" title="music21.converter.subConverters.ConverterNoteworthy"><tt class="xref py py-class docutils literal"><span class="pre">ConverterNoteworthy</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterNoteworthy.parseData">
+<tt class="descclassname">ConverterNoteworthy.</tt><tt class="descname">parseData</tt><big>(</big><em>nwcData</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterNoteworthy.parseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open Noteworthy data from a string or list</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">nwcData</span> <span class="o">=</span> <span class="s">&quot;!NoteWorthyComposer(2.0)</span><span class="se">\n</span><span class="s">|AddStaff</span><span class="se">\n</span><span class="s">|Clef|Type:Treble</span><span class="se">\n</span><span class="s">|Note|Dur:Whole|Pos:1^&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">subConverters</span><span class="o">.</span><span class="n">ConverterNoteworthy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">parseData</span><span class="p">(</span><span class="n">nwcData</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
+<span class="go">{0.0} &lt;music21.stream.Part ...&gt;</span>
+<span class="go">    {0.0} &lt;music21.stream.Measure 0 offset=0.0&gt;</span>
+<span class="go">        {0.0} &lt;music21.clef.TrebleClef&gt;</span>
+<span class="go">        {0.0} &lt;music21.note.Note C&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterNoteworthy.parseFile">
+<tt class="descclassname">ConverterNoteworthy.</tt><tt class="descname">parseFile</tt><big>(</big><em>fp</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterNoteworthy.parseFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open Noteworthy data (as nwctxt) from a file path.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">nwcTranslatePath</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">getSourceFilePath</span><span class="p">()</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s">&#39;noteworthy&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paertPath</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;d:/desktop/arvo_part_o_weisheit.nwctxt&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">subConverters</span><span class="o">.</span><span class="n">ConverterNoteworthy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">parseFile</span><span class="p">(</span><span class="n">filePath</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.write" title="music21.converter.subConverters.SubConverter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="converternoteworthybinary">
+<h2>ConverterNoteworthyBinary<a class="headerlink" href="#converternoteworthybinary" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterNoteworthyBinary">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterNoteworthyBinary</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterNoteworthyBinary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple class wrapper for parsing NoteworthyComposer binary data provided in a file or in a string.</p>
+<p>Gets data with the file format .nwc</p>
+<p>Users should not need this routine.  Call converter.parse directly</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterNoteworthyBinary" title="music21.converter.subConverters.ConverterNoteworthyBinary"><tt class="xref py py-class docutils literal"><span class="pre">ConverterNoteworthyBinary</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterNoteworthyBinary" title="music21.converter.subConverters.ConverterNoteworthyBinary"><tt class="xref py py-class docutils literal"><span class="pre">ConverterNoteworthyBinary</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterNoteworthyBinary" title="music21.converter.subConverters.ConverterNoteworthyBinary"><tt class="xref py py-class docutils literal"><span class="pre">ConverterNoteworthyBinary</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterNoteworthyBinary.parseData">
+<tt class="descclassname">ConverterNoteworthyBinary.</tt><tt class="descname">parseData</tt><big>(</big><em>nwcData</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterNoteworthyBinary.parseData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterNoteworthyBinary.parseFile">
+<tt class="descclassname">ConverterNoteworthyBinary.</tt><tt class="descname">parseFile</tt><big>(</big><em>fp</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterNoteworthyBinary.parseFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.write" title="music21.converter.subConverters.SubConverter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="converterromantext">
+<h2>ConverterRomanText<a class="headerlink" href="#converterromantext" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterRomanText">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterRomanText</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterRomanText" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple class wrapper for parsing roman text harmonic definitions.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterRomanText" title="music21.converter.subConverters.ConverterRomanText"><tt class="xref py py-class docutils literal"><span class="pre">ConverterRomanText</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterRomanText" title="music21.converter.subConverters.ConverterRomanText"><tt class="xref py py-class docutils literal"><span class="pre">ConverterRomanText</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterRomanText" title="music21.converter.subConverters.ConverterRomanText"><tt class="xref py py-class docutils literal"><span class="pre">ConverterRomanText</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterRomanText.parseData">
+<tt class="descclassname">ConverterRomanText.</tt><tt class="descname">parseData</tt><big>(</big><em>strData</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterRomanText.parseData" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterRomanText.parseFile">
+<tt class="descclassname">ConverterRomanText.</tt><tt class="descname">parseFile</tt><big>(</big><em>fp</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterRomanText.parseFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.write" title="music21.converter.subConverters.SubConverter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="converterscala">
+<h2>ConverterScala<a class="headerlink" href="#converterscala" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterScala">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterScala</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterScala" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterScala" title="music21.converter.subConverters.ConverterScala"><tt class="xref py py-class docutils literal"><span class="pre">ConverterScala</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterScala" title="music21.converter.subConverters.ConverterScala"><tt class="xref py py-class docutils literal"><span class="pre">ConverterScala</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterScala" title="music21.converter.subConverters.ConverterScala"><tt class="xref py py-class docutils literal"><span class="pre">ConverterScala</span></tt></a> methods</p>
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseData" title="music21.converter.subConverters.SubConverter.parseData"><tt class="xref py py-meth docutils literal"><span class="pre">parseData()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseFile" title="music21.converter.subConverters.SubConverter.parseFile"><tt class="xref py py-meth docutils literal"><span class="pre">parseFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.write" title="music21.converter.subConverters.SubConverter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="convertertext">
+<h2>ConverterText<a class="headerlink" href="#convertertext" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterText">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterText</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterText" title="Permalink to this definition">¶</a></dt>
+<dd><p>standard text presentation has line breaks, is printed.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterText" title="music21.converter.subConverters.ConverterText"><tt class="xref py py-class docutils literal"><span class="pre">ConverterText</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterText" title="music21.converter.subConverters.ConverterText"><tt class="xref py py-class docutils literal"><span class="pre">ConverterText</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterText" title="music21.converter.subConverters.ConverterText"><tt class="xref py py-class docutils literal"><span class="pre">ConverterText</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterText.show">
+<tt class="descclassname">ConverterText.</tt><tt class="descname">show</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterText.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterText.write">
+<tt class="descclassname">ConverterText.</tt><tt class="descname">write</tt><big>(</big><em>obj</em>, <em>fmt</em>, <em>fp=None</em>, <em>subformats=None</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterText.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseData" title="music21.converter.subConverters.SubConverter.parseData"><tt class="xref py py-meth docutils literal"><span class="pre">parseData()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseFile" title="music21.converter.subConverters.SubConverter.parseFile"><tt class="xref py py-meth docutils literal"><span class="pre">parseFile()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="convertertextline">
+<h2>ConverterTextLine<a class="headerlink" href="#convertertextline" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterTextLine">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterTextLine</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterTextLine" title="Permalink to this definition">¶</a></dt>
+<dd><p>a text line compacts the complete recursive representation into a
+single line of text; most for debugging. returned, not printed</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv66.6&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">measures</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;textline&#39;</span><span class="p">)</span>
+<span class="go">u&#39;{0.0} &lt;music21.stream.Part Soprano&gt; / {0.0} &lt;music21.instrument.Instrument P1: Soprano: Instrument 1&gt;...&#39; </span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterTextLine" title="music21.converter.subConverters.ConverterTextLine"><tt class="xref py py-class docutils literal"><span class="pre">ConverterTextLine</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterTextLine" title="music21.converter.subConverters.ConverterTextLine"><tt class="xref py py-class docutils literal"><span class="pre">ConverterTextLine</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterTextLine" title="music21.converter.subConverters.ConverterTextLine"><tt class="xref py py-class docutils literal"><span class="pre">ConverterTextLine</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterTextLine.show">
+<tt class="descclassname">ConverterTextLine.</tt><tt class="descname">show</tt><big>(</big><em>obj</em>, <em>*args</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterTextLine.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterTextLine.write">
+<tt class="descclassname">ConverterTextLine.</tt><tt class="descname">write</tt><big>(</big><em>obj</em>, <em>fmt</em>, <em>fp=None</em>, <em>subformats=None</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterTextLine.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseData" title="music21.converter.subConverters.SubConverter.parseData"><tt class="xref py py-meth docutils literal"><span class="pre">parseData()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseFile" title="music21.converter.subConverters.SubConverter.parseFile"><tt class="xref py py-meth docutils literal"><span class="pre">parseFile()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="convertertinynotation">
+<h2>ConverterTinyNotation<a class="headerlink" href="#convertertinynotation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterTinyNotation">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterTinyNotation</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterTinyNotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple class wrapper for parsing TinyNotation data provided in a file or 
+in a string.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterTinyNotation" title="music21.converter.subConverters.ConverterTinyNotation"><tt class="xref py py-class docutils literal"><span class="pre">ConverterTinyNotation</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterTinyNotation" title="music21.converter.subConverters.ConverterTinyNotation"><tt class="xref py py-class docutils literal"><span class="pre">ConverterTinyNotation</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterTinyNotation" title="music21.converter.subConverters.ConverterTinyNotation"><tt class="xref py py-class docutils literal"><span class="pre">ConverterTinyNotation</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterTinyNotation.parseData">
+<tt class="descclassname">ConverterTinyNotation.</tt><tt class="descname">parseData</tt><big>(</big><em>tnData</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterTinyNotation.parseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open TinyNotation data from a string or list</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tnData</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;E4 r f# g=lastG trip{b-8 a g} c&quot;</span><span class="p">,</span> <span class="s">&quot;3/4&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">converter</span><span class="o">.</span><span class="n">subConverters</span><span class="o">.</span><span class="n">ConverterTinyNotation</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">parseData</span><span class="p">(</span><span class="n">tnData</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
+<span class="go">{0.0} &lt;music21.meter.TimeSignature 3/4&gt;</span>
+<span class="go">{0.0} &lt;music21.note.Note E&gt;</span>
+<span class="go">{1.0} &lt;music21.note.Rest rest&gt;</span>
+<span class="go">{2.0} &lt;music21.note.Note F#&gt;</span>
+<span class="go">{3.0} &lt;music21.note.Note G&gt;</span>
+<span class="go">{4.0} &lt;music21.note.Note B-&gt;</span>
+<span class="go">{4.3333} &lt;music21.note.Note A&gt;</span>
+<span class="go">{4.6667} &lt;music21.note.Note G&gt;</span>
+<span class="go">{5.0} &lt;music21.note.Note C&gt;        </span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseFile" title="music21.converter.subConverters.SubConverter.parseFile"><tt class="xref py py-meth docutils literal"><span class="pre">parseFile()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.write" title="music21.converter.subConverters.SubConverter.write"><tt class="xref py py-meth docutils literal"><span class="pre">write()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="convertervexflow">
+<h2>ConverterVexflow<a class="headerlink" href="#convertervexflow" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.ConverterVexflow">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">ConverterVexflow</tt><a class="headerlink" href="#music21.converter.subConverters.ConverterVexflow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterVexflow" title="music21.converter.subConverters.ConverterVexflow"><tt class="xref py py-class docutils literal"><span class="pre">ConverterVexflow</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterVexflow" title="music21.converter.subConverters.ConverterVexflow"><tt class="xref py py-class docutils literal"><span class="pre">ConverterVexflow</span></tt></a> read/write properties</p>
+<p>Read/write properties inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.stream" title="music21.converter.subConverters.SubConverter.stream"><tt class="xref py py-attr docutils literal"><span class="pre">stream</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td><td><ul class="simple">
+</ul>
+</td></tr></table>
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.ConverterVexflow" title="music21.converter.subConverters.ConverterVexflow"><tt class="xref py py-class docutils literal"><span class="pre">ConverterVexflow</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.ConverterVexflow.write">
+<tt class="descclassname">ConverterVexflow.</tt><tt class="descname">write</tt><big>(</big><em>obj</em>, <em>fmt</em>, <em>fp=None</em>, <em>subformats=None</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.ConverterVexflow.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="music21.converter.subConverters.SubConverter.checkShowAbility"><tt class="xref py py-meth docutils literal"><span class="pre">checkShowAbility()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats"><tt class="xref py py-meth docutils literal"><span class="pre">getExtensionForFormatOrSubformats()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="music21.converter.subConverters.SubConverter.getTemporaryFile"><tt class="xref py py-meth docutils literal"><span class="pre">getTemporaryFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.launch" title="music21.converter.subConverters.SubConverter.launch"><tt class="xref py py-meth docutils literal"><span class="pre">launch()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseData" title="music21.converter.subConverters.SubConverter.parseData"><tt class="xref py py-meth docutils literal"><span class="pre">parseData()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.parseFile" title="music21.converter.subConverters.SubConverter.parseFile"><tt class="xref py py-meth docutils literal"><span class="pre">parseFile()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.show" title="music21.converter.subConverters.SubConverter.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="music21.converter.subConverters.SubConverter.writeDataStream"><tt class="xref py py-meth docutils literal"><span class="pre">writeDataStream()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="subconverter">
+<h2>SubConverter<a class="headerlink" href="#subconverter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.converter.subConverters.SubConverter">
+<em class="property">class </em><tt class="descclassname">music21.converter.subConverters.</tt><tt class="descname">SubConverter</tt><a class="headerlink" href="#music21.converter.subConverters.SubConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class wrapper for parsing data or outputting data.</p>
+<p>All other Converter types should inherit from this and
+have ways of dealing with various data formats.</p>
+<p>Attributes that should be set:</p>
+<blockquote>
+<div><p>readBinary = True or False (default False)
+registerFormats = tuple of formats that can be handled; eg: (&#8216;musicxml&#8217;,)
+registerShowFormats = tuple of format calls that can be handled in .show() and .write()
+registerInputExtensions = tuple of input extensions that should be handled in converter
+registerOutputExtensions = tuple of output extensions that can be written. Order matters:</p>
+<blockquote>
+<div>the first will be used in calls to .write()</div></blockquote>
+<p>canBePickled = True or False (default True; does not do anything yet)
+codecWrite = True or False (default False) if codecs need to be used to write
+stringEncoding = string (default &#8216;utf-8&#8217;) if codecWrite is True, what encoding to use</p>
+</div></blockquote>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a> read/write properties</p>
+<dl class="attribute">
+<dt id="music21.converter.subConverters.SubConverter.stream">
+<tt class="descclassname">SubConverter.</tt><tt class="descname">stream</tt><a class="headerlink" href="#music21.converter.subConverters.SubConverter.stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns or sets the stream in the converter.  Must be defined for subconverter to work.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.converter.subConverters.SubConverter" title="music21.converter.subConverters.SubConverter"><tt class="xref py py-class docutils literal"><span class="pre">SubConverter</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.converter.subConverters.SubConverter.checkShowAbility">
+<tt class="descclassname">SubConverter.</tt><tt class="descname">checkShowAbility</tt><big>(</big><em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.SubConverter.checkShowAbility" title="Permalink to this definition">¶</a></dt>
+<dd><p>return bool on whether the <em>system</em> is
+equipped to show in this format.</p>
+<p>Default True. Might be False if, say
+a Lilypond converter is used and Lilypond
+is not installed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats">
+<tt class="descclassname">SubConverter.</tt><tt class="descname">getExtensionForFormatOrSubformats</tt><big>(</big><em>fmt=None</em>, <em>subformats=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.SubConverter.getExtensionForFormatOrSubformats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.SubConverter.getTemporaryFile">
+<tt class="descclassname">SubConverter.</tt><tt class="descname">getTemporaryFile</tt><big>(</big><em>fmt=None</em>, <em>subformats=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.SubConverter.getTemporaryFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.SubConverter.launch">
+<tt class="descclassname">SubConverter.</tt><tt class="descname">launch</tt><big>(</big><em>filePath</em>, <em>fmt=None</em>, <em>options=''</em>, <em>app=None</em>, <em>key=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.SubConverter.launch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.SubConverter.parseData">
+<tt class="descclassname">SubConverter.</tt><tt class="descname">parseData</tt><big>(</big><em>dataString</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.SubConverter.parseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when a string (or binary) data is encountered.</p>
+<p>This method MUST be implemented to do anything.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.SubConverter.parseFile">
+<tt class="descclassname">SubConverter.</tt><tt class="descname">parseFile</tt><big>(</big><em>filePath</em>, <em>number=None</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.SubConverter.parseFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called when a file is encountered. If all that needs to be done is
+loading the file and putting the data into parseData then there is no need
+to do anything except set self.readBinary (True|False).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.SubConverter.show">
+<tt class="descclassname">SubConverter.</tt><tt class="descname">show</tt><big>(</big><em>obj</em>, <em>fmt</em>, <em>app=None</em>, <em>subformats=None</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.SubConverter.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.SubConverter.write">
+<tt class="descclassname">SubConverter.</tt><tt class="descname">write</tt><big>(</big><em>obj</em>, <em>fmt</em>, <em>fp=None</em>, <em>subformats=None</em>, <em>**keywords</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.SubConverter.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.converter.subConverters.SubConverter.writeDataStream">
+<tt class="descclassname">SubConverter.</tt><tt class="descname">writeDataStream</tt><big>(</big><em>fp</em>, <em>dataStr</em><big>)</big><a class="headerlink" href="#music21.converter.subConverters.SubConverter.writeDataStream" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleCorpus.html" title="music21.corpus"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleConverter.html" title="music21.converter"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

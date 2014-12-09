@@ -1,0 +1,64 @@
+Possible list of TODO items for Gonville
+========================================
+
+Lilypond integration
+--------------------
+
+ - It would be nice if Lilypond could be persuaded to place my time
+   signature digits where I want them without me having to do that
+   dreadful bounding box hack in the font files.
+
+ - A Windows installer of some sort would be useful. (I _probably_
+   mean here a batch-file analogue of lilysetup, not a Windows-
+   installer-like installer. Getting the latter to find the parent
+   Lilypond directory and copy bits of it would probably be
+   painful.)
+
+Font editing/construction
+-------------------------
+
+ - It would be nice if gui.py were expanded into a more complete
+   glyph editing tool, instead of implementing the bare minimum of
+   operations that really need to be mouse-controlled with constant
+   feedback and leaving everything else to be done by hand-editing
+   the output Python fragments. You know, little amenities such as
+   saving and loading, deleting curves, including the nib
+   specifications in the GUI (somehow) so that the final glyph shape
+   can be displayed...
+
+ - It would be nice to generate the final Bezier outlines of the
+   glyphs by a more efficient means than converting to a physical
+   bitmap and applying potrace. One approach might be to process the
+   simplistic output from makeps() into a list of line and circle
+   segments, then process those to eliminate redundant ones and keep
+   only the ones separating filled from unfilled space, and then fit
+   Beziers to the result directly instead of going through a bitmap.
+   Alternatively, perhaps it would be simpler to convert chunks of
+   individual strokes to Bezier outlines and then let Fontforge do
+   the job of intersection removal.
+
+ - The current set of glyphs includes quite a few which have
+   constraints within their curve data that are not enforced by
+   gui.py. It'd be better if the curve data language could specify
+   all of those things, and gui.py did enforce them. Things like
+   multiple welds (one curve welded to two distinct others),
+   transformed equivalence (in the 8, for instance, one curve is
+   constrained to be a mirror image of another, and the artificial
+   harmonic note head must remain rotationally symmetric), partial
+   endpoint constraints (in the m, for instance, c3 is constrained
+   to start a certain horizontal distance to the right of the line
+   of c2, but it doesn't matter _where_ on that line; meanwhile its
+   direction is constrained to match c2 as well).
+
+Glyph design issues
+-------------------
+
+ - There's a bit of a visible glitch at the bottom of the treble
+   clef, where the lower end of the straight line meets the j-curve:
+   a sharp transition from zero curvature to that much curvature
+   seems to be easily visible. Perhaps I could interpose a curve in
+   between which manages a smooth transition from zero to nonzero
+   curvature: for instance, the involute of some curve that
+   asymptotically approaches the normal at the straight end, so that
+   the thread length (=> radius of curvature) goes to infinity
+   there.

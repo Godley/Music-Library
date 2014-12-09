@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>&lt;no title&gt; &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../moduleReference/index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usersGuide/usersGuide_96_ipython_comm.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">Javascript</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">m21url</span> <span class="o">=</span> <span class="s">&quot;http://web.mit.edu/music21/music21j/src/music21.js&quot;</span>
+
+<span class="k">def</span> <span class="nf">Javas</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">lib</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">Javas</span><span class="p">(</span><span class="s">&#39;console.log(&quot;m&quot;, music21);&#39;</span><span class="p">,</span> <span class="n">lib</span><span class="o">=</span><span class="p">[</span><span class="n">m21url</span><span class="p">])</span>
+<span class="n">HTML</span><span class="p">(</span><span class="s">&#39;&#39;&#39;</span>
+<span class="s">&lt;script&gt;</span>
+<span class="s">require.config(</span>
+<span class="s">   { baseUrl: &quot;http://web.mit.edu/music21/music21j/src/&quot;,</span>
+<span class="s">     paths: {&#39;music21&#39;: &#39;http://web.mit.edu/music21/music21j/src/music21&#39;,}</span>
+<span class="s">    });</span>
+<span class="s">console.log(&#39;hi&#39;);</span>
+<span class="s">  require([&#39;music21&#39;], function () {</span>
+<span class="s">      console.log(&#39;hey!&#39;);</span>
+<span class="s">      var n = new music21.note.Note(&quot;D#4&quot;);</span>
+<span class="s">      var s = new music21.stream.Stream();</span>
+<span class="s">      s.append(n);</span>
+
+<span class="s">      s.appendNewCanvas($(&#39;.output_subarea.output_html.rendered_html.output_pyout&#39;)[0]);</span>
+<span class="s">  });</span>
+<span class="s">&lt;/script&gt;</span>
+<span class="s">&#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">nn</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">vfp</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">toMusic21j</span><span class="o">.</span><span class="n">VexflowPickler</span><span class="p">()</span>
+<span class="n">vfp</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s">&#39;json&#39;</span>
+
+<span class="c"># Example from http://jakevdp.github.io/blog/2013/06/01/ipython-notebook-javascript-python-communication/ adapted for IPython 2.0</span>
+<span class="c"># Add an input form similar to what we saw above</span>
+<span class="n">input_form</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">&lt;div id=&quot;heya&quot; style=&quot;background-color:gainsboro; border:solid black; width:600px; padding:20px;&quot;&gt;</span>
+<span class="s">Code: &lt;input type=&quot;text&quot; id=&quot;code_input&quot; size=&quot;50&quot; height=&quot;2&quot;</span>
+<span class="s">       value=&quot;corpus.parse(&#39;bwv66.6&#39;).measures(0,4)&quot;&gt;&lt;br&gt;</span>
+<span class="s">Result: &lt;input type=&quot;text&quot; id=&quot;result_output&quot; size=&quot;50&quot; value=&quot;??&quot;&gt;&lt;br&gt;</span>
+<span class="s">&lt;button onclick=&quot;exec_code()&quot;&gt;Execute&lt;/button&gt;</span>
+<span class="s">&lt;/div&gt;</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="c"># here the javascript has a function to execute the code</span>
+<span class="c"># within the input box, and a callback to handle the output.</span>
+<span class="n">javascript</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">&lt;script type=&quot;text/Javascript&quot;&gt;</span>
+<span class="s">var heya = $(&#39;#heya&#39;);</span>
+<span class="s">var newCanvas = $(&quot;&lt;canvas/&gt;&quot;);</span>
+<span class="s">heya.append(newCanvas);</span>
+
+<span class="s">function getData(msg) {</span>
+<span class="s">       var data = handle_output(msg);</span>
+<span class="s">       data = data.slice(1, -1);</span>
+<span class="s">var jpc = new music21.jsonPickle.Converter();</span>
+<span class="s">var streamObj = jpc.run(data);</span>
+<span class="s">streamObj.replaceLastCanvas(&quot;#heya&quot;);</span>
+<span class="s">       document.getElementById(&quot;result_output&quot;).value = streamObj._elements.length;</span>
+
+<span class="s">}</span>
+
+
+<span class="s">   function handle_output(out){</span>
+<span class="s">       console.log(out);</span>
+<span class="s">       var res = null;</span>
+<span class="s">        // if output is a print statement</span>
+<span class="s">       if(out.msg_type == &quot;stream&quot;){</span>
+<span class="s">           res = out.content.data;</span>
+<span class="s">       }</span>
+<span class="s">       // if output is a python object</span>
+<span class="s">       else if(out.msg_type === &quot;pyout&quot;){</span>
+<span class="s">           res = out.content.data[&quot;text/plain&quot;];</span>
+<span class="s">       }</span>
+<span class="s">       // if output is a python error</span>
+<span class="s">       else if(out.msg_type == &quot;pyerr&quot;){</span>
+<span class="s">           res = out.content.ename + &quot;: &quot; + out.content.evalue;</span>
+<span class="s">       }</span>
+<span class="s">       // if output is something we haven&#39;t thought of</span>
+<span class="s">       else{</span>
+<span class="s">           res = &quot;[out type not implemented]&quot;;</span>
+<span class="s">       }</span>
+<span class="s">       return res;</span>
+<span class="s">   }</span>
+
+<span class="s">   function exec_code(){</span>
+<span class="s">       var code_input = document.getElementById(&#39;code_input&#39;).value;</span>
+<span class="s">       var messagedCodeInput = &#39;vfp.fromObject(&#39; + code_input + &#39;)&#39;;</span>
+
+<span class="s">       var kernel = IPython.notebook.kernel;</span>
+<span class="s">       var callbacks = { &#39;iopub&#39; : {&#39;output&#39; : getData}};</span>
+<span class="s">       document.getElementById(&quot;result_output&quot;).value = &quot;&quot;;  // clear output box</span>
+<span class="s">       var msg_id = kernel.execute(messagedCodeInput, callbacks, {silent:false});</span>
+<span class="s">       console.log(&quot;button pressed&quot;);</span>
+<span class="s">       // IPython.notebook.clear_output();</span>
+<span class="s">   }</span>
+<span class="s">&lt;/script&gt;</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="n">HTML</span><span class="p">(</span><span class="n">input_form</span> <span class="o">+</span> <span class="n">javascript</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span>
+<span class="k">def</span> <span class="nf">vfshow</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">vfp</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">toMusic21j</span><span class="o">.</span><span class="n">VexflowPickler</span><span class="p">()</span>
+    <span class="n">vfp</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s">&#39;jsonSplit&#39;</span>
+    <span class="n">outputCode</span> <span class="o">=</span> <span class="n">vfp</span><span class="o">.</span><span class="n">fromObject</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">idName</span> <span class="o">=</span> <span class="s">&#39;canvasDiv&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">))</span>
+    <span class="n">htmlBlock</span> <span class="o">=</span> <span class="s">&#39;&lt;div id=&quot;&#39;</span> <span class="o">+</span> <span class="n">idName</span> <span class="o">+</span> <span class="s">&#39;&quot;&gt;&lt;canvas/&gt;&lt;/div&gt;&#39;</span>
+    <span class="n">js</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">    &lt;script&gt;</span>
+<span class="s">         require([&#39;music21&#39;], function() {</span>
+<span class="s">           data = &#39;&#39;&#39;</span> <span class="o">+</span> <span class="n">outputCode</span> <span class="o">+</span> <span class="s">&#39;&#39;&#39;;</span>
+<span class="s">           var jpc = new music21.jsonPickle.Converter();</span>
+<span class="s">           streamObj = jpc.run(data);</span>
+<span class="s">           streamObj.replaceCanvas(&quot;#&#39;&#39;&#39;</span> <span class="o">+</span> <span class="n">idName</span> <span class="o">+</span> <span class="s">&#39;&#39;&#39;&quot;);</span>
+<span class="s">         });</span>
+<span class="s">    &lt;/script&gt;</span>
+<span class="s">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">htmlBlock</span> <span class="o">+</span> <span class="n">js</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">bach</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv66.6&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">measures</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">vfshow</span><span class="p">(</span><span class="n">bach</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">bach</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;music21.stream.Score 4412264400&gt;</pre>
+</div>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="n">Javascript</span><span class="p">(</span><span class="s">&#39;&#39;&#39;var n = new music21.note.Note(&quot;F#4&quot;);</span>
+<span class="s">      var s = new music21.stream.Stream();</span>
+<span class="s">      s.append(n);</span>
+<span class="s">      var newPlace = $(&#39;div.output_subarea.output_javascript.output_pyout&#39;);</span>
+<span class="s">      console.log(newPlace);</span>
+<span class="s">      s.appendNewCanvas(newPlace[newPlace.length-1]);&#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="ipython-result highlight-python"><pre> &lt;IPython.core.display.Javascript at 0x107704250&gt;</pre>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

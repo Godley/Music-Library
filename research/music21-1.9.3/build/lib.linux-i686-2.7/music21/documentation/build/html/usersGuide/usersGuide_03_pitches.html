@@ -1,0 +1,532 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User’s Guide, Chapter 3: Pitches, Durations, and Notes again &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Users Guide" href="index.html" />
+    <link rel="next" title="User’s Guide, Chapter 4: Lists, Streams (I) and Output" href="usersGuide_04_stream1.html" />
+    <link rel="prev" title="User’s Guide, Chapter 2: Notes" href="usersGuide_02_notes.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_04_stream1.html" title="User’s Guide, Chapter 4: Lists, Streams (I) and Output"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_02_notes.html" title="User’s Guide, Chapter 2: Notes"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="usersGuide_02_notes.html"
+                        title="previous chapter">User&#8217;s Guide, Chapter 2: Notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="usersGuide_04_stream1.html"
+                        title="next chapter">User&#8217;s Guide, Chapter 4: Lists, Streams (I) and Output</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">User&#8217;s Guide, Chapter 3: Pitches, Durations, and Notes again</a><ul>
+<li><a class="reference internal" href="#the-pitch-object">The Pitch object</a></li>
+<li><a class="reference internal" href="#carving-time-with-duration-objects">Carving time with Duration objects</a></li>
+<li><a class="reference internal" href="#back-to-notes">Back to Notes</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Users Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_99_Table_of_Contents.html">User&#8217;s Guide, Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_00_introduction.html">User&#8217;s Guide: Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_01_installing.html">User&#8217;s Guide, Chapter 1: Installing and Getting Started with <tt class="docutils literal"><span class="pre">music21</span></tt></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_02_notes.html">User&#8217;s Guide, Chapter 2: Notes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">User&#8217;s Guide, Chapter 3: Pitches, Durations, and Notes again</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_04_stream1.html">User&#8217;s Guide, Chapter 4: Lists, Streams (I) and Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_05_listsOfLists.html">User&#8217;s Guide, Chapter 5: Lists of Lists, Functions, and Recursion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_06_stream2.html">User&#8217;s Guide, Chapter 6: Streams (II): Hierarchies, Recursion, and Flattening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_07_chords.html">User&#8217;s Guide, Chapter 7: Chords</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_09_chordify.html">User&#8217;s Guide: Chapter 9: Chordify</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_11_corpusSearching.html">User&#8217;s Guide: Chapter 11: Corpus Searching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_14_timeSignatures.html">User&#8217;s Guide: Chapter 14: Time Signatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_17_derivations.html">User&#8217;s Guide: Chapter 17: Derivations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usersGuide_54_extendingConverter.html">User&#8217;s Guide: Chapter 54: Extending Converter with New Formats</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../moduleReference/index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/usersGuide/usersGuide_03_pitches.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="user-s-guide-chapter-3-pitches-durations-and-notes-again">
+<span id="usersguide-03-pitches"></span><h1>User&#8217;s Guide, Chapter 3: Pitches, Durations, and Notes again<a class="headerlink" href="#user-s-guide-chapter-3-pitches-durations-and-notes-again" title="Permalink to this headline">¶</a></h1>
+<p>Now that you&#8217;ve made a couple of <cite>Note</cite> objects, it&#8217;s time
+to dig a little deeper into what makes a <cite>Note</cite> really a
+<cite>Note</cite>, namely, <a class="reference internal" href="../moduleReference/modulePitch.html#modulepitch"><em>music21.pitch</em></a>, and <a class="reference internal" href="../moduleReference/moduleDuration.html#moduleduration"><em>music21.duration</em></a>
+objects.</p>
+<div class="section" id="the-pitch-object">
+<h2>The Pitch object<a class="headerlink" href="#the-pitch-object" title="Permalink to this headline">¶</a></h2>
+<p>Since we&#8217;ve already covered <cite>Note</cite> objects, <a class="reference internal" href="../moduleReference/modulePitch.html#music21.pitch.Pitch" title="music21.pitch.Pitch"><tt class="xref py py-class docutils literal"><span class="pre">Pitch</span></tt></a> objects
+will be a breeze.  Just like how the <cite>Note</cite> object is found
+in the <cite>note</cite> module, the <cite>Pitch</cite> object is found in the
+<cite>pitch</cite> module.</p>
+<p>Let&#8217;s create a <cite>Pitch</cite>.  Like we did with <cite>Notes</cite>, just
+class the class with a note name, such as <cite>B</cite> with
+the optional symbols for sharp or flat,
+(<em>#</em> or <em>-</em> respectively).</p>
+<p>You can put an octave number after the name, but you
+don&#8217;t have to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span> <span class="o">=</span> <span class="n">pitch</span><span class="o">.</span><span class="n">Pitch</span><span class="p">(</span><span class="s">&#39;b-4&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here we&#8217;ll use a more abstract variable name, <cite>p1</cite>
+for our first <cite>Pitch</cite>, just in case we change the pitch
+later (via <cite>.transpose()</cite> or something else).</p>
+<p>Just like we saw with <cite>Notes</cite> there are a lot of
+attributes (a.k.a. properties; we&#8217;ll use the term
+interchangeably for a bit before we talk about the
+difference) and methods that describe and change
+pitches.  The first three will be old hat from
+<cite>Note</cite> objects:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">octave</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">pitchClass</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;B-&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">accidental</span><span class="o">.</span><span class="n">alter</span>
+<span class="go">-1.0</span>
+</pre></div>
+</div>
+<p>Here are two more that you can use.  The first
+is pretty self-explanatory.  The second gives the
+value of the <cite>Pitch</cite> in the older, &#8220;MIDI&#8221; representation
+that is still in use today.  It&#8217;s a number between 0 and
+127 where middle C (C4) is 60 and C#4/Db4 is 61, B3 is 59,
+etc.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">nameWithOctave</span>
+<span class="go">&#39;B-4&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">midi</span>
+<span class="go">70</span>
+</pre></div>
+</div>
+<p>Most of these attributes can be changed (they are
+&#8220;settable properties&#8221; in Python speak).</p>
+<p>When an attribute is set, the <cite>Pitch</cite> object changes whatever
+is necessary to reflect the new value:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;d#&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">octave</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p1</span><span class="o">.</span><span class="n">nameWithOctave</span>
+<span class="go">&#39;D#3&#39;</span>
+</pre></div>
+</div>
+<p>And our familiar <cite>.transpose()</cite> method also appears on
+<cite>Pitch</cite> as well.  Remember that <cite>p1</cite> is now a <cite>D#</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p2</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s">&#39;M7&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p2</span>
+<span class="go">&lt;music21.pitch.Pitch C##4&gt;</span>
+</pre></div>
+</div>
+<p>Notice that at the command line, just printing the variable name
+gives you the representation <cite>&lt;music21.pitch.Pitch C##4&gt;</cite>.  You
+can also get this by typing <cite>repr(p2)</cite>.</p>
+<p>So, there&#8217;s really nothing new about <cite>Pitch</cite> objects
+that you didn&#8217;t already know from learning about <cite>Notes</cite>. So
+why the two different objects?  It turns out, they are so
+similar because actually every <cite>Note</cite> object has a <cite>Pitch</cite>
+object inside it (like the monster in <em>Alien</em> but more
+benign).  Everything that we did with the <cite>note.Note</cite>
+object, we could do with the <cite>note.Note.pitch</cite> object instead:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">csharp</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;C#4&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">csharp</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;C#&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">csharp</span><span class="o">.</span><span class="n">pitch</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;C#&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">csharp</span><span class="o">.</span><span class="n">accidental</span>
+<span class="go">&lt;accidental sharp&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">csharp</span><span class="o">.</span><span class="n">pitch</span><span class="o">.</span><span class="n">accidental</span>
+<span class="go">&lt;accidental sharp&gt;</span>
+</pre></div>
+</div>
+<p>It&#8217;d be tedious to always have to type <cite>Note.pitch.name</cite>
+every time you wanted the name of a note.  That&#8217;s why
+music21 has simplifying aliases for the most commonly
+used <cite>Pitch</cite> terms to save typing.  But <cite>Pitch</cite> objects
+have a lot of extra attributes and methods that <cite>Note</cite>
+objects don&#8217;t have.  So sometimes you&#8217;ll need to
+dig deeper into the <cite>Note</cite>&#8216;s <cite>.pitch</cite> attribute:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">csharp</span><span class="o">.</span><span class="n">pitch</span><span class="o">.</span><span class="n">spanish</span>
+<span class="go">&#39;do sostenido&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">csharp</span><span class="o">.</span><span class="n">spanish</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="gr">AttributeError</span>: <span class="n">&#39;Note&#39; object has no attribute &#39;spanish&#39;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><em>By the way, you know how we said that you shouldn&#8217;t have
+a variable named `pitch` because there&#8217;s already a module
+named `pitch`.  You might wonder why `Note` objects can
+have an attribute named `pitch` without causing any problems.
+It&#8217;s because the `.pitch` attribute is always attached to
+a `Note`, so it&#8217;s never used without a prefix of some sort
+(in this case, `csharp.pitch`), and that&#8217;s enough to
+prevent any trouble.</em></div></blockquote>
+<p>So far, it looks like <cite>Pitch</cite> objects can do everything <cite>Note</cite>
+objects can do and more.  So why do we need <cite>Note</cite> objects?
+It&#8217;s because they also have <cite>Duration</cite> attributes, as we&#8217;ll see
+in the next section. Without a <cite>Duration</cite> attribute, you cannot put
+an object into a Measure or show it on your screen.</p>
+</div>
+<div class="section" id="carving-time-with-duration-objects">
+<h2>Carving time with Duration objects<a class="headerlink" href="#carving-time-with-duration-objects" title="Permalink to this headline">¶</a></h2>
+<p>For a <cite>Note</cite> to occupy musical space, it has to last a certain
+amount of time.  We call that time the <cite>Note</cite>&#8216;s <a class="reference internal" href="../moduleReference/moduleDuration.html#music21.duration.Duration" title="music21.duration.Duration"><tt class="xref py py-class docutils literal"><span class="pre">Duration</span></tt></a>.
+<cite>Duration</cite> objects are ubiquitous in music21. Nearly all objects have,
+or can have, a <cite>Duration</cite>. A <cite>Duration</cite> object can represent just about
+any time span.</p>
+<p><cite>Duration</cite> objects are best used when they&#8217;re attached to something
+else, like a <cite>Note</cite> or a <cite>Rest</cite>, but for now, let&#8217;s look at what
+we can do with them on their own.</p>
+<p><cite>Duration</cite> objects reside in the <cite>duration</cite> module.  When you create
+a <cite>Duration</cite> object, you can say what type of duration you want it to
+be when you create it.</p>
+<p>Here we&#8217;ll create the duration of a half note:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">halfDuration</span> <span class="o">=</span> <span class="n">duration</span><span class="o">.</span><span class="n">Duration</span><span class="p">(</span><span class="s">&#39;half&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The string &#8220;half&#8221; is called the &#8220;type&#8221; of the <cite>Duration</cite>.
+Music21 <cite>Durations</cite> use the common American duration types:
+&#8220;whole&#8221;, &#8220;half&#8221;, &#8220;quarter&#8221;, &#8220;eighth&#8221;, &#8220;16th&#8221;, &#8220;32nd&#8221;, &#8220;64th&#8221;.
+Note that for durations shorter than an eighth note, we use
+numbers instead of spelling out the whole name of the <cite>Duration</cite>
+type.  Music21 also supports less commonly used types such as
+&#8220;breve&#8221; (2 whole notes), &#8220;longa&#8221; (4 whole notes), and &#8220;maxima&#8221;
+(8 whole notes) and on the other side, &#8220;128th&#8221;, &#8220;256th&#8221;, etc.
+down to &#8220;1024th&#8221; notes. (Some of these very long and very short
+notes can&#8217;t be displayed in many musical notation systems,
+but it&#8217;s good to know that we&#8217;re ready when they are).</p>
+<p>The other standard way of creating a <cite>Duration</cite> is by passing it a
+number when it is created.  That number represents how many quarter
+notes long it is.  So we could have created our half note <cite>Duration</cite>
+by saying <cite>2</cite> or <cite>2.0</cite>.  But we can also create <cite>Durations</cite> that
+aren&#8217;t exactly &#8220;whole&#8221;, &#8220;half&#8221;, &#8220;quarter&#8221;, etc.  Let&#8217;s create a
+dotted quarter note, which is 1.5 quarter notes long:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span> <span class="o">=</span> <span class="n">duration</span><span class="o">.</span><span class="n">Duration</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As with the <cite>Pitch</cite> and <cite>Note</cite> objects we&#8217;ve already seen, there
+are a bunch of attributes that <cite>Duration</cite> objects have.  The
+most important one is <cite>.quarterLength</cite>.  The <a class="reference internal" href="../moduleReference/moduleDuration.html#music21.duration.Duration.quarterLength" title="music21.duration.Duration.quarterLength"><tt class="xref py py-attr docutils literal"><span class="pre">quarterLength</span></tt></a>
+of our <cite>dottedQuarter</cite> variable is of course 1.5: we set it to be.
+But just as importantly, the <cite>halfDuration</cite> object also
+has its quarterLength set:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">quarterLength</span>
+<span class="go">1.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">halfDuration</span><span class="o">.</span><span class="n">quarterLength</span>
+<span class="go">2.0</span>
+</pre></div>
+</div>
+<p>The <cite>.type</cite> attribute tells you what general type of <cite>Duration</cite>
+you have:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">halfDuration</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&#39;half&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&#39;quarter&#39;</span>
+</pre></div>
+</div>
+<p>The <cite>type</cite> attribute cannot be everything that describes the
+<cite>Duration</cite>, there has to be some place where music21 keeps
+track of the fact that the <cite>dottedQuarter</cite> variable has a dot
+(otherwise it wouldn&#8217;t have a <cite>quarterLength</cite> of 1.5).  You&#8217;ll
+find the attribute called <cite>.dots</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">halfDuration</span><span class="o">.</span><span class="n">dots</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">dots</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>The attributes of <cite>dots</cite>, <cite>type</cite>, and <cite>quarterLength</cite> are
+actually special attributes called &#8220;properties&#8221;.  A property
+is an attribute that is smart in some way.  Let&#8217;s change the
+number of dots on our <cite>dottedQuarter</cite> object and see what
+happens to the <cite>quarterLength</cite> property:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">dots</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">quarterLength</span>
+<span class="go">1.75</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">dots</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">quarterLength</span>
+<span class="go">1.875</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">dots</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">quarterLength</span>
+<span class="go">1.9375</span>
+</pre></div>
+</div>
+<p>Or let&#8217;s change the <cite>quarterLength</cite> of the dottedQuarter and
+see what happens to the <cite>type</cite> and <cite>dots</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">quarterLength</span> <span class="o">=</span> <span class="mf">0.25</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&#39;16th&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">dots</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<p>QuarterLengths are so important to music21 that we&#8217;ll sometimes
+abbreviate them as <cite>qL</cite> or <cite>qLs</cite>.  Almost everything that is
+measured in music21 is measured in <cite>qLs</cite>.</p>
+<p>There are sometimes <cite>Durations</cite> that can&#8217;t be expressed easily
+as a single written <cite>Note</cite> on a page.  For instance, a <cite>Note</cite>
+lasting a half-note plus a sixteenth-note can&#8217;t be written as
+a single <cite>Note</cite> graphic, but it&#8217;s perfectly fine to use as a
+quarterLength</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">quarterLength</span> <span class="o">=</span> <span class="mf">2.25</span>
+</pre></div>
+</div>
+<p>The <cite>type</cite> for these odd values is called &#8220;complex&#8221;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dottedQuarter</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&#39;complex&#39;</span>
+</pre></div>
+</div>
+<p><em>(There&#8217;s one more strange</em> <cite>type</cite> <em>called &#8220;zero&#8221; for
+Durations that don&#8217;t have any Duration at all.  It&#8217;s
+used for measuring the conceptual length of grace notes,
+spaceless objects like</em> <cite>Clefs</cite>, <em>Kim Kardashian&#8217;s marriages,
+etc.  We&#8217;ll get to it later)</em></p>
+<p>The <a class="reference internal" href="../moduleReference/moduleBase.html#music21.base.Music21Object.show" title="music21.base.Music21Object.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a> method
+will show that weird <cite>2.25</cite> Duration.  We have to first assign it to a note:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="n">dottedQuarter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="o">.</span><span class="n">notehead</span> <span class="o">=</span> <span class="s">&#39;square&#39;</span> <span class="c"># just for fun...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+</pre></div>
+</div>
+<img alt="../_images/overviewNotes-02.png" src="../_images/overviewNotes-02.png" style="width: 600px;" />
+<p>Music21 can also deal with other <cite>quarterLengths</cite> such as 0.8,
+which is 4/5ths of a quarter note, or 1/3 which is an eighth note triplet.
+Just be careful when creating triplets, because of a weird Python quirk
+that makes it so that if you divide two integers you always get back just
+the integer part of the number, so 8/3 is 2, since 8/3 is 2.66666... and
+the integer part is 2:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mi">8</span><span class="o">/</span><span class="mi">3</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<p>To get the number you probably want, make sure that at least one
+of the numbers you are dividing is a float.  So:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="mf">8.0</span><span class="o">/</span><span class="mf">3.0</span>
+<span class="go">2.666666...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mf">1.0</span><span class="o">/</span><span class="mi">3</span>
+<span class="go">0.333333...</span>
+</pre></div>
+</div>
+<p>You can go ahead and make a Triplet or other <a class="reference internal" href="../moduleReference/moduleDuration.html#music21.duration.Tuplet" title="music21.duration.Tuplet"><tt class="xref py py-class docutils literal"><span class="pre">Tuplet</span></tt></a>
+now, but we&#8217;ll get to Triplets later.</p>
+</div>
+<div class="section" id="back-to-notes">
+<h2>Back to Notes<a class="headerlink" href="#back-to-notes" title="Permalink to this headline">¶</a></h2>
+<p>So now you can see the advantage of working with <cite>Note</cite> objects: they
+have both a <cite>.pitch</cite> attribute, which contains a <cite>Pitch</cite> object, and
+a <cite>.duration</cite> attribute, which contains a <cite>Duration</cite> object.  The
+default <cite>Pitch</cite> for a <cite>Note</cite> is <cite>C</cite> (meaning <cite>C4</cite>)
+and the default <cite>Duration</cite> is 1.0, or a quarter note.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">pitch</span>
+<span class="go">&lt;music21.pitch.Pitch C4&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">duration</span>
+<span class="go">&lt;music21.duration.Duration 1.0&gt;</span>
+</pre></div>
+</div>
+<p>But we can play around with them:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">pitch</span><span class="o">.</span><span class="n">nameWithOctave</span> <span class="o">=</span> <span class="s">&#39;E-5&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">quarterLength</span> <span class="o">=</span> <span class="mf">3.0</span>
+</pre></div>
+</div>
+<p>and then the other properties change accordingly:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&#39;half&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">dots</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">pitch</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;E-&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">pitch</span><span class="o">.</span><span class="n">accidental</span>
+<span class="go">&lt;accidental flat&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">octave</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+<p>We already said that some of the attributes of <cite>Pitch</cite> can
+also be called on the <cite>Note</cite> object itself.  The same is
+true for the most important attributes of <cite>Duration</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;E-&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">quarterLength</span>
+<span class="go">3.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">accidental</span>
+<span class="go">&lt;accidental flat&gt;</span>
+</pre></div>
+</div>
+<p>Let&#8217;s change the quarterLength back to 1.0 for now:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">quarterLength</span> <span class="o">=</span> <span class="mf">1.0</span>
+</pre></div>
+</div>
+<p><cite>Notes</cite> can do things that neither <cite>Pitch</cite> or <cite>Duration</cite>
+objects can do.  For instance, they can have lyrics.
+Let&#8217;s add some lyrics to <cite>Notes</cite>.  You can easily set <a class="reference internal" href="../moduleReference/moduleNote.html#music21.note.Lyric" title="music21.note.Lyric"><tt class="xref py py-class docutils literal"><span class="pre">Lyric</span></tt></a>
+objects just by setting the <tt class="xref py py-attr docutils literal"><span class="pre">lyric</span></tt> property</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">otherNote</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&quot;F6&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">otherNote</span><span class="o">.</span><span class="n">lyric</span> <span class="o">=</span> <span class="s">&quot;I&#39;m the Queen of the Night!&quot;</span>
+</pre></div>
+</div>
+<p>But let&#8217;s do something more complex.  Here I add multiple lyrics
+to <cite>n1</cite> using the <cite>Note&#8217;s</cite> <a class="reference internal" href="../moduleReference/moduleNote.html#music21.note.GeneralNote.addLyric" title="music21.note.GeneralNote.addLyric"><tt class="xref py py-meth docutils literal"><span class="pre">addLyric()</span></tt></a> method.
+And instead of adding a simple String, I&#8217;ll add as a lyric the name of the
+note itself and its pitchClassString.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">addLyric</span><span class="p">(</span><span class="n">n1</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">addLyric</span><span class="p">(</span><span class="n">n1</span><span class="o">.</span><span class="n">pitchClassString</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, lets put the <cite>quarterLength</cite> of the note as a string with a
+preface &#8220;QL: &#8221;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">addLyric</span><span class="p">(</span><span class="s">&#39;QL: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">n1</span><span class="o">.</span><span class="n">quarterLength</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The format &#8216;<cite>QL: %s</cite>&#8216; says to put the first thing outside the quotes
+in place of <cite>%s</cite> as a string (the &#8220;s&#8221; in <cite>%s</cite> means to make it a
+string.  Remember that <cite>.quarterLength</cite> is not a string, but a
+float).</p>
+<p>As it should be becoming clear, we can always check our work
+with the <a class="reference internal" href="../moduleReference/moduleBase.html#music21.base.Music21Object.show" title="music21.base.Music21Object.show"><tt class="xref py py-meth docutils literal"><span class="pre">show()</span></tt></a> method.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>    
+</pre></div>
+</div>
+<img alt="../_images/overviewNotes-03.png" src="../_images/overviewNotes-03.png" style="width: 600px;" />
+<p>If we now edit the
+<tt class="xref py py-attr docutils literal"><span class="pre">quarterLength</span></tt> property we can still change the
+<cite>Note</cite>&#8216;s <cite>Duration</cite>. But because we already set the lyric to show
+&#8220;<cite>QL: 1.0</cite>, it won&#8217;t be changed when we <cite>.show()</cite> it again in the following
+example.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">quarterLength</span> <span class="o">=</span> <span class="mf">6.25</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>   
+</pre></div>
+</div>
+<img alt="../_images/overviewNotes-04.png" src="../_images/overviewNotes-04.png" style="width: 600px;" />
+<p>There many more things we can do with a <cite>Note</cite> object, but
+I&#8217;m itching to look at what happens when we put multiple
+<cite>Notes</cite> together in a row.  And to do that we&#8217;ll need to
+learn a bit about <cite>Streams</cite>.  So click &#8220;Next&#8221; for Chapter 4.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_04_stream1.html" title="User’s Guide, Chapter 4: Lists, Streams (I) and Output"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="usersGuide_02_notes.html" title="User’s Guide, Chapter 2: Notes"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Users Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

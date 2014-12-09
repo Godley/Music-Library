@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.theoryAnalysis.theoryResult &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.tie" href="moduleTie.html" />
+    <link rel="prev" title="music21.theoryAnalysis.theoryAnalyzer" href="moduleTheoryAnalysisTheoryAnalyzer.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleTie.html" title="music21.tie"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleTheoryAnalysisTheoryAnalyzer.html" title="music21.theoryAnalysis.theoryAnalyzer"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleTheoryAnalysisTheoryAnalyzer.html"
+                        title="previous chapter">music21.theoryAnalysis.theoryAnalyzer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleTie.html"
+                        title="next chapter">music21.tie</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.theoryAnalysis.theoryResult</a><ul>
+<li><a class="reference internal" href="#intervaltheoryresult">IntervalTheoryResult</a></li>
+<li><a class="reference internal" href="#notetheoryresult">NoteTheoryResult</a></li>
+<li><a class="reference internal" href="#theoryresult">TheoryResult</a></li>
+<li><a class="reference internal" href="#threenotelinearsegmenttheoryresult">ThreeNoteLinearSegmentTheoryResult</a></li>
+<li><a class="reference internal" href="#vlqtheoryresult">VLQTheoryResult</a></li>
+<li><a class="reference internal" href="#verticalityntuplettheoryresult">VerticalityNTupletTheoryResult</a></li>
+<li><a class="reference internal" href="#verticalitytheoryresult">VerticalityTheoryResult</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleTheoryAnalysisTheoryResult.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-theoryanalysis-theoryresult">
+<span id="moduletheoryanalysistheoryresult"></span><h1>music21.theoryAnalysis.theoryResult<a class="headerlink" href="#music21-theoryanalysis-theoryresult" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.theoryAnalysis.theoryResult"></span><div class="section" id="intervaltheoryresult">
+<h2>IntervalTheoryResult<a class="headerlink" href="#intervaltheoryresult" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.theoryAnalysis.theoryResult.IntervalTheoryResult">
+<em class="property">class </em><tt class="descclassname">music21.theoryAnalysis.theoryResult.</tt><tt class="descname">IntervalTheoryResult</tt><big>(</big><em>intv</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.IntervalTheoryResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.IntervalTheoryResult" title="music21.theoryAnalysis.theoryResult.IntervalTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">IntervalTheoryResult</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.IntervalTheoryResult" title="music21.theoryAnalysis.theoryResult.IntervalTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">IntervalTheoryResult</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.IntervalTheoryResult.color">
+<tt class="descclassname">IntervalTheoryResult.</tt><tt class="descname">color</tt><big>(</big><em>color='red', noteList=[1, 2]</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.IntervalTheoryResult.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Color the notes in the interval as specified by noteList, 1 for the noteStart and 2 for the noteEnd
+default is to color all notes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.IntervalTheoryResult.hasEditorial">
+<tt class="descclassname">IntervalTheoryResult.</tt><tt class="descname">hasEditorial</tt><big>(</big><em>miscKey</em>, <em>editorialValue=True</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.IntervalTheoryResult.hasEditorial" title="Permalink to this definition">¶</a></dt>
+<dd><p>return True if either the noteStart or the noteEnd has the editorial key .editorial.misc[miscKey]         present and equal to a certain editorialValue (True by default)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.IntervalTheoryResult.lyric">
+<tt class="descclassname">IntervalTheoryResult.</tt><tt class="descname">lyric</tt><big>(</big><em>value, noteList=[2]</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.IntervalTheoryResult.lyric" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the lyric of the notes as specified by noteList, default is to only label the noteEnd&#8217;s lyric</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.IntervalTheoryResult.offset">
+<tt class="descclassname">IntervalTheoryResult.</tt><tt class="descname">offset</tt><big>(</big><em>leftAlign=False</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.IntervalTheoryResult.offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the calculated offset of the vlq, which is just the largest offset
+between the first notes in both lines</p>
+<p>if leftAlign=True, returns the minimum instead</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.IntervalTheoryResult" title="music21.theoryAnalysis.theoryResult.IntervalTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">IntervalTheoryResult</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.theoryAnalysis.theoryResult.IntervalTheoryResult.intv">
+<tt class="descclassname">IntervalTheoryResult.</tt><tt class="descname">intv</tt><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.IntervalTheoryResult.intv" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actual <a class="reference internal" href="moduleInterval.html#music21.interval.Interval" title="music21.interval.Interval"><tt class="xref py py-class docutils literal"><span class="pre">Interval</span></tt></a>     object associated with this theory result object</p>
+</dd></dl>
+
+<p>Instance variables inherited from <a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.text" title="music21.theoryAnalysis.theoryResult.TheoryResult.text"><tt class="xref py py-attr docutils literal"><span class="pre">text</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.currentColor" title="music21.theoryAnalysis.theoryResult.TheoryResult.currentColor"><tt class="xref py py-attr docutils literal"><span class="pre">currentColor</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.value" title="music21.theoryAnalysis.theoryResult.TheoryResult.value"><tt class="xref py py-attr docutils literal"><span class="pre">value</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="notetheoryresult">
+<h2>NoteTheoryResult<a class="headerlink" href="#notetheoryresult" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.theoryAnalysis.theoryResult.NoteTheoryResult">
+<em class="property">class </em><tt class="descclassname">music21.theoryAnalysis.theoryResult.</tt><tt class="descname">NoteTheoryResult</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.NoteTheoryResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.NoteTheoryResult" title="music21.theoryAnalysis.theoryResult.NoteTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">NoteTheoryResult</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.NoteTheoryResult" title="music21.theoryAnalysis.theoryResult.NoteTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">NoteTheoryResult</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.NoteTheoryResult.color">
+<tt class="descclassname">NoteTheoryResult.</tt><tt class="descname">color</tt><big>(</big><em>color='red'</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.NoteTheoryResult.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the color of this note</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.NoteTheoryResult" title="music21.theoryAnalysis.theoryResult.NoteTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">NoteTheoryResult</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.theoryAnalysis.theoryResult.NoteTheoryResult.n">
+<tt class="descclassname">NoteTheoryResult.</tt><tt class="descname">n</tt><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.NoteTheoryResult.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actual <a class="reference internal" href="moduleNote.html#music21.note.Note" title="music21.note.Note"><tt class="xref py py-class docutils literal"><span class="pre">Note</span></tt></a>     object associated with this theory result object</p>
+</dd></dl>
+
+<p>Instance variables inherited from <a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.text" title="music21.theoryAnalysis.theoryResult.TheoryResult.text"><tt class="xref py py-attr docutils literal"><span class="pre">text</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.currentColor" title="music21.theoryAnalysis.theoryResult.TheoryResult.currentColor"><tt class="xref py py-attr docutils literal"><span class="pre">currentColor</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.value" title="music21.theoryAnalysis.theoryResult.TheoryResult.value"><tt class="xref py py-attr docutils literal"><span class="pre">value</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="theoryresult">
+<h2>TheoryResult<a class="headerlink" href="#theoryresult" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.theoryAnalysis.theoryResult.TheoryResult">
+<em class="property">class </em><tt class="descclassname">music21.theoryAnalysis.theoryResult.</tt><tt class="descname">TheoryResult</tt><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>A TheoryResult object is used to store information about the results
+of the theory analysis. Each object includes a direct references to the original segment
+in the score, in addition to a textual description of the result found, and a value. 
+Uses subclasses corresponding to the different types of objects</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.TheoryResult.color">
+<tt class="descclassname">TheoryResult.</tt><tt class="descname">color</tt><big>(</big><em>color</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.TheoryResult.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bass-class method to color the individual elements in the theory result object.
+Polymorphically colors the theory result objects based on the type of object.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.theoryAnalysis.theoryResult.TheoryResult.currentColor">
+<tt class="descclassname">TheoryResult.</tt><tt class="descname">currentColor</tt><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.TheoryResult.currentColor" title="Permalink to this definition">¶</a></dt>
+<dd><p>The color of the entire theory result object</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.theoryAnalysis.theoryResult.TheoryResult.text">
+<tt class="descclassname">TheoryResult.</tt><tt class="descname">text</tt><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.TheoryResult.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>The text associated with this theory result object, as generated by an identify() function</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.theoryAnalysis.theoryResult.TheoryResult.value">
+<tt class="descclassname">TheoryResult.</tt><tt class="descname">value</tt><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.TheoryResult.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The value, typically a short string, associated with this theory result object, as generated by an identify() function</p>
+</dd></dl>
+
+</div>
+<div class="section" id="threenotelinearsegmenttheoryresult">
+<h2>ThreeNoteLinearSegmentTheoryResult<a class="headerlink" href="#threenotelinearsegmenttheoryresult" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult">
+<em class="property">class </em><tt class="descclassname">music21.theoryAnalysis.theoryResult.</tt><tt class="descname">ThreeNoteLinearSegmentTheoryResult</tt><big>(</big><em>tnls</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult" title="music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">ThreeNoteLinearSegmentTheoryResult</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult" title="music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">ThreeNoteLinearSegmentTheoryResult</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult.color">
+<tt class="descclassname">ThreeNoteLinearSegmentTheoryResult.</tt><tt class="descname">color</tt><big>(</big><em>color='red', noteList=[2]</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>color all the notes in noteList (1,2,3). Default is to color only the second note red</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult" title="music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">ThreeNoteLinearSegmentTheoryResult</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult.tnls">
+<tt class="descclassname">ThreeNoteLinearSegmentTheoryResult.</tt><tt class="descname">tnls</tt><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.ThreeNoteLinearSegmentTheoryResult.tnls" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actual <a class="reference internal" href="moduleVoiceLeading.html#music21.voiceLeading.ThreeNoteLinearSegment" title="music21.voiceLeading.ThreeNoteLinearSegment"><tt class="xref py py-class docutils literal"><span class="pre">ThreeNoteLinearSegment</span></tt></a>     object associated with this theory result object</p>
+</dd></dl>
+
+<p>Instance variables inherited from <a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.text" title="music21.theoryAnalysis.theoryResult.TheoryResult.text"><tt class="xref py py-attr docutils literal"><span class="pre">text</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.currentColor" title="music21.theoryAnalysis.theoryResult.TheoryResult.currentColor"><tt class="xref py py-attr docutils literal"><span class="pre">currentColor</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.value" title="music21.theoryAnalysis.theoryResult.TheoryResult.value"><tt class="xref py py-attr docutils literal"><span class="pre">value</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="vlqtheoryresult">
+<h2>VLQTheoryResult<a class="headerlink" href="#vlqtheoryresult" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.theoryAnalysis.theoryResult.VLQTheoryResult">
+<em class="property">class </em><tt class="descclassname">music21.theoryAnalysis.theoryResult.</tt><tt class="descname">VLQTheoryResult</tt><big>(</big><em>vlq</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VLQTheoryResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.VLQTheoryResult" title="music21.theoryAnalysis.theoryResult.VLQTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">VLQTheoryResult</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.VLQTheoryResult" title="music21.theoryAnalysis.theoryResult.VLQTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">VLQTheoryResult</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.VLQTheoryResult.color">
+<tt class="descclassname">VLQTheoryResult.</tt><tt class="descname">color</tt><big>(</big><em>color='red'</em>, <em>noteList=(1</em>, <em>2</em>, <em>3</em>, <em>4)</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VLQTheoryResult.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Color the notes in the vlq as specified by noteList, which is a list 
+of numbers 1-4 corresponding to the vlq map:</p>
+<div class="highlight-python"><pre>[ 1  2
+  3  4  ] </pre>
+</div>
+<p>Default is to color all notes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.VLQTheoryResult.hasEditorial">
+<tt class="descclassname">VLQTheoryResult.</tt><tt class="descname">hasEditorial</tt><big>(</big><em>miscKey</em>, <em>editorialValue=True</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VLQTheoryResult.hasEditorial" title="Permalink to this definition">¶</a></dt>
+<dd><p>return True if any of the four VLQTheoryResult notes have the editorial key         .editorial.misc[miscKey] present and equal to a certain editorialValue (True by default)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.VLQTheoryResult.markNoteEditorial">
+<tt class="descclassname">VLQTheoryResult.</tt><tt class="descname">markNoteEditorial</tt><big>(</big><em>editorialDictKey</em>, <em>editorialValue</em>, <em>editorialMarkList=(1</em>, <em>2</em>, <em>3</em>, <em>4)</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VLQTheoryResult.markNoteEditorial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark each note as specified in editorialMarkList with the 
+editorialValue in <cite>Editorial.misc[editorialDictKey]</cite>.</p>
+<p><cite>editorialMarkList</cite> is a list with the notenumber in the 
+voiceleadingquartet to mark.</p>
+<div class="highlight-python"><pre>[ 1  2
+  3  4  ]</pre>
+</div>
+<p>Default is to mark all four notes with the editorial.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.VLQTheoryResult.offset">
+<tt class="descclassname">VLQTheoryResult.</tt><tt class="descname">offset</tt><big>(</big><em>leftAlign=False</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VLQTheoryResult.offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the calculated offset of the vlq, which is just the maximum offset
+of all the notes inthe vlq</p>
+<p>if leftAlign=True, returns the minimum instead</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.VLQTheoryResult" title="music21.theoryAnalysis.theoryResult.VLQTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">VLQTheoryResult</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.theoryAnalysis.theoryResult.VLQTheoryResult.vlq">
+<tt class="descclassname">VLQTheoryResult.</tt><tt class="descname">vlq</tt><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VLQTheoryResult.vlq" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actual <a class="reference internal" href="moduleVoiceLeading.html#music21.voiceLeading.VoiceLeadingQuartet" title="music21.voiceLeading.VoiceLeadingQuartet"><tt class="xref py py-class docutils literal"><span class="pre">VoiceLeadingQuartet</span></tt></a> object associated with this theory result object</p>
+</dd></dl>
+
+<p>Instance variables inherited from <a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.text" title="music21.theoryAnalysis.theoryResult.TheoryResult.text"><tt class="xref py py-attr docutils literal"><span class="pre">text</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.currentColor" title="music21.theoryAnalysis.theoryResult.TheoryResult.currentColor"><tt class="xref py py-attr docutils literal"><span class="pre">currentColor</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.value" title="music21.theoryAnalysis.theoryResult.TheoryResult.value"><tt class="xref py py-attr docutils literal"><span class="pre">value</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="verticalityntuplettheoryresult">
+<h2>VerticalityNTupletTheoryResult<a class="headerlink" href="#verticalityntuplettheoryresult" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult">
+<em class="property">class </em><tt class="descclassname">music21.theoryAnalysis.theoryResult.</tt><tt class="descname">VerticalityNTupletTheoryResult</tt><big>(</big><em>vsnt</em>, <em>partNumIdentified=None</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult" title="music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">VerticalityNTupletTheoryResult</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult" title="music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">VerticalityNTupletTheoryResult</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult.color">
+<tt class="descclassname">VerticalityNTupletTheoryResult.</tt><tt class="descname">color</tt><big>(</big><em>color='red'</em>, <em>partNum=None</em>, <em>noteList=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>color the notes in partNum as specified by noteList (1,2,3, etc.)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult.markNoteEditorial">
+<tt class="descclassname">VerticalityNTupletTheoryResult.</tt><tt class="descname">markNoteEditorial</tt><big>(</big><em>editorialDictKey</em>, <em>editorialValue</em>, <em>editorialMarkDict={2: [1]}</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult.markNoteEditorial" title="Permalink to this definition">¶</a></dt>
+<dd><p>editorialMarkDict is a dictionary denoting which object in the verticality Triplet to 
+mark with the editorial object. the keys of the dictionary correspond to which vertical
+slice (0, 1, 2, etc.) and the editorialValues are a list of the partNums to mark.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult" title="music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">VerticalityNTupletTheoryResult</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult.partNumIdentified">
+<tt class="descclassname">VerticalityNTupletTheoryResult.</tt><tt class="descname">partNumIdentified</tt><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult.partNumIdentified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Storate location for     the part of importance that can be used later to color the results</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult.vsnt">
+<tt class="descclassname">VerticalityNTupletTheoryResult.</tt><tt class="descname">vsnt</tt><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VerticalityNTupletTheoryResult.vsnt" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actual <a class="reference internal" href="moduleVoiceLeading.html#music21.voiceLeading.VerticalityNTuplet" title="music21.voiceLeading.VerticalityNTuplet"><tt class="xref py py-class docutils literal"><span class="pre">VerticalityNTuplet</span></tt></a>     object associated with this theory result object</p>
+</dd></dl>
+
+<p>Instance variables inherited from <a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.text" title="music21.theoryAnalysis.theoryResult.TheoryResult.text"><tt class="xref py py-attr docutils literal"><span class="pre">text</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.currentColor" title="music21.theoryAnalysis.theoryResult.TheoryResult.currentColor"><tt class="xref py py-attr docutils literal"><span class="pre">currentColor</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.value" title="music21.theoryAnalysis.theoryResult.TheoryResult.value"><tt class="xref py py-attr docutils literal"><span class="pre">value</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="verticalitytheoryresult">
+<h2>VerticalityTheoryResult<a class="headerlink" href="#verticalitytheoryresult" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.theoryAnalysis.theoryResult.VerticalityTheoryResult">
+<em class="property">class </em><tt class="descclassname">music21.theoryAnalysis.theoryResult.</tt><tt class="descname">VerticalityTheoryResult</tt><big>(</big><em>vs</em><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VerticalityTheoryResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.VerticalityTheoryResult" title="music21.theoryAnalysis.theoryResult.VerticalityTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">VerticalityTheoryResult</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.VerticalityTheoryResult" title="music21.theoryAnalysis.theoryResult.VerticalityTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">VerticalityTheoryResult</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.theoryAnalysis.theoryResult.VerticalityTheoryResult.color">
+<tt class="descclassname">VerticalityTheoryResult.</tt><tt class="descname">color</tt><big>(</big><em>color='red'</em>, <em>partList=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VerticalityTheoryResult.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>color all the notes from parts in partList. Default is to color all notes form all parts</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.VerticalityTheoryResult" title="music21.theoryAnalysis.theoryResult.VerticalityTheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">VerticalityTheoryResult</span></tt></a> instance variables</p>
+<dl class="attribute">
+<dt id="music21.theoryAnalysis.theoryResult.VerticalityTheoryResult.vs">
+<tt class="descclassname">VerticalityTheoryResult.</tt><tt class="descname">vs</tt><a class="headerlink" href="#music21.theoryAnalysis.theoryResult.VerticalityTheoryResult.vs" title="Permalink to this definition">¶</a></dt>
+<dd><p>The actual <a class="reference internal" href="moduleVoiceLeading.html#music21.voiceLeading.Verticality" title="music21.voiceLeading.Verticality"><tt class="xref py py-class docutils literal"><span class="pre">Verticality</span></tt></a>     object associated with this theory result object</p>
+</dd></dl>
+
+<p>Instance variables inherited from <a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult" title="music21.theoryAnalysis.theoryResult.TheoryResult"><tt class="xref py py-class docutils literal"><span class="pre">TheoryResult</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.text" title="music21.theoryAnalysis.theoryResult.TheoryResult.text"><tt class="xref py py-attr docutils literal"><span class="pre">text</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.currentColor" title="music21.theoryAnalysis.theoryResult.TheoryResult.currentColor"><tt class="xref py py-attr docutils literal"><span class="pre">currentColor</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.theoryAnalysis.theoryResult.TheoryResult.value" title="music21.theoryAnalysis.theoryResult.TheoryResult.value"><tt class="xref py py-attr docutils literal"><span class="pre">value</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleTie.html" title="music21.tie"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleTheoryAnalysisTheoryAnalyzer.html" title="music21.theoryAnalysis.theoryAnalyzer"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

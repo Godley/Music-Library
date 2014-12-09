@@ -1,0 +1,1288 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.vexflow &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.vexflow.exporter" href="moduleVexflowExporter.html" />
+    <link rel="prev" title="music21.variant" href="moduleVariant.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleVexflowExporter.html" title="music21.vexflow.exporter"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleVariant.html" title="music21.variant"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleVariant.html"
+                        title="previous chapter">music21.variant</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleVexflowExporter.html"
+                        title="next chapter">music21.vexflow.exporter</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.vexflow</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#uidcounter">UIDCounter</a></li>
+<li><a class="reference internal" href="#vexflowchord">VexflowChord</a></li>
+<li><a class="reference internal" href="#vexflowcontext">VexflowContext</a></li>
+<li><a class="reference internal" href="#vexflownote">VexflowNote</a></li>
+<li><a class="reference internal" href="#vexflowobject">VexflowObject</a></li>
+<li><a class="reference internal" href="#vexflowpart">VexflowPart</a></li>
+<li><a class="reference internal" href="#vexflowrest">VexflowRest</a></li>
+<li><a class="reference internal" href="#vexflowscore">VexflowScore</a></li>
+<li><a class="reference internal" href="#vexflowstave">VexflowStave</a></li>
+<li><a class="reference internal" href="#vexflowvoice">VexflowVoice</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleVexflow.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-vexflow">
+<span id="modulevexflow"></span><h1>music21.vexflow<a class="headerlink" href="#music21-vexflow" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.vexflow"></span><p>Objects for transcribing music21 objects as VexFlow code</p>
+<p>Here&#8217;s the hierarchy:</p>
+<blockquote>
+<div>A VexflowContext can be used to display multiple VexflowParts.
+Each VexflowPart contains multiple VexflowStaves (one for each measure)
+Each VexflowStave might contain multiple VexflowVoices</div></blockquote>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="music21.vexflow.fromChord">
+<tt class="descclassname">music21.vexflow.</tt><tt class="descname">fromChord</tt><big>(</big><em>thisChord</em>, <em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.fromChord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a music21 chord into VexFlow code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">chord</span><span class="o">.</span><span class="n">Chord</span><span class="p">([</span><span class="s">&#39;C3&#39;</span><span class="p">,</span> <span class="s">&#39;E-3&#39;</span><span class="p">,</span> <span class="s">&#39;G3&#39;</span><span class="p">,</span> <span class="s">&#39;C4&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromChord</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;txt&#39;</span><span class="p">))</span>
+<span class="go">new Vex.Flow.StaveNote({keys: [&quot;Cn/3&quot;, &quot;Eb/3&quot;, &quot;Gn/3&quot;, &quot;Cn/4&quot;], duration: &quot;q&quot;})</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromChord</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;jsbody&#39;</span><span class="p">))</span>
+<span class="go">var canvas = $(&#39;#music21canvas&#39;)[0];</span>
+<span class="go">var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);</span>
+<span class="go">var ctx = renderer.getContext();</span>
+<span class="go">var stave = new Vex.Flow.Stave(10,0,500);</span>
+<span class="go">stave.addClef(&#39;treble&#39;).setContext(ctx).draw();</span>
+<span class="go">var notes = [new Vex.Flow.StaveNote({keys: [&quot;Cn/3&quot;, &quot;Eb/3&quot;, &quot;Gn/3&quot;, &quot;Cn/4&quot;], duration: &quot;q&quot;})];</span>
+<span class="go">var voice = new Vex.Flow.Voice({</span>
+<span class="go">    num_beats: 1.0,</span>
+<span class="go">    beat_value: 4,</span>
+<span class="go">    resolution: Vex.Flow.RESOLUTION</span>
+<span class="go">});</span>
+<span class="go">voice.addTickables(notes);</span>
+<span class="go">var formatter = new Vex.Flow.Formatter()</span>
+<span class="go">formatter.joinVoices([voice])</span>
+<span class="go">formatter.format([voice], 500);</span>
+<span class="go">voice.draw(ctx, stave);</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromChord</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;html&#39;</span><span class="p">))</span>
+<span class="go">&lt;!DOCTYPE HTML&gt;</span>
+<span class="go">&lt;html&gt;</span>
+<span class="go">&lt;head&gt;</span>
+<span class="go">    &lt;meta name=&#39;author&#39; content=&#39;Music21&#39; /&gt;</span>
+<span class="go">    &lt;script src=&#39;http://code.jquery.com/jquery-latest.js&#39;&gt;&lt;/script&gt;</span>
+<span class="go">    &lt;script src=&#39;http://www.vexflow.com/support/vexflow-min.js&#39;&gt;&lt;/script&gt;</span>
+<span class="go">&lt;/head&gt;</span>
+<span class="go">&lt;body&gt;</span>
+<span class="go">    &lt;canvas width=&quot;525&quot; height=&quot;120&quot; id=&#39;music21canvas&#39;&gt;&lt;/canvas&gt;</span>
+<span class="go">    &lt;script&gt;</span>
+<span class="go">        $(document).ready(function(){</span>
+<span class="go">            var canvas = $(&#39;#music21canvas&#39;)[0];</span>
+<span class="go">            var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);</span>
+<span class="go">            var ctx = renderer.getContext();</span>
+<span class="go">            var stave = new Vex.Flow.Stave(10,0,500);</span>
+<span class="go">            stave.addClef(&#39;treble&#39;).setContext(ctx).draw();</span>
+<span class="go">            var notes = [new Vex.Flow.StaveNote({keys: [&quot;Cn/3&quot;, &quot;Eb/3&quot;, &quot;Gn/3&quot;, &quot;Cn/4&quot;], duration: &quot;q&quot;})];</span>
+<span class="go">            var voice = new Vex.Flow.Voice({</span>
+<span class="go">                num_beats: 1.0,</span>
+<span class="go">                beat_value: 4,</span>
+<span class="go">                resolution: Vex.Flow.RESOLUTION</span>
+<span class="go">            });</span>
+<span class="go">            voice.addTickables(notes);</span>
+<span class="go">            var formatter = new Vex.Flow.Formatter()</span>
+<span class="go">            formatter.joinVoices([voice])</span>
+<span class="go">            formatter.format([voice], 500);</span>
+<span class="go">            voice.draw(ctx, stave);</span>
+<span class="go">        });</span>
+<span class="go">    &lt;/script&gt;</span>
+<span class="go">&lt;/body&gt;</span>
+<span class="go">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.vexflow.fromMeasure">
+<tt class="descclassname">music21.vexflow.</tt><tt class="descname">fromMeasure</tt><big>(</big><em>thisMeasure</em>, <em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.fromMeasure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a music21 measure into VexFlow code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv1.6.mxl&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">measures</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">fromMeasure</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="go">var music21Voice0 = new Vex.Flow.Voice({num_beats: 4.0, beat_value: 4, resolution: Vex.Flow.RESOLUTION});</span>
+<span class="go">var music21Voice0Notes = [new Vex.Flow.StaveNote({keys: [&quot;Gn/4&quot;], duration: &quot;8&quot;, stem_direction: Vex.Flow.StaveNote.STEM_UP}), new Vex.Flow.StaveNote({keys: [&quot;Cn/4&quot;], duration: &quot;8&quot;, stem_direction: Vex.Flow.StaveNote.STEM_UP}), new Vex.Flow.StaveNote({keys: [&quot;Fn/4&quot;], duration: &quot;8&quot;, stem_direction: Vex.Flow.StaveNote.STEM_UP}), new Vex.Flow.StaveNote({keys: [&quot;Fn/3&quot;], duration: &quot;8&quot;, stem_direction: Vex.Flow.StaveNote.STEM_UP}), new Vex.Flow.StaveNote({keys: [&quot;An/3&quot;], duration: &quot;8&quot;, stem_direction: Vex.Flow.StaveNote.STEM_UP}), new Vex.Flow.StaveNote({keys: [&quot;Fn/3&quot;], duration: &quot;8&quot;, stem_direction: Vex.Flow.StaveNote.STEM_UP}), new Vex.Flow.StaveNote({keys: [&quot;An/3&quot;], duration: &quot;8&quot;, stem_direction: Vex.Flow.StaveNote.STEM_UP}), new Vex.Flow.StaveNote({keys: [&quot;Cn/4&quot;], duration: &quot;8&quot;, stem_direction: Vex.Flow.StaveNote.STEM_UP})];</span>
+<span class="go">music21Voice0.addTickables(music21Voice0Notes);</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">fromMeasure</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s">&#39;html&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.vexflow.fromNote">
+<tt class="descclassname">music21.vexflow.</tt><tt class="descname">fromNote</tt><big>(</big><em>thisNote</em>, <em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.fromNote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a music21 note into VexFlow string code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromNote</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;C4&#39;</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;txt&#39;</span><span class="p">))</span>
+<span class="go">new Vex.Flow.StaveNote({keys: [&quot;Cn/4&quot;], duration: &quot;q&quot;})</span>
+</pre></div>
+</div>
+<p>See VexFlowNote.generateCode() for an example of mode=&#8217;html&#8217;.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.vexflow.fromObject">
+<tt class="descclassname">music21.vexflow.</tt><tt class="descname">fromObject</tt><big>(</big><em>thisObject</em>, <em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.fromObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to translate an arbitrary Music21Object into vexflow</p>
+<p>Able to translate anything in vexflow.supportedMusic21Classes</p>
+<p>TODO: Unit Tests (one for each supportedMusic21Class)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromObject</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;C4&#39;</span><span class="p">)))</span>
+<span class="go">new Vex.Flow.StaveNote({keys: [&quot;Cn/4&quot;], duration: &quot;q&quot;})</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromObject</span><span class="p">(</span><span class="n">pitch</span><span class="o">.</span><span class="n">Pitch</span><span class="p">(</span><span class="s">&#39;C4&#39;</span><span class="p">)))</span>
+<span class="go">new Vex.Flow.StaveNote({keys: [&quot;Cn/4&quot;], duration: &quot;q&quot;})</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromObject</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Rest</span><span class="p">()))</span>
+<span class="go">new Vex.Flow.StaveNote({keys: [&quot;b/4&quot;], duration: &quot;qr&quot;})</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromObject</span><span class="p">(</span><span class="n">chord</span><span class="o">.</span><span class="n">Chord</span><span class="p">([</span><span class="s">&#39;C4&#39;</span><span class="p">,</span> <span class="s">&#39;E-4&#39;</span><span class="p">,</span> <span class="s">&#39;G4&#39;</span><span class="p">])))</span>
+<span class="go">new Vex.Flow.StaveNote({keys: [&quot;Cn/4&quot;, &quot;Eb/4&quot;, &quot;Gn/4&quot;], duration: &quot;q&quot;})</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bwv666</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv66.6&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">soprano</span> <span class="o">=</span> <span class="n">bwv666</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">measure1</span> <span class="o">=</span> <span class="n">soprano</span><span class="o">.</span><span class="n">getElementsByClass</span><span class="p">(</span><span class="s">&#39;Measure&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trebleVoice</span> <span class="o">=</span> <span class="n">bwv666</span><span class="o">.</span><span class="n">partsToVoices</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bwv666</span>
+<span class="go">&lt;music21.stream.Score ...&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">soprano</span>
+<span class="go">&lt;music21.stream.Part Soprano&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">measure1</span>
+<span class="go">&lt;music21.stream.Measure 0 offset=0.0&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">trebleVoice</span>
+<span class="go">&lt;music21.stream.Voice 0&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromObject</span><span class="p">(</span><span class="n">measure1</span><span class="p">))</span>
+<span class="go">var music21Voice0 = new Vex.Flow.Voice({num_beats: 1.0, beat_value: 4, resolution: Vex.Flow.RESOLUTION});</span>
+<span class="go">var music21Voice0Notes = [new Vex.Flow.StaveNote({keys: [&quot;C#/5&quot;], duration: &quot;8&quot;, stem_direction: Vex.Flow.StaveNote.STEM_DOWN}), new Vex.Flow.StaveNote({keys: [&quot;Bn/4&quot;], duration: &quot;8&quot;, stem_direction: Vex.Flow.StaveNote.STEM_DOWN})];</span>
+<span class="go">music21Voice0.addTickables(music21Voice0Notes);</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromObject</span><span class="p">(</span><span class="n">trebleVoice</span><span class="p">))</span>
+<span class="go">var music21Voice0 = new Vex.Flow.Voice({num_beats: 4.0, beat_value: 4, resolution: Vex.Flow.RESOLUTION});</span>
+<span class="go">var music21Voice0Notes = [new Vex.Flow.StaveNote({keys: [&quot;An/4&quot;], duration: &quot;q&quot;, stem_direction: Vex.Flow.StaveNote.STEM_UP}), new Vex.Flow.StaveNote({keys: [&quot;Bn/4&quot;], duration: &quot;q&quot;, stem_direction: Vex.Flow.StaveNote.STEM_DOWN}), new Vex.Flow.StaveNote({keys: [&quot;C#/5&quot;], duration: &quot;q&quot;, stem_direction: Vex.Flow.StaveNote.STEM_DOWN}).addArticulation(0, new Vex.Flow.Articulation(&quot;a@a&quot;).setPosition(3)), new Vex.Flow.StaveNote({keys: [&quot;En/5&quot;], duration: &quot;q&quot;, stem_direction: Vex.Flow.StaveNote.STEM_DOWN})];</span>
+<span class="go">music21Voice0.addTickables(music21Voice0Notes);</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c">#print vexflow.fromObject(soprano)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c">#print vexflow.fromObject(bwv666)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c">#print vexflow.fromObject(tinyNotation.TinyNotationStream(&quot;3/4 E4 r f# g=lastG b-8 a g c4~ c&quot;), mode=&#39;txt&#39;) </span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.vexflow.fromPart">
+<tt class="descclassname">music21.vexflow.</tt><tt class="descname">fromPart</tt><big>(</big><em>thisPart</em>, <em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.fromPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a music21 part into VexFlow code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv66.6&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">textOut</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">fromPart</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.vexflow.fromRest">
+<tt class="descclassname">music21.vexflow.</tt><tt class="descname">fromRest</tt><big>(</big><em>thisRest</em>, <em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.fromRest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a music21 rest into VexFlow code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Rest</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromRest</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;txt&#39;</span><span class="p">))</span>
+<span class="go">new Vex.Flow.StaveNote({keys: [&quot;b/4&quot;], duration: &quot;qr&quot;})</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vexflow</span><span class="o">.</span><span class="n">fromRest</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;html&#39;</span><span class="p">))</span>
+<span class="go">&lt;!DOCTYPE HTML&gt;</span>
+<span class="go">&lt;html&gt;</span>
+<span class="go">&lt;head&gt;</span>
+<span class="go">    &lt;meta name=&#39;author&#39; content=&#39;Music21&#39; /&gt;</span>
+<span class="go">    &lt;script src=&#39;http://code.jquery.com/jquery-latest.js&#39;&gt;&lt;/script&gt;</span>
+<span class="go">    &lt;script src=&#39;http://www.vexflow.com/support/vexflow-min.js&#39;&gt;&lt;/script&gt;</span>
+<span class="go">&lt;/head&gt;</span>
+<span class="go">&lt;body&gt;</span>
+<span class="go">    &lt;canvas width=&quot;525&quot; height=&quot;120&quot; id=&#39;music21canvas&#39;&gt;&lt;/canvas&gt;</span>
+<span class="go">    &lt;script&gt;</span>
+<span class="go">        $(document).ready(function(){</span>
+<span class="go">            var canvas = $(&#39;#music21canvas&#39;)[0];</span>
+<span class="go">            var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);</span>
+<span class="go">            var ctx = renderer.getContext();</span>
+<span class="go">            var stave = new Vex.Flow.Stave(10,0,500);</span>
+<span class="go">            stave.addClef(&#39;treble&#39;).setContext(ctx).draw();</span>
+<span class="go">            var notes = [new Vex.Flow.StaveNote({keys: [&quot;b/4&quot;], duration: &quot;qr&quot;})];</span>
+<span class="go">            var voice = new Vex.Flow.Voice({</span>
+<span class="go">                num_beats: 1.0,</span>
+<span class="go">                beat_value: 4,</span>
+<span class="go">                resolution: Vex.Flow.RESOLUTION</span>
+<span class="go">            });</span>
+<span class="go">            voice.addTickables(notes);</span>
+<span class="go">            var formatter = new Vex.Flow.Formatter()</span>
+<span class="go">            formatter.joinVoices([voice])</span>
+<span class="go">            formatter.format([voice], 500);</span>
+<span class="go">            voice.draw(ctx, stave);</span>
+<span class="go">        });</span>
+<span class="go">&lt;/script&gt;</span>
+<span class="go">&lt;/body&gt;</span>
+<span class="go">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.vexflow.fromScore">
+<tt class="descclassname">music21.vexflow.</tt><tt class="descname">fromScore</tt><big>(</big><em>thisScore</em>, <em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.fromScore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a music21 score into VexFlow code</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;bwv66.6&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c">#print vexflow.fromScore(a, mode=&#39;txt&#39;) </span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.vexflow.fromStream">
+<tt class="descclassname">music21.vexflow.</tt><tt class="descname">fromStream</tt><big>(</big><em>thisStream</em>, <em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.fromStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a music21 stream into VexFlow code</p>
+<p>Checks if it has parts. If so, parses like a Score.
+Otherwise, just flattens it and parses it like a Part</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c">#print vexflow.fromStream(tinyNotation.TinyNotationStream(&#39;c8 d8 e-4 dd4 cc2&#39;), mode=&#39;txt&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c">#print vexflow.fromStream(tinyNotation.TinyNotationStream(&#39;C8 D8 E-4 d4 c2&#39;), mode=&#39;txt&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.vexflow.staffString">
+<tt class="descclassname">music21.vexflow.</tt><tt class="descname">staffString</tt><big>(</big><em>xPosStr='10'</em>, <em>yPosStr='0'</em>, <em>staffWidth='500'</em>, <em>staveName='stave'</em><big>)</big><a class="headerlink" href="#music21.vexflow.staffString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string formated new VexFlow Stave.</p>
+<p>Arguments are strings representing the x and y position and the width.</p>
+<p>They are strings because a Javascript function can be used in lieu of the number.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vexflow</span><span class="o">.</span><span class="n">staffString</span><span class="p">()</span>
+<span class="go">&#39;var stave = new Vex.Flow.Stave(10,0,500);&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vexflow</span><span class="o">.</span><span class="n">staffString</span><span class="p">(</span><span class="s">&#39;(0 * (((($(window).width()-10) - (2*10))) / 4) + 10)&#39;</span><span class="p">,</span> <span class="s">&#39;((0 * ((4 * (90 + 20)) + 60)) + 10 + (0*(90+20)))&#39;</span><span class="p">,</span> <span class="s">&#39;(((($(window).width()-10) - (2*10))) / 4)&#39;</span><span class="p">)</span>
+<span class="go">&#39;var stave = new Vex.Flow.Stave((0 * (((($(window).width()-10) - (2*10))) / 4) + 10),((0 * ((4 * (90 + 20)) + 60)) + 10 + (0*(90+20))),(((($(window).width()-10) - (2*10))) / 4));&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.vexflow.vexflowClefFromClef">
+<tt class="descclassname">music21.vexflow.</tt><tt class="descname">vexflowClefFromClef</tt><big>(</big><em>music21clef</em><big>)</big><a class="headerlink" href="#music21.vexflow.vexflowClefFromClef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a music21 clef object, returns the vexflow clef:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vexflow</span><span class="o">.</span><span class="n">vexflowClefFromClef</span><span class="p">(</span><span class="n">clef</span><span class="o">.</span><span class="n">TrebleClef</span><span class="p">())</span>
+<span class="go">&#39;treble&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vexflow</span><span class="o">.</span><span class="n">vexflowClefFromClef</span><span class="p">(</span><span class="n">clef</span><span class="o">.</span><span class="n">BassClef</span><span class="p">())</span>
+<span class="go">&#39;bass&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vexflow</span><span class="o">.</span><span class="n">vexflowClefFromClef</span><span class="p">(</span><span class="n">clef</span><span class="o">.</span><span class="n">TenorClef</span><span class="p">())</span>
+<span class="go">&#39;tenor&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vexflow</span><span class="o">.</span><span class="n">vexflowClefFromClef</span><span class="p">(</span><span class="n">clef</span><span class="o">.</span><span class="n">AltoClef</span><span class="p">())</span>
+<span class="go">&#39;alto&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vexflow</span><span class="o">.</span><span class="n">vexflowClefFromClef</span><span class="p">(</span><span class="n">clef</span><span class="o">.</span><span class="n">Treble8vbClef</span><span class="p">())</span>
+<span class="go">&#39;bass&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vexflow</span><span class="o">.</span><span class="n">vexflowClefFromClef</span><span class="p">(</span><span class="n">clef</span><span class="o">.</span><span class="n">PercussionClef</span><span class="p">())</span>
+<span class="go">&#39;percussion&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vexflow</span><span class="o">.</span><span class="n">vexflowClefFromClef</span><span class="p">(</span><span class="n">clef</span><span class="o">.</span><span class="n">GClef</span><span class="p">())</span>
+<span class="go">&#39;treble&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="uidcounter">
+<h2>UIDCounter<a class="headerlink" href="#uidcounter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.vexflow.UIDCounter">
+<em class="property">class </em><tt class="descclassname">music21.vexflow.</tt><tt class="descname">UIDCounter</tt><big>(</big><em>UIDStart=0</em><big>)</big><a class="headerlink" href="#music21.vexflow.UIDCounter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A generic counter object for keeping track of the number of objects used:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">uidc</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">UIDCounter</span><span class="p">(</span><span class="n">UIDStart</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">uidc</span><span class="o">.</span><span class="n">UID</span>
+<span class="go">20</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">uidc</span><span class="o">.</span><span class="n">readAndIncrement</span><span class="p">()</span>
+<span class="go">20</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">uidc</span><span class="o">.</span><span class="n">readAndIncrement</span><span class="p">()</span>
+<span class="go">21</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">uidc</span><span class="o">.</span><span class="n">UID</span>
+<span class="go">22</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.UIDCounter" title="music21.vexflow.UIDCounter"><tt class="xref py py-class docutils literal"><span class="pre">UIDCounter</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.vexflow.UIDCounter.readAndIncrement">
+<tt class="descclassname">UIDCounter.</tt><tt class="descname">readAndIncrement</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.UIDCounter.readAndIncrement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="vexflowchord">
+<h2>VexflowChord<a class="headerlink" href="#vexflowchord" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.vexflow.VexflowChord">
+<em class="property">class </em><tt class="descclassname">music21.vexflow.</tt><tt class="descname">VexflowChord</tt><big>(</big><em>music21Chord=None</em>, <em>clef=None</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowChord" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simultaneous grouping of notes.</p>
+<p>TODO: __str__ should just call the str() method on the original notes
+TODO: Also store original notes as Chord object
+TODO: write unit tests</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowChord" title="music21.vexflow.VexflowChord"><tt class="xref py py-class docutils literal"><span class="pre">VexflowChord</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject" title="music21.vexflow.VexflowObject"><tt class="xref py py-class docutils literal"><span class="pre">VexflowObject</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowChord" title="music21.vexflow.VexflowChord"><tt class="xref py py-class docutils literal"><span class="pre">VexflowChord</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.vexflow.VexflowChord.vexflowCode">
+<tt class="descclassname">VexflowChord.</tt><tt class="descname">vexflowCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowChord.vexflowCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string showing the vexflow code needed to display this chord in a browser.</p>
+</dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.vexflow.VexflowObject" title="music21.vexflow.VexflowObject"><tt class="xref py py-class docutils literal"><span class="pre">VexflowObject</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.accidentalCode" title="music21.vexflow.VexflowObject.accidentalCode"><tt class="xref py py-meth docutils literal"><span class="pre">accidentalCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.dotCode" title="music21.vexflow.VexflowObject.dotCode"><tt class="xref py py-meth docutils literal"><span class="pre">dotCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.fermataCode" title="music21.vexflow.VexflowObject.fermataCode"><tt class="xref py py-meth docutils literal"><span class="pre">fermataCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.generateCode" title="music21.vexflow.VexflowObject.generateCode"><tt class="xref py py-meth docutils literal"><span class="pre">generateCode()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.getVoiceString" title="music21.vexflow.VexflowObject.getVoiceString"><tt class="xref py py-meth docutils literal"><span class="pre">getVoiceString()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.jsBodyCode" title="music21.vexflow.VexflowObject.jsBodyCode"><tt class="xref py py-meth docutils literal"><span class="pre">jsBodyCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.setBeamStatus" title="music21.vexflow.VexflowObject.setBeamStatus"><tt class="xref py py-meth docutils literal"><span class="pre">setBeamStatus()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.setTieStatus" title="music21.vexflow.VexflowObject.setTieStatus"><tt class="xref py py-meth docutils literal"><span class="pre">setTieStatus()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.staveDefaultClefAddString" title="music21.vexflow.VexflowObject.staveDefaultClefAddString"><tt class="xref py py-meth docutils literal"><span class="pre">staveDefaultClefAddString()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.stemDirectionCode" title="music21.vexflow.VexflowObject.stemDirectionCode"><tt class="xref py py-meth docutils literal"><span class="pre">stemDirectionCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.vexflowDuration" title="music21.vexflow.VexflowObject.vexflowDuration"><tt class="xref py py-meth docutils literal"><span class="pre">vexflowDuration()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.vexflowKey" title="music21.vexflow.VexflowObject.vexflowKey"><tt class="xref py py-meth docutils literal"><span class="pre">vexflowKey()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="vexflowcontext">
+<h2>VexflowContext<a class="headerlink" href="#vexflowcontext" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.vexflow.VexflowContext">
+<em class="property">class </em><tt class="descclassname">music21.vexflow.</tt><tt class="descname">VexflowContext</tt><big>(</big><em>params={}</em>, <em>canvasName=None</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains information about the canvas, formatter, and renderer.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowContext" title="music21.vexflow.VexflowContext"><tt class="xref py py-class docutils literal"><span class="pre">VexflowContext</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.vexflow.VexflowContext.generateHTML">
+<tt class="descclassname">VexflowContext.</tt><tt class="descname">generateHTML</tt><big>(</big><em>applyAttributes=False</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowContext.generateHTML" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the HTML for the canvas and stores it in <tt class="docutils literal"><span class="pre">self.canvasHTML</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">End users should use the <tt class="docutils literal"><span class="pre">getCanvasHTML()</span></tt> method.</p>
+</div>
+<dl class="docutils">
+<dt>If <tt class="docutils literal"><span class="pre">applyAttributes</span></tt> is True, then apply the attributes in the</dt>
+<dd>HTML code instead of in the Javascript</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is no checking that the values aren&#8217;t also set
+in Javascript.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowContext.generateJS">
+<tt class="descclassname">VexflowContext.</tt><tt class="descname">generateJS</tt><big>(</big><em>applyAttributes=True</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowContext.generateJS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the Javascript to set up the canvas for VexFlow and stores it
+in <tt class="docutils literal"><span class="pre">self.canvasJSCode</span></tt>, <tt class="docutils literal"><span class="pre">self.rendererCode</span></tt>, and 
+<tt class="docutils literal"><span class="pre">self.contextCode</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">End users should use the get methods.</p>
+</div>
+<p>If <tt class="docutils literal"><span class="pre">applyAttributes</span></tt> is True, then apply the attributes in the
+Javascript instead of the HTML.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Applying the attributes in Javascript will overwrite any 
+attributes set in the HTML.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowContext.getCanvasCode">
+<tt class="descclassname">VexflowContext.</tt><tt class="descname">getCanvasCode</tt><big>(</big><em>indentation=1</em>, <em>cache=True</em>, <em>applyAttributes=True</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowContext.getCanvasCode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowContext.getCanvasHTML">
+<tt class="descclassname">VexflowContext.</tt><tt class="descname">getCanvasHTML</tt><big>(</big><em>cache=True</em>, <em>applyAttributes=False</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowContext.getCanvasHTML" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowContext.getHeight">
+<tt class="descclassname">VexflowContext.</tt><tt class="descname">getHeight</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowContext.getHeight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowContext.getJSCode">
+<tt class="descclassname">VexflowContext.</tt><tt class="descname">getJSCode</tt><big>(</big><em>indentation=1</em>, <em>cache=True</em>, <em>applyAttributes=True</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowContext.getJSCode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowContext.getRenderContextCode">
+<tt class="descclassname">VexflowContext.</tt><tt class="descname">getRenderContextCode</tt><big>(</big><em>indentation=1</em>, <em>cache=True</em>, <em>applyAttributes=True</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowContext.getRenderContextCode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowContext.getWidth">
+<tt class="descclassname">VexflowContext.</tt><tt class="descname">getWidth</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowContext.getWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowContext.setHeight">
+<tt class="descclassname">VexflowContext.</tt><tt class="descname">setHeight</tt><big>(</big><em>height</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowContext.setHeight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowContext.setWidth">
+<tt class="descclassname">VexflowContext.</tt><tt class="descname">setWidth</tt><big>(</big><em>width</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowContext.setWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="vexflownote">
+<h2>VexflowNote<a class="headerlink" href="#vexflownote" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.vexflow.VexflowNote">
+<em class="property">class </em><tt class="descclassname">music21.vexflow.</tt><tt class="descname">VexflowNote</tt><big>(</big><em>music21note=None</em>, <em>clef=None</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowNote" title="Permalink to this definition">¶</a></dt>
+<dd><p>A VexflowNote object has a .generateCode() method which produces VexFlow 
+code to represent a <a class="reference internal" href="moduleNote.html#music21.note.Note" title="music21.note.Note"><tt class="xref py py-class docutils literal"><span class="pre">music21.note.Note</span></tt></a> object.</p>
+<p>TODO: Verify that I&#8217;m not overwriting any base attribute names of music21</p>
+<p>TODO: add setters/getters</p>
+<p>TODO: __str__</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;C-&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowNote</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">vexflowKey</span><span class="p">()</span>
+<span class="go">&#39;Cb/4&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">vexflowDuration</span><span class="p">()</span>
+<span class="go">&#39;q&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">vexflowCode</span><span class="p">()</span>
+<span class="go">&#39;new Vex.Flow.StaveNote({keys: [&quot;Cb/4&quot;], duration: &quot;q&quot;})&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">tinyNotation</span><span class="o">.</span><span class="n">TinyNotationNote</span><span class="p">(</span><span class="s">&#39;c##2.&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">note</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="o">.</span><span class="n">stemDirection</span> <span class="o">=</span> <span class="s">&#39;up&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowNote</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">vexflowKey</span><span class="p">()</span>
+<span class="go">&#39;C##/4&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">vexflowDuration</span><span class="p">()</span>
+<span class="go">&#39;hd&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">stemDirectionCode</span><span class="p">()</span>
+<span class="go">&#39;stem_direction: Vex.Flow.StaveNote.STEM_UP&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">vexflowCode</span><span class="p">()</span>
+<span class="go">&#39;new Vex.Flow.StaveNote({keys: [&quot;C##/4&quot;], duration: &quot;hd&quot;, stem_direction: Vex.Flow.StaveNote.STEM_UP}).addDotToAll()&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowNote" title="music21.vexflow.VexflowNote"><tt class="xref py py-class docutils literal"><span class="pre">VexflowNote</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject" title="music21.vexflow.VexflowObject"><tt class="xref py py-class docutils literal"><span class="pre">VexflowObject</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowNote" title="music21.vexflow.VexflowNote"><tt class="xref py py-class docutils literal"><span class="pre">VexflowNote</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.vexflow.VexflowNote.vexflowCode">
+<tt class="descclassname">VexflowNote.</tt><tt class="descname">vexflowCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowNote.vexflowCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a string representing the vexflow code for this note</p>
+</dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.vexflow.VexflowObject" title="music21.vexflow.VexflowObject"><tt class="xref py py-class docutils literal"><span class="pre">VexflowObject</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.accidentalCode" title="music21.vexflow.VexflowObject.accidentalCode"><tt class="xref py py-meth docutils literal"><span class="pre">accidentalCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.dotCode" title="music21.vexflow.VexflowObject.dotCode"><tt class="xref py py-meth docutils literal"><span class="pre">dotCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.fermataCode" title="music21.vexflow.VexflowObject.fermataCode"><tt class="xref py py-meth docutils literal"><span class="pre">fermataCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.generateCode" title="music21.vexflow.VexflowObject.generateCode"><tt class="xref py py-meth docutils literal"><span class="pre">generateCode()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.getVoiceString" title="music21.vexflow.VexflowObject.getVoiceString"><tt class="xref py py-meth docutils literal"><span class="pre">getVoiceString()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.jsBodyCode" title="music21.vexflow.VexflowObject.jsBodyCode"><tt class="xref py py-meth docutils literal"><span class="pre">jsBodyCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.setBeamStatus" title="music21.vexflow.VexflowObject.setBeamStatus"><tt class="xref py py-meth docutils literal"><span class="pre">setBeamStatus()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.setTieStatus" title="music21.vexflow.VexflowObject.setTieStatus"><tt class="xref py py-meth docutils literal"><span class="pre">setTieStatus()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.staveDefaultClefAddString" title="music21.vexflow.VexflowObject.staveDefaultClefAddString"><tt class="xref py py-meth docutils literal"><span class="pre">staveDefaultClefAddString()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.stemDirectionCode" title="music21.vexflow.VexflowObject.stemDirectionCode"><tt class="xref py py-meth docutils literal"><span class="pre">stemDirectionCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.vexflowDuration" title="music21.vexflow.VexflowObject.vexflowDuration"><tt class="xref py py-meth docutils literal"><span class="pre">vexflowDuration()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.vexflowKey" title="music21.vexflow.VexflowObject.vexflowKey"><tt class="xref py py-meth docutils literal"><span class="pre">vexflowKey()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="vexflowobject">
+<h2>VexflowObject<a class="headerlink" href="#vexflowobject" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.vexflow.VexflowObject">
+<em class="property">class </em><tt class="descclassname">music21.vexflow.</tt><tt class="descname">VexflowObject</tt><big>(</big><em>music21Object=None</em>, <em>clef=None</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>A general class for all VexflowObjects to inherit from.</p>
+<p>See specific objects such as <a class="reference internal" href="#music21.vexflow.VexflowNote" title="music21.vexflow.VexflowNote"><tt class="xref py py-class docutils literal"><span class="pre">VexflowNote</span></tt></a>,
+<a class="reference internal" href="#music21.vexflow.VexflowChord" title="music21.vexflow.VexflowChord"><tt class="xref py py-class docutils literal"><span class="pre">VexflowChord</span></tt></a>, and 
+<a class="reference internal" href="#music21.vexflow.VexflowRest" title="music21.vexflow.VexflowRest"><tt class="xref py py-class docutils literal"><span class="pre">VexflowRest</span></tt></a> for more details.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowObject" title="music21.vexflow.VexflowObject"><tt class="xref py py-class docutils literal"><span class="pre">VexflowObject</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.accidentalCode">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">accidentalCode</tt><big>(</big><em>pitch=None</em>, <em>index=0</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.accidentalCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns code to add an accidental to a Vex.Flow.Note or key.</p>
+<p>Index refers to the pitch within a chord to be altered (0 for notes).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.dotCode">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">dotCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.dotCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates VexFlow code for the number of dots in the object.</p>
+<p>Currently Vexflow&#8217;s layout engine only supports single dotted notes however!</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="o">.</span><span class="n">duration</span><span class="o">.</span><span class="n">dots</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vn</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowNote</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vn</span><span class="o">.</span><span class="n">dotCode</span><span class="p">()</span>
+<span class="go">&#39;.addDotToAll()&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.fermataCode">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">fermataCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.fermataCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string of Vexflow code if there is a fermata and &#8216;&#8217; if not.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="o">.</span><span class="n">expressions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">expressions</span><span class="o">.</span><span class="n">Fermata</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vn</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowNote</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vn</span><span class="o">.</span><span class="n">fermataCode</span><span class="p">()</span>
+<span class="go">&#39;.addArticulation(0, new Vex.Flow.Articulation(&quot;a@a&quot;).setPosition(3))&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.generateCode">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">generateCode</tt><big>(</big><em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.generateCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the VexFlow code for a single note in the desired display mode.</p>
+<p>Currently supported modes are <cite>txt</cite> (returns the VexFlow code which can be used in conjunction with
+other VexFlow code) and <cite>html</cite> (returns standalone HTML code for displaying just this note.)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;C-&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowNote</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">generateCode</span><span class="p">(</span><span class="s">&#39;txt&#39;</span><span class="p">)</span>
+<span class="go">&#39;new Vex.Flow.StaveNote({keys: [&quot;Cb/4&quot;], duration: &quot;q&quot;})&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">generateCode</span><span class="p">(</span><span class="s">&#39;jsbody&#39;</span><span class="p">))</span>
+<span class="go">var canvas = $(&#39;#music21canvas&#39;)[0];</span>
+<span class="go">var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);</span>
+<span class="go">var ctx = renderer.getContext();</span>
+<span class="go">var stave = new Vex.Flow.Stave(10,0,500);</span>
+<span class="go">stave.addClef(&#39;treble&#39;).setContext(ctx).draw();</span>
+<span class="go">var notes = [new Vex.Flow.StaveNote({keys: [&quot;Cb/4&quot;], duration: &quot;q&quot;})];</span>
+<span class="go">var voice = new Vex.Flow.Voice({</span>
+<span class="go">    num_beats: 1.0,</span>
+<span class="go">    beat_value: 4,</span>
+<span class="go">    resolution: Vex.Flow.RESOLUTION</span>
+<span class="go">});</span>
+<span class="go">voice.addTickables(notes);</span>
+<span class="go">var formatter = new Vex.Flow.Formatter()</span>
+<span class="go">formatter.joinVoices([voice])</span>
+<span class="go">formatter.format([voice], 500);</span>
+<span class="go">voice.draw(ctx, stave);</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">generateCode</span><span class="p">(</span><span class="s">&#39;html&#39;</span><span class="p">))</span>
+<span class="go">&lt;!DOCTYPE HTML&gt;</span>
+<span class="go">&lt;html&gt;</span>
+<span class="go">&lt;head&gt;</span>
+<span class="go">    &lt;meta name=&#39;author&#39; content=&#39;Music21&#39; /&gt;</span>
+<span class="go">    &lt;script src=&#39;http://code.jquery.com/jquery-latest.js&#39;&gt;&lt;/script&gt;</span>
+<span class="go">    &lt;script src=&#39;http://www.vexflow.com/support/vexflow-min.js&#39;&gt;&lt;/script&gt;</span>
+<span class="go">&lt;/head&gt;</span>
+<span class="go">&lt;body&gt;</span>
+<span class="go">    &lt;canvas width=&quot;525&quot; height=&quot;120&quot; id=&#39;music21canvas&#39;&gt;&lt;/canvas&gt;</span>
+<span class="go">    &lt;script&gt;</span>
+<span class="go">        $(document).ready(function(){</span>
+<span class="go">            var canvas = $(&#39;#music21canvas&#39;)[0];</span>
+<span class="go">            var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);</span>
+<span class="go">            var ctx = renderer.getContext();</span>
+<span class="go">            var stave = new Vex.Flow.Stave(10,0,500);</span>
+<span class="go">            stave.addClef(&#39;treble&#39;).setContext(ctx).draw();</span>
+<span class="go">            var notes = [new Vex.Flow.StaveNote({keys: [&quot;Cb/4&quot;], duration: &quot;q&quot;})];</span>
+<span class="go">            var voice = new Vex.Flow.Voice({</span>
+<span class="go">                num_beats: 1.0,</span>
+<span class="go">                beat_value: 4,</span>
+<span class="go">                resolution: Vex.Flow.RESOLUTION</span>
+<span class="go">            });</span>
+<span class="go">            voice.addTickables(notes);</span>
+<span class="go">            var formatter = new Vex.Flow.Formatter()</span>
+<span class="go">            formatter.joinVoices([voice])</span>
+<span class="go">            formatter.format([voice], 500);</span>
+<span class="go">            voice.draw(ctx, stave);</span>
+<span class="go">        });</span>
+<span class="go">    &lt;/script&gt;</span>
+<span class="go">&lt;/body&gt;</span>
+<span class="go">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.getVoiceString">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">getVoiceString</tt><big>(</big><em>numBeats</em>, <em>voiceName='voice'</em>, <em>currentIndentLevel=3</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.getVoiceString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string creating a new Vex.Flow.Voice with the number of beats
+at the current indentation level:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vo</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowObject</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vo</span><span class="o">.</span><span class="n">getVoiceString</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+<span class="go">        var voice = new Vex.Flow.Voice({</span>
+<span class="go">            num_beats: 2.0,</span>
+<span class="go">            beat_value: 4,</span>
+<span class="go">            resolution: Vex.Flow.RESOLUTION</span>
+<span class="go">        });</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vo</span><span class="o">.</span><span class="n">getVoiceString</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">voiceName</span><span class="o">=</span><span class="s">&#39;myVoice&#39;</span><span class="p">,</span> <span class="n">currentIndentLevel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+<span class="go">var myVoice = new Vex.Flow.Voice({</span>
+<span class="go">    num_beats: 3.0,</span>
+<span class="go">    beat_value: 4,</span>
+<span class="go">    resolution: Vex.Flow.RESOLUTION</span>
+<span class="go">});</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.jsBodyCode">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">jsBodyCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.jsBodyCode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.setBeamStatus">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">setBeamStatus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.setBeamStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the beamStatus for a note by setting beamStart to True, beamStop
+to True, or neither.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.setTieStatus">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">setTieStatus</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.setTieStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the tieStatus for a note by setting tieStart to True, tieStop to 
+True, or neither.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.staveDefaultClefAddString">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">staveDefaultClefAddString</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.staveDefaultClefAddString" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.stemDirectionCode">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">stemDirectionCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.stemDirectionCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the Vexflow StemDirection String:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfn</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowNote</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfn</span><span class="o">.</span><span class="n">stemDirectionCode</span><span class="p">()</span>
+<span class="go">&#39;&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="o">.</span><span class="n">stemDirection</span> <span class="o">=</span> <span class="s">&#39;up&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfn</span><span class="o">.</span><span class="n">stemDirectionCode</span><span class="p">()</span>
+<span class="go">&#39;stem_direction: Vex.Flow.StaveNote.STEM_UP&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.vexflowDuration">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">vexflowDuration</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.vexflowDuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a music21 Note (or Pitch) object, returns the vexflow duration.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfn</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowNote</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfn</span><span class="o">.</span><span class="n">vexflowDuration</span><span class="p">()</span>
+<span class="go">&#39;q&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="o">.</span><span class="n">quarterLength</span> <span class="o">=</span> <span class="mf">0.75</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfn</span><span class="o">.</span><span class="n">vexflowDuration</span><span class="p">()</span>
+<span class="go">&#39;8d&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowObject.vexflowKey">
+<tt class="descclassname">VexflowObject.</tt><tt class="descname">vexflowKey</tt><big>(</big><em>clef=None</em>, <em>usePitch=None</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowObject.vexflowKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a VexFlow Key from self.originalObject.</p>
+<p>Since a VexFlow key is the position on a staff, we need to know the
+current clef in order to give a key.  The key is a position as if
+the clef were treble clef.</p>
+<p>Why the accidental is included is beyond me, since it is rendered
+separately, it might store information actual pitch, but that&#8217;s
+weird since we&#8217;re storing a position as if it&#8217;s treble clef.</p>
+<p>If usePitch is given then we use this pitch instead of self.originalObject,
+which is needed for iterating through chord pitches</p>
+<p>If clef is None then we look at self.clefContext for more information,
+otherwise treble is assumed.  Clef is a Vexflow clef name #TODO: CHANGE THIS!</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vfn1</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowNote</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;C4&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfn1</span>
+<span class="go">&lt;music21.vexflow.VexflowNote object at 0x...&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vfn1</span><span class="o">.</span><span class="n">vexflowKey</span><span class="p">()</span> <span class="c">#&#39;treble&#39;)</span>
+<span class="go">&#39;Cn/4&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vfn2</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowNote</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;C4&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfn2</span><span class="o">.</span><span class="n">vexflowKey</span><span class="p">(</span><span class="s">&#39;bass&#39;</span><span class="p">)</span>
+<span class="go">&#39;An/5&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">chord</span><span class="o">.</span><span class="n">Chord</span><span class="p">([</span><span class="s">&#39;C4&#39;</span><span class="p">,</span><span class="s">&#39;G#4&#39;</span><span class="p">,</span><span class="s">&#39;E-5&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfc</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowChord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfc</span><span class="o">.</span><span class="n">vexflowKey</span><span class="p">(</span><span class="s">&#39;treble&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">pitches</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">&#39;Cn/4&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vfc</span><span class="o">.</span><span class="n">vexflowKey</span><span class="p">(</span><span class="s">&#39;treble&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">pitches</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">&#39;G#/4&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">vfc</span><span class="o">.</span><span class="n">vexflowKey</span><span class="p">(</span><span class="s">&#39;treble&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">pitches</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="go">&#39;Eb/5&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="vexflowpart">
+<h2>VexflowPart<a class="headerlink" href="#vexflowpart" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.vexflow.VexflowPart">
+<em class="property">class </em><tt class="descclassname">music21.vexflow.</tt><tt class="descname">VexflowPart</tt><big>(</big><em>music21part</em>, <em>params={}</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>A part is a wrapper for the vexflow code representing multiple measures
+of music that should go in the same musical staff (as opposed to
+a vexflow Stave).</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowPart" title="music21.vexflow.VexflowPart"><tt class="xref py py-class docutils literal"><span class="pre">VexflowPart</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.vexflow.VexflowPart.beamCode">
+<tt class="descclassname">VexflowPart.</tt><tt class="descname">beamCode</tt><big>(</big><em>contextName</em>, <em>indentation=3</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowPart.beamCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the code for beaming all of the staves in this part.</p>
+<p>Returns as an array containing the preamble and postamble.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowPart.generateCode">
+<tt class="descclassname">VexflowPart.</tt><tt class="descname">generateCode</tt><big>(</big><em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowPart.generateCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the vexflow code necessary to display this part in a browser.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowPart.jsBodyCode">
+<tt class="descclassname">VexflowPart.</tt><tt class="descname">jsBodyCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowPart.jsBodyCode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="vexflowrest">
+<h2>VexflowRest<a class="headerlink" href="#vexflowrest" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.vexflow.VexflowRest">
+<em class="property">class </em><tt class="descclassname">music21.vexflow.</tt><tt class="descname">VexflowRest</tt><big>(</big><em>music21rest=None</em>, <em>clef=None</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowRest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for representing rests in VexFlow.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowRest" title="music21.vexflow.VexflowRest"><tt class="xref py py-class docutils literal"><span class="pre">VexflowRest</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject" title="music21.vexflow.VexflowObject"><tt class="xref py py-class docutils literal"><span class="pre">VexflowObject</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowRest" title="music21.vexflow.VexflowRest"><tt class="xref py py-class docutils literal"><span class="pre">VexflowRest</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.vexflow.VexflowRest.vexflowCode">
+<tt class="descclassname">VexflowRest.</tt><tt class="descname">vexflowCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowRest.vexflowCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string which is the generated the vexflow code needed to render this rest object.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Rest</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vr</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowRest</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vr</span><span class="o">.</span><span class="n">vexflowCode</span><span class="p">()</span>
+<span class="go">&#39;new Vex.Flow.StaveNote({keys: [&quot;b/4&quot;], duration: &quot;qr&quot;})&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>Methods inherited from <a class="reference internal" href="#music21.vexflow.VexflowObject" title="music21.vexflow.VexflowObject"><tt class="xref py py-class docutils literal"><span class="pre">VexflowObject</span></tt></a>:</p>
+<table class="hlist"><tr><td><ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.accidentalCode" title="music21.vexflow.VexflowObject.accidentalCode"><tt class="xref py py-meth docutils literal"><span class="pre">accidentalCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.dotCode" title="music21.vexflow.VexflowObject.dotCode"><tt class="xref py py-meth docutils literal"><span class="pre">dotCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.fermataCode" title="music21.vexflow.VexflowObject.fermataCode"><tt class="xref py py-meth docutils literal"><span class="pre">fermataCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.generateCode" title="music21.vexflow.VexflowObject.generateCode"><tt class="xref py py-meth docutils literal"><span class="pre">generateCode()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.getVoiceString" title="music21.vexflow.VexflowObject.getVoiceString"><tt class="xref py py-meth docutils literal"><span class="pre">getVoiceString()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.jsBodyCode" title="music21.vexflow.VexflowObject.jsBodyCode"><tt class="xref py py-meth docutils literal"><span class="pre">jsBodyCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.setBeamStatus" title="music21.vexflow.VexflowObject.setBeamStatus"><tt class="xref py py-meth docutils literal"><span class="pre">setBeamStatus()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.setTieStatus" title="music21.vexflow.VexflowObject.setTieStatus"><tt class="xref py py-meth docutils literal"><span class="pre">setTieStatus()</span></tt></a></li>
+</ul>
+</td><td><ul class="simple">
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.staveDefaultClefAddString" title="music21.vexflow.VexflowObject.staveDefaultClefAddString"><tt class="xref py py-meth docutils literal"><span class="pre">staveDefaultClefAddString()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.stemDirectionCode" title="music21.vexflow.VexflowObject.stemDirectionCode"><tt class="xref py py-meth docutils literal"><span class="pre">stemDirectionCode()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.vexflowDuration" title="music21.vexflow.VexflowObject.vexflowDuration"><tt class="xref py py-meth docutils literal"><span class="pre">vexflowDuration()</span></tt></a></li>
+<li><a class="reference internal" href="#music21.vexflow.VexflowObject.vexflowKey" title="music21.vexflow.VexflowObject.vexflowKey"><tt class="xref py py-meth docutils literal"><span class="pre">vexflowKey()</span></tt></a></li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="vexflowscore">
+<h2>VexflowScore<a class="headerlink" href="#vexflowscore" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.vexflow.VexflowScore">
+<em class="property">class </em><tt class="descclassname">music21.vexflow.</tt><tt class="descname">VexflowScore</tt><big>(</big><em>music21score</em>, <em>params={}</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowScore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents the code for multiple VexflowPart objects.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowScore" title="music21.vexflow.VexflowScore"><tt class="xref py py-class docutils literal"><span class="pre">VexflowScore</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.vexflow.VexflowScore.generateCode">
+<tt class="descclassname">VexflowScore.</tt><tt class="descname">generateCode</tt><big>(</big><em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowScore.generateCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the vexflow code needed to render this object in a browser.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowScore.jsBodyCode">
+<tt class="descclassname">VexflowScore.</tt><tt class="descname">jsBodyCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowScore.jsBodyCode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowScore.vexflowCode">
+<tt class="descclassname">VexflowScore.</tt><tt class="descname">vexflowCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowScore.vexflowCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the code necessary to display this score.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="vexflowstave">
+<h2>VexflowStave<a class="headerlink" href="#vexflowstave" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.vexflow.VexflowStave">
+<em class="property">class </em><tt class="descclassname">music21.vexflow.</tt><tt class="descname">VexflowStave</tt><big>(</big><em>params={}</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowStave" title="Permalink to this definition">¶</a></dt>
+<dd><p>A &#8220;Stave&#8221;[sic] in VexFlow is the object for the graphic staff to be displayed.
+It usually represents a Measure that might have one or more Voices on it.</p>
+<p>TODO: <tt class="docutils literal"><span class="pre">generateCode</span></tt> should take a <tt class="docutils literal"><span class="pre">VexflowContext</span></tt> object as a param</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowStave" title="music21.vexflow.VexflowStave"><tt class="xref py py-class docutils literal"><span class="pre">VexflowStave</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.vexflow.VexflowStave.beamCode">
+<tt class="descclassname">VexflowStave.</tt><tt class="descname">beamCode</tt><big>(</big><em>contextName</em>, <em>indentation=3</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowStave.beamCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the code for beaming all of the voices on this stave.</p>
+<p>Returns an array containing the preamble and postamble.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowStave.formatterCode">
+<tt class="descclassname">VexflowStave.</tt><tt class="descname">formatterCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowStave.formatterCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Code for setting up a formatter to join voices.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowStave.generateCode">
+<tt class="descclassname">VexflowStave.</tt><tt class="descname">generateCode</tt><big>(</big><em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowStave.generateCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the vexflow code to display this staff in a browser.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowStave.getLineNum">
+<tt class="descclassname">VexflowStave.</tt><tt class="descname">getLineNum</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowStave.getLineNum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to get the line number of this stave.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowStave.getWidth">
+<tt class="descclassname">VexflowStave.</tt><tt class="descname">getWidth</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowStave.getWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowStave.jsBodyCode">
+<tt class="descclassname">VexflowStave.</tt><tt class="descname">jsBodyCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowStave.jsBodyCode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowStave.setVoices">
+<tt class="descclassname">VexflowStave.</tt><tt class="descname">setVoices</tt><big>(</big><em>theseVexflowVoices</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowStave.setVoices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces any existing voices attached to this <tt class="docutils literal"><span class="pre">Stave</span></tt> with
+<tt class="docutils literal"><span class="pre">theseVexflowVoices</span></tt> (a list of instances of <tt class="docutils literal"><span class="pre">VexflowVoice</span></tt>).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowStave.staveCode">
+<tt class="descclassname">VexflowStave.</tt><tt class="descname">staveCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowStave.staveCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>JavaScript/VexFlow code for putting clefs, timeSignatures, etc. on the staff.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowStave.vexflowCode">
+<tt class="descclassname">VexflowStave.</tt><tt class="descname">vexflowCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowStave.vexflowCode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="vexflowvoice">
+<h2>VexflowVoice<a class="headerlink" href="#vexflowvoice" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.vexflow.VexflowVoice">
+<em class="property">class </em><tt class="descclassname">music21.vexflow.</tt><tt class="descname">VexflowVoice</tt><big>(</big><em>music21measure=None</em>, <em>params={}</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Voice in VexFlow is a &#8220;lateral&#8221; grouping of notes in one measure
+It&#8217;s the equivalent to a <a class="reference internal" href="moduleStream.html#music21.stream.Measure" title="music21.stream.Measure"><tt class="xref py py-class docutils literal"><span class="pre">Measure</span></tt></a>.</p>
+<p>Requires either a <a class="reference internal" href="moduleStream.html#music21.stream.Measure" title="music21.stream.Measure"><tt class="xref py py-class docutils literal"><span class="pre">Measure</span></tt></a> object or a 
+<a class="reference internal" href="moduleStream.html#music21.stream.Voice" title="music21.stream.Voice"><tt class="xref py py-class docutils literal"><span class="pre">Voice</span></tt></a> object.</p>
+<p>If those objects aren&#8217;t already flat, flattens them in the process.</p>
+<p><cite>params</cite> is a dict containing various parameters to be passed to the 
+voice object.  Most important is the UIDCounter parameter which keeps
+track of the number of objects created.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.vexflow.VexflowVoice" title="music21.vexflow.VexflowVoice"><tt class="xref py py-class docutils literal"><span class="pre">VexflowVoice</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.vexflow.VexflowVoice.createBeamCode">
+<tt class="descclassname">VexflowVoice.</tt><tt class="descname">createBeamCode</tt><big>(</big><em>contextName='ctx'</em>, <em>indentation=3</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice.createBeamCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the code to create beams for this staff.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowVoice.drawBeamCode">
+<tt class="descclassname">VexflowVoice.</tt><tt class="descname">drawBeamCode</tt><big>(</big><em>contextName='ctx'</em>, <em>indentation=3</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice.drawBeamCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the code to draw beams on this staff.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowVoice.generateCode">
+<tt class="descclassname">VexflowVoice.</tt><tt class="descname">generateCode</tt><big>(</big><em>mode='txt'</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice.generateCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the vexflow code necessary to display this Voice in a browser
+as a string.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Measure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;c4&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s">&#39;half&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowVoice</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vfv</span><span class="o">.</span><span class="n">generateCode</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s">&quot;jsbody&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<blockquote>
+<div>var canvas = $(&#8216;#music21canvas&#8217;)[0];
+var renderer = new Vex.Flow.Renderer(canvas, Vex.Flow.Renderer.Backends.CANVAS);
+var ctx = renderer.getContext();
+var stave = new Vex.Flow.Stave(10,0,500);
+stave.addClef(&#8216;treble&#8217;).setContext(ctx).draw();
+var music21Voice0 = new Vex.Flow.Voice({num_beats: 2.0, beat_value: 4, resolution: Vex.Flow.RESOLUTION});
+var music21Voice0Notes = [new Vex.Flow.StaveNote({keys: [&#8220;Cn/4&#8221;], duration: &#8220;h&#8221;})];
+music21Voice0.addTickables(music21Voice0Notes);</div></blockquote>
+<dl class="docutils">
+<dt>&lt;BLANKLINE&gt;</dt>
+<dd>var formatter = new Vex.Flow.Formatter().joinVoices([music21Voice0]).format([music21Voice0], 500);
+music21Voice0.draw(ctx, stave);</dd>
+</dl>
+<p>&lt;BLANKLINE&gt;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowVoice.getBeaming">
+<tt class="descclassname">VexflowVoice.</tt><tt class="descname">getBeaming</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice.getBeaming" title="Permalink to this definition">¶</a></dt>
+<dd><p>Beaming is a boolean value determining if the voice should be beamed</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">So far only VexFlow&#8217;s automatic beaming is supported.
+We cannot manually modify beams.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowVoice.jsBodyCode">
+<tt class="descclassname">VexflowVoice.</tt><tt class="descname">jsBodyCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice.jsBodyCode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowVoice.notesCode">
+<tt class="descclassname">VexflowVoice.</tt><tt class="descname">notesCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice.notesCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Note the plural. Generates an String that is a Javascript array
+of all the vexflow notes in a measure:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Measure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;c4&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;d4&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowVoice</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span><span class="o">.</span><span class="n">voiceName</span> <span class="o">=</span> <span class="s">&#39;myVoice&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span><span class="o">.</span><span class="n">notesCode</span><span class="p">()</span>
+<span class="go">&#39;var myVoiceNotes = [new Vex.Flow.StaveNote({keys: [&quot;Cn/4&quot;], duration: &quot;q&quot;}), new Vex.Flow.StaveNote({keys: [&quot;Dn/4&quot;], duration: &quot;q&quot;})];&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowVoice.setBeaming">
+<tt class="descclassname">VexflowVoice.</tt><tt class="descname">setBeaming</tt><big>(</big><em>beaming</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice.setBeaming" title="Permalink to this definition">¶</a></dt>
+<dd><p>Beaming is a boolean value determining if the voice should be beamed</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">So far, only VexFlow&#8217;s automatic beaming is supported.
+We cannot manually modify beams.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowVoice.tieCode">
+<tt class="descclassname">VexflowVoice.</tt><tt class="descname">tieCode</tt><big>(</big><em>contextName='ctx'</em>, <em>indentation=3</em><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice.tieCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the code for the ties for this voice.</p>
+<p>Returns it as a two-element tuple containing [0] a list of code
+for the completed ties within this voice,
+and [1] a two-element array for partial ties that go across the bar line
+consisting of (0) a two-element tuple of the start index,
+and end index (None), and (1) the string name of the Note group
+to which element [0][0] belongs.</p>
+<p>N.B. Bug: Only the first index of a chord is tied.
+Returns a string that generates the code necessary to display this voice.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Measure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;c4&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n1</span><span class="o">.</span><span class="n">tie</span> <span class="o">=</span> <span class="n">tie</span><span class="o">.</span><span class="n">Tie</span><span class="p">(</span><span class="s">&quot;start&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n2</span> <span class="o">=</span> <span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;c4&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n2</span><span class="o">.</span><span class="n">tie</span> <span class="o">=</span> <span class="n">tie</span><span class="o">.</span><span class="n">Tie</span><span class="p">(</span><span class="s">&quot;stop&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowVoice</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span><span class="o">.</span><span class="n">voiceName</span> <span class="o">=</span> <span class="s">&#39;myVoice&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vfv</span><span class="o">.</span><span class="n">tieCode</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">    var myVoiceTie0 = new Vex.Flow.StaveTie({</span>
+<span class="go">        first_note: myVoiceNotes[0],</span>
+<span class="go">        last_note: myVoiceNotes[1],</span>
+<span class="go">        first_indices: [0],</span>
+<span class="go">        last_indices: [0]</span>
+<span class="go">    });</span>
+<span class="go">    myVoiceTie0.setContext(ctx).draw();</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowVoice.vexflowCode">
+<tt class="descclassname">VexflowVoice.</tt><tt class="descname">vexflowCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice.vexflowCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string that generates the code necessary to display this voice.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Measure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;c4&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;d4&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowVoice</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span><span class="o">.</span><span class="n">voiceName</span> <span class="o">=</span> <span class="s">&#39;myVoice&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">vfv</span><span class="o">.</span><span class="n">vexflowCode</span><span class="p">())</span>
+<span class="go">var myVoice = new Vex.Flow.Voice({num_beats: 2.0, beat_value: 4, resolution: Vex.Flow.RESOLUTION});</span>
+<span class="go">var myVoiceNotes = [new Vex.Flow.StaveNote({keys: [&quot;Cn/4&quot;], duration: &quot;q&quot;}), new Vex.Flow.StaveNote({keys: [&quot;Dn/4&quot;], duration: &quot;q&quot;})];</span>
+<span class="go">myVoice.addTickables(myVoiceNotes);</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowVoice.vexflowObjects">
+<tt class="descclassname">VexflowVoice.</tt><tt class="descname">vexflowObjects</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice.vexflowObjects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all the <tt class="docutils literal"><span class="pre">notesAndRests</span></tt> in the <tt class="docutils literal"><span class="pre">originalMeasure</span></tt>
+represented as <tt class="docutils literal"><span class="pre">VexflowObjects</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Measure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;c4&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;d4&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowVoice</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span><span class="o">.</span><span class="n">vexflowObjects</span><span class="p">()</span>
+<span class="go">[&lt;music21.vexflow.VexflowNote object at 0x...&gt;, &lt;music21.vexflow.VexflowNote object at 0x...&gt;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.vexflow.VexflowVoice.voiceCode">
+<tt class="descclassname">VexflowVoice.</tt><tt class="descname">voiceCode</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.vexflow.VexflowVoice.voiceCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the code to create a new voice object with the
+name stored in <tt class="docutils literal"><span class="pre">self.voiceName</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Measure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;c4&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(</span><span class="s">&#39;d4&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span> <span class="o">=</span> <span class="n">vexflow</span><span class="o">.</span><span class="n">VexflowVoice</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span><span class="o">.</span><span class="n">voiceName</span> <span class="o">=</span> <span class="s">&#39;myVoice&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfv</span><span class="o">.</span><span class="n">voiceCode</span><span class="p">()</span>
+<span class="go">&#39;var myVoice = new Vex.Flow.Voice({num_beats: 2.0, beat_value: 4, resolution: Vex.Flow.RESOLUTION});&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleVexflowExporter.html" title="music21.vexflow.exporter"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleVariant.html" title="music21.variant"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

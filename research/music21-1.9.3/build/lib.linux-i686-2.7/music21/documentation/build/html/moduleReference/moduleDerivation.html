@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.derivation &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.documentation.library.cleaners" href="moduleDocumentationLibraryCleaners.html" />
+    <link rel="prev" title="music21.counterpoint.species" href="moduleCounterpointSpecies.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryCleaners.html" title="music21.documentation.library.cleaners"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleCounterpointSpecies.html" title="music21.counterpoint.species"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleCounterpointSpecies.html"
+                        title="previous chapter">music21.counterpoint.species</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleDocumentationLibraryCleaners.html"
+                        title="next chapter">music21.documentation.library.cleaners</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.derivation</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#derivation">Derivation</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleDerivation.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-derivation">
+<span id="modulederivation"></span><h1>music21.derivation<a class="headerlink" href="#music21-derivation" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.derivation"></span><p>This module defines objects for tracking the derivation of one
+<a class="reference internal" href="moduleStream.html#music21.stream.Stream" title="music21.stream.Stream"><tt class="xref py py-class docutils literal"><span class="pre">Stream</span></tt></a> from another.</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="music21.derivation.derivationMethod">
+<tt class="descclassname">music21.derivation.</tt><tt class="descname">derivationMethod</tt><big>(</big><em>function</em><big>)</big><a class="headerlink" href="#music21.derivation.derivationMethod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="derivation">
+<h2>Derivation<a class="headerlink" href="#derivation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.derivation.Derivation">
+<em class="property">class </em><tt class="descclassname">music21.derivation.</tt><tt class="descname">Derivation</tt><big>(</big><em>client=None</em><big>)</big><a class="headerlink" href="#music21.derivation.Derivation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Derivation object keeps track of which Streams</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="s">&quot;DerivedStream&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span> <span class="o">=</span> <span class="n">derivation</span><span class="o">.</span><span class="n">Derivation</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="s">&quot;OriginalStream&quot;</span>
+
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#39;manual&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">s2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span>
+<span class="go">&lt;Derivation of &lt;music21.stream.Stream DerivedStream&gt; from &lt;music21.stream.Stream OriginalStream&gt; via &quot;manual&quot;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span><span class="o">.</span><span class="n">origin</span> <span class="ow">is</span> <span class="n">s2</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span><span class="o">.</span><span class="n">client</span> <span class="ow">is</span> <span class="n">s1</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d2</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d2</span><span class="o">.</span><span class="n">origin</span> <span class="ow">is</span> <span class="n">s2</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="s">&#39;measure&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span><span class="o">.</span><span class="n">method</span>
+<span class="go">&#39;measure&#39;</span>
+</pre></div>
+</div>
+<p>Deleting the origin stream does not change the Derivation, since origin is held by strong ref:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">gc</span>  <span class="c"># Garbage collection...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unused</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>  <span class="c"># ensure Garbage collection is run</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span>
+<span class="go">&lt;Derivation of &lt;music21.stream.Stream DerivedStream&gt; from &lt;music21.stream.Stream OriginalStream&gt; via &quot;measure&quot;&gt;</span>
+</pre></div>
+</div>
+<p>But deleting the client stream changes the Derivation, since client is held by weak ref:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">del</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unused</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span>  <span class="c"># ensure Garbage collection is run</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span>
+<span class="go">&lt;Derivation of None from &lt;music21.stream.Stream OriginalStream&gt; via &quot;measure&quot;&gt;</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.derivation.Derivation" title="music21.derivation.Derivation"><tt class="xref py py-class docutils literal"><span class="pre">Derivation</span></tt></a> bases</p>
+<ul class="simple">
+<li><a class="reference internal" href="moduleCommon.html#music21.common.SlottedObject" title="music21.common.SlottedObject"><tt class="xref py py-class docutils literal"><span class="pre">SlottedObject</span></tt></a></li>
+</ul>
+<p class="rubric"><a class="reference internal" href="#music21.derivation.Derivation" title="music21.derivation.Derivation"><tt class="xref py py-class docutils literal"><span class="pre">Derivation</span></tt></a> read-only properties</p>
+<dl class="attribute">
+<dt id="music21.derivation.Derivation.derivationChain">
+<tt class="descclassname">Derivation.</tt><tt class="descname">derivationChain</tt><a class="headerlink" href="#music21.derivation.Derivation.derivationChain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list Streams that this Derivation&#8217;s client Stream was derived
+from. This provides a way to obtain all Streams that the client passed
+through, such as those created by
+<a class="reference internal" href="moduleStream.html#music21.stream.Stream.getElementsByClass" title="music21.stream.Stream.getElementsByClass"><tt class="xref py py-meth docutils literal"><span class="pre">getElementsByClass()</span></tt></a> or
+<a class="reference internal" href="moduleStream.html#music21.stream.Stream.flat" title="music21.stream.Stream.flat"><tt class="xref py py-attr docutils literal"><span class="pre">flat</span></tt></a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">.</span><span class="n">repeatAppend</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(),</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">.</span><span class="n">repeatAppend</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Rest</span><span class="p">(),</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">getElementsByClass</span><span class="p">(</span><span class="s">&#39;GeneralNote&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s3</span> <span class="o">=</span> <span class="n">s2</span><span class="o">.</span><span class="n">getElementsByClass</span><span class="p">(</span><span class="s">&#39;Note&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s3</span><span class="o">.</span><span class="n">derivation</span><span class="o">.</span><span class="n">derivationChain</span> <span class="o">==</span> <span class="p">[</span><span class="n">s2</span><span class="p">,</span> <span class="n">s1</span><span class="p">]</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.derivation.Derivation.rootDerivation">
+<tt class="descclassname">Derivation.</tt><tt class="descname">rootDerivation</tt><a class="headerlink" href="#music21.derivation.Derivation.rootDerivation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a reference to the oldest source of this Stream; that is, chain
+calls to <tt class="xref py py-attr docutils literal"><span class="pre">derivesFrom</span></tt> until we get to a
+Stream that cannot be further derived.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">.</span><span class="n">repeatAppend</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Note</span><span class="p">(),</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s1</span><span class="o">.</span><span class="n">repeatAppend</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">Rest</span><span class="p">(),</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">getElementsByClass</span><span class="p">(</span><span class="s">&#39;GeneralNote&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s3</span> <span class="o">=</span> <span class="n">s2</span><span class="o">.</span><span class="n">getElementsByClass</span><span class="p">(</span><span class="s">&#39;Note&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s3</span><span class="o">.</span><span class="n">derivation</span><span class="o">.</span><span class="n">rootDerivation</span> <span class="ow">is</span> <span class="n">s1</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.derivation.Derivation" title="music21.derivation.Derivation"><tt class="xref py py-class docutils literal"><span class="pre">Derivation</span></tt></a> read/write properties</p>
+<dl class="attribute">
+<dt id="music21.derivation.Derivation.client">
+<tt class="descclassname">Derivation.</tt><tt class="descname">client</tt><a class="headerlink" href="#music21.derivation.Derivation.client" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="music21.derivation.Derivation.method">
+<tt class="descclassname">Derivation.</tt><tt class="descname">method</tt><a class="headerlink" href="#music21.derivation.Derivation.method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the string of the method that was used to generate this
+Stream.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">Stream</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">derivation</span><span class="o">.</span><span class="n">method</span> <span class="ow">is</span> <span class="bp">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sNotes</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">notes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sNotes</span><span class="o">.</span><span class="n">derivation</span><span class="o">.</span><span class="n">method</span>
+<span class="go">&#39;notes&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="music21.derivation.Derivation.origin">
+<tt class="descclassname">Derivation.</tt><tt class="descname">origin</tt><a class="headerlink" href="#music21.derivation.Derivation.origin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleDocumentationLibraryCleaners.html" title="music21.documentation.library.cleaners"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleCounterpointSpecies.html" title="music21.counterpoint.species"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

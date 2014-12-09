@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>music21.scala &mdash; music21 Documentation</title>
+    
+    <link rel="stylesheet" href="../_static/m21.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.9.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="top" title="music21 Documentation" href="../index.html" />
+    <link rel="up" title="Module Reference" href="index.html" />
+    <link rel="next" title="music21.scale" href="moduleScale.html" />
+    <link rel="prev" title="music21.romanText.translate" href="moduleRomanTextTranslate.html" /><link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleScale.html" title="music21.scale"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="moduleRomanTextTranslate.html" title="music21.romanText.translate"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="moduleRomanTextTranslate.html"
+                        title="previous chapter">music21.romanText.translate</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleScale.html"
+                        title="next chapter">music21.scale</a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">music21.scala</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#scalafile">ScalaFile</a></li>
+<li><a class="reference internal" href="#scalapitch">ScalaPitch</a></li>
+<li><a class="reference internal" href="#scalastorage">ScalaStorage</a></li>
+</ul>
+</li>
+</ul>
+
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">About Music21</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/index.html">Music21 Concepts Overview</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installing/index.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usersGuide/index.html">Users Guide</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../systemReference/index.html">System Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Module Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developerReference/index.html">Developer Reference</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/moduleReference/moduleScala.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="music21-scala">
+<span id="modulescala"></span><h1>music21.scala<a class="headerlink" href="#music21-scala" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-music21.scala"></span><p>This module defines classes for representing Scala scale data, 
+including Scala pitch representations, storage, and files.</p>
+<p>The Scala format is defined at the following URL:
+<a class="reference external" href="http://www.huygens-fokker.org/scala/scl_format.html">http://www.huygens-fokker.org/scala/scl_format.html</a></p>
+<p>We thank Manuel Op de Coul for allowing us to include 
+the repository (as of May 11, 2011) with music21</p>
+<p>Utility functions are also provided to search and find 
+scales in the Scala scale archive. File names can be found 
+with the <a class="reference internal" href="#music21.scala.search" title="music21.scala.search"><tt class="xref py py-func docutils literal"><span class="pre">search()</span></tt></a> function.</p>
+<p>To create a <a class="reference internal" href="moduleScale.html#music21.scale.ScalaScale" title="music21.scale.ScalaScale"><tt class="xref py py-class docutils literal"><span class="pre">ScalaScale</span></tt></a> instance, simply 
+provide a root pitch and the name of the scale. Scale names are given as a the scala .scl file name.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mbiraScales</span> <span class="o">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;mbira&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mbiraScales</span>
+<span class="go">[&#39;mbira_banda.scl&#39;, &#39;mbira_banda2.scl&#39;, &#39;mbira_gondo.scl&#39;, &#39;mbira_kunaka.scl&#39;, &#39;mbira_kunaka2.scl&#39;, &#39;mbira_mude.scl&#39;, &#39;mbira_mujuru.scl&#39;, &#39;mbira_zimb.scl&#39;]</span>
+</pre></div>
+</div>
+<p>For most people you&#8217;ll want to do something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sc</span> <span class="o">=</span> <span class="n">scale</span><span class="o">.</span><span class="n">ScalaScale</span><span class="p">(</span><span class="s">&#39;a4&#39;</span><span class="p">,</span> <span class="s">&#39;mbira_banda.scl&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sc</span><span class="o">.</span><span class="n">pitches</span><span class="p">]</span>
+<span class="go">[&#39;A4&#39;, &#39;B4(-15c)&#39;, &#39;C#5(-11c)&#39;, &#39;D#5(-7c)&#39;, &#39;E~5(+6c)&#39;, &#39;F#5(+14c)&#39;, &#39;G~5(+1c)&#39;, &#39;B-5(+2c)&#39;]</span>
+</pre></div>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="music21.scala.getPaths">
+<tt class="descclassname">music21.scala.</tt><tt class="descname">getPaths</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.scala.getPaths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all scala scale paths. This is called once or the module and cached as SCALA_PATHS, which should be used instead of calls to this function.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">scala</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">getPaths</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3800</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.scala.parse">
+<tt class="descclassname">music21.scala.</tt><tt class="descname">parse</tt><big>(</big><em>target</em><big>)</big><a class="headerlink" href="#music21.scala.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a <a class="reference internal" href="#music21.scala.ScalaStorage" title="music21.scala.ScalaStorage"><tt class="xref py py-class docutils literal"><span class="pre">ScalaStorage</span></tt></a> object from 
+the bundled SCL archive or a file path.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">music21</span> <span class="kn">import</span> <span class="n">scala</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span> <span class="o">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;balafon6&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span><span class="o">.</span><span class="n">description</span>
+<span class="go">u&#39;Observed balafon tuning from Burma, Helmholtz/Ellis p. 518, nr.84&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ss</span><span class="o">.</span><span class="n">getIntervalSequence</span><span class="p">()]</span>
+<span class="go">[&#39;&lt;music21.interval.Interval m2 (+14c)&gt;&#39;, &#39;&lt;music21.interval.Interval M2 (+36c)&gt;&#39;, &#39;&lt;music21.interval.Interval M2&gt;&#39;, &#39;&lt;music21.interval.Interval m2 (+37c)&gt;&#39;, &#39;&lt;music21.interval.Interval M2 (-49c)&gt;&#39;, &#39;&lt;music21.interval.Interval M2 (-6c)&gt;&#39;, &#39;&lt;music21.interval.Interval M2 (-36c)&gt;&#39;]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">scala</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;incorrectFileName.scl&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="bp">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span> <span class="o">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;barbourChrom1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">ss</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+<span class="go">Barbour&#39;s #1 Chromatic</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span><span class="o">.</span><span class="n">fileName</span>
+<span class="go">&#39;barbour_chrom1.scl&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span> <span class="o">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;blackj_gws.scl&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span><span class="o">.</span><span class="n">description</span>
+<span class="go">u&#39;Detempered Blackjack in 1/4 kleismic marvel tuning&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="music21.scala.search">
+<tt class="descclassname">music21.scala.</tt><tt class="descname">search</tt><big>(</big><em>target</em><big>)</big><a class="headerlink" href="#music21.scala.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the scala archive for matches based on a string</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mbiraScales</span> <span class="o">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;mbira&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mbiraScales</span>
+<span class="go">[&#39;mbira_banda.scl&#39;, &#39;mbira_banda2.scl&#39;, &#39;mbira_gondo.scl&#39;, &#39;mbira_kunaka.scl&#39;, &#39;mbira_kunaka2.scl&#39;, &#39;mbira_mude.scl&#39;, &#39;mbira_mujuru.scl&#39;, &#39;mbira_zimb.scl&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="scalafile">
+<h2>ScalaFile<a class="headerlink" href="#scalafile" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.scala.ScalaFile">
+<em class="property">class </em><tt class="descclassname">music21.scala.</tt><tt class="descname">ScalaFile</tt><big>(</big><em>data=None</em><big>)</big><a class="headerlink" href="#music21.scala.ScalaFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interface for reading and writing scala files. 
+On reading, returns a <a class="reference internal" href="#music21.scala.ScalaStorage" title="music21.scala.ScalaStorage"><tt class="xref py py-class docutils literal"><span class="pre">ScalaStorage</span></tt></a> object.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span> <span class="o">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">ScalaFile</span><span class="p">()</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.scala.ScalaFile" title="music21.scala.ScalaFile"><tt class="xref py py-class docutils literal"><span class="pre">ScalaFile</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.scala.ScalaFile.close">
+<tt class="descclassname">ScalaFile.</tt><tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.scala.ScalaFile.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaFile.open">
+<tt class="descclassname">ScalaFile.</tt><tt class="descname">open</tt><big>(</big><em>fp</em>, <em>mode='r'</em><big>)</big><a class="headerlink" href="#music21.scala.ScalaFile.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a file for reading</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaFile.openFileLike">
+<tt class="descclassname">ScalaFile.</tt><tt class="descname">openFileLike</tt><big>(</big><em>fileLike</em><big>)</big><a class="headerlink" href="#music21.scala.ScalaFile.openFileLike" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign a file-like object, such as those provided by StringIO, as an open file object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaFile.read">
+<tt class="descclassname">ScalaFile.</tt><tt class="descname">read</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.scala.ScalaFile.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a file. Note that this calls readstring, which processes all tokens.</p>
+<p>If <cite>number</cite> is given, a work number will be extracted if possible.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaFile.readstr">
+<tt class="descclassname">ScalaFile.</tt><tt class="descname">readstr</tt><big>(</big><em>strSrc</em><big>)</big><a class="headerlink" href="#music21.scala.ScalaFile.readstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a string and process all Tokens. Returns a ABCHandler instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaFile.write">
+<tt class="descclassname">ScalaFile.</tt><tt class="descname">write</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.scala.ScalaFile.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaFile.writestr">
+<tt class="descclassname">ScalaFile.</tt><tt class="descname">writestr</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.scala.ScalaFile.writestr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="scalapitch">
+<h2>ScalaPitch<a class="headerlink" href="#scalapitch" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.scala.ScalaPitch">
+<em class="property">class </em><tt class="descclassname">music21.scala.</tt><tt class="descname">ScalaPitch</tt><big>(</big><em>sourceString=None</em><big>)</big><a class="headerlink" href="#music21.scala.ScalaPitch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Representation of a scala pitch notation</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span> <span class="o">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">ScalaPitch</span><span class="p">(</span><span class="s">&#39; 1066.667 cents&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">parse</span><span class="p">())</span>
+<span class="go">1066.667</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span> <span class="o">=</span> <span class="n">scala</span><span class="o">.</span><span class="n">ScalaPitch</span><span class="p">(</span><span class="s">&#39; 2/1&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+<span class="go">1200.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;100.0 C#&#39;</span><span class="p">)</span>
+<span class="go">100.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">sp</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;89/84&#39;</span><span class="p">,</span> <span class="s">&#39;55/49&#39;</span><span class="p">,</span> <span class="s">&#39;44/37&#39;</span><span class="p">,</span> <span class="s">&#39;63/50&#39;</span><span class="p">,</span> <span class="s">&#39;4/3&#39;</span><span class="p">,</span> <span class="s">&#39;99/70&#39;</span><span class="p">,</span> <span class="s">&#39;442/295&#39;</span><span class="p">,</span> <span class="s">&#39;27/17&#39;</span><span class="p">,</span> <span class="s">&#39;37/22&#39;</span><span class="p">,</span> <span class="s">&#39;98/55&#39;</span><span class="p">,</span> <span class="s">&#39;15/8&#39;</span><span class="p">,</span> <span class="s">&#39;2/1&#39;</span><span class="p">]]</span>
+<span class="go">[100.09920982..., 199.9798432913..., 299.973903610..., 400.108480470..., 498.044999134..., 600.08832376157..., 699.9976981706..., 800.90959309..., 900.02609638..., 1000.020156708..., 1088.268714730..., 1200.0]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.scala.ScalaPitch" title="music21.scala.ScalaPitch"><tt class="xref py py-class docutils literal"><span class="pre">ScalaPitch</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.scala.ScalaPitch.parse">
+<tt class="descclassname">ScalaPitch.</tt><tt class="descname">parse</tt><big>(</big><em>sourceString=None</em><big>)</big><a class="headerlink" href="#music21.scala.ScalaPitch.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the source string and set self.cents.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="scalastorage">
+<h2>ScalaStorage<a class="headerlink" href="#scalastorage" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="music21.scala.ScalaStorage">
+<em class="property">class </em><tt class="descclassname">music21.scala.</tt><tt class="descname">ScalaStorage</tt><big>(</big><em>sourceString=None</em>, <em>fileName=None</em><big>)</big><a class="headerlink" href="#music21.scala.ScalaStorage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object representation of data stored in a Scale scale file. This objeject is used to access Scala information stored in a file. To create a music21 scale with a Scala file, use <a class="reference internal" href="moduleScale.html#music21.scale.ScalaScale" title="music21.scale.ScalaScale"><tt class="xref py py-class docutils literal"><span class="pre">ScalaScale</span></tt></a>.</p>
+<p>This is not called ScalaScale, as this name clashes with the <a class="reference internal" href="moduleScale.html#music21.scale.ScalaScale" title="music21.scale.ScalaScale"><tt class="xref py py-class docutils literal"><span class="pre">ScalaScale</span></tt></a> that uses this object.</p>
+</dd></dl>
+
+<p class="rubric"><a class="reference internal" href="#music21.scala.ScalaStorage" title="music21.scala.ScalaStorage"><tt class="xref py py-class docutils literal"><span class="pre">ScalaStorage</span></tt></a> methods</p>
+<dl class="method">
+<dt id="music21.scala.ScalaStorage.getAdjacentCents">
+<tt class="descclassname">ScalaStorage.</tt><tt class="descname">getAdjacentCents</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.scala.ScalaStorage.getAdjacentCents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get cents values between adjacent intervals.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaStorage.getCentsAboveTonic">
+<tt class="descclassname">ScalaStorage.</tt><tt class="descname">getCentsAboveTonic</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.scala.ScalaStorage.getCentsAboveTonic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of cent values above the implied tonic.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaStorage.getFileString">
+<tt class="descclassname">ScalaStorage.</tt><tt class="descname">getFileString</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.scala.ScalaStorage.getFileString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string suitable for writing a Scale file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaStorage.getIntervalSequence">
+<tt class="descclassname">ScalaStorage.</tt><tt class="descname">getIntervalSequence</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.scala.ScalaStorage.getIntervalSequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the scale as a list of Interval objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaStorage.parse">
+<tt class="descclassname">ScalaStorage.</tt><tt class="descname">parse</tt><big>(</big><big>)</big><a class="headerlink" href="#music21.scala.ScalaStorage.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a scala file delivered as a long string with line breaks</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaStorage.setAdjacentCents">
+<tt class="descclassname">ScalaStorage.</tt><tt class="descname">setAdjacentCents</tt><big>(</big><em>centList</em><big>)</big><a class="headerlink" href="#music21.scala.ScalaStorage.setAdjacentCents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of adjacent cent values, create the necessary ScalaPitch  objects and update the</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="music21.scala.ScalaStorage.setIntervalSequence">
+<tt class="descclassname">ScalaStorage.</tt><tt class="descname">setIntervalSequence</tt><big>(</big><em>iList</em><big>)</big><a class="headerlink" href="#music21.scala.ScalaStorage.setIntervalSequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the scale from a list of Interval objects.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="moduleScale.html" title="music21.scale"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="moduleRomanTextTranslate.html" title="music21.romanText.translate"
+             >previous</a> |</li>
+        <li><a href="../index.html">music21</a> &raquo;</li>
+          <li><a href="index.html" >Module Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2013, Michael Scott Cuthbert and the music21 Project.
+      Last updated on Jun 25, 2014.
+    Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
