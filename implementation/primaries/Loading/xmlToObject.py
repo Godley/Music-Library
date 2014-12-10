@@ -1,6 +1,7 @@
 import xml.sax
 
-from classes import Piece, Part, Measure, Meta, Key, Meter, Note, Clef
+from classes import Piece, Part, Measure, Meta, Key, Meter, Note, Clef, text
+
 
 
 piece = Piece.Piece()
@@ -59,7 +60,6 @@ def UpdatePart(tag, attrib, content):
             part.name = content["part-name"]
 
 def HandleMeasures(tag, attrib, content):
-
     global measure_id, part_id
     if part_id not in piece.Parts.keys():
         if "part" in attrib.keys():
@@ -167,13 +167,81 @@ def HandlePitch(tags, attrs, text):
     if tags[-1] == "octave":
         note.pitch.octave = text["octave"]
 
+def HandleDirections(tags, attrs, chars):
+    measure = piece.Parts[part_id].measures[measure_id]
+    placement = None
+    if "direction" in tags:
+        if "direction" in attrs:
+            attribs = attrs["direction"]
+            if "placement" in attribs:
+                placement = attribs["placement"]
+    if tags[-1] == "words":
+        attribs = attrs["words"]
+        if "font-size" in attribs:
+            if "font-family" in attribs:
+                direction = text.Direction(placement=placement,size=attribs["font-size"],text=chars["words"],font=attribs["font-family"])
+                measure.directions.append(direction)
+            else:
+                direction = text.Direction(placement=placement,size=attribs["font-size"],text=chars["words"])
+                measure.directions.append(direction)
+        else:
+            direction = text.Direction(placement=placement,text=chars["words"])
+            measure.directions.append(direction)
+    if "metronome" in tags:
+        attribs = attrs["metronome"]
+        if tags[-1] == "beat-unit":
+            unit = chars["beat-unit"]
+            metronome = text.Metronome(placement=placement,beat=unit)
+
+            metronome.text = str(metronome.beat)
+            if "font-family" in attribs:
+                metronome.font = attribs["font-family"]
+            if "font-size" in attribs:
+                metronome.size = attribs["font-size"]
+            if "parentheses" in attribs:
+                metronome.parentheses = attribs["parentheses"]
+
+            measure.directions.append(metronome)
+        if tags[-1] == "per-minute":
+            pm = chars["per-minute"]
+            metronome = measure.directions[-1]
+            metronome.min = pm
+            metronome.text += " = " + metronome.min
+            if "font-family" in attribs:
+                metronome.font = attribs["font-family"]
+            if "font-size" in attribs:
+                metronome.size = 6.1
+            if "parentheses" in attribs:
+                metronome.parentheses = attribs["parentheses"]
+            measure.directions.append(metronome)
+    if tags[-2] == "dynamics":
+        dynamic = text.Dynamic(placement=placement, mark=tags[-1])
+        measure.directions.append(dynamic)
+    if "sound" in tags:
+        print "hey"
+        if "sound" in attrs:
+            print "hello"
+            dir = None
+            for d in measure.directions:
+                if type(d) == text.Dynamic:
+                    dir = d
+            dir.volume = attrs["sound"]["dynamics"]
+            print dir.volume
+
+def CheckDynamics(tag):
+    dmark = ["p","f","m"]
+    for char in tag:
+        if char not in dmark:
+            return False
+    return True
+
 
 measure_id = None
 structure = {"movement-title": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
-             "pitch": HandlePitch}
+             "pitch": HandlePitch,"direction":HandleDirections}
 multiple_attribs = ["beats", "sign"]
-closed_tags = ["tie","dot","chord","note","measure","part","score-part"]
+closed_tags = ["tie","dot","chord","note","measure","part","score-part","sound"]
 
 class MxmlParser:
     def __init__(self):
@@ -191,20 +259,24 @@ class MxmlParser:
         if name in structure.keys():
             self.handler = structure[name]
         self.tags.append(name)
-
+        if attrs is not None:
+            self.attribs[name] = attrs
+        d = CheckDynamics(name)
+        if d:
+            self.handler(self.tags, attrs, None)
         # handle tags which close immediately, or do not have any text content
         if name in closed_tags:
             self.handler(self.tags, attrs, None)
-        else:
-            if attrs is not None:
-                self.attribs[name] = attrs
 
     def ValidateData(self, text):
         if text == "\n":
             return False
         for c in text:
-            if c != " ":
-                return True
+            try:
+                if str(c) != " ":
+                    return True
+            except:
+                return False
         return False
 
 
@@ -236,6 +308,8 @@ class MxmlParser:
             self.handler = None
         if name == "pitch":
             self.handler = CreateNote
+        if name == "direction":
+            self.handler = HandleMeasures
         if name in self.chars.keys() and name not in multiple_attribs:
             self.chars.pop(name)
         if name in self.attribs.keys() and name not in multiple_attribs:

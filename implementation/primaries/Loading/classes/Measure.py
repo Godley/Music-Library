@@ -3,6 +3,7 @@ class Measure:
         if "width" in kwargs:
             self.width = int(kwargs["width"])
         self.notes = []
+        self.directions = []
 
     def __str__(self):
         st = ""
@@ -23,6 +24,16 @@ class Measure:
             st += "\t" + str(note) + "\n"
         if hasattr(self, "transpose"):
             st += "\ntransposed by:\n"+str(self.transpose)
+        if hasattr(self, "tempo"):
+            st += "\n at tempo:\n"+str(self.tempo)
+        if len(self.directions) > 0:
+            st += "\ndirections: "
+        for d in self.directions:
+            try:
+                st += "\n" + str(d).encode('utf-8')
+            except Exception, e:
+                print "error on dir",d.text
+                print str(e)
         return st
 
     def CheckDivisions(self):
