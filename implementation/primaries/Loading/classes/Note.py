@@ -1,11 +1,9 @@
 import BaseClass
 
-class Tie(object):
+class Tie(BaseClass.Base):
     def __init__(self, type):
         self.type = type
 
-    def __str__(self):
-        return self.type
 
 
 class Stem(object):
@@ -53,6 +51,14 @@ class Note(BaseClass.Base):
             self.divisions = float(kwargs["division"])
         else:
             self.divisions = 1
+
+    def __str__(self):
+        if hasattr(self, "divisions"):
+            self.duration = self.duration / self.divisions
+        st = BaseClass.Base.__str__(self)
+        return st
+
+
 
 class Stem(object):
     def __init__(self, type):

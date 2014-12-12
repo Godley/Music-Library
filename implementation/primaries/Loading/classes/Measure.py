@@ -14,6 +14,11 @@ class Measure(BaseClass.Base):
             for n in self.notes:
                 n.divisions = float(self.divisions)
 
+    def __str__(self):
+        self.CheckDivisions()
+        st = BaseClass.Base.__str__(self)
+        return st
+
 class Transposition(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)

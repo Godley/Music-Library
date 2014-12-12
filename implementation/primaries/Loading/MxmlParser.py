@@ -2,13 +2,118 @@ import xml.sax
 
 from classes import Piece, Part, Measure, Meta, Key, Meter, Note, Clef, text
 
-
-
-piece = Piece.Piece()
-part_id = None
-note_id = None
-divisions = None
 note = None
+part_id = None
+measure_id = None
+
+class MxmlParser:
+    '''this needs a huge tidy, but this class:
+        sets up a few things that define where the tags get handled
+        runs sax, which calls the parent methods according to what's happened
+        the parent methods call the handlers defined in structure, or else figure out what handler to use. If there absolutely isn't one, nothing gets called
+        spits out a piece class holding all this info.
+    '''
+    def __init__(self):
+        self.tags = []
+        self.chars = {}
+        self.attribs = {}
+        self.handler = None
+
+        # add any handlers, along with the tagname associated with it, to this dictionary
+        self.structure = {"movement-title": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
+             "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
+             "pitch": HandlePitch,"direction":HandleDirections}
+        # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
+        self.multiple_attribs = ["beats", "sign"]
+        # any tags which close instantly in here
+        self.closed_tags = ["tie","dot","chord","note","measure","part","score-part","sound","print","rest"]
+        self.piece = Piece.Piece()
+
+    def Flush(self):
+        self.tags = []
+        self.chars = []
+        self.attribs = {}
+
+    def StartTag(self, name, attrs):
+        if name in self.structure.keys():
+            self.handler = self.structure[name]
+        self.tags.append(name)
+        if attrs is not None:
+            self.attribs[name] = attrs
+        d = CheckDynamics(name)
+        if d:
+            self.handler(self.tags, attrs, None, self.piece)
+        # handle tags which close immediately, or do not have any text content
+        if name in self.closed_tags:
+            self.handler(self.tags, attrs, None, self.piece)
+
+    def ValidateData(self, text):
+        if text == "\n":
+            return False
+        for c in text:
+            try:
+                if str(c) != " ":
+                    return True
+            except:
+                return False
+        return False
+
+
+    def NewData(self, text):
+        sint = ignore_exception(ValueError)(int)
+        if self.tags[-1] == "beat-type" or self.tags[-1] == "beats":
+            if sint(text) is int:
+                self.chars[self.tags[-1]] = text
+
+        if self.ValidateData(text):
+            self.chars[self.tags[-1]] = text
+            if self.handler is not None:
+                self.handler(self.tags, self.attribs, self.chars, self.piece)
+
+
+
+    def EndTag(self, name):
+        global part_id, measure_id, note
+        if name == "note":
+            self.handler = HandleMeasures
+            note = None
+        self.tags.remove(name)
+        if name == "score-part" or name == "part":
+            part_id = None
+            self.handler = None
+        if name == "measure":
+            measure_id = None
+            self.handler = None
+        if name == "pitch":
+            self.handler = CreateNote
+        if name == "direction":
+            self.handler = HandleMeasures
+        if name in self.chars.keys() and name not in self.multiple_attribs:
+            self.chars.pop(name)
+        if name in self.attribs.keys() and name not in self.multiple_attribs:
+            self.attribs.pop(name)
+
+    def parse(self, file):
+        class Extractor(xml.sax.ContentHandler):
+            def __init__(self, parent):
+                self.parent = parent
+
+
+            def startElement(self, name, attrs):
+                attribs = {}
+                for attrname in attrs.getNames():
+                    attrvalue = attrs.get(attrname)
+                    attribs[attrname] = attrvalue
+                self.parent.StartTag(name, attribs)
+
+            def characters(self, text):
+                self.parent.NewData(text)
+
+            def endElement(self, name):
+                self.parent.EndTag(name)
+
+        xml.sax.parse(file, Extractor(self))
+        return self.piece
 
 
 def ignore_exception(IgnoreException=Exception, DefaultVal=None):
@@ -30,7 +135,7 @@ def ignore_exception(IgnoreException=Exception, DefaultVal=None):
     return dec
 
 
-def SetupPiece(tag, attrib, content):
+def SetupPiece(tag, attrib, content, piece):
     if content is not []:
         if not hasattr(piece, "meta"):
             if tag[-1] == "creator" and attrib["creator"]["type"] == "composer":
@@ -43,7 +148,7 @@ def SetupPiece(tag, attrib, content):
             piece.meta.composer = content["creator"]
 
 
-def UpdatePart(tag, attrib, content):
+def UpdatePart(tag, attrib, content, piece):
     global measure_id, part_id
     if "score-part" in tag:
         if part_id not in piece.Parts.keys():
@@ -59,7 +164,7 @@ def UpdatePart(tag, attrib, content):
         if "part-name" in content:
             part.name = content["part-name"]
 
-def HandleMeasures(tag, attrib, content):
+def HandleMeasures(tag, attrib, content, piece):
     global measure_id, part_id
     if part_id not in piece.Parts.keys():
         if "part" in attrib.keys():
@@ -110,6 +215,13 @@ def HandleMeasures(tag, attrib, content):
                 measure.transpose.octave = content["octave-change"]
             else:
                 measure.transpose = Measure.Transposition(octave=content["octave-change"])
+    if "print" in tag:
+        flags = {"yes":True,"no":False}
+        if "print" in attrib:
+            if "new-system" in attrib["print"]:
+                measure.newSystem = flags[attrib["print"]["new-system"]]
+            if "new-page" in attrib["print"]:
+                measure.newPage = flags[attrib["print"]["new-page"]]
 
 
 def CheckID(tag, attrs, string, id_name):
@@ -117,7 +229,7 @@ def CheckID(tag, attrs, string, id_name):
         return attrs[string][id_name]
 
 
-def CreateNote(tag, attrs, content):
+def CreateNote(tag, attrs, content, piece):
     global note_id, note, part_id, measure_id
     if part_id is None:
         part_id = CheckID(tag, attrs, "part", "id")
@@ -150,11 +262,11 @@ def CreateNote(tag, attrs, content):
         note.stem = Note.Stem(content["stem"])
 
 
-def SetupFormat(tags, attrs, text):
+def SetupFormat(tags, attrs, text, piece):
     return None
 
 
-def HandlePitch(tags, attrs, text):
+def HandlePitch(tags, attrs, text, piece):
     if note is None:
         CreateNote(tags, attrs, text)
     if "pitch" in tags:
@@ -167,7 +279,7 @@ def HandlePitch(tags, attrs, text):
     if tags[-1] == "octave":
         note.pitch.octave = text["octave"]
 
-def HandleDirections(tags, attrs, chars):
+def HandleDirections(tags, attrs, chars, piece):
     measure = piece.Parts[part_id].measures[measure_id]
     placement = None
     if "direction" in tags:
@@ -213,7 +325,7 @@ def HandleDirections(tags, attrs, chars):
                 metronome.size = 6.1
             if "parentheses" in attribs:
                 metronome.parentheses = attribs["parentheses"]
-            measure.directions.append(metronome)
+
     if tags[-2] == "dynamics":
         dynamic = text.Dynamic(placement=placement, mark=tags[-1])
         measure.directions.append(dynamic)
@@ -231,108 +343,4 @@ def CheckDynamics(tag):
     return True
 
 
-measure_id = None
-structure = {"movement-title": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
-             "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
-             "pitch": HandlePitch,"direction":HandleDirections}
-multiple_attribs = ["beats", "sign"]
-closed_tags = ["tie","dot","chord","note","measure","part","score-part","sound"]
 
-class MxmlParser:
-    def __init__(self):
-        self.tags = []
-        self.chars = {}
-        self.attribs = {}
-        self.handler = None
-
-    def Flush(self):
-        self.tags = []
-        self.chars = []
-        self.attribs = {}
-
-    def StartTag(self, name, attrs):
-        if name in structure.keys():
-            self.handler = structure[name]
-        self.tags.append(name)
-        if attrs is not None:
-            self.attribs[name] = attrs
-        d = CheckDynamics(name)
-        if d:
-            self.handler(self.tags, attrs, None)
-        # handle tags which close immediately, or do not have any text content
-        if name in closed_tags:
-            self.handler(self.tags, attrs, None)
-
-    def ValidateData(self, text):
-        if text == "\n":
-            return False
-        for c in text:
-            try:
-                if str(c) != " ":
-                    return True
-            except:
-                return False
-        return False
-
-
-    def NewData(self, text):
-        sint = ignore_exception(ValueError)(int)
-        if self.tags[-1] == "beat-type" or self.tags[-1] == "beats":
-            if sint(text) is int:
-                self.chars[self.tags[-1]] = text
-
-        if self.ValidateData(text):
-            self.chars[self.tags[-1]] = text
-            if self.handler is not None:
-                self.handler(self.tags, self.attribs, self.chars)
-
-    def EndTag(self, name):
-        global part_id, measure_id, note_id, pitch, note
-        if name == "rest":
-            CreateNote(self.tags, self.attribs, self.chars)
-        if name == "note":
-            self.handler = HandleMeasures
-            note = None
-            note_id = None
-        self.tags.remove(name)
-        if name == "score-part" or name == "part":
-            part_id = None
-            self.handler = None
-        if name == "measure":
-            measure_id = None
-            self.handler = None
-        if name == "pitch":
-            self.handler = CreateNote
-        if name == "direction":
-            self.handler = HandleMeasures
-        if name in self.chars.keys() and name not in multiple_attribs:
-            self.chars.pop(name)
-        if name in self.attribs.keys() and name not in multiple_attribs:
-            self.attribs.pop(name)
-
-    def parse(self, file):
-        class Extractor(xml.sax.ContentHandler):
-            def __init__(self, parent):
-                self.parent = parent
-
-
-            def startElement(self, name, attrs):
-                attribs = {}
-                for attrname in attrs.getNames():
-                    attrvalue = attrs.get(attrname)
-                    attribs[attrname] = attrvalue
-                self.parent.StartTag(name, attribs)
-
-            def characters(self, text):
-                self.parent.NewData(text)
-
-            def endElement(self, name):
-                self.parent.EndTag(name)
-
-        xml.sax.parse(file, Extractor(self))
-
-
-indent = 3
-p = MxmlParser()
-p.parse("reading/ActorPreludeSample.xml")
-print str(piece)

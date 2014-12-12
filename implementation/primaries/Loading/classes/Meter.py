@@ -4,4 +4,4 @@ class Meter(object):
         self.type = type
 
     def __str__(self):
-        return str(self.beats) + "\n-\n" + str(self.type)
+        return str(self.beats) + "/" + str(self.type)
