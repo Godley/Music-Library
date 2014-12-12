@@ -21,12 +21,17 @@ class Text(object):
 
     def __str__(self):
         st = ""
-        if hasattr(self, "text"):
-            st += self.text.encode('utf-8')
-        if hasattr(self, "size"):
-            st += " of size " + str(self.size)
-        if hasattr(self, "font"):
-            st += " and font " + self.font.encode('utf-8')
+        for key, v in vars(self).iteritems():
+            st += key + " : "
+            if type(v) is list:
+                for val in v:
+                    st += "\n" + str(val)
+            if type(v) is dict:
+                for k, val in v.iteritems():
+                    st += "\n" + str(val)
+            elif type(v) is not dict and type(v) is not list:
+                st += str(v) + "\n"
+
         return st
 
 
@@ -44,12 +49,6 @@ class Direction(Text):
         else:
             Text.__init__(self)
 
-
-    def __str__(self):
-        st = Text.__str__(self)
-        if hasattr(self, "placement"):
-            st += (" placement: "+self.placement).encode('utf-8')
-        return st
 
 class Metronome(Direction):
     def __init__(self, **kwargs):
@@ -83,11 +82,6 @@ class Metronome(Direction):
             ret_list.append(self.min)
         return ret_list
 
-    def __str__(self):
-        st = Text.__str__(self)
-        if self.parentheses:
-            st = ("(" + st + ")").encode('utf-8')
-        return st
 
 class Dynamic(Direction):
     def __init__(self, **kwargs):
@@ -102,9 +96,3 @@ class Dynamic(Direction):
                 Text.__init__(self,size=kwargs["size"],text=kwargs["mark"])
         else:
             Text.__init__(self,text=kwargs["mark"])
-
-    def __str__(self):
-        st = Text.__str__(self)
-        if hasattr(self, "volume"):
-            st += "\nvolume: " + self.volume
-        return st

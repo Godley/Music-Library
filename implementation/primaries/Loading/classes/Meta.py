@@ -8,8 +8,15 @@ class Meta(object):
 
     def __str__(self):
         st = ""
-        if hasattr(self, "title"):
-            st += self.title + " by "
-        if hasattr(self, "composer"):
-            st += self.composer
+        for key, v in vars(self).iteritems():
+            st += key + " : "
+            if type(v) is list:
+                for val in v:
+                    st += "\n" + str(val)
+            if type(v) is dict:
+                for k, val in v.iteritems():
+                    st += "\n" + str(val)
+            elif type(v) is not dict and type(v) is not list:
+                st += str(v) + "\n"
+
         return st

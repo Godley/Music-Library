@@ -218,15 +218,10 @@ def HandleDirections(tags, attrs, chars):
         dynamic = text.Dynamic(placement=placement, mark=tags[-1])
         measure.directions.append(dynamic)
     if "sound" in tags:
-        print "hey"
-        if "sound" in attrs:
-            print "hello"
-            dir = None
-            for d in measure.directions:
-                if type(d) == text.Dynamic:
-                    dir = d
-            dir.volume = attrs["sound"]["dynamics"]
-            print dir.volume
+        if "dynamics" in attrs:
+            measure.volume = attrs["dynamics"]
+        if "tempo" in attrs:
+            measure.tempo = attrs["tempo"]
 
 def CheckDynamics(tag):
     dmark = ["p","f","m"]

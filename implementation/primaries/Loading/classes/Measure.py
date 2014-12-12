@@ -7,33 +7,14 @@ class Measure:
 
     def __str__(self):
         st = ""
-        if hasattr(self, "width"):
-            st += "Width: " + str(self.width) + "\n"
-        if hasattr(self, "meter"):
-            st += "Time Signature:\n\r" + str(self.meter)
-        if hasattr(self, "key"):
-            st += "\n\rkey: "
-            st += str(self.key)
-        if hasattr(self, "clef"):
-            st += "\n\rclef: "
-            st += str(self.clef)
-        if hasattr(self, "divisions"):
-            st += "\n\rdivisions: " + str(self.divisions)
-        st += "\nnote sequence: \n"
-        for note in self.notes:
-            st += "\t" + str(note) + "\n"
-        if hasattr(self, "transpose"):
-            st += "\ntransposed by:\n"+str(self.transpose)
-        if hasattr(self, "tempo"):
-            st += "\n at tempo:\n"+str(self.tempo)
-        if len(self.directions) > 0:
-            st += "\ndirections: "
-        for d in self.directions:
-            try:
-                st += "\n" + str(d).encode('utf-8')
-            except Exception, e:
-                print "error on dir",d.text
-                print str(e)
+        for key, v in vars(self).iteritems():
+            st += key + " : "
+            if type(v) is list:
+                for val in v:
+                    st += "\n" + str(val)
+            else:
+                st += str(v) + "\n"
+
         return st
 
     def CheckDivisions(self):
@@ -52,10 +33,15 @@ class Transposition(object):
 
     def __str__(self):
         st = ""
-        if hasattr(self, "diatonic"):
-            st += "diatonic: "+self.diatonic
-        if hasattr(self, "chromatic"):
-            st += "\nchromatic: "+self.chromatic
-        if hasattr(self,"octave"):
-            st += "\noctaves: "+self.octave
+        for key, v in vars(self).iteritems():
+            st += key + " : "
+            if type(v) is list:
+                for val in v:
+                    st += "\n" + str(val)
+            if type(v) is dict:
+                for k, val in v.iteritems():
+                    st += "\n" + str(val)
+            elif type(v) is not dict and type(v) is not list:
+                st += str(v) + "\n"
+
         return st

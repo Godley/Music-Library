@@ -25,19 +25,17 @@ class Pitch(object):
 
     def __str__(self):
         st = ""
-        acc = ""
-        if hasattr(self, "accidental"):
-            if int(self.accidental) == 1:
-                acc = "sharp"
-            elif int(self.accidental) == -1:
-                acc = "flat"
+        for key, v in vars(self).iteritems():
+            st += key + " : "
+            if type(v) is list:
+                for val in v:
+                    st += "\n" + str(val)
+            if type(v) is dict:
+                for k, val in v.iteritems():
+                    st += "\n" + str(val)
+            elif type(v) is not dict and type(v) is not list:
+                st += str(v) + "\n"
 
-        if hasattr(self, "step"):
-            st += str(self.step)
-
-        st += acc
-        if hasattr(self, "octave"):
-            st += str(self.octave)
         return st
 
 
@@ -61,24 +59,17 @@ class Note(object):
 
     def __str__(self):
         st = ""
-        if hasattr(self, "chord"):
-            st += "chord with previous note: \t"
-        if self.rest:
-            st += "rest "
-        if hasattr(self, "pitch"):
-            st += "note of pitch " + str(self.pitch)
+        for key, v in vars(self).iteritems():
+            st += key + " : "
+            if type(v) is list:
+                for val in v:
+                    st += "\n" + str(val)
+            if type(v) is dict:
+                for k, val in v.iteritems():
+                    st += "\n" + str(val)
+            elif type(v) is not dict and type(v) is not list:
+                st += str(v) + "\n"
 
-        if hasattr(self, "duration"):
-            length = float(self.duration / self.divisions)
-            st += " and duration %.2f " % length
-            if hasattr(self, "dotted"):
-                st += "(dotted)"
-        if len(self.ties) > 0:
-            st += "\n ties: "
-        for t in self.ties:
-            st += str(t)
-        if hasattr(self, "stem"):
-            st += "\nstem direction "+str(self.stem)
         return st
 
 class Stem(object):

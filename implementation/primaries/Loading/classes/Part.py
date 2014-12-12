@@ -6,7 +6,6 @@ class Part(object):
         self.CheckDivisions()
         st = ""
         if hasattr(self, "name"):
-
             st += "name:"+self.name
         for key, m in self.measures.iteritems():
             st += "\n"
