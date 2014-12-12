@@ -1,5 +1,8 @@
-class Text(object):
+import BaseClass
+
+class Text(BaseClass.Base):
     def __init__(self, **kwargs):
+        BaseClass.Base.__init__(self)
         if "font" in kwargs:
             self.font = kwargs["font"]
         if "size" in kwargs:
@@ -18,21 +21,6 @@ class Text(object):
         if hasattr(self, "text"):
             ret_list.append(self.text)
         return ret_list
-
-    def __str__(self):
-        st = ""
-        for key, v in vars(self).iteritems():
-            st += key + " : "
-            if type(v) is list:
-                for val in v:
-                    st += "\n" + str(val)
-            if type(v) is dict:
-                for k, val in v.iteritems():
-                    st += "\n" + str(val)
-            elif type(v) is not dict and type(v) is not list:
-                st += str(v) + "\n"
-
-        return st
 
 
 
