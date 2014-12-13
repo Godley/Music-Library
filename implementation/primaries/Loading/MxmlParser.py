@@ -169,11 +169,6 @@ def UpdatePart(tag, attrib, content, piece):
 
 def HandleMeasures(tag, attrib, content, piece):
     global measure_id, part_id
-    if part_id not in piece.Parts.keys():
-        if "part" in attrib.keys():
-            part_id = attrib["part"]["id"]
-            if part_id not in piece.Parts.keys():
-                UpdatePart(tag, attrib, content)
     part = piece.Parts[part_id]
     if "measure" in tag:
         if measure_id not in part.measures:
@@ -345,5 +340,7 @@ def CheckDynamics(tag):
             return False
     return True
 
-
+m = MxmlParser()
+p=m.parse('/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/ActorPreludeSample.xml')
+print str(p)
 
