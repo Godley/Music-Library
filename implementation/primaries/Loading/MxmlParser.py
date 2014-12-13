@@ -13,11 +13,12 @@ class MxmlParser:
         the parent methods call the handlers defined in structure, or else figure out what handler to use. If there absolutely isn't one, nothing gets called
         spits out a piece class holding all this info.
     '''
-    def __init__(self):
+    def __init__(self, excluded=[]):
         self.tags = []
         self.chars = {}
         self.attribs = {}
         self.handler = None
+        self.excluded = excluded
 
         # add any handlers, along with the tagname associated with it, to this dictionary
         self.structure = {"movement-title": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
@@ -35,17 +36,19 @@ class MxmlParser:
         self.attribs = {}
 
     def StartTag(self, name, attrs):
-        if name in self.structure.keys():
-            self.handler = self.structure[name]
-        self.tags.append(name)
-        if attrs is not None:
-            self.attribs[name] = attrs
-        d = CheckDynamics(name)
-        if d:
-            self.handler(self.tags, attrs, None, self.piece)
-        # handle tags which close immediately, or do not have any text content
-        if name in self.closed_tags:
-            self.handler(self.tags, attrs, None, self.piece)
+        if name not in self.excluded:
+            if name in self.structure.keys():
+                self.handler = self.structure[name]
+
+            self.tags.append(name)
+            if attrs is not None:
+                self.attribs[name] = attrs
+            d = CheckDynamics(name)
+            if d:
+                self.handler(self.tags, attrs, None, self.piece)
+            # handle tags which close immediately, or do not have any text content
+            if name in self.closed_tags:
+                self.handler(self.tags, attrs, None, self.piece)
 
     def ValidateData(self, text):
         if text == "\n":
