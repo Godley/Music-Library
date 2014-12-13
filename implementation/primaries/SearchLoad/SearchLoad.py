@@ -3,7 +3,7 @@ from implementation.primaries.Loading.MxmlParser import MxmlParser
 import os
 
 class SearchLoad(object):
-    def __init__(self, folder='/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/Loading/reading/'):
+    def __init__(self, folder='/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/'):
         self.folder = folder
         self.finder = Finder(find=['part-name','creator','movement-title'],folder=self.folder)
         self.finder.parse()

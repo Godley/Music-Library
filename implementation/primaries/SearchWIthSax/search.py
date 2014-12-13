@@ -38,7 +38,12 @@ class Finder(object):
         self.files = [ f for f in listdir(self.folder) if isfile(join(self.folder,f)) and (f.endswith('xml')) and f not in self.ignore_list]
 
     def Unzip(self):
-        self.extracted = file(os.path.join(self.folder, '.extracted'), 'r+b')
+        e_path = os.path.join(self.folder, '.extracted')
+        if not os.path.exists(e_path):
+            e = file(e_path, 'a')
+            e.close()
+        else:
+            self.extracted = file(e_path, 'r+')
         if os.path.exists(os.path.join(self.folder, '.extracted')):
             self.extract_list = pickle.Unpickler(self.extracted)
             try:
@@ -63,14 +68,22 @@ class Finder(object):
             fob = open(path, 'r')
             self.handler = Extractor.Extractor(self, f, byTag=self.byTag)
             xml.sax.parse(fob, self.handler)
-        self.tracked.update(self.track_temp)
+        for key, value in self.track_temp.iteritems():
+            if key not in self.tracked:
+                self.tracked[key] = []
+            for v in value:
+                if v not in self.tracked[key]:
+                    self.tracked[key].append(v)
         pickle.dump(self.tracked,self.meta)
 
     def search(self, item):
         found = {}
         for key in self.tracked.keys():
             if item.lower() in key.lower():
-                found[key] = self.tracked[key]
+                if key not in found:
+                    found[key] = []
+                for value in self.tracked[key]:
+                    found[key].append(value)
         return found
 
     def Match(self, tag):
@@ -81,25 +94,19 @@ class Finder(object):
             value = dataset[i][1]
             if value != " ":
                 if tag == "part-name":
-                    value = value.split(' ')[0]
+                    if value.split(' ')[0] != '':
+                        value = value.split(' ')[0]
                     plur = list(value)
                     valid = True
-                    for p in plur:
-                        if p != " ":
-                            print value
-                            break
-                        else:
-                            valid = False
-                    if valid == False:
-                        print "helo"
-                        continue
+
                     if len(plur) > 0:
                         if plur[-1] == 's':
                             value = "".join(plur[0:len(plur)-1])
                 if value != previous:
                     results = [dataset[j][0] for j in range(i+1,len(dataset)) if value in dataset[j][1] and dataset[j][0] != dataset[i][0]]
                     if len(results) > 0:
-                        results.append(dataset[i][0])
+                        if dataset[i][0] not in results:
+                            results.append(dataset[i][0])
                         playlists[value] = results
             previous = value
         return playlists
@@ -109,10 +116,11 @@ class Finder(object):
         if len(results) > 0:
             print "results found matching " + inp + " : \n"
         for key, value in results.iteritems():
-            print "value: " + key
-            print "file: " + value[0]
-            print "tag: " + value[1]
-            print "attributes: ", value[2]
+            print "value: ", key
+            for item in value:
+                print "file: ", item[0]
+                print "tag: ", item[1]
+                print "attributes: ", item[2]
         return results
 
 

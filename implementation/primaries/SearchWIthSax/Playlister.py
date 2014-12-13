@@ -9,11 +9,13 @@ class Playlister(object):
     def GetPlaylist(self):
         inp = raw_input("enter thing to match:")
         results = self.finder.Match(inp)
+        previous = ""
         for key,playlist in results.iteritems():
             print "common " + inp + " :" +key
             for item in playlist:
-                print item
+                if item != previous:
+                    print item
+                    previous = item
             print "\n"
-
 p = Playlister()
 p.GetPlaylist()

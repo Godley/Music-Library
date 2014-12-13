@@ -4,7 +4,7 @@ class Measure(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
         if "width" in kwargs:
-            self.width = int(kwargs["width"])
+            self.width = float(kwargs["width"])
         self.notes = []
         self.directions = []
 
