@@ -309,15 +309,22 @@ def SetupFormat(tags, attrs, text, piece):
 
 
 def HandlePitch(tags, attrs, text, piece):
-    if "pitch" in tags:
-        if not hasattr(note, "pitch"):
-            note.pitch = Note.Pitch()
-    if tags[-1] == "step":
-        note.pitch.step = text["step"]
-    if tags[-1] == "alter":
-        note.pitch.accidental = text["alter"]
-    if tags[-1] == "octave":
-        note.pitch.octave = text["octave"]
+    return_val = None
+    if len(tags) > 0:
+        if "pitch" in tags:
+            if not hasattr(note, "pitch"):
+                note.pitch = Note.Pitch()
+
+            if tags[-1] == "step":
+                note.pitch.step = text["step"]
+                return_val = 1
+            if tags[-1] == "alter":
+                note.pitch.accidental = text["alter"]
+                return_val = 1
+            if tags[-1] == "octave":
+                note.pitch.octave = text["octave"]
+                return_val = 1
+    return return_val
 
 def HandleDirections(tags, attrs, chars, piece):
     measure = piece.Parts[part_id].measures[measure_id]
@@ -376,11 +383,28 @@ def HandleDirections(tags, attrs, chars, piece):
             measure.tempo = attrs["tempo"]
 
 def CheckDynamics(tag):
+    if len(tag) == 0:
+        return False
     # TODO: modify so that "fm/pm" is an invalid dynamic mark
-    dmark = ["p","f","m"]
-    for char in tag:
-        if char not in dmark:
+    dmark = ["p","f"]
+    if len(tag) == 1 and tag in dmark:
+        return True
+    elif len(tag) == 2:
+        if tag[-1] in dmark:
+            if tag[0] == tag[-1] or tag[0] == "m":
+                return True
+            else:
+                return False
+        else:
             return False
-    return True
+    if len(tag) > 2:
+        val = tag[0]
+        if val in dmark:
+            for char in tag:
+                if char == val:
+                    return True
+            return False
+        return False
+    return False
 
 

@@ -294,3 +294,94 @@ class testCreateNoteHandler(unittest.TestCase):
         self.assertEqual(Note.Stem, type(note.stem), "ERROR: stem not of type Stem")
         self.assertEqual("up",note.stem.type, "ERROR: stem type value incorrect")
 
+class testHandlePitch(unittest.TestCase):
+    def setUp(self):
+        self.tags = ["note","pitch"]
+        self.attrs = {}
+        self.chars = {}
+        MxmlParser.note = Note.Note()
+        MxmlParser.part_id = "P1"
+        MxmlParser.measure_id = 1
+        self.handler = MxmlParser.HandlePitch
+        self.piece = Piece.Piece()
+
+    def testNoTags(self):
+        self.tags = []
+        self.assertEqual(None, self.handler(self.tags,self.attrs,self.chars,self.piece), "ERROR: no tags into method should give a result of none")
+
+    def testIrrelevantTag(self):
+        self.tags.append("hello")
+        self.assertEqual(None, self.handler(self.tags,self.attrs,self.chars,self.piece), "ERROR: irrelevant tag should return no result")
+
+    def testPitchTag(self):
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note, "pitch"), "ERROR: pitch attrib not created")
+
+    def testStepTag(self):
+        self.tags.append("step")
+        self.chars["step"] = "E"
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.pitch, "step"), "ERRPR: pitch step attrib not set")
+        self.assertEqual("E",MxmlParser.note.pitch.step,"ERROR: note pitch step value incorrect")
+
+    def testAlterTag(self):
+        self.tags.append("alter")
+        self.chars["alter"] = "-1"
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.pitch, "accidental"))
+        self.assertEqual("-1",MxmlParser.note.pitch.accidental)
+
+    def testOctaveTag(self):
+        self.tags.append("octave")
+        self.chars["octave"] = "1"
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.pitch, "octave"))
+        self.assertEqual("1",MxmlParser.note.pitch.octave)
+
+
+class testCheckDynamics(unittest.TestCase):
+    def setUp(self):
+        self.handler = MxmlParser.CheckDynamics
+
+    def testEmpty(self):
+        self.assertFalse(self.handler(''))
+
+    def testRandChar(self):
+        self.assertFalse(self.handler('q'))
+
+    def testP(self):
+        self.assertTrue(self.handler('p'))
+
+    def testF(self):
+        self.assertTrue(self.handler('f'))
+
+    def testmf(self):
+        self.assertTrue(self.handler('mf'))
+
+    def testmp(self):
+        self.assertTrue(self.handler('mp'))
+
+    def testpp(self):
+        self.assertTrue(self.handler('pp'))
+
+    def testff(self):
+        self.assertTrue(self.handler('ff'))
+
+    def testm(self):
+        self.assertFalse(self.handler('m'))
+
+    def testfm(self):
+        self.assertFalse(self.handler('fm'))
+
+    def testpm(self):
+        self.assertFalse(self.handler('pm'))
+
+    def testmm(self):
+        self.assertFalse(self.handler('mm'))
+
+class testHandleDirections(unittest.TestCase):
+    def setUp(self):
+        self.tags = []
+        self.chars = {}
+        self.attrs = {}
+        self.handler = MxmlParser.HandleDirections

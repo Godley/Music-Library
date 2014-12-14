@@ -38,7 +38,7 @@ class testSaxParser(unittest.TestCase):
         self.assertEqual(handler, self.parser.handler, "ERROR: TestHandlerValue failed - handler should be SetupPiece when tag is movement-title")
 
     def testHandlerCallIfClosedTag(self):
-        tag = ""
+        tag = "chord"
         self.parser.handler = mock.MagicMock()
         self.parser.StartTag(tag, {})
         self.parser.handler.assert_called_once_with(self.parser.tags,{},None, self.parser.piece)
