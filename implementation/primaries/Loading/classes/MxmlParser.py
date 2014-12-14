@@ -186,60 +186,90 @@ def UpdatePart(tag, attrib, content, piece):
 def HandleMeasures(tag, attrib, content, piece):
     global measure_id, part_id
     part = None
-    if part_id is not None:
-        part = piece.Parts[part_id]
-    if "measure" in tag and part is not None:
-        if measure_id not in part.measures:
-            # attrib here only references the index it needs, as measure has no text content so calls its handler in the starttag method
-            measure_id = int(attrib["number"])
-            if "width" in attrib:
-                part.measures[measure_id] = Measure.Measure(width=attrib["width"])
-            else:
-                part.measures[measure_id] = Measure.Measure()
-    if part is not None:
-        measure = part.measures[measure_id]
-    if tag[-1] == "divisions":
-        measure.divisions = int(content["divisions"])
-    if tag[-1] == "mode":
-        if hasattr(measure, "key"):
-            measure.key.mode = content["mode"]
-        else:
-            measure.key = Key.Key(mode=content["mode"])
-    if tag[-1] == "fifths":
-        if hasattr(measure, "key"):
-            measure.key.fifths = content["fifths"]
-        else:
-            measure.key = Key.Key(fifths=int(content["fifths"]))
-    # TODO: refactor so that this is handled in the same way as keys (i.e separate the tags)
-    if tag[-1] == "beat-type":
-        measure.meter = Meter.Meter(int(content["beats"]), int(content["beat-type"]))
-    # TODO: see above
-    if tag[-1] == "line" and "clef" in tag:
-        measure.clef = Clef.Clef(sign=content["sign"], line=content["line"])
-    if "transpose" in tag:
-        if "diatonic" in tag:
-            if hasattr(measure, "transpose"):
-                measure.transpose.diatonic = content["diatonic"]
-            else:
-                measure.transpose = Measure.Transposition(diatonic=content["diatonic"])
-        if "chromatic" in tag:
-            if hasattr(measure, "transpose"):
-                measure.transpose.chromatic = content["chromatic"]
-            else:
-                measure.transpose = Measure.Transposition(chromatic=content["chromatic"])
-        if "octave-change" in tag:
-            if hasattr(measure, "transpose"):
-                measure.transpose.octave = content["octave-change"]
-            else:
-                measure.transpose = Measure.Transposition(octave=content["octave-change"])
-    if "print" in tag:
-        flags = {"yes":True,"no":False}
-        if "print" in attrib:
-            if "new-system" in attrib["print"]:
-                measure.newSystem = flags[attrib["print"]["new-system"]]
-            if "new-page" in attrib["print"]:
-                measure.newPage = flags[attrib["print"]["new-page"]]
+    return_val = None
+    if len(tag) > 0 and "measure" in tag:
+        if part_id is not None:
+            part = piece.Parts[part_id]
+        if part is not None:
+            if measure_id not in part.measures:
+                # attrib here only references the index it needs, as measure has no text content so calls its handler in the starttag method
+                measure_id = int(attrib["number"])
+                if "width" in attrib:
+                    part.measures[measure_id] = Measure.Measure(width=attrib["width"])
+                else:
+                    part.measures[measure_id] = Measure.Measure()
+                    return_val = 1
+        measure = None
+        if part is not None and "measure" in tag:
+            measure = part.measures[measure_id]
+        if tag[-1] == "divisions" and measure is not None:
+            measure.divisions = int(content["divisions"])
+            return_val = 1
+        if tag[-1] == "mode" and "key" in tag and measure is not None:
+            if hasattr(measure, "key"):
+                measure.key.mode = content["mode"]
 
+            else:
+                measure.key = Key.Key(mode=content["mode"])
+            return_val = 1
+        if tag[-1] == "fifths" and "key" in tag:
+            if hasattr(measure, "key"):
+                measure.key.fifths = content["fifths"]
+            else:
+                measure.key = Key.Key(fifths=int(content["fifths"]))
+            return_val = 1
+
+        if tag[-1] == "beats" and "meter" in tag:
+            if hasattr(measure, "meter"):
+                measure.meter.beats = int(content["beats"])
+            else:
+                measure.meter = Meter.Meter(beats=int(content["beats"]))
+            return_val = 1
+        if tag[-1] == "beat-type" and "meter" in tag:
+            if hasattr(measure, "meter"):
+                measure.meter.type= int(content["beat-type"])
+            else:
+                measure.meter = Meter.Meter(type=int(content["beat-type"]))
+            return_val = 1
+
+        if tag[-1] == "sign" and "clef" in tag:
+            if hasattr(measure, "clef"):
+                measure.clef.sign = content["sign"]
+            else:
+                measure.clef = Clef.Clef(sign=content["sign"])
+        if tag[-1] == "line" and "clef" in tag:
+            if hasattr(measure, "clef"):
+                measure.clef.line = content["line"]
+            else:
+                measure.clef = Clef.Clef(line=content["line"])
+            return_val = 1
+
+        if "transpose" in tag:
+            if "diatonic" in tag:
+                if hasattr(measure, "transpose"):
+                    measure.transpose.diatonic = content["diatonic"]
+                else:
+                    measure.transpose = Measure.Transposition(diatonic=content["diatonic"])
+            if "chromatic" in tag:
+                if hasattr(measure, "transpose"):
+                    measure.transpose.chromatic = content["chromatic"]
+                else:
+                    measure.transpose = Measure.Transposition(chromatic=content["chromatic"])
+            if "octave-change" in tag:
+                if hasattr(measure, "transpose"):
+                    measure.transpose.octave = content["octave-change"]
+                else:
+                    measure.transpose = Measure.Transposition(octave=content["octave-change"])
+            return_val = 1
+        if "print" in tag:
+            flags = {"yes":True,"no":False}
+            if "print" in attrib:
+                if "new-system" in attrib["print"]:
+                    measure.newSystem = flags[attrib["print"]["new-system"]]
+                if "new-page" in attrib["print"]:
+                    measure.newPage = flags[attrib["print"]["new-page"]]
+            return_val = 1
+    return return_val
 
 def CheckID(tag, attrs, string, id_name):
     if string in tag:
@@ -248,28 +278,31 @@ def CheckID(tag, attrs, string, id_name):
 
 def CreateNote(tag, attrs, content, piece):
     global note_id, note, part_id, measure_id
-    measure = piece.Parts[part_id].measures[measure_id]
-    if "note" in tag and note is None:
-        note = Note.Note()
-        measure.notes.append(note)
-        note_id = len(measure.notes) - 1
+    ret_value = None
+    if len(tag) > 0:
+        measure = piece.Parts[part_id].measures[measure_id]
+        if "note" in tag and note is None:
+            note = Note.Note()
+            measure.notes.append(note)
+            note_id = len(measure.notes) - 1
+            ret_value = 1
 
-    if "rest" in tag:
-        note.rest = True
-    if tag[-1] == "duration" and "note" in tag:
-        note.duration = float(content["duration"])
-        if hasattr(measure, "divisions"):
-            note.divisions = float(measure.divisions)
+        if "rest" in tag:
+            note.rest = True
+        if tag[-1] == "duration" and "note" in tag:
+            note.duration = float(content["duration"])
+            if hasattr(measure, "divisions"):
+                note.divisions = float(measure.divisions)
 
-    if "dot" in tag:
-        note.dotted = True
-    if "tie" in tag:
-        note.ties.append(Note.Tie(attrs["type"]))
-    if "chord" in tag:
-        note.chord = True
-    if tag[-1] == "stem":
-        note.stem = Note.Stem(content["stem"])
-
+        if "dot" in tag:
+            note.dotted = True
+        if "tie" in tag:
+            note.ties.append(Note.Tie(attrs["type"]))
+        if "chord" in tag:
+            note.chord = True
+        if tag[-1] == "stem":
+            note.stem = Note.Stem(content["stem"])
+    return ret_value
 
 def SetupFormat(tags, attrs, text, piece):
     return None
