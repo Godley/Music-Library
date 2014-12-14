@@ -279,7 +279,7 @@ def CheckID(tag, attrs, string, id_name):
 def CreateNote(tag, attrs, content, piece):
     global note_id, note, part_id, measure_id
     ret_value = None
-    if len(tag) > 0:
+    if len(tag) > 0 and "note" in tag:
         measure = piece.Parts[part_id].measures[measure_id]
         if "note" in tag and note is None:
             note = Note.Note()
