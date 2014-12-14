@@ -1,6 +1,6 @@
 import xml.sax
 
-from classes import Piece, Part, Measure, Meta, Key, Meter, Note, Clef, text
+from implementation.primaries.Loading.classes import Piece, Part, Measure, Meta, Key, Meter, Note, Clef, text
 
 note = None
 part_id = None
@@ -64,12 +64,14 @@ class MxmlParser:
 
     def NewData(self, text):
         sint = ignore_exception(ValueError)(int)
-        if self.tags[-1] == "beat-type" or self.tags[-1] == "beats":
-            if sint(text) is int:
-                self.chars[self.tags[-1]] = text
+        if len(self.tags) > 0:
+            if self.tags[-1] == "beat-type" or self.tags[-1] == "beats":
+                if sint(text) is int:
+                    self.chars[self.tags[-1]] = text
 
         if self.ValidateData(text):
-            self.chars[self.tags[-1]] = text
+            if len(self.tags) > 0:
+                self.chars[self.tags[-1]] = text
             if self.handler is not None:
                 self.handler(self.tags, self.attribs, self.chars, self.piece)
 
@@ -91,6 +93,9 @@ class MxmlParser:
             self.handler = CreateNote
         if name == "direction":
             self.handler = HandleMeasures
+        if name == "movement-title":
+            self.handler = None
+
         if name in self.chars.keys() and name not in self.multiple_attribs:
             self.chars.pop(name)
         if name in self.attribs.keys() and name not in self.multiple_attribs:
@@ -161,7 +166,7 @@ def UpdatePart(tag, attrib, content, piece):
         if "id" in attrib:
             part_id = attrib["id"]
             if part_id not in piece.Parts:
-                print "whoops"
+                print("whoops")
     part = piece.Parts[part_id]
     if "part-name" in tag:
         if "part-name" in content:
@@ -169,8 +174,10 @@ def UpdatePart(tag, attrib, content, piece):
 
 def HandleMeasures(tag, attrib, content, piece):
     global measure_id, part_id
-    part = piece.Parts[part_id]
-    if "measure" in tag:
+    part = None
+    if part_id is not None:
+        part = piece.Parts[part_id]
+    if "measure" in tag and part is not None:
         if measure_id not in part.measures:
             # attrib here only references the index it needs, as measure has no text content so calls its handler in the starttag method
             measure_id = int(attrib["number"])
@@ -178,7 +185,8 @@ def HandleMeasures(tag, attrib, content, piece):
                 part.measures[measure_id] = Measure.Measure(width=attrib["width"])
             else:
                 part.measures[measure_id] = Measure.Measure()
-    measure = part.measures[measure_id]
+    if part is not None:
+        measure = part.measures[measure_id]
     if tag[-1] == "divisions":
         measure.divisions = int(content["divisions"])
     if tag[-1] == "mode":
@@ -191,10 +199,10 @@ def HandleMeasures(tag, attrib, content, piece):
             measure.key.fifths = content["fifths"]
         else:
             measure.key = Key.Key(fifths=int(content["fifths"]))
-
+    # TODO: refactor so that this is handled in the same way as keys (i.e separate the tags)
     if tag[-1] == "beat-type":
         measure.meter = Meter.Meter(int(content["beats"]), int(content["beat-type"]))
-
+    # TODO: see above
     if tag[-1] == "line" and "clef" in tag:
         measure.clef = Clef.Clef(sign=content["sign"], line=content["line"])
     if "transpose" in tag:
@@ -229,14 +237,6 @@ def CheckID(tag, attrs, string, id_name):
 
 def CreateNote(tag, attrs, content, piece):
     global note_id, note, part_id, measure_id
-    if part_id is None:
-        part_id = CheckID(tag, attrs, "part", "id")
-        if part_id not in piece.Parts:
-            UpdatePart(tag, attrs, content)
-    if measure_id is None:
-        measure_id = int(CheckID(tag, attrs, "measure", "number"))
-        if measure_id not in piece.Parts[part_id].measures:
-            HandleMeasures(tag, attrs, content)
     measure = piece.Parts[part_id].measures[measure_id]
     if "note" in tag and note is None:
         note = Note.Note()
@@ -265,8 +265,6 @@ def SetupFormat(tags, attrs, text, piece):
 
 
 def HandlePitch(tags, attrs, text, piece):
-    if note is None:
-        CreateNote(tags, attrs, text)
     if "pitch" in tags:
         if not hasattr(note, "pitch"):
             note.pitch = Note.Pitch()
@@ -334,13 +332,11 @@ def HandleDirections(tags, attrs, chars, piece):
             measure.tempo = attrs["tempo"]
 
 def CheckDynamics(tag):
+    # TODO: modify so that "fm/pm" is an invalid dynamic mark
     dmark = ["p","f","m"]
     for char in tag:
         if char not in dmark:
             return False
     return True
 
-m = MxmlParser()
-p=m.parse('/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/ActorPreludeSample.xml')
-print str(p)
 

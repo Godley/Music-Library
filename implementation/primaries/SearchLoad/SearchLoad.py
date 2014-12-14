@@ -1,6 +1,8 @@
-from implementation.primaries.SearchWIthSax.search import Finder
-from implementation.primaries.Loading.MxmlParser import MxmlParser
 import os
+
+from implementation.primaries.SearchWIthSax.search import Finder
+from implementation.primaries.Loading.classes import MxmlParser
+
 
 class SearchLoad(object):
     def __init__(self, folder='/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/'):

@@ -1,4 +1,4 @@
-import BaseClass
+from implementation.primaries.Loading.classes import BaseClass
 
 class Text(BaseClass.Base):
     def __init__(self, **kwargs):
