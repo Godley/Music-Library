@@ -144,33 +144,44 @@ def ignore_exception(IgnoreException=Exception, DefaultVal=None):
 
 
 def SetupPiece(tag, attrib, content, piece):
-    if content is not []:
+    if content is not [] and len(tag) > 0:
         if not hasattr(piece, "meta"):
             if tag[-1] == "creator" and attrib["creator"]["type"] == "composer":
                 piece.meta = Meta.Meta(composer=content["creator"])
+                return 1
             elif tag[-1] == "movement-title":
                 piece.meta = Meta.Meta(title=content["movement-title"])
-        if tag[-1] == "movement-title":
+                return 1
+        elif tag[-1] == "movement-title":
             piece.meta.title = content["movement-title"]
-        if tag[-1] == "creator" and attrib["creator"]["type"] == "composer":
+            return 1
+        elif tag[-1] == "creator" and attrib["creator"]["type"] == "composer":
             piece.meta.composer = content["creator"]
+            return 1
+    return None
 
 
 def UpdatePart(tag, attrib, content, piece):
     global measure_id, part_id
-    if "score-part" in tag:
-        if part_id not in piece.Parts.keys():
+    return_val = None
+    if len(tag) > 0:
+        if "score-part" in tag:
+            if part_id not in piece.Parts.keys():
                 part_id = attrib["id"]
                 piece.Parts[part_id] = Part.Part()
-    if "part" in tag:
-        if "id" in attrib:
-            part_id = attrib["id"]
-            if part_id not in piece.Parts:
-                print("whoops")
-    part = piece.Parts[part_id]
-    if "part-name" in tag:
-        if "part-name" in content:
-            part.name = content["part-name"]
+                return_val = 1
+        if "part" in tag:
+            if "id" in attrib:
+                part_id = attrib["id"]
+                if part_id not in piece.Parts:
+                    print("whoops")
+        if part_id is not None:
+            part = piece.Parts[part_id]
+        if "part-name" in tag:
+            if "part-name" in content:
+                part.name = content["part-name"]
+                return_val = 1
+    return return_val
 
 def HandleMeasures(tag, attrib, content, piece):
     global measure_id, part_id
