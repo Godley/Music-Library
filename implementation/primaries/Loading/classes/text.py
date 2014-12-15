@@ -44,6 +44,9 @@ class Direction(Text):
 
 class Metronome(Direction):
     def __init__(self, **kwargs):
+        size = None
+        font = None
+        text = None
         if "beat" in kwargs:
             self.beat = kwargs["beat"]
         if "min" in kwargs:

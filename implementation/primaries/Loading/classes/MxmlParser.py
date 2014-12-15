@@ -351,36 +351,48 @@ def HandleDirections(tags, attrs, chars, piece):
             direction = text.Direction(font=font,text=chars,size=size,placement=placement)
             measure.directions.append(direction)
         if "metronome" in tags:
+            yval = {"yes":True,"no":False}
             if tags[-1] == "beat-unit":
                 return_val = 1
                 unit = chars["beat-unit"]
                 metronome = text.Metronome(placement=placement,beat=unit)
 
                 metronome.text = str(metronome.beat)
-                if "font-family" in attrs["metronome"]:
-                    metronome.font = attrs["metronome"]["font-family"]
-                if "font-size" in attrs["metronome"]:
-                    metronome.size = attrs["metronome"]["font-size"]
-                if "parentheses" in attrs["metronome"]:
-                    metronome.parentheses = attrs["metronome"]["parentheses"]
+                if "metronome" in attrs:
+                    if "font-family" in attrs["metronome"]:
+                        metronome.font = attrs["metronome"]["font-family"]
+                    if "font-size" in attrs["metronome"]:
+                        metronome.size = attrs["metronome"]["font-size"]
+                    if "parentheses" in attrs["metronome"]:
+                        metronome.parentheses = yval[attrs["metronome"]["parentheses"]]
 
                 measure.directions.append(metronome)
             if tags[-1] == "per-minute":
                 return_val = 1
                 pm = chars["per-minute"]
-                metronome = measure.directions[-1]
+                if len(measure.directions) > 0:
+                    if type(measure.directions[-1]) is text.Metronome:
+                        metronome = measure.directions[-1]
+                    else:
+                        metronome = text.Metronome(min=pm)
+                        measure.directions.append(metronome)
+                else:
+                    metronome = text.Metronome(min=pm)
+                    measure.directions.append(metronome)
                 metronome.min = pm
                 metronome.text += " = " + metronome.min
-                if "font-family" in attribs:
-                    metronome.font = attribs["font-family"]
-                if "font-size" in attribs:
-                    metronome.size = 6.1
-                if "parentheses" in attribs:
-                    metronome.parentheses = attribs["parentheses"]
+                if "metronome" in attrs:
+                    if "font-family" in attrs["metronome"]:
+                        metronome.font = attrs["metronome"]["font-family"]
+                    if "font-size" in attrs["metronome"]:
+                        metronome.size = float(attrs["metronome"]["font-size"])
+                    if "parentheses" in attrs["metronome"]:
+                        metronome.parentheses = yval[attrs["metronome"]["parentheses"]]
 
-        if tags[-2] == "dynamics":
-            dynamic = text.Dynamic(placement=placement, mark=tags[-1])
-            measure.directions.append(dynamic)
+        if len(tags) > 1:
+            if tags[-2] == "dynamics":
+                dynamic = text.Dynamic(placement=placement, mark=tags[-1])
+                measure.directions.append(dynamic)
         if "sound" in tags:
             return_val = 1
             if "dynamics" in attrs:
