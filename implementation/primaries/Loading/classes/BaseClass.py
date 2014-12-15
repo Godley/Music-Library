@@ -3,31 +3,36 @@ class Base(object):
         self.indent = 1
     def __str__(self):
         st = ""
-        for key, v in vars(self).iteritems():
+        values = vars(self)
+        for key in values.keys():
             if key == "indent":
                 continue
             st += "\n"
             for i in range(self.indent):
                 st += "\t"
-            if type(v) is not dict and type(v) is not list:
+            if type(values[key]) is not dict and type(values[key]) is not list:
                 try:
-                    v.indent = self.indent + 1
+                    values[key].indent = self.indent + 1
                 except:
                     pass
-                st += key + " : " + str(v)
+                st += key + " : "
+                if type(values[key]) is not None:
+                    st += str(values[key])
+                else:
+                    st += key + ":None"
 
-            if type(v) is list:
-                if len(v) > 0:
+            if type(values[key]) is list:
+                if len(values[key]) > 0:
                     st += key + " : "
-                    for item in v:
+                    for item in values[key]:
                         if type(item) is not str and type(item) is not int and type(item) is not float:
                             item.indent = self.indent +1
                         st +=  str(item) + "\n"
-            if type(v) is dict:
-                if len(v) > 0:
+            if type(values[key]) is dict:
+                if len(values[key]) > 0:
                     st += key + " : "
-                    for key, item in v.iteritems():
-                        if type(item) is not str and type(item) is not int and type(item) is not float:
-                            item.indent = self.indent + 1
-                        st += key + " : " + str(item)
+                    for k in values[k].keys():
+                        if type(values[key][k]) is not str and type(values[key][k]) is not int and type(item) is not float:
+                            values[key][k].indent = self.indent + 1
+                        st += key + " : " + str(values[key][k])
         return st

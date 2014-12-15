@@ -44,7 +44,7 @@ class MxmlParser:
             if attrs is not None:
                 self.attribs[name] = attrs
             d = CheckDynamics(name)
-            if d:
+            if d and "dynamics" in self.tags:
                 self.handler(self.tags, attrs, None, self.piece)
             # handle tags which close immediately, or do not have any text content
             if name in self.closed_tags:
@@ -420,5 +420,9 @@ def CheckDynamics(tag):
                 else:
                     return_val = False
     return return_val
+
+
+p = MxmlParser()
+print(p.parse("/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/ActorPreludeSample.xml"))
 
 

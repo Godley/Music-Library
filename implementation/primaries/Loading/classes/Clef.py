@@ -17,4 +17,6 @@ class Clef(object):
                     return clef_type[(self.sign + self.line)]
                 else:
                     return (self.sign + self.line)
-
+            else:
+                return(self.sign)
+        return "shit there's nothing here"

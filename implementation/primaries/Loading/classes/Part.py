@@ -7,20 +7,20 @@ class Part(object):
         st = ""
         if hasattr(self, "name"):
             st += "name:"+self.name
-        for key, m in self.measures.iteritems():
+        for key in self.measures.keys():
             st += "\n"
             st += "Measure: "
             st += str(key)
             st += "\n\r Details: \r"
-            st += str(m)
+            st += str(self.measures[key])
             st += "\n--------------------------------------------------------"
         return st
 
     def CheckDivisions(self):
         divisions = None
-        for key, m in self.measures.iteritems():
-            if hasattr(m, "divisions"):
-                divisions = m.divisions
+        for key in self.measures.keys():
+            if hasattr(self.measures[key], "divisions"):
+                divisions = self.measures[key].divisions
             else:
-                m.divisions = divisions
-                m.CheckDivisions()
+                self.measures[key].divisions = divisions
+                self.measures[key].CheckDivisions()
