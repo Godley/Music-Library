@@ -381,7 +381,60 @@ class testCheckDynamics(unittest.TestCase):
 
 class testHandleDirections(unittest.TestCase):
     def setUp(self):
-        self.tags = []
+        self.tags = ["direction"]
         self.chars = {}
         self.attrs = {}
         self.handler = MxmlParser.HandleDirections
+        self.piece = Piece.Piece()
+        MxmlParser.part_id = "P1"
+        MxmlParser.measure_id = 1
+        self.piece.Parts["P1"] = Part.Part()
+        self.piece.Parts["P1"].measures[1] = Measure.Measure()
+        self.measure = self.piece.Parts["P1"].measures[1]
+
+    def testNoTags(self):
+        self.tags.remove("direction")
+        self.assertEqual(None, self.handler(self.tags,self.attrs,self.chars,self.piece))
+
+    def testIrrelevantTags(self):
+        self.tags.remove("direction")
+        self.tags.append("hello")
+        self.assertEqual(None,self.handler(self.tags,self.attrs,self.chars,self.piece))
+
+
+    def testDirectionAttribTag(self):
+        self.tags.append("words")
+        self.attrs["direction"] = {"placement":"above"}
+        self.chars["words"] = "sup"
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertEqual("above",self.measure.directions[0].placement)
+
+    def testDirectionTag(self):
+        self.tags.append("words")
+        self.chars["words"] = "hello, world"
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        measure = self.piece.Parts["P1"].measures[1]
+        self.assertEqual(1, len(measure.directions))
+        self.assertEqual("hello, world", measure.directions[0].text)
+
+    def testWordsWithFontSizeAttrib(self):
+        self.tags.append("words")
+        self.chars["words"] = "hello, world"
+        self.attrs["words"] = {"font-size":"6.5"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("6.5",self.measure.directions[0].size)
+
+    def testWordsWithFontFamAttrib(self):
+        self.tags.append("words")
+        self.chars["words"] = "hello, world"
+        self.attrs["words"] = {"font-family":"times"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("times",self.measure.directions[0].font)
+
+    def testWordsWithBothAttribs(self):
+        self.tags.append("words")
+        self.chars["words"] = "hello, world"
+        self.attrs["words"] = {"font-family":"times","font-size":"6.2"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("times",self.measure.directions[0].font)
+        self.assertEqual("6.2",self.measure.directions[0].size)

@@ -329,82 +329,84 @@ def HandlePitch(tags, attrs, text, piece):
 def HandleDirections(tags, attrs, chars, piece):
     measure = piece.Parts[part_id].measures[measure_id]
     placement = None
+    return_val = None
+    if len(tags) == 0:
+        return None
     if "direction" in tags:
         if "direction" in attrs:
-            attribs = attrs["direction"]
-            if "placement" in attribs:
-                placement = attribs["placement"]
-    if tags[-1] == "words":
-        attribs = attrs["words"]
-        if "font-size" in attribs:
-            if "font-family" in attribs:
-                direction = text.Direction(placement=placement,size=attribs["font-size"],text=chars["words"],font=attribs["font-family"])
-                measure.directions.append(direction)
-            else:
-                direction = text.Direction(placement=placement,size=attribs["font-size"],text=chars["words"])
-                measure.directions.append(direction)
-        else:
-            direction = text.Direction(placement=placement,text=chars["words"])
+            if "placement" in attrs["direction"]:
+                placement = attrs["direction"]["placement"]
+        if tags[-1] == "words":
+            return_val = 1
+
+            size = None
+            font = None
+            chars = chars["words"]
+
+            if "words" in attrs:
+                if "font-size" in attrs["words"]:
+                    size = attrs["words"]["font-size"]
+                if "font-family" in attrs["words"]:
+                    font = attrs["words"]["font-family"]
+            direction = text.Direction(font=font,text=chars,size=size,placement=placement)
             measure.directions.append(direction)
-    if "metronome" in tags:
-        attribs = attrs["metronome"]
-        if tags[-1] == "beat-unit":
-            unit = chars["beat-unit"]
-            metronome = text.Metronome(placement=placement,beat=unit)
+        if "metronome" in tags:
+            if tags[-1] == "beat-unit":
+                return_val = 1
+                unit = chars["beat-unit"]
+                metronome = text.Metronome(placement=placement,beat=unit)
 
-            metronome.text = str(metronome.beat)
-            if "font-family" in attribs:
-                metronome.font = attribs["font-family"]
-            if "font-size" in attribs:
-                metronome.size = attribs["font-size"]
-            if "parentheses" in attribs:
-                metronome.parentheses = attribs["parentheses"]
+                metronome.text = str(metronome.beat)
+                if "font-family" in attrs["metronome"]:
+                    metronome.font = attrs["metronome"]["font-family"]
+                if "font-size" in attrs["metronome"]:
+                    metronome.size = attrs["metronome"]["font-size"]
+                if "parentheses" in attrs["metronome"]:
+                    metronome.parentheses = attrs["metronome"]["parentheses"]
 
-            measure.directions.append(metronome)
-        if tags[-1] == "per-minute":
-            pm = chars["per-minute"]
-            metronome = measure.directions[-1]
-            metronome.min = pm
-            metronome.text += " = " + metronome.min
-            if "font-family" in attribs:
-                metronome.font = attribs["font-family"]
-            if "font-size" in attribs:
-                metronome.size = 6.1
-            if "parentheses" in attribs:
-                metronome.parentheses = attribs["parentheses"]
+                measure.directions.append(metronome)
+            if tags[-1] == "per-minute":
+                return_val = 1
+                pm = chars["per-minute"]
+                metronome = measure.directions[-1]
+                metronome.min = pm
+                metronome.text += " = " + metronome.min
+                if "font-family" in attribs:
+                    metronome.font = attribs["font-family"]
+                if "font-size" in attribs:
+                    metronome.size = 6.1
+                if "parentheses" in attribs:
+                    metronome.parentheses = attribs["parentheses"]
 
-    if tags[-2] == "dynamics":
-        dynamic = text.Dynamic(placement=placement, mark=tags[-1])
-        measure.directions.append(dynamic)
-    if "sound" in tags:
-        if "dynamics" in attrs:
-            measure.volume = attrs["dynamics"]
-        if "tempo" in attrs:
-            measure.tempo = attrs["tempo"]
+        if tags[-2] == "dynamics":
+            dynamic = text.Dynamic(placement=placement, mark=tags[-1])
+            measure.directions.append(dynamic)
+        if "sound" in tags:
+            return_val = 1
+            if "dynamics" in attrs:
+                measure.volume = attrs["dynamics"]
+            if "tempo" in attrs:
+                measure.tempo = attrs["tempo"]
+    return return_val
 
 def CheckDynamics(tag):
-    if len(tag) == 0:
-        return False
+    return_val = False
     # TODO: modify so that "fm/pm" is an invalid dynamic mark
     dmark = ["p","f"]
     if len(tag) == 1 and tag in dmark:
-        return True
+        return_val = True
     elif len(tag) == 2:
         if tag[-1] in dmark:
             if tag[0] == tag[-1] or tag[0] == "m":
-                return True
-            else:
-                return False
-        else:
-            return False
+                return_val = True
     if len(tag) > 2:
         val = tag[0]
         if val in dmark:
             for char in tag:
                 if char == val:
-                    return True
-            return False
-        return False
-    return False
+                    return_val = True
+                else:
+                    return_val = False
+    return return_val
 
 

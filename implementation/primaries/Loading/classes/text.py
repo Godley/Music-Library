@@ -3,11 +3,11 @@ from implementation.primaries.Loading.classes import BaseClass
 class Text(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
-        if "font" in kwargs:
+        if "font" in kwargs and kwargs["font"] is not None:
             self.font = kwargs["font"]
-        if "size" in kwargs:
+        if "size" in kwargs and kwargs["size"] is not None:
             self.size = kwargs["size"]
-        if "text" in kwargs:
+        if "text" in kwargs and kwargs["text"] is not None:
             self.text = kwargs["text"]
         else:
             self.text = ""
@@ -26,16 +26,20 @@ class Text(BaseClass.Base):
 
 class Direction(Text):
     def __init__(self, **kwargs):
+        text = None
+        size = None
+        font = None
         if "placement" in kwargs:
             if kwargs["placement"] is not None:
                 self.placement = kwargs["placement"]
+        if "text" in kwargs:
+            text = kwargs["text"]
         if "size" in kwargs:
-            if "font" in kwargs:
-                Text.__init__(self,font=kwargs["font"],size=kwargs["size"],text=kwargs["text"])
-            else:
-                Text.__init__(self,size=kwargs["size"],text=kwargs["text"])
-        else:
-            Text.__init__(self)
+            size = kwargs["size"]
+        if "font" in kwargs:
+            font = kwargs["font"]
+        Text.__init__(self,text=text,size=size,font=font)
+
 
 
 class Metronome(Direction):
@@ -46,16 +50,14 @@ class Metronome(Direction):
             self.min = kwargs["min"]
         if hasattr(self, "min"):
             if hasattr(self, "beat"):
-                self.text = self.beat + " = " + self.min
+                text = self.beat + " = " + self.min
             else:
-                self.text = self.min
+                text = self.min
+        if "size" in kwargs:
+            size = kwargs["text"]
         if "font" in kwargs:
-            if "size" in kwargs:
-                Direction.__init__(self, font=kwargs["font"], size=kwargs["size"], placement=kwargs["placement"])
-            else:
-                Direction.__init__(self, font=kwargs["font"], placement=kwargs["placement"])
-        else:
-            Direction.__init__(self)
+            font = kwargs["font"]
+        Text.__init__(self,text=text,size=size,font=font)
         if "parentheses" in kwargs:
             if kwargs["parentheses"] == "yes":
                 self.parentheses = True
