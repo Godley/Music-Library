@@ -8,11 +8,11 @@ class Extractor(xml.sax.ContentHandler):
         self.byTag = byTag
 
     def startElement(self, name, attrs):
-        attribs = {}
-        for a in attrs.getNames():
-            attribs[a] = attrs.get(a)
-        self.attrs = attribs
         if name in self.parent.tags:
+            attribs = {}
+            for a in attrs.getNames():
+                attribs[a] = attrs.get(a)
+            self.attrs = attribs
             self.name = name
 
     def characters(self, chars):
@@ -28,6 +28,7 @@ class Extractor(xml.sax.ContentHandler):
 
 
     def endElement(self, name):
-        self.name = ""
+        if name == self.name:
+            self.name = ""
 
 

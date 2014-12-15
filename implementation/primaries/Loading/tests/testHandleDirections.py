@@ -165,10 +165,6 @@ class testMetronome(testHandleDirections):
         self.assertEqual("times", self.measure.directions[0].font)
 
 class testDynamicsAndSound(testHandleDirections):
-    def setUp(self):
-        testHandleDirections.setUp(self)
-
-
     def testDynamicTag(self):
         self.tags.append("dynamics")
         self.tags.append("p")
@@ -196,7 +192,6 @@ class testDynamicsAndSound(testHandleDirections):
         self.assertEqual("80",self.measure.tempo)
 
     def testSoundAttrs(self):
-        self.tags.append("sound")
         self.tags.append("sound")
         self.attrs = {"dynamics":"60","tempo":"50"}
         self.handler(self.tags,self.attrs,self.chars,self.piece)

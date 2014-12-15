@@ -60,6 +60,7 @@ class testHandlePart(unittest.TestCase):
 
     def testIrrelevantTag(self):
         self.tags.append("wut")
+        MxmlParser.part_id = None
         self.assertEqual(None, self.handler(self.tags, self.attrs,self.chars,self.piece), "ERROR: irrelevant tags should return none in TestIrrelevantTag")
 
     def testScorePartTag(self):

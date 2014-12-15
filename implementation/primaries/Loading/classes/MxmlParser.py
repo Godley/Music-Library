@@ -1,5 +1,5 @@
 import xml.sax
-
+from xml.sax import make_parser
 from implementation.primaries.Loading.classes import Piece, Part, Measure, Meta, Key, Meter, Note, Clef, text
 
 note = None
@@ -102,6 +102,7 @@ class MxmlParser:
             self.attribs.pop(name)
 
     def parse(self, file):
+        parser = make_parser()
         class Extractor(xml.sax.ContentHandler):
             def __init__(self, parent):
                 self.parent = parent
@@ -119,8 +120,9 @@ class MxmlParser:
 
             def endElement(self, name):
                 self.parent.EndTag(name)
-
-        xml.sax.parse(file, Extractor(self))
+        fob = open(file, 'r')
+        parser.setContentHandler(Extractor(self))
+        parser.parse(open(file))
         return self.piece
 
 
@@ -183,6 +185,33 @@ def UpdatePart(tag, attrib, content, piece):
                 return_val = 1
     return return_val
 
+def handleArticulation(tag, attrs, content, piece):
+    global note
+    if len(tag) > 0:
+        if "articulation" in tag:
+            if note is not None:
+                accent = None
+                if not hasattr(note, "articulations"):
+                    note.articulations = []
+                if tag[-1] == "accent":
+                    accent = Note.Accent()
+                if tag[-1] == "strong-accent":
+                    type = ""
+                    if "type" in attrs:
+                        type = attrs["type"]
+                    accent = Note.StrongAccent(type=type)
+                if tag[-1] == "staccato":
+                    accent = Note.Staccato()
+                if tag[-1] == "staccatissimo":
+                    accent = Note.Staccatissimo()
+                if "placement" in attrs:
+                    accent.placement = attrs["placement"]
+                if accent is not None:
+                    note.articulations.append(accent)
+
+            return 1
+
+    return None
 def HandleMeasures(tag, attrib, content, piece):
     global measure_id, part_id
     part = None
@@ -403,7 +432,6 @@ def HandleDirections(tags, attrs, chars, piece):
 
 def CheckDynamics(tag):
     return_val = False
-    # TODO: modify so that "fm/pm" is an invalid dynamic mark
     dmark = ["p","f"]
     if len(tag) == 1 and tag in dmark:
         return_val = True
@@ -421,8 +449,5 @@ def CheckDynamics(tag):
                     return_val = False
     return return_val
 
-
-p = MxmlParser()
-print(p.parse("/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/ActorPreludeSample.xml"))
 
 

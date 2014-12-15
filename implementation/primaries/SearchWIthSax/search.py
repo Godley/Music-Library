@@ -20,12 +20,12 @@ class Finder(object):
             if not os.path.exists(os.path.join(self.folder, '.parsedtags')):
                 f=open(os.path.join(self.folder, '.parsedtags'), 'w+')
                 f.close()
-            self.meta = file(os.path.join(self.folder, '.parsedtags'), 'r+')
+            self.meta = open(os.path.join(self.folder, '.parsedtags'), 'r+')
         else:
             if not os.path.exists(os.path.join(self.folder, '.parseddata')):
                 f=open(os.path.join(self.folder, '.parseddata'), 'w+')
                 f.close()
-            self.meta = file(os.path.join(self.folder, '.parseddata'), 'r+')
+            self.meta = open(os.path.join(self.folder, '.parseddata'), 'r+')
         if hasattr(self, "meta"):
             self.load_data = pickle.Unpickler(self.meta)
             try:
@@ -40,10 +40,10 @@ class Finder(object):
     def Unzip(self):
         e_path = os.path.join(self.folder, '.extracted')
         if not os.path.exists(e_path):
-            e = file(e_path, 'a')
+            e = open(e_path, 'a')
             e.close()
         else:
-            self.extracted = file(e_path, 'r+')
+            self.extracted = open(e_path, 'r+')
         if os.path.exists(os.path.join(self.folder, '.extracted')):
             self.extract_list = pickle.Unpickler(self.extracted)
             try:
@@ -62,7 +62,6 @@ class Finder(object):
         pickle.dump(self.extract_list, self.extracted)
 
     def parse(self):
-
         for f in self.files:
             path = join(self.folder, f)
             fob = open(path, 'r')
@@ -114,13 +113,13 @@ class Finder(object):
     def searchAndPrint(self, inp):
         results = self.search(inp)
         if len(results) > 0:
-            print "results found matching " + inp + " : \n"
-        for key, value in results.iteritems():
-            print "value: ", key
-            for item in value:
-                print "file: ", item[0]
-                print "tag: ", item[1]
-                print "attributes: ", item[2]
+            print("results found matching " + inp + " : \n")
+        for key in results.keys():
+            print("value: ", key)
+            for item in results[key]:
+                print("file: %s" % item[0])
+                print("tag: %s" % item[1])
+                print("attributes: %s" % item[2])
         return results
 
 

@@ -19,4 +19,4 @@ class Clef(object):
                     return (self.sign + self.line)
             else:
                 return(self.sign)
-        return "shit there's nothing here"
+        return ""
