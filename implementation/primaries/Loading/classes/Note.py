@@ -13,7 +13,7 @@ class Stem(object):
     def __str__(self):
         return self.type
 
-class Articulation(object):
+class Notation(object):
     def __init__(self, **kwargs):
         if "placement" in kwargs:
             self.placement = kwargs["placement"]
@@ -23,14 +23,14 @@ class Articulation(object):
     def __str__(self):
         return self.symbol + self.placement
 
-class Accent(Articulation):
+class Accent(Notation):
     def __init__(self, **kwargs):
         placement = None
         if "placement" in kwargs:
             placement = kwargs["placement"]
-        Articulation.__init__(self, placement=placement, symbol="-")
+        Notation.__init__(self, placement=placement, symbol="-")
 
-class StrongAccent(Articulation):
+class StrongAccent(Notation):
     def __init__(self, **kwargs):
         placement = None
         if "placement" in kwargs:
@@ -43,25 +43,29 @@ class StrongAccent(Articulation):
                 symbol = "^"
             else:
                 symbol = "V"
-        Articulation.__init__(self,placement=placement, symbol=symbol)
+        Notation.__init__(self,placement=placement, symbol=symbol)
 
-class Staccato(Articulation):
+class Staccato(Notation):
     def __init__(self, **kwargs):
         placement = None
         if "placement" in kwargs:
             placement = kwargs["placement"]
 
         symbol = "."
-        Articulation.__init__(self,placement=placement,symbol=symbol)
+        Notation.__init__(self,placement=placement,symbol=symbol)
 
-class Staccatissimo(Articulation):
+class Staccatissimo(Notation):
     def __init__(self, **kwargs):
         placement = None
         if "placement" in kwargs:
             placement = kwargs["placement"]
 
         symbol = "triangle"
-        Articulation.__init__(self,placement=placement,symbol=symbol)
+        Notation.__init__(self,placement=placement,symbol=symbol)
+
+class Slur(Notation):
+    def __init__(self):
+        self.lol = True
 
 
 

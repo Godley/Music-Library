@@ -79,27 +79,24 @@ class MxmlParser:
 
     def EndTag(self, name):
         global part_id, measure_id, note
-        if name == "note":
-            self.handler = HandleMeasures
-            note = None
         self.tags.remove(name)
-        if name == "score-part" or name == "part":
-            part_id = None
+        if name in self.attribs:
+            self.attribs.pop(name)
+        if name in self.chars:
+            self.chars.pop(name)
+        if len(self.tags) > 0:
+            if self.tags[-1] in self.structure:
+                self.handler = self.structure[self.tags[-1]]
+            else:
+                self.handler = None
+        else:
             self.handler = None
         if name == "measure":
             measure_id = None
-            self.handler = None
-        if name == "pitch":
-            self.handler = CreateNote
-        if name == "direction":
-            self.handler = HandleMeasures
-        if name == "movement-title":
-            self.handler = None
-
-        if name in self.chars.keys() and name not in self.multiple_attribs:
-            self.chars.pop(name)
-        if name in self.attribs.keys() and name not in self.multiple_attribs:
-            self.attribs.pop(name)
+        if name == "part" or name == "score-part":
+            part_id = None
+        if name == "note":
+            note = None
 
     def parse(self, file):
         parser = make_parser()
@@ -192,7 +189,7 @@ def handleArticulation(tag, attrs, content, piece):
             if note is not None:
                 accent = None
                 if not hasattr(note, "articulations"):
-                    note.articulations = []
+                    note.notations = []
                 if tag[-1] == "accent":
                     accent = Note.Accent()
                 if tag[-1] == "strong-accent":
@@ -207,11 +204,32 @@ def handleArticulation(tag, attrs, content, piece):
                 if "placement" in attrs:
                     accent.placement = attrs["placement"]
                 if accent is not None:
-                    note.articulations.append(accent)
+                    note.notations.append(accent)
 
             return 1
 
     return None
+def handleOtherNotations(tag, attrs, content, piece):
+    global note
+    if len(tag) > 0:
+        if "notations" in tag:
+            if tag[-1] == "slur":
+                if not hasattr(note, "slurs"):
+                    note.slurs = {}
+
+                notation = Note.Slur()
+                id = len(note.slurs)
+                if "placement" in attrs:
+                    notation.placement = attrs["placement"]
+                if "number" in attrs:
+                    id = int(attrs["number"])
+
+                if "type" in attrs:
+                    notation.type = attrs["type"]
+                note.slurs[id] = notation
+            return 1
+    return None
+
 def HandleMeasures(tag, attrib, content, piece):
     global measure_id, part_id
     part = None
@@ -309,7 +327,8 @@ def CreateNote(tag, attrs, content, piece):
     global note_id, note, part_id, measure_id
     ret_value = None
     if len(tag) > 0 and "note" in tag:
-        measure = piece.Parts[part_id].measures[measure_id]
+        if part_id is not None and measure_id is not None:
+            measure = piece.Parts[part_id].measures[measure_id]
         if "note" in tag and note is None:
             note = Note.Note()
             measure.notes.append(note)
@@ -331,6 +350,9 @@ def CreateNote(tag, attrs, content, piece):
             note.chord = True
         if tag[-1] == "stem":
             note.stem = Note.Stem(content["stem"])
+
+        if "notehead" in tag:
+            note.notehead = True
     return ret_value
 
 def SetupFormat(tags, attrs, text, piece):
