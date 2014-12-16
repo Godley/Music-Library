@@ -1,5 +1,6 @@
 from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure, Part, Note, text
 import unittest
+from implementation.primaries.Loading.tests import TestClass
 
 class testCreateNoteHandler(unittest.TestCase):
     def setUp(self):
@@ -16,6 +17,7 @@ class testCreateNoteHandler(unittest.TestCase):
 
     def testNoTags(self):
         self.tags.remove("note")
+
         self.assertEqual(None, self.handler(self.tags,self.attrs,self.chars,self.piece), "ERROR: 0 tags should do nothing in method CreateNote in testNoData")
 
     def testIrrelevantTag(self):
@@ -108,3 +110,27 @@ class testHandlePitch(unittest.TestCase):
         self.assertTrue(hasattr(MxmlParser.note.pitch, "octave"))
         self.assertEqual("1",MxmlParser.note.pitch.octave)
 
+
+class testNotehead(testCreateNoteHandler):
+    def setUp(self):
+        testCreateNoteHandler.setUp(self)
+        self.tags.append("notehead")
+
+    def testNoteheadTag(self):
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note, "notehead"))
+        self.assertEqual(Note.Notehead, type(MxmlParser.note.notehead))
+
+    def testNoteheadFilled(self):
+        self.tags.append("notehead")
+        self.attrs["notehead"] = {"filled":"yes"}
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.notehead, "filled"))
+        self.assertTrue(MxmlParser.note.notehead.filled)
+
+    def testNoteheadType(self):
+        self.tags.append("notehead")
+        self.chars["notehead"] = "diamond"
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.notehead, "type"))
+        self.assertEqual("diamond",MxmlParser.note.notehead.type)

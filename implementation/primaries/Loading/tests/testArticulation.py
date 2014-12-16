@@ -79,7 +79,7 @@ class testHandleArticulation(unittest.TestCase):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertEqual("triangle", self.note.notations[0].symbol)
 
-class testSlurAndTechnical(TestClass.TestClass):
+class testSlurs(TestClass.TestClass):
     def setUp(self):
         TestClass.TestClass.setUp(self)
         self.tags.append("note")
@@ -127,10 +127,24 @@ class testSlurAndTechnical(TestClass.TestClass):
         self.assertTrue(hasattr(MxmlParser.note.slurs[0], "type"))
         self.assertEqual("start",MxmlParser.note.slurs[0].type)
 
-    def testNoteheadTag(self):
-        self.tags.append("notehead")
-        self.handler = MxmlParser.CreateNote
-        self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(MxmlParser.note, "notehead"))
+class testTechniques(TestClass.TestClass):
+    def setUp(self):
+        TestClass.TestClass.setUp(self)
+        self.tags.append("note")
+        self.tags.append("notations")
+        self.handler = MxmlParser.handleOtherNotations
+        MxmlParser.note = Note.Note()
+        self.tags.append("technical")
 
+    def testNoData(self):
+        self.tags.remove("notations")
+        self.tags.remove("note")
+        self.tags.remove("technical")
+        self.assertIsNone(self.handler(self.tags,self.attrs,self.chars,self.piece))
+
+    def testIrrelevant(self):
+        self.tags.remove("technical")
+        self.tags.remove("notations")
+        self.tags.remove("note")
+        self.assertIsNone(self.handler(self.tags,self.attrs,self.chars,self.piece))
 
