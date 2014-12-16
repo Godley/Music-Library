@@ -23,11 +23,11 @@ class MxmlParser:
         # add any handlers, along with the tagname associated with it, to this dictionary
         self.structure = {"movement-title": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
-             "pitch": HandlePitch,"direction":HandleDirections}
+             "pitch": HandlePitch,"direction":HandleDirections,"articulations":handleArticulation,"slur":handleOtherNotations}
         # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
         self.multiple_attribs = ["beats", "sign"]
         # any tags which close instantly in here
-        self.closed_tags = ["tie","dot","chord","note","measure","part","score-part","sound","print","rest"]
+        self.closed_tags = ["tie","dot","chord","note","measure","part","score-part","sound","print","rest","slur","accent","strong-accent","staccato","staccatissimo"]
         self.piece = Piece.Piece()
 
     def Flush(self):
@@ -122,6 +122,11 @@ class MxmlParser:
         parser.parse(open(file))
         return self.piece
 
+def YesNoToBool(entry):
+    if entry == "yes":
+        return True
+    if entry == "no":
+        return False
 
 def ignore_exception(IgnoreException=Exception, DefaultVal=None):
     """ Decorator for ignoring exception from a function
@@ -309,12 +314,11 @@ def HandleMeasures(tag, attrib, content, piece):
                     measure.transpose = Measure.Transposition(octave=content["octave-change"])
             return_val = 1
         if "print" in tag:
-            flags = {"yes":True,"no":False}
             if "print" in attrib:
                 if "new-system" in attrib["print"]:
-                    measure.newSystem = flags[attrib["print"]["new-system"]]
+                    measure.newSystem = YesNoToBool(attrib["print"]["new-system"])
                 if "new-page" in attrib["print"]:
-                    measure.newPage = flags[attrib["print"]["new-page"]]
+                    measure.newPage = YesNoToBool(attrib["print"]["new-page"])
             return_val = 1
     return return_val
 
@@ -352,7 +356,14 @@ def CreateNote(tag, attrs, content, piece):
             note.stem = Note.Stem(content["stem"])
 
         if "notehead" in tag:
-            note.notehead = True
+            note.notehead = Note.Notehead()
+            if "notehead" in attrs:
+                if "filled" in attrs["notehead"]:
+                    filled = YesNoToBool(attrs["notehead"]["filled"])
+                    note.notehead.filled = filled
+            if "notehead" in content:
+                note.notehead.type = content["notehead"]
+
     return ret_value
 
 def SetupFormat(tags, attrs, text, piece):
@@ -402,7 +413,6 @@ def HandleDirections(tags, attrs, chars, piece):
             direction = text.Direction(font=font,text=chars,size=size,placement=placement)
             measure.directions.append(direction)
         if "metronome" in tags:
-            yval = {"yes":True,"no":False}
             if tags[-1] == "beat-unit":
                 return_val = 1
                 unit = chars["beat-unit"]
@@ -415,7 +425,7 @@ def HandleDirections(tags, attrs, chars, piece):
                     if "font-size" in attrs["metronome"]:
                         metronome.size = attrs["metronome"]["font-size"]
                     if "parentheses" in attrs["metronome"]:
-                        metronome.parentheses = yval[attrs["metronome"]["parentheses"]]
+                        metronome.parentheses = YesNoToBool(attrs["metronome"]["parentheses"])
 
                 measure.directions.append(metronome)
             if tags[-1] == "per-minute":
@@ -438,7 +448,7 @@ def HandleDirections(tags, attrs, chars, piece):
                     if "font-size" in attrs["metronome"]:
                         metronome.size = float(attrs["metronome"]["font-size"])
                     if "parentheses" in attrs["metronome"]:
-                        metronome.parentheses = yval[attrs["metronome"]["parentheses"]]
+                        metronome.parentheses = YesNoToBool(attrs["metronome"]["parentheses"])
 
         if len(tags) > 1:
             if tags[-2] == "dynamics":

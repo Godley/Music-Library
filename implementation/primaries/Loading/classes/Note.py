@@ -4,6 +4,10 @@ class Tie(BaseClass.Base):
     def __init__(self, type):
         self.type = type
 
+class Notehead(BaseClass.Base):
+    def __init__(self, filled=False, type=""):
+        self.filled = filled
+        self.type = type
 
 
 class Stem(object):
