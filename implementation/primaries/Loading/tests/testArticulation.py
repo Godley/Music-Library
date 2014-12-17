@@ -1,6 +1,6 @@
 import unittest
 from implementation.primaries.Loading.tests import TestClass
-from implementation.primaries.Loading.classes import MxmlParser, Piece, Part, Measure, Note
+from implementation.primaries.Loading.classes import MxmlParser, Piece, text, Part, Measure, Note
 
 class testHandleArticulation(unittest.TestCase):
     def setUp(self):
@@ -105,7 +105,7 @@ class testSlurs(TestClass.TestClass):
         self.tags.append("slur")
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(MxmlParser.note, "slurs"))
-        self.assertEqual(Note.Slur, type(MxmlParser.note.slurs[0]))
+        self.assertEqual(text.Slur, type(MxmlParser.note.slurs[0]))
 
     def testSlurPlacement(self):
         self.tags.append("slur")
@@ -146,5 +146,25 @@ class testTechniques(TestClass.TestClass):
         self.tags.remove("technical")
         self.tags.remove("notations")
         self.tags.remove("note")
+        self.tags.append("hello")
         self.assertIsNone(self.handler(self.tags,self.attrs,self.chars,self.piece))
+
+    def testUpBow(self):
+        self.tags.append("up-bow")
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note, "techniques"))
+        self.assertIsInstance(MxmlParser.note.techniques[0], text.Technique)
+
+    def testUpBowVal(self):
+        self.tags.append("up-bow")
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.techniques[0], "type"))
+        self.assertEqual("up-bow",MxmlParser.note.techniques[0].type)
+
+    def testDownBowVal(self):
+        self.tags.append("down-bow")
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.techniques[0], "type"))
+        self.assertEqual("down-bow",MxmlParser.note.techniques[0].type)
+
 

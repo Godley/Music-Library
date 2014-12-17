@@ -78,14 +78,60 @@ class Metronome(Direction):
 
 class Dynamic(Direction):
     def __init__(self, **kwargs):
+        placement = None
+        size = None
+        font = None
         if "mark" in kwargs:
             self.mark = kwargs["mark"]
-        if "volume" in kwargs:
-            self.volume = kwargs["volume"]
+
         if "size" in kwargs:
-            if "font" in kwargs:
-                Direction.__init__(self,placement=kwargs["placement"],font=kwargs["font"],size=kwargs["size"],text=kwargs["mark"])
-            else:
-                Text.__init__(self,size=kwargs["size"],text=kwargs["mark"])
-        else:
-            Text.__init__(self,text=kwargs["mark"])
+            size = kwargs["size"]
+
+        if "font" in kwargs:
+            font = kwargs["font"]
+        if "placement" in kwargs:
+            placement = kwargs["placement"]
+
+        Direction.__init__(self,placement=placement,
+                           font=font,
+                           size=size,
+                           text=kwargs["mark"])
+
+
+class Slur(Direction):
+    def __init__(self, **kwargs):
+        placement = None
+        size = None
+        font = None
+        if "size" in kwargs:
+            size = kwargs["size"]
+
+        if "font" in kwargs:
+            font = kwargs["font"]
+        if "placement" in kwargs:
+            placement = kwargs["placement"]
+
+        Direction.__init__(self,placement=placement,
+                           font=font,
+                           size=size)
+
+class Technique(Direction):
+    def __init__(self, **kwargs):
+        placement = None
+        size = None
+        font = None
+        self.type = None
+        if "type" in kwargs:
+            self.type = kwargs["type"]
+        if "size" in kwargs:
+            size = kwargs["size"]
+
+        if "font" in kwargs:
+            font = kwargs["font"]
+        if "placement" in kwargs:
+            placement = kwargs["placement"]
+
+        Direction.__init__(self,placement=placement,
+                           font=font,
+                           size=size,
+                           text=self.type)

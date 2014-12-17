@@ -23,11 +23,15 @@ class MxmlParser:
         # add any handlers, along with the tagname associated with it, to this dictionary
         self.structure = {"movement-title": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
-             "pitch": HandlePitch,"direction":HandleDirections,"articulations":handleArticulation,"slur":handleOtherNotations}
+             "pitch": HandlePitch,"direction":HandleDirections,"articulations":handleArticulation,"slur":handleOtherNotations,
+             "technical":handleOtherNotations}
         # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
         self.multiple_attribs = ["beats", "sign"]
         # any tags which close instantly in here
-        self.closed_tags = ["tie","dot","chord","note","measure","part","score-part","sound","print","rest","slur","accent","strong-accent","staccato","staccatissimo"]
+        self.closed_tags = ["technical","tie","dot","chord","note","measure","part",
+                            "score-part","sound","print","rest","slur",
+                            "accent","strong-accent","staccato",
+                            "staccatissimo","up-bow","down-bow"]
         self.piece = Piece.Piece()
 
     def Flush(self):
@@ -222,7 +226,7 @@ def handleOtherNotations(tag, attrs, content, piece):
                 if not hasattr(note, "slurs"):
                     note.slurs = {}
 
-                notation = Note.Slur()
+                notation = text.Slur()
                 id = len(note.slurs)
                 if "placement" in attrs:
                     notation.placement = attrs["placement"]
@@ -232,6 +236,10 @@ def handleOtherNotations(tag, attrs, content, piece):
                 if "type" in attrs:
                     notation.type = attrs["type"]
                 note.slurs[id] = notation
+            if tag[-2] == "technical":
+                if not hasattr(note, "techniques"):
+                    note.techniques = []
+                note.techniques.append(text.Technique(type=tag[-1]))
             return 1
     return None
 

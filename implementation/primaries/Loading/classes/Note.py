@@ -10,6 +10,8 @@ class Notehead(BaseClass.Base):
         self.type = type
 
 
+
+
 class Stem(object):
     def __init__(self, type):
         self.type = type
@@ -66,10 +68,6 @@ class Staccatissimo(Notation):
 
         symbol = "triangle"
         Notation.__init__(self,placement=placement,symbol=symbol)
-
-class Slur(Notation):
-    def __init__(self):
-        self.lol = True
 
 
 
