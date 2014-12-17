@@ -83,6 +83,10 @@ class Dynamic(Direction):
         font = None
         if "mark" in kwargs:
             self.mark = kwargs["mark"]
+        if "text" in kwargs:
+            text = kwargs["text"]
+        else:
+            text = self.mark
 
         if "size" in kwargs:
             size = kwargs["size"]
@@ -95,7 +99,19 @@ class Dynamic(Direction):
         Direction.__init__(self,placement=placement,
                            font=font,
                            size=size,
-                           text=kwargs["mark"])
+                           text=text)
+
+class Wedge(Dynamic):
+    def __init__(self, **kwargs):
+        placement = None
+        self.type = None
+        if "placement" in kwargs:
+            placement = kwargs["placement"]
+        if "type" in kwargs:
+            self.type = kwargs["type"]
+
+        Dynamic.__init__(self,placement=placement,text=self.type)
+
 
 
 class Slur(Direction):

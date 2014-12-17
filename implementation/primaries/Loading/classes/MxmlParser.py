@@ -480,7 +480,13 @@ def HandleDirections(tags, attrs, chars, piece):
                         metronome.size = float(attrs["metronome"]["font-size"])
                     if "parentheses" in attrs["metronome"]:
                         metronome.parentheses = YesNoToBool(attrs["metronome"]["parentheses"])
-
+        if tags[-1] == "wedge":
+            type = None
+            if "wedge" in attrs:
+                if "type" in attrs["wedge"]:
+                    type = attrs["wedge"]["type"]
+            dynamic = text.Wedge(placement = placement,type=type)
+            measure.directions.append(dynamic)
         if len(tags) > 1:
             if tags[-2] == "dynamics":
                 dynamic = text.Dynamic(placement=placement, mark=tags[-1])

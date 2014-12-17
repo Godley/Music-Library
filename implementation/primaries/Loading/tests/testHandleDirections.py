@@ -199,3 +199,15 @@ class testDynamicsAndSound(testHandleDirections):
         self.assertEqual("50",self.measure.tempo)
         self.assertTrue(hasattr(self.measure, "volume"))
         self.assertEqual("60",self.measure.volume)
+
+    def testWedgeTag(self):
+        self.tags.append("wedge")
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertIsInstance(self.measure.directions[-1], text.Wedge)
+
+    def testWedgeVal(self):
+        self.tags.append("wedge")
+        self.attrs["wedge"] = {"type":"crescendo"}
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(self.measure.directions[-1], "type"))
+        self.assertEqual("crescendo", self.measure.directions[-1].type)
