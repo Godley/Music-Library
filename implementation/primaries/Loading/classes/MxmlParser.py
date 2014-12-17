@@ -23,7 +23,7 @@ class MxmlParser:
         # add any handlers, along with the tagname associated with it, to this dictionary
         self.structure = {"movement-title": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
-             "pitch": HandlePitch,"direction":HandleDirections,"articulations":handleArticulation,"slur":handleOtherNotations,
+             "pitch": HandlePitch,"unpitched":HandlePitch,"direction":HandleDirections,"articulations":handleArticulation,"slur":handleOtherNotations,
              "technical":handleOtherNotations}
         # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
         self.multiple_attribs = ["beats", "sign"]
@@ -31,7 +31,7 @@ class MxmlParser:
         self.closed_tags = ["technical","tie","dot","chord","note","measure","part",
                             "score-part","sound","print","rest","slur",
                             "accent","strong-accent","staccato",
-                            "staccatissimo","up-bow","down-bow"]
+                            "staccatissimo","up-bow","down-bow", "cue","grace"]
         self.piece = Piece.Piece()
 
     def Flush(self):
@@ -349,6 +349,11 @@ def CreateNote(tag, attrs, content, piece):
 
         if "rest" in tag:
             note.rest = True
+        if "cue" in tag:
+            note.cue = True
+
+        if "grace" in tag:
+            note.grace = True
         if tag[-1] == "duration" and "note" in tag:
             note.duration = float(content["duration"])
             if hasattr(measure, "divisions"):
@@ -371,6 +376,17 @@ def CreateNote(tag, attrs, content, piece):
                     note.notehead.filled = filled
             if "notehead" in content:
                 note.notehead.type = content["notehead"]
+        if tag[-1] == "beam":
+            type = ""
+            if "beam" in content:
+                type = content["beam"]
+            if not hasattr(note, "beams"):
+                note.beams = {}
+            if "beam" in attrs:
+                id = int(attrs["beam"]["number"])
+            else:
+                id = len(note.beams)
+            note.beams[id] = Note.Beam(type=type)
 
     return ret_value
 
@@ -381,18 +397,25 @@ def SetupFormat(tags, attrs, text, piece):
 def HandlePitch(tags, attrs, text, piece):
     return_val = None
     if len(tags) > 0:
-        if "pitch" in tags:
+        if "pitch" or "unpitched" in tags:
             if not hasattr(note, "pitch"):
                 note.pitch = Note.Pitch()
-
-            if tags[-1] == "step":
-                note.pitch.step = text["step"]
+            if "unpitched" in tags:
+                note.pitch.unpitched = True
+            if "step" in tags[-1]:
+                if "step" not in text:
+                    note.pitch.step = text["display-step"]
+                else:
+                    note.pitch.step = text["step"]
                 return_val = 1
             if tags[-1] == "alter":
                 note.pitch.accidental = text["alter"]
                 return_val = 1
-            if tags[-1] == "octave":
-                note.pitch.octave = text["octave"]
+            if "octave" in tags[-1]:
+                if "octave" not in text:
+                    note.pitch.octave = text["display-octave"]
+                else:
+                    note.pitch.octave = text["octave"]
                 return_val = 1
     return return_val
 

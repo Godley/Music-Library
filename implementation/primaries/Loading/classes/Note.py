@@ -69,8 +69,6 @@ class Staccatissimo(Notation):
         symbol = "triangle"
         Notation.__init__(self,placement=placement,symbol=symbol)
 
-
-
 class Pitch(object):
     def __init__(self, **kwargs):
         if "alter" in kwargs:
@@ -79,10 +77,14 @@ class Pitch(object):
             self.octave = kwargs["octave"]
         if "step" in kwargs:
             self.step = kwargs["step"]
+        if "unpitched" in kwargs:
+            self.unpitched = True
 
     def __str__(self):
         st = ""
         alter = {1:"sharp",-1:"flat",0:""}
+        if hasattr(self,"unpitched"):
+            st += "unpitched"
         if hasattr(self, "step"):
             st += self.step
         if hasattr(self, "accidental"):
@@ -123,3 +125,8 @@ class Stem(object):
 
     def __str__(self):
         return self.type
+
+class Beam(Stem):
+    def __init__(self, **kwargs):
+        if "type" in kwargs:
+            Stem.__init__(self,kwargs["type"])

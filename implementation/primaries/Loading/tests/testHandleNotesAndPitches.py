@@ -36,6 +36,16 @@ class testCreateNoteHandler(unittest.TestCase):
         self.assertTrue(hasattr(MxmlParser.note, "rest"), "ERROR: note should have rest attrib")
         self.assertEqual(True, MxmlParser.note.rest, "ERROR: rest tag should make note's rest value true in testRestTag")
 
+    def testCueTag(self):
+        self.tags.append("cue")
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note, "cue"))
+
+    def testGraceTag(self):
+        self.tags.append("grace")
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note, "grace"))
+
     def testDurationTag(self):
         self.tags.append("duration")
         self.chars["duration"] = "8"
@@ -66,7 +76,27 @@ class testCreateNoteHandler(unittest.TestCase):
         self.assertEqual(Note.Stem, type(note.stem), "ERROR: stem not of type Stem")
         self.assertEqual("up",note.stem.type, "ERROR: stem type value incorrect")
 
-class testHandlePitch(unittest.TestCase):
+    def testBeamTag(self):
+        self.tags.append("beam")
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note, "beams"))
+        self.assertIsInstance(MxmlParser.note.beams[0], Note.Beam)
+
+    def testBeamType(self):
+        self.tags.append("beam")
+        self.chars["beam"] = "begin"
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.beams[0], "type"))
+        self.assertEqual("begin",MxmlParser.note.beams[0].type)
+
+    def testBeamAttrs(self):
+        self.tags.append("beam")
+        self.chars["beam"] = "begin"
+        self.attrs["beam"] = {"number":"1"}
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(1 in MxmlParser.note.beams)
+
+class pitchin(unittest.TestCase):
     def setUp(self):
         self.tags = ["note","pitch"]
         self.attrs = {}
@@ -77,6 +107,7 @@ class testHandlePitch(unittest.TestCase):
         self.handler = MxmlParser.HandlePitch
         self.piece = Piece.Piece()
 
+class testHandlePitch(pitchin):
     def testNoTags(self):
         self.tags = []
         self.assertEqual(None, self.handler(self.tags,self.attrs,self.chars,self.piece), "ERROR: no tags into method should give a result of none")
@@ -110,6 +141,27 @@ class testHandlePitch(unittest.TestCase):
         self.assertTrue(hasattr(MxmlParser.note.pitch, "octave"))
         self.assertEqual("1",MxmlParser.note.pitch.octave)
 
+class testUnpitched(pitchin):
+    def setUp(self):
+        pitchin.setUp(self)
+        self.tags.remove("pitch")
+        self.tags.append("unpitched")
+
+    def testUnpitchedTag(self):
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.pitch, "unpitched"))
+
+    def testDisplayStepTag(self):
+        self.tags.append("display-step")
+        self.chars["display-step"] = "E"
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.pitch, "step"))
+
+    def testDisplayOctaveTag(self):
+        self.tags.append("display-octave")
+        self.chars["display-octave"] = "2"
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.pitch, "octave"))
 
 class testNotehead(testCreateNoteHandler):
     def setUp(self):
