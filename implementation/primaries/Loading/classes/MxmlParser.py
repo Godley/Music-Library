@@ -31,7 +31,8 @@ class MxmlParser:
         self.closed_tags = ["technical","tie","dot","chord","note","measure","part",
                             "score-part","sound","print","rest","slur",
                             "accent","strong-accent","staccato",
-                            "staccatissimo","up-bow","down-bow", "cue","grace"]
+                            "staccatissimo","up-bow","down-bow",
+                            "cue","grace","wedge"]
         self.piece = Piece.Piece()
 
     def Flush(self):
@@ -343,8 +344,8 @@ def CreateNote(tag, attrs, content, piece):
             measure = piece.Parts[part_id].measures[measure_id]
         if "note" in tag and note is None:
             note = Note.Note()
-            measure.notes.append(note)
-            note_id = len(measure.notes) - 1
+            measure.items.append(note)
+            note_id = len(measure.items) - 1
             ret_value = 1
 
         if "rest" in tag:
@@ -442,7 +443,7 @@ def HandleDirections(tags, attrs, chars, piece):
                 if "font-family" in attrs["words"]:
                     font = attrs["words"]["font-family"]
             direction = text.Direction(font=font,text=chars,size=size,placement=placement)
-            measure.directions.append(direction)
+            measure.items.append(direction)
         if "metronome" in tags:
             if tags[-1] == "beat-unit":
                 return_val = 1
@@ -458,19 +459,19 @@ def HandleDirections(tags, attrs, chars, piece):
                     if "parentheses" in attrs["metronome"]:
                         metronome.parentheses = YesNoToBool(attrs["metronome"]["parentheses"])
 
-                measure.directions.append(metronome)
+                measure.items.append(metronome)
             if tags[-1] == "per-minute":
                 return_val = 1
                 pm = chars["per-minute"]
-                if len(measure.directions) > 0:
-                    if type(measure.directions[-1]) is text.Metronome:
-                        metronome = measure.directions[-1]
+                if len(measure.items) > 0:
+                    if type(measure.items[-1]) is text.Metronome:
+                        metronome = measure.items[-1]
                     else:
                         metronome = text.Metronome(min=pm)
-                        measure.directions.append(metronome)
+                        measure.items.append(metronome)
                 else:
                     metronome = text.Metronome(min=pm)
-                    measure.directions.append(metronome)
+                    measure.items.append(metronome)
                 metronome.min = pm
                 metronome.text += " = " + metronome.min
                 if "metronome" in attrs:
@@ -486,17 +487,19 @@ def HandleDirections(tags, attrs, chars, piece):
                 if "type" in attrs["wedge"]:
                     type = attrs["wedge"]["type"]
             dynamic = text.Wedge(placement = placement,type=type)
-            measure.directions.append(dynamic)
+            measure.items.append(dynamic)
         if len(tags) > 1:
             if tags[-2] == "dynamics":
                 dynamic = text.Dynamic(placement=placement, mark=tags[-1])
-                measure.directions.append(dynamic)
+                measure.items.append(dynamic)
         if "sound" in tags:
             return_val = 1
             if "dynamics" in attrs:
                 measure.volume = attrs["dynamics"]
             if "tempo" in attrs:
                 measure.tempo = attrs["tempo"]
+        if tags[-1] == "offset" and len(measure.items) > 0:
+            measure.items[-1].offset = chars["offset"]
     return return_val
 
 def CheckDynamics(tag):

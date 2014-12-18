@@ -2,7 +2,7 @@ class Base(object):
     def __init__(self):
         self.indent = 1
     def __str__(self):
-        st = ""
+        st = str(type(self))
         values = vars(self)
         for key in values.keys():
             if key == "indent":
