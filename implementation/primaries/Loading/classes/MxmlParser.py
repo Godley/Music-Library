@@ -1,6 +1,6 @@
 import xml.sax
 from xml.sax import make_parser
-from implementation.primaries.Loading.classes import Piece, Part, Measure, Meta, Key, Meter, Note, Clef, text
+from implementation.primaries.Loading.classes import Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, text
 
 note = None
 part_id = None
@@ -329,6 +329,60 @@ def HandleMeasures(tag, attrib, content, piece):
                 if "new-page" in attrib["print"]:
                     measure.newPage = YesNoToBool(attrib["print"]["new-page"])
             return_val = 1
+
+        if "harmony" in tag:
+            root = None
+            kind = None
+            bass = None
+
+            if "root" in tag:
+                root = Harmony.harmonyPitch()
+                if tag[-1] == "root-step":
+                    if "root-step" in content:
+                        root.step = content["root-step"]
+                if tag[-1] == "root-alter":
+                    if "root-alter" in content:
+                        root.alter = content["root-alter"]
+
+            if "kind" in tag:
+                text = None
+                halign = None
+                value = None
+                parenthesis = None
+                if "kind" in content:
+                    value = content["kind"]
+                if "kind" in attrib:
+                    if "text" in attrib["kind"]:
+                        text = attrib["kind"]["text"]
+                    if "halign" in attrib["kind"]:
+                        halign = attrib["kind"]["halign"]
+                    if "parenthesis-degrees" in attrib["kind"]:
+                        parenthesis = attrib["kind"]["parenthesis-degrees"]
+                kind = Harmony.Kind(value=value, parenthesis=parenthesis, text=text, halign=halign)
+
+            if "bass" in tag:
+                bass = Harmony.harmonyPitch()
+                if "bass-step" in tag and "bass-step" in content:
+                    bass.step = content["bass-step"]
+                if "bass-alter" in tag and "bass-alter" in content:
+                    bass.alter = content["bass-alter"]
+            degree = None
+            if "degree" in tag:
+                degree = Harmony.Degree()
+                if "degree-value" in tag:
+                    if "degree-value" in content:
+                        degree.value = content["degree-value"]
+                if "degree-alter" in tag:
+                    if "degree-alter" in content:
+                        degree.alter = content["degree-alter"]
+                if "degree-type" in tag:
+                    if "degree-type" in content:
+                        degree.type = content["degree-type"]
+                    if "degree-type" in attrib:
+                        if "text" in attrib["degree-type"]:
+                            degree.display = attrib["degree-type"]["text"]
+            harmony = Harmony.Harmony(root=root, degrees=[degree], bass=bass, kind=kind)
+            measure.items.append(harmony)
     return return_val
 
 def CheckID(tag, attrs, string, id_name):

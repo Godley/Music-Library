@@ -13,7 +13,7 @@ class testHandleArticulation(unittest.TestCase):
         self.part.measures[1] = Measure.Measure()
         MxmlParser.note = Note.Note()
         self.note = MxmlParser.note
-        self.part.measures[1].notes.append(MxmlParser.note)
+        self.part.measures[1].items.append(MxmlParser.note)
         self.handler = MxmlParser.handleArticulation
         self.tags.append("articulation")
 

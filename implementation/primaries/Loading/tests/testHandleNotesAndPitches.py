@@ -28,7 +28,7 @@ class testCreateNoteHandler(unittest.TestCase):
     def testNoteTag(self):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertEqual(Note.Note, type(MxmlParser.note), "ERROR: note global val is not a note instance in testNoteTag")
-        self.assertEqual(MxmlParser.note, self.piece.Parts["P1"].measures[1].notes[0],"ERROR: note not added to measure correctly in testNoteTag")
+        self.assertEqual(MxmlParser.note, self.piece.Parts["P1"].measures[1].items[0],"ERROR: note not added to measure correctly in testNoteTag")
 
     def testRestTag(self):
         self.tags.append("rest")
@@ -63,7 +63,7 @@ class testCreateNoteHandler(unittest.TestCase):
         self.tags.append("tie")
         self.attrs["type"] = "start"
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        expected = self.piece.Parts["P1"].measures[1].notes[0]
+        expected = self.piece.Parts["P1"].measures[1].items[0]
         self.assertEqual(1, len(MxmlParser.note.ties), "ERROR: note tie not added to tie list in note")
         self.assertEqual("start",expected.ties[-1].type, "ERROR: note tie type not matching to test input")
 
