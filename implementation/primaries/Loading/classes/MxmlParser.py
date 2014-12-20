@@ -5,6 +5,9 @@ from implementation.primaries.Loading.classes import Piece, Part, Harmony, Measu
 note = None
 part_id = None
 measure_id = None
+degree = None
+frame_note = None
+
 
 class MxmlParser:
     '''this needs a huge tidy, but this class:
@@ -102,6 +105,10 @@ class MxmlParser:
             part_id = None
         if name == "note":
             note = None
+        if name == "degree":
+            degree = None
+        if name == "frame-note":
+            frame_note = None
 
     def parse(self, file):
         parser = make_parser()
@@ -248,6 +255,7 @@ def HandleMeasures(tag, attrib, content, piece):
     global measure_id, part_id
     part = None
     return_val = None
+    global degree
     if len(tag) > 0 and "measure" in tag:
         if part_id is not None:
             part = piece.Parts[part_id]
@@ -334,9 +342,23 @@ def HandleMeasures(tag, attrib, content, piece):
             root = None
             kind = None
             bass = None
+            if len(measure.items) > 0:
+                if measure.items[-1] is not Harmony.Harmony:
+                    harmony = Harmony.Harmony(kind=kind)
+                    measure.items.append(harmony)
+                else:
+                    harmony = measure.items[-1]
+            else:
+                harmony = Harmony.Harmony(kind=kind)
+                measure.items.append(harmony)
+
 
             if "root" in tag:
-                root = Harmony.harmonyPitch()
+                if not hasattr(harmony, "root"):
+                    root = Harmony.harmonyPitch()
+                    harmony.root = root
+                else:
+                    root = harmony.root
                 if tag[-1] == "root-step":
                     if "root-step" in content:
                         root.step = content["root-step"]
@@ -349,26 +371,36 @@ def HandleMeasures(tag, attrib, content, piece):
                 halign = None
                 value = None
                 parenthesis = None
+                if not hasattr(harmony, "kind"):
+                    kind = Harmony.Kind()
+                    harmony.kind = kind
+                else:
+                    kind = harmony.kind
                 if "kind" in content:
-                    value = content["kind"]
+                    kind.value = content["kind"]
                 if "kind" in attrib:
                     if "text" in attrib["kind"]:
-                        text = attrib["kind"]["text"]
+                        kind.text = attrib["kind"]["text"]
                     if "halign" in attrib["kind"]:
-                        halign = attrib["kind"]["halign"]
+                        kind.halign = attrib["kind"]["halign"]
                     if "parenthesis-degrees" in attrib["kind"]:
-                        parenthesis = attrib["kind"]["parenthesis-degrees"]
-                kind = Harmony.Kind(value=value, parenthesis=parenthesis, text=text, halign=halign)
+                        kind.parenthesis = attrib["kind"]["parenthesis-degrees"]
+
 
             if "bass" in tag:
-                bass = Harmony.harmonyPitch()
+                if not hasattr(harmony, "bass"):
+                    harmony.bass = Harmony.harmonyPitch()
                 if "bass-step" in tag and "bass-step" in content:
-                    bass.step = content["bass-step"]
+                    harmony.bass.step = content["bass-step"]
                 if "bass-alter" in tag and "bass-alter" in content:
-                    bass.alter = content["bass-alter"]
-            degree = None
+                    harmony.bass.alter = content["bass-alter"]
+            frame = None
+
             if "degree" in tag:
-                degree = Harmony.Degree()
+                if degree is None:
+                    degree = Harmony.Degree()
+                    harmony.degrees.append(degree)
+
                 if "degree-value" in tag:
                     if "degree-value" in content:
                         degree.value = content["degree-value"]
@@ -381,8 +413,25 @@ def HandleMeasures(tag, attrib, content, piece):
                     if "degree-type" in attrib:
                         if "text" in attrib["degree-type"]:
                             degree.display = attrib["degree-type"]["text"]
-            harmony = Harmony.Harmony(root=root, degrees=[degree], bass=bass, kind=kind)
-            measure.items.append(harmony)
+
+            if "frame" in tag:
+                if not hasattr(harmony, "frame"):
+                    harmony.frame = Harmony.Frame()
+                strings = None
+                frets = None
+                if "frame-strings" in tag and "frame-strings" in content:
+                    harmony.frame.strings = content["frame-strings"]
+                if "frame-frets" in tag and "frame-frets" in content:
+                    harmony.frame.frets = content["frame-frets"]
+                if "frame-note" in tag:
+                    global frame_note
+                    if frame_note is None:
+                        frame_note = Harmony.FrameNote()
+                        harmony.frame.notes.append(frame_note)
+                    if "string" in tag and "string" in content:
+                        frame_note.string = content["string"]
+                    if "fret" in tag and "fret" in content:
+                        frame_note.fret = content["fret"]
     return return_val
 
 def CheckID(tag, attrs, string, id_name):

@@ -173,6 +173,8 @@ class testHarmony(MeasureTesting):
     def setUp(self):
         MeasureTesting.setUp(self)
         self.tags.append("harmony")
+        MxmlParser.degree = None
+        MxmlParser.frame_note = None
 
 
     def testHarmonyTag(self):
@@ -287,3 +289,42 @@ class testHarmony(MeasureTesting):
         self.attrs["degree-type"] = {"text": ""}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertEqual("", self.part.measures[1].items[-1].degrees[-1].display)
+
+    def testFrame(self):
+        self.tags.append("frame")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(self.part.measures[1].items[-1], "frame"))
+
+    def testFrameType(self):
+        self.tags.append("frame")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(self.part.measures[1].items[-1].frame, Harmony.Frame)
+
+    def testFrameStrings(self):
+        self.tags.append("frame")
+        self.tags.append("frame-strings")
+        self.chars["frame-strings"] = "6"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("6", self.part.measures[1].items[-1].frame.strings)
+
+    def testFrameFrets(self):
+        self.tags.append("frame")
+        self.tags.append("frame-frets")
+        self.chars["frame-frets"] = "5"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("5", self.part.measures[1].items[-1].frame.frets)
+
+    def testFrameNote(self):
+        self.tags.append("frame")
+        self.tags.append("frame-note")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual(1, len(self.part.measures[1].items[-1].frame.notes))
+
+    def testFrameNoteString(self):
+        self.tags.append("frame")
+        self.tags.append("frame-note")
+        self.tags.append("string")
+        self.chars["string"] = "1"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("1", self.part.measures[1].items[-1].frame.notes[-1].string)
+

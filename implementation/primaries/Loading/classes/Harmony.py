@@ -14,6 +14,29 @@ class Harmony(BaseClass.Base):
                 self.bass = kwargs["bass"]
         if "degrees" in kwargs:
             self.degrees = kwargs["degrees"]
+        if "frame" in kwargs:
+            self.frame = kwargs["frame"]
+        BaseClass.Base.__init__(self)
+
+class Frame(BaseClass.Base):
+    def __init__(self, **kwargs):
+        if "strings" in kwargs:
+            if kwargs["strings"] is not None:
+                self.strings = kwargs["strings"]
+        if "frets" in kwargs:
+            if kwargs["frets"] is not None:
+                self.frets = kwargs["frets"]
+        self.notes = []
+        if "notes" in kwargs:
+            self.notes = kwargs["notes"]
+        BaseClass.Base.__init__(self)
+
+class FrameNote(BaseClass.Base):
+    def __init__(self, **kwargs):
+        if "string" in kwargs:
+            self.string = kwargs["string"]
+        if "fret" in kwargs:
+            self.fret = kwargs["fret"]
         BaseClass.Base.__init__(self)
 
 class Kind(BaseClass.Base):
@@ -40,6 +63,7 @@ class Degree(BaseClass.Base):
             self.value = kwargs["value"]
         if "type" in kwargs and kwargs["type"] is not None:
             self.type = kwargs["type"]
+        BaseClass.Base.__init__(self)
 
 class harmonyPitch(Note.Pitch):
     def __str__(self):
