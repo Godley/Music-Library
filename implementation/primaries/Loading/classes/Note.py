@@ -125,6 +125,19 @@ class TimeModifier(BaseClass.Base):
         if "actual" in kwargs:
             self.actual = kwargs["actual"]
 
+class Arpeggiate(BaseClass.Base):
+    def __init__(self, **kwargs):
+        BaseClass.Base.__init__(self)
+        if "direction" in kwargs:
+            self.direction = kwargs["direction"]
+
+
+class NonArpeggiate(Arpeggiate):
+    def __init__(self, **kwargs):
+        Arpeggiate.__init__(self)
+        if "type" in kwargs:
+            self.type = kwargs["type"]
+
 class Stem(object):
     def __init__(self, type):
         self.type = type

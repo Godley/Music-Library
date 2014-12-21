@@ -440,6 +440,22 @@ def HandleMeasures(tag, attrib, content, piece):
                         frame_note.fingering = content["fingering"]
     return return_val
 
+def handleBarline(tag, attrib, content, piece):
+    measure = None
+    if part_id is not None and measure_id is not None:
+        measure = piece.Parts[part_id].measures[measure_id]
+    if "barline" in tag:
+        measure.barlines = {}
+        if "barline" in attrib:
+            if "location" in attrib["barline"]:
+                measure.barlines[attrib["barline"]["location"]] = Measure.Barline()
+        if tag[-1] == "bar-style":
+            if "bar-style" in content:
+                measure.barlines[attrib["barline"]["location"]].style = content["bar-style"]
+        if tag[-1] == "repeat":
+            if "repeat" in attrib:
+                if "direction" in attrib["repeat"]:
+                    measure.barlines[attrib["barline"]["location"]].repeat = attrib["repeat"]["direction"]
 def CheckID(tag, attrs, string, id_name):
     if string in tag:
         return attrs[string][id_name]
@@ -499,6 +515,28 @@ def CreateNote(tag, attrs, content, piece):
             note.beams[id] = Note.Beam(type=type)
 
     return ret_value
+
+def HandleArpeggiates(tags, attrs, content, piece):
+    global note
+    if tags[-1] == "arpeggiate":
+        direction = None
+        if not hasattr(note, "notations"):
+            note.notations = []
+        if "arpeggiate" in attrs:
+            if "direction" in attrs["arpeggiate"]:
+                direction = attrs["arpeggiate"]["direction"]
+        arpegg = Note.Arpeggiate(direction=direction)
+        note.notations.append(arpegg)
+    if tags[-1] == "non-arpeggiate":
+        type = None
+        if "non-arpeggiate" in attrs:
+            if "type" in attrs["non-arpeggiate"]:
+                type = attrs["non-arpeggiate"]["type"]
+        if not hasattr(note, "notations"):
+            note.notations = []
+        narpegg = Note.NonArpeggiate(type=type)
+        note.notations.append(narpegg)
+
 
 def SetupFormat(tags, attrs, text, piece):
     return None

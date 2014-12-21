@@ -18,6 +18,11 @@ class Measure(BaseClass.Base):
         st = BaseClass.Base.__str__(self)
         return st
 
+class Barline(BaseClass.Base):
+    def __init__(self, **kwargs):
+        BaseClass.Base.__init__(self)
+
+
 class Transposition(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)

@@ -350,3 +350,43 @@ class testHarmony(MeasureTesting):
         self.chars["fingering"] = "3"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertEqual("3", self.part.measures[1].items[-1].frame.notes[-1].fingering)
+
+class testBarline(MeasureTesting):
+    def setUp(self):
+        MeasureTesting.setUp(self)
+        self.part.measures[1] = Measure.Measure()
+        self.measure = self.part.measures[1]
+        self.handler = MxmlParser.handleBarline
+        self.tags.append("barline")
+
+    def testBarline(self):
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(self.measure, "barlines"))
+        self.assertIsInstance(self.measure.barlines, dict)
+
+    def testBarlineLocation(self):
+        self.attrs["barline"] = {"location": "left"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue("left" in self.measure.barlines.keys())
+        self.assertIsInstance(self.measure.barlines["left"], Measure.Barline)
+
+    def testBarStyle(self):
+        self.attrs["barline"] = {"location": "left"}
+        self.tags.append("bar-style")
+        self.chars["bar-style"] = "heavy-light"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("heavy-light", self.measure.barlines["left"].style)
+
+    def testRepeat(self):
+        self.tags.append("repeat")
+        self.attrs["barline"] = {"location": "left"}
+        self.attrs["repeat"] = {"direction": "backward"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(self.measure.barlines["left"], "repeat"))
+
+    def testRepeatVal(self):
+        self.tags.append("repeat")
+        self.attrs["barline"] = {"location": "left"}
+        self.attrs["repeat"] = {"direction": "backward"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("backward", self.measure.barlines["left"].repeat)
