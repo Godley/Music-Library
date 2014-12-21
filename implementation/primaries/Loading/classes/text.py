@@ -40,7 +40,24 @@ class Direction(Text):
             font = kwargs["font"]
         Text.__init__(self,text=text,size=size,font=font)
 
-
+class OctaveShift(Direction):
+    def __init__(self, **kwargs):
+        text = None
+        size = None
+        font = None
+        placement = None
+        if "placement" in kwargs:
+            placement = kwargs["placement"]
+        if "text" in kwargs:
+            text = kwargs["text"]
+        if "size" in kwargs:
+            size = kwargs["size"]
+        if "font" in kwargs:
+            font = kwargs["font"]
+        if "type" in kwargs:
+            if kwargs["type"] is not None:
+                self.type = kwargs["type"]
+        Direction.__init__(self, text=text, size=size, font=font, placement=placement)
 
 class Metronome(Direction):
     def __init__(self, **kwargs):

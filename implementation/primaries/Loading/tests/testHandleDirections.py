@@ -64,6 +64,17 @@ class testHandleDirections(unittest.TestCase):
         self.assertEqual("times", self.measure.items[0].font)
         self.assertEqual("6.2", self.measure.items[0].size)
 
+    def testOctaveShift(self):
+        self.tags.append("octave-shift")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(self.measure.items[0], text.OctaveShift)
+
+    def testOctaveShiftType(self):
+        self.tags.append("octave-shift")
+        self.attrs["octave-shift"] = {"type": "down"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(self.measure.items[0], "type"))
+
 
 class testMetronome(testHandleDirections):
     def setUp(self):

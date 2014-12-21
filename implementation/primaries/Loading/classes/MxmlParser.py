@@ -9,13 +9,13 @@ degree = None
 frame_note = None
 
 
-class MxmlParser:
-    '''this needs a huge tidy, but this class:
+class MxmlParser(object):
+    """this needs a huge tidy, but this class:
         sets up a few things that define where the tags get handled
         runs sax, which calls the parent methods according to what's happened
         the parent methods call the handlers defined in structure, or else figure out what handler to use. If there absolutely isn't one, nothing gets called
         spits out a piece class holding all this info.
-    '''
+    """
     def __init__(self, excluded=[]):
         self.tags = []
         self.chars = {}
@@ -35,7 +35,7 @@ class MxmlParser:
                             "score-part","sound","print","rest","slur",
                             "accent","strong-accent","staccato",
                             "staccatissimo","up-bow","down-bow",
-                            "cue","grace","wedge"]
+                            "cue","grace","wedge","octave-shift"]
         self.piece = Piece.Piece()
 
     def Flush(self):
@@ -58,7 +58,7 @@ class MxmlParser:
             if name in self.closed_tags:
                 self.handler(self.tags, attrs, None, self.piece)
 
-    def ValidateData(self, text):
+    def validateData(self, text):
         if text == "\n":
             return False
         for c in text:
@@ -77,7 +77,7 @@ class MxmlParser:
                 if sint(text) is int:
                     self.chars[self.tags[-1]] = text
 
-        if self.ValidateData(text):
+        if self.validateData(text):
             if len(self.tags) > 0:
                 self.chars[self.tags[-1]] = text
             if self.handler is not None:
@@ -86,7 +86,7 @@ class MxmlParser:
 
 
     def EndTag(self, name):
-        global part_id, measure_id, note
+        global part_id, measure_id, note, degree, frame_note
         self.tags.remove(name)
         if name in self.attribs:
             self.attribs.pop(name)
@@ -131,7 +131,7 @@ class MxmlParser:
                 self.parent.EndTag(name)
         fob = open(file, 'r')
         parser.setContentHandler(Extractor(self))
-        parser.parse(open(file))
+        parser.parse(fob)
         return self.piece
 
 def YesNoToBool(entry):
@@ -226,6 +226,7 @@ def handleArticulation(tag, attrs, content, piece):
             return 1
 
     return None
+
 def handleOtherNotations(tag, attrs, content, piece):
     global note
     if len(tag) > 0:
@@ -367,10 +368,6 @@ def HandleMeasures(tag, attrib, content, piece):
                         root.alter = content["root-alter"]
 
             if "kind" in tag:
-                text = None
-                halign = None
-                value = None
-                parenthesis = None
                 if not hasattr(harmony, "kind"):
                     kind = Harmony.Kind()
                     harmony.kind = kind
@@ -417,8 +414,13 @@ def HandleMeasures(tag, attrib, content, piece):
             if "frame" in tag:
                 if not hasattr(harmony, "frame"):
                     harmony.frame = Harmony.Frame()
-                strings = None
-                frets = None
+                if "first-fret" in tag:
+                    harmony.frame.firstFret = True
+                    if "first-fret" in content:
+                        if "first-fret" not in attrib:
+                            harmony.frame.firstFret = [content["first-fret"]]
+                        else:
+                            harmony.frame.firstFret = [content["first-fret"], attrib["first-fret"]["text"]]
                 if "frame-strings" in tag and "frame-strings" in content:
                     harmony.frame.strings = content["frame-strings"]
                 if "frame-frets" in tag and "frame-frets" in content:
@@ -432,6 +434,10 @@ def HandleMeasures(tag, attrib, content, piece):
                         frame_note.string = content["string"]
                     if "fret" in tag and "fret" in content:
                         frame_note.fret = content["fret"]
+                    if "barre" in tag and "barre" in attrib:
+                        frame_note.barre = attrib["barre"]["type"]
+                    if "fingering" in tag and "fingering" in content:
+                        frame_note.fingering = content["fingering"]
     return return_val
 
 def CheckID(tag, attrs, string, id_name):
@@ -603,6 +609,21 @@ def HandleDirections(tags, attrs, chars, piece):
                 measure.tempo = attrs["tempo"]
         if tags[-1] == "offset" and len(measure.items) > 0:
             measure.items[-1].offset = chars["offset"]
+
+        if "octave-shift" in tags:
+            type = None
+            size = None
+            font = None
+            if "octave-shift" in attrs:
+                if "type" in attrs["octave-shift"]:
+                    type = attrs["octave-shift"]["type"]
+                if "size" in attrs["octave-shift"]:
+                    size = attrs["octave-shift"]["size"]
+                if "font" in attrs["octave-shift"]:
+                    font = attrs["octave-shift"]["font"]
+
+            measure.items.append(text.OctaveShift(type=type, size=size, font=font))
+
     return return_val
 
 def CheckDynamics(tag):

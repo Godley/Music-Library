@@ -176,25 +176,12 @@ class testHarmony(MeasureTesting):
         MxmlParser.degree = None
         MxmlParser.frame_note = None
 
-
     def testHarmonyTag(self):
         self.tags.append("harmony")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertIsInstance(self.part.measures[1].items[-1], Harmony.Harmony)
 
-
     def testRootStep(self):
-        '''<harmony default-y="100">
-        <root>
-          <root-step>A</root-step>
-        </root>
-        <kind halign="center" parentheses-degrees="yes">major</kind>
-        <degree>
-          <degree-value>9</degree-value>
-          <degree-alter>0</degree-alter>
-          <degree-type text="">add</degree-type>
-        </degree>
-      </harmony>'''
         self.tags.append("root")
         self.tags.append("root-step")
         self.chars["root-step"] = "A"
@@ -234,7 +221,6 @@ class testHarmony(MeasureTesting):
         self.assertTrue(hasattr(self.part.measures[1].items[-1].kind, "text"))
         self.assertTrue(hasattr(self.part.measures[1].items[-1].kind, "halign"))
         self.assertTrue(hasattr(self.part.measures[1].items[-1].kind, "parenthesis"))
-
 
     def testBassTag(self):
         # because I'm all about that
@@ -300,6 +286,19 @@ class testHarmony(MeasureTesting):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertIsInstance(self.part.measures[1].items[-1].frame, Harmony.Frame)
 
+    def testFirstFret(self):
+        self.tags.append("frame")
+        self.tags.append("first-fret")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(self.part.measures[1].items[-1].frame, "firstFret"))
+
+    def testFirstFretVal(self):
+        self.tags.append("frame")
+        self.tags.append("first-fret")
+        self.chars["first-fret"] = "6"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("6", self.part.measures[1].items[-1].frame.firstFret[0])
+
     def testFrameStrings(self):
         self.tags.append("frame")
         self.tags.append("frame-strings")
@@ -328,3 +327,26 @@ class testHarmony(MeasureTesting):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertEqual("1", self.part.measures[1].items[-1].frame.notes[-1].string)
 
+    def testFrameNoteString(self):
+        self.tags.append("frame")
+        self.tags.append("frame-note")
+        self.tags.append("fret")
+        self.chars["fret"] = "1"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("1", self.part.measures[1].items[-1].frame.notes[-1].fret)
+
+    def testFrameNoteBarre(self):
+        self.tags.append("frame")
+        self.tags.append("frame-note")
+        self.tags.append("barre")
+        self.attrs["barre"] = {"type": "start"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("start", self.part.measures[1].items[-1].frame.notes[-1].barre)
+
+    def testFrameNoteFingering(self):
+        self.tags.append("frame")
+        self.tags.append("frame-note")
+        self.tags.append("fingering")
+        self.chars["fingering"] = "3"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("3", self.part.measures[1].items[-1].frame.notes[-1].fingering)
