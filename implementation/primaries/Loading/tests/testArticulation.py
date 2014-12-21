@@ -79,6 +79,38 @@ class testHandleArticulation(unittest.TestCase):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertEqual("triangle", self.note.notations[0].symbol)
 
+class testLyrics(TestClass.TestClass):
+    def setUp(self):
+        TestClass.TestClass.setUp(self)
+        self.tags.append("note")
+        self.tags.append("lyric")
+        self.handler = MxmlParser.handleLyrics
+        MxmlParser.note = Note.Note()
+
+    def testLyricCreation(self):
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.note, "lyrics"))
+
+    def testLyricNum(self):
+        self.attrs["lyric"] = {"number": "1"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(1 in MxmlParser.note.lyrics.keys())
+
+    def testLyricText(self):
+        self.attrs["lyric"] = {"number": "1"}
+        self.chars["text"] = "aaah"
+        self.tags.append("text")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("aaah", MxmlParser.note.lyrics[1].text)
+
+    def testLyricSyllable(self):
+        self.attrs["lyric"] = {"number": "1"}
+        self.chars["syllabic"] = "single"
+        self.tags.append("syllabic")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("single", MxmlParser.note.lyrics[1].syllabic)
+
+
 class testSlurs(TestClass.TestClass):
     def setUp(self):
         TestClass.TestClass.setUp(self)

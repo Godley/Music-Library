@@ -22,6 +22,21 @@ class Text(BaseClass.Base):
             ret_list.append(self.text)
         return ret_list
 
+class Lyric(Text):
+    def __init__(self, **kwargs):
+        font = None
+        text = None
+        size = None
+        if "font" in kwargs:
+            font = kwargs["font"]
+        if "text" in kwargs:
+            text = kwargs["text"]
+        if "size" in kwargs:
+            size = kwargs["size"]
+        if "syllabic" in kwargs:
+            self.syllabic = kwargs["syllabic"]
+        Text.__init__(self, text=text, font=font, size=size)
+
 
 
 class Direction(Text):

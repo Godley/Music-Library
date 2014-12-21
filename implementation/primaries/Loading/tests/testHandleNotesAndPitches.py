@@ -2,7 +2,7 @@ from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure,
 import unittest
 from implementation.primaries.Loading.tests import TestClass
 
-class testCreateNoteHandler(unittest.TestCase):
+class notes(unittest.TestCase):
     def setUp(self):
         self.tags = ["note"]
         self.chars = {}
@@ -14,6 +14,8 @@ class testCreateNoteHandler(unittest.TestCase):
         self.piece = Piece.Piece()
         self.piece.Parts["P1"] = Part.Part()
         self.piece.Parts["P1"].measures[1] = Measure.Measure()
+
+class testCreateNoteHandler(notes):
 
     def testNoTags(self):
         self.tags.remove("note")
@@ -186,3 +188,34 @@ class testNotehead(testCreateNoteHandler):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(MxmlParser.note.notehead, "type"))
         self.assertEqual("diamond",MxmlParser.note.notehead.type)
+
+class testTuplets(notes):
+    def setUp(self):
+        notes.setUp(self)
+        self.tags.append("time-modification")
+        MxmlParser.note = Note.Note()
+        self.handler = MxmlParser.handleTimeMod
+
+    def testMod(self):
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.note, "timeMod"))
+
+    def testModVal(self):
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(MxmlParser.note.timeMod, Note.TimeModifier)
+
+
+    def testModNormal(self):
+        self.tags.append("normal-notes")
+        self.chars["normal-notes"] = "2"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.timeMod, "normal"))
+        self.assertEqual(2, MxmlParser.note.timeMod.normal)
+
+    def testModActual(self):
+        self.tags.append("actual-notes")
+        self.chars["actual-notes"] = "3"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.timeMod, "actual"))
+        self.assertEqual(3, MxmlParser.note.timeMod.actual)
+

@@ -26,8 +26,8 @@ class MxmlParser(object):
         # add any handlers, along with the tagname associated with it, to this dictionary
         self.structure = {"movement-title": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
-             "pitch": HandlePitch,"unpitched":HandlePitch,"direction":HandleDirections,"articulations":handleArticulation,"slur":handleOtherNotations,
-             "technical":handleOtherNotations}
+             "pitch":  HandlePitch, "unpitched": HandlePitch, "direction": HandleDirections,"articulations":handleArticulation,"slur":handleOtherNotations,
+             "technical": handleOtherNotations, "time-modification": handleTimeMod}
         # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
         self.multiple_attribs = ["beats", "sign"]
         # any tags which close instantly in here
@@ -625,6 +625,29 @@ def HandleDirections(tags, attrs, chars, piece):
             measure.items.append(text.OctaveShift(type=type, size=size, font=font))
 
     return return_val
+
+def handleLyrics(tags, attrs, chars, piece):
+    global note
+    if "lyric" in tags:
+        note.lyrics = {}
+        id = len(note.lyrics)
+        if "lyric" in attrs:
+            if "number" in attrs["lyric"]:
+                id = int(attrs["lyric"]["number"])
+        note.lyrics[id] = text.Lyric()
+        if tags[-1] == "text":
+            note.lyrics[id].text = chars["text"]
+        if tags[-1] == "syllabic":
+            note.lyrics[id].syllabic = chars["syllabic"]
+
+def handleTimeMod(tags, attrs, chars, piece):
+    if "time-modification" in tags:
+        note.timeMod = Note.TimeModifier()
+        if tags[-1] == "actual-notes":
+            note.timeMod.actual = int(chars["actual-notes"])
+        if tags[-1] == "normal-notes":
+            note.timeMod.normal = int(chars["normal-notes"])
+    return None
 
 def CheckDynamics(tag):
     return_val = False

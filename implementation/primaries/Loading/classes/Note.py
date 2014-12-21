@@ -117,7 +117,13 @@ class Note(BaseClass.Base):
         st = BaseClass.Base.__str__(self)
         return st
 
-
+class TimeModifier(BaseClass.Base):
+    def __init__(self, **kwargs):
+        BaseClass.Base.__init__(self)
+        if "normal" in kwargs:
+            self.normal = kwargs["normal"]
+        if "actual" in kwargs:
+            self.actual = kwargs["actual"]
 
 class Stem(object):
     def __init__(self, type):
