@@ -37,11 +37,11 @@ class testSaxParser(unittest.TestCase):
         self.parser.StartTag(tag, None)
         self.assertEqual(handler, self.parser.handler, "ERROR: TestHandlerValue failed - handler should be SetupPiece when tag is movement-title")
 
-    def testHandlerCallIfClosedTag(self):
+    def testHandlerCall(self):
         tag = "chord"
         self.parser.handler = mock.MagicMock()
-        self.parser.StartTag(tag, {})
-        self.parser.handler.assert_called_once_with(self.parser.tags,{},None, self.parser.piece)
+        self.parser.EndTag(tag)
+        self.parser.handler.assert_called_once_with(self.parser.tags,{},{}, self.parser.piece)
 
     # methods testing the newdata method
     def testCharsVal(self):
@@ -60,12 +60,6 @@ class testSaxParser(unittest.TestCase):
         self.parser.StartTag(tag, None)
         self.parser.NewData(chars)
         self.assertEqual(chars, self.parser.chars[tag], "ERROR: testCharsInDict failed as chars[tag] does not match input")
-
-    def testHandlerCall(self):
-        chars = "hello"
-        self.parser.handler = mock.MagicMock()
-        self.parser.NewData(chars)
-        self.parser.handler.assert_called_once_with(self.parser.tags, self.parser.attribs, self.parser.chars, self.parser.piece)
 
     #methods testing the endtag method
     def testTagLength(self):

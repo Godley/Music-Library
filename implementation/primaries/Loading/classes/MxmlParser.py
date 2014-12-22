@@ -86,18 +86,21 @@ class MxmlParser(object):
         global part_id, measure_id, note, degree, frame_note
         if self.handler is not None:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
-        self.tags.remove(name)
+        if name in self.tags:
+            if len(self.tags) > 1:
+                if self.tags[-2] in self.structure:
+                    self.handler = self.structure[self.tags[-2]]
+                else:
+                    self.handler = None
+            else:
+                self.handler = None
+        if name in self.tags:
+            self.tags.remove(name)
         if name in self.attribs:
             self.attribs.pop(name)
         if name in self.chars:
             self.chars.pop(name)
-        if len(self.tags) > 0:
-            if self.tags[-1] in self.structure:
-                self.handler = self.structure[self.tags[-1]]
-            else:
-                self.handler = None
-        else:
-            self.handler = None
+
         if name == "measure":
             measure_id = None
         if name == "part" or name == "score-part":
@@ -159,21 +162,30 @@ def ignore_exception(IgnoreException=Exception, DefaultVal=None):
 
 
 def SetupPiece(tag, attrib, content, piece):
+    return_val = None
     if content is not [] and len(tag) > 0:
-        if not hasattr(piece, "meta"):
-            if tag[-1] == "creator" and attrib["creator"]["type"] == "composer":
-                piece.meta = Meta.Meta(composer=content["creator"])
-                return 1
-            elif tag[-1] == "movement-title":
-                piece.meta = Meta.Meta(title=content["movement-title"])
-                return 1
-        elif tag[-1] == "movement-title":
-            piece.meta.title = content["movement-title"]
-            return 1
-        elif tag[-1] == "creator" and attrib["creator"]["type"] == "composer":
-            piece.meta.composer = content["creator"]
-            return 1
-    return None
+        title = None
+        composer = None
+        if tag[-1] == "movement-title":
+            return_val = 1
+            if "movement-title" in content:
+                title = content["movement-title"]
+        if tag[-1] == "creator":
+            return_val = 1
+            if "creator" in attrib:
+                if "type" in attrib["creator"]:
+                    if attrib["creator"]["type"] == "composer":
+                        if "creator" in content:
+                            composer = content["creator"]
+        if tag[-1] == "movement-title" or "creator":
+            if not hasattr(piece, "meta"):
+                piece.meta = Meta.Meta(composer=composer, title=title)
+            else:
+                if not hasattr(piece.meta, "composer"):
+                    piece.meta.composer = composer
+                if not hasattr(piece.meta, "title"):
+                    piece.meta.title = title
+    return return_val
 
 
 def UpdatePart(tag, attrib, content, piece):
@@ -592,6 +604,15 @@ def handleOrnaments(tags, attrs, content, piece):
             note.notations.append(Ornaments.Turn())
         if tags[-1] == "inverted-turn":
             note.notations.append(Ornaments.InvertedTurn())
+        if tags[-1] == "tremolo":
+            type = None
+            value = None
+            if "tremolo" in attrs:
+                if "type" in attrs["tremolo"]:
+                    type = attrs["tremolo"]["type"]
+            if "tremolo" in content:
+                value = int(content["tremolo"])
+            note.notations.append(Ornaments.Tremolo(type=type, value=value))
 
 def SetupFormat(tags, attrs, text, piece):
     return None

@@ -104,3 +104,20 @@ class testOrnaments(notes):
         self.tags.append("inverted-turn")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertIsInstance(MxmlParser.note.notations[-1], Ornaments.InvertedTurn)
+
+    def testTremolo(self):
+        self.tags.append("tremolo")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(MxmlParser.note.notations[-1], Ornaments.Tremolo)
+
+    def testTremoloType(self):
+        self.tags.append("tremolo")
+        self.attrs["tremolo"] = {"type": "single"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("single", MxmlParser.note.notations[-1].type)
+
+    def testTremoloValue(self):
+        self.tags.append("tremolo")
+        self.chars["tremolo"] = "1"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual(1, MxmlParser.note.notations[-1].value)
