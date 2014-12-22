@@ -736,7 +736,7 @@ def HandleDirections(tags, attrs, chars, piece):
                     font = attrs["octave-shift"]["font"]
 
             measure.items.append(Directions.OctaveShift(type=type, size=size, font=font))
-
+    HandleRepeatMarking(tags, attrs, chars, piece)
     return return_val
 
 def HandleRepeatMarking(tags, attrs, chars, piece):
@@ -748,10 +748,25 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
                 measure = piece.Parts[part_id].measures[measure_id]
         direction = None
         type = None
-        if tags[-1] == "segno" or "coda":
+        if tags[-1] == "segno" or tags[-1] == "coda":
             type = tags[-1]
             direction = Directions.RepeatSign(type=type)
-        measure.items.append(direction)
+        if direction is not None:
+            measure.items.append(direction)
+        if tags[-1] == "sound":
+            if "sound" in attrs:
+                if "coda" in attrs["sound"]:
+                    measure.coda = attrs["sound"]["coda"]
+                if "dacapo" in attrs["sound"]:
+                    measure.dacapo = YesNoToBool(attrs["sound"]["dacapo"])
+                if "dalsegno" in attrs["sound"]:
+                    measure.dalsegno = attrs["sound"]["dalsegno"]
+                if "fine" in attrs["sound"]:
+                    measure.fine = YesNoToBool(attrs["sound"]["fine"])
+                if "segno" in attrs["sound"]:
+                    measure.segno = attrs["sound"]["segno"]
+                if "tocoda" in attrs["sound"]:
+                    measure.tocoda = attrs["sound"]["tocoda"]
 
 
 def handleLyrics(tags, attrs, chars, piece):
