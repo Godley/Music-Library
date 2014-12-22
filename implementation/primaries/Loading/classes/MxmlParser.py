@@ -537,6 +537,29 @@ def HandleArpeggiates(tags, attrs, content, piece):
         narpegg = Note.NonArpeggiate(type=type)
         note.notations.append(narpegg)
 
+def HandleSlidesAndGliss(tags, attrs, content, piece):
+    type = None
+    number = None
+    lineType = None
+    if "slide" or "glissando" in tags:
+        if tags[-1] in attrs:
+            if "type" in attrs[tags[-1]]:
+                type = attrs[tags[-1]]["type"]
+            if "line-type" in attrs[tags[-1]]:
+                lineType = attrs[tags[-1]]["line-type"]
+            if "number" in attrs[tags[-1]]:
+                number = int(attrs[tags[-1]]["number"])
+    if "slide" in tags:
+        slide = Note.Slide(type=type, lineType=lineType, number=number)
+        if not hasattr(note, "notations"):
+            note.notations = []
+        note.notations.append(slide)
+    if "glissando" in tags:
+        if not hasattr(note, "notations"):
+            note.notations = []
+        gliss = Note.Glissando(type=type, lineType=lineType, number=number)
+        note.notations.append(gliss)
+
 
 def SetupFormat(tags, attrs, text, piece):
     return None

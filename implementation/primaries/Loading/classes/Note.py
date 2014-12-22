@@ -131,6 +131,23 @@ class Arpeggiate(BaseClass.Base):
         if "direction" in kwargs:
             self.direction = kwargs["direction"]
 
+class Slide(BaseClass.Base):
+    def __init__(self, **kwargs):
+        BaseClass.Base.__init__(self)
+        if "type" in kwargs:
+            if kwargs["type"] is not None:
+                self.type = kwargs["type"]
+        if "lineType" in kwargs:
+            if kwargs["lineType"] is not None:
+                self.lineType = kwargs["lineType"]
+        if "number" in kwargs:
+            if kwargs["number"] is not None:
+                self.number = kwargs["number"]
+
+class Glissando(Slide):
+    def hello(self):
+        amethod = "h"
+
 
 class NonArpeggiate(Arpeggiate):
     def __init__(self, **kwargs):

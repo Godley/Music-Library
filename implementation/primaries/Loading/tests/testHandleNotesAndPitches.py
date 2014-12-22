@@ -251,9 +251,41 @@ class testArpeggiates(notes):
         self.assertEqual("bottom", MxmlParser.note.notations[-1].type)
 
 
-class SlidesAndGliss(notes):
-    def testSlide(self):
+class testSlides(notes):
+    def setUp(self):
+        notes.setUp(self)
+        self.instance = Note.Slide
+        self.handler = MxmlParser.HandleSlidesAndGliss
         self.tags.append("slide")
+        MxmlParser.note = Note.Note()
+
+    def testSlide(self):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(MxmlParser.note.notations[-1], Note.Slide)
+        self.assertIsInstance(MxmlParser.note.notations[-1], self.instance)
+
+    def testSlideType(self):
+        self.attrs[self.tags[-1]] = {"type": "start"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.notations[-1], "type"))
+        self.assertEqual("start", MxmlParser.note.notations[-1].type)
+
+    def testSlideLineType(self):
+        self.attrs[self.tags[-1]] = {"line-type": "solid"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.notations[-1], "lineType"))
+        self.assertEqual("solid", MxmlParser.note.notations[-1].lineType)
+
+    def testSlideNumber(self):
+        self.attrs[self.tags[-1]] = {"number": "1"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.note.notations[-1], "number"))
+        self.assertEqual(1, MxmlParser.note.notations[-1].number)
+
+class testGliss(testSlides):
+    def setUp(self):
+        testSlides.setUp(self)
+        self.tags.remove("slide")
+        self.tags.append("glissando")
+        MxmlParser.note = Note.Note()
+        self.instance = Note.Glissando
 
