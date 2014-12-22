@@ -1,10 +1,10 @@
 import unittest
-from implementation.primaries.Loading.tests import TestClass
-from implementation.primaries.Loading.classes import Mark, MxmlParser, Piece, text, Part, Measure, Note
+from implementation.primaries.Loading.tests import testclass
+from implementation.primaries.Loading.classes import Mark, MxmlParser, Piece, Directions, Part, Measure, Note
 
-class testHandleArticulation(TestClass.TestClass):
+class testHandleArticulation(testclass.TestClass):
     def setUp(self):
-        TestClass.TestClass.setUp(self)
+        testclass.TestClass.setUp(self)
         self.piece.Parts["P1"] = Part.Part()
         self.part = self.piece.Parts["P1"]
         self.part.measures[1] = Measure.Measure()
@@ -96,9 +96,9 @@ class testHandleArticulation(TestClass.TestClass):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertEqual("line", self.note.notations[0].symbol)
 
-class testLyrics(TestClass.TestClass):
+class testLyrics(testclass.TestClass):
     def setUp(self):
-        TestClass.TestClass.setUp(self)
+        testclass.TestClass.setUp(self)
         self.tags.append("note")
         self.tags.append("lyric")
         self.handler = MxmlParser.handleLyrics
@@ -127,9 +127,9 @@ class testLyrics(TestClass.TestClass):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertEqual("single", MxmlParser.note.lyrics[1].syllabic)
 
-class testFermata(TestClass.TestClass):
+class testFermata(testclass.TestClass):
     def setUp(self):
-        TestClass.TestClass.setUp(self)
+        testclass.TestClass.setUp(self)
         self.tags.append("fermata")
         MxmlParser.note = Note.Note()
         self.handler = MxmlParser.HandleFermata
@@ -149,9 +149,9 @@ class testFermata(TestClass.TestClass):
         self.assertEqual("square", MxmlParser.note.notations[-1].symbol)
 
 
-class testSlurs(TestClass.TestClass):
+class testSlurs(testclass.TestClass):
     def setUp(self):
-        TestClass.TestClass.setUp(self)
+        testclass.TestClass.setUp(self)
         self.tags.append("note")
         self.tags.append("notations")
         self.handler = MxmlParser.handleOtherNotations
@@ -175,7 +175,7 @@ class testSlurs(TestClass.TestClass):
         self.tags.append("slur")
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(MxmlParser.note, "slurs"))
-        self.assertEqual(text.Slur, type(MxmlParser.note.slurs[0]))
+        self.assertEqual(Directions.Slur, type(MxmlParser.note.slurs[0]))
 
     def testSlurPlacement(self):
         self.tags.append("slur")
@@ -197,9 +197,9 @@ class testSlurs(TestClass.TestClass):
         self.assertTrue(hasattr(MxmlParser.note.slurs[0], "type"))
         self.assertEqual("start",MxmlParser.note.slurs[0].type)
 
-class testTechniques(TestClass.TestClass):
+class testTechniques(testclass.TestClass):
     def setUp(self):
-        TestClass.TestClass.setUp(self)
+        testclass.TestClass.setUp(self)
         self.tags.append("note")
         self.tags.append("notations")
         self.handler = MxmlParser.handleOtherNotations
@@ -223,7 +223,7 @@ class testTechniques(TestClass.TestClass):
         self.tags.append("up-bow")
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(MxmlParser.note, "techniques"))
-        self.assertIsInstance(MxmlParser.note.techniques[0], text.Technique)
+        self.assertIsInstance(MxmlParser.note.techniques[0], Directions.Technique)
 
     def testUpBowVal(self):
         self.tags.append("up-bow")

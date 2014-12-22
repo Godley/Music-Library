@@ -1,4 +1,4 @@
-from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure, Part, Note, text
+from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure, Part, Note, Directions
 import unittest
 
 class testSetupPiece(unittest.TestCase):

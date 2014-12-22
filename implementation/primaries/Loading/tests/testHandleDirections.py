@@ -1,4 +1,4 @@
-from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure, Part, Note, text
+from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure, Part, Note, Directions
 import unittest
 
 
@@ -67,7 +67,7 @@ class testHandleDirections(unittest.TestCase):
     def testOctaveShift(self):
         self.tags.append("octave-shift")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(self.measure.items[0], text.OctaveShift)
+        self.assertIsInstance(self.measure.items[0], Directions.OctaveShift)
 
     def testOctaveShiftType(self):
         self.tags.append("octave-shift")
@@ -184,7 +184,7 @@ class testDynamicsAndSound(testHandleDirections):
         self.tags.append("p")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertTrue(len(self.measure.items) > 0)
-        self.assertEqual(text.Dynamic, type(self.measure.items[-1]))
+        self.assertEqual(Directions.Dynamic, type(self.measure.items[-1]))
         self.assertEqual("p", self.measure.items[-1].mark)
 
     def testSoundTag(self):
@@ -217,7 +217,7 @@ class testDynamicsAndSound(testHandleDirections):
     def testWedgeTag(self):
         self.tags.append("wedge")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(self.measure.items[-1], text.Wedge)
+        self.assertIsInstance(self.measure.items[-1], Directions.Wedge)
 
     def testWedgeVal(self):
         self.tags.append("wedge")

@@ -1,6 +1,6 @@
 import xml.sax
 from xml.sax import make_parser
-from implementation.primaries.Loading.classes import Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, text
+from implementation.primaries.Loading.classes import Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
 
 note = None
 part_id = None
@@ -117,7 +117,6 @@ class MxmlParser(object):
         class Extractor(xml.sax.ContentHandler):
             def __init__(self, parent):
                 self.parent = parent
-
 
             def startElement(self, name, attrs):
                 attribs = {}
@@ -264,7 +263,7 @@ def handleOtherNotations(tag, attrs, content, piece):
                 if not hasattr(note, "slurs"):
                     note.slurs = {}
 
-                notation = text.Slur()
+                notation = Directions.Slur()
                 id = len(note.slurs)
                 if "placement" in attrs:
                     notation.placement = attrs["placement"]
@@ -277,7 +276,7 @@ def handleOtherNotations(tag, attrs, content, piece):
             if tag[-2] == "technical":
                 if not hasattr(note, "techniques"):
                     note.techniques = []
-                note.techniques.append(text.Technique(type=tag[-1]))
+                note.techniques.append(Directions.Technique(type=tag[-1]))
             return 1
     return None
 
@@ -665,13 +664,13 @@ def HandleDirections(tags, attrs, chars, piece):
                     size = attrs["words"]["font-size"]
                 if "font-family" in attrs["words"]:
                     font = attrs["words"]["font-family"]
-            direction = text.Direction(font=font,text=chars,size=size,placement=placement)
+            direction = Directions.Direction(font=font,text=chars,size=size,placement=placement)
             measure.items.append(direction)
         if "metronome" in tags:
             if tags[-1] == "beat-unit":
                 return_val = 1
                 unit = chars["beat-unit"]
-                metronome = text.Metronome(placement=placement,beat=unit)
+                metronome = Directions.Metronome(placement=placement,beat=unit)
 
                 metronome.text = str(metronome.beat)
                 if "metronome" in attrs:
@@ -687,13 +686,13 @@ def HandleDirections(tags, attrs, chars, piece):
                 return_val = 1
                 pm = chars["per-minute"]
                 if len(measure.items) > 0:
-                    if type(measure.items[-1]) is text.Metronome:
+                    if type(measure.items[-1]) is Directions.Metronome:
                         metronome = measure.items[-1]
                     else:
-                        metronome = text.Metronome(min=pm)
+                        metronome = Directions.Metronome(min=pm)
                         measure.items.append(metronome)
                 else:
-                    metronome = text.Metronome(min=pm)
+                    metronome = Directions.Metronome(min=pm)
                     measure.items.append(metronome)
                 metronome.min = pm
                 metronome.text += " = " + metronome.min
@@ -709,11 +708,11 @@ def HandleDirections(tags, attrs, chars, piece):
             if "wedge" in attrs:
                 if "type" in attrs["wedge"]:
                     type = attrs["wedge"]["type"]
-            dynamic = text.Wedge(placement = placement,type=type)
+            dynamic = Directions.Wedge(placement = placement,type=type)
             measure.items.append(dynamic)
         if len(tags) > 1:
             if tags[-2] == "dynamics":
-                dynamic = text.Dynamic(placement=placement, mark=tags[-1])
+                dynamic = Directions.Dynamic(placement=placement, mark=tags[-1])
                 measure.items.append(dynamic)
         if "sound" in tags:
             return_val = 1
@@ -736,9 +735,24 @@ def HandleDirections(tags, attrs, chars, piece):
                 if "font" in attrs["octave-shift"]:
                     font = attrs["octave-shift"]["font"]
 
-            measure.items.append(text.OctaveShift(type=type, size=size, font=font))
+            measure.items.append(Directions.OctaveShift(type=type, size=size, font=font))
 
     return return_val
+
+def HandleRepeatMarking(tags, attrs, chars, piece):
+    global part_id, measure_id
+    if "direction" in tags:
+        measure = None
+        if part_id is not None:
+            if measure_id is not None:
+                measure = piece.Parts[part_id].measures[measure_id]
+        direction = None
+        type = None
+        if tags[-1] == "segno" or "coda":
+            type = tags[-1]
+            direction = Directions.RepeatSign(type=type)
+        measure.items.append(direction)
+
 
 def handleLyrics(tags, attrs, chars, piece):
     global note
@@ -748,7 +762,7 @@ def handleLyrics(tags, attrs, chars, piece):
         if "lyric" in attrs:
             if "number" in attrs["lyric"]:
                 id = int(attrs["lyric"]["number"])
-        note.lyrics[id] = text.Lyric()
+        note.lyrics[id] = Directions.Lyric()
         if tags[-1] == "text":
             note.lyrics[id].text = chars["text"]
         if tags[-1] == "syllabic":

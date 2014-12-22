@@ -1,6 +1,6 @@
-from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure, Part, Note, text
+from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure, Part, Note, Directions
 import unittest
-from implementation.primaries.Loading.tests import TestClass
+from implementation.primaries.Loading.tests import testclass
 
 class notes(unittest.TestCase):
     def setUp(self):
