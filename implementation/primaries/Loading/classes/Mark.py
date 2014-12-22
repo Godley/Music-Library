@@ -65,3 +65,18 @@ class DetachedLegato(Notation):
 
         symbol = "lineDot"
         Notation.__init__(self,placement=placement,symbol=symbol)
+
+class Fermata(Notation):
+    def __init__(self, **kwargs):
+        placement = None
+        if "placement" in kwargs:
+            placement = kwargs["placement"]
+
+        if "type" in kwargs:
+            self.type = kwargs["type"]
+
+        symbol = "fermata"
+        if "symbol" in kwargs:
+            symbol = kwargs["symbol"]
+
+        Notation.__init__(self,placement=placement,symbol=symbol)

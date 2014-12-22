@@ -1,13 +1,10 @@
 import unittest
 from implementation.primaries.Loading.tests import TestClass
-from implementation.primaries.Loading.classes import Accents, MxmlParser, Piece, text, Part, Measure, Note
+from implementation.primaries.Loading.classes import Mark, MxmlParser, Piece, text, Part, Measure, Note
 
-class testHandleArticulation(unittest.TestCase):
+class testHandleArticulation(TestClass.TestClass):
     def setUp(self):
-        self.tags = []
-        self.attrs = {}
-        self.chars = {}
-        self.piece = Piece.Piece()
+        TestClass.TestClass.setUp(self)
         self.piece.Parts["P1"] = Part.Part()
         self.part = self.piece.Parts["P1"]
         self.part.measures[1] = Measure.Measure()
@@ -34,7 +31,7 @@ class testHandleArticulation(unittest.TestCase):
         self.tags.append("accent")
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(self.note, "notations"))
-        self.assertIsInstance(self.note.notations[0], Accents.Accent)
+        self.assertIsInstance(self.note.notations[0], Mark.Accent)
 
     def testArticulationAccentType(self):
         self.tags.append("accent")
@@ -51,7 +48,7 @@ class testHandleArticulation(unittest.TestCase):
     def testArticulationSaccentTag(self):
         self.tags.append("strong-accent")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(self.note.notations[0], Accents.StrongAccent)
+        self.assertIsInstance(self.note.notations[0], Mark.StrongAccent)
 
     def testArticulationStrongAccentTag(self):
         self.tags.append("strong-accent")
@@ -62,7 +59,7 @@ class testHandleArticulation(unittest.TestCase):
     def testStaccato(self):
         self.tags.append("staccato")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(self.note.notations[0], Accents.Staccato)
+        self.assertIsInstance(self.note.notations[0], Mark.Staccato)
 
     def testStaccatoSymbol(self):
         self.tags.append("staccato")
@@ -72,7 +69,7 @@ class testHandleArticulation(unittest.TestCase):
     def testStaccatissimo(self):
         self.tags.append("staccatissimo")
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertIsInstance(self.note.notations[0], Accents.Staccatissimo)
+        self.assertIsInstance(self.note.notations[0], Mark.Staccatissimo)
 
     def testStaccatissimoSymbol(self):
         self.tags.append("staccatissimo")
@@ -82,7 +79,7 @@ class testHandleArticulation(unittest.TestCase):
     def testDetachedLegato(self):
         self.tags.append("detached-legato")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(self.note.notations[0], Accents.DetachedLegato)
+        self.assertIsInstance(self.note.notations[0], Mark.DetachedLegato)
 
     def testDetachedLegSymbol(self):
         self.tags.append("detached-legato")
@@ -92,7 +89,7 @@ class testHandleArticulation(unittest.TestCase):
     def testTenuto(self):
         self.tags.append("tenuto")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(self.note.notations[0], Accents.Tenuto)
+        self.assertIsInstance(self.note.notations[0], Mark.Tenuto)
 
     def testTenutoSymbol(self):
         self.tags.append("tenuto")
@@ -129,6 +126,27 @@ class testLyrics(TestClass.TestClass):
         self.tags.append("syllabic")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertEqual("single", MxmlParser.note.lyrics[1].syllabic)
+
+class testFermata(TestClass.TestClass):
+    def setUp(self):
+        TestClass.TestClass.setUp(self)
+        self.tags.append("fermata")
+        MxmlParser.note = Note.Note()
+        self.handler = MxmlParser.HandleFermata
+
+    def testFermata(self):
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(MxmlParser.note.notations[-1], Mark.Fermata)
+
+    def testFermataType(self):
+        self.attrs["fermata"] = {"type": "inverted"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("inverted", MxmlParser.note.notations[-1].type)
+
+    def testFermataSymbol(self):
+        self.chars["fermata"] = "square"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("square", MxmlParser.note.notations[-1].symbol)
 
 
 class testSlurs(TestClass.TestClass):

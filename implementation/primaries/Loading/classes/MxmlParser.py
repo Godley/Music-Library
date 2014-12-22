@@ -1,6 +1,6 @@
 import xml.sax
 from xml.sax import make_parser
-from implementation.primaries.Loading.classes import Accents, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, text
+from implementation.primaries.Loading.classes import Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, text
 
 note = None
 part_id = None
@@ -26,7 +26,8 @@ class MxmlParser(object):
         # add any handlers, along with the tagname associated with it, to this dictionary
         self.structure = {"movement-title": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
-             "pitch":  HandlePitch, "unpitched": HandlePitch, "direction": HandleDirections,"articulations":handleArticulation,"slur":handleOtherNotations,
+             "pitch":  HandlePitch, "unpitched": HandlePitch, "direction": HandleDirections,"articulations":handleArticulation,
+             "fermata": HandleFermata, "slur":handleOtherNotations, "lyric":handleLyrics,
              "technical": handleOtherNotations, "time-modification": handleTimeMod}
         # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
         self.multiple_attribs = ["beats", "sign"]
@@ -54,9 +55,6 @@ class MxmlParser(object):
             d = CheckDynamics(name)
             if d and "dynamics" in self.tags:
                 self.handler(self.tags, attrs, None, self.piece)
-            # handle tags which close immediately, or do not have any text content
-            if name in self.closed_tags:
-                self.handler(self.tags, attrs, None, self.piece)
 
     def validateData(self, text):
         if text == "\n":
@@ -80,13 +78,14 @@ class MxmlParser(object):
         if self.validateData(text):
             if len(self.tags) > 0:
                 self.chars[self.tags[-1]] = text
-            if self.handler is not None:
-                self.handler(self.tags, self.attribs, self.chars, self.piece)
+
 
 
 
     def EndTag(self, name):
         global part_id, measure_id, note, degree, frame_note
+        if self.handler is not None:
+            self.handler(self.tags, self.attribs, self.chars, self.piece)
         self.tags.remove(name)
         if name in self.attribs:
             self.attribs.pop(name)
@@ -208,28 +207,41 @@ def handleArticulation(tag, attrs, content, piece):
                 if not hasattr(note, "articulations"):
                     note.notations = []
                 if tag[-1] == "accent":
-                    accent = Accents.Accent()
+                    accent = Mark.Accent()
                 if tag[-1] == "strong-accent":
                     type = ""
                     if "type" in attrs:
                         type = attrs["type"]
-                    accent = Accents.StrongAccent(type=type)
+                    accent = Mark.StrongAccent(type=type)
                 if tag[-1] == "staccato":
-                    accent = Accents.Staccato()
+                    accent = Mark.Staccato()
                 if tag[-1] == "staccatissimo":
-                    accent = Accents.Staccatissimo()
+                    accent = Mark.Staccatissimo()
                 if tag[-1] == "detached-legato":
-                    accent = Accents.DetachedLegato()
+                    accent = Mark.DetachedLegato()
                 if tag[-1] == "tenuto":
-                    accent = Accents.Tenuto()
+                    accent = Mark.Tenuto()
                 if "placement" in attrs:
                     accent.placement = attrs["placement"]
                 if accent is not None:
                     note.notations.append(accent)
-
-
             return 1
+    return None
 
+def HandleFermata(tags, attrs, chars, piece):
+    global note
+    if "fermata" in tags:
+        type = None
+        symbol = None
+        if not hasattr(note, "notations"):
+            note.notations = []
+        if "fermata" in attrs:
+            if "type" in attrs["fermata"]:
+                type = attrs["fermata"]["type"]
+        if "fermata" in chars:
+            symbol = chars["fermata"]
+        fermata = Mark.Fermata(type=type, symbol=symbol)
+        note.notations.append(fermata)
     return None
 
 def handleOtherNotations(tag, attrs, content, piece):
