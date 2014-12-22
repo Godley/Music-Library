@@ -1,6 +1,6 @@
 import xml.sax
 from xml.sax import make_parser
-from implementation.primaries.Loading.classes import Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, text
+from implementation.primaries.Loading.classes import Accents, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, text
 
 note = None
 part_id = None
@@ -208,20 +208,25 @@ def handleArticulation(tag, attrs, content, piece):
                 if not hasattr(note, "articulations"):
                     note.notations = []
                 if tag[-1] == "accent":
-                    accent = Note.Accent()
+                    accent = Accents.Accent()
                 if tag[-1] == "strong-accent":
                     type = ""
                     if "type" in attrs:
                         type = attrs["type"]
-                    accent = Note.StrongAccent(type=type)
+                    accent = Accents.StrongAccent(type=type)
                 if tag[-1] == "staccato":
-                    accent = Note.Staccato()
+                    accent = Accents.Staccato()
                 if tag[-1] == "staccatissimo":
-                    accent = Note.Staccatissimo()
+                    accent = Accents.Staccatissimo()
+                if tag[-1] == "detached-legato":
+                    accent = Accents.DetachedLegato()
+                if tag[-1] == "tenuto":
+                    accent = Accents.Tenuto()
                 if "placement" in attrs:
                     accent.placement = attrs["placement"]
                 if accent is not None:
                     note.notations.append(accent)
+
 
             return 1
 
@@ -560,6 +565,21 @@ def HandleSlidesAndGliss(tags, attrs, content, piece):
         gliss = Note.Glissando(type=type, lineType=lineType, number=number)
         note.notations.append(gliss)
 
+def handleOrnaments(tags, attrs, content, piece):
+    global note
+    if "ornaments" in tags:
+        if not hasattr(note, "notations"):
+            note.notations = []
+        if tags[-1] == "inverted-mordent":
+            note.notations.append(Ornaments.InvertedMordent())
+        if tags[-1] == "mordent":
+            note.notations.append(Ornaments.Mordent())
+        if tags[-1] == "trill-mark":
+            note.notations.append(Ornaments.Trill())
+        if tags[-1] == "turn":
+            note.notations.append(Ornaments.Turn())
+        if tags[-1] == "inverted-turn":
+            note.notations.append(Ornaments.InvertedTurn())
 
 def SetupFormat(tags, attrs, text, piece):
     return None

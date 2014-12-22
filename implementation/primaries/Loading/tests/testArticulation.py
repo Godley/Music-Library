@@ -1,6 +1,6 @@
 import unittest
 from implementation.primaries.Loading.tests import TestClass
-from implementation.primaries.Loading.classes import MxmlParser, Piece, text, Part, Measure, Note
+from implementation.primaries.Loading.classes import Accents, MxmlParser, Piece, text, Part, Measure, Note
 
 class testHandleArticulation(unittest.TestCase):
     def setUp(self):
@@ -34,7 +34,7 @@ class testHandleArticulation(unittest.TestCase):
         self.tags.append("accent")
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(self.note, "notations"))
-        self.assertEqual(Note.Accent,type(self.note.notations[0]))
+        self.assertIsInstance(self.note.notations[0], Accents.Accent)
 
     def testArticulationAccentType(self):
         self.tags.append("accent")
@@ -50,8 +50,8 @@ class testHandleArticulation(unittest.TestCase):
 
     def testArticulationSaccentTag(self):
         self.tags.append("strong-accent")
-        self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual(Note.StrongAccent, type(self.note.notations[0]))
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(self.note.notations[0], Accents.StrongAccent)
 
     def testArticulationStrongAccentTag(self):
         self.tags.append("strong-accent")
@@ -61,8 +61,8 @@ class testHandleArticulation(unittest.TestCase):
 
     def testStaccato(self):
         self.tags.append("staccato")
-        self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual(Note.Staccato, type(self.note.notations[0]))
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(self.note.notations[0], Accents.Staccato)
 
     def testStaccatoSymbol(self):
         self.tags.append("staccato")
@@ -72,12 +72,32 @@ class testHandleArticulation(unittest.TestCase):
     def testStaccatissimo(self):
         self.tags.append("staccatissimo")
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual(Note.Staccatissimo, type(self.note.notations[0]))
+        self.assertIsInstance(self.note.notations[0], Accents.Staccatissimo)
 
     def testStaccatissimoSymbol(self):
         self.tags.append("staccatissimo")
-        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertEqual("triangle", self.note.notations[0].symbol)
+
+    def testDetachedLegato(self):
+        self.tags.append("detached-legato")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(self.note.notations[0], Accents.DetachedLegato)
+
+    def testDetachedLegSymbol(self):
+        self.tags.append("detached-legato")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("lineDot", self.note.notations[0].symbol)
+
+    def testTenuto(self):
+        self.tags.append("tenuto")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(self.note.notations[0], Accents.Tenuto)
+
+    def testTenutoSymbol(self):
+        self.tags.append("tenuto")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("line", self.note.notations[0].symbol)
 
 class testLyrics(TestClass.TestClass):
     def setUp(self):
@@ -199,4 +219,12 @@ class testTechniques(TestClass.TestClass):
         self.assertTrue(hasattr(MxmlParser.note.techniques[0], "type"))
         self.assertEqual("down-bow",MxmlParser.note.techniques[0].type)
 
+    def testSnapPizz(self):
+        self.tags.append("snap-pizzicato")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("snap-pizzicato", MxmlParser.note.techniques[0].type)
 
+    def testStopped(self):
+        self.tags.append("stopped")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("stopped", MxmlParser.note.techniques[0].type)
