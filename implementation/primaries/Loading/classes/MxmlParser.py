@@ -276,7 +276,10 @@ def handleOtherNotations(tag, attrs, content, piece):
             if tag[-2] == "technical":
                 if not hasattr(note, "techniques"):
                     note.techniques = []
-                note.techniques.append(Directions.Technique(type=tag[-1]))
+                text = None
+                if tag[-1] in content:
+                    text = content[tag[-1]]
+                note.techniques.append(Directions.Technique(type=tag[-1], text=text))
             return 1
     return None
 

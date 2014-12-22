@@ -187,9 +187,12 @@ class Technique(Direction):
         placement = None
         size = None
         font = None
-        self.type = None
+        text = None
         if "type" in kwargs:
             self.type = kwargs["type"]
+            text = self.type
+        if "text" in kwargs:
+            text = kwargs["text"]
         if "size" in kwargs:
             size = kwargs["size"]
 
@@ -201,4 +204,4 @@ class Technique(Direction):
         Direction.__init__(self,placement=placement,
                            font=font,
                            size=size,
-                           text=self.type)
+                           text=text)

@@ -197,7 +197,7 @@ class testSlurs(testclass.TestClass):
         self.assertTrue(hasattr(MxmlParser.note.slurs[0], "type"))
         self.assertEqual("start",MxmlParser.note.slurs[0].type)
 
-class testTechniques(testclass.TestClass):
+class t(testclass.TestClass):
     def setUp(self):
         testclass.TestClass.setUp(self)
         self.tags.append("note")
@@ -206,6 +206,7 @@ class testTechniques(testclass.TestClass):
         MxmlParser.note = Note.Note()
         self.tags.append("technical")
 
+class testTechniques(t):
     def testNoData(self):
         self.tags.remove("notations")
         self.tags.remove("note")
@@ -219,30 +220,65 @@ class testTechniques(testclass.TestClass):
         self.tags.append("hello")
         self.assertIsNone(self.handler(self.tags,self.attrs,self.chars,self.piece))
 
-    def testUpBow(self):
-        self.tags.append("up-bow")
+class testClosedTechnique(t):
+    def setUp(self):
+        t.setUp(self)
+        self.tag = ""
+
+    def testCreated(self):
+        self.tags.append(self.tag)
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(MxmlParser.note, "techniques"))
         self.assertIsInstance(MxmlParser.note.techniques[0], Directions.Technique)
 
-    def testUpBowVal(self):
-        self.tags.append("up-bow")
+    def testTechniqueType(self):
+        self.tags.append(self.tag)
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(MxmlParser.note.techniques[0], "type"))
-        self.assertEqual("up-bow",MxmlParser.note.techniques[0].type)
+        self.assertEqual(self.tag,MxmlParser.note.techniques[0].type)
 
-    def testDownBowVal(self):
-        self.tags.append("down-bow")
-        self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.techniques[0], "type"))
-        self.assertEqual("down-bow",MxmlParser.note.techniques[0].type)
+class testUpBow(testClosedTechnique):
+    def setUp(self):
+        testClosedTechnique.setUp(self)
+        self.tag = "up-bow"
 
-    def testSnapPizz(self):
-        self.tags.append("snap-pizzicato")
+class testDownBow(testClosedTechnique):
+    def setUp(self):
+        testClosedTechnique.setUp(self)
+        self.tag = "down-bow"
+
+class testSnapPizz(testClosedTechnique):
+    def setUp(self):
+        testClosedTechnique.setUp(self)
+        self.tag = "snap-pizzicato"
+
+class testOpenTechnique(testClosedTechnique):
+    def setUp(self):
+        t.setUp(self)
+        self.tag = ""
+        self.value = ""
+
+    def testTechniqueText(self):
+        self.tags.append(self.tag)
+        self.chars[self.tag] = self.value
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual("snap-pizzicato", MxmlParser.note.techniques[0].type)
+        self.assertEqual(self.value, MxmlParser.note.techniques[0].text)
 
-    def testStopped(self):
-        self.tags.append("stopped")
-        self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual("stopped", MxmlParser.note.techniques[0].type)
+class testFingering(testOpenTechnique):
+    def setUp(self):
+        testOpenTechnique.setUp(self)
+        self.tag = "fingering"
+        self.value = "0"
+
+class testPluck(testOpenTechnique):
+    def setUp(self):
+        testOpenTechnique.setUp(self)
+        self.tag = "pluck"
+        self.value = "p"
+
+class testString(testOpenTechnique):
+    def setUp(self):
+        testOpenTechnique.setUp(self)
+        self.tag = "string"
+        self.value = "0"
+
