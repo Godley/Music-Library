@@ -67,14 +67,14 @@ class testHandlePart(unittest.TestCase):
         MxmlParser.part_id = None
         self.assertEqual(None,MxmlParser.part_id,"ERROR: part_id not none in testScorePartTag")
         self.tags.append("score-part")
-        self.attrs = {"id":"P1"}
+        self.attrs["score-part"] = {"id":"P1"}
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertEqual(1, len(self.piece.Parts.keys()), "ERROR: part not created properly in testScorePartTag")
 
     def testPnameTag(self):
         self.assertEqual(0, len(self.piece.Parts.keys()), "ERROR: part list should be empty in TestPnameTag")
         self.tags.append("score-part")
-        self.attrs = {"id":"P1"}
+        self.attrs["score-part"] = {"id":"P1"}
         self.tags.append("part-name")
         self.chars["part-name"] = "will"
         self.handler(self.tags,self.attrs,self.chars,self.piece)

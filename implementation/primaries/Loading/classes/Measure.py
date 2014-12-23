@@ -1,4 +1,4 @@
-from implementation.primaries.Loading.classes import BaseClass
+from implementation.primaries.Loading.classes import BaseClass, Note
 
 class Measure(BaseClass.Base):
     def __init__(self, **kwargs):
@@ -10,8 +10,10 @@ class Measure(BaseClass.Base):
 
     def CheckDivisions(self):
         if hasattr(self, "divisions"):
-            for n in self.notes:
-                n.divisions = float(self.divisions)
+            for n in self.items:
+                if n is Note.Note:
+                    if self.divisions is not None:
+                        n.divisions = float(self.divisions)
 
     def __str__(self):
         self.CheckDivisions()

@@ -1,12 +1,13 @@
-from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure, Part, Note, Directions
 import unittest
-from implementation.primaries.Loading.tests import testclass
+
+from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure, Part, Note
+
 
 class notes(unittest.TestCase):
     def setUp(self):
         self.tags = ["note"]
         self.chars = {}
-        self.attrs = {}
+        self.attrs = {"part":{"id": "P1"}, "measure":{"number": "1"}}
         self.handler = MxmlParser.CreateNote
         MxmlParser.part_id = "P1"
         MxmlParser.measure_id = 1
@@ -19,11 +20,12 @@ class testCreateNoteHandler(notes):
 
     def testNoTags(self):
         self.tags.remove("note")
-
+        self.attrs = {}
         self.assertEqual(None, self.handler(self.tags,self.attrs,self.chars,self.piece), "ERROR: 0 tags should do nothing in method CreateNote in testNoData")
 
     def testIrrelevantTag(self):
         self.tags.remove("note")
+        self.attrs = {}
         self.tags.append("hello")
         self.assertEqual(None, self.handler(self.tags,self.attrs,self.chars, self.piece), "ERROR: irrelevant tags should get nothing from method CreateNote in testIrrelevantTags")
 
@@ -63,6 +65,7 @@ class testCreateNoteHandler(notes):
 
     def testTieTag(self):
         self.tags.append("tie")
+
         self.attrs["type"] = "start"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         expected = self.piece.Parts["P1"].measures[1].items[0]
@@ -97,6 +100,14 @@ class testCreateNoteHandler(notes):
         self.attrs["beam"] = {"number": "1"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertTrue(1 in MxmlParser.note.beams)
+
+    def testAccidental(self):
+        self.tags.append("accidental")
+        self.chars["accidental"] = "sharp"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.note, "pitch"))
+        self.assertTrue(hasattr(MxmlParser.note.pitch, "accidental"))
+
 
 class pitchin(unittest.TestCase):
     def setUp(self):
@@ -133,8 +144,8 @@ class testHandlePitch(pitchin):
         self.tags.append("alter")
         self.chars["alter"] = "-1"
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.pitch, "accidental"))
-        self.assertEqual("-1",MxmlParser.note.pitch.accidental)
+        self.assertTrue(hasattr(MxmlParser.note.pitch, "alter"))
+        self.assertEqual("-1",MxmlParser.note.pitch.alter)
 
     def testOctaveTag(self):
         self.tags.append("octave")

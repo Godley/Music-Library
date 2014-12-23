@@ -1,6 +1,5 @@
-import unittest
-from implementation.primaries.Loading.tests import testclass
-from implementation.primaries.Loading.classes import Mark, MxmlParser, Piece, Directions, Part, Measure, Note
+from implementation.primaries.Loading.tests.testHandlers import testclass
+from implementation.primaries.Loading.classes import Mark, MxmlParser, Directions, Part, Measure, Note
 
 class testHandleArticulation(testclass.TestClass):
     def setUp(self):

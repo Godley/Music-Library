@@ -1,4 +1,4 @@
-from implementation.primaries.Loading.tests import testclass
+from implementation.primaries.Loading.tests.testHandlers import testclass
 from implementation.primaries.Loading.classes import MxmlParser, Part, Measure, Directions
 
 

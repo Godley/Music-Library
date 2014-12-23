@@ -6,12 +6,11 @@ class MeasureTesting(unittest.TestCase):
     def setUp(self):
         self.tags = []
         self.tags.append("measure")
-        self.attrs = {"number": "1"}
+        self.attrs = {"measure": {"number": "1"}, "part": {"id": "P1"}}
         self.chars = {}
         self.handler = MxmlParser.HandleMeasures
         self.piece = Piece.Piece()
         self.piece.Parts["P1"] = Part.Part()
-        MxmlParser.part_id = "P1"
         self.part = self.piece.Parts["P1"]
 
 
@@ -20,19 +19,18 @@ class testHandleMeasures(MeasureTesting):
     def testNoData(self):
         MxmlParser.part_id = None
         self.tags.remove("measure")
-        self.attrs.pop("number")
+        self.attrs.pop("measure")
         self.assertEqual(None, self.handler(self.tags, self.attrs, self.chars, self.piece))
 
     def testUnrelatedTag(self):
         MxmlParser.part_id = None
         self.tags.remove("measure")
-        self.attrs.pop("number")
+        self.attrs.pop("measure")
         self.tags.append("wibble")
         self.assertEqual(None, self.handler(self.tags, self.attrs, self.chars, self.piece))
 
     def testMeasureTag(self):
         self.handler(self.tags, self.attrs, None, self.piece)
-        self.assertEqual(1, MxmlParser.measure_id)
         self.assertEqual(Measure.Measure, type(self.piece.Parts["P1"].measures[1]))
 
 
@@ -57,11 +55,11 @@ class testKeySig(MeasureTesting):
 
     def testModeNoMeasureTag(self):
         self.tags.remove("measure")
-        self.attrs.pop("number")
+        self.attrs.pop("measure")
         result = self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertEqual(None, result)
-        self.attrs["number"] = "1"
         self.tags.append("measure")
+        self.attrs["measure"]  = {"number": "1"}
         self.assertEqual(1, self.handler(self.tags, self.attrs, self.chars, self.piece))
 
 

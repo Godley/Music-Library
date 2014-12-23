@@ -101,18 +101,6 @@ class testSaxParser(unittest.TestCase):
         self.parser.EndTag("note")
         self.assertEqual(None, MxmlParser.note, "ERROR: note global val unset incorrectly in testNoteGlobalVal")
 
-    def testMeasureIDGlobalVal(self):
-        MxmlParser.measure_id = 0
-        self.parser.tags.append("measure")
-        self.parser.EndTag("measure")
-        self.assertEqual(None, MxmlParser.measure_id, "ERROR: measure id global val unset incorrectly in testMeasureIDGlobalVal")
-
-    def testPartIDGlobalVal(self):
-        MxmlParser.part_id = 0
-        self.parser.tags.append("part")
-        self.parser.EndTag("part")
-        self.assertEqual(None, MxmlParser.part_id, "ERROR: part id global val unset incorrectly in testPartIDGlobalVal")
-
     def testHasPreviousHandler(self):
         self.parser.tags.append("measure")
         self.parser.tags.append("note")

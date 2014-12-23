@@ -1,13 +1,16 @@
 import xml.sax
 from xml.sax import make_parser
-from implementation.primaries.Loading.classes import Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
+from implementation.primaries.Loading.classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
 
 note = None
-part_id = None
-measure_id = None
 degree = None
 frame_note = None
 
+def GetID(attrs, tag, val):
+    if tag in attrs:
+        if val in attrs[tag]:
+            return attrs[tag][val]
+    return None
 
 class MxmlParser(object):
     """this needs a huge tidy, but this class:
@@ -37,6 +40,7 @@ class MxmlParser(object):
                             "accent","strong-accent","staccato",
                             "staccatissimo","up-bow","down-bow",
                             "cue","grace","wedge","octave-shift"]
+        self.end_tag = ["tremolo"]
         self.piece = Piece.Piece()
 
     def Flush(self):
@@ -55,6 +59,8 @@ class MxmlParser(object):
             d = CheckDynamics(name)
             if d and "dynamics" in self.tags:
                 self.handler(self.tags, attrs, None, self.piece)
+            if name in self.closed_tags and self.handler is not None:
+                self.handler(self.tags, self.attribs, None, self.piece)
 
     def validateData(self, text):
         if text == "\n":
@@ -83,7 +89,7 @@ class MxmlParser(object):
 
 
     def EndTag(self, name):
-        global part_id, measure_id, note, degree, frame_note
+        global note, degree, frame_note
         if self.handler is not None:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -101,10 +107,6 @@ class MxmlParser(object):
         if name in self.chars:
             self.chars.pop(name)
 
-        if name == "measure":
-            measure_id = None
-        if name == "part" or name == "score-part":
-            part_id = None
         if name == "note":
             note = None
         if name == "degree":
@@ -188,25 +190,21 @@ def SetupPiece(tag, attrib, content, piece):
 
 
 def UpdatePart(tag, attrib, content, piece):
-    global measure_id, part_id
+    part_id = GetID(attrib, "part", "id")
+    if part_id is None:
+        part_id = GetID(attrib, "score-part", "id")
     return_val = None
     if len(tag) > 0:
         if "score-part" in tag:
-            if part_id not in piece.Parts.keys():
-                part_id = attrib["id"]
+            if part_id is None:
+                raise(Exceptions.NoScorePartException("ERROR IN UPDATEPART: no score-part id found"))
+            elif part_id not in piece.Parts:
                 piece.Parts[part_id] = Part.Part()
                 return_val = 1
-        if "part" in tag:
-            if "id" in attrib:
-                part_id = attrib["id"]
-                if part_id not in piece.Parts:
-                    print("whoops")
-        if part_id is not None:
-            part = piece.Parts[part_id]
-        if "part-name" in tag:
-            if "part-name" in content:
-                part.name = content["part-name"]
-                return_val = 1
+            if "part-name" in tag:
+                if "part-name" in content and part_id is not None:
+                    piece.Parts[part_id].name = content["part-name"]
+                    return_val = 1
     return return_val
 
 def handleArticulation(tag, attrs, content, piece):
@@ -284,25 +282,36 @@ def handleOtherNotations(tag, attrs, content, piece):
     return None
 
 def HandleMeasures(tag, attrib, content, piece):
-    global measure_id, part_id
+    part_id = GetID(attrib, "part", "id")
+    measure_id = GetID(attrib, "measure", "number")
+    if measure_id is not None:
+        measure_id = int(measure_id)
     part = None
     return_val = None
     global degree
     if len(tag) > 0 and "measure" in tag:
+        if part_id is None:
+            raise(Exceptions.NoScorePartException())
         if part_id is not None:
-            part = piece.Parts[part_id]
+            if part_id in piece.Parts:
+                part = piece.Parts[part_id]
+            else:
+                raise(Exceptions.NoPartCreatedException())
         if part is not None:
             if measure_id not in part.measures:
-                # attrib here only references the index it needs, as measure has no text content so calls its handler in the starttag method
-                measure_id = int(attrib["number"])
+                if measure_id is None:
+                    raise(Exceptions.NoMeasureIDException())
+                else:
+                    part.measures[measure_id] = Measure.Measure()
                 if "width" in attrib:
                     part.measures[measure_id] = Measure.Measure(width=attrib["width"])
                 else:
                     part.measures[measure_id] = Measure.Measure()
                     return_val = 1
         measure = None
-        if part is not None and "measure" in tag:
+        if part is not None:
             measure = part.measures[measure_id]
+
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
             return_val = 1
@@ -493,9 +502,19 @@ def CheckID(tag, attrs, string, id_name):
 
 
 def CreateNote(tag, attrs, content, piece):
-    global note_id, note, part_id, measure_id
+    global note
+    part_id = None
+    measure_id = None
     ret_value = None
+    measure = None
+
     if len(tag) > 0 and "note" in tag:
+        if "part" in attrs:
+            if "id" in attrs["part"]:
+                part_id = attrs["part"]["id"]
+        if "measure" in attrs:
+            if "number" in attrs["measure"]:
+                measure_id = int(attrs["measure"]["number"])
         if part_id is not None and measure_id is not None:
             measure = piece.Parts[part_id].measures[measure_id]
         if "note" in tag and note is None:
@@ -514,7 +533,8 @@ def CreateNote(tag, attrs, content, piece):
         if tag[-1] == "duration" and "note" in tag:
             note.duration = float(content["duration"])
             if hasattr(measure, "divisions"):
-                note.divisions = float(measure.divisions)
+                if measure.divisions is not None:
+                    note.divisions = float(measure.divisions)
 
         if "dot" in tag:
             note.dotted = True
@@ -544,7 +564,15 @@ def CreateNote(tag, attrs, content, piece):
             else:
                 id = len(note.beams)
             note.beams[id] = Note.Beam(type=type)
+        if tag[-1] == "accidental":
+            if not hasattr(note, "pitch"):
+                note.pitch = Note.Pitch()
+                if "accidental" in content:
+                    note.pitch.accidental = content["accidental"]
 
+            else:
+                if "accidental" in content:
+                    note.pitch.accidental = content["accidental"]
     return ret_value
 
 def HandleArpeggiates(tags, attrs, content, piece):
@@ -624,7 +652,7 @@ def HandlePitch(tags, attrs, text, piece):
     return_val = None
     if len(tags) > 0:
         if "pitch" or "unpitched" in tags:
-            if not hasattr(note, "pitch"):
+            if not hasattr(note, "pitch") and note is not None:
                 note.pitch = Note.Pitch()
             if "unpitched" in tags:
                 note.pitch.unpitched = True
@@ -635,7 +663,7 @@ def HandlePitch(tags, attrs, text, piece):
                     note.pitch.step = text["step"]
                 return_val = 1
             if tags[-1] == "alter":
-                note.pitch.accidental = text["alter"]
+                note.pitch.alter = text["alter"]
                 return_val = 1
             if "octave" in tags[-1]:
                 if "octave" not in text:

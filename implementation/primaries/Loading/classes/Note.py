@@ -23,11 +23,13 @@ class Stem(object):
 class Pitch(object):
     def __init__(self, **kwargs):
         if "alter" in kwargs:
-            self.accidental = kwargs["accidental"]
+            self.alter = kwargs["alter"]
         if "octave" in kwargs:
             self.octave = kwargs["octave"]
         if "step" in kwargs:
             self.step = kwargs["step"]
+        if "accidental" in kwargs:
+            self.accidental = kwargs["accidental"]
         if "unpitched" in kwargs:
             self.unpitched = True
 

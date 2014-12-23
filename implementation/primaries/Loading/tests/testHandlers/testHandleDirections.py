@@ -1,6 +1,5 @@
-from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure, Part, Note, Directions
-from implementation.primaries.Loading.tests import testclass
-import unittest
+from implementation.primaries.Loading.classes import MxmlParser, Measure, Part, Directions
+from implementation.primaries.Loading.tests.testHandlers import testclass
 
 
 class testHandleDirections(testclass.TestClass):

@@ -1,4 +1,4 @@
-from implementation.primaries.Loading.tests.testHandleNotesAndPitches import notes
+from implementation.primaries.Loading.tests.testHandlers.testHandleNotesAndPitches import notes
 from implementation.primaries.Loading.classes import Ornaments, MxmlParser, Note
 
 class testArpeggiates(notes):

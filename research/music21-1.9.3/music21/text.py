@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #-------------------------------------------------------------------------------
-# Name:         text.py
+# Name:         Directions.py
 # Purpose:      music21 classes for text processing
 #
 # Authors:      Michael Scott Cuthbert
@@ -26,7 +26,7 @@ from music21 import environment
 
 from music21.ext import six
 
-_MOD = "text.py"  
+_MOD = "Directions.py"
 environLocal = environment.Environment(_MOD)
 
 
