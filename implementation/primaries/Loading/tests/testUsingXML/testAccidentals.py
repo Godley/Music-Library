@@ -35,19 +35,12 @@ class NoteTests(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
         self.p_id = "P1"
-        self.m_num = 32
-        self.p_name = "Flute"
         self.measure_id = None
-        self.fname = "accidentals.xml"
         self.step = ""
         self.alter = None
         self.octave = None
         self.accidental = None
         self.note = None
-        self.note_num = {1: 4,2: 4,3: 4,4: 4,5: 4,6: 4,7: 4,8: 1,9: 1,10: 1,
-                         11: 1,12: 1,13: 1,14: 1,15: 1,16: 1,17: 1,18: 1,19: 1,
-                         20: 1,21: 1,22: 1,23: 1,24: 1,25: 1,26: 1,27: 1,28: 1,
-                         29: 1,30: 1,31: 1,32: 1}
 
     def testNoteStep(self):
         note_obj = None
