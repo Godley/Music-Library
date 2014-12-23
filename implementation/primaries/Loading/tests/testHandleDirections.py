@@ -1,14 +1,13 @@
 from implementation.primaries.Loading.classes import MxmlParser, Piece, Measure, Part, Note, Directions
+from implementation.primaries.Loading.tests import testclass
 import unittest
 
 
-class testHandleDirections(unittest.TestCase):
+class testHandleDirections(testclass.TestClass):
     def setUp(self):
-        self.tags = ["direction"]
-        self.chars = {}
-        self.attrs = {}
+        testclass.TestClass.setUp(self)
+        self.tags.append("direction")
         self.handler = MxmlParser.HandleDirections
-        self.piece = Piece.Piece()
         MxmlParser.part_id = "P1"
         MxmlParser.measure_id = 1
         self.piece.Parts["P1"] = Part.Part()
@@ -75,6 +74,75 @@ class testHandleDirections(unittest.TestCase):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertTrue(hasattr(self.measure.items[0], "type"))
 
+    def testOctaveShiftAmount(self):
+        self.tags.append("octave-shift")
+        self.attrs["octave-shift"] = {"size": "8"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(self.measure.items[0], "amount"))
+        self.assertEqual(8, self.measure.items[0].amount)
+
+    def testWavyLine(self):
+        self.tags.append("wavy-line")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(self.measure.items[0], Directions.WavyLine)
+
+    def testWavyLineType(self):
+        self.tags.append("wavy-line")
+        self.attrs["wavy-line"] = {"type": "start"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("start", self.measure.items[0].type)
+
+    def testPedal(self):
+        self.tags.append("pedal")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(self.measure.items[0], Directions.Pedal)
+
+    def testPedalLine(self):
+        self.tags.append("pedal")
+        self.attrs["pedal"] = {"line": "yes"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual(True, self.measure.items[0].line)
+
+    def testPedalLineType(self):
+        self.tags.append("pedal")
+        self.attrs["pedal"] = {"type": "start"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("start", self.measure.items[0].type)
+
+    def testBracket(self):
+        self.tags.append("bracket")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(self.measure.items[0], Directions.Bracket)
+
+    def testBracketType(self):
+        self.tags.append("bracket")
+        self.attrs["bracket"] = {"type": "start"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("start", self.measure.items[0].type)
+
+    def testBracketNumber(self):
+        self.tags.append("bracket")
+        self.attrs["bracket"] = {"number": "1"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual(1, self.measure.items[0].number)
+
+    def testBracketLineEnd(self):
+        self.tags.append("bracket")
+        self.attrs["bracket"] = {"line-end": "none"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("none", self.measure.items[0].lineEnd)
+
+    def testBracketEndLength(self):
+        self.tags.append("bracket")
+        self.attrs["bracket"] = {"end-length": "15"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual(15, self.measure.items[0].endLength)
+
+    def testBracketLineType(self):
+        self.tags.append("bracket")
+        self.attrs["bracket"] = {"line-type": "solid"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("solid", self.measure.items[0].lineType)
 
 class testMetronome(testHandleDirections):
     def setUp(self):

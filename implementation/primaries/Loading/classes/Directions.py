@@ -74,7 +74,7 @@ class RepeatSign(Direction):
             font = kwargs["font"]
         Direction.__init__(self, placement=placement, text=text,size=size,font=font)
 
-class OctaveShift(Direction):
+class Line(Direction):
     def __init__(self, **kwargs):
         text = None
         size = None
@@ -82,6 +82,9 @@ class OctaveShift(Direction):
         placement = None
         if "placement" in kwargs:
             placement = kwargs["placement"]
+        if "amount" in kwargs:
+            if kwargs["amount"] is not None:
+                self.amount = kwargs["amount"]
         if "text" in kwargs:
             text = kwargs["text"]
         if "size" in kwargs:
@@ -92,6 +95,71 @@ class OctaveShift(Direction):
             if kwargs["type"] is not None:
                 self.type = kwargs["type"]
         Direction.__init__(self, text=text, size=size, font=font, placement=placement)
+
+class OctaveShift(Line):
+    def hello(self):
+        print("world")
+
+class WavyLine(Line):
+    def hello(self):
+        print("world")
+
+class Pedal(Line):
+    def __init__(self, **kwargs):
+        text = None
+        size = None
+        font = None
+        type = None
+        placement = None
+        if "line" in kwargs:
+            if kwargs["line"] is not None:
+                self.line = kwargs["line"]
+        if "placement" in kwargs:
+            placement = kwargs["placement"]
+        if "amount" in kwargs:
+            if kwargs["amount"] is not None:
+                self.amount = kwargs["amount"]
+        if "text" in kwargs:
+            text = kwargs["text"]
+        if "size" in kwargs:
+            size = kwargs["size"]
+        if "font" in kwargs:
+            font = kwargs["font"]
+        if "type" in kwargs:
+            type = kwargs["type"]
+        Line.__init__(self, type=type, text=text, size=size, font=font, placement=placement)
+
+class Bracket(Line):
+    def __init__(self, **kwargs):
+        text = None
+        size = None
+        font = None
+        type = None
+        placement = None
+        if "number" in kwargs:
+            if kwargs["number"] is not None:
+                self.number = kwargs["number"]
+        if "ltype" in kwargs:
+            if kwargs["ltype"] is not None:
+                self.lineType = kwargs["ltype"]
+        if "elength" in kwargs:
+            if kwargs["elength"] is not None:
+                self.endLength = kwargs["elength"]
+        if "lineEnd" in kwargs:
+            if kwargs["lineEnd"] is not None:
+                self.lineEnd = kwargs["lineEnd"]
+        if "placement" in kwargs:
+            placement = kwargs["placement"]
+        if "text" in kwargs:
+            text = kwargs["text"]
+        if "size" in kwargs:
+            size = kwargs["size"]
+        if "font" in kwargs:
+            font = kwargs["font"]
+        if "type" in kwargs:
+            type = kwargs["type"]
+        Line.__init__(self, type=type, text=text, size=size, font=font, placement=placement)
+
 
 class Metronome(Direction):
     def __init__(self, **kwargs):

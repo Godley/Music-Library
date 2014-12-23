@@ -725,20 +725,47 @@ def HandleDirections(tags, attrs, chars, piece):
                 measure.tempo = attrs["tempo"]
         if tags[-1] == "offset" and len(measure.items) > 0:
             measure.items[-1].offset = chars["offset"]
-
+        type = None
+        if tags[-1] in ["wavy-line","octave-shift","pedal","bracket"]:
+            if tags[-1] in attrs:
+                if "type" in attrs[tags[-1]]:
+                    type = attrs[tags[-1]]["type"]
         if "octave-shift" in tags:
-            type = None
-            size = None
+            amount = None
             font = None
             if "octave-shift" in attrs:
-                if "type" in attrs["octave-shift"]:
-                    type = attrs["octave-shift"]["type"]
                 if "size" in attrs["octave-shift"]:
-                    size = attrs["octave-shift"]["size"]
+                    amount = int(attrs["octave-shift"]["size"])
                 if "font" in attrs["octave-shift"]:
                     font = attrs["octave-shift"]["font"]
 
-            measure.items.append(Directions.OctaveShift(type=type, size=size, font=font))
+            measure.items.append(Directions.OctaveShift(type=type, amount=amount, font=font))
+
+
+        if tags[-1] == "wavy-line":
+            measure.items.append(Directions.WavyLine(type=type))
+        if tags[-1] == "pedal":
+            line = None
+            if "pedal" in attrs:
+                if "line" in attrs["pedal"]:
+                    line = YesNoToBool(attrs["pedal"]["line"])
+            measure.items.append(Directions.Pedal(line=line, type=type))
+        if tags[-1] == "bracket":
+            num = None
+            ltype = None
+            elength=None
+            lineend=None
+            if "bracket" in attrs:
+                if "number" in attrs["bracket"]:
+                    num = int(attrs["bracket"]["number"])
+                if "line-type" in attrs["bracket"]:
+                    ltype = attrs["bracket"]["line-type"]
+                if "end-length" in attrs["bracket"]:
+                    elength = int(attrs["bracket"]["end-length"])
+                if "line-end" in attrs["bracket"]:
+                    lineend = attrs["bracket"]["line-end"]
+            measure.items.append(Directions.Bracket(lineEnd=lineend, elength=elength, type=type, ltype=ltype, number=num))
+
     HandleRepeatMarking(tags, attrs, chars, piece)
     return return_val
 
