@@ -61,7 +61,6 @@ class MxmlParser(object):
                 self.handler(self.tags, attrs, None, self.piece)
             if name in self.closed_tags and self.handler is not None:
                 self.handler(self.tags, self.attribs, None, self.piece)
-
     def validateData(self, text):
         if text == "\n":
             return False
@@ -94,10 +93,14 @@ class MxmlParser(object):
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
             if len(self.tags) > 1:
-                if self.tags[-2] in self.structure:
-                    self.handler = self.structure[self.tags[-2]]
-                else:
-                    self.handler = None
+                key = len(self.tags) - 2
+                self.handler = None
+                while key >= 0:
+                    if self.tags[key] in self.structure:
+                        self.handler = self.structure[self.tags[key]]
+                        break
+                    key -= 1
+
             else:
                 self.handler = None
         if name in self.tags:
@@ -573,10 +576,12 @@ def CreateNote(tag, attrs, content, piece):
             else:
                 if "accidental" in content:
                     note.pitch.accidental = content["accidental"]
+    HandleArpeggiates(tag, attrs, content, piece)
+    HandleSlidesAndGliss(tag, attrs, content, piece)
+
     return ret_value
 
 def HandleArpeggiates(tags, attrs, content, piece):
-    global note
     if tags[-1] == "arpeggiate":
         direction = None
         if not hasattr(note, "notations"):
