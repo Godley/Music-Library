@@ -31,7 +31,7 @@ class MxmlParser(object):
         # add any handlers, along with the tagname associated with it, to this dictionary
         self.structure = {"movement-title": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
-             "pitch":  HandlePitch, "unpitched": HandlePitch, "direction": HandleDirections,"articulations":handleArticulation,
+             "pitch":  HandlePitch, "unpitched": HandlePitch,"articulations":handleArticulation,
              "fermata": HandleFermata, "slur":handleOtherNotations, "lyric":handleLyrics,
              "technical": handleOtherNotations, "time-modification": handleTimeMod}
         # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
@@ -44,6 +44,7 @@ class MxmlParser(object):
                             "cue","grace","wedge","octave-shift"]
         self.end_tag = ["tremolo"]
         self.piece = Piece.Piece()
+        self.d = False
 
     def Flush(self):
         self.tags = []
@@ -58,9 +59,9 @@ class MxmlParser(object):
             self.tags.append(name)
             if attrs is not None:
                 self.attribs[name] = attrs
-            d = CheckDynamics(name)
-            if d and "dynamics" in self.tags:
-                self.handler(self.tags, attrs, None, self.piece)
+            self.d = CheckDynamics(name)
+            if self.d and "dynamics" in self.tags:
+                self.handler(self.tags, self.attribs, None, self.piece)
             if name in self.closed_tags and self.handler is not None:
                 self.handler(self.tags, self.attribs, None, self.piece)
     def validateData(self, text):
@@ -91,7 +92,7 @@ class MxmlParser(object):
 
     def EndTag(self, name):
         global note, degree, frame_note, cached_clef
-        if self.handler is not None:
+        if self.handler is not None and not self.d:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
             if len(self.tags) > 1:
@@ -527,6 +528,7 @@ def HandleMeasures(tag, attrib, content, piece):
                     if "fingering" in tag and "fingering" in content:
                         frame_note.fingering = content["fingering"]
     handleBarline(tag, attrib, content, piece)
+    HandleDirections(tag, attrib, content, piece)
 
     return return_val
 
@@ -728,12 +730,21 @@ def HandlePitch(tags, attrs, text, piece):
     return return_val
 
 def HandleDirections(tags, attrs, chars, piece):
-    measure = piece.Parts[part_id].measures[measure_id]
-    placement = None
     return_val = None
     if len(tags) == 0:
         return None
+
     if "direction" in tags:
+        measure_id = GetID(attrs, "measure", "number")
+        if measure_id is not None:
+            measure_id = int(measure_id)
+        part_id = GetID(attrs, "part", "id")
+        measure = None
+        if measure_id is not None and part_id is not None:
+            measure = piece.Parts[part_id].measures[measure_id]
+        placement = None
+        if measure is None:
+            print(tags, part_id, measure_id)
         if "direction" in attrs:
             if "placement" in attrs["direction"]:
                 placement = attrs["direction"]["placement"]
@@ -852,33 +863,37 @@ def HandleDirections(tags, attrs, chars, piece):
     return return_val
 
 def HandleRepeatMarking(tags, attrs, chars, piece):
-    global part_id, measure_id
     if "direction" in tags:
         measure = None
+        part_id = GetID(attrs, "part", "id")
+        measure_id = GetID(attrs, "measure", "number")
+        if measure_id is not None:
+            measure_id = int(measure_id)
         if part_id is not None:
             if measure_id is not None:
                 measure = piece.Parts[part_id].measures[measure_id]
         direction = None
-        type = None
-        if tags[-1] == "segno" or tags[-1] == "coda":
-            type = tags[-1]
-            direction = Directions.RepeatSign(type=type)
-        if direction is not None:
-            measure.items.append(direction)
-        if tags[-1] == "sound":
-            if "sound" in attrs:
-                if "coda" in attrs["sound"]:
-                    measure.coda = attrs["sound"]["coda"]
-                if "dacapo" in attrs["sound"]:
-                    measure.dacapo = YesNoToBool(attrs["sound"]["dacapo"])
-                if "dalsegno" in attrs["sound"]:
-                    measure.dalsegno = attrs["sound"]["dalsegno"]
-                if "fine" in attrs["sound"]:
-                    measure.fine = YesNoToBool(attrs["sound"]["fine"])
-                if "segno" in attrs["sound"]:
-                    measure.segno = attrs["sound"]["segno"]
-                if "tocoda" in attrs["sound"]:
-                    measure.tocoda = attrs["sound"]["tocoda"]
+        if measure is not None:
+            d_type = None
+            if tags[-1] == "segno" or tags[-1] == "coda":
+                d_type = tags[-1]
+                direction = Directions.RepeatSign(type=d_type)
+            if direction is not None:
+                measure.items.append(direction)
+            if tags[-1] == "sound":
+                if "sound" in attrs:
+                    if "coda" in attrs["sound"]:
+                        measure.coda = attrs["sound"]["coda"]
+                    if "dacapo" in attrs["sound"]:
+                        measure.dacapo = YesNoToBool(attrs["sound"]["dacapo"])
+                    if "dalsegno" in attrs["sound"]:
+                        measure.dalsegno = attrs["sound"]["dalsegno"]
+                    if "fine" in attrs["sound"]:
+                        measure.fine = YesNoToBool(attrs["sound"]["fine"])
+                    if "segno" in attrs["sound"]:
+                        measure.segno = attrs["sound"]["segno"]
+                    if "tocoda" in attrs["sound"]:
+                        measure.tocoda = attrs["sound"]["tocoda"]
 
 
 def handleLyrics(tags, attrs, chars, piece):

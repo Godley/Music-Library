@@ -1,5 +1,4 @@
 from implementation.primaries.Loading.tests.testUsingXML.setup import xmlSet, parsePiece
-from implementation.primaries.Loading.classes import Clef
 import os
 
 partname = "duration_and_stem_direction.xml"
