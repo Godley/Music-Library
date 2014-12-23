@@ -5,6 +5,8 @@ from implementation.primaries.Loading.classes import Exceptions, Mark, Ornaments
 note = None
 degree = None
 frame_note = None
+cached_clef = None
+measure_cached = None
 
 def GetID(attrs, tag, val):
     if tag in attrs:
@@ -88,7 +90,7 @@ class MxmlParser(object):
 
 
     def EndTag(self, name):
-        global note, degree, frame_note
+        global note, degree, frame_note, cached_clef
         if self.handler is not None:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -105,6 +107,11 @@ class MxmlParser(object):
                 self.handler = None
         if name in self.tags:
             self.tags.remove(name)
+        if name == "measure" and self.attribs["measure"]["number"] != measure_cached:
+            current_measure = self.piece.Parts[self.attribs["part"]["id"]].measures[int(self.attribs["measure"]["number"])]
+            if not hasattr(current_measure, "clef"):
+                current_measure.clef = cached_clef
+                cached_clef = None
         if name in self.attribs:
             self.attribs.pop(name)
         if name in self.chars:
@@ -116,6 +123,8 @@ class MxmlParser(object):
             degree = None
         if name == "frame-note":
             frame_note = None
+
+
 
     def parse(self, file):
         parser = make_parser()
@@ -285,6 +294,7 @@ def handleOtherNotations(tag, attrs, content, piece):
     return None
 
 def HandleMeasures(tag, attrib, content, piece):
+    global cached_clef, measure_cached
     part_id = GetID(attrib, "part", "id")
     measure_id = GetID(attrib, "measure", "number")
     if measure_id is not None:
@@ -344,19 +354,54 @@ def HandleMeasures(tag, attrib, content, piece):
             else:
                 measure.meter = Meter.Meter(type=int(content["beat-type"]))
             return_val = 1
+        clef = None
+        if "clef" in tag:
+            # this section covers duplication: it's possible a measure
+            # can have 2 clefs, the second of which should be in the next measure
+            # so we cache this one and wait until the next measure is opened
+            if len(measure.items) > 0:
+                if cached_clef is not None:
+                    # if we've moved to a new measure...
+                    if measure_cached != attrib["measure"]["number"]:
+                        if not hasattr(measure, "clef"):
+                            # and it doesn't have a clef, empty the cache into it
+                            measure.clef = cached_clef
+                            cached_clef = None
+                            measure_cached = None
+                        else:
+                            # else, the clefs are the same, so reset the clef cache
+                            cached_clef = Clef.Clef()
+                            clef = cached_clef
+                            measure_cached = attrib["measure"]["number"]
+                    else:
+                        # otherwise, still filling up the cache
+                        clef = cached_clef
+                if cached_clef is None:
+                    cached_clef = Clef.Clef()
+                    clef = cached_clef
+                    measure_cached = attrib["measure"]["number"]
+            else:
+                # if we're at the beginning of the measure,
+                # clef to fill up is the current measure's clef
+                if hasattr(measure, "clef"):
+                    clef = measure.clef
+                else:
+                    measure.clef = Clef.Clef()
+                    clef = measure.clef
+
+
 
         if tag[-1] == "sign" and "clef" in tag:
-            if hasattr(measure, "clef"):
-                measure.clef.sign = content["sign"]
-            else:
-                measure.clef = Clef.Clef(sign=content["sign"])
+            try:
+                clef.sign = content["sign"]
+            except Exception:
+                print(attrib["measure"]["number"])
+                print(measure_cached)
         if tag[-1] == "line" and "clef" in tag:
-            if hasattr(measure, "clef"):
-                measure.clef.line = content["line"]
-            else:
-                measure.clef = Clef.Clef(line=content["line"])
+            clef.line = int(content["line"])
             return_val = 1
-
+        if tag[-1] == "clef-octave-change" and "clef" in tag:
+            clef.octave_change = int(content["clef-octave-change"])
         if "transpose" in tag:
             if "diatonic" in tag:
                 if hasattr(measure, "transpose"):

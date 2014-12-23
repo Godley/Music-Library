@@ -9,14 +9,7 @@ class Clef(object):
             self.sign = kwargs["sign"]
         if "line" in kwargs:
             self.line = kwargs["line"]
+        if "octave_change" in kwargs:
+            self.octave_change = kwargs["octave_change"]
 
-    def __str__(self):
-        if hasattr(self, "sign"):
-            if hasattr(self, "line"):
-                if (self.sign + self.line) in clef_type:
-                    return clef_type[(self.sign + self.line)]
-                else:
-                    return (self.sign + self.line)
-            else:
-                return(self.sign)
-        return ""
+
