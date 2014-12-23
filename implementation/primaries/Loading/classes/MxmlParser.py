@@ -481,19 +481,23 @@ def HandleMeasures(tag, attrib, content, piece):
                         frame_note.barre = attrib["barre"]["type"]
                     if "fingering" in tag and "fingering" in content:
                         frame_note.fingering = content["fingering"]
+    handleBarline(tag, attrib, content, piece)
+
     return return_val
 
 def handleBarline(tag, attrib, content, piece):
-    measure = None
+    part_id = GetID(attrib, "part", "id")
+    measure_id = int(GetID(attrib, "measure", "number"))
     if part_id is not None and measure_id is not None:
         measure = piece.Parts[part_id].measures[measure_id]
     if "barline" in tag:
-        measure.barlines = {}
+        if not hasattr(measure, "barlines"):
+            measure.barlines = {}
         if "barline" in attrib:
             if "location" in attrib["barline"]:
-                measure.barlines[attrib["barline"]["location"]] = Measure.Barline()
+                if attrib["barline"]["location"] not in measure.barlines:
+                    measure.barlines[attrib["barline"]["location"]] = Measure.Barline()
         if tag[-1] == "bar-style":
-            if "bar-style" in content:
                 measure.barlines[attrib["barline"]["location"]].style = content["bar-style"]
         if tag[-1] == "repeat":
             if "repeat" in attrib:
