@@ -70,6 +70,12 @@ class Note(BaseClass.Base):
         st = BaseClass.Base.__str__(self)
         return st
 
+
+class GraceNote(BaseClass.Base):
+    def __init__(self, **kwargs):
+        if "slash" in kwargs:
+            self.slash = kwargs["slash"]
+        BaseClass.Base.__init__(self)
 class TimeModifier(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)

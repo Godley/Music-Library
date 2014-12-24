@@ -250,26 +250,3 @@ class Slur(Direction):
                            font=font,
                            size=size)
 
-class Technique(Direction):
-    def __init__(self, **kwargs):
-        placement = None
-        size = None
-        font = None
-        text = None
-        if "type" in kwargs:
-            self.type = kwargs["type"]
-            text = self.type
-        if "text" in kwargs:
-            text = kwargs["text"]
-        if "size" in kwargs:
-            size = kwargs["size"]
-
-        if "font" in kwargs:
-            font = kwargs["font"]
-        if "placement" in kwargs:
-            placement = kwargs["placement"]
-
-        Direction.__init__(self,placement=placement,
-                           font=font,
-                           size=size,
-                           text=text)
