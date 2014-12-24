@@ -228,7 +228,7 @@ class testClosedTechnique(t):
         self.tags.append(self.tag)
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(MxmlParser.note, "techniques"))
-        self.assertIsInstance(MxmlParser.note.techniques[0], Directions.Technique)
+        self.assertIsInstance(MxmlParser.note.techniques[0], Mark.Technique)
 
     def testTechniqueType(self):
         self.tags.append(self.tag)
@@ -261,7 +261,7 @@ class testOpenTechnique(testClosedTechnique):
         self.tags.append(self.tag)
         self.chars[self.tag] = self.value
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual(self.value, MxmlParser.note.techniques[0].text)
+        self.assertEqual(self.value, MxmlParser.note.techniques[0].symbol)
 
 class testFingering(testOpenTechnique):
     def setUp(self):

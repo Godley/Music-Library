@@ -80,3 +80,20 @@ class Fermata(Notation):
             symbol = kwargs["symbol"]
 
         Notation.__init__(self,placement=placement,symbol=symbol)
+
+class Technique(Notation):
+    def __init__(self, **kwargs):
+        placement = None
+        size = None
+        font = None
+        symbol = None
+        if "type" in kwargs:
+            self.type = kwargs["type"]
+            symbol = self.type
+        if "symbol" in kwargs:
+            symbol = kwargs["symbol"]
+        if "placement" in kwargs:
+            placement = kwargs["placement"]
+
+        Notation.__init__(self,placement=placement,
+                            symbol=symbol)

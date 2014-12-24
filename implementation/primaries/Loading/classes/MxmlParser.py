@@ -290,7 +290,7 @@ def handleOtherNotations(tag, attrs, content, piece):
                 text = None
                 if tag[-1] in content:
                     text = content[tag[-1]]
-                note.techniques.append(Directions.Technique(type=tag[-1], text=text))
+                note.techniques.append(Mark.Technique(type=tag[-1], symbol=text))
             return 1
     return None
 
