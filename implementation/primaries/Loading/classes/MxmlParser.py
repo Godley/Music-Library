@@ -534,10 +534,12 @@ def HandleMeasures(tag, attrib, content, piece):
 
 def handleBarline(tag, attrib, content, piece):
     part_id = GetID(attrib, "part", "id")
-    measure_id = int(GetID(attrib, "measure", "number"))
+    measure_id = GetID(attrib, "measure", "number")
+    if measure_id is not None:
+        measure_id = int(measure_id)
     if part_id is not None and measure_id is not None:
         measure = piece.Parts[part_id].measures[measure_id]
-    if "barline" in tag:
+    if "barline" in tag and measure is not None:
         if not hasattr(measure, "barlines"):
             measure.barlines = {}
         if "barline" in attrib:
@@ -633,30 +635,31 @@ def CreateNote(tag, attrs, content, piece):
     return ret_value
 
 def HandleArpeggiates(tags, attrs, content, piece):
-    if tags[-1] == "arpeggiate":
-        direction = None
-        if not hasattr(note, "notations"):
-            note.notations = []
-        if "arpeggiate" in attrs:
-            if "direction" in attrs["arpeggiate"]:
-                direction = attrs["arpeggiate"]["direction"]
-        arpegg = Note.Arpeggiate(direction=direction)
-        note.notations.append(arpegg)
-    if tags[-1] == "non-arpeggiate":
-        type = None
-        if "non-arpeggiate" in attrs:
-            if "type" in attrs["non-arpeggiate"]:
-                type = attrs["non-arpeggiate"]["type"]
-        if not hasattr(note, "notations"):
-            note.notations = []
-        narpegg = Note.NonArpeggiate(type=type)
-        note.notations.append(narpegg)
+    if len(tags) > 0:
+        if tags[-1] == "arpeggiate":
+            direction = None
+            if not hasattr(note, "notations"):
+                note.notations = []
+            if "arpeggiate" in attrs:
+                if "direction" in attrs["arpeggiate"]:
+                    direction = attrs["arpeggiate"]["direction"]
+            arpegg = Note.Arpeggiate(direction=direction)
+            note.notations.append(arpegg)
+        if tags[-1] == "non-arpeggiate":
+            type = None
+            if "non-arpeggiate" in attrs:
+                if "type" in attrs["non-arpeggiate"]:
+                    type = attrs["non-arpeggiate"]["type"]
+            if not hasattr(note, "notations"):
+                note.notations = []
+            narpegg = Note.NonArpeggiate(type=type)
+            note.notations.append(narpegg)
 
 def HandleSlidesAndGliss(tags, attrs, content, piece):
     type = None
     number = None
     lineType = None
-    if "slide" or "glissando" in tags:
+    if "slide" in tags or "glissando" in tags:
         if tags[-1] in attrs:
             if "type" in attrs[tags[-1]]:
                 type = attrs[tags[-1]]["type"]
@@ -745,6 +748,7 @@ def HandleDirections(tags, attrs, chars, piece):
         placement = None
         if measure is None:
             print(tags, part_id, measure_id)
+            return None
         if "direction" in attrs:
             if "placement" in attrs["direction"]:
                 placement = attrs["direction"]["placement"]
@@ -812,10 +816,11 @@ def HandleDirections(tags, attrs, chars, piece):
                 measure.items.append(dynamic)
         if "sound" in tags:
             return_val = 1
-            if "dynamics" in attrs:
-                measure.volume = attrs["dynamics"]
-            if "tempo" in attrs:
-                measure.tempo = attrs["tempo"]
+            if "sound" in attrs:
+                if "dynamics" in attrs["sound"]:
+                    measure.volume = attrs["sound"]["dynamics"]
+                if "tempo" in attrs["sound"]:
+                    measure.tempo = attrs["sound"]["tempo"]
         if tags[-1] == "offset" and len(measure.items) > 0:
             measure.items[-1].offset = chars["offset"]
         type = None

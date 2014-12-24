@@ -12,6 +12,9 @@ class testHandleDirections(testclass.TestClass):
         self.piece.Parts["P1"] = Part.Part()
         self.piece.Parts["P1"].measures[1] = Measure.Measure()
         self.measure = self.piece.Parts["P1"].measures[1]
+        self.attrs["measure"] = {"number": "1"}
+        self.attrs["part"] = {"id": "P1"}
+
 
     def testNoTags(self):
         self.tags.remove("direction")
@@ -260,21 +263,21 @@ class testDynamicsAndSound(testHandleDirections):
 
     def testSoundDynamicAttr(self):
         self.tags.append("sound")
-        self.attrs["dynamics"] = "80"
+        self.attrs["sound"] = {"dynamics": "80"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertTrue(hasattr(self.measure, "volume"))
         self.assertEqual("80", self.measure.volume)
 
     def testSoundTempoAttr(self):
         self.tags.append("sound")
-        self.attrs["tempo"] = "80"
+        self.attrs["sound"] = {"tempo": "80"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertTrue(hasattr(self.measure, "tempo"))
         self.assertEqual("80", self.measure.tempo)
 
     def testSoundAttrs(self):
         self.tags.append("sound")
-        self.attrs = {"dynamics": "60", "tempo": "50"}
+        self.attrs["sound"] = {"dynamics": "60", "tempo": "50"}
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(self.measure, "tempo"))
         self.assertEqual("50", self.measure.tempo)

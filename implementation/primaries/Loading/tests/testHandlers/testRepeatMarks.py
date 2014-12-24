@@ -8,8 +8,8 @@ class testRepeatSymbols(testclass.TestClass):
         self.handler = MxmlParser.HandleRepeatMarking
         self.piece.Parts["P1"] = Part.Part()
         self.piece.Parts["P1"].measures[1] = Measure.Measure()
-        MxmlParser.part_id = "P1"
-        MxmlParser.measure_id = 1
+        self.attrs["measure"] = {"number": "1"}
+        self.attrs["part"] = {"id": "P1"}
         self.measure = self.piece.Parts["P1"].measures[1]
         self.tags.append("direction")
         self.attrs["direction"] = {"placement": "above"}
