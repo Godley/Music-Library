@@ -22,7 +22,6 @@ class testFile(xmlSet):
         self.assertTrue(self.m_num in piece.Parts[self.p_id].measures)
 
 class GraceNotes(xmlSet):
-    # TODO: GRACENOTE SLASHES
     def setUp(self):
         xmlSet.setUp(self)
         self.p_id = "P1"
