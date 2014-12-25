@@ -32,6 +32,10 @@ class testKeySig(xmlSet):
         if hasattr(self, "measure"):
             self.assertTrue(hasattr(self.measure, "key"))
 
+    def testInstance(self):
+        if hasattr(self, "measure"):
+            self.assertIsInstance(self.measure.key, Key.Key)
+
     def testKeyFifths(self):
         if hasattr(self, "measure"):
             self.assertEqual(self.fifths, self.measure.key.fifths)
