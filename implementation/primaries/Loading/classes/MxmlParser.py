@@ -535,6 +535,7 @@ def HandleMeasures(tag, attrib, content, piece):
 def handleBarline(tag, attrib, content, piece):
     part_id = GetID(attrib, "part", "id")
     measure_id = GetID(attrib, "measure", "number")
+    measure = None
     if measure_id is not None:
         measure_id = int(measure_id)
     if part_id is not None and measure_id is not None:
@@ -542,16 +543,48 @@ def handleBarline(tag, attrib, content, piece):
     if "barline" in tag and measure is not None:
         if not hasattr(measure, "barlines"):
             measure.barlines = {}
+        barline = None
+        location = None
+        style = None
+        repeat = None
         if "barline" in attrib:
             if "location" in attrib["barline"]:
                 if attrib["barline"]["location"] not in measure.barlines:
-                    measure.barlines[attrib["barline"]["location"]] = Measure.Barline()
+                    location = attrib["barline"]["location"]
+
+        if tag[-1] == "ending":
+            btype = None
+            number = None
+            if "ending" in attrib:
+                if "number" in attrib["ending"]:
+                    if location not in measure.barlines:
+                        number = int(attrib["ending"]["number"])
+                    else:
+                        measure.barlines[location].number = int(attrib["ending"]["number"])
+                if "type" in attrib["ending"]:
+                    if location not in measure.barlines:
+                        btype = attrib["ending"]["type"]
+                    else:
+                        measure.barlines[location].type = attrib["ending"]["type"]
+
+            barline = Measure.BarMark(type=btype, number=number)
+
         if tag[-1] == "bar-style":
-                measure.barlines[attrib["barline"]["location"]].style = content["bar-style"]
+                if location not in measure.barlines:
+                    style = content["bar-style"]
+                else:
+                    measure.barlines[location].style = style
         if tag[-1] == "repeat":
             if "repeat" in attrib:
                 if "direction" in attrib["repeat"]:
-                    measure.barlines[attrib["barline"]["location"]].repeat = attrib["repeat"]["direction"]
+                    if location not in measure.barlines:
+                        repeat = attrib["repeat"]["direction"]
+                    else:
+                        measure.barlines[location].repeat = attrib["repeat"]["direction"]
+        if location not in measure.barlines:
+            if barline is None:
+                barline = Measure.Barline(style=style, repeat=repeat)
+            measure.barlines[location] = barline
 def CheckID(tag, attrs, string, id_name):
     if string in tag:
         return attrs[string][id_name]

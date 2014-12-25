@@ -1,5 +1,5 @@
 from implementation.primaries.Loading.tests.testUsingXML.setup import xmlSet, parsePiece
-from implementation.primaries.Loading.classes import Directions
+from implementation.primaries.Loading.classes import Directions, Measure
 import os
 
 partname = "lines.xml"
@@ -152,6 +152,81 @@ class testMeasure2Item3(testWedge):
         self.item_id = 2
         self.p_id = "P1"
         testWedge.setUp(self)
+
+class testEndings(xmlSet):
+    def setUp(self):
+        xmlSet.setUp(self)
+        self.p_id = "P1"
+        if hasattr(self, "measure_id"):
+            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+
+    def testHasBarline(self):
+        if hasattr(self, "measure"):
+            self.assertTrue(hasattr(self.measure, "barlines"))
+
+    def testBarlineKeys(self):
+        if hasattr(self, "key"):
+            self.assertTrue(self.key in self.measure.barlines)
+
+    def testBarlineInstance(self):
+        if hasattr(self, "key"):
+            self.assertIsInstance(self.measure.barlines[self.key], Measure.BarMark)
+
+    def testBarlineNum(self):
+        if hasattr(self, "num"):
+            self.assertEqual(self.num, self.measure.barlines[self.key].number)
+
+    def testBarlineType(self):
+        if hasattr(self, "type"):
+            self.assertEqual(self.type, self.measure.barlines[self.key].type)
+
+class testMeasure3Left(testEndings):
+    def setUp(self):
+        self.measure_id = 3
+        self.key = "left"
+        self.num = 1
+        self.type = "start"
+        testEndings.setUp(self)
+
+class testMeasure3Right(testEndings):
+    def setUp(self):
+        self.measure_id = 3
+        self.key = "right"
+        self.num = 1
+        self.type = "stop"
+        testEndings.setUp(self)
+
+class testMeasure4Left(testEndings):
+    def setUp(self):
+        self.measure_id = 4
+        self.key = "left"
+        self.num = 2
+        self.type = "start"
+        testEndings.setUp(self)
+
+class testMeasure4Right(testEndings):
+    def setUp(self):
+        self.measure_id = 4
+        self.key = "right"
+        self.num = 2
+        self.type = "stop"
+        testEndings.setUp(self)
+
+class testMeasure5Left(testEndings):
+    def setUp(self):
+        self.measure_id = 5
+        self.key = "left"
+        self.num = 3
+        self.type = "start"
+        testEndings.setUp(self)
+
+class testMeasure5Right(testEndings):
+    def setUp(self):
+        self.measure_id = 5
+        self.key = "right"
+        self.num = 3
+        self.type = "stop"
+        testEndings.setUp(self)
 
 class testMeasure6Item1(testOctaveShift):
     def setUp(self):
