@@ -170,15 +170,22 @@ class testEndings(xmlSet):
 
     def testBarlineInstance(self):
         if hasattr(self, "key"):
-            self.assertIsInstance(self.measure.barlines[self.key], Measure.BarMark)
+            self.assertIsInstance(self.measure.barlines[self.key], Measure.Barline)
 
+    def testBarlineEnding(self):
+        if hasattr(self, "key"):
+            self.assertTrue(hasattr(self.measure.barlines[self.key], "ending"))
+
+    def testBarlineEndingInstance(self):
+        if hasattr(self, "key"):
+            self.assertIsInstance(self.measure.barlines[self.key].ending, Measure.EndingMark)
     def testBarlineNum(self):
         if hasattr(self, "num"):
-            self.assertEqual(self.num, self.measure.barlines[self.key].number)
+            self.assertEqual(self.num, self.measure.barlines[self.key].ending.number)
 
     def testBarlineType(self):
         if hasattr(self, "type"):
-            self.assertEqual(self.type, self.measure.barlines[self.key].type)
+            self.assertEqual(self.type, self.measure.barlines[self.key].ending.type)
 
 class testMeasure3Left(testEndings):
     def setUp(self):

@@ -25,18 +25,21 @@ class Barline(BaseClass.Base):
         if "style" in kwargs:
             if kwargs["style"] is not None:
                 self.style = kwargs["style"]
+        if "repeat" in kwargs:
+            if kwargs["repeat"] is not None:
+                self.repeat = kwargs["repeat"]
+        if "ending" in kwargs:
+            if kwargs["ending"] is not None:
+                self.ending = kwargs["ending"]
         BaseClass.Base.__init__(self)
 
-class BarMark(Barline):
+class EndingMark(BaseClass.Base):
     def __init__(self, **kwargs):
-        style = None
         if "number" in kwargs:
             self.number = kwargs["number"]
         if "type" in kwargs:
             self.type = kwargs["type"]
-        if "style" in kwargs:
-            style = kwargs["style"]
-        Barline.__init__(self, style=style)
+        BaseClass.Base.__init__(self)
 
 class Transposition(BaseClass.Base):
     def __init__(self, **kwargs):
