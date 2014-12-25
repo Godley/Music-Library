@@ -41,7 +41,7 @@ class MxmlParser(object):
                             "score-part","sound","print","rest","slur",
                             "accent","strong-accent","staccato",
                             "staccatissimo","up-bow","down-bow",
-                            "cue","grace","wedge","octave-shift"]
+                            "cue","grace"]
         self.end_tag = ["tremolo"]
         self.piece = Piece.Piece()
         self.d = False

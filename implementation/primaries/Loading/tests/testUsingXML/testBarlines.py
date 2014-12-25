@@ -6,7 +6,11 @@ partname = "barlines.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
 piece = parsePiece(os.path.join(folder, partname))
 
-class testArpeg(xmlSet):
+# TODO: HANDLE THIS:
+# <barline location="right">
+#         <ending number="1" type="stop"/>
+#         </barline>
+class testBarlines(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
         self.m_num = 32
