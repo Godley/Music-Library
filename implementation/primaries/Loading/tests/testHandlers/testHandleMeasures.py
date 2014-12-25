@@ -358,6 +358,7 @@ class testBarline(MeasureTesting):
         self.tags.append("barline")
 
     def testBarline(self):
+        self.attrs["barline"] = {"location": "left"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertTrue(hasattr(self.measure, "barlines"))
         self.assertIsInstance(self.measure.barlines, dict)
