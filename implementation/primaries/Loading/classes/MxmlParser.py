@@ -1,5 +1,5 @@
 import xml.sax
-from xml.sax import make_parser
+from xml.sax import make_parser, handler
 from implementation.primaries.Loading.classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
 
 note = None
@@ -29,7 +29,7 @@ class MxmlParser(object):
         self.excluded = excluded
 
         # add any handlers, along with the tagname associated with it, to this dictionary
-        self.structure = {"movement-title": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
+        self.structure = {"movement-title": SetupPiece, "credit-words": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
              "pitch":  HandlePitch, "unpitched": HandlePitch,"articulations":handleArticulation,
              "fermata": HandleFermata, "slur":handleOtherNotations, "lyric":handleLyrics,
@@ -129,6 +129,7 @@ class MxmlParser(object):
 
     def parse(self, file):
         parser = make_parser()
+
         class Extractor(xml.sax.ContentHandler):
             def __init__(self, parent):
                 self.parent = parent
@@ -145,8 +146,11 @@ class MxmlParser(object):
 
             def endElement(self, name):
                 self.parent.EndTag(name)
-        fob = open(file, 'r')
         parser.setContentHandler(Extractor(self))
+        # OFFLINE MODE
+        parser.setFeature(handler.feature_external_ges, False)
+        fob = open(file, 'r')
+
         parser.parse(fob)
         return self.piece
 
@@ -199,6 +203,39 @@ def SetupPiece(tag, attrib, content, piece):
                     piece.meta.composer = composer
                 if not hasattr(piece.meta, "title"):
                     piece.meta.title = title
+        if "credit" in tag:
+            page = 0
+            if "credit" in attrib:
+                if "page" in attrib["credit"]:
+                    page = int(attrib["credit"]["page"])
+            if tag[-1] == "credit-words":
+                x = None
+                y = None
+                size = None
+                justify = None
+                valign = None
+                text = None
+                if "credit-words" in attrib:
+                    temp = attrib["credit-words"]
+
+                    if "default-x" in temp:
+                        x = float(temp["default-x"])
+                    if "default-y" in temp:
+                        y = float(temp["default-y"])
+                    if "font-size" in temp:
+                        size = float(temp["font-size"])
+                    if "justify" in temp:
+                        justify = temp["justify"]
+                    if "valign" in temp:
+                        valign = temp["valign"]
+                if "credit-words" in content:
+                    text = content["credit-words"]
+                credit = Directions.CreditText(page=page, x=x,y=y,size=size,justify=justify,valign=valign,text=text)
+                if not hasattr(piece, "meta"):
+                    piece.meta = Meta.Meta()
+                if not hasattr(piece.meta, "credits"):
+                    piece.meta.credits = []
+                piece.meta.credits.append(credit)
     return return_val
 
 
@@ -655,6 +692,8 @@ def CreateNote(tag, attrs, content, piece):
             else:
                 id = len(note.beams)
             note.beams[id] = Note.Beam(type=type)
+
+
         if tag[-1] == "accidental":
             if not hasattr(note, "pitch"):
                 note.pitch = Note.Pitch()

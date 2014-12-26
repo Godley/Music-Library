@@ -22,6 +22,37 @@ class Text(BaseClass.Base):
             ret_list.append(self.text)
         return ret_list
 
+class CreditText(Text):
+    def __init__(self, **kwargs):
+        font = None
+        size = None
+        text = None
+        if "font" in kwargs:
+            font = kwargs["font"]
+        if "size" in kwargs:
+            size = kwargs["size"]
+        if "text" in kwargs:
+            text = kwargs["text"]
+        if "x" in kwargs:
+            if kwargs["x"] is not None:
+                self.x = kwargs["x"]
+        if "y" in kwargs:
+            if kwargs["y"] is not None:
+                self.y = kwargs["y"]
+        if "size" in kwargs:
+            if kwargs["size"] is not None:
+                self.size = kwargs["size"]
+        if "justify" in kwargs:
+            if kwargs["justify"] is not None:
+                self.justify = kwargs["justify"]
+        if "valign" in kwargs:
+            if kwargs["valign"] is not None:
+                self.valign = kwargs["valign"]
+        if "page" in kwargs:
+            if kwargs["page"] is not None:
+                self.page = kwargs["page"]
+        Text.__init__(self, font=font, size=size, text=text)
+
 class Lyric(Text):
     def __init__(self, **kwargs):
         font = None
