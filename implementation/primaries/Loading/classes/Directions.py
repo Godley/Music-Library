@@ -55,6 +55,29 @@ class Direction(Text):
             font = kwargs["font"]
         Text.__init__(self,text=text,size=size,font=font)
 
+class Forward(Direction):
+    def __init__(self, **kwargs):
+        text = None
+        size = None
+        font = None
+        placement = None
+        if "duration" in kwargs:
+            self.duration = kwargs["duration"]
+        if "type" in kwargs:
+            self.type = kwargs["type"]
+        if "placement" in kwargs:
+            if kwargs["placement"] is not None:
+                placement = kwargs["placement"]
+        if "text" in kwargs:
+            text = kwargs["text"]
+        if "size" in kwargs:
+            size = kwargs["size"]
+        if "font" in kwargs:
+            font = kwargs["font"]
+        Direction.__init__(self, placement=placement, text=text, size=size, font=font)
+
+
+
 class RepeatSign(Direction):
     def __init__(self, **kwargs):
         text = None

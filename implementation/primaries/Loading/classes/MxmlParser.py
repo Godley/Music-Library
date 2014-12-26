@@ -903,7 +903,7 @@ def HandleDirections(tags, attrs, chars, piece):
     return return_val
 
 def HandleRepeatMarking(tags, attrs, chars, piece):
-    if "direction" in tags:
+    if "direction" in tags or "forward" in tags:
         measure = None
         part_id = GetID(attrs, "part", "id")
         measure_id = GetID(attrs, "measure", "number")
@@ -915,6 +915,11 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
         direction = None
         if measure is not None:
             d_type = None
+            if "forward" in tags:
+
+                if tags[-1] == "duration":
+                    duration = int(chars["duration"])
+                    direction = Directions.Forward(duration=duration)
             if tags[-1] == "segno" or tags[-1] == "coda":
                 d_type = tags[-1]
                 direction = Directions.RepeatSign(type=d_type)
