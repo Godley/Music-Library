@@ -604,7 +604,7 @@ def handleBarline(tag, attrib, content, piece):
                     else:
                         measure.barlines[attrib["barline"]["location"]].ending.number = int(attrib["ending"]["number"])
                 if "type" in attrib["ending"]:
-                    if attrib["barline"]["location"] not in measure.barlines or not hasattr(measure.barline[attrib["barline"]["location"]], "ending"):
+                    if attrib["barline"]["location"] not in measure.barlines or not hasattr(measure.barlines[attrib["barline"]["location"]], "ending"):
                         btype = attrib["ending"]["type"]
                     else:
                         measure.barlines[attrib["barline"]["location"]].ending.type = attrib["ending"]["type"]
