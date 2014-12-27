@@ -61,9 +61,9 @@ class MxmlParser(object):
                 self.attribs[name] = attrs
             self.d = CheckDynamics(name)
             if self.d and "dynamics" in self.tags:
-                self.handler(self.tags, self.attribs, None, self.piece)
+                self.handler(self.tags, self.attribs, self.chars, self.piece)
             if name in self.closed_tags and self.handler is not None:
-                self.handler(self.tags, self.attribs, None, self.piece)
+                self.handler(self.tags, self.attribs, self.chars, self.piece)
     def validateData(self, text):
         if text == "\n":
             return False
@@ -260,17 +260,18 @@ def UpdatePart(tag, attrib, content, piece):
 def handleArticulation(tag, attrs, content, piece):
     global note
     if len(tag) > 0:
-        if "articulation" in tag:
+        if "articulations" in tag:
             if note is not None:
                 accent = None
-                if not hasattr(note, "articulations"):
+                if not hasattr(note, "notations"):
                     note.notations = []
                 if tag[-1] == "accent":
                     accent = Mark.Accent()
                 if tag[-1] == "strong-accent":
                     type = ""
-                    if "type" in attrs:
-                        type = attrs["type"]
+                    if "strong-accent" in attrs:
+                        if "type" in attrs["strong-accent"]:
+                            type = attrs["strong-accent"]["type"]
                     accent = Mark.StrongAccent(type=type)
                 if tag[-1] == "staccato":
                     accent = Mark.Staccato()
@@ -566,7 +567,7 @@ def HandleMeasures(tag, attrib, content, piece):
                         frame_note.fingering = content["fingering"]
     handleBarline(tag, attrib, content, piece)
     HandleDirections(tag, attrib, content, piece)
-
+    handleArticulation(tag, attrib, content, piece)
     return return_val
 
 def handleBarline(tag, attrib, content, piece):
@@ -707,6 +708,7 @@ def CreateNote(tag, attrs, content, piece):
     HandleSlidesAndGliss(tag, attrs, content, piece)
     handleLyrics(tag, attrs, content, piece)
     handleOrnaments(tag, attrs, content, piece)
+    handleOtherNotations(tag, attrs, content, piece)
     return ret_value
 
 def HandleArpeggiates(tags, attrs, content, piece):

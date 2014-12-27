@@ -1,5 +1,6 @@
 from implementation.primaries.Loading.classes import BaseClass
 
+# TODO: probably needs refactoring to 1 ornament class?
 class InvertedMordent(BaseClass.Base):
     def __init__(self):
         BaseClass.Base.__init__(self)
