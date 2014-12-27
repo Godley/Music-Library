@@ -13,7 +13,7 @@ class testFolderBrowser(unittest.TestCase):
         [shutil.copyfile(os.path.join(folder, "zipped", file_list[i]), main_files[i]) for i in range(len(main_files)) if not os.path.exists(main_files[i])]
 
     def testXMLFileList(self):
-        self.assertEqual(2, len(folderBrowser.xmlFiles))
+        self.assertEqual(4, len(folderBrowser.xmlFiles))
 
     def testXMLFileNames(self):
         self.assertTrue("beams.xml" in folderBrowser.xmlFiles)

@@ -4,6 +4,8 @@ from implementation.primaries.ExtractMetadata.classes import FolderExtractor
 folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/real scores'
 Extractor = FolderExtractor.FolderExtractor(folder=folder)
 Extractor.Load()
+ExtractorByTag = FolderExtractor.FolderExtractor(folder=folder,byTag=True)
+ExtractorByTag.Load()
 
 class testFolderExtractorByChars(unittest.TestCase):
     def setUp(self):
@@ -39,3 +41,27 @@ class testFolderExtractorByChars(unittest.TestCase):
         self.files = ['zip_test_1.xml','breathMarks.xml','beams.xml', 'zip_test_2.xml']
         for file in self.files:
             self.assertTrue(file in Extractor.tracked['treble'])
+
+class testFolderExtractorByTag(unittest.TestCase):
+    def setUp(self):
+
+        self.indexes = ['part-name','key','clef']
+
+    def testIndexes(self):
+        for id in self.indexes:
+            self.assertTrue(id in ExtractorByTag.tracked)
+
+    def testFilesInPartname(self):
+        self.flute_list = ['beams.xml','breathMarks.xml','zip_test_1.xml']
+        for name in self.flute_list:
+            self.assertTrue(name in ExtractorByTag.tracked['part-name'])
+
+    def testFilesInKey(self):
+        self.key_list = ['beams.xml','breathMarks.xml','zip_test_1.xml','zip_test_2.xml']
+        for name in self.key_list:
+            self.assertTrue(name in ExtractorByTag.tracked['key'])
+
+    def testFilesInClef(self):
+        self.clef_list = ['beams.xml','breathMarks.xml','zip_test_1.xml','zip_test_2.xml']
+        for name in self.clef_list:
+            self.assertTrue(name in ExtractorByTag.tracked['clef'])

@@ -52,6 +52,8 @@ class Extractor(ContentHandler):
             if self.byTag:
                 if tag not in self.parent.tracked and tag not in ["mode","fifths","sign","line"]:
                     self.parent.tracked[tag] = {self.parent.file: {"value": entry, "attribs": {self.parent.file:self.attrib}}}
+                if self.parent.file not in self.parent.tracked[tag]:
+                    self.parent.tracked[tag][self.parent.file] = {"value": entry, "attribs": {self.parent.file:self.attrib}}
             else:
                 if entry not in self.parent.tracked:
                     self.parent.tracked[entry] = {self.parent.file: {"tag": tag, "attribs": {self.parent.file:self.attrib}}}
