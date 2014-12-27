@@ -33,7 +33,7 @@ class MxmlParser(object):
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
              "pitch":  HandlePitch, "unpitched": HandlePitch,"articulations":handleArticulation,
              "fermata": HandleFermata, "slur":handleOtherNotations, "lyric":handleLyrics,
-             "technical": handleOtherNotations, "time-modification": handleTimeMod}
+             "technical": handleOtherNotations}
         # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
         self.multiple_attribs = ["beats", "sign"]
         # any tags which close instantly in here
@@ -709,6 +709,7 @@ def CreateNote(tag, attrs, content, piece):
     handleLyrics(tag, attrs, content, piece)
     handleOrnaments(tag, attrs, content, piece)
     handleOtherNotations(tag, attrs, content, piece)
+    handleTimeMod(tag, attrs, content, piece)
     return ret_value
 
 def HandleArpeggiates(tags, attrs, content, piece):
@@ -1014,8 +1015,22 @@ def handleLyrics(tags, attrs, chars, piece):
             note.lyrics[number].syllabic = chars["syllabic"]
 
 def handleTimeMod(tags, attrs, chars, piece):
+    if "notations" in tags:
+        if tags[-1] == "tuplet":
+            type = None
+            bracket = None
+            if not hasattr(note, "notations"):
+                note.notations = []
+            if "tuplet" in attrs:
+                if "type" in attrs["tuplet"]:
+                    type = attrs["tuplet"]["type"]
+                if "bracket" in attrs["tuplet"]:
+                    bracket = YesNoToBool(attrs["tuplet"]["bracket"])
+            tuplet = Note.Tuplet(bracket=bracket, type=type)
+            note.notations.append(tuplet)
     if "time-modification" in tags:
-        note.timeMod = Note.TimeModifier()
+        if not hasattr(note, "timeMod"):
+            note.timeMod = Note.TimeModifier()
         if tags[-1] == "actual-notes":
             note.timeMod.actual = int(chars["actual-notes"])
         if tags[-1] == "normal-notes":

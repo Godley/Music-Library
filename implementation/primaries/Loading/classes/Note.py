@@ -70,6 +70,15 @@ class Note(BaseClass.Base):
         st = BaseClass.Base.__str__(self)
         return st
 
+class Tuplet(BaseClass.Base):
+    def __init__(self, **kwargs):
+        if "type" in kwargs:
+            if kwargs["type"] is not None:
+                self.type = kwargs["type"]
+        if "bracket" in kwargs:
+            if kwargs["bracket"] is not None:
+                self.bracket = kwargs["bracket"]
+        BaseClass.Base.__init__(self)
 
 class GraceNote(BaseClass.Base):
     def __init__(self, **kwargs):
