@@ -12,4 +12,13 @@ class Clef(object):
         if "octave_change" in kwargs:
             self.octave_change = kwargs["octave_change"]
 
-
+    def __str__(self):
+        name = ""
+        index = self.sign + str(self.line)
+        if index in clef_type:
+            name = clef_type[index]
+        else:
+            name += index
+        if hasattr(self, "octave_change"):
+            name += "shifted " + str(self.octave_change) + " octave(s)"
+        return name

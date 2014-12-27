@@ -6,7 +6,7 @@ test_file = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries
 
 class Dummy(object):
     def __init__(self, byTag = False, file='/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases/accidentals.xml'):
-        self.tags = ["key","part-name","fifths","mode"]
+        self.tags = ["key","part-name","fifths","mode","clef","sign","line"]
         self.byTag = byTag
         self.tracked = {}
         self.file = file.split('/')[-1]
@@ -57,6 +57,15 @@ class testExtractorByChars(unittest.TestCase):
     def testPartFile(self):
         self.assertTrue("accidentals.xml" in byCharsExtractor.parse_class.tracked["Flute"])
 
+    def testClef(self):
+        self.assertTrue("treble" in byCharsExtractor.parse_class.tracked)
+
+    def testClefFile(self):
+        self.assertTrue("accidentals.xml" in byCharsExtractor.parse_class.tracked["treble"])
+
+    def testClefTag(self):
+        self.assertEqual("clef", byCharsExtractor.parse_class.tracked["treble"]["accidentals.xml"]["tag"])
+
 
 class testExtractorByTags(unittest.TestCase):
     def setUp(self):
@@ -82,3 +91,11 @@ class testExtractorByTags(unittest.TestCase):
     def testPartFile(self):
         self.assertTrue("accidentals.xml" in ByTagExtractor.parse_class.tracked["part-name"])
 
+    def testClef(self):
+        self.assertTrue("clef" in ByTagExtractor.parse_class.tracked)
+
+    def testClefFile(self):
+        self.assertTrue("accidentals.xml" in ByTagExtractor.parse_class.tracked["clef"])
+
+    def testClefValue(self):
+        self.assertEqual("treble", ByTagExtractor.parse_class.tracked["clef"]["accidentals.xml"]["value"])
