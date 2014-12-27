@@ -2,12 +2,12 @@ from implementation.primaries.ExtractMetadata.classes import FolderBrowser, Extr
 import os
 from xml.sax import make_parser, handler
 class FolderExtractor(object):
-    def __init__(self, folder=None, byTag=False):
+    def __init__(self, folder=None, byTag=False, tags=['part-name','key','fifths','mode','clef','line','sign']):
         self.folder = folder
         self.Browser = FolderBrowser.Browser(folder=self.folder)
         self.Browser.Load()
         self.tracked = {}
-        self.tags = ['part-name','key','fifths','mode','clef','line','sign']
+        self.tags = tags
 
     def Load(self):
         for f in self.Browser.xmlFiles:
