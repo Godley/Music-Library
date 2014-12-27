@@ -16,30 +16,31 @@ class Extractor(ContentHandler):
 
     def characters(self, chars):
         entry = chars
-        key = self.name
-        if key != "":
+        tag = self.name
+        if tag != "":
             if self.name == "key":
                 self.key = Key.Key()
+                return
             if self.name == "fifths":
                 self.key.fifths = int(chars)
+                return
             if self.name == "mode":
                 self.key.mode = chars
-                key = "key"
+                tag = "key"
+
             if hasattr(self, "key"):
                 if hasattr(self.key, "fifths"):
                     if hasattr(self.key, "mode"):
                         entry = str(self.key)
+                        self.key = None
             if self.byTag:
-                pass
+                if tag not in self.parent.tracked and tag not in ["mode","fifths"]:
+                    self.parent.tracked[tag] = {self.parent.file: {"value": entry, "attribs": {self.parent.file:self.attrib}}}
             else:
                 if entry not in self.parent.tracked:
-                    self.parent.tracked[entry] = {"files": [self.parent.file], "tags": [key], "attribs": {self.parent.file:self.attrib}}
-                if self.parent.file not in self.parent.tracked[entry]["files"]:
-                    self.parent.tracked[entry]["files"].append(self.parent.file)
-                if key not in self.parent.tracked[entry]["tags"]:
-                    self.parent.tracked[entry]["tags"].append(key)
-                if self.parent.file not in self.parent.tracked[entry]["attribs"]:
-                    self.parent.tracked[entry]["tags"]["attribs"] = self.attrib
+                    self.parent.tracked[entry] = {self.parent.file: {"tag": tag, "attribs": {self.parent.file:self.attrib}}}
+                if self.parent.file not in self.parent.tracked[entry]:
+                    self.parent.tracked[entry][self.parent.file] = {"tag":tag, "attribs":self.attrib}
 
 
     def endElement(self, name):
