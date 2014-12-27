@@ -60,6 +60,62 @@ class testCredit(xmlSet):
         if hasattr(self, "item"):
             self.assertEqual(self.page, self.item.page)
 
+class testDirection(xmlSet):
+    def setUp(self):
+        self.p_id = "P1"
+        if hasattr(self, "measure_id"):
+            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+
+        if hasattr(self, "item_id"):
+            self.item = self.measure.items[self.item_id]
+
+    def testInstance(self):
+        if hasattr(self, "item"):
+            self.assertIsInstance(self.item, Directions.Direction)
+
+    def testPlacement(self):
+        if hasattr(self, "item"):
+            self.assertEqual(self.placement, self.item.placement)
+
+    def testVal(self):
+        if hasattr(self, "item"):
+            self.assertEqual(self.words, self.item.text)
+
+class testRehearsal(testDirection):
+    def testInstance(self):
+        if hasattr(self, "item"):
+            self.assertIsInstance(self.item, Directions.RehearsalMark)
+
+class testLyric(xmlSet):
+    def setUp(self):
+        self.p_id = "P1"
+        if hasattr(self, "measure_id"):
+            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+        if hasattr(self, "item_id"):
+            self.item = self.measure.items[self.item_id]
+
+    def testExists(self):
+        if hasattr(self, "item"):
+            self.assertTrue(hasattr(self.item, "lyrics"))
+
+    def testInDict(self):
+        if hasattr(self, "item"):
+            self.assertTrue(self.number in self.item.lyrics)
+
+    def testInstance(self):
+        if hasattr(self, "item"):
+            self.assertIsInstance(self.item.lyrics[self.number], Directions.Lyric)
+
+
+
+    def testSyllable(self):
+        if hasattr(self, "item"):
+            self.assertEqual(self.syllable, self.item.lyrics[self.number].syllabic)
+
+    def testText(self):
+        if hasattr(self, "item"):
+            self.assertEqual(self.text, self.item.lyrics[self.number].text)
+
 class testCreditOne(testCredit):
     def setUp(self):
         self.note_id = 0
@@ -95,3 +151,28 @@ class testCreditThree(testCredit):
         self.value = "Charlotte Godley"
         self.page = 1
         testCredit.setUp(self)
+
+class testMeasureTwo(testDirection):
+    def setUp(self):
+        self.measure_id = 2
+        self.item_id = 0
+        self.placement = "above"
+        self.words = "blablabla"
+        testDirection.setUp(self)
+
+class testMeasureFive(testRehearsal):
+    def setUp(self):
+        self.measure_id = 5
+        self.item_id = 0
+        self.words = "B"
+        self.placement = "above"
+        testRehearsal.setUp(self)
+
+class testMeasureSeven(testLyric):
+    def setUp(self):
+        self.measure_id = 7
+        self.item_id = 0
+        self.text = "abc"
+        self.syllable = "single"
+        self.number = 1
+        testLyric.setUp(self)

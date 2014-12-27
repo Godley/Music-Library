@@ -705,6 +705,7 @@ def CreateNote(tag, attrs, content, piece):
                     note.pitch.accidental = content["accidental"]
     HandleArpeggiates(tag, attrs, content, piece)
     HandleSlidesAndGliss(tag, attrs, content, piece)
+    handleLyrics(tag, attrs, content, piece)
 
     return ret_value
 
@@ -831,14 +832,28 @@ def HandleDirections(tags, attrs, chars, piece):
 
             size = None
             font = None
-            chars = chars["words"]
+            text = chars["words"]
 
             if "words" in attrs:
                 if "font-size" in attrs["words"]:
                     size = attrs["words"]["font-size"]
                 if "font-family" in attrs["words"]:
                     font = attrs["words"]["font-family"]
-            direction = Directions.Direction(font=font,text=chars,size=size,placement=placement)
+            direction = Directions.Direction(font=font,text=text,size=size,placement=placement)
+            measure.items.append(direction)
+        if tags[-1] == "rehearsal":
+            return_val = 1
+
+            size = None
+            font = None
+            text = chars["rehearsal"]
+
+            if "words" in attrs:
+                if "font-size" in attrs["words"]:
+                    size = attrs["words"]["font-size"]
+                if "font-family" in attrs["words"]:
+                    font = attrs["words"]["font-family"]
+            direction = Directions.RehearsalMark(font=font,text=text,size=size,placement=placement)
             measure.items.append(direction)
         if "metronome" in tags:
             if tags[-1] == "beat-unit":
@@ -983,16 +998,18 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
 def handleLyrics(tags, attrs, chars, piece):
     global note
     if "lyric" in tags:
-        note.lyrics = {}
-        id = len(note.lyrics)
+        if not hasattr(note, "lyrics"):
+            note.lyrics = {}
+        number = len(note.lyrics)
         if "lyric" in attrs:
             if "number" in attrs["lyric"]:
-                id = int(attrs["lyric"]["number"])
-        note.lyrics[id] = Directions.Lyric()
+                number = int(attrs["lyric"]["number"])
+        if number not in note.lyrics:
+            note.lyrics[number] = Directions.Lyric()
         if tags[-1] == "text":
-            note.lyrics[id].text = chars["text"]
+            note.lyrics[number].text = chars["text"]
         if tags[-1] == "syllabic":
-            note.lyrics[id].syllabic = chars["syllabic"]
+            note.lyrics[number].syllabic = chars["syllabic"]
 
 def handleTimeMod(tags, attrs, chars, piece):
     if "time-modification" in tags:

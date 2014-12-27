@@ -86,6 +86,9 @@ class Direction(Text):
             font = kwargs["font"]
         Text.__init__(self,text=text,size=size,font=font)
 
+class RehearsalMark(Direction):
+    pass
+
 class Forward(Direction):
     def __init__(self, **kwargs):
         text = None

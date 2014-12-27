@@ -31,8 +31,8 @@ class Base(object):
             if type(values[key]) is dict:
                 if len(values[key]) > 0:
                     st += key + " : "
-                    for k in values[k].keys():
-                        if type(values[key][k]) is not str and type(values[key][k]) is not int and type(item) is not float:
+                    for k in values[key].keys():
+                        if type(values[key][k]) is not str and type(values[key][k]) is not int and type(values[key][k]) is not float:
                             values[key][k].indent = self.indent + 1
                         st += key + " : " + str(values[key][k])
         return st
