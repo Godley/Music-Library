@@ -11,15 +11,15 @@ class testHandleArticulation(testclass.TestClass):
         self.note = MxmlParser.note
         self.part.measures[1].items.append(MxmlParser.note)
         self.handler = MxmlParser.handleArticulation
-        self.tags.append("articulation")
+        self.tags.append("articulations")
 
 
     def testNoData(self):
-        self.tags.remove("articulation")
+        self.tags.remove("articulations")
         self.assertEqual(None,self.handler(self.tags,self.attrs,self.chars,self.piece))
 
     def testIrrelevant(self):
-        self.tags.remove("articulation")
+        self.tags.remove("articulations")
         self.tags.append("what")
         self.assertEqual(None,self.handler(self.tags,self.attrs,self.chars,self.piece))
 
