@@ -285,6 +285,14 @@ def handleArticulation(tag, attrs, content, piece):
                     accent.placement = attrs["placement"]
                 if accent is not None:
                     note.notations.append(accent)
+                if tag[-1] == "breath-mark":
+                    if not hasattr(note, "notations"):
+                        note.notations = []
+                    note.notations.append(Mark.BreathMark())
+                if tag[-1] == "caesura":
+                    if not hasattr(note, "notations"):
+                        note.notations = []
+                    note.notations.append(Mark.Caesura())
             return 1
     return None
 
@@ -329,6 +337,7 @@ def handleOtherNotations(tag, attrs, content, piece):
                 if tag[-1] in content:
                     text = content[tag[-1]]
                 note.techniques.append(Mark.Technique(type=tag[-1], symbol=text))
+
             return 1
     return None
 
@@ -996,6 +1005,7 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
                         measure.segno = attrs["sound"]["segno"]
                     if "tocoda" in attrs["sound"]:
                         measure.tocoda = attrs["sound"]["tocoda"]
+
 
 
 def handleLyrics(tags, attrs, chars, piece):

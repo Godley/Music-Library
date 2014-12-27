@@ -81,6 +81,12 @@ class Fermata(Notation):
 
         Notation.__init__(self,placement=placement,symbol=symbol)
 
+class BreathMark(Notation):
+    pass
+
+class Caesura(BreathMark):
+    pass
+
 class Technique(Notation):
     def __init__(self, **kwargs):
         placement = None
