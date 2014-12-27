@@ -706,7 +706,7 @@ def CreateNote(tag, attrs, content, piece):
     HandleArpeggiates(tag, attrs, content, piece)
     HandleSlidesAndGliss(tag, attrs, content, piece)
     handleLyrics(tag, attrs, content, piece)
-
+    handleOrnaments(tag, attrs, content, piece)
     return ret_value
 
 def HandleArpeggiates(tags, attrs, content, piece):
