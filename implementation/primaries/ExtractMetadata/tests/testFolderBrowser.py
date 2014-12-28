@@ -1,7 +1,7 @@
 import unittest, os, shutil
 from implementation.primaries.ExtractMetadata.classes import FolderBrowser
 
-folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/real scores'
+folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases/metadata'
 folderBrowser = FolderBrowser.Browser(folder=folder)
 folderBrowser.Load()
 folderBrowser.CopyZippedFiles()

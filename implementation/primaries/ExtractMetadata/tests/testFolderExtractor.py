@@ -1,7 +1,7 @@
-import unittest
+import unittest, os
 from implementation.primaries.ExtractMetadata.classes import FolderExtractor
 
-folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/real scores'
+folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases/metadata'
 Extractor = FolderExtractor.FolderExtractor(folder=folder)
 Extractor.Load()
 ExtractorByTag = FolderExtractor.FolderExtractor(folder=folder,byTag=True)
@@ -9,8 +9,11 @@ ExtractorByTag.Load()
 
 class testFolderExtractorByChars(unittest.TestCase):
     def setUp(self):
-
         self.indexes = ['Flute','Piccolo','C major','F major', 'treble', 'bass']
+
+        Extractor.Load()
+        if os.path.exists(os.path.join(folder, '.extractedchars')):
+            os.remove(os.path.join(folder, '.extractedchars'))
 
     def testIndexes(self):
         for id in self.indexes:
@@ -42,10 +45,26 @@ class testFolderExtractorByChars(unittest.TestCase):
         for file in self.files:
             self.assertTrue(file in Extractor.tracked['treble'])
 
+    def testPickler(self):
+        file = os.path.join(folder, '.extractedtags')
+        self.assertFalse(os.path.exists(file))
+        ExtractorByTag.Save()
+        self.assertTrue(os.path.exists(file))
+
+    def testUnpickler(self):
+        ExtractorByTag.Save()
+        ExtractorByTag.Empty()
+        self.assertEqual(0, len(ExtractorByTag.tracked.keys()))
+        ExtractorByTag.LoadCache()
+        self.assertEqual(3, len(ExtractorByTag.tracked.keys()))
+
 class testFolderExtractorByTag(unittest.TestCase):
     def setUp(self):
-
         self.indexes = ['part-name','key','clef']
+
+        ExtractorByTag.Load()
+        if os.path.exists(os.path.join(folder, '.extractedtags')):
+            os.remove(os.path.join(folder, '.extractedtags'))
 
     def testIndexes(self):
         for id in self.indexes:
@@ -65,3 +84,16 @@ class testFolderExtractorByTag(unittest.TestCase):
         self.clef_list = ['beams.xml','breathMarks.xml','zip_test_1.xml','zip_test_2.xml']
         for name in self.clef_list:
             self.assertTrue(name in ExtractorByTag.tracked['clef'])
+
+    def testPickler(self):
+        data_file = os.path.join(folder, '.extractedchars')
+        self.assertFalse(os.path.exists(data_file))
+        Extractor.Save()
+        self.assertTrue(os.path.exists(data_file))
+
+    def testUnpickler(self):
+        Extractor.Save()
+        Extractor.Empty()
+        self.assertEqual(0, len(Extractor.tracked.keys()))
+        Extractor.LoadCache()
+        self.assertEqual(12, len(Extractor.tracked.keys()))

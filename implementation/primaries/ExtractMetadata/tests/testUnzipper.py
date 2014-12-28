@@ -1,7 +1,7 @@
 import unittest, os
 from implementation.primaries.ExtractMetadata.classes import Unzipper
 
-folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/real scores'
+folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases/metadata'
 zip_folder = os.path.join(folder, "zipped")
 unzipper = Unzipper.Unzipper(zip_folder = zip_folder, dest=folder)
 unzipper.Load()
