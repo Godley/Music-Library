@@ -19,7 +19,7 @@ class testFinder(unittest.TestCase):
         count = 0
         for thing in results.keys():
             count += len(results[thing].keys())
-        self.assertEqual(3, count)
+        self.assertEqual(4, count)
 
     def testPartialMatch(self):
         results = finder.Match("Flu")

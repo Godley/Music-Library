@@ -46,17 +46,20 @@ class testFolderExtractorByChars(unittest.TestCase):
             self.assertTrue(file in Extractor.tracked['treble'])
 
     def testPickler(self):
-        file = os.path.join(folder, '.extractedtags')
+        if os.path.exists(os.path.join(folder, '.extractedchars')):
+            os.remove(os.path.join(folder, '.extractedchars'))
+        file = os.path.join(folder, '.extractedchars')
+        print(file)
         self.assertFalse(os.path.exists(file))
-        ExtractorByTag.Save()
+        Extractor.Save()
         self.assertTrue(os.path.exists(file))
 
     def testUnpickler(self):
-        ExtractorByTag.Save()
-        ExtractorByTag.Empty()
-        self.assertEqual(0, len(ExtractorByTag.tracked.keys()))
-        ExtractorByTag.LoadCache()
-        self.assertEqual(3, len(ExtractorByTag.tracked.keys()))
+        Extractor.Save()
+        Extractor.Empty()
+        self.assertEqual(0, len(Extractor.tracked.keys()))
+        Extractor.LoadCache()
+        self.assertEqual(13, len(Extractor.tracked.keys()))
 
 class testFolderExtractorByTag(unittest.TestCase):
     def setUp(self):
@@ -86,14 +89,17 @@ class testFolderExtractorByTag(unittest.TestCase):
             self.assertTrue(name in ExtractorByTag.tracked['clef'])
 
     def testPickler(self):
-        data_file = os.path.join(folder, '.extractedchars')
+        if os.path.exists(os.path.join(folder, '.extractedtags')):
+            os.remove(os.path.join(folder, '.extractedtags'))
+        data_file = os.path.join(folder, '.extractedtags')
+        print(os.path.exists(data_file))
         self.assertFalse(os.path.exists(data_file))
-        Extractor.Save()
+        ExtractorByTag.Save()
         self.assertTrue(os.path.exists(data_file))
 
     def testUnpickler(self):
-        Extractor.Save()
-        Extractor.Empty()
-        self.assertEqual(0, len(Extractor.tracked.keys()))
-        Extractor.LoadCache()
-        self.assertEqual(12, len(Extractor.tracked.keys()))
+        ExtractorByTag.Save()
+        ExtractorByTag.Empty()
+        self.assertEqual(0, len(ExtractorByTag.tracked.keys()))
+        ExtractorByTag.LoadCache()
+        self.assertEqual(3, len(ExtractorByTag.tracked.keys()))
