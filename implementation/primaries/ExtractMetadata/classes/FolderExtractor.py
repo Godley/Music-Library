@@ -8,10 +8,13 @@ class FolderExtractor(object):
         self.Browser = FolderBrowser.Browser(folder=self.folder)
         self.Browser.Load()
         self.tracked = {}
+        self.temp = {}
         self.tags = tags
 
     def Load(self):
-        for f in self.Browser.xmlFiles:
+        self.LoadCache()
+        uncached = [f for f in self.Browser.xmlFiles if not self.FileInCache(f)]
+        for f in uncached:
             file_to_open = os.path.join(self.folder, f)
             self.file = f
             path_extractor = Extractor.Extractor(self, byTag=self.byTag)
@@ -20,6 +23,16 @@ class FolderExtractor(object):
             parser.setContentHandler(path_extractor)
             fob = open(file_to_open, 'r')
             parser.parse(fob)
+        tempkeys = self.temp.keys()
+        newkeys = self.tracked.keys()
+        if tempkeys != newkeys:
+            self.Save()
+
+    def FileInCache(self, file):
+        for key in self.tracked:
+            if file in self.tracked[key].keys():
+                return True
+        return False
 
     def Save(self):
         if not self.byTag:
@@ -33,14 +46,27 @@ class FolderExtractor(object):
     def Empty(self):
         self.tracked = {}
 
+    def CacheExists(self):
+        if not self.byTag:
+            file = os.path.join(self.folder, ".extractedchars")
+        else:
+            file = os.path.join(self.folder, ".extractedtags")
+        if os.path.exists(file):
+            statinfo = os.stat(file)
+            if statinfo.st_size > 0:
+                return True
+        return False
+
     def LoadCache(self):
         if not self.byTag:
             file = os.path.join(self.folder, ".extractedchars")
         else:
             file = os.path.join(self.folder, ".extractedtags")
-        fob = open(file, 'rb')
-        unpickler = pickle.Unpickler(fob)
-        self.tracked.update(unpickler.load())
+        if self.CacheExists():
+            fob = open(file, 'rb')
+            unpickler = pickle.Unpickler(fob)
+            self.temp = unpickler.load()
+            self.tracked.update(self.temp)
 
 
 
