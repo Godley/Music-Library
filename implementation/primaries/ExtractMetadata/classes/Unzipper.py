@@ -1,6 +1,6 @@
 import os, zipfile
 class Unzipper(object):
-    def __init__(self, zip_folder=None, dest=None):
+    def __init__(self, zip_folder=None, dest=None, filelist=None):
         self.folder = zip_folder
         self.fileList = []
         self.dest = dest

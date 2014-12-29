@@ -67,3 +67,20 @@ class Playlister(object):
         current_lists.update(extra_playlists)
         return current_lists
 
+    def GetPartMatchesInExcludedAndCurrent(self):
+        playlists = self.GetPartMatchesInExcluded()
+        full_list = self.extractor.tracked
+        keys_playlists = playlists.keys()
+        keys_full = full_list.keys()
+        excluded = [key for key in keys_full if key not in keys_playlists]
+        for key in keys_playlists:
+            for key_2 in excluded:
+                split_2 = key_2.split(" ")
+                for item in split_2:
+                    if item in key and item != "major" and item != "minor":
+                        for file in full_list[key_2].keys():
+                            if file not in playlists[key]:
+                                playlists[key].append(file)
+        return playlists
+
+

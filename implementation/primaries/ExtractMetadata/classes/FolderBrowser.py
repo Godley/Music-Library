@@ -10,9 +10,11 @@ class Browser(object):
     def Load(self):
         for file in os.listdir(self.folder):
             if file.endswith('xml'):
-                self.xmlFiles.append(file)
+                if file not in self.xmlFiles:
+                    self.xmlFiles.append(file)
             if file.endswith('mxl'):
-                self.mxlFiles.append(file)
+                if file not in self.mxlFiles:
+                    self.mxlFiles.append(file)
 
     def CopyZippedFiles(self):
         zipFolder = os.path.join(self.folder, "zipped")
@@ -22,10 +24,10 @@ class Browser(object):
             path = os.path.join(self.folder, file)
             dest = os.path.join(self.folder, "zipped", file)
             if not os.path.exists(dest):
-                print(dest)
                 shutil.copyfile(path, dest)
 
     def removeCopiedFilesFromMainFolder(self):
         zipped_paths = [os.path.join(self.zipped_folder, file) for file in self.mxlFiles]
         main_paths = [os.path.join(self.folder, file) for file in self.mxlFiles]
         [os.remove(path) for path in main_paths if os.path.exists(path)]
+        self.mxlFiles = []

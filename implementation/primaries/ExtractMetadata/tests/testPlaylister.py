@@ -34,3 +34,7 @@ class testPlaylister(unittest.TestCase):
     def testRecorderInHalfMatches(self):
         playlists = playlister.GetPartMatchesInExcluded()
         self.assertTrue("Recorder" in playlists)
+
+    def testLengthPlaylistInHalfMatchExcludedToCurrent(self):
+        playlists = playlister.GetPartMatchesInExcludedAndCurrent()
+        self.assertTrue(True)

@@ -49,7 +49,6 @@ class testFolderExtractorByChars(unittest.TestCase):
         if os.path.exists(os.path.join(folder, '.extractedchars')):
             os.remove(os.path.join(folder, '.extractedchars'))
         file = os.path.join(folder, '.extractedchars')
-        print(file)
         self.assertFalse(os.path.exists(file))
         Extractor.Save()
         self.assertTrue(os.path.exists(file))
@@ -92,7 +91,6 @@ class testFolderExtractorByTag(unittest.TestCase):
         if os.path.exists(os.path.join(folder, '.extractedtags')):
             os.remove(os.path.join(folder, '.extractedtags'))
         data_file = os.path.join(folder, '.extractedtags')
-        print(os.path.exists(data_file))
         self.assertFalse(os.path.exists(data_file))
         ExtractorByTag.Save()
         self.assertTrue(os.path.exists(data_file))
