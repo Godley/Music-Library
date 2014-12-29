@@ -12,7 +12,6 @@ class Unzipper(object):
 
     def Unzip(self):
         files = [zipfile.ZipFile(os.path.join(self.folder, f)) for f in self.fileList]
-
         for zipper in files:
             names = zipper.namelist()
             to_unzip = None

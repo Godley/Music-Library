@@ -6,6 +6,7 @@ class Browser(object):
         self.zipped_folder = os.path.join(folder, "zipped")
         self.xmlFiles = []
         self.mxlFiles = []
+        self.i = 0
 
     def Load(self):
         for file in os.listdir(self.folder):
@@ -13,8 +14,9 @@ class Browser(object):
                 if file not in self.xmlFiles:
                     self.xmlFiles.append(file)
             if file.endswith('mxl'):
-                if file not in self.mxlFiles:
-                    self.mxlFiles.append(file)
+                if os.path.exists(os.path.join(self.folder, file)):
+                    if file not in self.mxlFiles:
+                        self.mxlFiles.append(file)
 
     def CopyZippedFiles(self):
         zipFolder = os.path.join(self.folder, "zipped")

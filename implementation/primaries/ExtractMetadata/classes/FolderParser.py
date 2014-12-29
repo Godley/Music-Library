@@ -6,6 +6,7 @@ class FolderParser(object):
         self.folder = folder
         self.browser = FolderBrowser.Browser(folder=self.folder)
         self.unzipper = Unzipper.Unzipper(zip_folder=os.path.join(self.folder, "zipped"), dest=self.folder)
+        self.extractor = FolderExtractor.FolderExtractor(folder=self.folder)
         self.ZipFiles = []
         self.MusicFiles = []
 
@@ -17,6 +18,7 @@ class FolderParser(object):
     def MoveZipFiles(self):
         self.browser.CopyZippedFiles()
         self.browser.removeCopiedFilesFromMainFolder()
+        self.ZipFiles = self.browser.mxlFiles
 
     def UnzipFiles(self):
         if len(self.ZipFiles) > 0:
@@ -24,3 +26,8 @@ class FolderParser(object):
         else:
             self.unzipper.Load()
         self.unzipper.Unzip()
+        self.LoadFiles()
+
+    def MetaParse(self):
+        self.extractor.Load()
+        self.MusicData = self.extractor.tracked
