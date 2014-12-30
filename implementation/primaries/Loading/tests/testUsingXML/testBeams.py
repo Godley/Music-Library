@@ -22,83 +22,83 @@ class testArpeg(xmlSet):
         self.assertTrue(self.m_num in piece.Parts[self.p_id].measures)
 
     def testNote1(self):
-        item = piece.Parts[self.p_id].measures[1].items[0]
+        item = piece.Parts[self.p_id].measures[1].items[1][0]
         self.assertFalse(hasattr(item, "beams"))
 
     def testNote2(self):
-        item = piece.Parts[self.p_id].measures[1].items[1]
+        item = piece.Parts[self.p_id].measures[1].items[1][1]
         self.assertTrue(hasattr(item, "beams"))
 
     def testNote2ID(self):
-        item = piece.Parts[self.p_id].measures[1].items[1]
+        item = piece.Parts[self.p_id].measures[1].items[1][1]
         self.assertTrue(1 in item.beams)
 
     def testNote2Type(self):
-        item = piece.Parts[self.p_id].measures[1].items[1]
+        item = piece.Parts[self.p_id].measures[1].items[1][1]
         self.assertEqual("begin", item.beams[1].type)
 
     def testNote3(self):
-        item = piece.Parts[self.p_id].measures[1].items[2]
+        item = piece.Parts[self.p_id].measures[1].items[1][2]
         self.assertTrue(hasattr(item, "beams"))
 
     def testNote3ID(self):
-        item = piece.Parts[self.p_id].measures[1].items[2]
+        item = piece.Parts[self.p_id].measures[1].items[1][2]
         self.assertTrue(1 in item.beams)
 
     def testNote3Type(self):
-        item = piece.Parts[self.p_id].measures[1].items[2]
+        item = piece.Parts[self.p_id].measures[1].items[1][2]
         self.assertEqual("continue", item.beams[1].type)
 
     def testNote4(self):
-        item = piece.Parts[self.p_id].measures[1].items[3]
+        item = piece.Parts[self.p_id].measures[1].items[1][3]
         self.assertTrue(hasattr(item, "beams"))
 
     def testNote4ID(self):
-        item = piece.Parts[self.p_id].measures[1].items[3]
+        item = piece.Parts[self.p_id].measures[1].items[1][3]
         self.assertTrue(1 in item.beams)
 
     def testNote4Type(self):
-        item = piece.Parts[self.p_id].measures[1].items[3]
+        item = piece.Parts[self.p_id].measures[1].items[1][3]
         self.assertEqual("end", item.beams[1].type)
 
     def testNote5(self):
-        item = piece.Parts[self.p_id].measures[1].items[4]
+        item = piece.Parts[self.p_id].measures[1].items[1][4]
         self.assertFalse(hasattr(item, "beams"))
 
     def testNote6(self):
-        item = piece.Parts[self.p_id].measures[1].items[5]
+        item = piece.Parts[self.p_id].measures[1].items[1][5]
         self.assertTrue(hasattr(item, "beams"))
 
     def testNote6ID(self):
-        item = piece.Parts[self.p_id].measures[1].items[5]
+        item = piece.Parts[self.p_id].measures[1].items[1][5]
         self.assertTrue(1 in item.beams)
 
     def testNote6Type(self):
-        item = piece.Parts[self.p_id].measures[1].items[5]
+        item = piece.Parts[self.p_id].measures[1].items[1][5]
         self.assertEqual("begin", item.beams[1].type)
 
     def testNote7(self):
-        item = piece.Parts[self.p_id].measures[1].items[6]
+        item = piece.Parts[self.p_id].measures[1].items[1][6]
         self.assertTrue(hasattr(item, "beams"))
 
     def testNote7ID(self):
-        item = piece.Parts[self.p_id].measures[1].items[6]
+        item = piece.Parts[self.p_id].measures[1].items[1][6]
         self.assertTrue(1 in item.beams)
 
     def testNote7Type(self):
-        item = piece.Parts[self.p_id].measures[1].items[6]
+        item = piece.Parts[self.p_id].measures[1].items[1][6]
         self.assertEqual("continue", item.beams[1].type)
 
     def testNote8(self):
-        item = piece.Parts[self.p_id].measures[1].items[7]
+        item = piece.Parts[self.p_id].measures[1].items[1][7]
         self.assertTrue(hasattr(item, "beams"))
 
     def testNote8ID(self):
-        item = piece.Parts[self.p_id].measures[1].items[7]
+        item = piece.Parts[self.p_id].measures[1].items[1][7]
         self.assertTrue(1 in item.beams)
 
     def testNote8Type(self):
-        item = piece.Parts[self.p_id].measures[1].items[7]
+        item = piece.Parts[self.p_id].measures[1].items[1][7]
         self.assertEqual("end", item.beams[1].type)
 
 

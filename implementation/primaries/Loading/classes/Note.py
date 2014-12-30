@@ -40,8 +40,11 @@ class Pitch(object):
             st += "unpitched"
         if hasattr(self, "step"):
             st += self.step
+
+        if hasattr(self, "alter"):
+            st += alter[int(self.alter)]
         if hasattr(self, "accidental"):
-            st += alter[int(self.accidental)]
+            st += "("+self.accidental+")"
         if hasattr(self, "octave"):
             st += self.octave
         return st
@@ -65,7 +68,7 @@ class Note(BaseClass.Base):
             self.divisions = 1
 
     def __str__(self):
-        if hasattr(self, "divisions"):
+        if hasattr(self, "divisions") and hasattr(self, "duration"):
             self.duration = self.duration / self.divisions
         st = BaseClass.Base.__str__(self)
         return st

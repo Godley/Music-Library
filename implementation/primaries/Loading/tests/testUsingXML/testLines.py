@@ -26,7 +26,7 @@ class testWedge(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.Parts[self.p_id].measures[self.measure_id]
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[self.item_id]
+            self.item = self.measure.items[1][self.item_id]
 
     def testInstance(self):
         if hasattr(self, "item"):

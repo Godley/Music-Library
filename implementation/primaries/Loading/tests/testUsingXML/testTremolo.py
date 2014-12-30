@@ -27,7 +27,7 @@ class testTremolo(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.Parts[self.p_id].measures[self.measure_id]
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[self.item_id]
+            self.item = self.measure.items[1][self.item_id]
         if hasattr(self, "notation_id"):
             self.notation = self.item.notations[self.notation_id]
 

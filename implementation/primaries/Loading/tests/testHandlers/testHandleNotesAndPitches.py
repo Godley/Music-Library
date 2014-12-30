@@ -16,6 +16,12 @@ class notes(unittest.TestCase):
         self.piece.Parts["P1"] = Part.Part()
         self.piece.Parts["P1"].measures[1] = Measure.Measure()
 
+    def copy(self):
+        for item in MxmlParser.item_list:
+            print(item)
+            if item not in self.piece.Parts["P1"].measures[1].items[1]:
+                self.piece.Parts["P1"].measures[1].items[1] = [item]
+            MxmlParser.item_list.pop()
 class testCreateNoteHandler(notes):
 
     def testNoTags(self):
@@ -31,8 +37,11 @@ class testCreateNoteHandler(notes):
 
     def testNoteTag(self):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual(Note.Note, type(MxmlParser.note), "ERROR: note global val is not a note instance in testNoteTag")
-        self.assertEqual(MxmlParser.note, self.piece.Parts["P1"].measures[1].items[0],"ERROR: note not added to measure correctly in testNoteTag")
+        print("testNoteTag")
+        self.copy()
+        self.assertIsInstance(MxmlParser.note, Note.Note)
+        print(MxmlParser.note, self.piece.Parts["P1"].measures[1].items[1][0])
+        self.assertEqual(MxmlParser.note, self.piece.Parts["P1"].measures[1].items[1][0])
 
     def testRestTag(self):
         self.tags.append("rest")
@@ -66,9 +75,10 @@ class testCreateNoteHandler(notes):
     def testTieTag(self):
         self.tags.append("tie")
 
-        self.attrs["type"] = "start"
+        self.attrs["tie"] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        expected = self.piece.Parts["P1"].measures[1].items[0]
+        self.copy()
+        expected = self.piece.Parts["P1"].measures[1].items[1][0]
         self.assertEqual(1, len(MxmlParser.note.ties), "ERROR: note tie not added to tie list in note")
         self.assertEqual("start",expected.ties[-1].type, "ERROR: note tie type not matching to test input")
 
@@ -184,7 +194,7 @@ class testNotehead(testCreateNoteHandler):
     def testNoteheadTag(self):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(MxmlParser.note, "notehead"))
-        self.assertEqual(Note.Notehead, type(MxmlParser.note.notehead))
+        self.assertIsInstance(MxmlParser.note.notehead, Note.Notehead)
 
     def testNoteheadFilled(self):
         self.tags.append("notehead")

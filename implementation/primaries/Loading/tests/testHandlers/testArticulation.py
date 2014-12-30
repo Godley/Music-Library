@@ -7,9 +7,10 @@ class testHandleArticulation(testclass.TestClass):
         self.piece.Parts["P1"] = Part.Part()
         self.part = self.piece.Parts["P1"]
         self.part.measures[1] = Measure.Measure()
+        self.part.measures[1].items[1] = []
         MxmlParser.note = Note.Note()
         self.note = MxmlParser.note
-        self.part.measures[1].items.append(MxmlParser.note)
+        self.part.measures[1].items[1].append(MxmlParser.note)
         self.handler = MxmlParser.handleArticulation
         self.tags.append("articulations")
 

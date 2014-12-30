@@ -5,7 +5,7 @@ class Measure(BaseClass.Base):
         BaseClass.Base.__init__(self)
         if "width" in kwargs:
             self.width = float(kwargs["width"])
-        self.items = []
+        self.items = {1:[]}
 
 
     def CheckDivisions(self):

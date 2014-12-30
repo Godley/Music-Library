@@ -28,7 +28,7 @@ class testNote(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.Parts[self.p_id].measures[self.measure_id]
         if hasattr(self, "note_id"):
-            self.note = self.measure.items[self.note_id]
+            self.note = self.measure.items[1][self.note_id]
 
     def testInstance(self):
         if hasattr(self, "note"):
