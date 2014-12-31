@@ -393,7 +393,6 @@ def HandleMeasures(tag, attrib, content, piece):
             staves = int(content["staves"])
             for i in range(staves):
                 measure.items[i+1] = []
-            print(measure.items)
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
             return_val = 1
@@ -678,36 +677,35 @@ def CreateNote(tag, attrs, content, piece):
         if part_id is not None and measure_id is not None:
             measure = piece.Parts[part_id].measures[measure_id]
         if "note" in tag and note is None:
-            note = Note.Note()
-            item_list.append(note)
-            note_id = len(item_list) - 1
+            item_list.append(Note.Note())
+            note = item_list[-1]
             ret_value = 1
 
         if "rest" in tag:
-            note.rest = True
+            item_list[-1].rest = True
         if "cue" in tag:
-            note.cue = True
+            item_list[-1].cue = True
 
         if "grace" in tag:
             slash = False
             if "grace" in attrs:
                 if "slash" in attrs["grace"]:
                     slash = YesNoToBool(attrs["grace"]["slash"])
-            note.grace = Note.GraceNote(slash=slash)
+            item_list[-1].grace = Note.GraceNote(slash=slash)
         if tag[-1] == "duration" and "note" in tag:
-            note.duration = float(content["duration"])
+            item_list[-1].duration = float(content["duration"])
             if hasattr(measure, "divisions"):
                 if measure.divisions is not None:
                     note.divisions = float(measure.divisions)
 
         if "dot" in tag:
-            note.dotted = True
+            item_list[-1].dotted = True
         if "tie" in tag:
-            note.ties.append(Note.Tie(attrs["tie"]["type"]))
+            item_list[-1].ties.append(Note.Tie(attrs["tie"]["type"]))
         if "chord" in tag:
-            note.chord = True
+            item_list[-1].chord = True
         if tag[-1] == "stem":
-            note.stem = Note.Stem(content["stem"])
+            item_list[-1].stem = Note.Stem(content["stem"])
 
 
         if tag[-1] == "beam":
@@ -715,19 +713,19 @@ def CreateNote(tag, attrs, content, piece):
             if "beam" in content:
                 type = content["beam"]
             if not hasattr(note, "beams"):
-                note.beams = {}
+                item_list[-1].beams = {}
             if "beam" in attrs:
                 id = int(attrs["beam"]["number"])
             else:
                 id = len(note.beams)
-            note.beams[id] = Note.Beam(type=type)
+            item_list[-1].beams[id] = Note.Beam(type=type)
 
 
         if tag[-1] == "accidental":
             if not hasattr(note, "pitch"):
-                note.pitch = Note.Pitch()
+                item_list[-1].pitch = Note.Pitch()
                 if "accidental" in content:
-                    note.pitch.accidental = content["accidental"]
+                    item_list[-1].pitch.accidental = content["accidental"]
 
             else:
                 if "accidental" in content:
@@ -742,7 +740,8 @@ def CreateNote(tag, attrs, content, piece):
     return ret_value
 
 def HandleNoteheads(tags, attrs, content, piece):
-    if "note" in tags and "notehead" in tags:
+    if "note" in tags:
+        if tags[-1] == "notehead":
             note.notehead = Note.Notehead()
             if "notehead" in attrs:
                 if "filled" in attrs["notehead"]:

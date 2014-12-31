@@ -222,7 +222,6 @@ class testMetronome(testHandleDirections):
         self.attrs["metronome"] = {"font-family": "times", "font-size": "6.5", "parentheses": "yes"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        print(self.measure.items[1][0])
         self.assertTrue(hasattr(self.measure.items[1][0], "beat"))
         self.assertEqual("quarter", self.measure.items[1][0].beat)
         self.assertTrue(hasattr(self.measure.items[1][0], "font"))

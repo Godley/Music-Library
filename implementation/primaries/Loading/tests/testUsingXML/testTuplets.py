@@ -50,7 +50,7 @@ class testTimeMod(xmlSet):
         if hasattr(self, "item") and hasattr(self, "notation_id"):
             self.assertTrue(hasattr(self.item, "notations"))
 
-    def testInstance(self):
+    def testInstanceTuplet(self):
         if hasattr(self, "notation_id"):
             self.assertIsInstance(self.item.notations[self.notation_id], Note.Tuplet)
 
