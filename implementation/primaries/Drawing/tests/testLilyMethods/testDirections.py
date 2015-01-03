@@ -113,7 +113,7 @@ class testPedalTypeOff(Lily):
         self.item = Directions.Pedal(type="stop")
         self.lilystring = "\sustainOff"
 
-
+# TODO: REFACTOR BRACKET CLASS ACCORDING TO LILYPOND NOTATION
 class testBracket(Lily):
     def setUp(self):
         self.item = Directions.Bracket()
