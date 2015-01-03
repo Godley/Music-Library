@@ -4,42 +4,42 @@ from implementation.primaries.Drawing.classes import Directions
 class testBasicDirection(Lily):
     def setUp(self):
         self.item = Directions.Direction()
-        self.lilystring = ""
+        self.lilystring = "\markup{\n  }"
 
 class testDirectionPlacedBelow(Lily):
     def setUp(self):
         self.item = Directions.Direction(placement="below")
-        self.lilystring = "something else"
+        self.lilystring = "_\markup{\n  }"
 
 class testDirectionPlacedAbove(Lily):
     def setUp(self):
         self.item = Directions.Direction(placement="above")
-        self.lilystring = "hello world"
+        self.lilystring = "^\markup{\n  }"
 
 class testDirectionWithText(Lily):
     def setUp(self):
         self.item = Directions.Direction(text="whatsup")
-        self.lilystring = "something else"
+        self.lilystring = "\markup{\n whatsup }"
 
 class testDirectionFont(Lily):
     def setUp(self):
         self.item = Directions.Direction(font="calibri")
-        self.lilystring = "calibrid"
+        self.lilystring = "\\override Voice.TextScript.font-family = #'calibri\n\\markup{\n  }"
 
 class testDirectionWithFontSize(Lily):
     def setUp(self):
-        self.item = Directions.Direction(size="what")
-        self.lilystring = "what"
+        self.item = Directions.Direction(size=11)
+        self.lilystring = "\\override Voice.TextScript.font-size = #1\n\\markup{\n  }"
 
 class testRehearsalMark(Lily):
     def setUp(self):
         self.item = Directions.RehearsalMark()
-        self.lilystring = "what"
+        self.lilystring = "\mark \default"
 
 class testRehearsalMarkWithText(Lily):
     def setUp(self):
         self.item = Directions.RehearsalMark(text="B")
-        self.lilystring = "what"
+        self.lilystring = "\mark #2"
 
 
 class testForward(Lily):
@@ -123,6 +123,57 @@ class testBracketlEnd(Lily):
         self.item = Directions.Pedal(lineEnd="solid")
         self.lilystring = "what"
 
+class testMetronome(Lily):
+    def setUp(self):
+        self.item = Directions.Metronome()
+        self.lilystring = "wh"
+
+class testMetronomeBeat(Lily):
+    def setUp(self):
+        self.item = Directions.Metronome(beat=2)
+        self.lilystring = "wh"
+
+class testMetronomeMin(Lily):
+    def setUp(self):
+        self.item = Directions.Metronome(min=4)
+        self.lilystring = "wh"
+
+class testMetronomeBeatMin(Lily):
+    def setUp(self):
+        self.item = Directions.Metronome(beat=2,min=4)
+        self.lilystring = "wh"
+
+
+class testMetronomeParenthesis(Lily):
+    def setUp(self):
+        self.item = Directions.Metronome(parentheses=True)
+        self.lilystring = "wh"
+
+class testDynamic(Lily):
+    def setUp(self):
+        self.item = Directions.Dynamic()
+        self.lilystring = "wh"
+
+class testDynamicMark(Lily):
+    def setUp(self):
+        self.item = Directions.Dynamic(mark="f")
+        self.lilystring = "wh"
+
+class testWedge(Lily):
+    def setUp(self):
+        self.item = Directions.Wedge()
+        self.lilystring = "wh"
+
+class testWedgeType(Lily):
+    def setUp(self):
+        self.item = Directions.Wedge(type="crescendo")
+        self.lilystring = "wh"
+
+
+class testSlur(Lily):
+    def setUp(self):
+        self.item = Directions.Slur()
+        self.lilystring = "wh"
 
 
 

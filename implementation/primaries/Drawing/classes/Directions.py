@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.classes import BaseClass
-
+import string
 class Text(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
@@ -21,6 +21,10 @@ class Text(BaseClass.Base):
         if hasattr(self, "text"):
             ret_list.append(self.text)
         return ret_list
+
+    def toLily(self):
+        lilystring = "\markup{\n " + self.text + " }"
+        return lilystring
 
 class CreditText(Text):
     def __init__(self, **kwargs):
@@ -68,8 +72,6 @@ class Lyric(Text):
             self.syllabic = kwargs["syllabic"]
         Text.__init__(self, text=text, font=font, size=size)
 
-
-
 class Direction(Text):
     def __init__(self, **kwargs):
         text = None
@@ -86,8 +88,39 @@ class Direction(Text):
             font = kwargs["font"]
         Text.__init__(self,text=text,size=size,font=font)
 
+    def toLily(self):
+        default = 10
+
+        upper = Text.toLily(self)
+        symbol = ""
+        text = ""
+        if hasattr(self, "placement"):
+            if self.placement == "above":
+                symbol = "^"
+            if self.placement == "below":
+                symbol = "_"
+        if hasattr(self, "font"):
+            text += "\override Voice.TextScript.font-family = #'"+self.font + "\n"
+        if hasattr(self, "size"):
+            change = 0
+            if int(self.size) > default:
+                change = self.size - default
+            if int(self.size) < default:
+                change = -(default-self.size)
+            if change != 0:
+                text += "\override Voice.TextScript.font-size = #"+str(change) + "\n"
+        return text + symbol + upper
 class RehearsalMark(Direction):
-    pass
+    def toLily(self):
+        text ="\mark "
+        if self.text == "":
+            text += "\default"
+        else:
+            print(string.ascii_lowercase)
+            index = string.ascii_lowercase.index(self.text.lower()) + 1
+            text += "#"+str(index)
+        return text
+
 
 class Forward(Direction):
     def __init__(self, **kwargs):
