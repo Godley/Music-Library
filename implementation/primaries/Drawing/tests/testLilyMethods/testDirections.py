@@ -45,82 +45,93 @@ class testRehearsalMarkWithText(Lily):
 class testForward(Lily):
     def setUp(self):
         self.item = Directions.Forward()
-        self.lilystring = "what"
+        self.lilystring = ["\repeat percent 2 {","}"]
 
 class testForwardWithDuration(Lily):
     def setUp(self):
         self.item = Directions.Forward(duration=4)
-        self.lilystring = "what"
+        self.lilystring = ["\repeat percent 2 {","}"]
 
 class testRepeatSign(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign()
-        self.lilystring = "what"
+        self.lilystring = "\mark \markup{\n  }"
 
 class testSegno(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign(type="segno")
-        self.lilystring = "what"
+        self.lilystring = "\mark \markup{\n \musicglyph #\"scripts.segno\" }"
 
 class testCoda(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign(type="coda")
-        self.lilystring = "what"
+        self.lilystring = "\mark \markup{\n \musicglyph #\"scripts.coda\" }"
 
 class testOctaveShift(Lily):
     def setUp(self):
         self.item = Directions.OctaveShift()
-        self.lilystring = "what"
+        self.lilystring = "/ottava #0"
 
 class testOctaveShiftUp(Lily):
     def setUp(self):
         self.item = Directions.OctaveShift(amount=8)
-        self.lilystring = "what"
+        self.lilystring = "/ottava #1"
 
 class testOctaveShiftDown(Lily):
     def setUp(self):
-        self.item = Directions.OctaveShift(amount=16)
-        self.lilystring = "what"
+        self.item = Directions.OctaveShift(amount=-16)
+        self.lilystring = "/ottava #-2"
 
 class testWavyLine(Lily):
     def setUp(self):
         self.item = Directions.WavyLine()
-        self.lilystring = "what"
+        self.lilystring = "\startTrillSpan"
+
+class testWavyLineStop(Lily):
+    def setUp(self):
+        self.item = Directions.WavyLine(type="stop")
+        self.lilystring = "\stopTrillSpan"
 
 
 class testPedal(Lily):
     def setUp(self):
         self.item = Directions.Pedal()
-        self.lilystring = "what"
+        self.lilystring = "\sustainOn"
 
 class testPedalLine(Lily):
     def setUp(self):
         self.item = Directions.Pedal(line=True)
-        self.lilystring = "what"
+        self.lilystring = "\set Staff.pedalSustainStyle = #'mixed \n \sustainOn"
+
+class testPedalType(Lily):
+    def setUp(self):
+        self.item = Directions.Pedal(type="start")
+        self.lilystring = "\sustainOn"
+
+class testPedalTypeOff(Lily):
+    def setUp(self):
+        self.item = Directions.Pedal(type="stop")
+        self.lilystring = "\sustainOff"
+
 
 class testBracket(Lily):
     def setUp(self):
         self.item = Directions.Bracket()
-        self.lilystring = "what"
-
-class testBracketNumber(Lily):
-    def setUp(self):
-        self.item = Directions.Pedal(number=1)
-        self.lilystring = "what"
+        self.lilystring = "\alternative{}"
 
 class testBracketlType(Lily):
     def setUp(self):
-        self.item = Directions.Pedal(lineType="solid")
+        self.item = Directions.Bracket(lineType="solid")
         self.lilystring = "what"
 
 class testBracketendLength(Lily):
     def setUp(self):
-        self.item = Directions.Pedal(endLength=1)
+        self.item = Directions.Bracket(endLength=1)
         self.lilystring = "what"
 
 class testBracketlEnd(Lily):
     def setUp(self):
-        self.item = Directions.Pedal(lineEnd="solid")
+        self.item = Directions.Bracket(lineEnd="solid")
         self.lilystring = "what"
 
 class testMetronome(Lily):

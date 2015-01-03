@@ -143,6 +143,10 @@ class Forward(Direction):
             font = kwargs["font"]
         Direction.__init__(self, placement=placement, text=text, size=size, font=font)
 
+    def toLily(self):
+        ret_val = ["\repeat percent 2 {","}"]
+        return ret_val
+
 class RepeatSign(Direction):
     def __init__(self, **kwargs):
         text = None
@@ -150,7 +154,9 @@ class RepeatSign(Direction):
         font = None
         placement = None
         if "type" in kwargs:
-            self.type = kwargs["type"]
+            if kwargs["type"] is not None:
+                self.type = kwargs["type"]
+                text = "\musicglyph #\"scripts."+self.type+"\""
         if "placement" in kwargs:
             if kwargs["placement"] is not None:
                 placement = kwargs["placement"]
@@ -162,6 +168,9 @@ class RepeatSign(Direction):
             font = kwargs["font"]
         Direction.__init__(self, placement=placement, text=text,size=size,font=font)
 
+    def toLily(self):
+        return "\mark " + Direction.toLily(self)
+
 class Line(Direction):
     def __init__(self, **kwargs):
         text = None
@@ -170,9 +179,7 @@ class Line(Direction):
         placement = None
         if "placement" in kwargs:
             placement = kwargs["placement"]
-        if "amount" in kwargs:
-            if kwargs["amount"] is not None:
-                self.amount = kwargs["amount"]
+
         if "text" in kwargs:
             text = kwargs["text"]
         if "size" in kwargs:
@@ -185,10 +192,51 @@ class Line(Direction):
         Direction.__init__(self, text=text, size=size, font=font, placement=placement)
 
 class OctaveShift(Line):
-    pass
+    def __init__(self, **kwargs):
+        placement = None
+        text = None
+        font = None
+        size = None
+        type = None
+        if "amount" in kwargs:
+            if kwargs["amount"] is not None:
+                self.amount = kwargs["amount"]
+        if "placement" in kwargs:
+            placement = kwargs["placement"]
+
+        if "text" in kwargs:
+            text = kwargs["text"]
+        if "size" in kwargs:
+            size = kwargs["size"]
+        if "font" in kwargs:
+            font = kwargs["font"]
+        if "type" in kwargs:
+            if kwargs["type"] is not None:
+                type = kwargs["type"]
+        Line.__init__(self, text=text, type=type, size=size, font=font, placement=placement)
+
+    def toLily(self):
+        return_val = "/ottava #"
+        if hasattr(self, "amount"):
+            if self.amount == 8:
+                return_val += "1"
+            if self.amount == -8:
+                return_val += "-1"
+            if self.amount == 16:
+                return_val += "2"
+            if self.amount == -16:
+                return_val += "-2"
+        else:
+            return_val += "0"
+        return return_val
 
 class WavyLine(Line):
-    pass
+    def toLily(self):
+        if not hasattr(self, "type"):
+            text = "\start"
+        else:
+            text = "\\"+self.type
+        return text + "TrillSpan"
 
 class Pedal(Line):
     def __init__(self, **kwargs):
@@ -202,9 +250,6 @@ class Pedal(Line):
                 self.line = kwargs["line"]
         if "placement" in kwargs:
             placement = kwargs["placement"]
-        if "amount" in kwargs:
-            if kwargs["amount"] is not None:
-                self.amount = kwargs["amount"]
         if "text" in kwargs:
             text = kwargs["text"]
         if "size" in kwargs:
@@ -215,6 +260,22 @@ class Pedal(Line):
             type = kwargs["type"]
         Line.__init__(self, type=type, text=text, size=size, font=font, placement=placement)
 
+    def toLily(self):
+        return_val = ""
+        if hasattr(self, "line"):
+            if self.line:
+                return_val += "\set Staff.pedalSustainStyle = #'mixed \n "
+            else:
+                return_val += "\set Staff.pedalSustainStyle = #'text \n "
+        return_val += "\sustain"
+        if hasattr(self, "type"):
+            if self.type == "stop":
+                return_val += "Off"
+            elif self.type == "start":
+                return_val += "On"
+        else:
+            return_val += "On"
+        return return_val
 class Bracket(Line):
     def __init__(self, **kwargs):
         text = None
@@ -245,7 +306,8 @@ class Bracket(Line):
         if "type" in kwargs:
             type = kwargs["type"]
         Line.__init__(self, type=type, text=text, size=size, font=font, placement=placement)
-
+    def toLily(self):
+        return "\alternative{}"
 
 class Metronome(Direction):
     def __init__(self, **kwargs):
