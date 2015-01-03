@@ -117,7 +117,7 @@ class testPedalTypeOff(Lily):
 class testBracket(Lily):
     def setUp(self):
         self.item = Directions.Bracket()
-        self.lilystring = "\alternative{}"
+        self.lilystring = "\\alternative{}"
 
 class testBracketlType(Lily):
     def setUp(self):
@@ -137,54 +137,73 @@ class testBracketlEnd(Lily):
 class testMetronome(Lily):
     def setUp(self):
         self.item = Directions.Metronome()
-        self.lilystring = "wh"
+        self.lilystring = "\tempo "
 
 class testMetronomeBeat(Lily):
     def setUp(self):
         self.item = Directions.Metronome(beat=2)
-        self.lilystring = "wh"
+        self.lilystring = "\tempo 2 = "
 
 class testMetronomeMin(Lily):
     def setUp(self):
-        self.item = Directions.Metronome(min=4)
-        self.lilystring = "wh"
+        self.item = Directions.Metronome(min=60)
+        self.lilystring = "\tempo 60"
 
 class testMetronomeBeatMin(Lily):
     def setUp(self):
-        self.item = Directions.Metronome(beat=2,min=4)
-        self.lilystring = "wh"
+        self.item = Directions.Metronome(beat=2,min=60)
+        self.lilystring = "\tempo 2 = 60"
 
 
 class testMetronomeParenthesis(Lily):
     def setUp(self):
         self.item = Directions.Metronome(parentheses=True)
-        self.lilystring = "wh"
+        self.lilystring = "\tempo \"\" "
 
 class testDynamic(Lily):
     def setUp(self):
         self.item = Directions.Dynamic()
-        self.lilystring = "wh"
+        self.lilystring = "\\"
 
 class testDynamicMark(Lily):
     def setUp(self):
         self.item = Directions.Dynamic(mark="f")
-        self.lilystring = "wh"
+        self.lilystring = "\\f"
 
 class testWedge(Lily):
     def setUp(self):
         self.item = Directions.Wedge()
-        self.lilystring = "wh"
+        self.lilystring = "\\"
 
 class testWedgeType(Lily):
     def setUp(self):
         self.item = Directions.Wedge(type="crescendo")
-        self.lilystring = "wh"
+        self.lilystring = "\<"
 
+class testWedgeTypeDim(Lily):
+    def setUp(self):
+        self.item = Directions.Wedge(type="diminuendo")
+        self.lilystring = "\>"
+
+class testWedgeTypeStop(Lily):
+    def setUp(self):
+        self.item = Directions.Wedge(type="stop")
+        self.lilystring = "\!"
 
 class testSlur(Lily):
     def setUp(self):
         self.item = Directions.Slur()
-        self.lilystring = "wh"
+        self.lilystring = ""
+
+class testSlurStart(Lily):
+    def setUp(self):
+        self.item = Directions.Slur(type="start")
+        self.lilystring = "("
+
+class testSlurEnd(Lily):
+    def setUp(self):
+        self.item = Directions.Slur(type="stop")
+        self.lilystring = ")"
 
 
 

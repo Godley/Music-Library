@@ -116,7 +116,6 @@ class RehearsalMark(Direction):
         if self.text == "":
             text += "\default"
         else:
-            print(string.ascii_lowercase)
             index = string.ascii_lowercase.index(self.text.lower()) + 1
             text += "#"+str(index)
         return text
@@ -307,7 +306,7 @@ class Bracket(Line):
             type = kwargs["type"]
         Line.__init__(self, type=type, text=text, size=size, font=font, placement=placement)
     def toLily(self):
-        return "\alternative{}"
+        return "\\alternative{}"
 
 class Metronome(Direction):
     def __init__(self, **kwargs):
@@ -320,7 +319,7 @@ class Metronome(Direction):
             self.min = kwargs["min"]
         if hasattr(self, "min"):
             if hasattr(self, "beat"):
-                text = self.beat + " = " + self.min
+                text = str(self.beat) + " = " + str(self.min)
             else:
                 text = self.min
         if "size" in kwargs:
@@ -329,10 +328,20 @@ class Metronome(Direction):
             font = kwargs["font"]
         Text.__init__(self,text=text,size=size,font=font)
         if "parentheses" in kwargs:
-            if kwargs["parentheses"] == "yes":
-                self.parentheses = True
+            if kwargs["parentheses"] is not None:
+                self.parentheses = kwargs["parentheses"]
         else:
             self.parentheses = False
+    def toLily(self):
+        return_val = "\tempo "
+        if hasattr(self, "parentheses"):
+            if self.parentheses:
+                return_val += "\"\" "
+        if hasattr(self, "beat"):
+            return_val += str(self.beat) + " = "
+        if hasattr(self, "min"):
+            return_val += str(self.min)
+        return return_val
 
     def get_detail(self):
         ret_list = self.get()
@@ -348,12 +357,12 @@ class Dynamic(Direction):
         placement = None
         size = None
         font = None
+        text = None
         if "mark" in kwargs:
             self.mark = kwargs["mark"]
+            text = self.mark
         if "text" in kwargs:
             text = kwargs["text"]
-        else:
-            text = self.mark
 
         if "size" in kwargs:
             size = kwargs["size"]
@@ -368,6 +377,12 @@ class Dynamic(Direction):
                            size=size,
                            text=text)
 
+    def toLily(self):
+        return_val = "\\"
+        if hasattr(self, "mark"):
+            return_val += self.mark
+        return return_val
+
 class Wedge(Dynamic):
     def __init__(self, **kwargs):
         placement = None
@@ -379,6 +394,17 @@ class Wedge(Dynamic):
 
         Dynamic.__init__(self,placement=placement,text=self.type)
 
+    def toLily(self):
+        return_val = "\\"
+        if hasattr(self, "type"):
+            if self.type == "crescendo":
+                return_val += "<"
+            if self.type == "diminuendo":
+                return_val += ">"
+            if self.type == "stop":
+                return_val += "!"
+
+        return return_val
 
 
 class Slur(Direction):
@@ -394,7 +420,19 @@ class Slur(Direction):
         if "placement" in kwargs:
             placement = kwargs["placement"]
 
+        if "type" in kwargs:
+            if kwargs["type"] is not None:
+                self.type = kwargs["type"]
+
         Direction.__init__(self,placement=placement,
                            font=font,
                            size=size)
 
+    def toLily(self):
+        return_val = ""
+        if hasattr(self, "type"):
+            if self.type == "start":
+                return_val += "("
+            if self.type == "stop":
+                return_val += ")"
+        return return_val
