@@ -1,5 +1,5 @@
 from xml.sax import ContentHandler
-from implementation.primaries.Loading.classes import Key, Clef
+from implementation.primaries.Drawing.classes import Key, Clef
 
 class Extractor(ContentHandler):
     def __init__(self, parent, byTag = False):

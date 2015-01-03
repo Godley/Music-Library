@@ -1,7 +1,7 @@
 import os
 
 from implementation.primaries.SearchWIthSax.search import Finder
-from implementation.primaries.Loading.classes import MxmlParser
+from implementation.primaries.Drawing.classes import MxmlParser
 
 
 class SearchLoad(object):
