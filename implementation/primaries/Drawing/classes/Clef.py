@@ -1,6 +1,6 @@
 __author__ = 'charlotte'
-clef_type = {"G2": "treble", "G1": "french", "F4": "bass", "F3": "baritone", "F": "subbass", "C3": "alto",
-             "C4": "tenor", "C5": "Baritone on C", "C2": "mezzosoprano", "C1": "soprano"}
+clef_type = {"G2": "treble", "G1": "french", "F4": "bass", "F3": "baritonevarF", "F5": "subbass", "C3": "alto",
+             "C4": "tenor", "C5": "baritone", "C2": "mezzosoprano", "C1": "soprano", "VARC3": "altovarC", "VARC4": "tenorvarC", "VARC5": "baritonevarC"}
 
 
 class Clef(object):
@@ -26,10 +26,14 @@ class Clef(object):
     def toLily(self):
         val = "\clef"
         if hasattr(self, "sign"):
+            if self.sign == "TAB":
+                return "\\new TabStaff {\n\clef moderntab \n}"
             if hasattr(self, "line"):
                 val += " " + clef_type[self.sign.upper() + str(self.line)]
             elif self.sign.upper() in clef_type:
                 val += clef_type[self.sign.upper()]
+            else:
+                val += " " + self.sign
         else:
             val += " treble"
         return val

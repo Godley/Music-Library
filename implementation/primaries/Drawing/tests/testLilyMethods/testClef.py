@@ -1,79 +1,99 @@
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 from implementation.primaries.Drawing.classes import Clef
 
-#clef_type = {"G2": "treble", "G1": "french", "F4": "bass", "F3": "baritone", "F": "sub-bass", "C3": "alto",
-             #"C4": "tenor", "C5": "Baritone on C", "C2": "mezzo-soprano", "C1": "soprano"}
-
-'''
-\clef GG
- [image of music]
-
-\clef tenorG
- [image of music]
-
-\clef soprano
- [image of music]
-
-\clef mezzosoprano
- [image of music]
-
-\clef C
- [image of music]
-
-\clef alto
- [image of music]
-
-\clef tenor
- [image of music]
-
-\clef baritone
- [image of music]
-
-\clef varC
- [image of music]
-
-\clef altovarC
- [image of music]
-
-\clef tenorvarC
- [image of music]
-
-\clef baritonevarC
- [image of music]
-
-\clef varbaritone
- [image of music]
-
-\clef baritonevarF
- [image of music]
-
-\clef F
- [image of music]
-
-\clef bass
- [image of music]
-
-\clef subbass
- [image of music]
-
-\clef percussion
- [image of music]
-
-\new TabStaff {
-  \clef tab
-}
- [image of music]
-
-\new TabStaff {
-  \clef moderntab
-}'''
-
 class testClef(Lily):
     def setUp(self):
         self.item = Clef.Clef()
         self.lilystring = "\clef treble"
 
-class testClefFrench(Lily):
+class testClefGG(Lily):
     def setUp(self):
-        self.item = Clef.Clef(sign="G", line=1)
-        self.lilystring = "\clef french"
+        self.item = Clef.Clef(sign="GG")
+        self.lilystring = "\clef GG"
+
+
+class testClefSoprano(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="c", line=1)
+        self.lilystring = "\clef soprano"
+
+class testCleftenorG(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="tenorG")
+        self.lilystring = "\clef tenorG"
+
+class testClefmezzoSop(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="C", line=2)
+        self.lilystring = "\clef mezzosoprano"
+
+
+class testClefC(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="C")
+        self.lilystring = "\clef C"
+
+class testClefAlto(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="C", line=3)
+        self.lilystring = "\clef alto"
+
+class testClefTenor(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="C", line=4)
+        self.lilystring = "\clef tenor"
+
+class testClefBaritone(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="C", line=5)
+        self.lilystring = "\clef baritone"
+
+class testClefVarC(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="varC")
+        self.lilystring = "\clef varC"
+
+class testClefAltoVarC(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="varC", line=3)
+        self.lilystring = "\clef altovarC"
+
+class testCleftenorVarC(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="varC", line=4)
+        self.lilystring = "\clef tenorvarC"
+
+class testClefBariVarC(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="varC", line=5)
+        self.lilystring = "\clef baritonevarC"
+
+class testClefvarBaritone(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="F", line=3)
+        self.lilystring = "\clef baritonevarF"
+
+class testClefF(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="F")
+        self.lilystring = "\clef F"
+
+class testClefBass(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="F", line=4)
+        self.lilystring = "\clef bass"
+
+class testClefSubbass(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="F", line=5)
+        self.lilystring = "\clef subbass"
+
+class testClefPercussion(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="percussion")
+        self.lilystring = "\clef percussion"
+
+class testClefTab(Lily):
+    def setUp(self):
+        self.item = Clef.Clef(sign="TAB")
+        self.lilystring = "\\new TabStaff {\n\clef moderntab \n}"
