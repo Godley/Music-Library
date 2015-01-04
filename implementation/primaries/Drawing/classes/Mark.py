@@ -8,6 +8,9 @@ class Notation(object):
     def __str__(self):
         return self.symbol + self.placement
 
+    def toLily(self):
+        return "\\"
+
 class Accent(Notation):
     def __init__(self, **kwargs):
         placement = None
@@ -15,6 +18,10 @@ class Accent(Notation):
             placement = kwargs["placement"]
         Notation.__init__(self, placement=placement, symbol="-")
 
+    def toLily(self):
+        val = Notation.toLily(self)
+        val += "accent"
+        return val
 class StrongAccent(Notation):
     def __init__(self, **kwargs):
         placement = None
@@ -29,6 +36,10 @@ class StrongAccent(Notation):
             else:
                 symbol = "V"
         Notation.__init__(self,placement=placement, symbol=symbol)
+    def toLily(self):
+        val = Notation.toLily(self)
+        val += "marcato"
+        return val
 
 class Staccato(Notation):
     def __init__(self, **kwargs):
@@ -39,6 +50,10 @@ class Staccato(Notation):
         symbol = "."
         Notation.__init__(self,placement=placement,symbol=symbol)
 
+    def toLily(self):
+        val = Notation.toLily(self)
+        val += "staccato"
+        return val
 class Staccatissimo(Notation):
     def __init__(self, **kwargs):
         placement = None
@@ -47,6 +62,11 @@ class Staccatissimo(Notation):
 
         symbol = "triangle"
         Notation.__init__(self,placement=placement,symbol=symbol)
+
+    def toLily(self):
+        val = Notation.toLily(self)
+        val += "staccatissimo"
+        return val
 
 class Tenuto(Notation):
     def __init__(self, **kwargs):
@@ -57,6 +77,11 @@ class Tenuto(Notation):
         symbol = "line"
         Notation.__init__(self,placement=placement,symbol=symbol)
 
+    def toLily(self):
+        val = Notation.toLily(self)
+        val += "tenuto"
+        return val
+
 class DetachedLegato(Notation):
     def __init__(self, **kwargs):
         placement = None
@@ -65,6 +90,11 @@ class DetachedLegato(Notation):
 
         symbol = "lineDot"
         Notation.__init__(self,placement=placement,symbol=symbol)
+
+    def toLily(self):
+        val = Notation.toLily(self)
+        val+= "portato"
+        return val
 
 class Fermata(Notation):
     def __init__(self, **kwargs):
@@ -81,8 +111,23 @@ class Fermata(Notation):
 
         Notation.__init__(self,placement=placement,symbol=symbol)
 
+    def toLily(self):
+        val = Notation.toLily(self)
+        if hasattr(self, "symbol"):
+            if self.symbol != "fermata":
+                if self.symbol == "angled":
+                    val += "short"
+                if self.symbol == "square":
+                    val += "long"
+                if self.symbol == "squared":
+                    val += "verylong"
+        val += "fermata"
+        return val
 class BreathMark(Notation):
-    pass
+    def toLily(self):
+        val = Notation.toLily(self)
+        val += "breathe"
+        return val
 
 class Caesura(BreathMark):
     pass
@@ -103,3 +148,11 @@ class Technique(Notation):
 
         Notation.__init__(self,placement=placement,
                             symbol=symbol)
+
+    def toLily(self):
+        val = Notation.toLily(self)
+        if hasattr(self, "type"):
+            splitter = self.type.split("-")
+            joined = "".join(splitter)
+            val += joined
+        return val
