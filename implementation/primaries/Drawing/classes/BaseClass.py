@@ -1,6 +1,8 @@
 class Base(object):
     def __init__(self):
         self.indent = 1
+    def toLily(self):
+        pass
     def __str__(self):
         st = str(type(self))
         values = vars(self)
