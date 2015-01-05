@@ -110,63 +110,58 @@ class testTimeModNormalActual(Lily):
 class testArpeggiate(Lily):
     def setUp(self):
         self.item = Note.Arpeggiate()
-        self.lilystring = "\\arpeggioNormal"
+        self.lilystring = ["\\arpeggioNormal","\\arpeggio"]
 
 class testArpeggiateDir(Lily):
     def setUp(self):
         self.item = Note.Arpeggiate(direction="up")
-        self.lilystring = "\\arpeggioUp"
+        self.lilystring = ["\\arpeggioArrowUp","\\arpeggio"]
 
 class testArpeggiateDirDown(Lily):
     def setUp(self):
         self.item = Note.Arpeggiate(direction="down")
-        self.lilystring = "\\arpeggioDown"
+        self.lilystring = ["\\arpeggioArrowDown","\\arpeggio"]
 
 class testNonArpeggiate(Lily):
     def setUp(self):
         self.item = Note.NonArpeggiate()
-        self.lilystring = "\\arpeggioBracket"
+        self.lilystring = ["\\arpeggioBracket","\\arpeggio"]
 
 
 class testSlide(Lily):
     def setUp(self):
         self.item = Note.Slide()
-        self.lilystring = "\glissando"
+        self.lilystring = ["\glissando"]
 
 class testSlideType(Lily):
     def setUp(self):
         self.item = Note.Slide(type="start")
-        self.lilystring = "\glissando"
+        self.lilystring = ["\glissando"]
 
 class testSlideStop(Lily):
     def setUp(self):
         self.item = Note.Slide(type="stop")
-        self.lilystring = ""
+        self.lilystring = []
 
 class testSlideLineType(Lily):
     def setUp(self):
         self.item = Note.Slide(lineType="wavy")
-        self.lilystring = "\override Glissando.style = #'zigzag\n\glissando"
+        self.lilystring = ["\override Glissando.style = #'zigzag","\glissando"]
 
 class testGliss(Lily):
     def setUp(self):
         self.item = Note.Glissando()
-        self.lilystring = "\override Glissando.style = #'zigzag\n\glissando"
+        self.lilystring = ["\override Glissando.style = #'zigzag","\glissando"]
 
 class testGlissType(Lily):
     def setUp(self):
         self.item = Note.Glissando(type="start")
-        self.lilystring = "\override Glissando.style = #'zigzag\n\glissando"
+        self.lilystring = ["\override Glissando.style = #'zigzag","\glissando"]
 
 class testGlissStop(Lily):
     def setUp(self):
         self.item = Note.Glissando(type="stop")
-        self.lilystring = ""
-
-class testGlissLineType(Lily):
-    def setUp(self):
-        self.item = Note.Glissando(lineType="solid")
-        self.lilystring = "\override Glissando.style = #'solid\n\glissando"
+        self.lilystring = []
 
 class testBeam(Lily):
     def setUp(self):

@@ -130,8 +130,33 @@ class Note(BaseClass.Base):
         st = BaseClass.Base.__str__(self)
         return st
 
+    def handlePreLilies(self):
+        val = ""
+        if hasattr(self, "stem"):
+            val += self.stem.toLily() + "\n"
+        if hasattr(self, "beam"):
+            if self.beam.type == "start":
+                val += self.beam.toLily()
+        if hasattr(self, "notehead"):
+            val += self.notehead.toLily() + " "
+        if hasattr(self, "grace"):
+            val += self.grace.toLily() + " "
+        if hasattr(self, "notations"):
+            for n in self.notations:
+                if isinstance(n, Tuplet):
+                    if hasattr(self, "timeMod"):
+                        trip_val = n.toLily()
+                        if n.type != "stop":
+                            trip_val += " "+self.timeMod.toLily()
+                            trip_val += " {"
+                            val = trip_val
+                if hasattr(n, "preNote"):
+                    val += n.toLily()
+        return val
+
     def toLily(self):
         val = ""
+        val += self.handlePreLilies()
         if hasattr(self, "pitch") and not self.rest:
             val += self.pitch.toLily()
         if self.rest:
@@ -153,6 +178,31 @@ class Note(BaseClass.Base):
                     val += "\\breve"
                 if value == 0.25:
                     val += "\longa"
+        val += self.handlePostLilies()
+        value = self.LilyWrap(val)
+        return value
+    def LilyWrap(self, value):
+        if hasattr(self, "notations"):
+            for n in self.notations:
+                if isinstance(n, Arpeggiate) or isinstance(n, NonArpeggiate) or isinstance(n, Slide) or isinstance(n, Glissando):
+                    val = n.toLily()
+                    if len(val) > 1:
+                        value = val[0] + "\n"+ value + val[1]
+                    elif len(val) > 0:
+                        value = value + val[0]
+        return value
+    def handlePostLilies(self):
+        val = ""
+        if hasattr(self, "notations"):
+            for n in self.notations:
+                if isinstance(n, Tuplet):
+                    if n.type == "stop":
+                        val += "}"
+                elif not hasattr(n, "wrapped") and not hasattr(n, "preNote"):
+                    val += n.toLily()
+        if hasattr(self, "beam"):
+            if self.beam.type == "stop":
+                val += self.beam.toLily()
         return val
 
 class Tuplet(BaseClass.Base):
@@ -208,6 +258,7 @@ class TimeModifier(BaseClass.Base):
 
 class Arpeggiate(BaseClass.Base):
     def __init__(self, **kwargs):
+        self.wrapped = True
         BaseClass.Base.__init__(self)
         if "direction" in kwargs:
             self.direction = kwargs["direction"]
@@ -217,11 +268,12 @@ class Arpeggiate(BaseClass.Base):
         if not hasattr(self, "direction"):
             var += "Normal"
         else:
-            var += self.direction[0].upper() + self.direction[1:len(self.direction)]
-        return var
+            var += "Arrow"+self.direction[0].upper() + self.direction[1:len(self.direction)]
+        return [var, "\\arpeggio"]
 
 class Slide(BaseClass.Base):
     def __init__(self, **kwargs):
+        self.wrapped = True
         BaseClass.Base.__init__(self)
         if "type" in kwargs:
             if kwargs["type"] is not None:
@@ -235,37 +287,38 @@ class Slide(BaseClass.Base):
 
     def toLily(self):
         val = ""
+        gliss = "\glissando"
+        values = []
         if hasattr(self, "lineType"):
             if self.lineType == "wavy":
-                val += "\override Glissando.style = #'zigzag\n"
-        val += "\glissando"
+                val += "\override Glissando.style = #'zigzag"
+                values.append(val)
         if hasattr(self, "type"):
             if self.type == "stop":
-                val = ""
-
-        return val
+                values = []
+            else:
+                values.append(gliss)
+        else:
+            values.append(gliss)
+        return values
 
 class Glissando(Slide):
     def toLily(self):
-        val = ""
-        if not hasattr(self, "lineType"):
-            self.lineType = "wavy"
-        else:
-            val += "\override Glissando.style = #'"+self.lineType+"\n"
-
-        val += Slide.toLily(self)
-        return val
+        self.lineType = "wavy"
+        vals = Slide.toLily(self)
+        return vals
 
 
 
 class NonArpeggiate(Arpeggiate):
     def __init__(self, **kwargs):
+
         Arpeggiate.__init__(self)
         if "type" in kwargs:
             self.type = kwargs["type"]
 
     def toLily(self):
-        return "\\arpeggioBracket"
+        return ["\\arpeggioBracket","\\arpeggio"]
 
 class Beam(Stem):
     def toLily(self):

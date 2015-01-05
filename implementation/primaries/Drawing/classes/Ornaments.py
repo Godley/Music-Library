@@ -24,6 +24,7 @@ class InvertedTurn(BaseClass.Base):
 
 class Tremolo(BaseClass.Base):
     def __init__(self, **kwargs):
+        self.preNote = True
         BaseClass.Base.__init__(self)
         if "type" in kwargs:
             if kwargs["type"] is not None:
@@ -34,7 +35,7 @@ class Tremolo(BaseClass.Base):
                 self.value = kwargs["value"]
 
     def toLily(self):
-        return_val = "\\repeat tremolo"
+        return_val = "\\repeat tremolo "
         num = ""
         if hasattr(self, "value"):
             num = str(8 * self.value)
@@ -46,14 +47,14 @@ class Tremolo(BaseClass.Base):
                 num = str(multipliers[self.type] * 8)
             elif self.type == "start":
                 if num != "":
-                    return_val += " " + num + "{"
+                    return_val += num + "{"
                     num = ""
                 else:
-                    return_val += " {"
+                    return_val += "{"
             elif self.type == "stop":
                 return_val = "}"
 
         if num != "":
-            return_val += " " + num
+            return_val += num + " "
         return return_val
 
