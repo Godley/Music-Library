@@ -2,22 +2,47 @@ from implementation.primaries.Drawing.classes import BaseClass
 
 class Tie(BaseClass.Base):
     def __init__(self, type):
-        self.type = type
+        if type is not None:
+            self.type = type
+
+    def toLily(self):
+        if hasattr(self, "type"):
+            if self.type == "stop":
+                return ""
+            elif self.type == "start":
+                return "~"
+        return "~"
 
 class Notehead(BaseClass.Base):
     def __init__(self, filled=False, type=""):
         self.filled = filled
         self.type = type
+    def toLily(self):
+        val = "\\"
+        if self.type != "":
+            if self.type == "diamond":
+                val += "harmonic"
+            if self.type == "x":
+                val += "xNote"
+        return val
 
 
-
-
-class Stem(object):
+class Stem(BaseClass.Base):
     def __init__(self, type):
-        self.type = type
+        if type is not None:
+            self.type = type
+        BaseClass.Base.__init__(self)
 
     def __str__(self):
         return self.type
+
+    def toLily(self):
+        val = "\stem"
+        if not hasattr(self, "type"):
+            val += "Neutral"
+        else:
+            val += self.type[0].upper() + self.type[1:len(self.type)]
+        return val
 
 
 class Pitch(object):
@@ -83,11 +108,30 @@ class Tuplet(BaseClass.Base):
                 self.bracket = kwargs["bracket"]
         BaseClass.Base.__init__(self)
 
+    def toLily(self):
+        val = ""
+        if hasattr(self, "bracket"):
+            if self.bracket:
+                val += "\override TupletBracket.bracket-visibility = ##t\n"
+            else:
+                val += "\override TupletBracket.bracket-visibility = ##f\n"
+        val += "\\tuplet"
+        if hasattr(self, "type"):
+            if self.type == "stop":
+                val = "}"
+        return val
+
 class GraceNote(BaseClass.Base):
     def __init__(self, **kwargs):
         if "slash" in kwargs:
             self.slash = kwargs["slash"]
         BaseClass.Base.__init__(self)
+
+    def toLily(self):
+        val = "\grace"
+        if hasattr(self, "slash"):
+            val = "\slashedGrace"
+        return val
 class TimeModifier(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
@@ -96,11 +140,28 @@ class TimeModifier(BaseClass.Base):
         if "actual" in kwargs:
             self.actual = kwargs["actual"]
 
+    def toLily(self):
+        val = ""
+        if hasattr(self, "actual"):
+            val += str(self.actual)
+        val += "/"
+        if hasattr(self, "normal"):
+            val += str(self.normal)
+        return val
+
 class Arpeggiate(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
         if "direction" in kwargs:
             self.direction = kwargs["direction"]
+
+    def toLily(self):
+        var = "\\arpeggio"
+        if not hasattr(self, "direction"):
+            var += "Normal"
+        else:
+            var += self.direction[0].upper() + self.direction[1:len(self.direction)]
+        return var
 
 class Slide(BaseClass.Base):
     def __init__(self, **kwargs):
@@ -115,9 +176,29 @@ class Slide(BaseClass.Base):
             if kwargs["number"] is not None:
                 self.number = kwargs["number"]
 
+    def toLily(self):
+        val = ""
+        if hasattr(self, "lineType"):
+            if self.lineType == "wavy":
+                val += "\override Glissando.style = #'zigzag\n"
+        val += "\glissando"
+        if hasattr(self, "type"):
+            if self.type == "stop":
+                val = ""
+
+        return val
+
 class Glissando(Slide):
-    def hello(self):
-        amethod = "h"
+    def toLily(self):
+        val = ""
+        if not hasattr(self, "lineType"):
+            self.lineType = "wavy"
+        else:
+            val += "\override Glissando.style = #'"+self.lineType+"\n"
+
+        val += Slide.toLily(self)
+        return val
+
 
 
 class NonArpeggiate(Arpeggiate):
@@ -126,14 +207,15 @@ class NonArpeggiate(Arpeggiate):
         if "type" in kwargs:
             self.type = kwargs["type"]
 
-class Stem(object):
-    def __init__(self, type):
-        self.type = type
-
-    def __str__(self):
-        return self.type
+    def toLily(self):
+        return "\\arpeggioBracket"
 
 class Beam(Stem):
-    def __init__(self, **kwargs):
-        if "type" in kwargs:
-            Stem.__init__(self,kwargs["type"])
+    def toLily(self):
+        val = "\\autoBeamOn"
+        if hasattr(self, "type"):
+            if self.type == "start":
+                val = "["
+            elif self.type == "stop":
+                val = "]"
+        return val
