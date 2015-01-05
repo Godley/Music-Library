@@ -45,7 +45,7 @@ class Stem(BaseClass.Base):
         return val
 
 
-class Pitch(object):
+class Pitch(BaseClass.Base):
     def __init__(self, **kwargs):
         if "alter" in kwargs:
             self.alter = kwargs["alter"]
@@ -57,6 +57,7 @@ class Pitch(object):
             self.accidental = kwargs["accidental"]
         if "unpitched" in kwargs:
             self.unpitched = True
+        BaseClass.Base.__init__(self)
 
     def __str__(self):
         st = ""
@@ -73,6 +74,29 @@ class Pitch(object):
         if hasattr(self, "octave"):
             st += self.octave
         return st
+
+    def toLily(self):
+        val = "\\absolute "
+        if not hasattr(self, "step"):
+            val += "c"
+        else:
+            val += self.step.lower()
+        if hasattr(self, "alter"):
+            if self.alter == 1:
+                val += "is"
+            elif self.alter == -1:
+                val += "es"
+        if hasattr(self, "accidental"):
+            names = {"three-quarters-sharp":"isih", "three-quarters-flat":"eseh",
+                    "quarter-sharp":"ih", "quarter-flat": "eh",
+                    "flat-flat": "eses", "double-sharp": "isis"}
+            if self.accidental in names:
+                val += names[self.accidental]
+        if not hasattr(self, "octave"):
+            val += "1"
+        else:
+            val += str(self.octave)
+        return val
 
 
 class Note(BaseClass.Base):
