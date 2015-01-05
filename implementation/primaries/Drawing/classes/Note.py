@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.classes import BaseClass
-
+import math
 class Tie(BaseClass.Base):
     def __init__(self, type):
         if type is not None:
@@ -76,7 +76,7 @@ class Pitch(BaseClass.Base):
         return st
 
     def toLily(self):
-        val = "\\absolute "
+        val = ""
         if not hasattr(self, "step"):
             val += "c"
         else:
@@ -93,9 +93,17 @@ class Pitch(BaseClass.Base):
             if self.accidental in names:
                 val += names[self.accidental]
         if not hasattr(self, "octave"):
-            val += "1"
+            val += "'"
         else:
-            val += str(self.octave)
+            if self.octave > 3:
+                for i in range(self.octave-3):
+                    val += "'"
+            elif self.octave < 3:
+                counter = 3 - self.octave
+                while counter != 0:
+                    val += ","
+                    counter -= 1
+
         return val
 
 
@@ -104,7 +112,7 @@ class Note(BaseClass.Base):
         BaseClass.Base.__init__(self)
         self.ties = []
         if "rest" in kwargs:
-            self.rest = True
+            self.rest = kwargs["rest"]
         else:
             self.rest = False
         if "pitch" in kwargs:
@@ -112,7 +120,7 @@ class Note(BaseClass.Base):
         if "duration" in kwargs:
             self.duration = float(kwargs["duration"])
         if "divisions" in kwargs:
-            self.divisions = float(kwargs["division"])
+            self.divisions = float(kwargs["divisions"])
         else:
             self.divisions = 1
 
@@ -121,6 +129,31 @@ class Note(BaseClass.Base):
             self.duration = self.duration / self.divisions
         st = BaseClass.Base.__str__(self)
         return st
+
+    def toLily(self):
+        val = ""
+        if hasattr(self, "pitch") and not self.rest:
+            val += self.pitch.toLily()
+        if self.rest:
+            val += "r"
+        if hasattr(self, "duration"):
+            value = (self.duration / self.divisions)
+            value = (1 / value)
+            value *= 4
+
+            if value >= 1:
+                if math.ceil(value) == value:
+                    val += str(int(value))
+                else:
+                    print(self.duration)
+                    rounded = math.ceil(value)
+                    value += str(rounded)
+            else:
+                if value == 0.5:
+                    val += "\\breve"
+                if value == 0.25:
+                    val += "\longa"
+        return val
 
 class Tuplet(BaseClass.Base):
     def __init__(self, **kwargs):

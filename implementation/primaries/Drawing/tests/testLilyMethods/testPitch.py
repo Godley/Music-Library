@@ -4,54 +4,54 @@ from implementation.primaries.Drawing.classes import Note
 class testPitch(Lily):
     def setUp(self):
         self.item = Note.Pitch()
-        self.lilystring = "\\absolute c1"
+        self.lilystring = "c'"
 
 class testPitchAlter(Lily):
     def setUp(self):
         self.item = Note.Pitch(alter=1)
-        self.lilystring = "\\absolute cis1"
+        self.lilystring = "cis'"
 
 class testPitchOctave(Lily):
     def setUp(self):
-        self.item = Note.Pitch(octave=1)
-        self.lilystring = "\\absolute c1"
+        self.item = Note.Pitch(octave=2)
+        self.lilystring = "c,"
 
 class testPitchStep(Lily):
     def setUp(self):
         self.item = Note.Pitch(step="A")
-        self.lilystring = "\\absolute a1"
+        self.lilystring = "a'"
 
 class testPitchDubSharp(Lily):
     def setUp(self):
         self.item = Note.Pitch(accidental="double-sharp")
-        self.lilystring = "\\absolute cisis1"
+        self.lilystring = "cisis'"
 
 class testPitchDubFlat(Lily):
     def setUp(self):
         self.item = Note.Pitch(accidental="flat-flat")
-        self.lilystring = "\\absolute ceses1"
+        self.lilystring = "ceses'"
 
 class testPitchNatural(Lily):
     def setUp(self):
         self.item = Note.Pitch(accidental="natural")
-        self.lilystring = "\\absolute c1"
+        self.lilystring = "c'"
 
 class testPitchQuarterFlat(Lily):
     def setUp(self):
         self.item = Note.Pitch(accidental="quarter-flat")
-        self.lilystring = "\\absolute ceh1"
+        self.lilystring = "ceh'"
 
 class testPitchThreeQuarterFlat(Lily):
     def setUp(self):
         self.item = Note.Pitch(accidental="three-quarters-flat")
-        self.lilystring = "\\absolute ceseh1"
+        self.lilystring = "ceseh'"
 
 class testPitchQuarterSharp(Lily):
     def setUp(self):
         self.item = Note.Pitch(accidental="quarter-sharp")
-        self.lilystring = "\\absolute cih1"
+        self.lilystring = "cih'"
 
 class testPitchThreeQuarterSharp(Lily):
     def setUp(self):
         self.item = Note.Pitch(accidental="three-quarters-sharp")
-        self.lilystring = "\\absolute cisih1"
+        self.lilystring = "cisih'"
