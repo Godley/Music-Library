@@ -1,0 +1,38 @@
+\documentclass[bibtotocnumbered]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{sectsty}
+\usepackage[T1]{fontenc}
+\usepackage{XCharter}
+\usepackage{glossaries}
+\usepackage[toc,page]{appendix}
+\usepackage[
+top    = 1in,
+bottom =1in,
+left   = 1in,
+right  = 1in]{geometry}
+\usepackage[parfill]{parskip}
+\usepackage[utf8]{inputenc}
+
+\usepackage[backend=biber, style=authoryear]{biblatex}
+\addbibresource{refs.bib}
+\usepackage{hyperref}
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\begin{document}
+\include{title}
+\include{contents}
+\include{intro-alternative}
+\include{background}
+\include{designs}
+\include{proj-management}
+\include{appendices}
+\include{references}
+\end{document}
