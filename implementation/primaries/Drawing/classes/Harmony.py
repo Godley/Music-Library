@@ -18,6 +18,26 @@ class Harmony(BaseClass.Base):
             self.frame = kwargs["frame"]
         BaseClass.Base.__init__(self)
 
+    def toLily(self):
+        val = "\chords {"
+        if hasattr(self, "root"):
+            val += "\n\r"+self.root
+        if hasattr(self, "bass") or len(self.degrees) > 0 or hasattr(self, "kind"):
+            val += "\n\r:"
+        if hasattr(self, "degrees"):
+            for degree in self.degrees:
+                if hasattr(self, "kind"):
+                    if self.kind.parenthesis:
+                        val += "("
+                val += degree.toLily()
+                if hasattr(self, "kind"):
+                    if self.kind.parenthesis:
+                        val += ")"
+        if hasattr(self, "bass"):
+            val += "/"+self.bass
+        val += "\n\r}"
+        return val
+
 class Frame(BaseClass.Base):
     def __init__(self, **kwargs):
         if "strings" in kwargs:
@@ -55,16 +75,46 @@ class Kind(BaseClass.Base):
                 self.parenthesis = kwargs["parenthesis"]
         BaseClass.Base.__init__(self)
 
+    def toLily(self):
+        val = ""
+        if hasattr(self, "parenthesis"):
+            if self.parenthesis:
+                val += "("
+        if not hasattr(self, "text"):
+            if hasattr(self, "value"):
+                val += str(self.value)
+        else:
+            val += self.text
+        if hasattr(self, "parenthesis"):
+            if self.parenthesis:
+                val += ")"
+        return val
+
 class Degree(BaseClass.Base):
     def __init__(self, **kwargs):
         if "alter" in kwargs and kwargs["alter"] is not None:
             self.alter = kwargs["alter"]
-        if "value" in kwargs and kwargs["alter"] is not None:
+        if "value" in kwargs and kwargs["value"] is not None:
             self.value = kwargs["value"]
         if "type" in kwargs and kwargs["type"] is not None:
             self.type = kwargs["type"]
         BaseClass.Base.__init__(self)
 
+    def toLily(self):
+        val = ""
+        if hasattr(self, "type"):
+            if self.type == "subtract":
+                val += "no "
+            if self.type == "add":
+                val += "add "
+            if self.type == "alter":
+                val += "#"
+        if hasattr(self, "alter"):
+            pass
+        if hasattr(self, "value"):
+            val += str(self.value)
+
+        return val
+
 class harmonyPitch(Note.Pitch):
-    def __str__(self):
-        return "hello, world"
+    pass
