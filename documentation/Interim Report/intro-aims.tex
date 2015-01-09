@@ -1,0 +1,46 @@
+\section{Introduction}
+Notation of western music has used a combination of the diastematic and phonetic notation \parencite{RRastall} since the advent of Gregorian chant, around 640 AD \parencite{JPaterson}. In this system, sets of five horizontal lines indicate a unit of musical notation known as a \gls{staff}. 
+
+
+Each individual staff is generally assigned to a particular instrument or voice, referred to as a part. This excludes some instruments, such as keyboard instruments like the piano and organ which can have more than one staff. If this is the case, a bracket joining the staves at the left indicates that they are to be considered one part.
+
+Where there are multiple parts in a piece, collections of staves are joined by long vertical lines and known as a system. 
+ 
+A circle connected to a vertical line indicates a sound produced by an instrument, known as a \gls{note}. An indication of duration of each note is shown in musical notation by means of differently shaped circles, referred to as the notehead, or different lines attached to the vertical line, known as the stem.
+
+The relative "highness" or "lowness" of the note \parencite{classroom} is referred to as the pitch. Pitches are differentiated by letter names, A-G in the alphabet. Each line or space in the staff indicates a different pitch. Any pitch above or below the staff is indicated by further smaller lines, referred to as \gls{ledger}s. The position along the stave indicates the time at which the note, or style direction is to be played or applied. 
+
+Notes and beats are grouped together in what consitutes a measure, separated from other measures by barlines, \parencite{classroom} shorter vertical lines which split each staff. 
+
+Further to this, there are specific \gls{notation}s for \gls{articulation} and \gls{technique}, meaning, for example in a Violin part, whether a note is to be plucked with fingers rather than played with a violin bow, text directions to indicate style and speed at which this portion of the piece is to be played, for example "cantabile" meaning "in a singing style"\parencite{dictionary} and "andante" meaning "at a walking pace". This mechanism is vastly complex, and has a large but finite set of symbols which control every element of the composition.
+
+A musician will often organise pieces notated using this system, or scores as they are formally known, in a music cabinet. These are large ornate cabinets where drawers only allow the user to see the top document, meaning having to move through vast collections to find the right one. This can often mean that music a performer will use regularly is kept on music stands and in piano stools, because if they were to return an item back into the music cabinet, it is likely that they would never find it again.\parencite{SheetMusicRant}
+
+This makes it difficult for instrumentalists to find a good way to organise their collections - this particular physical method allows for only one or two ordering choices, whilst the described notation system has many ways in which a piece can be identified. 
+
+It would be useful to a variety of musicians to be able to organise and search their collections using more than one manner. Currently, such mechanisms cannot be done automatically and would necessitate file duplication in order to achieve this manually. This project aims to create a sheet music organisation system for virtual music organisation, which will provide an automatic mechanism for the described problem.
+
+This document discusses the aims and objectives of this project, background setting the project in a technical perspective, designs for the development of the solution, and a review of progress and project management to date. Relevant appendices are also included.
+\pagebreak
+\section{Aims and Objectives}
+\subsection{Project Aim}
+\begin{center}
+\textit{The overall aim of the project is to design and develop a sheet music library application, with the ability to organise and view personal sheet music collections, and download sheet music from the internet. Time permitting, it should also be able to generate sound from the sheet music, and import editable music from flat images.}
+\end{center}
+\subsection{Primary Objectives}
+The project will be considered complete if the following objectives are met:
+\subsubsection{Rendering of musical files}
+It is necessary that the project have the ability to render music files, as the intended solution is for the displaying and browsing of sheet music. The chosen file format is MusicXML, a form of XML which is standardised and used by many existing musical composition software solutions.
+\subsubsection{Extraction of Metadata}
+The project must be able to extract relevant and useful information about the pieces in the user's collection, as the project's aim is enabling automated collection organisation. 
+\subsubsection{Connection to Online Music Collections}
+Further to browsing a user's personal collection, the project should enable users to search online music collections, such as the MuseScore Online community\footnote{MuseScore is an Open Source Musical Composition software package, which provides a community website where composers can upload their scores for others to peruse.}. This provides users with a better search mechanism than using a search engine, as it allows users to browse using technical terminology.
+\subsubsection{Develop the project using Test Driven Development}
+The project should be developed using Test Driven Development, as due to the complexity and amount of symbols required for music production, it is important that each feature and symbol be tested meticulously in order to ensure validity.
+\subsection{Secondary Objectives}
+The following objectives are to be completed if the primary objectives are met, and as such do not dictate the success or failure of the project, but rather are features which would add value to the project.
+\subsubsection{Audio playback}
+A further useful, but not mandatory feature, would be the ability to select and play parts of music files, enabling the automatic creation of accompaniment parts for solo musicians, amongst other benefits.
+\subsubsection{MusicOCR conversion of images to parseable MusicXML}
+It woud be easier for musicians to merge their physical and virtual music collections for automatic organisation if the solution provided the ability to import flat image files and converted them to musicXML, using musical Optical Character Recognition. 
+

@@ -1,0 +1,38 @@
+\section{Introduction}
+Notation of western classical music has used a combination of the diastematic and phonetic notation \parencite{RRastall} since the advent of Gregorian chant around 640 AD \parencite{RTaruskin}. The function of this notation falls into two main divisions: the expression of relationship in sound frequency, the expression of relationship in time, or measure. \parencite{oxHistory}
+
+The key element of this form of notation is the staff, a grouping of five horizontal lines. This is important as each line or space in the staff indicates a different sound pitch, a term meaning the relative "highness" or "lowness" of the sound. \parencite{classroom} 
+
+This staff is divided by barlines, vertical lines indicating groupings of sound and silence, an indication of the relationship in time. These groupings are called measures or bars, with each bar having a variable maximum of notes and rests. 
+
+The representations of other parameters in staff notation are normally phonetic, such as indications p (piano), pizz (pizzicato). \parencite{RRastall} This mechanism is vastly complex, and has a large but finite set of symbols which control every element of the composition.
+
+A musician will often organise pieces notated using this system, or scores as they are formally known, in a music cabinet. These are large ornate cabinets where drawers only allow the user to see the top document, meaning having to move through vast collections to find the right one. This can often mean that music a performer will use regularly is kept on music stands and in piano stools, because if they were to return an item back into the music cabinet, it is likely that they would never find it again.\parencite{SheetMusicRant}
+
+This makes it difficult for instrumentalists to find a good way to organise their collections - this particular physical method allows for only one or two ordering choices, whilst the described notation system has many ways in which a piece can be identified. 
+
+It would be useful to a variety of musicians to be able to organise and search their collections using more than one manner. Currently, such mechanisms cannot be done automatically and would necessitate file duplication in order to achieve this manually. This project aims to create a sheet music organisation system for virtual music organisation, which will provide an automatic mechanism for the described problem.
+
+This document discusses the aims and objectives of this project, background setting the project in a technical perspective, designs for the development of the solution, and a review of progress and project management to date. Relevant appendices are also included.
+\pagebreak
+\section{Aims and Objectives}
+\subsection{Project Aim}
+\begin{center}
+\textit{The overall aim of the project is to design and develop a sheet music library application, with the ability to organise and view personal sheet music collections, and download sheet music from the internet. Time permitting, it should also be able to generate sound from the sheet music, and import editable music from flat images.}
+\end{center}
+\subsection{Primary Objectives}
+The project will be considered complete if the following objectives are met:
+\subsubsection{Rendering of musical files}
+It is necessary that the project have the ability to render music files, as the intended solution is for the displaying and browsing of sheet music. The chosen file format is MusicXML, a form of XML which is standardised and used by many existing musical composition software solutions.
+\subsubsection{Extraction of Metadata}
+The project must be able to extract relevant and useful information about the pieces in the user's collection, as the project's aim is enabling automated collection organisation. 
+\subsubsection{Connection to Online Music Collections}
+Further to browsing a user's personal collection, the project should enable users to search online music collections. This provides users with a better search mechanism than using a search engine, as it allows users to browse using technical terminology.
+\subsubsection{Develop the project using Test Driven Development}
+The project should be developed using Test Driven Development, as due to the complexity and amount of symbols required for music production, it is important that each feature and symbol be tested meticulously in order to ensure validity.
+\subsection{Secondary Objectives}
+The following objectives are to be completed if the primary objectives are met, and as such do not dictate the success or failure of the project, but rather are features which would add value to the project.
+\subsubsection{Audio playback}
+A further useful, but not mandatory feature, would be the ability to select and play parts of music files, enabling the automatic creation of accompaniment parts for solo musicians, amongst other benefits.
+\subsubsection{MusicOCR conversion of images to parseable MusicXML}
+It woud be easier for musicians to merge their physical and virtual music collections for automatic organisation if the solution provided the ability to import flat image files and converted them to musicXML, using musical Optical Character Recognition. 
