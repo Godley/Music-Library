@@ -87,3 +87,42 @@ class testKindTextOverridesVal(Lily):
         self.item = Harmony.Kind(text="3",value=2)
         self.lilystring = "3"
 
+
+class testFrameNote(Lily):
+    def setUp(self):
+        self.item = Harmony.FrameNote()
+        self.lilystring = "-"
+
+
+class testFrameNoteString(Lily):
+    def setUp(self):
+        self.item = Harmony.FrameNote(string=1)
+        self.lilystring = "1-"
+
+
+class testFrameNoteFret(Lily):
+    def setUp(self):
+
+        self.item = Harmony.FrameNote(fret=1)
+        self.lilystring = "-1"
+
+class testFrame(Lily):
+    def setUp(self):
+        self.item = Harmony.Frame()
+        self.lilystring = "^\markup {\n\r\\fret-diagram #\"\"\n}"
+
+class testFrameStrings(Lily):
+    def setUp(self):
+        self.item = Harmony.Frame(strings=6)
+        self.lilystring = "^\markup {\n\r\\fret-diagram #\"1-o;2-o;3-o;4-o;5-o;6-o;\"\n}"
+
+class testFrameFrets(Lily):
+    def setUp(self):
+        self.item = Harmony.Frame(frets=6)
+        self.lilystring = "^\markup {\n\r\\fret-diagram #\"\"\n}"
+
+class testFrameWithNote(Lily):
+    def setUp(self):
+        self.item = Harmony.Frame(strings=6,notes={1:Harmony.FrameNote(fret=3)})
+
+        self.lilystring = "^\markup {\n\r\\fret-diagram #\"1-3;2-o;3-o;4-o;5-o;6-o;\"\n}"

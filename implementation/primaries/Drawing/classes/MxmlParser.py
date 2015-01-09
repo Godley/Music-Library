@@ -586,9 +586,10 @@ def HandleMeasures(tag, attrib, content, piece):
                     global frame_note
                     if frame_note is None:
                         frame_note = Harmony.FrameNote()
-                        harmony.frame.notes.append(frame_note)
+
                     if "string" in tag and "string" in content:
                         frame_note.string = content["string"]
+                        harmony.frame.notes[int(content["string"])] = frame_note
                     if "fret" in tag and "fret" in content:
                         frame_note.fret = content["fret"]
                     if "barre" in tag and "barre" in attrib:

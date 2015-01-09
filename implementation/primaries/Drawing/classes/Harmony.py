@@ -46,10 +46,26 @@ class Frame(BaseClass.Base):
         if "frets" in kwargs:
             if kwargs["frets"] is not None:
                 self.frets = kwargs["frets"]
-        self.notes = []
+        self.notes = {}
         if "notes" in kwargs:
             self.notes = kwargs["notes"]
         BaseClass.Base.__init__(self)
+
+    def toLily(self):
+        val = ""
+        val += "^\markup {\n\r\\fret-diagram #\""
+        if hasattr(self, "strings"):
+            for i in range(self.strings):
+                val += str(i+1) + "-"
+                if i+1 in self.notes:
+                    val += str(self.notes[i+1].fret)
+                else:
+                    val += "o"
+                val += ";"
+
+
+        val += "\"\n}"
+        return val
 
 class FrameNote(BaseClass.Base):
     def __init__(self, **kwargs):
@@ -58,6 +74,15 @@ class FrameNote(BaseClass.Base):
         if "fret" in kwargs:
             self.fret = kwargs["fret"]
         BaseClass.Base.__init__(self)
+
+    def toLily(self):
+        val = ""
+        if hasattr(self, "string"):
+            val += str(self.string)
+        val += "-"
+        if hasattr(self, "fret"):
+            val += str(self.fret)
+        return val
 
 class Kind(BaseClass.Base):
     def __init__(self, **kwargs):
