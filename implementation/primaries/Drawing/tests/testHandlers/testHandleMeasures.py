@@ -326,6 +326,7 @@ class testHarmony(MeasureTesting):
         self.tags.append("frame")
         self.tags.append("frame-strings")
         self.chars["frame-strings"] = "6"
+        print("frame_strings")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
         self.assertEqual("6", self.part.measures[1].items[1][-1].frame.strings)
@@ -341,6 +342,8 @@ class testHarmony(MeasureTesting):
     def testFrameNote(self):
         self.tags.append("frame")
         self.tags.append("frame-note")
+        self.tags.append("string")
+        self.chars["string"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
         self.assertEqual(1, len(self.part.measures[1].items[1][-1].frame.notes))
@@ -352,34 +355,43 @@ class testHarmony(MeasureTesting):
         self.chars["string"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("1", self.part.measures[1].items[1][-1].frame.notes[-1].string)
+        self.assertTrue(1 in self.part.measures[1].items[1][-1].frame.notes)
 
-    def testFrameNoteString(self):
+    def testFrameNoteFret(self):
         self.tags.append("frame")
         self.tags.append("frame-note")
+        self.tags.append("string")
+        self.chars["string"] = "3"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.tags.append("fret")
         self.chars["fret"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("1", self.part.measures[1].items[1][-1].frame.notes[-1].fret)
+        self.assertEqual("1", self.part.measures[1].items[1][-1].frame.notes[3].fret)
 
     def testFrameNoteBarre(self):
         self.tags.append("frame")
         self.tags.append("frame-note")
+        self.tags.append("string")
+        self.chars["string"] = "1"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.tags.append("barre")
         self.attrs["barre"] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("start", self.part.measures[1].items[1][-1].frame.notes[-1].barre)
+        self.assertEqual("start", self.part.measures[1].items[1][-1].frame.notes[1].barre)
 
     def testFrameNoteFingering(self):
         self.tags.append("frame")
         self.tags.append("frame-note")
+        self.tags.append("string")
+        self.chars["string"] = "1"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.tags.append("fingering")
         self.chars["fingering"] = "3"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("3", self.part.measures[1].items[1][-1].frame.notes[-1].fingering)
+        self.assertEqual("3", self.part.measures[1].items[1][-1].frame.notes[1].fingering)
 
 class testBarline(MeasureTesting):
     def setUp(self):

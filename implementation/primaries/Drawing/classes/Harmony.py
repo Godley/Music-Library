@@ -55,14 +55,28 @@ class Frame(BaseClass.Base):
         val = ""
         val += "^\markup {\n\r\\fret-diagram #\""
         if hasattr(self, "strings"):
-            for i in range(self.strings):
-                val += str(i+1) + "-"
-                if i+1 in self.notes:
-                    val += str(self.notes[i+1].fret)
-                else:
-                    val += "o"
-                val += ";"
+            value = self.strings
+            while value > 0:
+                val += str(value)
+                if value in self.notes:
+                    val += self.notes[value].toLily()
+                    try:
+                        fret = int(val[-2])
+                        if val[-1] == "-":
+                            barres = [str(key) for key in self.notes.keys()
+                                     if hasattr(self.notes[key], "barre")
+                                     and self.notes[key].barre=="stop"
+                                     and self.notes[key].fret == fret]
+                            if len(barres) > 0:
+                                val += "-".join(barres)
 
+                    except:
+                        pass
+
+                else:
+                    val += "-o"
+                val += ";"
+                value-=1
 
         val += "\"\n}"
         return val
@@ -82,6 +96,9 @@ class FrameNote(BaseClass.Base):
         val += "-"
         if hasattr(self, "fret"):
             val += str(self.fret)
+        if hasattr(self, "barre"):
+            if self.barre == "start":
+                val += "-"
         return val
 
 class Kind(BaseClass.Base):
