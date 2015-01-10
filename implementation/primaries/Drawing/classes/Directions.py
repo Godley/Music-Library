@@ -99,7 +99,7 @@ class Direction(Text):
     def toLily(self):
         default = 10
 
-        upper = Text.toLily(self)
+        textLilyString = Text.toLily(self)
         symbol = ""
         text = ""
         if hasattr(self, "placement"):
@@ -107,17 +107,7 @@ class Direction(Text):
                 symbol = "^"
             if self.placement == "below":
                 symbol = "_"
-        if hasattr(self, "font"):
-            text += "\override Voice.TextScript.font-family = #'"+self.font + "\n"
-        if hasattr(self, "size"):
-            change = 0
-            if int(self.size) > default:
-                change = self.size - default
-            if int(self.size) < default:
-                change = -(default-self.size)
-            if change != 0:
-                text += "\override Voice.TextScript.font-size = #"+str(change) + "\n"
-        return text + symbol + upper
+        return text + symbol + textLilyString
 class RehearsalMark(Direction):
     def toLily(self):
         text ="\mark "

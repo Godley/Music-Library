@@ -40,7 +40,7 @@ class testDirectionWithText(Lily):
 class testDirectionFont(Lily):
     def setUp(self):
         self.item = Directions.Direction(font="calibri")
-        self.lilystring = "\\override Voice.TextScript.font-family = #'calibri\n\\markup {\n \n}"
+        self.lilystring = "\markup {\n \calibri \n}"
 
 class testDirectionWithFontSize(Lily):
     def setUp(self):
