@@ -10,3 +10,12 @@ class Meta(BaseClass.Base):
             if kwargs["composer"] is not None:
                 self.composer = kwargs["composer"]
 
+    def toLily(self):
+        val = "\header {\n"
+        if hasattr(self, "title"):
+            val += "title = \""+self.title+"\""
+        if hasattr(self, "composer"):
+            val += "composer = \""+self.composer +"\""
+        val += "\n}"
+        return val
+
