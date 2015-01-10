@@ -1,35 +1,51 @@
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 from implementation.primaries.Drawing.classes import Directions
 
+
+class testText(Lily):
+    def setUp(self):
+        self.item = Directions.Text()
+        self.lilystring = "\markup {\n \n}"
+
+class testTextSize(Lily):
+    def setUp(self):
+        self.item = Directions.Text(size=8)
+        self.lilystring = "\markup {\n \\abs-fontsize #8 \n}"
+
+class testTextFont(Lily):
+    def setUp(self):
+        self.item = Directions.Text(font="typewriter")
+        self.lilystring = "\markup {\n \\typewriter \n}"
+
 class testBasicDirection(Lily):
     def setUp(self):
         self.item = Directions.Direction()
-        self.lilystring = "\markup{\n  }"
+        self.lilystring = "\markup {\n \n}"
 
 class testDirectionPlacedBelow(Lily):
     def setUp(self):
         self.item = Directions.Direction(placement="below")
-        self.lilystring = "_\markup{\n  }"
+        self.lilystring = "_\markup {\n \n}"
 
 class testDirectionPlacedAbove(Lily):
     def setUp(self):
         self.item = Directions.Direction(placement="above")
-        self.lilystring = "^\markup{\n  }"
+        self.lilystring = "^\markup {\n \n}"
 
 class testDirectionWithText(Lily):
     def setUp(self):
         self.item = Directions.Direction(text="whatsup")
-        self.lilystring = "\markup{\n whatsup }"
+        self.lilystring = "\markup {\n whatsup \n}"
 
 class testDirectionFont(Lily):
     def setUp(self):
         self.item = Directions.Direction(font="calibri")
-        self.lilystring = "\\override Voice.TextScript.font-family = #'calibri\n\\markup{\n  }"
+        self.lilystring = "\\override Voice.TextScript.font-family = #'calibri\n\\markup {\n \n}"
 
 class testDirectionWithFontSize(Lily):
     def setUp(self):
         self.item = Directions.Direction(size=11)
-        self.lilystring = "\\override Voice.TextScript.font-size = #1\n\\markup{\n  }"
+        self.lilystring = "\\markup {\n \\abs-fontsize #11 \n}"
 
 class testRehearsalMark(Lily):
     def setUp(self):
@@ -55,17 +71,17 @@ class testForwardWithDuration(Lily):
 class testRepeatSign(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign()
-        self.lilystring = "\mark \markup{\n  }"
+        self.lilystring = "\mark \markup {\n \n}"
 
 class testSegno(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign(type="segno")
-        self.lilystring = "\mark \markup{\n \musicglyph #\"scripts.segno\" }"
+        self.lilystring = "\mark \markup {\n \musicglyph #\"scripts.segno\" \n}"
 
 class testCoda(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign(type="coda")
-        self.lilystring = "\mark \markup{\n \musicglyph #\"scripts.coda\" }"
+        self.lilystring = "\mark \markup {\n \musicglyph #\"scripts.coda\" \n}"
 
 class testOctaveShift(Lily):
     def setUp(self):
@@ -208,27 +224,27 @@ class testSlurEnd(Lily):
 class testCreditText(Lily):
     def setUp(self):
         self.item = Directions.CreditText()
-        self.lilystring = ""
+        self.lilystring = "\markup {\n \n}"
 
 
 class testCreditTextX(Lily):
     def setUp(self):
         self.item = Directions.CreditText(x=100)
-        self.lilystring = ""
+        self.lilystring = "\markup {\n \n}"
 
 class testCreditTextY(Lily):
     def setUp(self):
         self.item = Directions.CreditText(y=100)
-        self.lilystring = ""
+        self.lilystring = "\markup {\n \n}"
 
 class testCreditTextVal(Lily):
     def setUp(self):
         self.item = Directions.CreditText(text="hello")
-        self.lilystring = ""
+        self.lilystring = "\markup {\n hello \n}"
 
 class testCreditTextPage(Lily):
     def setUp(self):
         self.item = Directions.CreditText(page=1)
-        self.lilystring = ""
+        self.lilystring = "\markup {\n \n}"
 
 

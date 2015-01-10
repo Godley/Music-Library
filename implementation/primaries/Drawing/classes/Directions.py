@@ -23,7 +23,15 @@ class Text(BaseClass.Base):
         return ret_list
 
     def toLily(self):
-        lilystring = "\markup {\n " + self.text + " \n}"
+        # \abs-fontsize #20
+        lilystring = "\markup {\n "
+        if hasattr(self, "size"):
+            lilystring += "\\abs-fontsize #" + str(self.size) + " "
+        if hasattr(self, "font"):
+            lilystring += "\\"+self.font + " "
+        if hasattr(self, "text") and self.text != "":
+            lilystring+= self.text + " "
+        lilystring += "\n}"
         return lilystring
 
 class CreditText(Text):
