@@ -67,6 +67,14 @@ class testHarmonyKind(Lily):
         self.item.kind = Harmony.Kind()
         self.lilystring = "\chords {\n\r:\n\r}"
 
+
+class testHarmonyFrame(Lily):
+    def setUp(self):
+        self.item = Harmony.Harmony()
+        self.item.frame = Harmony.Frame()
+        self.lilystring = ["\chords {\n\r}","^\markup {\n\r\\fret-diagram #\"\"\n}"]
+
+
 class testKind(Lily):
     def setUp(self):
         self.item = Harmony.Kind()
@@ -114,17 +122,17 @@ class testFrame(Lily):
 class testFrameStrings(Lily):
     def setUp(self):
         self.item = Harmony.Frame(strings=6)
-        self.lilystring = "^\markup {\n\r\\fret-diagram #\"6-o;5-o;4-o;3-o;2-o;1-o;\"\n}"
+        self.lilystring = "^\markup {\n\r\\fret-diagram #\"w:6;6-o;5-o;4-o;3-o;2-o;1-o;\"\n}"
 
 class testFrameFrets(Lily):
     def setUp(self):
         self.item = Harmony.Frame(frets=6)
-        self.lilystring = "^\markup {\n\r\\fret-diagram #\"\"\n}"
+        self.lilystring = "^\markup {\n\r\\fret-diagram #\"h:6;\"\n}"
 
 class testFrameWithNote(Lily):
     def setUp(self):
         self.item = Harmony.Frame(strings=6,notes={1:Harmony.FrameNote(fret=3)})
-        self.lilystring = "^\markup {\n\r\\fret-diagram #\"6-o;5-o;4-o;3-o;2-o;1-3;\"\n}"
+        self.lilystring = "^\markup {\n\r\\fret-diagram #\"w:6;6-o;5-o;4-o;3-o;2-o;1-3;\"\n}"
 
 class testFrameBarre(Lily):
     def setUp(self):
@@ -132,4 +140,4 @@ class testFrameBarre(Lily):
         self.item.notes[2].barre = "stop"
         self.item.notes[3] = Harmony.FrameNote(fret=1)
         self.item.notes[3].barre = "start"
-        self.lilystring = "^\markup {\n\r\\fret-diagram #\"6-o;5-o;4-o;3-1-2;2-1;1-o;\"\n}"
+        self.lilystring = "^\markup {\n\r\\fret-diagram #\"w:6;6-o;5-o;4-o;3-1-2;2-1;1-o;\"\n}"

@@ -36,6 +36,11 @@ class Harmony(BaseClass.Base):
         if hasattr(self, "bass"):
             val += "/"+self.bass
         val += "\n\r}"
+        if hasattr(self, "frame"):
+            return_val = []
+            return_val.append(val)
+            return_val.append(self.frame.toLily())
+            val = return_val
         return val
 
 class Frame(BaseClass.Base):
@@ -43,6 +48,8 @@ class Frame(BaseClass.Base):
         if "strings" in kwargs:
             if kwargs["strings"] is not None:
                 self.strings = kwargs["strings"]
+            else:
+                self.strings = 6
         if "frets" in kwargs:
             if kwargs["frets"] is not None:
                 self.frets = kwargs["frets"]
@@ -54,7 +61,10 @@ class Frame(BaseClass.Base):
     def toLily(self):
         val = ""
         val += "^\markup {\n\r\\fret-diagram #\""
+        if hasattr(self, "frets"):
+            val += "h:"+str(self.frets)+";"
         if hasattr(self, "strings"):
+            val += "w:"+str(self.strings)+";"
             value = self.strings
             while value > 0:
                 val += str(value)
