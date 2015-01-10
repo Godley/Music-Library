@@ -23,7 +23,7 @@ class Text(BaseClass.Base):
         return ret_list
 
     def toLily(self):
-        lilystring = "\markup{\n " + self.text + " }"
+        lilystring = "\markup {\n " + self.text + " \n}"
         return lilystring
 
 class CreditText(Text):

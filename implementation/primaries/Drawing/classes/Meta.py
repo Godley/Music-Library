@@ -17,5 +17,8 @@ class Meta(BaseClass.Base):
         if hasattr(self, "composer"):
             val += "composer = \""+self.composer +"\""
         val += "\n}"
+        if hasattr(self, "credits"):
+            for credit in self.credits:
+                val += "\n"+credit.toLily()
         return val
 

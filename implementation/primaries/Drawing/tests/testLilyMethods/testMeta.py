@@ -20,4 +20,4 @@ class testMetaCreds(Lily):
     def setUp(self):
         self.item = Meta.Meta()
         self.item.credits = [Directions.CreditText(text="Danny is a jew")]
-        self.lilystring = "\header {\n\n}"
+        self.lilystring = "\header {\n\n}\n\markup {\n Danny is a jew \n}"
