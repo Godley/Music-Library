@@ -205,6 +205,30 @@ class testSlurEnd(Lily):
         self.item = Directions.Slur(type="stop")
         self.lilystring = ")"
 
+class testCreditText(Lily):
+    def setUp(self):
+        self.item = Directions.CreditText()
+        self.lilystring = ""
 
+
+class testCreditTextX(Lily):
+    def setUp(self):
+        self.item = Directions.CreditText(x=100)
+        self.lilystring = ""
+
+class testCreditTextY(Lily):
+    def setUp(self):
+        self.item = Directions.CreditText(y=100)
+        self.lilystring = ""
+
+class testCreditTextVal(Lily):
+    def setUp(self):
+        self.item = Directions.CreditText(text="hello")
+        self.lilystring = ""
+
+class testCreditTextPage(Lily):
+    def setUp(self):
+        self.item = Directions.CreditText(page=1)
+        self.lilystring = ""
 
 
