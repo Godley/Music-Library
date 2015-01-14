@@ -1,0 +1,74 @@
+\documentclass[bibtotocnumbered]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{sectsty}
+\usepackage[T1]{fontenc}
+\usepackage{XCharter}
+\usepackage{glossaries}
+\usepackage[toc,page]{appendix}
+\usepackage[
+top    = 1in,
+bottom =1in,
+left   = 1in,
+right  = 1in]{geometry}
+\usepackage[parfill]{parskip}
+\usepackage[utf8]{inputenc}
+
+\usepackage[backend=biber, style=authoryear]{biblatex}
+\addbibresource{refs.bib}
+\usepackage{hyperref}
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\begin{document}
+
+\section{Background}
+\subsection{Problem Context}
+This problem's main focus is the difficulty of organising classical sheet music, and how this can be made easier by the automatic extraction of key pieces  of information. In order to understand what a performer may want to know about a particular piece, it is important to have a brief understanding of the elements of musical notation common to all compositions.
+\subsubsection{Clefs}
+As mentioned in the introduction, an important part of musical notation is a sound's frequency relation, denoted by the staff lines and spaces. 
+
+In this system, sound frequencies, or pitches, are denoted by letters A-G - each set of these eight letters is an octave, after which the next pitch above it will be the start of a new octave.
+
+In order to provide a link between the lines and spaces of a staff and pitch name, a clef symbol is necessary:
+
+Each clef symbol denotes a different pitch name - in the above example, a G. The center around which this symbol is drawn - here, the second line from the bottom of the staff - indicates that this line or space will be known as a G. From this the reader can infer all other pitches by counting through the letters of the cyclic octave system, so in the given example, the pitch above becomes an A, and the pitch below becomes an F.
+
+This symbol is important to a musician as different clefs are used to position the majority of the pitches in a piece on the staff, as this makes it easier to read. From this a performer can infer the average range of a piece, and predict whether this will be comfortable for the performer's chosen instrument or voice.
+
+\subsubsection{Keys}
+A second important indication to the player is the key, denoted by a key signature:
+
+A collection of symbols at the beginning of the piece indicate which pitches should be raised by half pitches, and which should be lowered. Raised pitches are called sharps, indicated by the \# symbol, whilst lowered pitches are called flats, indicated by the [flat] symbol. Each key, which has a letter name and key type, has a different combination of flats or sharps.
+
+This is a useful piece of notation to a musician as pieces in less common keys, such as C\# major or F\# major, may prove more difficult for the user to perform, and therefore they may want to filter out pieces in these particular keys. Similarly, in the case of singers, a singer's range may sit comfortably in one or two keys and they would perhaps want to find pieces in only these keys. 
+
+\subsubsection{Meter}
+The third symbol denoted at the beginning of a measure is the meter, two numerals positioned like a mathematical fraction:
+
+The most common meter is 4/4, sometimes denoted by a C indicating "Common time". The upper number of a meter symbol indicates the amount of beats in the bar. A beat simply refers to a note or rest, and the type of beat is indicated by the lower number. In this case, 4/4 indicates a measure will contain 4 crotchets, or quarter-length notes.
+
+This information is important as it tells the performer how the rhythm and beat of the piece should be felt, counted and performed, and is useful for searching purposes as different meters, or time signatures as they are sometimes referred to, give the piece a different feeling, dictating the sort of occasion this piece would accompany. 
+
+For example, 2/4 is commonly used for march pieces, 3/4 is commonly used for waltzes and dance pieces, and 6/8 gives a similar, but more syncopated feel of a dance like piece.
+
+\subsubsection{Tempo}
+The speed of a particular piece, or the tempo, is indicated by an equation:
+
+As explained above, this equation shows that the piece should be played at 60 beats per minute - the symbol dictating the sort of beat per minute depends on the time signature, here a crotchet (or quarter note) is given as the piece is in 4/4 time. Sometimes, this will be accompanied by a text direction to indicate speed or style, such as Andante, indicating a walking speed.
+
+This indication would prove a useful identifier as pieces of different tempos provide variation in performance lists, so a concert organiser may want to find pieces with a variety of tempos.
+
+\subsubsection{Further metadata}
+Aside from these symbols, there are some items of textual information useful to the user. 
+
+The first of these would be the parts in the piece and their transpositions. Parts would be relevant as a particular group of instrumentalists may need parts that fit their instruments. If this is not the case for a given piece, however, a part written for a different instrument, for example, the Alto Saxophone rather than the Tenor Horn, may be compatible with the instrument anyway, if the transposition matches the instruments together.
+
+Further to this, the user would want to know the piece's title, and names of publishers, composers, arrangers and lyricists of the work. Further to the composer name, it may be useful to know the date of composition as an indication of the piece's stylistic era, such as Classical/Baroque/Romantic, though this would not always be written on the sheet music so may need to be researched using the internet.
+\end{document}
