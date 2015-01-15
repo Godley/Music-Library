@@ -3,44 +3,17 @@
 \subsubsection{Class diagrams and mind map}
 The developer used a mind map, shown in Appendix B figure 1, to initially appraise the connection between each musical symbol. This helped break down a piece from a musician's view, and showed what information would be necessary between each symbol's class.
 
-From this, figure 2 was drawn, which is the initial class diagram. This was modified during the course of development and turned into figure 3 after some development, testing and research of the initial model. In particular, the developer looked at other sources such as Music21, a toolkit for computer-aided musicology\parencite{Music21}, which helped the developer to examine whether the initial model was missing any classes or attributes.
+An initial class diagram was drawn. This was modified during the course of development testing and research of the initial model. In particular, the developer looked at other sources such as Music21, a toolkit for computer-aided musicology\parencite{Music21}, which helped the developer to examine whether the initial model was missing any classes or attributes. The diagrams described are in the appendices.
 \subsubsection{Flow diagrams}
 \subsection{UI Design}
-\subsubsection{Initial Design}
-The user interface design of this project is centered around using similar stylings to other music related applications potential users may have interfaced with previously, but also combined ideas from other applications the developer has used.
-\paragraph{Figure 1, appendix C}
-With that in mind, figure 1 of Appendix C is the initial screen if the user has no default collection. This allows the user to create a new one, or select a folder to base the collection around.
+The User interface for this project is designed with the average musician in mind, and the interfaces that user would normally have used. With this in mind, the designs explained below and shown in Appendix D are inspired by other music applications in common usage.
 
-\paragraph{Figure 2}
-The second figure shows the screen after the collection has loaded - in between the two, the cursor will be replaced with a loading icon. On the left, a search box and options to import or reload the collection display permanently, with several panes shown by default, but which can be moved around and closed at the behest of the user.
- 
-The first of these panes, the collection browser, allows the user to browse their collections by simply clicking the piece from the window, with different ordering mechanisms available using the drop down.
+\subsubsection{Main Display}
+\begin{center}
+\includegraphics[width=380pt]{main_view.png}
+\end{center}
 
-The second lists the current set lists the user has created - when any of these are clicked, figure 2 shows how the information is displayed in the mid pane, with the other panes still open. 
-
-The third lists playlists created automatically by the system, such as pieces by a particular composer or in a different key.
-
-Adjacent to these windows is a larger middle pane, which will display information about a selected playlist or the sheet music of a piece.
-
-To the right are panes which are also empty when nothing is open, but display relevant information to the piece or playlist open - again, these can be closed or moved. 
-As shown in figure 3, the top box displays information about the piece that is currently open, listing any meta data available, with expansions made where a list of information is too big for the box.
-
-Below it, depending how the piece was opened, the second pane will either show a list of playlists the piece is in, with the option to add it to another playlist using the search box, or the current list of pieces if the piece is being shown from a particular playlist.
-
-
-\paragraph{Figure 3} Figure 3 shows the main pane and the two right panes when a piece has been opened. Above the main pane, several buttons allow the user to change how the piece is rendered, play the piece as audio, select what parts are played when it is converted to audio, and pan and zoom as with a pdf reader.
-
-\paragraph{Figure 4} Similarly, figure 4 shows only the main pane, displaying a listing for a selected playlist. Full edit capability is available in place here, indicated by the pen like symbols. The user can change the title of the playlist and the column headers displayed, and add or remove pieces from playlists using this view.
-
-\paragraph{Figure 5} Figure 5 shows how search data will be displayed when a user enters a string into the search box at the top left of the application. This will be organised by how the string was found, i.e matching keys, composer etc.
-
-\paragraph{Figure 6} Figure 6 shows the pop up window which displays when a user presses the import button, which progresses to a loading symbol when a file has been selected.
-
-\paragraph{Figure 7} Figure 7 shows the pane which displays when the user presses the "draw" button in Figure 3. This allows the user to modify what symbols are drawn, such as clefs, time signatures, meter etc. This pane will display until the user presses the x box, allowing them to modify it at any time.
-
-\paragraph{Figure 8} Figure 8 shows a similar pane to figure 6, but allows the user to select which parts are converted to audio when the play button is pressed.
-
-\paragraph{Figure 9} Figure 9 shows the search drop down displayed when a user enters text into the "add to playlist" box on the sheet music view.
+The above image shows the main view of the application. Various panes to the left can be closed using the X button and show different ways the music can be displayed, either as individual units or as playlists. The panes to the right display content based on what is selected for display in the middle, larger window, generally either a playlist or a singular piece of sheet music. Updates to these panes and various pop up boxes associated with different buttons in the display are in the appendices.
 \subsubsection{Musician feedback survey}
-\subsubsection{Revised Design}
+In order to understand how well this user interface works with a variety of users, a survey was designed which will be given to a selection of musicians, who will feedback on how easy the UI is to use and any updates which should be made to improve it. This feedback session will be performed after the initial sketches are made into a virtual user interface with no back end connected to the buttons. An example survey is provided in the appendices.
 \subsection{Test Design}

@@ -132,7 +132,7 @@ It has been decided that the metadata algorithm will first check for a cached me
 
 This avoids repeat loading of the same data, but if files are changed or updated after the first application open, it could cause confusion for the user. It may be possible to provide an option in the program to force the parser to re-run the metadata extraction on all files in the folder if this is an issue.
 
-It has been decided that the file format for caching metadata will be SQLite or similar light database implelmentations, as this will avoid the outputted data being tightly coupled with the program, and therefore will make the architecture more extendable in future developments. Another option considered for storage is simply serialising the chosen data structure, which would be quicker to develop. This has been decided against as this would couple data output with the solution.
+It has been decided that the file format for caching metadata will be SQLite or similar light database implementations, as this will avoid the outputted data being tightly coupled with the program, and therefore will make the architecture more extendable in future developments. Another option considered for storage is simply serialising the chosen data structure, which would be quicker to develop. This has been decided against as this would couple data output with the solution.
 
 In order to store this information in a data structure, the following methods have been considered.
 
@@ -204,7 +204,7 @@ It would be possible for the developer to produce their own algorithm for conver
 
 However, this project is concerned with music organisation, not OCR specifically, and as such the project is too large to commit a sufficient amount of time to this particular algorithm in order to make it function as well as other algorithms. 
 
-As a reference point, Optical Character Recognition for natural languages has taken may years to develop and perfect, and has been an attractive research area and idea to a wide variety of users\parencite{InternationalConf}. Music OCR is a more complicated system, as it requires vertical and horizontal scanning with a large symbol set, and has a smaller user base, therefore has taken longer for researchers to develop \parencite{musicocr}. 
+As a reference point, Optical Character Recognition for natural languages has taken may years to develop and perfect, and has been an attractive research area and idea to a wide variety of users\parencite{InternationalConf}. OMR, or Optical Music Recognition, has been the focus of international research for over three decades, and while numerous achievements have been made, there are still many challenges to be faced before it reaches its full potential\parencite{musicocr}. 
 
 \paragraph{Using third party software}
 It has therefore been decided that OCR as a topic is too large for this project, and if this goal is included in the project, it will be through communication with other systems, such as Audiveris, an open music scanner \parencite{audiveris}. 

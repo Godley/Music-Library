@@ -1,13 +1,14 @@
-\documentclass[bibtotocnumbered]{article}
+\documentclass{article}
 \usepackage[english]{babel}
+
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-\usepackage{titlesec}
+\usepackage[compact]{titlesec}
 \usepackage{xcolor}
 \usepackage{sectsty}
 \usepackage[T1]{fontenc}
 \usepackage{XCharter}
-\usepackage{glossaries}
+\usepackage{graphicx}
 \usepackage[toc,page]{appendix}
 \usepackage[
 top    = 1in,
@@ -16,16 +17,19 @@ left   = 1in,
 right  = 1in]{geometry}
 \usepackage[parfill]{parskip}
 \usepackage[utf8]{inputenc}
-
+\usepackage{fancyhdr}
 \usepackage[backend=biber, style=authoryear]{biblatex}
 \addbibresource{refs.bib}
 \usepackage{hyperref}
 \setcounter{secnumdepth}{4}
 
+
 \titleformat{\paragraph}
 {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-\titlespacing*{\paragraph}
-{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing{\section}{0pt}{*0}{*0}
+\titlespacing{\subsection}{0pt}{*0}{*0}
+\titlespacing{\subsubsection}{0pt}{*0}{*0}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
 \begin{document}
 \include{title}
 \include{contents}
