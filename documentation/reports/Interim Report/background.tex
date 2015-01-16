@@ -50,18 +50,24 @@ This project could be developed with a variety of programming languages, as disp
 \begin{center}
 \begin{tabular}{| l | c | c | c | r |} \hline
   {Language} & {Speed of development} & {Developer's Knowledge} & {Most recently used} & {Cross compatible} \\ \hline
-  C\# & Fast & A lot & 2nd year & Sort of \\ \hline
+  C\# & Fast & A lot & 2nd year & Yes \\ \hline
   Python & Fast & A lot & In constant use for over a year & Yes \\ \hline
   C++ & Slow & Average & 2nd year & Yes \\ \hline
 \end{tabular}
 \end{center}
 The four key elements the developer is focussing on are speed of development, as the time constraint of a year means it is important that development is not hindered by the language itself, developer knowledge and most recent usage of the language as this will provide an additional time benefit, and cross compatibility, due to the different operating systems the developer intends to use in the course of development.
 
+The developer understands C\# is cross compatible through the use of the Mono Project, which is feature complete to C\# 10\parencite{MonoDev}, or Xamarin Studio and other such tools, but has not developed any applications with c\# for multiple operating systems. For this reason, the developer feels more comfortable using Python, owing to the experience of writing applications for Linux and Windows in previous projects. 
+
 Due to these factors, Python has been selected, particularly as the developer used much of the features of python during an industrial placement and feels this is the most appropriate language for rapid development.
 
 Further to these benefits, there are many projects in the field of musical software research currently in existence using this language, \parencite{pmus} which will help when trying to debug issues and build upon previous research.
 
+As a further technical challenge, the developer has elected to use Python 3, as this is the most up to date version, but also a version the developer has yet to work with and may requre some relearning of specific areas of syntax. This presents a technical challenge as many other open source projects and packages use version 2.7, so interfacing with other works may require submitting pull requests to update them to version 3.
+
 \subsubsection{File format}
+The project will require at least one default format for it to process music, which needs to have detailed information about what the score contains. The table below describes the options considered by the developer:
+
 \paragraph{Creating a new file format}
 
 It would be possible for this project to create it's own method of file storage, similar to methods used by commercial and open source composition software. This would enable the developer to build a format from the ground up, and design it around the way the system would work.
@@ -82,6 +88,8 @@ This file format is directly compatible with MuseScore\parencite{MuseTour}, and 
 However, using this file format means that some of the decisions on how to organise sheet music would have been made according another developer's wishes, which cannot be fixed or improved upon as would be possible if the developer chose to create their own file format.
 
 The problem with tight coupling to this format may also be incurred, however, as this format is intended for sharing between programs, it is unlikely issues of backwards compatibility will occur.
+
+
 
 \subsection{Comparison of Algorithms for Rendering and Organising Sheet Music}
 \subsubsection{XML parsing algorithms}

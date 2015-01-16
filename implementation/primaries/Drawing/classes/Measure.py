@@ -20,6 +20,21 @@ class Measure(BaseClass.Base):
         st = BaseClass.Base.__str__(self)
         return st
 
+    def toLily(self):
+        lilystring = ""
+        if len(self.items.keys()) > 1:
+            lilystring += "\\new PianoStaff <<\n "
+        for key in self.items.keys():
+            lilystring += "\\new Staff {"
+            for item in self.items[key]:
+                lilystring += item.toLily()
+            lilystring += "}"
+            if key != list(self.items.keys())[-1]:
+                lilystring += " \n "
+        if len(self.items.keys()) > 1:
+            lilystring += " \n>>"
+        return lilystring
+
 class Barline(BaseClass.Base):
     def __init__(self, **kwargs):
         if "style" in kwargs:
