@@ -68,28 +68,21 @@ As a further technical challenge, the developer has elected to use Python 3, as 
 \subsubsection{File format}
 The project will require at least one default format for it to process music, which needs to have detailed information about what the score contains. The table below describes the options considered by the developer:
 
-\paragraph{Creating a new file format}
+\begin{center}
+\begin{tabular}{| c | c | } \hline
+  {Format} & {Purpose} \\ \hline
+  muscx & MuseScore notation \\ \hline
+  SIB & Sibelius notation \\ \hline
+  new format & this project only \\ \hline
+  MusicXML & sharing music between software \\ \hline
+\end{tabular}
+\end{center}
+The first two options, muscx and SIB files, are formats used by the open source notation software MuseScore\parencite{MuseTour}, and the world's most popular proprietary notation software, Sibelius\parencite{avid}. Using either or both of these files would mean the majority of users would be able to use the application. 
+However, both options couple this project with those particular packages, when users could still choose other software to write music with. Furthermore, the formats are specifically designed for those software packages and may have nuances which make development for this project more difficult. Additionally, Sibelius is proprietary so borrowing their file format may cause copyright issues.
 
-It would be possible for this project to create it's own method of file storage, similar to methods used by commercial and open source composition software. This would enable the developer to build a format from the ground up, and design it around the way the system would work.
+The third option is to create an entirely new format. This would mean the file format was designed to the specification of the developer and therefore be entirely customisable and extensible. However, this project is created with the intention of organising, not composing music, so the files would have to be created or imported from other software packages manually if the project does not include composition. Therefore, this is the least applicable option.
 
-However, this project focusses on displaying and organising sheet music, and will not be allowing the user to create new sheet music from inside the program. Therefore, in order for the project to be a success it is important that the file format be compatible with popular composition software packages.
-
-\paragraph{Using a previously created file format}
-
-It would potentially be possible to examine files generated from popular packages such as Sibelius, the world's best-selling music composition software, \parencite{avid} or MuseScore, an open source offering to the composition industry. This would mean that the program would be directly compatible with the default files created by each package.
-
-However, this would require further research into how each piece of software generates it's files, and in the case of Sibelius, may incur copyright issues due to Sibelius being commercial software. It would also mean the project would be tightly coupled with that file format, and if the developers of the original file format were to change it in future, modifications would have to be made frequently to the file handler.
-
-\paragraph{Using a well documented music format}
-The final choice considered is using a well documented music format referred to as MusicXML. This format was designed from the ground up to allow sharing of sheet music between programs, and in order to archive sheet music for the future \parencite{mxml}.
-
-This file format is directly compatible with MuseScore\parencite{MuseTour}, and compatible with Sibelius version 7, and earlier versions through the use of a plug in \parencite{Plugin}. The MusicXML website provides a well documented tutorial on producing musicXML as well as a support forum and list of all tags available in musicXML.
-
-However, using this file format means that some of the decisions on how to organise sheet music would have been made according another developer's wishes, which cannot be fixed or improved upon as would be possible if the developer chose to create their own file format.
-
-The problem with tight coupling to this format may also be incurred, however, as this format is intended for sharing between programs, it is unlikely issues of backwards compatibility will occur.
-
-
+The fourth and final option which has been selected is MusicXML, a file format intended for sharing and archiving the world's sheet music\parencite{mxml}. This particular format is used by a wide variety of software packages\parencite{mxml} and is included in the formats usable by both MuseScore\parencite{MuseTour} and Sibelius\parencite{avid}, therefore neither couples the format with a program nor requires manual creation and import of current music files. However, this particular format was designed by a third party, and might therefore present a further technical challenge in learning how the format notates everything, which won't necessarily be the best method in the opinion of the developer.
 
 \subsection{Comparison of Algorithms for Rendering and Organising Sheet Music}
 \subsubsection{XML parsing algorithms}

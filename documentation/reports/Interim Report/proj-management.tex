@@ -1,9 +1,15 @@
 \section{Project Management Review}
 \subsection{Current progress}
-- body of research done and decisions made from this
-- development of code and designs for user interface decisions
-- compare this with expected result
+During the initial stages of the project, the developer has spent time researching the appropriate language to use, the file format and the methods and algorithms used by other packages. This involved looking at the projects done in music in Python previously, such as Music21 \parencite{Music21}, and other projects listed on the Python Foundation website\parencite{pmus}. 
 
+Many important decisions were made from this research period, such as the decision to use Lilypond to typeset music files rather than create a new algorithm and the research of MusicOCR options available, leading to the decision that MusicOCR is too big a topic for this project to create a new algorithm.
+
+After this research period, the developer began creating class diagrams and putting in some initial code implementation for the rendering and metadata objectives. It was decided after this intial stage to use Test Driven Development, as the code base and algorithm for loading in a music file was becoming hard to confirm crucial details were being parsed correctly. A set of unit tests were written for the initial implementation, and from this point onward the developer applied the methodology.
+
+To date, the developer has created a working MusicXML parser which loads a MusicXML file into a tree of objects, each one having a ToString override method for debugging, which enables the developer to confirm that each object has loaded the correct members. The developer has began working on the rendering portion, which involves learning the Lilypond syntax appropriate to each class. This forms a significant portion of the first objective of rendering sheet music.
+The developer also created an implementation of the metadata parsing algorithm, though since deciding to use SQLite for data caching, this portion still needs refactoring.
+
+The developer has also created a set of user interface designs, and a spreadsheet of tests and their purpose developed to date, which are in the appendices.
 \subsection{Adjustments made}
 based on coursework deadlines
 issues with stress/multiple projects being handled
