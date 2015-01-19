@@ -10,31 +10,19 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.2}Primary Objectives}{4}{subsection.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.1}Rendering of musical files}{4}{subsubsection.2.2.1}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.2}Extraction of Metadata}{4}{subsubsection.2.2.2}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.3}Connection to Online Music Collections}{4}{subsubsection.2.2.3}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.4}Develop the project using Test Driven Development}{4}{subsubsection.2.2.4}
-\defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {2.3}Secondary Objectives}{4}{subsection.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.3.1}Audio playback}{4}{subsubsection.2.3.1}
+\contentsline {section}{\numberline {3}Background}{5}{section.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.3.2}MusicOCR conversion of images to parseable MusicXML}{5}{subsubsection.2.3.2}
+\contentsline {subsection}{\numberline {3.1}Problem Context}{5}{subsection.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Background}{6}{section.3}
+\contentsline {subsubsection}{\numberline {3.1.1}Clefs}{5}{subsubsection.3.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1}Problem Context}{6}{subsection.3.1}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.1}Clefs}{6}{subsubsection.3.1.1}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.2}Keys}{6}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.2}Keys}{5}{subsubsection.3.1.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.3}Meter}{6}{subsubsection.3.1.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.4}Tempo}{7}{subsubsection.3.1.4}
+\contentsline {subsubsection}{\numberline {3.1.4}Tempo}{6}{subsubsection.3.1.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.5}Further metadata}{7}{subsubsection.3.1.5}
 \defcounter {refsection}{0}\relax 
@@ -44,94 +32,74 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.2.2}File format}{8}{subsubsection.3.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3}Comparison of Algorithms for Rendering and Organising Sheet Music}{9}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.3}Comparison of Algorithms for Rendering and Organising Sheet Music}{8}{subsection.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.3.1}XML parsing algorithms}{9}{subsubsection.3.3.1}
-\defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{DOM loading algorithm}{9}{section*.2}
-\defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{SAX parsing algorithm}{9}{section*.3}
+\contentsline {subsubsection}{\numberline {3.3.1}XML parsing algorithms}{8}{subsubsection.3.3.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.3.2}XML verification algorithms}{9}{subsubsection.3.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.3.3}Loading and memory management algorithm}{9}{subsubsection.3.3.3}
+\contentsline {subsubsection}{\numberline {3.3.3}Metadata algorithm}{9}{subsubsection.3.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.3.4}Metadata algorithm}{10}{subsubsection.3.3.4}
+\contentsline {subsubsection}{\numberline {3.3.4}Rendering Algorithm}{9}{subsubsection.3.3.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Running the algorithm on every application open}{10}{section*.4}
+\contentsline {subsection}{\numberline {3.4}Comparison of Technologies for Importing Online Musical Sources}{10}{subsection.3.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Caching previous runs}{10}{section*.5}
+\contentsline {subsubsection}{\numberline {3.4.1}Musical Sources}{10}{subsubsection.3.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Using object oriented organisation}{10}{section*.6}
+\contentsline {subsubsection}{\numberline {3.4.2}Searching Algorithm}{10}{subsubsection.3.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Using generics}{10}{section*.7}
+\contentsline {subsection}{\numberline {3.5}Comparison of Algorithms for Sound Output and Image Input}{11}{subsection.3.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.3.5}Rendering Algorithm}{11}{subsubsection.3.3.5}
+\contentsline {subsubsection}{\numberline {3.5.1}MIDI algorithm}{11}{subsubsection.3.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Creating a new algorithm using fonts}{11}{section*.8}
+\contentsline {subsubsection}{\numberline {3.5.2}Image input algorithm}{11}{subsubsection.3.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Creating a new algorithm using images}{11}{section*.9}
+\contentsline {paragraph}{Creating a new algorithm}{11}{section*.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Outputting to a separate rendering program}{11}{section*.10}
+\contentsline {paragraph}{Using third party software}{11}{section*.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4}Comparison of Technologies for Importing Online Musical Sources}{11}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.6}Alternative Solutions}{11}{subsection.3.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.4.1}Musical Sources}{11}{subsubsection.3.4.1}
+\contentsline {section}{\numberline {4}Designs}{12}{section.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.4.2}Searching Algorithm}{12}{subsubsection.3.4.2}
+\contentsline {subsection}{\numberline {4.1}System Design}{12}{subsection.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5}Comparison of Algorithms for Sound Output and Image Input}{12}{subsection.3.5}
+\contentsline {subsubsection}{\numberline {4.1.1}Class diagrams and mind map}{12}{subsubsection.4.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.5.1}MIDI algorithm}{12}{subsubsection.3.5.1}
+\contentsline {subsection}{\numberline {4.2}UI Design}{12}{subsection.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.5.2}Image input algorithm}{12}{subsubsection.3.5.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Main Display}{12}{subsubsection.4.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Creating a new algorithm}{13}{section*.11}
+\contentsline {subsubsection}{\numberline {4.2.2}Musician feedback survey}{13}{subsubsection.4.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{Using third party software}{13}{section*.12}
+\contentsline {subsection}{\numberline {4.3}Test Design}{13}{subsection.4.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6}Alternative Solutions}{13}{subsection.3.6}
+\contentsline {section}{\numberline {5}Project Management Review}{14}{section.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}Designs}{14}{section.4}
+\contentsline {subsection}{\numberline {5.1}Current progress}{14}{subsection.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1}System Design}{14}{subsection.4.1}
+\contentsline {subsection}{\numberline {5.2}Adjustments made}{14}{subsection.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.1.1}Class diagrams and mind map}{14}{subsubsection.4.1.1}
+\contentsline {subsection}{\numberline {5.3}Revised timeplan}{14}{subsection.5.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2}UI Design}{14}{subsection.4.2}
+\contentsline {section}{Appendices}{15}{section*.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.2.1}Main Display}{14}{subsubsection.4.2.1}
+\contentsline {section}{\numberline {A}Mind map of elements of Music}{15}{Appendix.a.A}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.2.2}Musician feedback survey}{15}{subsubsection.4.2.2}
+\contentsline {section}{\numberline {B}Initial class diagram}{15}{Appendix.a.B}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3}Test Design}{15}{subsection.4.3}
+\contentsline {section}{\numberline {C}Revised computerised class diagram}{15}{Appendix.a.C}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}Project Management Review}{16}{section.5}
+\contentsline {section}{\numberline {D}Initial User Interface Design}{15}{Appendix.a.D}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1}Current progress}{16}{subsection.5.1}
+\contentsline {subsection}{\numberline {D.1}Changes to main display when sheet music selected}{15}{subsection.a.D.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2}Adjustments made}{16}{subsection.5.2}
+\contentsline {subsection}{\numberline {D.2}Changes to main display when playlist is selected}{16}{subsection.a.D.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.3}Revised timeplan}{16}{subsection.5.3}
+\contentsline {subsection}{\numberline {D.3}Other Panes and Popup windows}{17}{subsection.a.D.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Appendices}{17}{section*.13}
+\contentsline {section}{\numberline {E}User Interface Feedback survey}{17}{Appendix.a.E}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A}Mind map of elements of Music}{17}{Appendix.a.A}
+\contentsline {section}{\numberline {F}Revised User Interface Design}{17}{Appendix.a.F}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {B}Initial class diagram}{17}{Appendix.a.B}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {C}Revised computerised class diagram}{17}{Appendix.a.C}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {D}Initial User Interface Design}{17}{Appendix.a.D}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {D.1}Changes to main display when sheet music selected}{17}{subsection.a.D.1}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {D.2}Changes to main display when playlist is selected}{18}{subsection.a.D.2}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {D.3}Other Panes and Popup windows}{19}{subsection.a.D.3}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {E}User Interface Feedback survey}{19}{Appendix.a.E}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {F}Revised User Interface Design}{19}{Appendix.a.F}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {6}References}{20}{section.6}
+\contentsline {section}{\numberline {6}References}{18}{section.6}

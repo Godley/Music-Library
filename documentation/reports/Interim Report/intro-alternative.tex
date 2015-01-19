@@ -21,18 +21,23 @@ This document discusses the aims and objectives of this project, background sett
 \textit{The overall aim of the project is to design and develop a sheet music library application, with the ability to organise and view personal sheet music collections, and download sheet music from the internet. Time permitting, it should also be able to generate sound from the sheet music, and import editable music from flat images.}
 \end{center}
 \subsection{Primary Objectives}
-The project will be considered complete if the following objectives are met:
-\subsubsection{Rendering of musical files}
-It is necessary that the project have the ability to render music files, as the intended solution is for the displaying and browsing of sheet music. The chosen file format is MusicXML, a form of XML which is standardised and used by many existing musical composition software solutions.
-\subsubsection{Extraction of Metadata}
-The project must be able to extract relevant and useful information about the pieces in the user's collection, as the project's aim is enabling automated collection organisation. 
-\subsubsection{Connection to Online Music Collections}
-Further to browsing a user's personal collection, the project should enable users to search online music collections. This provides users with a better search mechanism than using a search engine, as it allows users to browse using technical terminology.
-\subsubsection{Develop the project using Test Driven Development}
-The project should be developed using Test Driven Development, as due to the complexity and amount of symbols required for music production, it is important that each feature and symbol be tested meticulously in order to ensure validity.
+The following objectives are of the highest importance to the project, and are a measure of whether the project has been completed.
+\begin{itemize}
+    \item \textbf{Rendering of Musical Files}\\
+    It will be necessary to render one or more formats of commonly stored musical files, as the aim of the project is to enable users to view and organise their sheet music collections.
+    \item \textbf{Extraction of Metadata}\\
+    The project will be required to extract important information from each piece, ranging from the simple nominal data such as title, composer, lyricist, to the more complex notation such as clefs, key signatures and meters used. 
+    \item \textbf{Connection to Online Music Collections}\\
+    It should also be possible to connect to online music collections, as it would be beneficial to users to be able to search and add to their collections using the same interface.
+    \item \textbf{Develop the project using Test Driven Development}\\
+    The project should be developed using Test Driven Development, as due to the complexity and amount of symbols required for music production, it is important that each feature and symbol be tested meticulously in order to ensure validity.
+\end{itemize}
 \subsection{Secondary Objectives}
-The following objectives are to be completed if the primary objectives are met, and as such do not dictate the success or failure of the project, but rather are features which would add value to the project.
-\subsubsection{Audio playback}
-A further useful, but not mandatory feature, would be the ability to select and play parts of music files, enabling the automatic creation of accompaniment parts for solo musicians, amongst other benefits.
-\subsubsection{MusicOCR conversion of images to parseable MusicXML}
-It would be easier for musicians to merge their physical and virtual music collections for automatic organisation if the solution provided the ability to import flat image files and converted them to musicXML, using musical Optical Character Recognition. 
+The following objectives are to be completed if the primary objectives are met, and as such do not dictate the success or failure of the project, but rather are features which would add value.
+
+\begin{itemize}
+    \item \textbf{Audio playback}\\
+    It would be useful to a cross section of users to be able to play music files as sound clips, enabling the automatic creation of accompaniment parts, amongst other benefits.
+    \item \textbf{MusicOCR conversion of images to parseable MusicXML}\\
+It would be easier for musicians to merge their physical and virtual music collections for automatic organisation if the solution provided a way to import flat, scanned sheet music into knowledgeable music files. 
+\end{itemize}

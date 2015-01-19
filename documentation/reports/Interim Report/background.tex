@@ -7,6 +7,11 @@ As mentioned in the introduction, an important part of musical notation is a sou
 In this system, sound frequencies, or pitches, are denoted by letters A-G - each set of these eight letters is an octave, after which the next pitch above it will be the start of a new octave.
 
 In order to provide a link between the lines and spaces of a staff and pitch name, a clef symbol is necessary:
+\begin{figure}[htbp]
+    \centering
+        \includegraphics{clef-crop.pdf}
+    \caption{A staff with a treble clef}
+\end{figure}
 
 Each clef symbol denotes a different pitch name - in the above example, a G. The center around which this symbol is drawn - here, the second line from the bottom of the staff - indicates that this line or space will be known as a G. From this the reader can infer all other pitches by counting through the letters of the cyclic octave system, so in the given example, the pitch above becomes an A, and the pitch below becomes an F.
 
@@ -14,15 +19,26 @@ This symbol is important to a musician as different clefs are used to position t
 
 \subsubsection{Keys}
 A second important indication to the player is the key, denoted by a key signature:
+\begin{figure}[htbp]
+    \centering
+        \includegraphics{key-crop.pdf}
+    \caption{A staff with a key signature}
+\end{figure}
 
-A collection of symbols at the beginning of the piece indicate which pitches should be raised by half pitches, and which should be lowered. Raised pitches are called sharps, indicated by the \# symbol, whilst lowered pitches are called flats, indicated by the [flat] symbol. Each key, which has a letter name and key type, has a different combination of flats or sharps.
+A collection of symbols at the beginning of the piece indicate which pitches should be raised by half pitches, and which should be lowered. Raised pitches are called sharps, indicated by the \# symbol, whilst lowered pitches are called flats, indicated by the $\flat$ symbol. Each key, which has a letter name and key type, has a different combination of flats or sharps.
 
 This is a useful piece of notation to a musician as pieces in less common keys, such as C\# major or F\# major, may prove more difficult for the user to perform, and therefore they may want to filter out pieces in these particular keys. Similarly, in the case of singers, a singer's range may sit comfortably in one or two keys and they would perhaps want to find pieces in only these keys. 
 
 \subsubsection{Meter}
 The third symbol denoted at the beginning of a measure is the meter, two numerals positioned like a mathematical fraction:
 
-The most common meter is 4/4, sometimes denoted by a C indicating "Common time". The upper number of a meter symbol indicates the amount of beats in the bar. A beat simply refers to a note or rest, and the type of beat is indicated by the lower number. In this case, 4/4 indicates a measure will contain 4 crotchets, or quarter-length notes.
+\begin{figure}[htbp]
+    \centering
+        \includegraphics{meter-crop.pdf}
+    \caption{A staff with clef and 2/4 time signature, or meter}
+\end{figure}
+
+The most common meter is 4/4, sometimes denoted by a C indicating "Common time". The upper number of a meter symbol indicates the amount of beats in the bar. A beat simply refers to a note or rest, and the type of beat is indicated by the lower number. In this case, 2/4 indicates a measure will contain 2 crotchets, or quarter-length notes.
 
 This information is important as it tells the performer how the rhythm and beat of the piece should be felt, counted and performed, and is useful for searching purposes as different meters, or time signatures as they are sometimes referred to, give the piece a different feeling, dictating the sort of occasion this piece would accompany. 
 
@@ -30,6 +46,13 @@ For example, 2/4 is commonly used for march pieces, 3/4 is commonly used for wal
 
 \subsubsection{Tempo}
 The speed of a particular piece, or the tempo, is indicated by an equation:
+
+\begin{figure}[htbp]
+    \centering
+        \includegraphics{tempo-crop.pdf}
+    \caption{A staff with tempo marking}
+    \label{figure 1}
+\end{figure}
 
 As explained above, this equation shows that the piece should be played at 60 beats per minute - the symbol dictating the sort of beat per minute depends on the time signature, here a crotchet (or quarter note) is given as the piece is in 4/4 time. Sometimes, this will be accompanied by a text direction to indicate speed or style, such as Andante, indicating a walking speed.
 
@@ -82,24 +105,15 @@ However, both options couple this project with those particular packages, when u
 
 The third option is to create an entirely new format. This would mean the file format was designed to the specification of the developer and therefore be entirely customisable and extensible. However, this project is created with the intention of organising, not composing music, so the files would have to be created or imported from other software packages manually if the project does not include composition. Therefore, this is the least applicable option.
 
-The fourth and final option which has been selected is MusicXML, a file format intended for sharing and archiving the world's sheet music\parencite{mxml}. This particular format is used by a wide variety of software packages\parencite{mxml} and is included in the formats usable by both MuseScore\parencite{MuseTour} and Sibelius\parencite{avid}, therefore neither couples the format with a program nor requires manual creation and import of current music files. However, this particular format was designed by a third party, and might therefore present a further technical challenge in learning how the format notates everything, which won't necessarily be the best method in the opinion of the developer.
+The fourth and final option, which the developer has decided to implement, is MusicXML, a file format intended for sharing and archiving the world's sheet music\parencite{mxml}. This particular format is used by a wide variety of software packages\parencite{mxml} and is included in the formats usable by both MuseScore\parencite{MuseTour} and Sibelius\parencite{avid}, therefore neither couples the format with a program nor requires manual creation and import of current music files. However, this particular format was designed by a third party, and might therefore present a further technical challenge in learning how the format notates everything, which won't necessarily be the best method in the opinion of the developer.
 
 \subsection{Comparison of Algorithms for Rendering and Organising Sheet Music}
 \subsubsection{XML parsing algorithms}
-\paragraph{DOM loading algorithm}
-The first option is using a \textbf{DOM library} - in python, there are two built in libraries, called DOM (Document Object Model) and MiniDOM, a cut down version of the first. In this method, the entire XML file is loaded into memory, and the developer can look for specific tags and data using search functions.
+For the rendering of sheet music, it will be necessary to parse a musicXML file into a hierarchy of objects, beginning with the overall piece and descending into each part and measure. 
 
-This option has not been chosen for either objective. This is because for the purpose of rendering music, it may not be necessary to load all of the formatting information from the file, as well as some of the encoding data which composition software often puts into the file - this means that loading all of the data into memory is unnecessary. 
+For the parsing of XML itself, there are two potential built in methods to choose from. The first loads the entire XML file into memory and provides methods for the developer to search the loaded file for specified tags. The developer has used this before in personal and industrial projects, and believes it is cumbersome to manipulate data in this way. Furthermore, the developer is focussing on rendering the information rather than rendering it with precise formatting, and many software packages implant musicXML files with very complex formatting information which may or may not be necessary.
 
-Secondly, the DOM library in python is not very easy to use and having to search for a specific tag name does not make for rapid development.
-Thirdly, in reference to the searching and organising portion of the project, selection of metadata should not require a whole file of data, but rather select tags such as the instruments in the piece, composer, key, tempo and other such information.
-
-\paragraph{SAX parsing algorithm}
-SAX is a Simple API for XML processing, which parses the tags in the XML one by one, connecting to callbacks when specific things occur in XML parsing. This enables the developer to build up the functionality of object loading gradually, by connecting specific found tags to created handler methods, and allows for ignorance of tags which are not required.
-
-Furthermore, in the area of metadata extraction, it is unlikely the process will require the entire file in order to extract key features of the piece, and therefore SAX parsing is far more suited to both tasks.
-
-A further musical benefit to loading and rendering sheet music is that this method of parsing could enable the program to disregard notation considered to complex for the user to understand, for example when teaching a new student music theory.
+The second option is using a different api called the Simple API for XML (SAX). In this method, the program loads the XML file tag by tag, and connects to call backs when specified things occur in the file, for example a new tag or piece of data inside tags, or the closing of an old tag. This is easier to work with as the developer can iteratively build up a collection of methods to handle each tag, and is better for memory management as only tags which are necessary to the project will have any effect on the object structure. For these reasons, this method has been selected.
 
 \subsubsection{XML verification algorithms}
 For both the algorithm options discussed in the above section, a further choice is whether to verify the XML parsed, using an online file validator, or presume the file is written in valid MusicXML. 
@@ -109,70 +123,27 @@ Furthermore, if the user is browsing their own music collection, it should not b
 
 Due to speed and functionality considerations, the choice has been made that the XML parser algorithm will not verify XML being converted to objects, or being examined for metadata. Given that most musicXML will be produced automatically by other programs, it is unlikely files opened by the project will be corrupt, though necessary steps will be taken to avoid this causing a problem in the program.
 
-\subsubsection{Loading and memory management algorithm}
-This project will load musicXML files for rendering into memory using a class structure, with each class providing it's own interface to output mechanisms. This has been decided as objects provide clean and navigatable structure, with the ability to inherit or overwrite parent class mechanisms.
-
-It would also be possible to extract metadata from the musicXML files and create a converter directly to the output format for rendering, however this would make the structure harder to navigate and more difficult to debug, and would probably result in bad programming practices being used.
-
-
-
 \subsubsection{Metadata algorithm}
 The metadata algorithm has been designed so that, for a given folder, the program will parse all of the files with the XML extension for a given selection of information (for example, composer, piece title, instruments) and store this information in memory. 
 
 This is to be indexed either by the information title - e.g "composer"; or by the information itself - e.g "bartok". This will facilitate faster searching of the database for use when the user is finding a particular piece, and facilitate the production of auto generated playlists by the system. Depending on the method of indexing, the alternate indexer should be stored as part of the value in a key value pair format, alongside the file in which it was found.
 
-There is a choice to be made as to how often this algorithm should be run, as discussed in the following sections.
+It has been decided that in memory, this will be structured using a generic type. This decision has been taken because only 3 pieces of information per item of data will be stored, one of which will be the index of the data, so using a dictionary holding tuples would be more appropriate than creating an object as it simplifies the algorithm and therefore the debugging process.
 
-\paragraph{Running the algorithm on every application open}
-It would be possible to check and load all of the metadata for a particular folder each time the user opens the application. This would ensure if any file changes have been made that the metadata was up to date.
-
-However, with testing, it has been found that this is a slow method owing to the volume of test data, and will only become slower if a user has a large collection of music. 
-
-\paragraph{Caching previous runs}
-It has been decided that the metadata algorithm will first check for a cached metadata file, created from a previous run of metadata parsing. It will then look for any files not in this cached file, parse the metadata from each file, and save out to the updated cache.
-
-This avoids repeat loading of the same data, but if files are changed or updated after the first application open, it could cause confusion for the user. It may be possible to provide an option in the program to force the parser to re-run the metadata extraction on all files in the folder if this is an issue.
-
-It has been decided that the file format for caching metadata will be SQLite or similar light database implementations, as this will avoid the outputted data being tightly coupled with the program, and therefore will make the architecture more extendable in future developments. Another option considered for storage is simply serialising the chosen data structure, which would be quicker to develop. This has been decided against as this would couple data output with the solution.
-
-In order to store this information in a data structure, the following methods have been considered.
-
-\paragraph{Using object oriented organisation}
-It would be possible to store the information in a class structure, with each class holding the selected information and the file in which the metadata was found.
-
-However, the described algorithm will only be storing 3 elements of data, all of which are strings, and therefore will not need a complex structure.
-
-\paragraph{Using generics}
-A further option would be to use the python built in type of a dictionary. This would make more sense than an object as there are only 3 key items of information to store, and allows for indexing using different mechanisms. This option has been chosen, in combination with the described type of data storage, in order to aid rapid development and provide a simple program structure.s
-
+Further to this, of the two xml algorithms described in section 3.3.1, the algorithm will use SAX, as this algorithm does not require all of the data and would therefore waste a lot of memory by loading in the entire file to memory.
 
 \subsubsection{Rendering Algorithm}
 The program is required to take the object structure and transform it, in some way, to musician readable sheet music. 
 
-\paragraph{Creating a new algorithm using fonts}
-It would be possible to create sheet music using an algorithm designed by the developer. A potential option would be to create an automatic method of typesetting every class using music fonts layered on top of each other inside the render window.
+This could be achieved using an entirely new algorithm of the developer's design, with the output going directly to the render window using different glyphs and fonts extracted from their relevant classes.
 
-This would give complexity and challenge to the developer and allow the developer to tailor optimisations according to speed and memory management.
+However, using fonts may cause difficulty in creating functionality such as panning and zooming, features which are common to most render window applications. Furthermore, the conversion of even basic sheet music to a readable format would require a high level of precision and complexity, and creating a new algorithm would be considered reinventing the wheel, so to speak, as this is a process that has been covered by many different applications (like MuseScore\parencite{MuseTour}, Finale\parencite{mxml} and Sibelius\parencite{avid}). 
+Lastly, the process of debugging whether the symbols are correct would require visual checking by the developer and would be difficult to debug automatically.
 
-However, this may create problems such as panning and zooming into the music which could prove complicated, how best to layer fonts on top of each other which may be difficult to do in a graphical window, and debugging the process would be difficult as it would require manually visually checking the algorithm functions and generates the correct sheet music.
+It would be possible to alleviate the panning and zooming problem by converting the typesetted symbols to an image or PDF file and using a built in image rendering library, such as wxPython\parencite{WX}. However, this method still involves reinventing the wheel and problems with visual debugging being required.
 
-Furthermore, music software has existed for a long time and the rendering algorithm will have been covered by many developers, who will have had longer to develop and test the solution, therefore developing a new algorithm may be considered reinventing the wheel.
+Considering these factors, it has been decided that the developer will be using a third party typesetting system known as Lilypond. Lilypond is a typesetting language and system developed to typeset the highest quality sheet music\parencite{Lilypond}, which takes an input file and outputs a PDF or image. As this is a language unto itself and has been in development for many years by the Open Source community, this will alleviate the problem of visual debugging - the developer can instead create a formatted lilypond output for each class based on its attributes and confirm that this is as expected, which can be done using unit tests.
 
-\paragraph{Creating a new algorithm using images}
-It may also be possible to apply the same algorithm, but generate an image which would then be displayed using a graphical viewer from a built in python graphics library, which would have the functionality for panning and zooming around the image built in. 
-
-This still, however, leaves the problem of debugging the process manually, and the described issue with reinventing the wheel.
-
-\paragraph{Outputting to a separate rendering program}
-A third option is to have the program connect each class with a separate program, developed by a third party which will render the given symbols.
-
-This removes a level of complexity and technical challenge, but avoids covering a research area which has already been done. Furthermore, this project's aim and main focus is to organise and import music, rather than render or create it, and recreating a rendering algorithm would not achieve this goal.
-
-In addition to this, the issue with debugging music rendering would be alleviated as a third party program designed to render music would have been tested extensively, so the program could be debugged by simply ensuring outputs to the program are correct.
-
-It has been decided to use this option and use Lilypond as the third party software. Lilypond is a cross-platform typesetting language, devoted to producing the highest-quality sheet music possible \parencite{Lilypond}. It has a large body of users and a well written collection of documentation. 
-
-This will add a further technical challenge as it will be required to understand the syntax of Lilypond, and how Python should output Lilypond files for compilation and conversion to PDF.
 
 \subsection{Comparison of Technologies for Importing Online Musical Sources}
 \subsubsection{Musical Sources}
@@ -185,8 +156,9 @@ The second selected source is the \textbf{IMSLP}. This is the \textbf{Internatio
 It may also be possible to import collections from subscription services and websites enabling purchase of music, such as \textbf{MusicNotes.com}. However, this will require closer contact with the companies maintaining the website and may not be appropriate for an educational and academic purpose.
 
 \subsubsection{Searching Algorithm}
-The APIs for both selected sources provide a variety of output formats, the 2 most prominent being XML and JSON. 
-It would be possible to use an algorithm which repeatedly connects to the API and polls for the relevant input from the user, returning a list of options which the user would then select from and download from the server. However, from the perspective of the user, this would be slow, requiring repeated connection to the internet. This would also cause problems for the maintainers of the server, as repeated requests from a piece of software would cause a heavy load on the server and be very unnecessary.
+The APIs for both selected sources provide a variety of output formats, the 2 most prominent being XML and JSON. The algorithm for browsing the source from the program will need to in some way, contact the server to confirm whether there are pieces which have a specific attribute entered by the user, and download the file if the piece is selected.
+
+It would be possible to use an algorithm which repeatedly connects to the API and polls for the relevant input from the user, returning a list of options which the user would then select from and download from the server. Whilst this would be simple to implement, this would make the program considerably slower, as it would require repeated connection to the internet. This would also cause problems for the maintainers of the server, as repeated requests from a piece of software would cause a heavy load on the server.
 
 It has therefore been decided that the software will cache a copy of all metadata served from each online source, and search for the relevant inputted data from this, and then, if necessary, collect the relevant file from the server. This would require a connection to the server only twice - once when updating metadata sources, and once when downloading a file - rather than a persistent or repeated connection.
 
