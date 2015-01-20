@@ -104,10 +104,18 @@ The third option is to create an entirely new format. This would mean the file f
 
 The fourth and final option is MusicXML, a file format intended for sharing and archiving the world's sheet music\parencite{mxml}. This particular format is used by a wide variety of software packages\parencite{mxml} and is included in the formats usable by both MuseScore\parencite{MuseTour} and Sibelius\parencite{avid}, therefore neither couples the format with a program nor requires manual creation and import of current music files. However, this particular format was designed by a third party, and might therefore present a further technical challenge in learning how the format notates everything, which will have been designed according to the requirements of the original developer, Make Music\parencite{mxml}, and may not reflect the same design intentions as this project.
 
-It would also be possible to create or include file format translators to MusicXML in the project. MusicXML has been the most successful at standardising music file formats\parencite{mxmlSoft}, and therefore there are a multitude of projects which have translated various popular formats into this format.
+It would also be possible to create or include file format translators to MusicXML in the project. MusicXML has been the most successful at standardising music file formats\parencite{mxmlSoft}, and therefore there are a multitude of projects which have translated various popular formats into MusicXML.
 
 \subsection{Comparison of Algorithms for Rendering and Organising Sheet Music}
-\subsubsection{XML parsing algorithms}
+Figure 7 shows a flow diagram for the system of rendering and organising sheet music. \\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=350pt]{flow-diagram-whole-system-crop}
+    \caption{A flow diagram describing the rendering and organising system}
+\end{figure}
+Where there are process markings which are specific to this project,(unzipping is not counted in this category), these will be described and analysed in the following sections.
+
+\subsubsection{Algorithms for parsing XML to Objects}
 For the rendering of sheet music, it will be necessary to parse a musicXML file into a hierarchy of objects, beginning with the overall piece and descending into each part and measure. 
 
 For the parsing of XML itself, there are two potential built in methods to choose from. The first, known as DOM or Document Object Model, loads the entire XML file into memory and provides methods to search the loaded file for specified tags. The developer has used this before in personal and industrial projects, and believes it is cumbersome to manipulate data in this way. Furthermore, this project is focussing on rendering the information rather than rendering it with precise formatting, and many software packages implant musicXML files with very complex formatting information which may or may not be necessary.
@@ -122,7 +130,7 @@ Furthermore, if the user is browsing their own music collection, it should not b
 
 Due to speed and functionality considerations, the choice has been made that the XML parser algorithm will not verify XML being converted to objects, or being examined for metadata. Given that most musicXML will be produced automatically by other programs, it is unlikely files opened by the project will be corrupt, though necessary steps will be taken to avoid this causing a problem in the program.
 
-\subsubsection{Metadata algorithm}
+\subsubsection{Scan for Metadata algorithm}
 The metadata algorithm has been designed so that, for a given folder, the program will parse all of the files with the XML extension for a given selection of information (for example, composer, piece title, instruments). Based on development and testing of this algorithm, the data will be cached to a permanent file in order to ensure unchanged files do not have to be parsed more than once.
 
 This is to be indexed either by the information title - e.g "composer"; or by the information itself - e.g "bartok". This will facilitate faster searching of the database for use when the user is finding a particular piece, and facilitate the production of auto generated playlists by the system. Depending on the method of indexing, the alternate indexer should be stored as part of the value in a key value pair format, alongside the file in which it was found.
