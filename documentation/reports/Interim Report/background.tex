@@ -4,7 +4,7 @@ This problem's main focus is the difficulty of organising classical sheet music,
 \subsubsection{Clefs}
 As mentioned in the introduction, an important part of musical notation is a sound's frequency relation, denoted by the staff lines and spaces. 
 
-In this system, sound frequencies, or pitches, are denoted by letters A-G - each set of these eight letters is an octave, after which the next pitch above it will be the start of a new octave.
+In this system, sound frequencies, or pitches, are denoted by letters A-G - after each cycle of the letter names, the next pitch above it will be the start of a new cycle. The cycles are often split by octaves, a term meaning eight pitches, for example A-A or E-E. 
 
 In order to provide a link between the lines and spaces of a staff and pitch name, a clef symbol is necessary:
 \begin{figure}[htbp]
@@ -25,7 +25,7 @@ A second important indication to the player is the key, denoted by a key signatu
     \caption{A staff with a key signature}
 \end{figure}
 
-A collection of symbols at the beginning of the piece indicate which pitches should be raised by half pitches, and which should be lowered. Raised pitches are called sharps, indicated by the \# symbol, whilst lowered pitches are called flats, indicated by the $\flat$ symbol. Each key, which has a letter name and key type, has a different combination of flats or sharps.
+A collection of symbols at the beginning of the piece indicate which pitches should be raised by half pitches, and which should be lowered. Raised pitches are called sharps, indicated by the \# symbol, whilst lowered pitches are called flats, indicated by the $\flat$ symbol. Each key, which has a letter name and key type (which can either be "major" or "minor"), has a different combination of flats or sharps. 
 
 This is a useful piece of notation to a musician as pieces in less common keys, such as C\# major or F\# major, may prove more difficult for the user to perform, and therefore they may want to filter out pieces in these particular keys. Similarly, in the case of singers, a singer's range may sit comfortably in one or two keys and they would perhaps want to find pieces in only these keys. 
 
@@ -35,14 +35,14 @@ The third symbol denoted at the beginning of a measure is the meter, two numeral
 \begin{figure}[htbp]
     \centering
         \includegraphics{meter-crop.pdf}
-    \caption{A staff with clef and 2/4 time signature, or meter}
+    \caption{A staff with a 2/4 time signature, or meter}
 \end{figure}
 
-The most common meter is 4/4, sometimes denoted by a C indicating "Common time". The upper number of a meter symbol indicates the amount of beats in the bar. A beat simply refers to a note or rest, and the type of beat is indicated by the lower number. In this case, 2/4 indicates a measure will contain 2 crotchets, or quarter-length notes.
+The upper number of a meter symbol indicates the amount of beats in the bar. A beat simply refers to a note or rest, and the type of beat is indicated by the lower number. In this case, 2/4 indicates a measure will contain 2 crotchets, or quarter-length notes. The most common time signature is 4/4, which for this reason is usually denoted with a C in place of the fraction, meaning "Common time".
 
 This information is important as it tells the performer how the rhythm and beat of the piece should be felt, counted and performed, and is useful for searching purposes as different meters, or time signatures as they are sometimes referred to, give the piece a different feeling, dictating the sort of occasion this piece would accompany. 
 
-For example, 2/4 is commonly used for march pieces, 3/4 is commonly used for waltzes and dance pieces, and 6/8 gives a similar, but more syncopated feel of a dance like piece.
+For example, 2/4 is commonly used for march pieces, and 3/4 is commonly used for waltzes and dance pieces.
 
 \subsubsection{Tempo}
 The speed of a particular piece, or the tempo, is indicated by an equation:
@@ -51,19 +51,20 @@ The speed of a particular piece, or the tempo, is indicated by an equation:
     \centering
         \includegraphics{tempo-crop.pdf}
     \caption{A staff with tempo marking}
-    \label{figure 1}
 \end{figure}
 
-As explained above, this equation shows that the piece should be played at 60 beats per minute - the symbol dictating the sort of beat per minute depends on the time signature, here a crotchet (or quarter note) is given as the piece is in 4/4 time. Sometimes, this will be accompanied by a text direction to indicate speed or style, such as Andante, indicating a walking speed.
+This equation shows that the piece should be played at 60 beats per minute - the symbol dictating the sort of beat per minute depends on the time signature, here a crotchet (or quarter note) is given as the piece is in 4/4 time. Sometimes, this will be accompanied by a text direction to indicate speed or style, such as Andante, indicating a walking speed.
 
 This indication would prove a useful identifier as pieces of different tempos provide variation in performance lists, so a concert organiser may want to find pieces with a variety of tempos.
 
 \subsubsection{Further metadata}
 Aside from these symbols, there are some items of textual information useful to the user. 
 
-The first of these would be the parts in the piece and their transpositions. Parts would be relevant as a particular group of instrumentalists may need parts that fit their instruments. If this is not the case for a given piece, however, a part written for a different instrument, for example, the Alto Saxophone rather than the Tenor Horn, may be compatible with the instrument anyway, if the transposition matches the instruments together.
+The first of these would be the parts in the piece and their transpositions. Parts would be relevant as a particular group of instrumentalists may need parts that fit their instruments. If this is not the case for a given piece, however, a part written for a different instrument, for example, the Alto Saxophone rather than the Tenor Horn, may be compatible with the instrument anyway, if the transposition matches the instruments together. 
 
-Further to this, the user would want to know the piece's title, and names of publishers, composers, arrangers and lyricists of the work. Further to the composer name, it may be useful to know the date of composition as an indication of the piece's stylistic era, such as Classical/Baroque/Romantic, though this would not always be written on the sheet music so may need to be researched using the internet.
+An instrument which has a transposition means that, whilst most instruments would play a note as it is written, a transposing instrument will automatically sound the note in a different key, as described earlier, which may raise or lower the sound of the instrument. For example, the note C played on an Alto Saxophone will sound as an E$\flat$, because it is in the key of E$\flat$ major. 
+
+Further to this, the user would want to know the piece's title, and names of publishers, composers, arrangers and lyricists of the work. Further to the composer name, it may be useful to know the date of composition as an indication of the era in which the piece was composed, such as Classical/Baroque/Romantic, though this would not always be written on the sheet music so may need to be researched using the internet.
 
 
 \subsection{Comparison of Technologies}
@@ -72,24 +73,20 @@ This project could be developed with a variety of programming languages, as disp
 
 \begin{center}
 \begin{tabular}{| l | c | c | c | r |} \hline
-  {Language} & {Speed of development} & {Developer's Knowledge} & {Most recently used} & {Cross compatible} \\ \hline
+  {Language} & {Speed of development} & {Developer's Knowledge} & {Most recently used} & {Platform independent} \\ \hline
   C\# & Fast & A lot & 2nd year & Yes \\ \hline
   Python & Fast & A lot & In constant use for over a year & Yes \\ \hline
   C++ & Slow & Average & 2nd year & Yes \\ \hline
 \end{tabular}
 \end{center}
-The four key elements the developer is focussing on are speed of development, as the time constraint of a year means it is important that development is not hindered by the language itself, developer knowledge and most recent usage of the language as this will provide an additional time benefit, and cross compatibility, due to the different operating systems the developer intends to use in the course of development.
+The four key elements of whether a language is suitable for this project are speed of development, as the time constraint of a year means it is important that development is not hindered by the language itself, developer knowledge and most recent usage of the language as this will provide an additional time benefit, and platform independence, due to the different operating systems the developer intends to use in the course of development.
 
-The developer understands C\# is cross compatible through the use of the Mono Project, which is feature complete to C\# 10\parencite{MonoDev}, or Xamarin Studio and other such tools, but has not developed any applications with c\# for multiple operating systems. For this reason, the developer feels more comfortable using Python, owing to the experience of writing applications for Linux and Windows in previous projects. 
+It is understood that C\# is platform independent through the use of the Mono Project, which is feature complete to C\# 10\parencite{MonoDev}, or Xamarin Studio and other such tools, but has not developed any applications with C\# for use on multiple operating systems. For this reason, the developer feels more comfortable using Python, owing to the experience of writing applications for Linux and Windows in previous projects. 
 
-Due to these factors, Python has been selected, particularly as the developer used much of the features of python during an industrial placement and feels this is the most appropriate language for rapid development.
-
-Further to these benefits, there are many projects in the field of musical software research currently in existence using this language, \parencite{pmus} which will help when trying to debug issues and build upon previous research.
-
-As a further technical challenge, the developer has elected to use Python 3, as this is the most up to date version, but also a version the developer has yet to work with and may requre some relearning of specific areas of syntax. This presents a technical challenge as many other open source projects and packages use version 2.7, so interfacing with other works may require submitting pull requests to update them to version 3.
+Due to these factors, Python has been selected. Further to these benefits, there are many projects in the field of musical software research currently in existence using this language, \parencite{pmus} which will help when trying to debug issues and build upon previous research.
 
 \subsubsection{File format}
-The project will require at least one default format for it to process music, which needs to have detailed information about what the score contains. The table below describes the options considered by the developer:
+The project will require at least one default format for it to process music, which needs to have detailed information about what the score contains. The table below describes the options considered:
 
 \begin{center}
 \begin{tabular}{| c | c | } \hline
@@ -103,17 +100,19 @@ The project will require at least one default format for it to process music, wh
 The first two options, muscx and SIB files, are formats used by the open source notation software MuseScore\parencite{MuseTour}, and the world's most popular proprietary notation software, Sibelius\parencite{avid}. Using either or both of these files would mean the majority of users would be able to use the application. 
 However, both options couple this project with those particular packages, when users could still choose other software to write music with. Furthermore, the formats are specifically designed for those software packages and may have nuances which make development for this project more difficult. Additionally, Sibelius is proprietary so borrowing their file format may cause copyright issues.
 
-The third option is to create an entirely new format. This would mean the file format was designed to the specification of the developer and therefore be entirely customisable and extensible. However, this project is created with the intention of organising, not composing music, so the files would have to be created or imported from other software packages manually if the project does not include composition. Therefore, this is the least applicable option.
+The third option is to create an entirely new format. This would mean the file format was designed to the requirements of the project and therefore be entirely customisable and extensible. However, this project is created with the intention of organising, not composing music, so the files would have to be created or imported from other software packages manually if the project does not include composition. Therefore, this is the least applicable option.
 
-The fourth and final option, which the developer has decided to implement, is MusicXML, a file format intended for sharing and archiving the world's sheet music\parencite{mxml}. This particular format is used by a wide variety of software packages\parencite{mxml} and is included in the formats usable by both MuseScore\parencite{MuseTour} and Sibelius\parencite{avid}, therefore neither couples the format with a program nor requires manual creation and import of current music files. However, this particular format was designed by a third party, and might therefore present a further technical challenge in learning how the format notates everything, which won't necessarily be the best method in the opinion of the developer.
+The fourth and final option is MusicXML, a file format intended for sharing and archiving the world's sheet music\parencite{mxml}. This particular format is used by a wide variety of software packages\parencite{mxml} and is included in the formats usable by both MuseScore\parencite{MuseTour} and Sibelius\parencite{avid}, therefore neither couples the format with a program nor requires manual creation and import of current music files. However, this particular format was designed by a third party, and might therefore present a further technical challenge in learning how the format notates everything, which will have been designed according to the requirements of the original developer, Make Music\parencite{mxml}, and may not reflect the same design intentions as this project.
+
+It would also be possible to create or include file format translators to MusicXML in the project. MusicXML has been the most successful at standardising music file formats\parencite{mxmlSoft}, and therefore there are a multitude of projects which have translated various popular formats into this format.
 
 \subsection{Comparison of Algorithms for Rendering and Organising Sheet Music}
 \subsubsection{XML parsing algorithms}
 For the rendering of sheet music, it will be necessary to parse a musicXML file into a hierarchy of objects, beginning with the overall piece and descending into each part and measure. 
 
-For the parsing of XML itself, there are two potential built in methods to choose from. The first loads the entire XML file into memory and provides methods for the developer to search the loaded file for specified tags. The developer has used this before in personal and industrial projects, and believes it is cumbersome to manipulate data in this way. Furthermore, the developer is focussing on rendering the information rather than rendering it with precise formatting, and many software packages implant musicXML files with very complex formatting information which may or may not be necessary.
+For the parsing of XML itself, there are two potential built in methods to choose from. The first, known as DOM or Document Object Model, loads the entire XML file into memory and provides methods to search the loaded file for specified tags. The developer has used this before in personal and industrial projects, and believes it is cumbersome to manipulate data in this way. Furthermore, this project is focussing on rendering the information rather than rendering it with precise formatting, and many software packages implant musicXML files with very complex formatting information which may or may not be necessary.
 
-The second option is using a different api called the Simple API for XML (SAX). In this method, the program loads the XML file tag by tag, and connects to call backs when specified things occur in the file, for example a new tag or piece of data inside tags, or the closing of an old tag. This is easier to work with as the developer can iteratively build up a collection of methods to handle each tag, and is better for memory management as only tags which are necessary to the project will have any effect on the object structure. For these reasons, this method has been selected.
+The second option is using a different api called the Simple API for XML (SAX). In this method, the program loads the XML file tag by tag, and connects to call backs when specified things occur in the file, for example a new tag or piece of data inside tags, or the closing of an old tag. This is easier to work with as functionality can iteratively be build up by creating handlers for each tag, and is better for memory management as only tags which are necessary to the project will have any effect on the object structure. For these reasons, this method has been selected.
 
 \subsubsection{XML verification algorithms}
 For both the algorithm options discussed in the above section, a further choice is whether to verify the XML parsed, using an online file validator, or presume the file is written in valid MusicXML. 
@@ -124,7 +123,7 @@ Furthermore, if the user is browsing their own music collection, it should not b
 Due to speed and functionality considerations, the choice has been made that the XML parser algorithm will not verify XML being converted to objects, or being examined for metadata. Given that most musicXML will be produced automatically by other programs, it is unlikely files opened by the project will be corrupt, though necessary steps will be taken to avoid this causing a problem in the program.
 
 \subsubsection{Metadata algorithm}
-The metadata algorithm has been designed so that, for a given folder, the program will parse all of the files with the XML extension for a given selection of information (for example, composer, piece title, instruments) and store this information in memory. 
+The metadata algorithm has been designed so that, for a given folder, the program will parse all of the files with the XML extension for a given selection of information (for example, composer, piece title, instruments). Based on development and testing of this algorithm, the data will be cached to a permanent file in order to ensure unchanged files do not have to be parsed more than once.
 
 This is to be indexed either by the information title - e.g "composer"; or by the information itself - e.g "bartok". This will facilitate faster searching of the database for use when the user is finding a particular piece, and facilitate the production of auto generated playlists by the system. Depending on the method of indexing, the alternate indexer should be stored as part of the value in a key value pair format, alongside the file in which it was found.
 
@@ -132,24 +131,28 @@ It has been decided that in memory, this will be structured using a generic type
 
 Further to this, of the two xml algorithms described in section 3.3.1, the algorithm will use SAX, as this algorithm does not require all of the data and would therefore waste a lot of memory by loading in the entire file to memory.
 
+Finally, the initial implementation of this algorithm used a serialised copy of the generic type to store the metadata to file. It has been decided for the purposes of extensibility and portability that data will be stored to an SQLite file, a light implementation of SQL databases. This is a more complex file type and as such will take longer to implement, but ensures that if this project is developed on in the future, that the file format can be used by other platforms and languages without converting to and from a Python object.
+
 \subsubsection{Rendering Algorithm}
-The program is required to take the object structure and transform it, in some way, to musician readable sheet music. 
+The program is required to take the object structure and transform it, in some way, to musician readable sheet music. The user should be able to pan around the sheet music and zoom in and out of it to view specific details.
 
-This could be achieved using an entirely new algorithm of the developer's design, with the output going directly to the render window using different glyphs and fonts extracted from their relevant classes.
+This could be achieved using an entirely new algorithm, with the output going directly to the render window using different glyphs and fonts extracted from their relevant classes.
 
-However, using fonts may cause difficulty in creating functionality such as panning and zooming, features which are common to most render window applications. Furthermore, the conversion of even basic sheet music to a readable format would require a high level of precision and complexity, and creating a new algorithm would be considered reinventing the wheel, so to speak, as this is a process that has been covered by many different applications (like MuseScore\parencite{MuseTour}, Finale\parencite{mxml} and Sibelius\parencite{avid}). 
-Lastly, the process of debugging whether the symbols are correct would require visual checking by the developer and would be difficult to debug automatically.
+However, the functionality of panning and zooming using this algorithm may be difficult to optimise, as both could possibly require running the algorithm each time the user provides input. 
+
+Furthermore, the conversion of even basic sheet music to a readable format would require a high level of precision and complexity, and creating a new algorithm would be considered reinventing the wheel, so to speak, as this is a process that has been covered by many different applications (like MuseScore\parencite{MuseTour}, Finale\parencite{mxml} and Sibelius\parencite{avid}). 
+Lastly, the process of debugging whether the symbols are correct would require visual checking and would be difficult to debug automatically.
 
 It would be possible to alleviate the panning and zooming problem by converting the typesetted symbols to an image or PDF file and using a built in image rendering library, such as wxPython\parencite{WX}. However, this method still involves reinventing the wheel and problems with visual debugging being required.
 
-Considering these factors, it has been decided that the developer will be using a third party typesetting system known as Lilypond. Lilypond is a typesetting language and system developed to typeset the highest quality sheet music\parencite{Lilypond}, which takes an input file and outputs a PDF or image. As this is a language unto itself and has been in development for many years by the Open Source community, this will alleviate the problem of visual debugging - the developer can instead create a formatted lilypond output for each class based on its attributes and confirm that this is as expected, which can be done using unit tests.
+Considering these factors, it has been decided that the algorithm will be outputting files a third party typesetting system known as Lilypond. Lilypond is a typesetting language and system developed to typeset the highest quality sheet music\parencite{Lilypond}, which takes an input file and outputs a PDF or image. As this is a language unto itself and has been in development for many years by the Open Source community, this will alleviate the problem of visual debugging - instead, each class can create a formatted lilypond output based on its attributes and unit tests can automatically confirm that the result is as expected.
 
 
 \subsection{Comparison of Technologies for Importing Online Musical Sources}
 \subsubsection{Musical Sources}
 Two open and free sources of sheet music have been selected for potential inclusion, which will enable users to connect their own music collections with new music without using a browser to peruse collections. The first is \textbf{MuseScore Online}, which is a community website created for composers to upload share and discover compositions using the MuseScore platform \parencite{MuseShare}.
 
-This has been selected due to the number of files available, the openness of the platform and the well documented API created by the developers. It will, however, be necessary to manage copyright issues, as pieces published on this website may be published under the license of the composer's choosing and therefore may cause issues with certain types of users, in particular those performing commercially.
+This has been selected due to the number of files available, the openness of the platform and the well documented API. It will, however, be necessary to manage copyright issues, as pieces published on this website may be published under the license of the composer's choosing and therefore may cause issues with certain types of users, in particular those performing commercially.
 
 The second selected source is the \textbf{IMSLP}. This is the \textbf{International Music Score Library Project}, built with the intention of sharing the world’s public domain music and contains 290,000 scores to date \parencite{imslp}. This may be a questionable source, as not all pieces are uploaded in MusicXML format due to the pieces being scanned and uploaded by community members, rather than being automatically generated by a piece of software. However, this source does not raise any copyright issues as all pieces are no longer covered by copyright.
 
@@ -166,22 +169,22 @@ It has therefore been decided that the software will cache a copy of all metadat
 \subsubsection{MIDI algorithm}
 The sound output algorithm must, for a given part or selection of parts, output the sheet music to a MIDI or MP3 file, which can then be played within the program. 
 
-It has been decided that each class in the solution will have a method to produce this output. Each class holding objects as members will call each sub object's sound output method, which will be saved by the program as a full outputted file and played using a python sound output library.
+It has been decided that each class in the solution will have a method to produce this output, in the same way as the algorithm described for rendering in section 3.3.4, which will be combined into an output file and played.
 
-This provides an extendable architecture, as the developer could choose to produce different outputs, such as one for MIDI and one for MP3, which would be called in the same way.
+This creates an extendible architecture, as it would easily be possible to create output methods to other formats in the future.
+
 \subsubsection{Image input algorithm}
 In order to import images or flat files into the chosen file format, it will be necessary for the program to include the ability to apply music optical character recognition to the file, and save the output to MusicXML, which can then be parsed by other parts of the program. 
 
-\paragraph{Creating a new algorithm}
-It would be possible for the developer to produce their own algorithm for converting new imported images into the chosen file format. This would allow the developer to optimise the algorithm according to their own wishes, and provide sufficient technical challenge.
+It would be possible for a new algorithm to be produced for converting new imported images into the chosen file format. This would mean the algorithm according to the project aims, and provide sufficient technical challenge.
 
 However, this project is concerned with music organisation, not OCR specifically, and as such the project is too large to commit a sufficient amount of time to this particular algorithm in order to make it function as well as other algorithms. 
 
 As a reference point, Optical Character Recognition for natural languages has taken may years to develop and perfect, and has been an attractive research area and idea to a wide variety of users\parencite{InternationalConf}. OMR, or Optical Music Recognition, has been the focus of international research for over three decades, and while numerous achievements have been made, there are still many challenges to be faced before it reaches its full potential\parencite{musicocr}. 
 
-\paragraph{Using third party software}
-It has therefore been decided that OCR as a topic is too large for this project, and if this goal is included in the project, it will be through communication with other systems, such as Audiveris, an open music scanner \parencite{audiveris}. 
+It has therefore been decided that OCR as a topic is too large for this project, and if this goal is included in the project, it will be through communication with other systems, such as Audiveris, an open music scanner\parencite{audiveris}. 
 
 This removes the technical challenge of producing an entirely new algorithm, but adds the challenge of understanding how optical music character recognition scanners work, and how they can be integrated with the system, particularly if the third party package is not developed in Python.
+
 \subsection{Alternative Solutions}
 The majority of music software available to the masses covers the creative process of writing music, with the two most well known packages being the aforementioned Sibelius, a commercial software package costing around £500 \parencite{avid}, and the freely available and Open Source MuseScore\parencite{MuseTour}.
