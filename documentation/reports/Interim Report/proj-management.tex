@@ -12,8 +12,9 @@ After this research period, class diagrams were drawn and some initial code impl
     \centering
     \includegraphics[width=400pt]{flowchart-progress}
     \caption{Flowchart colour coded according to progress}
+    \label{colours}
 \end{figure}
-The figure above shows the flowchart shown previously colour coded to show progress. Green indicates that this area is considered complete, light blue indicates that this area has been completed but requires refactoring, yellow indicates that this area has been implemented on a command-line level but requires connection to a user interface to be considered completed, and dark blue indicates the area currently in development.
+Figure \ref{colours} shows the flowchart shown in figure \ref{fig:flow} colour coded to show progress. Green indicates that this area is considered complete, light blue indicates that this area has been completed but requires refactoring, yellow indicates that this area has been implemented on a command-line level but requires connection to a user interface to be considered completed, and dark blue indicates the area currently in development.
 
 Of the areas shaded in light blue, the cached metadata database is currently stored as a serialised python object. In order to make this as extendible and portable as possible, this will need to be refactored to using an SQLite file to be considered completed. SQLite is a light implementation of an SQL database stored as a single file, which should be relatively simple to implement in other languages as it is standardised.
 \subsection{Adjustments made}
