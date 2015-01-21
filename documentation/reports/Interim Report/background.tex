@@ -66,21 +66,31 @@ For example, 2/4 is commonly used for march pieces, and 3/4 is commonly used for
 \subsubsection{Tempo}
 The speed of a particular piece, or the tempo, is indicated by an equation.
 
-\begin{figure}[htbp]
+\begin{figure}[h]
     \centering
         \includegraphics{tempo-crop.pdf}
     \caption{A staff with tempo marking}
     \label{fig:tempo}
 \end{figure}
 
-This equation above the staff in figure \ref{fig:tempo} indicates that the piece should be played at 60 beats per minute - the symbol dictating the sort of beat per minute depends on the time signature, here a crotchet (or quarter note) is given as the piece is in 4/4 time. Sometimes, this will be accompanied by a text direction to indicate speed or style, such as Andante, indicating a walking speed.
+This equation above the staff in figure \ref{fig:tempo} indicates that the piece should be played at 60 beats per minute. The symbol dictating the sort of beat per minute depends on the time signature, here a crotchet (or quarter note) is given as the piece is in 4/4 time. Sometimes, this will be accompanied by a text direction to indicate speed or style, such as Andante, indicating a walking speed.
 
 This indication would prove a useful identifier as pieces of different tempos provide variation in performance lists, so a concert organiser may want to find pieces with a variety of tempos.
 
 \subsubsection{Further metadata}
 Aside from these symbols, there are some items of textual information useful to the user. 
 
-The first of these would be the parts in the piece and their transpositions. Parts would be relevant as a particular group of instrumentalists may need parts that fit their instruments. If this is not the case for a given piece, however, a part written for a different instrument, for example, the Alto Saxophone rather than the Tenor Horn, may be compatible with the instrument anyway, if the transposition matches the instruments together. 
+The first of these would be the parts in the piece and their transpositions. A part refers to a grouping of measures given to one performer, as shown in figure \ref{fig:parts}. "Part" used in a general sense usually refers to the names given to the left, in this example, "Clarinet in B$\flat$" and "Flute".
+\begin{figure}[H]
+\centering
+\includegraphics{multiparts-crop}
+\caption{Three separate parts in one score}
+\label{fig:parts}	
+\end{figure}
+
+
+
+Parts would be relevant as a particular group of instrumentalists may need parts that fit their instruments. If this is not the case for a given piece, however, a part written for a different instrument, for example, the Alto Saxophone rather than the Tenor Horn, may be compatible with the instrument anyway, if the transposition matches the instruments together. 
 
 An instrument which has a transposition means that, whilst most instruments would play a note as it is written, a transposing instrument will automatically sound the note in a different key, as described earlier, which may raise or lower the sound of the instrument. For example, the note C played on an Alto Saxophone will sound as an E$\flat$, because it is in the key of E$\flat$ major. 
 
@@ -89,9 +99,9 @@ Further to this, the user would want to know the piece's title, and names of pub
 
 \subsection{Comparison of Technologies}
 \subsubsection{Programming Language}
-This project could be developed with a variety of programming languages, as displayed in the table in figure \ref{fig:langs}.
+This project could be developed with a variety of programming languages, as displayed in table \ref{table:langs}.
 
-\begin{figure}[h]
+\begin{table}[H]
 \begin{tabular}{| l | l | l | l |} \hline
   {Language} & {Speed of development} & {Developer's Knowledge} & {Most recent use} \\ \hline
   C\# & Fast & A lot & 2nd year \\ \hline
@@ -99,22 +109,31 @@ This project could be developed with a variety of programming languages, as disp
   C++ & Slow & Average & 2nd year \\ \hline
 \end{tabular}
 \caption{Table of languages considered}
-\label{fig:langs}
-\end{figure}
-The three key elements of whether a language is suitable for this project are speed of development, as the time constraint of a year means it is important that development is not hindered by the language itself, developer knowledge and most recent usage of the language as this will provide an additional time benefit.
+\label{table:langs}
+\end{table}
+The three key elements of whether a language is suitable for this project are speed of development, as the time constraint of a year means it is important that development is not hindered by the language itself, developer knowledge and most recent usage of the language as this will provide an additional time benefit. These are displayed in table \ref{table:langs}.
 
 A further consideration is platform independence, as the developer intends to make the project accessible to all users. It is understood that C\# is platform independent through the use of the Mono Project, which is feature-complete to C\# 10 \parencite{MonoDev}, or Xamarin Studio and other such tools, but the developer has not developed any applications with C\# for use on multiple operating systems. For this reason, the developer feels more comfortable using Python, owing to the experience of writing applications for Linux and Windows in previous projects. 
 
-Further to these benefits, there are many projects in the field of musical software research currently in existence using this language, \parencite{pmus} such as mingus, an advanced music theory and notation package for Python.
+The developer has also considered the Open Source communities and repositories around each of the languages. Whilst not important in the context of the current project, after the project is completed it is intended that the project be Open Sourced to contribute to further research in this area, and considering the graph in figure \ref{fig:graph} \parencite{Redmonk}, Python has the highest number of repositories. Whilst this does not categorically prove it as the best language for Open Source software development, it shows that there are a high number of users and projects in this area, which will make it a more popular project to work with once open sourced.
 
-It is for these reasons that Python has been chosen as the development language. Beyond the selection of Python, it is important to discuss and consider which version to use, as Python 3 was introduced in 2010, but Python 2 continues to be maintained. Whilst this seems an obvious choice as Python 3 is the latest version, many projects, including Lilypond, still have issues updating and using Python 3 as it was deliberately not backwards compatible \parencite{Foundation2}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=300pt]{github-repos}
+\caption{A graph showing the languages with the highest numbers of repositories on Github}	
+\label{fig:graph}
+\end{figure}
 
-The developer initially decided to use Python 3, due to it being the most well maintained by the Foundation and the technical challenge of relearning certain areas of the language. However, upon consideration and usage of Lilypond, the project will use 2.7 in order to better interface with older projects without requiring a considerable amount of commitment to making those projects up to date.
+Furthermore, there are many projects in the field of musical software research currently in existence using this language, \parencite{pmus} such as mingus, an advanced music theory and notation package for Python.
+
+It is for these reasons that Python has been chosen as the development language. Beyond the selection of Python, it is important to discuss and consider which version to use, as Python 3 was introduced in 2010, but Python 2 continues to be maintained. Whilst this seems an obvious choice as Python 3 is the latest version, many projects still have issues updating and using Python 3 as it was deliberately not backwards compatible \parencite{Foundation2}.
+
+Upon due consideration, Python 3 has been selected, though if the project requires legacy libraries this may have to be evaluated again. This decision has been made because at this stage the project does not appear to require libraries which do not work with Python 3, and therefore the developer should make every effort to keep the project up to date with the latest version.
 
 \subsubsection{File format}
 The project will require at least one default format for it to process music, which needs to have detailed information about what the score contains. The table in figure \ref{fig:formats} describes the options considered.
 
-\begin{figure}[h]
+\begin{table}
 \centering
 \begin{tabular}{| c | c | } \hline
   {Format} & {Purpose} \\ \hline
@@ -124,8 +143,8 @@ The project will require at least one default format for it to process music, wh
   MusicXML & sharing music between software \\ \hline
 \end{tabular}
 \caption{A table showing the different file formats considered}
-\label{fig:formats}
-\end{figure}
+\label{table:formats}
+\end{table}
 The first two options, muscx and SIB files, are formats used by the open source notation software MuseScore \parencite{MuseTour}, and the world's most popular proprietary notation software, Sibelius \parencite{avid}. Using either or both of these files would mean the majority of users would be able to use the application. 
 However, both options couple this project with those particular packages, when users could still choose other software to write music with. Furthermore, the formats are specifically designed for those software packages and may have nuances which make development for this project more difficult. Additionally, Sibelius is proprietary so borrowing their file format may cause copyright issues.
 
@@ -138,7 +157,7 @@ It would also be possible to create or include file format translators to MusicX
 \subsection{Comparison of Algorithms for Rendering and Organising Sheet Music}
 Figure \ref{fig:flow} shows a flow diagram for the system of rendering and organising sheet music. Where there are process markings which are specific to this project,(unzipping is not counted in this category), these will be described and analysed in the following sections.
 Mxl files are the format used to zip MusicXML files, and as such the procedure for unzipping them is not complicated. Where arrows have text, this indicates that the arrow will only be followed if the text condition is met.
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \includegraphics[width=350pt]{flowchart}
     \caption{A flow diagram describing the rendering and organising system}
@@ -225,8 +244,8 @@ It has therefore been decided that OCR as a topic is too large for this project,
 This removes the technical challenge of producing an entirely new algorithm, but adds the challenge of understanding how optical music character recognition scanners work, and how they can be integrated with the system, particularly if the third party package is not developed in Python.
 
 \subsection{Alternative Solutions}
-The table in figure \ref{fig:software} shows the alternative options for viewing music software.
-\begin{figure}[H]
+Table \ref{table:software} shows the alternative options for viewing music software.
+\begin{table}[H]
 \begin{tabu} to 1.05\textwidth {| X[l] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] |} \hline
 {Software} & {Rendering of Sheet Music} & {Manual Organisation} & {Automatic Organisation} & {Connection to Online Sources} & {Audio Playback} & {OMR} & {Price} & {Platform} \\ \hline
 Avid Scorch & \checkmark & \checkmark & $\times$ & \checkmark & \checkmark & $\times$ & £1.40 & iOS \\ \hline
@@ -235,5 +254,5 @@ Avid Photoscore & \checkmark & $\times$ & $\times$ & $\times$ & $\times$ & \chec
 Scorcerer & \checkmark & \checkmark & $\times$ & $\times$ & \checkmark & \checkmark & £15 for iPad version (free on desktops) & Designed for iPad, but available for Mac and PC \\ \hline
 \end{tabu}
 \caption{A comparison table of other available software}
-\label{fig:software}	
-\end{figure}
+\label{table:software}	
+\end{table}
