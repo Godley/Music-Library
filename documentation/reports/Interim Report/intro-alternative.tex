@@ -1,25 +1,9 @@
 \section{Introduction}
-Notation of western classical music has used a combination of the diastematic and phonetic notation \parencite{RRastall} since the advent of Gregorian chant around 640AD \parencite{RTaruskin}. The function of this notation falls into two main divisions: the expression of relationship in sound frequency, and the expression of relationship in time, or measure \parencite{oxHistory}.
+This project focusses on the organisation and display of sheet music. This type of musical notation is the format most commonly used by classical orchestras and performers, and in order to understand the problem of organising it, some explanation of the key elements will be required.
 
-The key element of this form of notation is the staff, as shown in Figure \ref{staff}. This is a grouping of five horizontal lines, with each line or space in the staff indicating a different sound pitch, a term meaning the relative "highness" or "lowness" of the sound \parencite{classroom}.
+Notation of western classical music has used a combination of diastematic and orthographic notation \parencite{RRastall} since the advent of Gregorian chant around 640AD \parencite{RTaruskin}. The function of this notation falls into two main divisions: the expression of relationship in sound frequency, and the expression of relationship in time, or measure \parencite{oxHistory}.
 
-\begin{figure}[h]
-    \centering
-        \includegraphics{staff-crop.pdf}
-    \caption{A blank staff}
-    \label{staff}
-\end{figure}
-
-This staff is divided by bar lines, vertical lines delineating grouped units of sound and silence (formally referred to as notes and rests), which provides an indication of the unit's relationship in time by its juxtaposition to other groupings in the composition. These groupings are called measures or bars, with each bar having a variable maximum of notes and rests. 
-
-\begin{figure}[h]
-    \centering
-        \includegraphics{bar_with_notes-crop.pdf}
-    \caption{A bar containing three notes and one rest}
-    \label{staff-notes}
-\end{figure}
-
-The representations of other parameters in staff notation are normally phonetic, such as indications p - meaning piano, or "quiet" - and pizz - meaning pizzicato, or "plucked" \parencite{RRastall}. This mechanism is complex in nature, and has a large but finite set of symbols which control every element of the composition.
+The representations of other parameters in staff notation are normally orthographic, such as indications p - meaning piano, or "quiet" - and pizz - meaning pizzicato, or "plucked" \parencite{RRastall}. This mechanism is complex in nature, and has a large but finite set of symbols which control every element of the composition. This will be discussed and explained further later in this report.
 
 A musician will often organise pieces notated using this system, or scores as they are formally known, in a music cabinet or filing cabinet \parencite{musicOrganising}. These range from basic shelving to the more traditional large ornate cabinets where drawers only allow the user to see the top document, making it difficult to find scores which are deeper in the cabinet. This can often mean that music a performer will use regularly is kept on music stands and in piano stools, because if they were to return an item back into the music cabinet, it is likely that they would never find it again \parencite{SheetMusicRant}.
 
@@ -41,6 +25,7 @@ The following objectives are of the highest importance to the project, and are a
     It will be necessary to render one or more formats of commonly stored musical files, as the aim of the project is to enable users to view and organise their sheet music collections.
     \item \textbf{Extraction of Metadata}\\
     The project will be required to extract important information from each piece, ranging from the simple nominal data such as title, composer, lyricist, to the more complex notation such as clefs, key signatures and meters used. 
+    \item \textbf{Ability to search metadata extracted and autogenerate playlists}\\ From the extracted metadata it should be possible to search the catalog of music for specific requirements, such as key, clef, meter, time signature (explained in the background section). The system should also be capable of generating playlists based on related data.
     \item \textbf{Connection to Online Music Collections}\\
     It should also be possible to connect to online music collections, as it would be beneficial to users to be able to search and add to their collections using the same interface.
 

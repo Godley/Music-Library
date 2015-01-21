@@ -1,10 +1,26 @@
 \section{Background}
 \subsection{Problem Context}
 This problem's main focus is the difficulty of organising classical sheet music, and how this can be made easier by the automatic extraction of key pieces  of information. In order to understand what a performer may want to know about a particular piece, it is important to have a brief understanding of the elements of musical notation common to all compositions.
-\subsubsection{Clefs}
-As mentioned in the introduction, an important part of musical notation is a sound's frequency relation, denoted by the staff lines and spaces. 
 
-In this system, sound frequencies, or pitches, are denoted by letters A-G - after each cycle of the letter names, the next pitch above it will be the start of a new cycle. The cycles are often split by octaves, a term meaning eight pitches, for example A-A or E-E. 
+The key element of this form of notation is the staff, as shown in Figure \ref{staff}. This is a grouping of five horizontal lines, with each line or space in the staff indicating a different sound pitch, a term meaning the relative "highness" or "lowness" of the sound \parencite{classroom}.
+
+\begin{figure}[h]
+    \centering
+        \includegraphics{staff-crop.pdf}
+    \caption{A blank staff}
+    \label{staff}
+\end{figure}
+
+This staff is divided by bar lines, vertical lines delineating grouped units of sound and silence (formally referred to as notes and rests), which provides an indication of the unit's relationship in time by its juxtaposition to other groupings in the composition. These groupings are called measures or bars, with each bar having a variable maximum of notes and rests. 
+
+\begin{figure}[h]
+    \centering
+        \includegraphics{bar_with_notes-crop.pdf}
+    \caption{A bar containing three notes and one rest}
+    \label{staff-notes}
+\end{figure}
+\subsubsection{Clefs}
+In the system of staff notation, sound frequencies, or pitches, are denoted by letters A-G - after each cycle of the letter names, the next pitch above it will be the start of a new cycle. The cycles are often split by octaves, a term meaning eight pitches, for example A-A or E-E. 
 
 In order to provide a link between the lines and spaces of a staff and pitch name, a clef symbol is necessary.
 \begin{figure}[h]
@@ -48,7 +64,7 @@ This information is important as it tells the performer how the rhythm and beat 
 For example, 2/4 is commonly used for march pieces, and 3/4 is commonly used for waltzes and dance pieces.
 
 \subsubsection{Tempo}
-The speed of a particular piece, or the tempo, is indicated by an equation:
+The speed of a particular piece, or the tempo, is indicated by an equation.
 
 \begin{figure}[htbp]
     \centering
@@ -57,7 +73,7 @@ The speed of a particular piece, or the tempo, is indicated by an equation:
     \label{fig:tempo}
 \end{figure}
 
-This equation above the staff in figure \ref{fig:tempo} that the piece should be played at 60 beats per minute - the symbol dictating the sort of beat per minute depends on the time signature, here a crotchet (or quarter note) is given as the piece is in 4/4 time. Sometimes, this will be accompanied by a text direction to indicate speed or style, such as Andante, indicating a walking speed.
+This equation above the staff in figure \ref{fig:tempo} indicates that the piece should be played at 60 beats per minute - the symbol dictating the sort of beat per minute depends on the time signature, here a crotchet (or quarter note) is given as the piece is in 4/4 time. Sometimes, this will be accompanied by a text direction to indicate speed or style, such as Andante, indicating a walking speed.
 
 This indication would prove a useful identifier as pieces of different tempos provide variation in performance lists, so a concert organiser may want to find pieces with a variety of tempos.
 
@@ -73,26 +89,33 @@ Further to this, the user would want to know the piece's title, and names of pub
 
 \subsection{Comparison of Technologies}
 \subsubsection{Programming Language}
-This project could be developed with a variety of programming languages, as displayed in the following table:
+This project could be developed with a variety of programming languages, as displayed in the table in figure \ref{fig:langs}.
 
-\begin{center}
-\begin{tabular}{| l | c | c | c | r |} \hline
-  {Language} & {Speed of development} & {Developer's Knowledge} & {Most recently used} & {Platform independent} \\ \hline
-  C\# & Fast & A lot & 2nd year & Yes \\ \hline
-  Python & Fast & A lot & In constant use for over a year & Yes \\ \hline
-  C++ & Slow & Average & 2nd year & Yes \\ \hline
+\begin{figure}[h]
+\begin{tabular}{| l | l | l | l |} \hline
+  {Language} & {Speed of development} & {Developer's Knowledge} & {Most recent use} \\ \hline
+  C\# & Fast & A lot & 2nd year \\ \hline
+  Python & Fast & A lot & In constant use for over a year \\ \hline
+  C++ & Slow & Average & 2nd year \\ \hline
 \end{tabular}
-\end{center}
-The four key elements of whether a language is suitable for this project are speed of development, as the time constraint of a year means it is important that development is not hindered by the language itself, developer knowledge and most recent usage of the language as this will provide an additional time benefit, and platform independence, due to the different operating systems the developer intends to use in the course of development.
+\caption{Table of languages considered}
+\label{fig:langs}
+\end{figure}
+The three key elements of whether a language is suitable for this project are speed of development, as the time constraint of a year means it is important that development is not hindered by the language itself, developer knowledge and most recent usage of the language as this will provide an additional time benefit.
 
-It is understood that C\# is platform independent through the use of the Mono Project, which is feature complete to C\# 10\parencite{MonoDev}, or Xamarin Studio and other such tools, but has not developed any applications with C\# for use on multiple operating systems. For this reason, the developer feels more comfortable using Python, owing to the experience of writing applications for Linux and Windows in previous projects. 
+A further consideration is platform independence, as the developer intends to make the project accessible to all users. It is understood that C\# is platform independent through the use of the Mono Project, which is feature-complete to C\# 10 \parencite{MonoDev}, or Xamarin Studio and other such tools, but the developer has not developed any applications with C\# for use on multiple operating systems. For this reason, the developer feels more comfortable using Python, owing to the experience of writing applications for Linux and Windows in previous projects. 
 
-Due to these factors, Python has been selected. Further to these benefits, there are many projects in the field of musical software research currently in existence using this language, \parencite{pmus} which will help when trying to debug issues and build upon previous research.
+Further to these benefits, there are many projects in the field of musical software research currently in existence using this language, \parencite{pmus} such as mingus, an advanced music theory and notation package for Python.
+
+It is for these reasons that Python has been chosen as the development language. Beyond the selection of Python, it is important to discuss and consider which version to use, as Python 3 was introduced in 2010, but Python 2 continues to be maintained. Whilst this seems an obvious choice as Python 3 is the latest version, many projects, including Lilypond, still have issues updating and using Python 3 as it was deliberately not backwards compatible \parencite{Foundation2}.
+
+The developer initially decided to use Python 3, due to it being the most well maintained by the Foundation and the technical challenge of relearning certain areas of the language. However, upon consideration and usage of Lilypond, the project will use 2.7 in order to better interface with older projects without requiring a considerable amount of commitment to making those projects up to date.
 
 \subsubsection{File format}
-The project will require at least one default format for it to process music, which needs to have detailed information about what the score contains. The table below describes the options considered:
+The project will require at least one default format for it to process music, which needs to have detailed information about what the score contains. The table in figure \ref{fig:formats} describes the options considered.
 
-\begin{center}
+\begin{figure}[h]
+\centering
 \begin{tabular}{| c | c | } \hline
   {Format} & {Purpose} \\ \hline
   muscx & MuseScore notation \\ \hline
@@ -100,25 +123,27 @@ The project will require at least one default format for it to process music, wh
   new format & this project only \\ \hline
   MusicXML & sharing music between software \\ \hline
 \end{tabular}
-\end{center}
-The first two options, muscx and SIB files, are formats used by the open source notation software MuseScore\parencite{MuseTour}, and the world's most popular proprietary notation software, Sibelius\parencite{avid}. Using either or both of these files would mean the majority of users would be able to use the application. 
+\caption{A table showing the different file formats considered}
+\label{fig:formats}
+\end{figure}
+The first two options, muscx and SIB files, are formats used by the open source notation software MuseScore \parencite{MuseTour}, and the world's most popular proprietary notation software, Sibelius \parencite{avid}. Using either or both of these files would mean the majority of users would be able to use the application. 
 However, both options couple this project with those particular packages, when users could still choose other software to write music with. Furthermore, the formats are specifically designed for those software packages and may have nuances which make development for this project more difficult. Additionally, Sibelius is proprietary so borrowing their file format may cause copyright issues.
 
 The third option is to create an entirely new format. This would mean the file format was designed to the requirements of the project and therefore be entirely customisable and extensible. However, this project is created with the intention of organising, not composing music, so the files would have to be created or imported from other software packages manually if the project does not include composition. Therefore, this is the least applicable option.
 
-The fourth and final option is MusicXML, a file format intended for sharing and archiving the world's sheet music\parencite{mxml}. This particular format is used by a wide variety of software packages\parencite{mxml} and is included in the formats usable by both MuseScore\parencite{MuseTour} and Sibelius\parencite{avid}, therefore neither couples the format with a program nor requires manual creation and import of current music files. However, this particular format was designed by a third party, and might therefore present a further technical challenge in learning how the format notates everything, which will have been designed according to the requirements of the original developer, Make Music\parencite{mxml}, and may not reflect the same design intentions as this project.
+The fourth and final option is MusicXML, a file format intended for sharing and archiving the world's sheet music \parencite{mxml}. This particular format is used by a wide variety of software packages \parencite{mxml} and is included in the formats usable by both MuseScore \parencite{MuseTour} and Sibelius \parencite{avid}, therefore neither couples the format with a program nor requires manual creation and import of current music files. However, this particular format was designed by a third party, and might therefore present a further technical challenge in learning how the format notates everything, which will have been designed according to the requirements of the original developer, Make Music \parencite{mxml}, and may not reflect the same design intentions as this project.
 
-It would also be possible to create or include file format translators to MusicXML in the project. MusicXML has been the most successful at standardising music file formats\parencite{mxmlSoft}, and therefore there are a multitude of projects which have translated various popular formats into MusicXML.
+It would also be possible to create or include file format translators to MusicXML in the project. MusicXML has been the most successful at standardising music file formats \parencite{mxmlSoft}, and therefore there are a multitude of projects which have translated various popular formats into MusicXML.
 
 \subsection{Comparison of Algorithms for Rendering and Organising Sheet Music}
-Figure \ref{fig:flow} shows a flow diagram for the system of rendering and organising sheet music. \\
-\begin{figure}[h]
+Figure \ref{fig:flow} shows a flow diagram for the system of rendering and organising sheet music. Where there are process markings which are specific to this project,(unzipping is not counted in this category), these will be described and analysed in the following sections.
+Mxl files are the format used to zip MusicXML files, and as such the procedure for unzipping them is not complicated. Where arrows have text, this indicates that the arrow will only be followed if the text condition is met.
+\begin{figure}[H]
     \centering
-    \includegraphics[width=350pt]{flow-diagram-whole-system-crop}
+    \includegraphics[width=350pt]{flowchart}
     \caption{A flow diagram describing the rendering and organising system}
     \label{fig:flow}
 \end{figure}
-Where there are process markings which are specific to this project,(unzipping is not counted in this category), these will be described and analysed in the following sections.
 
 \subsubsection{Algorithms for parsing XML to Objects}
 For the rendering of sheet music, it will be necessary to parse a musicXML file into a hierarchy of objects, beginning with the overall piece and descending into each part and measure. 
@@ -153,12 +178,12 @@ This could be achieved using an entirely new algorithm, with the output going di
 
 However, the functionality of panning and zooming using this algorithm may be difficult to optimise, as both could possibly require running the algorithm each time the user provides input. 
 
-Furthermore, the conversion of even basic sheet music to a readable format would require a high level of precision and complexity, and creating a new algorithm would be considered reinventing the wheel, so to speak, as this is a process that has been covered by many different applications (like MuseScore\parencite{MuseTour}, Finale\parencite{mxml} and Sibelius\parencite{avid}). 
+Furthermore, the conversion of even basic sheet music to a readable format would require a high level of precision and complexity, and creating a new algorithm would be considered reinventing the wheel, so to speak, as this is a process that has been covered by many different applications (like MuseScore \parencite{MuseTour}, Finale \parencite{mxml} and Sibelius \parencite{avid}). 
 Lastly, the process of debugging whether the symbols are correct would require visual checking and would be difficult to debug automatically.
 
-It would be possible to alleviate the panning and zooming problem by converting the typesetted symbols to an image or PDF file and using a built in image rendering library, such as wxPython\parencite{WX}. However, this method still involves reinventing the wheel and problems with visual debugging being required.
+It would be possible to alleviate the panning and zooming problem by converting the typesetted symbols to an image or PDF file and using a built in image rendering library, such as wxPython \parencite{WX}. However, this method still involves reinventing the wheel and problems with visual debugging being required.
 
-Considering these factors, it has been decided that the algorithm will be outputting files a third party typesetting system known as Lilypond. Lilypond is a typesetting language and system developed to typeset the highest quality sheet music\parencite{Lilypond}, which takes an input file and outputs a PDF or image. As this is a language unto itself and has been in development for many years by the Open Source community, this will alleviate the problem of visual debugging - instead, each class can create a formatted lilypond output based on its attributes and unit tests can automatically confirm that the result is as expected.
+Considering these factors, it has been decided that the algorithm will be outputting files a third party typesetting system known as Lilypond. Lilypond is a typesetting language and system developed to typeset the highest quality sheet music \parencite{Lilypond}, which takes an input file and outputs a PDF or image. As this is a language unto itself and has been in development for many years by the Open Source community, this will alleviate the problem of visual debugging - instead, each class can create a formatted Lilypond output based on its attributes and unit tests can automatically confirm that the result is as expected.
 
 
 \subsection{Comparison of Technologies for Importing Online Musical Sources}
@@ -193,11 +218,22 @@ It would be possible for a new algorithm to be produced for converting new impor
 
 However, this project is concerned with music organisation, not OCR specifically, and as such the project is too large to commit a sufficient amount of time to this particular algorithm in order to make it function as well as other algorithms. 
 
-As a reference point, Optical Character Recognition for natural languages has taken may years to develop and perfect, and has been an attractive research area and idea to a wide variety of users\parencite{InternationalConf}. OMR, or Optical Music Recognition, has been the focus of international research for over three decades, and while numerous achievements have been made, there are still many challenges to be faced before it reaches its full potential\parencite{musicocr}. 
+As a reference point, Optical Character Recognition for natural languages has taken may years to develop and perfect, and has been an attractive research area and idea to a wide variety of users \parencite{InternationalConf}. OMR, or Optical Music Recognition, has been the focus of international research for over three decades, and while numerous achievements have been made, there are still many challenges to be faced before it reaches its full potential \parencite{musicocr}. 
 
-It has therefore been decided that OCR as a topic is too large for this project, and if this goal is included in the project, it will be through communication with other systems, such as Audiveris, an open music scanner\parencite{audiveris}. 
+It has therefore been decided that OCR as a topic is too large for this project, and if this goal is included in the project, it will be through communication with other systems, such as Audiveris, an open music scanner \parencite{audiveris}. 
 
 This removes the technical challenge of producing an entirely new algorithm, but adds the challenge of understanding how optical music character recognition scanners work, and how they can be integrated with the system, particularly if the third party package is not developed in Python.
 
 \subsection{Alternative Solutions}
-The majority of music software available to the masses covers the creative process of writing music, with the two most well known packages being the aforementioned Sibelius, a commercial software package costing around £500 \parencite{avid}, and the freely available and Open Source MuseScore\parencite{MuseTour}.
+The table in figure \ref{fig:software} shows the alternative options for viewing music software.
+\begin{figure}[H]
+\begin{tabu} to 1.05\textwidth {| X[l] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] |} \hline
+{Software} & {Rendering of Sheet Music} & {Manual Organisation} & {Automatic Organisation} & {Connection to Online Sources} & {Audio Playback} & {OMR} & {Price} & {Platform} \\ \hline
+Avid Scorch & \checkmark & \checkmark & $\times$ & \checkmark & \checkmark & $\times$ & £1.40 & iOS \\ \hline
+Power Music Pro/Power Music Mac & \checkmark & \checkmark & partial & \checkmark & \checkmark & $\times$ & £49 for PC, £29 for Mac & PC \& Mac  \\ \hline
+Avid Photoscore & \checkmark & $\times$ & $\times$ & $\times$ & $\times$ & \checkmark & £200 & PC \& Mac \\ \hline
+Scorcerer & \checkmark & \checkmark & $\times$ & $\times$ & \checkmark & \checkmark & £15 for iPad version (free on desktops) & Designed for iPad, but available for Mac and PC \\ \hline
+\end{tabu}
+\caption{A comparison table of other available software}
+\label{fig:software}	
+\end{figure}
