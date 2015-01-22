@@ -2,13 +2,13 @@
 \subsection{Problem Context}
 This problem's main focus is the difficulty of organising classical sheet music, and how this can be made easier by the automatic extraction of key pieces  of information. In order to understand what a performer may want to know about a particular piece, it is important to have a brief understanding of the elements of musical notation common to all compositions.
 
-The key element of this form of notation is the staff, as shown in Figure \ref{staff}. This is a grouping of five horizontal lines, with each line or space in the staff indicating a different sound pitch, a term meaning the relative "highness" or "lowness" of the sound \parencite{classroom}.
+The key element of this form of notation is the staff, as shown in Figure \ref{fig:staff}. This is a grouping of five horizontal lines, with each line or space in the staff indicating a different sound pitch, a term meaning the relative "highness" or "lowness" of the sound \parencite{classroom}.
 
 \begin{figure}[h]
     \centering
         \includegraphics{staff-crop.pdf}
     \caption{A blank staff}
-    \label{staff}
+    \label{fig:staff}
 \end{figure}
 
 This staff is divided by bar lines, vertical lines delineating grouped units of sound and silence (formally referred to as notes and rests), which provides an indication of the unit's relationship in time by its juxtaposition to other groupings in the composition. These groupings are called measures or bars, with each bar having a variable maximum of notes and rests. 
@@ -17,7 +17,7 @@ This staff is divided by bar lines, vertical lines delineating grouped units of 
     \centering
         \includegraphics{bar_with_notes-crop.pdf}
     \caption{A bar containing three notes and one rest}
-    \label{staff-notes}
+    \label{fig:staff-notes}
 \end{figure}
 \subsubsection{Clefs}
 In the system of staff notation, sound frequencies, or pitches, are denoted by letters A-G - after each cycle of the letter names, the next pitch above it will be the start of a new cycle. The cycles are often split by octaves, a term meaning eight pitches, for example A-A or E-E. 
@@ -102,6 +102,7 @@ Further to this, the user would want to know the piece's title, and names of pub
 This project could be developed with a variety of programming languages, as displayed in table \ref{table:langs}.
 
 \begin{table}[H]
+\centering
 \begin{tabular}{| l | l | l | l |} \hline
   {Language} & {Speed of development} & {Developer's Knowledge} & {Most recent use} \\ \hline
   C\# & Fast & A lot & 2nd year \\ \hline
@@ -131,9 +132,9 @@ It is for these reasons that Python has been chosen as the development language.
 Upon due consideration, Python 3 has been selected, though if the project requires legacy libraries this may have to be evaluated again. This decision has been made because at this stage the project does not appear to require libraries which do not work with Python 3, and therefore the developer should make every effort to keep the project up to date with the latest version.
 
 \subsubsection{File format}
-The project will require at least one default format for it to process music, which needs to have detailed information about what the score contains. The table in figure \ref{fig:formats} describes the options considered.
+The project will require at least one default format for it to process music, which needs to have detailed information about what the score contains. The table in figure \ref{table:formats} describes the options considered.
 
-\begin{table}
+\begin{table}[H]
 \centering
 \begin{tabular}{| c | c | } \hline
   {Format} & {Purpose} \\ \hline
@@ -244,14 +245,19 @@ It has therefore been decided that OCR as a topic is too large for this project,
 This removes the technical challenge of producing an entirely new algorithm, but adds the challenge of understanding how optical music character recognition scanners work, and how they can be integrated with the system, particularly if the third party package is not developed in Python.
 
 \subsection{Alternative Solutions}
-Table \ref{table:software} shows the alternative options for viewing music software.
+Table \ref{table:software} shows the alternative options considered in the area of Sheet Music organisation automation. This shows that the closest alternative would be Power Music Pro, though much of the functionality changes slightly according to the platform it has been developed for \parencite{PowerMusic}. Furthermore, Power Music Pro's only improvement on Automatic Organisation is the ability to search by lyric, whilst this project intends to allow for a cross section of other organisation techniques, as explained in the problem context.
+
+Additionally, each of the possible options are released in a commercial environment, with Avid's photoscore being too expensive for the average user.  Seemingly, this project would constitute the only free and Open Source software released for this problem.
+
+A final point to make is that none of these solutions provide a version for Linux based operating systems, whilst this project should be useable on Mac, PC and Linux based operating systems.
 \begin{table}[H]
+\centering
 \begin{tabu} to 1.05\textwidth {| X[l] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] |} \hline
-{Software} & {Rendering of Sheet Music} & {Manual Organisation} & {Automatic Organisation} & {Connection to Online Sources} & {Audio Playback} & {OMR} & {Price} & {Platform} \\ \hline
-Avid Scorch & \checkmark & \checkmark & $\times$ & \checkmark & \checkmark & $\times$ & £1.40 & iOS \\ \hline
-Power Music Pro/Power Music Mac & \checkmark & \checkmark & partial & \checkmark & \checkmark & $\times$ & £49 for PC, £29 for Mac & PC \& Mac  \\ \hline
-Avid Photoscore & \checkmark & $\times$ & $\times$ & $\times$ & $\times$ & \checkmark & £200 & PC \& Mac \\ \hline
-Scorcerer & \checkmark & \checkmark & $\times$ & $\times$ & \checkmark & \checkmark & £15 for iPad version (free on desktops) & Designed for iPad, but available for Mac and PC \\ \hline
+{Software} & {Rendering of Sheet Music} & {Manual Organisation} & {Automatic Organisation by complex notation} & {Connection to Online Sources} & {Audio Playback} & {OMR} & {Price} & {Platform} \\ \hline
+Avid Scorch & \checkmark & \checkmark & $\times$ & \checkmark & \checkmark & $\times$ & £1.40 \parencite{AvidScorch} & iOS \\ \hline
+Power Music Pro/Power Music Mac & \checkmark & \checkmark & partial & \checkmark & \checkmark & $\times$ & £49 for PC, £29 for Mac \parencite{PowerMusic} & PC \& Mac  \\ \hline
+Avid Photoscore & \checkmark & $\times$ & $\times$ & $\times$ & $\times$ & \checkmark & £200 \parencite{Pscore} & PC \& Mac \\ \hline
+Scorcerer & \checkmark & \checkmark & $\times$ & $\times$ & \checkmark & \checkmark & £15 for iPad version, £26 for Mac and PC \parencite{Scorcerer} & iPad, Mac \& PC \\ \hline
 \end{tabu}
 \caption{A comparison table of other available software}
 \label{table:software}	
