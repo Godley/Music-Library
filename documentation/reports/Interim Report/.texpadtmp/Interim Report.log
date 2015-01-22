@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.12.13)  22 JAN 2015 02:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.12.13)  22 JAN 2015 03:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -690,16 +690,22 @@ Package: appendix 2009/09/02 v1.2b extra appendix facilities
 \c@@pps=\count109
 \c@@ppsavesec=\count110
 \c@@ppsaveapp=\count111
-) (/usr/local/texlive/2014/texmf-dist/tex/latex/geometry/geometry.sty
-Package: geometry 2010/09/12 v5.6 Page Geometry
- (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+) (/usr/local/texlive/2014/texmf-dist/tex/latex/oberdiek/pdflscape.sty
+Package: pdflscape 2008/08/11 v0.10 Display of landscape pages in PDF (HO)
+ (/usr/local/texlive/2014/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+) (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
 Package ifpdf Info: pdfTeX in PDF mode is detected.
-) (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 80.
+ (/usr/local/texlive/2014/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)) (/usr/local/texlive/2014/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+ (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ifvtex.sty
 Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
-) (/usr/local/texlive/2014/texmf-dist/tex/generic/ifxetex/ifxetex.sty
-Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 \Gm@cnth=\count112
 \Gm@cntv=\count113
@@ -733,7 +739,8 @@ Package: biblatex2 2013/11/25 v2.8a programmable bibliographies (biber) (PK/JW/A
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
  (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
 Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
- (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+
+(/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/etexcmds.sty
 Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
  (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
@@ -743,8 +750,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             That can mean that you are not using pdfTeX 1.50 or
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
-)))
-(/usr/local/texlive/2014/texmf-dist/tex/latex/logreq/logreq.sty
+))) (/usr/local/texlive/2014/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
 \lrq@indent=\count115
  (/usr/local/texlive/2014/texmf-dist/tex/latex/logreq/logreq.def
@@ -1022,12 +1028,12 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-LaTeX Font Info:    Try loading font information for T1+XCharter-TLF on input line 32.
+LaTeX Font Info:    Try loading font information for T1+XCharter-TLF on input line 33.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/xcharter/T1XCharter-TLF.fd
 File: T1XCharter-TLF.fd 2013/10/27 (autoinst) Font definitions for T1/XCharter-TLF.
 )
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 32.
+(Font)              scaled to size 10.0pt on input line 33.
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/biblatex/lbx/english.lbx
@@ -1039,43 +1045,43 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 
 \@quotelevel=\count285
 \@quotereset=\count286
-(/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/Interim Report.aux (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/title.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/contents.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/intro-alternative.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/background.aux
+(/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/Interim Report.aux (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/title.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/contents.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/intro.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/background.aux
 
 LaTeX Warning: Label `fig:meter' multiply defined.
 
-) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/designs.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/proj-management.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/appendices.aux
+) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/designs.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/projmanagement.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/appendices.aux
 
 LaTeX Warning: Label `fig:parts' multiply defined.
 
 ) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/references.aux))
 \openout1 = `"Interim Report.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for LY1/ptm/m/n on input line 32.
-LaTeX Font Info:    Try loading font information for LY1+ptm on input line 32.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for LY1/ptm/m/n on input line 33.
+LaTeX Font Info:    Try loading font information for LY1+ptm on input line 33.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/ly1/ly1ptm.fd
 File: ly1ptm.fd 2001/02/01 font definitions for LY1/ptm using Berry names.
 )
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 32.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 33.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 33.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
  (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count287
@@ -1099,7 +1105,7 @@ Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 )
 Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.eps]
+(grfext)             [.pdf,.png,.jpg,.gif,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 452.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
@@ -1146,10 +1152,10 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '"Interim Report".bbl' found.
 (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/Interim Report.bbl)
-Package biblatex Info: Reference section=0 on input line 32.
-Package biblatex Info: Reference segment=0 on input line 32.
+Package biblatex Info: Reference section=0 on input line 33.
+Package biblatex Info: Reference segment=0 on input line 33.
 \AtBeginShipoutBox=\box37
-Package hyperref Info: Link coloring OFF on input line 32.
+Package hyperref Info: Link coloring OFF on input line 33.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
  (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -1157,9 +1163,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count296
 )
-LaTeX Info: Redefining \ref on input line 32.
-LaTeX Info: Redefining \pageref on input line 32.
-LaTeX Info: Redefining \nameref on input line 32.
+LaTeX Info: Redefining \ref on input line 33.
+LaTeX Info: Redefining \pageref on input line 33.
+LaTeX Info: Redefining \nameref on input line 33.
  (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/Interim Report.out) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/Interim Report.out)
 \@outlinefile=\write4
 \openout4 = `"Interim Report.out"'.
@@ -1199,7 +1205,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.95 ...terface Feedback survey}{29}{Appendix.a.E}
+l.95 ...terface Feedback survey}{30}{Appendix.a.E}
                                                    [1
 
 
@@ -1208,9 +1214,9 @@ l.95 ...terface Feedback survey}{29}{Appendix.a.E}
 \openout5 = `"Interim Report.toc"'.
 
 ) [2]
-\openout2 = `intro-alternative.aux'.
+\openout2 = `intro.aux'.
 
- (./intro-alternative.tex [3
+ (./intro.tex [3
 
 
 ]
@@ -1324,9 +1330,9 @@ Package pdftex.def Info: designs/main.png used on input line 18.
 
 
  <./screen.png>] [16 <./designs/main.png>]) [17]
-\openout2 = `proj-management.aux'.
+\openout2 = `projmanagement.aux'.
 
- (./proj-management.tex <flowchart-progress.png, id=548, 865.0719pt x 614.295pt>
+ (./projmanagement.tex <flowchart-progress.png, id=548, 865.0719pt x 614.295pt>
 File: flowchart-progress.png Graphic file (type png)
  <use flowchart-progress.png>
 Package pdftex.def Info: flowchart-progress.png used on input line 13.
@@ -1334,40 +1340,30 @@ Package pdftex.def Info: flowchart-progress.png used on input line 13.
  [18
 
 
- <./flowchart-progress.png>]
-
-LaTeX Warning: Reference `fig:timeplan' on page 19 undefined on input line 29.
-
-<timeplan.png, id=558, 2474.24374pt x 3822.28pt>
+ <./flowchart-progress.png>] [19] <timeplan.png, id=564, 2474.24374pt x 3822.28pt>
 File: timeplan.png Graphic file (type png)
  <use timeplan.png>
-Package pdftex.def Info: timeplan.png used on input line 36.
-(pdftex.def)             Requested size: 2474.24374pt x 1273.75876pt.
+Package pdftex.def Info: timeplan.png used on input line 37.
+(pdftex.def)             Requested size: 1899.09499pt x 1274.76251pt.
+File: timeplan.png Graphic file (type png)
+ <use timeplan.png>
+Package pdftex.def Info: timeplan.png used on input line 43.
+(pdftex.def)             Requested size: 1899.09499pt x 1273.75874pt.
 
-Overfull \hbox (161.1659pt too wide) in paragraph at lines 36--37
-[][] 
- []
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 File: timeplan.png Graphic file (type png)
 <use timeplan.png>
-Package pdftex.def Info: timeplan.png used on input line 41.
-(pdftex.def)             Requested size: 2474.24374pt x 1273.75874pt.
+Package pdftex.def Info: timeplan.png used on input line 49.
+(pdftex.def)             Requested size: 1899.09499pt x 1273.75874pt.
 
-Overfull \hbox (161.1659pt too wide) in paragraph at lines 41--42
-[][] 
- []
 
-[19]
-File: timeplan.png Graphic file (type png)
- <use timeplan.png>
-Package pdftex.def Info: timeplan.png used on input line 46.
-(pdftex.def)             Requested size: 2474.24374pt x 1274.7625pt.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-Overfull \hbox (161.1659pt too wide) in paragraph at lines 46--47
-[][] 
- []
+[20
 
-[20 <./timeplan.png>]) [21] [22]
+ <./timeplan.png>] [21] [22])
 \openout2 = `appendices.aux'.
 
  (./appendices.tex
@@ -1375,7 +1371,7 @@ LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
 (Font)              scaled to size 20.74pt on input line 1.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
 (Font)              scaled to size 20.74pt on input line 1.
- <mindmap.png, id=583, 1338.4404pt x 844.8363pt>
+ <mindmap.png, id=584, 1338.4404pt x 844.8363pt>
 File: mindmap.png Graphic file (type png)
  <use mindmap.png>
 Package pdftex.def Info: mindmap.png used on input line 5.
@@ -1385,7 +1381,7 @@ Overfull \hbox (30.24498pt too wide) in paragraph at lines 5--6
  [][] 
  []
 
-<class-diagram.pdf, id=584, 614.295pt x 794.97pt>
+<class-diagram.pdf, id=585, 614.295pt x 794.97pt>
 File: class-diagram.pdf Graphic file (type pdf)
  <use class-diagram.pdf>
 Package pdftex.def Info: class-diagram.pdf used on input line 12.
@@ -1393,79 +1389,145 @@ Package pdftex.def Info: class-diagram.pdf used on input line 12.
  [23
 
 
- <./mindmap.png>]
-File: designs/main.png Graphic file (type png)
- <use designs/main.png>
-Package pdftex.def Info: designs/main.png used on input line 20.
-(pdftex.def)             Requested size: 400.0pt x 277.11125pt.
- [24 <./class-diagram.pdf, page is rotated 90 degrees>] <designs/import_files.png, id=601, 362.0727pt x 222.5916pt>
-File: designs/import_files.png Graphic file (type png)
- <use designs/import_files.png>
-Package pdftex.def Info: designs/import_files.png used on input line 27.
-(pdftex.def)             Requested size: 362.07181pt x 222.59105pt.
- <designs/create_playlist.png, id=602, 158.994pt x 217.5327pt>
-File: designs/create_playlist.png Graphic file (type png)
- <use designs/create_playlist.png>
-Package pdftex.def Info: designs/create_playlist.png used on input line 32.
-(pdftex.def)             Requested size: 120.0pt x 164.1814pt.
- [25] <designs/sheet_music.png, id=610, 696.6828pt x 510.2262pt>
-File: designs/sheet_music.png Graphic file (type png)
- <use designs/sheet_music.png>
-Package pdftex.def Info: designs/sheet_music.png used on input line 40.
-(pdftex.def)             Requested size: 400.0pt x 292.94958pt.
- [26 <./designs/import_files.png> <./designs/create_playlist.png>] <designs/symbol_draw.png, id=621, 174.1707pt x 159.7167pt>
-File: designs/symbol_draw.png Graphic file (type png)
- <use designs/symbol_draw.png>
-Package pdftex.def Info: designs/symbol_draw.png used on input line 52.
-(pdftex.def)             Requested size: 150.0pt x 137.56084pt.
 
-Underfull \hbox (badness 2671) in paragraph at lines 53--53
-\T1/XCharter-TLF/m/n/10 played when sym-bols to draw is
- []
+ <./mindmap.png>] <diagrams/jpegs/uml_class_diagram_for_implemen.jpg, id=592, 5299.8pt x 342.27875pt>
+File: diagrams/jpegs/uml_class_diagram_for_implemen.jpg Graphic file (type jpg)
+ <use diagrams/jpegs/uml_class_diagram_for_implemen.jpg>
+Package pdftex.def Info: diagrams/jpegs/uml_class_diagram_for_implemen.jpg used on input line 18.
+(pdftex.def)             Requested size: 5299.78714pt x 342.2779pt.
 
-<designs/part_draw.png, id=622, 127.1952pt x 173.448pt>
-File: designs/part_draw.png Graphic file (type png)
- <use designs/part_draw.png>
-Package pdftex.def Info: designs/part_draw.png used on input line 58.
-(pdftex.def)             Requested size: 150.0pt x 204.5557pt.
- <designs/play.png, id=623, 190.7928pt x 225.4824pt>
-File: designs/play.png Graphic file (type png)
- <use designs/play.png>
-Package pdftex.def Info: designs/play.png used on input line 63.
-(pdftex.def)             Requested size: 150.0pt x 177.28275pt.
-
-Overfull \hbox (13.951pt too wide) in paragraph at lines 51--68
-[]$[]$ $[]$ $[]$ 
- []
-
-[27 <./designs/sheet_music.png>] <designs/playlist.png, id=634, 651.8754pt x 495.7722pt>
-File: designs/playlist.png Graphic file (type png)
- <use designs/playlist.png>
-Package pdftex.def Info: designs/playlist.png used on input line 73.
-(pdftex.def)             Requested size: 500.0pt x 380.27818pt.
-
-Overfull \hbox (30.24498pt too wide) in paragraph at lines 73--74
+Overfull \hbox (4830.03212pt too wide) in paragraph at lines 18--19
 [][] 
  []
 
-[28 <./designs/symbol_draw.png> <./designs/part_draw.png> <./designs/play.png>] <survey-crop.pdf, id=649, 414.54875pt x 581.17125pt>
+<diagrams/jpegs/uml_class_diagram_for_implemen_19.jpg, id=593, 192.72pt x 372.39125pt>
+File: diagrams/jpegs/uml_class_diagram_for_implemen_19.jpg Graphic file (type jpg)
+ <use diagrams/jpegs/uml_class_diagram_for_implemen_19.jpg>
+Package pdftex.def Info: diagrams/jpegs/uml_class_diagram_for_implemen_19.jpg used on input line 21.
+(pdftex.def)             Requested size: 192.71951pt x 372.39034pt.
+ [24 <./class-diagram.pdf, page is rotated 90 degrees>] <diagrams/jpegs/uml_class_diagram_for_implemen_2.jpg, id=601, 176.66pt x 107.40125pt>
+File: diagrams/jpegs/uml_class_diagram_for_implemen_2.jpg Graphic file (type jpg)
+ <use diagrams/jpegs/uml_class_diagram_for_implemen_2.jpg>
+Package pdftex.def Info: diagrams/jpegs/uml_class_diagram_for_implemen_2.jpg used on input line 24.
+(pdftex.def)             Requested size: 176.65956pt x 107.40097pt.
+ [25 <./diagrams/jpegs/uml_class_diagram_for_implemen.jpg>] <diagrams/jpegs/uml_class_diagram_for_implemen_20.jpg, id=606, 192.72pt x 372.39125pt>
+File: diagrams/jpegs/uml_class_diagram_for_implemen_20.jpg Graphic file (type jpg)
+ <use diagrams/jpegs/uml_class_diagram_for_implemen_20.jpg>
+Package pdftex.def Info: diagrams/jpegs/uml_class_diagram_for_implemen_20.jpg used on input line 27.
+(pdftex.def)             Requested size: 192.71951pt x 372.39034pt.
+ <diagrams/jpegs/uml_class_diagram_for_implemen_21.jpg, id=607, 192.72pt x 372.39125pt>
+File: diagrams/jpegs/uml_class_diagram_for_implemen_21.jpg Graphic file (type jpg)
+ <use diagrams/jpegs/uml_class_diagram_for_implemen_21.jpg>
+Package pdftex.def Info: diagrams/jpegs/uml_class_diagram_for_implemen_21.jpg used on input line 30.
+(pdftex.def)             Requested size: 192.71951pt x 372.39034pt.
+ [26 <./diagrams/jpegs/uml_class_diagram_for_implemen_19.jpg> <./diagrams/jpegs/uml_class_diagram_for_implemen_2.jpg>] <diagrams/jpegs/uml_class_diagram_for_implemen_28.jpg, id=612, 176.66pt x 107.40125pt>
+File: diagrams/jpegs/uml_class_diagram_for_implemen_28.jpg Graphic file (type jpg)
+ <use diagrams/jpegs/uml_class_diagram_for_implemen_28.jpg>
+Package pdftex.def Info: diagrams/jpegs/uml_class_diagram_for_implemen_28.jpg used on input line 33.
+(pdftex.def)             Requested size: 176.65956pt x 107.40097pt.
+ [27 <./diagrams/jpegs/uml_class_diagram_for_implemen_20.jpg>] <diagrams/jpegs/uml_class_diagram_for_implemen_34.jpg, id=617, 1143.27126pt x 224.84pt>
+File: diagrams/jpegs/uml_class_diagram_for_implemen_34.jpg Graphic file (type jpg)
+ <use diagrams/jpegs/uml_class_diagram_for_implemen_34.jpg>
+Package pdftex.def Info: diagrams/jpegs/uml_class_diagram_for_implemen_34.jpg used on input line 36.
+(pdftex.def)             Requested size: 1143.26846pt x 224.83945pt.
+
+Overfull \hbox (673.51344pt too wide) in paragraph at lines 36--37
+[][] 
+ []
+
+<diagrams/jpegs/uml_class_diagram_for_implemen_45.jpg, id=618, 176.66pt x 107.40125pt>
+File: diagrams/jpegs/uml_class_diagram_for_implemen_45.jpg Graphic file (type jpg)
+ <use diagrams/jpegs/uml_class_diagram_for_implemen_45.jpg>
+Package pdftex.def Info: diagrams/jpegs/uml_class_diagram_for_implemen_45.jpg used on input line 39.
+(pdftex.def)             Requested size: 176.65956pt x 107.40097pt.
+ [28 <./diagrams/jpegs/uml_class_diagram_for_implemen_21.jpg> <./diagrams/jpegs/uml_class_diagram_for_implemen_28.jpg>] <diagrams/jpegs/uml_class_diagram_for_implemen_46.jpg, id=623, 195.73125pt x 181.67876pt>
+File: diagrams/jpegs/uml_class_diagram_for_implemen_46.jpg Graphic file (type jpg)
+ <use diagrams/jpegs/uml_class_diagram_for_implemen_46.jpg>
+Package pdftex.def Info: diagrams/jpegs/uml_class_diagram_for_implemen_46.jpg used on input line 42.
+(pdftex.def)             Requested size: 195.73076pt x 181.6783pt.
+ <diagrams/jpegs/uml_class_diagram_for_implemen_66.jpg, id=624, 160.6pt x 107.40125pt>
+File: diagrams/jpegs/uml_class_diagram_for_implemen_66.jpg Graphic file (type jpg)
+ <use diagrams/jpegs/uml_class_diagram_for_implemen_66.jpg>
+Package pdftex.def Info: diagrams/jpegs/uml_class_diagram_for_implemen_66.jpg used on input line 45.
+(pdftex.def)             Requested size: 160.5996pt x 107.40097pt.
+ <diagrams/jpegs/uml_class_diagram_for_implemen_67.jpg, id=625, 117.43875pt x 88.33pt>
+File: diagrams/jpegs/uml_class_diagram_for_implemen_67.jpg Graphic file (type jpg)
+ <use diagrams/jpegs/uml_class_diagram_for_implemen_67.jpg>
+Package pdftex.def Info: diagrams/jpegs/uml_class_diagram_for_implemen_67.jpg used on input line 48.
+(pdftex.def)             Requested size: 117.43845pt x 88.32977pt.
+ [29 <./diagrams/jpegs/uml_class_diagram_for_implemen_34.jpg> <./diagrams/jpegs/uml_class_diagram_for_implemen_45.jpg> <./diagrams/jpegs/uml_class_diagram_for_implemen_46.jpg>]
+File: designs/main.png Graphic file (type png)
+ <use designs/main.png>
+Package pdftex.def Info: designs/main.png used on input line 53.
+(pdftex.def)             Requested size: 400.0pt x 277.11125pt.
+ <designs/import_files.png, id=633, 362.0727pt x 222.5916pt>
+File: designs/import_files.png Graphic file (type png)
+ <use designs/import_files.png>
+Package pdftex.def Info: designs/import_files.png used on input line 60.
+(pdftex.def)             Requested size: 362.07181pt x 222.59105pt.
+ <designs/create_playlist.png, id=634, 158.994pt x 217.5327pt>
+File: designs/create_playlist.png Graphic file (type png)
+ <use designs/create_playlist.png>
+Package pdftex.def Info: designs/create_playlist.png used on input line 65.
+(pdftex.def)             Requested size: 120.0pt x 164.1814pt.
+ [30 <./diagrams/jpegs/uml_class_diagram_for_implemen_66.jpg> <./diagrams/jpegs/uml_class_diagram_for_implemen_67.jpg>] <designs/sheet_music.png, id=643, 696.6828pt x 510.2262pt>
+File: designs/sheet_music.png Graphic file (type png)
+ <use designs/sheet_music.png>
+Package pdftex.def Info: designs/sheet_music.png used on input line 73.
+(pdftex.def)             Requested size: 400.0pt x 292.94958pt.
+ [31 <./designs/import_files.png> <./designs/create_playlist.png>] <designs/symbol_draw.png, id=654, 174.1707pt x 159.7167pt>
+File: designs/symbol_draw.png Graphic file (type png)
+ <use designs/symbol_draw.png>
+Package pdftex.def Info: designs/symbol_draw.png used on input line 85.
+(pdftex.def)             Requested size: 150.0pt x 137.56084pt.
+
+Underfull \hbox (badness 2671) in paragraph at lines 86--86
+\T1/XCharter-TLF/m/n/10 played when sym-bols to draw is
+ []
+
+<designs/part_draw.png, id=655, 127.1952pt x 173.448pt>
+File: designs/part_draw.png Graphic file (type png)
+ <use designs/part_draw.png>
+Package pdftex.def Info: designs/part_draw.png used on input line 91.
+(pdftex.def)             Requested size: 150.0pt x 204.5557pt.
+ <designs/play.png, id=656, 190.7928pt x 225.4824pt>
+File: designs/play.png Graphic file (type png)
+ <use designs/play.png>
+Package pdftex.def Info: designs/play.png used on input line 96.
+(pdftex.def)             Requested size: 150.0pt x 177.28275pt.
+
+Overfull \hbox (13.951pt too wide) in paragraph at lines 84--101
+[]$[]$ $[]$ $[]$ 
+ []
+
+[32 <./designs/sheet_music.png>] <designs/playlist.png, id=667, 651.8754pt x 495.7722pt>
+File: designs/playlist.png Graphic file (type png)
+ <use designs/playlist.png>
+Package pdftex.def Info: designs/playlist.png used on input line 106.
+(pdftex.def)             Requested size: 500.0pt x 380.27818pt.
+
+Overfull \hbox (30.24498pt too wide) in paragraph at lines 106--107
+[][] 
+ []
+
+[33 <./designs/symbol_draw.png> <./designs/part_draw.png> <./designs/play.png>] <survey-crop.pdf, id=682, 414.54875pt x 581.17125pt>
 File: survey-crop.pdf Graphic file (type pdf)
  <use survey-crop.pdf>
-Package pdftex.def Info: survey-crop.pdf used on input line 85.
+Package pdftex.def Info: survey-crop.pdf used on input line 118.
 (pdftex.def)             Requested size: 414.54773pt x 581.16983pt.
- [29 <./designs/playlist.png>] [30 <./survey-crop.pdf>] (/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang1.sty
+ [34 <./designs/playlist.png>] [35 <./survey-crop.pdf>] (/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2014/03/04 1.5c listings language file
 ) (/usr/local/texlive/2014/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2014/03/04 1.5c (Carsten Heinz)
 )
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 142.
+(Font)              scaled to size 8.0pt on input line 175.
  (./testcases/keySignatures.xml
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/n' will be
 (Font)              scaled to size 5.0pt on input line 1.
 LaTeX Font Info:    Font shape `T1/XCharter-TLF/b/n' will be
 (Font)              scaled to size 8.0pt on input line 1.
- [31] [32] [33] [34])) [35]
+ [36] [37] [38] [39])) [40]
 \openout2 = `references.aux'.
 
  (./references.tex
@@ -1474,41 +1536,42 @@ LaTeX Font Info:    Font shape `T1/XCharter-TLF/m/sc' will be
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 2.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)) [36
+)) [41
 
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 41.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 41.
- (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/Interim Report.aux (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/title.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/contents.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/intro-alternative.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/background.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/designs.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/proj-management.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/appendices.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/references.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 41.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 41.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 42.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 42.
+ (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/Interim Report.aux (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/title.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/contents.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/intro.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/background.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/designs.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/projmanagement.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/appendices.aux) (/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/references.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 42.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 42.
 Package rerunfilecheck Info: File `"Interim Report".out' has not changed.
 (rerunfilecheck)             Checksum: A23E962D47949F2047057BA52DA8A47D;3550.
 
 
-LaTeX Warning: There were undefined references.
-
-
 LaTeX Warning: There were multiply-defined labels.
+
+
+Package biblatex Warning: Please rerun LaTeX.
+(biblatex)                Page breaks have changed.
 
 Package logreq Info: Writing requests to '"Interim Report".run.xml'.
 \openout1 = `"Interim Report.run.xml"'.
 
  ) 
 Here is how much of TeX's memory you used:
- 17401 strings out of 493117
- 269465 string characters out of 6135432
- 911629 words of memory out of 5000000
- 20080 multiletter control sequences out of 15000+600000
+ 17490 strings out of 493117
+ 272844 string characters out of 6135432
+ 912184 words of memory out of 5000000
+ 20145 multiletter control sequences out of 15000+600000
  99377 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  44i,18n,74p,1161b,2133s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/xcharter/xch_mbz2ag.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/xcharter/xch_rvnb4v.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/xcharter/xch_ttrny6.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/xcharter/xch_ty6fpf.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/public/xcharter/XCharter-Bold.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/xcharter/XCharter-Italic.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/xcharter/XCharter-Roman.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on "/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/Interim Report.pdf" (37 pages, 2316815 bytes).
+Output written on "/Users/charlottegodley/PycharmProjects/FYP/documentation/reports/Interim Report/.texpadtmp/Interim Report.pdf" (42 pages, 2772422 bytes).
 PDF statistics:
- 1150 PDF objects out of 1200 (max. 8388607)
- 1017 compressed objects within 11 object streams
- 422 named destinations out of 1000 (max. 500000)
- 526 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1183 PDF objects out of 1200 (max. 8388607)
+ 1034 compressed objects within 11 object streams
+ 427 named destinations out of 1000 (max. 500000)
+ 581 words of extra memory for PDF output out of 10000 (max. 10000000)
 
