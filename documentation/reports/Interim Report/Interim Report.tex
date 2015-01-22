@@ -21,6 +21,13 @@ right  = 1in]{geometry}
 \usepackage[parfill]{parskip}
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr}
+\usepackage{xpatch}
+
+
+
+
+\xpretobibmacro{date+extrayear}{\addperiod\space}{}{}
+\xapptobibmacro{date+extrayear}{\nopunct}{}{}
 \usepackage[backend=biber, style=authoryear]{biblatex}
 \addbibresource{refs.bib}
 \usepackage{hyperref}
@@ -28,9 +35,13 @@ right  = 1in]{geometry}
 \titlespacing{\section}{0pt}{*0}{*0}
 \titlespacing{\subsection}{0pt}{*0}{*0}
 \titlespacing{\subsubsection}{0pt}{*0}{*0}
-\DeclareGraphicsExtensions{.pdf,.png,.jpg,.gif}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
 \usepackage{amssymb}
 \begin{document}
+\DeclareFieldFormat{postnote}{#1}
+\DeclareFieldFormat{multipostnote}{#1}
+\renewcommand*{\nameyeardelim}{\addcomma\space}
+\renewcommand*{\postnotedelim}{\addcolon\space}
 \include{title}
 \include{contents}
 \include{intro}

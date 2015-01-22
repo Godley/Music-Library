@@ -3,14 +3,17 @@
 \begin{figure}[h]
 \centering
 \includegraphics[width=500pt]{mindmap}
-\caption{A hand drawn mindmap of elements of music}	
+\caption{A hand drawn mind map of elements of music}	
+\label{fig:mindmap}
 \end{figure}
 
 \section{Initial class diagram}
+The class diagram in figure \ref{fig:handclass} shows the class diagram derived from the mind map in figure \ref{fig:mindmap}. This was modified and changed when the classes were implemented in code as various things such as the rendering output methods and the toString methods involved code duplication without the use of a base class for the majority of the objects.
 \begin{figure}[H]
 \centering
 \includegraphics[width=400pt]{class-diagram}
-\caption{A class diagram based on the initial mindmap}
+\caption{A class diagram based on the initial mind map}
+\label{fig:handclass}
 \end{figure}
 \begin{landscape}
 \section{Revised computerised class diagram}
@@ -108,7 +111,7 @@ Figures \ref{fig:clefclass}, \ref{fig:keyclass}, \ref{fig:meterclass}, \ref{fig:
 \end{minipage}
 \end{figure}
 \section{Initial User Interface Design}
-\begin{figure}[Hz]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=400pt]{designs/main}
 	\caption{The main GUI}
@@ -179,8 +182,6 @@ Figure \ref{fig:survey} shows an example blank survey given to participants to a
 \caption{The survey given to users to analyse how easy it is to use the interface}
 \label{fig:survey}
 \end{figure}
-
-\section{Test list}
 \section{Test cases}
 Table \ref{table:testcases} gives a brief explanation of all the current testcases being used to validate the system against real world applications. Listing \ref{code:keysig} gives one example, keySignatures.xml, of a musicXML file.
 \begin{table}[h]

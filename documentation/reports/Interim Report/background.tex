@@ -2,7 +2,7 @@
 \subsection{Problem Context}
 This problem's main focus is the difficulty of organising classical sheet music, and how this can be made easier by the automatic extraction of key pieces  of information. In order to understand what a performer may want to know about a particular piece, it is important to have a brief understanding of the elements of musical notation common to all compositions.
 
-The key element of this form of notation is the staff, as shown in Figure \ref{fig:staff}. This is a grouping of five horizontal lines, with each line or space in the staff indicating a different sound pitch, a term meaning the relative "highness" or "lowness" of the sound \parencite{classroom}.
+The key element of this form of notation is the staff, as shown in figure \ref{fig:staff}. This is a grouping of five horizontal lines, with each line or space in the staff indicating a different sound pitch, a term meaning the relative "highness" or "lowness" of the sound \parencite{classroom}.
 
 \begin{figure}[h]
     \centering
@@ -84,7 +84,7 @@ The first of these would be the parts in the piece and their transpositions. A p
 \begin{figure}[H]
 \centering
 \includegraphics{multiparts-crop}
-\caption{Three separate parts in one score}
+\caption{Two separate parts in one score}
 \label{fig:parts}	
 \end{figure}
 
@@ -127,12 +127,12 @@ The developer has also considered the Open Source communities and repositories a
 
 Furthermore, there are many projects in the field of musical software research currently in existence using this language, \parencite{pmus} such as mingus, an advanced music theory and notation package for Python.
 
-It is for these reasons that Python has been chosen as the development language. Beyond the selection of Python, it is important to discuss and consider which version to use, as Python 3 was introduced in 2010, but Python 2 continues to be maintained. Whilst this seems an obvious choice as Python 3 is the latest version, many projects still have issues updating and using Python 3 as it was deliberately not backwards compatible \parencite{Foundation2}.
+It is for these reasons that Python has been chosen as the development language. Beyond the selection of Python, it is important to discuss and consider which version to use, as Python 3 was introduced in 2008, but Python 2 continues to be maintained and was updated to include many of the backwards compatible features in 2010. Whilst this seems an obvious choice as Python 3 is the latest version, many projects still have issues updating and using Python 3 as it was deliberately not backwards compatible \parencite{Foundation2}.
 
 Upon due consideration, Python 3 has been selected, though if the project requires legacy libraries this may have to be evaluated again. This decision has been made because at this stage the project does not appear to require libraries which do not work with Python 3, and therefore the developer should make every effort to keep the project up to date with the latest version.
 
 \subsubsection{File format}
-The project will require at least one default format for it to process music, which needs to have detailed information about what the score contains. The table in figure \ref{table:formats} describes the options considered.
+The project will require at least one default format for it to process music, which needs to have detailed information about what the score contains. Table \ref{table:formats} describes the options considered.
 
 \begin{table}[H]
 \centering
@@ -172,7 +172,7 @@ For the parsing of XML itself, there are two potential built in methods to choos
 
 The second option is using a different api called the Simple API for XML (SAX). In this method, the program loads the XML file tag by tag, and connects to call backs when specified things occur in the file, for example a new tag or piece of data inside tags, or the closing of an old tag. This is easier to work with as functionality can iteratively be build up by creating handlers for each tag, and is better for memory management as only tags which are necessary to the project will have any effect on the object structure. For these reasons, this method has been selected.
 
-\subsubsection{XML verification algorithms}
+\subsubsection{XML verification algorithm}
 For both the algorithm options discussed in the above section, a further choice is whether to verify the XML parsed, using an online file validator, or presume the file is written in valid MusicXML. 
 
 The usual choice is to verify all XML, and is therefore the default option for both methods of parsing. Whilst this confirms that XML is valid before starting parsing of a file which could be corrupt, the speed at which files will parse is greatly reduced according to the speed of the user's internet connection.
@@ -180,7 +180,7 @@ Furthermore, if the user is browsing their own music collection, it should not b
 
 Due to speed and functionality considerations, the choice has been made that the XML parser algorithm will not verify XML being converted to objects, or being examined for metadata. Given that most musicXML will be produced automatically by other programs, it is unlikely files opened by the project will be corrupt, though necessary steps will be taken to avoid this causing a problem in the program.
 
-\subsubsection{Scan for Metadata algorithm}
+\subsubsection{Metadata Scanning algorithm}
 The metadata algorithm has been designed so that, for a given folder, the program will parse all of the files with the XML extension for a given selection of information (for example, composer, piece title, instruments). Based on development and testing of this algorithm, the data will be cached to a permanent file in order to ensure unchanged files do not have to be parsed more than once.
 
 This is to be indexed either by the information title - e.g "composer"; or by the information itself - e.g "bartok". This will facilitate faster searching of the database for use when the user is finding a particular piece, and facilitate the production of auto generated playlists by the system. Depending on the method of indexing, the alternate indexer should be stored as part of the value in a key value pair format, alongside the file in which it was found.
@@ -201,7 +201,7 @@ However, the functionality of panning and zooming using this algorithm may be di
 Furthermore, the conversion of even basic sheet music to a readable format would require a high level of precision and complexity, and creating a new algorithm would be considered reinventing the wheel, so to speak, as this is a process that has been covered by many different applications (like MuseScore \parencite{MuseTour}, Finale \parencite{mxml} and Sibelius \parencite{avid}). 
 Lastly, the process of debugging whether the symbols are correct would require visual checking and would be difficult to debug automatically.
 
-It would be possible to alleviate the panning and zooming problem by converting the typesetted symbols to an image or PDF file and using a built in image rendering library, such as wxPython \parencite{WX}. However, this method still involves reinventing the wheel and problems with visual debugging being required.
+It would be possible to alleviate the panning and zooming problem by converting the collection of symbols to an image or PDF file and using a built in image rendering library, such as wxPython \parencite{WX}. However, this method still involves reinventing the wheel and problems with visual debugging being required.
 
 Considering these factors, it has been decided that the algorithm will be outputting files a third party typesetting system known as Lilypond. Lilypond is a typesetting language and system developed to typeset the highest quality sheet music \parencite{Lilypond}, which takes an input file and outputs a PDF or image. As this is a language unto itself and has been in development for many years by the Open Source community, this will alleviate the problem of visual debugging - instead, each class can create a formatted Lilypond output based on its attributes and unit tests can automatically confirm that the result is as expected.
 
@@ -221,7 +221,9 @@ The APIs for both selected sources provide a variety of output formats, the 2 mo
 
 It would be possible to use an algorithm which repeatedly connects to the API and polls for the relevant input from the user, returning a list of options which the user would then select from and download from the server. Whilst this would be simple to implement, this would make the program considerably slower, as it would require repeated connection to the internet. This would also cause problems for the maintainers of the server, as repeated requests from a piece of software would cause a heavy load on the server.
 
-It has therefore been decided that the software will cache a copy of all metadata served from each online source, and search for the relevant inputted data from this, and then, if necessary, collect the relevant file from the server. This would require a connection to the server only twice - once when updating metadata sources, and once when downloading a file - rather than a persistent or repeated connection.
+If possible, the software should cache a copy of all metadata served from each online source to alleviate this problem, and search for the relevant inputted data from this, and then, if necessary, collect the relevant file from the server. This would require a connection to the server only twice - once when updating metadata sources, and once when downloading a file - rather than a persistent or repeated connection. 
+
+However, this needs confirmation from the sources selected that caching is an accepted API algorithm, as some websites stipulate that this is not allowed, and therefore the present decision is to use the previous option until this has been confirmed.
 
 \subsection{Comparison of Algorithms for Sound Output and Image Input}
 \subsubsection{MIDI algorithm}
@@ -247,7 +249,7 @@ This removes the technical challenge of producing an entirely new algorithm, but
 \subsection{Alternative Solutions}
 Table \ref{table:software} shows the alternative options considered in the area of Sheet Music organisation automation. This shows that the closest alternative would be Power Music Pro, though much of the functionality changes slightly according to the platform it has been developed for \parencite{PowerMusic}. Furthermore, Power Music Pro's only improvement on Automatic Organisation is the ability to search by lyric, whilst this project intends to allow for a cross section of other organisation techniques, as explained in the problem context.
 
-Additionally, each of the possible options are released in a commercial environment, with Avid's photoscore being too expensive for the average user.  Seemingly, this project would constitute the only free and Open Source software released for this problem.
+Additionally, each of the possible options are released in a commercial environment, with Avid's Photoscore being too expensive for the average user.  Seemingly, this project would constitute the only free and Open Source software released for this problem.
 
 A final point to make is that none of these solutions provide a version for Linux based operating systems, whilst this project should be useable on Mac, PC and Linux based operating systems.
 \begin{table}[H]
