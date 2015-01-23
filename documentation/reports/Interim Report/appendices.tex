@@ -8,7 +8,7 @@
 \end{figure}
 
 \section{Initial class diagram}
-The class diagram in figure \ref{fig:handclass} shows the class diagram derived from the mind map in figure \ref{fig:mindmap}. This was modified and changed when the classes were implemented in code as various things such as the rendering output methods and the toString methods involved code duplication without the use of a base class for the majority of the objects.
+Figure \ref{fig:handclass} shows the class diagram derived from the mind map in figure \ref{fig:mindmap}. This was modified and changed when the classes were implemented in code as various things such as the rendering output methods and the toString methods involved code duplication without the use of a base class for the majority of the objects.
 \begin{figure}[H]
 \centering
 \includegraphics[width=400pt]{class-diagram}
@@ -18,19 +18,20 @@ The class diagram in figure \ref{fig:handclass} shows the class diagram derived 
 \begin{landscape}
 \section{Revised computerised class diagram}
 \subsection{Classes inheriting from Base}
-Figure \ref{fig:base} shows all of the classes which inherit from Base. They inherit from base because the debugging "toString" method is common to all of them. Unfortunately this diagram is too big for the page.
+Figures \ref{fig:base}, \ref{fig:base1}, \ref{fig:base2}, and \ref{fig:base3} show all of the classes which inherit from Base. They inherit from base because the debugging "toString" method is common to all of them, and ensures that problems in using duck typing do not occur when calling the toLily method. 
 \begin{figure}[H]
 \fbox{
    \scalebox{0.4}{\includegraphics*[viewport=0 0 1750 341]{diagrams/jpegs/uml_class_diagram_for_implemen}}
   }
 \caption{Classes inheriting from Base}
+\label{fig:base}
 \end{figure}
 \begin{figure}[H]
 \fbox{
    \scalebox{0.4}{\includegraphics*[viewport=1750 0 3430 341]{diagrams/jpegs/uml_class_diagram_for_implemen}}
   }
-
-\label{fig:base}
+\caption{Classes inheriting from base}
+\label{fig:base1}
 \end{figure}
 \begin{figure}[H]
    \fbox{
@@ -38,7 +39,7 @@ Figure \ref{fig:base} shows all of the classes which inherit from Base. They inh
    }
   
 \caption{Classes inheriting from Base}
-\label{fig:base}
+\label{fig:base2}
 \end{figure}
 \begin{figure}[H]
    \fbox{
@@ -46,7 +47,7 @@ Figure \ref{fig:base} shows all of the classes which inherit from Base. They inh
    }
   
 \caption{Classes inheriting from Base}
-\label{fig:base}
+\label{fig:base3}
 \end{figure}
 \subsection{Notation classes}
 The classes in figure \ref{fig:notation} inherit from the Notation class, for the same reasoning as those in the diagram in figure \label{fig:base} inherit from the base class. That is to say, each class has a common toString method.
@@ -137,9 +138,9 @@ Figure ~\ref{fig:m} shows the main graphical user interface. Figure ~\ref{fig:im
 	\caption{The main pane when sheet music is selected}
 	\label{fig:sheet}	
 \end{figure}
-The image shown in figure ~\ref{fig:sheet} shows the updated main pane of figure ~\ref{fig:m} when a piece of music has been selected. The smaller windows to the right show an about pane, which displays all information about the piece itself, a "featured in" pane which will list all playlists containing this piece, and a "playlist" pane. 
+The image shown in figure \ref{fig:sheet} shows the updated main pane of figure \ref{fig:m} when a piece of music has been selected. The smaller windows to the right show an about pane, which displays all information about the piece itself, a "featured in" pane which will list all playlists containing this piece, and a "playlist" pane. 
 
-Within the about pane, if a piece of data such as "Saint-Saens" in figure ~~\ref{fig:sheet} is underlined, it can be clicked which will lead to a playlist of other pieces which contain the same data.
+Within the about pane, if a piece of data such as "Saint-Saens" in figure \ref{fig:sheet} is underlined, it can be clicked which will lead to a playlist of other pieces which contain the same data.
 
 The playlist pane will only display if the piece has been selected for viewing from an existing playlist. That is to say, if this piece were to be clicked from the collection browser shown in figure \ref{fig:m}, this window would not be open.
 
@@ -153,7 +154,7 @@ The playlist pane will only display if the piece has been selected for viewing f
 \centering
 \includegraphics[width=150pt]{designs/part_draw}
 \caption{the popup pain displayed when parts to draw is clicked}	
-\label{fig:parts}
+\label{fig:partpain}
 \end{minipage}
 \begin{minipage}{160pt}
 \includegraphics[width=150pt]{designs/play}
@@ -162,7 +163,7 @@ The playlist pane will only display if the piece has been selected for viewing f
 	
 \end{minipage}
 \end{figure}
-The figures \ref{fig:symbols}, \ref{fig:parts}, \ref{fig:play} show the extra windows which display when "symbols to draw", "parts to draw" and the triangle (play) button are clicked, which are buttons displayed above the main pane in figure \ref{fig:sheet}. Whilst not an objective or an intended benefit, the symbols window is included in order to help users who may not be fully confident reading sheet music which includes symbols they do not understand.
+The figures \ref{fig:symbols}, \ref{fig:partpain}, and \ref{fig:play} show the extra windows which display when "symbols to draw", "parts to draw" and the triangle (play) button are clicked, which are buttons displayed above the main pane in figure \ref{fig:sheet}. Whilst not an objective or an intended benefit, the symbols window is included in order to help users who may not be fully confident reading sheet music which includes symbols they do not understand.
 
 \subsection{Changes to main display when playlist is selected}
 \begin{figure}[H]
