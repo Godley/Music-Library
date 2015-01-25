@@ -24,14 +24,14 @@ class Text(BaseClass.Base):
 
     def toLily(self):
         # \abs-fontsize #20
-        lilystring = "\markup {\n "
+        lilystring = "\markup { "
         if hasattr(self, "size"):
             lilystring += "\\abs-fontsize #" + str(self.size) + " "
         if hasattr(self, "font"):
             lilystring += "\\"+self.font + " "
         if hasattr(self, "text") and self.text != "":
             lilystring+= self.text + " "
-        lilystring += "\n}"
+        lilystring += "}"
         return lilystring
 
 class CreditText(Text):
@@ -331,12 +331,12 @@ class Metronome(Direction):
         else:
             self.parentheses = False
     def toLily(self):
-        return_val = "\tempo "
+        return_val = "\\tempo "
         if hasattr(self, "parentheses"):
             if self.parentheses:
                 return_val += "\"\" "
         if hasattr(self, "beat"):
-            return_val += str(self.beat) + " = "
+            return_val += str(self.beat) + "="
         if hasattr(self, "min"):
             return_val += str(self.min)
         return return_val
@@ -345,7 +345,7 @@ class Metronome(Direction):
         ret_list = self.get()
         if hasattr(self, "beat"):
             ret_list.append(self.beat)
-        if hasattr(self, "per-min"):
+        if hasattr(self, "min"):
             ret_list.append(self.min)
         return ret_list
 
