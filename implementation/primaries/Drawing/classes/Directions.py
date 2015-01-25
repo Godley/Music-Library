@@ -141,7 +141,13 @@ class Forward(Direction):
         Direction.__init__(self, placement=placement, text=text, size=size, font=font)
 
     def toLily(self):
-        ret_val = ["\repeat percent 2 {","}"]
+        entry_o = "\\repeat percent "
+        if hasattr(self, "duration"):
+            entry_o += str(self.duration) + " "
+        else:
+            entry_o += "2 "
+        entry_o += "{"
+        ret_val = [entry_o,"}"]
         return ret_val
 
 class RepeatSign(Direction):
@@ -213,7 +219,7 @@ class OctaveShift(Line):
         Line.__init__(self, text=text, type=type, size=size, font=font, placement=placement)
 
     def toLily(self):
-        return_val = "/ottava #"
+        return_val = "\ottava #"
         if hasattr(self, "amount"):
             if self.amount == 8:
                 return_val += "1"
