@@ -13,3 +13,11 @@ class Piece(object):
             st += "\n Details: "
             st += str(self.Parts[key])
         return st
+
+    def toLily(self):
+        lilystring = ""
+        if hasattr(self, "meta"):
+            lilystring += self.meta.toLily()
+        for part in self.Parts.keys():
+            lilystring += self.Parts[part].toLily()
+        return lilystring
