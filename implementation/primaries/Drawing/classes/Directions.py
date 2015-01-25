@@ -143,7 +143,7 @@ class Forward(Direction):
     def toLily(self):
         entry_o = "\\repeat percent "
         if hasattr(self, "duration"):
-            entry_o += str(self.duration) + " "
+            entry_o += str(int(self.duration/2)) + " "
         else:
             entry_o += "2 "
         entry_o += "{"
