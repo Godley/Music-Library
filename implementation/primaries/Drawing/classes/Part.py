@@ -30,9 +30,14 @@ class Part(object):
         if len(self.measures.keys()) > 0:
             staff_nums = self.measures[list(self.measures.keys())[0]].items.keys()
             for id in staff_nums:
-                lilystring += "\\new Staff{"
+
+                lilystring += "\\new Staff"
+                if hasattr(self, "name"):
+                    lilystring += " \with { \ninstrumentName = #\""+ self.name +" \"\n}"
+                lilystring += "{"
                 for key in self.measures.keys():
-                    lilystring += self.measures[key].toLily(id)
+                    if id in self.measures[key].items:
+                        lilystring += self.measures[key].toLily(id)
                 lilystring += "}"
         lilystring += ">>"
         return lilystring
