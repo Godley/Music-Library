@@ -24,3 +24,15 @@ class Part(object):
             else:
                 self.measures[key].divisions = divisions
                 self.measures[key].CheckDivisions()
+
+    def toLily(self):
+        lilystring = "<<"
+        if len(self.measures.keys()) > 0:
+            staff_nums = self.measures[list(self.measures.keys())[0]].items.keys()
+            for id in staff_nums:
+                lilystring += "\\new Staff{"
+                for key in self.measures.keys():
+                    lilystring += self.measures[key].toLily(id)
+                lilystring += "}"
+        lilystring += ">>"
+        return lilystring
