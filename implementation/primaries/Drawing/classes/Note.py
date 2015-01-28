@@ -50,7 +50,7 @@ class Pitch(BaseClass.Base):
         if "alter" in kwargs:
             self.alter = kwargs["alter"]
         if "octave" in kwargs:
-            self.octave = kwargs["octave"]
+            self.octave = int(kwargs["octave"])
         if "step" in kwargs:
             self.step = kwargs["step"]
         if "accidental" in kwargs:
@@ -95,11 +95,12 @@ class Pitch(BaseClass.Base):
         if not hasattr(self, "octave"):
             val += "'"
         else:
-            if self.octave > 3:
-                for i in range(self.octave-3):
+            oct = int(self.octave)
+            if oct > 3:
+                for i in range(oct-3):
                     val += "'"
-            elif self.octave < 3:
-                counter = 3 - self.octave
+            elif oct < 3:
+                counter = 3 - oct
                 while counter != 0:
                     val += ","
                     counter -= 1
