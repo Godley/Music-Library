@@ -53,6 +53,10 @@ class Measure(BaseClass.Base):
                         lilystring += return_val[0]
                 else:
                     lilystring += return_val
+            if hasattr(self, "dynamics"):
+                if measure_id in self.dynamics:
+                    if index in self.dynamics[measure_id]:
+                        lilystring += " ".join([d.toLily() for d in self.dynamics[measure_id][index]])
             previous = self.items[measure_id][index]
         i = len(end_list)-1
         while i > -1:

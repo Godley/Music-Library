@@ -9,6 +9,8 @@ cached_clef = None
 measure_cached = None
 stave = 1
 item_list = []
+last_note = 0
+dynamic_list = {}
 
 def GetID(attrs, tag, val):
     if tag in attrs:
@@ -93,7 +95,7 @@ class MxmlParser(object):
 
 
     def EndTag(self, name):
-        global note, degree, frame_note, cached_clef, item_list
+        global note, degree, frame_note, cached_clef, item_list, dynamic_list
         if self.handler is not None and not self.d:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -122,6 +124,22 @@ class MxmlParser(object):
                     if len(measure.items.keys()) == 0:
                         measure.items[1] = []
                     measure.items[1].append(item)
+            for key in dynamic_list.keys():
+                if not hasattr(measure, "dynamics"):
+                    measure.dynamics = {}
+                if hasattr(dynamic_list[key], "staff"):
+                    if dynamic_list[key].staff not in measure.dynamics:
+                        measure.dynamics[dynamic_list[key].staff] = {}
+                    if key not in measure.dynamics[dynamic_list[key].staff]:
+                         measure.dynamics[dynamic_list[key].staff][key] = []
+                    measure.dynamics[dynamic_list[key].staff][key].append(dynamic_list[key])
+                else:
+                    if len(measure.dynamics.keys()) == 0:
+                        measure.dynamics[1] = {}
+                    if key not in measure.dynamics[1].keys():
+                        measure.dynamics[1][key] = []
+                    measure.dynamics[1][key].append(dynamic_list[key])
+            dynamic_list = {}
             item_list = []
 
         if name == "measure" and self.attribs["measure"]["number"] != measure_cached:
@@ -684,6 +702,7 @@ def CreateNote(tag, attrs, content, piece):
         if "note" in tag and note is None:
             item_list.append(Note.Note())
             note = item_list[-1]
+            last_note = len(item_list)-1
             ret_value = 1
 
         if "rest" in tag:
@@ -956,7 +975,9 @@ def HandleDirections(tags, attrs, chars, piece):
         if len(tags) > 1:
             if tags[-2] == "dynamics":
                 dynamic = Directions.Dynamic(placement=placement, mark=tags[-1])
-                item_list.append(dynamic)
+                if last_note not in dynamic_list:
+                    dynamic_list[last_note] = []
+                dynamic_list[last_note].append(dynamic)
         if "sound" in tags:
             return_val = 1
             if "sound" in attrs:

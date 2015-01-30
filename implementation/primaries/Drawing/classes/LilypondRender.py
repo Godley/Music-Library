@@ -9,9 +9,9 @@ class LilypondRender(object):
         self.folder = "/".join(self.file.split("/")[:-1])
         self.lily_script = lyscript
 
-    def run(self):
+    def run(self, wrappers=["",""]):
         opened_file = open(self.lyfile, 'w')
         lilystring = self.piece_obj.toLily()
-        opened_file.writelines(lilystring)
+        opened_file.writelines(wrappers[0]+lilystring+wrappers[1])
         opened_file.close()
         os.system(self.lily_script + " --output="+self.folder + " "+self.lyfile)
