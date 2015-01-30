@@ -265,7 +265,7 @@ class Arpeggiate(BaseClass.Base):
 
     def toLily(self):
         var = "\\arpeggio"
-        if not hasattr(self, "direction"):
+        if not hasattr(self, "direction") or self.direction is None:
             var += "Normal"
         else:
             var += "Arrow"+self.direction[0].upper() + self.direction[1:len(self.direction)]

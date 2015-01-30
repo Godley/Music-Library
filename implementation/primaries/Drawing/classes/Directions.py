@@ -29,9 +29,17 @@ class Text(BaseClass.Base):
             lilystring += "\\abs-fontsize #" + str(self.size) + " "
         if hasattr(self, "font"):
             lilystring += "\\"+self.font + " "
-        if hasattr(self, "text") and self.text != "":
-            lilystring+= self.text + " "
+        valid = False
+        for char in self.text:
+            if char in string.ascii_letters or char in ["0","1","2","3","4","5","6","7","8","9"]:
+                lilystring += self.text + " "
+                valid = True
+                break
+            else:
+                valid = False
         lilystring += " }"
+        if not valid:
+            lilystring = ""
         return lilystring
 
 class CreditText(Text):
@@ -101,13 +109,15 @@ class Direction(Text):
 
         textLilyString = Text.toLily(self)
         symbol = ""
-        text = ""
+        return_val = ""
         if hasattr(self, "placement"):
             if self.placement == "above":
                 symbol = "^"
             if self.placement == "below":
                 symbol = "_"
-        return text + symbol + textLilyString
+        if len(textLilyString) > 0:
+            return_val = symbol + textLilyString
+        return return_val
 class RehearsalMark(Direction):
     def toLily(self):
         text ="\mark "

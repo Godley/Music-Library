@@ -466,7 +466,7 @@ def HandleMeasures(tag, attrib, content, piece):
             except Exception:
                 print(attrib["measure"]["number"])
                 print(measure_cached)
-        if tag[-1] == "line" and "clef" in tag:
+        if tag[-1] == "line" and "clef" in tag and "line" in content:
             clef.line = int(content["line"])
             return_val = 1
         if tag[-1] == "clef-octave-change" and "clef" in tag:

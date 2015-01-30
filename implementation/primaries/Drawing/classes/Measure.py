@@ -20,6 +20,7 @@ class Measure(BaseClass.Base):
         st = BaseClass.Base.__str__(self)
         return st
 
+    # TODO: REFACTOR. Dynamics and some other stuff need to come straight after a note so a generic "item" list won't work.
     def toLily(self, measure_id):
         lilystring = ""
         end_list = []
@@ -29,19 +30,19 @@ class Measure(BaseClass.Base):
             lilystring += " "
             if not isinstance(self.items[measure_id][index], Note.Note) and not isinstance(previous, Note.Note):
                 obj = None
-                if not isinstance(self.items[measure_id][index], Note.Note):
-                    to_add.append(self.items[measure_id][index].toLily())
-                    i = index
-                    while not isinstance(obj, Note.Note):
-                        obj = self.items[measure_id][i]
-                        if not isinstance(obj, Note.Note):
-                            to_add.append(obj.toLily())
-                        i+=1
-                        if i >= len(self.items[measure_id]):
-                            break
+                to_add.append(self.items[measure_id][index].toLily())
+                i = index+1
+                while not isinstance(obj, Note.Note) and i < len(self.items[measure_id]):
+                    obj = self.items[measure_id][i]
+                    if not isinstance(obj, Note.Note):
+                        to_add.append(obj.toLily())
+                    i+=1
+                    if i >= len(self.items[measure_id]):
+                        break
+                if obj is not None:
                     lilystring += obj.toLily() + " "
-                    lilystring += " ".join(to_add)
-                    to_add = []
+                lilystring += " ".join(to_add)
+                to_add = []
             else:
                 return_val = self.items[measure_id][index].toLily()
                 if type(return_val) == list:
