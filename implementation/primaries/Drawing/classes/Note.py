@@ -138,8 +138,7 @@ class Note(BaseClass.Base):
         if hasattr(self, "beam"):
             if self.beam.type == "start":
                 val += self.beam.toLily()
-        if hasattr(self, "notehead"):
-            val += self.notehead.toLily() + " "
+
         if hasattr(self, "grace"):
             val += self.grace.toLily() + " "
         if hasattr(self, "notations"):
@@ -200,6 +199,8 @@ class Note(BaseClass.Base):
                         val += "}"
                 elif not hasattr(n, "wrapped") and not hasattr(n, "preNote"):
                     val += n.toLily()
+        if hasattr(self, "notehead"):
+            val += self.notehead.toLily()
         if hasattr(self, "beam"):
             if self.beam.type == "stop":
                 val += self.beam.toLily()

@@ -6,8 +6,6 @@ class testNote(Lily):
         self.item = Note.Note()
         self.lilystring = ""
         Lily.setUp(self)
-        self.compile = True
-        self.wrappers = ["\\new Staff{","}"]
 
 
 class testNotePitch(Lily):
@@ -18,6 +16,7 @@ class testNotePitch(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "notepitch"
 
 class testNoteDurationQuaver(Lily):
     def setUp(self):
@@ -27,6 +26,7 @@ class testNoteDurationQuaver(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "notedurationquaver"
 
 class testNoteDurationMinim(Lily):
     def setUp(self):
@@ -36,6 +36,7 @@ class testNoteDurationMinim(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "notedurationminim"
 
 
 class testNoteDurationSemiBreve(Lily):
@@ -46,6 +47,7 @@ class testNoteDurationSemiBreve(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "notedurationsemibreve"
 
 class testNoteDurationBreve(Lily):
     def setUp(self):
@@ -55,6 +57,7 @@ class testNoteDurationBreve(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "notedurationbreve"
 
 class testNoteRest(Lily):
     def setUp(self):
@@ -64,6 +67,7 @@ class testNoteRest(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "noterest"
 
 class testNoteTuplet(Lily):
     def setUp(self):
@@ -75,6 +79,7 @@ class testNoteTuplet(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}}"]
+        self.name = "notetuplet"
 
 class testNoteTupletEnd(Lily):
     def setUp(self):
@@ -86,6 +91,7 @@ class testNoteTupletEnd(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{\\tuplet 3/2 {","}"]
+        self.name = "notetupletend"
 
 class testNoteStem(Lily):
     def setUp(self):
@@ -96,6 +102,7 @@ class testNoteStem(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "notestemup"
 
 class testNoteStemDown(Lily):
     def setUp(self):
@@ -103,6 +110,7 @@ class testNoteStemDown(Lily):
         self.item.pitch = Note.Pitch()
         self.item.stem = Note.Stem("down")
         self.lilystring = "\stemDown\nc'"
+        self.name = "notestemdown"
 
 class testNoteBeam(Lily):
     def setUp(self):
@@ -111,8 +119,9 @@ class testNoteBeam(Lily):
         self.item.beam = Note.Beam("start")
         Lily.setUp(self)
         self.compile = True
-        self.wrappers = ["\\new Staff{","]}"]
+        self.wrappers = ["\\new Staff{a ","8]}"]
         self.lilystring = "[c'"
+        self.name = "notebeamstart"
 
 class testNoteContinue(Lily):
     def setUp(self):
@@ -121,8 +130,9 @@ class testNoteContinue(Lily):
         self.item.beam = Note.Beam("continue")
         Lily.setUp(self)
         self.compile = True
-        self.wrappers = ["\\new Staff{[c'","]}"]
+        self.wrappers = ["\\new Staff{a [c'8","8]}"]
         self.lilystring = "c'"
+        self.name = "notebeamcont"
 
 class testNoteStop(Lily):
     def setUp(self):
@@ -131,8 +141,9 @@ class testNoteStop(Lily):
         self.item.beam = Note.Beam("stop")
         Lily.setUp(self)
         self.compile = True
-        self.wrappers = ["\\new Staff{[","}"]
+        self.wrappers = ["\\new Staff{a [","}"]
         self.lilystring = "c']"
+        self.name = "notebeamend"
 
 class testNotehead(Lily):
     def setUp(self):
@@ -142,7 +153,8 @@ class testNotehead(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
-        self.lilystring = "\harmonic c'"
+        self.lilystring = "c'\harmonic"
+        self.name = "notehead"
 
 class testGraceNote(Lily):
     def setUp(self):
@@ -153,6 +165,7 @@ class testGraceNote(Lily):
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
         self.lilystring = "\grace c'"
+        self.name = "notegrace"
 
 class testNoteArpeggiate(Lily):
     def setUp(self):
@@ -163,6 +176,7 @@ class testNoteArpeggiate(Lily):
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
         self.lilystring = "\\arpeggioNormal\nc'\\arpeggio"
+        self.name = "notearpeggiate"
 
 class testNoteNonArpeggiate(Lily):
     def setUp(self):
@@ -173,6 +187,7 @@ class testNoteNonArpeggiate(Lily):
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
         self.lilystring = "\\arpeggioBracket\nc'\\arpeggio"
+        self.name = "notenonarpegg"
 
 class testGliss(Lily):
     def setUp(self):
@@ -183,6 +198,7 @@ class testGliss(Lily):
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
         self.lilystring = "\\override Glissando.style = #'zigzag\nc'\glissando"
+        self.name = "notegliss"
 
 class testSlide(Lily):
     def setUp(self):
@@ -193,6 +209,7 @@ class testSlide(Lily):
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
         self.lilystring = "c'\glissando"
+        self.name = "noteslide"
 
 class testSlideStop(Lily):
     def setUp(self):
@@ -203,6 +220,7 @@ class testSlideStop(Lily):
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
         self.lilystring = "c'"
+        self.name = "noteslidestop"
 
 class testNoteMordent(Lily):
     def setUp(self):
@@ -213,6 +231,7 @@ class testNoteMordent(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "notemordent"
 
 class testNoteInvMordent(Lily):
     def setUp(self):
@@ -223,6 +242,7 @@ class testNoteInvMordent(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "noteprall"
 
 class testNoteTrill(Lily):
     def setUp(self):
@@ -233,6 +253,7 @@ class testNoteTrill(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "notetrill"
 
 class testNoteTurn(Lily):
     def setUp(self):
@@ -243,6 +264,7 @@ class testNoteTurn(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "noteturn"
 
 class testNoteInvTurn(Lily):
     def setUp(self):
@@ -253,6 +275,7 @@ class testNoteInvTurn(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "notereverseturn"
 
 class testNoteTremolo(Lily):
     def setUp(self):
@@ -263,4 +286,5 @@ class testNoteTremolo(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
+        self.name = "notetremolo"
 
