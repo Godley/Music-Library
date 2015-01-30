@@ -31,7 +31,7 @@ class Text(BaseClass.Base):
             lilystring += "\\"+self.font + " "
         if hasattr(self, "text") and self.text != "":
             lilystring+= self.text + " "
-        lilystring += "}"
+        lilystring += " }"
         return lilystring
 
 class CreditText(Text):
@@ -141,14 +141,16 @@ class Forward(Direction):
         Direction.__init__(self, placement=placement, text=text, size=size, font=font)
 
     def toLily(self):
-        entry_o = "\\repeat percent "
-        if hasattr(self, "duration"):
-            entry_o += str(int(self.duration/2)) + " "
-        else:
-            entry_o += "2 "
-        entry_o += "{"
-        ret_val = [entry_o,"}"]
-        return ret_val
+        #not entirely sure what to do here. let's just return nowt.
+        #TODO: FIGURE THIS SHIT OUT
+        #  entry_o = "\\repeat percent "
+        # if hasattr(self, "duration"):
+        #     entry_o += str(int(self.duration/2)) + " "
+        # else:
+        #     entry_o += "2 "
+        # entry_o += "{"
+        # ret_val = [entry_o,"}"]
+        return ""
 
 class RepeatSign(Direction):
     def __init__(self, **kwargs):
@@ -342,7 +344,8 @@ class Metronome(Direction):
             if self.parentheses:
                 return_val += "\"\" "
         if hasattr(self, "beat"):
-            return_val += str(self.beat) + "="
+            converter = {"quarter":4,"eigth":8,"half":2}
+            return_val += str(converter[self.beat]) + "="
         if hasattr(self, "min"):
             return_val += str(self.min)
         return return_val

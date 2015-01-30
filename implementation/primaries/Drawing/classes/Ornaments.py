@@ -55,6 +55,6 @@ class Tremolo(BaseClass.Base):
                 return_val = "}"
 
         if num != "":
-            return_val += num + " "
+            return_val += num
         return return_val
 

@@ -171,9 +171,8 @@ class Note(BaseClass.Base):
                 if math.ceil(value) == value:
                     val += str(int(value))
                 else:
-                    print(self.duration)
                     rounded = math.ceil(value)
-                    value += str(rounded)
+                    val += str(rounded)
             else:
                 if value == 0.5:
                     val += "\\breve"

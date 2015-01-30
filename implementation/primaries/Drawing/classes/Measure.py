@@ -1,4 +1,4 @@
-from implementation.primaries.Drawing.classes import BaseClass, Note
+from implementation.primaries.Drawing.classes import BaseClass, Note, Directions
 
 class Measure(BaseClass.Base):
     def __init__(self, **kwargs):
@@ -22,8 +22,41 @@ class Measure(BaseClass.Base):
 
     def toLily(self, measure_id):
         lilystring = ""
-        for item in self.items[measure_id]:
-            lilystring += item.toLily()
+        end_list = []
+        to_add = []
+        previous = None
+        for index in range(len(self.items[measure_id])):
+            lilystring += " "
+            if not isinstance(self.items[measure_id][index], Note.Note) and not isinstance(previous, Note.Note):
+                obj = None
+                if not isinstance(self.items[measure_id][index], Note.Note):
+                    to_add.append(self.items[measure_id][index].toLily())
+                    i = index
+                    while not isinstance(obj, Note.Note):
+                        obj = self.items[measure_id][i]
+                        if not isinstance(obj, Note.Note):
+                            to_add.append(obj.toLily())
+                        i+=1
+                        if i >= len(self.items[measure_id]):
+                            break
+                    lilystring += obj.toLily() + " "
+                    lilystring += " ".join(to_add)
+                    to_add = []
+            else:
+                return_val = self.items[measure_id][index].toLily()
+                if type(return_val) == list:
+                    if len(return_val) > 1:
+                        lilystring+= return_val[0]
+                        end_list.append(return_val[1])
+                    else:
+                        lilystring += return_val[0]
+                else:
+                    lilystring += return_val
+            previous = self.items[measure_id][index]
+        i = len(end_list)-1
+        while i > -1:
+            lilystring += end_list[i]
+            i-=1
         return lilystring
 
 class Barline(BaseClass.Base):

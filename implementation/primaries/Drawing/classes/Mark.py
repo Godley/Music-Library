@@ -20,7 +20,7 @@ class Accent(Notation):
 
     def toLily(self):
         val = Notation.toLily(self)
-        val += "accent"
+        val += "accent "
         return val
 class StrongAccent(Notation):
     def __init__(self, **kwargs):
@@ -38,7 +38,7 @@ class StrongAccent(Notation):
         Notation.__init__(self,placement=placement, symbol=symbol)
     def toLily(self):
         val = Notation.toLily(self)
-        val += "marcato"
+        val += "marcato "
         return val
 
 class Staccato(Notation):
@@ -52,7 +52,7 @@ class Staccato(Notation):
 
     def toLily(self):
         val = Notation.toLily(self)
-        val += "staccato"
+        val += "staccato "
         return val
 class Staccatissimo(Notation):
     def __init__(self, **kwargs):
@@ -65,7 +65,7 @@ class Staccatissimo(Notation):
 
     def toLily(self):
         val = Notation.toLily(self)
-        val += "staccatissimo"
+        val += "staccatissimo "
         return val
 
 class Tenuto(Notation):
@@ -79,7 +79,7 @@ class Tenuto(Notation):
 
     def toLily(self):
         val = Notation.toLily(self)
-        val += "tenuto"
+        val += "tenuto "
         return val
 
 class DetachedLegato(Notation):
@@ -93,7 +93,7 @@ class DetachedLegato(Notation):
 
     def toLily(self):
         val = Notation.toLily(self)
-        val+= "portato"
+        val+= "portato "
         return val
 
 class Fermata(Notation):
@@ -121,12 +121,12 @@ class Fermata(Notation):
                     val += "long"
                 if self.symbol == "squared":
                     val += "verylong"
-        val += "fermata"
+        val += "fermata "
         return val
 class BreathMark(Notation):
     def toLily(self):
         val = Notation.toLily(self)
-        val += "breathe"
+        val += "breathe "
         return val
 
 class Caesura(BreathMark):
@@ -154,5 +154,5 @@ class Technique(Notation):
         if hasattr(self, "type"):
             splitter = self.type.split("-")
             joined = "".join(splitter)
-            val += joined
+            val += joined+ " "
         return val

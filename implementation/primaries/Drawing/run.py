@@ -1,5 +1,5 @@
 import os
-from implementation.primaries.Drawing.classes import Piece, MxmlParser
+from implementation.primaries.Drawing.classes import MxmlParser
 import os
 
 testcases = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases'
@@ -7,7 +7,8 @@ file = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/Samp
 parser = MxmlParser.MxmlParser()
 pieceObj = parser.parse(file)
 lilypond_file = file.split(".")[0] + ".ly"
+pdf_file = file.split(".")[0] + ".pdf"
 fob = open(lilypond_file, 'w')
 fob.write(pieceObj.toLily())
 fob.close()
-os.system("/Users/charlottegodley/bin/lilypond --output "+testcases+" "+lilypond_file)
+
