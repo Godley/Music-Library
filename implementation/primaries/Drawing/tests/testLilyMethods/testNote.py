@@ -281,10 +281,11 @@ class testNoteTremolo(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Ornaments.Tremolo()]
-        self.lilystring = "\\repeat tremolo c'"
+        self.item.notations = [Ornaments.Tremolo(type="start")]
+
+        self.lilystring = "\\repeat tremolo 16 {c'"
         Lily.setUp(self)
         self.compile = True
-        self.wrappers = ["\\new Staff{","}"]
+        self.wrappers = ["\\new Staff{","}}"]
         self.name = "notetremolo"
 

@@ -33,6 +33,8 @@ class Tremolo(BaseClass.Base):
         if "value" in kwargs:
             if kwargs["value"] is not None:
                 self.value = kwargs["value"]
+        else:
+            self.value = 2
 
     def toLily(self):
         return_val = "\\repeat tremolo "
@@ -40,19 +42,19 @@ class Tremolo(BaseClass.Base):
         if hasattr(self, "value"):
             num = str(8 * self.value)
 
-        elif hasattr(self, "type"):
+        if hasattr(self, "type"):
             multipliers = {"single":1,"double":2,
                             "triple":3,"quadruple":3}
             if self.type in multipliers:
                 num = str(multipliers[self.type] * 8)
-            elif self.type == "start":
-                if num != "":
-                    return_val += num + "{"
-                    num = ""
-                else:
-                    return_val += "{"
-            elif self.type == "stop":
-                return_val = "}"
+        if self.type == "start":
+            if num != "":
+                return_val += num + " {"
+                num = ""
+            else:
+                return_val += "{"
+        if self.type == "stop":
+            return_val = "}"
 
         if num != "":
             return_val += num
