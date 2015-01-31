@@ -355,7 +355,10 @@ class Metronome(Direction):
                 return_val += "\"\" "
         if hasattr(self, "beat"):
             converter = {"quarter":4,"eigth":8,"half":2}
-            return_val += str(converter[self.beat]) + "="
+            if self.beat in converter:
+                return_val += str(converter[self.beat]) + "="
+            else:
+                return_val += str(self.beat) + "="
         if hasattr(self, "min"):
             return_val += str(self.min)
         return return_val
