@@ -1,5 +1,5 @@
-majors = {-6: "Gflat", -5: "Dflat", -4: "Aflat", -3: "Eflat", -2: "Bflat", -1: "F", 0: "C", 1: "G", 2: "D", 3: "A",
-          4: "E", 5: "B", 7:"Csharp"}
+majors = {-7: "Cflat", -6: "Gflat", -5: "Dflat", -4: "Aflat", -3: "Eflat", -2: "Bflat", -1: "F", 0: "C", 1: "G", 2: "D", 3: "A",
+          4: "E", 5: "B", 6:"Fsharp", 7:"Csharp"}
 minors = {-6: "Aflat", -5: "Bflat", -4: "F", -3: "C", -2: "G", -1: "D", 0: "A", 1: "E", 2: "B", 3: "Fsharp",
           4: "Csharp", 5: "Gsharp"}
 
