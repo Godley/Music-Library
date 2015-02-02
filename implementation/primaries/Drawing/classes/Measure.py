@@ -22,25 +22,40 @@ class Measure(BaseClass.Base):
         st = BaseClass.Base.__str__(self)
         return st
 
-    # TODO: REFACTOR. Dynamics and some other stuff need to come straight after a note so a generic "item" list won't work.
     def toLily(self, staff_id):
         lilystring = ""
+
+        #handle stuff attached to measures which aren't directions
         if hasattr(self, "clef") and self.clef is not None:
-            lilystring += self.clef.toLily()
+            lilystring += self.clef.toLily() + " "
         if hasattr(self, "key") and self.key is not None:
-            lilystring += self.key.toLily()
+            lilystring += self.key.toLily() + " "
+
         if (staff_id in self.notes and len(self.notes[staff_id]) == 0) or staff_id not in self.notes:
+            #if a measure has no notes, it's probably a rest measure.
             lilystring += "r"
+
+        # handle measures containing notes
         if staff_id in self.notes and len(self.notes[staff_id]) > 0:
             for n_id in range(len(self.notes[staff_id])):
                 lilystring += " "+self.notes[staff_id][n_id].toLily()
+
+                #attach expressions to notes (these are classed as directions in mxml but in lilypond they have to be
+                # attached to notes, e.g dynamics)
                 if staff_id in self.expressions and n_id in self.expressions[staff_id]:
                     lilystring += "".join([expr.toLily() for expr in self.expressions[staff_id][n_id]])
+
+                #add on direction strings, text, tempo markings etc
                 if staff_id in self.items and n_id in self.items[staff_id]:
-                    lilystring+= "".join([dir.toLily() for dir in self.items[staff_id][n_id]])
+                    return_values = [dir.toLily() for dir in self.items[staff_id][n_id]]
+                    lilystring += "".join([lilystr for lilystr in return_values if type(lilystr) != list])
+                    lilystring = "".join([item[0] for item in return_values if type(item) == list]) + lilystring
+                    lilystring += "".join([item[1] for item in return_values if type(item) == list])
+
+        #could still have a measure without notes, so check those again
         elif staff_id in self.items and len(self.items[staff_id]) > 0:
             for n_id in range(len(self.items[staff_id])):
-                lilystring += "".join([dir.toLily() for dir in self.items[staff_id][n_id]])
+                lilystring += "".join([dir.toLily() for dir in self.items[staff_id][n_id] if dir is not list])
                 if staff_id in self.expressions and n_id in self.expressions[staff_id]:
                     lilystring += "".join([expr.toLily() for expr in self.expressions[staff_id][n_id]])
         return lilystring

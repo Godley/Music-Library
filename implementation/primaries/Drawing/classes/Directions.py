@@ -231,17 +231,19 @@ class OctaveShift(Line):
         Line.__init__(self, text=text, type=type, size=size, font=font, placement=placement)
 
     def toLily(self):
-        return_val = "\ottava #"
+        return_val = "\n\ottava #"
         if hasattr(self, "amount"):
             if self.amount == 8:
                 return_val += "1"
             if self.amount == -8:
                 return_val += "-1"
-            if self.amount == 16:
+            if self.amount == 15:
                 return_val += "2"
-            if self.amount == -16:
+            if self.amount == -15:
                 return_val += "-2"
-        else:
+            if self.amount != 8 and self.amount != -8 and self.amount != 15 and self.amount != -15:
+                return_val += "0"
+        elif not hasattr(self, "amount") or self.amount is None:
             return_val += "0"
         return return_val
 
@@ -279,18 +281,18 @@ class Pedal(Line):
         return_val = ""
         if hasattr(self, "line"):
             if self.line:
-                return_val += "\set Staff.pedalSustainStyle = #'mixed \n "
+                return_val += "\n\set Staff.pedalSustainStyle = #'mixed \n "
             else:
                 return_val += "\set Staff.pedalSustainStyle = #'text \n "
-        return_val += "\sustain"
+        sost = "\sustain"
         if hasattr(self, "type"):
             if self.type == "stop":
-                return_val += "Off"
+                sost += "Off"
             elif self.type == "start":
-                return_val += "On"
+                sost += "On"
         else:
             return_val += "On"
-        return return_val
+        return [return_val, sost]
 class Bracket(Line):
     def __init__(self, **kwargs):
         text = None
@@ -322,7 +324,7 @@ class Bracket(Line):
             type = kwargs["type"]
         Line.__init__(self, type=type, text=text, size=size, font=font, placement=placement)
     def toLily(self):
-        return "\\alternative{}"
+        return ""
 
 class Metronome(Direction):
     def __init__(self, **kwargs):
