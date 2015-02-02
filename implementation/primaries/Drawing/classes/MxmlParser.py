@@ -8,9 +8,12 @@ frame_note = None
 cached_clef = None
 measure_cached = None
 stave = 1
-item_list = []
 last_note = 0
-dynamic_list = {}
+items = {}
+notes = {}
+expressions = {}
+staff_id = 1
+
 
 def GetID(attrs, tag, val):
     if tag in attrs:
@@ -95,7 +98,7 @@ class MxmlParser(object):
 
 
     def EndTag(self, name):
-        global note, degree, frame_note, cached_clef, item_list, dynamic_list
+        global note, degree, frame_note, cached_clef, staff_id, last_note, notes, expressions, items
         if self.handler is not None and not self.d:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -113,34 +116,29 @@ class MxmlParser(object):
         if name in self.tags:
             self.tags.remove(name)
         if name == "measure":
-            for item in item_list:
-                part = self.piece.Parts[self.attribs["part"]["id"]]
-                measure = part.measures[int(self.attribs["measure"]["number"])]
-                if hasattr(item, "staff"):
-                    if item.staff not in measure.items:
-                        measure.items[item.staff] = []
-                    measure.items[item.staff].append(item)
-                else:
-                    if len(measure.items.keys()) == 0:
-                        measure.items[1] = []
-                    measure.items[1].append(item)
-            for key in dynamic_list.keys():
-                if not hasattr(measure, "dynamics"):
-                    measure.dynamics = {}
-                if hasattr(dynamic_list[key], "staff"):
-                    if dynamic_list[key].staff not in measure.dynamics:
-                        measure.dynamics[dynamic_list[key].staff] = {}
-                    if key not in measure.dynamics[dynamic_list[key].staff]:
-                         measure.dynamics[dynamic_list[key].staff][key] = []
-                    measure.dynamics[dynamic_list[key].staff][key].append(dynamic_list[key])
-                else:
-                    if len(measure.dynamics.keys()) == 0:
-                        measure.dynamics[1] = {}
-                    if key not in measure.dynamics[1].keys():
-                        measure.dynamics[1][key] = []
-                    measure.dynamics[1][key].append(dynamic_list[key])
-            dynamic_list = {}
-            item_list = []
+            part = self.piece.Parts[self.attribs["part"]["id"]]
+            measure = part.measures[int(self.attribs["measure"]["number"])]
+            #handle items
+            for staff in items:
+                if staff not in measure.items:
+                    measure.items[staff] = {}
+                measure.items[staff].update(items[staff])
+            #handle expressions
+            for staff in expressions:
+                if staff not in measure.expressions:
+                    measure.expressions[staff] = {}
+                measure.expressions[staff].update(expressions[staff])
+            #handle notes
+            for staff in notes:
+                if staff not in measure.notes:
+                    measure.notes[staff] = []
+                measure.notes[staff].extend(notes[staff])
+            #reset all the things
+            staff_id = 1
+            last_note = 0
+            notes = {}
+            expressions = {}
+            items = {}
 
         if name == "measure" and self.attribs["measure"]["number"] != measure_cached:
             current_measure = self.piece.Parts[self.attribs["part"]["id"]].measures[int(self.attribs["measure"]["number"])]
@@ -376,7 +374,7 @@ def handleOtherNotations(tag, attrs, content, piece):
     return None
 
 def HandleMeasures(tag, attrib, content, piece):
-    global cached_clef, measure_cached
+    global cached_clef, measure_cached, items, notes, expressions, staff_id
     part_id = GetID(attrib, "part", "id")
     measure_id = GetID(attrib, "measure", "number")
     if measure_id is not None:
@@ -446,7 +444,7 @@ def HandleMeasures(tag, attrib, content, piece):
             # this section covers duplication: it's possible a measure
             # can have 2 clefs, the second of which should be in the next measure
             # so we cache this one and wait until the next measure is opened
-            if len(item_list) > 0:
+            if len(items) > 0:
                 if cached_clef is not None:
                     # if we've moved to a new measure...
                     if measure_cached != attrib["measure"]["number"]:
@@ -515,18 +513,24 @@ def HandleMeasures(tag, attrib, content, piece):
             return_val = 1
 
         if "harmony" in tag:
+            if "staff" in tag:
+                staff_id = content["staff"]
+                if staff_id not in items:
+                    items[staff_id] = {}
+                if last_note not in items[staff_id]:
+                    items[staff_id][last_note] = []
             root = None
             kind = None
             bass = None
-            if len(item_list) > 0:
-                if item_list[-1] is not Harmony.Harmony:
+            if len(items[staff_id][last_note]) > 0:
+                if items[staff_id][last_note][-1] is not Harmony.Harmony:
                     harmony = Harmony.Harmony(kind=kind)
-                    item_list.append(harmony)
+                    items[staff_id][last_note].append(harmony)
                 else:
-                    harmony = item_list[-1]
+                    harmony = items[staff_id][last_note][-1]
             else:
                 harmony = Harmony.Harmony(kind=kind)
-                item_list.append(harmony)
+                items[staff_id][last_note].append(harmony)
 
 
             if "root" in tag:
@@ -680,7 +684,7 @@ def CheckID(tag, attrs, string, id_name):
 
 
 def CreateNote(tag, attrs, content, piece):
-    global note, item_list
+    global note, item_list, staff_id, notes, last_note
     part_id = None
     measure_id = None
     ret_value = None
@@ -689,8 +693,6 @@ def CreateNote(tag, attrs, content, piece):
     if len(tag) > 0 and "note" in tag:
         if tag[-1] == "staff":
             staff_id = int(content["staff"])
-            if note is not None:
-                note.staff = staff_id
         if "part" in attrs:
             if "id" in attrs["part"]:
                 part_id = attrs["part"]["id"]
@@ -700,36 +702,38 @@ def CreateNote(tag, attrs, content, piece):
         if part_id is not None and measure_id is not None:
             measure = piece.Parts[part_id].measures[measure_id]
         if "note" in tag and note is None:
-            item_list.append(Note.Note())
-            note = item_list[-1]
-            last_note = len(item_list)-1
+            if staff_id not in notes:
+                notes[staff_id] = []
+            note = Note.Note()
+            notes[staff_id].append(note)
+            last_note = len(notes[staff_id])-1
             ret_value = 1
 
         if "rest" in tag:
-            item_list[-1].rest = True
+            note.rest = True
         if "cue" in tag:
-            item_list[-1].cue = True
+            note.cue = True
 
         if "grace" in tag:
             slash = False
             if "grace" in attrs:
                 if "slash" in attrs["grace"]:
                     slash = YesNoToBool(attrs["grace"]["slash"])
-            item_list[-1].grace = Note.GraceNote(slash=slash)
+            note.grace = Note.GraceNote(slash=slash)
         if tag[-1] == "duration" and "note" in tag:
-            item_list[-1].duration = float(content["duration"])
+            note.duration = float(content["duration"])
             if hasattr(measure, "divisions"):
                 if measure.divisions is not None:
                     note.divisions = float(measure.divisions)
 
         if "dot" in tag:
-            item_list[-1].dotted = True
+            note.dotted = True
         if "tie" in tag:
-            item_list[-1].ties.append(Note.Tie(attrs["tie"]["type"]))
+            note.ties.append(Note.Tie(attrs["tie"]["type"]))
         if "chord" in tag:
-            item_list[-1].chord = True
+            note.chord = True
         if tag[-1] == "stem":
-            item_list[-1].stem = Note.Stem(content["stem"])
+            note.stem = Note.Stem(content["stem"])
 
 
         if tag[-1] == "beam":
@@ -737,19 +741,19 @@ def CreateNote(tag, attrs, content, piece):
             if "beam" in content:
                 type = content["beam"]
             if not hasattr(note, "beams"):
-                item_list[-1].beams = {}
+                note.beams = {}
             if "beam" in attrs:
                 id = int(attrs["beam"]["number"])
             else:
                 id = len(note.beams)
-            item_list[-1].beams[id] = Note.Beam(type=type)
+            note.beams[id] = Note.Beam(type=type)
 
 
         if tag[-1] == "accidental":
             if not hasattr(note, "pitch"):
-                item_list[-1].pitch = Note.Pitch()
+                note.pitch = Note.Pitch()
                 if "accidental" in content:
-                    item_list[-1].pitch.accidental = content["accidental"]
+                    note.pitch.accidental = content["accidental"]
 
             else:
                 if "accidental" in content:
@@ -872,7 +876,10 @@ def HandlePitch(tags, attrs, text, piece):
     return return_val
 
 def HandleDirections(tags, attrs, chars, piece):
+    global expressions, items, staff_id
     return_val = None
+    direction = None
+    dynamic = None
     if len(tags) == 0:
         return None
 
@@ -888,15 +895,14 @@ def HandleDirections(tags, attrs, chars, piece):
         if measure is None:
             return None
         if tags[-1] == "staff":
-            stave = int(chars["staff"])
+            staff_id = int(chars["staff"])
+            if staff_id not in items:
+                items[staff_id] = {}
+            if staff_id not in expressions:
+                expressions[staff_id] = {}
         if "direction" in attrs:
             if "placement" in attrs["direction"]:
                 placement = attrs["direction"]["placement"]
-        if tags[-1] == "staff":
-            index = int(chars["staff"])
-            for item in item_list:
-                if not hasattr(item, "staff"):
-                    item.staff = index
 
         if tags[-1] == "words":
             return_val = 1
@@ -913,7 +919,7 @@ def HandleDirections(tags, attrs, chars, piece):
                 if "font-family" in attrs["words"]:
                     font = attrs["words"]["font-family"]
             direction = Directions.Direction(font=font,text=text,size=size,placement=placement)
-            item_list.append(direction)
+
         if tags[-1] == "rehearsal":
             return_val = 1
 
@@ -927,57 +933,51 @@ def HandleDirections(tags, attrs, chars, piece):
                 if "font-family" in attrs["words"]:
                     font = attrs["words"]["font-family"]
             direction = Directions.RehearsalMark(font=font,text=text,size=size,placement=placement)
-            item_list.append(direction)
         if "metronome" in tags:
             if tags[-1] == "beat-unit":
                 return_val = 1
                 unit = chars["beat-unit"]
-                metronome = Directions.Metronome(placement=placement,beat=unit)
+                direction = Directions.Metronome(placement=placement,beat=unit)
 
-                metronome.text = str(metronome.beat)
+                direction.text = str(direction.beat)
                 if "metronome" in attrs:
                     if "font-family" in attrs["metronome"]:
-                        metronome.font = attrs["metronome"]["font-family"]
+                        direction.font = attrs["metronome"]["font-family"]
                     if "font-size" in attrs["metronome"]:
-                        metronome.size = attrs["metronome"]["font-size"]
+                        direction.size = attrs["metronome"]["font-size"]
                     if "parentheses" in attrs["metronome"]:
-                        metronome.parentheses = YesNoToBool(attrs["metronome"]["parentheses"])
-
-                item_list.append(metronome)
+                        direction.parentheses = YesNoToBool(attrs["metronome"]["parentheses"])
             if tags[-1] == "per-minute":
                 return_val = 1
                 pm = chars["per-minute"]
-                if len(item_list) > 0:
-                    if type(item_list[-1]) is Directions.Metronome:
-                        metronome = item_list[-1]
+                if len(items) > 0:
+                    if type(items[staff_id][last_note][-1]) is Directions.Metronome:
+                        direction = items[staff_id][last_note][-1]
                     else:
-                        metronome = Directions.Metronome(min=pm)
-                        item_list.append(metronome)
+                        direction = Directions.Metronome(min=pm)
+                        items[staff_id][last_note].append(direction)
                 else:
-                    metronome = Directions.Metronome(min=pm)
-                    item_list.append(metronome)
-                metronome.min = pm
-                metronome.text += " = " + metronome.min
+                    direction = Directions.Metronome(min=pm)
+                    items[staff_id][last_note].append(direction)
+                direction.min = pm
+                direction.text += " = " + direction.min
                 if "metronome" in attrs:
                     if "font-family" in attrs["metronome"]:
-                        metronome.font = attrs["metronome"]["font-family"]
+                        direction.font = attrs["metronome"]["font-family"]
                     if "font-size" in attrs["metronome"]:
-                        metronome.size = float(attrs["metronome"]["font-size"])
+                        direction.size = float(attrs["metronome"]["font-size"])
                     if "parentheses" in attrs["metronome"]:
-                        metronome.parentheses = YesNoToBool(attrs["metronome"]["parentheses"])
+                        direction.parentheses = YesNoToBool(attrs["metronome"]["parentheses"])
         if tags[-1] == "wedge":
             w_type = None
             if "wedge" in attrs:
                 if "type" in attrs["wedge"]:
                     w_type = attrs["wedge"]["type"]
             dynamic = Directions.Wedge(placement = placement,type=w_type)
-            item_list.append(dynamic)
+
         if len(tags) > 1:
             if tags[-2] == "dynamics":
                 dynamic = Directions.Dynamic(placement=placement, mark=tags[-1])
-                if last_note not in dynamic_list:
-                    dynamic_list[last_note] = []
-                dynamic_list[last_note].append(dynamic)
         if "sound" in tags:
             return_val = 1
             if "sound" in attrs:
@@ -985,8 +985,6 @@ def HandleDirections(tags, attrs, chars, piece):
                     measure.volume = attrs["sound"]["dynamics"]
                 if "tempo" in attrs["sound"]:
                     measure.tempo = attrs["sound"]["tempo"]
-        if tags[-1] == "offset" and len(item_list) > 0:
-            item_list[-1].offset = chars["offset"]
         l_type = None
         if tags[-1] in ["wavy-line","octave-shift","pedal","bracket"]:
             if tags[-1] in attrs:
@@ -1000,18 +998,17 @@ def HandleDirections(tags, attrs, chars, piece):
                     amount = int(attrs["octave-shift"]["size"])
                 if "font" in attrs["octave-shift"]:
                     font = attrs["octave-shift"]["font"]
-
-            item_list.append(Directions.OctaveShift(type=l_type, amount=amount, font=font))
+            direction = Directions.OctaveShift(type=l_type, amount=amount, font=font)
 
 
         if tags[-1] == "wavy-line":
-            item_list.append(Directions.WavyLine(type=l_type))
+            direction = Directions.WavyLine(type=l_type)
         if tags[-1] == "pedal":
             line = None
             if "pedal" in attrs:
                 if "line" in attrs["pedal"]:
                     line = YesNoToBool(attrs["pedal"]["line"])
-            item_list.append(Directions.Pedal(line=line, type=l_type))
+            direction = Directions.Pedal(line=line, type=l_type)
         if tags[-1] == "bracket":
             num = None
             ltype = None
@@ -1026,12 +1023,28 @@ def HandleDirections(tags, attrs, chars, piece):
                     elength = int(attrs["bracket"]["end-length"])
                 if "line-end" in attrs["bracket"]:
                     lineend = attrs["bracket"]["line-end"]
-            item_list.append(Directions.Bracket(lineEnd=lineend, elength=elength, type=l_type, ltype=ltype, number=num))
+            direction = Directions.Bracket(lineEnd=lineend, elength=elength, type=l_type, ltype=ltype, number=num)
 
+    if direction is not None:
+        if staff_id not in items:
+            items[staff_id] = {}
+        if last_note not in items[staff_id]:
+            items[staff_id][last_note] = []
+        items[staff_id][last_note].append(direction)
+    if dynamic is not None:
+        if staff_id not in expressions:
+            expressions[staff_id] = {}
+
+        if last_note not in expressions[staff_id]:
+            expressions[staff_id][last_note] = []
+        expressions[staff_id][last_note].append(dynamic)
     HandleRepeatMarking(tags, attrs, chars, piece)
+
     return return_val
 
 def HandleRepeatMarking(tags, attrs, chars, piece):
+    global staff_id, last_note, items
+    direction = None
     if "direction" in tags or "forward" in tags:
         measure = None
         part_id = GetID(attrs, "part", "id")
@@ -1041,7 +1054,7 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
         if part_id is not None:
             if measure_id is not None:
                 measure = piece.Parts[part_id].measures[measure_id]
-        direction = None
+
         if measure is not None:
             d_type = None
             if "forward" in tags:
@@ -1052,8 +1065,7 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
             if tags[-1] == "segno" or tags[-1] == "coda":
                 d_type = tags[-1]
                 direction = Directions.RepeatSign(type=d_type)
-            if direction is not None:
-                item_list.append(direction)
+
             if tags[-1] == "sound":
                 if "sound" in attrs:
                     if "coda" in attrs["sound"]:
@@ -1068,6 +1080,12 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
                         measure.segno = attrs["sound"]["segno"]
                     if "tocoda" in attrs["sound"]:
                         measure.tocoda = attrs["sound"]["tocoda"]
+    if direction is not None:
+        if staff_id not in items:
+            items[staff_id] = {}
+        if last_note not in items[staff_id]:
+            items[staff_id][last_note] = []
+        items[staff_id][last_note].append(direction)
 
 
 

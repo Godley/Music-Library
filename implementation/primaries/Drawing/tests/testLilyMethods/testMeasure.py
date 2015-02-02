@@ -12,21 +12,22 @@ class testMeasure(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
         self.staff_id = 1
-        self.lilystring = ""
+        self.lilystring = "r"
 
 class testMeasureStaves(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
         self.staff_id = 2
         self.item.items[2] = []
-        self.lilystring = ""
+        self.lilystring = "r"
 
 class testMeasureNote(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
         self.staff_id = 1
-        self.item.items[1].append(Note.Note())
-        self.item.items[1][0].pitch = Note.Pitch()
+        note = Note.Note()
+        note.pitch= Note.Pitch()
+        self.item.addNote(note, self.staff_id)
         self.lilystring = " c'"
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
@@ -37,8 +38,8 @@ class testMeasureTempo(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
         self.staff_id = 1
-        self.item.items[1].append(Directions.Metronome(beat=4,min=60))
-        self.lilystring = " \\tempo 4=60"
+        self.item.addDirection(Directions.Metronome(beat=4,min=60), 0, self.staff_id)
+        self.lilystring = "r\\tempo 4=60"
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -48,9 +49,9 @@ class testMeasureTwoDirections(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
         self.staff_id = 1
-        self.item.items[1].append(Directions.Direction(text="hello world",placement="above"))
-        self.item.items[1].append(Directions.Metronome(beat=4,min=60))
-        self.lilystring = " ^\\markup { hello world } \\tempo 4=60"
+        self.item.addDirection(Directions.Direction(text="hello world",placement="above"),0,self.staff_id)
+        self.item.addDirection(Directions.Metronome(beat=4,min=60),0,self.staff_id)
+        self.lilystring = "r^\\markup { hello world  }\\tempo 4=60"
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -60,10 +61,12 @@ class testMeasureTwoNotes(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
         self.staff_id = 1
-        self.item.items[1].append(Note.Note())
-        self.item.items[1][0].pitch = Note.Pitch()
-        self.item.items[1].append(Note.Note())
-        self.item.items[1][1].pitch = Note.Pitch()
+        note = Note.Note()
+        note.pitch = Note.Pitch()
+        self.item.addNote(note, self.staff_id)
+        note2 = Note.Note()
+        note2.pitch = Note.Pitch()
+        self.item.addNote(note2, self.staff_id)
         self.lilystring = " c' c'"
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
@@ -74,10 +77,11 @@ class testMeasureOneNoteOneDirection(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
         self.staff_id = 1
-        self.item.items[1].append(Note.Note())
-        self.item.items[1][0].pitch = Note.Pitch()
-        self.item.items[1].append(Directions.Direction(text="hello",placement="below"))
-        self.lilystring = " c' _\\markup { hello  }"
+        note = Note.Note()
+        note.pitch = Note.Pitch()
+        self.item.addNote(note, 1)
+        self.item.addDirection(Directions.Direction(text="hello",placement="below"), 0, 1)
+        self.lilystring = " c'_\\markup { hello  }"
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -87,9 +91,9 @@ class testMeasureSecondStave(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
         self.staff_id = 2
-        self.item.items[2] = []
-        self.item.items[2].append(Note.Note())
-        self.item.items[2][0].pitch = Note.Pitch()
+        note = Note.Note()
+        note.pitch = Note.Pitch()
+        self.item.addNote(note, self.staff_id)
         self.lilystring = " c'"
         self.compile = True
         self.wrappers = ["<<\\new Staff{}\\new Staff {", "}>>"]

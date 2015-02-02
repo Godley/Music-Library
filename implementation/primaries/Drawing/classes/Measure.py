@@ -5,7 +5,9 @@ class Measure(BaseClass.Base):
         BaseClass.Base.__init__(self)
         if "width" in kwargs:
             self.width = float(kwargs["width"])
-        self.items = {1:[]}
+        self.items = {1:{}}
+        self.expressions = {1:{}}
+        self.notes = {1:[]}
 
 
     def CheckDivisions(self):
@@ -21,48 +23,42 @@ class Measure(BaseClass.Base):
         return st
 
     # TODO: REFACTOR. Dynamics and some other stuff need to come straight after a note so a generic "item" list won't work.
-    def toLily(self, measure_id):
+    def toLily(self, staff_id):
         lilystring = ""
-        end_list = []
-        to_add = []
-        previous = None
-        for index in range(len(self.items[measure_id])):
-            lilystring += " "
-            if not isinstance(self.items[measure_id][index], Note.Note) and not isinstance(previous, Note.Note):
-                obj = None
-                to_add.append(self.items[measure_id][index].toLily())
-                i = index+1
-                while not isinstance(obj, Note.Note) and i < len(self.items[measure_id]):
-                    obj = self.items[measure_id][i]
-                    if not isinstance(obj, Note.Note):
-                        to_add.append(obj.toLily())
-                    i+=1
-                    if i >= len(self.items[measure_id]):
-                        break
-                if obj is not None:
-                    lilystring += obj.toLily() + " "
-                lilystring += " ".join(to_add)
-                to_add = []
-            else:
-                return_val = self.items[measure_id][index].toLily()
-                if type(return_val) == list:
-                    if len(return_val) > 1:
-                        lilystring+= return_val[0]
-                        end_list.append(return_val[1])
-                    else:
-                        lilystring += return_val[0]
-                else:
-                    lilystring += return_val
-            if hasattr(self, "dynamics"):
-                if measure_id in self.dynamics:
-                    if index in self.dynamics[measure_id]:
-                        lilystring += " ".join([d.toLily() for d in self.dynamics[measure_id][index]])
-            previous = self.items[measure_id][index]
-        i = len(end_list)-1
-        while i > -1:
-            lilystring += end_list[i]
-            i-=1
+        if (staff_id in self.notes and len(self.notes[staff_id]) == 0) or staff_id not in self.notes:
+            lilystring += "r"
+        if staff_id in self.notes and len(self.notes[staff_id]) > 0:
+            for n_id in range(len(self.notes[staff_id])):
+                lilystring += " "+self.notes[staff_id][n_id].toLily()
+                if staff_id in self.expressions and n_id in self.expressions[staff_id]:
+                    lilystring += "".join([expr.toLily() for expr in self.expressions[staff_id][n_id]])
+                if staff_id in self.items and n_id in self.items[staff_id]:
+                    lilystring+= "".join([dir.toLily() for dir in self.items[staff_id][n_id]])
+        elif staff_id in self.items and len(self.items[staff_id]) > 0:
+            for n_id in range(len(self.items[staff_id])):
+                lilystring += "".join([dir.toLily() for dir in self.items[staff_id][n_id]])
+                if staff_id in self.expressions and n_id in self.expressions[staff_id]:
+                    lilystring += "".join([expr.toLily() for expr in self.expressions[staff_id][n_id]])
         return lilystring
+
+    def addDirection(self, item, note, staff):
+        if staff not in self.items:
+            self.items[staff] = {}
+        if note not in self.items[staff]:
+            self.items[staff][note] = []
+        self.items[staff][note].append(item)
+
+    def addExpression(self, item, note, staff):
+        if staff not in self.expressions:
+            self.expressions[staff] = {}
+        if note not in self.expressions[staff]:
+            self.expressions[staff][note] = []
+        self.expressions[staff][note].append(item)
+
+    def addNote(self, item, staff):
+        if staff not in self.notes:
+            self.notes[staff] = []
+        self.notes[staff].append(item)
 
 class Barline(BaseClass.Base):
     def __init__(self, **kwargs):
