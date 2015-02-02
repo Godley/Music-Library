@@ -15,9 +15,10 @@ class Piece(object):
         return st
 
     def toLily(self):
-        lilystring = "<<"
+        lilystring = ""
         if hasattr(self, "meta"):
             lilystring += self.meta.toLily()
+        lilystring = "<<"
         for part in self.Parts.keys():
             lilystring += self.Parts[part].toLily()
         lilystring += ">>"

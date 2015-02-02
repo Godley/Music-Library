@@ -26,10 +26,13 @@ class Clef(object):
     def toLily(self):
         val = "\clef"
         if hasattr(self, "sign"):
+            key = self.sign.upper()
             if self.sign == "TAB":
                 return "\\new TabStaff {\n\clef moderntab \n}"
             if hasattr(self, "line"):
-                val += " " + clef_type[self.sign.upper() + str(self.line)]
+                key += str(self.line)
+                if key in clef_type:
+                    val += " " + clef_type[self.sign.upper() + str(self.line)]
             elif self.sign.upper() in clef_type:
                 val += clef_type[self.sign.upper()]
             else:

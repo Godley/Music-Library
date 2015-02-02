@@ -25,6 +25,10 @@ class Measure(BaseClass.Base):
     # TODO: REFACTOR. Dynamics and some other stuff need to come straight after a note so a generic "item" list won't work.
     def toLily(self, staff_id):
         lilystring = ""
+        if hasattr(self, "clef") and self.clef is not None:
+            lilystring += self.clef.toLily()
+        if hasattr(self, "key") and self.key is not None:
+            lilystring += self.key.toLily()
         if (staff_id in self.notes and len(self.notes[staff_id]) == 0) or staff_id not in self.notes:
             lilystring += "r"
         if staff_id in self.notes and len(self.notes[staff_id]) > 0:
