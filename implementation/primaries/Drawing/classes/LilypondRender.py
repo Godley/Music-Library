@@ -12,6 +12,6 @@ class LilypondRender(object):
     def run(self, wrappers=["",""]):
         opened_file = open(self.lyfile, 'w')
         lilystring = self.piece_obj.toLily()
-        opened_file.writelines(wrappers[0]+lilystring+wrappers[1])
+        opened_file.writelines(wrappers[0]+"\\version \"2.18.2\" \n"+lilystring+wrappers[1])
         opened_file.close()
         os.system(self.lily_script + " --output="+self.folder + " "+self.lyfile)

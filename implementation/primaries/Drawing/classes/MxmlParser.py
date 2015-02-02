@@ -182,7 +182,6 @@ class MxmlParser(object):
         # OFFLINE MODE
         parser.setFeature(handler.feature_external_ges, False)
         fob = open(file, 'r')
-
         parser.parse(fob)
         return self.piece
 
@@ -408,7 +407,7 @@ def HandleMeasures(tag, attrib, content, piece):
         if tag[-1] == "staves":
             staves = int(content["staves"])
             for i in range(staves):
-                measure.items[i+1] = []
+                measure.items[i+1] = {}
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
             return_val = 1

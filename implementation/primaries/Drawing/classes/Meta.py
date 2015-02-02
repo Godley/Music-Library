@@ -12,12 +12,13 @@ class Meta(BaseClass.Base):
 
     def toLily(self):
         val = "\header {\n"
-        if hasattr(self, "title"):
+        if hasattr(self, "title") and self.title is not None:
             val += "title = \""+self.title+"\""
-        if hasattr(self, "composer"):
+        if hasattr(self, "composer") and self.composer is not None:
             val += "composer = \""+self.composer +"\""
         val += "\n}"
         if hasattr(self, "credits"):
+            #TODO: this needs refactoring to handle page positioning
             for credit in self.credits:
                 val += "\n"+credit.toLily()
         return val
