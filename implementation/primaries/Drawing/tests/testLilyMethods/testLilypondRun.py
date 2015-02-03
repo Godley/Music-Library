@@ -7,11 +7,14 @@ class testRun(unittest.TestCase):
         if hasattr(self, "item"):
             self.lp = LilypondRender.LilypondRender(self.item, self.file, script)
             self.lp.run()
+            self.pdf = self.file.split(".")[0] + ".pdf"
 
     def testRun(self):
         if hasattr(self, "file"):
-            pdf = self.file.split(".")[0] + ".pdf"
-            self.assertTrue(os.path.exists(pdf))
+            self.assertTrue(os.path.exists(self.pdf))
+            if not hasattr(self, "dontcleanup"):
+                self.lp.cleanup(pdf=True)
+
 
 
 
@@ -141,6 +144,7 @@ class testtremolo(testRun):
         self.file = os.path.join(folder, "Tremolo.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 

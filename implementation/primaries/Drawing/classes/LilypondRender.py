@@ -15,3 +15,11 @@ class LilypondRender(object):
         opened_file.writelines(wrappers[0]+"\\version \"2.18.2\" \n"+lilystring+wrappers[1])
         opened_file.close()
         os.system(self.lily_script + " --output="+self.folder + " "+self.lyfile)
+
+    def cleanup(self, pdf=False):
+        if os.path.exists(self.lyfile):
+            os.remove(self.lyfile)
+
+        if pdf:
+            if os.path.exists(self.pdf):
+                os.remove(self.pdf)

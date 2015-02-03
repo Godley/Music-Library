@@ -37,7 +37,7 @@ class Stem(BaseClass.Base):
         return self.type
 
     def toLily(self):
-        val = "\stem"
+        val = "\n\stem"
         if not hasattr(self, "type"):
             val += "Neutral"
         else:

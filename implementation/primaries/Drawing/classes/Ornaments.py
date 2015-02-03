@@ -43,20 +43,14 @@ class Tremolo(BaseClass.Base):
             num = str(8 * self.value)
 
         if hasattr(self, "type"):
-            multipliers = {"single":1,"double":2,
-                            "triple":3,"quadruple":3}
+            multipliers = {"single":16,"double":4,
+                            "triple":8,"quadruple":16}
             if self.type in multipliers:
-                num = str(multipliers[self.type] * 8)
-        if self.type == "start":
-            if num != "":
-                return_val += num + " {"
-                num = ""
-            else:
-                return_val += "{"
-        if self.type == "stop":
-            return_val = "}"
+                num = str(multipliers[self.type])
+        elif not hasattr(self, "value"):
+            num = str(2)
 
         if num != "":
-            return_val += num
+            return_val += num + " "
         return return_val
 

@@ -26,9 +26,11 @@ class Part(object):
                 self.measures[key].CheckDivisions()
 
     def toLily(self):
-        lilystring = "<<"
+        lilystring = ""
         if len(self.measures.keys()) > 0:
             staff_nums = self.measures[list(self.measures.keys())[0]].items.keys()
+            if len(staff_nums) > 1:
+                lilystring += "\\new StaffGroup <<"
             for id in staff_nums:
 
                 lilystring += "\\new Staff"
@@ -39,5 +41,6 @@ class Part(object):
                     if id in self.measures[key].items:
                         lilystring += self.measures[key].toLily(id)
                 lilystring += "}"
-        lilystring += ">>"
+            if len(staff_nums) > 1:
+                lilystring += ">>"
         return lilystring

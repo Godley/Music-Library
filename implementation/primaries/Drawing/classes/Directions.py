@@ -284,7 +284,7 @@ class Pedal(Line):
                 return_val += "\n\set Staff.pedalSustainStyle = #'mixed \n "
             else:
                 return_val += "\set Staff.pedalSustainStyle = #'text \n "
-        sost = "\sustain"
+        sost = "\n\sustain"
         if hasattr(self, "type"):
             if self.type == "stop":
                 sost += "Off"
