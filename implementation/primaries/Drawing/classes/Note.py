@@ -1,4 +1,5 @@
-from implementation.primaries.Drawing.classes import BaseClass
+from implementation.primaries.Drawing.classes import BaseClass, Ornaments
+
 import math
 class Tie(BaseClass.Base):
     def __init__(self, type):
@@ -124,6 +125,28 @@ class Note(BaseClass.Base):
             self.divisions = float(kwargs["divisions"])
         else:
             self.divisions = 1
+        self.prenotation = []
+        self.wrap_notation = []
+        self.postnotation = []
+        self.has_tremolo = False
+
+    def addNotation(self, obj):
+        # method to handle addition of notation: done here to avoid repetitive code in main parser
+        if isinstance(obj, Ornaments.Tremolo) or isinstance(obj, Tuplet):
+            if isinstance(obj, Ornaments.Tremolo):
+                options = {1:2,2:4,3:8}
+                self.trem_length = options[obj.value]
+            if hasattr(obj, "type") and obj.type == "stop":
+                self.postnotation.append(obj)
+            else:
+                self.prenotation.append(obj)
+            return
+        if isinstance(obj, Arpeggiate) or isinstance(obj, NonArpeggiate) or isinstance(obj, Slide) or isinstance(obj, Glissando):
+            self.wrap_notation.append(obj)
+            return
+        self.postnotation.append(obj)
+
+
 
     def __str__(self):
         if hasattr(self, "divisions") and hasattr(self, "duration"):
@@ -131,6 +154,7 @@ class Note(BaseClass.Base):
         st = BaseClass.Base.__str__(self)
         return st
 
+#TODO: make this tidier. See measure for inspiration.
     def handlePreLilies(self):
         val = ""
         if hasattr(self, "stem"):
@@ -141,17 +165,19 @@ class Note(BaseClass.Base):
 
         if hasattr(self, "grace"):
             val += self.grace.toLily() + " "
-        if hasattr(self, "notations"):
-            for n in self.notations:
-                if isinstance(n, Tuplet):
-                    if hasattr(self, "timeMod"):
-                        trip_val = n.toLily()
-                        if n.type != "stop":
-                            trip_val += " "+self.timeMod.toLily()
-                            trip_val += " {"
-                            val = trip_val
-                if hasattr(n, "preNote"):
-                    val += n.toLily()
+
+        for item in self.prenotation:
+            lilystring = item.toLily()
+            if isinstance(item, Tuplet):
+                if hasattr(self, "timeMod"):
+                    lilystring += " "+self.timeMod.toLily()
+                    lilystring += " {"
+
+            if isinstance(item, Ornaments.Tremolo):
+                if not hasattr(self, "trem_length"):
+                    self.trem_length = lilystring[1]
+                    lilystring = lilystring[0]
+            val += lilystring
         return val
 
     def toLily(self):
@@ -168,9 +194,14 @@ class Note(BaseClass.Base):
 
             if value >= 1:
                 if math.ceil(value) == value:
+                    if hasattr(self, "trem_length"):
+                        value *= self.trem_length
                     val += str(int(value))
+
                 else:
                     rounded = math.ceil(value)
+                    if hasattr(self, "trem_length"):
+                        rounded *= self.trem_length
                     val += str(rounded)
             else:
                 if value == 0.5:
@@ -181,24 +212,14 @@ class Note(BaseClass.Base):
         value = self.LilyWrap(val)
         return value
     def LilyWrap(self, value):
-        if hasattr(self, "notations"):
-            for n in self.notations:
-                if isinstance(n, Arpeggiate) or isinstance(n, NonArpeggiate) or isinstance(n, Slide) or isinstance(n, Glissando):
-                    val = n.toLily()
-                    if len(val) > 1:
-                        value = val[0] + "\n"+ value + val[1]
-                    elif len(val) > 0:
-                        value = value + val[0]
-        return value
+        wrapped_notation_lilystrings = [wrap.toLily() for wrap in self.wrap_notation]
+        prefixes = "".join([wrapper[0] for wrapper in wrapped_notation_lilystrings if len(wrapper) > 1])
+        prefixes_and_current = prefixes + value
+        postfixes = "".join([wrapper[-1] for wrapper in wrapped_notation_lilystrings if len(wrapper) > 0])
+        lilystring = prefixes_and_current + postfixes
+        return lilystring
     def handlePostLilies(self):
-        val = ""
-        if hasattr(self, "notations"):
-            for n in self.notations:
-                if isinstance(n, Tuplet):
-                    if n.type == "stop":
-                        val += "}"
-                elif not hasattr(n, "wrapped") and not hasattr(n, "preNote"):
-                    val += n.toLily()
+        val = "".join([value.toLily() for value in self.postnotation])
         if hasattr(self, "notehead"):
             val += self.notehead.toLily()
         if hasattr(self, "beam"):

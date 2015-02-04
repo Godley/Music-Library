@@ -40,17 +40,16 @@ class Tremolo(BaseClass.Base):
         return_val = "\\repeat tremolo "
         num = ""
         if hasattr(self, "value"):
-            num = str(8 * self.value)
-
-        if hasattr(self, "type"):
-            multipliers = {"single":16,"double":4,
-                            "triple":8,"quadruple":16}
-            if self.type in multipliers:
-                num = str(multipliers[self.type])
-        elif not hasattr(self, "value"):
-            num = str(2)
+            options = {1:2,2:4,3:8}
+            num = str(options[self.value])
 
         if num != "":
             return_val += num + " "
+        if hasattr(self, "type"):
+            if self.type == "start":
+                return_val += "{"
+            if self.type == "stop":
+                return_val = "}"
+
         return return_val
 

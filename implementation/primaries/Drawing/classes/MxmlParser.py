@@ -294,8 +294,6 @@ def handleArticulation(tag, attrs, content, piece):
         if "articulations" in tag:
             if note is not None:
                 accent = None
-                if not hasattr(note, "notations"):
-                    note.notations = []
                 if tag[-1] == "accent":
                     accent = Mark.Accent()
                 if tag[-1] == "strong-accent":
@@ -315,15 +313,11 @@ def handleArticulation(tag, attrs, content, piece):
                 if "placement" in attrs:
                     accent.placement = attrs["placement"]
                 if accent is not None:
-                    note.notations.append(accent)
+                    note.addNotation(accent)
                 if tag[-1] == "breath-mark":
-                    if not hasattr(note, "notations"):
-                        note.notations = []
-                    note.notations.append(Mark.BreathMark())
+                    note.addNotation(Mark.BreathMark())
                 if tag[-1] == "caesura":
-                    if not hasattr(note, "notations"):
-                        note.notations = []
-                    note.notations.append(Mark.Caesura())
+                    note.addNotation(Mark.Caesura())
             return 1
     return None
 
@@ -332,15 +326,13 @@ def HandleFermata(tags, attrs, chars, piece):
     if "fermata" in tags:
         type = None
         symbol = None
-        if not hasattr(note, "notations"):
-            note.notations = []
         if "fermata" in attrs:
             if "type" in attrs["fermata"]:
                 type = attrs["fermata"]["type"]
         if "fermata" in chars:
             symbol = chars["fermata"]
         fermata = Mark.Fermata(type=type, symbol=symbol)
-        note.notations.append(fermata)
+        note.addNotation(fermata)
     return None
 
 def handleOtherNotations(tag, attrs, content, piece):
@@ -780,22 +772,18 @@ def HandleArpeggiates(tags, attrs, content, piece):
     if len(tags) > 0:
         if tags[-1] == "arpeggiate":
             direction = None
-            if not hasattr(note, "notations"):
-                note.notations = []
             if "arpeggiate" in attrs:
                 if "direction" in attrs["arpeggiate"]:
                     direction = attrs["arpeggiate"]["direction"]
             arpegg = Note.Arpeggiate(direction=direction)
-            note.notations.append(arpegg)
+            note.addNotation(arpegg)
         if tags[-1] == "non-arpeggiate":
             type = None
             if "non-arpeggiate" in attrs:
                 if "type" in attrs["non-arpeggiate"]:
                     type = attrs["non-arpeggiate"]["type"]
-            if not hasattr(note, "notations"):
-                note.notations = []
             narpegg = Note.NonArpeggiate(type=type)
-            note.notations.append(narpegg)
+            note.addNotation(narpegg)
 
 def HandleSlidesAndGliss(tags, attrs, content, piece):
     type = None
@@ -811,30 +799,24 @@ def HandleSlidesAndGliss(tags, attrs, content, piece):
                 number = int(attrs[tags[-1]]["number"])
     if "slide" in tags:
         slide = Note.Slide(type=type, lineType=lineType, number=number)
-        if not hasattr(note, "notations"):
-            note.notations = []
-        note.notations.append(slide)
+        note.addNotation(slide)
     if "glissando" in tags:
-        if not hasattr(note, "notations"):
-            note.notations = []
         gliss = Note.Glissando(type=type, lineType=lineType, number=number)
-        note.notations.append(gliss)
+        note.addNotation(gliss)
 
 def handleOrnaments(tags, attrs, content, piece):
     global note
     if "ornaments" in tags:
-        if not hasattr(note, "notations"):
-            note.notations = []
         if tags[-1] == "inverted-mordent":
-            note.notations.append(Ornaments.InvertedMordent())
+            note.addNotation(Ornaments.InvertedMordent())
         if tags[-1] == "mordent":
-            note.notations.append(Ornaments.Mordent())
+            note.addNotation(Ornaments.Mordent())
         if tags[-1] == "trill-mark":
-            note.notations.append(Ornaments.Trill())
+            note.addNotation(Ornaments.Trill())
         if tags[-1] == "turn":
-            note.notations.append(Ornaments.Turn())
+            note.addNotation(Ornaments.Turn())
         if tags[-1] == "inverted-turn":
-            note.notations.append(Ornaments.InvertedTurn())
+            note.addNotation(Ornaments.InvertedTurn())
         if tags[-1] == "tremolo":
             type = None
             value = None
@@ -843,7 +825,7 @@ def handleOrnaments(tags, attrs, content, piece):
                     type = attrs["tremolo"]["type"]
             if "tremolo" in content:
                 value = int(content["tremolo"])
-            note.notations.append(Ornaments.Tremolo(type=type, value=value))
+            note.addNotation(Ornaments.Tremolo(type=type, value=value))
 
 def SetupFormat(tags, attrs, text, piece):
     return None
@@ -1109,15 +1091,14 @@ def handleTimeMod(tags, attrs, chars, piece):
         if tags[-1] == "tuplet":
             type = None
             bracket = None
-            if not hasattr(note, "notations"):
-                note.notations = []
+
             if "tuplet" in attrs:
                 if "type" in attrs["tuplet"]:
                     type = attrs["tuplet"]["type"]
                 if "bracket" in attrs["tuplet"]:
                     bracket = YesNoToBool(attrs["tuplet"]["bracket"])
             tuplet = Note.Tuplet(bracket=bracket, type=type)
-            note.notations.append(tuplet)
+            note.addNotation(tuplet)
     if "time-modification" in tags:
         if not hasattr(note, "timeMod"):
             note.timeMod = Note.TimeModifier()
