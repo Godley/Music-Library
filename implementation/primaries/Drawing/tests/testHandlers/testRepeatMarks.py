@@ -15,36 +15,35 @@ class testRepeatSymbols(testclass.TestClass):
         self.attrs["direction"] = {"placement": "above"}
 
     def copy(self):
-        for item in MxmlParser.item_list:
-            self.measure.items[1].append(item)
+        self.measure.items.update(MxmlParser.items)
 
     def testSegno(self):
         self.tags.append("direction-type")
         self.tags.append("segno")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.measure.items[1][-1], Directions.RepeatSign)
+        self.assertIsInstance(self.measure.items[1][0][-1], Directions.RepeatSign)
 
     def testRType(self):
         self.tags.append("direction-type")
         self.tags.append("segno")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("segno", self.measure.items[1][-1].type)
+        self.assertEqual("segno", self.measure.items[1][0][-1].type)
 
     def testCoda(self):
         self.tags.append("direction-type")
         self.tags.append("coda")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.measure.items[1][-1], Directions.RepeatSign)
+        self.assertIsInstance(self.measure.items[1][0][-1], Directions.RepeatSign)
 
     def testCType(self):
         self.tags.append("direction-type")
         self.tags.append("coda")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("coda", self.measure.items[1][-1].type)
+        self.assertEqual("coda", self.measure.items[1][0][-1].type)
 
     def testSoundSegno(self):
         self.tags.append("sound")

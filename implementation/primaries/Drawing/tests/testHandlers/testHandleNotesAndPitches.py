@@ -12,15 +12,22 @@ class notes(unittest.TestCase):
         MxmlParser.part_id = "P1"
         MxmlParser.measure_id = 1
         MxmlParser.note = None
+        MxmlParser.items = {}
+        MxmlParser.notes = {}
+        MxmlParser.expressions = {}
         self.piece = Piece.Piece()
         self.piece.Parts["P1"] = Part.Part()
         self.piece.Parts["P1"].measures[1] = Measure.Measure()
-        MxmlParser.item_list = []
 
 
     def copy(self):
-        self.piece.Parts["P1"].measures[1].items[1] = MxmlParser.item_list
-        MxmlParser.item_list = []
+        self.piece.Parts["P1"].measures[1].items.update(MxmlParser.items)
+        MxmlParser.items = {}
+        self.piece.Parts["P1"].measures[1].notes.update(MxmlParser.notes)
+        MxmlParser.notes = {}
+        self.piece.Parts["P1"].measures[1].expressions.update(MxmlParser.expressions)
+        MxmlParser.expressions = {}
+
 class testCreateNoteHandler(notes):
     def setUp(self):
         if isinstance(self, testCreateNoteHandler):
@@ -42,7 +49,7 @@ class testCreateNoteHandler(notes):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.copy()
         self.assertIsInstance(MxmlParser.note, Note.Note)
-        self.assertEqual(MxmlParser.note, self.piece.Parts["P1"].measures[1].items[1][0])
+        self.assertEqual(MxmlParser.note, self.piece.Parts["P1"].measures[1].notes[1][0])
 
     def testRestTag(self):
         self.tags.append("rest")
@@ -77,7 +84,7 @@ class testCreateNoteHandler(notes):
         self.tags.append("tie")
         self.attrs["tie"] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        expected = MxmlParser.item_list[-1]
+        expected = MxmlParser.notes[1][-1]
         self.assertEqual(1, len(MxmlParser.note.ties), "ERROR: note tie not added to tie list in note")
         self.assertEqual("start",expected.ties[-1].type, "ERROR: note tie type not matching to test input")
 
