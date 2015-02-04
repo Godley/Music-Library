@@ -112,22 +112,22 @@ class testWavyLineStop(Lily):
 class testPedal(Lily):
     def setUp(self):
         self.item = Directions.Pedal()
-        self.lilystring = ["On", "\n\\sustain"]
+        self.lilystring = ["", "\n\\sustainOn"]
 
 class testPedalLine(Lily):
     def setUp(self):
         self.item = Directions.Pedal(line=True)
-        self.lilystring = "\set Staff.pedalSustainStyle = #'mixed \n \sustainOn"
+        self.lilystring = ["\n\set Staff.pedalSustainStyle = #'mixed \n ", "\n\sustainOn"]
 
 class testPedalType(Lily):
     def setUp(self):
         self.item = Directions.Pedal(type="start")
-        self.lilystring = "\sustainOn"
+        self.lilystring = ["","\n\sustainOn"]
 
 class testPedalTypeOff(Lily):
     def setUp(self):
         self.item = Directions.Pedal(type="stop")
-        self.lilystring = "\sustainOff"
+        self.lilystring = ["", "\n\sustainOff"]
 
 # TODO: REFACTOR BRACKET CLASS ACCORDING TO LILYPOND NOTATION
 class testBracket(Lily):

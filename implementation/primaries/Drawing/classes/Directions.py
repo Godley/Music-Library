@@ -291,7 +291,7 @@ class Pedal(Line):
             elif self.type == "start":
                 sost += "On"
         else:
-            return_val += "On"
+            sost += "On"
         return [return_val, sost]
 class Bracket(Line):
     def __init__(self, **kwargs):

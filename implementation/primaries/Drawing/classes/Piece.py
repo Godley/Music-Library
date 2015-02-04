@@ -18,7 +18,7 @@ class Piece(object):
         lilystring = ""
         if hasattr(self, "meta"):
             lilystring += self.meta.toLily()
-        lilystring = "<<"
+        lilystring += "<<"
         for part in self.Parts.keys():
             lilystring += self.Parts[part].toLily()
         lilystring += ">>"
