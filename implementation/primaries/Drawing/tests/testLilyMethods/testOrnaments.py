@@ -29,22 +29,22 @@ class testInvertedTurn(Lily):
 class testTremolo(Lily):
     def setUp(self):
         self.item =Ornaments.Tremolo()
-        self.lilystring = "\\repeat tremolo "
+        self.lilystring = "\\repeat tremolo 4 "
 
 class testTremoloType(Lily):
     def setUp(self):
         self.item =Ornaments.Tremolo(type="single")
-        self.lilystring = "\\repeat tremolo 8 "
+        self.lilystring = "\\repeat tremolo 4 "
 
 class testTremoloVal(Lily):
     def setUp(self):
         self.item =Ornaments.Tremolo(value=2)
-        self.lilystring = "\\repeat tremolo 16 "
+        self.lilystring = "\\repeat tremolo 4 "
 
 class testTremoloTypeStart(Lily):
     def setUp(self):
         self.item =Ornaments.Tremolo(type="start")
-        self.lilystring = "\\repeat tremolo {"
+        self.lilystring = "\\repeat tremolo 4 {"
 
 class testTremoloTypeStop(Lily):
     def setUp(self):

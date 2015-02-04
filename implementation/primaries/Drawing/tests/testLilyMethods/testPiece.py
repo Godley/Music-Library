@@ -10,7 +10,7 @@ class testPieceWithPart(Lily):
     def setUp(self):
         self.item = Piece.Piece()
         self.item.Parts["P1"] = Part.Part()
-        self.lilystring = "<<>>"
+        self.lilystring = ""
 
 class testPieceWithTitle(Lily):
     def setUp(self):

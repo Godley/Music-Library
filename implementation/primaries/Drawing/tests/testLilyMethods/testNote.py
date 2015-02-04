@@ -98,7 +98,7 @@ class testNoteStem(Lily):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
         self.item.stem = Note.Stem("up")
-        self.lilystring = "\stemUp\nc'"
+        self.lilystring = "\n\stemUp\nc'"
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
@@ -109,7 +109,7 @@ class testNoteStemDown(Lily):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
         self.item.stem = Note.Stem("down")
-        self.lilystring = "\stemDown\nc'"
+        self.lilystring = "\n\stemDown\nc'"
         self.name = "notestemdown"
 
 class testNoteBeam(Lily):
@@ -175,7 +175,7 @@ class testNoteArpeggiate(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
-        self.lilystring = "\\arpeggioNormal\nc'\\arpeggio"
+        self.lilystring = "\\arpeggioNormal c'\\arpeggio"
         self.name = "notearpeggiate"
 
 class testNoteNonArpeggiate(Lily):
@@ -186,7 +186,7 @@ class testNoteNonArpeggiate(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
-        self.lilystring = "\\arpeggioBracket\nc'\\arpeggio"
+        self.lilystring = "\\arpeggioBracket c'\\arpeggio"
         self.name = "notenonarpegg"
 
 class testGliss(Lily):
@@ -283,7 +283,7 @@ class testNoteTremolo(Lily):
         self.item.pitch = Note.Pitch()
         self.item.addNotation(Ornaments.Tremolo(type="start"))
 
-        self.lilystring = "\\repeat tremolo 16 {c'"
+        self.lilystring = "\\repeat tremolo 4 {c'"
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}}"]
