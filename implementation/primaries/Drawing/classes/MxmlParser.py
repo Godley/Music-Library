@@ -936,10 +936,9 @@ def HandleDirections(tags, attrs, chars, piece):
                         direction = items[staff_id][last_note][-1]
                     else:
                         direction = Directions.Metronome(min=pm)
-                        items[staff_id][last_note].append(direction)
+
                 else:
                     direction = Directions.Metronome(min=pm)
-                    items[staff_id][last_note].append(direction)
                 direction.min = pm
                 direction.text += " = " + direction.min
                 if "metronome" in attrs:
