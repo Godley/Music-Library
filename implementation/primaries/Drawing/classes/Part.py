@@ -28,7 +28,7 @@ class Part(object):
     def toLily(self):
         lilystring = ""
         if len(self.measures.keys()) > 0:
-            staff_nums = self.measures[list(self.measures.keys())[0]].items.keys()
+            staff_nums = self.measures[list(self.measures.keys())[0]].notes.keys()
             if len(staff_nums) > 1:
                 lilystring += "\\new StaffGroup <<"
             for id in staff_nums:
@@ -38,7 +38,7 @@ class Part(object):
                     lilystring += " \with { \ninstrumentName = #\""+ self.name +" \"\n}"
                 lilystring += "{"
                 for key in self.measures.keys():
-                    if id in self.measures[key].items:
+                    if id in self.measures[key].notes:
                         lilystring += self.measures[key].toLily(id)
                 lilystring += "}"
             if len(staff_nums) > 1:

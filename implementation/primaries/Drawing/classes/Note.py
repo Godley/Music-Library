@@ -155,7 +155,6 @@ class Note(BaseClass.Base):
         st = BaseClass.Base.__str__(self)
         return st
 
-#TODO: make this tidier. See measure for inspiration.
     def handlePreLilies(self):
         val = ""
         if hasattr(self, "stem"):
