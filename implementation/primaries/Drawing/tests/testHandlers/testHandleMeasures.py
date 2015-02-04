@@ -15,9 +15,9 @@ class MeasureTesting(unittest.TestCase):
 
     def copy(self):
         if len(self.part.measures) > 0:
-            for item in MxmlParser.item_list:
-                self.part.measures[1].items[1].append(item)
-                MxmlParser.item_list.pop()
+            self.part.measures[1].items.update(MxmlParser.items)
+            self.part.measures[1].expressions.update(MxmlParser.expressions)
+            self.part.measures[1].notes.update(MxmlParser.notes)
 
 
 class testHandleMeasures(MeasureTesting):
@@ -184,7 +184,7 @@ class testHarmony(MeasureTesting):
         self.tags.append("harmony")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.part.measures[1].items[1][-1], Harmony.Harmony)
+        self.assertIsInstance(self.part.measures[1].items[1][0][-1], Harmony.Harmony)
 
     def testRootStep(self):
         self.tags.append("root")
@@ -192,7 +192,7 @@ class testHarmony(MeasureTesting):
         self.chars["root-step"] = "A"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.part.measures[1].items[1][-1], "root"))
+        self.assertTrue(hasattr(self.part.measures[1].items[1][0][-1], "root"))
 
     def testRootStepVal(self):
         self.tags.append("root")
@@ -200,7 +200,7 @@ class testHarmony(MeasureTesting):
         self.chars["root-step"] = "A"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("A", self.part.measures[1].items[1][-1].root.step)
+        self.assertEqual("A", self.part.measures[1].items[1][0][-1].root.step)
 
     def testRootAlter(self):
         self.tags.append("root")
@@ -208,20 +208,20 @@ class testHarmony(MeasureTesting):
         self.chars["root-alter"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("1", self.part.measures[1].items[1][-1].root.alter)
+        self.assertEqual("1", self.part.measures[1].items[1][0][-1].root.alter)
 
     def testKindTag(self):
         self.tags.append("kind")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.part.measures[1].items[1][-1], "kind"))
+        self.assertTrue(hasattr(self.part.measures[1].items[1][0][-1], "kind"))
 
     def testKindVal(self):
         self.tags.append("kind")
         self.chars["kind"] = "major"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("major", self.part.measures[1].items[1][-1].kind.value)
+        self.assertEqual("major", self.part.measures[1].items[1][0][-1].kind.value)
 
     def testKindAttribs(self):
         self.tags.append("kind")
@@ -229,16 +229,16 @@ class testHarmony(MeasureTesting):
         self.attrs["kind"] = {"text": "6", "halign": "center", "parenthesis-degrees": "no"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.part.measures[1].items[1][-1].kind, "text"))
-        self.assertTrue(hasattr(self.part.measures[1].items[1][-1].kind, "halign"))
-        self.assertTrue(hasattr(self.part.measures[1].items[1][-1].kind, "parenthesis"))
+        self.assertTrue(hasattr(self.part.measures[1].items[1][0][-1].kind, "text"))
+        self.assertTrue(hasattr(self.part.measures[1].items[1][0][-1].kind, "halign"))
+        self.assertTrue(hasattr(self.part.measures[1].items[1][0][-1].kind, "parenthesis"))
 
     def testBassTag(self):
         # because I'm all about that
         self.tags.append("bass")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.part.measures[1].items[1][-1], "bass"))
+        self.assertTrue(hasattr(self.part.measures[1].items[1][0][-1], "bass"))
 
     def testBassStepVal(self):
         self.tags.append("bass")
@@ -246,7 +246,7 @@ class testHarmony(MeasureTesting):
         self.chars["bass-step"] = "D"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("D", self.part.measures[1].items[1][-1].bass.step)
+        self.assertEqual("D", self.part.measures[1].items[1][0][-1].bass.step)
 
     def testBassAlter(self):
         self.tags.append("bass")
@@ -254,13 +254,13 @@ class testHarmony(MeasureTesting):
         self.chars["bass-alter"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("1", self.part.measures[1].items[1][-1].bass.alter)
+        self.assertEqual("1", self.part.measures[1].items[1][0][-1].bass.alter)
 
     def testDegreeTag(self):
         self.tags.append("degree")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual(1, len(self.part.measures[1].items[1][-1].degrees))
+        self.assertEqual(1, len(self.part.measures[1].items[1][0][-1].degrees))
 
     def testDegreeValue(self):
         self.tags.append("degree")
@@ -268,7 +268,7 @@ class testHarmony(MeasureTesting):
         self.chars["degree-value"] = "9"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("9", self.part.measures[1].items[1][-1].degrees[-1].value)
+        self.assertEqual("9", self.part.measures[1].items[1][0][-1].degrees[-1].value)
 
     def testDegreeAlter(self):
         self.tags.append("degree")
@@ -276,7 +276,7 @@ class testHarmony(MeasureTesting):
         self.chars["degree-alter"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("1", self.part.measures[1].items[1][-1].degrees[-1].alter)
+        self.assertEqual("1", self.part.measures[1].items[1][0][-1].degrees[-1].alter)
 
     def testDegreeType(self):
         self.tags.append("degree")
@@ -284,7 +284,7 @@ class testHarmony(MeasureTesting):
         self.chars["degree-type"] = "add"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("add", self.part.measures[1].items[1][-1].degrees[-1].type)
+        self.assertEqual("add", self.part.measures[1].items[1][0][-1].degrees[-1].type)
 
     def testDegreeDisplay(self):
         self.tags.append("degree")
@@ -293,26 +293,26 @@ class testHarmony(MeasureTesting):
         self.attrs["degree-type"] = {"text": ""}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("", self.part.measures[1].items[1][-1].degrees[-1].display)
+        self.assertEqual("", self.part.measures[1].items[1][0][-1].degrees[-1].display)
 
     def testFrame(self):
         self.tags.append("frame")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.part.measures[1].items[1][-1], "frame"))
+        self.assertTrue(hasattr(self.part.measures[1].items[1][0][-1], "frame"))
 
     def testFrameType(self):
         self.tags.append("frame")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.part.measures[1].items[1][-1].frame, Harmony.Frame)
+        self.assertIsInstance(self.part.measures[1].items[1][0][-1].frame, Harmony.Frame)
 
     def testFirstFret(self):
         self.tags.append("frame")
         self.tags.append("first-fret")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.part.measures[1].items[1][-1].frame, "firstFret"))
+        self.assertTrue(hasattr(self.part.measures[1].items[1][0][-1].frame, "firstFret"))
 
     def testFirstFretVal(self):
         self.tags.append("frame")
@@ -320,7 +320,7 @@ class testHarmony(MeasureTesting):
         self.chars["first-fret"] = "6"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("6", self.part.measures[1].items[1][-1].frame.firstFret[0])
+        self.assertEqual("6", self.part.measures[1].items[1][0][-1].frame.firstFret[0])
 
     def testFrameStrings(self):
         self.tags.append("frame")
@@ -329,7 +329,7 @@ class testHarmony(MeasureTesting):
         print("frame_strings")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("6", self.part.measures[1].items[1][-1].frame.strings)
+        self.assertEqual("6", self.part.measures[1].items[1][0][-1].frame.strings)
 
     def testFrameFrets(self):
         self.tags.append("frame")
@@ -337,7 +337,7 @@ class testHarmony(MeasureTesting):
         self.chars["frame-frets"] = "5"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("5", self.part.measures[1].items[1][-1].frame.frets)
+        self.assertEqual("5", self.part.measures[1].items[1][0][-1].frame.frets)
 
     def testFrameNote(self):
         self.tags.append("frame")
@@ -346,7 +346,7 @@ class testHarmony(MeasureTesting):
         self.chars["string"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual(1, len(self.part.measures[1].items[1][-1].frame.notes))
+        self.assertEqual(1, len(self.part.measures[1].items[1][0][-1].frame.notes))
 
     def testFrameNoteString(self):
         self.tags.append("frame")
@@ -355,7 +355,7 @@ class testHarmony(MeasureTesting):
         self.chars["string"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(1 in self.part.measures[1].items[1][-1].frame.notes)
+        self.assertTrue(1 in self.part.measures[1].items[1][0][-1].frame.notes)
 
     def testFrameNoteFret(self):
         self.tags.append("frame")
@@ -367,7 +367,7 @@ class testHarmony(MeasureTesting):
         self.chars["fret"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("1", self.part.measures[1].items[1][-1].frame.notes[3].fret)
+        self.assertEqual("1", self.part.measures[1].items[1][0][-1].frame.notes[3].fret)
 
     def testFrameNoteBarre(self):
         self.tags.append("frame")
@@ -379,7 +379,7 @@ class testHarmony(MeasureTesting):
         self.attrs["barre"] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("start", self.part.measures[1].items[1][-1].frame.notes[1].barre)
+        self.assertEqual("start", self.part.measures[1].items[1][0][-1].frame.notes[1].barre)
 
     def testFrameNoteFingering(self):
         self.tags.append("frame")
@@ -391,7 +391,7 @@ class testHarmony(MeasureTesting):
         self.chars["fingering"] = "3"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("3", self.part.measures[1].items[1][-1].frame.notes[1].fingering)
+        self.assertEqual("3", self.part.measures[1].items[1][0][-1].frame.notes[1].fingering)
 
 class testBarline(MeasureTesting):
     def setUp(self):

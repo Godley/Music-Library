@@ -506,10 +506,10 @@ def HandleMeasures(tag, attrib, content, piece):
         if "harmony" in tag:
             if "staff" in tag:
                 staff_id = content["staff"]
-                if staff_id not in items:
-                    items[staff_id] = {}
-                if last_note not in items[staff_id]:
-                    items[staff_id][last_note] = []
+            if staff_id not in items:
+                items[staff_id] = {}
+            if last_note not in items[staff_id]:
+                items[staff_id][last_note] = []
             root = None
             kind = None
             bass = None
@@ -592,11 +592,7 @@ def HandleMeasures(tag, attrib, content, piece):
                         else:
                             harmony.frame.firstFret = [content["first-fret"], attrib["first-fret"]["text"]]
                 if "frame-strings" in tag and "frame-strings" in content:
-                    print(tag)
                     harmony.frame.strings = content["frame-strings"]
-                    print(harmony.frame)
-                    if item_list[-1] == harmony:
-                        print(True)
                 if "frame-frets" in tag and "frame-frets" in content:
                     harmony.frame.frets = content["frame-frets"]
                 if "frame-note" in tag:
