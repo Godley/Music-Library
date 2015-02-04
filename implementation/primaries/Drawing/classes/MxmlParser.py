@@ -119,25 +119,16 @@ class MxmlParser(object):
             part = self.piece.Parts[self.attribs["part"]["id"]]
             measure = part.measures[int(self.attribs["measure"]["number"])]
             #handle items
-            for staff in items:
-                if staff not in measure.items:
-                    measure.items[staff] = {}
-                measure.items[staff].update(items[staff])
+            measure.items.update(items)
             #handle expressions
-            for staff in expressions:
-                if staff not in measure.expressions:
-                    measure.expressions[staff] = {}
-                measure.expressions[staff].update(expressions[staff])
+            measure.expressions.update(expressions)
             #handle notes
-            for staff in notes:
-                if staff not in measure.notes:
-                    measure.notes[staff] = []
-                measure.notes[staff].extend(notes[staff])
+            measure.notes.update(notes)
             #reset all the things
             staff_id = 1
             last_note = 0
-            notes = {}
             expressions = {}
+            notes = {}
             items = {}
 
         if name == "measure" and self.attribs["measure"]["number"] != measure_cached:
