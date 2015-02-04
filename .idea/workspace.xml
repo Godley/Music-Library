@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testBeams.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testBeams.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -20,7 +19,7 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTrillsFermataOtherOrnaments.coverage" NAME="Unittests in testTrillsFermataOtherOrnaments Coverage Results" MODIFIED="1419646409787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$All_FYP_tests.coverage" NAME="All FYP tests Coverage Results" MODIFIED="1423018696863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$All_FYP_tests.coverage" NAME="All FYP tests Coverage Results" MODIFIED="1423019125553" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$findAndLoad.coverage" NAME="findAndLoad Coverage Results" MODIFIED="1418481456915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNoteheads.coverage" NAME="Unittests in testNoteheads Coverage Results" MODIFIED="1419529977961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1418648734071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -33,6 +32,7 @@
     <SUITE FILE_PATH="coverage/FYP$FYP_Lilypond_tests.coverage" NAME="FYP Lilypond tests Coverage Results" MODIFIED="1422641999730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleMeasures.coverage" NAME="Unittests in testHandleMeasures Coverage Results" MODIFIED="1423019016123" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFingering.coverage" NAME="Unittests in testFingering Coverage Results" MODIFIED="1419462250620" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBeams.coverage" NAME="Unittests in testBeams Coverage Results" MODIFIED="1423019211968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArpegGliss.coverage" NAME="Unittests in testArpegGliss Coverage Results" MODIFIED="1423016887515" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDurationAndStems.coverage" NAME="Unittests in testDurationAndStems Coverage Results" MODIFIED="1419375151816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$FYP_test_handler_methods.coverage" NAME="FYP test handler methods Coverage Results" MODIFIED="1420335702513" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -93,16 +93,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Measure.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Measure.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="1980">
-              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Note.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -115,10 +105,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MxmlParser.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MxmlParser.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2650334" vertical-offset="8011" max-vertical-offset="15090">
+            <state vertical-scroll-proportion="-4.4074073" vertical-offset="8011" max-vertical-offset="15090">
               <caret line="593" column="73" selection-start-line="593" selection-start-column="73" selection-end-line="593" selection-end-column="73" />
               <folding>
                 <element signature="e#2352#2416#0" expanded="false" />
@@ -130,6 +120,16 @@
                 <element signature="e#27420#27475#0" expanded="false" />
                 <element signature="e#33351#34243#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testBeams.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testBeams.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="2.7619047" vertical-offset="310" max-vertical-offset="1620">
+              <caret line="100" column="58" selection-start-line="100" selection-start-column="58" selection-end-line="100" selection-end-column="58" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -214,7 +214,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Loading/tests/testHandlers/testHandleMeasures.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Loading/tests/testUsingXML/testLines.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Loading/tests/testUsingXML/testNoteheads.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Loading/tests/testUsingXML/testRepeatMarks.py" />
@@ -265,6 +264,7 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleDirections.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testBeams.py" />
       </list>
     </option>
   </component>
@@ -537,32 +537,7 @@
       <recent name="$PROJECT_DIR$/implementation/primaries/Loading/tests/testUsingXML" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in testHandleMeasures">
-    <configuration default="false" name="Unittests in testAccidentals" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="FYP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testAccidentals.py" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Unittests in testBeams">
     <configuration default="false" name="Unittests in testArticulation" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -650,6 +625,31 @@
       <module name="FYP" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in testBeams" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FYP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testBeams.py" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
@@ -1078,19 +1078,19 @@
       <item index="7" class="java.lang.String" itemvalue="Python tests.FYP testcases" />
       <item index="8" class="java.lang.String" itemvalue="Python tests.All FYP extractor tests" />
       <item index="9" class="java.lang.String" itemvalue="JavaScript Debug.classes" />
-      <item index="10" class="java.lang.String" itemvalue="Python tests.Unittests in testAccidentals" />
-      <item index="11" class="java.lang.String" itemvalue="Python tests.Unittests in testArticulation" />
-      <item index="12" class="java.lang.String" itemvalue="Python tests.Unittests in testArpegGliss" />
-      <item index="13" class="java.lang.String" itemvalue="Python tests.Unittests in testHandleDirections" />
-      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in testHandleMeasures" />
+      <item index="10" class="java.lang.String" itemvalue="Python tests.Unittests in testArticulation" />
+      <item index="11" class="java.lang.String" itemvalue="Python tests.Unittests in testArpegGliss" />
+      <item index="12" class="java.lang.String" itemvalue="Python tests.Unittests in testHandleDirections" />
+      <item index="13" class="java.lang.String" itemvalue="Python tests.Unittests in testHandleMeasures" />
+      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in testBeams" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in testHandleMeasures" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testHandleDirections" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testArpegGliss" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in testArticulation" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in testAccidentals" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in testBeams" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testHandleMeasures" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testHandleDirections" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in testArpegGliss" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in testArticulation" />
       </list>
     </recent_temporary>
   </component>
@@ -1105,12 +1105,6 @@
       <created>1418346903128</created>
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
-    </task>
-    <task id="LOCAL-00100" summary="tests and production code for clef lilypond method. Need to complete and ensure all clefs listed in the testClef file are handled correctly, also need to modify tests to match updated clef_type strings">
-      <created>1420331358745</created>
-      <option name="number" value="00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1420331358745</updated>
     </task>
     <task id="LOCAL-00101" summary="finished tests and production code for clef lily method">
       <created>1420334641935</created>
@@ -1400,7 +1394,13 @@
       <option name="project" value="LOCAL" />
       <updated>1423018456842</updated>
     </task>
-    <option name="localTasksCounter" value="149" />
+    <task id="LOCAL-00149" summary="all handleMeasure tests fixed">
+      <created>1423019034120</created>
+      <option name="number" value="00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1423019034120</updated>
+    </task>
+    <option name="localTasksCounter" value="150" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -1491,7 +1491,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="modified how measure to lily method works due to how it needs to be notated - i.e each measure can't have it's own staff created or it will be outputted in lilypond as 1 part with about 30 staves to a part" />
     <MESSAGE value="added initial tests for Part toLily method" />
     <MESSAGE value="added tests and code for handling part names" />
     <MESSAGE value="added tests and code for piece lilypond methods" />
@@ -1516,7 +1515,8 @@
     <MESSAGE value="getting unittests to pass after big refactor. refactored arpeggio and gliss tests (xml-&gt;object) because they didn't use object inheritance" />
     <MESSAGE value="further test fixes" />
     <MESSAGE value="all direction xml-&gt;object tests now passing" />
-    <option name="LAST_COMMIT_MESSAGE" value="all direction xml-&gt;object tests now passing" />
+    <MESSAGE value="all handleMeasure tests fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="all handleMeasure tests fixed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1532,97 +1532,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="uml://Python/#/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/Drawing/classes">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>Python</ID>
-          <OriginalElement>#/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/Drawing/classes</OriginalElement>
-          <nodes>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.Dynamic</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Mark.Tenuto</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Mark.Notation</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.Slide</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Key.Key</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.Pedal</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.Note</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Harmony.Harmony</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Exceptions.NoScorePartException</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Meta.Meta</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Mark.Technique</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Ornaments.InvertedTurn</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Clef.Clef</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Ornaments.Trill</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.Lyric</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Mark.Staccato</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.Arpeggiate</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.Forward</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.CreditText</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.Slur</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Format.Format</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.MxmlParser.MxmlParser</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.Pitch</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Harmony.harmonyPitch</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.Tuplet</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Mark.Staccatissimo</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.Bracket</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Exceptions.NoMeasureIDException</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Measure.Transposition</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.NonArpeggiate</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.GraceNote</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.Metronome</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Mark.StrongAccent</node>
-            <node x="" y="">BaseException</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Harmony.Frame</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.Direction</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.RehearsalMark</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Measure.Barline</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.OctaveShift</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Mark.Fermata</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.Tie</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Exceptions.NoPartCreatedException</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.Text</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Ornaments.Tremolo</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Part.Part</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Ornaments.InvertedMordent</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Meter.Meter</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.TimeModifier</node>
-            <node x="" y="">object</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Harmony.Kind</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.Glissando</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.Stem</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Harmony.FrameNote</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Harmony.Degree</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.RepeatSign</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Piece.Piece</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Measure.EndingMark</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.WavyLine</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Ornaments.Mordent</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Ornaments.Turn</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Mark.Caesura</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.Notehead</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Mark.Accent</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.Line</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Measure.Measure</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Mark.BreathMark</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Note.Beam</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.BaseClass.Base</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Directions.Wedge</node>
-            <node x="" y="">_collections_abc.Hashable</node>
-            <node x="" y="">implementation.primaries.Drawing.classes.Mark.DetachedLegato</node>
-          </nodes>
-          <notes />
-          <edges />
-          <settings layout="Hierarchic Group" zoom="1.1" x="8996.0" y="3154.0" />
-          <SelectedNodes />
-          <Categories>
-            <Category>Fields</Category>
-            <Category>Methods</Category>
-            <Category>Inner Classes</Category>
-          </Categories>
-          <SCOPE>All</SCOPE>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/accidentals.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2445" max-vertical-offset="9015">
@@ -2000,7 +1909,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2650334" vertical-offset="8011" max-vertical-offset="15090">
+        <state vertical-scroll-proportion="-4.4074073" vertical-offset="8011" max-vertical-offset="15090">
           <caret line="593" column="73" selection-start-line="593" selection-start-column="73" selection-end-line="593" selection-end-column="73" />
           <folding>
             <element signature="e#2352#2416#0" expanded="false" />
@@ -2012,6 +1921,14 @@
             <element signature="e#27420#27475#0" expanded="false" />
             <element signature="e#33351#34243#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testBeams.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.7619047" vertical-offset="310" max-vertical-offset="1620">
+          <caret line="100" column="58" selection-start-line="100" selection-start-column="58" selection-end-line="100" selection-end-column="58" />
+          <folding />
         </state>
       </provider>
     </entry>
