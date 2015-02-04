@@ -27,13 +27,11 @@ class testBreath(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.Parts["P1"].measures[self.measure_id]
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[1][self.item_id]
+            self.item = self.measure.notes[1][self.item_id]
         if hasattr(self, "n_id"):
-            self.notation = self.item.notations[self.n_id]
+            self.notation = self.item.postnotation[self.n_id]
 
-    def testHasNotations(self):
-        if hasattr(self, "item"):
-            self.assertTrue(hasattr(self.item, "notations"))
+
 
     def testInstance(self):
         if hasattr(self, "notation"):
