@@ -293,9 +293,10 @@ class testDynamicsAndSound(testHandleDirections):
         self.tags.append("p")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(len(self.measure.items[1]) > 0)
-        self.assertEqual(Directions.Dynamic, type(self.measure.items[1][-1]))
-        self.assertEqual("p", self.measure.items[1][-1].mark)
+
+        self.assertTrue(len(self.measure.expressions[1]) > 0)
+        self.assertEqual(Directions.Dynamic, type(self.measure.expressions[1][0][-1]))
+        self.assertEqual("p", self.measure.expressions[1][0][-1].mark)
 
     def testSoundTag(self):
         self.tags.append("sound")
@@ -331,22 +332,12 @@ class testDynamicsAndSound(testHandleDirections):
         self.tags.append("wedge")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.measure.items[1][0][-1], Directions.Wedge)
+        self.assertIsInstance(self.measure.expressions[1][0][-1], Directions.Wedge)
 
     def testWedgeVal(self):
         self.tags.append("wedge")
         self.attrs["wedge"] = {"type": "crescendo"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][-1], "type"))
-        self.assertEqual("crescendo", self.measure.items[1][0][-1].type)
-
-    def testOffset(self):
-        self.tags.append("wedge")
-        self.attrs["wedge"] = {"type": "crescendo"}
-        self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.tags.append("offset")
-        self.chars["offset"] = "2"
-        self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
-        self.assertEqual("2", self.measure.items[1][0][-1].offset)
+        self.assertTrue(hasattr(self.measure.expressions[1][0][-1], "type"))
+        self.assertEqual("crescendo", self.measure.expressions[1][0][-1].type)
