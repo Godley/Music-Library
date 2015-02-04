@@ -204,7 +204,7 @@ class t(testclass.TestClass):
         MxmlParser.note = Note.Note()
         self.tags.append("technical")
 
-class testTechniques(t):
+class testpostnotation(t):
     def testNoData(self):
         self.tags.remove("notations")
         self.tags.remove("note")
@@ -226,14 +226,13 @@ class testClosedTechnique(t):
     def testCreated(self):
         self.tags.append(self.tag)
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(MxmlParser.note, "techniques"))
-        self.assertIsInstance(MxmlParser.note.techniques[0], Mark.Technique)
+        self.assertIsInstance(MxmlParser.note.postnotation[0], Mark.Technique)
 
     def testTechniqueType(self):
         self.tags.append(self.tag)
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.techniques[0], "type"))
-        self.assertEqual(self.tag,MxmlParser.note.techniques[0].type)
+        self.assertTrue(hasattr(MxmlParser.note.postnotation[0], "type"))
+        self.assertEqual(self.tag,MxmlParser.note.postnotation[0].type)
 
 class testUpBow(testClosedTechnique):
     def setUp(self):
@@ -260,7 +259,7 @@ class testOpenTechnique(testClosedTechnique):
         self.tags.append(self.tag)
         self.chars[self.tag] = self.value
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual(self.value, MxmlParser.note.techniques[0].symbol)
+        self.assertEqual(self.value, MxmlParser.note.postnotation[0].symbol)
 
 class testFingering(testOpenTechnique):
     def setUp(self):

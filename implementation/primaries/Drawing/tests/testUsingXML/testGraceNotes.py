@@ -30,19 +30,19 @@ class GraceNotes(xmlSet):
 
     def testGrace(self):
         if hasattr(self, "nid") and hasattr(self, "grace"):
-            note = self.measure.items[1][self.nid]
+            note = self.measure.notes[1][self.nid]
             self.assertEqual(self.grace, hasattr(note, "grace"))
 
     def testGraceVal(self):
         if hasattr(self, "nid") and hasattr(self, "grace"):
             if self.grace:
-                note = self.measure.items[1][self.nid]
+                note = self.measure.notes[1][self.nid]
                 self.assertIsInstance(note.grace, Note.GraceNote)
 
     def testGraceSlash(self):
         if hasattr(self, "nid") and hasattr(self, "grace") and hasattr(self, "graceSlash"):
             if self.grace:
-                note = self.measure.items[1][self.nid]
+                note = self.measure.notes[1][self.nid]
                 self.assertEqual(self.graceSlash, note.grace.slash)
 
 class testNote1Measure1(GraceNotes):

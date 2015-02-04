@@ -28,7 +28,7 @@ class testTimeMod(xmlSet):
             self.measure = piece.Parts["P1"].measures[self.measure_id]
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[1][self.item_id]
+            self.item = self.measure.notes[1][self.item_id]
 
     def testHasTimeMod(self):
         if hasattr(self, "item"):

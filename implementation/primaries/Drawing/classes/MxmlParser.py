@@ -354,12 +354,10 @@ def handleOtherNotations(tag, attrs, content, piece):
                     notation.type = attrs["type"]
                 note.slurs[id] = notation
             if tag[-2] == "technical":
-                if not hasattr(note, "techniques"):
-                    note.techniques = []
                 text = None
                 if tag[-1] in content:
                     text = content[tag[-1]]
-                note.techniques.append(Mark.Technique(type=tag[-1], symbol=text))
+                note.addNotation(Mark.Technique(type=tag[-1], symbol=text))
 
             return 1
     return None
