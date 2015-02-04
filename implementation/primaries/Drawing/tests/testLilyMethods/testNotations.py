@@ -39,17 +39,17 @@ class testNoteheadCross(Lily):
 class testStem(Lily):
     def setUp(self):
         self.item = Note.Stem(None)
-        self.lilystring = "\stemNeutral"
+        self.lilystring = "\n\stemNeutral"
 
 class testStemUp(Lily):
     def setUp(self):
         self.item = Note.Stem("up")
-        self.lilystring = "\stemUp"
+        self.lilystring = "\n\stemUp"
 
 class testStemDown(Lily):
     def setUp(self):
         self.item = Note.Stem("down")
-        self.lilystring = "\stemDown"
+        self.lilystring = "\n\stemDown"
 
 class testTuplet(Lily):
     def setUp(self):

@@ -19,5 +19,5 @@ class testMetaComposer(Lily):
 class testMetaCreds(Lily):
     def setUp(self):
         self.item = Meta.Meta()
-        self.item.credits = [Directions.CreditText(text="Danny is a jew")]
-        self.lilystring = "\header {\n\n}\n\markup { Danny is a jew }"
+        self.item.credits = [Directions.CreditText(text="hello")]
+        self.lilystring = "\header {\n\n}\n\markup { hello  }"

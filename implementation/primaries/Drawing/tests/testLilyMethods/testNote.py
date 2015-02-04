@@ -74,7 +74,7 @@ class testNoteTuplet(Lily):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
         self.item.timeMod = Note.TimeModifier(normal=2, actual=3)
-        self.item.notations = [Note.Tuplet(type="start")]
+        self.item.addNotation(Note.Tuplet(type="start"))
         self.lilystring = "\\tuplet 3/2 {c'"
         Lily.setUp(self)
         self.compile = True
@@ -86,7 +86,7 @@ class testNoteTupletEnd(Lily):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
         self.item.timeMod = Note.TimeModifier(normal=2, actual=3)
-        self.item.notations = [Note.Tuplet(type="stop")]
+        self.item.addNotation(Note.Tuplet(type="stop"))
         self.lilystring = "c'}"
         Lily.setUp(self)
         self.compile = True
@@ -171,7 +171,7 @@ class testNoteArpeggiate(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Note.Arpeggiate()]
+        self.item.addNotation(Note.Arpeggiate())
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
@@ -182,7 +182,7 @@ class testNoteNonArpeggiate(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Note.NonArpeggiate()]
+        self.item.addNotation(Note.NonArpeggiate())
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
@@ -193,18 +193,18 @@ class testGliss(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Note.Glissando()]
+        self.item.addNotation(Note.Glissando())
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
-        self.lilystring = "\\override Glissando.style = #'zigzag\nc'\glissando"
+        self.lilystring = "\\override Glissando.style = #'zigzag c'\glissando"
         self.name = "notegliss"
 
 class testSlide(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Note.Slide()]
+        self.item.addNotation(Note.Slide())
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
@@ -215,7 +215,7 @@ class testSlideStop(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Note.Slide(type="stop")]
+        self.item.addNotation(Note.Slide(type="stop"))
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
@@ -226,7 +226,7 @@ class testNoteMordent(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Ornaments.Mordent()]
+        self.item.addNotation(Ornaments.Mordent())
         self.lilystring = "c'\mordent"
         Lily.setUp(self)
         self.compile = True
@@ -237,7 +237,7 @@ class testNoteInvMordent(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Ornaments.InvertedMordent()]
+        self.item.addNotation(Ornaments.InvertedMordent())
         self.lilystring = "c'\prall"
         Lily.setUp(self)
         self.compile = True
@@ -248,7 +248,7 @@ class testNoteTrill(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Ornaments.Trill()]
+        self.item.addNotation(Ornaments.Trill())
         self.lilystring = "c'\\trill"
         Lily.setUp(self)
         self.compile = True
@@ -259,7 +259,7 @@ class testNoteTurn(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Ornaments.Turn()]
+        self.item.addNotation(Ornaments.Turn())
         self.lilystring = "c'\\turn"
         Lily.setUp(self)
         self.compile = True
@@ -270,7 +270,7 @@ class testNoteInvTurn(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Ornaments.InvertedTurn()]
+        self.item.addNotation(Ornaments.InvertedTurn())
         self.lilystring = "c'\\reverseturn"
         Lily.setUp(self)
         self.compile = True
@@ -281,7 +281,7 @@ class testNoteTremolo(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.notations = [Ornaments.Tremolo(type="start")]
+        self.item.addNotation(Ornaments.Tremolo(type="start"))
 
         self.lilystring = "\\repeat tremolo 16 {c'"
         Lily.setUp(self)

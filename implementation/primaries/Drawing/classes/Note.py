@@ -214,7 +214,7 @@ class Note(BaseClass.Base):
     def LilyWrap(self, value):
         wrapped_notation_lilystrings = [wrap.toLily() for wrap in self.wrap_notation]
         prefixes = "".join([wrapper[0] for wrapper in wrapped_notation_lilystrings if len(wrapper) > 1])
-        prefixes_and_current = prefixes + value
+        prefixes_and_current = prefixes +" "+ value
         postfixes = "".join([wrapper[-1] for wrapper in wrapped_notation_lilystrings if len(wrapper) > 0])
         lilystring = prefixes_and_current + postfixes
         return lilystring
