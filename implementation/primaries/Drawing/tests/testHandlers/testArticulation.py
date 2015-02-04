@@ -30,71 +30,69 @@ class testHandleArticulation(testclass.TestClass):
     def testArticulationAccentTag(self):
         self.tags.append("accent")
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(self.note, "notations"))
-        self.assertIsInstance(self.note.notations[0], Mark.Accent)
+        self.assertIsInstance(self.note.postnotation[0], Mark.Accent)
 
     def testArticulationAccentType(self):
         self.tags.append("accent")
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(self.note, "notations"))
-        self.assertEqual("-",self.note.notations[0].symbol)
+        self.assertEqual("-",self.note.postnotation[0].symbol)
 
     def testArticulationAccentAttrib(self):
         self.tags.append("accent")
         self.attrs = {"placement":"below"}
         self.handler(self.tags,self.attrs,None,self.piece)
-        self.assertEqual("below",self.note.notations[0].placement)
+        self.assertEqual("below",self.note.postnotation[0].placement)
 
     def testArticulationSaccentTag(self):
         self.tags.append("strong-accent")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(self.note.notations[0], Mark.StrongAccent)
+        self.assertIsInstance(self.note.postnotation[0], Mark.StrongAccent)
 
     def testArticulationStrongAccentTag(self):
         self.tags.append("strong-accent")
         self.attrs = {"type":"down"}
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual("V",self.note.notations[0].symbol)
+        self.assertEqual("V",self.note.postnotation[0].symbol)
 
     def testStaccato(self):
         self.tags.append("staccato")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(self.note.notations[0], Mark.Staccato)
+        self.assertIsInstance(self.note.postnotation[0], Mark.Staccato)
 
     def testStaccatoSymbol(self):
         self.tags.append("staccato")
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual(".", self.note.notations[0].symbol)
+        self.assertEqual(".", self.note.postnotation[0].symbol)
 
     def testStaccatissimo(self):
         self.tags.append("staccatissimo")
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertIsInstance(self.note.notations[0], Mark.Staccatissimo)
+        self.assertIsInstance(self.note.postnotation[0], Mark.Staccatissimo)
 
     def testStaccatissimoSymbol(self):
         self.tags.append("staccatissimo")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual("triangle", self.note.notations[0].symbol)
+        self.assertEqual("triangle", self.note.postnotation[0].symbol)
 
     def testDetachedLegato(self):
         self.tags.append("detached-legato")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(self.note.notations[0], Mark.DetachedLegato)
+        self.assertIsInstance(self.note.postnotation[0], Mark.DetachedLegato)
 
     def testDetachedLegSymbol(self):
         self.tags.append("detached-legato")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual("lineDot", self.note.notations[0].symbol)
+        self.assertEqual("lineDot", self.note.postnotation[0].symbol)
 
     def testTenuto(self):
         self.tags.append("tenuto")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(self.note.notations[0], Mark.Tenuto)
+        self.assertIsInstance(self.note.postnotation[0], Mark.Tenuto)
 
     def testTenutoSymbol(self):
         self.tags.append("tenuto")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual("line", self.note.notations[0].symbol)
+        self.assertEqual("line", self.note.postnotation[0].symbol)
 
 class testLyrics(testclass.TestClass):
     def setUp(self):
@@ -136,17 +134,17 @@ class testFermata(testclass.TestClass):
 
     def testFermata(self):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(MxmlParser.note.notations[-1], Mark.Fermata)
+        self.assertIsInstance(MxmlParser.note.postnotation[-1], Mark.Fermata)
 
     def testFermataType(self):
         self.attrs["fermata"] = {"type": "inverted"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual("inverted", MxmlParser.note.notations[-1].type)
+        self.assertEqual("inverted", MxmlParser.note.postnotation[-1].type)
 
     def testFermataSymbol(self):
         self.chars["fermata"] = "square"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual("square", MxmlParser.note.notations[-1].symbol)
+        self.assertEqual("square", MxmlParser.note.postnotation[-1].symbol)
 
 
 class testSlurs(testclass.TestClass):

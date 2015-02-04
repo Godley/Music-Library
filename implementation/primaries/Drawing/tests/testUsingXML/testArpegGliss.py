@@ -1,6 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Note
-import os
+import os, unittest
 
 partname = "arpeggiosAndGlissandos.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
@@ -28,114 +28,139 @@ class testArpeg(xmlSet):
     def testNotes(self):
         for measure in piece.Parts[self.p_id].measures.keys():
             if measure in self.note_num:
-                self.assertEqual(self.note_num[measure], len(piece.Parts[self.p_id].measures[measure].items[1]))
+                self.assertEqual(self.note_num[measure], len(piece.Parts[self.p_id].measures[measure].notes[1]))
 
+class testBar(unittest.TestCase):
+    def testInstance(self):
+        if hasattr(self, "instance_type"):
+            self.assertIsInstance(self.item.wrap_notation[0], self.instance_type)
 
-    def testNote1Measure1(self):
-        note = piece.Parts[self.p_id].measures[1].items[1][0]
-        self.assertTrue(hasattr(note, "notations"))
-        self.assertIsInstance(note.notations[0], Note.Arpeggiate)
+    def testEquality(self):
+        if hasattr(self, "value"):
+            self.assertEqual(self.item, self.value)
 
-    def testNote2Measure1(self):
-        note = piece.Parts[self.p_id].measures[1].items[1][1]
-        self.assertTrue(hasattr(note, "notations"))
-        self.assertIsInstance(note.notations[0], Note.Arpeggiate)
+class Note1Measure1(testBar):
+    def setUp(self):
+        self.p_id = "P1"
+        self.item = piece.Parts[self.p_id].measures[1].notes[1][0]
+        self.instance_type = Note.Arpeggiate
 
-    def testNote2Measure1DirectionValue(self):
-        notation = piece.Parts[self.p_id].measures[1].items[1][1].notations[0]
-        self.assertEqual("up", notation.direction)
+class Note2Measure1(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[1].notes[1][1]
+        self.instance_type = Note.Arpeggiate
 
-    def testNote3Measure1(self):
-        note = piece.Parts[self.p_id].measures[1].items[1][2]
-        self.assertTrue(hasattr(note, "notations"))
-        self.assertIsInstance(note.notations[0], Note.Arpeggiate)
+class Note2Measure1DirectionValue(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[1].notes[1][1].wrap_notation[0].direction
+        self.value = "up"
 
-    def testNote3Measure1DirectionValue(self):
-        notation = piece.Parts[self.p_id].measures[1].items[1][2].notations[0]
-        self.assertEqual("down", notation.direction)
+class Note3Measure1(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[1].notes[1][2]
+        self.instance_type = Note.Arpeggiate
 
-    def testNote4Measure1FirstNotation(self):
-        note = piece.Parts[self.p_id].measures[1].items[1][3]
-        self.assertTrue(hasattr(note, "notations"))
-        self.assertIsInstance(note.notations[0], Note.NonArpeggiate)
+class Note3Measure1DirectionValue(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[1].notes[1][2].wrap_notation[0].direction
+        self.value = "down"
 
-    def testNote4Measure1SecondNotation(self):
-        note = piece.Parts[self.p_id].measures[1].items[1][3]
-        self.assertTrue(hasattr(note, "notations"))
-        self.assertIsInstance(note.notations[1], Note.NonArpeggiate)
+class Note4Measure1FirstNotation(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[1].notes[1][3]
+        self.instance_type = Note.NonArpeggiate
 
-    def testNote4Measure1Notation1Type(self):
-        notation = piece.Parts[self.p_id].measures[1].items[1][3].notations[0]
-        self.assertEqual("bottom", notation.type)
+class Note4Measure1SecondNotation(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[1].notes[1][3]
+        self.instance_type = Note.NonArpeggiate
 
-    def testNote4Measure1Notation2Type(self):
-        notation = piece.Parts[self.p_id].measures[1].items[1][3].notations[1]
-        self.assertEqual("top", notation.type)
+class Note4Measure1Notation1Type(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[1].notes[1][3].wrap_notation[0].type
+        self.value = "bottom"
 
-    def testNote1Measure2(self):
-        note = piece.Parts[self.p_id].measures[2].items[1][0]
-        self.assertTrue(hasattr(note, "notations"))
-        self.assertIsInstance(note.notations[0], Note.Slide)
+class Note4Measure1Notation2Type(testBar):
+    def setUp(self):
+        self.item= piece.Parts["P1"].measures[1].notes[1][3].wrap_notation[1].type
+        self.value = "top"
 
-    def testNote1Measure2Type(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][0].notations[0]
-        self.assertEqual("start", item.type)
+class Note1Measure2(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][0]
+        self.instance_type = Note.Slide
 
-    def testNote1Measure2Number(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][0].notations[0]
-        self.assertEqual(1, item.number)
+class Note1Measure2Type(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][0].wrap_notation[0].type
+        self.value = "start"
 
-    def testNote1Measure2LineType(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][0].notations[0]
-        self.assertEqual("solid", item.lineType)
+class Note1Measure2Number(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][0].wrap_notation[0].number
+        self.value = 1
 
-    def testNote2Measure2(self):
-        note = piece.Parts[self.p_id].measures[2].items[1][1]
-        self.assertTrue(hasattr(note, "notations"))
-        self.assertIsInstance(note.notations[0], Note.Slide)
+class Note1Measure2LineType(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][0].wrap_notation[0].lineType
+        self.value = "solid"
 
-    def testNote2Measure2Type(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][1].notations[0]
-        self.assertEqual("stop", item.type)
+class Note2Measure2(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][1]
+        self.instance_type = Note.Slide
 
-    def testNote2Measure2Number(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][1].notations[0]
-        self.assertEqual(1, item.number)
+class Note2Measure2Type(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][1].wrap_notation[0].type
+        self.value = "stop"
 
-    def testNote2Measure2LineType(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][1].notations[0]
-        self.assertEqual("solid", item.lineType)
+class Note2Measure2Number(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][1].wrap_notation[0].number
+        self.value = 1
 
-    def testNote3Measure2(self):
-        note = piece.Parts[self.p_id].measures[2].items[1][2]
-        self.assertTrue(hasattr(note, "notations"))
-        self.assertIsInstance(note.notations[0], Note.Glissando)
+class Note2Measure2LineType(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][1].wrap_notation[0].lineType
+        self.value = "solid"
 
-    def testNote3Measure2Type(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][2].notations[0]
-        self.assertEqual("start", item.type)
+class Note3Measure2(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][2]
+        self.instance_type=Note.Glissando
 
-    def testNote3Measure2Number(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][2].notations[0]
-        self.assertEqual(1, item.number)
+class Note3Measure2Type(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][2].wrap_notation[0].type
+        self.value = "start"
 
-    def testNote3Measure2LineType(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][2].notations[0]
-        self.assertEqual("wavy", item.lineType)
+class Note3Measure2Number(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][2].wrap_notation[0].number
+        self.value = 1
 
-    def testNote4Measure2(self):
-        note = piece.Parts[self.p_id].measures[2].items[1][3]
-        self.assertTrue(hasattr(note, "notations"))
-        self.assertIsInstance(note.notations[0], Note.Glissando)
+class Note3Measure2LineType(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][2].wrap_notation[0].lineType
+        self.value = "wavy"
 
-    def testNote4Measure2Type(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][3].notations[0]
-        self.assertEqual("stop", item.type)
+class Note4Measure2(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][3]
+        self.instance_type = Note.Glissando
 
-    def testNote4Measure2Number(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][3].notations[0]
-        self.assertEqual(1, item.number)
+class Note4Measure2Type(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][3].wrap_notation[0].type
+        self.value = "stop"
 
-    def testNote4Measure2LineType(self):
-        item = piece.Parts[self.p_id].measures[2].items[1][3].notations[0]
-        self.assertEqual("wavy", item.lineType)
+class Note4Measure2Number(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][3].wrap_notation[0].number
+        self.value = 1
+
+class Note4Measure2LineType(testBar):
+    def setUp(self):
+        self.item = piece.Parts["P1"].measures[2].notes[1][3].wrap_notation[0].lineType
+        self.value = "wavy"

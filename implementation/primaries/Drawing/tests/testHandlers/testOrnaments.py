@@ -11,26 +11,26 @@ class testArpeggiates(notes):
     def testArpeggiate(self):
         self.tags.append("arpeggiate")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(MxmlParser.note.notations[-1], Note.Arpeggiate)
+        self.assertIsInstance(MxmlParser.note.wrap_notation[-1], Note.Arpeggiate)
 
     def testArpeggiateDirection(self):
         self.tags.append("arpeggiate")
         self.attrs["arpeggiate"] = {"direction": "down"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.notations[-1], "direction"))
-        self.assertEqual("down", MxmlParser.note.notations[-1].direction)
+        self.assertTrue(hasattr(MxmlParser.note.wrap_notation[-1], "direction"))
+        self.assertEqual("down", MxmlParser.note.wrap_notation[-1].direction)
 
     def testNonArpeggiate(self):
         self.tags.append("non-arpeggiate")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(MxmlParser.note.notations[-1], Note.NonArpeggiate)
+        self.assertIsInstance(MxmlParser.note.wrap_notation[-1], Note.NonArpeggiate)
 
     def testNonArpeggiateType(self):
         self.tags.append("non-arpeggiate")
         self.attrs["non-arpeggiate"] = {"type": "bottom"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.notations[-1], "type"))
-        self.assertEqual("bottom", MxmlParser.note.notations[-1].type)
+        self.assertTrue(hasattr(MxmlParser.note.wrap_notation[-1], "type"))
+        self.assertEqual("bottom", MxmlParser.note.wrap_notation[-1].type)
 
 
 class testSlides(notes):
@@ -43,25 +43,25 @@ class testSlides(notes):
 
     def testSlide(self):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(MxmlParser.note.notations[-1], self.instance)
+        self.assertIsInstance(MxmlParser.note.wrap_notation[-1], self.instance)
 
     def testSlideType(self):
         self.attrs[self.tags[-1]] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.notations[-1], "type"))
-        self.assertEqual("start", MxmlParser.note.notations[-1].type)
+        self.assertTrue(hasattr(MxmlParser.note.wrap_notation[-1], "type"))
+        self.assertEqual("start", MxmlParser.note.wrap_notation[-1].type)
 
     def testSlideLineType(self):
         self.attrs[self.tags[-1]] = {"line-type": "solid"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.notations[-1], "lineType"))
-        self.assertEqual("solid", MxmlParser.note.notations[-1].lineType)
+        self.assertTrue(hasattr(MxmlParser.note.wrap_notation[-1], "lineType"))
+        self.assertEqual("solid", MxmlParser.note.wrap_notation[-1].lineType)
 
     def testSlideNumber(self):
         self.attrs[self.tags[-1]] = {"number": "1"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.notations[-1], "number"))
-        self.assertEqual(1, MxmlParser.note.notations[-1].number)
+        self.assertTrue(hasattr(MxmlParser.note.wrap_notation[-1], "number"))
+        self.assertEqual(1, MxmlParser.note.wrap_notation[-1].number)
 
 class testGliss(testSlides):
     def setUp(self):
@@ -81,43 +81,41 @@ class testOrnaments(notes):
     def testIMordent(self):
         self.tags.append("inverted-mordent")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note, "notations"))
-        self.assertIsInstance(MxmlParser.note.notations[-1], Ornaments.InvertedMordent)
+        self.assertIsInstance(MxmlParser.note.postnotation[-1], Ornaments.InvertedMordent)
 
     def testMordent(self):
         self.tags.append("mordent")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note, "notations"))
-        self.assertIsInstance(MxmlParser.note.notations[-1], Ornaments.Mordent)
+        self.assertIsInstance(MxmlParser.note.postnotation[-1], Ornaments.Mordent)
 
     def testTrill(self):
         self.tags.append("trill-mark")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(MxmlParser.note.notations[-1], Ornaments.Trill)
+        self.assertIsInstance(MxmlParser.note.postnotation[-1], Ornaments.Trill)
 
     def testTurn(self):
         self.tags.append("turn")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(MxmlParser.note.notations[-1], Ornaments.Turn)
+        self.assertIsInstance(MxmlParser.note.postnotation[-1], Ornaments.Turn)
 
     def testInvertedTurn(self):
         self.tags.append("inverted-turn")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(MxmlParser.note.notations[-1], Ornaments.InvertedTurn)
+        self.assertIsInstance(MxmlParser.note.postnotation[-1], Ornaments.InvertedTurn)
 
     def testTremolo(self):
         self.tags.append("tremolo")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(MxmlParser.note.notations[-1], Ornaments.Tremolo)
+        self.assertIsInstance(MxmlParser.note.prenotation[-1], Ornaments.Tremolo)
 
     def testTremoloType(self):
         self.tags.append("tremolo")
         self.attrs["tremolo"] = {"type": "single"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual("single", MxmlParser.note.notations[-1].type)
+        self.assertEqual("single", MxmlParser.note.prenotation[-1].type)
 
     def testTremoloValue(self):
         self.tags.append("tremolo")
         self.chars["tremolo"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual(1, MxmlParser.note.notations[-1].value)
+        self.assertEqual(1, MxmlParser.note.prenotation[-1].value)

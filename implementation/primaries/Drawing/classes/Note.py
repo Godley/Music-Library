@@ -135,7 +135,8 @@ class Note(BaseClass.Base):
         if isinstance(obj, Ornaments.Tremolo) or isinstance(obj, Tuplet):
             if isinstance(obj, Ornaments.Tremolo):
                 options = {1:2,2:4,3:8}
-                self.trem_length = options[obj.value]
+                if hasattr(obj, "value"):
+                    self.trem_length = options[obj.value]
             if hasattr(obj, "type") and obj.type == "stop":
                 self.postnotation.append(obj)
             else:
