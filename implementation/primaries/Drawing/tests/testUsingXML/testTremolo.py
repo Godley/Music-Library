@@ -27,17 +27,25 @@ class testTremolo(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.Parts[self.p_id].measures[self.measure_id]
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[1][self.item_id]
+            self.item = self.measure.notes[1][self.item_id]
         if hasattr(self, "notation_id"):
-            self.notation = self.item.notations[self.notation_id]
+            if self.type == "stop":
+                self.notation = self.item.postnotation[self.notation_id]
+            else:
+                self.notation = self.item.prenotation[self.notation_id]
 
     def testHasNotations(self):
         if hasattr(self, "item"):
-            self.assertTrue(hasattr(self.item, "notations"))
             if not hasattr(self, "notate_num"):
-                self.assertEqual(1, len(self.item.notations))
+                if self.type == "stop":
+                    self.assertEqual(1, len(self.item.postnotation))
+                else:
+                    self.assertEqual(1, len(self.item.prenotation))
             else:
-                self.assertEqual(self.notate_num, len(self.item.notations))
+                if self.type == "stop":
+                    self.assertEqual(self.notate_num, len(self.item.postnotation))
+                else:
+                    self.assertEqual(self.notate_num, len(self.item.prenotation))
 
     def testNotationInstance(self):
         if hasattr(self, "notation"):

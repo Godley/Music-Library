@@ -51,15 +51,11 @@ class testTechnique(xmlSet):
         if hasattr(self, "item_id"):
             self.item = self.measure.notes[1][self.item_id]
         if hasattr(self, "orn_id"):
-            self.ornament = self.item.techniques[self.orn_id]
+            self.ornament = self.item.postnotation[self.orn_id]
 
     def testIsTechnique(self):
         if hasattr(self, "ornament"):
             self.assertIsInstance(self.ornament, Mark.Technique)
-
-    def testHasTechniques(self):
-        if hasattr(self, "item"):
-            self.assertTrue(hasattr(self.item, "techniques"))
 
     def testType(self):
         if hasattr(self, "ornament"):
