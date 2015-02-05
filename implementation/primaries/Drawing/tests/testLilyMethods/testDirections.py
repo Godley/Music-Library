@@ -91,12 +91,12 @@ class testOctaveShift(Lily):
 class testOctaveShiftUp(Lily):
     def setUp(self):
         self.item = Directions.OctaveShift(amount=8)
-        self.lilystring = "\ottava #1"
+        self.lilystring = "\n\ottava #1"
 
 class testOctaveShiftDown(Lily):
     def setUp(self):
-        self.item = Directions.OctaveShift(amount=-16)
-        self.lilystring = "\ottava #-2"
+        self.item = Directions.OctaveShift(amount=-15)
+        self.lilystring = "\n\ottava #-2"
 
 class testWavyLine(Lily):
     def setUp(self):

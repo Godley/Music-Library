@@ -11,7 +11,7 @@ class testClef(xmlSet):
         xmlSet.setUp(self)
         self.m_num = 32
         self.p_id = "P1"
-        self.p_name = "Flute"
+        self.p_name = "Piccolo"
 
     def testParts(self):
         global piece
@@ -169,52 +169,20 @@ class testMeasure15(CTests):
         self.measure = 15
         self.sign = "F"
         self.line = 4
-        self.clef_octave_change = 2
+        self.clef_octave_change = -2
 
 class testMeasure16(CTests):
     def setUp(self):
         CTests.setUp(self)
         self.measure = 16
         self.sign = "F"
-        self.line = 4
-        self.clef_octave_change = -1
+        self.line = 3
+        self.clef_octave_change = 0
 
 class testMeasure17(CTests):
     def setUp(self):
         CTests.setUp(self)
         self.measure = 17
         self.sign = "F"
-        self.line = 4
-        self.clef_octave_change = -2
-
-class testMeasure18(CTests):
-    def setUp(self):
-        CTests.setUp(self)
-        self.measure = 18
-        self.sign = "F"
-        self.line = 3
-        self.clef_octave_change = 0
-
-class testMeasure19(CTests):
-    def setUp(self):
-        CTests.setUp(self)
-        self.measure = 19
-        self.sign = "F"
-        self.line = 5
-        self.clef_octave_change = 0
-
-class testMeasure20(CTests):
-    def setUp(self):
-        CTests.setUp(self)
-        self.measure = 20
-        self.sign = "percussion"
-        self.line = 2
-        self.clef_octave_change = 0
-
-class testMeasure21(CTests):
-    def setUp(self):
-        CTests.setUp(self)
-        self.measure = 21
-        self.sign = "TAB"
         self.line = 5
         self.clef_octave_change = 0
