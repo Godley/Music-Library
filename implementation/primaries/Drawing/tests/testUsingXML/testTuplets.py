@@ -46,21 +46,29 @@ class testTimeMod(xmlSet):
         if hasattr(self, "item"):
             self.assertEqual(self.normal, self.item.timeMod.normal)
 
-    def testHasNotations(self):
-        if hasattr(self, "item") and hasattr(self, "notation_id"):
-            self.assertTrue(hasattr(self.item, "notations"))
-
     def testInstanceTuplet(self):
         if hasattr(self, "notation_id"):
-            self.assertIsInstance(self.item.notations[self.notation_id], Note.Tuplet)
+            if hasattr(self, "type") and self.type == "start":
+                self.assertIsInstance(self.item.prenotation[self.notation_id], Note.Tuplet)
+            else:
+                self.assertIsInstance(self.item.postnotation[self.notation_id], Note.Tuplet)
 
     def testType(self):
         if hasattr(self, "item") and hasattr(self, "type"):
-            self.assertEqual(self.type, self.item.notations[self.notation_id].type)
+            if self.type == "start":
+                self.assertEqual(self.type, self.item.prenotation[self.notation_id].type)
+
+            else:
+                self.assertEqual(self.type, self.item.postnotation[self.notation_id].type)
 
     def testBracket(self):
         if hasattr(self, "item") and hasattr(self, "bracket"):
-            self.assertEqual(self.bracket, self.item.notations[self.notation_id].bracket)
+            if self.type == "start":
+                self.assertEqual(self.bracket, self.item.prenotation[self.notation_id].bracket)
+
+            else:
+                self.assertEqual(self.bracket, self.item.postnotation[self.notation_id].bracket)
+
 
 class testMeasure1Note1(testTimeMod):
     def setUp(self):
