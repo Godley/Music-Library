@@ -421,6 +421,7 @@ def HandleMeasures(tag, attrib, content, piece):
         clef = None
 
         if "clef" in tag:
+
             # this section covers duplication: it's possible a measure
             # can have 2 clefs, the second of which should be in the next measure
             # so we cache this one and wait until the next measure is opened
