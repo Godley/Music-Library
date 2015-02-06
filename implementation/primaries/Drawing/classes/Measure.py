@@ -23,22 +23,27 @@ class Measure(BaseClass.Base):
         st = BaseClass.Base.__str__(self)
         return st
 
-    def toLily(self, staff_id):
+    def toLily(self, staff_id, start=0,end=-1):
         lilystring = ""
+        values = []
 
         #handle stuff attached to measures which aren't directions
         if hasattr(self, "clef") and self.clef is not None:
             lilystring += self.clef.toLily() + " "
         if hasattr(self, "key") and self.key is not None:
             lilystring += self.key.toLily() + " "
-
-        if (staff_id in self.notes and len(self.notes[staff_id]) == 0) or staff_id not in self.notes:
+        if ((staff_id in self.notes and len(self.notes[staff_id]) == 0) or staff_id not in self.notes) and len(self.forwards) == 0:
             #if a measure has no notes, it's probably a rest measure.
             lilystring += "r"
 
         # handle measures containing notes
         if staff_id in self.notes and len(self.notes[staff_id]) > 0:
-            for n_id in range(len(self.notes[staff_id])):
+            if end==-1:
+                end = len(self.notes[staff_id])
+            for n_id in range(start,end):
+                if staff_id in self.forwards and n_id in self.forwards[staff_id]:
+                    values.extend(self.forwards[n_id][staff_id].toLily())
+                    values.append(lilystring)
                 lilystring += " "+self.notes[staff_id][n_id].toLily()
 
                 #attach expressions to notes (these are classed as directions in mxml but in lilypond they have to be
@@ -61,7 +66,12 @@ class Measure(BaseClass.Base):
 
         #could still have a measure without notes, so check those again
         elif staff_id in self.items and len(self.items[staff_id]) > 0:
-            for n_id in range(len(self.items[staff_id])):
+            if end == -1:
+                end = len(self.items[staff_id])
+            for n_id in range(start, end):
+                if n_id in self.forwards[staff_id]:
+                    values.extend(self.forwards[staff_id][n_id].toLily())
+                    values.append(lilystring)
                 # pull out all the toLily return values
                 return_values = [dir.toLily() for dir in self.items[staff_id][n_id]]
 
@@ -74,6 +84,13 @@ class Measure(BaseClass.Base):
                 lilystring += "".join([item[1] for item in return_values if type(item) == list])
                 if staff_id in self.expressions and n_id in self.expressions[staff_id]:
                     lilystring += "".join([expr.toLily() for expr in self.expressions[staff_id][n_id]])
+
+        elif staff_id in self.forwards:
+            for item in self.forwards[staff_id]:
+                values.extend(self.forwards[staff_id][item].toLily())
+
+        if len(values) > 0:
+            return values
         return lilystring
 
     def addDirection(self, item, note, staff):

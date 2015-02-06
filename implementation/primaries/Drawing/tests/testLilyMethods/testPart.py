@@ -30,6 +30,44 @@ class testPartMultiBars(Lily):
         self.item.measures[2].notes[1][0].pitch = Note.Pitch()
         self.lilystring = "\\new Staff{ c' c'}"
 
+class testPartForwardRepeats(Lily):
+    def setUp(self):
+        self.item = Part.Part()
+        self.item.measures[1] = Measure.Measure()
+        self.item.measures[1].addNote(Note.Note(duration=4),1)
+        self.item.measures[1].notes[1][0].pitch = Note.Pitch()
+        self.item.measures[2] = Measure.Measure()
+        self.item.measures[2].forwards[1] = {}
+        self.item.measures[2].forwards[1][0] = Directions.Forward(duration=4)
+        self.lilystring = "\\new Staff{ \\repeat percent 2 { c'1}}"
+
+class testPartTwoForwardRepeats(Lily):
+    def setUp(self):
+        self.item = Part.Part()
+        self.item.measures[1] = Measure.Measure()
+        self.item.measures[1].addNote(Note.Note(duration=4),1)
+        self.item.measures[1].notes[1][0].pitch = Note.Pitch()
+        self.item.measures[2] = Measure.Measure()
+        self.item.measures[2].forwards[1] = {}
+        self.item.measures[2].forwards[1][0] = Directions.Forward(duration=4)
+        self.item.measures[3] = Measure.Measure()
+        self.item.measures[3].forwards[1] = {}
+        self.item.measures[3].forwards[1][0] = Directions.Forward(duration=4)
+        self.lilystring = "\\new Staff{ \\repeat percent 3 { c'1}}"
+
+class testPartTwoNotesOneForward(Lily):
+    def setUp(self):
+        self.item = Part.Part()
+        self.item.measures[1] = Measure.Measure()
+        self.item.measures[1].addNote(Note.Note(duration=2),1)
+        self.item.measures[1].addNote(Note.Note(duration=2),1)
+        self.item.measures[1].notes[1][0].pitch = Note.Pitch()
+        self.item.measures[1].notes[1][1].pitch = Note.Pitch()
+        self.item.measures[2] = Measure.Measure()
+        self.item.measures[2].forwards[1] = {}
+        self.item.measures[2].forwards[1][0] = Directions.Forward(duration=2)
+        self.lilystring = "\\new Staff{ c'2 \\repeat percent 2 { c'2}}"
+
 class testPartMultiBarsStaves(Lily):
     def setUp(self):
         self.item = Part.Part()

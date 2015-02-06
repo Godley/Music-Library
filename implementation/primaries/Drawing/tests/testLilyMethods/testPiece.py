@@ -17,3 +17,4 @@ class testPieceWithTitle(Lily):
         self.item = Piece.Piece()
         self.item.meta = Meta.Meta(title="hello world")
         self.lilystring = "\header {\ntitle = \"hello world\"\n}<<>>"
+
