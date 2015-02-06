@@ -8,6 +8,7 @@ class Measure(BaseClass.Base):
         self.items = {1:{}}
         self.expressions = {1:{}}
         self.notes = {1:[]}
+        self.forwards = {}
 
 
     def CheckDivisions(self):

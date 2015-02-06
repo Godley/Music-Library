@@ -61,12 +61,12 @@ class testRehearsalMarkWithText(Lily):
 class testForward(Lily):
     def setUp(self):
         self.item = Directions.Forward()
-        self.lilystring = ["\\repeat percent 2 {","}"]
+        self.lilystring = ["percent repeat"]
 
 class testForwardWithDuration(Lily):
     def setUp(self):
         self.item = Directions.Forward(duration=4)
-        self.lilystring = ["\\repeat percent 2 {","}"]
+        self.lilystring = ["percent repeat",4]
 
 class testRepeatSign(Lily):
     def setUp(self):

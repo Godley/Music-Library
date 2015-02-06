@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 2.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 3.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
   <identification>
     <encoding>
-      <software>MuseScore 1.3</software>
-      <encoding-date>2014-12-22</encoding-date>
+      <software>MuseScore 2.0.0</software>
+      <encoding-date>2015-02-06</encoding-date>
       </encoding>
     </identification>
   <defaults>
@@ -28,6 +28,8 @@
         <bottom-margin>113.386</bottom-margin>
         </page-margins>
       </page-layout>
+    <word-font font-family="FreeSerif" font-size="10"/>
+    <lyric-font font-family="FreeSerif" font-size="11"/>
     </defaults>
   <part-list>
     <score-part id="P1">
@@ -36,6 +38,7 @@
       <score-instrument id="P1-I3">
         <instrument-name>Flute</instrument-name>
         </score-instrument>
+      <midi-device id="P1-I3" port="1"></midi-device>
       <midi-instrument id="P1-I3">
         <midi-channel>1</midi-channel>
         <midi-program>74</midi-program>
@@ -45,18 +48,18 @@
       </score-part>
     </part-list>
   <part id="P1">
-    <measure number="1" width="114.45">
+    <measure number="1" width="112.98">
       <print>
         <system-layout>
           <system-margins>
-            <left-margin>65.78</left-margin>
+            <left-margin>-0.00</left-margin>
             <right-margin>0.00</right-margin>
             </system-margins>
-          <top-system-distance>70.00</top-system-distance>
+          <top-system-distance>170.00</top-system-distance>
           </system-layout>
         </print>
       <attributes>
-        <divisions>1</divisions>
+        <divisions>480</divisions>
         <key>
           <fifths>0</fifths>
           <mode>major</mode>
@@ -70,11 +73,13 @@
           <line>2</line>
           </clef>
         </attributes>
-      <forward>
-        <duration>4</duration>
-        </forward>
+      <note print-object="no">
+        <rest/>
+        <duration>1920</duration>
+        <voice>1</voice>
+        </note>
       </measure>
-    <measure number="2" width="47.21">
+    <measure number="2" width="60.26">
       <direction placement="above">
         <direction-type>
           <segno/>
@@ -83,11 +88,11 @@
         </direction>
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="3" width="47.21">
+    <measure number="3" width="60.26">
       <direction placement="above">
         <direction-type>
           <coda/>
@@ -96,28 +101,28 @@
         </direction>
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="4" width="47.21">
+    <measure number="4" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="5" width="47.21">
+    <measure number="5" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="6" width="47.21">
+    <measure number="6" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       <direction placement="above">
@@ -127,10 +132,10 @@
         <sound fine="yes"/>
         </direction>
       </measure>
-    <measure number="7" width="47.21">
+    <measure number="7" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       <direction placement="above">
@@ -140,10 +145,10 @@
         <sound dacapo="yes"/>
         </direction>
       </measure>
-    <measure number="8" width="47.21">
+    <measure number="8" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       <direction placement="above">
@@ -153,10 +158,10 @@
         <sound dacapo="yes"/>
         </direction>
       </measure>
-    <measure number="9" width="47.21">
+    <measure number="9" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       <direction placement="above">
@@ -166,10 +171,10 @@
         <sound dacapo="yes"/>
         </direction>
       </measure>
-    <measure number="10" width="47.21">
+    <measure number="10" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       <direction placement="above">
@@ -179,10 +184,10 @@
         <sound dalsegno="segno"/>
         </direction>
       </measure>
-    <measure number="11" width="47.21">
+    <measure number="11" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       <direction placement="above">
@@ -192,10 +197,10 @@
         <sound dalsegno="segno"/>
         </direction>
       </measure>
-    <measure number="12" width="47.21">
+    <measure number="12" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       <direction placement="above">
@@ -205,10 +210,10 @@
         <sound dalsegno="segno"/>
         </direction>
       </measure>
-    <measure number="13" width="47.21">
+    <measure number="13" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       <direction placement="above">
@@ -218,10 +223,10 @@
         <sound dalsegno="segno"/>
         </direction>
       </measure>
-    <measure number="14" width="47.21">
+    <measure number="14" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       <direction placement="above">
@@ -231,138 +236,180 @@
         <sound tocoda="coda"/>
         </direction>
       </measure>
-    <measure number="15" width="47.21">
+    <measure number="15" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="16" width="47.21">
+    <measure number="16" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="17" width="47.21">
+    <measure number="17" width="60.26">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="18" width="47.21">
-      <note>
-        <rest/>
-        <duration>4</duration>
-        <voice>1</voice>
-        </note>
-      </measure>
-    <measure number="19" width="47.21">
-      <note>
-        <rest/>
-        <duration>4</duration>
-        <voice>1</voice>
-        </note>
-      </measure>
-    <measure number="20" width="47.21">
-      <note>
-        <rest/>
-        <duration>4</duration>
-        <voice>1</voice>
-        </note>
-      </measure>
-    <measure number="21" width="123.44">
+    <measure number="18" width="405.19">
       <print new-system="yes">
         <system-layout>
           <system-margins>
-            <left-margin>42.50</left-margin>
+            <left-margin>-0.00</left-margin>
             <right-margin>0.00</right-margin>
             </system-margins>
-          <system-distance>92.50</system-distance>
+          <system-distance>150.00</system-distance>
+          </system-layout>
+        </print>
+      <note default-x="49.12" default-y="-25.00">
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>480</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>up</stem>
+        </note>
+      <note default-x="137.74" default-y="-5.00">
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+          </pitch>
+        <duration>480</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>down</stem>
+        </note>
+      <note default-x="226.35" default-y="-35.00">
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>480</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>up</stem>
+        </note>
+      <note default-x="314.97" default-y="-5.00">
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+          </pitch>
+        <duration>480</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>down</stem>
+        </note>
+      </measure>
+    <measure number="19" width="340.49">
+      <forward>
+        <duration>1920</duration>
+        </forward>
+      </measure>
+    <measure number="20" width="331.49">
+      <note>
+        <rest/>
+        <duration>1920</duration>
+        <voice>1</voice>
+        </note>
+      </measure>
+    <measure number="21" width="115.34">
+      <print new-system="yes">
+        <system-layout>
+          <system-margins>
+            <left-margin>-0.00</left-margin>
+            <right-margin>0.00</right-margin>
+            </system-margins>
+          <system-distance>150.00</system-distance>
           </system-layout>
         </print>
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="22" width="82.29">
+    <measure number="22" width="86.62">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="23" width="82.29">
+    <measure number="23" width="86.62">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="24" width="82.29">
+    <measure number="24" width="86.62">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="25" width="82.29">
+    <measure number="25" width="86.62">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="26" width="82.29">
+    <measure number="26" width="86.62">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="27" width="82.29">
+    <measure number="27" width="86.62">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="28" width="82.29">
+    <measure number="28" width="86.62">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="29" width="82.29">
+    <measure number="29" width="86.62">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="30" width="82.29">
+    <measure number="30" width="86.62">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="31" width="82.29">
+    <measure number="31" width="86.62">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       </measure>
-    <measure number="32" width="88.29">
+    <measure number="32" width="95.62">
       <note>
         <rest/>
-        <duration>4</duration>
+        <duration>1920</duration>
         <voice>1</voice>
         </note>
       <barline location="right">

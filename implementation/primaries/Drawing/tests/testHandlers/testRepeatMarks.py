@@ -86,3 +86,24 @@ class testRepeatSymbols(testclass.TestClass):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertTrue(hasattr(self.measure, "tocoda"))
         self.assertEqual("coda", self.measure.tocoda)
+
+class testForward(testclass.TestClass):
+    def setUp(self):
+        testclass.TestClass.setUp(self)
+        self.handler = MxmlParser.HandleRepeatMarking
+        self.piece.Parts["P1"] = Part.Part()
+        self.piece.Parts["P1"].measures[1] = Measure.Measure()
+        self.attrs["measure"] = {"number": "1"}
+        self.attrs["part"] = {"id": "P1"}
+        self.measure = self.piece.Parts["P1"].measures[1]
+        self.tags.append("forward")
+
+    def testCreation(self):
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertEqual(1, len(self.measure.forwards))
+
+    def testDuration(self):
+        self.tags.append("duration")
+        self.chars["duration"] = "2"
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertEqual(self.measure.forwards[0].duration, 2)

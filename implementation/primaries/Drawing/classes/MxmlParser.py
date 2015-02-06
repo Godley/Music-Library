@@ -1024,10 +1024,10 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
         if measure is not None:
             d_type = None
             if "forward" in tags:
-
+                duration = None
                 if tags[-1] == "duration":
                     duration = int(chars["duration"])
-                    direction = Directions.Forward(duration=duration)
+                measure.forwards[last_note] = Directions.Forward(duration=duration)
             if tags[-1] == "segno" or tags[-1] == "coda":
                 d_type = tags[-1]
                 direction = Directions.RepeatSign(type=d_type)

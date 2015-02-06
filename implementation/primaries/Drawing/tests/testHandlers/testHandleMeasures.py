@@ -438,3 +438,4 @@ class testBarline(MeasureTesting):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
         self.assertEqual("backward", self.measure.barlines["left"].repeat)
+

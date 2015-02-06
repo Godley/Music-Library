@@ -151,16 +151,11 @@ class Forward(Direction):
         Direction.__init__(self, placement=placement, text=text, size=size, font=font)
 
     def toLily(self):
-        #not entirely sure what to do here. let's just return nowt.
-        #TODO: FIGURE THIS SHIT OUT
-        #  entry_o = "\\repeat percent "
-        # if hasattr(self, "duration"):
-        #     entry_o += str(int(self.duration/2)) + " "
-        # else:
-        #     entry_o += "2 "
-        # entry_o += "{"
-        # ret_val = [entry_o,"}"]
-        return ""
+        lilystring = "percent repeat"
+        return_list = [lilystring]
+        if hasattr(self, "duration"):
+            return_list.append(int(self.duration))
+        return return_list
 
 class RepeatSign(Direction):
     def __init__(self, **kwargs):
