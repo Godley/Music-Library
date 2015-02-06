@@ -82,7 +82,7 @@ class Part(object):
                 lilystring += "{"
                 measure_strings = [(key, self.measures[key].toLily(sid)) for key in self.measures if type(self.measures[key].toLily(sid)) is not list]
                 forward_measures = [(key, self.measures[key].toLily(sid)) for key in self.measures if type(self.measures[key].toLily(sid)) is list]
-                print(measure_strings, forward_measures)
+
                 if len(forward_measures) > 0:
                     measure_strings = self.RepeatMeasure(forward_measures[len(forward_measures)-1][0]-1,sid, measure_strings, forward_measures)
                 lilystring += "".join([item[1] for item in measure_strings])

@@ -79,11 +79,11 @@ class testPartMultiBarsStaves(Lily):
         self.item.measures[2] = Measure.Measure()
         self.item.measures[2].addNote(Note.Note(),1)
         self.item.measures[2].notes[1][0].pitch = Note.Pitch()
-        self.lilystring = "\\new StaffGroup <<\\new Staff{ c' c'}\\new Staff{ c'}>>"
+        self.lilystring = "\\new StaffGroup <<\\new Staff{ c' c'}\\new Staff{ c' r}>>"
 
 class testPartWithName(Lily):
     def setUp(self):
         self.item = Part.Part()
         self.item.measures[1] = Measure.Measure()
         self.item.name = "charlotte"
-        self.lilystring = "\\new Staff \with { \ninstrumentName = #\"charlotte \"\n}{r}"
+        self.lilystring = "\\new Staff \with { \ninstrumentName = #\"charlotte \"\n}{ r}"

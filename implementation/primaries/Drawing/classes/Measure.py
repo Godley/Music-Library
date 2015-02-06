@@ -34,7 +34,7 @@ class Measure(BaseClass.Base):
             lilystring += self.key.toLily() + " "
         if ((staff_id in self.notes and len(self.notes[staff_id]) == 0) or staff_id not in self.notes) and len(self.forwards) == 0:
             #if a measure has no notes, it's probably a rest measure.
-            lilystring += "r"
+            lilystring += " r"
 
         # handle measures containing notes
         if staff_id in self.notes and len(self.notes[staff_id]) > 0:
