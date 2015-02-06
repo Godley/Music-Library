@@ -100,26 +100,7 @@ class testMeasure2Note2Notation0(testTremolo):
         self.measure_id = 2
         self.item_id = 1
         self.notation_id = 0
-        self.type = "start"
-        self.value = 3
-        self.notate_num = 2
-        testTremolo.setUp(self)
-
-class testMeasure2Note2Notation1(testTremolo):
-    def setUp(self):
-        self.measure_id = 2
-        self.item_id = 1
-        self.notation_id = 1
         self.type = "stop"
         self.value = 2
-        self.notate_num = 2
-        testTremolo.setUp(self)
-
-class testMeasure2Note3Notation0(testTremolo):
-    def setUp(self):
-        self.measure_id = 2
-        self.item_id = 2
-        self.notation_id = 0
-        self.type = "stop"
-        self.value = 3
+        self.notate_num = 1
         testTremolo.setUp(self)
