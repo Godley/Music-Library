@@ -69,7 +69,7 @@ class testPedal(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.Parts[self.p_id].measures[self.measure_id]
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[self.item_id]
+            self.item = self.measure.items[1][0][self.item_id]
 
     def testInstance(self):
         if hasattr(self, "item"):
@@ -92,7 +92,7 @@ class testBracket(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.Parts[self.p_id].measures[self.measure_id]
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[self.item_id]
+            self.item = self.measure.items[1][0][self.item_id]
 
     def testInstance(self):
         if hasattr(self, "item"):
@@ -132,7 +132,7 @@ class testMeasure1Item3(testWedge):
         self.placement = "below"
         self.type = "stop"
         self.measure_id = 1
-        self.item_id = 2
+        self.item_id = 1
         self.p_id = "P1"
         testWedge.setUp(self)
 
@@ -150,7 +150,7 @@ class testMeasure2Item3(testWedge):
         self.placement = "below"
         self.type = "stop"
         self.measure_id = 2
-        self.item_id = 2
+        self.item_id = 1
         self.p_id = "P1"
         testWedge.setUp(self)
 
@@ -244,7 +244,7 @@ class testMeasure6Item1(testOctaveShift):
         self.measure_id = 6
         self.item_id = 0
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testOctaveShift.setUp(self)
 
 class testMeasure6Item3(testOctaveShift):
     def setUp(self):
@@ -252,9 +252,9 @@ class testMeasure6Item3(testOctaveShift):
         self.amount = 8
         self.type = "stop"
         self.measure_id = 6
-        self.item_id = 2
+        self.item_id = 1
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testOctaveShift.setUp(self)
 
 class testMeasure7Item1(testOctaveShift):
     def setUp(self):
@@ -264,7 +264,7 @@ class testMeasure7Item1(testOctaveShift):
         self.measure_id = 7
         self.item_id = 0
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testOctaveShift.setUp(self)
 
 class testMeasure7Item3(testOctaveShift):
     def setUp(self):
@@ -272,9 +272,9 @@ class testMeasure7Item3(testOctaveShift):
         self.amount = 15
         self.type = "stop"
         self.measure_id = 7
-        self.item_id = 2
+        self.item_id = 1
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testOctaveShift.setUp(self)
 
 class testMeasure8Item1(testOctaveShift):
     def setUp(self):
@@ -284,7 +284,7 @@ class testMeasure8Item1(testOctaveShift):
         self.measure_id = 8
         self.item_id = 0
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testOctaveShift.setUp(self)
 
 class testMeasure8Item3(testOctaveShift):
     def setUp(self):
@@ -292,9 +292,9 @@ class testMeasure8Item3(testOctaveShift):
         self.amount = 8
         self.type = "stop"
         self.measure_id = 8
-        self.item_id = 2
+        self.item_id = 1
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testOctaveShift.setUp(self)
 
 class testMeasure9Item1(testOctaveShift):
     def setUp(self):
@@ -304,7 +304,7 @@ class testMeasure9Item1(testOctaveShift):
         self.measure_id = 9
         self.item_id = 0
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testOctaveShift.setUp(self)
 
 class testMeasure9Item3(testOctaveShift):
     def setUp(self):
@@ -312,9 +312,9 @@ class testMeasure9Item3(testOctaveShift):
         self.amount = 15
         self.type = "stop"
         self.measure_id = 9
-        self.item_id = 2
+        self.item_id = 1
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testOctaveShift.setUp(self)
 
 class testMeasure12Item1(testPedal):
     def setUp(self):
@@ -323,16 +323,16 @@ class testMeasure12Item1(testPedal):
         self.measure_id = 12
         self.item_id = 0
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testPedal.setUp(self)
 
 class testMeasure12Item3(testPedal):
     def setUp(self):
         self.type = "stop"
         self.line = True
         self.measure_id = 12
-        self.item_id = 2
+        self.item_id = 1
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testPedal.setUp(self)
 
 class testMeasure13Item1(testPedal):
     def setUp(self):
@@ -341,16 +341,16 @@ class testMeasure13Item1(testPedal):
         self.measure_id = 13
         self.item_id = 0
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testPedal.setUp(self)
 
 class testMeasure13Item3(testPedal):
     def setUp(self):
         self.type = "stop"
         self.line = True
         self.measure_id = 13
-        self.item_id = 2
+        self.item_id = 1
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testPedal.setUp(self)
 
 class testMeasure14Item2(testBracket):
     def setUp(self):
@@ -361,7 +361,7 @@ class testMeasure14Item2(testBracket):
         self.measure_id = 14
         self.item_id = 1
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testBracket.setUp(self)
 
 class testMeasure14Item4(testBracket):
     def setUp(self):
@@ -370,6 +370,6 @@ class testMeasure14Item4(testBracket):
         self.lineend = "down"
         self.endlength = 15
         self.measure_id = 14
-        self.item_id = 3
+        self.item_id = 2
         self.p_id = "P1"
-        testWedge.setUp(self)
+        testBracket.setUp(self)
