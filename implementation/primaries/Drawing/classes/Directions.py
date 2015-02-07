@@ -1,4 +1,7 @@
-from implementation.primaries.Drawing.classes import BaseClass
+try:
+    from classes import BaseClass
+except:
+    from implementation.primaries.Drawing.classes import BaseClass
 import string
 class Text(BaseClass.Base):
     def __init__(self, **kwargs):
@@ -281,10 +284,8 @@ class Pedal(Line):
         return_val = ""
         if hasattr(self, "type") and self.type == "start":
             if hasattr(self, "line"):
-                if self.line:
-                    return_val += "\n\set Staff.pedalSustainStyle = #'mixed"
-                else:
-                    return_val += "\set Staff.pedalSustainStyle = #'text"
+                if not self.line:
+                    return_val += "\set Staff.pedalSustainStyle = #'text'\n"
         return_val += "\sustain"
         if hasattr(self, "type"):
             if self.type == "stop":

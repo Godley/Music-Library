@@ -1,4 +1,7 @@
-from implementation.primaries.Drawing.classes import BaseClass, Ornaments
+try:
+    from classes import BaseClass, Ornaments
+except:
+    from implementation.primaries.Drawing.classes import BaseClass, Ornaments
 
 import math
 class Tie(BaseClass.Base):

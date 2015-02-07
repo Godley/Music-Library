@@ -1,4 +1,7 @@
-from implementation.primaries.Drawing.classes import BaseClass
+try:
+    from classes import BaseClass
+except:
+    from implementation.primaries.Drawing.classes import BaseClass
 
 # TODO: probably needs refactoring to 1 ornament class?
 class InvertedMordent(BaseClass.Base):

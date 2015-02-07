@@ -1,4 +1,7 @@
-from implementation.primaries.Drawing.classes import BaseClass
+try:
+    from classes import BaseClass
+except:
+    from implementation.primaries.Drawing.classes import BaseClass
 
 class Meta(BaseClass.Base):
     def __init__(self, **kwargs):

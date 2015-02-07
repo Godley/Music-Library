@@ -1,4 +1,10 @@
-from implementation.primaries.Drawing.classes import Note, BaseClass
+
+# running from python commandline requires using from classes instead of the full python path.
+# running from pycharm requires the latter. Because IDEs.
+try:
+    from classes import Note, BaseClass
+except:
+    from implementation.primaries.Drawing.classes import Note, BaseClass
 
 class Harmony(BaseClass.Base):
     def __init__(self, **kwargs):

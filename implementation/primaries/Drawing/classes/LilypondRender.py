@@ -1,7 +1,7 @@
 import os
 
 class LilypondRender(object):
-    def __init__(self, piece_obj, fname, lyscript):
+    def __init__(self, piece_obj, fname, lyscript="/Users/charlottegodley/bin/lilypond"):
         self.piece_obj = piece_obj
         self.file = fname
         self.lyfile = self.file.split(".")[0] + ".ly"

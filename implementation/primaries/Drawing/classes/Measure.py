@@ -1,4 +1,7 @@
-from implementation.primaries.Drawing.classes import BaseClass, Note, Directions
+try:
+    from classes import BaseClass, Note, Directions
+except:
+    from implementation.primaries.Drawing.classes import BaseClass, Note, Directions
 
 class Measure(BaseClass.Base):
     def __init__(self, **kwargs):
@@ -10,6 +13,7 @@ class Measure(BaseClass.Base):
         self.expressions = {1:{}}
         self.notes = {1:[]}
         self.forwards = {}
+        self.octaveShift = {}
 
 
     def CheckDivisions(self):
@@ -121,7 +125,25 @@ class Measure(BaseClass.Base):
             if note not in self.items[staff]:
                 self.items[staff][note] = []
             self.items[staff][note].append(item)
+            if type(item) is Directions.OctaveShift:
+                if note not in self.octaveShift[staff]:
+                    self.octaveShift[staff][note] = 0
         else:
+            if type(item) is Directions.OctaveShift:
+                if staff not in self.octaveShift:
+                    self.octaveShift[staff] = {}
+                if note not in self.octaveShift[staff]:
+                    multiplier = 1
+                    if item.type == "up":
+                        multiplier = 1
+                    if item.type == "down":
+                        multiplier = -1
+                    octaves = 0
+                    if item.amount == 8:
+                        octaves = 2
+                    if item.amount == 15:
+                        octaves = 4
+                    self.octaveShift[staff][note] = octaves*multiplier
             if staff not in self.preitems:
                 self.preitems[staff] = {}
             if note not in self.preitems[staff]:
@@ -138,7 +160,14 @@ class Measure(BaseClass.Base):
     def addNote(self, item, staff):
         if staff not in self.notes:
             self.notes[staff] = []
+        if staff in self.octaveShift:
+            range = [self.octaveShift[staff][number] for number in self.octaveShift[staff] if number <= len(self.notes[staff])]
+            print(range)
+            if len(range) > 0:
+                item.pitch.octave = str(int(item.pitch.octave) - range[-1])
         self.notes[staff].append(item)
+
+
 
 class Barline(BaseClass.Base):
     def __init__(self, **kwargs):
