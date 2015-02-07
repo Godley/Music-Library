@@ -25,7 +25,7 @@ class testFwd(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
         self.m_num = 32
-        self.measure_id = 1
+        self.measure_id = 19
         self.item_id = 0
         self.p_id = "P1"
         self.p_name = "Flute"
@@ -33,7 +33,6 @@ class testFwd(xmlSet):
             self.measure = piece.Parts[self.p_id].measures[self.measure_id]
 
         if hasattr(self, "item_id"):
-            print(self.measure.forwards)
             self.item = self.measure.forwards[1][0]
     def testHasFwd(self):
         if hasattr(self, "item"):
@@ -41,7 +40,7 @@ class testFwd(xmlSet):
 
     def testDuration(self):
         if hasattr(self, "item"):
-            self.assertEqual(4, self.item.duration)
+            self.assertEqual(1920, self.item.duration)
 
 class testSegno(xmlSet):
     def setUp(self):
@@ -133,7 +132,6 @@ class testDaCapo(xmlSet):
             self.measure = piece.Parts[self.p_id].measures[self.measure_id]
 
         if hasattr(self, "item_id"):
-            print(self.measure.items[1])
             self.item = self.measure.items[1][0][0]
 
     def testHasAttr(self):

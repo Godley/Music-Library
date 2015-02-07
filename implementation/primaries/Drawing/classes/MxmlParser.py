@@ -94,9 +94,6 @@ class MxmlParser(object):
             if len(self.tags) > 0:
                 self.chars[self.tags[-1]] = text
 
-
-
-
     def EndTag(self, name):
         global note, degree, frame_note, cached_clef, staff_id, last_note, notes, expressions, items
         if self.handler is not None and not self.d:
@@ -1029,7 +1026,9 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
                     duration = int(chars["duration"])
                 if staff_id not in measure.forwards:
                     measure.forwards[staff_id] = {}
-                measure.forwards[staff_id][last_note] = Directions.Forward(duration=duration)
+
+                if last_note not in measure.forwards[staff_id]:
+                    measure.forwards[staff_id][last_note] = Directions.Forward(duration=duration)
 
             if tags[-1] == "segno" or tags[-1] == "coda":
                 d_type = tags[-1]
