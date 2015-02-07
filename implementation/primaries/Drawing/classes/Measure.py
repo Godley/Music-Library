@@ -6,6 +6,7 @@ class Measure(BaseClass.Base):
         if "width" in kwargs:
             self.width = float(kwargs["width"])
         self.items = {1:{}}
+        self.preitems = {1:{}}
         self.expressions = {1:{}}
         self.notes = {1:[]}
         self.forwards = {}
@@ -32,6 +33,7 @@ class Measure(BaseClass.Base):
             lilystring += self.clef.toLily() + " "
         if hasattr(self, "key") and self.key is not None:
             lilystring += self.key.toLily() + " "
+
         if ((staff_id in self.notes and len(self.notes[staff_id]) == 0) or staff_id not in self.notes) and len(self.forwards) == 0:
             #if a measure has no notes, it's probably a rest measure.
             lilystring += " r"
@@ -51,6 +53,8 @@ class Measure(BaseClass.Base):
                         value = self.forwards[staff_id][n_id].toLily()
                         fwd_repeat = value[1]
                         lilystring += "\\repeat percent 2 {"
+                if staff_id in self.preitems and n_id in self.preitems[staff_id]:
+                    lilystring += "".join([preitem.toLily() for preitem in self.preitems[staff_id][n_id]])
                 lilystring += " "+self.notes[staff_id][n_id].toLily()
 
                 #attach expressions to notes (these are classed as directions in mxml but in lilypond they have to be
@@ -111,11 +115,18 @@ class Measure(BaseClass.Base):
         return lilystring
 
     def addDirection(self, item, note, staff):
-        if staff not in self.items:
-            self.items[staff] = {}
-        if note not in self.items[staff]:
-            self.items[staff][note] = []
-        self.items[staff][note].append(item)
+        if (type(item) is not Directions.OctaveShift and type(item) is not Directions.Pedal) or item.type == "stop":
+            if staff not in self.items:
+                self.items[staff] = {}
+            if note not in self.items[staff]:
+                self.items[staff][note] = []
+            self.items[staff][note].append(item)
+        else:
+            if staff not in self.preitems:
+                self.preitems[staff] = {}
+            if note not in self.preitems[staff]:
+                self.preitems[staff][note] = []
+            self.preitems[staff][note].append(item)
 
     def addExpression(self, item, note, staff):
         if staff not in self.expressions:

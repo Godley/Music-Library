@@ -229,19 +229,22 @@ class OctaveShift(Line):
 
     def toLily(self):
         return_val = "\n\ottava #"
+        multiplier = 1
+        octave = 0
+        if hasattr(self, "type"):
+            if self.type == "down":
+                return_val += "-"
+
         if hasattr(self, "amount"):
             if self.amount == 8:
-                return_val += "1"
-            if self.amount == -8:
-                return_val += "-1"
+                octave = 1
             if self.amount == 15:
-                return_val += "2"
-            if self.amount == -15:
-                return_val += "-2"
-            if self.amount != 8 and self.amount != -8 and self.amount != 15 and self.amount != -15:
-                return_val += "0"
-        elif not hasattr(self, "amount") or self.amount is None:
-            return_val += "0"
+                octave = 2
+
+        return_val += str(octave)+"\n"
+        if hasattr(self, "type"):
+            if self.type == "stop":
+                return_val = "\n\ottava #0"
         return return_val
 
 class WavyLine(Line):
@@ -276,20 +279,21 @@ class Pedal(Line):
 
     def toLily(self):
         return_val = ""
-        if hasattr(self, "line"):
-            if self.line:
-                return_val += "\n\set Staff.pedalSustainStyle = #'mixed \n "
-            else:
-                return_val += "\set Staff.pedalSustainStyle = #'text \n "
-        sost = "\n\sustain"
+        if hasattr(self, "type") and self.type == "start":
+            if hasattr(self, "line"):
+                if self.line:
+                    return_val += "\n\set Staff.pedalSustainStyle = #'mixed"
+                else:
+                    return_val += "\set Staff.pedalSustainStyle = #'text"
+        return_val += "\sustain"
         if hasattr(self, "type"):
             if self.type == "stop":
-                sost += "Off"
+                return_val += "Off\n"
             elif self.type == "start":
-                sost += "On"
+                return_val += "On\n"
         else:
-            sost += "On"
-        return [return_val, sost]
+            return_val += "On\n"
+        return return_val
 class Bracket(Line):
     def __init__(self, **kwargs):
         text = None

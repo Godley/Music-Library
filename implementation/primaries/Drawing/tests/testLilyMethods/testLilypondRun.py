@@ -109,6 +109,7 @@ class testlines(testRun):
         self.file = os.path.join(folder, "lines.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testmultiple(testRun):

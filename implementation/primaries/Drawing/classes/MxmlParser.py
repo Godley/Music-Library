@@ -116,11 +116,19 @@ class MxmlParser(object):
             part = self.piece.Parts[self.attribs["part"]["id"]]
             measure = part.measures[int(self.attribs["measure"]["number"])]
             #handle items
-            measure.items.update(items)
+            for staff in items:
+                for n in items[staff]:
+                    for item in items[staff][n]:
+                        measure.addDirection(item, n, staff)
             #handle expressions
-            measure.expressions.update(expressions)
+            for staff in expressions:
+                for n in expressions[staff]:
+                    for item in expressions[staff][n]:
+                        measure.addExpression(item, n, staff)
             #handle notes
-            measure.notes.update(notes)
+            for staff in notes:
+                for n in notes[staff]:
+                    measure.addNote(n,staff)
             #reset all the things
             staff_id = 1
             last_note = 0
