@@ -12,14 +12,14 @@ class testMeasure(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
         self.staff_id = 1
-        self.lilystring = "r"
+        self.lilystring = " r"
 
 class testMeasureStaves(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
         self.staff_id = 2
         self.item.items[2] = []
-        self.lilystring = "r"
+        self.lilystring = " r"
 
 class testMeasureNote(MeasureTests):
     def setUp(self):
@@ -39,7 +39,7 @@ class testMeasureTempo(MeasureTests):
         self.item = Measure.Measure()
         self.staff_id = 1
         self.item.addDirection(Directions.Metronome(beat=4,min=60), 0, self.staff_id)
-        self.lilystring = "r\\tempo 4=60"
+        self.lilystring = " r\\tempo 4=60"
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -51,7 +51,7 @@ class testMeasureTwoDirections(MeasureTests):
         self.staff_id = 1
         self.item.addDirection(Directions.Direction(text="hello world",placement="above"),0,self.staff_id)
         self.item.addDirection(Directions.Metronome(beat=4,min=60),0,self.staff_id)
-        self.lilystring = "r^\\markup { hello world  }\\tempo 4=60"
+        self.lilystring = " r^\\markup { hello world  }\\tempo 4=60"
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)

@@ -40,10 +40,17 @@ class Measure(BaseClass.Base):
         if staff_id in self.notes and len(self.notes[staff_id]) > 0:
             if end==-1:
                 end = len(self.notes[staff_id])
+            duration_total = 0
+            fwd_repeat = -1
             for n_id in range(start,end):
                 if staff_id in self.forwards and n_id in self.forwards[staff_id]:
-                    values.extend(self.forwards[n_id][staff_id].toLily())
-                    values.append(lilystring)
+                    if n_id == 0:
+                        values.extend(self.forwards[staff_id][n_id].toLily())
+                        values.append(lilystring)
+                    else:
+                        value = self.forwards[staff_id][n_id].toLily()
+                        fwd_repeat = value[1]
+                        lilystring += "\\repeat percent 2 {"
                 lilystring += " "+self.notes[staff_id][n_id].toLily()
 
                 #attach expressions to notes (these are classed as directions in mxml but in lilypond they have to be
@@ -64,14 +71,22 @@ class Measure(BaseClass.Base):
                     lilystring = "".join([item[0] for item in return_values if type(item) == list]) + lilystring
                     lilystring += "".join([item[1] for item in return_values if type(item) == list])
 
+                if fwd_repeat != -1:
+                    if hasattr(self.notes[staff_id][n_id], "duration"):
+                        duration_total += self.notes[staff_id][n_id].duration
+                    if duration_total >= fwd_repeat:
+                        lilystring += "}"
+                        fwd_repeat = -1
+
         #could still have a measure without notes, so check those again
         elif staff_id in self.items and len(self.items[staff_id]) > 0:
             if end == -1:
                 end = len(self.items[staff_id])
             for n_id in range(start, end):
-                if n_id in self.forwards[staff_id]:
-                    values.extend(self.forwards[staff_id][n_id].toLily())
-                    values.append(lilystring)
+                if staff_id in self.forwards and n_id in self.forwards[staff_id]:
+                    if n_id == 0:
+                        values.extend(self.forwards[staff_id][n_id].toLily())
+                        values.append(lilystring)
                 # pull out all the toLily return values
                 return_values = [dir.toLily() for dir in self.items[staff_id][n_id]]
 
@@ -84,6 +99,8 @@ class Measure(BaseClass.Base):
                 lilystring += "".join([item[1] for item in return_values if type(item) == list])
                 if staff_id in self.expressions and n_id in self.expressions[staff_id]:
                     lilystring += "".join([expr.toLily() for expr in self.expressions[staff_id][n_id]])
+
+
 
         elif staff_id in self.forwards:
             for item in self.forwards[staff_id]:

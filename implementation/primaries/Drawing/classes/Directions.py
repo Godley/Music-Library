@@ -154,6 +154,8 @@ class Forward(Direction):
         lilystring = "percent repeat"
         return_list = [lilystring]
         if hasattr(self, "duration"):
+            if self.duration is None:
+                self.duration = 2
             return_list.append(int(self.duration))
         return return_list
 

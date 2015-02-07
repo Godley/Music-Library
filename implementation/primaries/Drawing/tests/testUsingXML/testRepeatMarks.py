@@ -33,7 +33,8 @@ class testFwd(xmlSet):
             self.measure = piece.Parts[self.p_id].measures[self.measure_id]
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[1][0][0]
+            print(self.measure.forwards)
+            self.item = self.measure.forwards[1][0]
     def testHasFwd(self):
         if hasattr(self, "item"):
             self.assertIsInstance(self.item, Directions.Forward)
