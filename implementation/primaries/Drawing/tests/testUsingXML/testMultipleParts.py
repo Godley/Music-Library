@@ -23,7 +23,7 @@ class testPart(xmlSet):
 
     def testMeasures(self):
         if hasattr(self, "p_id"):
-            self.assertTrue(self.m_num in piece.Parts[self.p_id].measures)
+            self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
 
 class testPart1(testPart):
     def setUp(self):

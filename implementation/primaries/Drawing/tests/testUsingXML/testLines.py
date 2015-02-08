@@ -20,12 +20,12 @@ class testFile(xmlSet):
         self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures)
+        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
 
 class testWedge(xmlSet):
     def setUp(self):
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
         if hasattr(self, "item_id"):
             self.item = self.measure.expressions[0][self.item_id]
 
@@ -44,7 +44,7 @@ class testWedge(xmlSet):
 class testOctaveShift(xmlSet):
     def setUp(self):
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][self.item_id]
 
@@ -67,7 +67,7 @@ class testOctaveShift(xmlSet):
 class testPedal(xmlSet):
     def setUp(self):
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][self.item_id]
 
@@ -90,7 +90,7 @@ class testPedal(xmlSet):
 class testBracket(xmlSet):
     def setUp(self):
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][self.item_id]
 
@@ -159,7 +159,7 @@ class testEndings(xmlSet):
         xmlSet.setUp(self)
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
     def testHasBarline(self):
         if hasattr(self, "measure"):
