@@ -4,47 +4,47 @@ from implementation.primaries.Drawing.classes import Measure
 class testNormalBarline(Lily):
     def setUp(self):
         self.item = Measure.Barline()
-        self.lilystring = "\\bar \"|\""
+        self.lilystring = " \\bar \"|\""
 
 class testDottedBarline(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="dotted")
-        self.lilystring = "\\bar \";\""
+        self.lilystring = " \\bar \";\""
 
 class testDashedBarline(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="dashed")
-        self.lilystring = "\\bar \"!\""
+        self.lilystring = " \\bar \"!\""
 
 class testHeavyLightBarline(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="heavy-light")
-        self.lilystring = "\\bar \".|\""
+        self.lilystring = " \\bar \".|\""
 
 class testLightHeavyBarline(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="light-heavy")
-        self.lilystring = "\\bar \"|.\""
+        self.lilystring = " \\bar \"|.\""
 
 class testLightLightBarline(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="light-light")
-        self.lilystring = "\\bar \"||\""
+        self.lilystring = " \\bar \"||\""
 
 class testHeavyHeavyBarline(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="heavy-heavy")
-        self.lilystring = "\\bar \"..\""
+        self.lilystring = " \\bar \"..\""
 
 class testForwardRepeat(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="heavy-light", repeat="forward")
-        self.lilystring = "\\bar \".|:\""
+        self.lilystring = "\\repeat volta 2 { "
 
 class testBackwardRepeat(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="light-heavy", repeat="backward")
-        self.lilystring = "\\bar \":|.\""
+        self.lilystring = " }"
 
 class testEndingMark(Lily):
     def setUp(self):
@@ -60,3 +60,8 @@ class testEndingMarkEnd(Lily):
     def setUp(self):
         self.item = Measure.EndingMark(type="stop")
         self.lilystring = "}"
+
+class testBarlineWithEndingStart(Lily):
+    def setUp(self):
+        self.item = Measure.Barline(style="heavy-light",ending=Measure.EndingMark())
+        self.lilystring = "\\alternative {{ "

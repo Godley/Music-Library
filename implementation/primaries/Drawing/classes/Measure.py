@@ -183,19 +183,32 @@ class Barline(BaseClass.Base):
         BaseClass.Base.__init__(self)
 
     def toLily(self):
-        lilystring = "\\bar \""
-        if hasattr(self, "repeat") and self.repeat == "backward":
-            lilystring += ":"
-        if hasattr(self, "style"):
-            options = {"dotted":";","dashed":"!","heavy-light":".|",
-                       "heavy-heavy":"..","light-heavy":"|.","light-light":"||"}
-            if self.style in options and options[self.style] is not None:
-                lilystring += options[self.style]
+        lilystring = ""
+        if not hasattr(self, "ending") and not hasattr(self, "repeat"):
+            lilystring += " \\bar \""
+            if hasattr(self, "style"):
+                options = {"light-light":"||","heavy-light":".|","light-heavy":"|.",
+                           "heavy-heavy":"..","dotted":";","dashed":"!"}
+                if self.style in options:
+                    lilystring += options[self.style] + "\""
+            else:
+                lilystring += "|\""
         else:
-            lilystring += "|"
-        if hasattr(self, "repeat") and self.repeat == "forward":
-            lilystring += ":"
-        lilystring += "\""
+
+            if hasattr(self, "ending"):
+                if not hasattr(self.ending, "number") or (hasattr(self.ending, "number") and self.ending.number == 1):
+                    lilystring = "\\alternative {"
+                if not hasattr(self.ending, "type") or (hasattr(self.ending, "type") and self.ending.type != "stop"):
+                    lilystring += "{ "
+                elif hasattr(self.ending, "type") and self.type == "stop":
+                    lilystring = " }"
+
+            if hasattr(self, "repeat"):
+                if self.repeat == "forward":
+                    lilystring = "\\repeat volta 2 { "
+                if self.repeat == "backward":
+                    lilystring = " }"
+
         return lilystring
 
 class EndingMark(BaseClass.Base):
