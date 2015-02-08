@@ -5,7 +5,6 @@ import os
 partname = "repeatmarks.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
 piece = parsePiece(os.path.join(folder, partname))
-#TODO: handle forward tags
 class testFile(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)

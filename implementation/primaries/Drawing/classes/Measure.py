@@ -127,7 +127,7 @@ class Measure(BaseClass.Base):
             self.items[staff][note].append(item)
             if type(item) is Directions.OctaveShift:
                 if note not in self.octaveShift[staff]:
-                    self.octaveShift[staff][note] = 0
+                    self.octaveShift[staff][note+1] = 0
         else:
             if type(item) is Directions.OctaveShift:
                 if staff not in self.octaveShift:
@@ -182,6 +182,22 @@ class Barline(BaseClass.Base):
                 self.ending = kwargs["ending"]
         BaseClass.Base.__init__(self)
 
+    def toLily(self):
+        lilystring = "\\bar \""
+        if hasattr(self, "repeat") and self.repeat == "backward":
+            lilystring += ":"
+        if hasattr(self, "style"):
+            options = {"dotted":";","dashed":"!","heavy-light":".|",
+                       "heavy-heavy":"..","light-heavy":"|.","light-light":"||"}
+            if self.style in options and options[self.style] is not None:
+                lilystring += options[self.style]
+        else:
+            lilystring += "|"
+        if hasattr(self, "repeat") and self.repeat == "forward":
+            lilystring += ":"
+        lilystring += "\""
+        return lilystring
+
 class EndingMark(BaseClass.Base):
     def __init__(self, **kwargs):
         if "number" in kwargs:
@@ -189,6 +205,19 @@ class EndingMark(BaseClass.Base):
         if "type" in kwargs:
             self.type = kwargs["type"]
         BaseClass.Base.__init__(self)
+
+    def toLily(self):
+        lilystring = ""
+        if hasattr(self, "number"):
+            if self.number == 1:
+                lilystring += "\\alternative {"
+            lilystring += "{"
+        else:
+            lilystring = "\\alternative {{"
+        if hasattr(self, "type"):
+            if self.type == "stop":
+                lilystring = "}"
+        return lilystring
 
 class Transposition(BaseClass.Base):
     def __init__(self, **kwargs):

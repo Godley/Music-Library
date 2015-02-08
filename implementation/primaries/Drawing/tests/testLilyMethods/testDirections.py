@@ -86,17 +86,17 @@ class testCoda(Lily):
 class testOctaveShift(Lily):
     def setUp(self):
         self.item = Directions.OctaveShift()
-        self.lilystring = "\n\ottava #0"
+        self.lilystring = "\n\ottava #0\n"
 
 class testOctaveShiftUp(Lily):
     def setUp(self):
         self.item = Directions.OctaveShift(amount=8)
-        self.lilystring = "\n\ottava #1"
+        self.lilystring = "\n\ottava #1\n"
 
 class testOctaveShiftDown(Lily):
     def setUp(self):
-        self.item = Directions.OctaveShift(amount=-15)
-        self.lilystring = "\n\ottava #-2"
+        self.item = Directions.OctaveShift(amount=15, type="down")
+        self.lilystring = "\n\ottava #-2\n"
 
 class testWavyLine(Lily):
     def setUp(self):
@@ -112,22 +112,22 @@ class testWavyLineStop(Lily):
 class testPedal(Lily):
     def setUp(self):
         self.item = Directions.Pedal()
-        self.lilystring = ["", "\n\\sustainOn"]
+        self.lilystring = "\sustainOn\n"
 
 class testPedalLine(Lily):
     def setUp(self):
-        self.item = Directions.Pedal(line=True)
-        self.lilystring = ["\n\set Staff.pedalSustainStyle = #'mixed \n ", "\n\sustainOn"]
+        self.item = Directions.Pedal(line=False)
+        self.lilystring = "\n\set Staff.pedalSustainStyle = #'text\n\sustainOn\n"
 
 class testPedalType(Lily):
     def setUp(self):
         self.item = Directions.Pedal(type="start")
-        self.lilystring = ["","\n\sustainOn"]
+        self.lilystring = "\sustainOn\n"
 
 class testPedalTypeOff(Lily):
     def setUp(self):
         self.item = Directions.Pedal(type="stop")
-        self.lilystring = ["", "\n\sustainOff"]
+        self.lilystring = "\sustainOff\n"
 
 # TODO: REFACTOR BRACKET CLASS ACCORDING TO LILYPOND NOTATION
 class testBracket(Lily):

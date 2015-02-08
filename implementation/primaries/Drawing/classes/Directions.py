@@ -282,10 +282,10 @@ class Pedal(Line):
 
     def toLily(self):
         return_val = ""
-        if hasattr(self, "type") and self.type == "start":
+        if (hasattr(self, "type") and self.type != "stop") or not hasattr(self, "type"):
             if hasattr(self, "line"):
                 if not self.line:
-                    return_val += "\set Staff.pedalSustainStyle = #'text'\n"
+                    return_val += "\n\set Staff.pedalSustainStyle = #'text\n"
         return_val += "\sustain"
         if hasattr(self, "type"):
             if self.type == "stop":
