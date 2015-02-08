@@ -19,7 +19,7 @@ class testFile(xmlSet):
         self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures)
+        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
 
 class testFingering(xmlSet):
     def setUp(self):
@@ -28,7 +28,7 @@ class testFingering(xmlSet):
         self.p_id = "P1"
         self.p_name = "Flute"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
 
     def testMeasureNoteInstance(self):
