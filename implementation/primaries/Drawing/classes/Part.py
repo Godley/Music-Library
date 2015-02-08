@@ -57,7 +57,7 @@ class Part(object):
             result = [True for k in measure_strings if k[0] == key]
             if len(result) == 0 or not result[0]:
                 # if it is (aka, not in measure_strings) recurse!
-                return self.RepeatMeasure(key-1, measure_strings, fwd,repeat_num=repeat_num+1)
+                return self.RepeatMeasure(key-1, sid, measure_strings, fwd,repeat_num=repeat_num+1)
             else:
                 # otherwise, copy the measure and set up another iterator
                 measure_to_copy = self.measures[sid][key]
@@ -102,8 +102,9 @@ class Part(object):
                 if hasattr(self, "name"):
                     lilystring += " \with { \ninstrumentName = #\""+ self.name +" \"\n}"
                 lilystring += "{"
-                measure_strings = [(key, self.measures[sid][key].toLily()) for key in self.measures if type(self.measures[sid][key].toLily()) is not list]
-                forward_measures = [(key, self.measures[sid][key].toLily()) for key in self.measures if type(self.measures[sid][key].toLily()) is list]
+                sub_measures = [key for key in self.measures[sid]]
+                measure_strings = [(key, self.measures[sid][key].toLily()) for key in sub_measures if type(self.measures[sid][key].toLily()) is not list]
+                forward_measures = [(key, self.measures[sid][key].toLily()) for key in sub_measures if type(self.measures[sid][key].toLily()) is list]
 
                 if len(forward_measures) > 0:
                     measure_strings = self.RepeatMeasure(sid, forward_measures[len(forward_measures)-1][0]-1, measure_strings, forward_measures)
