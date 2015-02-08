@@ -94,17 +94,18 @@ class Measure(object):
                         values.extend(self.forwards[n_id].toLily())
                         values.append(lilystring)
                 # pull out all the toLily return values
-                return_values = [dir.toLily() for dir in self.items[n_id]]
+                if n_id in self.items:
+                    return_values = [dir.toLily() for dir in self.items[n_id]]
 
-                # add the strings that aren't lists
-                lilystring += "".join([lilystr for lilystr in return_values if type(lilystr) != list])
+                    # add the strings that aren't lists
+                    lilystring += "".join([lilystr for lilystr in return_values if type(lilystr) != list])
 
-                # any that are lists are intended to be index 0 comes before the current lilystring,
-                # index 1 comes after, so wrap the current lilystring in them
-                lilystring = "".join([item[0] for item in return_values if type(item) == list]) + lilystring
-                lilystring += "".join([item[1] for item in return_values if type(item) == list])
-                if n_id in self.expressions:
-                    lilystring += "".join([expr.toLily() for expr in self.expressions[n_id]])
+                    # any that are lists are intended to be index 0 comes before the current lilystring,
+                    # index 1 comes after, so wrap the current lilystring in them
+                    lilystring = "".join([item[0] for item in return_values if type(item) == list]) + lilystring
+                    lilystring += "".join([item[1] for item in return_values if type(item) == list])
+                    if n_id in self.expressions:
+                        lilystring += "".join([expr.toLily() for expr in self.expressions[n_id]])
 
 
 

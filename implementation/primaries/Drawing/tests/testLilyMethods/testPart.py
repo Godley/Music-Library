@@ -37,9 +37,9 @@ class testPartForwardRepeats(Lily):
         self.item.addEmptyMeasure(1,1)
         self.item.measures[1][1].addNote(Note.Note(duration=4))
         self.item.measures[1][1].notes[0].pitch = Note.Pitch()
-        self.item.addEmptyMeasure(1,2)
-        self.item.measures[2][1].forwards = {}
-        self.item.measures[2][1].forwards[0] = Directions.Forward(duration=4)
+        self.item.addEmptyMeasure(2,1)
+        self.item.measures[1][2].forwards = {}
+        self.item.measures[1][2].forwards[0] = Directions.Forward(duration=4)
         self.lilystring = "\\new Staff{ \\repeat percent 2 { c'1}}"
 
 class testPartTwoForwardRepeats(Lily):
@@ -49,7 +49,6 @@ class testPartTwoForwardRepeats(Lily):
         self.item.measures[1][1].addNote(Note.Note(duration=4))
         self.item.measures[1][1].notes[0].pitch = Note.Pitch()
         self.item.addEmptyMeasure(2,1)
-        self.item.measures[1][2].forwards[1] = {}
         self.item.measures[1][2].forwards[0] = Directions.Forward(duration=4)
         self.item.addEmptyMeasure(3,1)
         self.item.measures[1][3].forwards[0] = Directions.Forward(duration=4)

@@ -18,7 +18,7 @@ class testFile(xmlSet):
         self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures)
+        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
 
 class testFwd(xmlSet):
     def setUp(self):
@@ -32,7 +32,7 @@ class testFwd(xmlSet):
             self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.forwards[1][0]
+            self.item = self.measure.forwards[0]
     def testHasFwd(self):
         if hasattr(self, "item"):
             self.assertIsInstance(self.item, Directions.Forward)
