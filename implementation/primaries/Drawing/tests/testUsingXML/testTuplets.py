@@ -18,14 +18,14 @@ class testFile(xmlSet):
         self.assertTrue(self.p_id in piece.Parts)
         self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
 
-    def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures)
+    def testmeasures(self):
+        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
 
 class testTimeMod(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts["P1"].measures[self.measure_id]
+            self.measure = piece.Parts["P1"].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.notes[self.item_id]
