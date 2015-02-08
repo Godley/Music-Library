@@ -29,7 +29,7 @@ class testFwd(xmlSet):
         self.p_id = "P1"
         self.p_name = "Flute"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.forwards[1][0]
@@ -51,7 +51,7 @@ class testSegno(xmlSet):
         self.measure_id = 2
         self.item_id = 0
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][0]
@@ -75,7 +75,7 @@ class testCoda(xmlSet):
         self.item_id = 0
         self.coda = "coda"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][0]
@@ -98,7 +98,7 @@ class testFine(xmlSet):
         self.item_id = 1
         self.fine = True
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][0]
@@ -128,7 +128,7 @@ class testDaCapo(xmlSet):
         self.item_id = 1
         self.dacapo = True
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][0]
@@ -159,7 +159,7 @@ class testDaCapoAlFine(xmlSet):
         self.item_id = 1
         self.dacapo = True
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][0]
@@ -190,7 +190,7 @@ class testDaCapoAlCoda(xmlSet):
         self.item_id = 1
         self.dacapo = True
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][0]
@@ -220,7 +220,7 @@ class testDalSegnoAlCoda(xmlSet):
         self.item_id = 1
         self.dalsegno = "segno"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][0]
@@ -250,7 +250,7 @@ class testDalSegnoAlFine(xmlSet):
         self.dalsegno = "segno"
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][0]
@@ -280,7 +280,7 @@ class testDalSegno(xmlSet):
         self.m_num = 32
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][0]
@@ -310,7 +310,7 @@ class testToCoda(xmlSet):
         self.m_num = 32
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.items[0][0]
