@@ -37,7 +37,8 @@ class Measure(BaseClass.Base):
             lilystring += self.clef.toLily() + " "
         if hasattr(self, "key") and self.key is not None:
             lilystring += self.key.toLily() + " "
-
+        if hasattr(self, "barlines") and "left" in self.barlines:
+            lilystring += self.barlines["left"].toLily()
         if ((staff_id in self.notes and len(self.notes[staff_id]) == 0) or staff_id not in self.notes) and len(self.forwards) == 0:
             #if a measure has no notes, it's probably a rest measure.
             lilystring += " r"
@@ -205,7 +206,7 @@ class Barline(BaseClass.Base):
 
             if hasattr(self, "repeat"):
                 if self.repeat == "forward":
-                    lilystring = "\\repeat volta 2 { "
+                    lilystring = "\\repeat volta 2 {"
                 if self.repeat == "backward":
                     lilystring = " }"
 

@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes import Measure
+from implementation.primaries.Drawing.tests.testLilyMethods.testMeasure import MeasureTests
+from implementation.primaries.Drawing.classes import Measure, Note
 
 class testNormalBarline(Lily):
     def setUp(self):
@@ -39,7 +40,7 @@ class testHeavyHeavyBarline(Lily):
 class testForwardRepeat(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="heavy-light", repeat="forward")
-        self.lilystring = "\\repeat volta 2 { "
+        self.lilystring = "\\repeat volta 2 {"
 
 class testBackwardRepeat(Lily):
     def setUp(self):
@@ -65,3 +66,13 @@ class testBarlineWithEndingStart(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="heavy-light",ending=Measure.EndingMark())
         self.lilystring = "\\alternative {{ "
+
+class testMeasureLeftBarline(MeasureTests):
+    def setUp(self):
+        self.item = Measure.Measure()
+        self.item.addNote(Note.Note(), 1)
+        self.staff_id = 1
+        self.item.notes[1][-1].pitch = Note.Pitch()
+        self.item.barlines = {}
+        self.item.barlines["left"] = Measure.Barline(repeat="forward")
+        self.lilystring = "\\repeat volta 2 { c'"
