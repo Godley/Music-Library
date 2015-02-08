@@ -19,14 +19,14 @@ class testFile(xmlSet):
         self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures)
+        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
 
 class testOrnament(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.notes[self.item_id]
@@ -46,7 +46,7 @@ class testTechnique(xmlSet):
         xmlSet.setUp(self)
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[self.measure_id]
+            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
 
         if hasattr(self, "item_id"):
             self.item = self.measure.notes[self.item_id]
