@@ -23,13 +23,13 @@ class testAccidentals(xmlSet):
         self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures)
+        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
 
     def testNotes(self):
 
         for measure in piece.Parts[self.p_id].measures.keys():
             if measure in self.note_num:
-                self.assertEqual(self.note_num[measure], len(piece.Parts[self.p_id].measures[measure].notes[1]))
+                self.assertEqual(self.note_num[measure], len(piece.Parts[self.p_id].measures[1][measure].notes))
 
 class NoteTests(xmlSet):
     def setUp(self):
@@ -45,28 +45,28 @@ class NoteTests(xmlSet):
     def testNoteStep(self):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
-            note_obj = piece.Parts[self.p_id].measures[self.measure_id].notes[1][self.note]
+            note_obj = piece.Parts[self.p_id].measures[1][self.measure_id].notes[self.note]
         if note_obj is not None and self.step is not None:
             self.assertEqual(self.step, note_obj.pitch.step)
 
     def testNoteAlter(self):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
-            note_obj = piece.Parts[self.p_id].measures[self.measure_id].notes[1][self.note]
+            note_obj = piece.Parts[self.p_id].measures[1][self.measure_id].notes[self.note]
         if note_obj is not None and self.alter is not None:
             self.assertEqual(self.alter, int(note_obj.pitch.alter))
 
     def testNoteOctave(self):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
-            note_obj = piece.Parts[self.p_id].measures[self.measure_id].notes[1][self.note]
+            note_obj = piece.Parts[self.p_id].measures[1][self.measure_id].notes[self.note]
         if note_obj is not None and self.octave is not None:
             self.assertEqual(self.octave, int(note_obj.pitch.octave))
 
     def testNoteAccidental(self):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
-            note_obj = piece.Parts[self.p_id].measures[self.measure_id].notes[1][self.note]
+            note_obj = piece.Parts[self.p_id].measures[1][self.measure_id].notes[self.note]
         if note_obj is not None and self.accidental is not None:
             self.assertEqual(self.accidental, note_obj.pitch.accidental)
 

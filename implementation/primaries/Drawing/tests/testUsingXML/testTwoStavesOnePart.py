@@ -8,8 +8,8 @@ piece = parsePiece(os.path.join(folder, partname))
 
 class testTwoStavesInOnePart(unittest.TestCase):
     def testItemsInstance(self):
-        self.assertIsInstance(piece.Parts["P1"].measures[1].items, dict)
+        self.assertIsInstance(piece.Parts["P1"].measures, dict)
 
     def testItemsIds(self):
-        self.assertTrue(1 in piece.Parts["P1"].measures[1].items)
-        self.assertTrue(2 in piece.Parts["P1"].measures[1].items)
+        self.assertTrue(1 in piece.Parts["P1"].measures)
+        self.assertTrue(2 in piece.Parts["P1"].measures)

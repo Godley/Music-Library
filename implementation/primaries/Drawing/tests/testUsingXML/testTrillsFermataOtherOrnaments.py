@@ -29,7 +29,7 @@ class testOrnament(xmlSet):
             self.measure = piece.Parts[self.p_id].measures[self.measure_id]
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.notes[1][self.item_id]
+            self.item = self.measure.notes[self.item_id]
         if hasattr(self, "orn_id") and hasattr(self.item, "postnotation"):
             self.ornament = self.item.postnotation[self.orn_id]
 
@@ -49,7 +49,7 @@ class testTechnique(xmlSet):
             self.measure = piece.Parts[self.p_id].measures[self.measure_id]
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.notes[1][self.item_id]
+            self.item = self.measure.notes[self.item_id]
         if hasattr(self, "orn_id"):
             self.ornament = self.item.postnotation[self.orn_id]
 

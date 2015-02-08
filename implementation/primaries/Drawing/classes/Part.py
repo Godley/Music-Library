@@ -1,3 +1,5 @@
+from implementation.primaries.Drawing.classes.Measure import Measure
+
 class Part(object):
     def __init__(self):
         self.measures = {}
@@ -25,7 +27,27 @@ class Part(object):
                 self.measures[key].divisions = divisions
                 self.measures[key].CheckDivisions()
 
-    def RepeatMeasure(self, key, sid, measure_strings, fwd, repeat_num=2):
+    def addMeasure(self, key, item, staff):
+        if staff not in self.measures:
+            self.measures[staff] = {}
+        self.measures[staff][key] = item
+
+    def addEmptyMeasure(self, key, staff):
+        if staff not in self.measures:
+            self.measures[staff] = {}
+        self.measures[staff][key] = Measure()
+
+    def getMeasure(self, key, staff):
+        item = None
+        if staff in self.measures:
+            try:
+                if key in self.measures[staff]:
+                    item = self.measures[staff][key]
+            except:
+                print(key, self.measures[staff])
+        return item
+
+    def RepeatMeasure(self, sid, key, measure_strings, fwd, repeat_num=2):
         # recursive method. Handles situations where a bar or several bars need to use a percentage repeat.
         #we start by working backwards through each bar that has a forward
         indexer = len(fwd)
@@ -35,17 +57,17 @@ class Part(object):
             result = [True for k in measure_strings if k[0] == key]
             if len(result) == 0 or not result[0]:
                 # if it is (aka, not in measure_strings) recurse!
-                return self.RepeatMeasure(key-1, sid, measure_strings, fwd,repeat_num=repeat_num+1)
+                return self.RepeatMeasure(key-1, measure_strings, fwd,repeat_num=repeat_num+1)
             else:
                 # otherwise, copy the measure and set up another iterator
-                measure_to_copy = self.measures[key]
+                measure_to_copy = self.measures[sid][key]
                 length = item[1][1]
-                iterator = len(measure_to_copy.notes[sid])-1
+                iterator = len(measure_to_copy.notes)-1
                 total = 0
                 while total < length or iterator > -1:
                     # working backwards through the bar, compare the current note total to the amount that
                     # we need to repeat
-                    total += measure_to_copy.notes[sid][iterator].duration
+                    total += measure_to_copy.notes[iterator].duration
                     if total >= length:
                         break
                     iterator -= 1
@@ -71,8 +93,8 @@ class Part(object):
 
     def toLily(self):
         lilystring = ""
-        if len(self.measures.keys()) > 0:
-            staff_nums = self.measures[list(self.measures.keys())[0]].notes.keys()
+        staff_nums = list(self.measures.keys())
+        if len(staff_nums) > 0:
             if len(staff_nums) > 1:
                 lilystring += "\\new StaffGroup <<"
             for sid in staff_nums:
@@ -80,11 +102,11 @@ class Part(object):
                 if hasattr(self, "name"):
                     lilystring += " \with { \ninstrumentName = #\""+ self.name +" \"\n}"
                 lilystring += "{"
-                measure_strings = [(key, self.measures[key].toLily(sid)) for key in self.measures if type(self.measures[key].toLily(sid)) is not list]
-                forward_measures = [(key, self.measures[key].toLily(sid)) for key in self.measures if type(self.measures[key].toLily(sid)) is list]
+                measure_strings = [(key, self.measures[sid][key].toLily()) for key in self.measures if type(self.measures[key].toLily()) is not list]
+                forward_measures = [(key, self.measures[sid][key].toLily()) for key in self.measures if type(self.measures[key].toLily()) is list]
 
                 if len(forward_measures) > 0:
-                    measure_strings = self.RepeatMeasure(forward_measures[len(forward_measures)-1][0]-1,sid, measure_strings, forward_measures)
+                    measure_strings = self.RepeatMeasure(sid, forward_measures[len(forward_measures)-1][0]-1, measure_strings, forward_measures)
                 lilystring += "".join([item[1] for item in measure_strings])
                 lilystring += "}"
             if len(staff_nums) > 1:

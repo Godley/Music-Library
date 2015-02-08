@@ -116,22 +116,31 @@ class MxmlParser(object):
         if name in self.tags:
             self.tags.remove(name)
         if name == "measure":
+            measure_id = GetID(self.attribs, "measure", "number")
             part = self.piece.Parts[self.attribs["part"]["id"]]
-            measure = part.measures[int(self.attribs["measure"]["number"])]
             #handle items
             for staff in items:
+                if part.getMeasure(int(measure_id), staff) is None:
+                    part.addMeasure(int(measure_id), Measure.Measure(), staff)
+                measure = part.getMeasure(int(measure_id), staff)
                 for n in items[staff]:
                     for item in items[staff][n]:
-                        measure.addDirection(item, n, staff)
+                        measure.addDirection(item, n)
             #handle expressions
             for staff in expressions:
+                if part.getMeasure(int(measure_id), staff) is None:
+                    part.addMeasure(int(measure_id), Measure.Measure(), staff)
+                measure = part.getMeasure(int(measure_id), staff)
                 for n in expressions[staff]:
                     for item in expressions[staff][n]:
-                        measure.addExpression(item, n, staff)
+                        measure.addExpression(item, n)
             #handle notes
             for staff in notes:
+                if part.getMeasure(int(measure_id), staff) is None:
+                    part.addMeasure(int(measure_id), Measure.Measure(), staff)
+                measure = part.getMeasure(int(measure_id), staff)
                 for n in notes[staff]:
-                    measure.addNote(n,staff)
+                    measure.addNote(n)
             #reset all the things
             staff_id = 1
             last_note = 0
@@ -140,7 +149,9 @@ class MxmlParser(object):
             items = {}
 
         if name == "measure" and self.attribs["measure"]["number"] != measure_cached:
-            current_measure = self.piece.Parts[self.attribs["part"]["id"]].measures[int(self.attribs["measure"]["number"])]
+            measure_num = int(GetID(self.attribs, "measure", "number"))
+            part_id = GetID(self.attribs, "part", "id")
+            current_measure = self.piece.Parts[part_id].getMeasure(measure_num, staff_id)
             if not hasattr(current_measure, "clef"):
                 current_measure.clef = cached_clef
                 cached_clef = None
@@ -383,20 +394,21 @@ def HandleMeasures(tag, attrib, content, piece):
                 if measure_id is None:
                     raise(Exceptions.NoMeasureIDException())
                 else:
-                    part.measures[measure_id] = Measure.Measure()
+                    part.addMeasure(measure_id, Measure.Measure(), staff_id)
                 if "width" in attrib:
-                    part.measures[measure_id] = Measure.Measure(width=attrib["width"])
+                    part.addMeasure(measure_id, Measure.Measure(width=attrib["width"]), staff_id)
                 else:
-                    part.measures[measure_id] = Measure.Measure()
+                    part.addMeasure(measure_id, Measure.Measure(), staff_id)
                     return_val = 1
         measure = None
         if part is not None:
-            measure = part.measures[measure_id]
+            measure = part.getMeasure(measure_id, staff_id)
 
         if tag[-1] == "staves":
             staves = int(content["staves"])
-            for i in range(staves):
-                measure.items[i+1] = {}
+            for i in range(1,staves):
+                if part.getMeasure(measure_id, i) is None:
+                    part.addMeasure(measure_id, Measure.Measure(), i)
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
             return_val = 1
@@ -619,7 +631,7 @@ def handleBarline(tag, attrib, content, piece):
     if measure_id is not None:
         measure_id = int(measure_id)
     if part_id is not None and measure_id is not None:
-        measure = piece.Parts[part_id].measures[measure_id]
+        measure = piece.Parts[part_id].getMeasure(measure_id, staff_id)
     if "barline" in tag and measure is not None:
         if not hasattr(measure, "barlines"):
             measure.barlines = {}
@@ -685,7 +697,7 @@ def CreateNote(tag, attrs, content, piece):
             if "number" in attrs["measure"]:
                 measure_id = int(attrs["measure"]["number"])
         if part_id is not None and measure_id is not None:
-            measure = piece.Parts[part_id].measures[measure_id]
+            measure = piece.Parts[part_id].getMeasure(measure_id, staff_id)
         if "note" in tag and note is None:
             if staff_id not in notes:
                 notes[staff_id] = []
@@ -865,7 +877,7 @@ def HandleDirections(tags, attrs, chars, piece):
         part_id = GetID(attrs, "part", "id")
         measure = None
         if measure_id is not None and part_id is not None:
-            measure = piece.Parts[part_id].measures[measure_id]
+            measure = piece.Parts[part_id].getMeasure(measure_id, staff_id)
         placement = None
         if measure is None:
             return None
@@ -1027,7 +1039,7 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
             measure_id = int(measure_id)
         if part_id is not None:
             if measure_id is not None:
-                measure = piece.Parts[part_id].measures[measure_id]
+                measure = piece.Parts[part_id].getMeasure(measure_id, staff_id)
 
         if measure is not None:
             d_type = None

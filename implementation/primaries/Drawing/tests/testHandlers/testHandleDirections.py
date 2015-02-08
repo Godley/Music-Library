@@ -10,8 +10,8 @@ class testHandleDirections(testclass.TestClass):
         MxmlParser.part_id = "P1"
         MxmlParser.measure_id = 1
         self.piece.Parts["P1"] = Part.Part()
-        self.piece.Parts["P1"].measures[1] = Measure.Measure()
-        self.measure = self.piece.Parts["P1"].measures[1]
+        self.piece.Parts["P1"].addMeasure(1, Measure.Measure(), 1)
+        self.measure = self.piece.Parts["P1"].getMeasure(1, 1)
         self.attrs["measure"] = {"number": "1"}
         self.attrs["part"] = {"id": "P1"}
         MxmlParser.items = {}
@@ -19,12 +19,15 @@ class testHandleDirections(testclass.TestClass):
         MxmlParser.expressions = {}
 
     def copy(self):
-        self.measure.items.update(MxmlParser.items)
-        MxmlParser.items = {}
-        self.measure.notes.update(MxmlParser.notes)
-        MxmlParser.notes = {}
-        self.measure.expressions.update(MxmlParser.expressions)
-        MxmlParser.expressions = {}
+        if 1 in MxmlParser.items:
+            self.measure.items.update(MxmlParser.items[1])
+            MxmlParser.items = {}
+        if 1 in MxmlParser.notes:
+            self.measure.notes.extend(MxmlParser.notes[1])
+            MxmlParser.notes = {}
+        if 1 in MxmlParser.expressions:
+            self.measure.expressions.update(MxmlParser.expressions[1])
+            MxmlParser.expressions = {}
 
     def testNoTags(self):
         self.tags.remove("direction")
@@ -42,16 +45,16 @@ class testHandleDirections(testclass.TestClass):
         self.chars["words"] = "sup"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("above", self.measure.items[1][0][0].placement)
+        self.assertEqual("above", self.measure.items[0][0].placement)
 
     def testDirectionTag(self):
         self.tags.append("words")
         self.chars["words"] = "hello, world"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        measure = self.piece.Parts["P1"].measures[1]
+        measure = self.piece.Parts["P1"].getMeasure(1,1)
         self.copy()
-        self.assertEqual(1, len(measure.items[1]))
-        self.assertEqual("hello, world", measure.items[1][0][0].text)
+        self.assertEqual(1, len(measure.items))
+        self.assertEqual("hello, world", measure.items[0][0].text)
 
     def testWordsWithFontSizeAttrib(self):
         self.tags.append("words")
@@ -59,8 +62,8 @@ class testHandleDirections(testclass.TestClass):
         self.attrs["words"] = {"font-size": "6.5"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "size"))
-        self.assertEqual("6.5", self.measure.items[1][0][0].size)
+        self.assertTrue(hasattr(self.measure.items[0][0], "size"))
+        self.assertEqual("6.5", self.measure.items[0][0].size)
 
     def testWordsWithFontFamAttrib(self):
         self.tags.append("words")
@@ -68,8 +71,8 @@ class testHandleDirections(testclass.TestClass):
         self.attrs["words"] = {"font-family": "times"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "font"))
-        self.assertEqual("times", self.measure.items[1][0][0].font)
+        self.assertTrue(hasattr(self.measure.items[0][0], "font"))
+        self.assertEqual("times", self.measure.items[0][0].font)
 
     def testWordsWithBothAttribs(self):
         self.tags.append("words")
@@ -77,103 +80,103 @@ class testHandleDirections(testclass.TestClass):
         self.attrs["words"] = {"font-family": "times", "font-size": "6.2"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("times", self.measure.items[1][0][0].font)
-        self.assertEqual("6.2", self.measure.items[1][0][0].size)
+        self.assertEqual("times", self.measure.items[0][0].font)
+        self.assertEqual("6.2", self.measure.items[0][0].size)
 
     def testOctaveShift(self):
         self.tags.append("octave-shift")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.measure.items[1][0][0], Directions.OctaveShift)
+        self.assertIsInstance(self.measure.items[0][0], Directions.OctaveShift)
 
     def testOctaveShiftType(self):
         self.tags.append("octave-shift")
         self.attrs["octave-shift"] = {"type": "down"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "type"))
+        self.assertTrue(hasattr(self.measure.items[0][0], "type"))
 
     def testOctaveShiftAmount(self):
         self.tags.append("octave-shift")
         self.attrs["octave-shift"] = {"size": "8"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "amount"))
-        self.assertEqual(8, self.measure.items[1][0][0].amount)
+        self.assertTrue(hasattr(self.measure.items[0][0], "amount"))
+        self.assertEqual(8, self.measure.items[0][0].amount)
 
     def testWavyLine(self):
         self.tags.append("wavy-line")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.measure.items[1][0][0], Directions.WavyLine)
+        self.assertIsInstance(self.measure.items[0][0], Directions.WavyLine)
 
     def testWavyLineType(self):
         self.tags.append("wavy-line")
         self.attrs["wavy-line"] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("start", self.measure.items[1][0][0].type)
+        self.assertEqual("start", self.measure.items[0][0].type)
 
     def testPedal(self):
         self.tags.append("pedal")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.measure.items[1][0][0], Directions.Pedal)
+        self.assertIsInstance(self.measure.items[0][0], Directions.Pedal)
 
     def testPedalLine(self):
         self.tags.append("pedal")
         self.attrs["pedal"] = {"line": "yes"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual(True, self.measure.items[1][0][0].line)
+        self.assertEqual(True, self.measure.items[0][0].line)
 
     def testPedalLineType(self):
         self.tags.append("pedal")
         self.attrs["pedal"] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("start", self.measure.items[1][0][0].type)
+        self.assertEqual("start", self.measure.items[0][0].type)
 
     def testBracket(self):
         self.tags.append("bracket")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.measure.items[1][0][0], Directions.Bracket)
+        self.assertIsInstance(self.measure.items[0][0], Directions.Bracket)
 
     def testBracketType(self):
         self.tags.append("bracket")
         self.attrs["bracket"] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("start", self.measure.items[1][0][0].type)
+        self.assertEqual("start", self.measure.items[0][0].type)
 
     def testBracketNumber(self):
         self.tags.append("bracket")
         self.attrs["bracket"] = {"number": "1"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual(1, self.measure.items[1][0][0].number)
+        self.assertEqual(1, self.measure.items[0][0].number)
 
     def testBracketLineEnd(self):
         self.tags.append("bracket")
         self.attrs["bracket"] = {"line-end": "none"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("none", self.measure.items[1][0][0].lineEnd)
+        self.assertEqual("none", self.measure.items[0][0].lineEnd)
 
     def testBracketEndLength(self):
         self.tags.append("bracket")
         self.attrs["bracket"] = {"end-length": "15"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual(15, self.measure.items[1][0][0].endLength)
+        self.assertEqual(15, self.measure.items[0][0].endLength)
 
     def testBracketLineType(self):
         self.tags.append("bracket")
         self.attrs["bracket"] = {"line-type": "solid"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("solid", self.measure.items[1][0][0].lineType)
+        self.assertEqual("solid", self.measure.items[0][0].lineType)
 
 class testMetronome(testHandleDirections):
     def setUp(self):
@@ -185,8 +188,8 @@ class testMetronome(testHandleDirections):
         self.chars["beat-unit"] = "quarter"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "beat"))
-        self.assertEqual("quarter", self.measure.items[1][0][0].beat)
+        self.assertTrue(hasattr(self.measure.items[0][0], "beat"))
+        self.assertEqual("quarter", self.measure.items[0][0].beat)
 
     def testBeatUnitWithFontAttrib(self):
         self.tags.append("beat-unit")
@@ -194,10 +197,10 @@ class testMetronome(testHandleDirections):
         self.attrs["metronome"] = {"font-family": "times"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "beat"))
-        self.assertEqual("quarter", self.measure.items[1][0][0].beat)
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "font"))
-        self.assertEqual("times", self.measure.items[1][0][0].font)
+        self.assertTrue(hasattr(self.measure.items[0][0], "beat"))
+        self.assertEqual("quarter", self.measure.items[0][0].beat)
+        self.assertTrue(hasattr(self.measure.items[0][0], "font"))
+        self.assertEqual("times", self.measure.items[0][0].font)
 
     def testBeatUnitWithFontSizeAttrib(self):
         self.tags.append("beat-unit")
@@ -205,10 +208,10 @@ class testMetronome(testHandleDirections):
         self.attrs["metronome"] = {"font-size": "6.5"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "beat"))
-        self.assertEqual("quarter", self.measure.items[1][0][0].beat)
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "size"))
-        self.assertEqual("6.5", self.measure.items[1][0][0].size)
+        self.assertTrue(hasattr(self.measure.items[0][0], "beat"))
+        self.assertEqual("quarter", self.measure.items[0][0].beat)
+        self.assertTrue(hasattr(self.measure.items[0][0], "size"))
+        self.assertEqual("6.5", self.measure.items[0][0].size)
 
     def testBeatUnitWithFontAttrib(self):
         self.tags.append("beat-unit")
@@ -216,10 +219,10 @@ class testMetronome(testHandleDirections):
         self.attrs["metronome"] = {"parentheses": "yes"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "beat"))
-        self.assertEqual("quarter", self.measure.items[1][0][0].beat)
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "parentheses"))
-        self.assertEqual(True, self.measure.items[1][0][0].parentheses)
+        self.assertTrue(hasattr(self.measure.items[0][0], "beat"))
+        self.assertEqual("quarter", self.measure.items[0][0].beat)
+        self.assertTrue(hasattr(self.measure.items[0][0], "parentheses"))
+        self.assertEqual(True, self.measure.items[0][0].parentheses)
 
     def testBeatUnitAllAttribs(self):
         self.tags.append("beat-unit")
@@ -227,23 +230,23 @@ class testMetronome(testHandleDirections):
         self.attrs["metronome"] = {"font-family": "times", "font-size": "6.5", "parentheses": "yes"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "beat"))
-        self.assertEqual("quarter", self.measure.items[1][0][0].beat)
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "font"))
-        self.assertEqual("times", self.measure.items[1][0][0].font)
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "size"))
-        self.assertEqual("6.5", self.measure.items[1][0][0].size)
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "parentheses"))
-        self.assertEqual(True, self.measure.items[1][0][0].parentheses)
+        self.assertTrue(hasattr(self.measure.items[0][0], "beat"))
+        self.assertEqual("quarter", self.measure.items[0][0].beat)
+        self.assertTrue(hasattr(self.measure.items[0][0], "font"))
+        self.assertEqual("times", self.measure.items[0][0].font)
+        self.assertTrue(hasattr(self.measure.items[0][0], "size"))
+        self.assertEqual("6.5", self.measure.items[0][0].size)
+        self.assertTrue(hasattr(self.measure.items[0][0], "parentheses"))
+        self.assertEqual(True, self.measure.items[0][0].parentheses)
 
     def testPerMinuteTag(self):
         self.tags.append("per-minute")
         self.chars["per-minute"] = "85"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual(1, len(self.measure.items[1][0]))
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "min"))
-        self.assertEqual("85", self.measure.items[1][0][0].min)
+        self.assertEqual(1, len(self.measure.items[0]))
+        self.assertTrue(hasattr(self.measure.items[0][0], "min"))
+        self.assertEqual("85", self.measure.items[0][0].min)
 
     def testPerMinuteFontFamAttrib(self):
         self.tags.append("per-minute")
@@ -251,8 +254,8 @@ class testMetronome(testHandleDirections):
         self.attrs["metronome"] = {"font-family": "times"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "font"))
-        self.assertEqual("times", self.measure.items[1][0][0].font)
+        self.assertTrue(hasattr(self.measure.items[0][0], "font"))
+        self.assertEqual("times", self.measure.items[0][0].font)
 
     def testPerMinuteFontSizeAttrib(self):
         self.tags.append("per-minute")
@@ -260,8 +263,8 @@ class testMetronome(testHandleDirections):
         self.attrs["metronome"] = {"font-size": "6.5"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "size"))
-        self.assertEqual(6.5, self.measure.items[1][0][0].size)
+        self.assertTrue(hasattr(self.measure.items[0][0], "size"))
+        self.assertEqual(6.5, self.measure.items[0][0].size)
 
     def testPerMinuteParenthesesAttrib(self):
         self.tags.append("per-minute")
@@ -269,8 +272,8 @@ class testMetronome(testHandleDirections):
         self.attrs["metronome"] = {"parentheses": "yes"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "parentheses"))
-        self.assertTrue(self.measure.items[1][0][0].parentheses)
+        self.assertTrue(hasattr(self.measure.items[0][0], "parentheses"))
+        self.assertTrue(self.measure.items[0][0].parentheses)
 
     def testPerMinuteAllAttribs(self):
         self.tags.append("per-minute")
@@ -280,12 +283,12 @@ class testMetronome(testHandleDirections):
                                    "font-family": "times"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "parentheses"))
-        self.assertTrue(self.measure.items[1][0][0].parentheses)
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "size"))
-        self.assertEqual(6.5, self.measure.items[1][0][0].size)
-        self.assertTrue(hasattr(self.measure.items[1][0][0], "font"))
-        self.assertEqual("times", self.measure.items[1][0][0].font)
+        self.assertTrue(hasattr(self.measure.items[0][0], "parentheses"))
+        self.assertTrue(self.measure.items[0][0].parentheses)
+        self.assertTrue(hasattr(self.measure.items[0][0], "size"))
+        self.assertEqual(6.5, self.measure.items[0][0].size)
+        self.assertTrue(hasattr(self.measure.items[0][0], "font"))
+        self.assertEqual("times", self.measure.items[0][0].font)
 
 class testDynamicsAndSound(testHandleDirections):
     def testDynamicTag(self):
@@ -294,9 +297,9 @@ class testDynamicsAndSound(testHandleDirections):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
 
-        self.assertTrue(len(self.measure.expressions[1]) > 0)
-        self.assertEqual(Directions.Dynamic, type(self.measure.expressions[1][0][-1]))
-        self.assertEqual("p", self.measure.expressions[1][0][-1].mark)
+        self.assertTrue(len(self.measure.expressions) > 0)
+        self.assertEqual(Directions.Dynamic, type(self.measure.expressions[0][-1]))
+        self.assertEqual("p", self.measure.expressions[0][-1].mark)
 
     def testSoundTag(self):
         self.tags.append("sound")
@@ -332,12 +335,12 @@ class testDynamicsAndSound(testHandleDirections):
         self.tags.append("wedge")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.measure.expressions[1][0][-1], Directions.Wedge)
+        self.assertIsInstance(self.measure.expressions[0][-1], Directions.Wedge)
 
     def testWedgeVal(self):
         self.tags.append("wedge")
         self.attrs["wedge"] = {"type": "crescendo"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertTrue(hasattr(self.measure.expressions[1][0][-1], "type"))
-        self.assertEqual("crescendo", self.measure.expressions[1][0][-1].type)
+        self.assertTrue(hasattr(self.measure.expressions[0][-1], "type"))
+        self.assertEqual("crescendo", self.measure.expressions[0][-1].type)

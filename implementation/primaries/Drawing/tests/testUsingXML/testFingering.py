@@ -33,15 +33,15 @@ class testFingering(xmlSet):
 
     def testMeasureNoteInstance(self):
         if hasattr(self, "note_id"):
-            self.assertIsInstance(self.measure.notes[1][self.note_id].postnotation[0], Mark.Technique)
+            self.assertIsInstance(self.measure.notes[self.note_id].postnotation[0], Mark.Technique)
 
     def testMeasureNoteType(self):
         if hasattr(self, "note_id") and hasattr(self, "type"):
-            self.assertEqual(self.type, self.measure.notes[1][self.note_id].postnotation[0].type)
+            self.assertEqual(self.type, self.measure.notes[self.note_id].postnotation[0].type)
 
     def testMeasureNoteSymbol(self):
         if hasattr(self, "note_id") and hasattr(self, "symbol"):
-            self.assertEqual(self.symbol, self.measure.notes[1][self.note_id].postnotation[0].symbol)
+            self.assertEqual(self.symbol, self.measure.notes[self.note_id].postnotation[0].symbol)
 
 
 class testMeasure1Note1(testFingering):

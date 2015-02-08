@@ -32,55 +32,55 @@ class testNoteDurations(xmlSet):
         self.assertEqual(1, len(measure.items))
 
     def testMeasure1Note1Duration(self):
-        item = piece.Parts["P1"].measures[1].notes[1][0]
+        item = piece.Parts["P1"].measures[1].notes[0]
         self.assertEqual(64, item.duration)
 
     def testMeasure2Notes(self):
         measure = piece.Parts["P1"].measures[2]
-        self.assertEqual(3, len(measure.notes[1]))
+        self.assertEqual(3, len(measure.notes))
 
     def testMeasure2Note1(self):
-        item = piece.Parts["P1"].measures[2].notes[1][0]
+        item = piece.Parts["P1"].measures[2].notes[0]
         self.assertEqual(32, item.duration)
 
     def testMeasure2Note2(self):
-        item = piece.Parts["P1"].measures[2].notes[1][1]
+        item = piece.Parts["P1"].measures[2].notes[1]
         self.assertEqual(16, item.duration)
 
     def testMeasure2Note3(self):
-        item = piece.Parts["P1"].measures[2].notes[1][2]
+        item = piece.Parts["P1"].measures[2].notes[2]
         self.assertEqual(16, item.duration)
 
     def testMeasure3Notes(self):
         measure = piece.Parts["P1"].measures[3]
-        self.assertEqual(7, len(measure.notes[1]))
+        self.assertEqual(7, len(measure.notes))
 
     def testMeasure3Note1(self):
-        item = piece.Parts["P1"].measures[3].notes[1][0]
+        item = piece.Parts["P1"].measures[3].notes[0]
         self.assertEqual(8, item.duration)
 
     def testMeasure3Note2(self):
-        item = piece.Parts["P1"].measures[3].notes[1][1]
+        item = piece.Parts["P1"].measures[3].notes[1]
         self.assertEqual(4, item.duration)
 
     def testMeasure3Note3(self):
-        item = piece.Parts["P1"].measures[3].notes[1][2]
+        item = piece.Parts["P1"].measures[3].notes[2]
         self.assertEqual(2, item.duration)
 
     def testMeasure3Note4(self):
-        item = piece.Parts["P1"].measures[3].notes[1][3]
+        item = piece.Parts["P1"].measures[3].notes[3]
         self.assertEqual(1, item.duration)
 
     def testMeasure3Note5(self):
-        item = piece.Parts["P1"].measures[3].notes[1][4]
+        item = piece.Parts["P1"].measures[3].notes[4]
         self.assertEqual(1, item.duration)
 
     def testMeasure3Note6(self):
-        item = piece.Parts["P1"].measures[3].notes[1][5]
+        item = piece.Parts["P1"].measures[3].notes[5]
         self.assertEqual(16, item.duration)
 
     def testMeasure3Note7(self):
-        item = piece.Parts["P1"].measures[3].notes[1][6]
+        item = piece.Parts["P1"].measures[3].notes[6]
         self.assertEqual(32, item.duration)
 
 class testStems(xmlSet):
@@ -91,61 +91,61 @@ class testStems(xmlSet):
         self.p_name = "Flute"
 
     def testMeasure1(self):
-        note = piece.Parts[self.p_id].measures[1].notes[1][0]
+        note = piece.Parts[self.p_id].measures[1].notes[0]
         self.assertFalse(hasattr(note, "stem"))
 
     def testMeasure2Note1(self):
-        note = piece.Parts[self.p_id].measures[2].notes[1][0]
+        note = piece.Parts[self.p_id].measures[2].notes[0]
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure2Note1Direction(self):
-        note = piece.Parts[self.p_id].measures[2].notes[1][0]
+        note = piece.Parts[self.p_id].measures[2].notes[0]
         self.assertEqual("up", note.stem.type)
 
     def testMeasure2Note2(self):
-        note = piece.Parts[self.p_id].measures[2].notes[1][1]
+        note = piece.Parts[self.p_id].measures[2].notes[1]
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure2Note2Direction(self):
-        note = piece.Parts[self.p_id].measures[2].notes[1][1]
+        note = piece.Parts[self.p_id].measures[2].notes[1]
         self.assertEqual("up", note.stem.type)
 
     def testMeasure2Note3(self):
-        note = piece.Parts[self.p_id].measures[2].notes[1][2]
+        note = piece.Parts[self.p_id].measures[2].notes[2]
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure2Note3Direction(self):
-        note = piece.Parts[self.p_id].measures[2].notes[1][2]
+        note = piece.Parts[self.p_id].measures[2].notes[2]
         self.assertEqual("up", note.stem.type)
 
     def testMeasure3Note1(self):
-        note = piece.Parts[self.p_id].measures[3].notes[1][0]
+        note = piece.Parts[self.p_id].measures[3].notes[0]
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure3Note1Direction(self):
-        note = piece.Parts[self.p_id].measures[3].notes[1][0]
+        note = piece.Parts[self.p_id].measures[3].notes[0]
         self.assertEqual("down", note.stem.type)
 
     def testMeasure3Note2(self):
-        note = piece.Parts[self.p_id].measures[3].notes[1][1]
+        note = piece.Parts[self.p_id].measures[3].notes[1]
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure3Note2Direction(self):
-        note = piece.Parts[self.p_id].measures[3].notes[1][1]
+        note = piece.Parts[self.p_id].measures[3].notes[1]
         self.assertEqual("down", note.stem.type)
 
     def testMeasure3Note3(self):
-        note = piece.Parts[self.p_id].measures[3].notes[1][2]
+        note = piece.Parts[self.p_id].measures[3].notes[2]
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure3Note3Direction(self):
-        note = piece.Parts[self.p_id].measures[3].notes[1][2]
+        note = piece.Parts[self.p_id].measures[3].notes[2]
         self.assertEqual("down", note.stem.type)
 
     def testMeasure3Note4(self):
-        note = piece.Parts[self.p_id].measures[3].notes[1][3]
+        note = piece.Parts[self.p_id].measures[3].notes[3]
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure3Note4Direction(self):
-        note = piece.Parts[self.p_id].measures[3].notes[1][3]
+        note = piece.Parts[self.p_id].measures[3].notes[3]
         self.assertEqual("down", note.stem.type)
