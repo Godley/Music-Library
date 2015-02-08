@@ -106,4 +106,4 @@ class testForward(testclass.TestClass):
         self.tags.append("duration")
         self.chars["duration"] = "2"
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual(self.measure.forwards[1][0].duration, 2)
+        self.assertEqual(self.measure.forwards[0].duration, 2)
