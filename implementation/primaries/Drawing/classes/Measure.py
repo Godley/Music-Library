@@ -187,7 +187,7 @@ class Barline(BaseClass.Base):
                     lilystring = "\\alternative {"
                 if not hasattr(self.ending, "type") or (hasattr(self.ending, "type") and self.ending.type != "stop"):
                     lilystring += "{ "
-                elif hasattr(self.ending, "type") and self.type == "stop":
+                elif hasattr(self.ending, "type") and self.ending.type == "stop":
                     lilystring = " }"
 
             if hasattr(self, "repeat"):

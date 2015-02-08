@@ -1011,11 +1011,8 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
                 duration = None
                 if tags[-1] == "duration":
                     duration = int(chars["duration"])
-                if staff_id not in measure.forwards:
-                    measure.forwards[staff_id] = {}
-
-                if last_note not in measure.forwards[staff_id]:
-                    measure.forwards[staff_id][last_note] = Directions.Forward(duration=duration)
+                if last_note not in measure.forwards:
+                    measure.forwards[last_note] = Directions.Forward(duration=duration)
 
             if tags[-1] == "segno" or tags[-1] == "coda":
                 d_type = tags[-1]

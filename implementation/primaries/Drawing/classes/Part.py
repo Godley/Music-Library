@@ -85,10 +85,10 @@ class Part(object):
                     # so reset it to the bottom of the list
                     iterator = 0
                 # take the section of the lily string that won't be repeated
-                excluded_section = measure_to_copy.toLily(1, start=0, end=iterator)
+                excluded_section = measure_to_copy.toLily(start=0, end=iterator)
                 iterator = iterator_copy
                 # take the section of the lilystring we want to repeat
-                section = measure_to_copy.toLily(1, start=iterator, end=len(measure_to_copy.notes[sid]))
+                section = measure_to_copy.toLily(start=iterator, end=len(measure_to_copy.notes))
                 #smash it all together
                 combined_result = excluded_section + " \\repeat percent "+str(repeat_num)+" {" + section + "}"
                 # find the tuple we need to replace
