@@ -17,15 +17,15 @@ class notes(unittest.TestCase):
         MxmlParser.expressions = {}
         self.piece = Piece.Piece()
         self.piece.Parts["P1"] = Part.Part()
-        self.piece.Parts["P1"].measures[1] = Measure.Measure()
+        self.piece.Parts["P1"].addEmptyMeasure(1,1)
 
 
     def copy(self):
-        self.piece.Parts["P1"].measures[1].items.update(MxmlParser.items)
+        self.piece.Parts["P1"].measures[1][1].items.update(MxmlParser.items)
         MxmlParser.items = {}
-        self.piece.Parts["P1"].measures[1].notes.update(MxmlParser.notes)
+        self.piece.Parts["P1"].measures[1][1].notes.extend(MxmlParser.notes[1])
         MxmlParser.notes = {}
-        self.piece.Parts["P1"].measures[1].expressions.update(MxmlParser.expressions)
+        self.piece.Parts["P1"].measures[1][1].expressions.update(MxmlParser.expressions)
         MxmlParser.expressions = {}
 
 class testCreateNoteHandler(notes):
@@ -49,7 +49,7 @@ class testCreateNoteHandler(notes):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.copy()
         self.assertIsInstance(MxmlParser.note, Note.Note)
-        self.assertEqual(MxmlParser.note, self.piece.Parts["P1"].measures[1].notes[1][0])
+        self.assertEqual(MxmlParser.note, self.piece.Parts["P1"].measures[1][1].notes[0])
 
     def testRestTag(self):
         self.tags.append("rest")

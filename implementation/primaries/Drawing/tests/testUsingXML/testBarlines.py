@@ -23,11 +23,11 @@ class testBarlines(xmlSet):
 
     def testMeasure2Barline(self):
         item = piece.Parts[self.p_id].measures[1][2]
-        print(piece.Parts[self.p_id].measures)
         self.assertTrue(hasattr(item, "barlines"))
 
     def testMeasure2BarlineLocation(self):
         item = piece.Parts[self.p_id].measures[1][2]
+        print(item)
         self.assertTrue("right" in item.barlines)
 
     def testMeasure2BarlineInstance(self):

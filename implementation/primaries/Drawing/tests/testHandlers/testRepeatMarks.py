@@ -7,43 +7,43 @@ class testRepeatSymbols(testclass.TestClass):
         testclass.TestClass.setUp(self)
         self.handler = MxmlParser.HandleRepeatMarking
         self.piece.Parts["P1"] = Part.Part()
-        self.piece.Parts["P1"].measures[1] = Measure.Measure()
+        self.piece.Parts["P1"].addEmptyMeasure(1,1)
         self.attrs["measure"] = {"number": "1"}
         self.attrs["part"] = {"id": "P1"}
-        self.measure = self.piece.Parts["P1"].measures[1]
+        self.measure = self.piece.Parts["P1"].getMeasure(1,1)
         self.tags.append("direction")
         self.attrs["direction"] = {"placement": "above"}
 
     def copy(self):
-        self.measure.items.update(MxmlParser.items)
+        self.measure.items.update(MxmlParser.items[1])
 
     def testSegno(self):
         self.tags.append("direction-type")
         self.tags.append("segno")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.measure.items[1][0][-1], Directions.RepeatSign)
+        self.assertIsInstance(self.measure.items[0][-1], Directions.RepeatSign)
 
     def testRType(self):
         self.tags.append("direction-type")
         self.tags.append("segno")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("segno", self.measure.items[1][0][-1].type)
+        self.assertEqual("segno", self.measure.items[0][-1].type)
 
     def testCoda(self):
         self.tags.append("direction-type")
         self.tags.append("coda")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertIsInstance(self.measure.items[1][0][-1], Directions.RepeatSign)
+        self.assertIsInstance(self.measure.items[0][-1], Directions.RepeatSign)
 
     def testCType(self):
         self.tags.append("direction-type")
         self.tags.append("coda")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.copy()
-        self.assertEqual("coda", self.measure.items[1][0][-1].type)
+        self.assertEqual("coda", self.measure.items[0][-1].type)
 
     def testSoundSegno(self):
         self.tags.append("sound")
@@ -92,10 +92,10 @@ class testForward(testclass.TestClass):
         testclass.TestClass.setUp(self)
         self.handler = MxmlParser.HandleRepeatMarking
         self.piece.Parts["P1"] = Part.Part()
-        self.piece.Parts["P1"].measures[1] = Measure.Measure()
+        self.piece.Parts["P1"].addEmptyMeasure(1,1)
         self.attrs["measure"] = {"number": "1"}
         self.attrs["part"] = {"id": "P1"}
-        self.measure = self.piece.Parts["P1"].measures[1]
+        self.measure = self.piece.Parts["P1"].measures[1][1]
         self.tags.append("forward")
 
     def testCreation(self):
