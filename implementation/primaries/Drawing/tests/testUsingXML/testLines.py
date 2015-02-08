@@ -46,7 +46,10 @@ class testOctaveShift(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][self.item_id]
+            if self.type == "stop":
+                self.item = self.measure.items[0][self.item_id]
+            else:
+                self.item = self.measure.preitems[0][self.item_id]
 
     def testInstance(self):
         if hasattr(self, "item"):
@@ -69,7 +72,10 @@ class testPedal(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][self.item_id]
+            if self.type == "stop":
+                self.item = self.measure.items[0][self.item_id]
+            else:
+                self.item = self.measure.preitems[0][self.item_id]
 
     def testInstance(self):
         if hasattr(self, "item"):
@@ -252,7 +258,7 @@ class testMeasure6Item3(testOctaveShift):
         self.amount = 8
         self.type = "stop"
         self.measure_id = 6
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
 
@@ -272,7 +278,7 @@ class testMeasure7Item3(testOctaveShift):
         self.amount = 15
         self.type = "stop"
         self.measure_id = 7
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
 
@@ -292,7 +298,7 @@ class testMeasure8Item3(testOctaveShift):
         self.amount = 8
         self.type = "stop"
         self.measure_id = 8
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
 
@@ -312,7 +318,7 @@ class testMeasure9Item3(testOctaveShift):
         self.amount = 15
         self.type = "stop"
         self.measure_id = 9
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
 
@@ -330,7 +336,7 @@ class testMeasure12Item3(testPedal):
         self.type = "stop"
         self.line = True
         self.measure_id = 12
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testPedal.setUp(self)
 
@@ -348,7 +354,7 @@ class testMeasure13Item3(testPedal):
         self.type = "stop"
         self.line = True
         self.measure_id = 13
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testPedal.setUp(self)
 

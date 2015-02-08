@@ -63,15 +63,6 @@ class testKeySig(MeasureTesting):
         self.assertTrue(hasattr(exp_measure, "key"))
         self.assertEqual(3, exp_measure.key.fifths)
 
-    def testModeNoMeasureTag(self):
-        self.tags.remove("measure")
-        self.attrs.pop("measure")
-        result = self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertEqual(None, result)
-        self.tags.append("measure")
-        self.attrs["measure"]  = {"number": "1"}
-        self.assertEqual(1, self.handler(self.tags, self.attrs, self.chars, self.piece))
-
 
 class testMeter(MeasureTesting):
     def testBeatTag(self):
