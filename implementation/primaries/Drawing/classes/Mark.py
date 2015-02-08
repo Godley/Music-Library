@@ -6,7 +6,12 @@ class Notation(object):
             self.symbol = kwargs["symbol"]
 
     def __str__(self):
-        return self.symbol + self.placement
+        str_val = ""
+        if hasattr(self, "placement") and self.placement is not None:
+            str_val += self.placement
+        if hasattr(self, "symbol") and self.symbol is not None:
+            str_val += self.symbol
+        return str_val
 
     def toLily(self):
         return "\\"

@@ -19,7 +19,7 @@ class testClef(xmlSet):
         self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures)
+        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
 
 class CTests(xmlSet):
     def setUp(self):
@@ -32,23 +32,23 @@ class CTests(xmlSet):
 
     def testClef(self):
         if self.measure is not None:
-            measure = piece.Parts[self.p_id].measures[self.measure]
+            measure = piece.Parts[self.p_id].getMeasure(self.measure,1)
             self.assertTrue(hasattr(measure, "clef"))
-
 
     def testSign(self):
         if self.measure is not None:
-            measure = piece.Parts[self.p_id].measures[self.measure]
+            measure = piece.Parts[self.p_id].getMeasure(self.measure,1)
+
             self.assertEqual(self.sign, measure.clef.sign)
 
     def testLine(self):
         if self.measure is not None:
-            measure = piece.Parts[self.p_id].measures[self.measure]
+            measure = piece.Parts[self.p_id].getMeasure(self.measure,1)
             self.assertEqual(self.line, measure.clef.line)
 
     def testOctaveChange(self):
         if self.measure is not None and self.clef_octave_change is not 0:
-            measure = piece.Parts[self.p_id].measures[self.measure]
+            measure = piece.Parts[self.p_id].getMeasure(self.measure,1)
             self.assertEqual(self.clef_octave_change, measure.clef.octave_change)
 
 class testMeasure1(CTests):

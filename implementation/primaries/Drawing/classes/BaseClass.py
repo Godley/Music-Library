@@ -18,10 +18,10 @@ class Base(object):
                 except:
                     pass
                 st += key + " : "
-                if type(values[key]) is not None:
+                try:
                     st += str(values[key])
-                else:
-                    st += key + ":None"
+                except:
+                    st += "None"
 
             if type(values[key]) is list:
                 if len(values[key]) > 0:

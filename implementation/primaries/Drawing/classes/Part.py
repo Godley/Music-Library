@@ -1,4 +1,7 @@
-from implementation.primaries.Drawing.classes.Measure import Measure
+try:
+    from implementation.primaries.Drawing.classes.Measure import Measure
+except:
+    from classes import Measure
 
 class Part(object):
     def __init__(self):
@@ -9,23 +12,27 @@ class Part(object):
         st = ""
         if hasattr(self, "name"):
             st += "name:"+self.name
-        for key in self.measures.keys():
+        for stave in self.measures.keys():
             st += "\n"
-            st += "Measure: "
-            st += str(key)
+            st += "Staff: "
+            st += str(stave)
             st += "\n\r Details: \r"
-            st += str(self.measures[key])
+            for key in self.measures[stave]:
+                st += "Measure: "
+                st += str(key)
+                st += str(self.measures[stave][key])
             st += "\n--------------------------------------------------------"
         return st
 
     def CheckDivisions(self):
         divisions = None
-        for key in self.measures.keys():
-            if hasattr(self.measures[key], "divisions"):
-                divisions = self.measures[key].divisions
-            else:
-                self.measures[key].divisions = divisions
-                self.measures[key].CheckDivisions()
+        for stave in self.measures:
+            for key in self.measures[stave].keys():
+                if hasattr(self.measures[stave][key], "divisions"):
+                    divisions = self.measures[stave][key].divisions
+                else:
+                    self.measures[stave][key].divisions = divisions
+                    self.measures[stave][key].CheckDivisions()
 
     def addMeasure(self, key, item, staff):
         if staff not in self.measures:

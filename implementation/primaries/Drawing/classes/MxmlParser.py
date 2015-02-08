@@ -1,5 +1,6 @@
 import xml.sax
 from xml.sax import make_parser, handler
+import copy
 try:
     from classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
 except:
@@ -147,14 +148,6 @@ class MxmlParser(object):
             expressions = {}
             notes = {}
             items = {}
-
-        if name == "measure" and self.attribs["measure"]["number"] != measure_cached:
-            measure_num = int(GetID(self.attribs, "measure", "number"))
-            part_id = GetID(self.attribs, "part", "id")
-            current_measure = self.piece.Parts[part_id].getMeasure(measure_num, staff_id)
-            if not hasattr(current_measure, "clef"):
-                current_measure.clef = cached_clef
-                cached_clef = None
         if name in self.attribs:
             self.attribs.pop(name)
         if name in self.chars:
@@ -166,8 +159,6 @@ class MxmlParser(object):
             degree = None
         if name == "frame-note":
             frame_note = None
-
-
 
     def parse(self, file):
         parser = make_parser()
@@ -382,6 +373,8 @@ def HandleMeasures(tag, attrib, content, piece):
     return_val = None
     global degree
     if len(tag) > 0 and "measure" in tag:
+        if "staff" in tag:
+                staff_id = content["staff"]
         if part_id is None:
             raise(Exceptions.NoScorePartException())
         if part_id is not None:
@@ -389,21 +382,12 @@ def HandleMeasures(tag, attrib, content, piece):
                 part = piece.Parts[part_id]
             else:
                 raise(Exceptions.NoPartCreatedException())
-        if part is not None:
-            if measure_id not in part.measures:
-                if measure_id is None:
-                    raise(Exceptions.NoMeasureIDException())
-                else:
-                    part.addMeasure(measure_id, Measure.Measure(), staff_id)
-                if "width" in attrib:
-                    part.addMeasure(measure_id, Measure.Measure(width=attrib["width"]), staff_id)
-                else:
-                    part.addMeasure(measure_id, Measure.Measure(), staff_id)
-                    return_val = 1
         measure = None
         if part is not None:
             measure = part.getMeasure(measure_id, staff_id)
-
+            if measure is None:
+                part.addEmptyMeasure(measure_id, staff_id)
+                measure = part.getMeasure(measure_id, staff_id)
         if tag[-1] == "staves":
             staves = int(content["staves"])
             for i in range(1,staves):
@@ -438,56 +422,8 @@ def HandleMeasures(tag, attrib, content, piece):
             else:
                 measure.meter = Meter.Meter(type=int(content["beat-type"]))
             return_val = 1
-        clef = None
-
         if "clef" in tag:
-
-            # this section covers duplication: it's possible a measure
-            # can have 2 clefs, the second of which should be in the next measure
-            # so we cache this one and wait until the next measure is opened
-            if len(items) > 0:
-                if cached_clef is not None:
-                    # if we've moved to a new measure...
-                    if measure_cached != attrib["measure"]["number"]:
-                        if not hasattr(measure, "clef"):
-                            # and it doesn't have a clef, empty the cache into it
-                            measure.clef = cached_clef
-                            cached_clef = None
-                            measure_cached = None
-                        else:
-                            # else, the clefs are the same, so reset the clef cache
-                            cached_clef = Clef.Clef()
-                            clef = cached_clef
-                            measure_cached = attrib["measure"]["number"]
-                    else:
-                        # otherwise, still filling up the cache
-                        clef = cached_clef
-                if cached_clef is None:
-                    cached_clef = Clef.Clef()
-                    clef = cached_clef
-                    measure_cached = attrib["measure"]["number"]
-            else:
-                # if we're at the beginning of the measure,
-                # clef to fill up is the current measure's clef
-                if hasattr(measure, "clef"):
-                    clef = measure.clef
-                else:
-                    measure.clef = Clef.Clef()
-                    clef = measure.clef
-
-
-
-        if tag[-1] == "sign" and "clef" in tag:
-            try:
-                clef.sign = content["sign"]
-            except Exception:
-                print(attrib["measure"]["number"])
-                print(measure_cached)
-        if tag[-1] == "line" and "clef" in tag and "line" in content:
-            clef.line = int(content["line"])
-            return_val = 1
-        if tag[-1] == "clef-octave-change" and "clef" in tag:
-            clef.octave_change = int(content["clef-octave-change"])
+            handleClef(tag,attrib,content,piece)
         if "transpose" in tag:
             if "diatonic" in tag:
                 if hasattr(measure, "transpose"):
@@ -514,8 +450,7 @@ def HandleMeasures(tag, attrib, content, piece):
             return_val = 1
 
         if "harmony" in tag:
-            if "staff" in tag:
-                staff_id = content["staff"]
+
             if staff_id not in items:
                 items[staff_id] = {}
             if last_note not in items[staff_id]:
@@ -623,6 +558,35 @@ def HandleMeasures(tag, attrib, content, piece):
     HandleDirections(tag, attrib, content, piece)
     handleArticulation(tag, attrib, content, piece)
     return return_val
+
+def handleClef(tag,attrib,content,piece):
+    global staff_id
+    measure_id = int(GetID(attrib,"measure","number"))
+    part_id = GetID(attrib,"part","id")
+    part = None
+    if part_id in piece.Parts:
+        part = piece.Parts[part_id]
+    if part is not None:
+        measure = part.getMeasure(measure_id,staff_id)
+        if measure is not None:
+            sign = None
+            line = None
+            octave = None
+            if tag[-1] == "sign":
+                sign = content["sign"]
+            if tag[-1] == "line":
+                line = int(content["line"])
+            if tag[-1] == "clef-octave-change":
+                octave = int(content["clef-octave-change"])
+            if not hasattr(measure, "clef"):
+                measure.clef = Clef.Clef(sign=sign,line=line,octave_change=octave)
+            else:
+                if sign is not None:
+                    measure.clef.sign = sign
+                if line is not None:
+                    measure.clef.line = int(line)
+                if octave is not None:
+                    measure.clef.octave_change = octave
 
 def handleBarline(tag, attrib, content, piece):
     part_id = GetID(attrib, "part", "id")

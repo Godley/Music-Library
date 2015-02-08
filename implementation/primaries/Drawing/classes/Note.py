@@ -65,7 +65,7 @@ class Pitch(BaseClass.Base):
 
     def __str__(self):
         st = ""
-        alter = {1:"sharp",-1:"flat",0:""}
+        alter = {1:"sharp",-1:"flat",0:"",2:"double-sharp",-2:"double-flat"}
         if hasattr(self,"unpitched"):
             st += "unpitched"
         if hasattr(self, "step"):

@@ -3,7 +3,7 @@ try:
 except:
     from implementation.primaries.Drawing.classes import BaseClass, Note, Directions
 
-class Measure(BaseClass.Base):
+class Measure(object):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
         if "width" in kwargs:
@@ -23,10 +23,7 @@ class Measure(BaseClass.Base):
                     if self.divisions is not None:
                         n.divisions = float(self.divisions)
 
-    def __str__(self):
-        self.CheckDivisions()
-        st = BaseClass.Base.__str__(self)
-        return st
+
 
     def toLily(self, start=0,end=-1):
         lilystring = ""
