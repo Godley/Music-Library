@@ -27,7 +27,6 @@ class testBarlines(xmlSet):
 
     def testMeasure2BarlineLocation(self):
         item = piece.Parts[self.p_id].measures[1][2]
-        print(item)
         self.assertTrue("right" in item.barlines)
 
     def testMeasure2BarlineInstance(self):

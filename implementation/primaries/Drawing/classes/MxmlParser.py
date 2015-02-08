@@ -631,7 +631,7 @@ def handleBarline(tag, attrib, content, piece):
     if measure_id is not None:
         measure_id = int(measure_id)
     if part_id is not None and measure_id is not None:
-        measure = piece.Parts[part_id].getMeasure(measure_id, staff_id)
+        measure = piece.Parts[part_id].getMeasure(int(measure_id), int(staff_id))
     if "barline" in tag and measure is not None:
         if not hasattr(measure, "barlines"):
             measure.barlines = {}

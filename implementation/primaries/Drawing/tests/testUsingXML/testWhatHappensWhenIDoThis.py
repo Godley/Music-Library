@@ -19,7 +19,7 @@ class testFile(xmlSet):
         self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures)
+        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
 
 class testMeasure1(xmlSet):
     def setUp(self):
@@ -30,7 +30,7 @@ class testMeasure1(xmlSet):
         self.right_type = "stop"
         self.right_repeat = "backward"
         self.right_style = "light-heavy"
-        self.measure = piece.Parts["P1"].measures[self.measure_id]
+        self.measure = piece.Parts["P1"].measures[1][self.measure_id]
 
     def testHasBarlines(self):
         self.assertTrue(hasattr(self.measure, "barlines"))
