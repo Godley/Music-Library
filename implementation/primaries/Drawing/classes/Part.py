@@ -102,8 +102,8 @@ class Part(object):
                 if hasattr(self, "name"):
                     lilystring += " \with { \ninstrumentName = #\""+ self.name +" \"\n}"
                 lilystring += "{"
-                measure_strings = [(key, self.measures[sid][key].toLily()) for key in self.measures if type(self.measures[key].toLily()) is not list]
-                forward_measures = [(key, self.measures[sid][key].toLily()) for key in self.measures if type(self.measures[key].toLily()) is list]
+                measure_strings = [(key, self.measures[sid][key].toLily()) for key in self.measures if type(self.measures[sid][key].toLily()) is not list]
+                forward_measures = [(key, self.measures[sid][key].toLily()) for key in self.measures if type(self.measures[sid][key].toLily()) is list]
 
                 if len(forward_measures) > 0:
                     measure_strings = self.RepeatMeasure(sid, forward_measures[len(forward_measures)-1][0]-1, measure_strings, forward_measures)
