@@ -1,7 +1,7 @@
 try:
     from implementation.primaries.Drawing.classes.Measure import Measure
 except:
-    from classes import Measure
+    from classes.Measure import Measure
 
 class Part(object):
     def __init__(self):

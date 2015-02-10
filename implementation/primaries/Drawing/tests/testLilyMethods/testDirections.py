@@ -133,22 +133,17 @@ class testPedalTypeOff(Lily):
 class testBracket(Lily):
     def setUp(self):
         self.item = Directions.Bracket()
-        self.lilystring = "\\alternative{}"
+        self.lilystring = "\\startTextSpanner"
+
+class testBracketStop(Lily):
+    def setUp(self):
+        self.item = Directions.Bracket(type="stop")
+        self.lilystring = "\\stopTextSpanner"
 
 class testBracketlType(Lily):
     def setUp(self):
         self.item = Directions.Bracket(lineType="solid")
-        self.lilystring = "what"
-
-class testBracketendLength(Lily):
-    def setUp(self):
-        self.item = Directions.Bracket(endLength=1)
-        self.lilystring = "what"
-
-class testBracketlEnd(Lily):
-    def setUp(self):
-        self.item = Directions.Bracket(lineEnd="solid")
-        self.lilystring = "what"
+        self.lilystring = "\override TextSpanner.dash-fraction = 1.0\\startTextSpanner"
 
 class testMetronome(Lily):
     def setUp(self):
