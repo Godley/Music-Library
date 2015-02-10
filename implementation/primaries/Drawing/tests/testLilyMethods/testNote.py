@@ -18,6 +18,18 @@ class testNotePitch(Lily):
         self.wrappers = ["\\new Staff{","}"]
         self.name = "notepitch"
 
+class testNoteBeaming(Lily):
+    def setUp(self):
+        self.item = Note.Note()
+        self.item.pitch = Note.Pitch()
+        self.item.addBeam(1, Note.Beam("begin"))
+        self.lilystring = "[c'"
+
+        Lily.setUp(self)
+        self.compile = True
+        self.wrappers = ["\\new Staff{","}"]
+        self.name = "notepitch"
+
 class testNoteDurationQuaver(Lily):
     def setUp(self):
         self.item = Note.Note(duration=2,divisions=4)

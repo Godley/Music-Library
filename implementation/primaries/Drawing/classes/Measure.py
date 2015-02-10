@@ -61,6 +61,7 @@ class Measure(BaseClass.Base):
                         lilystring += "\\repeat percent 2 {"
                 if n_id in self.preitems:
                     lilystring += "".join([preitem.toLily() for preitem in self.preitems[n_id]])
+
                 lilystring += " "+self.notes[n_id].toLily()
 
                 #attach expressions to notes (these are classed as directions in mxml but in lilypond they have to be

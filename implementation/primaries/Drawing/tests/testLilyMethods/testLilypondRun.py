@@ -80,7 +80,6 @@ class testdurationandstem(testRun):
         self.file = os.path.join(folder, "duration_and_stem_direction.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
-        self.dontcleanup = True
         testRun.setUp(self)
 
 class testdynamics(testRun):
@@ -88,7 +87,6 @@ class testdynamics(testRun):
         self.file = os.path.join(folder, "dynamics.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
-        self.dontcleanup = True
         testRun.setUp(self)
 
 
@@ -113,7 +111,6 @@ class testkeysig(testRun):
         self.file = os.path.join(folder, "keySignatures.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
-        self.dontcleanup = True
         testRun.setUp(self)
 
 class testlines(testRun):

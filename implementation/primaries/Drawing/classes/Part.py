@@ -110,6 +110,7 @@ class Part(object):
                 if hasattr(self, "name"):
                     lilystring += " \with { \ninstrumentName = #\""+ self.name +" \"\n}"
                 lilystring += "{"
+                lilystring += "\\autoBeamOff "
                 sub_measures = [key for key in self.measures[sid]]
                 measure_strings = [(key, self.measures[sid][key].toLily()) for key in sub_measures if type(self.measures[sid][key].toLily()) is not list]
                 forward_measures = [(key, self.measures[sid][key].toLily()) for key in sub_measures if type(self.measures[sid][key].toLily()) is list]

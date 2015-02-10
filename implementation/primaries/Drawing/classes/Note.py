@@ -162,9 +162,6 @@ class Note(BaseClass.Base):
         val = ""
         if hasattr(self, "stem"):
             val += self.stem.toLily() + "\n"
-        if hasattr(self, "beam"):
-            if self.beam.type == "start":
-                val += self.beam.toLily()
 
         if hasattr(self, "grace"):
             val += self.grace.toLily() + " "
@@ -183,6 +180,36 @@ class Note(BaseClass.Base):
             val += lilystring
         return val
 
+    def getLilyDuration(self):
+        # method to calculate duration of note in lilypond duration style
+        value = (self.duration / self.divisions)
+        value = (1 / value)
+        value *= 4
+
+        if value >= 1:
+            if math.ceil(value) == value:
+                if hasattr(self, "trem_length"):
+                    value *= self.trem_length
+                value = str(int(value))
+
+            else:
+                rounded = math.ceil(value)
+                if hasattr(self, "trem_length"):
+                    rounded *= self.trem_length
+                value = str(rounded)
+        else:
+            if value == 0.5:
+                value = "\\breve"
+            if value == 0.25:
+                value = "\longa"
+        return value
+
+    def addBeam(self, id, beam):
+        if not hasattr(self, "beams"):
+            self.beams = {}
+        self.beams[id] = beam
+
+
     def toLily(self):
         val = ""
         val += self.handlePreLilies()
@@ -191,26 +218,7 @@ class Note(BaseClass.Base):
         if self.rest:
             val += "r"
         if hasattr(self, "duration"):
-            value = (self.duration / self.divisions)
-            value = (1 / value)
-            value *= 4
-
-            if value >= 1:
-                if math.ceil(value) == value:
-                    if hasattr(self, "trem_length"):
-                        value *= self.trem_length
-                    val += str(int(value))
-
-                else:
-                    rounded = math.ceil(value)
-                    if hasattr(self, "trem_length"):
-                        rounded *= self.trem_length
-                    val += str(rounded)
-            else:
-                if value == 0.5:
-                    val += "\\breve"
-                if value == 0.25:
-                    val += "\longa"
+            val += self.getLilyDuration()
         val += self.handlePostLilies()
         value = self.LilyWrap(val)
         return value
@@ -225,9 +233,9 @@ class Note(BaseClass.Base):
         val = "".join([value.toLily() for value in self.postnotation])
         if hasattr(self, "notehead"):
             val += self.notehead.toLily()
-        if hasattr(self, "beam"):
-            if self.beam.type == "stop":
-                val += self.beam.toLily()
+        if hasattr(self, "beams"):
+            for beam in self.beams:
+                val += self.beams[beam].toLily()
         return val
 
 class Tuplet(BaseClass.Base):
@@ -349,8 +357,8 @@ class Beam(Stem):
     def toLily(self):
         val = "\\autoBeamOn"
         if hasattr(self, "type"):
-            if self.type == "start":
+            if self.type == "begin":
                 val = "["
-            elif self.type == "stop":
+            elif self.type == "end":
                 val = "]"
         return val
