@@ -99,6 +99,7 @@ class Part(object):
         return measure_strings
 
     def toLily(self):
+        self.CheckDivisions()
         lilystring = ""
         staff_nums = list(self.measures.keys())
         if len(staff_nums) > 0:

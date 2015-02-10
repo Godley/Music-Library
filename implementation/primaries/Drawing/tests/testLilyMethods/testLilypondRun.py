@@ -23,6 +23,7 @@ class testAccidentals(testRun):
         self.file = os.path.join(folder, "accidentals.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+
         testRun.setUp(self)
 
 class testActorPreludeSample(testRun):
@@ -30,6 +31,7 @@ class testActorPreludeSample(testRun):
         self.file = os.path.join(folder, "ActorPreludeSample.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testarpeggiosAndGlissandos(testRun):
@@ -37,6 +39,7 @@ class testarpeggiosAndGlissandos(testRun):
         self.file = os.path.join(folder, "arpeggiosAndGlissandos.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 
@@ -45,6 +48,7 @@ class testbarlines(testRun):
         self.file = os.path.join(folder, "barlines.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testbeams(testRun):
@@ -52,6 +56,7 @@ class testbeams(testRun):
         self.file = os.path.join(folder, "beams.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testbreathmarks(testRun):
@@ -59,6 +64,7 @@ class testbreathmarks(testRun):
         self.file = os.path.join(folder, "breathMarks.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testclefs(testRun):
@@ -66,6 +72,7 @@ class testclefs(testRun):
         self.file = os.path.join(folder, "clefs.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testdurationandstem(testRun):
@@ -73,6 +80,7 @@ class testdurationandstem(testRun):
         self.file = os.path.join(folder, "duration_and_stem_direction.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testdynamics(testRun):
@@ -80,6 +88,7 @@ class testdynamics(testRun):
         self.file = os.path.join(folder, "dynamics.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 
@@ -88,6 +97,7 @@ class testfingering(testRun):
         self.file = os.path.join(folder, "fingering.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testgracenotes(testRun):
@@ -95,6 +105,7 @@ class testgracenotes(testRun):
         self.file = os.path.join(folder, "GraceNotes.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testkeysig(testRun):
@@ -102,6 +113,7 @@ class testkeysig(testRun):
         self.file = os.path.join(folder, "keySignatures.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testlines(testRun):
@@ -109,6 +121,7 @@ class testlines(testRun):
         self.file = os.path.join(folder, "lines.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+
         self.dontcleanup = True
         testRun.setUp(self)
 
@@ -117,6 +130,7 @@ class testmultiple(testRun):
         self.file = os.path.join(folder, "multiple_parts.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+
         testRun.setUp(self)
 
 class testnoteheads(testRun):
@@ -124,6 +138,7 @@ class testnoteheads(testRun):
         self.file = os.path.join(folder, "noteheads.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testrepeats(testRun):
@@ -131,6 +146,7 @@ class testrepeats(testRun):
         self.file = os.path.join(folder, "repeatMarks.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testtext(testRun):
@@ -138,6 +154,7 @@ class testtext(testRun):
         self.file = os.path.join(folder, "text.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testtremolo(testRun):
@@ -145,6 +162,7 @@ class testtremolo(testRun):
         self.file = os.path.join(folder, "Tremolo.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 
@@ -153,6 +171,7 @@ class testtrills(testRun):
         self.file = os.path.join(folder, "TrillsFermataOrnaments.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testtuplets(testRun):
@@ -160,6 +179,7 @@ class testtuplets(testRun):
         self.file = os.path.join(folder, "tuplets.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)
 
 class testtwostavesonepart(testRun):
@@ -167,4 +187,5 @@ class testtwostavesonepart(testRun):
         self.file = os.path.join(folder, "two_staves_one_part.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
+        self.dontcleanup = True
         testRun.setUp(self)

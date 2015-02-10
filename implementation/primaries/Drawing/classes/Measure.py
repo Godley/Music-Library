@@ -18,10 +18,9 @@ class Measure(BaseClass.Base):
 
     def CheckDivisions(self):
         if hasattr(self, "divisions"):
-            for n in self.items:
-                if n is Note.Note:
-                    if self.divisions is not None:
-                        n.divisions = float(self.divisions)
+            for n in self.notes:
+                if self.divisions is not None:
+                    n.divisions = float(self.divisions)
 
 
     def __str__(self):
