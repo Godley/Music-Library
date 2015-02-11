@@ -1,5 +1,5 @@
 __author__ = 'charlotte'
-clef_type = {"G2": "treble", "G1": "french", "F4": "bass", "F3": "baritonevarF", "F5": "subbass", "C3": "alto",
+clef_type = {"G2": "treble", "G1": "french", "F4": "bass", "F3": "varbaritone", "F5": "subbass", "C3": "alto",
              "C4": "tenor", "C5": "baritone", "C2": "mezzosoprano", "C1": "soprano", "VARC3": "altovarC", "VARC4": "tenorvarC", "VARC5": "baritonevarC"}
 
 
@@ -24,7 +24,8 @@ class Clef(object):
         return name
 
     def toLily(self):
-        val = "\clef"
+        val = "\clef "
+        clef = ""
         if hasattr(self, "sign"):
             key = self.sign.upper()
             if self.sign == "TAB":
@@ -32,11 +33,16 @@ class Clef(object):
             if hasattr(self, "line"):
                 key += str(self.line)
                 if key in clef_type:
-                    val += " " + clef_type[self.sign.upper() + str(self.line)]
+                    clef = clef_type[self.sign.upper() + str(self.line)]
             elif self.sign.upper() in clef_type:
-                val += clef_type[self.sign.upper()]
+                clef = clef_type[self.sign.upper()]
             else:
-                val += " " + self.sign
+                clef = " " + self.sign
         else:
-            val += " treble"
+            clef = " treble"
+        if hasattr(self, "octave_change"):
+            options = {1:"^8",2:"^15",-1:"_8",-2:"_15"}
+            if self.octave_change in options:
+                clef = "\""+clef+ options[self.octave_change]+"\""
+        val += clef
         return val
