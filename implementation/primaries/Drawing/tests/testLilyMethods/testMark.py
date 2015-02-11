@@ -68,7 +68,7 @@ class testCaesura(Lily):
     def setUp(self):
         self.item = Mark.Caesura()
 
-        self.lilystring = {"styling":"\override BreathingSign.text = \markup { \musicglyph #\"scripts.caesura.curved\" }", "lstring":"\\breathe "}
+        self.lilystring = ["\override BreathingSign.text = \markup { \musicglyph #\"scripts.caesura.curved\" }","\\breathe "]
 
 
 class testTechnique(Lily):
