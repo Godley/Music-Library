@@ -143,10 +143,13 @@ class Note(BaseClass.Base):
                 options = {1:2,2:4,3:8}
                 if hasattr(obj, "value"):
                     self.trem_length = options[obj.value]
-            if hasattr(obj, "type") and obj.type == "stop":
-                self.postnotation.append(obj)
-            else:
-                self.prenotation.append(obj)
+            if hasattr(obj, "type"):
+                if obj.type != "single":
+                    self.trem_length *= 2
+                if obj.type == "stop":
+                    self.postnotation.append(obj)
+                else:
+                    self.prenotation.append(obj)
             return
         if type(obj) in wrap_notation:
             self.wrap_notation.append(obj)
@@ -217,7 +220,10 @@ class Note(BaseClass.Base):
                 if value == 0.25:
                     value = "\longa"
         else:
-            value = str(self.duration)
+            value = self.duration
+            if hasattr(self, "trem_length"):
+                value *= self.trem_length
+            value = str(value)
         return value
 
     def addBeam(self, id, beam):

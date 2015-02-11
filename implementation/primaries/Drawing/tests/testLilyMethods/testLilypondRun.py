@@ -105,7 +105,6 @@ class testgracenotes(testRun):
         self.file = os.path.join(folder, "GraceNotes.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
-        self.dontcleanup = True
         testRun.setUp(self)
 
 class testkeysig(testRun):
