@@ -61,7 +61,7 @@ class testVeryLongFermata(Lily):
 class testBreathMark(Lily):
     def setUp(self):
         self.item = Mark.BreathMark()
-        self.lilystring = "\\breathe "
+        self.lilystring = ["\override Staff.BreathingSign.text = \markup { \musicglyph #\"scripts.rvarcomma\" }", "\\breathe "]
 
 
 class testCaesura(Lily):

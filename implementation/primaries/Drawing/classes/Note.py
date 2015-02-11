@@ -134,7 +134,7 @@ class Note(BaseClass.Base):
         self.has_tremolo = False
 
     def addNotation(self, obj):
-        wrap_notation = [Arpeggiate,NonArpeggiate,Slide,Glissando,Mark.Caesura]
+        wrap_notation = [Arpeggiate,NonArpeggiate,Slide,Glissando,Mark.Caesura,Mark.BreathMark]
         # method to handle addition of notation: done here to avoid repetitive code in main parser
         if isinstance(obj, Ornaments.Tremolo) or isinstance(obj, Tuplet):
             if isinstance(obj, Ornaments.Tremolo):

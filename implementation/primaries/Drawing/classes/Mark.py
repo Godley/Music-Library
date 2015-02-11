@@ -132,13 +132,14 @@ class BreathMark(Notation):
     def toLily(self):
         val = Notation.toLily(self)
         val += "breathe "
-        return val
+        styling = "\override Staff.BreathingSign.text = \markup { \musicglyph #\"scripts.rvarcomma\" }"
+        return [styling, val]
 
 class Caesura(BreathMark):
     def toLily(self):
         lstring = BreathMark.toLily(self)
         styling = "\override BreathingSign.text = \markup { \musicglyph #\"scripts.caesura.curved\" }"
-        return [styling,lstring]
+        return [styling,lstring[1]]
 
 class Technique(Notation):
     def __init__(self, **kwargs):
