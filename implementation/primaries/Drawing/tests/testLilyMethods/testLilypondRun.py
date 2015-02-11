@@ -74,7 +74,6 @@ class testclefs(testRun):
         self.file = os.path.join(folder, "clefs.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
-        self.dontcleanup = True
         testRun.setUp(self)
 
 class testdurationandstem(testRun):

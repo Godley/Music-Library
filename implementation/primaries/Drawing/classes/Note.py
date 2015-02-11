@@ -144,7 +144,7 @@ class Note(BaseClass.Base):
                 if hasattr(obj, "value"):
                     self.trem_length = options[obj.value]
             if hasattr(obj, "type"):
-                if obj.type != "single":
+                if isinstance(obj, Ornaments.Tremolo) and obj.type != "single":
                     self.trem_length *= 2
                 if obj.type == "stop":
                     self.postnotation.append(obj)
@@ -213,7 +213,7 @@ class Note(BaseClass.Base):
                     rounded = math.ceil(value)
                     if hasattr(self, "trem_length"):
                         rounded *= self.trem_length
-                    value = str(rounded)
+                    value = str(int(rounded))
             else:
                 if value == 0.5:
                     value = "\\breve"
@@ -223,7 +223,7 @@ class Note(BaseClass.Base):
             value = self.duration
             if hasattr(self, "trem_length"):
                 value *= self.trem_length
-            value = str(value)
+            value = str(int(value))
         return value
 
     def addBeam(self, id, beam):
@@ -252,12 +252,13 @@ class Note(BaseClass.Base):
         lilystring = prefixes_and_current + postfixes
         return lilystring
     def handlePostLilies(self):
-        val = "".join([value.toLily() for value in self.postnotation])
-        if hasattr(self, "notehead"):
-            val += self.notehead.toLily()
+        val = ""
         if hasattr(self, "beams"):
             for beam in self.beams:
-                val += self.beams[beam].toLily()
+                val = self.beams[beam].toLily()
+        val += "".join([value.toLily() for value in self.postnotation])
+        if hasattr(self, "notehead"):
+            val += self.notehead.toLily()
         return val
 
 class Tuplet(BaseClass.Base):
