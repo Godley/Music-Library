@@ -63,11 +63,12 @@ class testBreathMark(Lily):
         self.item = Mark.BreathMark()
         self.lilystring = "\\breathe "
 
-#TODO: handle symbol change
+
 class testCaesura(Lily):
     def setUp(self):
         self.item = Mark.Caesura()
-        self.lilystring = "\\breathe "
+
+        self.lilystring = {"styling":"\override BreathingSign.text = \markup { \musicglyph #\"scripts.caesura.curved\" }", "lstring":"\\breathe "}
 
 
 class testTechnique(Lily):

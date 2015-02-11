@@ -211,6 +211,9 @@ class Note(BaseClass.Base):
 
 
     def toLily(self):
+        styles = [notation.toLily() for notation in self.postnotation if type(notation.toLily()) == dict]
+        print("s",styles)
+        self.styles = [style["styling"] for style in styles]
         val = ""
         val += self.handlePreLilies()
         if hasattr(self, "pitch") and not self.rest:
@@ -230,7 +233,9 @@ class Note(BaseClass.Base):
         lilystring = prefixes_and_current + postfixes
         return lilystring
     def handlePostLilies(self):
-        val = "".join([value.toLily() for value in self.postnotation])
+        postlilies = [value.toLily() for value in self.postnotation]
+        val = "".join([value for value in postlilies if type(value) != dict])
+        val += "".join([value["lstring"] for value in postlilies if type(value) == dict])
         if hasattr(self, "notehead"):
             val += self.notehead.toLily()
         if hasattr(self, "beams"):
@@ -355,7 +360,7 @@ class NonArpeggiate(Arpeggiate):
 
 class Beam(Stem):
     def toLily(self):
-        val = "\\autoBeamOn"
+        val = ""
         if hasattr(self, "type"):
             if self.type == "begin":
                 val = "["

@@ -1,4 +1,4 @@
-from implementation.primaries.Drawing.classes import Note, Ornaments
+from implementation.primaries.Drawing.classes import Note, Ornaments, Mark
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 
 class testNote(Lily):
@@ -18,12 +18,28 @@ class testNotePitch(Lily):
         self.wrappers = ["\\new Staff{","}"]
         self.name = "notepitch"
 
+class testNoteWithCaesura(Lily):
+    def setUp(self):
+        self.item = Note.Note()
+        self.item.pitch = Note.Pitch()
+        self.item.addNotation(Mark.Caesura())
+        self.lilystring = "c'\\breathe "
+        self.styles = ["\override BreathingSign.text = \markup { \musicglyph #\"scripts.caesura.curved\" }"]
+
+    def testStyles(self):
+        self.item.toLily()
+        self.assertTrue(hasattr(self.item,"styles"))
+
+    def testStyleVal(self):
+        self.item.toLily()
+        self.assertEqual(self.styles, self.item.styles)
+
 class testNoteBeaming(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
         self.item.addBeam(1, Note.Beam("begin"))
-        self.lilystring = "[c'"
+        self.lilystring = "c'["
 
         Lily.setUp(self)
         self.compile = True
@@ -128,18 +144,18 @@ class testNoteBeam(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.beam = Note.Beam("start")
+        self.item.addBeam(1, Note.Beam("begin"))
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{a ","8]}"]
-        self.lilystring = "[c'"
+        self.lilystring = "c'["
         self.name = "notebeamstart"
 
 class testNoteContinue(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.beam = Note.Beam("continue")
+        self.item.addBeam(1, Note.Beam("continue"))
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{a [c'8","8]}"]
@@ -150,7 +166,7 @@ class testNoteStop(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.beam = Note.Beam("stop")
+        self.item.addBeam(1,Note.Beam("end"))
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{a [","}"]
