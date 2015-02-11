@@ -74,6 +74,14 @@ class testCreateNoteHandler(notes):
         self.assertTrue(hasattr(MxmlParser.note,"duration"), "ERROR: note should have duration attrib")
         self.assertEqual(8, MxmlParser.note.duration, "ERROR: note duration set incorrectly")
 
+    def testTypeTag(self):
+        self.tags.append("type")
+        self.chars["type"] = "eighth"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.note,"val_type"))
+        self.assertEqual(8, MxmlParser.note.duration)
+
+
     def testDotTag(self):
         self.tags.append("dot")
         self.handler(self.tags, self.attrs, self.chars, self.piece)

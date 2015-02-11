@@ -20,7 +20,7 @@ class Measure(BaseClass.Base):
         if hasattr(self, "divisions"):
             for n in self.notes:
                 if self.divisions is not None:
-                    n.divisions = float(self.divisions)
+                    n.CheckDivisions(self.divisions)
 
 
     def __str__(self):

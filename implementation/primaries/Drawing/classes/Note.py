@@ -124,6 +124,8 @@ class Note(BaseClass.Base):
             self.pitch = kwargs["pitch"]
         if "duration" in kwargs:
             self.duration = float(kwargs["duration"])
+        elif "type" in kwargs:
+            self.SetType(kwargs["type"])
         if "divisions" in kwargs:
             self.divisions = float(kwargs["divisions"])
         else:
@@ -151,7 +153,17 @@ class Note(BaseClass.Base):
             return
         self.postnotation.append(obj)
 
+    def SetType(self, type):
+        self.val_type = type
+        options = {"32nd":32,"16th":16,"eighth":8,"quarter":4,"half":2,"whole":1}
+        if type in options:
+            self.duration = options[self.val_type]
 
+    def CheckDivisions(self, measure_div):
+        if hasattr(self, "val_type"):
+            self.divisions = 1
+        else:
+            self.divisions = measure_div
 
     def __str__(self):
         if hasattr(self, "divisions") and hasattr(self, "duration"):
@@ -183,26 +195,29 @@ class Note(BaseClass.Base):
 
     def getLilyDuration(self):
         # method to calculate duration of note in lilypond duration style
-        value = (self.duration / self.divisions)
-        value = (1 / value)
-        value *= 4
+        if not hasattr(self, "val_type"):
+            value = (self.duration / self.divisions)
+            value = (1 / value)
+            value *= 4
 
-        if value >= 1:
-            if math.ceil(value) == value:
-                if hasattr(self, "trem_length"):
-                    value *= self.trem_length
-                value = str(int(value))
+            if value >= 1:
+                if math.ceil(value) == value:
+                    if hasattr(self, "trem_length"):
+                        value *= self.trem_length
+                    value = str(int(value))
 
+                else:
+                    rounded = math.ceil(value)
+                    if hasattr(self, "trem_length"):
+                        rounded *= self.trem_length
+                    value = str(rounded)
             else:
-                rounded = math.ceil(value)
-                if hasattr(self, "trem_length"):
-                    rounded *= self.trem_length
-                value = str(rounded)
+                if value == 0.5:
+                    value = "\\breve"
+                if value == 0.25:
+                    value = "\longa"
         else:
-            if value == 0.5:
-                value = "\\breve"
-            if value == 0.25:
-                value = "\longa"
+            value = str(self.duration)
         return value
 
     def addBeam(self, id, beam):
@@ -270,7 +285,7 @@ class GraceNote(BaseClass.Base):
 
     def toLily(self):
         val = "\grace"
-        if hasattr(self, "slash"):
+        if hasattr(self, "slash") and self.slash:
             val = "\slashedGrace"
         return val
 class TimeModifier(BaseClass.Base):

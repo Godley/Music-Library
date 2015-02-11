@@ -7,6 +7,12 @@ class testNote(Lily):
         self.lilystring = ""
         Lily.setUp(self)
 
+class testNoteWithType(Lily):
+    def setUp(self):
+        self.item = Note.Note(type="eighth")
+        self.lilystring = "8"
+        Lily.setUp(self)
+
 
 class testNotePitch(Lily):
     def setUp(self):

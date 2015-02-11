@@ -682,6 +682,9 @@ def CreateNote(tag, attrs, content, piece):
         if "cue" in tag:
             note.cue = True
 
+        if "type" in tag:
+            note.SetType(content["type"])
+
         if "grace" in tag:
             slash = False
             if "grace" in attrs:
