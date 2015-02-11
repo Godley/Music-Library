@@ -281,12 +281,18 @@ class GraceNote(BaseClass.Base):
     def __init__(self, **kwargs):
         if "slash" in kwargs:
             self.slash = kwargs["slash"]
+        if "first" in kwargs and kwargs["first"] is not None:
+            self.first = kwargs["first"]
         BaseClass.Base.__init__(self)
 
     def toLily(self):
         val = "\grace"
         if hasattr(self, "slash") and self.slash:
             val = "\slashedGrace"
+        if hasattr(self, "first") and self.first:
+            val += " {"
+        else:
+            val = ""
         return val
 class TimeModifier(BaseClass.Base):
     def __init__(self, **kwargs):

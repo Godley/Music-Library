@@ -691,6 +691,11 @@ def CreateNote(tag, attrs, content, piece):
                 if "slash" in attrs["grace"]:
                     slash = YesNoToBool(attrs["grace"]["slash"])
             note.grace = Note.GraceNote(slash=slash)
+            if len(notes[staff_id]) > 1:
+                if not hasattr(notes[staff_id][len(notes[staff_id])-2], "grace"):
+                    note.grace.first = True
+            else:
+                note.grace.first = True
         if tag[-1] == "duration" and "note" in tag:
             note.duration = float(content["duration"])
             if hasattr(measure, "divisions"):

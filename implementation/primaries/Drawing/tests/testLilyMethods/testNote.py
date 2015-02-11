@@ -186,12 +186,35 @@ class testGraceNote(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.grace = Note.GraceNote()
+        self.item.grace = Note.GraceNote(first=True)
         Lily.setUp(self)
         self.compile = True
-        self.wrappers = ["\\new Staff{","}"]
-        self.lilystring = "\grace c'"
+        self.wrappers = ["\\new Staff{","}}"]
+        self.lilystring = "\grace { c'"
         self.name = "notegrace"
+
+class testGraceNoteSlash(Lily):
+    def setUp(self):
+        self.item = Note.Note()
+        self.item.pitch = Note.Pitch()
+        self.item.grace = Note.GraceNote(slash=True, first=True)
+        Lily.setUp(self)
+        self.compile = True
+        self.wrappers = ["\\new Staff{","}}"]
+        self.lilystring = "\slashedGrace { c'"
+        self.name = "notegrace"
+
+class testGraceNoteContinue(Lily):
+    def setUp(self):
+        self.item = Note.Note()
+        self.item.pitch = Note.Pitch()
+        self.item.grace = Note.GraceNote(slash=True)
+        Lily.setUp(self)
+        self.compile = True
+        self.wrappers = ["\\new Staff{","}}"]
+        self.lilystring = " c'"
+        self.name = "notegrace"
+
 
 class testNoteArpeggiate(Lily):
     def setUp(self):

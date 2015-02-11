@@ -63,7 +63,11 @@ class Measure(BaseClass.Base):
                     lilystring += "".join([preitem.toLily() for preitem in self.preitems[n_id]])
 
                 lilystring += " "+self.notes[n_id].toLily()
-
+                if len(self.notes)-1 > n_id:
+                    if hasattr(self.notes[n_id], "grace") and not hasattr(self.notes[n_id+1], "grace"):
+                        lilystring += "}"
+                elif hasattr(self.notes[n_id],"grace"):
+                    lilystring += "}"
                 #attach expressions to notes (these are classed as directions in mxml but in lilypond they have to be
                 # attached to notes, e.g dynamics)
                 if n_id in self.expressions:

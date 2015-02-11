@@ -31,6 +31,19 @@ class testMeasureNote(MeasureTests):
         Lily.setUp(self)
         self.name = "measurenote"
 
+class testMeasureNoteWithGrace(MeasureTests):
+    def setUp(self):
+        self.item = Measure.Measure()
+        note = Note.Note()
+        note.pitch= Note.Pitch()
+        note.grace = Note.GraceNote(first=True)
+        self.item.addNote(note)
+        self.lilystring = " \grace { c'}"
+        self.compile = True
+        self.wrappers = ["\\new Staff {", "}"]
+        Lily.setUp(self)
+        self.name = "measurenotegrace"
+
 class testMeasureTempo(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
