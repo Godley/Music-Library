@@ -2,6 +2,8 @@ from implementation.primaries.Drawing.classes import MxmlParser, LilypondRender
 import unittest, os
 script = "/Users/charlottegodley/bin/lilypond"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
+
+#runs all testcases from start to end
 class testRun(unittest.TestCase):
     def setUp(self):
         if hasattr(self, "item"):
@@ -184,5 +186,4 @@ class testtwostavesonepart(testRun):
         self.file = os.path.join(folder, "two_staves_one_part.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
-        self.dontcleanup = True
         testRun.setUp(self)

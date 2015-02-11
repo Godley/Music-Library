@@ -143,7 +143,7 @@ class testBracketStop(Lily):
 class testBracketlType(Lily):
     def setUp(self):
         self.item = Directions.Bracket(ltype="solid")
-        self.lilystring = "\override TextSpanner.dash-fraction = 1.0\\startTextSpanner"
+        self.lilystring = ["\override TextSpanner.dash-fraction = 1.0","\\startTextSpanner"]
 
 class testMetronome(Lily):
     def setUp(self):
