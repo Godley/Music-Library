@@ -138,7 +138,7 @@ class Caesura(BreathMark):
     def toLily(self):
         lstring = BreathMark.toLily(self)
         styling = "\override BreathingSign.text = \markup { \musicglyph #\"scripts.caesura.curved\" }"
-        return {"styling":styling,"lstring":lstring}
+        return [styling,lstring]
 
 class Technique(Notation):
     def __init__(self, **kwargs):

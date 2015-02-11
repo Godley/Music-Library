@@ -1,7 +1,7 @@
 try:
-    from classes import BaseClass, Ornaments
+    from classes import BaseClass, Ornaments, Mark
 except:
-    from implementation.primaries.Drawing.classes import BaseClass, Ornaments
+    from implementation.primaries.Drawing.classes import BaseClass, Ornaments, Mark
 
 import math
 class Tie(BaseClass.Base):
@@ -134,6 +134,7 @@ class Note(BaseClass.Base):
         self.has_tremolo = False
 
     def addNotation(self, obj):
+        wrap_notation = [Arpeggiate,NonArpeggiate,Slide,Glissando,Mark.Caesura]
         # method to handle addition of notation: done here to avoid repetitive code in main parser
         if isinstance(obj, Ornaments.Tremolo) or isinstance(obj, Tuplet):
             if isinstance(obj, Ornaments.Tremolo):
@@ -145,7 +146,7 @@ class Note(BaseClass.Base):
             else:
                 self.prenotation.append(obj)
             return
-        if isinstance(obj, Arpeggiate) or isinstance(obj, NonArpeggiate) or isinstance(obj, Slide) or isinstance(obj, Glissando):
+        if type(obj) in wrap_notation:
             self.wrap_notation.append(obj)
             return
         self.postnotation.append(obj)
@@ -211,9 +212,6 @@ class Note(BaseClass.Base):
 
 
     def toLily(self):
-        styles = [notation.toLily() for notation in self.postnotation if type(notation.toLily()) == dict]
-        print("s",styles)
-        self.styles = [style["styling"] for style in styles]
         val = ""
         val += self.handlePreLilies()
         if hasattr(self, "pitch") and not self.rest:
@@ -233,9 +231,7 @@ class Note(BaseClass.Base):
         lilystring = prefixes_and_current + postfixes
         return lilystring
     def handlePostLilies(self):
-        postlilies = [value.toLily() for value in self.postnotation]
-        val = "".join([value for value in postlilies if type(value) != dict])
-        val += "".join([value["lstring"] for value in postlilies if type(value) == dict])
+        val = "".join([value.toLily() for value in self.postnotation])
         if hasattr(self, "notehead"):
             val += self.notehead.toLily()
         if hasattr(self, "beams"):

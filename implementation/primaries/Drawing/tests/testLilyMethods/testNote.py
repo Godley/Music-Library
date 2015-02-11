@@ -23,16 +23,8 @@ class testNoteWithCaesura(Lily):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
         self.item.addNotation(Mark.Caesura())
-        self.lilystring = "c'\\breathe "
-        self.styles = ["\override BreathingSign.text = \markup { \musicglyph #\"scripts.caesura.curved\" }"]
+        self.lilystring = "\override BreathingSign.text = \markup { \musicglyph #\"scripts.caesura.curved\" } c'\\breathe "
 
-    def testStyles(self):
-        self.item.toLily()
-        self.assertTrue(hasattr(self.item,"styles"))
-
-    def testStyleVal(self):
-        self.item.toLily()
-        self.assertEqual(self.styles, self.item.styles)
 
 class testNoteBeaming(Lily):
     def setUp(self):
