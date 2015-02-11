@@ -697,7 +697,8 @@ def CreateNote(tag, attrs, content, piece):
             else:
                 note.grace.first = True
         if tag[-1] == "duration" and "note" in tag:
-            note.duration = float(content["duration"])
+            if not hasattr(note, "duration"):
+                note.duration = float(content["duration"])
             if hasattr(measure, "divisions"):
                 if measure.divisions is not None:
                     note.divisions = float(measure.divisions)

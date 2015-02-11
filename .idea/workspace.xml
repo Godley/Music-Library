@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Clef.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Clef.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/tuplets.xml" afterPath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/tuplets.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -109,12 +111,62 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="clefs.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/clefs.xml">
+      <file leaf-file-name="Note.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6147541" vertical-offset="1215" max-vertical-offset="6465">
-              <caret line="101" column="37" selection-start-line="101" selection-start-column="33" selection-end-line="101" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2316" max-vertical-offset="5865">
+              <caret line="160" column="29" selection-start-line="160" selection-start-column="29" selection-end-line="160" selection-end-column="29" />
+              <folding>
+                <element signature="e#5412#5591#0" expanded="false" />
+                <element signature="e#7411#7499#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tuplets.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/tuplets.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3319672" vertical-offset="12003" max-vertical-offset="15225">
+              <caret line="811" column="15" selection-start-line="811" selection-start-column="15" selection-end-line="811" selection-end-column="15" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MxmlParser.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-13.222222" vertical-offset="7518" max-vertical-offset="13065">
+              <caret line="700" column="16" selection-start-line="700" selection-start-column="16" selection-end-line="700" selection-end-column="16" />
+              <folding>
+                <element signature="e#560#657#0" expanded="false" />
+                <element signature="e#689#1098#1" expanded="false" />
+                <element signature="e#2506#2570#0" expanded="false" />
+                <element signature="e#2617#3175#0" expanded="false" />
+                <element signature="e#3218#3435#0" expanded="false" />
+                <element signature="e#3475#3831#0" expanded="false" />
+                <element signature="e#6426#7241#0" expanded="false" />
+                <element signature="e#6511#7023#0" expanded="false" />
+                <element signature="e#6555#6575#0" expanded="false" />
+                <element signature="e#6642#6858#0" expanded="false" />
+                <element signature="e#6916#6941#0" expanded="false" />
+                <element signature="e#6999#7023#0" expanded="false" />
+                <element signature="e#7271#7352#0" expanded="false" />
+                <element signature="e#7424#7956#0" expanded="false" />
+                <element signature="e#7424#7724#1" expanded="false" />
+                <element signature="e#7757#7940#0" expanded="false" />
+                <element signature="e#7796#7919#0" expanded="false" />
+                <element signature="e#8008#10424#0" expanded="false" />
+                <element signature="e#10476#11153#0" expanded="false" />
+                <element signature="e#12569#12946#0" expanded="false" />
+                <element signature="e#26620#26675#0" expanded="false" />
+                <element signature="e#31203#31885#0" expanded="false" />
+                <element signature="e#32846#32857#0" expanded="false" />
+                <element signature="e#32907#33799#0" expanded="false" />
+                <element signature="e#43384#44180#0" expanded="false" />
+                <element signature="e#44210#44702#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -127,7 +179,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testOrnaments.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Piece.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/clefs.xml" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testPiece.py" />
@@ -171,13 +222,14 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMark.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Mark.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleNotesAndPitches.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testNote.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Measure.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testLilypondRun.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Clef.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testLilypondRun.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/tuplets.xml" />
       </list>
     </option>
   </component>
@@ -1025,18 +1077,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00158" summary="further test fixes">
-      <created>1423092246860</created>
-      <option name="number" value="00158" />
-      <option name="project" value="LOCAL" />
-      <updated>1423092246861</updated>
-    </task>
-    <task id="LOCAL-00159" summary="changed clef testcase and fixed tests">
-      <created>1423096319211</created>
-      <option name="number" value="00159" />
-      <option name="project" value="LOCAL" />
-      <updated>1423096319211</updated>
-    </task>
     <task id="LOCAL-00160" summary="changed clef testcase and fixed tests">
       <created>1423097477355</created>
       <option name="number" value="00160" />
@@ -1319,7 +1359,19 @@
       <option name="project" value="LOCAL" />
       <updated>1423682109023</updated>
     </task>
-    <option name="localTasksCounter" value="207" />
+    <task id="LOCAL-00207" summary="fix issue #7 clefs are all now displaying correctly">
+      <created>1423683125833</created>
+      <option name="number" value="00207" />
+      <option name="project" value="LOCAL" />
+      <updated>1423683125833</updated>
+    </task>
+    <task id="LOCAL-00208" summary="sorted problem with beams (beams come before any other post notation like tuplets and such)">
+      <created>1423684087389</created>
+      <option name="number" value="00208" />
+      <option name="project" value="LOCAL" />
+      <updated>1423684087389</updated>
+    </task>
+    <option name="localTasksCounter" value="209" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -1410,8 +1462,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="added unit tests for percent repeats" />
-    <MESSAGE value="added percent repeats to lily processing. Modded the measure toLily method for this case: there's now the option to take a substring of the whole lily method by setting indexers start and end, which by default are set to the beginning and end of the list.&#10;Aaaand broke another unit test by doing all of this. yay." />
     <MESSAGE value="fixed broken unit test by changing expected output. Not sure if this is the right decision: when presented with a part which initially has 2 staves, when presented with a bar that doesn't have 2 staves, should it put in a rest, or should it ignore the issue?" />
     <MESSAGE value="further test fixes" />
     <MESSAGE value="changes to pedal marking. it's now a bit broke." />
@@ -1435,7 +1485,9 @@
     <MESSAGE value="fixed duration issue where a note has a type, but no duration - aka &quot;type&quot; = &quot;eighth&quot; converted to duration=8" />
     <MESSAGE value="sort of issue fix #10, gracenotes. Testcase now looks right, but slash isn't appearing because lilypond won't let you put a slashed gracenote next to a non-slashed grace note, so we're just not going to allow that." />
     <MESSAGE value="fixed issue #12, tremolos: based on the assumption tremolos can't be between more than 2 notes, trem_length is now multiplied by 2 if the tremolo is not a single type tremolo." />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed issue #12, tremolos: based on the assumption tremolos can't be between more than 2 notes, trem_length is now multiplied by 2 if the tremolo is not a single type tremolo." />
+    <MESSAGE value="fix issue #7 clefs are all now displaying correctly" />
+    <MESSAGE value="sorted problem with beams (beams come before any other post notation like tuplets and such)" />
+    <option name="LAST_COMMIT_MESSAGE" value="sorted problem with beams (beams come before any other post notation like tuplets and such)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1451,14 +1503,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testKeySignatures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2748538" vertical-offset="294" max-vertical-offset="2295">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testBarlines.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7076023" vertical-offset="852" max-vertical-offset="1365">
@@ -1854,14 +1898,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testLilypondRun.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5533981" vertical-offset="1290" max-vertical-offset="2880">
-          <caret line="106" column="43" selection-start-line="106" selection-start-column="43" selection-end-line="106" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="205" max-vertical-offset="1695">
@@ -1870,10 +1906,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/GraceNotes.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.2663934" vertical-offset="1713" max-vertical-offset="6165">
+          <caret line="73" column="14" selection-start-line="73" selection-start-column="9" selection-end-line="73" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/Tremolo.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5471311" vertical-offset="1128" max-vertical-offset="6450">
+          <caret line="93" column="28" selection-start-line="93" selection-start-column="28" selection-end-line="93" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/clefs.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6147541" vertical-offset="1215" max-vertical-offset="6465">
+          <caret line="101" column="37" selection-start-line="101" selection-start-column="33" selection-end-line="101" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Clef.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+          <caret line="1" column="77" selection-start-line="1" selection-start-column="77" selection-end-line="1" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testLilypondRun.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5825243" vertical-offset="810" max-vertical-offset="2865">
+          <caret line="75" column="43" selection-start-line="75" selection-start-column="43" selection-end-line="75" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.0" vertical-offset="9018" max-vertical-offset="13050">
-          <caret line="804" column="25" selection-start-line="804" selection-start-column="24" selection-end-line="804" selection-end-column="25" />
+        <state vertical-scroll-proportion="-13.222222" vertical-offset="7518" max-vertical-offset="13065">
+          <caret line="700" column="16" selection-start-line="700" selection-start-column="16" selection-end-line="700" selection-end-column="16" />
           <folding>
             <element signature="e#560#657#0" expanded="false" />
             <element signature="e#689#1098#1" expanded="false" />
@@ -1896,54 +1972,30 @@
             <element signature="e#10476#11153#0" expanded="false" />
             <element signature="e#12569#12946#0" expanded="false" />
             <element signature="e#26620#26675#0" expanded="false" />
-            <element signature="e#31153#31835#0" expanded="false" />
-            <element signature="e#32796#32807#0" expanded="false" />
-            <element signature="e#32857#33749#0" expanded="false" />
-            <element signature="e#43334#44130#0" expanded="false" />
-            <element signature="e#44160#44652#0" expanded="false" />
+            <element signature="e#31203#31885#0" expanded="false" />
+            <element signature="e#32846#32857#0" expanded="false" />
+            <element signature="e#32907#33799#0" expanded="false" />
+            <element signature="e#43384#44180#0" expanded="false" />
+            <element signature="e#44210#44702#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/GraceNotes.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.2663934" vertical-offset="1713" max-vertical-offset="6165">
-          <caret line="73" column="14" selection-start-line="73" selection-start-column="9" selection-end-line="73" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.111111" vertical-offset="1983" max-vertical-offset="5850">
-          <caret line="154" column="42" selection-start-line="154" selection-start-column="42" selection-end-line="154" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2316" max-vertical-offset="5865">
+          <caret line="160" column="29" selection-start-line="160" selection-start-column="29" selection-end-line="160" selection-end-column="29" />
           <folding>
-            <element signature="e#5339#5518#0" expanded="false" />
-            <element signature="e#7328#7416#0" expanded="false" />
+            <element signature="e#5412#5591#0" expanded="false" />
+            <element signature="e#7411#7499#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/Tremolo.xml">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/tuplets.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5471311" vertical-offset="1128" max-vertical-offset="6450">
-          <caret line="93" column="28" selection-start-line="93" selection-start-column="28" selection-end-line="93" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Clef.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
-          <caret line="1" column="77" selection-start-line="1" selection-start-column="77" selection-end-line="1" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/clefs.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6147541" vertical-offset="1215" max-vertical-offset="6465">
-          <caret line="101" column="37" selection-start-line="101" selection-start-column="33" selection-end-line="101" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.3319672" vertical-offset="12003" max-vertical-offset="15225">
+          <caret line="811" column="15" selection-start-line="811" selection-start-column="15" selection-end-line="811" selection-end-column="15" />
           <folding />
         </state>
       </provider>

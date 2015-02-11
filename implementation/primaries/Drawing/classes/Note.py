@@ -122,10 +122,10 @@ class Note(BaseClass.Base):
             self.rest = False
         if "pitch" in kwargs:
             self.pitch = kwargs["pitch"]
-        if "duration" in kwargs:
-            self.duration = float(kwargs["duration"])
-        elif "type" in kwargs:
+        if "type" in kwargs and kwargs["type"] is not None:
             self.SetType(kwargs["type"])
+        elif "duration" in kwargs:
+            self.duration = kwargs["duration"]
         if "divisions" in kwargs:
             self.divisions = float(kwargs["divisions"])
         else:
@@ -158,7 +158,7 @@ class Note(BaseClass.Base):
 
     def SetType(self, type):
         self.val_type = type
-        options = {"32nd":32,"16th":16,"eighth":8,"quarter":4,"half":2,"whole":1}
+        options = {"64th":64,"32nd":32,"16th":16,"eighth":8,"quarter":4,"half":2,"whole":1}
         if type in options:
             self.duration = options[self.val_type]
 
