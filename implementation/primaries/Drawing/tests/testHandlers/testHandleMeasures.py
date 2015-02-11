@@ -103,6 +103,14 @@ class testClef(MeasureTesting):
         self.assertTrue(hasattr(exp_measure, "clef"))
         self.assertEqual("G", exp_measure.clef.sign)
 
+    def testClefWithNumber(self):
+        self.tags.append("clef")
+        self.attrs["clef"] = {"number":"2"}
+        self.tags.append("sign")
+        self.chars["sign"] = "G"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        exp_measure = self.piece.Parts["P1"].getMeasure(1,2)
+        self.assertTrue(hasattr(exp_measure, "clef"))
 
 class testTranspose(MeasureTesting):
     def testTransposeDiatonicTag(self):

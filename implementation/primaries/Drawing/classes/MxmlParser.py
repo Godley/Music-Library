@@ -561,6 +561,9 @@ def HandleMeasures(tag, attrib, content, piece):
 
 def handleClef(tag,attrib,content,piece):
     global staff_id
+    staff = GetID(attrib, "clef", "number")
+    if staff is not None:
+        staff_id = int(staff)
     measure_id = int(GetID(attrib,"measure","number"))
     part_id = GetID(attrib,"part","id")
     part = None
@@ -568,6 +571,9 @@ def handleClef(tag,attrib,content,piece):
         part = piece.Parts[part_id]
     if part is not None:
         measure = part.getMeasure(measure_id,staff_id)
+        if measure is None:
+            part.addEmptyMeasure(measure_id, staff_id)
+            measure = part.getMeasure(measure_id,staff_id)
         if measure is not None:
             sign = None
             line = None
@@ -587,6 +593,7 @@ def handleClef(tag,attrib,content,piece):
                     measure.clef.line = int(line)
                 if octave is not None:
                     measure.clef.octave_change = octave
+    staff_id = 1
 
 def handleBarline(tag, attrib, content, piece):
     part_id = GetID(attrib, "part", "id")
