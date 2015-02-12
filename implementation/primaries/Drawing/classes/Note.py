@@ -157,7 +157,10 @@ class Note(BaseClass.Base):
                     self.postnotation.append(obj)
                 else:
                     self.prenotation.append(obj)
-            return
+                return
+            else:
+                self.prenotation.append(obj)
+                return
         if type(obj) in wrap_notation:
             self.wrap_notation.append(obj)
             return
@@ -209,31 +212,33 @@ class Note(BaseClass.Base):
 
     def getLilyDuration(self):
         # method to calculate duration of note in lilypond duration style
+        value = ""
         if not hasattr(self, "val_type"):
-            value = (self.duration / self.divisions)
-            value = (1 / value)
-            value *= 4
+            if hasattr(self, "duration") and self.duration is not None:
+                value = (self.duration / self.divisions)
+                value = (1 / value)
+                value *= 4
 
-            if value >= 1:
-                if math.ceil(value) == value:
-                    if hasattr(self, "trem_length"):
-                        value *= self.trem_length
-                    value = str(int(value))
+                if value >= 1:
+                    if math.ceil(value) == value:
+                        if hasattr(self, "trem_length"):
+                            value *= self.trem_length
 
+                    else:
+                        rounded = math.ceil(value)
+                        if hasattr(self, "trem_length"):
+                            rounded *= self.trem_length
+                        value = rounded
                 else:
-                    rounded = math.ceil(value)
-                    if hasattr(self, "trem_length"):
-                        rounded *= self.trem_length
-                    value = str(int(rounded))
-            else:
-                if value == 0.5:
-                    value = "\\breve"
-                if value == 0.25:
-                    value = "\longa"
+                    if value == 0.5:
+                        value = "\\breve"
+                    if value == 0.25:
+                        value = "\longa"
         else:
             value = self.duration
             if hasattr(self, "trem_length"):
                 value *= self.trem_length
+        if value != "":
             value = str(int(value))
         return value
 

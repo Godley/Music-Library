@@ -19,14 +19,14 @@ class Clef(object):
             name = clef_type[index]
         else:
             name += index
-        if hasattr(self, "octave_change"):
+        if hasattr(self, "octave_change") and self.octave_change is not None:
             name += "shifted " + str(self.octave_change) + " octave(s)"
         return name
 
     def toLily(self):
         val = "\clef "
         clef = ""
-        if hasattr(self, "sign"):
+        if hasattr(self, "sign") and self.sign is not None:
             key = self.sign.upper()
             if self.sign == "TAB":
                 return "\\new TabStaff {\n\clef moderntab \n}"
@@ -40,7 +40,7 @@ class Clef(object):
                 clef = self.sign
         else:
             clef = "treble"
-        if hasattr(self, "octave_change"):
+        if hasattr(self, "octave_change") and self.octave_change is not None:
             options = {1:"^8",2:"^15",-1:"_8",-2:"_15"}
             if self.octave_change in options:
                 clef = "\""+clef+ options[self.octave_change]+"\""
