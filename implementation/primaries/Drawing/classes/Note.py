@@ -223,12 +223,13 @@ class Note(BaseClass.Base):
                     if math.ceil(value) == value:
                         if hasattr(self, "trem_length"):
                             value *= self.trem_length
+                        value = int(value)
 
                     else:
                         rounded = math.ceil(value)
                         if hasattr(self, "trem_length"):
                             rounded *= self.trem_length
-                        value = rounded
+                        value = int(rounded)
                 else:
                     if value == 0.5:
                         value = "\\breve"
@@ -238,8 +239,9 @@ class Note(BaseClass.Base):
             value = self.duration
             if hasattr(self, "trem_length"):
                 value *= self.trem_length
+            value = int(value)
         if value != "":
-            value = str(int(value))
+            value = str(value)
         return value
 
     def addBeam(self, id, beam):

@@ -179,7 +179,7 @@ class testNotehead(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
-        self.lilystring = "c'\harmonic"
+        self.lilystring = "\\override NoteHead.style = #'harmonic c'\\revert NoteHead.style"
         self.name = "notehead"
 
 class testGraceNote(Lily):
