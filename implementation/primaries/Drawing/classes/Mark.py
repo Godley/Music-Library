@@ -147,21 +147,30 @@ class Technique(Notation):
         size = None
         font = None
         symbol = None
+        text = None
         if "type" in kwargs:
             self.type = kwargs["type"]
-            symbol = self.type
         if "symbol" in kwargs:
             symbol = kwargs["symbol"]
         if "placement" in kwargs:
             placement = kwargs["placement"]
-
         Notation.__init__(self,placement=placement,
                             symbol=symbol)
 
     def toLily(self):
         val = Notation.toLily(self)
         if hasattr(self, "type"):
-            splitter = self.type.split("-")
-            joined = "".join(splitter)
-            val += joined+ " "
+            if self.type != "fingering" and self.type != "pluck" and self.type !="string":
+                splitter = self.type.split("-")
+                joined = "".join(splitter)
+                val += joined+ " "
+            else:
+                if self.type == "fingering":
+                    if hasattr(self, "symbol"):
+                        val = "-"+str(self.symbol)
+                if self.type == "string":
+                    if hasattr(self, "symbol"):
+                        val = "\\"+str(self.symbol)
+                elif self.type != "fingering":
+                    val = "_\\markup { "+self.symbol+" }"
         return val

@@ -86,6 +86,12 @@ class testDownBow(Lily):
         self.item = Mark.Technique(type="down-bow")
         self.lilystring = "\downbow "
 
+class testFingering(Lily):
+    def setUp(self):
+        self.item = Mark.Technique(type="fingering",symbol="1")
+        self.lilystring = "-1"
+
+
 class testSnapPizz(Lily):
     def setUp(self):
         self.item = Mark.Technique(type="snap-pizzicato")
