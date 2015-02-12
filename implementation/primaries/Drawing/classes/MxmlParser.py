@@ -17,6 +17,8 @@ items = {}
 notes = {}
 expressions = {}
 staff_id = 1
+previous_measure = 0
+previous_part = None
 
 
 def GetID(attrs, tag, val):
@@ -99,7 +101,7 @@ class MxmlParser(object):
                 self.chars[self.tags[-1]] = text
 
     def EndTag(self, name):
-        global note, degree, frame_note, cached_clef, staff_id, last_note, notes, expressions, items
+        global note, degree, frame_note, cached_clef, staff_id, last_note, notes, expressions, items, previous_part
         if self.handler is not None and not self.d:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -117,7 +119,10 @@ class MxmlParser(object):
         if name in self.tags:
             self.tags.remove(name)
         if name == "measure":
+
             measure_id = GetID(self.attribs, "measure", "number")
+            if measure_id is not None:
+                previous_measure = int(measure_id)
             part = self.piece.Parts[self.attribs["part"]["id"]]
             #handle items
             for staff in items:
@@ -143,22 +148,34 @@ class MxmlParser(object):
                 for n in notes[staff]:
                     measure.addNote(n)
             #reset all the things
-            staff_id = 1
             last_note = 0
             expressions = {}
             notes = {}
             items = {}
+            staff = 1
+        if name == "part":
+            previous_part = GetID(self.attribs, "part", "id")
         if name in self.attribs:
             self.attribs.pop(name)
         if name in self.chars:
             self.chars.pop(name)
 
         if name == "note":
+            added = False
+            for stave in notes:
+                for n in notes[stave]:
+                    if note == n:
+                        added = True
+                        break
+
+            if not added:
+                notes[1].append(note)
             note = None
         if name == "degree":
             degree = None
         if name == "frame-note":
             frame_note = None
+
 
     def parse(self, file):
         parser = make_parser()
@@ -557,6 +574,7 @@ def HandleMeasures(tag, attrib, content, piece):
     handleBarline(tag, attrib, content, piece)
     HandleDirections(tag, attrib, content, piece)
     handleArticulation(tag, attrib, content, piece)
+
     return return_val
 
 def handleClef(tag,attrib,content,piece):
@@ -670,11 +688,8 @@ def CreateNote(tag, attrs, content, piece):
         if part_id is not None and measure_id is not None:
             measure = piece.Parts[part_id].getMeasure(measure_id, staff_id)
         if "note" in tag and note is None:
-            if staff_id not in notes:
-                notes[staff_id] = []
+
             note = Note.Note()
-            notes[staff_id].append(note)
-            last_note = len(notes[staff_id])-1
             ret_value = 1
 
         if "rest" in tag:
@@ -709,7 +724,7 @@ def CreateNote(tag, attrs, content, piece):
             note.ties.append(Note.Tie(attrs["tie"]["type"]))
         if "chord" in tag:
             note.chord = "continue"
-            if len(notes[staff_id])>1:
+            if len(notes[staff_id])>0 and note not in notes[staff_id]:
                 if not hasattr(notes[staff_id][last_note-1], "chord"):
                     notes[staff_id][last_note-1].chord = "start"
         if tag[-1] == "stem":
@@ -738,6 +753,12 @@ def CreateNote(tag, attrs, content, piece):
             else:
                 if "accidental" in content:
                     note.pitch.accidental = content["accidental"]
+        if tag[-1] == "staff":
+            staff_id = int(content["staff"])
+            if staff_id not in notes:
+                notes[staff_id] = []
+            notes[staff_id].append(note)
+            last_note = len(notes[staff_id])-1
     HandleNoteheads(tag, attrs, content, piece)
     HandleArpeggiates(tag, attrs, content, piece)
     HandleSlidesAndGliss(tag, attrs, content, piece)
