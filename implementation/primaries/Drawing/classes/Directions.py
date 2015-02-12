@@ -339,7 +339,7 @@ class Bracket(Line):
             lilystring += "\\startTextSpanner"
         if style_line == "":
             return lilystring
-        return {"styling":style_line, "lstring":lilystring}
+        return [style_line, lilystring]
 
 class Metronome(Direction):
     def __init__(self, **kwargs):

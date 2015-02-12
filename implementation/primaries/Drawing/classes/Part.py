@@ -71,7 +71,7 @@ class Part(object):
                 length = item[1][1]
                 iterator = len(measure_to_copy.notes)-1
                 total = 0
-                while total < length or iterator > -1:
+                while total < length and iterator > -1:
                     # working backwards through the bar, compare the current note total to the amount that
                     # we need to repeat
                     total += measure_to_copy.notes[iterator].duration
