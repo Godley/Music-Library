@@ -30,6 +30,8 @@ class Notehead(BaseClass.Base):
                 pre_note += options[self.type]
             else:
                 pre_note += self.type
+        else:
+            pre_note = ""
 
         return [pre_note, val]
 

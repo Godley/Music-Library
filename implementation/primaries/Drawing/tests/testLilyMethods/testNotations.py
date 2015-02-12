@@ -19,22 +19,22 @@ class testTieStop(Lily):
 class testNotehead(Lily):
     def setUp(self):
         self.item = Note.Notehead()
-        self.lilystring = "\\"
+        self.lilystring = ["","\\revert NoteHead.style"]
 
-class testNoteheadFilled(Lily):
+class testNoteheadCircleX(Lily):
     def setUp(self):
-        self.item = Note.Notehead(filled=True)
-        self.lilystring = "\\"
+        self.item = Note.Notehead(type="circle-x")
+        self.lilystring = ["\\override NoteHead.style = #'xcircle", "\\revert NoteHead.style"]
 
 class testNoteheadType(Lily):
     def setUp(self):
         self.item = Note.Notehead(type="diamond")
-        self.lilystring = "\harmonic"
+        self.lilystring = ["\\override NoteHead.style = #'harmonic", "\\revert NoteHead.style"]
 
 class testNoteheadCross(Lily):
     def setUp(self):
         self.item = Note.Notehead(type="x")
-        self.lilystring = "\\xNote"
+        self.lilystring = ["\\override NoteHead.style = #'cross", "\\revert NoteHead.style"]
 
 class testStem(Lily):
     def setUp(self):
@@ -79,13 +79,13 @@ class testTupletBracketNone(Lily):
 
 class testGraceNote(Lily):
     def setUp(self):
-        self.item = Note.GraceNote()
-        self.lilystring = "\grace"
+        self.item = Note.GraceNote(first=True)
+        self.lilystring = "\\grace {"
 
 class testGraceNoteSlash(Lily):
     def setUp(self):
-        self.item = Note.GraceNote(slash=True)
-        self.lilystring = "\slashedGrace"
+        self.item = Note.GraceNote(slash=True, first=True)
+        self.lilystring = "\slashedGrace {"
 
 class testTimeMod(Lily):
     def setUp(self):
@@ -163,17 +163,12 @@ class testGlissStop(Lily):
         self.item = Note.Glissando(type="stop")
         self.lilystring = []
 
-class testBeam(Lily):
-    def setUp(self):
-        self.item = Note.Beam(None)
-        self.lilystring = "\\autoBeamOn"
-
 class testBeamStart(Lily):
     def setUp(self):
-        self.item = Note.Beam("start")
+        self.item = Note.Beam("begin")
         self.lilystring = "["
 
 class testBeamStop(Lily):
     def setUp(self):
-        self.item = Note.Beam("stop")
+        self.item = Note.Beam("end")
         self.lilystring = "]"
