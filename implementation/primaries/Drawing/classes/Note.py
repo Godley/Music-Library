@@ -22,13 +22,16 @@ class Notehead(BaseClass.Base):
         self.filled = filled
         self.type = type
     def toLily(self):
-        val = "\\"
+        val = "\\revert NoteHead.style"
+        pre_note = "\\override NoteHead.style = #'"
         if self.type != "":
-            if self.type == "diamond":
-                val += "harmonic"
-            if self.type == "x":
-                val += "xNote"
-        return val
+            options = {"diamond":"harmonic","x":"cross","circle-x":"xcircle"}
+            if self.type in options:
+                pre_note += options[self.type]
+            else:
+                pre_note += self.type
+
+        return [pre_note, val]
 
 
 class Stem(BaseClass.Base):
@@ -185,7 +188,6 @@ class Note(BaseClass.Base):
         if hasattr(self, "chord"):
             if self.chord == "start":
                 val += "<"
-
         if hasattr(self, "grace"):
             val += self.grace.toLily() + " "
 
@@ -253,7 +255,10 @@ class Note(BaseClass.Base):
         value = self.LilyWrap(val)
         return value
     def LilyWrap(self, value):
+
         wrapped_notation_lilystrings = [wrap.toLily() for wrap in self.wrap_notation]
+        if hasattr(self, "notehead"):
+            wrapped_notation_lilystrings.append(self.notehead.toLily())
         prefixes = "".join([wrapper[0]+" " for wrapper in wrapped_notation_lilystrings if len(wrapper) > 1])
         prefixes_and_current = prefixes + value
         postfixes = "".join([wrapper[-1] for wrapper in wrapped_notation_lilystrings if len(wrapper) > 0])
@@ -268,8 +273,6 @@ class Note(BaseClass.Base):
             for beam in self.beams:
                 val = self.beams[beam].toLily()
         val += "".join([value.toLily() for value in self.postnotation])
-        if hasattr(self, "notehead"):
-            val += self.notehead.toLily()
         return val
 
 class Tuplet(BaseClass.Base):
