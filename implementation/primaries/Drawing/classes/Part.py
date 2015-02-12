@@ -104,10 +104,13 @@ class Part(object):
         staff_nums = list(self.measures.keys())
         if len(staff_nums) > 0:
             if len(staff_nums) > 1:
-                lilystring += "\\new StaffGroup <<"
+                lilystring += "\\new StaffGroup"
+                if hasattr(self, "name"):
+                    lilystring += " \with { \ninstrumentName = #\""+ self.name +" \"\n}"
+                lilystring+= " <<"
             for sid in staff_nums:
                 lilystring += "\\new Staff"
-                if hasattr(self, "name"):
+                if hasattr(self, "name") and len(staff_nums) == 1:
                     lilystring += " \with { \ninstrumentName = #\""+ self.name +" \"\n}"
                 lilystring += "{"
                 lilystring += "\\autoBeamOff "
