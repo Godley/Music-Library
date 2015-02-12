@@ -31,6 +31,22 @@ class testMeasureNote(MeasureTests):
         Lily.setUp(self)
         self.name = "measurenote"
 
+class testMeasureChord(MeasureTests):
+    def setUp(self):
+        self.item = Measure.Measure()
+        note = Note.Note(chord="start")
+
+        note.pitch= Note.Pitch()
+        self.item.addNote(note)
+        note2 = Note.Note(chord="continue")
+        note2.pitch = Note.Pitch()
+        self.item.addNote(note2)
+        self.lilystring = " <c' c'>"
+        self.compile = True
+        self.wrappers = ["\\new Staff {", "}"]
+        Lily.setUp(self)
+        self.name = "measurenotechord"
+
 class testMeasureNoteWithGrace(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()

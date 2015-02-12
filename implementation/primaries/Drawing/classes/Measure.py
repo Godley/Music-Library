@@ -61,7 +61,12 @@ class Measure(BaseClass.Base):
                         lilystring += "\\repeat percent 2 {"
                 if n_id in self.preitems:
                     lilystring += "".join([preitem.toLily() for preitem in self.preitems[n_id]])
-
+                if hasattr(self.notes[n_id], "chord"):
+                    if len(self.notes) > n_id+1:
+                        if not hasattr(self.notes[n_id+1], "chord"):
+                            self.notes[n_id].chord = "stop"
+                    else:
+                        self.notes[n_id].chord = "stop"
                 lilystring += " "+self.notes[n_id].toLily()
                 if len(self.notes)-1 > n_id:
                     if hasattr(self.notes[n_id], "grace") and not hasattr(self.notes[n_id+1], "grace"):

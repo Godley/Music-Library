@@ -122,6 +122,8 @@ class Note(BaseClass.Base):
             self.rest = False
         if "pitch" in kwargs:
             self.pitch = kwargs["pitch"]
+        if "chord" in kwargs and kwargs["chord"] is not None:
+            self.chord = kwargs["chord"]
         if "type" in kwargs and kwargs["type"] is not None:
             self.SetType(kwargs["type"])
         elif "duration" in kwargs:
@@ -176,8 +178,13 @@ class Note(BaseClass.Base):
 
     def handlePreLilies(self):
         val = ""
+
         if hasattr(self, "stem"):
-            val += self.stem.toLily() + "\n"
+            if not hasattr(self,"chord") or self.chord == "start":
+                val += self.stem.toLily() + "\n"
+        if hasattr(self, "chord"):
+            if self.chord == "start":
+                val += "<"
 
         if hasattr(self, "grace"):
             val += self.grace.toLily() + " "
@@ -240,7 +247,8 @@ class Note(BaseClass.Base):
         if self.rest:
             val += "r"
         if hasattr(self, "duration"):
-            val += self.getLilyDuration()
+            if not hasattr(self,"chord"):
+                val += self.getLilyDuration()
         val += self.handlePostLilies()
         value = self.LilyWrap(val)
         return value
@@ -253,6 +261,9 @@ class Note(BaseClass.Base):
         return lilystring
     def handlePostLilies(self):
         val = ""
+        if hasattr(self,"chord") and self.chord == "stop":
+            val += ">"
+            val += self.getLilyDuration()
         if hasattr(self, "beams"):
             for beam in self.beams:
                 val = self.beams[beam].toLily()

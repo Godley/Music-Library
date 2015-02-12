@@ -216,6 +216,36 @@ class testGraceNoteContinue(Lily):
         self.name = "notegrace"
 
 
+class testChordNoteStart(Lily):
+    def setUp(self):
+        self.item = Note.Note(chord="start")
+        self.item.pitch = Note.Pitch()
+        Lily.setUp(self)
+        self.compile = True
+        self.wrappers = ["\\new Staff{",">}"]
+        self.lilystring = "<c'"
+        self.name = "notechord"
+
+class testChordNoteContinue(Lily):
+    def setUp(self):
+        self.item = Note.Note(chord="continue")
+        self.item.pitch = Note.Pitch()
+        Lily.setUp(self)
+        self.compile = True
+        self.wrappers = ["\\new Staff{","}"]
+        self.lilystring = "c'"
+        self.name = "chordcont"
+
+class testChordNoteEnd(Lily):
+    def setUp(self):
+        self.item = Note.Note(chord="stop")
+        self.item.pitch = Note.Pitch()
+        Lily.setUp(self)
+        self.compile = True
+        self.wrappers = ["\\new Staff{<","}"]
+        self.lilystring = "c'>"
+        self.name = "notecordstop"
+
 class testNoteArpeggiate(Lily):
     def setUp(self):
         self.item = Note.Note()

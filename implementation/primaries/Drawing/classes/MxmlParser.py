@@ -708,7 +708,10 @@ def CreateNote(tag, attrs, content, piece):
         if "tie" in tag:
             note.ties.append(Note.Tie(attrs["tie"]["type"]))
         if "chord" in tag:
-            note.chord = True
+            note.chord = "continue"
+            if len(notes[staff_id])>1:
+                if not hasattr(notes[staff_id][last_note-1], "chord"):
+                    notes[staff_id][last_note-1].chord = "start"
         if tag[-1] == "stem":
             note.stem = Note.Stem(content["stem"])
 

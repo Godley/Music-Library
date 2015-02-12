@@ -51,6 +51,19 @@ class testCreateNoteHandler(notes):
         self.assertIsInstance(MxmlParser.note, Note.Note)
         self.assertEqual(MxmlParser.note, self.piece.Parts["P1"].measures[1][1].notes[0])
 
+    def testNoteChordTag(self):
+        self.tags.append("chord")
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.copy()
+        self.assertTrue(hasattr(MxmlParser.note, "chord"))
+
+    def testNoteChordTagAffectsPreviousNote(self):
+        self.tags.append("chord")
+        MxmlParser.notes[1] = []
+        MxmlParser.notes[1].append(Note.Note())
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(MxmlParser.notes[1][len(MxmlParser.notes[1])-2], "chord"))
+
     def testRestTag(self):
         self.tags.append("rest")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
