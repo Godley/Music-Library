@@ -33,7 +33,7 @@ class testNoteDurations(xmlSet):
 
     def testMeasure1Note1Duration(self):
         item = piece.Parts["P1"].measures[1][1].notes[0]
-        self.assertEqual(64, item.duration)
+        self.assertEqual(1, item.duration)
 
     def testMeasure2Notes(self):
         measure = piece.Parts["P1"].measures[1][2]
@@ -41,15 +41,15 @@ class testNoteDurations(xmlSet):
 
     def testMeasure2Note1(self):
         item = piece.Parts["P1"].measures[1][2].notes[0]
-        self.assertEqual(32, item.duration)
+        self.assertEqual(2, item.duration)
 
     def testMeasure2Note2(self):
         item = piece.Parts["P1"].measures[1][2].notes[1]
-        self.assertEqual(16, item.duration)
+        self.assertEqual(4, item.duration)
 
     def testMeasure2Note3(self):
         item = piece.Parts["P1"].measures[1][2].notes[2]
-        self.assertEqual(16, item.duration)
+        self.assertEqual(4, item.duration)
 
     def testMeasure3Notes(self):
         measure = piece.Parts["P1"].measures[1][3]
@@ -61,27 +61,27 @@ class testNoteDurations(xmlSet):
 
     def testMeasure3Note2(self):
         item = piece.Parts["P1"].measures[1][3].notes[1]
-        self.assertEqual(4, item.duration)
+        self.assertEqual(16, item.duration)
 
     def testMeasure3Note3(self):
         item = piece.Parts["P1"].measures[1][3].notes[2]
-        self.assertEqual(2, item.duration)
+        self.assertEqual(32, item.duration)
 
     def testMeasure3Note4(self):
         item = piece.Parts["P1"].measures[1][3].notes[3]
-        self.assertEqual(1, item.duration)
+        self.assertEqual(64, item.duration)
 
     def testMeasure3Note5(self):
         item = piece.Parts["P1"].measures[1][3].notes[4]
-        self.assertEqual(1, item.duration)
+        self.assertEqual(64, item.duration)
 
     def testMeasure3Note6(self):
         item = piece.Parts["P1"].measures[1][3].notes[5]
-        self.assertEqual(16, item.duration)
+        self.assertEqual(4, item.duration)
 
     def testMeasure3Note7(self):
         item = piece.Parts["P1"].measures[1][3].notes[6]
-        self.assertEqual(32, item.duration)
+        self.assertEqual(2, item.duration)
 
 class testStems(xmlSet):
     def setUp(self):

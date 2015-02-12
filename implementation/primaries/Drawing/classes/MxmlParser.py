@@ -100,6 +100,46 @@ class MxmlParser(object):
             if len(self.tags) > 0:
                 self.chars[self.tags[-1]] = text
 
+    def CopyNotes(self, part, measure_id):
+        previous = None
+        for staff in notes:
+            if part.getMeasure(int(measure_id), staff) is None:
+                part.addEmptyMeasure(int(measure_id), staff)
+            measure = part.getMeasure(int(measure_id), staff)
+            for n in notes[staff]:
+                if previous is not None:
+                    if hasattr(n, "chord"):
+                        if n.chord == "continue":
+                            if not hasattr(previous, "chord"):
+                                previous.chord = "start"
+                                n.chord = "end"
+                            elif previous.chord == "end":
+                                previous.chord = "continue"
+                                n.chord = "end"
+                    if hasattr(n, "grace"):
+                        if hasattr(previous, "grace"):
+                            n.grace.first = False
+
+                measure.addNote(n)
+                previous = n
+
+    def CopyDirections(self, part, measure_id):
+        for staff in items:
+            if part.getMeasure(int(measure_id), staff) is None:
+                part.addEmptyMeasure(int(measure_id), staff)
+            measure = part.getMeasure(int(measure_id), staff)
+            for n in items[staff]:
+                for item in items[staff][n]:
+                    measure.addDirection(item, n)
+
+    def CopyExpressions(self, part, measure_id):
+        for staff in expressions:
+            if part.getMeasure(int(measure_id), staff) is None:
+                part.addEmptyMeasure(int(measure_id), staff)
+            measure = part.getMeasure(int(measure_id), staff)
+            for n in expressions[staff]:
+                for item in expressions[staff][n]:
+                    measure.addExpression(item, n)
     def EndTag(self, name):
         global note, degree, frame_note, cached_clef, staff_id, last_note, notes, expressions, items, previous_part
         if self.handler is not None and not self.d:
@@ -121,32 +161,13 @@ class MxmlParser(object):
         if name == "measure":
 
             measure_id = GetID(self.attribs, "measure", "number")
-            if measure_id is not None:
-                previous_measure = int(measure_id)
             part = self.piece.Parts[self.attribs["part"]["id"]]
             #handle items
-            for staff in items:
-                if part.getMeasure(int(measure_id), staff) is None:
-                    part.addMeasure(int(measure_id), Measure.Measure(), staff)
-                measure = part.getMeasure(int(measure_id), staff)
-                for n in items[staff]:
-                    for item in items[staff][n]:
-                        measure.addDirection(item, n)
+            self.CopyDirections(part,measure_id)
             #handle expressions
-            for staff in expressions:
-                if part.getMeasure(int(measure_id), staff) is None:
-                    part.addMeasure(int(measure_id), Measure.Measure(), staff)
-                measure = part.getMeasure(int(measure_id), staff)
-                for n in expressions[staff]:
-                    for item in expressions[staff][n]:
-                        measure.addExpression(item, n)
+            self.CopyExpressions(part,measure_id)
             #handle notes
-            for staff in notes:
-                if part.getMeasure(int(measure_id), staff) is None:
-                    part.addMeasure(int(measure_id), Measure.Measure(), staff)
-                measure = part.getMeasure(int(measure_id), staff)
-                for n in notes[staff]:
-                    measure.addNote(n)
+            self.CopyNotes(part,measure_id)
             #reset all the things
             last_note = 0
             expressions = {}
@@ -169,7 +190,10 @@ class MxmlParser(object):
                         break
 
             if not added:
+                if 1 not in notes:
+                    notes[1] = []
                 notes[1].append(note)
+                last_note = len(notes[1])-1
             note = None
         if name == "degree":
             degree = None
@@ -706,11 +730,7 @@ def CreateNote(tag, attrs, content, piece):
                 if "slash" in attrs["grace"]:
                     slash = YesNoToBool(attrs["grace"]["slash"])
             note.grace = Note.GraceNote(slash=slash)
-            if len(notes[staff_id]) > 1:
-                if not hasattr(notes[staff_id][len(notes[staff_id])-2], "grace"):
-                    note.grace.first = True
-            else:
-                note.grace.first = True
+            note.grace.first = True
         if tag[-1] == "duration" and "note" in tag:
             if not hasattr(note, "duration"):
                 note.duration = float(content["duration"])
@@ -724,9 +744,6 @@ def CreateNote(tag, attrs, content, piece):
             note.ties.append(Note.Tie(attrs["tie"]["type"]))
         if "chord" in tag:
             note.chord = "continue"
-            if len(notes[staff_id])>0 and note not in notes[staff_id]:
-                if not hasattr(notes[staff_id][last_note-1], "chord"):
-                    notes[staff_id][last_note-1].chord = "start"
         if tag[-1] == "stem":
             note.stem = Note.Stem(content["stem"])
 

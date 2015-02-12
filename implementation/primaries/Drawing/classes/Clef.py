@@ -37,9 +37,9 @@ class Clef(object):
             elif self.sign.upper() in clef_type:
                 clef = clef_type[self.sign.upper()]
             else:
-                clef = " " + self.sign
+                clef = self.sign
         else:
-            clef = " treble"
+            clef = "treble"
         if hasattr(self, "octave_change"):
             options = {1:"^8",2:"^15",-1:"_8",-2:"_15"}
             if self.octave_change in options:

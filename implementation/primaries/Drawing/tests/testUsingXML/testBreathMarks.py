@@ -29,7 +29,7 @@ class testBreath(xmlSet):
         if hasattr(self, "item_id"):
             self.item = self.measure.notes[self.item_id]
         if hasattr(self, "n_id"):
-            self.notation = self.item.postnotation[self.n_id]
+            self.notation = self.item.wrap_notation[self.n_id]
 
 
 

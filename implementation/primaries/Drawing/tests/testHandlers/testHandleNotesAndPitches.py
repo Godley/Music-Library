@@ -21,12 +21,7 @@ class notes(unittest.TestCase):
 
 
     def copy(self):
-        self.piece.Parts["P1"].measures[1][1].items.update(MxmlParser.items)
-        MxmlParser.items = {}
-        self.piece.Parts["P1"].measures[1][1].notes.extend(MxmlParser.notes[1])
-        MxmlParser.notes = {}
-        self.piece.Parts["P1"].measures[1][1].expressions.update(MxmlParser.expressions)
-        MxmlParser.expressions = {}
+        pass
 
 class testCreateNoteHandler(notes):
     def setUp(self):
@@ -49,7 +44,6 @@ class testCreateNoteHandler(notes):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.copy()
         self.assertIsInstance(MxmlParser.note, Note.Note)
-        self.assertEqual(MxmlParser.note, self.piece.Parts["P1"].measures[1][1].notes[0])
 
     def testNoteChordTag(self):
         self.tags.append("chord")
@@ -57,12 +51,13 @@ class testCreateNoteHandler(notes):
         self.copy()
         self.assertTrue(hasattr(MxmlParser.note, "chord"))
 
-    def testNoteChordTagAffectsPreviousNote(self):
-        self.tags.append("chord")
-        MxmlParser.notes[1] = []
-        MxmlParser.notes[1].append(Note.Note())
-        self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(MxmlParser.notes[1][len(MxmlParser.notes[1])-2], "chord"))
+#deprecated method of handling: not sure how to test this now? it's done at parser level rather than handler level
+    # def testNoteChordTagAffectsPreviousNote(self):
+    #     self.tags.append("chord")
+    #     MxmlParser.notes[1] = []
+    #     MxmlParser.notes[1].append(Note.Note())
+    #     self.handler(self.tags,self.attrs,self.chars,self.piece)
+    #     self.assertTrue(hasattr(MxmlParser.notes[1][len(MxmlParser.notes[1])-2], "chord"))
 
     def testRestTag(self):
         self.tags.append("rest")
@@ -110,9 +105,9 @@ class testCreateNoteHandler(notes):
         self.tags.append("tie")
         self.attrs["tie"] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        expected = MxmlParser.notes[1][-1]
-        self.assertEqual(1, len(MxmlParser.note.ties), "ERROR: note tie not added to tie list in note")
-        self.assertEqual("start",expected.ties[-1].type, "ERROR: note tie type not matching to test input")
+        expected = MxmlParser.note
+        self.assertEqual(1, len(MxmlParser.note.ties))
+        self.assertEqual("start",expected.ties[-1].type)
 
     def testStemTag(self):
         self.tags.append("stem")

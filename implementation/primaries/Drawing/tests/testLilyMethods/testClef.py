@@ -71,7 +71,7 @@ class testClefBariVarC(Lily):
 class testClefvarBaritone(Lily):
     def setUp(self):
         self.item = Clef.Clef(sign="F", line=3)
-        self.lilystring = "\clef baritonevarF"
+        self.lilystring = "\clef varbaritone"
 
 class testClefF(Lily):
     def setUp(self):

@@ -67,7 +67,11 @@ class Measure(BaseClass.Base):
                             self.notes[n_id].chord = "stop"
                     else:
                         self.notes[n_id].chord = "stop"
-                lilystring += " "+self.notes[n_id].toLily()
+                try:
+                    lilystring += " "+self.notes[n_id].toLily()
+                except AttributeError as e:
+                    print(self.notes[n_id])
+                    raise(e)
                 if len(self.notes)-1 > n_id:
                     if hasattr(self.notes[n_id], "grace") and not hasattr(self.notes[n_id+1], "grace"):
                         lilystring += "}"
