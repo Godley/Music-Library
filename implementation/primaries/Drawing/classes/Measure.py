@@ -71,7 +71,7 @@ class Measure(BaseClass.Base):
                     lilystring += " "+self.notes[n_id].toLily()
                 except AttributeError as e:
                     print(self.notes[n_id])
-                    raise(e)
+                    raise(Exception(self.notes[n_id]))
                 if len(self.notes)-1 > n_id:
                     if hasattr(self.notes[n_id], "grace") and not hasattr(self.notes[n_id+1], "grace"):
                         lilystring += "}"

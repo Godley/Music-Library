@@ -145,7 +145,7 @@ class testNoteBeam(Lily):
         self.item.addBeam(1, Note.Beam("begin"))
         Lily.setUp(self)
         self.compile = True
-        self.wrappers = ["\\new Staff{a ","8]}"]
+        self.wrappers = ["\\new Staff{a8 ","c'8]}"]
         self.lilystring = "c'["
         self.name = "notebeamstart"
 
