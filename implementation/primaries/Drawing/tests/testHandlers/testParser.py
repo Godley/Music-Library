@@ -59,7 +59,7 @@ class testSaxParser(unittest.TestCase):
         tag = "whaddup"
         self.parser.StartTag(tag, None)
         self.parser.NewData(chars)
-        self.assertEqual(chars, self.parser.chars[tag], "ERROR: testCharsInDict failed as chars[tag] does not match input")
+        self.assertEqual(chars, self.parser.chars[tag])
 
     #methods testing the endtag method
     def testTagLength(self):

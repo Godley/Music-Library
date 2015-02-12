@@ -162,8 +162,9 @@ class Note(BaseClass.Base):
                 self.prenotation.append(obj)
                 return
         if type(obj) in wrap_notation:
-            self.wrap_notation.append(obj)
-            return
+            if type(obj) == Slide and not hasattr(obj, "lineType"):
+                self.wrap_notation.append(obj)
+                return
         self.postnotation.append(obj)
 
     def SetType(self, type):
@@ -278,10 +279,11 @@ class Note(BaseClass.Base):
         if hasattr(self,"chord") and self.chord == "stop":
             val += ">"
             val += self.getLilyDuration()
-        if hasattr(self, "beams"):
+        if hasattr(self, "beams") and (not hasattr(self,"chord") or self.chord == "stop"):
             for beam in self.beams:
                 val = self.beams[beam].toLily()
-        val += "".join([value.toLily() for value in self.postnotation])
+        val += "".join([value.toLily() for value in self.postnotation if type(value.toLily()) is str])
+        val += "".join([value.toLily()[0] for value in self.postnotation if type(value.toLily()) is list and len(value.toLily()) > 0])
         return val
 
 class Tuplet(BaseClass.Base):
