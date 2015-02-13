@@ -35,11 +35,13 @@ class Part(object):
                     self.measures[stave][key].CheckDivisions()
 
     def addMeasure(self, key, item, staff):
+        print("m",str(staff), str(key))
         if staff not in self.measures:
             self.measures[staff] = {}
         self.measures[staff][key] = item
 
     def addEmptyMeasure(self, key, staff):
+        print("e",str(staff), str(key))
         if staff not in self.measures:
             self.measures[staff] = {}
         self.measures[staff][key] = Measure()

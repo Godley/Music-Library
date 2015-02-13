@@ -11,6 +11,7 @@ parser = MxmlParser.MxmlParser()
 pieceObj = parser.parse(file)
 render = LilypondRender.LilypondRender(pieceObj, file)
 render.run()
-print(pieceObj)
 os.system("open "+render.pdf)
+print(pieceObj)
+
 

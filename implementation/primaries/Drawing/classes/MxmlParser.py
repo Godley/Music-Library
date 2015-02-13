@@ -7,10 +7,10 @@ except:
     from implementation.primaries.Drawing.classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
 
 note = None
+direction = None
+expression = None
 degree = None
 frame_note = None
-cached_clef = None
-measure_cached = None
 stave = 1
 last_note = 0
 items = {}
@@ -142,8 +142,23 @@ class MxmlParser(object):
             for n in expressions[staff]:
                 for item in expressions[staff][n]:
                     measure.addExpression(item, n)
+
+    def AddToGlobalList(self, item, item_dict):
+        added = False
+        for staff in item_dict:
+            for thing in item_dict[staff]:
+                if thing == item:
+                    added = True
+                    break
+        if not added:
+            if staff_id not in item_dict:
+                item_dict[staff_id] = {}
+            if last_note not in item_dict[staff_id]:
+                item_dict[staff_id][last_note] = []
+            item_dict[staff_id][last_note].append(copy.deepcopy(item))
+
     def EndTag(self, name):
-        global note, degree, frame_note, cached_clef, staff_id, last_note, notes, expressions, items, previous_part, last_barline,last_barline_pos
+        global note, degree, frame_note, staff_id, last_note, notes, direction,expression,expressions, items, last_barline,last_barline_pos
         if self.handler is not None and not self.d:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -160,6 +175,13 @@ class MxmlParser(object):
                 self.handler = None
         if name in self.tags:
             self.tags.remove(name)
+        if name == "direction":
+            if direction is not None:
+                self.AddToGlobalList(direction, items)
+                direction = None
+            if expression is not None:
+                self.AddToGlobalList(expression, expressions)
+                expression = None
         if name == "barline":
             measure_id = GetID(self.attribs, "measure", "number")
             part_id = GetID(self.attribs, "part", "id")
@@ -422,7 +444,7 @@ def handleOtherNotations(tag, attrs, content, piece):
     return None
 
 def HandleMeasures(tag, attrib, content, piece):
-    global cached_clef, measure_cached, items, notes, expressions, staff_id
+    global items, notes, expressions, staff_id, direction, expression
     part_id = GetID(attrib, "part", "id")
     measure_id = GetID(attrib, "measure", "number")
     if measure_id is not None:
@@ -432,7 +454,7 @@ def HandleMeasures(tag, attrib, content, piece):
     global degree
     if len(tag) > 0 and "measure" in tag:
         if "staff" in tag:
-                staff_id = content["staff"]
+                staff_id = int(content["staff"])
         if part_id is None:
             raise(Exceptions.NoScorePartException())
         if part_id is not None:
@@ -446,11 +468,6 @@ def HandleMeasures(tag, attrib, content, piece):
             if measure is None:
                 part.addEmptyMeasure(measure_id, staff_id)
                 measure = part.getMeasure(measure_id, staff_id)
-        if tag[-1] == "staves":
-            staves = int(content["staves"])
-            for i in range(1,staves):
-                if part.getMeasure(measure_id, i) is None:
-                    part.addMeasure(measure_id, Measure.Measure(), i)
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
             return_val = 1
@@ -508,31 +525,20 @@ def HandleMeasures(tag, attrib, content, piece):
             return_val = 1
 
         if "harmony" in tag:
-
-            if staff_id not in items:
-                items[staff_id] = {}
-            if last_note not in items[staff_id]:
-                items[staff_id][last_note] = []
             root = None
             kind = None
             bass = None
-            if len(items[staff_id][last_note]) > 0:
-                if items[staff_id][last_note][-1] is not Harmony.Harmony:
-                    harmony = Harmony.Harmony(kind=kind)
-                    items[staff_id][last_note].append(harmony)
-                else:
-                    harmony = items[staff_id][last_note][-1]
+            if direction is not None:
+                direction = Harmony.Harmony(kind=kind)
             else:
-                harmony = Harmony.Harmony(kind=kind)
-                items[staff_id][last_note].append(harmony)
-
+                direction.kind = kind
 
             if "root" in tag:
-                if not hasattr(harmony, "root"):
+                if not hasattr(direction, "root"):
                     root = Harmony.harmonyPitch()
-                    harmony.root = root
+                    direction.root = root
                 else:
-                    root = harmony.root
+                    root = direction.root
                 if tag[-1] == "root-step":
                     if "root-step" in content:
                         root.step = content["root-step"]
@@ -541,11 +547,11 @@ def HandleMeasures(tag, attrib, content, piece):
                         root.alter = content["root-alter"]
 
             if "kind" in tag:
-                if not hasattr(harmony, "kind"):
+                if not hasattr(direction, "kind"):
                     kind = Harmony.Kind()
-                    harmony.kind = kind
+                    direction.kind = kind
                 else:
-                    kind = harmony.kind
+                    kind = direction.kind
                 if "kind" in content:
                     kind.value = content["kind"]
                 if "kind" in attrib:
@@ -558,18 +564,18 @@ def HandleMeasures(tag, attrib, content, piece):
 
 
             if "bass" in tag:
-                if not hasattr(harmony, "bass"):
-                    harmony.bass = Harmony.harmonyPitch()
+                if not hasattr(direction, "bass"):
+                    direction.bass = Harmony.harmonyPitch()
                 if "bass-step" in tag and "bass-step" in content:
-                    harmony.bass.step = content["bass-step"]
+                    direction.bass.step = content["bass-step"]
                 if "bass-alter" in tag and "bass-alter" in content:
-                    harmony.bass.alter = content["bass-alter"]
+                    direction.bass.alter = content["bass-alter"]
             frame = None
 
             if "degree" in tag:
                 if degree is None:
                     degree = Harmony.Degree()
-                    harmony.degrees.append(degree)
+                    direction.degrees.append(degree)
 
                 if "degree-value" in tag:
                     if "degree-value" in content:
@@ -585,19 +591,19 @@ def HandleMeasures(tag, attrib, content, piece):
                             degree.display = attrib["degree-type"]["text"]
 
             if "frame" in tag:
-                if not hasattr(harmony, "frame"):
-                    harmony.frame = Harmony.Frame()
+                if not hasattr(direction, "frame"):
+                    direction.frame = Harmony.Frame()
                 if "first-fret" in tag:
-                    harmony.frame.firstFret = True
+                    direction.frame.firstFret = True
                     if "first-fret" in content:
                         if "first-fret" not in attrib:
-                            harmony.frame.firstFret = [content["first-fret"]]
+                            direction.frame.firstFret = [content["first-fret"]]
                         else:
-                            harmony.frame.firstFret = [content["first-fret"], attrib["first-fret"]["text"]]
+                            direction.frame.firstFret = [content["first-fret"], attrib["first-fret"]["text"]]
                 if "frame-strings" in tag and "frame-strings" in content:
-                    harmony.frame.strings = content["frame-strings"]
+                    direction.frame.strings = content["frame-strings"]
                 if "frame-frets" in tag and "frame-frets" in content:
-                    harmony.frame.frets = content["frame-frets"]
+                    direction.frame.frets = content["frame-frets"]
                 if "frame-note" in tag:
                     global frame_note
                     if frame_note is None:
@@ -605,7 +611,7 @@ def HandleMeasures(tag, attrib, content, piece):
 
                     if "string" in tag and "string" in content:
                         frame_note.string = content["string"]
-                        harmony.frame.notes[int(content["string"])] = frame_note
+                        direction.frame.notes[int(content["string"])] = frame_note
                     if "fret" in tag and "fret" in content:
                         frame_note.fret = content["fret"]
                     if "barre" in tag and "barre" in attrib:
@@ -914,9 +920,8 @@ def HandlePitch(tags, attrs, text, piece):
     return return_val
 
 def HandleDirections(tags, attrs, chars, piece):
-    global expressions, items, staff_id
+    global expressions, items, staff_id, direction, expression
     return_val = None
-    direction = None
     dynamic = None
     if len(tags) == 0:
         return None
@@ -934,10 +939,6 @@ def HandleDirections(tags, attrs, chars, piece):
             return None
         if tags[-1] == "staff":
             staff_id = int(chars["staff"])
-            if staff_id not in items:
-                items[staff_id] = {}
-            if staff_id not in expressions:
-                expressions[staff_id] = {}
         if "direction" in attrs:
             if "placement" in attrs["direction"]:
                 placement = attrs["direction"]["placement"]
@@ -1010,7 +1011,7 @@ def HandleDirections(tags, attrs, chars, piece):
             if "wedge" in attrs:
                 if "type" in attrs["wedge"]:
                     w_type = attrs["wedge"]["type"]
-            dynamic = Directions.Wedge(placement = placement,type=w_type)
+            expression = Directions.Wedge(placement = placement,type=w_type)
 
         if len(tags) > 1:
             if tags[-2] == "dynamics":
@@ -1061,20 +1062,6 @@ def HandleDirections(tags, attrs, chars, piece):
                 if "line-end" in attrs["bracket"]:
                     lineend = attrs["bracket"]["line-end"]
             direction = Directions.Bracket(lineEnd=lineend, elength=elength, type=l_type, ltype=ltype, number=num)
-
-    if direction is not None:
-        if staff_id not in items:
-            items[staff_id] = {}
-        if last_note not in items[staff_id]:
-            items[staff_id][last_note] = []
-        items[staff_id][last_note].append(direction)
-    if dynamic is not None:
-        if staff_id not in expressions:
-            expressions[staff_id] = {}
-
-        if last_note not in expressions[staff_id]:
-            expressions[staff_id][last_note] = []
-        expressions[staff_id][last_note].append(dynamic)
     HandleRepeatMarking(tags, attrs, chars, piece)
 
     return return_val
