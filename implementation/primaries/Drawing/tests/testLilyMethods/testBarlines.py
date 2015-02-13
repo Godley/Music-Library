@@ -40,17 +40,17 @@ class testHeavyHeavyBarline(Lily):
 class testForwardRepeat(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="heavy-light", repeat="forward")
-        self.lilystring = "\\repeat volta 2 {"
+        self.lilystring = " \\repeat volta 2 {"
 
 class testBackwardRepeat(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="light-heavy", repeat="backward")
-        self.lilystring = " }"
+        self.lilystring = "}"
 
 class testEndingMark(Lily):
     def setUp(self):
         self.item = Measure.EndingMark()
-        self.lilystring = "\\alternative {{"
+        self.lilystring = "}\n\\alternative {\n{"
 
 class testEndingMark2(Lily):
     def setUp(self):
@@ -60,12 +60,12 @@ class testEndingMark2(Lily):
 class testEndingMarkEnd(Lily):
     def setUp(self):
         self.item = Measure.EndingMark(type="stop")
-        self.lilystring = "}"
+        self.lilystring = "}\n"
 
 class testBarlineWithEndingStart(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="heavy-light",ending=Measure.EndingMark())
-        self.lilystring = "\\alternative {{ "
+        self.lilystring = "}\n\\alternative {\n{"
 
 class testMeasureLeftBarline(MeasureTests):
     def setUp(self):
@@ -74,13 +74,22 @@ class testMeasureLeftBarline(MeasureTests):
         self.item.notes[-1].pitch = Note.Pitch()
         self.item.barlines = {}
         self.item.barlines["left"] = Measure.Barline(repeat="forward")
-        self.lilystring = "\\repeat volta 2 { c'"
+        self.lilystring = " \\repeat volta 2 { c'"
 
 class testMeasureRightBarline(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()
         self.item.addNote(Note.Note())
         self.item.notes[-1].pitch = Note.Pitch()
-        self.item.barlines = {}
-        self.item.barlines["right"] = Measure.Barline(repeat="backward")
-        self.lilystring = " c' }"
+        self.item.AddBarline("left", Measure.Barline(repeat="forward"))
+        self.item.AddBarline("right",Measure.Barline(repeat="backward"))
+        self.lilystring = " \\repeat volta 2 { c'}"
+
+
+class testMeasureRightRepeatBarlineNoLeft(MeasureTests):
+    def setUp(self):
+        self.item = Measure.Measure()
+        self.item.addNote(Note.Note())
+        self.item.notes[-1].pitch = Note.Pitch()
+        self.item.AddBarline("right", Measure.Barline(repeat="backward-barline"))
+        self.lilystring = " c' \\bar \":|.\""

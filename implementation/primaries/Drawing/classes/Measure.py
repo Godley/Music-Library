@@ -21,6 +21,10 @@ class Measure(BaseClass.Base):
             if side in self.barlines:
                 return self.barlines[side]
 
+    def AddBarline(self, side, item):
+        if not hasattr(self, "barlines"):
+            self.barlines = {}
+        self.barlines[side] = item
 
     def CheckDivisions(self):
         if hasattr(self, "divisions"):
@@ -228,7 +232,6 @@ class Barline(BaseClass.Base):
 
             if hasattr(self, "ending"):
                 lilystring += self.ending.toLily()
-        print(lilystring)
         return lilystring
 
 class EndingMark(BaseClass.Base):

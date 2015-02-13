@@ -1,6 +1,9 @@
 import unittest
 from unittest import mock
-from implementation.primaries.Drawing.classes import MxmlParser
+try:
+    from implementation.primaries.Drawing.classes import MxmlParser, Part, Measure
+except:
+    from classes import MxmlParser, Part, Measure
 
 
 class testSaxParser(unittest.TestCase):
@@ -105,5 +108,4 @@ class testSaxParser(unittest.TestCase):
         self.parser.tags.append("measure")
         self.parser.tags.append("note")
         self.parser.EndTag("note")
-
         self.assertEqual(MxmlParser.HandleMeasures, self.parser.handler)
