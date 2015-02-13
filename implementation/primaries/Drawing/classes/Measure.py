@@ -201,6 +201,13 @@ class Barline(BaseClass.Base):
         if "ending" in kwargs:
             if kwargs["ending"] is not None:
                 self.ending = kwargs["ending"]
+        if "repeat-num" in kwargs:
+            if kwargs["repeat-num"] is not None:
+                self.repeatNum = kwargs["repeat-num"]
+            else:
+                self.repeatNum = 2
+        else:
+            self.repeatNum = 2
         BaseClass.Base.__init__(self)
 
     def toLily(self):
@@ -220,7 +227,7 @@ class Barline(BaseClass.Base):
 
             if hasattr(self, "repeat"):
                 if self.repeat == "forward":
-                    lilystring = " \\repeat volta 2 {"
+                    lilystring = " \\repeat volta "+str(self.repeatNum)+" {"
                 if self.repeat == "backward" and not hasattr(self, "ending"):
                     lilystring += "}"
                 if self.repeat == "forward-barline":

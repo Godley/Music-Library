@@ -24,6 +24,7 @@ staff_id = 1
 # indicators of where we last found a repeat barline, and which staff, measure and part it was found in. Needed because we may
 # have to modify it depending on what comes next
 last_barline = None
+last_fwd_repeat = None
 last_barline_pos = {}
 
 
@@ -139,7 +140,7 @@ class MxmlParser(object):
                     if hasattr(previous, "grace"):
                         n.grace.first = False
             previous = n
-        measure.addNote(new_note) 
+        measure.addNote(new_note)
 
 
     def AddToGlobalList(self, item, item_dict):
@@ -157,7 +158,7 @@ class MxmlParser(object):
             item_dict[staff_id][last_note].append(copy.deepcopy(item))
 
     def EndTag(self, name):
-        global note, degree, frame_note, staff_id, last_note, notes, direction,expression,expressions, items, last_barline,last_barline_pos
+        global note, degree, frame_note, staff_id, last_note, last_fwd_repeat, notes, direction,expression,expressions, items, last_barline,last_barline_pos
         if self.handler is not None and not self.d:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -204,6 +205,8 @@ class MxmlParser(object):
                 last_barline_temp = measure.GetBarline(location)
 
                 if hasattr(last_barline_temp, "repeat"):
+                    if last_barline_temp.repeat == "forward":
+                        last_fwd_repeat = last_barline_temp
                     print(last_barline_temp)
                     last_barline = last_barline_temp
                     last_barline_pos = {"part":part_id,"measure":int(measure_id),"location":location}
@@ -674,6 +677,8 @@ def handleBarline(tag, attrib, content, piece):
                 if "number" in attrib["ending"]:
                     if attrib["barline"]["location"] not in measure.barlines or not hasattr(measure.barlines[attrib["barline"]["location"]], "ending"):
                         number = int(attrib["ending"]["number"])
+                        if last_fwd_repeat is not None and number > 2:
+                            last_fwd_repeat.repeatNum = number
                     else:
                         measure.barlines[attrib["barline"]["location"]].ending.number = int(attrib["ending"]["number"])
                 if "type" in attrib["ending"]:
