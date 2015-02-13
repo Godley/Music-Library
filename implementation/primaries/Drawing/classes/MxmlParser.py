@@ -19,6 +19,8 @@ expressions = {}
 staff_id = 1
 previous_measure = 0
 previous_part = None
+last_barline = None
+last_barline_pos = {}
 
 
 def GetID(attrs, tag, val):
@@ -141,7 +143,7 @@ class MxmlParser(object):
                 for item in expressions[staff][n]:
                     measure.addExpression(item, n)
     def EndTag(self, name):
-        global note, degree, frame_note, cached_clef, staff_id, last_note, notes, expressions, items, previous_part
+        global note, degree, frame_note, cached_clef, staff_id, last_note, notes, expressions, items, previous_part, last_barline,last_barline_pos
         if self.handler is not None and not self.d:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -158,6 +160,18 @@ class MxmlParser(object):
                 self.handler = None
         if name in self.tags:
             self.tags.remove(name)
+        if name == "barline":
+            measure_id = GetID(self.attribs, "measure", "number")
+            part_id = GetID(self.attribs, "part", "id")
+            measure = self.piece.Parts[part_id].getMeasure(int(measure_id), staff_id)
+            if measure is not None:
+                location = GetID(self.attribs, "barline", "location")
+                last_barline_temp = measure.GetBarline(location)
+
+                if hasattr(last_barline_temp, "repeat"):
+                    print(last_barline_temp)
+                    last_barline = last_barline_temp
+                    last_barline_pos = {"part":part_id,"measure":int(measure_id),"location":location}
         if name == "measure":
 
             measure_id = GetID(self.attribs, "measure", "number")
@@ -176,6 +190,9 @@ class MxmlParser(object):
             staff = 1
         if name == "part":
             previous_part = GetID(self.attribs, "part", "id")
+            if last_barline is not None:
+                if last_barline.repeat == "forward":
+                    last_barline.repeat += "-barline"
         if name in self.attribs:
             self.attribs.pop(name)
         if name in self.chars:
@@ -680,10 +697,23 @@ def handleBarline(tag, attrib, content, piece):
         if tag[-1] == "repeat":
             if "repeat" in attrib:
                 if "direction" in attrib["repeat"]:
-                    if attrib["barline"]["location"] not in measure.barlines:
-                        repeat = attrib["repeat"]["direction"]
+                    barline = measure.GetBarline(attrib["barline"]["location"])
+                    repeat = attrib["repeat"]["direction"]
+                    if hasattr(last_barline, "repeat"):
+                        last_repeat = last_barline.repeat
+                        if repeat == "backward" and last_repeat != "forward":
+                            repeat += "-barline"
+                        if repeat == "forward" and last_repeat == "backward-barline":
+                            if part_id == last_barline_pos["part"] and last_barline_pos["measure"] == measure_id-1:
+                                if attrib["barline"]["location"] != last_barline_pos["location"]:
+                                    last_barline.repeat += "-double"
                     else:
-                        measure.barlines[attrib["barline"]["location"]].repeat = attrib["repeat"]["direction"]
+                        if repeat == "backward":
+                            repeat += "-barline"
+
+                    if barline is not None:
+                        barline.repeat = repeat
+
         if attrib["barline"]["location"] not in measure.barlines:
             if barline is None:
                 barline = Measure.Barline(style=style, repeat=repeat, ending=ending)

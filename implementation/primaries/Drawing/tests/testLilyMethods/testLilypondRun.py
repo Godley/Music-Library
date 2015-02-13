@@ -50,7 +50,13 @@ class testbarlines(testRun):
         self.file = os.path.join(folder, "barlines.xml")
         parser = MxmlParser.MxmlParser()
         self.item = parser.parse(self.file)
-        self.dontcleanup = True
+        testRun.setUp(self)
+
+class testrepeatbarlines(testRun):
+    def setUp(self):
+        self.file = os.path.join(folder, "repeat-barlines.xml")
+        parser = MxmlParser.MxmlParser()
+        self.item = parser.parse(self.file)
         testRun.setUp(self)
 
 class testbeams(testRun):

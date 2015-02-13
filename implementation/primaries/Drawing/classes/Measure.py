@@ -16,6 +16,12 @@ class Measure(BaseClass.Base):
         self.octaveShift = {}
 
 
+    def GetBarline(self, side):
+        if hasattr(self, "barlines"):
+            if side in self.barlines:
+                return self.barlines[side]
+
+
     def CheckDivisions(self):
         if hasattr(self, "divisions"):
             for n in self.notes:
@@ -28,18 +34,26 @@ class Measure(BaseClass.Base):
         ret_str = BaseClass.Base.__str__(self)
         return ret_str
 
+    def HandleAttributes(self):
+        lilystring = ""
+        if hasattr(self, "clef") and self.clef is not None:
+            lilystring += self.clef.toLily() + " "
+        if hasattr(self, "key") and self.key is not None:
+            lilystring += self.key.toLily() + " "
+        if hasattr(self, "barlines"):
+            if "left" in self.barlines:
+                lilystring += self.barlines["left"].toLily()
+            if "right" in self.barlines and hasattr(self.barlines["right"], "repeat") and self.barlines["right"] == "backward":
+                lilystring += self.barlines["right"].toLily()
+        return lilystring
 
     def toLily(self, start=0,end=-1):
         lilystring = ""
         values = []
 
         #handle stuff attached to measures which aren't directions
-        if hasattr(self, "clef") and self.clef is not None:
-            lilystring += self.clef.toLily() + " "
-        if hasattr(self, "key") and self.key is not None:
-            lilystring += self.key.toLily() + " "
-        if hasattr(self, "barlines") and "left" in self.barlines:
-            lilystring += self.barlines["left"].toLily()
+        lilystring = self.HandleAttributes()
+
         if len(self.notes) < 1 and len(self.forwards) == 0:
             #if a measure has no notes, it's probably a rest measure.
             lilystring += " r"
@@ -198,20 +212,23 @@ class Barline(BaseClass.Base):
                 lilystring += "|\""
         else:
 
-            if hasattr(self, "ending"):
-                if not hasattr(self.ending, "number") or (hasattr(self.ending, "number") and self.ending.number == 1):
-                    lilystring = "\\alternative {"
-                if not hasattr(self.ending, "type") or (hasattr(self.ending, "type") and self.ending.type != "stop"):
-                    lilystring += "{ "
-                elif hasattr(self.ending, "type") and self.ending.type == "stop":
-                    lilystring = " }"
+
 
             if hasattr(self, "repeat"):
                 if self.repeat == "forward":
-                    lilystring = "\\repeat volta 2 {"
-                if self.repeat == "backward":
-                    lilystring = " }"
+                    lilystring = " \\repeat volta 2 {"
+                if self.repeat == "backward" and not hasattr(self, "ending"):
+                    lilystring += "}"
+                if self.repeat == "forward-barline":
+                    lilystring = " \\bar \".|:\""
+                if self.repeat == "backward-barline":
+                    lilystring = " \\bar \":|.\""
+                if self.repeat == "backward-barline-double":
+                    lilystring = " \\bar \":|.|:\""
 
+            if hasattr(self, "ending"):
+                lilystring += self.ending.toLily()
+        print(lilystring)
         return lilystring
 
 class EndingMark(BaseClass.Base):
@@ -226,13 +243,13 @@ class EndingMark(BaseClass.Base):
         lilystring = ""
         if hasattr(self, "number"):
             if self.number == 1:
-                lilystring += "\\alternative {"
+                lilystring += "}\n\\alternative {\n"
             lilystring += "{"
         else:
-            lilystring = "\\alternative {{"
+            lilystring = "}\n\\alternative {\n{"
         if hasattr(self, "type"):
             if self.type == "stop":
-                lilystring = "}"
+                lilystring = "}\n"
         return lilystring
 
 class Transposition(BaseClass.Base):

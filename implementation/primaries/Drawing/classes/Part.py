@@ -115,12 +115,40 @@ class Part(object):
                 lilystring += "{"
                 lilystring += "\\autoBeamOff "
                 sub_measures = [key for key in self.measures[sid]]
-                measure_strings = [(key, self.measures[sid][key].toLily()) for key in sub_measures if type(self.measures[sid][key].toLily()) is not list]
-                forward_measures = [(key, self.measures[sid][key].toLily()) for key in sub_measures if type(self.measures[sid][key].toLily()) is list]
+                measure_strings = []
+                forward_measures = []
+                opened = False
+                closed = False
+                for key in self.measures[sid]:
+                    return_val = self.measures[sid][key].toLily()
+                    string_to_update = ""
+                    if return_val is not list:
+                        string_to_update = return_val
+                    else:
+                        string_to_update = return_val[1]
+                    barline = self.measures[sid][key].GetBarline("right")
+                    left_barline = self.measures[sid][key].GetBarline("left")
+                    if barline is not None:
+                        if hasattr(barline, "ending"):
+                            if key+1 < len(self.measures[sid]) -1:
+                                next_barline = self.measures[sid][key+1].GetBarline("left")
+                                if next_barline is not None:
+                                    if not hasattr(next_barline, "ending"):
+                                        string_to_update += "}"
+                                else:
+                                    string_to_update += "}"
+                            else:
+                                string_to_update += "}"
+                    if return_val is list:
+                        forward_measures.append((key,[return_val[0],string_to_update]))
+                    else:
+                        measure_strings.append((key, string_to_update))
+
 
                 if len(forward_measures) > 0 and len(measure_strings) > 0:
                     measure_strings = self.RepeatMeasure(sid, forward_measures[len(forward_measures)-1][0]-1, measure_strings, forward_measures)
                 lilystring += "".join([item[1] for item in measure_strings])
+
                 lilystring += "}"
             if len(staff_nums) > 1:
                 lilystring += ">>"
