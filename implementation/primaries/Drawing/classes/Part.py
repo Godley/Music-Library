@@ -35,13 +35,11 @@ class Part(object):
                     self.measures[stave][key].CheckDivisions()
 
     def addMeasure(self, key, item, staff):
-        print("m",str(staff), str(key))
         if staff not in self.measures:
             self.measures[staff] = {}
         self.measures[staff][key] = item
 
     def addEmptyMeasure(self, key, staff):
-        print("e",str(staff), str(key))
         if staff not in self.measures:
             self.measures[staff] = {}
         self.measures[staff][key] = Measure()
@@ -108,7 +106,13 @@ class Part(object):
             if len(staff_nums) > 1:
                 lilystring += "\\new StaffGroup"
                 if hasattr(self, "name"):
-                    lilystring += " \with { \ninstrumentName = #\""+ self.name +" \"\n}"
+                    lilystring += " \with { \ninstrumentName = #\""
+                    if len(self.name) > 10 and hasattr(self, "shortname"):
+                        lilystring += self.shortname
+                    else:
+                        lilystring += self.name
+                    lilystring += " \"\n}"
+
                 lilystring+= " <<"
             for sid in staff_nums:
                 lilystring += "\\new Staff"

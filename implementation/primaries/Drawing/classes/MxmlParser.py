@@ -6,24 +6,32 @@ try:
 except:
     from implementation.primaries.Drawing.classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
 
+# these define the current "things" we are handling: these are added on to relevant measures after being processed,
+# because "staff" could be found anywhere whilst it's being processed
 note = None
 direction = None
 expression = None
+
+# not sure whether still relevant, but globals for checking which degree/frame_note we are handling within the harmony section
 degree = None
 frame_note = None
-stave = 1
+
+# last_note indicates the last position we found a note - relevant because directions and expressions have to appear after each note
 last_note = 0
-items = {}
-notes = {}
-expressions = {}
+#indicates current staff being loaded
 staff_id = 1
-previous_measure = 0
-previous_part = None
+
+# indicators of where we last found a repeat barline, and which staff, measure and part it was found in. Needed because we may
+# have to modify it depending on what comes next
 last_barline = None
 last_barline_pos = {}
 
 
 def GetID(attrs, tag, val):
+    # handy method which pulls out a nested id: attrs refers to a dictionary holding the id
+    # tag refers to the tag we're looking at (e.g measure, part etc)
+    # val refers to the exact index of the tag we're looking for (e.g number, id etc)
+    # example case: attrs = self.attribs, tag=measure and val=number would return current measure number
     if tag in attrs:
         if val in attrs[tag]:
             return attrs[tag][val]
@@ -37,10 +45,14 @@ class MxmlParser(object):
         spits out a piece class holding all this info.
     """
     def __init__(self, excluded=[]):
+        # stuff for parsing. Tags refers to the xml tag list, chars refers to the content of each tag,
+        # attribs refers to attributes of each tag, and handler is a method we call to work with each tag
         self.tags = []
         self.chars = {}
         self.attribs = {}
         self.handler = None
+
+        # this will be put in later, but parser can take in tags we want to ignore, e.g clefs, measures etc.
         self.excluded = excluded
 
         # add any handlers, along with the tagname associated with it, to this dictionary
@@ -49,8 +61,10 @@ class MxmlParser(object):
              "pitch":  HandlePitch, "unpitched": HandlePitch,"articulations":handleArticulation,
              "fermata": HandleFermata, "slur":handleOtherNotations, "lyric":handleLyrics,
              "technical": handleOtherNotations}
+
         # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
         self.multiple_attribs = ["beats", "sign"]
+
         # any tags which close instantly in here
         self.closed_tags = ["technical","tie","dot","chord","note","measure","part",
                             "score-part","sound","print","rest","slur",
@@ -102,46 +116,31 @@ class MxmlParser(object):
             if len(self.tags) > 0:
                 self.chars[self.tags[-1]] = text
 
-    def CopyNotes(self, part, measure_id):
+    def CopyNote(self, part, measure_id, new_note):
         previous = None
-        for staff in notes:
-            if part.getMeasure(int(measure_id), staff) is None:
-                part.addEmptyMeasure(int(measure_id), staff)
-            measure = part.getMeasure(int(measure_id), staff)
-            for n in notes[staff]:
-                if previous is not None:
-                    if hasattr(n, "chord"):
-                        if n.chord == "continue":
-                            if not hasattr(previous, "chord"):
-                                previous.chord = "start"
-                                n.chord = "end"
-                            elif previous.chord == "end":
-                                previous.chord = "continue"
-                                n.chord = "end"
-                    if hasattr(n, "grace"):
-                        if hasattr(previous, "grace"):
-                            n.grace.first = False
+        if part.getMeasure(int(measure_id), staff_id) is None:
+            part.addEmptyMeasure(int(measure_id), staff_id)
+        measure = part.getMeasure(int(measure_id), staff_id)
 
-                measure.addNote(n)
-                previous = n
+        #in musicXML, each note which is a chord with the previous note has the tag "chord",
+        # but the previous note has no warning. However, in Lilypond the first note of the chord
+        # needs to know it's the first note, so we have to update previous notes
+        for n in measure.notes:
+            if previous is not None:
+                if hasattr(n, "chord"):
+                    if n.chord == "continue":
+                        if not hasattr(previous, "chord"):
+                            previous.chord = "start"
+                            n.chord = "end"
+                        elif previous.chord == "end":
+                            previous.chord = "continue"
+                            n.chord = "end"
+                if hasattr(n, "grace"):
+                    if hasattr(previous, "grace"):
+                        n.grace.first = False
+            previous = n
+        measure.addNote(new_note)
 
-    def CopyDirections(self, part, measure_id):
-        for staff in items:
-            if part.getMeasure(int(measure_id), staff) is None:
-                part.addEmptyMeasure(int(measure_id), staff)
-            measure = part.getMeasure(int(measure_id), staff)
-            for n in items[staff]:
-                for item in items[staff][n]:
-                    measure.addDirection(item, n)
-
-    def CopyExpressions(self, part, measure_id):
-        for staff in expressions:
-            if part.getMeasure(int(measure_id), staff) is None:
-                part.addEmptyMeasure(int(measure_id), staff)
-            measure = part.getMeasure(int(measure_id), staff)
-            for n in expressions[staff]:
-                for item in expressions[staff][n]:
-                    measure.addExpression(item, n)
 
     def AddToGlobalList(self, item, item_dict):
         added = False
@@ -177,10 +176,24 @@ class MxmlParser(object):
             self.tags.remove(name)
         if name == "direction":
             if direction is not None:
-                self.AddToGlobalList(direction, items)
+                measure_id = int(GetID(self.attribs, "measure", "number"))
+                part_id = GetID(self.attribs, "part", "id")
+                if part_id in self.piece.Parts:
+                    part = self.piece.Parts[part_id]
+                    if part.getMeasure(measure_id, staff_id) is None:
+                        part.addEmptyMeasure(measure_id, staff_id)
+                    measure = part.getMeasure(measure_id, staff_id)
+                    measure.addDirection(copy.deepcopy(direction), last_note)
                 direction = None
             if expression is not None:
-                self.AddToGlobalList(expression, expressions)
+                measure_id = int(GetID(self.attribs, "measure", "number"))
+                part_id = GetID(self.attribs, "part", "id")
+                if part_id in self.piece.Parts:
+                    part = self.piece.Parts[part_id]
+                    if part.getMeasure(measure_id, staff_id) is None:
+                        part.addEmptyMeasure(measure_id, staff_id)
+                    measure = part.getMeasure(measure_id, staff_id)
+                    measure.addExpression(copy.deepcopy(expression), last_note)
                 expression = None
         if name == "barline":
             measure_id = GetID(self.attribs, "measure", "number")
@@ -194,22 +207,6 @@ class MxmlParser(object):
                     print(last_barline_temp)
                     last_barline = last_barline_temp
                     last_barline_pos = {"part":part_id,"measure":int(measure_id),"location":location}
-        if name == "measure":
-
-            measure_id = GetID(self.attribs, "measure", "number")
-            part = self.piece.Parts[self.attribs["part"]["id"]]
-            #handle items
-            self.CopyDirections(part,measure_id)
-            #handle expressions
-            self.CopyExpressions(part,measure_id)
-            #handle notes
-            self.CopyNotes(part,measure_id)
-            #reset all the things
-            last_note = 0
-            expressions = {}
-            notes = {}
-            items = {}
-            staff = 1
         if name == "part":
             previous_part = GetID(self.attribs, "part", "id")
             if last_barline is not None:
@@ -221,18 +218,11 @@ class MxmlParser(object):
             self.chars.pop(name)
 
         if name == "note":
-            added = False
-            for stave in notes:
-                for n in notes[stave]:
-                    if note == n:
-                        added = True
-                        break
-
-            if not added:
-                if 1 not in notes:
-                    notes[1] = []
-                notes[1].append(note)
-                last_note = len(notes[1])-1
+            measure_id = int(GetID(self.attribs, "measure", "number"))
+            part_id = GetID(self.attribs, "part", "id")
+            if part_id in self.piece.Parts:
+                part = self.piece.Parts[part_id]
+                self.CopyNote(part, measure_id, note)
             note = None
         if name == "degree":
             degree = None
@@ -242,7 +232,6 @@ class MxmlParser(object):
 
     def parse(self, file):
         parser = make_parser()
-
         class Extractor(xml.sax.ContentHandler):
             def __init__(self, parent):
                 self.parent = parent
@@ -367,6 +356,9 @@ def UpdatePart(tag, attrib, content, piece):
                 if "part-name" in content and part_id is not None:
                     piece.Parts[part_id].name = content["part-name"]
                     return_val = 1
+            if "part-abbreviation" in tag:
+                if "part-abbreviation" in content and part_id is not None:
+                    piece.Parts[part_id].shortname = content["part-abbreviation"]
     return return_val
 
 def handleArticulation(tag, attrs, content, piece):
@@ -808,10 +800,6 @@ def CreateNote(tag, attrs, content, piece):
                     note.pitch.accidental = content["accidental"]
         if tag[-1] == "staff":
             staff_id = int(content["staff"])
-            if staff_id not in notes:
-                notes[staff_id] = []
-            notes[staff_id].append(note)
-            last_note = len(notes[staff_id])-1
     HandleNoteheads(tag, attrs, content, piece)
     HandleArpeggiates(tag, attrs, content, piece)
     HandleSlidesAndGliss(tag, attrs, content, piece)

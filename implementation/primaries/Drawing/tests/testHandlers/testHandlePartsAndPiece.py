@@ -69,16 +69,25 @@ class testHandlePart(unittest.TestCase):
         self.tags.append("score-part")
         self.attrs["score-part"] = {"id":"P1"}
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual(1, len(self.piece.Parts.keys()), "ERROR: part not created properly in testScorePartTag")
+        self.assertEqual(1, len(self.piece.Parts.keys()))
 
     def testPnameTag(self):
-        self.assertEqual(0, len(self.piece.Parts.keys()), "ERROR: part list should be empty in TestPnameTag")
+        self.assertEqual(0, len(self.piece.Parts.keys()))
         self.tags.append("score-part")
         self.attrs["score-part"] = {"id":"P1"}
         self.tags.append("part-name")
         self.chars["part-name"] = "will"
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual("will", self.piece.Parts["P1"].name, "ERROR: partname not set correctly in testPnameTag")
+        self.assertEqual("will", self.piece.Parts["P1"].name)
+
+    def testPNameWithShortName(self):
+        self.assertEqual(0, len(self.piece.Parts.keys()))
+        self.tags.append("score-part")
+        self.attrs["score-part"] = {"id":"P1"}
+        self.tags.append("part-abbreviation")
+        self.chars["part-abbreviation"] = "w"
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertEqual("w", self.piece.Parts["P1"].shortname)
 
 
 
