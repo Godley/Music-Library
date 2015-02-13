@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Part.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Part.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandlePartsAndPiece.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandlePartsAndPiece.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -130,33 +128,33 @@
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.89361703" vertical-offset="1533" max-vertical-offset="12705">
-              <caret line="141" column="32" selection-start-line="141" selection-start-column="32" selection-end-line="141" selection-end-column="32" />
+              <caret line="141" column="34" selection-start-line="141" selection-start-column="34" selection-end-line="141" selection-end-column="34" />
               <folding>
                 <element signature="e#1210#1659#0" expanded="false" />
                 <element signature="e#3829#3893#0" expanded="false" />
                 <element signature="e#4541#4758#0" expanded="false" />
-                <element signature="e#10506#10526#0" expanded="false" />
-                <element signature="e#10867#10892#0" expanded="false" />
-                <element signature="e#10950#10974#0" expanded="false" />
-                <element signature="e#11222#11303#0" expanded="false" />
-                <element signature="e#11375#11907#0" expanded="false" />
-                <element signature="e#11375#11675#1" expanded="false" />
-                <element signature="e#11708#11891#0" expanded="false" />
-                <element signature="e#11747#11870#0" expanded="false" />
-                <element signature="e#11959#14375#0" expanded="false" />
-                <element signature="e#16720#17097#0" expanded="false" />
-                <element signature="e#17157#17998#0" expanded="false" />
-                <element signature="e#30771#30826#0" expanded="false" />
-                <element signature="e#33923#34321#0" expanded="false" />
-                <element signature="e#34378#35024#0" expanded="false" />
-                <element signature="e#35085#35767#0" expanded="false" />
-                <element signature="e#35823#36679#0" expanded="false" />
-                <element signature="e#36728#36739#0" expanded="false" />
-                <element signature="e#36789#37681#0" expanded="false" />
-                <element signature="e#43957#45962#0" expanded="false" />
-                <element signature="e#46015#46551#0" expanded="false" />
-                <element signature="e#46603#47399#0" expanded="false" />
-                <element signature="e#47429#47921#0" expanded="false" />
+                <element signature="e#10507#10527#0" expanded="false" />
+                <element signature="e#10868#10893#0" expanded="false" />
+                <element signature="e#10951#10975#0" expanded="false" />
+                <element signature="e#11223#11304#0" expanded="false" />
+                <element signature="e#11376#11908#0" expanded="false" />
+                <element signature="e#11376#11676#1" expanded="false" />
+                <element signature="e#11709#11892#0" expanded="false" />
+                <element signature="e#11748#11871#0" expanded="false" />
+                <element signature="e#11960#14376#0" expanded="false" />
+                <element signature="e#16721#17098#0" expanded="false" />
+                <element signature="e#17158#17999#0" expanded="false" />
+                <element signature="e#30772#30827#0" expanded="false" />
+                <element signature="e#33924#34322#0" expanded="false" />
+                <element signature="e#34379#35025#0" expanded="false" />
+                <element signature="e#35086#35768#0" expanded="false" />
+                <element signature="e#35824#36680#0" expanded="false" />
+                <element signature="e#36729#36740#0" expanded="false" />
+                <element signature="e#36790#37682#0" expanded="false" />
+                <element signature="e#43958#45963#0" expanded="false" />
+                <element signature="e#46016#46552#0" expanded="false" />
+                <element signature="e#46604#47400#0" expanded="false" />
+                <element signature="e#47430#47922#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -1128,12 +1126,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00177" summary="a bunch more unit tests fixed and a refactor to how multi-staves are handled">
-      <created>1423410559038</created>
-      <option name="number" value="00177" />
-      <option name="project" value="LOCAL" />
-      <updated>1423410559038</updated>
-    </task>
     <task id="LOCAL-00178" summary="a bunch more unit tests fixed and a refactor to how multi-staves are handled">
       <created>1423411370174</created>
       <option name="number" value="00178" />
@@ -1422,7 +1414,13 @@
       <option name="project" value="LOCAL" />
       <updated>1423838753891</updated>
     </task>
-    <option name="localTasksCounter" value="226" />
+    <task id="LOCAL-00226" summary="quick bug fix&#10;&#10;changed copynote method as it wasn't adding the actual note to the measure.">
+      <created>1423850451842</created>
+      <option name="number" value="00226" />
+      <option name="project" value="LOCAL" />
+      <updated>1423850451842</updated>
+    </task>
+    <option name="localTasksCounter" value="227" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1513,7 +1511,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="changed bracket to return list" />
     <MESSAGE value="changed bracket to return dictionary in certain situations" />
     <MESSAGE value="implemented caesuras at note level. need to do handling of styling" />
     <MESSAGE value="changed caesura handling to be a wrap_notation rather than post with styling" />
@@ -1538,7 +1535,8 @@
     <MESSAGE value="added the 2 new testcases (chord needs adding to testLilypondRun). Also added some tests to confirm changes to barline repeat types" />
     <MESSAGE value="added another testcase for issue #18" />
     <MESSAGE value="fix for issue #18. &#10;&#10;Confirmed with testcase TwoStavesOnePartWithDirections - problem occured when new measures were being added because of no casting when new staff encountered" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix for issue #18. &#10;&#10;Confirmed with testcase TwoStavesOnePartWithDirections - problem occured when new measures were being added because of no casting when new staff encountered" />
+    <MESSAGE value="quick bug fix&#10;&#10;changed copynote method as it wasn't adding the actual note to the measure." />
+    <option name="LAST_COMMIT_MESSAGE" value="quick bug fix&#10;&#10;changed copynote method as it wasn't adding the actual note to the measure." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2027,33 +2025,33 @@
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.89361703" vertical-offset="1533" max-vertical-offset="12705">
-          <caret line="141" column="32" selection-start-line="141" selection-start-column="32" selection-end-line="141" selection-end-column="32" />
+          <caret line="141" column="34" selection-start-line="141" selection-start-column="34" selection-end-line="141" selection-end-column="34" />
           <folding>
             <element signature="e#1210#1659#0" expanded="false" />
             <element signature="e#3829#3893#0" expanded="false" />
             <element signature="e#4541#4758#0" expanded="false" />
-            <element signature="e#10506#10526#0" expanded="false" />
-            <element signature="e#10867#10892#0" expanded="false" />
-            <element signature="e#10950#10974#0" expanded="false" />
-            <element signature="e#11222#11303#0" expanded="false" />
-            <element signature="e#11375#11907#0" expanded="false" />
-            <element signature="e#11375#11675#1" expanded="false" />
-            <element signature="e#11708#11891#0" expanded="false" />
-            <element signature="e#11747#11870#0" expanded="false" />
-            <element signature="e#11959#14375#0" expanded="false" />
-            <element signature="e#16720#17097#0" expanded="false" />
-            <element signature="e#17157#17998#0" expanded="false" />
-            <element signature="e#30771#30826#0" expanded="false" />
-            <element signature="e#33923#34321#0" expanded="false" />
-            <element signature="e#34378#35024#0" expanded="false" />
-            <element signature="e#35085#35767#0" expanded="false" />
-            <element signature="e#35823#36679#0" expanded="false" />
-            <element signature="e#36728#36739#0" expanded="false" />
-            <element signature="e#36789#37681#0" expanded="false" />
-            <element signature="e#43957#45962#0" expanded="false" />
-            <element signature="e#46015#46551#0" expanded="false" />
-            <element signature="e#46603#47399#0" expanded="false" />
-            <element signature="e#47429#47921#0" expanded="false" />
+            <element signature="e#10507#10527#0" expanded="false" />
+            <element signature="e#10868#10893#0" expanded="false" />
+            <element signature="e#10951#10975#0" expanded="false" />
+            <element signature="e#11223#11304#0" expanded="false" />
+            <element signature="e#11376#11908#0" expanded="false" />
+            <element signature="e#11376#11676#1" expanded="false" />
+            <element signature="e#11709#11892#0" expanded="false" />
+            <element signature="e#11748#11871#0" expanded="false" />
+            <element signature="e#11960#14376#0" expanded="false" />
+            <element signature="e#16721#17098#0" expanded="false" />
+            <element signature="e#17158#17999#0" expanded="false" />
+            <element signature="e#30772#30827#0" expanded="false" />
+            <element signature="e#33924#34322#0" expanded="false" />
+            <element signature="e#34379#35025#0" expanded="false" />
+            <element signature="e#35086#35768#0" expanded="false" />
+            <element signature="e#35824#36680#0" expanded="false" />
+            <element signature="e#36729#36740#0" expanded="false" />
+            <element signature="e#36790#37682#0" expanded="false" />
+            <element signature="e#43958#45963#0" expanded="false" />
+            <element signature="e#46016#46552#0" expanded="false" />
+            <element signature="e#46604#47400#0" expanded="false" />
+            <element signature="e#47430#47922#0" expanded="false" />
           </folding>
         </state>
       </provider>

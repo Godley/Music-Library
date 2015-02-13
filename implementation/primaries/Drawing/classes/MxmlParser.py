@@ -139,7 +139,7 @@ class MxmlParser(object):
                     if hasattr(previous, "grace"):
                         n.grace.first = False
             previous = n
-        measure.addNote(new_note)
+        measure.addNote(new_note) 
 
 
     def AddToGlobalList(self, item, item_dict):
