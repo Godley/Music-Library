@@ -116,8 +116,10 @@ class Part(object):
                 lilystring+= " <<"
             for sid in staff_nums:
                 lilystring += "\\new Staff"
+                lilystring += " \with { \n\\remove Forbid_line_break_engraver\n"
                 if hasattr(self, "name") and len(staff_nums) == 1:
-                    lilystring += " \with { \ninstrumentName = #\""+ self.name +" \"\n}"
+                    lilystring += "instrumentName = #\""+ self.name +" \"\n"
+                lilystring += " }"
                 lilystring += "{"
                 lilystring += "\\autoBeamOff "
                 sub_measures = [key for key in self.measures[sid]]

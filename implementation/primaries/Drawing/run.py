@@ -12,6 +12,5 @@ pieceObj = parser.parse(file)
 render = LilypondRender.LilypondRender(pieceObj, file)
 render.run()
 os.system("open "+render.pdf)
-print(pieceObj)
 
 

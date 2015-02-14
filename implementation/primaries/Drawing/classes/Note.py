@@ -281,7 +281,7 @@ class Note(BaseClass.Base):
             val += self.getLilyDuration()
         if hasattr(self, "beams") and (not hasattr(self,"chord") or self.chord == "stop"):
             for beam in self.beams:
-                val = self.beams[beam].toLily()
+                val += self.beams[beam].toLily()
         val += "".join([value.toLily() for value in self.postnotation if type(value.toLily()) is str])
         val += "".join([value.toLily()[0] for value in self.postnotation if type(value.toLily()) is list and len(value.toLily()) > 0])
         val += "".join([tie.toLily() for tie in self.ties])

@@ -513,11 +513,22 @@ def HandleMeasures(tag, attrib, content, piece):
                     measure.transpose = Measure.Transposition(octave=content["octave-change"])
             return_val = 1
         if "print" in tag:
+            staves = piece.Parts[part_id].measures
             if "print" in attrib:
                 if "new-system" in attrib["print"]:
-                    measure.newSystem = YesNoToBool(attrib["print"]["new-system"])
+                    for staff in staves:
+                        if piece.Parts[part_id].getMeasure(measure_id, staff) is None:
+                            piece.Parts[part_id].addEmptyMeasure(measure_id, staff)
+                        measure= piece.Parts[part_id].getMeasure(measure_id, staff)
+                        print(measure_id, staff)
+                        measure.newSystem = YesNoToBool(attrib["print"]["new-system"])
                 if "new-page" in attrib["print"]:
-                    measure.newPage = YesNoToBool(attrib["print"]["new-page"])
+                    for staff in staves:
+                        print(staff)
+                        if piece.Parts[part_id].getMeasure(measure_id, staff) is None:
+                            piece.Parts[part_id].addEmptyMeasure(measure_id, staff)
+                        measure= piece.Parts[part_id].getMeasure(measure_id, staff)
+                        measure.newPage = YesNoToBool(attrib["print"]["new-page"])
             return_val = 1
 
         if "harmony" in tag:
@@ -786,13 +797,11 @@ def CreateNote(tag, attrs, content, piece):
             type = ""
             if "beam" in content:
                 type = content["beam"]
-            if not hasattr(note, "beams"):
-                note.beams = {}
             if "beam" in attrs:
                 id = int(attrs["beam"]["number"])
             else:
                 id = len(note.beams)
-            note.beams[id] = Note.Beam(type=type)
+            note.addBeam(id, Note.Beam(type))
 
 
         if tag[-1] == "accidental":

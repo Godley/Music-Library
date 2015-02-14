@@ -40,8 +40,6 @@ class Measure(BaseClass.Base):
 
     def HandleAttributes(self):
         lilystring = ""
-        if hasattr(self, "newSystem") and self.newSystem:
-            lilystring += "\\break"
         if hasattr(self, "clef") and self.clef is not None:
             lilystring += self.clef.toLily() + " "
         if hasattr(self, "key") and self.key is not None:
@@ -142,13 +140,13 @@ class Measure(BaseClass.Base):
                     if n_id in self.expressions:
                         lilystring += "".join([expr.toLily() for expr in self.expressions[n_id]])
 
-
-
         elif len(self.forwards) > 0:
             for item in self.forwards:
                 values.extend(self.forwards[item].toLily())
         if hasattr(self, "barlines") and "right" in self.barlines:
             lilystring += self.barlines["right"].toLily()
+        else:
+            lilystring += " | "
         if len(values) > 0:
             return values
         return lilystring
