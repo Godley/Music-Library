@@ -131,6 +131,9 @@ class MxmlParser(object):
                         if not hasattr(previous, "chord"):
                             previous.chord = "start"
                             note.chord = "stop"
+                            beams = previous.GetBeams()
+                            if beams is not None:
+                                note.beams = copy.deepcopy(beams)
                         elif previous.chord == "stop":
                             previous.chord = "continue"
                             note.chord = "stop"

@@ -211,6 +211,10 @@ class Note(BaseClass.Base):
             val += lilystring
         return val
 
+    def GetBeams(self):
+        if hasattr(self, "beams"):
+            return self.beams
+    
     def getLilyDuration(self):
         # method to calculate duration of note in lilypond duration style
         value = ""
@@ -240,6 +244,7 @@ class Note(BaseClass.Base):
             value = self.duration
             if hasattr(self, "trem_length"):
                 value *= self.trem_length
+        if type(value) is not str:
             value = int(value)
         if value != "":
             value = str(value)
