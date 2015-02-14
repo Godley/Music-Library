@@ -122,25 +122,26 @@ class MxmlParser(object):
         if part.getMeasure(int(measure_id), staff_id) is None:
             part.addEmptyMeasure(int(measure_id), staff_id)
         measure = part.getMeasure(int(measure_id), staff_id)
-
-        #in musicXML, each note which is a chord with the previous note has the tag "chord",
-        # but the previous note has no warning. However, in Lilypond the first note of the chord
-        # needs to know it's the first note, so we have to update previous notes
-        for n in measure.notes:
+        if not new_note in measure.notes:
+            measure.addNote(new_note)
+        for note in measure.notes:
             if previous is not None:
-                if hasattr(n, "chord"):
-                    if n.chord == "continue":
+                if hasattr(note, "chord"):
+                    if note.chord == "continue":
                         if not hasattr(previous, "chord"):
                             previous.chord = "start"
-                            n.chord = "end"
-                        elif previous.chord == "end":
+                            note.chord = "stop"
+                        elif previous.chord == "stop":
                             previous.chord = "continue"
-                            n.chord = "end"
-                if hasattr(n, "grace"):
+                            note.chord = "stop"
+                if hasattr(note, "grace"):
                     if hasattr(previous, "grace"):
-                        n.grace.first = False
-            previous = n
-        measure.addNote(new_note)
+                        note.grace.first = False
+            else:
+                if hasattr(note, "chord"):
+                    if note.chord == "continue":
+                        note.chord = "start"
+            previous = note
 
 
     def AddToGlobalList(self, item, item_dict):
@@ -982,9 +983,11 @@ def HandleDirections(tags, attrs, chars, piece):
             if tags[-1] == "per-minute":
                 return_val = 1
                 pm = chars["per-minute"]
-                if len(items) > 0:
-                    if type(items[staff_id][last_note][-1]) is Directions.Metronome:
-                        direction = items[staff_id][last_note][-1]
+
+                if last_note in measure.items and len(measure.items[last_note]) > 0:
+                    expected = measure.items[last_note][-1]
+                    if type(expected) is Directions.Metronome:
+                        direction = expected
                     else:
                         direction = Directions.Metronome(min=pm)
 

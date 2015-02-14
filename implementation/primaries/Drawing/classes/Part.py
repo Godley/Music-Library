@@ -153,7 +153,7 @@ class Part(object):
 
                 if len(forward_measures) > 0 and len(measure_strings) > 0:
                     measure_strings = self.RepeatMeasure(sid, forward_measures[len(forward_measures)-1][0]-1, measure_strings, forward_measures)
-                lilystring += "".join([item[1] for item in measure_strings])
+                lilystring += "".join([item[1] for item in measure_strings if type(item[1]) != list])
 
                 lilystring += "}"
             if len(staff_nums) > 1:
