@@ -524,7 +524,7 @@ def HandleMeasures(tag, attrib, content, piece):
             root = None
             kind = None
             bass = None
-            if direction is not None:
+            if direction is None:
                 direction = Harmony.Harmony(kind=kind)
             else:
                 direction.kind = kind
@@ -543,10 +543,10 @@ def HandleMeasures(tag, attrib, content, piece):
                         root.alter = content["root-alter"]
 
             if "kind" in tag:
-                if not hasattr(direction, "kind"):
+                if not hasattr(direction, "kind") or direction.kind is None:
                     kind = Harmony.Kind()
                     direction.kind = kind
-                else:
+                elif direction.kind is not None:
                     kind = direction.kind
                 if "kind" in content:
                     kind.value = content["kind"]

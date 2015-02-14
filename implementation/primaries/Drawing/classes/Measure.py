@@ -40,6 +40,8 @@ class Measure(BaseClass.Base):
 
     def HandleAttributes(self):
         lilystring = ""
+        if hasattr(self, "newSystem") and self.newSystem:
+            lilystring += "\\break"
         if hasattr(self, "clef") and self.clef is not None:
             lilystring += self.clef.toLily() + " "
         if hasattr(self, "key") and self.key is not None:

@@ -13,15 +13,6 @@ class MeasureTesting(unittest.TestCase):
         self.piece.Parts["P1"] = Part.Part()
         self.part = self.piece.Parts["P1"]
 
-    def copy(self):
-        if len(self.part.measures) > 0:
-            measure = self.part.getMeasure(1, 1)
-            if 1 in MxmlParser.items:
-                measure.items.update(MxmlParser.items[1])
-            if 1 in MxmlParser.expressions:
-                measure.expressions.update(MxmlParser.expressions[1])
-            if 1 in MxmlParser.notes:
-                measure.notes.extend(MxmlParser.notes[1])
 
 
 class testHandleMeasures(MeasureTesting):
@@ -42,6 +33,12 @@ class testHandleMeasures(MeasureTesting):
     def testMeasureTag(self):
         self.handler(self.tags, self.attrs, None, self.piece)
         self.assertEqual(Measure.Measure, type(self.piece.Parts["P1"].measures[1][1]))
+
+    def testMeasurePrintTag(self):
+        self.tags.append("print")
+        self.attrs["print"] = {"new-system":"yes"}
+        self.handler(self.tags, self.attrs, None, self.piece)
+        self.assertTrue(hasattr(self.piece.Parts["P1"].measures[1][1],"newSystem"))
 
 
 class testKeySig(MeasureTesting):
@@ -187,79 +184,79 @@ class testHarmony(MeasureTesting):
     def testHarmonyTag(self):
         self.tags.append("harmony")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertIsInstance(self.measure.items[0][-1], Harmony.Harmony)
+        self.assertIsInstance(MxmlParser.direction, Harmony.Harmony)
 
     def testRootStep(self):
         self.tags.append("root")
         self.tags.append("root-step")
         self.chars["root-step"] = "A"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertTrue(hasattr(self.measure.items[0][-1], "root"))
+        self.assertTrue(hasattr(MxmlParser.direction, "root"))
 
     def testRootStepVal(self):
         self.tags.append("root")
         self.tags.append("root-step")
         self.chars["root-step"] = "A"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("A", self.measure.items[0][-1].root.step)
+        self.assertEqual("A", MxmlParser.direction.root.step)
 
     def testRootAlter(self):
         self.tags.append("root")
         self.tags.append("root-alter")
         self.chars["root-alter"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("1", self.measure.items[0][-1].root.alter)
+        self.assertEqual("1", MxmlParser.direction.root.alter)
 
     def testKindTag(self):
         self.tags.append("kind")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertTrue(hasattr(self.measure.items[0][-1], "kind"))
+        self.assertTrue(hasattr(MxmlParser.direction, "kind"))
 
     def testKindVal(self):
         self.tags.append("kind")
         self.chars["kind"] = "major"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("major", self.measure.items[0][-1].kind.value)
+        self.assertEqual("major", MxmlParser.direction.kind.value)
 
     def testKindAttribs(self):
         self.tags.append("kind")
         self.chars["kind"] = "major"
         self.attrs["kind"] = {"text": "6", "halign": "center", "parenthesis-degrees": "no"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertTrue(hasattr(self.measure.items[0][-1].kind, "text"))
-        self.assertTrue(hasattr(self.measure.items[0][-1].kind, "halign"))
-        self.assertTrue(hasattr(self.measure.items[0][-1].kind, "parenthesis"))
+        self.assertTrue(hasattr(MxmlParser.direction.kind, "text"))
+        self.assertTrue(hasattr(MxmlParser.direction.kind, "halign"))
+        self.assertTrue(hasattr(MxmlParser.direction.kind, "parenthesis"))
 
     def testBassTag(self):
         # because I'm all about that
         self.tags.append("bass")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertTrue(hasattr(self.measure.items[0][-1], "bass"))
+        self.assertTrue(hasattr(MxmlParser.direction, "bass"))
 
     def testBassStepVal(self):
         self.tags.append("bass")
         self.tags.append("bass-step")
         self.chars["bass-step"] = "D"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("D", self.measure.items[0][-1].bass.step)
+        self.assertEqual("D", MxmlParser.direction.bass.step)
 
     def testBassAlter(self):
         self.tags.append("bass")
@@ -267,42 +264,41 @@ class testHarmony(MeasureTesting):
         self.chars["bass-alter"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.measure = self.part.getMeasure(1,1)
-        self.copy()
-        self.assertEqual("1", self.measure.items[0][-1].bass.alter)
+        self.assertEqual("1", MxmlParser.direction.bass.alter)
 
     def testDegreeTag(self):
         self.tags.append("degree")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual(1, len(self.measure.items[0][-1].degrees))
+        self.assertEqual(1, len(MxmlParser.direction.degrees))
 
     def testDegreeValue(self):
         self.tags.append("degree")
         self.tags.append("degree-value")
         self.chars["degree-value"] = "9"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("9", self.measure.items[0][-1].degrees[-1].value)
+        self.assertEqual("9", MxmlParser.direction.degrees[-1].value)
 
     def testDegreeAlter(self):
         self.tags.append("degree")
         self.tags.append("degree-alter")
         self.chars["degree-alter"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("1", self.measure.items[0][-1].degrees[-1].alter)
+        self.assertEqual("1", MxmlParser.direction.degrees[-1].alter)
 
     def testDegreeType(self):
         self.tags.append("degree")
         self.tags.append("degree-type")
         self.chars["degree-type"] = "add"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("add", self.measure.items[0][-1].degrees[-1].type)
+        self.assertEqual("add", MxmlParser.direction.degrees[-1].type)
 
     def testDegreeDisplay(self):
         self.tags.append("degree")
@@ -310,40 +306,40 @@ class testHarmony(MeasureTesting):
         self.chars["degree-type"] = "add"
         self.attrs["degree-type"] = {"text": ""}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("", self.measure.items[0][-1].degrees[-1].display)
+        self.assertEqual("", MxmlParser.direction.degrees[-1].display)
 
     def testFrame(self):
         self.tags.append("frame")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertTrue(hasattr(self.measure.items[0][-1], "frame"))
+        self.assertTrue(hasattr(MxmlParser.direction, "frame"))
 
     def testFrameType(self):
         self.tags.append("frame")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertIsInstance(self.measure.items[0][-1].frame, Harmony.Frame)
+        self.assertIsInstance(MxmlParser.direction.frame, Harmony.Frame)
 
     def testFirstFret(self):
         self.tags.append("frame")
         self.tags.append("first-fret")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertTrue(hasattr(self.measure.items[0][-1].frame, "firstFret"))
+        self.assertTrue(hasattr(MxmlParser.direction.frame, "firstFret"))
 
     def testFirstFretVal(self):
         self.tags.append("frame")
         self.tags.append("first-fret")
         self.chars["first-fret"] = "6"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("6", self.measure.items[0][-1].frame.firstFret[0])
+        self.assertEqual("6", MxmlParser.direction.frame.firstFret[0])
 
     def testFrameStrings(self):
         self.tags.append("frame")
@@ -351,18 +347,18 @@ class testHarmony(MeasureTesting):
         self.chars["frame-strings"] = "6"
         print("frame_strings")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("6", self.measure.items[0][-1].frame.strings)
+        self.assertEqual("6", MxmlParser.direction.frame.strings)
 
     def testFrameFrets(self):
         self.tags.append("frame")
         self.tags.append("frame-frets")
         self.chars["frame-frets"] = "5"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("5", self.measure.items[0][-1].frame.frets)
+        self.assertEqual("5", MxmlParser.direction.frame.frets)
 
     def testFrameNote(self):
         self.tags.append("frame")
@@ -370,9 +366,9 @@ class testHarmony(MeasureTesting):
         self.tags.append("string")
         self.chars["string"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual(1, len(self.measure.items[0][-1].frame.notes))
+        self.assertEqual(1, len(MxmlParser.direction.frame.notes))
 
     def testFrameNoteString(self):
         self.tags.append("frame")
@@ -380,9 +376,9 @@ class testHarmony(MeasureTesting):
         self.tags.append("string")
         self.chars["string"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertTrue(1 in self.measure.items[0][-1].frame.notes)
+        self.assertTrue(1 in MxmlParser.direction.frame.notes)
 
     def testFrameNoteFret(self):
         self.tags.append("frame")
@@ -393,9 +389,9 @@ class testHarmony(MeasureTesting):
         self.tags.append("fret")
         self.chars["fret"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("1", self.measure.items[0][-1].frame.notes[3].fret)
+        self.assertEqual("1", MxmlParser.direction.frame.notes[3].fret)
 
     def testFrameNoteBarre(self):
         self.tags.append("frame")
@@ -406,9 +402,9 @@ class testHarmony(MeasureTesting):
         self.tags.append("barre")
         self.attrs["barre"] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("start", self.measure.items[0][-1].frame.notes[1].barre)
+        self.assertEqual("start", MxmlParser.direction.frame.notes[1].barre)
 
     def testFrameNoteFingering(self):
         self.tags.append("frame")
@@ -419,9 +415,9 @@ class testHarmony(MeasureTesting):
         self.tags.append("fingering")
         self.chars["fingering"] = "3"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.measure = self.part.getMeasure(1,1)
-        self.assertEqual("3", self.measure.items[0][-1].frame.notes[1].fingering)
+        self.assertEqual("3", MxmlParser.direction.frame.notes[1].fingering)
 
 class testBarline(MeasureTesting):
     def setUp(self):
@@ -435,14 +431,12 @@ class testBarline(MeasureTesting):
     def testBarline(self):
         self.attrs["barline"] = {"location": "left"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
         self.assertTrue(hasattr(self.measure, "barlines"))
         self.assertIsInstance(self.measure.barlines, dict)
 
     def testBarlineLocation(self):
         self.attrs["barline"] = {"location": "left"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
         self.assertTrue("left" in self.measure.barlines.keys())
         self.assertIsInstance(self.measure.barlines["left"], Measure.Barline)
 
@@ -451,7 +445,6 @@ class testBarline(MeasureTesting):
         self.tags.append("bar-style")
         self.chars["bar-style"] = "heavy-light"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
         self.assertEqual("heavy-light", self.measure.barlines["left"].style)
 
     def testRepeat(self):
@@ -459,7 +452,7 @@ class testBarline(MeasureTesting):
         self.attrs["barline"] = {"location": "left"}
         self.attrs["repeat"] = {"direction": "backward"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.assertTrue(hasattr(self.measure.barlines["left"], "repeat"))
 
     def testRepeatVal(self):
@@ -469,7 +462,7 @@ class testBarline(MeasureTesting):
 
         MxmlParser.last_barline = Measure.Barline(repeat="forward")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.assertEqual("backward", self.measure.barlines["left"].repeat)
 
     def testRepeatValWhenNoPreviousBar(self):
@@ -477,6 +470,6 @@ class testBarline(MeasureTesting):
         self.attrs["barline"] = {"location": "left"}
         self.attrs["repeat"] = {"direction": "backward"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.copy()
+        
         self.assertEqual("backward-barline", self.measure.barlines["left"].repeat)
 
