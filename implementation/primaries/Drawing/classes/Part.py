@@ -149,7 +149,7 @@ class Part(object):
             split_name = self.name.split(' ')
             joined_name = "".join(split_name)
             first_letter = joined_name[0].lower()
-        
+
             #lilypond won't allow numbers to be in variable names, so convert these to words
             if first_letter in ["0","1","2","3","4","5","6","7","8","9"]:
                 first_letter = NumbersToWords(int(first_letter))

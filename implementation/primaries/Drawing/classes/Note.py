@@ -167,7 +167,10 @@ class Note(BaseClass.Base):
             else:
                 self.wrap_notation.append(obj)
                 return
-        self.postnotation.append(obj)
+        if hasattr(obj, "type"):
+            duplicate_check = [True for thing in self.postnotation if thing.type == obj.type]
+            if len(duplicate_check) < 1:
+                self.postnotation.append(obj)
 
     def SetType(self, type):
         self.val_type = type
