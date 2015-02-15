@@ -363,9 +363,8 @@ class testMeasure14Item2(testBracket):
         self.type = "start"
         self.number = 1
         self.lineend = "none"
-        self.linetype = "solid"
         self.measure_id = 14
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testBracket.setUp(self)
 
@@ -376,6 +375,6 @@ class testMeasure14Item4(testBracket):
         self.lineend = "down"
         self.endlength = 15
         self.measure_id = 14
-        self.item_id = 2
+        self.item_id = 1
         self.p_id = "P1"
         testBracket.setUp(self)

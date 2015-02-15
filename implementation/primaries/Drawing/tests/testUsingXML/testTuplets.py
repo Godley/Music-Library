@@ -306,8 +306,6 @@ class testMeasure4Note6(testTimeMod):
         self.item_id = 5
         testTimeMod.setUp(self)
 
-    def testChord(self):
-        self.assertTrue(self.item.chord)
 
 class testMeasure4Note7(testTimeMod):
     def setUp(self):
@@ -322,7 +320,7 @@ class testMeasure4Note8(testTimeMod):
         self.actual = 7
         self.normal = 4
         self.measure_id= 4
-        self.item_id = 7
+        self.item_id = 6
         testTimeMod.setUp(self)
 
 class testMeasure5Note1(testTimeMod):
