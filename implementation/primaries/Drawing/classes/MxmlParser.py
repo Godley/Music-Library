@@ -226,11 +226,13 @@ class MxmlParser(object):
             self.chars.pop(name)
 
         if name == "note":
-            measure_id = int(GetID(self.attribs, "measure", "number"))
-            part_id = GetID(self.attribs, "part", "id")
-            if part_id in self.piece.Parts:
-                part = self.piece.Parts[part_id]
-                self.CopyNote(part, measure_id, note)
+            measure_id_string = GetID(self.attribs, "measure", "number")
+            if measure_id_string is not None:
+                measure_id = int(measure_id_string)
+                part_id = GetID(self.attribs, "part", "id")
+                if part_id in self.piece.Parts:
+                    part = self.piece.Parts[part_id]
+                    self.CopyNote(part, measure_id, note)
             note = None
         if name == "degree":
             degree = None
