@@ -1022,7 +1022,7 @@ def HandleDirections(tags, attrs, chars, piece):
 
         if len(tags) > 1:
             if tags[-2] == "dynamics":
-                dynamic = Directions.Dynamic(placement=placement, mark=tags[-1])
+                expression = Directions.Dynamic(placement=placement, mark=tags[-1])
         if "sound" in tags:
             return_val = 1
             if "sound" in attrs:
