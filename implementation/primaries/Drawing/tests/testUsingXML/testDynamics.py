@@ -22,7 +22,6 @@ class testFile(xmlSet):
         self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
 
 class testDynamics(xmlSet):
-    # TODO: handle multiple sound dynamic values in 1 bar
     def setUp(self):
         xmlSet.setUp(self)
         self.m_num = 32

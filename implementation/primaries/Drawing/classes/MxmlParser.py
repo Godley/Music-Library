@@ -118,6 +118,7 @@ class MxmlParser(object):
                 self.chars[self.tags[-1]] = text
 
     def CopyNote(self, part, measure_id, new_note):
+        global last_note
         # handles copying the latest note into the measure note list.
         # done at end of note loading to make sure staff_id is right as staff id could be encountered
         # any point during the note tag
@@ -126,6 +127,7 @@ class MxmlParser(object):
         measure = part.getMeasure(int(measure_id), staff_id)
         if not new_note in measure.notes:
             measure.addNote(new_note)
+            last_note = len(measure.notes)-1
 
     def UpdateMeasureBeamsChordsAndGracenotes(self, part_id, measure_id, staff):
         # handles updating all notes beams, chords, and gracenotes - done because of the various
@@ -219,6 +221,7 @@ class MxmlParser(object):
         if name == "measure":
             part_id = GetID(self.attribs, "part", "id")
             measure_id = GetID(self.attribs, "measure", "number")
+            last_note = 0
             self.UpdateMeasureBeamsChordsAndGracenotes(part_id, int(measure_id), staff_id)
         if name in self.attribs:
             self.attribs.pop(name)
