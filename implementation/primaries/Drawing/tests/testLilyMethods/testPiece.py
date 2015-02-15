@@ -16,5 +16,5 @@ class testPieceWithTitle(Lily):
     def setUp(self):
         self.item = Piece.Piece()
         self.item.meta = Meta.Meta(title="hello world")
-        self.lilystring = "\header {\ntitle = \"hello world\"\n}<<>>"
+        self.lilystring = "\n\header {\ntitle = \"hello world\"\n}<<>>"
 

@@ -21,13 +21,6 @@ class testArpeg(xmlSet):
     def testMeasures(self):
         self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
 
-    def testNote1(self):
-        item = piece.Parts[self.p_id].measures[1][1].notes[0]
-        self.assertFalse(hasattr(item, "beams"))
-
-    def testNote2(self):
-        item = piece.Parts[self.p_id].measures[1][1].notes[1]
-        self.assertTrue(hasattr(item, "beams"))
 
     def testNote2ID(self):
         item = piece.Parts[self.p_id].measures[1][1].notes[1]
@@ -61,9 +54,6 @@ class testArpeg(xmlSet):
         item = piece.Parts[self.p_id].measures[1][1].notes[3]
         self.assertEqual("end", item.beams[1].type)
 
-    def testNote5(self):
-        item = piece.Parts[self.p_id].measures[1][1].notes[4]
-        self.assertFalse(hasattr(item, "beams"))
 
     def testNote6(self):
         item = piece.Parts[self.p_id].measures[1][1].notes[5]

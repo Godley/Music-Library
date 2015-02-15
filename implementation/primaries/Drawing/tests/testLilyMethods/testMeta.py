@@ -20,4 +20,4 @@ class testMetaCreds(Lily):
     def setUp(self):
         self.item = Meta.Meta()
         self.item.credits = [Directions.CreditText(text="hello")]
-        self.lilystring = "\header {\n\n}\n\markup { hello  }"
+        self.lilystring = "\header {\n\n}\markuplist {\n\\vspace #0.5\n\n\"hello\"  }"
