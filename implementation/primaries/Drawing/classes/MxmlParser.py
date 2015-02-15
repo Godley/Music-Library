@@ -118,48 +118,44 @@ class MxmlParser(object):
                 self.chars[self.tags[-1]] = text
 
     def CopyNote(self, part, measure_id, new_note):
-        previous = None
+        # handles copying the latest note into the measure note list.
+        # done at end of note loading to make sure staff_id is right as staff id could be encountered
+        # any point during the note tag
         if part.getMeasure(int(measure_id), staff_id) is None:
             part.addEmptyMeasure(int(measure_id), staff_id)
         measure = part.getMeasure(int(measure_id), staff_id)
         if not new_note in measure.notes:
             measure.addNote(new_note)
-        for note in measure.notes:
-            if previous is not None:
-                if hasattr(note, "chord"):
-                    if note.chord == "continue":
-                        if not hasattr(previous, "chord"):
-                            previous.chord = "start"
-                            note.chord = "stop"
-                            beams = previous.GetBeams()
-                            if beams is not None:
-                                note.beams = copy.deepcopy(beams)
-                        elif previous.chord == "stop":
-                            previous.chord = "continue"
-                            note.chord = "stop"
-                if hasattr(note, "grace"):
-                    if hasattr(previous, "grace"):
-                        note.grace.first = False
-            else:
-                if hasattr(note, "chord"):
-                    if note.chord == "continue":
-                        note.chord = "start"
-            previous = note
 
-
-    def AddToGlobalList(self, item, item_dict):
-        added = False
-        for staff in item_dict:
-            for thing in item_dict[staff]:
-                if thing == item:
-                    added = True
-                    break
-        if not added:
-            if staff_id not in item_dict:
-                item_dict[staff_id] = {}
-            if last_note not in item_dict[staff_id]:
-                item_dict[staff_id][last_note] = []
-            item_dict[staff_id][last_note].append(copy.deepcopy(item))
+    def UpdateMeasureBeamsChordsAndGracenotes(self, part_id, measure_id, staff):
+        # handles updating all notes beams, chords, and gracenotes - done because of the various
+        # ways beams/chords/gracenotes are loaded mean they have to be updated once all the information
+        # is handled abt the notes
+        part = self.piece.Parts[part_id]
+        measure = part.getMeasure(measure_id, staff)
+        previous = None
+        if measure is not None:
+            for note in measure.notes:
+                if previous is not None:
+                    if hasattr(note, "chord"):
+                        if note.chord == "continue":
+                            if not hasattr(previous, "chord"):
+                                previous.chord = "start"
+                                note.chord = "stop"
+                                beams = previous.GetBeams()
+                                if beams is not None:
+                                    note.beams = copy.deepcopy(beams)
+                            elif previous.chord == "stop":
+                                previous.chord = "continue"
+                                note.chord = "stop"
+                    if hasattr(note, "grace"):
+                        if hasattr(previous, "grace"):
+                            note.grace.first = False
+                else:
+                    if hasattr(note, "chord"):
+                        if note.chord == "continue":
+                            note.chord = "start"
+                previous = note
 
     def EndTag(self, name):
         global note, degree, frame_note, staff_id, last_note, last_fwd_repeat, notes, direction,expression,expressions, items, last_barline,last_barline_pos
@@ -219,6 +215,10 @@ class MxmlParser(object):
             if last_barline is not None:
                 if last_barline.repeat == "forward":
                     last_barline.repeat += "-barline"
+        if name == "measure":
+            part_id = GetID(self.attribs, "part", "id")
+            measure_id = GetID(self.attribs, "measure", "number")
+            self.UpdateMeasureBeamsChordsAndGracenotes(part_id, int(measure_id), staff_id)
         if name in self.attribs:
             self.attribs.pop(name)
         if name in self.chars:
@@ -928,7 +928,6 @@ def HandlePitch(tags, attrs, text, piece):
 def HandleDirections(tags, attrs, chars, piece):
     global expressions, items, staff_id, direction, expression
     return_val = None
-    dynamic = None
     if len(tags) == 0:
         return None
 
@@ -982,8 +981,11 @@ def HandleDirections(tags, attrs, chars, piece):
             if tags[-1] == "beat-unit":
                 return_val = 1
                 unit = chars["beat-unit"]
-                direction = Directions.Metronome(placement=placement,beat=unit)
-
+                if direction is None:
+                    direction = Directions.Metronome(placement=placement,beat=unit)
+                else:
+                    direction.beat = unit
+                    direction.placement = placement
                 direction.text = str(direction.beat)
                 if "metronome" in attrs:
                     if "font-family" in attrs["metronome"]:
@@ -996,16 +998,10 @@ def HandleDirections(tags, attrs, chars, piece):
                 return_val = 1
                 pm = chars["per-minute"]
 
-                if last_note in measure.items and len(measure.items[last_note]) > 0:
-                    expected = measure.items[last_note][-1]
-                    if type(expected) is Directions.Metronome:
-                        direction = expected
-                    else:
-                        direction = Directions.Metronome(min=pm)
-
-                else:
+                if direction is None:
                     direction = Directions.Metronome(min=pm)
-                direction.min = pm
+                else:
+                    direction.min = pm
                 direction.text += " = " + direction.min
                 if "metronome" in attrs:
                     if "font-family" in attrs["metronome"]:

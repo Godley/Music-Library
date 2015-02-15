@@ -371,7 +371,7 @@ class Metronome(Direction):
             if self.parentheses:
                 return_val += "\"\" "
         if hasattr(self, "beat"):
-            converter = {"quarter":4,"eigth":8,"half":2}
+            converter = {"quarter":4,"eighth":8,"half":2}
             if self.beat in converter:
                 return_val += str(converter[self.beat]) + "="
             else:

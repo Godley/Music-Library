@@ -163,6 +163,9 @@ class Note(BaseClass.Base):
                 return
         if type(obj) in wrap_notation:
             if type(obj) == Slide and not hasattr(obj, "lineType"):
+                self.postnotation.append(obj)
+                return
+            else:
                 self.wrap_notation.append(obj)
                 return
         self.postnotation.append(obj)
@@ -214,7 +217,7 @@ class Note(BaseClass.Base):
     def GetBeams(self):
         if hasattr(self, "beams"):
             return self.beams
-    
+
     def getLilyDuration(self):
         # method to calculate duration of note in lilypond duration style
         value = ""

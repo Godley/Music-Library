@@ -109,6 +109,8 @@ class testMeasureOneNoteOneDirection(MeasureTests):
         Lily.setUp(self)
         self.name = "measurenotedirection"
 
+
+
 class testMeasureSecondStave(MeasureTests):
     def setUp(self):
         self.item = Measure.Measure()

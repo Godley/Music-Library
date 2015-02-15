@@ -149,6 +149,17 @@ class testNoteBeam(Lily):
         self.lilystring = "c'["
         self.name = "notebeamstart"
 
+class testNoteMultipleBeam(Lily):
+    def setUp(self):
+        self.item = Note.Note()
+        self.item.pitch = Note.Pitch()
+        self.item.addBeam(1, Note.Beam("end"))
+        self.item.addBeam(2, Note.Beam("begin"))
+        Lily.setUp(self)
+        self.wrappers = ["\\new Staff{a8 ","c'8]}"]
+        self.lilystring = "c']["
+        self.name = "notebeamstart"
+
 class testNoteContinue(Lily):
     def setUp(self):
         self.item = Note.Note()
