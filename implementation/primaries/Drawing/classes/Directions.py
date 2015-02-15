@@ -41,7 +41,11 @@ class Text(BaseClass.Base):
         valid = False
         for char in self.text:
             if char in string.ascii_letters or char in ["0","1","2","3","4","5","6","7","8","9"]:
-                lilystring += "\""+ self.text + "\" "
+                if not hasattr(self, "noquotes"):
+                    lilystring += "\""
+                lilystring += self.text
+                if not hasattr(self, "noquotes"):
+                    lilystring += "\" "
                 valid = True
                 break
             else:
@@ -114,8 +118,7 @@ class Direction(Text):
 
     def toLily(self):
         default = 10
-
-        textLilyString = "\markup { "+Text.toLily(self)+"}"
+        textLilyString = Text.toLily(self)
         symbol = ""
         return_val = ""
         if hasattr(self, "placement"):
@@ -124,7 +127,7 @@ class Direction(Text):
             if self.placement == "below":
                 symbol = "_"
         if len(textLilyString) > 0:
-            return_val = symbol + textLilyString
+            return_val = symbol + "\\markup { "+textLilyString+" }"
         return return_val
 class RehearsalMark(Direction):
     def toLily(self):
@@ -173,6 +176,7 @@ class RepeatSign(Direction):
         size = None
         font = None
         placement = None
+        self.noquotes = True
         if "type" in kwargs:
             if kwargs["type"] is not None:
                 self.type = kwargs["type"]

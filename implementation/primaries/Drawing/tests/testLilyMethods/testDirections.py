@@ -10,12 +10,12 @@ class testText(Lily):
 class testTextSize(Lily):
     def setUp(self):
         self.item = Directions.Text(size=8,text="hello")
-        self.lilystring = "\markup { \\abs-fontsize #8 hello  }"
+        self.lilystring = "\\abs-fontsize #8 \"hello\" "
 
 class testTextFont(Lily):
     def setUp(self):
         self.item = Directions.Text(font="typewriter",text="hello")
-        self.lilystring = "\markup { \\typewriter hello  }"
+        self.lilystring = "\\typewriter \"hello\" "
 
 class testBasicDirection(Lily):
     def setUp(self):
@@ -25,27 +25,27 @@ class testBasicDirection(Lily):
 class testDirectionPlacedBelow(Lily):
     def setUp(self):
         self.item = Directions.Direction(placement="below", text="hello")
-        self.lilystring = "_\markup { hello  }"
+        self.lilystring = "_\markup { \"hello\"  }"
 
 class testDirectionPlacedAbove(Lily):
     def setUp(self):
         self.item = Directions.Direction(placement="above", text="hello")
-        self.lilystring = "^\markup { hello  }"
+        self.lilystring = "^\markup { \"hello\"  }"
 
 class testDirectionWithText(Lily):
     def setUp(self):
         self.item = Directions.Direction(text="whatsup")
-        self.lilystring = "\markup { whatsup  }"
+        self.lilystring = "\markup { \"whatsup\"  }"
 
 class testDirectionFont(Lily):
     def setUp(self):
-        self.item = Directions.Direction(font="calibri",text="lol")
-        self.lilystring = "\markup { \calibri lol  }"
+        self.item = Directions.Direction(font="roman",text="lol")
+        self.lilystring = "\markup { \\roman \"lol\"  }"
 
 class testDirectionWithFontSize(Lily):
     def setUp(self):
         self.item = Directions.Direction(size=11,text="hello")
-        self.lilystring = "\\markup { \\abs-fontsize #11 hello  }"
+        self.lilystring = "\\markup { \\abs-fontsize #11 \"hello\"  }"
 
 class testRehearsalMark(Lily):
     def setUp(self):
@@ -76,12 +76,12 @@ class testRepeatSign(Lily):
 class testSegno(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign(type="segno")
-        self.lilystring = "\mark \markup { \musicglyph #\"scripts.segno\"  }"
+        self.lilystring = "\mark \markup { \musicglyph #\"scripts.segno\" }"
 
 class testCoda(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign(type="coda")
-        self.lilystring = "\mark \markup { \musicglyph #\"scripts.coda\"  }"
+        self.lilystring = "\mark \markup { \musicglyph #\"scripts.coda\" }"
 
 class testOctaveShift(Lily):
     def setUp(self):
@@ -219,27 +219,23 @@ class testSlurEnd(Lily):
 class testCreditText(Lily):
     def setUp(self):
         self.item = Directions.CreditText(text="hello")
-        self.lilystring = "\markup { hello  }"
+        self.lilystring = "\"hello\" "
 
 
 class testCreditTextX(Lily):
     def setUp(self):
         self.item = Directions.CreditText(x=100,text="hello")
-        self.lilystring = "\markup { hello  }"
+        self.lilystring = "\"hello\" "
 
 class testCreditTextY(Lily):
     def setUp(self):
         self.item = Directions.CreditText(y=100,text="hello")
-        self.lilystring = "\markup { hello  }"
+        self.lilystring = "\"hello\" "
 
-class testCreditTextVal(Lily):
-    def setUp(self):
-        self.item = Directions.CreditText(text="hello")
-        self.lilystring = "\markup { hello  }"
 
 class testCreditTextPage(Lily):
     def setUp(self):
         self.item = Directions.CreditText(page=1,text="hello")
-        self.lilystring = "\markup { hello  }"
+        self.lilystring = "\"hello\" "
 
 

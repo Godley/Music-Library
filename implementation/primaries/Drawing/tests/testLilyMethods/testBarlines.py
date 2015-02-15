@@ -74,7 +74,7 @@ class testMeasureLeftBarline(MeasureTests):
         self.item.notes[-1].pitch = Note.Pitch()
         self.item.barlines = {}
         self.item.barlines["left"] = Measure.Barline(repeat="forward")
-        self.lilystring = " \\repeat volta 2 { c'"
+        self.lilystring = " \\repeat volta 2 { c' | "
 
 class testMeasureRightBarline(MeasureTests):
     def setUp(self):
