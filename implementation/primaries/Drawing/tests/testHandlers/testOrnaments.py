@@ -40,28 +40,31 @@ class testSlides(notes):
         self.handler = MxmlParser.HandleSlidesAndGliss
         self.tags.append("slide")
         MxmlParser.note = Note.Note()
+        self.list_to_check = MxmlParser.note.postnotation
 
     def testSlide(self):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertIsInstance(MxmlParser.note.wrap_notation[-1], self.instance)
+        self.assertIsInstance(self.list_to_check[-1], self.instance)
 
     def testSlideType(self):
         self.attrs[self.tags[-1]] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.wrap_notation[-1], "type"))
-        self.assertEqual("start", MxmlParser.note.wrap_notation[-1].type)
+        self.assertTrue(hasattr(self.list_to_check[-1], "type"))
+        self.assertEqual("start", self.list_to_check[-1].type)
 
     def testSlideLineType(self):
         self.attrs[self.tags[-1]] = {"line-type": "solid"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.wrap_notation[-1], "lineType"))
-        self.assertEqual("solid", MxmlParser.note.wrap_notation[-1].lineType)
+        self.list_to_check = MxmlParser.note.wrap_notation
+        self.assertTrue(hasattr(self.list_to_check[-1], "lineType"))
+        self.assertEqual("solid", self.list_to_check[-1].lineType)
 
     def testSlideNumber(self):
         self.attrs[self.tags[-1]] = {"number": "1"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.wrap_notation[-1], "number"))
-        self.assertEqual(1, MxmlParser.note.wrap_notation[-1].number)
+
+        self.assertTrue(hasattr(self.list_to_check[-1], "number"))
+        self.assertEqual(1, self.list_to_check[-1].number)
 
 class testGliss(testSlides):
     def setUp(self):
@@ -70,6 +73,7 @@ class testGliss(testSlides):
         self.tags.append("glissando")
         MxmlParser.note = Note.Note()
         self.instance = Note.Glissando
+        self.list_to_check = MxmlParser.note.wrap_notation
 
 class testOrnaments(notes):
     def setUp(self):

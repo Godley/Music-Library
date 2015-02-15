@@ -120,6 +120,7 @@ class Note(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
         self.ties = []
+        self.beams = {}
         if "rest" in kwargs:
             self.rest = kwargs["rest"]
         else:
