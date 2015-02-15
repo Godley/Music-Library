@@ -4,6 +4,9 @@ except:
     from classes.Measure import Measure
 
 def NumbersToWords(number):
+    # little function that converts numbers to words. This could be more efficient,
+    # and won't work if the number is bigger than 999 but it's for stave names,
+    # and I doubt any part would have more than 10 staves let alone 999.
     units = ['one','two','three','four','five','six','seven','eight','nine']
     tens = ['ten','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety']
     output = ""
