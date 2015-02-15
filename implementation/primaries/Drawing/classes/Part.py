@@ -98,6 +98,23 @@ class Part(object):
             indexer-=1
         return measure_strings
 
+    def handleBarlineAlternativeEndings(self, staff_id, measure_id):
+        lilystring = ""
+        barline = self.measures[staff_id][measure_id].GetBarline("right")
+        if barline is not None:
+            if hasattr(barline, "ending"):
+                if measure_id+1 < len(self.measures[staff_id]) -1:
+                    next_barline = self.measures[staff_id][measure_id+1].GetBarline("left")
+                    if next_barline is not None:
+                        if not hasattr(next_barline, "ending"):
+                            lilystring = "}"
+                    else:
+                        lilystring = "}"
+                else:
+                    lilystring = "}"
+        return lilystring
+
+
     def toLily(self):
         self.CheckDivisions()
         lilystring = ""
@@ -116,13 +133,12 @@ class Part(object):
                 lilystring+= " <<"
             for sid in staff_nums:
                 lilystring += "\\new Staff"
-                lilystring += " \with { \n\\remove Forbid_line_break_engraver\n"
+                lilystring += " \with {\n"
                 if hasattr(self, "name") and len(staff_nums) == 1:
                     lilystring += "instrumentName = #\""+ self.name +" \"\n"
                 lilystring += " }"
                 lilystring += "{"
                 lilystring += "\\autoBeamOff "
-                sub_measures = [key for key in self.measures[sid]]
                 measure_strings = []
                 forward_measures = []
                 opened = False
@@ -134,19 +150,7 @@ class Part(object):
                         string_to_update = return_val
                     else:
                         string_to_update = return_val[1]
-                    barline = self.measures[sid][key].GetBarline("right")
-                    left_barline = self.measures[sid][key].GetBarline("left")
-                    if barline is not None:
-                        if hasattr(barline, "ending"):
-                            if key+1 < len(self.measures[sid]) -1:
-                                next_barline = self.measures[sid][key+1].GetBarline("left")
-                                if next_barline is not None:
-                                    if not hasattr(next_barline, "ending"):
-                                        string_to_update += "}"
-                                else:
-                                    string_to_update += "}"
-                            else:
-                                string_to_update += "}"
+                    string_to_update += self.handleBarlineAlternativeEndings(sid, key)
                     if return_val is list:
                         forward_measures.append((key,[return_val[0],string_to_update]))
                     else:
@@ -155,8 +159,7 @@ class Part(object):
 
                 if len(forward_measures) > 0 and len(measure_strings) > 0:
                     measure_strings = self.RepeatMeasure(sid, forward_measures[len(forward_measures)-1][0]-1, measure_strings, forward_measures)
-                lilystring += "".join([item[1] for item in measure_strings if type(item[1]) != list])
-
+                lilystring += "\n\n".join(["% measure " + str(item[0]) + "\n" + item[1] for item in measure_strings if type(item[1]) != list])
                 lilystring += "}"
             if len(staff_nums) > 1:
                 lilystring += ">>"
