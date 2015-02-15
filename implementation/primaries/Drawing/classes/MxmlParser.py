@@ -132,30 +132,31 @@ class MxmlParser(object):
         # ways beams/chords/gracenotes are loaded mean they have to be updated once all the information
         # is handled abt the notes
         part = self.piece.Parts[part_id]
-        measure = part.getMeasure(measure_id, staff)
-        previous = None
-        if measure is not None:
-            for note in measure.notes:
-                if previous is not None:
-                    if hasattr(note, "chord"):
-                        if note.chord == "continue":
-                            if not hasattr(previous, "chord"):
-                                previous.chord = "start"
-                                note.chord = "stop"
-                                beams = previous.GetBeams()
-                                if beams is not None:
-                                    note.beams = copy.deepcopy(beams)
-                            elif previous.chord == "stop":
-                                previous.chord = "continue"
-                                note.chord = "stop"
-                    if hasattr(note, "grace"):
-                        if hasattr(previous, "grace"):
-                            note.grace.first = False
-                else:
-                    if hasattr(note, "chord"):
-                        if note.chord == "continue":
-                            note.chord = "start"
-                previous = note
+        for staves in part.measures:
+            measure = part.getMeasure(measure_id, staves)
+            previous = None
+            if measure is not None:
+                for note in measure.notes:
+                    if previous is not None:
+                        if hasattr(note, "chord"):
+                            if note.chord == "continue":
+                                if not hasattr(previous, "chord"):
+                                    previous.chord = "start"
+                                    note.chord = "stop"
+                                    beams = previous.GetBeams()
+                                    if beams is not None:
+                                        note.beams = copy.deepcopy(beams)
+                                elif previous.chord == "stop":
+                                    previous.chord = "continue"
+                                    note.chord = "stop"
+                        if hasattr(note, "grace"):
+                            if hasattr(previous, "grace"):
+                                note.grace.first = False
+                    else:
+                        if hasattr(note, "chord"):
+                            if note.chord == "continue":
+                                note.chord = "start"
+                    previous = note
 
     def EndTag(self, name):
         global note, degree, frame_note, staff_id, last_note, last_fwd_repeat, notes, direction,expression,expressions, items, last_barline,last_barline_pos
@@ -788,8 +789,8 @@ def CreateNote(tag, attrs, content, piece):
 
         if "dot" in tag:
             note.dotted = True
-        if "tie" in tag:
-            note.ties.append(Note.Tie(attrs["tie"]["type"]))
+        if tag[-1] == "tie":
+            note.AddTie(attrs["tie"]["type"])
         if "chord" in tag:
             note.chord = "continue"
         if tag[-1] == "stem":

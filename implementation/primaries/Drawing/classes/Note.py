@@ -10,12 +10,11 @@ class Tie(BaseClass.Base):
             self.type = type
 
     def toLily(self):
+        lily = ""
         if hasattr(self, "type"):
-            if self.type == "stop":
-                return ""
-            elif self.type == "start":
-                return "~"
-        return "~"
+            if self.type == "start":
+                lily = "~"
+        return lily
 
 class Notehead(BaseClass.Base):
     def __init__(self, filled=False, type=""):
@@ -258,7 +257,15 @@ class Note(BaseClass.Base):
             self.beams = {}
         self.beams[id] = beam
 
-
+    def AddTie(self, type):
+        add = True
+        for tie in self.ties:
+            if tie.type == type:
+                add = False
+                break
+        if add:
+            self.ties.append(Tie(type))
+            
     def toLily(self):
         val = ""
         val += self.handlePreLilies()
