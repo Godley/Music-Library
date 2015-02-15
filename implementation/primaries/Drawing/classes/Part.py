@@ -3,6 +3,27 @@ try:
 except:
     from classes.Measure import Measure
 
+def NumbersToWords(number):
+    units = ['one','two','three','four','five','six','seven','eight','nine']
+    tens = ['ten','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety']
+    output = ""
+    if number > 0:
+        str_val = str(number)
+        if 4 > len(str_val) > 2:
+            output += units[int(str_val[0])-1]
+            output += "hundred"
+            if str_val[1] != 0:
+                output += "and" + tens[int(str_val[1])-1]
+                if str_val[2] != 0:
+                    output += units[int(str_val[2])-1]
+        if 3 > len(str_val) > 1:
+            output += tens[int(str_val[0])-1]
+            if str_val[1] != 0:
+                output += units[int(str_val[1])-1]
+        if 2 > len(str_val) == 1:
+            output += units[int(str_val[0])-1]
+    return output
+
 class Part(object):
     def __init__(self):
         self.measures = {}
@@ -119,6 +140,51 @@ class Part(object):
         self.CheckDivisions()
         lilystring = ""
         staff_nums = list(self.measures.keys())
+        variables = []
+        variable_names = []
+        for sid in staff_nums:
+            variable = ""
+            if hasattr(self, "name"):
+                part_name = self.name.split(' ')
+                first_part = part_name[0][0].lower() + part_name[0][1:-1]
+                variable += first_part
+                if len(part_name) > 1:
+                    variable += "".join(part_name[1:-1])
+            variable = "".join(variable)+"S"+NumbersToWords(sid)
+            variable_names.append("\\"+variable)
+            lilystring += variable + " = "
+            lilystring += "\\new Staff"
+            if hasattr(self, "name") and len(staff_nums) == 1:
+                lilystring += " \with {\n"
+                lilystring += "instrumentName = #\""+ self.name +" \"\n"
+                lilystring += " }"
+            lilystring += "{"
+            lilystring += "\\autoBeamOff "
+            measure_strings = []
+            forward_measures = []
+            opened = False
+            closed = False
+            for key in self.measures[sid]:
+                return_val = self.measures[sid][key].toLily()
+                string_to_update = ""
+                if return_val is not list:
+                    string_to_update = return_val
+                else:
+                    string_to_update = return_val[1]
+                string_to_update += self.handleBarlineAlternativeEndings(sid, key)
+                if return_val is list:
+                    forward_measures.append((key,[return_val[0],string_to_update]))
+                else:
+                    measure_strings.append((key, string_to_update))
+
+
+            if len(forward_measures) > 0 and len(measure_strings) > 0:
+                measure_strings = self.RepeatMeasure(sid, forward_measures[len(forward_measures)-1][0]-1, measure_strings, forward_measures)
+            lilystring += "\n\n".join(["% measure " + str(item[0]) + "\n" + item[1] for item in measure_strings if type(item[1]) != list])
+            lilystring += "}\n\n"
+            variables.append(lilystring)
+            lilystring = ""
+
         if len(staff_nums) > 0:
             if len(staff_nums) > 1:
                 lilystring += "\\new StaffGroup"
@@ -131,36 +197,7 @@ class Part(object):
                     lilystring += " \"\n}"
 
                 lilystring+= " <<"
-            for sid in staff_nums:
-                lilystring += "\\new Staff"
-                lilystring += " \with {\n"
-                if hasattr(self, "name") and len(staff_nums) == 1:
-                    lilystring += "instrumentName = #\""+ self.name +" \"\n"
-                lilystring += " }"
-                lilystring += "{"
-                lilystring += "\\autoBeamOff "
-                measure_strings = []
-                forward_measures = []
-                opened = False
-                closed = False
-                for key in self.measures[sid]:
-                    return_val = self.measures[sid][key].toLily()
-                    string_to_update = ""
-                    if return_val is not list:
-                        string_to_update = return_val
-                    else:
-                        string_to_update = return_val[1]
-                    string_to_update += self.handleBarlineAlternativeEndings(sid, key)
-                    if return_val is list:
-                        forward_measures.append((key,[return_val[0],string_to_update]))
-                    else:
-                        measure_strings.append((key, string_to_update))
-
-
-                if len(forward_measures) > 0 and len(measure_strings) > 0:
-                    measure_strings = self.RepeatMeasure(sid, forward_measures[len(forward_measures)-1][0]-1, measure_strings, forward_measures)
-                lilystring += "\n\n".join(["% measure " + str(item[0]) + "\n" + item[1] for item in measure_strings if type(item[1]) != list])
-                lilystring += "}"
-            if len(staff_nums) > 1:
-                lilystring += ">>"
-        return lilystring
+        lilystring += "\n".join(variable_names)
+        if len(staff_nums) > 1:
+            lilystring += ">>"
+        return variables, lilystring

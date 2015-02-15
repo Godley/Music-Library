@@ -251,7 +251,9 @@ class Note(BaseClass.Base):
     def addBeam(self, id, beam):
         if not hasattr(self, "beams"):
             self.beams = {}
-        self.beams[id] = beam
+        result = [True for b in self.beams if self.beams[b].type == beam.type]
+        if len(result) < 1:
+            self.beams[id] = beam
 
     def AddTie(self, type):
         add = True
