@@ -172,7 +172,7 @@ class Part(object):
 
             # create the staff variable name, based on the name of the part combined with the staff number in words
             variable = self.GetVariableName(sid)
-
+            variable_names.append("\\"+variable)
             # set up the lilystring for that variable
             lilystring += variable + " = "
             lilystring += "\\new Staff"
