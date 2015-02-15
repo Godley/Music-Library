@@ -12,6 +12,9 @@ class MeasureTesting(unittest.TestCase):
         self.piece = Piece.Piece()
         self.piece.Parts["P1"] = Part.Part()
         self.part = self.piece.Parts["P1"]
+        MxmlParser.direction = None
+        MxmlParser.note = None
+        MxmlParser.expression = None
 
 
 
