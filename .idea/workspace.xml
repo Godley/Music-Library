@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Part.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Part.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Meta.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Meta.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -129,11 +130,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Part.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Part.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Part.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.875" vertical-offset="1935" max-vertical-offset="3390">
+            <state vertical-scroll-proportion="-24.107143" vertical-offset="1935" max-vertical-offset="3390">
               <caret line="219" column="72" selection-start-line="219" selection-start-column="72" selection-end-line="219" selection-end-column="72" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Meta.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Meta.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5219072" vertical-offset="0" max-vertical-offset="776">
+              <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -162,8 +173,8 @@
       <file leaf-file-name="Directions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5091" max-vertical-offset="7215">
-              <caret line="373" column="42" selection-start-line="373" selection-start-column="42" selection-end-line="373" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="7200">
+              <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -236,7 +247,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Harmony.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testTwoStavesOnePart.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testArticulation.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleDirections.py" />
@@ -280,13 +290,14 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/run.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Measure.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testNote.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Piece.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Part.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Meta.py" />
       </list>
     </option>
   </component>
@@ -1162,12 +1173,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00191" summary="test fixes">
-      <created>1423437932379</created>
-      <option name="number" value="00191" />
-      <option name="project" value="LOCAL" />
-      <updated>1423437932379</updated>
-    </task>
     <task id="LOCAL-00192" summary="test fixes">
       <created>1423443053644</created>
       <option name="number" value="00192" />
@@ -1456,7 +1461,13 @@
       <option name="project" value="LOCAL" />
       <updated>1424015990123</updated>
     </task>
-    <option name="localTasksCounter" value="240" />
+    <task id="LOCAL-00240" summary="more comments to part lilypond method">
+      <created>1424016753048</created>
+      <option name="number" value="00240" />
+      <option name="project" value="LOCAL" />
+      <updated>1424016753048</updated>
+    </task>
+    <option name="localTasksCounter" value="241" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1547,7 +1558,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #11, noteheads" />
     <MESSAGE value="unit test fix" />
     <MESSAGE value="issue fix #16, instrument names where parts have multiple staves" />
     <MESSAGE value="issue fix #15. Problem was notes weren't *actually* being added to the right stave - staff as a tag tends to come inside each note, where we were checking for it inside measure instead. HOWEVER this may have broken directions so need to confirm this with another 2 parted testcase" />
@@ -1572,7 +1582,8 @@
     <MESSAGE value="issue #31 cleaned up ties &#10;&#10;each chord doesn't have a tie notated per note in chord" />
     <MESSAGE value="issue #31 gave each staff a variable" />
     <MESSAGE value="added a comment to the numberstowords function &#10;comment explaining what it does" />
-    <option name="LAST_COMMIT_MESSAGE" value="added a comment to the numberstowords function &#10;comment explaining what it does" />
+    <MESSAGE value="more comments to part lilypond method" />
+    <option name="LAST_COMMIT_MESSAGE" value="more comments to part lilypond method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1588,13 +1599,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/snippet">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleDirections.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="10.019418" vertical-offset="0" max-vertical-offset="5250">
@@ -1932,14 +1936,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5091" max-vertical-offset="7215">
-          <caret line="373" column="42" selection-start-line="373" selection-start-column="42" selection-end-line="373" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1144" max-vertical-offset="1980">
@@ -2082,8 +2078,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Part.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.875" vertical-offset="1935" max-vertical-offset="3390">
+        <state vertical-scroll-proportion="-24.107143" vertical-offset="1935" max-vertical-offset="3390">
           <caret line="219" column="72" selection-start-line="219" selection-start-column="72" selection-end-line="219" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="7200">
+          <caret line="29" column="23" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Meta.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5219072" vertical-offset="0" max-vertical-offset="776">
+          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
           <folding />
         </state>
       </provider>

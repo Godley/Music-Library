@@ -27,7 +27,7 @@ class Text(BaseClass.Base):
 
     def toLily(self):
         # \abs-fontsize #20
-        lilystring = "\markup { "
+        lilystring = ""
         if hasattr(self, "size"):
             lilystring += "\\abs-fontsize #" + str(self.size) + " "
         if hasattr(self, "font"):
@@ -35,12 +35,11 @@ class Text(BaseClass.Base):
         valid = False
         for char in self.text:
             if char in string.ascii_letters or char in ["0","1","2","3","4","5","6","7","8","9"]:
-                lilystring += self.text + " "
+                lilystring += "\""+ self.text + "\" "
                 valid = True
                 break
             else:
                 valid = False
-        lilystring += " }"
         if not valid:
             lilystring = ""
         return lilystring
@@ -110,7 +109,7 @@ class Direction(Text):
     def toLily(self):
         default = 10
 
-        textLilyString = Text.toLily(self)
+        textLilyString = "\markup { "+Text.toLily(self)+"}"
         symbol = ""
         return_val = ""
         if hasattr(self, "placement"):

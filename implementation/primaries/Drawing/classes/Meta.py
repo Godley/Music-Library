@@ -21,8 +21,10 @@ class Meta(BaseClass.Base):
             val += "composer = \""+self.composer +"\""
         val += "\n}"
         if hasattr(self, "credits"):
-            #TODO: this needs refactoring to handle page positioning
+            val += "\\markuplist {"
             for credit in self.credits:
+                val += "\n\\vspace #0.5\n"
                 val += "\n"+credit.toLily()
+            val += " }"
         return val
 
