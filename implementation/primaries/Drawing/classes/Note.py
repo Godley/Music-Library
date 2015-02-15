@@ -189,10 +189,6 @@ class Note(BaseClass.Base):
 
     def handlePreLilies(self):
         val = ""
-
-        if hasattr(self, "stem"):
-            if not hasattr(self,"chord") or self.chord == "start":
-                val += self.stem.toLily() + "\n"
         if hasattr(self, "chord"):
             if self.chord == "start":
                 val += "<"
@@ -265,7 +261,7 @@ class Note(BaseClass.Base):
                 break
         if add:
             self.ties.append(Tie(type))
-            
+
     def toLily(self):
         val = ""
         val += self.handlePreLilies()
