@@ -399,6 +399,8 @@ def handleArticulation(tag, attrs, content, piece):
                     note.addNotation(Mark.BreathMark())
                 if tag[-1] == "caesura":
                     note.addNotation(Mark.Caesura())
+                if accent is not None:
+                    note.addNotation(accent)
             return 1
     return None
 
@@ -1072,8 +1074,7 @@ def HandleDirections(tags, attrs, chars, piece):
     return return_val
 
 def HandleRepeatMarking(tags, attrs, chars, piece):
-    global staff_id, last_note, items
-    direction = None
+    global staff_id, last_note, direction
     if "direction" in tags or "forward" in tags:
         measure = None
         part_id = GetID(attrs, "part", "id")
@@ -1111,12 +1112,6 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
                         measure.segno = attrs["sound"]["segno"]
                     if "tocoda" in attrs["sound"]:
                         measure.tocoda = attrs["sound"]["tocoda"]
-    if direction is not None:
-        if staff_id not in items:
-            items[staff_id] = {}
-        if last_note not in items[staff_id]:
-            items[staff_id][last_note] = []
-        items[staff_id][last_note].append(direction)
 
 
 

@@ -142,6 +142,7 @@ class Note(BaseClass.Base):
         self.has_tremolo = False
 
     def addNotation(self, obj):
+        add = True
         wrap_notation = [Arpeggiate,NonArpeggiate,Slide,Glissando,Mark.Caesura,Mark.BreathMark]
         # method to handle addition of notation: done here to avoid repetitive code in main parser
         if isinstance(obj, Ornaments.Tremolo) or isinstance(obj, Tuplet):
@@ -167,10 +168,12 @@ class Note(BaseClass.Base):
             else:
                 self.wrap_notation.append(obj)
                 return
-        if hasattr(obj, "type"):
-            duplicate_check = [True for thing in self.postnotation if thing.type == obj.type]
-            if len(duplicate_check) < 1:
-                self.postnotation.append(obj)
+        if hasattr(obj, "type") and len(self.postnotation) > 0:
+            duplicate_check = [True for thing in self.postnotation if hasattr(thing, "type") and thing.type == obj.type]
+            if len(duplicate_check) > 0:
+                add = False
+        if len(self.postnotation) == 0 or add:
+            self.postnotation.append(obj)
 
     def SetType(self, type):
         self.val_type = type

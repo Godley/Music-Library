@@ -41,6 +41,7 @@ class testHandleArticulation(testclass.TestClass):
         self.tags.append("accent")
         self.attrs = {"placement":"below"}
         self.handler(self.tags,self.attrs,None,self.piece)
+
         self.assertEqual("below",self.note.postnotation[0].placement)
 
     def testArticulationSaccentTag(self):

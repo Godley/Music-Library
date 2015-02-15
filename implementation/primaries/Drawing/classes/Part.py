@@ -1,5 +1,5 @@
 try:
-    from implementation.primaries.Drawing.classes import Measure, MxmlParser
+    from implementation.primaries.Drawing.classes.Measure import Measure
 except:
     from classes.Measure import Measure
 
