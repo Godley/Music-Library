@@ -1,5 +1,5 @@
 try:
-    from implementation.primaries.Drawing.classes.Measure import Measure
+    from implementation.primaries.Drawing.classes import Measure, MxmlParser
 except:
     from classes.Measure import Measure
 
@@ -140,6 +140,24 @@ class Part(object):
                     lilystring = "}"
         return lilystring
 
+    def GetVariableName(self, staff):
+        # small method to get the variable name for a specific part and staff
+        # may run into issues if there are multiple parts with the same name, but let's hope not
+        variable = ""
+        if hasattr(self, "name") and (len(self.name) > 0 and self.name != " "):
+            self.name = self.name.strip()
+            split_name = self.name.split(' ')
+            joined_name = "".join(split_name)
+            first_letter = joined_name[0].lower()
+        
+            #lilypond won't allow numbers to be in variable names, so convert these to words
+            if first_letter in ["0","1","2","3","4","5","6","7","8","9"]:
+                first_letter = NumbersToWords(int(first_letter))
+            variable += first_letter
+            if len(joined_name) > 1:
+                variable += joined_name[1:len(joined_name)]
+        variable += "S"+NumbersToWords(staff)
+        return variable
 
     def toLily(self):
         self.CheckDivisions()
@@ -153,14 +171,7 @@ class Part(object):
             variable = ""
 
             # create the staff variable name, based on the name of the part combined with the staff number in words
-            if hasattr(self, "name"):
-                part_name = self.name.split(' ')
-                first_part = part_name[0][0].lower() + part_name[0][1:-1]
-                variable += first_part
-                if len(part_name) > 1:
-                    variable += "".join(part_name[1:-1])
-            variable = "".join(variable)+"S"+NumbersToWords(sid)
-            variable_names.append("\\"+variable)
+            variable = self.GetVariableName(sid)
 
             # set up the lilystring for that variable
             lilystring += variable + " = "

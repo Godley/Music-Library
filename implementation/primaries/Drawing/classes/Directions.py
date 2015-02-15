@@ -2,7 +2,7 @@ try:
     from classes import BaseClass
 except:
     from implementation.primaries.Drawing.classes import BaseClass
-import string
+import string, random
 class Text(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
@@ -31,7 +31,13 @@ class Text(BaseClass.Base):
         if hasattr(self, "size"):
             lilystring += "\\abs-fontsize #" + str(self.size) + " "
         if hasattr(self, "font"):
-            lilystring += "\\"+self.font + " "
+            fonts_available = ["sans","typewriter","roman"]
+            if self.font in fonts_available:
+                lilystring += "\\"+self.font + " "
+            else:
+                rand = random.Random()
+                selected = rand.choice(fonts_available)
+                lilystring += "\\"+selected + " "
         valid = False
         for char in self.text:
             if char in string.ascii_letters or char in ["0","1","2","3","4","5","6","7","8","9"]:
