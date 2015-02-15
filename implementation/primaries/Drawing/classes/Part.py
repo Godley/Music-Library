@@ -123,6 +123,8 @@ class Part(object):
         return measure_strings
 
     def handleBarlineAlternativeEndings(self, staff_id, measure_id):
+        # method to handle closing of alternative{ section in lilypond, based on whether we've reached the final
+        # alternate ending
         lilystring = ""
         barline = self.measures[staff_id][measure_id].GetBarline("right")
         if barline is not None:
@@ -143,10 +145,14 @@ class Part(object):
         self.CheckDivisions()
         lilystring = ""
         staff_nums = list(self.measures.keys())
+
+        # set up a couple of lists which will be our strings coming from each part, and their variable names
         variables = []
         variable_names = []
         for sid in staff_nums:
             variable = ""
+
+            # create the staff variable name, based on the name of the part combined with the staff number in words
             if hasattr(self, "name"):
                 part_name = self.name.split(' ')
                 first_part = part_name[0][0].lower() + part_name[0][1:-1]
@@ -155,6 +161,8 @@ class Part(object):
                     variable += "".join(part_name[1:-1])
             variable = "".join(variable)+"S"+NumbersToWords(sid)
             variable_names.append("\\"+variable)
+
+            # set up the lilystring for that variable
             lilystring += variable + " = "
             lilystring += "\\new Staff"
             if hasattr(self, "name") and len(staff_nums) == 1:
@@ -165,8 +173,7 @@ class Part(object):
             lilystring += "\\autoBeamOff "
             measure_strings = []
             forward_measures = []
-            opened = False
-            closed = False
+
             for key in self.measures[sid]:
                 return_val = self.measures[sid][key].toLily()
                 string_to_update = ""
@@ -176,18 +183,24 @@ class Part(object):
                     string_to_update = return_val[1]
                 string_to_update += self.handleBarlineAlternativeEndings(sid, key)
                 if return_val is list:
+                    # measure will only return a list if it contains a forward
                     forward_measures.append((key,[return_val[0],string_to_update]))
                 else:
+                    # otherwise it'll be a string
                     measure_strings.append((key, string_to_update))
 
 
             if len(forward_measures) > 0 and len(measure_strings) > 0:
+                # update measure strings to reflect any repeats needed (forwards)
                 measure_strings = self.RepeatMeasure(sid, forward_measures[len(forward_measures)-1][0]-1, measure_strings, forward_measures)
+
+            # finally, put all the measure strings together into the variable assignment
             lilystring += "\n\n".join(["% measure " + str(item[0]) + "\n" + item[1] for item in measure_strings if type(item[1]) != list])
             lilystring += "}\n\n"
             variables.append(lilystring)
             lilystring = ""
 
+        # this section sets up the grouping of each stave variable we've set up, known as this part's lilystring
         if len(staff_nums) > 0:
             if len(staff_nums) > 1:
                 lilystring += "\\new StaffGroup"
@@ -203,4 +216,6 @@ class Part(object):
         lilystring += "\n".join(variable_names)
         if len(staff_nums) > 1:
             lilystring += ">>"
+        # lastly, return any variables and the lilystring of the part. These have to be separated as variables must
+        # come a long way before each variable call in the staff section
         return variables, lilystring
