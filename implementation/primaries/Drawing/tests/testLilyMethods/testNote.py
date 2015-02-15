@@ -119,24 +119,7 @@ class testNoteTupletEnd(Lily):
         self.wrappers = ["\\new Staff{\\tuplet 3/2 {","}"]
         self.name = "notetupletend"
 
-class testNoteStem(Lily):
-    def setUp(self):
-        self.item = Note.Note()
-        self.item.pitch = Note.Pitch()
-        self.item.stem = Note.Stem("up")
-        self.lilystring = "\n\stemUp\nc'"
-        Lily.setUp(self)
-        self.compile = True
-        self.wrappers = ["\\new Staff{","}"]
-        self.name = "notestemup"
 
-class testNoteStemDown(Lily):
-    def setUp(self):
-        self.item = Note.Note()
-        self.item.pitch = Note.Pitch()
-        self.item.stem = Note.Stem("down")
-        self.lilystring = "\n\stemDown\nc'"
-        self.name = "notestemdown"
 
 class testNoteBeam(Lily):
     def setUp(self):

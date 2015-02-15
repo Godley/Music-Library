@@ -4,7 +4,7 @@ from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 class testTie(Lily):
     def setUp(self):
         self.item = Note.Tie(None)
-        self.lilystring = "~"
+        self.lilystring = ""
 
 class testTieStart(Lily):
     def setUp(self):
