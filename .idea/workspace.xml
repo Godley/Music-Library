@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testDirections.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testDirections.py" />
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="some work toward issue #30 &#10;&#10;center justification done">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -70,7 +68,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testLilypondRun.coverage" NAME="Unittests in testLilypondRun Coverage Results" MODIFIED="1423831252197" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches.coverage" NAME="Unittests in testHandleNotesAndPitches Coverage Results" MODIFIED="1420035359552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBreathMarks.coverage" NAME="Unittests in testBreathMarks Coverage Results" MODIFIED="1423758183499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDirections.coverage" NAME="Unittests in testDirections Coverage Results" MODIFIED="1424102513268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDirections.coverage" NAME="Unittests in testDirections Coverage Results" MODIFIED="1424103020575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testUnzipper.coverage" NAME="Unittests in testUnzipper Coverage Results" MODIFIED="1419717350738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeta.coverage" NAME="Unittests in testMeta Coverage Results" MODIFIED="1424033301783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testtext.coverage" NAME="Unittests in testtext Coverage Results" MODIFIED="1423411041193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
@@ -103,149 +101,60 @@
     <favorites_list name="FYP" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf>
-          <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/setup.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="11" max-vertical-offset="465">
-                  <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="lg-131162670.xml" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lg-131162670.xml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="302205">
-                  <caret line="133" column="12" selection-start-line="133" selection-start-column="9" selection-end-line="133" selection-end-column="12" />
-                  <folding>
-                    <element signature="n#note#2;n#measure#5;n#part#0;n#score-partwise#0;n#!!top" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="testWhatHappensWhenIDoThis.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testWhatHappensWhenIDoThis.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="416" max-vertical-offset="1230">
-                  <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="testDynamics.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testDynamics.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-4.814815" vertical-offset="800" max-vertical-offset="1455">
-                  <caret line="64" column="54" selection-start-line="64" selection-start-column="54" selection-end-line="64" selection-end-column="54" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="testDirections.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testDirections.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5" vertical-offset="3315" max-vertical-offset="3630">
-                  <caret line="232" column="147" selection-start-line="232" selection-start-column="147" selection-end-line="232" selection-end-column="147" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="testTuplets.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testTuplets.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="4616" max-vertical-offset="7095">
-                  <caret line="322" column="24" selection-start-line="322" selection-start-column="24" selection-end-line="322" selection-end-column="24" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ActorPreludeSample.xml" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/ActorPreludeSample.xml">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="671145">
-                  <caret line="541" column="25" selection-start-line="541" selection-start-column="21" selection-end-line="541" selection-end-column="25" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="Directions.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="1.3874539" vertical-offset="1124" max-vertical-offset="7260">
-                  <caret line="100" column="44" selection-start-line="100" selection-start-column="44" selection-end-line="100" selection-end-column="44" />
-                  <folding>
-                    <element signature="e#6347#7145#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Part.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Part.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-6.0" vertical-offset="993" max-vertical-offset="3555">
-                  <caret line="77" column="21" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="21" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MxmlParser.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-6.0" vertical-offset="5403" max-vertical-offset="13290">
-                  <caret line="534" column="40" selection-start-line="534" selection-start-column="40" selection-end-line="534" selection-end-column="40" />
-                  <folding>
-                    <element signature="e#1233#1682#0" expanded="false" />
-                    <element signature="e#3852#3916#0" expanded="false" />
-                    <element signature="e#3963#4521#0" expanded="false" />
-                    <element signature="e#4564#4781#0" expanded="false" />
-                    <element signature="e#4821#5177#0" expanded="false" />
-                    <element signature="e#5867#7443#0" expanded="false" />
-                    <element signature="e#11515#12027#0" expanded="false" />
-                    <element signature="e#11559#11579#0" expanded="false" />
-                    <element signature="e#11646#11862#0" expanded="false" />
-                    <element signature="e#11920#11945#0" expanded="false" />
-                    <element signature="e#12003#12027#0" expanded="false" />
-                    <element signature="e#12275#12356#0" expanded="false" />
-                    <element signature="e#12428#12960#0" expanded="false" />
-                    <element signature="e#12428#12728#1" expanded="false" />
-                    <element signature="e#12761#12944#0" expanded="false" />
-                    <element signature="e#12800#12923#0" expanded="false" />
-                    <element signature="e#15480#16357#0" expanded="false" />
-                    <element signature="e#17857#18234#0" expanded="false" />
-                    <element signature="e#18294#19135#0" expanded="false" />
-                    <element signature="e#27931#29238#0" expanded="false" />
-                    <element signature="e#32742#32797#0" expanded="false" />
-                    <element signature="e#35804#36202#0" expanded="false" />
-                    <element signature="e#36259#36905#0" expanded="false" />
-                    <element signature="e#38609#38620#0" expanded="false" />
-                    <element signature="e#38670#39562#0" expanded="false" />
-                    <element signature="e#47545#48081#0" expanded="false" />
-                    <element signature="e#48133#48929#0" expanded="false" />
-                    <element signature="e#48959#49451#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file leaf-file-name="Note.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.82857144" vertical-offset="1945" max-vertical-offset="2850">
+              <caret line="295" column="66" selection-start-line="295" selection-start-column="66" selection-end-line="295" selection-end-column="66" />
+              <folding>
+                <element signature="e#192#434#0" expanded="false" />
+                <element signature="e#226#275#0" expanded="false" />
+                <element signature="e#307#434#0" expanded="false" />
+                <element signature="e#523#568#0" expanded="false" />
+                <element signature="e#1035#1422#0" expanded="false" />
+                <element signature="e#1069#1156#0" expanded="false" />
+                <element signature="e#1189#1205#0" expanded="false" />
+                <element signature="e#1237#1422#0" expanded="false" />
+                <element signature="e#1458#3421#0" expanded="false" />
+                <element signature="e#1496#1897#0" expanded="false" />
+                <element signature="e#1930#2387#0" expanded="false" />
+                <element signature="e#2419#3421#0" expanded="false" />
+                <element signature="e#5886#6077#0" expanded="false" />
+                <element signature="e#6130#6245#0" expanded="false" />
+                <element signature="e#6278#6457#0" expanded="false" />
+                <element signature="e#7238#7294#0" expanded="false" />
+                <element signature="e#7335#8582#0" expanded="false" />
+                <element signature="e#8625#8824#0" expanded="false" />
+                <element signature="e#8862#9041#0" expanded="false" />
+                <element signature="e#11016#11742#0" expanded="false" />
+                <element signature="e#11054#11325#0" expanded="false" />
+                <element signature="e#11357#11742#0" expanded="false" />
+                <element signature="e#11781#12280#0" expanded="false" />
+                <element signature="e#11819#12022#0" expanded="false" />
+                <element signature="e#12054#12280#0" expanded="false" />
+                <element signature="e#12321#12758#0" expanded="false" />
+                <element signature="e#12359#12536#0" expanded="false" />
+                <element signature="e#12568#12758#0" expanded="false" />
+                <element signature="e#12798#13265#0" expanded="false" />
+                <element signature="e#12836#12976#0" expanded="false" />
+                <element signature="e#13008#13265#0" expanded="false" />
+                <element signature="e#13300#14250#0" expanded="false" />
+                <element signature="e#13338#13764#0" expanded="false" />
+                <element signature="e#13796#14250#0" expanded="false" />
+                <element signature="e#14280#14382#0" expanded="false" />
+                <element signature="e#14306#14382#0" expanded="false" />
+                <element signature="e#14423#14628#0" expanded="false" />
+                <element signature="e#14462#14555#0" expanded="false" />
+                <element signature="e#14587#14628#0" expanded="false" />
+                <element signature="e#14652#14865#0" expanded="false" />
+                <element signature="e#14678#14865#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -285,7 +194,6 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testArticulation.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleDirections.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testOrnaments.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testRepeatMarks.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testBarlines.py" />
@@ -304,6 +212,7 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testDirections.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
       </list>
     </option>
   </component>
@@ -1179,18 +1088,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00209" summary="issue fix #13, tuplet values">
-      <created>1423684637612</created>
-      <option name="number" value="00209" />
-      <option name="project" value="LOCAL" />
-      <updated>1423684637612</updated>
-    </task>
-    <task id="LOCAL-00210" summary="issue fix #4, chords">
-      <created>1423699453389</created>
-      <option name="number" value="00210" />
-      <option name="project" value="LOCAL" />
-      <updated>1423699453392</updated>
-    </task>
     <task id="LOCAL-00211" summary="issue fix #9, fingering">
       <created>1423705463825</created>
       <option name="number" value="00211" />
@@ -1473,7 +1370,19 @@
       <option name="project" value="LOCAL" />
       <updated>1424101491208</updated>
     </task>
-    <option name="localTasksCounter" value="258" />
+    <task id="LOCAL-00258" summary="some work toward issue #30 &#10;&#10;fixed right justification. Left justification I think should be &quot;nothing&quot;, center may need some figuring out.">
+      <created>1424102572071</created>
+      <option name="number" value="00258" />
+      <option name="project" value="LOCAL" />
+      <updated>1424102572071</updated>
+    </task>
+    <task id="LOCAL-00259" summary="some work toward issue #30 &#10;&#10;center justification done">
+      <created>1424103422900</created>
+      <option name="number" value="00259" />
+      <option name="project" value="LOCAL" />
+      <updated>1424103422900</updated>
+    </task>
+    <option name="localTasksCounter" value="260" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1504,7 +1413,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32706222" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39427862" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4671875" sideWeight="0.115625" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55845773" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1512,9 +1421,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34763947" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850942" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.55845773" sideWeight="0.884375" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.54292625" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1564,8 +1473,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #17, instrument names&#10;&#10;loads in shortened names and uses them if instrument name is longer than 10 characters" />
-    <MESSAGE value="issue fix #22 repeat voltas&#10;&#10;fixed it so that repeat voltas load the right number of repeats depending on ending markings. Looks a bit funny though? Also not sure how to test this as it's done in the endTag method" />
     <MESSAGE value="issue fix #23 chords&#10;&#10;Problem in CopyNote meant chords weren't being updated and modified properly" />
     <MESSAGE value="issue fix #24 ties&#10;&#10;Added a testcase  (lg-131162670.xml)  to prove it, however still needs work to ensure stems aren't disappearing. Need to handle new systems part which...doesn't seem to be working." />
     <MESSAGE value="issue fix #25 and issue fix #28, stems, linebreak problems&#10;&#10;problem fixed with val += rather than val = where beams added in PostLily method. Need to look at beaming where notes are chords, next." />
@@ -1589,7 +1496,9 @@
     <MESSAGE value=" general test fixes leading to a bug fix&#10; &#10; fixed a bug where last_note wasn't being set when a new note was added, and also reset to 0 when the measure ended" />
     <MESSAGE value="final testfix commit&#10;&#10;fixed all unit tests excluding the ones featured in issue #37" />
     <MESSAGE value="some work toward issue #30 &#10;&#10;updated credit class to handle vertical and horizontal align somewhat. pages may be more difficult to do" />
-    <option name="LAST_COMMIT_MESSAGE" value="some work toward issue #30 &#10;&#10;updated credit class to handle vertical and horizontal align somewhat. pages may be more difficult to do" />
+    <MESSAGE value="some work toward issue #30 &#10;&#10;fixed right justification. Left justification I think should be &quot;nothing&quot;, center may need some figuring out." />
+    <MESSAGE value="some work toward issue #30 &#10;&#10;center justification done" />
+    <option name="LAST_COMMIT_MESSAGE" value="some work toward issue #30 &#10;&#10;center justification done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1789,62 +1698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="721" max-vertical-offset="1770">
-          <caret line="165" column="67" selection-start-line="165" selection-start-column="67" selection-end-line="165" selection-end-column="67" />
-          <folding>
-            <element signature="e#192#434#0" expanded="false" />
-            <element signature="e#226#275#0" expanded="false" />
-            <element signature="e#307#434#0" expanded="false" />
-            <element signature="e#472#1000#0" expanded="false" />
-            <element signature="e#523#568#0" expanded="false" />
-            <element signature="e#599#1000#0" expanded="false" />
-            <element signature="e#1035#1422#0" expanded="false" />
-            <element signature="e#1069#1156#0" expanded="false" />
-            <element signature="e#1189#1205#0" expanded="false" />
-            <element signature="e#1237#1422#0" expanded="false" />
-            <element signature="e#1458#3421#0" expanded="false" />
-            <element signature="e#1496#1897#0" expanded="false" />
-            <element signature="e#1930#2387#0" expanded="false" />
-            <element signature="e#2419#3421#0" expanded="false" />
-            <element signature="e#5886#6077#0" expanded="false" />
-            <element signature="e#6130#6245#0" expanded="false" />
-            <element signature="e#6278#6457#0" expanded="false" />
-            <element signature="e#6498#7204#0" expanded="false" />
-            <element signature="e#7238#7294#0" expanded="false" />
-            <element signature="e#7335#8582#0" expanded="false" />
-            <element signature="e#8625#8824#0" expanded="false" />
-            <element signature="e#8862#9041#0" expanded="false" />
-            <element signature="e#9073#9477#0" expanded="false" />
-            <element signature="e#9518#10049#0" expanded="false" />
-            <element signature="e#10090#10728#0" expanded="false" />
-            <element signature="e#10764#11490#0" expanded="false" />
-            <element signature="e#10802#11073#0" expanded="false" />
-            <element signature="e#11105#11490#0" expanded="false" />
-            <element signature="e#11529#12028#0" expanded="false" />
-            <element signature="e#11567#11770#0" expanded="false" />
-            <element signature="e#11802#12028#0" expanded="false" />
-            <element signature="e#12069#12506#0" expanded="false" />
-            <element signature="e#12107#12284#0" expanded="false" />
-            <element signature="e#12316#12506#0" expanded="false" />
-            <element signature="e#12546#13013#0" expanded="false" />
-            <element signature="e#12584#12724#0" expanded="false" />
-            <element signature="e#12756#13013#0" expanded="false" />
-            <element signature="e#13048#13998#0" expanded="false" />
-            <element signature="e#13086#13512#0" expanded="false" />
-            <element signature="e#13544#13998#0" expanded="false" />
-            <element signature="e#14028#14130#0" expanded="false" />
-            <element signature="e#14054#14130#0" expanded="false" />
-            <element signature="e#14171#14376#0" expanded="false" />
-            <element signature="e#14210#14303#0" expanded="false" />
-            <element signature="e#14335#14376#0" expanded="false" />
-            <element signature="e#14400#14613#0" expanded="false" />
-            <element signature="e#14426#14613#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testOrnaments.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="761" max-vertical-offset="1935">
@@ -1981,40 +1834,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="11" max-vertical-offset="465">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testWhatHappensWhenIDoThis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="416" max-vertical-offset="1230">
-          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/ActorPreludeSample.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7311" max-vertical-offset="671145">
-          <caret line="541" column="25" selection-start-line="541" selection-start-column="21" selection-end-line="541" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lg-131162670.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="302205">
-          <caret line="133" column="12" selection-start-line="133" selection-start-column="9" selection-end-line="133" selection-end-column="12" />
-          <folding>
-            <element signature="n#note#2;n#measure#5;n#part#0;n#score-partwise#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testLines.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8379205" vertical-offset="5336" max-vertical-offset="5730">
@@ -2023,17 +1842,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.61254615" vertical-offset="1319" max-vertical-offset="7275">
+          <caret line="99" column="72" selection-start-line="99" selection-start-column="72" selection-end-line="99" selection-end-column="72" />
+          <folding>
+            <element signature="e#6427#7225#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testDynamics.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.814815" vertical-offset="800" max-vertical-offset="1455">
+        <state vertical-scroll-proportion="0.43333334" vertical-offset="800" max-vertical-offset="1455">
           <caret line="64" column="54" selection-start-line="64" selection-start-column="54" selection-end-line="64" selection-end-column="54" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testWhatHappensWhenIDoThis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2874618" vertical-offset="416" max-vertical-offset="1230">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lg-131162670.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="5.0458717" vertical-offset="345" max-vertical-offset="302205">
+          <caret line="133" column="12" selection-start-line="133" selection-start-column="9" selection-end-line="133" selection-end-column="12" />
+          <folding>
+            <element signature="n#note#2;n#measure#5;n#part#0;n#score-partwise#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Part.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.0" vertical-offset="993" max-vertical-offset="3555">
+        <state vertical-scroll-proportion="0.54" vertical-offset="993" max-vertical-offset="3555">
           <caret line="77" column="21" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="21" />
           <folding />
         </state>
@@ -2041,7 +1888,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.0" vertical-offset="5403" max-vertical-offset="13290">
+        <state vertical-scroll-proportion="0.54" vertical-offset="5403" max-vertical-offset="13290">
           <caret line="534" column="40" selection-start-line="534" selection-start-column="40" selection-end-line="534" selection-end-column="40" />
           <folding>
             <element signature="e#1233#1682#0" expanded="false" />
@@ -2076,21 +1923,77 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/ActorPreludeSample.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3874539" vertical-offset="1124" max-vertical-offset="7260">
-          <caret line="100" column="44" selection-start-line="100" selection-start-column="44" selection-end-line="100" selection-end-column="44" />
-          <folding>
-            <element signature="e#6347#7145#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.17027864" vertical-offset="7610" max-vertical-offset="671145">
+          <caret line="511" column="26" selection-start-line="511" selection-start-column="17" selection-end-line="511" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testDirections.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5" vertical-offset="3315" max-vertical-offset="3630">
-          <caret line="232" column="147" selection-start-line="232" selection-start-column="147" selection-end-line="232" selection-end-column="147" />
+        <state vertical-scroll-proportion="0.6965944" vertical-offset="3315" max-vertical-offset="3690">
+          <caret line="237" column="76" selection-start-line="237" selection-start-column="76" selection-end-line="237" selection-end-column="76" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31142858" vertical-offset="11" max-vertical-offset="465">
+          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.82857144" vertical-offset="1945" max-vertical-offset="2850">
+          <caret line="295" column="66" selection-start-line="295" selection-start-column="66" selection-end-line="295" selection-end-column="66" />
+          <folding>
+            <element signature="e#192#434#0" expanded="false" />
+            <element signature="e#226#275#0" expanded="false" />
+            <element signature="e#307#434#0" expanded="false" />
+            <element signature="e#523#568#0" expanded="false" />
+            <element signature="e#1035#1422#0" expanded="false" />
+            <element signature="e#1069#1156#0" expanded="false" />
+            <element signature="e#1189#1205#0" expanded="false" />
+            <element signature="e#1237#1422#0" expanded="false" />
+            <element signature="e#1458#3421#0" expanded="false" />
+            <element signature="e#1496#1897#0" expanded="false" />
+            <element signature="e#1930#2387#0" expanded="false" />
+            <element signature="e#2419#3421#0" expanded="false" />
+            <element signature="e#5886#6077#0" expanded="false" />
+            <element signature="e#6130#6245#0" expanded="false" />
+            <element signature="e#6278#6457#0" expanded="false" />
+            <element signature="e#7238#7294#0" expanded="false" />
+            <element signature="e#7335#8582#0" expanded="false" />
+            <element signature="e#8625#8824#0" expanded="false" />
+            <element signature="e#8862#9041#0" expanded="false" />
+            <element signature="e#11016#11742#0" expanded="false" />
+            <element signature="e#11054#11325#0" expanded="false" />
+            <element signature="e#11357#11742#0" expanded="false" />
+            <element signature="e#11781#12280#0" expanded="false" />
+            <element signature="e#11819#12022#0" expanded="false" />
+            <element signature="e#12054#12280#0" expanded="false" />
+            <element signature="e#12321#12758#0" expanded="false" />
+            <element signature="e#12359#12536#0" expanded="false" />
+            <element signature="e#12568#12758#0" expanded="false" />
+            <element signature="e#12798#13265#0" expanded="false" />
+            <element signature="e#12836#12976#0" expanded="false" />
+            <element signature="e#13008#13265#0" expanded="false" />
+            <element signature="e#13300#14250#0" expanded="false" />
+            <element signature="e#13338#13764#0" expanded="false" />
+            <element signature="e#13796#14250#0" expanded="false" />
+            <element signature="e#14280#14382#0" expanded="false" />
+            <element signature="e#14306#14382#0" expanded="false" />
+            <element signature="e#14423#14628#0" expanded="false" />
+            <element signature="e#14462#14555#0" expanded="false" />
+            <element signature="e#14587#14628#0" expanded="false" />
+            <element signature="e#14652#14865#0" expanded="false" />
+            <element signature="e#14678#14865#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

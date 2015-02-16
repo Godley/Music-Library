@@ -285,11 +285,16 @@ class Note(BaseClass.Base):
         value = self.LilyWrap(val)
         return value
     def LilyWrap(self, value):
-
+        prefixes = ""
         wrapped_notation_lilystrings = [wrap.toLily() for wrap in self.wrap_notation]
         if hasattr(self, "notehead"):
-            wrapped_notation_lilystrings.append(self.notehead.toLily())
-        prefixes = "".join([wrapper[0]+" " for wrapper in wrapped_notation_lilystrings if len(wrapper) > 1])
+            if not hasattr(self, "chord"):
+                wrapped_notation_lilystrings.append(self.notehead.toLily())
+            else:
+                output = {"diamond":"harmonic"}
+                if self.notehead.type in output:
+                    prefixes += "\\"+output[self.notehead.type]+" "
+        prefixes += "".join([wrapper[0]+" " for wrapper in wrapped_notation_lilystrings if len(wrapper) > 1])
         prefixes_and_current = prefixes + value
         postfixes = "".join([wrapper[-1] for wrapper in wrapped_notation_lilystrings if len(wrapper) > 0])
         lilystring = prefixes_and_current + postfixes
