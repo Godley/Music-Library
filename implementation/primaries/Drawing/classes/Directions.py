@@ -85,6 +85,17 @@ class CreditText(Text):
                 self.page = kwargs["page"]
         Text.__init__(self, font=font, size=size, text=text)
 
+    def toLily(self):
+        lily = ""
+        if hasattr(self, "justify"):
+            lily += "\general-align #X #"+self.justify.upper()+"\n "
+        if hasattr(self, "valign"):
+            option = {"top":"UP","bottom":"DOWN"}
+            lily += "\general-align #Y #"+option[self.valign]+"\n "
+        lily += Text.toLily(self)
+        if hasattr(self, "justify") or hasattr(self, "valign"):
+            lily += "\n \\null"
+        return lily
 class Lyric(Text):
     def __init__(self, **kwargs):
         font = None
@@ -99,6 +110,8 @@ class Lyric(Text):
         if "syllabic" in kwargs:
             self.syllabic = kwargs["syllabic"]
         Text.__init__(self, text=text, font=font, size=size)
+
+
 
 class Direction(Text):
     def __init__(self, **kwargs):

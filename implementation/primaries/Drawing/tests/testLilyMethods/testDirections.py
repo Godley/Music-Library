@@ -222,20 +222,16 @@ class testCreditText(Lily):
         self.lilystring = "\"hello\" "
 
 
-class testCreditTextX(Lily):
+class testCreditTextValign(Lily):
     def setUp(self):
-        self.item = Directions.CreditText(x=100,text="hello")
-        self.lilystring = "\"hello\" "
+        self.item = Directions.CreditText(valign="top",text="hello")
+        self.lilystring = "\general-align #Y #UP\n \"hello\" \n \\null"
 
-class testCreditTextY(Lily):
+class testCreditTextJustify(Lily):
     def setUp(self):
-        self.item = Directions.CreditText(y=100,text="hello")
-        self.lilystring = "\"hello\" "
+        self.item = Directions.CreditText(justify="right",text="hello")
+        self.lilystring = "\general-align #X #RIGHT\n \"hello\" \n \\null"
 
 
-class testCreditTextPage(Lily):
-    def setUp(self):
-        self.item = Directions.CreditText(page=1,text="hello")
-        self.lilystring = "\"hello\" "
 
 
