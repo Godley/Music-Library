@@ -88,7 +88,8 @@ class CreditText(Text):
     def toLily(self):
         lily = ""
         if hasattr(self, "justify"):
-            options = {"right":"\\fill-line {\n\\null \n\override #'(baseline-skip . 4)\n\override #'(line-width . 40) {"}
+            options = {"right":"\\fill-line {\n\\null \n\override #'(baseline-skip . 4)\n\override #'(line-width . 40) {"
+            , "center":"\\fill-line { \n \\center-column {\n"}
             if self.justify in options:
                 lily += options[self.justify]
         if hasattr(self, "valign"):
@@ -96,7 +97,7 @@ class CreditText(Text):
             lily += "\general-align #Y #"+option[self.valign]+"\n "
         lily += Text.toLily(self)
         if hasattr(self, "justify"):
-            options = {"right":"\n}\n\r}\n\\null\\null"}
+            options = {"right":"\n}\n\r}\n\\null\\null","center":"\n}\n}"}
             if self.justify in options:
                 lily += options[self.justify]
         return lily

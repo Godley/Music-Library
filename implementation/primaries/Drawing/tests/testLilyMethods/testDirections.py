@@ -232,6 +232,10 @@ class testCreditTextJustify(Lily):
         self.item = Directions.CreditText(justify="right",text="hello")
         self.lilystring = "\\fill-line {\n\\null\n\override #'(baseline-skip . 4)\n\override #'(line-width . 40) {\"hello\" \n}\n\r}\n\\null\\null "
 
+class testCreditTextCenterJustify(Lily):
+    def setUp(self):
+        self.item = Directions.CreditText(justify="center",text="hello")
+        self.lilystring = "\\fill-line { \n \\center-column {\n\"hello\" \n}\n}"
 
 
 
