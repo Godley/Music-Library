@@ -230,7 +230,7 @@ class testCreditTextValign(Lily):
 class testCreditTextJustify(Lily):
     def setUp(self):
         self.item = Directions.CreditText(justify="right",text="hello")
-        self.lilystring = "\general-align #X #RIGHT\n \"hello\" \n \\null"
+        self.lilystring = "\\fill-line {\n\\null\n\override #'(baseline-skip . 4)\n\override #'(line-width . 40) {\"hello\" \n}\n\r}\n\\null\\null "
 
 
 

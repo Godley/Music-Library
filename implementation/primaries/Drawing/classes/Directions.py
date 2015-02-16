@@ -88,13 +88,17 @@ class CreditText(Text):
     def toLily(self):
         lily = ""
         if hasattr(self, "justify"):
-            lily += "\general-align #X #"+self.justify.upper()+"\n "
+            options = {"right":"\\fill-line {\n\\null \n\override #'(baseline-skip . 4)\n\override #'(line-width . 40) {"}
+            if self.justify in options:
+                lily += options[self.justify]
         if hasattr(self, "valign"):
             option = {"top":"UP","bottom":"DOWN"}
             lily += "\general-align #Y #"+option[self.valign]+"\n "
         lily += Text.toLily(self)
-        if hasattr(self, "justify") or hasattr(self, "valign"):
-            lily += "\n \\null"
+        if hasattr(self, "justify"):
+            options = {"right":"\n}\n\r}\n\\null\\null"}
+            if self.justify in options:
+                lily += options[self.justify]
         return lily
 class Lyric(Text):
     def __init__(self, **kwargs):

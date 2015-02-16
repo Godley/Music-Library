@@ -210,7 +210,6 @@ class MxmlParser(object):
                 if hasattr(last_barline_temp, "repeat"):
                     if last_barline_temp.repeat == "forward":
                         last_fwd_repeat = last_barline_temp
-                    print(last_barline_temp)
                     last_barline = last_barline_temp
                     last_barline_pos = {"part":part_id,"measure":int(measure_id),"location":location}
         if name == "part":
@@ -531,11 +530,9 @@ def HandleMeasures(tag, attrib, content, piece):
                         if piece.Parts[part_id].getMeasure(measure_id, staff) is None:
                             piece.Parts[part_id].addEmptyMeasure(measure_id, staff)
                         measure= piece.Parts[part_id].getMeasure(measure_id, staff)
-                        print(measure_id, staff)
                         measure.newSystem = YesNoToBool(attrib["print"]["new-system"])
                 if "new-page" in attrib["print"]:
                     for staff in staves:
-                        print(staff)
                         if piece.Parts[part_id].getMeasure(measure_id, staff) is None:
                             piece.Parts[part_id].addEmptyMeasure(measure_id, staff)
                         measure= piece.Parts[part_id].getMeasure(measure_id, staff)
