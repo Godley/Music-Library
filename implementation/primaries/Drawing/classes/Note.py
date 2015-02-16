@@ -291,6 +291,7 @@ class Note(BaseClass.Base):
             if not hasattr(self, "chord"):
                 wrapped_notation_lilystrings.append(self.notehead.toLily())
             else:
+                #patchy fix, needs review later
                 output = {"diamond":"harmonic"}
                 if self.notehead.type in output:
                     prefixes += "\\"+output[self.notehead.type]+" "

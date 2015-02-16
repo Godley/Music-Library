@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="some work toward issue #30 &#10;&#10;center justification done">
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -105,8 +105,8 @@
       <file leaf-file-name="Note.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.82857144" vertical-offset="1945" max-vertical-offset="2850">
-              <caret line="295" column="66" selection-start-line="295" selection-start-column="66" selection-end-line="295" selection-end-column="66" />
+            <state vertical-scroll-proportion="0.74285716" vertical-offset="1945" max-vertical-offset="2865">
+              <caret line="293" column="47" selection-start-line="293" selection-start-column="47" selection-end-line="293" selection-end-column="47" />
               <folding>
                 <element signature="e#192#434#0" expanded="false" />
                 <element signature="e#226#275#0" expanded="false" />
@@ -127,28 +127,28 @@
                 <element signature="e#7335#8582#0" expanded="false" />
                 <element signature="e#8625#8824#0" expanded="false" />
                 <element signature="e#8862#9041#0" expanded="false" />
-                <element signature="e#11016#11742#0" expanded="false" />
-                <element signature="e#11054#11325#0" expanded="false" />
-                <element signature="e#11357#11742#0" expanded="false" />
-                <element signature="e#11781#12280#0" expanded="false" />
-                <element signature="e#11819#12022#0" expanded="false" />
-                <element signature="e#12054#12280#0" expanded="false" />
-                <element signature="e#12321#12758#0" expanded="false" />
-                <element signature="e#12359#12536#0" expanded="false" />
-                <element signature="e#12568#12758#0" expanded="false" />
-                <element signature="e#12798#13265#0" expanded="false" />
-                <element signature="e#12836#12976#0" expanded="false" />
-                <element signature="e#13008#13265#0" expanded="false" />
-                <element signature="e#13300#14250#0" expanded="false" />
-                <element signature="e#13338#13764#0" expanded="false" />
-                <element signature="e#13796#14250#0" expanded="false" />
-                <element signature="e#14280#14382#0" expanded="false" />
-                <element signature="e#14306#14382#0" expanded="false" />
-                <element signature="e#14423#14628#0" expanded="false" />
-                <element signature="e#14462#14555#0" expanded="false" />
-                <element signature="e#14587#14628#0" expanded="false" />
-                <element signature="e#14652#14865#0" expanded="false" />
-                <element signature="e#14678#14865#0" expanded="false" />
+                <element signature="e#11064#11790#0" expanded="false" />
+                <element signature="e#11102#11373#0" expanded="false" />
+                <element signature="e#11405#11790#0" expanded="false" />
+                <element signature="e#11829#12328#0" expanded="false" />
+                <element signature="e#11867#12070#0" expanded="false" />
+                <element signature="e#12102#12328#0" expanded="false" />
+                <element signature="e#12369#12806#0" expanded="false" />
+                <element signature="e#12407#12584#0" expanded="false" />
+                <element signature="e#12616#12806#0" expanded="false" />
+                <element signature="e#12846#13313#0" expanded="false" />
+                <element signature="e#12884#13024#0" expanded="false" />
+                <element signature="e#13056#13313#0" expanded="false" />
+                <element signature="e#13348#14298#0" expanded="false" />
+                <element signature="e#13386#13812#0" expanded="false" />
+                <element signature="e#13844#14298#0" expanded="false" />
+                <element signature="e#14328#14430#0" expanded="false" />
+                <element signature="e#14354#14430#0" expanded="false" />
+                <element signature="e#14471#14676#0" expanded="false" />
+                <element signature="e#14510#14603#0" expanded="false" />
+                <element signature="e#14635#14676#0" expanded="false" />
+                <element signature="e#14700#14913#0" expanded="false" />
+                <element signature="e#14726#14913#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -1088,12 +1088,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00211" summary="issue fix #9, fingering">
-      <created>1423705463825</created>
-      <option name="number" value="00211" />
-      <option name="project" value="LOCAL" />
-      <updated>1423705463825</updated>
-    </task>
     <task id="LOCAL-00212" summary="issue fix #11, noteheads">
       <created>1423754431314</created>
       <option name="number" value="00212" />
@@ -1382,7 +1376,13 @@
       <option name="project" value="LOCAL" />
       <updated>1424103422900</updated>
     </task>
-    <option name="localTasksCounter" value="260" />
+    <task id="LOCAL-00260" summary="issue fix #35 noteheads inside chords&#10;&#10;very quick fix in WrapNotation method - replaces outputted notehead with appropriate option. currently only option is diamond which is converted to a harmonic - this is the most common, but we should update this to include other noteheads later.">
+      <created>1424105501295</created>
+      <option name="number" value="00260" />
+      <option name="project" value="LOCAL" />
+      <updated>1424105501295</updated>
+    </task>
+    <option name="localTasksCounter" value="261" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1473,7 +1473,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #23 chords&#10;&#10;Problem in CopyNote meant chords weren't being updated and modified properly" />
     <MESSAGE value="issue fix #24 ties&#10;&#10;Added a testcase  (lg-131162670.xml)  to prove it, however still needs work to ensure stems aren't disappearing. Need to handle new systems part which...doesn't seem to be working." />
     <MESSAGE value="issue fix #25 and issue fix #28, stems, linebreak problems&#10;&#10;problem fixed with val += rather than val = where beams added in PostLily method. Need to look at beaming where notes are chords, next." />
     <MESSAGE value="issue fix #29, chord beams" />
@@ -1498,7 +1497,8 @@
     <MESSAGE value="some work toward issue #30 &#10;&#10;updated credit class to handle vertical and horizontal align somewhat. pages may be more difficult to do" />
     <MESSAGE value="some work toward issue #30 &#10;&#10;fixed right justification. Left justification I think should be &quot;nothing&quot;, center may need some figuring out." />
     <MESSAGE value="some work toward issue #30 &#10;&#10;center justification done" />
-    <option name="LAST_COMMIT_MESSAGE" value="some work toward issue #30 &#10;&#10;center justification done" />
+    <MESSAGE value="issue fix #35 noteheads inside chords&#10;&#10;very quick fix in WrapNotation method - replaces outputted notehead with appropriate option. currently only option is diamond which is converted to a harmonic - this is the most common, but we should update this to include other noteheads later." />
+    <option name="LAST_COMMIT_MESSAGE" value="issue fix #35 noteheads inside chords&#10;&#10;very quick fix in WrapNotation method - replaces outputted notehead with appropriate option. currently only option is diamond which is converted to a harmonic - this is the most common, but we should update this to include other noteheads later." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1949,8 +1949,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82857144" vertical-offset="1945" max-vertical-offset="2850">
-          <caret line="295" column="66" selection-start-line="295" selection-start-column="66" selection-end-line="295" selection-end-column="66" />
+        <state vertical-scroll-proportion="0.74285716" vertical-offset="1945" max-vertical-offset="2865">
+          <caret line="293" column="47" selection-start-line="293" selection-start-column="47" selection-end-line="293" selection-end-column="47" />
           <folding>
             <element signature="e#192#434#0" expanded="false" />
             <element signature="e#226#275#0" expanded="false" />
@@ -1971,28 +1971,28 @@
             <element signature="e#7335#8582#0" expanded="false" />
             <element signature="e#8625#8824#0" expanded="false" />
             <element signature="e#8862#9041#0" expanded="false" />
-            <element signature="e#11016#11742#0" expanded="false" />
-            <element signature="e#11054#11325#0" expanded="false" />
-            <element signature="e#11357#11742#0" expanded="false" />
-            <element signature="e#11781#12280#0" expanded="false" />
-            <element signature="e#11819#12022#0" expanded="false" />
-            <element signature="e#12054#12280#0" expanded="false" />
-            <element signature="e#12321#12758#0" expanded="false" />
-            <element signature="e#12359#12536#0" expanded="false" />
-            <element signature="e#12568#12758#0" expanded="false" />
-            <element signature="e#12798#13265#0" expanded="false" />
-            <element signature="e#12836#12976#0" expanded="false" />
-            <element signature="e#13008#13265#0" expanded="false" />
-            <element signature="e#13300#14250#0" expanded="false" />
-            <element signature="e#13338#13764#0" expanded="false" />
-            <element signature="e#13796#14250#0" expanded="false" />
-            <element signature="e#14280#14382#0" expanded="false" />
-            <element signature="e#14306#14382#0" expanded="false" />
-            <element signature="e#14423#14628#0" expanded="false" />
-            <element signature="e#14462#14555#0" expanded="false" />
-            <element signature="e#14587#14628#0" expanded="false" />
-            <element signature="e#14652#14865#0" expanded="false" />
-            <element signature="e#14678#14865#0" expanded="false" />
+            <element signature="e#11064#11790#0" expanded="false" />
+            <element signature="e#11102#11373#0" expanded="false" />
+            <element signature="e#11405#11790#0" expanded="false" />
+            <element signature="e#11829#12328#0" expanded="false" />
+            <element signature="e#11867#12070#0" expanded="false" />
+            <element signature="e#12102#12328#0" expanded="false" />
+            <element signature="e#12369#12806#0" expanded="false" />
+            <element signature="e#12407#12584#0" expanded="false" />
+            <element signature="e#12616#12806#0" expanded="false" />
+            <element signature="e#12846#13313#0" expanded="false" />
+            <element signature="e#12884#13024#0" expanded="false" />
+            <element signature="e#13056#13313#0" expanded="false" />
+            <element signature="e#13348#14298#0" expanded="false" />
+            <element signature="e#13386#13812#0" expanded="false" />
+            <element signature="e#13844#14298#0" expanded="false" />
+            <element signature="e#14328#14430#0" expanded="false" />
+            <element signature="e#14354#14430#0" expanded="false" />
+            <element signature="e#14471#14676#0" expanded="false" />
+            <element signature="e#14510#14603#0" expanded="false" />
+            <element signature="e#14635#14676#0" expanded="false" />
+            <element signature="e#14700#14913#0" expanded="false" />
+            <element signature="e#14726#14913#0" expanded="false" />
           </folding>
         </state>
       </provider>
