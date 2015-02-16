@@ -774,6 +774,7 @@ def CreateNote(tag, attrs, content, piece):
     measure = None
 
     if len(tag) > 0 and "note" in tag:
+
         if tag[-1] == "staff":
             staff_id = int(content["staff"])
         if "part" in attrs:
@@ -782,13 +783,13 @@ def CreateNote(tag, attrs, content, piece):
         if "measure" in attrs:
             if "number" in attrs["measure"]:
                 measure_id = int(attrs["measure"]["number"])
-        if part_id is not None and measure_id is not None:
-            measure = piece.Parts[part_id].getMeasure(measure_id, staff_id)
         if "note" in tag and note is None:
-
             note = Note.Note()
             ret_value = 1
-
+        if "note" in attrs:
+            if "print-object" in attrs["note"]:
+                result = YesNoToBool(attrs["note"]["print-object"])
+                note.print = result
         if "rest" in tag:
             note.rest = True
         if "cue" in tag:
@@ -807,9 +808,6 @@ def CreateNote(tag, attrs, content, piece):
         if tag[-1] == "duration" and "note" in tag:
             if not hasattr(note, "duration"):
                 note.duration = float(content["duration"])
-            if hasattr(measure, "divisions"):
-                if measure.divisions is not None:
-                    note.divisions = float(measure.divisions)
 
         if "dot" in tag:
             note.dotted = True

@@ -26,6 +26,11 @@ class Measure(BaseClass.Base):
             self.barlines = {}
         self.barlines[side] = item
 
+    def SetDivisions(self, divisions):
+        if divisions is not None:
+            if not hasattr(self, "divisions") or self.divisions is None:
+                self.divisions = divisions
+
     def CheckDivisions(self):
         if hasattr(self, "divisions"):
             for n in self.notes:

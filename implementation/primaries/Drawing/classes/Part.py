@@ -49,14 +49,16 @@ class Part(object):
         return st
 
     def CheckDivisions(self):
-        divisions = None
-        for stave in self.measures:
-            for key in self.measures[stave].keys():
-                if hasattr(self.measures[stave][key], "divisions"):
-                    divisions = self.measures[stave][key].divisions
-                else:
-                    self.measures[stave][key].divisions = divisions
-                    self.measures[stave][key].CheckDivisions()
+        divisions = 8
+        for staff in self.measures:
+            print(staff)
+            for number in self.measures[staff]:
+                print(number)
+                if hasattr(self.measures[staff][number], "divisions") and self.measures[staff][number].divisions is not None:
+                    divisions = self.measures[staff][number].divisions
+                print(divisions)
+            [self.measures[staff][key].SetDivisions(divisions) for key in self.measures[staff]]
+            [self.measures[staff][key].CheckDivisions() for key in self.measures[staff]]
 
     def addMeasure(self, key, item, staff):
         if staff not in self.measures:

@@ -133,10 +133,8 @@ class Note(BaseClass.Base):
             self.SetType(kwargs["type"])
         elif "duration" in kwargs:
             self.duration = kwargs["duration"]
-        if "divisions" in kwargs:
+        if "divisions" in kwargs and kwargs["divisions"] is not None:
             self.divisions = float(kwargs["divisions"])
-        else:
-            self.divisions = 1
         self.prenotation = []
         self.wrap_notation = []
         self.postnotation = []
@@ -273,16 +271,21 @@ class Note(BaseClass.Base):
 
     def toLily(self):
         val = ""
-        val += self.handlePreLilies()
-        if hasattr(self, "pitch") and not self.rest:
-            val += self.pitch.toLily()
-        if self.rest:
-            val += "r"
-        if hasattr(self, "duration"):
-            if not hasattr(self,"chord"):
-                val += self.getLilyDuration()
-        val += self.handlePostLilies()
-        value = self.LilyWrap(val)
+        value = ""
+        DoPrint = True
+        if hasattr(self, "print"):
+            DoPrint = self.print
+        if DoPrint:
+            val += self.handlePreLilies()
+            if hasattr(self, "pitch") and not self.rest:
+                val += self.pitch.toLily()
+            if self.rest:
+                val += "r"
+            if hasattr(self, "duration"):
+                if not hasattr(self,"chord"):
+                    val += self.getLilyDuration()
+            val += self.handlePostLilies()
+            value = self.LilyWrap(val)
         return value
     def LilyWrap(self, value):
         prefixes = ""
