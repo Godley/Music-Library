@@ -26,6 +26,7 @@ class testSetupPiece(unittest.TestCase):
         self.assertTrue(hasattr(self.piece, "meta"), "ERROR: Meta should exist in TestTitleTag")
         self.assertEqual("hehehe", self.piece.meta.title, "ERROR: title set incorrectly in TestTitleTag")
 
+
     def testCompTag(self):
         self.tags.append("creator")
         self.attrs["creator"] = {"type":"composer"}
@@ -89,5 +90,22 @@ class testHandlePart(unittest.TestCase):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertEqual("w", self.piece.Parts["P1"].shortname)
 
+class testRights(unittest.TestCase):
+    def setUp(self):
+        testSetupPiece.setUp(self)
+        self.tags.append("credit")
+        self.tags.append("credit-type")
+        self.chars["credit-type"] = "rights"
+        self.handler(self.tags, self.attrs,self.chars,self.piece)
 
+    def testRightsCredit(self):
+        self.tags.append("credit-words")
+        self.chars["credit-words"] = "copyright lol"
+        self.handler(self.tags, self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(self.piece.meta, "copyright"))
 
+    def testRightsValue(self):
+        self.tags.append("credit-words")
+        self.chars["credit-words"] = "copyright lol"
+        self.handler(self.tags, self.attrs,self.chars,self.piece)
+        self.assertEqual(self.piece.meta.copyright, "copyright lol")

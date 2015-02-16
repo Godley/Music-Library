@@ -27,6 +27,7 @@ last_barline = None
 last_fwd_repeat = None
 last_barline_pos = {}
 
+handleType = ""
 
 def GetID(attrs, tag, val):
     # handy method which pulls out a nested id: attrs refers to a dictionary holding the id
@@ -57,7 +58,7 @@ class MxmlParser(object):
         self.excluded = excluded
 
         # add any handlers, along with the tagname associated with it, to this dictionary
-        self.structure = {"movement-title": SetupPiece, "credit-words": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
+        self.structure = {"movement-title": SetupPiece, "credit": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
              "pitch":  HandlePitch, "unpitched": HandlePitch,"articulations":handleArticulation,
              "fermata": HandleFermata, "slur":handleOtherNotations, "lyric":handleLyrics,
@@ -293,6 +294,7 @@ def ignore_exception(IgnoreException=Exception, DefaultVal=None):
 
 
 def SetupPiece(tag, attrib, content, piece):
+    global handleType
     return_val = None
     if content is not [] and len(tag) > 0:
         title = None
@@ -321,7 +323,10 @@ def SetupPiece(tag, attrib, content, piece):
             if "credit" in attrib:
                 if "page" in attrib["credit"]:
                     page = int(attrib["credit"]["page"])
+            if tag[-1] == "credit-type":
+                handleType = content["credit-type"]
             if tag[-1] == "credit-words":
+                print("handle",handleType)
                 x = None
                 y = None
                 size = None
@@ -343,12 +348,27 @@ def SetupPiece(tag, attrib, content, piece):
                         valign = temp["valign"]
                 if "credit-words" in content:
                     text = content["credit-words"]
-                credit = Directions.CreditText(page=page, x=x,y=y,size=size,justify=justify,valign=valign,text=text)
-                if not hasattr(piece, "meta"):
-                    piece.meta = Meta.Meta()
-                if not hasattr(piece.meta, "credits"):
-                    piece.meta.credits = []
-                piece.meta.credits.append(credit)
+                if handleType == "":
+                    credit = Directions.CreditText(page=page, x=x,y=y,size=size,justify=justify,valign=valign,text=text)
+                    if not hasattr(piece, "meta"):
+                        piece.meta = Meta.Meta()
+                    piece.meta.AddCredit(credit)
+                else:
+                    if handleType == "composer":
+                        if not hasattr(piece.meta, "composer"):
+                            piece.meta.composer = text
+                    if handleType == "rights":
+                        if not hasattr(piece.meta, "copyright"):
+                            piece.meta.copyright = text
+                    if handleType == "title":
+                        if not hasattr(piece.meta, "title"):
+                            piece.meta.title = text
+                    if handleType == "page number":
+                        if not hasattr(piece.meta, "pageNum"):
+                            piece.meta.pageNum = True
+                    handleType = ""
+
+
     return return_val
 
 
