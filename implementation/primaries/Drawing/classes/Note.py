@@ -22,8 +22,14 @@ class Notehead(BaseClass.Base):
         self.type = type
     def toLily(self):
         val = "\\revert NoteHead.style"
-        pre_note = "\\override NoteHead.style = #'"
+        pre_note = "\n\\override NoteHead.style = #'"
         if self.type != "":
+            if self.type == "diamond":
+                val = "\\harmonic"
+                return [val]
+            if self.type == "x":
+                val = "\\xNote"
+                return [val]
             options = {"diamond":"harmonic","x":"cross","circle-x":"xcircle"}
             if self.type in options:
                 pre_note += options[self.type]
@@ -32,7 +38,7 @@ class Notehead(BaseClass.Base):
         else:
             pre_note = ""
 
-        return [pre_note, val]
+        return [pre_note+"\n", "\n"+val+"\n"]
 
 
 class Stem(BaseClass.Base):
@@ -174,10 +180,11 @@ class Note(BaseClass.Base):
         if len(self.postnotation) == 0 or add:
             self.postnotation.append(obj)
 
-    def SetType(self, type):
-        self.val_type = type
-        options = {"64th":64,"32nd":32,"16th":16,"eighth":8,"quarter":4,"half":2,"whole":1}
-        if type in options:
+    def SetType(self, vtype):
+        print(vtype)
+        self.val_type = vtype
+        options = {"64th":64,"32nd":32,"16th":16,"eighth":8,"quarter":4,"half":2,"whole":1,"h":8}
+        if vtype in options:
             self.duration = options[self.val_type]
 
     def CheckDivisions(self, measure_div):

@@ -62,7 +62,7 @@ class MxmlParser(object):
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
              "pitch":  HandlePitch, "unpitched": HandlePitch,"articulations":handleArticulation,
              "fermata": HandleFermata, "slur":handleOtherNotations, "lyric":handleLyrics,
-             "technical": handleOtherNotations}
+             "technical": handleOtherNotations, "backup":HandleMovementBetweenDurations}
 
         # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
         self.multiple_attribs = ["beats", "sign"]
@@ -326,7 +326,6 @@ def SetupPiece(tag, attrib, content, piece):
             if tag[-1] == "credit-type":
                 handleType = content["credit-type"]
             if tag[-1] == "credit-words":
-                print("handle",handleType)
                 x = None
                 y = None
                 size = None
@@ -428,6 +427,25 @@ def handleArticulation(tag, attrs, content, piece):
             return 1
     return None
 
+def HandleMovementBetweenDurations(tags, attrs, chars, piece):
+    global staff_id, last_note
+    print("hello")
+    if "backup" in tags and tags[-1]=="duration":
+        measure_id = GetID(attrs, "measure","number")
+
+        part_id = GetID(attrs, "part","id")
+        if part_id is not None:
+            if measure_id is not None:
+                measure_id = int(measure_id)
+                part = piece.Parts[part_id]
+                if part.getMeasure(measure_id, staff_id) is None:
+                    part.addEmptyMeasure(measure_id, staff_id)
+                measure = part.getMeasure(measure_id, staff_id)
+                print("here")
+                if measure is not None:
+                    last_note = measure.FindIndex(duration=int(chars["duration"]))
+
+    pass
 def HandleFermata(tags, attrs, chars, piece):
     global note
     if "fermata" in tags:
@@ -777,12 +795,6 @@ def CreateNote(tag, attrs, content, piece):
 
         if tag[-1] == "staff":
             staff_id = int(content["staff"])
-        if "part" in attrs:
-            if "id" in attrs["part"]:
-                part_id = attrs["part"]["id"]
-        if "measure" in attrs:
-            if "number" in attrs["measure"]:
-                measure_id = int(attrs["measure"]["number"])
         if "note" in tag and note is None:
             note = Note.Note()
             ret_value = 1
@@ -795,8 +807,7 @@ def CreateNote(tag, attrs, content, piece):
         if "cue" in tag:
             note.cue = True
 
-        if "type" in tag:
-            note.SetType(content["type"])
+
 
         if "grace" in tag:
             slash = False
@@ -808,6 +819,9 @@ def CreateNote(tag, attrs, content, piece):
         if tag[-1] == "duration" and "note" in tag:
             if not hasattr(note, "duration"):
                 note.duration = float(content["duration"])
+
+        if tag[-1] == "type":
+            note.SetType(content["type"])
 
         if "dot" in tag:
             note.dotted = True

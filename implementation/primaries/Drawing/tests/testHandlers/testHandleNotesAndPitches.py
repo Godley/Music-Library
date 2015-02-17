@@ -12,9 +12,8 @@ class notes(unittest.TestCase):
         MxmlParser.part_id = "P1"
         MxmlParser.measure_id = 1
         MxmlParser.note = None
-        MxmlParser.items = {}
-        MxmlParser.notes = {}
-        MxmlParser.expressions = {}
+        MxmlParser.expression = None
+        MxmlParser.direction = None
         self.piece = Piece.Piece()
         self.piece.Parts["P1"] = Part.Part()
         self.piece.Parts["P1"].addEmptyMeasure(1,1)
@@ -50,7 +49,6 @@ class testCreateNoteHandler(notes):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.copy()
         self.assertTrue(hasattr(MxmlParser.note, "chord"))
-
 #deprecated method of handling: not sure how to test this now? it's done at parser level rather than handler level
     # def testNoteChordTagAffectsPreviousNote(self):
     #     self.tags.append("chord")

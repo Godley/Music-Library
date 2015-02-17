@@ -31,6 +31,17 @@ class Measure(BaseClass.Base):
             if not hasattr(self, "divisions") or self.divisions is None:
                 self.divisions = divisions
 
+    def FindIndex(self, duration=8):
+        # simple method which finds the position before a note of x duration.
+        note_index = len(self.notes)-1
+        total = 0
+        while note_index > -1 and total < (duration/self.divisions):
+            total += self.notes[note_index].duration
+            note_index -= 1
+            if total >= duration/self.divisions:
+                break
+        return note_index
+
     def CheckDivisions(self):
         if hasattr(self, "divisions"):
             for n in self.notes:

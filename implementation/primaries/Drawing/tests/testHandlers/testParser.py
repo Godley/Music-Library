@@ -109,3 +109,43 @@ class testSaxParser(unittest.TestCase):
         self.parser.tags.append("note")
         self.parser.EndTag("note")
         self.assertEqual(MxmlParser.HandleMeasures, self.parser.handler)
+
+class testBackupAndForward(unittest.TestCase):
+    def setUp(self):
+        self.parser = MxmlParser.MxmlParser()
+        self.tag_list = []
+        self.attrs = []
+        self.parser.piece.Parts["P1"] = Part.Part()
+        self.parser.tags.append("part")
+        self.parser.attribs["part"] = {"id":"P1"}
+        self.parser.StartTag("measure",{"number":"1"})
+        self.parser.StartTag("divisions", {})
+        self.parser.NewData("8")
+        self.parser.EndTag("divisions")
+        self.parser.StartTag("note",{})
+        self.parser.StartTag("duration",{})
+        self.parser.NewData("16")
+        self.parser.EndTag("duration")
+        self.parser.EndTag("note")
+        self.parser.StartTag("note",{})
+        self.parser.StartTag("duration",{})
+        self.parser.NewData("16")
+        self.parser.EndTag("duration")
+        self.parser.EndTag("note")
+
+    def testBackupTag(self):
+        self.assertEqual(MxmlParser.last_note, 1)
+        self.parser.StartTag("backup",{})
+        self.parser.StartTag("duration",{})
+        self.parser.NewData("16")
+        self.parser.EndTag("duration")
+        self.assertEqual(MxmlParser.last_note, 0)
+
+
+    def testForwardTag(self):
+        self.assertEqual(MxmlParser.last_note, 1)
+        self.parser.StartTag("forward",{})
+        self.parser.StartTag("duration",{})
+        self.parser.NewData("16")
+        self.parser.EndTag("duration")
+        self.assertEqual(MxmlParser.last_note, 0)

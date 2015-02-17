@@ -32,7 +32,6 @@ class Clef(object):
                 return "\\new TabStaff {\n\clef moderntab \n}"
             if hasattr(self, "line"):
                 key += str(self.line)
-                print(key)
                 if key in clef_type:
                     clef = clef_type[self.sign.upper() + str(self.line)]
                 else:

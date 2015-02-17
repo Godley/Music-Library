@@ -51,12 +51,9 @@ class Part(object):
     def CheckDivisions(self):
         divisions = 8
         for staff in self.measures:
-            print(staff)
             for number in self.measures[staff]:
-                print(number)
                 if hasattr(self.measures[staff][number], "divisions") and self.measures[staff][number].divisions is not None:
                     divisions = self.measures[staff][number].divisions
-                print(divisions)
             [self.measures[staff][key].SetDivisions(divisions) for key in self.measures[staff]]
             [self.measures[staff][key].CheckDivisions() for key in self.measures[staff]]
 
