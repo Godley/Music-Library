@@ -1,5 +1,7 @@
-from implementation.primaries.Drawing.classes import PieceTree
 import unittest
+
+from implementation.primaries.Drawing.classes.tree_cls import PieceTree
+
 
 class testPieceTree(unittest.TestCase):
     def setUp(self):
@@ -16,20 +18,20 @@ class testPieceTree(unittest.TestCase):
         self.assertRaises(PieceTree.CannotAddToTreeException, self.item.AddNode, PieceTree.Node())
 
     def testAddTwoValidNodes(self):
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode,PieceTree.IndexedNode])
+        elem = PieceTree.Node(rules=[PieceTree.EmptyNode, PieceTree.IndexedNode])
         self.item.AddNode(elem)
         self.item.AddNode(PieceTree.EmptyNode(0))
         self.assertEqual(1, len(elem.children))
 
     def testAddNodeOverLimit(self):
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode,PieceTree.IndexedNode],limit=-1)
+        elem = PieceTree.Node(rules=[PieceTree.EmptyNode, PieceTree.IndexedNode],limit=-1)
         self.item.AddNode(elem)
         self.assertRaises(PieceTree.CannotAddToTreeException, self.item.AddNode, PieceTree.EmptyNode(0))
 
     def testAddNodeAddsToNextLevel(self):
         # this test confirms that with a parent who allows 1 child which has to be empty or indexed, Next is it's child
         # and third is a child of next.
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode,PieceTree.IndexedNode],limit=1)
+        elem = PieceTree.Node(rules=[PieceTree.EmptyNode, PieceTree.IndexedNode],limit=1)
         next = PieceTree.EmptyNode(0,rules=[PieceTree.Node])
         third = PieceTree.Node()
         self.item.AddNode(elem)
@@ -39,7 +41,7 @@ class testPieceTree(unittest.TestCase):
 
     def testAddNodeAddsToNextLevelWithExpandedLimit(self):
         # this test confirms the above still happens when the limit is 2
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode,PieceTree.IndexedNode],limit=2)
+        elem = PieceTree.Node(rules=[PieceTree.EmptyNode, PieceTree.IndexedNode],limit=2)
         next = PieceTree.EmptyNode(0,rules=[PieceTree.Node])
         third = PieceTree.Node()
         self.item.AddNode(elem)
@@ -50,7 +52,7 @@ class testPieceTree(unittest.TestCase):
     def testAddNodeAddsToCurrentLevelWithRelevantRuleAndLimit(self):
         # this test confirms the first spot for third to land in is a second child of elem, because elem lets you have
         # node as a child and can have 2 children.
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode,PieceTree.Node],limit=2)
+        elem = PieceTree.Node(rules=[PieceTree.EmptyNode, PieceTree.Node],limit=2)
         next = PieceTree.EmptyNode(0,rules=[PieceTree.Node])
         third = PieceTree.Node()
         self.item.AddNode(elem)
