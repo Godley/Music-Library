@@ -90,6 +90,29 @@ class testPieceTree(unittest.TestCase):
         self.item.AddNode(fifth)
         self.assertEqual(fourth.GetChild(0), fifth)
 
+    def testFindFirstNode(self):
+        elem = PieceTree.Node()
+        self.item.AddNode(elem)
+        self.assertEqual(self.item.FindNode(type(elem), 0), elem)
+
+    def testFindSecondNode(self):
+        elem = PieceTree.Node(rules=[PieceTree.Node])
+        self.item.AddNode(elem)
+        second = PieceTree.Node()
+        self.item.AddNode(second)
+        node = self.item.FindNode(type(elem), 1)
+        self.assertEqual(node, second)
+
+    def testFindFirstEmptyNodeOnFirstChild(self):
+        elem = PieceTree.Node(rules=[PieceTree.Node])
+        self.item.AddNode(elem)
+        second = PieceTree.Node(rules=[PieceTree.EmptyNode])
+        self.item.AddNode(second)
+        third = PieceTree.EmptyNode(0)
+        self.item.AddNode(third)
+        node = self.item.FindNode(PieceTree.EmptyNode, 0)
+        self.assertEqual(node, third)
+
 
 
 

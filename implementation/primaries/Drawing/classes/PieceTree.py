@@ -116,16 +116,28 @@ class Tree(object):
                 child += 1
             return result
 
-    def FindNode(self, cls_type):
-        return self.Search(cls_type, self.root, 0)
+    def FindNode(self, cls_type, index):
+        return self.Search(cls_type, self.root, 0, count=index+1)
 
-    def Search(self, cls_type, node, index):
+    def Search(self, cls_type, node, index, depth=0, count=1):
+        counter = depth + 1
         if node is None:
             return None
-        if type(node) == cls_type:
+        if type(node) == cls_type and counter == count:
             return node
         else:
-            return self.Search(cls_type, node.GetChild(index), index+1)
+            if type(node) != cls_type:
+                counter -= 1
+            if len(node.children) == 0:
+                return None
+            result = self.Search(cls_type, node.GetChild(index), index, depth=counter, count=count)
+            if result is None:
+                index += 1
+            child = 0
+            while result is None and child < len(node.children):
+                result = self.Search(cls_type, node.GetChild(child), index, depth=counter, count=count)
+                child += 1
+            return result
 
 
 
