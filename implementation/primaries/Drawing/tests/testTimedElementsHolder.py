@@ -61,3 +61,9 @@ class testLinkedList(unittest.TestCase):
         self.item.Add(next)
         self.assertEqual(self.item.Head(),new_item)
         self.assertEqual(self.item.Head().Next(),next)
+
+    def testAddWithOffset(self):
+        new_item = Node(1, "hello")
+        self.item.Add(new_item, offset=2)
+        self.assertEqual(self.item.Head().GetDuration(), 2)
+        self.assertEqual(self.item.Head().Next(), new_item)

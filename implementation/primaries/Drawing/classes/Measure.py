@@ -167,7 +167,7 @@ class Measure(BaseClass.Base):
             return values
         return lilystring
 
-    def addDirection(self, item, note):
+    def addDirection(self, item, note, voice=1):
         if (type(item) is not Directions.OctaveShift and type(item) is not Directions.Pedal) or item.type == "stop":
             if note not in self.items:
                 self.items[note] = []
@@ -193,12 +193,12 @@ class Measure(BaseClass.Base):
                 self.preitems[note] = []
             self.preitems[note].append(item)
 
-    def addExpression(self, item, note):
+    def addExpression(self, item, note, voice=1):
         if note not in self.expressions:
             self.expressions[note] = []
         self.expressions[note].append(item)
 
-    def addNote(self, item):
+    def addNote(self, item, voice=1):
         range = [self.octaveShift[number] for number in self.octaveShift if number <= len(self.notes)]
         if len(range) > 0:
             item.pitch.octave = str(int(item.pitch.octave) - range[-1])

@@ -9,12 +9,12 @@ class testPiece(Lily):
 class testPieceWithPart(Lily):
     def setUp(self):
         self.item = Piece.Piece()
-        self.item.Parts["P1"] = Part.Part()
+        self.item.addPart(id="P2",part=Part.Part())
         self.lilystring = "<<>>"
 
 class testPieceWithTitle(Lily):
     def setUp(self):
         self.item = Piece.Piece()
         self.item.meta = Meta.Meta(title="hello world")
-        self.lilystring = "\n\header {\ntitle = \"hello world\"\n}<<>>"
+        self.lilystring = "\n\header {\ntitle = \"hello world\"\n\n}<<>>"
 

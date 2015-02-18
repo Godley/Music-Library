@@ -79,7 +79,7 @@ class testHandlePart(unittest.TestCase):
         self.tags.append("part-name")
         self.chars["part-name"] = "will"
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual("will", self.piece.Parts["P1"].name)
+        self.assertEqual("will", self.piece.GetPart("P1").name)
 
     def testPNameWithShortName(self):
         self.assertEqual(0, len(self.piece.Parts.keys()))
@@ -88,7 +88,7 @@ class testHandlePart(unittest.TestCase):
         self.tags.append("part-abbreviation")
         self.chars["part-abbreviation"] = "w"
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual("w", self.piece.Parts["P1"].shortname)
+        self.assertEqual("w", self.piece.GetPart("P1").shortname)
 
 class testRights(unittest.TestCase):
     def setUp(self):

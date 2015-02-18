@@ -35,13 +35,13 @@ class testHandleMeasures(MeasureTesting):
 
     def testMeasureTag(self):
         self.handler(self.tags, self.attrs, None, self.piece)
-        self.assertEqual(Measure.Measure, type(self.piece.Parts["P1"].measures[1][1]))
+        self.assertEqual(Measure.Measure, type(self.piece.Parts["P1"].getMeasure(1,1)))
 
     def testMeasurePrintTag(self):
         self.tags.append("print")
         self.attrs["print"] = {"new-system":"yes"}
         self.handler(self.tags, self.attrs, None, self.piece)
-        self.assertTrue(hasattr(self.piece.Parts["P1"].measures[1][1],"newSystem"))
+        self.assertTrue(hasattr(self.piece.Parts["P1"].getMeasure(1,1),"newSystem"))
 
 
 class testKeySig(MeasureTesting):

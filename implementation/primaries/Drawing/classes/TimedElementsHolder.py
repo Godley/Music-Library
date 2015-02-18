@@ -40,17 +40,22 @@ class LinkedList(object):
     def Tail(self):
         return self.last
 
-    def Add(self, item):
-        if self.first is None:
-            self.first = item
-            if item.Next() is not None:
-                self.last = item.Next()
+    def Add(self, item, offset=0):
+        position = self.first
+        if offset == 0:
+            if position is None:
+                self.first = item
+                self.last = self.first.Next()
+                if self.last is None:
+                    self.last = item
             else:
-                self.last = item
+                next = position.Next()
+                if next is None:
+                    self.first.SetNext(item)
+                else:
+                    while next is not None:
+                        next = next.Next()
+                        if next.Next() is not None:
+                            next.SetNext(item)
         else:
-            next_val = self.Head().Next()
-            if next_val is None:
-                self.Head().SetNext(item)
-            else:
-                # need to do some checking of duration etc.
-                pass
+            new_node = Node(offset, None)

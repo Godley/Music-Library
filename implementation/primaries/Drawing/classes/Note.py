@@ -146,6 +146,17 @@ class Note(BaseClass.Base):
         self.postnotation = []
         self.has_tremolo = False
 
+    def getNotation(self, id, type):
+        if type=="post":
+            if (id==-1 and len(self.postnotation) > 0) or (id!=-1 and len(self.postnotation) > id):
+                return self.postnotation[id]
+        if type=="pre":
+            if (id==-1 and len(self.prenotation) > 0) or (id!=-1 and len(self.postnotation) > id):
+                return self.prenotation[id]
+        if type=="wrap":
+            if (id==-1 and len(self.wrap_notation) > 0) or (id!=-1 and len(self.postnotation) > id):
+                return self.wrap_notation[id]
+
     def addNotation(self, obj):
         add = True
         wrap_notation = [Arpeggiate,NonArpeggiate,Slide,Glissando,Mark.Caesura,Mark.BreathMark]
@@ -298,13 +309,8 @@ class Note(BaseClass.Base):
         prefixes = ""
         wrapped_notation_lilystrings = [wrap.toLily() for wrap in self.wrap_notation]
         if hasattr(self, "notehead"):
-            if not hasattr(self, "chord"):
-                wrapped_notation_lilystrings.append(self.notehead.toLily())
-            else:
-                #patchy fix, needs review later
-                output = {"diamond":"harmonic"}
-                if self.notehead.type in output:
-                    prefixes += "\\"+output[self.notehead.type]+" "
+            wrapped_notation_lilystrings.append(self.notehead.toLily())
+
         prefixes += "".join([wrapper[0]+" " for wrapper in wrapped_notation_lilystrings if len(wrapper) > 1])
         prefixes_and_current = prefixes + value
         postfixes = "".join([wrapper[-1] for wrapper in wrapped_notation_lilystrings if len(wrapper) > 0])

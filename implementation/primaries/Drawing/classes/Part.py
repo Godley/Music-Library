@@ -57,24 +57,24 @@ class Part(object):
             [self.measures[staff][key].SetDivisions(divisions) for key in self.measures[staff]]
             [self.measures[staff][key].CheckDivisions() for key in self.measures[staff]]
 
-    def addMeasure(self, key, item, staff):
+    def addMeasure(self, item, measure=1, staff=1):
         if staff not in self.measures:
             self.measures[staff] = {}
-        self.measures[staff][key] = item
+        self.measures[staff][measure] = item
 
-    def addEmptyMeasure(self, key, staff):
+    def addEmptyMeasure(self, measure=1, staff=1):
         if staff not in self.measures:
             self.measures[staff] = {}
-        self.measures[staff][key] = Measure()
+        self.measures[staff][measure] = Measure()
 
-    def getMeasure(self, key, staff):
+    def getMeasure(self, measure=1, staff=1):
         item = None
         if staff in self.measures:
             try:
-                if key in self.measures[staff]:
-                    item = self.measures[staff][key]
+                if measure in self.measures[staff]:
+                    item = self.measures[staff][measure]
             except:
-                print(key, self.measures[staff])
+                print(measure, self.measures[staff])
         return item
 
     def RepeatMeasure(self, sid, key, measure_strings, fwd, repeat_num=2):

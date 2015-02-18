@@ -28,3 +28,11 @@ class Piece(object):
         lilystring += "".join([pstring for pstring in partStrings])
         lilystring += ">>"
         return lilystring
+
+    def addPart(self, id="gubbins", part=None):
+        if id not in self.Parts:
+            self.Parts[id] = part
+
+    def getPart(self, id="gubbins"):
+        if id in self.Parts:
+            return self.Parts[id]

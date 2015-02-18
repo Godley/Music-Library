@@ -441,11 +441,11 @@ def HandleMovementBetweenDurations(tags, attrs, chars, piece):
                 if part.getMeasure(measure_id, staff_id) is None:
                     part.addEmptyMeasure(measure_id, staff_id)
                 measure = part.getMeasure(measure_id, staff_id)
+                part.CheckDivisions()
                 print("here")
                 if measure is not None:
                     last_note = measure.FindIndex(duration=int(chars["duration"]))
 
-    pass
 def HandleFermata(tags, attrs, chars, piece):
     global note
     if "fermata" in tags:
