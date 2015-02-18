@@ -21,6 +21,10 @@ class Node(object):
         else:
             self.rules = []
 
+    def GetChildrenIndexes(self):
+        indexes = list(range(len(self.children)))
+        return indexes
+
     def SetItem(self, new_item):
         self.item = new_item
 
@@ -66,6 +70,9 @@ class IndexedNode(Node):
         Node.__init__(self, rules=rules, limit=limit)
         self.children = {}
 
+    def GetChildrenIndexes(self):
+        return list(self.children.keys())
+
     def GetChild(self, index):
         if index in self.children:
             return self.children[index]
@@ -99,23 +106,25 @@ class Tree(object):
             else:
                 if len(node.children) == 0:
                     return None
-                result = self.FindPosition(node.GetChild(index), addition, index)
+                indexes = node.GetChildrenIndexes()
+                result = self.FindPosition(node.GetChild(indexes[index]), addition, index)
                 if result is None:
                     index += 1
-                child = index
-                while result is None and child < len(node.children):
-                    result = self.FindPosition(node.GetChild(child), addition, index)
+                child = 0
+                while result is None and child < len(indexes):
+                    result = self.FindPosition(node.GetChild(indexes[child]), addition, index)
                     child += 1
                 return result
         else:
             if len(node.children) == 0:
                 return None
-            result = self.FindPosition(node.GetChild(index), addition, index)
+            indexes = node.GetChildrenIndexes()
+            result = self.FindPosition(node.GetChild(indexes[index]), addition, index)
             if result is None:
                 index += 1
-            child = index
+            child = 0
             while result is None and child < len(node.children):
-                result = self.FindPosition(node.GetChild(child), addition, index)
+                result = self.FindPosition(node.GetChild(indexes[child]), addition, index)
                 child += 1
             return result
 
@@ -132,18 +141,42 @@ class Tree(object):
         if type(node) == cls_type and counter == count:
             return node
         else:
+            indexes = node.GetChildrenIndexes()
             if type(node) != cls_type:
                 counter -= 1
             if len(node.children) == 0:
                 return None
-            result = self.Search(cls_type, node.GetChild(index), index, depth=counter, count=count)
-            if result is None:
-                index += 1
+            result = None
             child = 0
             while result is None and child < len(node.children):
-                result = self.Search(cls_type, node.GetChild(child), index, depth=counter, count=count)
+                result = self.Search(cls_type, node.GetChild(indexes[child]), index, depth=counter, count=count)
                 child += 1
             return result
 
+    def FindNodeByIndex(self, index):
+        return self.FindByIndex(self.root, index)
+
+    def FindByIndex(self, node, index):
+        result = None
+        if type(node.children) is dict:
+            result = node.GetChild(index)
+            if result is None:
+                children = list(node.children.keys())
+                child = 0
+                while child < len(children) and result is None:
+                    key = children[child]
+                    result = self.FindByIndex(node.GetChild(key), index)
+                    if result is not None:
+                        break
+                    child += 1
+        else:
+            child = 0
+            result = None
+            while child < len(node.children) and result is None:
+                result = self.FindByIndex(node.GetChild(child), index)
+                if result is not None:
+                    break
+                child += 1
+        return result
 
 

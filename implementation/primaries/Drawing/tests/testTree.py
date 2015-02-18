@@ -136,7 +136,37 @@ class testTree(unittest.TestCase):
         with self.assertRaises(PieceTree.CannotFindInTreeException):
             self.item.FindNode(PieceTree.EmptyNode, 0)
 
-#TODO add tests for IndexedNode type
+    def testAddNodeWithStringIndex(self):
+        elem = PieceTree.IndexedNode(rules=[PieceTree.Node])
+        self.item.AddNode(elem)
+        second = PieceTree.Node()
+        self.item.AddNode(second, "P1")
+        self.assertEqual(elem.GetChild("P1"), second)
+
+    def testFindNodeWithStringIndex(self):
+        elem = PieceTree.IndexedNode(rules=[PieceTree.Node])
+        self.item.AddNode(elem)
+        second = PieceTree.Node()
+        self.item.AddNode(second, "P1")
+        self.assertEqual(self.item.FindNodeByIndex("P1"), second)
+
+    def testFindNodeWithStringIndexOnSecondLevel(self):
+        elem = PieceTree.Node(rules=[PieceTree.IndexedNode])
+        self.item.AddNode(elem)
+        second = PieceTree.IndexedNode(rules=[PieceTree.Node])
+        self.item.AddNode(second)
+        third = PieceTree.Node()
+        self.item.AddNode(third, "S")
+        self.assertEqual(self.item.FindNodeByIndex("S"), third)
+
+    def testFindNodeWithStringIndexOnSecondLevelWhereFirstLevelIsIndexed(self):
+        elem = PieceTree.IndexedNode(rules=[PieceTree.IndexedNode])
+        self.item.AddNode(elem)
+        second = PieceTree.IndexedNode(rules=[PieceTree.Node])
+        self.item.AddNode(second, "A")
+        third = PieceTree.Node()
+        self.item.AddNode(third, "B")
+        self.assertEqual(self.item.FindNodeByIndex("B"), third)
 
 
 
