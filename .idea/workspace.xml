@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/PieceTree.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PieceTree.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testPieceTree.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testPieceTree.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -152,8 +149,8 @@
       <file leaf-file-name="Testclasses.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.54443055" vertical-offset="0" max-vertical-offset="799">
-              <caret line="29" column="58" selection-start-line="29" selection-start-column="58" selection-end-line="29" selection-end-column="58" />
+            <state vertical-scroll-proportion="0.48811013" vertical-offset="0" max-vertical-offset="799">
+              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1137,12 +1134,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00222" summary="needs a cleanup and some more unit tests adding, but issue fix #21, repeat barlines now work. Next problem: changing &quot;repeat volta&quot; to match the number of alternative endings.">
-      <created>1423833919702</created>
-      <option name="number" value="00222" />
-      <option name="project" value="LOCAL" />
-      <updated>1423833919703</updated>
-    </task>
     <task id="LOCAL-00223" summary="added the 2 new testcases (chord needs adding to testLilypondRun). Also added some tests to confirm changes to barline repeat types">
       <created>1423834987192</created>
       <option name="number" value="00223" />
@@ -1431,7 +1422,13 @@
       <option name="project" value="LOCAL" />
       <updated>1424286550691</updated>
     </task>
-    <option name="localTasksCounter" value="271" />
+    <task id="LOCAL-00271" summary="added stub classes for each node type">
+      <created>1424288008463</created>
+      <option name="number" value="00271" />
+      <option name="project" value="LOCAL" />
+      <updated>1424288008463</updated>
+    </task>
+    <option name="localTasksCounter" value="272" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1522,7 +1519,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="more comments to part lilypond method" />
     <MESSAGE value="issue fix #31 clean up lilypond output&#10;&#10;final addition: changed text class to return just it's font/size/text attribs, wrapped &quot;markup&quot; around it in the Direction class. This means we can wrap &quot;markuplist&quot; around it in the Meta class. Also fixes issues with text containing spaces having the right fonts/font sizes the whole way through, not just the first word" />
     <MESSAGE value="issue fix #34 only use fonts that are in lilypond" />
     <MESSAGE value="issue fix #36 technique duplication" />
@@ -1547,7 +1543,8 @@
     <MESSAGE value="fixed recursion depth/while loop bug&#10;&#10;test hung because child wasn't being incremented upon every check of the child." />
     <MESSAGE value="began writing find method + appropriate unit tests" />
     <MESSAGE value="added exception when thing not found" />
-    <option name="LAST_COMMIT_MESSAGE" value="added exception when thing not found" />
+    <MESSAGE value="added stub classes for each node type" />
+    <option name="LAST_COMMIT_MESSAGE" value="added stub classes for each node type" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2056,8 +2053,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54443055" vertical-offset="0" max-vertical-offset="799">
-          <caret line="29" column="58" selection-start-line="29" selection-start-column="58" selection-end-line="29" selection-end-column="58" />
+        <state vertical-scroll-proportion="0.48811013" vertical-offset="0" max-vertical-offset="799">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding />
         </state>
       </provider>

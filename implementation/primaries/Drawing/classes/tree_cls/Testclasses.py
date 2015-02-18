@@ -23,17 +23,14 @@ class PlaceHolder(EmptyNode):
 
 class NoteNode(Node):
     def __init__(self):
-        Node.__init__(self, rules=[NotationNode,NoteNode,DirectionNode,ExpressionNode],limit=4)
+        Node.__init__(self, rules=[NoteNode,DirectionNode,ExpressionNode],limit=3)
 
-class DirectionNode(Node):
+class SelfNode(Node):
     def __init__(self):
-        Node.__init__(self, rules=[DirectionNode], limit=2)
+        Node.__init__(self, rules=[type(self)],limit=1)
 
-class ExpressionNode(Node):
-    def __init__(self):
-        Node.__init__(self, rules=[ExpressionNode], limit=2)
+class DirectionNode(SelfNode):
+    pass
 
-class NotationNode(Node):
-    def __init__(self):
-        Node.__init__(self, rules=[NotationNode], limit=2)
-
+class ExpressionNode(SelfNode):
+    pass
