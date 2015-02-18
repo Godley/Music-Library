@@ -8,5 +8,11 @@ class testPieceTree(unittest.TestCase):
     def testAddPart(self):
         part = Testclasses.PartNode()
         self.item.AddNode(part, index="P1")
-        self.assertEqual(self.item.FindNode(type(part),"P1"))
+        self.assertEqual(self.item.FindNodeByIndex("P1"), part)
+
+    def testAddInvalidMeasure(self):
+        part = Testclasses.PartNode()
+        measure = Testclasses.MeasureNode()
+        with self.assertRaises(PieceTree.CannotAddToTreeException):
+            self.item.AddNode(measure, index=1)
         

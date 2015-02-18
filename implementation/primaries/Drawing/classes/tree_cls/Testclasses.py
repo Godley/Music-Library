@@ -6,13 +6,21 @@ class PieceTree(Tree):
         Tree.__init__(self)
         self.root = IndexedNode(rules=[PartNode])
 
-class PartNode(IndexedNode):
+class PartNode(Node):
     def __init__(self):
-        IndexedNode.__init__(self, rules=[MeasureNode])
+        Node.__init__(self, rules=[StaffNode])
+
+class StaffNode(IndexedNode):
+    def __init__(self):
+        Node.__init__(self, rules=[MeasureNode])
 
 class MeasureNode(Node):
     def __init__(self):
-        Node.__init__(self, rules=[NoteNode], limit=3)
+        Node.__init__(self, rules=[VoiceNode])
+
+class VoiceNode(Node):
+    def __init__(self):
+        Node.__init__(self, rules=[NoteNode, PlaceHolder])
 
 class PlaceHolder(EmptyNode):
     def __init__(self, **kwargs):
