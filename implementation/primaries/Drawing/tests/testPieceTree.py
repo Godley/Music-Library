@@ -5,7 +5,6 @@ class testPieceTree(unittest.TestCase):
     def setUp(self):
         self.item = PieceTree.Tree()
 
-    #
     def testAddNode(self):
         elem = PieceTree.Node()
         self.item.AddNode(elem)
@@ -113,6 +112,27 @@ class testPieceTree(unittest.TestCase):
         node = self.item.FindNode(PieceTree.EmptyNode, 0)
         self.assertEqual(node, third)
 
+    def testFindEmptyNodeOnSecondChild(self):
+        elem = PieceTree.Node(rules=[PieceTree.Node])
+        self.item.AddNode(elem)
+        second = PieceTree.Node()
+        self.item.AddNode(second)
+        third = PieceTree.Node(rules=[PieceTree.EmptyNode])
+        self.item.AddNode(third)
+        fourth = PieceTree.EmptyNode(0)
+        self.item.AddNode(fourth)
+        node = self.item.FindNode(PieceTree.EmptyNode, 0)
+        self.assertEqual(node, fourth)
+
+    def testFailure(self):
+        elem = PieceTree.Node(rules=[PieceTree.Node])
+        self.item.AddNode(elem)
+        second = PieceTree.Node()
+        self.item.AddNode(second)
+        third = PieceTree.Node(rules=[PieceTree.EmptyNode])
+        self.item.AddNode(third)
+        with self.assertRaises(PieceTree.CannotFindInTreeException):
+            self.item.FindNode(PieceTree.EmptyNode, 0)
 
 
 

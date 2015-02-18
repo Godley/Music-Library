@@ -1,6 +1,9 @@
 class CannotAddToTreeException(BaseException):
     '''error in tree addition!'''
 
+class CannotFindInTreeException(BaseException):
+    '''error! can't find element'''
+
 class Node(object):
     """This class is very generic, and has 3 attributes:
         - children: as with any tree it needs to have children
@@ -117,7 +120,10 @@ class Tree(object):
             return result
 
     def FindNode(self, cls_type, index):
-        return self.Search(cls_type, self.root, 0, count=index+1)
+        result = self.Search(cls_type, self.root, 0, count=index+1)
+        if result is None:
+            raise(CannotFindInTreeException("ERROR! could not find "+str(cls_type)+" index "+str(index)))
+        return result
 
     def Search(self, cls_type, node, index, depth=0, count=1):
         counter = depth + 1
