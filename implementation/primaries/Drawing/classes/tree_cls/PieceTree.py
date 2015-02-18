@@ -119,13 +119,13 @@ class Tree(object):
                 child += 1
             return result
 
-    def FindNode(self, cls_type, index):
-        result = self.Search(cls_type, self.root, 0, count=index+1)
+    def FindNode(self, cls_type, index, id=None):
+        result = self.Search(cls_type, self.root, 0, count=index+1, id=id)
         if result is None:
             raise(CannotFindInTreeException("ERROR! could not find "+str(cls_type)+" index "+str(index)))
         return result
 
-    def Search(self, cls_type, node, index, depth=0, count=1):
+    def Search(self, cls_type, node, index, depth=0, count=1, id=None):
         counter = depth + 1
         if node is None:
             return None
