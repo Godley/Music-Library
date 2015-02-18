@@ -94,20 +94,26 @@ class Tree(object):
             if len(node.children) < node.limit or node.limit == 0:
                 return node
             else:
+                if len(node.children) == 0:
+                    return None
                 result = self.FindPosition(node.GetChild(index), addition, index)
                 if result is None:
                     index += 1
                 child = index
                 while result is None and child < len(node.children):
                     result = self.FindPosition(node.GetChild(child), addition, index)
+                    child += 1
                 return result
         else:
+            if len(node.children) == 0:
+                return None
             result = self.FindPosition(node.GetChild(index), addition, index)
             if result is None:
                 index += 1
             child = index
             while result is None and child < len(node.children):
                 result = self.FindPosition(node.GetChild(child), addition, index)
+                child += 1
             return result
 
     def FindNode(self, cls_type):
