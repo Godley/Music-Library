@@ -80,7 +80,6 @@ class MeasureNode(IndexedNode):
                 self.addNote(NoteNode(duration=duration), voice)
                 [self.addNote(p, voice) for p in popped]
 
-            pass
 
     def addDirection(self, item, note=1, voice=1):
         if self.getVoice(voice) is None:
@@ -104,11 +103,11 @@ class MeasureNode(IndexedNode):
         voice_obj = self.getVoice(voice)
         note_obj = Search(NoteNode, voice_obj, note)
         if note_obj is not None:
-            note_obj.AttachDirection(exp_obj)
+            note_obj.AttachExpression(exp_obj)
         else:
             self.addPlaceHolder()
             note_obj = Search(NoteNode, voice_obj, note)
-            note_obj.AttachDirection(exp_obj)
+            note_obj.AttachExpression(exp_obj)
 
     def JumpForward(self, duration, current_note):
         pass

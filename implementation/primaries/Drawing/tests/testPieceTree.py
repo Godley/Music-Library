@@ -62,3 +62,10 @@ class testAddToMeasure(unittest.TestCase):
         voice = self.measure.getVoice(1)
         self.assertEqual(voice.GetChild(0).GetChild(1).GetItem(), direction)
         pass
+
+    def testAddExpression(self):
+        exp = "2"
+        self.measure.addExpression(exp)
+        voice = self.measure.getVoice(1)
+        self.assertEqual(voice.GetChild(0).GetChild(0).GetItem(), exp)
+        pass
