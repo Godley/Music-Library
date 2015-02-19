@@ -41,6 +41,17 @@ class StaffNode(IndexedNode):
 class MeasureNode(IndexedNode):
     def __init__(self):
         IndexedNode.__init__(self, rules=[VoiceNode])
+        self.index = 0
+
+    def Forward(self, duration=0):
+        for voice in self.GetChildrenIndexes():
+            voice_obj = self.getVoice(voice)
+            if voice_obj.GetChild(self.index) is None:
+                voice_obj.AddChild(NoteNode(duration=duration))
+        self.index += 1
+
+    def Backup(self, duration=0):
+        self.index -= 1
 
     def addVoice(self, item, id):
         self.AddChild(item, id)
@@ -49,6 +60,7 @@ class MeasureNode(IndexedNode):
         return self.GetChild(key)
 
     def addNote(self, item, note=0, voice=1):
+        self.index += 1
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
@@ -65,55 +77,53 @@ class MeasureNode(IndexedNode):
         else:
             voice_obj.GetChild(note).SetItem(item)
 
-    def addPlaceHolder(self, duration=0, voice=1, position=-1):
-        if position == -1:
+    def addPlaceholder(self, duration=0, voice=1):
+        if self.getVoice(voice) is None:
+            self.addVoice(VoiceNode(), voice)
+        voice_obj = self.getVoice(voice)
+        children = voice_obj.GetChildrenIndexes()
+        if self.index == len(children):
             self.addNote(NoteNode(duration=duration), voice)
         else:
-            voice_obj = self.getVoice(voice)
-            children = voice_obj.GetChildrenIndexes()
-            if position in children:
-                start_index = position
+
+            if self.index in children:
+                start_index = self.index
                 end_index = children[-1]
                 popped = []
-                for index in range(end_index,start_index):
+                for index in range(start_index, end_index+1):
                     popped.append(voice_obj.PopChild(index))
                 self.addNote(NoteNode(duration=duration), voice)
                 [self.addNote(p, voice) for p in popped]
+        return None
 
 
-    def addDirection(self, item, note=1, voice=1):
+    def addDirection(self, item, voice=1):
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         direction_obj = DirectionNode()
         direction_obj.SetItem(item)
         voice_obj = self.getVoice(voice)
-        note_obj = Search(NoteNode, voice_obj, note)
+        note_obj = Search(NoteNode, voice_obj, self.index)
         if note_obj is not None:
             note_obj.AttachDirection(direction_obj)
         else:
-            self.addPlaceHolder()
-            note_obj = Search(NoteNode, voice_obj, note)
+            self.addPlaceholder()
+            note_obj = Search(NoteNode, voice_obj, self.index)
             note_obj.AttachDirection(direction_obj)
 
-    def addExpression(self, item, note=1, voice=1):
+    def addExpression(self, item, voice=1):
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         exp_obj = ExpressionNode()
         exp_obj.SetItem(item)
         voice_obj = self.getVoice(voice)
-        note_obj = Search(NoteNode, voice_obj, note)
+        note_obj = Search(NoteNode, voice_obj, self.index)
         if note_obj is not None:
             note_obj.AttachExpression(exp_obj)
         else:
-            self.addPlaceHolder()
-            note_obj = Search(NoteNode, voice_obj, note)
+            self.addPlaceholder()
+            note_obj = Search(NoteNode, voice_obj, self.index)
             note_obj.AttachExpression(exp_obj)
-
-    def JumpForward(self, duration, current_note):
-        pass
-
-    def Backup(self, duration):
-        pass
 
 class VoiceNode(Node):
     def __init__(self):

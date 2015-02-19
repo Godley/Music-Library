@@ -61,11 +61,38 @@ class testAddToMeasure(unittest.TestCase):
         self.measure.addDirection(direction)
         voice = self.measure.getVoice(1)
         self.assertEqual(voice.GetChild(0).GetChild(1).GetItem(), direction)
-        pass
 
     def testAddExpression(self):
         exp = "2"
         self.measure.addExpression(exp)
         voice = self.measure.getVoice(1)
         self.assertEqual(voice.GetChild(0).GetChild(0).GetItem(), exp)
-        pass
+
+    def testAddPlaceholder(self):
+        self.measure.addPlaceholder()
+        voice = self.measure.getVoice(1)
+        self.assertEqual(voice.GetChild(0).GetItem(), None)
+
+    def testAddNoteWithPlaceholderBeforeIt(self):
+        note=2
+        self.measure.addNote(note)
+        self.measure.index = 0
+        self.measure.addPlaceholder()
+        voice = self.measure.getVoice(1)
+        self.assertEqual(voice.GetChild(0).GetItem(), None)
+
+    def testForward(self):
+        self.measure.addNote(1)
+        self.measure.Forward(duration=16)
+        self.assertEqual(self.measure.index, 2)
+
+    def testBackup(self):
+        self.measure.addNote(1)
+        self.measure.Backup(duration=15)
+        self.assertEqual(self.measure.index, 0)
+
+    def testForwardCreatesAPlaceholder(self):
+        self.measure.addNote(1)
+        self.measure.Forward(duration=16)
+        voice = self.measure.getVoice(1)
+        self.assertIsInstance(voice.GetChild(1), Testclasses.NoteNode)
