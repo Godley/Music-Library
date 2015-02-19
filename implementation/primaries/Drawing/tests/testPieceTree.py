@@ -60,7 +60,7 @@ class testAddToMeasure(unittest.TestCase):
         direction = "2"
         self.measure.addDirection(direction)
         voice = self.measure.getVoice(1)
-        self.assertEqual(voice.GetChild(0).GetChild(1).GetItem(), direction)
+        self.assertEqual(voice.GetChild(0).GetChild(0).GetItem(), direction)
 
     def testAddExpression(self):
         exp = "2"

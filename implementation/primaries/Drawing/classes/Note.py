@@ -146,7 +146,7 @@ class Note(BaseClass.Base):
         self.postnotation = []
         self.has_tremolo = False
 
-    def getNotation(self, id, type):
+    def GetNotation(self, id, type):
         if type=="post":
             if (id==-1 and len(self.postnotation) > 0) or (id!=-1 and len(self.postnotation) > id):
                 return self.postnotation[id]

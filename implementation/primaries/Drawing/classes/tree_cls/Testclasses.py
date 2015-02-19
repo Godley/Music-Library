@@ -6,6 +6,9 @@ class PieceTree(Tree):
         Tree.__init__(self)
         self.root = IndexedNode(rules=[PartNode])
 
+    def SetValue(self, item):
+        self.root.SetItem(item)
+
     def getPart(self, key):
         return self.FindNodeByIndex(key)
 
@@ -175,6 +178,8 @@ class NoteNode(Node):
                     parent = FindPosition(dir_node, item)
                     if parent is not None:
                         parent.AddChild(item)
+            else:
+                self.AddChild(item)
 
     def AttachExpression(self, new_node):
         if len(self.GetChildrenIndexes()) > 0:
