@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -159,11 +159,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Testclasses.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Testclasses.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4632207" vertical-offset="2332" max-vertical-offset="3135">
-              <caret line="171" column="46" selection-start-line="171" selection-start-column="46" selection-end-line="171" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2077" max-vertical-offset="3135">
+              <caret line="157" column="33" selection-start-line="157" selection-start-column="33" selection-end-line="157" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.031380754" vertical-offset="0" max-vertical-offset="478">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -197,7 +207,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testRepeatMarks.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/snippet" />
         <option value="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/tuplets.xml" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMark.py" />
@@ -248,6 +257,7 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PieceTree.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testPieceTree.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -1157,12 +1167,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00236" summary="issue #31 added comments where measures start">
-      <created>1424010600905</created>
-      <option name="number" value="00236" />
-      <option name="project" value="LOCAL" />
-      <updated>1424010600905</updated>
-    </task>
     <task id="LOCAL-00237" summary="issue #31 cleaned up ties &#10;&#10;each chord doesn't have a tie notated per note in chord">
       <created>1424010800772</created>
       <option name="number" value="00237" />
@@ -1451,7 +1455,13 @@
       <option name="project" value="LOCAL" />
       <updated>1424369254168</updated>
     </task>
-    <option name="localTasksCounter" value="285" />
+    <task id="LOCAL-00285" summary="Modifications to AttachDirection and AttachExpression methods&#10;&#10;Modified Direction and Expression so that new additions:&#10;- check their pathway is clear (aka no child in that slot): if it is, add to the current note node&#10;- if the pathway isn't clear: check the slot has a value. If it doesn't, replace Nothing with the new node's value&#10;- if the pathway isn't clear and the slot does have a value: keep looking for the next slot, starting with that child.">
+      <created>1424370732304</created>
+      <option name="number" value="00285" />
+      <option name="project" value="LOCAL" />
+      <updated>1424370732304</updated>
+    </task>
+    <option name="localTasksCounter" value="286" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1542,7 +1552,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #35 noteheads inside chords&#10;&#10;very quick fix in WrapNotation method - replaces outputted notehead with appropriate option. currently only option is diamond which is converted to a harmonic - this is the most common, but we should update this to include other noteheads later." />
     <MESSAGE value="added comment" />
     <MESSAGE value="issue fix #30 credit text alignment&#10;&#10;Not handling vertical alignment because lilypond doesn't seem to have a way to put a bunch of text at the bottom of pages, other than tagline. Have however handled rights and page numbering if credits contain those associated types etc." />
     <MESSAGE value="added handling for invisible notes&#10;&#10;No longer displaying any notes which are classed as invisible. I.e defined as - &lt;note print-object=&quot;no&quot;&gt;. Whilst this means lilypond no longer moans about this, we now need to replace them with invisible rests in order to make the bar checks pass." />
@@ -1567,7 +1576,8 @@
     <MESSAGE value="further tests for addition methods in measure" />
     <MESSAGE value="tests and production code for forward method&#10;&#10;added unit tests to confirm both the measure index, which will replace the global variable last_note, and forward placeholders are put in place/updated. Need to do the same for backup, and then do some modifications to addNote/addDirection and then some wrapper methods and then my tree should be ready for implementation in the main parser&#10;" />
     <MESSAGE value="tests and production code for backup method/modifications to AddNote&#10;&#10;added unit tests and code that puts notes in place when backing up/forwarding. May need adjustments made to direction and expression additions" />
-    <option name="LAST_COMMIT_MESSAGE" value="tests and production code for backup method/modifications to AddNote&#10;&#10;added unit tests and code that puts notes in place when backing up/forwarding. May need adjustments made to direction and expression additions" />
+    <MESSAGE value="Modifications to AttachDirection and AttachExpression methods&#10;&#10;Modified Direction and Expression so that new additions:&#10;- check their pathway is clear (aka no child in that slot): if it is, add to the current note node&#10;- if the pathway isn't clear: check the slot has a value. If it doesn't, replace Nothing with the new node's value&#10;- if the pathway isn't clear and the slot does have a value: keep looking for the next slot, starting with that child." />
+    <option name="LAST_COMMIT_MESSAGE" value="Modifications to AttachDirection and AttachExpression methods&#10;&#10;Modified Direction and Expression so that new additions:&#10;- check their pathway is clear (aka no child in that slot): if it is, add to the current note node&#10;- if the pathway isn't clear: check the slot has a value. If it doesn't, replace Nothing with the new node's value&#10;- if the pathway isn't clear and the slot does have a value: keep looking for the next slot, starting with that child." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1583,13 +1593,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testRepeatMarks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.875" vertical-offset="90" max-vertical-offset="1650">
-          <caret line="14" column="56" selection-start-line="14" selection-start-column="56" selection-end-line="14" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testLilypondRun.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="71" max-vertical-offset="2925">
@@ -2076,8 +2079,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4632207" vertical-offset="2332" max-vertical-offset="3135">
-          <caret line="171" column="46" selection-start-line="171" selection-start-column="46" selection-end-line="171" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2077" max-vertical-offset="3135">
+          <caret line="157" column="33" selection-start-line="157" selection-start-column="33" selection-end-line="157" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.031380754" vertical-offset="0" max-vertical-offset="478">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
