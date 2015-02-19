@@ -25,6 +25,9 @@ class PieceTree(Tree):
         measure_node.SetItem(item)
         staff_obj.AddChild(measure_node, index=measure)
 
+    def addEmptyMeasure(self, measure=1, staff=1, part=None):
+        self.addMeasure(MeasureNode(), measure=measure,staff=staff,part=part)
+
 class PartNode(IndexedNode):
     def __init__(self):
         IndexedNode.__init__(self, rules=[StaffNode])

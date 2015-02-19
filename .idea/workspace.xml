@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testPieceTree.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testPieceTree.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -163,8 +162,8 @@
       <file leaf-file-name="Testclasses.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.74552685" vertical-offset="0" max-vertical-offset="1050">
-              <caret line="25" column="54" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.8349901" vertical-offset="0" max-vertical-offset="1095">
+              <caret line="28" column="76" selection-start-line="28" selection-start-column="76" selection-end-line="28" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -247,8 +246,8 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/PieceTree.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testTree.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PieceTree.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testPieceTree.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" />
       </list>
     </option>
   </component>
@@ -1158,12 +1157,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00229" summary="issue fix #23 chords&#10;&#10;Problem in CopyNote meant chords weren't being updated and modified properly">
-      <created>1423923750365</created>
-      <option name="number" value="00229" />
-      <option name="project" value="LOCAL" />
-      <updated>1423923750365</updated>
-    </task>
     <task id="LOCAL-00230" summary="issue fix #24 ties&#10;&#10;Added a testcase  (lg-131162670.xml)  to prove it, however still needs work to ensure stems aren't disappearing. Need to handle new systems part which...doesn't seem to be working.">
       <created>1423926207835</created>
       <option name="number" value="00230" />
@@ -1452,7 +1445,13 @@
       <option name="project" value="LOCAL" />
       <updated>1424307339286</updated>
     </task>
-    <option name="localTasksCounter" value="278" />
+    <task id="LOCAL-00278" summary="added addMeasure method and tests">
+      <created>1424308607527</created>
+      <option name="number" value="00278" />
+      <option name="project" value="LOCAL" />
+      <updated>1424308607527</updated>
+    </task>
+    <option name="localTasksCounter" value="279" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1543,7 +1542,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="fixed most of the tests in here, but forwards seem to be broken - issue #37" />
     <MESSAGE value="general test fixes" />
     <MESSAGE value=" general test fixes leading to a bug fix&#10; &#10; fixed a bug where last_note wasn't being set when a new note was added, and also reset to 0 when the measure ended" />
     <MESSAGE value="final testfix commit&#10;&#10;fixed all unit tests excluding the ones featured in issue #37" />
@@ -1568,7 +1566,8 @@
     <MESSAGE value="added extra stub classes to tree&#10;&#10;adjusted tree to reflect voices and staffs" />
     <MESSAGE value="added tests for piece specific trees&#10;&#10;added some unit tests to test finding of items and production code for searching" />
     <MESSAGE value="fixed list bug&#10;&#10;fixed bug in Part class whereby it was instantiating itself by calling Node's initialiser, not IndexedNode" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed list bug&#10;&#10;fixed bug in Part class whereby it was instantiating itself by calling Node's initialiser, not IndexedNode" />
+    <MESSAGE value="added addMeasure method and tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="added addMeasure method and tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2077,8 +2076,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74552685" vertical-offset="0" max-vertical-offset="1050">
-          <caret line="25" column="54" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.8349901" vertical-offset="0" max-vertical-offset="1095">
+          <caret line="28" column="76" selection-start-line="28" selection-start-column="76" selection-end-line="28" selection-end-column="76" />
           <folding />
         </state>
       </provider>
