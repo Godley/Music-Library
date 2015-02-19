@@ -161,22 +161,37 @@ class NoteNode(Node):
         Node.__init__(self, rules=[DirectionNode,ExpressionNode],limit=2)
 
     def AttachDirection(self, item):
-        if self.GetChild(0) is not ExpressionNode:
-            self.AttachExpression(ExpressionNode())
-        parent = FindPosition(self, item)
-        if parent is not None:
-            parent.AddChild(item)
-
-    def AttachExpression(self, item):
-        if len(self.GetChildrenIndexes()) > 0:
+        if 2 > len(self.GetChildrenIndexes()) > 0:
             if self.GetChild(0) is not ExpressionNode:
+                self.AttachExpression(ExpressionNode())
+        if 1 > len(self.GetChildrenIndexes()) > 0:
+            self.AddChild(item)
+        else:
+            dir_node = self.GetChild(1)
+            if dir_node is not None:
+                if dir_node.GetItem() is None:
+                    dir_node.SetItem(item.GetItem())
+                else:
+                    parent = FindPosition(dir_node, item)
+                    if parent is not None:
+                        parent.AddChild(item)
+
+    def AttachExpression(self, new_node):
+        if len(self.GetChildrenIndexes()) > 0:
+            node = self.GetChild(0)
+            if node is not ExpressionNode and node is not None:
                 first_child = self.PopChild(0)
-                self.AddChild(item)
+                self.AddChild(new_node)
                 if first_child is not None:
                     self.AddChild(first_child)
-        parent = FindPosition(self, item)
-        if parent is not None:
-            parent.AddChild(item)
+            elif node is not None and node.GetItem() is None:
+                node.SetItem(new_node.GetItem())
+            if node is not None and node.GetItem() is not None:
+                parent = FindPosition(node, new_node)
+                if parent is not None:
+                    parent.AddChild(new_node)
+        else:
+            self.AddChild(new_node)
 
 class SelfNode(Node):
     def __init__(self):
