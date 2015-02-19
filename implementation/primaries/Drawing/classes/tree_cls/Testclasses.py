@@ -48,19 +48,39 @@ class MeasureNode(IndexedNode):
     def getVoice(self, key):
         return self.GetChild(key)
 
-    def addNote(self, item, voice=1):
+    def addNote(self, item, note=0, voice=1):
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
         duration = None
-        if hasattr(item, "duration"):
-            duration = item.duration
-        node = NoteNode(duration=duration)
-        node.SetItem(item)
-        voice_obj.AddChild(node)
+        if type(item) is not NoteNode:
+            if hasattr(item, "duration"):
+                duration = item.duration
+            node = NoteNode(duration=duration)
+            node.SetItem(item)
+        else:
+            node = item
+        if voice_obj.GetChild(note) is None:
+            voice_obj.AddChild(node)
+        else:
+            voice_obj.GetChild(note).SetItem(item)
 
-    def addPlaceHolder(self, duration=0, voice=1):
-        self.addNote(NoteNode(duration=duration), voice)
+    def addPlaceHolder(self, duration=0, voice=1, position=-1):
+        if position == -1:
+            self.addNote(NoteNode(duration=duration), voice)
+        else:
+            voice_obj = self.getVoice(voice)
+            children = voice_obj.GetChildrenIndexes()
+            if position in children:
+                start_index = position
+                end_index = children[-1]
+                popped = []
+                for index in range(end_index,start_index):
+                    popped.append(voice_obj.PopChild(index))
+                self.addNote(NoteNode(duration=duration), voice)
+                [self.addNote(p, voice) for p in popped]
+
+            pass
 
     def addDirection(self, item, note=1, voice=1):
         if self.getVoice(voice) is None:
@@ -76,8 +96,19 @@ class MeasureNode(IndexedNode):
             note_obj = Search(NoteNode, voice_obj, note)
             note_obj.AttachDirection(direction_obj)
 
-    def addExpression(self):
-        pass
+    def addExpression(self, item, note=1, voice=1):
+        if self.getVoice(voice) is None:
+            self.addVoice(VoiceNode(), voice)
+        exp_obj = ExpressionNode()
+        exp_obj.SetItem(item)
+        voice_obj = self.getVoice(voice)
+        note_obj = Search(NoteNode, voice_obj, note)
+        if note_obj is not None:
+            note_obj.AttachDirection(exp_obj)
+        else:
+            self.addPlaceHolder()
+            note_obj = Search(NoteNode, voice_obj, note)
+            note_obj.AttachDirection(exp_obj)
 
     def JumpForward(self, duration, current_note):
         pass
@@ -101,27 +132,22 @@ class NoteNode(Node):
         Node.__init__(self, rules=[DirectionNode,ExpressionNode],limit=2)
 
     def AttachDirection(self, item):
-        wrapper = DirectionNode()
-        wrapper.SetItem(item)
         if self.GetChild(0) is not ExpressionNode:
-            self.AttachExpression(None)
-        parent = FindPosition(self, wrapper)
+            self.AttachExpression(ExpressionNode())
+        parent = FindPosition(self, item)
         if parent is not None:
-            parent.AddChild(wrapper)
+            parent.AddChild(item)
 
     def AttachExpression(self, item):
-        wrapper = ExpressionNode()
-        wrapper.SetItem(item)
-        if self.GetChild(0) is not ExpressionNode:
-            first_child = None
-            if len(self.GetChildrenIndexes()) > 0:
+        if len(self.GetChildrenIndexes()) > 0:
+            if self.GetChild(0) is not ExpressionNode:
                 first_child = self.PopChild(0)
-            self.AddChild(wrapper)
-            if first_child is not None:
-                self.AddChild(first_child)
-        parent = FindPosition(self, wrapper)
+                self.AddChild(item)
+                if first_child is not None:
+                    self.AddChild(first_child)
+        parent = FindPosition(self, item)
         if parent is not None:
-            parent.AddChild(wrapper)
+            parent.AddChild(item)
 
 class SelfNode(Node):
     def __init__(self):
