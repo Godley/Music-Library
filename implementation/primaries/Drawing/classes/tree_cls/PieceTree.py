@@ -4,6 +4,81 @@ class CannotAddToTreeException(BaseException):
 class CannotFindInTreeException(BaseException):
     '''error! can't find element'''
 
+
+def Search(cls_type, node, index, depth=0, start_index=0):
+    # recursive method that goes through finding the "index"th object of cls_type. outside of piecetree
+    # so that it can be used by any node
+    counter = depth + 1
+    if node is None:
+        return None
+    if type(node) == cls_type and counter == index:
+        return node
+    else:
+        indexes = node.GetChildrenIndexes()
+        if type(node) != cls_type:
+            counter -= 1
+        if len(node.children) == 0:
+            return None
+        result = None
+        child = 0
+        while result is None and child < len(node.children):
+            result = Search(cls_type, node.GetChild(indexes[child]), index, depth=counter, start_index=start_index)
+            child += 1
+        return result
+
+def FindByIndex(node, index):
+    result = None
+    if type(node.children) is dict:
+        result = node.GetChild(index)
+        if result is None:
+            children = list(node.children.keys())
+            child = 0
+            while child < len(children) and result is None:
+                key = children[child]
+                result = FindByIndex(node.GetChild(key), index)
+                if result is not None:
+                    break
+                child += 1
+    else:
+        child = 0
+        while child < len(node.children) and result is None:
+            result = FindByIndex(node.GetChild(child), index)
+            if result is not None:
+                break
+            child += 1
+    return result
+
+def FindPosition(node, addition, index=0):
+    if node is None:
+        return None
+    if type(addition) in node.rules:
+        if len(node.children) < node.limit or node.limit == 0:
+            return node
+        else:
+            if len(node.children) == 0:
+                return None
+            indexes = node.GetChildrenIndexes()
+            result = FindPosition(node.GetChild(indexes[index]), addition, index)
+            if result is None:
+                index += 1
+            child = 0
+            while result is None and child < len(indexes):
+                result = FindPosition(node.GetChild(indexes[child]), addition, index)
+                child += 1
+            return result
+    else:
+        if len(node.children) == 0:
+            return None
+        indexes = node.GetChildrenIndexes()
+        result = FindPosition(node.GetChild(indexes[index]), addition, index)
+        if result is None:
+            index += 1
+        child = 0
+        while result is None and child < len(node.children):
+            result = FindPosition(node.GetChild(indexes[child]), addition, index)
+            child += 1
+        return result
+
 class Node(object):
 
     """This class is very generic, and has 3 attributes:
@@ -42,6 +117,9 @@ class Node(object):
         this allows us to ducktype between this and IndexedNode """
 
         self.children.append(item)
+
+    def PopChild(self, key):
+        return self.children.pop(key)
 
     def AddRule(self, rule):
         self.rules.append(rule)
@@ -96,92 +174,23 @@ class Tree(object):
         if self.root is None:
             self.root = node
         else:
-            position = self.FindPosition(self.root,node,0)
+            position = FindPosition(self.root,node,0)
             if position is None:
                 raise(CannotAddToTreeException("ERROR! could not find suitable position to put child in tree"))
             else:
                 position.AddChild(node, index=index)
 
-    def FindPosition(self, node, addition, index):
-        if node is None:
-            return None
-        if type(addition) in node.rules:
-            if len(node.children) < node.limit or node.limit == 0:
-                return node
-            else:
-                if len(node.children) == 0:
-                    return None
-                indexes = node.GetChildrenIndexes()
-                result = self.FindPosition(node.GetChild(indexes[index]), addition, index)
-                if result is None:
-                    index += 1
-                child = 0
-                while result is None and child < len(indexes):
-                    result = self.FindPosition(node.GetChild(indexes[child]), addition, index)
-                    child += 1
-                return result
-        else:
-            if len(node.children) == 0:
-                return None
-            indexes = node.GetChildrenIndexes()
-            result = self.FindPosition(node.GetChild(indexes[index]), addition, index)
-            if result is None:
-                index += 1
-            child = 0
-            while result is None and child < len(node.children):
-                result = self.FindPosition(node.GetChild(indexes[child]), addition, index)
-                child += 1
-            return result
+
 
     def FindNode(self, cls_type, index, id=None):
-        result = self.Search(cls_type, self.root, index, start_index=0)
+        result = Search(cls_type, self.root, index, start_index=0)
         if result is None:
             raise(CannotFindInTreeException("ERROR! could not find "+str(cls_type)+" index "+str(index)))
         return result
 
-    def Search(self, cls_type, node, index, depth=0, start_index=0):
-        counter = depth + 1
-        if node is None:
-            return None
-        if type(node) == cls_type and counter == index:
-            return node
-        else:
-            indexes = node.GetChildrenIndexes()
-            if type(node) != cls_type:
-                counter -= 1
-            if len(node.children) == 0:
-                return None
-            result = None
-            child = 0
-            while result is None and child < len(node.children):
-                result = self.Search(cls_type, node.GetChild(indexes[child]), index, depth=counter, start_index=start_index)
-                child += 1
-            return result
-
     def FindNodeByIndex(self, index):
-        return self.FindByIndex(self.root, index)
+        return FindByIndex(self.root, index)
 
-    def FindByIndex(self, node, index):
-        result = None
-        if type(node.children) is dict:
-            result = node.GetChild(index)
-            if result is None:
-                children = list(node.children.keys())
-                child = 0
-                while child < len(children) and result is None:
-                    key = children[child]
-                    result = self.FindByIndex(node.GetChild(key), index)
-                    if result is not None:
-                        break
-                    child += 1
-        else:
-            child = 0
-            result = None
-            while child < len(node.children) and result is None:
-                result = self.FindByIndex(node.GetChild(child), index)
-                if result is not None:
-                    break
-                child += 1
-        return result
+
 
 
