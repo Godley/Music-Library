@@ -59,8 +59,19 @@ class MeasureNode(IndexedNode):
     def getVoice(self, key):
         return self.GetChild(key)
 
-    def addNote(self, item, note=0, voice=1):
-        self.index += 1
+    def PositionChild(self, item, key, voice=1):
+        voice_obj = self.getVoice(voice)
+        children = voice_obj.GetChildrenIndexes()
+        if key in children:
+            start_index = key
+            end_index = children[-1]
+            popped = []
+            for index in range(start_index, end_index+1):
+                popped.append(voice_obj.PopChild(index))
+            self.addNote(item, voice)
+            [self.addNote(p, voice) for p in popped]
+
+    def addNote(self, item, voice=1):
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
@@ -72,28 +83,37 @@ class MeasureNode(IndexedNode):
             node.SetItem(item)
         else:
             node = item
-        if voice_obj.GetChild(note) is None:
+        if voice_obj.GetChild(self.index) is None:
             voice_obj.AddChild(node)
         else:
-            voice_obj.GetChild(note).SetItem(item)
+            proposed_node = voice_obj.GetChild(self.index)
+            new_duration = voice_obj.GetChild(self.index).duration
+            if proposed_node.GetItem() is None:
+                if hasattr(item, "duration"):
+                    new_duration = item.duration
+                if new_duration == proposed_node.duration:
+                    node.SetItem(node.GetItem())
+                elif new_duration > proposed_node.duration:
+                    proposed_node.SetItem(node.GetItem())
+                    proposed_node.duration = new_duration
+                elif new_duration < proposed_node.duration:
+                    proposed_node.duration -= new_duration
+                    voice_obj.AddChild(node)
+            else:
+                self.PositionChild(node, self.index, voice=voice)
+        self.index += 1
+
 
     def addPlaceholder(self, duration=0, voice=1):
+        holder = NoteNode(duration=duration)
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
         children = voice_obj.GetChildrenIndexes()
         if self.index == len(children):
-            self.addNote(NoteNode(duration=duration), voice)
+            self.addNote(holder, voice)
         else:
-
-            if self.index in children:
-                start_index = self.index
-                end_index = children[-1]
-                popped = []
-                for index in range(start_index, end_index+1):
-                    popped.append(voice_obj.PopChild(index))
-                self.addNote(NoteNode(duration=duration), voice)
-                [self.addNote(p, voice) for p in popped]
+            self.PositionChild(holder, self.index, voice=voice)
         return None
 
 

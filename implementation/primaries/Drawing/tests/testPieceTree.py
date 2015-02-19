@@ -96,3 +96,10 @@ class testAddToMeasure(unittest.TestCase):
         self.measure.Forward(duration=16)
         voice = self.measure.getVoice(1)
         self.assertIsInstance(voice.GetChild(1), Testclasses.NoteNode)
+
+    def testBackupAndAddNote(self):
+        self.measure.addNote(1)
+        self.measure.Backup(duration=15)
+        self.measure.addNote(2)
+        voice = self.measure.getVoice(1)
+        self.assertEqual(voice.GetChild(0).GetItem(), 2)
