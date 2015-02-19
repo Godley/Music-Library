@@ -70,9 +70,10 @@ class IndexedNode(Node):
             limit = kwargs["limit"]
         if "rules" in kwargs:
             rules = kwargs["rules"]
-        Node.__init__(self, rules=rules, limit=limit)
+        Node.__init__(self, **kwargs)
         self.__delattr__("children")
         self.children = {}
+
 
     def GetChildrenIndexes(self):
         return list(self.children.keys())
@@ -82,9 +83,8 @@ class IndexedNode(Node):
             return self.children[index]
 
     def AddChild(self, item, index=-1):
-        if index == -1:
+        if index== -1:
             index = len(self.children)-1
-        print(index)
         self.children[index] = item
 
 class Tree(object):

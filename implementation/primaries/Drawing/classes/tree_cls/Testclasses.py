@@ -10,10 +10,6 @@ class PieceTree(Tree):
         return self.FindNodeByIndex(key)
 
     def getMeasure(self, measure=1, staff=1, part=None):
-        if part is str:
-            part_obj = self.getPart(part)
-        else:
-            part_obj = part
         staff_obj = self.getStaff(staff, part)
         measure_obj = self.FindByIndex(staff_obj, measure)
         return measure_obj
@@ -25,14 +21,14 @@ class PieceTree(Tree):
 
 class PartNode(IndexedNode):
     def __init__(self):
-        Node.__init__(self, rules=[StaffNode])
+        IndexedNode.__init__(self, rules=[StaffNode])
 
 
 
 
 class StaffNode(IndexedNode):
     def __init__(self):
-        Node.__init__(self, rules=[MeasureNode])
+        IndexedNode.__init__(self, rules=[MeasureNode])
 
 class MeasureNode(Node):
     def __init__(self):
