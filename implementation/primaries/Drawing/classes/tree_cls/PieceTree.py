@@ -5,10 +5,12 @@ class CannotFindInTreeException(BaseException):
     '''error! can't find element'''
 
 class Node(object):
+
     """This class is very generic, and has 3 attributes:
         - children: as with any tree it needs to have children
         - limit: the maximum amount of children before castcading to the next level
         - rules: the class instances allowed to be children of this object """
+
     def __init__(self, **kwargs):
         self.children = []
         if "limit" in kwargs:
@@ -38,6 +40,7 @@ class Node(object):
     def AddChild(self, item, index=-1):
         """adds the child to the list - index is included as an optional param but doesn't do anything because
         this allows us to ducktype between this and IndexedNode """
+
         self.children.append(item)
 
     def AddRule(self, rule):
@@ -68,6 +71,7 @@ class IndexedNode(Node):
         if "rules" in kwargs:
             rules = kwargs["rules"]
         Node.__init__(self, rules=rules, limit=limit)
+        self.__delattr__("children")
         self.children = {}
 
     def GetChildrenIndexes(self):
@@ -80,6 +84,7 @@ class IndexedNode(Node):
     def AddChild(self, item, index=-1):
         if index == -1:
             index = len(self.children)-1
+        print(index)
         self.children[index] = item
 
 class Tree(object):
@@ -129,16 +134,16 @@ class Tree(object):
             return result
 
     def FindNode(self, cls_type, index, id=None):
-        result = self.Search(cls_type, self.root, 0, count=index+1, id=id)
+        result = self.Search(cls_type, self.root, index, start_index=0)
         if result is None:
             raise(CannotFindInTreeException("ERROR! could not find "+str(cls_type)+" index "+str(index)))
         return result
 
-    def Search(self, cls_type, node, index, depth=0, count=1, id=None):
+    def Search(self, cls_type, node, index, depth=0, start_index=0):
         counter = depth + 1
         if node is None:
             return None
-        if type(node) == cls_type and counter == count:
+        if type(node) == cls_type and counter == index:
             return node
         else:
             indexes = node.GetChildrenIndexes()
@@ -149,7 +154,7 @@ class Tree(object):
             result = None
             child = 0
             while result is None and child < len(node.children):
-                result = self.Search(cls_type, node.GetChild(indexes[child]), index, depth=counter, count=count)
+                result = self.Search(cls_type, node.GetChild(indexes[child]), index, depth=counter, start_index=start_index)
                 child += 1
             return result
 

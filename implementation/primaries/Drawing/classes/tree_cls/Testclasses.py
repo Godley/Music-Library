@@ -6,9 +6,29 @@ class PieceTree(Tree):
         Tree.__init__(self)
         self.root = IndexedNode(rules=[PartNode])
 
-class PartNode(Node):
+    def getPart(self, key):
+        return self.FindNodeByIndex(key)
+
+    def getMeasure(self, measure=1, staff=1, part=None):
+        if part is str:
+            part_obj = self.getPart(part)
+        else:
+            part_obj = part
+        staff_obj = self.getStaff(staff, part)
+        measure_obj = self.FindByIndex(staff_obj, measure)
+        return measure_obj
+
+    def getStaff(self, key, part):
+        part_obj = self.getPart(part)
+        staff = self.FindByIndex(part_obj, key)
+        return staff
+
+class PartNode(IndexedNode):
     def __init__(self):
         Node.__init__(self, rules=[StaffNode])
+
+
+
 
 class StaffNode(IndexedNode):
     def __init__(self):
@@ -22,12 +42,11 @@ class VoiceNode(Node):
     def __init__(self):
         Node.__init__(self, rules=[NoteNode, PlaceHolder])
 
-class PlaceHolder(EmptyNode):
+class PlaceHolder(Node):
     def __init__(self, **kwargs):
-        duration = 0
         if "duration" in kwargs:
-            duration = kwargs["duration"]
-        EmptyNode.__init__(duration, rules=[NoteNode, DirectionNode,ExpressionNode], limit=3)
+            self.duration = kwargs["duration"]
+        Node.__init__(rules=[NoteNode, DirectionNode,ExpressionNode], limit=3)
 
 class NoteNode(Node):
     def __init__(self):

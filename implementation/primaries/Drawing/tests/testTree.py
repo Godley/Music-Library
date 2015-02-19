@@ -94,14 +94,14 @@ class testTree(unittest.TestCase):
     def testFindFirstNode(self):
         elem = PieceTree.Node()
         self.item.AddNode(elem)
-        self.assertEqual(self.item.FindNode(type(elem), 0), elem)
+        self.assertEqual(self.item.FindNode(type(elem), 1), elem)
 
     def testFindSecondNode(self):
         elem = PieceTree.Node(rules=[PieceTree.Node])
         self.item.AddNode(elem)
         second = PieceTree.Node()
         self.item.AddNode(second)
-        node = self.item.FindNode(type(elem), 1)
+        node = self.item.FindNode(type(elem), 2)
         self.assertEqual(node, second)
 
     def testFindFirstEmptyNodeOnFirstChild(self):
@@ -111,7 +111,7 @@ class testTree(unittest.TestCase):
         self.item.AddNode(second)
         third = PieceTree.EmptyNode(0)
         self.item.AddNode(third)
-        node = self.item.FindNode(PieceTree.EmptyNode, 0)
+        node = self.item.FindNode(PieceTree.EmptyNode, 1)
         self.assertEqual(node, third)
 
     def testFindEmptyNodeOnSecondChild(self):
@@ -123,7 +123,7 @@ class testTree(unittest.TestCase):
         self.item.AddNode(third)
         fourth = PieceTree.EmptyNode(0)
         self.item.AddNode(fourth)
-        node = self.item.FindNode(PieceTree.EmptyNode, 0)
+        node = self.item.FindNode(PieceTree.EmptyNode, 1)
         self.assertEqual(node, fourth)
 
     def testFailure(self):
@@ -134,7 +134,7 @@ class testTree(unittest.TestCase):
         third = PieceTree.Node(rules=[PieceTree.EmptyNode])
         self.item.AddNode(third)
         with self.assertRaises(PieceTree.CannotFindInTreeException):
-            self.item.FindNode(PieceTree.EmptyNode, 0)
+            self.item.FindNode(PieceTree.EmptyNode, 1)
 
     def testAddNodeWithStringIndex(self):
         elem = PieceTree.IndexedNode(rules=[PieceTree.Node])

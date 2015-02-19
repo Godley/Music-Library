@@ -15,4 +15,19 @@ class testPieceTree(unittest.TestCase):
         measure = Testclasses.MeasureNode()
         with self.assertRaises(PieceTree.CannotAddToTreeException):
             self.item.AddNode(measure, index=1)
-        
+
+    def testFindStaff(self):
+        part = Testclasses.PartNode()
+        staff = Testclasses.StaffNode()
+        self.item.AddNode(part)
+        self.item.AddNode(staff, index=1)
+        self.assertEqual(self.item.getStaff(1, "P1"), staff)
+
+    def testFindMeasure(self):
+        part = Testclasses.PartNode()
+        staff = Testclasses.StaffNode()
+        self.item.AddNode(part)
+        self.item.AddNode(staff, index=1)
+        measure = Testclasses.MeasureNode()
+        self.item.AddNode(measure, index=1)
+        self.assertEqual(self.item.getMeasure(1, 1, "P1"), measure)
