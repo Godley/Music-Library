@@ -31,3 +31,14 @@ class testPieceTree(unittest.TestCase):
         measure = Testclasses.MeasureNode()
         self.item.AddNode(measure, index=1)
         self.assertEqual(self.item.getMeasure(1, 1, "P1"), measure)
+
+    def testAddMeasureOnSecondStave(self):
+        part = Testclasses.PartNode()
+        staff = Testclasses.StaffNode()
+        staff2 = Testclasses.StaffNode()
+        measure = None
+        self.item.AddNode(part, index="P1")
+        self.item.AddNode(staff, index=1)
+        self.item.AddNode(staff2, index=2)
+        self.item.addMeasure(measure,part="P1",staff=2)
+        self.assertEqual(self.item.getMeasure(1,2,"P1").GetItem(),measure)

@@ -19,6 +19,12 @@ class PieceTree(Tree):
         staff = self.FindByIndex(part_obj, key)
         return staff
 
+    def addMeasure(self, item, measure=1, staff=1, part=None):
+        staff_obj = self.getStaff(staff, part)
+        measure_node = MeasureNode()
+        measure_node.SetItem(item)
+        staff_obj.AddChild(measure_node, index=measure)
+
 class PartNode(IndexedNode):
     def __init__(self):
         IndexedNode.__init__(self, rules=[StaffNode])
