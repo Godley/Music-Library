@@ -5,6 +5,17 @@ class CannotFindInTreeException(BaseException):
     '''error! can't find element'''
 
 
+def toLily(node, lilystring):
+    wrapper = node.toLily()
+    lstring = ""
+    if node.GetItem() is not None:
+        lstring = node.GetItem().toLily()
+    lilystring += wrapper[0] + lstring + wrapper[1]
+    children = node.GetChildrenIndexes()
+    for child in children:
+        lilystring += toLily(node.GetChild(child), "")
+    return lilystring
+
 def Search(cls_type, node, index, depth=0, start_index=0):
     # recursive method that goes through finding the "index"th object of cls_type. outside of piecetree
     # so that it can be used by any node
