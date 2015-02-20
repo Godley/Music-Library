@@ -71,22 +71,27 @@ class MeasureNode(IndexedNode):
             popped = []
             for index in range(start_index, end_index+1):
                 popped.append(voice_obj.PopChild(index))
-            self.addNote(item, voice)
-            [self.addNote(p, voice) for p in popped]
+            voice_obj.AddChild(item)
+            [voice_obj.AddChild(p) for p in popped]
 
-    def addNote(self, item, voice=1):
+    def addNote(self, item, voice=1, increment=1):
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
-        duration = None
-        if type(item) is not NoteNode:
+        duration = 0
+        if type(item) is not NoteNode and type(item) is not Placeholder:
             if hasattr(item, "duration"):
                 duration = item.duration
             node = NoteNode(duration=duration)
             node.SetItem(item)
         else:
             node = item
-        if voice_obj.GetChild(self.index) is None:
+        placeholder = Search(Placeholder, voice_obj, self.index)
+        if type(placeholder) is Placeholder:
+            if placeholder.duration == 0:
+                placeholder.SetItem(node.GetItem())
+
+        elif voice_obj.GetChild(self.index) is None:
             voice_obj.AddChild(node)
         else:
             proposed_node = voice_obj.GetChild(self.index)
@@ -96,6 +101,7 @@ class MeasureNode(IndexedNode):
                     new_duration = item.duration
                 if new_duration == proposed_node.duration:
                     node.SetItem(node.GetItem())
+                    voice_obj.ReplaceChild(self.index, node)
                 elif new_duration > proposed_node.duration:
                     proposed_node.SetItem(node.GetItem())
                     proposed_node.duration = new_duration
@@ -108,7 +114,7 @@ class MeasureNode(IndexedNode):
 
 
     def addPlaceholder(self, duration=0, voice=1):
-        holder = NoteNode(duration=duration)
+        holder = Placeholder(duration=duration)
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
@@ -127,31 +133,30 @@ class MeasureNode(IndexedNode):
         direction_obj.SetItem(item)
         voice_obj = self.getVoice(voice)
         note_obj = Search(NoteNode, voice_obj, self.index)
-        if note_obj is not None:
+        if type(note_obj) is NoteNode:
             note_obj.AttachDirection(direction_obj)
         else:
             self.addPlaceholder()
-            note_obj = Search(NoteNode, voice_obj, self.index)
+            note_obj = Search(Placeholder, voice_obj, self.index)
             note_obj.AttachDirection(direction_obj)
 
     def addExpression(self, item, voice=1):
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
-        exp_obj = ExpressionNode()
-        exp_obj.SetItem(item)
+        direction_obj = ExpressionNode()
+        direction_obj.SetItem(item)
         voice_obj = self.getVoice(voice)
         note_obj = Search(NoteNode, voice_obj, self.index)
-        if note_obj is not None:
-            note_obj.AttachExpression(exp_obj)
+        if type(note_obj) is NoteNode:
+            note_obj.AttachExpression(direction_obj)
         else:
             self.addPlaceholder()
-            note_obj = Search(NoteNode, voice_obj, self.index)
-            note_obj.AttachExpression(exp_obj)
+            note_obj = Search(Placeholder, voice_obj, self.index)
+            note_obj.AttachExpression(direction_obj)
 
 class VoiceNode(Node):
     def __init__(self):
-        Node.__init__(self, rules=[NoteNode])
-
+        Node.__init__(self, rules=[NoteNode, Placeholder])
 
 
 class NoteNode(Node):
@@ -197,6 +202,9 @@ class NoteNode(Node):
                     parent.AddChild(new_node)
         else:
             self.AddChild(new_node)
+
+class Placeholder(NoteNode):
+    pass
 
 class SelfNode(Node):
     def __init__(self):

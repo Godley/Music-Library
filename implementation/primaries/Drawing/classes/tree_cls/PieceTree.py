@@ -18,11 +18,14 @@ def Search(cls_type, node, index, depth=0, start_index=0):
         if type(node) != cls_type:
             counter -= 1
         if len(node.children) == 0:
-            return None
+            return counter
         result = None
         child = 0
         while result is None and child < len(node.children):
             result = Search(cls_type, node.GetChild(indexes[child]), index, depth=counter, start_index=start_index)
+            if result is not None and type(result) is not cls_type:
+                counter = result
+                result = None
             child += 1
         return result
 
@@ -105,6 +108,10 @@ class Node(object):
     def SetItem(self, new_item):
         self.item = new_item
 
+    def ReplaceChild(self, key, item):
+        if key in self.GetChildrenIndexes():
+            self.children[key] = item
+
     def GetItem(self):
         return self.item
 
@@ -159,6 +166,7 @@ class IndexedNode(Node):
     def GetChild(self, index):
         if index in self.children:
             return self.children[index]
+
 
     def AddChild(self, item, index=-1):
         if index== -1:

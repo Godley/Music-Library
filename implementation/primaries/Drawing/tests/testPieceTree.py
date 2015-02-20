@@ -103,3 +103,21 @@ class testAddToMeasure(unittest.TestCase):
         self.measure.addNote(2)
         voice = self.measure.getVoice(1)
         self.assertEqual(voice.GetChild(0).GetItem(), 2)
+
+    def testAddDirectionThenNode(self):
+        dir = 1
+        note = 3
+        self.measure.addDirection(dir)
+        self.measure.addNote(note)
+        voice = self.measure.getVoice(1)
+        self.assertEqual(voice.GetChild(0).GetItem(), note)
+
+    def testAddDirectionToSecondNote(self):
+        dir = 1
+        note = 2
+        note1 = 3
+        self.measure.addNote(note)
+        self.measure.addNote(note1)
+        self.measure.addDirection(dir)
+        voice = self.measure.getVoice(1)
+        self.assertEqual(voice.GetChild(1).GetChild(0).GetItem(), dir)
