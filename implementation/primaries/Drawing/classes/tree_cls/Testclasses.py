@@ -12,6 +12,9 @@ class PieceTree(Tree):
     def getPart(self, key):
         return self.FindNodeByIndex(key)
 
+    def toLily(self):
+        return ""
+
 
 class PartNode(IndexedNode):
     def __init__(self, parent):
@@ -36,10 +39,16 @@ class PartNode(IndexedNode):
     def addEmptyMeasure(self, measure=1, staff=1):
         self.addMeasure(None, measure=measure, staff=staff)
 
+    def toLily(self):
+        pass
+
 
 class StaffNode(IndexedNode):
     def __init__(self):
         IndexedNode.__init__(self, rules=[MeasureNode])
+
+    def toLily(self):
+        pass
 
 class MeasureNode(IndexedNode):
     def __init__(self):
