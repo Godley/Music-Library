@@ -10,7 +10,11 @@ def toLily(node, lilystring):
     lstring = ""
     if node.GetItem() is not None:
         lstring = node.GetItem().toLily()
-    lilystring += wrapper[0] + lstring + wrapper[1]
+    if wrapper is not None and wrapper != "":
+        lilystring += wrapper[0]
+    lilystring += lstring
+    if wrapper is not None and len(wrapper) > 1:
+        lilystring += wrapper[1]
     children = node.GetChildrenIndexes()
     for child in children:
         lilystring += toLily(node.GetChild(child), "")

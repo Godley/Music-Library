@@ -1,4 +1,4 @@
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
 
 class PieceTree(Tree):
     def __init__(self):
@@ -13,7 +13,7 @@ class PieceTree(Tree):
         return self.FindNodeByIndex(key)
 
     def toLily(self):
-        return ""
+        pass
 
 
 class PartNode(IndexedNode):
@@ -40,6 +40,8 @@ class PartNode(IndexedNode):
         self.addMeasure(None, measure=measure, staff=staff)
 
     def toLily(self):
+        open = ""
+        close = ""
         pass
 
 
@@ -48,7 +50,9 @@ class StaffNode(IndexedNode):
         IndexedNode.__init__(self, rules=[MeasureNode])
 
     def toLily(self):
-        pass
+        lstring = "\\new Staff {"
+        close = " }"
+        return [lstring, close]
 
 class MeasureNode(IndexedNode):
     def __init__(self):
@@ -167,6 +171,11 @@ class VoiceNode(Node):
     def __init__(self):
         Node.__init__(self, rules=[NoteNode, Placeholder])
 
+    def toLily(self):
+        start = "\n{ "
+        end = " } \n"
+        return [start, end]
+
 
 class NoteNode(Node):
     """in order to maintain lilypond's output flow, Notes have a specific child order:
@@ -211,6 +220,9 @@ class NoteNode(Node):
                     parent.AddChild(new_node)
         else:
             self.AddChild(new_node)
+
+    def toLily(self):
+        return ""
 
 class Placeholder(NoteNode):
     pass
