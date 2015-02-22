@@ -15,8 +15,8 @@ class testBarlines(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertTrue(self.p_id in piece.GetChildrenIndexes())
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
         self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
