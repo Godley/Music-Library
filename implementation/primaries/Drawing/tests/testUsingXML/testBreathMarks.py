@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Mark
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import MeasureNode, Search, NoteNode, PartNode
 import os
 
 partname = "breathMarks.xml"
@@ -15,19 +16,19 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(measure=self.m_num,staff=1), MeasureNode)
 
 class testBreath(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts["P1"].measures[1][self.measure_id]
+            self.measure = piece.getPart("P1").getMeasure(measure=self.measure_id,staff=1)
         if hasattr(self, "item_id"):
-            self.item = self.measure.notes[self.item_id]
+            self.item = Search(NoteNode, self.measure, self.item_id+1).GetItem()
         if hasattr(self, "n_id"):
             self.notation = self.item.wrap_notation[self.n_id]
 

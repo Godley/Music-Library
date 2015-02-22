@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Measure
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import MeasureNode
 import os
 
 partname = "barlines.xml"
@@ -15,56 +16,68 @@ class testBarlines(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.GetChildrenIndexes())
+        self.assertTrue(self.p_id in piece.root.GetChildrenIndexes())
         self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(measure=1,staff=1), MeasureNode)
 
     def testMeasure2Barline(self):
-        item = piece.Parts[self.p_id].measures[1][2]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=2,staff=1).GetItem()
         self.assertTrue(hasattr(item, "barlines"))
 
     def testMeasure2BarlineLocation(self):
-        item = piece.Parts[self.p_id].measures[1][2]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=2,staff=1).GetItem()
         self.assertTrue("right" in item.barlines)
 
     def testMeasure2BarlineInstance(self):
-        item = piece.Parts[self.p_id].measures[1][2]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=2,staff=1).GetItem()
         self.assertIsInstance(item.barlines["right"], Measure.Barline)
 
     def testMeasure2BarlineStyle(self):
-        item = piece.Parts[self.p_id].measures[1][2]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=2,staff=1).GetItem()
         self.assertEqual("dashed", item.barlines["right"].style)
 
     def testMeasure4Barline(self):
-        item = piece.Parts[self.p_id].measures[1][4]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=4,staff=1).GetItem()
         self.assertTrue(hasattr(item, "barlines"))
 
     def testMeasure4BarlineInstance(self):
-        item = piece.Parts[self.p_id].measures[1][4]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=4,staff=1).GetItem()
         self.assertIsInstance(item.barlines["right"], Measure.Barline)
 
     def testMeasure4BarlineRight(self):
-        item = piece.Parts[self.p_id].measures[1][4]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=4,staff=1).GetItem()
         self.assertTrue("right" in item.barlines)
 
     def testMeasure4BarlineRightStyle(self):
-        item = piece.Parts[self.p_id].measures[1][4]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=4,staff=1).GetItem()
         self.assertEqual("light-heavy", item.barlines["right"].style)
 
     def testMeasure5Barline(self):
-        item = piece.Parts[self.p_id].measures[1][5]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=5,staff=1).GetItem()
         self.assertTrue(hasattr(item, "barlines"))
 
     def testMeasure5BarlineRight(self):
-        item = piece.Parts[self.p_id].measures[1][5]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=5,staff=1).GetItem()
         self.assertTrue("right" in item.barlines)
 
     def testMeasure5BarlineRightInstance(self):
-        item = piece.Parts[self.p_id].measures[1][5]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=5,staff=1).GetItem()
         self.assertIsInstance(item.barlines["right"], Measure.Barline)
 
     def testMeasure5BarlineStyle(self):
-        item = piece.Parts[self.p_id].measures[1][5]
+        part=piece.getPart(self.p_id)
+        item=part.getMeasure(measure=5,staff=1).GetItem()
         self.assertEqual("light-light", item.barlines["right"].style)

@@ -195,7 +195,7 @@ class MxmlParser(object):
                 if part is not None:
                     if part.getMeasure(measure_id, staff_id) is None:
                         part.addEmptyMeasure(measure_id, staff_id)
-                    measure = part.getMeasure(measure_id, staff_id)
+                    measure = part.getMeasure(measure_id, staff_id).GetItem()
                     measure.addDirection(copy.deepcopy(direction), last_note)
                 direction = None
             if expression is not None:
@@ -205,7 +205,7 @@ class MxmlParser(object):
                 if part is not None:
                     if part.getMeasure(measure_id, staff_id) is None:
                         part.addEmptyMeasure(measure_id, staff_id)
-                    measure = part.getMeasure(measure_id, staff_id)
+                    measure = part.getMeasure(measure_id, staff_id).GetItem()
                     measure.addExpression(copy.deepcopy(expression), last_note)
                 expression = None
         if name == "barline":
@@ -514,10 +514,12 @@ def HandleMeasures(tag, attrib, content, piece):
                 raise(Exceptions.NoPartCreatedException())
         measure = None
         if part is not None:
-            measure = part.getMeasure(measure_id, staff_id)
+            measure = part.getMeasure(measure=measure_id, staff=staff_id)
             if measure is None:
                 part.addEmptyMeasure(measure_id, staff_id)
-                measure = part.getMeasure(measure_id, staff_id).GetItem()
+                measure = part.getMeasure(measure_id, staff_id)
+            elif measure is not None:
+                measure = measure.GetItem()
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
             return_val = 1
@@ -700,6 +702,7 @@ def handleClef(tag,attrib,content,piece):
             part.addEmptyMeasure(measure_id, staff_id)
             measure = part.getMeasure(measure_id,staff_id)
         if measure is not None:
+            measure = measure.GetItem()
             sign = None
             line = None
             octave = None
@@ -728,7 +731,7 @@ def handleBarline(tag, attrib, content, piece):
         measure_id = int(measure_id)
     if part_id is not None and measure_id is not None:
         part = piece.getPart(part_id)
-        node = part.getMeasure(int(measure_id), int(staff_id))
+        node = part.getMeasure(int(measure_id), int(staff_id)).GetItem()
         if node is None:
             part.addEmptyMeasure(int(measure_id), int(staff_id))
         measure = piece.getPart(part_id).getMeasure(int(measure_id), int(staff_id)).GetItem()

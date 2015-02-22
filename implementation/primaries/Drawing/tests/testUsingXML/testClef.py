@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
-from implementation.primaries.Drawing.classes import Clef
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, NoteNode, Search
 import os
 
 partname = "clefs.xml"
@@ -15,11 +15,11 @@ class testClef(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(measure=self.m_num, staff=1), MeasureNode)
 
 class CTests(xmlSet):
     def setUp(self):
@@ -32,23 +32,23 @@ class CTests(xmlSet):
 
     def testClef(self):
         if self.measure is not None:
-            measure = piece.Parts[self.p_id].getMeasure(self.measure,1)
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1).GetItem()
             self.assertTrue(hasattr(measure, "clef"))
 
     def testSign(self):
         if self.measure is not None:
-            measure = piece.Parts[self.p_id].getMeasure(self.measure,1)
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1).GetItem()
 
             self.assertEqual(self.sign, measure.clef.sign)
 
     def testLine(self):
         if self.measure is not None:
-            measure = piece.Parts[self.p_id].getMeasure(self.measure,1)
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1).GetItem()
             self.assertEqual(self.line, measure.clef.line)
 
     def testOctaveChange(self):
         if self.measure is not None and self.clef_octave_change is not 0:
-            measure = piece.Parts[self.p_id].getMeasure(self.measure,1)
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1).GetItem()
             self.assertEqual(self.clef_octave_change, measure.clef.octave_change)
 
 class testMeasure1(CTests):
