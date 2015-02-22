@@ -1,4 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, NoteNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import Search
 import os
 
 partname = "accidentals.xml"
@@ -19,17 +21,22 @@ class testAccidentals(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        part = piece.getPart(self.p_id)
+        self.assertIsInstance(part, PartNode)
+        self.assertEqual(self.p_name, part.GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(self.m_num)
+        self.assertIsInstance(measure, MeasureNode)
 
     def testNotes(self):
-
-        for measure in piece.Parts[self.p_id].measures.keys():
+        part = piece.getPart(self.p_id)
+        staff = part.getStaff(1)
+        for measure in staff.GetChildrenIndexes():
+            measure_obj = part.getMeasure(measure, 1)
             if measure in self.note_num:
-                self.assertEqual(self.note_num[measure], len(piece.Parts[self.p_id].measures[1][measure].notes))
+                self.assertIsInstance(Search(NoteNode, measure_obj, self.note_num[measure]), NoteNode)
 
 class NoteTests(xmlSet):
     def setUp(self):

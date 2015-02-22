@@ -1,13 +1,17 @@
 from implementation.primaries.Drawing.classes.tree_cls.PieceTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
-
+from implementation.primaries.Drawing.classes import Measure
 class PieceTree(Tree):
     def __init__(self):
-        self.meta = None
         Tree.__init__(self)
         self.root = IndexedNode(rules=[PartNode])
 
     def SetValue(self, item):
         self.root.SetItem(item)
+
+    def addPart(self, item, index=-1):
+        node = PartNode()
+        node.SetItem(item)
+        self.AddNode(node, index=index)
 
     def getPart(self, key):
         return self.FindNodeByIndex(key)
@@ -17,12 +21,14 @@ class PieceTree(Tree):
 
 
 class PartNode(IndexedNode):
-    def __init__(self, parent):
+    def __init__(self):
         IndexedNode.__init__(self, rules=[StaffNode])
 
     def getMeasure(self, measure=1, staff=1):
         staff_obj = self.GetChild(staff)
-        measure_obj = FindByIndex(staff_obj, measure)
+        measure_obj = None
+        if staff_obj is not None:
+            measure_obj = FindByIndex(staff_obj, measure)
         return measure_obj
 
     def getStaff(self, key):
@@ -37,7 +43,8 @@ class PartNode(IndexedNode):
         staff_obj.AddChild(measure_obj, measure)
 
     def addEmptyMeasure(self, measure=1, staff=1):
-        self.addMeasure(None, measure=measure, staff=staff)
+        measure_obj = Measure.Measure()
+        self.addMeasure(measure_obj, measure=measure, staff=staff)
 
     def toLily(self):
         open = ""
@@ -67,7 +74,19 @@ class MeasureNode(IndexedNode):
         self.index += 1
 
     def Backup(self, duration=0):
-        self.index -= 1
+        total = 0
+        children = self.GetChildrenIndexes()
+        notes = 0
+        for voice in children:
+            v = self.GetChild(voice)
+            indexes = v.GetChildrenIndexes()
+            for index in indexes:
+                notes += 1
+                note = v.GetChild(index)
+                total += note.duration
+                if total >=duration:
+                    break
+        self.index -= notes
 
     def addVoice(self, item, id):
         self.AddChild(item, id)
@@ -151,7 +170,8 @@ class MeasureNode(IndexedNode):
         else:
             self.addPlaceholder()
             note_obj = Search(Placeholder, voice_obj, self.index)
-            note_obj.AttachDirection(direction_obj)
+            if type(note_obj) is Placeholder:
+                note_obj.AttachDirection(direction_obj)
 
     def addExpression(self, item, voice=1):
         if self.getVoice(voice) is None:
@@ -165,7 +185,8 @@ class MeasureNode(IndexedNode):
         else:
             self.addPlaceholder()
             note_obj = Search(Placeholder, voice_obj, self.index)
-            note_obj.AttachExpression(direction_obj)
+            if type(note_obj) is Placeholder:
+                note_obj.AttachExpression(direction_obj)
 
 class VoiceNode(Node):
     def __init__(self):
