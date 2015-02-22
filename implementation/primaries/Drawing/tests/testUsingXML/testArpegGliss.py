@@ -1,4 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import Search, FindByIndex
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import NoteNode, MeasureNode
 from implementation.primaries.Drawing.classes import Note
 import os, unittest
 
@@ -19,16 +21,20 @@ class testArpeg(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertTrue(piece.getPart(self.p_id) is not None)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(FindByIndex(piece.getPart(self.p_id), self.m_num), MeasureNode)
 
     def testNotes(self):
-        for measure in piece.Parts[self.p_id].measures.keys():
+        part = piece.getPart(self.p_id)
+        staff = part.getStaff(1)
+        keys = staff.GetChildrenIndexes()
+        for measure in keys:
             if measure in self.note_num:
-                self.assertEqual(self.note_num[measure], len(piece.Parts[self.p_id].measures[1][measure].notes))
+                measure_obj = part.getMeasure(measure=measure, staff=1)
+                self.assertIsInstance(Search(NoteNode, measure_obj.getVoice(1), self.note_num[measure]), NoteNode)
 
 class testBar(unittest.TestCase):
     def testInstance(self):
@@ -42,125 +48,199 @@ class testBar(unittest.TestCase):
 class Note1Measure1(testBar):
     def setUp(self):
         self.p_id = "P1"
-        self.item = piece.Parts[self.p_id].measures[1][1].notes[0]
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=1,staff=1)
+        self.item = Search(NoteNode, measure, 1).GetItem()
         self.instance_type = Note.Arpeggiate
 
 class Note2Measure1(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][1].notes[1]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(measure=1,staff=1)
+        self.item = Search(NoteNode, measure, 2).GetItem()
         self.instance_type = Note.Arpeggiate
 
 class Note2Measure1DirectionValue(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][1].notes[1].wrap_notation[0].direction
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=1,staff=1)
+        note = Search(NoteNode, measure, 2).GetItem()
+        self.item = note.wrap_notation[0].direction
         self.value = "up"
 
 class Note3Measure1(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][1].notes[2]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(measure=1,staff=1)
+        self.item = Search(NoteNode, measure, 3).GetItem()
         self.instance_type = Note.Arpeggiate
 
 class Note3Measure1DirectionValue(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][1].notes[2].wrap_notation[0].direction
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=1,staff=1)
+        note = Search(NoteNode, measure, 3).GetItem()
+        self.item = note.wrap_notation[0].direction
         self.value = "down"
 
 class Note4Measure1FirstNotation(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][1].notes[3]
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=1,staff=1)
+        self.item = Search(NoteNode, measure, 4).GetItem()
         self.instance_type = Note.NonArpeggiate
 
 class Note4Measure1SecondNotation(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][1].notes[3]
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=1,staff=1)
+        self.item = Search(NoteNode, measure, 4).GetItem()
         self.instance_type = Note.NonArpeggiate
 
 class Note4Measure1Notation1Type(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][1].notes[3].wrap_notation[0].type
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=1,staff=1)
+        self.item = Search(NoteNode, measure, 4).GetItem().wrap_notation[0].type
         self.value = "bottom"
 
 class Note4Measure1Notation2Type(testBar):
     def setUp(self):
-        self.item= piece.Parts["P1"].measures[1][1].notes[3].wrap_notation[1].type
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=1,staff=1)
+        self.item = Search(NoteNode, measure, 4).GetItem().wrap_notation[1].type
         self.value = "top"
 
 class Note1Measure2(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[0]
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 1).GetItem()
         self.instance_type = Note.Slide
 
 class Note1Measure2Type(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[0].wrap_notation[0].type
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 1).GetItem().wrap_notation[0].type
         self.value = "start"
 
 class Note1Measure2Number(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[0].wrap_notation[0].number
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 1).GetItem().wrap_notation[0].number
         self.value = 1
 
 class Note1Measure2LineType(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[0].wrap_notation[0].lineType
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 1).GetItem().wrap_notation[0].lineType
         self.value = "solid"
 
 class Note2Measure2(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[1]
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 2).GetItem()
         self.instance_type = Note.Slide
 
 class Note2Measure2Type(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[1].wrap_notation[0].type
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 2).GetItem().wrap_notation[0].type
         self.value = "stop"
 
 class Note2Measure2Number(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[1].wrap_notation[0].number
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 2).GetItem().wrap_notation[0].number
         self.value = 1
 
 class Note2Measure2LineType(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[1].wrap_notation[0].lineType
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 2).GetItem().wrap_notation[0].lineType
         self.value = "solid"
 
 class Note3Measure2(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[2]
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 3).GetItem()
         self.instance_type=Note.Glissando
 
 class Note3Measure2Type(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[2].wrap_notation[0].type
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 3).GetItem().wrap_notation[0].type
         self.value = "start"
 
 class Note3Measure2Number(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[2].wrap_notation[0].number
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 3).GetItem().wrap_notation[0].number
         self.value = 1
 
 class Note3Measure2LineType(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[2].wrap_notation[0].lineType
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 3).GetItem().wrap_notation[0].lineType
         self.value = "wavy"
 
 class Note4Measure2(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[3]
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 4).GetItem()
         self.instance_type = Note.Glissando
 
 class Note4Measure2Type(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[3].wrap_notation[0].type
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 4).GetItem().wrap_notation[0].type
         self.value = "stop"
 
 class Note4Measure2Number(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[3].wrap_notation[0].number
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 4).GetItem().wrap_notation[0].number
         self.value = 1
 
 class Note4Measure2LineType(testBar):
     def setUp(self):
-        self.item = piece.Parts["P1"].measures[1][2].notes[3].wrap_notation[0].lineType
+        self.p_id = "P1"
+        part = piece.getPart(self.p_id)
+        measure = part.getMeasure(measure=2,staff=1)
+        self.item = Search(NoteNode, measure, 4).GetItem().wrap_notation[0].lineType
         self.value = "wavy"
