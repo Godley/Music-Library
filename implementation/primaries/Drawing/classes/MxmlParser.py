@@ -731,7 +731,7 @@ def handleBarline(tag, attrib, content, piece):
         measure_id = int(measure_id)
     if part_id is not None and measure_id is not None:
         part = piece.getPart(part_id)
-        node = part.getMeasure(int(measure_id), int(staff_id)).GetItem()
+        node = part.getMeasure(int(measure_id), int(staff_id))
         if node is None:
             part.addEmptyMeasure(int(measure_id), int(staff_id))
         measure = piece.getPart(part_id).getMeasure(int(measure_id), int(staff_id)).GetItem()

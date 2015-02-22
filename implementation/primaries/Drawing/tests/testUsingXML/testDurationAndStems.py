@@ -1,4 +1,5 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, NoteNode, Search
 import os
 
 partname = "duration_and_stem_direction.xml"
@@ -14,11 +15,11 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(measure=self.m_num, staff=1), MeasureNode)
 
 class testNoteDurations(xmlSet):
     def setUp(self):
@@ -28,59 +29,86 @@ class testNoteDurations(xmlSet):
         self.p_name = "Flute"
 
     def testMeasure1Note1(self):
-        measure = piece.Parts["P1"].getMeasure(1,1)
-        self.assertEqual(1, len(measure.notes))
+        part = piece.getPart("P1")
+        measure = part.getMeasure(1,1)
+        self.assertIsInstance(Search(NoteNode, measure, 1), NoteNode)
 
     def testMeasure1Note1Duration(self):
-        item = piece.Parts["P1"].measures[1][1].notes[0]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(1,1)
+        item = Search(NoteNode, measure, 1).GetItem()
         self.assertEqual(1, item.duration)
 
     def testMeasure2Notes(self):
-        measure = piece.Parts["P1"].measures[1][2]
-        self.assertEqual(3, len(measure.notes))
+        part = piece.getPart("P1")
+        measure = part.getMeasure(2,1)
+        item = Search(NoteNode, measure, 3)
+        self.assertIsInstance(item, NoteNode)
 
     def testMeasure2Note1(self):
-        item = piece.Parts["P1"].measures[1][2].notes[0]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(2,1)
+        item = Search(NoteNode, measure, 1).GetItem()
         self.assertEqual(2, item.duration)
 
     def testMeasure2Note2(self):
-        item = piece.Parts["P1"].measures[1][2].notes[1]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(2,1)
+        item = Search(NoteNode, measure, 2).GetItem()
         self.assertEqual(4, item.duration)
 
     def testMeasure2Note3(self):
-        item = piece.Parts["P1"].measures[1][2].notes[2]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(2,1)
+        item = Search(NoteNode, measure, 3).GetItem()
         self.assertEqual(4, item.duration)
 
     def testMeasure3Notes(self):
-        measure = piece.Parts["P1"].measures[1][3]
-        self.assertEqual(7, len(measure.notes))
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        item = Search(NoteNode, measure, 7)
+        self.assertIsInstance(item, NoteNode)
 
     def testMeasure3Note1(self):
-        item = piece.Parts["P1"].measures[1][3].notes[0]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        item = Search(NoteNode, measure, 1).GetItem()
         self.assertEqual(8, item.duration)
 
     def testMeasure3Note2(self):
-        item = piece.Parts["P1"].measures[1][3].notes[1]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        item = Search(NoteNode, measure, 2).GetItem()
         self.assertEqual(16, item.duration)
 
     def testMeasure3Note3(self):
-        item = piece.Parts["P1"].measures[1][3].notes[2]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        item = Search(NoteNode, measure, 3).GetItem()
         self.assertEqual(32, item.duration)
 
     def testMeasure3Note4(self):
-        item = piece.Parts["P1"].measures[1][3].notes[3]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        item = Search(NoteNode, measure, 4).GetItem()
         self.assertEqual(64, item.duration)
 
     def testMeasure3Note5(self):
-        item = piece.Parts["P1"].measures[1][3].notes[4]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        item = Search(NoteNode, measure, 5).GetItem()
         self.assertEqual(64, item.duration)
 
     def testMeasure3Note6(self):
-        item = piece.Parts["P1"].measures[1][3].notes[5]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        item = Search(NoteNode, measure, 6).GetItem()
         self.assertEqual(4, item.duration)
 
     def testMeasure3Note7(self):
-        item = piece.Parts["P1"].measures[1][3].notes[6]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        item = Search(NoteNode, measure, 7).GetItem()
         self.assertEqual(2, item.duration)
 
 class testStems(xmlSet):
@@ -91,61 +119,91 @@ class testStems(xmlSet):
         self.p_name = "Flute"
 
     def testMeasure1(self):
-        note = piece.Parts[self.p_id].measures[1][1].notes[0]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(1,1)
+        note = Search(NoteNode, measure, 1).GetItem()
         self.assertFalse(hasattr(note, "stem"))
 
     def testMeasure2Note1(self):
-        note = piece.Parts[self.p_id].measures[1][2].notes[0]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(2,1)
+        note = Search(NoteNode, measure, 1).GetItem()
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure2Note1Direction(self):
-        note = piece.Parts[self.p_id].measures[1][2].notes[0]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(2,1)
+        note = Search(NoteNode, measure, 1).GetItem()
         self.assertEqual("up", note.stem.type)
 
     def testMeasure2Note2(self):
-        note = piece.Parts[self.p_id].measures[1][2].notes[1]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(2,1)
+        note = Search(NoteNode, measure, 2).GetItem()
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure2Note2Direction(self):
-        note = piece.Parts[self.p_id].measures[1][2].notes[1]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(2,1)
+        note = Search(NoteNode, measure, 2).GetItem()
         self.assertEqual("up", note.stem.type)
 
     def testMeasure2Note3(self):
-        note = piece.Parts[self.p_id].measures[1][2].notes[2]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(2,1)
+        note = Search(NoteNode, measure, 3).GetItem()
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure2Note3Direction(self):
-        note = piece.Parts[self.p_id].measures[1][2].notes[2]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(2,1)
+        note = Search(NoteNode, measure, 3).GetItem()
         self.assertEqual("up", note.stem.type)
 
     def testMeasure3Note1(self):
-        note = piece.Parts[self.p_id].measures[1][3].notes[0]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        note = Search(NoteNode, measure, 1).GetItem()
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure3Note1Direction(self):
-        note = piece.Parts[self.p_id].measures[1][3].notes[0]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        note = Search(NoteNode, measure, 1).GetItem()
         self.assertEqual("down", note.stem.type)
 
     def testMeasure3Note2(self):
-        note = piece.Parts[self.p_id].measures[1][3].notes[1]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        note = Search(NoteNode, measure, 2).GetItem()
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure3Note2Direction(self):
-        note = piece.Parts[self.p_id].measures[1][3].notes[1]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        note = Search(NoteNode, measure, 2).GetItem()
         self.assertEqual("down", note.stem.type)
 
     def testMeasure3Note3(self):
-        note = piece.Parts[self.p_id].measures[1][3].notes[2]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        note = Search(NoteNode, measure, 3).GetItem()
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure3Note3Direction(self):
-        note = piece.Parts[self.p_id].measures[1][3].notes[2]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        note = Search(NoteNode, measure, 3).GetItem()
         self.assertEqual("down", note.stem.type)
 
     def testMeasure3Note4(self):
-        note = piece.Parts[self.p_id].measures[1][3].notes[3]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        note = Search(NoteNode, measure, 4).GetItem()
         self.assertTrue(hasattr(note, "stem"))
 
     def testMeasure3Note4Direction(self):
-        note = piece.Parts[self.p_id].measures[1][3].notes[3]
+        part = piece.getPart("P1")
+        measure = part.getMeasure(3,1)
+        note = Search(NoteNode, measure, 4).GetItem()
         self.assertEqual("down", note.stem.type)

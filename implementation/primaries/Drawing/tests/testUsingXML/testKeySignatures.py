@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Key
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, NoteNode, Search
 import os
 
 partname = "keySignatures.xml"
@@ -15,18 +16,18 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(1,1), MeasureNode)
 
 class testKeySig(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].getMeasure(self.measure_id, 1)
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1).GetItem()
     def testHasKey(self):
         if hasattr(self, "measure"):
             self.assertTrue(hasattr(self.measure, "key"))
