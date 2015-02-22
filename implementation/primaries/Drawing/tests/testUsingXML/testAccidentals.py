@@ -52,28 +52,32 @@ class NoteTests(xmlSet):
     def testNoteStep(self):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
-            note_obj = piece.Parts[self.p_id].measures[1][self.measure_id].notes[self.note]
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure_id, staff=1)
+            note_obj = Search(NoteNode, measure, self.note).GetItem()
         if note_obj is not None and self.step is not None:
             self.assertEqual(self.step, note_obj.pitch.step)
 
     def testNoteAlter(self):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
-            note_obj = piece.Parts[self.p_id].measures[1][self.measure_id].notes[self.note]
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure_id, staff=1)
+            note_obj = Search(NoteNode, measure, self.note).GetItem()
         if note_obj is not None and self.alter is not None:
             self.assertEqual(self.alter, int(note_obj.pitch.alter))
 
     def testNoteOctave(self):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
-            note_obj = piece.Parts[self.p_id].measures[1][self.measure_id].notes[self.note]
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure_id, staff=1)
+            note_obj = Search(NoteNode, measure, self.note).GetItem()
         if note_obj is not None and self.octave is not None:
             self.assertEqual(self.octave, int(note_obj.pitch.octave))
 
     def testNoteAccidental(self):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
-            note_obj = piece.Parts[self.p_id].measures[1][self.measure_id].notes[self.note]
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure_id, staff=1)
+            note_obj = Search(NoteNode, measure, self.note).GetItem()
         if note_obj is not None and self.accidental is not None:
             self.assertEqual(self.accidental, note_obj.pitch.accidental)
 

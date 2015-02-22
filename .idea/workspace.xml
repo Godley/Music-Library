@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="updated lily methods&#10;&#10;updated recursive method to include length checks on the wrapper lilystring. Also added code to staff and voice for toLily methods">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/Testclasses.py" />
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testAccidentals.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testAccidentals.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -24,7 +22,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandlePartsAndPiece.coverage" NAME="Unittests in testHandlePartsAndPiece Coverage Results" MODIFIED="1424133382261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTrillsFermataOtherOrnaments.coverage" NAME="Unittests in testTrillsFermataOtherOrnaments Coverage Results" MODIFIED="1423415840060" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBarlines__1_.coverage" NAME="Unittests in testBarlines (1) Coverage Results" MODIFIED="1423410341364" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$All_FYP_tests.coverage" NAME="All FYP tests Coverage Results" MODIFIED="1424567097199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$All_FYP_tests.coverage" NAME="All FYP tests Coverage Results" MODIFIED="1424567360099" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$findAndLoad.coverage" NAME="findAndLoad Coverage Results" MODIFIED="1418481456915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNoteheads.coverage" NAME="Unittests in testNoteheads Coverage Results" MODIFIED="1423412508281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1418648734071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -203,9 +201,11 @@
       <file leaf-file-name="testAccidentals.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testAccidentals.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.070552" vertical-offset="705" max-vertical-offset="5100">
-              <caret line="2" column="78" selection-start-line="2" selection-start-column="78" selection-end-line="2" selection-end-column="78" />
-              <folding />
+            <state vertical-scroll-proportion="3.0555556" vertical-offset="360" max-vertical-offset="5160">
+              <caret line="79" column="69" selection-start-line="79" selection-start-column="69" selection-end-line="79" selection-end-column="69" />
+              <folding>
+                <element signature="e#0#88#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1096,12 +1096,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00243" summary="issue fix #36 technique duplication">
-      <created>1424027643059</created>
-      <option name="number" value="00243" />
-      <option name="project" value="LOCAL" />
-      <updated>1424027643059</updated>
-    </task>
     <task id="LOCAL-00244" summary="test fixes/general bug blast&#10;&#10;fixed a bug in addNotation which wasn't allowing objects to be added to postnotation unless they had a type: this blocks most kinds of Accent which is generally considered a bad thing(tm)">
       <created>1424028922218</created>
       <option name="number" value="00244" />
@@ -1390,7 +1384,13 @@
       <option name="project" value="LOCAL" />
       <updated>1424562461438</updated>
     </task>
-    <option name="localTasksCounter" value="292" />
+    <task id="LOCAL-00292" summary="started implementing tree&#10;&#10;started implementing new tree structure as defined in tree_cls folder. basically each class will be wrapped in a node class relevant to it's type. Also started to fix unit tests according to this new structure">
+      <created>1424567161476</created>
+      <option name="number" value="00292" />
+      <option name="project" value="LOCAL" />
+      <updated>1424567161476</updated>
+    </task>
+    <option name="localTasksCounter" value="293" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1481,7 +1481,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="added further tests. recursion depth seemingly too heavy at final test" />
     <MESSAGE value="fixed recursion depth/while loop bug&#10;&#10;test hung because child wasn't being incremented upon every check of the child." />
     <MESSAGE value="began writing find method + appropriate unit tests" />
     <MESSAGE value="added exception when thing not found" />
@@ -1506,7 +1505,8 @@
     <MESSAGE value="added recursive toLily method &#10;&#10;added a method which calls the toLily method of each node, the toLily method of each item, wraps the item in the node lily and then calls each child of the node. this should make the item methods a lot cleaner as they no longer have to include things like checking how many staves there are or voices, as each voice/stave can do that for itself." />
     <MESSAGE value="added further toLily methods to each node type" />
     <MESSAGE value="updated lily methods&#10;&#10;updated recursive method to include length checks on the wrapper lilystring. Also added code to staff and voice for toLily methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated lily methods&#10;&#10;updated recursive method to include length checks on the wrapper lilystring. Also added code to staff and voice for toLily methods" />
+    <MESSAGE value="started implementing tree&#10;&#10;started implementing new tree structure as defined in tree_cls folder. basically each class will be wrapped in a node class relevant to it's type. Also started to fix unit tests according to this new structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="started implementing tree&#10;&#10;started implementing new tree structure as defined in tree_cls folder. basically each class will be wrapped in a node class relevant to it's type. Also started to fix unit tests according to this new structure" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2032,9 +2032,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testAccidentals.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.070552" vertical-offset="705" max-vertical-offset="5100">
-          <caret line="2" column="78" selection-start-line="2" selection-start-column="78" selection-end-line="2" selection-end-column="78" />
-          <folding />
+        <state vertical-scroll-proportion="3.0555556" vertical-offset="360" max-vertical-offset="5160">
+          <caret line="79" column="69" selection-start-line="79" selection-start-column="69" selection-end-line="79" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#88#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
