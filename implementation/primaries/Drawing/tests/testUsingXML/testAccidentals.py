@@ -53,7 +53,7 @@ class NoteTests(xmlSet):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
             measure = piece.getPart(self.p_id).getMeasure(measure=self.measure_id, staff=1)
-            note_obj = Search(NoteNode, measure, self.note).GetItem()
+            note_obj = Search(NoteNode, measure, self.note+1).GetItem()
         if note_obj is not None and self.step is not None:
             self.assertEqual(self.step, note_obj.pitch.step)
 
@@ -61,7 +61,7 @@ class NoteTests(xmlSet):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
             measure = piece.getPart(self.p_id).getMeasure(measure=self.measure_id, staff=1)
-            note_obj = Search(NoteNode, measure, self.note).GetItem()
+            note_obj = Search(NoteNode, measure, self.note+1).GetItem()
         if note_obj is not None and self.alter is not None:
             self.assertEqual(self.alter, int(note_obj.pitch.alter))
 
@@ -69,7 +69,7 @@ class NoteTests(xmlSet):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
             measure = piece.getPart(self.p_id).getMeasure(measure=self.measure_id, staff=1)
-            note_obj = Search(NoteNode, measure, self.note).GetItem()
+            note_obj = Search(NoteNode, measure, self.note+1).GetItem()
         if note_obj is not None and self.octave is not None:
             self.assertEqual(self.octave, int(note_obj.pitch.octave))
 
@@ -77,7 +77,7 @@ class NoteTests(xmlSet):
         note_obj = None
         if piece is not None and self.measure_id is not None and self.note is not None:
             measure = piece.getPart(self.p_id).getMeasure(measure=self.measure_id, staff=1)
-            note_obj = Search(NoteNode, measure, self.note).GetItem()
+            note_obj = Search(NoteNode, measure, self.note+1).GetItem()
         if note_obj is not None and self.accidental is not None:
             self.assertEqual(self.accidental, note_obj.pitch.accidental)
 
