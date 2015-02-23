@@ -989,7 +989,11 @@ def HandleDirections(tags, attrs, chars, piece):
         part_id = GetID(attrs, "part", "id")
         measure = None
         if measure_id is not None and part_id is not None:
-            measure = piece.getPart(part_id).getMeasure(measure_id, staff_id).GetItem()
+            measure_node = piece.getPart(part_id).getMeasure(measure_id, staff_id)
+            if measure_node is None:
+                piece.getPart(part_id).addEmptyMeasure(measure_id, staff_id)
+                measure_node = piece.getPart(part_id).getMeasure(measure_id, staff_id)
+            measure = measure_node.GetItem()
         placement = None
         if measure is None:
             return None

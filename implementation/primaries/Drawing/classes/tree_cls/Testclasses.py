@@ -175,7 +175,7 @@ class MeasureNode(IndexedNode):
             note_obj.AttachDirection(direction_obj)
         else:
             self.addPlaceholder()
-            note_obj = Search(Placeholder, voice_obj, self.index)
+            note_obj = Search(Placeholder, voice_obj, self.index+1)
             if type(note_obj) is Placeholder:
                 note_obj.AttachDirection(direction_obj)
 

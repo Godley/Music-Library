@@ -7,11 +7,9 @@ class testHandleDirections(testclass.TestClass):
         testclass.TestClass.setUp(self)
         self.tags.append("direction")
         self.handler = MxmlParser.HandleDirections
-        MxmlParser.part_id = "P1"
-        MxmlParser.measure_id = 1
-        self.piece.Parts["P1"] = Part.Part()
-        self.piece.Parts["P1"].addMeasure(1, Measure.Measure(), 1)
-        self.measure = self.piece.Parts["P1"].getMeasure(1, 1)
+        self.piece.addPart(Part.Part(), "P1")
+        self.piece.getPart("P1").addEmptyMeasure(1, 1)
+        self.measure = self.piece.getPart("P1").getMeasure(1, 1)
         self.attrs["measure"] = {"number": "1"}
         self.attrs["part"] = {"id": "P1"}
         MxmlParser.direction = None
@@ -39,7 +37,6 @@ class testHandleDirections(testclass.TestClass):
         self.tags.append("words")
         self.chars["words"] = "hello, world"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        measure = self.piece.Parts["P1"].getMeasure(1,1)
         
         self.assertIsInstance(MxmlParser.direction, Directions.Direction)
         self.assertEqual("hello, world", MxmlParser.direction.text)
@@ -295,26 +292,26 @@ class testDynamicsAndSound(testHandleDirections):
         self.attrs["sound"] = {"dynamics": "80"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         
-        self.assertTrue(hasattr(self.measure, "volume"))
-        self.assertEqual("80", self.measure.volume)
+        self.assertTrue(hasattr(self.measure.GetItem(), "volume"))
+        self.assertEqual("80", self.measure.GetItem().volume)
 
     def testSoundTempoAttr(self):
         self.tags.append("sound")
         self.attrs["sound"] = {"tempo": "80"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         
-        self.assertTrue(hasattr(self.measure, "tempo"))
-        self.assertEqual("80", self.measure.tempo)
+        self.assertTrue(hasattr(self.measure.GetItem(), "tempo"))
+        self.assertEqual("80", self.measure.GetItem().tempo)
 
     def testSoundAttrs(self):
         self.tags.append("sound")
         self.attrs["sound"] = {"dynamics": "60", "tempo": "50"}
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         
-        self.assertTrue(hasattr(self.measure, "tempo"))
-        self.assertEqual("50", self.measure.tempo)
-        self.assertTrue(hasattr(self.measure, "volume"))
-        self.assertEqual("60", self.measure.volume)
+        self.assertTrue(hasattr(self.measure.GetItem(), "tempo"))
+        self.assertEqual("50", self.measure.GetItem().tempo)
+        self.assertTrue(hasattr(self.measure.GetItem(), "volume"))
+        self.assertEqual("60", self.measure.GetItem().volume)
 
     def testWedgeTag(self):
         self.tags.append("wedge")

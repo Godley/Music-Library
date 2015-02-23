@@ -6,7 +6,7 @@ class testPieceTree(unittest.TestCase):
         self.item = Testclasses.PieceTree()
 
     def testAddPart(self):
-        part = Testclasses.PartNode(self.item)
+        part = Testclasses.PartNode()
         self.item.AddNode(part, index="P1")
         self.assertEqual(self.item.FindNodeByIndex("P1"), part)
 
@@ -16,14 +16,14 @@ class testPieceTree(unittest.TestCase):
             self.item.AddNode(measure, index=1)
 
     def testFindStaff(self):
-        part = Testclasses.PartNode(self.item)
+        part = Testclasses.PartNode()
         staff = Testclasses.StaffNode()
         self.item.AddNode(part, index="P1")
         self.item.AddNode(staff, index=1)
         self.assertEqual(part.getStaff(1), staff)
 
     def testFindMeasure(self):
-        part = Testclasses.PartNode(self.item)
+        part = Testclasses.PartNode()
         staff = Testclasses.StaffNode()
         self.item.AddNode(part, index="P1")
         self.item.AddNode(staff, index=1)
@@ -32,7 +32,7 @@ class testPieceTree(unittest.TestCase):
         self.assertEqual(part.getMeasure(1, 1), measure)
 
     def testAddMeasureOnSecondStave(self):
-        part = Testclasses.PartNode(self.item)
+        part = Testclasses.PartNode()
         staff = Testclasses.StaffNode()
         staff2 = Testclasses.StaffNode()
         measure = None
@@ -45,7 +45,7 @@ class testPieceTree(unittest.TestCase):
 class testAddToMeasure(unittest.TestCase):
     def setUp(self):
         self.item = Testclasses.PieceTree()
-        self.part = Testclasses.PartNode(self.item)
+        self.part = Testclasses.PartNode()
         self.item.AddNode(self.part, index="P1")
         self.part.addEmptyMeasure()
         self.measure = self.part.getMeasure()
