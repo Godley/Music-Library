@@ -1,6 +1,8 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Directions
 import os
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode,NoteNode, NoteNode, Search, ExpressionNode
+
 
 partname = "dynamics.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
@@ -15,11 +17,11 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(self.m_num, 1), MeasureNode)
 
 class testDynamics(xmlSet):
     def setUp(self):
@@ -29,65 +31,90 @@ class testDynamics(xmlSet):
         self.p_name = "Flute"
 
     def testMeasure1Direction1(self):
-        measure = piece.Parts[self.p_id].measures[1][1]
-        self.assertIsInstance(measure.expressions[0][0], Directions.Dynamic)
+        measure = piece.getPart(self.p_id).getMeasure(1,1)
+        note = Search(NoteNode, measure, 1)
+        exp =  Search(ExpressionNode, note, 1)
+
+        self.assertIsInstance(exp.GetItem(), Directions.Dynamic)
 
     def testMeasure1Direction1Val(self):
-        measure = piece.Parts[self.p_id].measures[1][1]
-        self.assertEqual("ppp", measure.expressions[0][0].mark)
+        measure = piece.getPart(self.p_id).getMeasure(1,1)
+        note = Search(NoteNode, measure, 1)
+        exp =  Search(ExpressionNode, note, 1)
+
+        self.assertEqual("ppp", exp.GetItem().mark)
 
     def testMeasure1Direction3(self):
-        measure = piece.Parts[self.p_id].measures[1][1]
-        self.assertIsInstance(measure.expressions[0][1], Directions.Dynamic)
+        measure = piece.getPart(self.p_id).getMeasure(1,1)
+        note = Search(NoteNode, measure, 2)
+        exp =  Search(ExpressionNode, note, 1)
+        self.assertIsInstance(exp.GetItem(), Directions.Dynamic)
 
     def testMeasure1Direction3Val(self):
-        measure = piece.Parts[self.p_id].measures[1][1]
-        self.assertEqual("pp", measure.expressions[0][1].mark)
+        measure = piece.getPart(self.p_id).getMeasure(1,1)
+        note = Search(NoteNode, measure, 2)
+        exp =  Search(ExpressionNode, note, 1)
+        self.assertEqual("pp", exp.GetItem().mark)
 
     def testMeasure1Direction5(self):
-        measure = piece.Parts[self.p_id].measures[1][1]
-        self.assertIsInstance(measure.expressions[1][0], Directions.Dynamic)
+        measure = piece.getPart(self.p_id).getMeasure(1,1)
+        note = Search(NoteNode, measure, 2)
+        exp =  Search(ExpressionNode, note, 1)
+        self.assertIsInstance(exp.GetItem(), Directions.Dynamic)
 
     def testMeasure1Direction5Val(self):
-        measure = piece.Parts[self.p_id].measures[1][1]
-        self.assertEqual("p", measure.expressions[1][0].mark)
+        measure = piece.getPart(self.p_id).getMeasure(1,1)
+        note = Search(NoteNode, measure, 2)
+        exp =  Search(ExpressionNode, note, 1)
+        self.assertEqual("p", exp.GetItem().mark)
 
     def testMeasure1Direction7(self):
-        measure = piece.Parts[self.p_id].measures[1][1]
-        self.assertIsInstance(measure.expressions[2][0], Directions.Dynamic)
+        measure = piece.getPart(self.p_id).getMeasure(1,1)
+        note = Search(NoteNode, measure, 3)
+        exp =  Search(ExpressionNode, note, 1)
+        self.assertIsInstance(exp.GetItem(), Directions.Dynamic)
 
     def testMeasure1Direction7Val(self):
-        measure = piece.Parts[self.p_id].measures[1][1]
-        self.assertEqual("mp", measure.expressions[2][0].mark)
+        measure = piece.getPart(self.p_id).getMeasure(1,1)
+        note = Search(NoteNode, measure, 3)
+        self.assertEqual("mp", Search(ExpressionNode, note, 1).GetItem().mark)
 
     def testMeasure2Direction1(self):
-        measure = piece.Parts[self.p_id].measures[1][2]
-        self.assertIsInstance(measure.expressions[0][0], Directions.Dynamic)
+        measure = piece.getPart(self.p_id).getMeasure(2,1)
+        note = Search(NoteNode, measure, 1)
+        self.assertIsInstance(Search(ExpressionNode, note, 1).GetItem(), Directions.Dynamic)
 
     def testMeasure2Direction1Val(self):
-        measure = piece.Parts[self.p_id].measures[1][2]
-        self.assertEqual("mf", measure.expressions[0][0].mark)
+        measure = piece.getPart(self.p_id).getMeasure(2,1)
+        note = Search(NoteNode, measure, 1)
+        self.assertEqual("mf", Search(ExpressionNode, note, 1).GetItem().mark)
 
     def testMeasure2Direction4(self):
-        measure = piece.Parts[self.p_id].measures[1][2]
-        self.assertIsInstance(measure.expressions[1][0], Directions.Dynamic)
+        measure = piece.getPart(self.p_id).getMeasure(2,1)
+        note = Search(NoteNode, measure, 2)
+        self.assertIsInstance(Search(ExpressionNode, note, 1).GetItem(), Directions.Dynamic)
 
     def testMeasure2Direction4Val(self):
-        measure = piece.Parts[self.p_id].measures[1][2]
-        self.assertEqual("f", measure.expressions[1][0].mark)
+        measure = piece.getPart(self.p_id).getMeasure(2,1)
+        note = Search(NoteNode, measure, 2)
+        self.assertEqual("f", Search(ExpressionNode, note, 1).GetItem().mark)
 
     def testMeasure3Direction1(self):
-        measure = piece.Parts[self.p_id].measures[1][3]
-        self.assertIsInstance(measure.expressions[0][0], Directions.Dynamic)
+        measure = piece.getPart(self.p_id).getMeasure(3,1)
+        note = Search(NoteNode, measure, 1)
+        self.assertIsInstance(Search(ExpressionNode, note, 1).GetItem(), Directions.Dynamic)
 
     def testMeasure3Direction1Val(self):
-        measure = piece.Parts[self.p_id].measures[1][3]
-        self.assertEqual("ff", measure.expressions[0][0].mark)
+        measure = piece.getPart(self.p_id).getMeasure(3,1)
+        note = Search(NoteNode, measure, 1)
+        self.assertEqual("ff", Search(ExpressionNode, note, 1).GetItem().mark)
 
     def testMeasure3Direction5(self):
-        measure = piece.Parts[self.p_id].measures[1][3]
-        self.assertIsInstance(measure.expressions[2][0], Directions.Dynamic)
+        measure = piece.getPart(self.p_id).getMeasure(3,1)
+        note = Search(NoteNode, measure, 3)
+        self.assertIsInstance(Search(ExpressionNode, note, 1).GetItem(), Directions.Dynamic)
 
     def testMeasure3Direction5Val(self):
-        measure = piece.Parts[self.p_id].measures[1][3]
-        self.assertEqual("fff", measure.expressions[2][0].mark)
+        measure = piece.getPart(self.p_id).getMeasure(3,1)
+        note = Search(NoteNode, measure, 3)
+        self.assertEqual("fff", Search(ExpressionNode, note, 1).GetItem().mark)

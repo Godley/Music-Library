@@ -23,25 +23,39 @@ def toLily(node, lilystring):
 def Search(cls_type, node, index, depth=0, start_index=0):
     # recursive method that goes through finding the "index"th object of cls_type. outside of piecetree
     # so that it can be used by any node
-    counter = depth + 1
+    counter = depth
+    if type(node) == cls_type:
+        counter = depth + 1
     if node is None:
         return None
     if type(node) == cls_type and counter == index:
         return node
     else:
         indexes = node.GetChildrenIndexes()
-        if type(node) != cls_type:
-            counter -= 1
         if len(node.children) == 0:
-            return counter
+            if type(node) == cls_type:
+                return counter, node
+            else:
+                return counter
         result = None
         child = 0
         while result is None and child < len(node.children):
             result = Search(cls_type, node.GetChild(indexes[child]), index, depth=counter, start_index=start_index)
             if result is not None and type(result) is not cls_type:
-                counter = result
-                result = None
+                if type(result) is tuple:
+                    counter += result[0]
+                    if counter == index:
+                        return result[1]
+                    else:
+                        result = None
+                else:
+                    counter += result
+                    result = None
             child += 1
+        if type(node) == cls_type and counter == index:
+            return node
+        elif type(node) == cls_type:
+            return counter, node
         return result
 
 def FindByIndex(node, index):
@@ -125,7 +139,11 @@ class Node(object):
 
     def ReplaceChild(self, key, item):
         if key in self.GetChildrenIndexes():
+            node = self.GetChild(key)
+            children = node.GetChildrenIndexes()
+            child_nodes = [(i, node.GetChild(i)) for i in children]
             self.children[key] = item
+            [self.children[key].AddChild(kid[1], kid[0]) for kid in child_nodes]
 
     def GetItem(self):
         return self.item

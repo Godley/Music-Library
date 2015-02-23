@@ -118,13 +118,17 @@ class MeasureNode(IndexedNode):
             node.SetItem(item)
         else:
             node = item
-        placeholder = Search(Placeholder, voice_obj, self.index)
-        if type(placeholder) is Placeholder:
+        placeholder = voice_obj.GetChild(self.index)
+        if type(placeholder) is Placeholder and type(node) is not Placeholder:
             if placeholder.duration == 0:
-                placeholder.SetItem(node.GetItem())
+                voice_obj.ReplaceChild(self.index, node)
+                if type(node) is not Placeholder:
+                    self.index += 1
 
-        elif voice_obj.GetChild(self.index) is None:
+        elif placeholder is None:
             voice_obj.AddChild(node)
+            if type(node) is not Placeholder:
+                self.index += 1
         else:
             proposed_node = voice_obj.GetChild(self.index)
             new_duration = voice_obj.GetChild(self.index).duration
@@ -140,9 +144,11 @@ class MeasureNode(IndexedNode):
                 elif new_duration < proposed_node.duration:
                     proposed_node.duration -= new_duration
                     voice_obj.AddChild(node)
+                    if type(node) is not Placeholder:
+                        self.index += 1
             else:
                 self.PositionChild(node, self.index, voice=voice)
-        self.index += 1
+
 
 
     def addPlaceholder(self, duration=0, voice=1):
@@ -179,12 +185,12 @@ class MeasureNode(IndexedNode):
         direction_obj = ExpressionNode()
         direction_obj.SetItem(item)
         voice_obj = self.getVoice(voice)
-        note_obj = Search(NoteNode, voice_obj, self.index)
-        if type(note_obj) is NoteNode:
+        note_obj = voice_obj.GetChild(self.index)
+        if type(note_obj) is NoteNode or type(note_obj) is Placeholder:
             note_obj.AttachExpression(direction_obj)
         else:
             self.addPlaceholder()
-            note_obj = Search(Placeholder, voice_obj, self.index)
+            note_obj = voice_obj.GetChild(self.index)
             if type(note_obj) is Placeholder:
                 note_obj.AttachExpression(direction_obj)
 

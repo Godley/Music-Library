@@ -129,10 +129,13 @@ class MxmlParser(object):
         children = measure.GetChildrenIndexes()
         add = True
         for i in children:
-            n = measure.GetChild(i)
-            if new_note == n:
-                add = False
-                break
+            voice = measure.GetChild(i)
+            notes = voice.GetChildrenIndexes()
+            for n in notes:
+                no = voice.GetChild(n)
+                if new_note == no:
+                    add = False
+                    break
         if add:
             measure.addNote(new_note)
 
@@ -195,8 +198,8 @@ class MxmlParser(object):
                 if part is not None:
                     if part.getMeasure(measure_id, staff_id) is None:
                         part.addEmptyMeasure(measure_id, staff_id)
-                    measure = part.getMeasure(measure_id, staff_id).GetItem()
-                    measure.addDirection(copy.deepcopy(direction), last_note)
+                    measure = part.getMeasure(measure_id, staff_id)
+                    measure.addDirection(copy.deepcopy(direction))
                 direction = None
             if expression is not None:
                 measure_id = int(GetID(self.attribs, "measure", "number"))
@@ -205,8 +208,8 @@ class MxmlParser(object):
                 if part is not None:
                     if part.getMeasure(measure_id, staff_id) is None:
                         part.addEmptyMeasure(measure_id, staff_id)
-                    measure = part.getMeasure(measure_id, staff_id).GetItem()
-                    measure.addExpression(copy.deepcopy(expression), last_note)
+                    measure = part.getMeasure(measure_id, staff_id)
+                    measure.addExpression(copy.deepcopy(expression))
                 expression = None
         if name == "barline":
             measure_id = GetID(self.attribs, "measure", "number")
