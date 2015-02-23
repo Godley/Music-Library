@@ -52,64 +52,55 @@ class testDynamics(xmlSet):
 
     def testMeasure1Direction3Val(self):
         measure = piece.getPart(self.p_id).getMeasure(1,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(1)
+        note = Search(NoteNode, measure, 2)
         exp =  Search(ExpressionNode, note, 1)
         self.assertEqual("pp", exp.GetItem().mark)
 
     def testMeasure1Direction5(self):
         measure = piece.getPart(self.p_id).getMeasure(1,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(2)
+        note = Search(NoteNode, measure, 3)
         exp =  Search(ExpressionNode, note, 1)
         self.assertIsInstance(exp.GetItem(), Directions.Dynamic)
 
     def testMeasure1Direction5Val(self):
         measure = piece.getPart(self.p_id).getMeasure(1,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(2)
+        note = Search(NoteNode, measure, 3)
         exp =  Search(ExpressionNode, note, 1)
         self.assertEqual("p", exp.GetItem().mark)
 
     def testMeasure1Direction7(self):
         measure = piece.getPart(self.p_id).getMeasure(1,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(3)
+        note = Search(NoteNode, measure, 4)
         exp =  Search(ExpressionNode, note, 1)
         self.assertIsInstance(exp.GetItem(), Directions.Dynamic)
 
     def testMeasure1Direction7Val(self):
         measure = piece.getPart(self.p_id).getMeasure(1,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(3)
+        note = Search(NoteNode, measure, 4)
         exp = Search(ExpressionNode, note, 1)
         self.assertEqual("mp", exp.GetItem().mark)
 
     def testMeasure2Direction1(self):
         measure = piece.getPart(self.p_id).getMeasure(2,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(0)
+        note = Search(NoteNode, measure, 1)
         exp = Search(ExpressionNode, note, 1)
         self.assertIsInstance(exp.GetItem(), Directions.Dynamic)
 
     def testMeasure2Direction1Val(self):
         measure = piece.getPart(self.p_id).getMeasure(2,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(0)
+        note = Search(NoteNode, measure, 1)
         exp = Search(ExpressionNode, note, 1)
         self.assertEqual("mf", exp.GetItem().mark)
 
     def testMeasure2Direction4(self):
         measure = piece.getPart(self.p_id).getMeasure(2,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(2)
+        note = Search(NoteNode, measure, 3)
         exp = Search(ExpressionNode, note, 1)
         self.assertIsInstance(exp.GetItem(), Directions.Dynamic)
 
     def testMeasure2Direction4Val(self):
         measure = piece.getPart(self.p_id).getMeasure(2,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(2)
+        note = Search(NoteNode, measure, 3)
         exp = Search(ExpressionNode, note, 1)
         self.assertEqual("f", Search(ExpressionNode, note, 1).GetItem().mark)
 
@@ -120,21 +111,18 @@ class testDynamics(xmlSet):
 
     def testMeasure3Direction1Val(self):
         measure = piece.getPart(self.p_id).getMeasure(3,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(0)
+        note = Search(NoteNode, measure, 1)
         exp = Search(ExpressionNode, note, 1)
         self.assertEqual("ff", exp.GetItem().mark)
 
     def testMeasure3Direction5(self):
         measure = piece.getPart(self.p_id).getMeasure(3,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(3)
+        note = Search(NoteNode, measure, 4)
         exp = Search(ExpressionNode, note, 1)
         self.assertIsInstance(exp.GetItem(), Directions.Dynamic)
 
     def testMeasure3Direction5Val(self):
         measure = piece.getPart(self.p_id).getMeasure(3,1)
-        voice = measure.getVoice(1)
-        note = voice.GetChild(3)
+        note = Search(NoteNode, measure, 4)
         exp = Search(ExpressionNode, note, 1)
         self.assertEqual("fff", exp.GetItem().mark)

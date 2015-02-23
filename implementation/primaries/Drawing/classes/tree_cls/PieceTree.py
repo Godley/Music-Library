@@ -24,39 +24,31 @@ def Search(cls_type, node, index, depth=0, start_index=0):
     # recursive method that goes through finding the "index"th object of cls_type. outside of piecetree
     # so that it can be used by any node
     counter = depth
-    if type(node) == cls_type:
-        counter = depth + 1
+    if type(node) is cls_type:
+        counter += 1
+        if counter == index:
+            return node
     if node is None:
         return None
-    if type(node) == cls_type and counter == index:
-        return node
     else:
-        indexes = node.GetChildrenIndexes()
-        if len(node.children) == 0:
-            if type(node) == cls_type:
-                return counter, node
-            else:
-                return counter
-        result = None
-        child = 0
-        while result is None and child < len(node.children):
-            result = Search(cls_type, node.GetChild(indexes[child]), index, depth=counter, start_index=start_index)
-            if result is not None and type(result) is not cls_type:
-                if type(result) is tuple:
-                    counter += result[0]
+        children = node.GetChildrenIndexes()
+        if len(children) == 0 and type(node) is cls_type:
+            return counter
+        else:
+            for child in children:
+                result = Search(cls_type, node.GetChild(child), index, depth=counter)
+                if type(result) is int:
+                    counter = result
                     if counter == index:
-                        return result[1]
-                    else:
-                        result = None
+                        return node.GetChild(child)
+                if type(result) is cls_type:
+                    return result
+            if type(node) is cls_type:
+                if counter == index:
+                    return node
                 else:
-                    counter += result
-                    result = None
-            child += 1
-        if type(node) == cls_type and counter == index:
-            return node
-        elif type(node) == cls_type:
-            return counter, node
-        return result
+                    return counter
+
 
 def FindByIndex(node, index):
     result = None
