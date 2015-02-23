@@ -2,6 +2,7 @@ from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, pa
 from implementation.primaries.Drawing.classes import MxmlParser
 from implementation.primaries.Drawing.classes import Directions, Measure
 import os
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, Search, NoteNode, ExpressionNode, DirectionNode
 
 partname = "lines.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
@@ -16,18 +17,19 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(self.m_num, 1), MeasureNode)
 
 class testWedge(xmlSet):
     def setUp(self):
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
         if hasattr(self, "item_id"):
-            self.item = self.measure.expressions[0][self.item_id]
+            note = Search(NoteNode, self.measure, 1)
+            self.item = Search(ExpressionNode, note, self.item_id+1).GetItem()
 
     def testInstance(self):
         if hasattr(self, "item"):
@@ -44,12 +46,10 @@ class testWedge(xmlSet):
 class testOctaveShift(xmlSet):
     def setUp(self):
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
         if hasattr(self, "item_id"):
-            if self.type == "stop":
-                self.item = self.measure.items[0][self.item_id]
-            else:
-                self.item = self.measure.preitems[0][self.item_id]
+            note = Search(NoteNode, self.measure, 1)
+            self.item = Search(DirectionNode, note, self.item_id+1).GetItem()
 
     def testInstance(self):
         if hasattr(self, "item"):
@@ -70,12 +70,10 @@ class testOctaveShift(xmlSet):
 class testPedal(xmlSet):
     def setUp(self):
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
         if hasattr(self, "item_id"):
-            if self.type == "stop":
-                self.item = self.measure.items[0][self.item_id]
-            else:
-                self.item = self.measure.preitems[0][self.item_id]
+            note = Search(NoteNode, self.measure, 1)
+            self.item = Search(DirectionNode, note, self.item_id+1).GetItem()
 
     def testInstance(self):
         if hasattr(self, "item"):
@@ -96,9 +94,10 @@ class testPedal(xmlSet):
 class testBracket(xmlSet):
     def setUp(self):
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][self.item_id]
+            note = Search(NoteNode, self.measure, 1)
+            self.item = Search(DirectionNode, note, self.item_id+1).GetItem()
 
     def testInstance(self):
         if hasattr(self, "item"):
@@ -165,7 +164,7 @@ class testEndings(xmlSet):
         xmlSet.setUp(self)
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
 
     def testHasBarline(self):
         if hasattr(self, "measure"):
