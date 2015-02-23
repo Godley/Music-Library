@@ -4,9 +4,9 @@ from implementation.primaries.Drawing.classes import Mark, MxmlParser, Direction
 class testHandleArticulation(testclass.TestClass):
     def setUp(self):
         testclass.TestClass.setUp(self)
-        self.piece.Parts["P1"] = Part.Part()
-        self.part = self.piece.Parts["P1"]
-        self.part.addMeasure(Measure.Measure(), 1, 1)
+        self.piece.addPart(index="P1", item=Part.Part())
+        self.part = self.piece.getPart("P1")
+        self.part.addEmptyMeasure(1, 1)
         measure = self.part.getMeasure(1, 1)
         MxmlParser.note = Note.Note()
         self.note = MxmlParser.note

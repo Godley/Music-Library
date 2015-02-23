@@ -1,4 +1,5 @@
 from implementation.primaries.Drawing.classes import MxmlParser, Harmony, Piece, Measure, Part
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PieceTree
 import unittest
 
 
@@ -9,9 +10,9 @@ class MeasureTesting(unittest.TestCase):
         self.attrs = {"measure": {"number": "1"}, "part": {"id": "P1"}}
         self.chars = {}
         self.handler = MxmlParser.HandleMeasures
-        self.piece = Piece.Piece()
-        self.piece.Parts["P1"] = Part.Part()
-        self.part = self.piece.Parts["P1"]
+        self.piece = PieceTree()
+        self.piece.addPart(index="P1", item=Part.Part())
+        self.part = self.piece.getPart("P1")
         MxmlParser.direction = None
         MxmlParser.note = None
         MxmlParser.expression = None
@@ -35,13 +36,13 @@ class testHandleMeasures(MeasureTesting):
 
     def testMeasureTag(self):
         self.handler(self.tags, self.attrs, None, self.piece)
-        self.assertEqual(Measure.Measure, type(self.piece.Parts["P1"].getMeasure(1,1)))
+        self.assertEqual(Measure.Measure, type(self.piece.getPart("P1").getMeasure(1,1).GetItem()))
 
     def testMeasurePrintTag(self):
         self.tags.append("print")
         self.attrs["print"] = {"new-system":"yes"}
         self.handler(self.tags, self.attrs, None, self.piece)
-        self.assertTrue(hasattr(self.piece.Parts["P1"].getMeasure(1,1),"newSystem"))
+        self.assertTrue(hasattr( self.piece.getPart("P1").getMeasure(1,1).GetItem(),"newSystem"))
 
 
 class testKeySig(MeasureTesting):
@@ -50,7 +51,7 @@ class testKeySig(MeasureTesting):
         self.tags.append("mode")
         self.chars["mode"] = "minor"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "key"))
         self.assertEqual("minor", exp_measure.key.mode)
 
@@ -59,7 +60,7 @@ class testKeySig(MeasureTesting):
         self.tags.append("fifths")
         self.chars["fifths"] = "3"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "key"))
         self.assertEqual(3, exp_measure.key.fifths)
 
@@ -70,7 +71,7 @@ class testMeter(MeasureTesting):
         self.tags.append("beats")
         self.chars["beats"] = "4"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "meter"))
         self.assertEqual(4, exp_measure.meter.beats)
 
@@ -79,7 +80,7 @@ class testMeter(MeasureTesting):
         self.tags.append("beat-type")
         self.chars["beat-type"] = "4"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "meter"))
         self.assertEqual(4, exp_measure.meter.type)
 
@@ -90,7 +91,7 @@ class testClef(MeasureTesting):
         self.tags.append("line")
         self.chars["line"] = 2
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "clef"))
         self.assertEqual(2, exp_measure.clef.line)
 
@@ -99,7 +100,7 @@ class testClef(MeasureTesting):
         self.tags.append("sign")
         self.chars["sign"] = "G"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "clef"))
         self.assertEqual("G", exp_measure.clef.sign)
 
@@ -109,7 +110,7 @@ class testClef(MeasureTesting):
         self.tags.append("sign")
         self.chars["sign"] = "G"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,2)
+        exp_measure = self.piece.getPart("P1").getMeasure(1,2).GetItem()
         self.assertTrue(hasattr(exp_measure, "clef"))
 
 class testTranspose(MeasureTesting):
@@ -118,7 +119,7 @@ class testTranspose(MeasureTesting):
         self.tags.append("diatonic")
         self.chars["diatonic"] = "0"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "transpose"))
         self.assertEqual("0", exp_measure.transpose.diatonic)
 
@@ -127,7 +128,7 @@ class testTranspose(MeasureTesting):
         self.tags.append("chromatic")
         self.chars["chromatic"] = "0"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "transpose"))
         self.assertEqual("0", exp_measure.transpose.chromatic)
 
@@ -136,14 +137,14 @@ class testTranspose(MeasureTesting):
         self.tags.append("octave-change")
         self.chars["octave-change"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "transpose"))
         self.assertEqual("1", exp_measure.transpose.octave)
 
     def testPrintNoAttribs(self):
         self.tags.append("print")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.Parts["P1"].measures[1]
+        exp_measure = self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertFalse(hasattr(exp_measure, "new-system"))
         self.assertFalse(hasattr(exp_measure, "new-page"))
 
@@ -153,7 +154,7 @@ class testPrint(MeasureTesting):
         self.tags.append("print")
         self.attrs["print"] = {"new-system": "yes"}
         self.handler(self.tags, self.attrs, None, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "newSystem"))
         self.assertTrue(exp_measure.newSystem)
 
@@ -161,7 +162,7 @@ class testPrint(MeasureTesting):
         self.tags.append("print")
         self.attrs["print"] = {"new-page": "yes"}
         self.handler(self.tags, self.attrs, None, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "newPage"))
         self.assertTrue(exp_measure.newPage)
 
@@ -169,7 +170,7 @@ class testPrint(MeasureTesting):
         self.tags.append("print")
         self.attrs["print"] = {"new-page": "yes", "new-system": "yes"}
         self.handler(self.tags, self.attrs, None, self.piece)
-        exp_measure = self.piece.Parts["P1"].getMeasure(1,1)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "newPage"))
         self.assertTrue(exp_measure.newPage)
         self.assertTrue(hasattr(exp_measure, "newSystem"))
@@ -426,7 +427,7 @@ class testBarline(MeasureTesting):
     def setUp(self):
         MeasureTesting.setUp(self)
         self.part.addEmptyMeasure(1,1)
-        self.measure = self.part.getMeasure(1,1)
+        self.measure = self.part.getMeasure(1,1).GetItem()
         self.handler = MxmlParser.handleBarline
         self.tags.append("barline")
         MxmlParser.last_barline = None

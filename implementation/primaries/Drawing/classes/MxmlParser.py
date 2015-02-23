@@ -521,7 +521,7 @@ def HandleMeasures(tag, attrib, content, piece):
             if measure is None:
                 part.addEmptyMeasure(measure_id, staff_id)
                 measure = part.getMeasure(measure_id, staff_id)
-            elif measure is not None:
+            if measure is not None:
                 measure = measure.GetItem()
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
