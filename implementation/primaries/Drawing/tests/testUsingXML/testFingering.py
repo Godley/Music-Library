@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Mark
 import os
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, Search, MeasureNode, NoteNode
 
 partname = "fingering.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
@@ -15,11 +16,11 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(self.m_num, 1), MeasureNode)
 
 class testFingering(xmlSet):
     def setUp(self):
@@ -28,20 +29,23 @@ class testFingering(xmlSet):
         self.p_id = "P1"
         self.p_name = "Flute"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
 
 
     def testMeasureNoteInstance(self):
         if hasattr(self, "note_id"):
-            self.assertIsInstance(self.measure.notes[self.note_id].postnotation[0], Mark.Technique)
+            note = Search(NoteNode, self.measure, self.note_id+1)
+            self.assertIsInstance(note.GetItem().postnotation[0], Mark.Technique)
 
     def testMeasureNoteType(self):
         if hasattr(self, "note_id") and hasattr(self, "type"):
-            self.assertEqual(self.type, self.measure.notes[self.note_id].postnotation[0].type)
+            note = Search(NoteNode, self.measure, self.note_id+1)
+            self.assertEqual(self.type, note.GetItem().postnotation[0].type)
 
     def testMeasureNoteSymbol(self):
         if hasattr(self, "note_id") and hasattr(self, "symbol"):
-            self.assertEqual(self.symbol, self.measure.notes[self.note_id].postnotation[0].symbol)
+            note = Search(NoteNode, self.measure, self.note_id+1)
+            self.assertEqual(self.symbol, note.GetItem().postnotation[0].symbol)
 
 
 class testMeasure1Note1(testFingering):

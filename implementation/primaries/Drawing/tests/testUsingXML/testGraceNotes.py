@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Note
 import os
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, NoteNode, Search
 
 partname = "GraceNotes.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
@@ -15,34 +16,35 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(self.m_num, 1), MeasureNode)
 
 class GraceNotes(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            part = piece.getPart(self.p_id)
+            self.measure = part.getMeasure(self.measure_id, 1)
 
     def testGrace(self):
         if hasattr(self, "nid") and hasattr(self, "grace"):
-            note = self.measure.notes[self.nid]
+            note = Search(NoteNode, self.measure, self.nid+1).GetItem()
             self.assertEqual(self.grace, hasattr(note, "grace"))
 
     def testGraceVal(self):
         if hasattr(self, "nid") and hasattr(self, "grace"):
             if self.grace:
-                note = self.measure.notes[self.nid]
+                note = Search(NoteNode, self.measure, self.nid+1).GetItem()
                 self.assertIsInstance(note.grace, Note.GraceNote)
 
     def testGraceSlash(self):
         if hasattr(self, "nid") and hasattr(self, "grace") and hasattr(self, "graceSlash"):
             if self.grace:
-                note = self.measure.notes[self.nid]
+                note = Search(NoteNode, self.measure, self.nid+1).GetItem()
                 self.assertEqual(self.graceSlash, note.grace.slash)
 
 class testNote1Measure1(GraceNotes):
