@@ -72,7 +72,7 @@ class MxmlParser(object):
                             "score-part","sound","print","rest","slur",
                             "accent","strong-accent","staccato",
                             "staccatissimo","up-bow","down-bow",
-                            "cue","grace"]
+                            "cue"]
         self.end_tag = ["tremolo"]
         self.piece = PieceTree.PieceTree()
         self.d = False
@@ -823,7 +823,7 @@ def CreateNote(tag, attrs, content, piece):
 
 
 
-        if "grace" in tag:
+        if tag[-1] == "grace":
             slash = False
             if "grace" in attrs:
                 if "slash" in attrs["grace"]:

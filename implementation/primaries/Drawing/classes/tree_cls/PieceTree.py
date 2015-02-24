@@ -336,6 +336,7 @@ class VoiceNode(Node):
                         if not hasattr(result, "last") or not result.last:
                             result.last = True
                     else:
+                        result.last = False
                         next_result.first = False
             lilystring += note.toLily() + " "
 
