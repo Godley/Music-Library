@@ -115,7 +115,7 @@ class testBackupAndForward(unittest.TestCase):
         self.parser = MxmlParser.MxmlParser()
         self.tag_list = []
         self.attrs = []
-        self.parser.piece.Parts["P1"] = Part.Part()
+        self.parser.piece.addPart(Part.Part(), index="P1")
         self.parser.tags.append("part")
         self.parser.attribs["part"] = {"id":"P1"}
         self.parser.StartTag("measure",{"number":"1"})
@@ -132,20 +132,21 @@ class testBackupAndForward(unittest.TestCase):
         self.parser.NewData("16")
         self.parser.EndTag("duration")
         self.parser.EndTag("note")
+        self.measure = self.parser.piece.getPart("P1").getMeasure(1,1)
 
     def testBackupTag(self):
-        self.assertEqual(MxmlParser.last_note, 1)
+        self.assertEqual(self.measure.index, 2)
         self.parser.StartTag("backup",{})
         self.parser.StartTag("duration",{})
         self.parser.NewData("16")
         self.parser.EndTag("duration")
-        self.assertEqual(MxmlParser.last_note, 0)
+        self.assertEqual(self.measure.index, 1)
 
-
+#todo: implement code in parser
     def testForwardTag(self):
-        self.assertEqual(MxmlParser.last_note, 1)
+        self.assertEqual(self.measure.index, 2)
         self.parser.StartTag("forward",{})
         self.parser.StartTag("duration",{})
         self.parser.NewData("16")
         self.parser.EndTag("duration")
-        self.assertEqual(MxmlParser.last_note, 0)
+        self.assertEqual(self.measure.index, 3)
