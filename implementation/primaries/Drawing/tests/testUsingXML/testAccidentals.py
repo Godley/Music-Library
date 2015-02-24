@@ -38,6 +38,9 @@ class testAccidentals(xmlSet):
             if measure in self.note_num:
                 self.assertIsInstance(Search(NoteNode, measure_obj, self.note_num[measure]), NoteNode)
 
+    def tearDown(self):
+        piece = None
+
 class NoteTests(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
@@ -48,6 +51,9 @@ class NoteTests(xmlSet):
         self.octave = None
         self.accidental = None
         self.note = None
+
+    def tearDown(self):
+        piece = None
 
     def testNoteStep(self):
         note_obj = None
