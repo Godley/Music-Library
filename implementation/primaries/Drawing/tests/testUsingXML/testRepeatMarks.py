@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
-from implementation.primaries.Drawing.classes import Directions, Note, Mark
+from implementation.primaries.Drawing.classes import Directions
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PieceTree, NoteNode, MeasureNode, PartNode, Search, DirectionNode
 import os
 
 partname = "repeatmarks.xml"
@@ -14,32 +15,12 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(self.m_num, 1), MeasureNode)
 
-class testFwd(xmlSet):
-    def setUp(self):
-        xmlSet.setUp(self)
-        self.m_num = 32
-        self.measure_id = 19
-        self.item_id = 0
-        self.p_id = "P1"
-        self.p_name = "Flute"
-        if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
-
-        if hasattr(self, "item_id"):
-            self.item = self.measure.forwards[0]
-    def testHasFwd(self):
-        if hasattr(self, "item"):
-            self.assertIsInstance(self.item, Directions.Forward)
-
-    def testDuration(self):
-        if hasattr(self, "item"):
-            self.assertEqual(1920, self.item.duration)
 
 class testSegno(xmlSet):
     def setUp(self):
@@ -51,18 +32,19 @@ class testSegno(xmlSet):
         self.measure_id = 2
         self.item_id = 0
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][0]
+            note = Search(NoteNode, self.measure, 1)
+            self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure, "segno"))
+            self.assertTrue(hasattr(self.measure.GetItem(), "segno"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.segno, self.measure.segno)
+            self.assertEqual(self.segno, self.measure.GetItem().segno)
 
 
 class testCoda(xmlSet):
@@ -75,18 +57,19 @@ class testCoda(xmlSet):
         self.item_id = 0
         self.coda = "coda"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][0]
+            note = Search(NoteNode, self.measure, 1)
+            self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure, "coda"))
+            self.assertTrue(hasattr(self.measure.GetItem(), "coda"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.coda, self.measure.coda)
+            self.assertEqual(self.coda, self.measure.GetItem().coda)
 
 class testFine(xmlSet):
     def setUp(self):
@@ -98,18 +81,19 @@ class testFine(xmlSet):
         self.item_id = 1
         self.fine = True
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][0]
+            note = Search(NoteNode, self.measure, 1)
+            self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure, "fine"))
+            self.assertTrue(hasattr(self.measure.GetItem(), "fine"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.fine, self.measure.fine)
+            self.assertEqual(self.fine, self.measure.GetItem().fine)
 
     def testItem(self):
         if hasattr(self, "item"):
@@ -128,18 +112,19 @@ class testDaCapo(xmlSet):
         self.item_id = 1
         self.dacapo = True
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][0]
+            note = Search(NoteNode, self.measure, 1)
+            self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure, "dacapo"))
+            self.assertTrue(hasattr(self.measure.GetItem(), "dacapo"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.dacapo, self.measure.dacapo)
+            self.assertEqual(self.dacapo, self.measure.GetItem().dacapo)
 
     def testItem(self):
         if hasattr(self, "item"):
@@ -159,10 +144,12 @@ class testDaCapoAlFine(xmlSet):
         self.item_id = 1
         self.dacapo = True
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measureNode = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
+            self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][0]
+            note = Search(NoteNode, self.measureNode, 1)
+            self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
@@ -190,10 +177,12 @@ class testDaCapoAlCoda(xmlSet):
         self.item_id = 1
         self.dacapo = True
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measureNode = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
+            self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][0]
+            note = Search(NoteNode, self.measureNode, 1)
+            self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
@@ -220,10 +209,12 @@ class testDalSegnoAlCoda(xmlSet):
         self.item_id = 1
         self.dalsegno = "segno"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measureNode = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
+            self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][0]
+            note = Search(NoteNode, self.measureNode, 1)
+            self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
@@ -250,10 +241,12 @@ class testDalSegnoAlFine(xmlSet):
         self.dalsegno = "segno"
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measureNode = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
+            self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][0]
+            note = Search(NoteNode, self.measureNode, 1)
+            self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
@@ -280,10 +273,12 @@ class testDalSegno(xmlSet):
         self.m_num = 32
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measureNode = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
+            self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][0]
+            note = Search(NoteNode, self.measureNode, 1)
+            self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
@@ -310,10 +305,12 @@ class testToCoda(xmlSet):
         self.m_num = 32
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measureNode = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
+            self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.items[0][0]
+            note = Search(NoteNode, self.measureNode, 1)
+            self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
