@@ -45,6 +45,29 @@ class PartNode(IndexedNode):
         if self.item is None:
             self.item = Part.Part()
 
+    def CheckDivisions(self):
+        staves = self.GetChildrenIndexes()
+        divisions = 1
+        for staff in staves:
+            child = self.getStaff(staff)
+            measures = child.GetChildrenIndexes()
+            for m_id in measures:
+                measure = child.GetChild(m_id)
+                item = measure.GetItem()
+                if hasattr(item, "divisions"):
+                    divisions = item.divisions
+                else:
+                    item.divisions = divisions
+                voices = measure.GetChildrenIndexes()
+                for voice in voices:
+                    v = measure.GetChild(voice)
+                    notes = v.GetChildrenIndexes()
+                    for note in notes:
+                        noteNode = v.GetChild(note)
+                        note_item = noteNode.GetItem()
+                        if not hasattr(note_item, "divisions"):
+                            note_item.divisions = item.divisions
+
     def getMeasure(self, measure=1, staff=1):
         staff_obj = self.GetChild(staff)
         measure_obj = None
@@ -68,6 +91,7 @@ class PartNode(IndexedNode):
         self.addMeasure(measure_obj, measure=measure, staff=staff)
 
     def toLily(self):
+        self.CheckDivisions()
         staves = self.GetChildrenIndexes()
         name = ""
         if hasattr(self.item, "name"):

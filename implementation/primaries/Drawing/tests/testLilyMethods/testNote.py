@@ -180,7 +180,7 @@ class testGraceNote(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.grace = Note.GraceNote(first=True)
+        self.item.addNotation(Note.GraceNote(first=True))
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}}"]
@@ -191,7 +191,7 @@ class testGraceNoteSlash(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.grace = Note.GraceNote(slash=True, first=True)
+        self.item.addNotation(Note.GraceNote(slash=True, first=True))
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}}"]
@@ -202,7 +202,7 @@ class testGraceNoteContinue(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.grace = Note.GraceNote(slash=True)
+        self.item.addNotation(Note.GraceNote(slash=True))
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}}"]
