@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 from implementation.primaries.Drawing.tests.testLilyMethods.testMeasure import MeasureTests
-from implementation.primaries.Drawing.classes import Measure, Note, Part
+from implementation.primaries.Drawing.classes import Measure, Note
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import MeasureNode, NoteNode
 
 class testNormalBarline(Lily):
     def setUp(self):
@@ -69,30 +70,32 @@ class testBarlineWithEndingStart(Lily):
 
 class testMeasureLeftBarline(MeasureTests):
     def setUp(self):
-        self.item = Measure.Measure()
-        self.item.addNote(Note.Note())
-        self.item.notes[-1].pitch = Note.Pitch()
-        self.item.barlines = {}
-        self.item.barlines["left"] = Measure.Barline(repeat="forward")
-        self.lilystring = " \\repeat volta 2 { c' | "
+        self.item = MeasureNode()
+        note = Note.Note()
+        note.pitch = Note.Pitch()
+        self.item.addNote(note)
+        self.item.GetItem().AddBarline(Measure.Barline(repeat="forward"),location="left")
+        self.lilystring = " \\repeat volta 2 { % voice 1\n{ c' } | "
 
 class testMeasureRightBarline(MeasureTests):
     def setUp(self):
-        self.item = Measure.Measure()
-        self.item.addNote(Note.Note())
-        self.item.notes[-1].pitch = Note.Pitch()
-        self.item.AddBarline("left", Measure.Barline(repeat="forward"))
-        self.item.AddBarline("right",Measure.Barline(repeat="backward"))
-        self.lilystring = " \\repeat volta 2 { c'}"
+        self.item = MeasureNode()
+        note = Note.Note()
+        note.pitch = Note.Pitch()
+        self.item.addNote(note)
+        self.item.GetItem().AddBarline(Measure.Barline(repeat="forward"), location="left")
+        self.item.GetItem().AddBarline(Measure.Barline(repeat="backward"), location="right")
+        self.lilystring = " \\repeat volta 2 { % voice 1\n{ c' }} | "
 
 
 class testMeasureRightRepeatBarlineNoLeft(MeasureTests):
     def setUp(self):
-        self.item = Measure.Measure()
-        self.item.addNote(Note.Note())
-        self.item.notes[-1].pitch = Note.Pitch()
-        self.item.AddBarline("right", Measure.Barline(repeat="backward-barline"))
-        self.lilystring = " c' \\bar \":|.\""
+        self.item = MeasureNode()
+        note = Note.Note()
+        note.pitch = Note.Pitch()
+        self.item.addNote(note)
+        self.item.GetItem().AddBarline(Measure.Barline(repeat="backward-barline"), location="right")
+        self.lilystring = " % voice 1\n{ c' } \\bar \":|.\" | "
 
 # class testPartWithRepeatsAndMultipleAlternativeEndings(MeasureTests):
 #     def setUp(self):

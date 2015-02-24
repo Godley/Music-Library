@@ -21,10 +21,10 @@ class Measure(BaseClass.Base):
             if side in self.barlines:
                 return self.barlines[side]
 
-    def AddBarline(self, side, item):
+    def AddBarline(self, item, location="left"):
         if not hasattr(self, "barlines"):
             self.barlines = {}
-        self.barlines[side] = item
+        self.barlines[location] = item
 
     def SetDivisions(self, divisions):
         if divisions is not None:
@@ -62,16 +62,20 @@ class Measure(BaseClass.Base):
             lilystring += self.key.toLily() + " "
         if hasattr(self, "barlines"):
             if "left" in self.barlines:
-                lilystring += self.barlines["left"].toLily()
-            if "right" in self.barlines and hasattr(self.barlines["right"], "repeat") and self.barlines["right"] == "backward":
-                lilystring += self.barlines["right"].toLily()
+                lilystring += self.GetBarline("left").toLily()
         return lilystring
 
+    def HandleClosingAttributes(self):
+        lstring = ""
+        if self.GetBarline("right") is not None:
+            bline = self.GetBarline("right").toLily()
+            lstring += bline
+        return lstring
+
     def toLily(self):
-        lilystring = ""
-        #handle stuff attached to measures which aren't directions
-        lilystring += self.HandleAttributes()
-        return lilystring
+        start = self.HandleAttributes()
+        end = self.HandleClosingAttributes()
+        return [start, end]
 
 
 

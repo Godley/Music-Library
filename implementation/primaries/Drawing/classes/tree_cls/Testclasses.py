@@ -65,6 +65,8 @@ class MeasureNode(IndexedNode):
     def __init__(self):
         IndexedNode.__init__(self, rules=[VoiceNode])
         self.index = 0
+        if self.item is None:
+            self.item = Measure.Measure()
 
     def Forward(self, duration=0):
         for voice in self.GetChildrenIndexes():
@@ -201,12 +203,14 @@ class MeasureNode(IndexedNode):
 
     def toLily(self):
         lilystring = ""
-        #lilystring += self.item.toLily()
+        wrap = self.item.toLily()
+        lilystring += wrap[0]
         voices = self.GetChildrenIndexes()
         for voice in voices:
             v_obj = self.getVoice(voice)
             lilystring += " % voice "+str(voice)+"\n"
             lilystring += v_obj.toLily()
+        lilystring += wrap[1]
         lilystring += " | "
         return lilystring
 
