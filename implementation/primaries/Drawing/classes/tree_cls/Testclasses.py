@@ -23,6 +23,8 @@ class PieceTree(Tree):
 class PartNode(IndexedNode):
     def __init__(self):
         IndexedNode.__init__(self, rules=[StaffNode])
+        if self.item is None:
+            self.item = Part.Part()
 
     def getMeasure(self, measure=1, staff=1):
         staff_obj = self.GetChild(staff)
@@ -66,7 +68,12 @@ class PartNode(IndexedNode):
             staffstring += "{"+self.GetChild(staff).toLily() + " }\n\n"
             first_part += staffstring
 
-        second_part = "".join(["\\"+var+" " for var in variables])
+        second_part = ""
+        if len(variables) > 1:
+            second_part += "\\new StaffGroup <<"
+        second_part += "\n".join(["\\"+var for var in variables])
+        if len(variables) > 1:
+            second_part += ">>"
         return [first_part, second_part]
 
 
@@ -79,7 +86,7 @@ class StaffNode(IndexedNode):
         children = self.GetChildrenIndexes()
         for child in children:
             lilystring += " % measure "+str(child)+"\n"
-            lilystring += self.GetChild(child).toLily()
+            lilystring += self.GetChild(child).toLily()+"\n\n"
         return lilystring
 
 class MeasureNode(IndexedNode):
