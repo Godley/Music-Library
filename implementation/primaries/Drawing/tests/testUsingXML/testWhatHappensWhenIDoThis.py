@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Measure
 import os
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import StaffNode, Search, MeasureNode, PartNode, NoteNode
 
 partname = "WhatHappensWhenIDoThis.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
@@ -15,11 +16,11 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(self.m_num, 1), MeasureNode)
 
 class testMeasure1(xmlSet):
     def setUp(self):
@@ -30,7 +31,7 @@ class testMeasure1(xmlSet):
         self.right_type = "stop"
         self.right_repeat = "backward-barline"
         self.right_style = "light-heavy"
-        self.measure = piece.getPart("P1").getMeasure(measure=self.measure_id,staff=1)
+        self.measure = piece.getPart("P1").getMeasure(measure=self.measure_id,staff=1).GetItem()
 
     def testHasBarlines(self):
         self.assertTrue(hasattr(self.measure, "barlines"))

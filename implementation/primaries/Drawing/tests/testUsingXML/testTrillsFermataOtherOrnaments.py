@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Ornaments, Mark
 import os
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, Search, NoteNode
 
 partname = "TrillsFermataOrnaments.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
@@ -15,21 +16,21 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertTrue(self.p_id in piece.Parts)
-        self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
-        self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+        self.assertIsInstance(piece.getPart(self.p_id).getMeasure(self.m_num, 1), MeasureNode)
 
 class testOrnament(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.notes[self.item_id]
+            self.item = Search(NoteNode, self.measure, self.item_id+1).GetItem()
         if hasattr(self, "orn_id") and hasattr(self.item, "postnotation"):
             self.ornament = self.item.postnotation[self.orn_id]
 
@@ -46,10 +47,10 @@ class testTechnique(xmlSet):
         xmlSet.setUp(self)
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.Parts[self.p_id].measures[1][self.measure_id]
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
 
         if hasattr(self, "item_id"):
-            self.item = self.measure.notes[self.item_id]
+            self.item = Search(NoteNode, self.measure, self.item_id+1).GetItem()
         if hasattr(self, "orn_id"):
             self.ornament = self.item.postnotation[self.orn_id]
 
