@@ -62,7 +62,7 @@ class MxmlParser(object):
              "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
              "pitch":  HandlePitch, "unpitched": HandlePitch,"articulations":handleArticulation,
              "fermata": HandleFermata, "slur":handleOtherNotations, "lyric":handleLyrics,
-             "technical": handleOtherNotations, "backup":HandleMovementBetweenDurations}
+             "technical": handleOtherNotations, "backup":HandleMovementBetweenDurations, "forward":HandleMovementBetweenDurations}
 
         # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
         self.multiple_attribs = ["beats", "sign"]
@@ -442,19 +442,22 @@ def handleArticulation(tag, attrs, content, piece):
 def HandleMovementBetweenDurations(tags, attrs, chars, piece):
     global staff_id, last_note
     print("hello")
-    if "backup" in tags and tags[-1]=="duration":
-        measure_id = GetID(attrs, "measure","number")
+    measure_id = GetID(attrs, "measure","number")
 
-        part_id = GetID(attrs, "part","id")
-        if part_id is not None:
-            if measure_id is not None:
-                measure_id = int(measure_id)
-                part = piece.getPart(part_id)
-                if part.getMeasure(measure_id, staff_id) is None:
-                    part.addEmptyMeasure(measure_id, staff_id)
-                measure = part.getMeasure(measure_id, staff_id)
+    part_id = GetID(attrs, "part","id")
+    if part_id is not None:
+        if measure_id is not None:
+            measure_id = int(measure_id)
+            part = piece.getPart(part_id)
+            if part.getMeasure(measure_id, staff_id) is None:
+                part.addEmptyMeasure(measure_id, staff_id)
+            measure = part.getMeasure(measure_id, staff_id)
+            if "backup" in tags and tags[-1]=="duration":
                 part.GetItem().CheckDivisions()
                 measure.Backup(duration=int(chars["duration"]))
+            if "forward" in tags and tags[-1] == "duration":
+                part.GetItem().CheckDivisions()
+                measure.Forward(duration=int(chars["duration"]))
 
 def HandleFermata(tags, attrs, chars, piece):
     global note

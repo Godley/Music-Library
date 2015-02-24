@@ -142,7 +142,6 @@ class testBackupAndForward(unittest.TestCase):
         self.parser.EndTag("duration")
         self.assertEqual(self.measure.index, 1)
 
-#todo: implement code in parser
     def testForwardTag(self):
         self.assertEqual(self.measure.index, 2)
         self.parser.StartTag("forward",{})
