@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Measure, Part
 import os
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PieceTree, Search, MeasureNode, NoteNode, PartNode
 
 partname = "multiple_parts.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
@@ -12,18 +13,18 @@ class testPart(xmlSet):
 
     def testPartExists(self):
         if hasattr(self, "p_id"):
-            self.assertTrue(self.p_id in piece.Parts)
+            self.assertIsInstance(piece.getPart(self.p_id), PartNode)
     def testPartInstance(self):
         if hasattr(self, "p_id"):
-            self.assertIsInstance(piece.Parts[self.p_id], Part.Part)
+            self.assertIsInstance(piece.getPart(self.p_id).GetItem(), Part.Part)
 
     def testPartName(self):
         if hasattr(self, "p_id"):
-            self.assertEqual(self.p_name, piece.Parts[self.p_id].name)
+            self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):
         if hasattr(self, "p_id"):
-            self.assertTrue(self.m_num in piece.Parts[self.p_id].measures[1])
+            self.assertIsInstance(piece.getPart(self.p_id).getMeasure(self.m_num, 1), MeasureNode)
 
 class testPart1(testPart):
     def setUp(self):

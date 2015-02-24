@@ -9,12 +9,12 @@ class testMeta(Lily):
 class testMetaTitle(Lily):
     def setUp(self):
         self.item = Meta.Meta(title="hello world")
-        self.lilystring = "\header {\ntitle = \"hello world\"\n}"
+        self.lilystring = "\header {\ntitle = \"hello world\"\n\n}"
 
 class testMetaComposer(Lily):
     def setUp(self):
         self.item = Meta.Meta(composer="Danny Brown")
-        self.lilystring = "\header {\ncomposer = \"Danny Brown\"\n}"
+        self.lilystring = "\header {\ncomposer = \"Danny Brown\"\n\n}"
 
 class testMetaCreds(Lily):
     def setUp(self):
