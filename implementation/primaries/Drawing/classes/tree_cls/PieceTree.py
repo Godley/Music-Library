@@ -144,9 +144,21 @@ class StaffNode(IndexedNode):
     def toLily(self):
         lilystring = "\\autoBeamOff"
         children = self.GetChildrenIndexes()
-        for child in children:
-            lilystring += " % measure "+str(child)+"\n"
-            lilystring += self.GetChild(child).toLily()+"\n\n"
+        for child in range(len(children)):
+            measureNode = self.GetChild(children[child])
+            lilystring += " % measure "+str(children[child])+"\n"
+            lilystring += measureNode.toLily()+"\n\n"
+            measure = measureNode.GetItem()
+            right_barline = measure.GetBarline("right")
+            if right_barline is not None and hasattr(right_barline, "ending"):
+                if len(children) == child+1:
+                    lilystring += "}"
+                else:
+                    nxt_measure = self.GetChild(children[child+1]).GetItem()
+                    left_bline = nxt_measure.GetBarline("left")
+                    if not hasattr(left_bline, "ending"):
+                        lilystring += "}"
+
         return lilystring
 
 class MeasureNode(IndexedNode):
