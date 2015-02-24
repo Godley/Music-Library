@@ -411,7 +411,9 @@ class NoteNode(Node):
         return lilystring
 
 class Placeholder(NoteNode):
-    pass
+    def __init__(self, **kwargs):
+        NoteNode.__init__(self, **kwargs)
+        self.item = None
 
 class SelfNode(Node):
     def __init__(self):
