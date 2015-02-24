@@ -2,7 +2,7 @@ from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, pa
 from implementation.primaries.Drawing.classes import MxmlParser
 from implementation.primaries.Drawing.classes import Directions, Measure
 import os
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, Search, NoteNode, ExpressionNode, DirectionNode
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, Search, Placeholder, NoteNode, ExpressionNode, DirectionNode
 
 partname = "lines.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
@@ -28,7 +28,10 @@ class testWedge(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
         if hasattr(self, "item_id"):
-            note = Search(NoteNode, self.measure, 1)
+            if hasattr(self, "place_id"):
+                note = Search(Placeholder, self.measure, self.place_id)
+            else:
+                note = Search(NoteNode, self.measure, 1)
             self.item = Search(ExpressionNode, note, self.item_id+1).GetItem()
 
     def testInstance(self):
@@ -48,7 +51,10 @@ class testOctaveShift(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
         if hasattr(self, "item_id"):
-            note = Search(NoteNode, self.measure, 1)
+            if hasattr(self, "note_id"):
+                note = Search(NoteNode, self.measure, self.note_id)
+            else:
+                note = Search(NoteNode, self.measure, 1)
             self.item = Search(DirectionNode, note, self.item_id+1).GetItem()
 
     def testInstance(self):
@@ -137,8 +143,9 @@ class testMeasure1Item3(testWedge):
         self.placement = "below"
         self.type = "stop"
         self.measure_id = 1
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
+        self.place_id = 1
         testWedge.setUp(self)
 
 class testMeasure2Item1(testWedge):
@@ -155,8 +162,9 @@ class testMeasure2Item3(testWedge):
         self.placement = "below"
         self.type = "stop"
         self.measure_id = 2
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
+        self.place_id = 1
         testWedge.setUp(self)
 
 class testEndings(xmlSet):
@@ -164,7 +172,7 @@ class testEndings(xmlSet):
         xmlSet.setUp(self)
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1).GetItem()
 
     def testHasBarline(self):
         if hasattr(self, "measure"):
@@ -257,7 +265,7 @@ class testMeasure6Item3(testOctaveShift):
         self.amount = 8
         self.type = "stop"
         self.measure_id = 6
-        self.item_id = 0
+        self.item_id = 1
         self.p_id = "P1"
         testOctaveShift.setUp(self)
 
@@ -277,7 +285,7 @@ class testMeasure7Item3(testOctaveShift):
         self.amount = 15
         self.type = "stop"
         self.measure_id = 7
-        self.item_id = 0
+        self.item_id = 1
         self.p_id = "P1"
         testOctaveShift.setUp(self)
 
@@ -297,7 +305,7 @@ class testMeasure8Item3(testOctaveShift):
         self.amount = 8
         self.type = "stop"
         self.measure_id = 8
-        self.item_id = 0
+        self.item_id = 1
         self.p_id = "P1"
         testOctaveShift.setUp(self)
 
@@ -317,7 +325,7 @@ class testMeasure9Item3(testOctaveShift):
         self.amount = 15
         self.type = "stop"
         self.measure_id = 9
-        self.item_id = 0
+        self.item_id = 1
         self.p_id = "P1"
         testOctaveShift.setUp(self)
 
@@ -335,7 +343,7 @@ class testMeasure12Item3(testPedal):
         self.type = "stop"
         self.line = True
         self.measure_id = 12
-        self.item_id = 0
+        self.item_id = 1
         self.p_id = "P1"
         testPedal.setUp(self)
 
@@ -353,7 +361,7 @@ class testMeasure13Item3(testPedal):
         self.type = "stop"
         self.line = True
         self.measure_id = 13
-        self.item_id = 0
+        self.item_id = 1
         self.p_id = "P1"
         testPedal.setUp(self)
 

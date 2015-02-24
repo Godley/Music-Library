@@ -1,4 +1,5 @@
 from implementation.primaries.Drawing.classes import MxmlParser, Piece, Measure, Part, Note, Directions
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PieceTree
 import unittest
 
 class testSetupPiece(unittest.TestCase):
@@ -54,7 +55,7 @@ class testHandlePart(unittest.TestCase):
         self.tags = []
         self.chars = {}
         self.attrs = {}
-        self.piece = Piece.Piece()
+        self.piece = PieceTree()
 
     def testNoData(self):
         self.assertEqual(None, self.handler(self.tags,self.attrs,self.chars,self.piece), "ERROR: no tags should return none in TestNodata")
@@ -70,25 +71,25 @@ class testHandlePart(unittest.TestCase):
         self.tags.append("score-part")
         self.attrs["score-part"] = {"id":"P1"}
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual(1, len(self.piece.Parts.keys()))
+        self.assertEqual(1, len(self.piece.root.GetChildrenIndexes()))
 
     def testPnameTag(self):
-        self.assertEqual(0, len(self.piece.Parts.keys()))
+        self.assertEqual(0, len(self.piece.root.GetChildrenIndexes()))
         self.tags.append("score-part")
         self.attrs["score-part"] = {"id":"P1"}
         self.tags.append("part-name")
         self.chars["part-name"] = "will"
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual("will", self.piece.GetPart("P1").name)
+        self.assertEqual("will", self.piece.getPart("P1").GetItem().name)
 
     def testPNameWithShortName(self):
-        self.assertEqual(0, len(self.piece.Parts.keys()))
+        self.assertEqual(0, len(self.piece.root.GetChildrenIndexes()))
         self.tags.append("score-part")
         self.attrs["score-part"] = {"id":"P1"}
         self.tags.append("part-abbreviation")
         self.chars["part-abbreviation"] = "w"
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual("w", self.piece.GetPart("P1").shortname)
+        self.assertEqual("w", self.piece.getPart("P1").GetItem().shortname)
 
 class testRights(unittest.TestCase):
     def setUp(self):
