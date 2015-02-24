@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.classes import MxmlParser, Harmony, Piece, Measure, Part
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PieceTree
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree
 import unittest
 
 

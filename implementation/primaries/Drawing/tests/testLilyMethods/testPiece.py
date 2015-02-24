@@ -1,6 +1,6 @@
 from implementation.primaries.Drawing.classes import Part, Piece, Meta
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PieceTree
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree
 
 class testPiece(Lily):
     def setUp(self):

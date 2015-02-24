@@ -1,39 +1,39 @@
 import unittest
 
-from implementation.primaries.Drawing.classes.tree_cls import PieceTree
+from implementation.primaries.Drawing.classes.tree_cls import BaseTree
 
 
 class testTree(unittest.TestCase):
     def setUp(self):
-        self.item = PieceTree.Tree()
+        self.item = BaseTree.Tree()
 
     def testAddNode(self):
-        elem = PieceTree.Node()
+        elem = BaseTree.Node()
         self.item.AddNode(elem)
         self.assertEqual(elem, self.item.root)
 
     def testAddInvalidNode(self):
-        elem = PieceTree.Node()
+        elem = BaseTree.Node()
         self.item.AddNode(elem)
-        self.assertRaises(PieceTree.CannotAddToTreeException, self.item.AddNode, PieceTree.Node())
+        self.assertRaises(BaseTree.CannotAddToTreeException, self.item.AddNode, BaseTree.Node())
 
     def testAddTwoValidNodes(self):
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode, PieceTree.IndexedNode])
+        elem = BaseTree.Node(rules=[BaseTree.EmptyNode, BaseTree.IndexedNode])
         self.item.AddNode(elem)
-        self.item.AddNode(PieceTree.EmptyNode(0))
+        self.item.AddNode(BaseTree.EmptyNode(0))
         self.assertEqual(1, len(elem.children))
 
     def testAddNodeOverLimit(self):
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode, PieceTree.IndexedNode],limit=-1)
+        elem = BaseTree.Node(rules=[BaseTree.EmptyNode, BaseTree.IndexedNode],limit=-1)
         self.item.AddNode(elem)
-        self.assertRaises(PieceTree.CannotAddToTreeException, self.item.AddNode, PieceTree.EmptyNode(0))
+        self.assertRaises(BaseTree.CannotAddToTreeException, self.item.AddNode, BaseTree.EmptyNode(0))
 
     def testAddNodeAddsToNextLevel(self):
         # this test confirms that with a parent who allows 1 child which has to be empty or indexed, Next is it's child
         # and third is a child of next.
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode, PieceTree.IndexedNode],limit=1)
-        next = PieceTree.EmptyNode(0,rules=[PieceTree.Node])
-        third = PieceTree.Node()
+        elem = BaseTree.Node(rules=[BaseTree.EmptyNode, BaseTree.IndexedNode],limit=1)
+        next = BaseTree.EmptyNode(0,rules=[BaseTree.Node])
+        third = BaseTree.Node()
         self.item.AddNode(elem)
         self.item.AddNode(next)
         self.item.AddNode(third)
@@ -41,9 +41,9 @@ class testTree(unittest.TestCase):
 
     def testAddNodeAddsToNextLevelWithExpandedLimit(self):
         # this test confirms the above still happens when the limit is 2
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode, PieceTree.IndexedNode],limit=2)
-        next = PieceTree.EmptyNode(0,rules=[PieceTree.Node])
-        third = PieceTree.Node()
+        elem = BaseTree.Node(rules=[BaseTree.EmptyNode, BaseTree.IndexedNode],limit=2)
+        next = BaseTree.EmptyNode(0,rules=[BaseTree.Node])
+        third = BaseTree.Node()
         self.item.AddNode(elem)
         self.item.AddNode(next)
         self.item.AddNode(third)
@@ -52,119 +52,119 @@ class testTree(unittest.TestCase):
     def testAddNodeAddsToCurrentLevelWithRelevantRuleAndLimit(self):
         # this test confirms the first spot for third to land in is a second child of elem, because elem lets you have
         # node as a child and can have 2 children.
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode, PieceTree.Node],limit=2)
-        next = PieceTree.EmptyNode(0,rules=[PieceTree.Node])
-        third = PieceTree.Node()
+        elem = BaseTree.Node(rules=[BaseTree.EmptyNode, BaseTree.Node],limit=2)
+        next = BaseTree.EmptyNode(0,rules=[BaseTree.Node])
+        third = BaseTree.Node()
         self.item.AddNode(elem)
         self.item.AddNode(next)
         self.item.AddNode(third)
         self.assertEqual(elem.GetChild(1),third)
 
     def testAddNodeWithIndex(self):
-        elem = PieceTree.IndexedNode(rules=[PieceTree.EmptyNode], limit=1)
-        second_elem = PieceTree.EmptyNode(0)
+        elem = BaseTree.IndexedNode(rules=[BaseTree.EmptyNode], limit=1)
+        second_elem = BaseTree.EmptyNode(0)
         self.item.AddNode(elem)
         self.item.AddNode(second_elem, index=2)
         self.assertEqual(elem.GetChild(2),second_elem)
 
     def testAddNodeToSecondNode(self):
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode])
+        elem = BaseTree.Node(rules=[BaseTree.EmptyNode])
         self.item.AddNode(elem)
-        second = PieceTree.EmptyNode(0)
+        second = BaseTree.EmptyNode(0)
         self.item.AddNode(second)
-        third = PieceTree.EmptyNode(0,rules=[PieceTree.Node])
+        third = BaseTree.EmptyNode(0,rules=[BaseTree.Node])
         self.item.AddNode(third)
-        fourth = PieceTree.Node()
+        fourth = BaseTree.Node()
         self.item.AddNode(fourth)
         self.assertEqual(third.GetChild(0), fourth)
 
     def testAddNodeToThirdNode(self):
-        elem = PieceTree.Node(rules=[PieceTree.EmptyNode])
+        elem = BaseTree.Node(rules=[BaseTree.EmptyNode])
         self.item.AddNode(elem)
-        second = PieceTree.EmptyNode(0)
+        second = BaseTree.EmptyNode(0)
         self.item.AddNode(second)
-        third = PieceTree.EmptyNode(0)
+        third = BaseTree.EmptyNode(0)
         self.item.AddNode(third)
-        fourth = PieceTree.EmptyNode(0, rules=[PieceTree.Node])
+        fourth = BaseTree.EmptyNode(0, rules=[BaseTree.Node])
         self.item.AddNode(fourth)
-        fifth = PieceTree.Node()
+        fifth = BaseTree.Node()
         self.item.AddNode(fifth)
         self.assertEqual(fourth.GetChild(0), fifth)
 
     def testFindFirstNode(self):
-        elem = PieceTree.Node()
+        elem = BaseTree.Node()
         self.item.AddNode(elem)
         self.assertEqual(self.item.FindNode(type(elem), 1), elem)
 
     def testFindSecondNode(self):
-        elem = PieceTree.Node(rules=[PieceTree.Node])
+        elem = BaseTree.Node(rules=[BaseTree.Node])
         self.item.AddNode(elem)
-        second = PieceTree.Node()
+        second = BaseTree.Node()
         self.item.AddNode(second)
         node = self.item.FindNode(type(elem), 2)
         self.assertEqual(node, second)
 
     def testFindFirstEmptyNodeOnFirstChild(self):
-        elem = PieceTree.Node(rules=[PieceTree.Node])
+        elem = BaseTree.Node(rules=[BaseTree.Node])
         self.item.AddNode(elem)
-        second = PieceTree.Node(rules=[PieceTree.EmptyNode])
+        second = BaseTree.Node(rules=[BaseTree.EmptyNode])
         self.item.AddNode(second)
-        third = PieceTree.EmptyNode(0)
+        third = BaseTree.EmptyNode(0)
         self.item.AddNode(third)
-        node = self.item.FindNode(PieceTree.EmptyNode, 1)
+        node = self.item.FindNode(BaseTree.EmptyNode, 1)
         self.assertEqual(node, third)
 
     def testFindEmptyNodeOnSecondChild(self):
-        elem = PieceTree.Node(rules=[PieceTree.Node])
+        elem = BaseTree.Node(rules=[BaseTree.Node])
         self.item.AddNode(elem)
-        second = PieceTree.Node()
+        second = BaseTree.Node()
         self.item.AddNode(second)
-        third = PieceTree.Node(rules=[PieceTree.EmptyNode])
+        third = BaseTree.Node(rules=[BaseTree.EmptyNode])
         self.item.AddNode(third)
-        fourth = PieceTree.EmptyNode(0)
+        fourth = BaseTree.EmptyNode(0)
         self.item.AddNode(fourth)
-        node = self.item.FindNode(PieceTree.EmptyNode, 1)
+        node = self.item.FindNode(BaseTree.EmptyNode, 1)
         self.assertEqual(node, fourth)
 
     def testFailure(self):
-        elem = PieceTree.Node(rules=[PieceTree.Node])
+        elem = BaseTree.Node(rules=[BaseTree.Node])
         self.item.AddNode(elem)
-        second = PieceTree.Node()
+        second = BaseTree.Node()
         self.item.AddNode(second)
-        third = PieceTree.Node(rules=[PieceTree.EmptyNode])
+        third = BaseTree.Node(rules=[BaseTree.EmptyNode])
         self.item.AddNode(third)
-        with self.assertRaises(PieceTree.CannotFindInTreeException):
-            self.item.FindNode(PieceTree.EmptyNode, 1)
+        with self.assertRaises(BaseTree.CannotFindInTreeException):
+            self.item.FindNode(BaseTree.EmptyNode, 1)
 
     def testAddNodeWithStringIndex(self):
-        elem = PieceTree.IndexedNode(rules=[PieceTree.Node])
+        elem = BaseTree.IndexedNode(rules=[BaseTree.Node])
         self.item.AddNode(elem)
-        second = PieceTree.Node()
+        second = BaseTree.Node()
         self.item.AddNode(second, "P1")
         self.assertEqual(elem.GetChild("P1"), second)
 
     def testFindNodeWithStringIndex(self):
-        elem = PieceTree.IndexedNode(rules=[PieceTree.Node])
+        elem = BaseTree.IndexedNode(rules=[BaseTree.Node])
         self.item.AddNode(elem)
-        second = PieceTree.Node()
+        second = BaseTree.Node()
         self.item.AddNode(second, "P1")
         self.assertEqual(self.item.FindNodeByIndex("P1"), second)
 
     def testFindNodeWithStringIndexOnSecondLevel(self):
-        elem = PieceTree.Node(rules=[PieceTree.IndexedNode])
+        elem = BaseTree.Node(rules=[BaseTree.IndexedNode])
         self.item.AddNode(elem)
-        second = PieceTree.IndexedNode(rules=[PieceTree.Node])
+        second = BaseTree.IndexedNode(rules=[BaseTree.Node])
         self.item.AddNode(second)
-        third = PieceTree.Node()
+        third = BaseTree.Node()
         self.item.AddNode(third, "S")
         self.assertEqual(self.item.FindNodeByIndex("S"), third)
 
     def testFindNodeWithStringIndexOnSecondLevelWhereFirstLevelIsIndexed(self):
-        elem = PieceTree.IndexedNode(rules=[PieceTree.IndexedNode])
+        elem = BaseTree.IndexedNode(rules=[BaseTree.IndexedNode])
         self.item.AddNode(elem)
-        second = PieceTree.IndexedNode(rules=[PieceTree.Node])
+        second = BaseTree.IndexedNode(rules=[BaseTree.Node])
         self.item.AddNode(second, "A")
-        third = PieceTree.Node()
+        third = BaseTree.Node()
         self.item.AddNode(third, "B")
         self.assertEqual(self.item.FindNodeByIndex("B"), third)
 

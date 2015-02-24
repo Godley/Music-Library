@@ -1,7 +1,7 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Note
 import os
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, Search, NoteNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode, MeasureNode, Search, NoteNode
 
 partname = "tuplets.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"

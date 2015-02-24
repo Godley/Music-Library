@@ -1,7 +1,7 @@
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 from implementation.primaries.Drawing.tests.testLilyMethods.testMeasure import MeasureTests
 from implementation.primaries.Drawing.classes import Measure, Note
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import MeasureNode, NoteNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode, NoteNode
 
 class testNormalBarline(Lily):
     def setUp(self):

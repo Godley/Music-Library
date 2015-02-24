@@ -1,6 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Key
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, NoteNode, Search
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode, MeasureNode, NoteNode, Search
 import os
 
 partname = "keySignatures.xml"

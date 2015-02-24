@@ -2,7 +2,7 @@ from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, pa
 from implementation.primaries.Drawing.classes import MxmlParser
 from implementation.primaries.Drawing.classes import Directions, Measure
 import os
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, Search, Placeholder, NoteNode, ExpressionNode, DirectionNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode, MeasureNode, Search, Placeholder, NoteNode, ExpressionNode, DirectionNode
 
 partname = "lines.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"

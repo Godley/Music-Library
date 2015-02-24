@@ -1,6 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Measure
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import MeasureNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode
 import os
 
 partname = "barlines.xml"

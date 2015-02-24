@@ -1,6 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Ornaments
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode, Search, NoteNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode, MeasureNode, Search, NoteNode
 import os
 
 partname = "tremolo.xml"

@@ -1,7 +1,7 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Measure, Part
 import os
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PieceTree, Search, MeasureNode, NoteNode, PartNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree, Search, MeasureNode, NoteNode, PartNode
 
 partname = "multiple_parts.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"

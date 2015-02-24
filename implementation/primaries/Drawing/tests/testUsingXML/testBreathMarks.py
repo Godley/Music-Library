@@ -1,6 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Mark
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import MeasureNode, Search, NoteNode, PartNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode, Search, NoteNode, PartNode
 import os
 
 partname = "breathMarks.xml"

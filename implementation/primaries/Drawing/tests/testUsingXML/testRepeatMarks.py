@@ -1,6 +1,6 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Directions
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PieceTree, NoteNode, MeasureNode, PartNode, Search, DirectionNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree, NoteNode, MeasureNode, PartNode, Search, DirectionNode
 import os
 
 partname = "repeatmarks.xml"

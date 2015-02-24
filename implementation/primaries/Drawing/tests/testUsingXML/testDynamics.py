@@ -1,7 +1,7 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Directions
 import os
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode,NoteNode, NoteNode, Search, ExpressionNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode, MeasureNode,NoteNode, NoteNode, Search, ExpressionNode
 
 
 partname = "dynamics.xml"

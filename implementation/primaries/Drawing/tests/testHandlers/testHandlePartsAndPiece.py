@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.classes import MxmlParser, Piece, Measure, Part, Note, Directions
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PieceTree
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree
 import unittest
 
 class testSetupPiece(unittest.TestCase):

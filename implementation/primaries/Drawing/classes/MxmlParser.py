@@ -5,7 +5,7 @@ try:
     from classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
 except:
     from implementation.primaries.Drawing.classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
-    from implementation.primaries.Drawing.classes.tree_cls import Testclasses, PieceTree
+    from implementation.primaries.Drawing.classes.tree_cls import PieceTree, BaseTree
 # these define the current "things" we are handling: these are added on to relevant measures after being processed,
 # because "staff" could be found anywhere whilst it's being processed
 note = None
@@ -74,7 +74,7 @@ class MxmlParser(object):
                             "staccatissimo","up-bow","down-bow",
                             "cue","grace"]
         self.end_tag = ["tremolo"]
-        self.piece = Testclasses.PieceTree()
+        self.piece = PieceTree.PieceTree()
         self.d = False
 
     def Flush(self):
@@ -163,9 +163,6 @@ class MxmlParser(object):
                                 elif previous.chord == "stop":
                                     previous.chord = "continue"
                                     note.chord = "stop"
-                        if hasattr(note, "grace"):
-                            if hasattr(previous, "grace"):
-                                note.grace.first = False
                     else:
                         if hasattr(note, "chord"):
                             if note.chord == "continue":
@@ -831,8 +828,7 @@ def CreateNote(tag, attrs, content, piece):
             if "grace" in attrs:
                 if "slash" in attrs["grace"]:
                     slash = YesNoToBool(attrs["grace"]["slash"])
-            note.grace = Note.GraceNote(slash=slash)
-            note.grace.first = True
+            note.addNotation(Note.GraceNote(slash=slash, first=True))
         if tag[-1] == "duration" and "note" in tag:
             if not hasattr(note, "duration"):
                 note.duration = float(content["duration"])

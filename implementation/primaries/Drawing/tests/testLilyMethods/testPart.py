@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.classes import Note, Part
-from implementation.primaries.Drawing.classes.tree_cls.Testclasses import PartNode, MeasureNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode, MeasureNode
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 
 class testPartMeasureWithNote(Lily):
