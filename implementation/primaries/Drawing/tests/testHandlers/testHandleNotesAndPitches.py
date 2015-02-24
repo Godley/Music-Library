@@ -71,12 +71,12 @@ class testCreateNoteHandler(notes):
     def testGraceTag(self):
         self.tags.append("grace")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note, "grace"))
+        self.assertIsInstance(MxmlParser.note.Search(Note.GraceNote), Note.GraceNote)
 
     def testGraceIsFirst(self):
         self.tags.append("grace")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(MxmlParser.note.grace, "first")
+        self.assertTrue(MxmlParser.note.Search(Note.GraceNote).first)
 
     def testDurationTag(self):
         self.tags.append("duration")
