@@ -80,12 +80,12 @@ class testTupletBracketNone(Lily):
 class testGraceNote(Lily):
     def setUp(self):
         self.item = Note.GraceNote(first=True)
-        self.lilystring = "\\grace {"
+        self.lilystring = ["\\grace {", ""]
 
 class testGraceNoteSlash(Lily):
     def setUp(self):
         self.item = Note.GraceNote(slash=True, first=True)
-        self.lilystring = "\slashedGrace {"
+        self.lilystring = ["\slashedGrace {", ""]
 
 class testTimeMod(Lily):
     def setUp(self):

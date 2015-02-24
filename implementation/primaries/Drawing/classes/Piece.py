@@ -16,17 +16,8 @@ class Piece(object):
 
     def toLily(self):
         lilystring = ""
-        partStrings = []
-        for part in self.Parts.keys():
-            variables, pstring = self.Parts[part].toLily()
-            lilystring += "\n".join(variables)
-            partStrings.append(pstring)
         if hasattr(self, "meta"):
             lilystring += "\n"+self.meta.toLily()
-
-        lilystring += "<<"
-        lilystring += "".join([pstring for pstring in partStrings])
-        lilystring += ">>"
         return lilystring
 
     def addPart(self, id="gubbins", part=None):

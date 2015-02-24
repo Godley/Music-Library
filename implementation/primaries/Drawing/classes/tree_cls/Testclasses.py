@@ -1,9 +1,10 @@
 from implementation.primaries.Drawing.classes.tree_cls.PieceTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
-from implementation.primaries.Drawing.classes import Measure, Note, Part
+from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece
 class PieceTree(Tree):
     def __init__(self):
         Tree.__init__(self)
         self.root = IndexedNode(rules=[PartNode])
+        self.item = Piece.Piece()
 
     def SetValue(self, item):
         self.root.SetItem(item)
@@ -16,8 +17,26 @@ class PieceTree(Tree):
     def getPart(self, key):
         return self.FindNodeByIndex(key)
 
+    def GetItem(self):
+        return self.item
+
+    def SetItem(self, i):
+        self.item = i
+
     def toLily(self):
-        pass
+        lilystring = "\\version \"2.18.2\" \n"
+        children = self.root.GetChildrenIndexes()
+        partstrings = []
+        for child in children:
+            part = self.getPart(child)
+            partstring = part.toLily()
+            lilystring += partstring[0]
+            partstrings.append(partstring[1])
+        lilystring += self.item.toLily()
+        lilystring += "<<"
+        lilystring += "".join([partstring for partstring in partstrings])
+        lilystring += ">>"
+        return lilystring
 
 
 class PartNode(IndexedNode):
@@ -51,7 +70,6 @@ class PartNode(IndexedNode):
     def toLily(self):
         staves = self.GetChildrenIndexes()
         name = ""
-        lilystring = ""
         if hasattr(self.item, "name"):
             name = self.item.name
         if hasattr(self.item, "shortname") and self.item.shortname is not None and (not hasattr(self.item, "name") or len(self.item.name) > 10):
