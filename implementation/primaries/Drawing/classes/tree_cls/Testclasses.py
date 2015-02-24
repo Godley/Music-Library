@@ -54,9 +54,9 @@ class PartNode(IndexedNode):
         lilystring = ""
         if hasattr(self.item, "name"):
             name = self.item.name
-        if hasattr(self.item, "shortname") and (not hasattr(self.item, "name") or len(self.item.name) > 10):
+        if hasattr(self.item, "shortname") and self.item.shortname is not None and (not hasattr(self.item, "name") or len(self.item.name) > 10):
             name = self.item.shortname
-        variables = [name + "S" + Part.NumbersToWords(s) for s in staves]
+        variables = [name.lower() + "S" + Part.NumbersToWords(s) for s in staves]
         first_part = ""
         for staff, variable in zip(staves, variables):
             staffstring = variable + " = \\new Staff"
@@ -70,7 +70,12 @@ class PartNode(IndexedNode):
 
         second_part = ""
         if len(variables) > 1:
-            second_part += "\\new StaffGroup <<"
+            second_part += "\\new StaffGroup "
+            if name != "":
+                second_part += "\with {\n"
+                second_part += "instrumentName = #\""+ name +" \"\n"
+                second_part += " }"
+            second_part += "<<"
         second_part += "\n".join(["\\"+var for var in variables])
         if len(variables) > 1:
             second_part += ">>"
