@@ -225,12 +225,12 @@ class testCreditText(Lily):
 class testCreditTextValign(Lily):
     def setUp(self):
         self.item = Directions.CreditText(valign="top",text="hello")
-        self.lilystring = "\general-align #Y #UP\n \"hello\" \n \\null"
+        self.lilystring = "\general-align #Y #UP\n \"hello\" "
 
 class testCreditTextJustify(Lily):
     def setUp(self):
         self.item = Directions.CreditText(justify="right",text="hello")
-        self.lilystring = "\\fill-line {\n\\null\n\override #'(baseline-skip . 4)\n\override #'(line-width . 40) {\"hello\" \n}\n\r}\n\\null\\null "
+        self.lilystring = "\\fill-line {\n\\null \n\override #'(baseline-skip . 4)\n\override #'(line-width . 40) {\"hello\" \n}\n\r}\n\\null\\null"
 
 class testCreditTextCenterJustify(Lily):
     def setUp(self):

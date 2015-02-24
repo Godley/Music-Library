@@ -19,22 +19,22 @@ class testTieStop(Lily):
 class testNotehead(Lily):
     def setUp(self):
         self.item = Note.Notehead()
-        self.lilystring = ["","\\revert NoteHead.style"]
+        self.lilystring = ["\n","\n\\revert NoteHead.style\n"]
 
 class testNoteheadCircleX(Lily):
     def setUp(self):
         self.item = Note.Notehead(type="circle-x")
-        self.lilystring = ["\\override NoteHead.style = #'xcircle", "\\revert NoteHead.style"]
+        self.lilystring = ["\n\\override NoteHead.style = #'xcircle\n", "\n\\revert NoteHead.style\n"]
 
 class testNoteheadType(Lily):
     def setUp(self):
         self.item = Note.Notehead(type="diamond")
-        self.lilystring = ["\\override NoteHead.style = #'harmonic", "\\revert NoteHead.style"]
+        self.lilystring = ["\\harmonic"]
 
 class testNoteheadCross(Lily):
     def setUp(self):
         self.item = Note.Notehead(type="x")
-        self.lilystring = ["\\override NoteHead.style = #'cross", "\\revert NoteHead.style"]
+        self.lilystring = ["\\xNote"]
 
 class testStem(Lily):
     def setUp(self):

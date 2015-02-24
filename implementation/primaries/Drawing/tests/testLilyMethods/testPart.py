@@ -44,41 +44,6 @@ class testPartMultiBars(Lily):
         self.item.getMeasure(measure=2,staff=1).notes[0].pitch = Note.Pitch()
         self.lilystring = (["Sone = \\new Staff{\\autoBeamOff % measure 1\n c' | \n\n% measure 2\n c' | }\n\n"],"\\Sone")
 
-class testPartForwardRepeats(Lily):
-    def setUp(self):
-        self.item = Part.Part()
-        self.item.addEmptyMeasure(1,1)
-        self.item.getMeasure(measure=1,staff=1).addNote(Note.Note(duration=4))
-        self.item.getMeasure(measure=1,staff=1).notes[0].pitch = Note.Pitch()
-        self.item.addEmptyMeasure(2,1)
-        self.item.getMeasure(measure=2,staff=1).forwards = {}
-        self.item.getMeasure(measure=2,staff=1).forwards[0] = Directions.Forward(duration=4)
-        self.lilystring = (["Sone = \\new Staff{\\autoBeamOff % measure 1\n c'1 | }\n\n"], '\\Sone')
-
-class testPartTwoForwardRepeats(Lily):
-    def setUp(self):
-        self.item = Part.Part()
-        self.item.addEmptyMeasure(1,1)
-        self.item.getMeasure(measure=1,staff=1).addNote(Note.Note(duration=4))
-        self.item.getMeasure(measure=1,staff=1).notes[0].pitch = Note.Pitch()
-        self.item.addEmptyMeasure(2,1)
-        self.item.getMeasure(measure=2,staff=1).forwards[0] = Directions.Forward(duration=4)
-        self.item.addEmptyMeasure(3,1)
-        self.item.measures[1][3].forwards[0] = Directions.Forward(duration=4)
-        self.lilystring = "\\new Staff{\\autoBeamOff  \\repeat percent 3 { c'1}}"
-
-class testPartTwoNotesOneForward(Lily):
-    def setUp(self):
-        self.item = Part.Part()
-        self.item.addEmptyMeasure(1,1)
-        self.item.getMeasure(measure=1,staff=1).addNote(Note.Note(duration=2))
-        self.item.getMeasure(measure=1,staff=1).addNote(Note.Note(duration=2))
-        self.item.getMeasure(measure=1,staff=1).notes[0].pitch = Note.Pitch()
-        self.item.getMeasure(measure=1,staff=1).notes[1].pitch = Note.Pitch()
-        self.item.addEmptyMeasure(2,1)
-        self.item.getMeasure(measure=2,staff=1).forwards[0] = Directions.Forward(duration=2)
-        self.lilystring = (["Sone = \\new Staff{\\autoBeamOff % measure 1\n c'2 \\repeat percent 2 { c'2} | }\n\n"], "\\Sone")
-
 class testPartMultiBarsStaves(Lily):
     def setUp(self):
         self.item = Part.Part()
