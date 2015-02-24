@@ -90,6 +90,19 @@ class PartNode(IndexedNode):
         measure_obj = Measure.Measure()
         self.addMeasure(measure_obj, measure=measure, staff=staff)
 
+    def CalculateVariable(self, name, staves):
+        variables = []
+        for staff in staves:
+            lcase = name.lower()
+            no_spaces = lcase.replace(' ', '')
+            no_dots = no_spaces.replace('.', '')
+            first_letter = no_dots[0]
+            if first_letter in [str(i) for i in range(10)]:
+                first_letter = Part.NumbersToWords(int(first_letter))
+            variable = first_letter + no_dots[1:len(no_dots)] + "staff"+Part.NumbersToWords(staff)
+            variables.append(variable)
+        return variables
+
     def toLily(self):
         self.CheckDivisions()
         staves = self.GetChildrenIndexes()
@@ -98,7 +111,7 @@ class PartNode(IndexedNode):
             name = self.item.name
         if hasattr(self.item, "shortname") and self.item.shortname is not None and (not hasattr(self.item, "name") or len(self.item.name) > 10):
             name = self.item.shortname
-        variables = [name.lower() + "S" + Part.NumbersToWords(s) for s in staves]
+        variables = self.CalculateVariable(name, staves)
         first_part = ""
         for staff, variable in zip(staves, variables):
             staffstring = variable + " = \\new Staff"
