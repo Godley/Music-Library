@@ -1,16 +1,16 @@
 from implementation.primaries.Drawing.tests.testHandlers import testclass
-from implementation.primaries.Drawing.classes import MxmlParser, Part, Measure, Directions
+from implementation.primaries.Drawing.classes import MxmlParser, Part, Directions
 
 
 class testRepeatSymbols(testclass.TestClass):
     def setUp(self):
         testclass.TestClass.setUp(self)
         self.handler = MxmlParser.HandleRepeatMarking
-        self.piece.Parts["P1"] = Part.Part()
-        self.piece.Parts["P1"].addEmptyMeasure(1,1)
+        self.piece.addPart(Part.Part(), "P1")
+        self.piece.getPart("P1").addEmptyMeasure(1,1)
         self.attrs["measure"] = {"number": "1"}
         self.attrs["part"] = {"id": "P1"}
-        self.measure = self.piece.Parts["P1"].getMeasure(1,1)
+        self.measure = self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.tags.append("direction")
         self.attrs["direction"] = {"placement": "above"}
 
@@ -83,24 +83,3 @@ class testRepeatSymbols(testclass.TestClass):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertTrue(hasattr(self.measure, "tocoda"))
         self.assertEqual("coda", self.measure.tocoda)
-
-class testForward(testclass.TestClass):
-    def setUp(self):
-        testclass.TestClass.setUp(self)
-        self.handler = MxmlParser.HandleRepeatMarking
-        self.piece.Parts["P1"] = Part.Part()
-        self.piece.Parts["P1"].addEmptyMeasure(1,1)
-        self.attrs["measure"] = {"number": "1"}
-        self.attrs["part"] = {"id": "P1"}
-        self.measure = self.piece.Parts["P1"].measures[1][1]
-        self.tags.append("forward")
-
-    def testCreation(self):
-        self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual(1, len(self.measure.forwards))
-
-    def testDuration(self):
-        self.tags.append("duration")
-        self.chars["duration"] = "2"
-        self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertEqual(self.measure.forwards[0].duration, 2)
