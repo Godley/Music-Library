@@ -97,6 +97,7 @@ class testMeasureRightRepeatBarlineNoLeft(MeasureTests):
         self.item.GetItem().AddBarline(Measure.Barline(repeat="backward-barline"), location="right")
         self.lilystring = " % voice 1\n{ c' } \\bar \":|.\" | "
 
+#TODO: look at why this is commented out
 # class testPartWithRepeatsAndMultipleAlternativeEndings(MeasureTests):
 #     def setUp(self):
 #         self.item = Part.Part()

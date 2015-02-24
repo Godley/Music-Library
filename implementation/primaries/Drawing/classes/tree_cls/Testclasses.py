@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.classes.tree_cls.PieceTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
-from implementation.primaries.Drawing.classes import Measure, Note
+from implementation.primaries.Drawing.classes import Measure, Note, Part
 class PieceTree(Tree):
     def __init__(self):
         Tree.__init__(self)
@@ -47,9 +47,27 @@ class PartNode(IndexedNode):
         self.addMeasure(measure_obj, measure=measure, staff=staff)
 
     def toLily(self):
-        open = ""
-        close = ""
-        pass
+        staves = self.GetChildrenIndexes()
+        name = ""
+        lilystring = ""
+        if hasattr(self.item, "name"):
+            name = self.item.name
+        if hasattr(self.item, "shortname") and (not hasattr(self.item, "name") or len(self.item.name) > 10):
+            name = self.item.shortname
+        variables = [name + "S" + Part.NumbersToWords(s) for s in staves]
+        first_part = ""
+        for staff, variable in zip(staves, variables):
+            staffstring = variable + " = \\new Staff"
+            if len(staves) == 1:
+                if name != "":
+                    staffstring += " \with {\n"
+                    staffstring += "instrumentName = #\""+ name +" \"\n"
+                    staffstring += " }"
+            staffstring += "{"+self.GetChild(staff).toLily() + " }\n\n"
+            first_part += staffstring
+
+        second_part = "".join(["\\"+var+" " for var in variables])
+        return [first_part, second_part]
 
 
 class StaffNode(IndexedNode):
@@ -57,9 +75,12 @@ class StaffNode(IndexedNode):
         IndexedNode.__init__(self, rules=[MeasureNode])
 
     def toLily(self):
-        lstring = "\\new Staff {"
-        close = " }"
-        return [lstring, close]
+        lilystring = "\\autoBeamOff"
+        children = self.GetChildrenIndexes()
+        for child in children:
+            lilystring += " % measure "+str(child)+"\n"
+            lilystring += self.GetChild(child).toLily()
+        return lilystring
 
 class MeasureNode(IndexedNode):
     def __init__(self):
