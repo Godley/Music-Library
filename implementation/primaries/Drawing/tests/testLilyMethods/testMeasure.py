@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.classes import Measure, Note, Directions
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
+from implementation.primaries.Drawing.classes.tree_cls.Testclasses import MeasureNode
 
 class MeasureTests(Lily):
 
@@ -10,22 +11,18 @@ class MeasureTests(Lily):
 
 class testMeasure(MeasureTests):
     def setUp(self):
-        self.item = Measure.Measure()
-        self.lilystring = " r | "
-
-class testMeasureStaves(MeasureTests):
-    def setUp(self):
-        self.item = Measure.Measure()
-        self.item.items[2] = []
-        self.lilystring = " r | "
+        self.item = MeasureNode()
+        self.item.SetItem(Measure.Measure())
+        self.lilystring = " | "
 
 class testMeasureNote(MeasureTests):
     def setUp(self):
-        self.item = Measure.Measure()
+        self.item = MeasureNode()
+        self.item.SetItem(Measure.Measure())
         note = Note.Note()
         note.pitch= Note.Pitch()
         self.item.addNote(note)
-        self.lilystring = " c' | "
+        self.lilystring = " % voice 1\n{ c' } | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -33,15 +30,14 @@ class testMeasureNote(MeasureTests):
 
 class testMeasureChord(MeasureTests):
     def setUp(self):
-        self.item = Measure.Measure()
+        self.item = MeasureNode()
         note = Note.Note(chord="start")
-
         note.pitch= Note.Pitch()
         self.item.addNote(note)
         note2 = Note.Note(chord="continue")
         note2.pitch = Note.Pitch()
         self.item.addNote(note2)
-        self.lilystring = " <c' c'> | "
+        self.lilystring = " % voice 1\n{ <c' c'> } | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -49,12 +45,12 @@ class testMeasureChord(MeasureTests):
 
 class testMeasureNoteWithGrace(MeasureTests):
     def setUp(self):
-        self.item = Measure.Measure()
+        self.item = MeasureNode()
         note = Note.Note()
         note.pitch= Note.Pitch()
-        note.grace = Note.GraceNote(first=True)
+        note.addNotation(Note.GraceNote(first=True))
         self.item.addNote(note)
-        self.lilystring = " \grace { c'} | "
+        self.lilystring = " % voice 1\n{ \grace { c' } } | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -62,9 +58,9 @@ class testMeasureNoteWithGrace(MeasureTests):
 
 class testMeasureTempo(MeasureTests):
     def setUp(self):
-        self.item = Measure.Measure()
-        self.item.addDirection(Directions.Metronome(beat=4,min=60), 0)
-        self.lilystring = " r\\tempo 4=60 | "
+        self.item = MeasureNode()
+        self.item.addDirection(Directions.Metronome(beat=4,min=60))
+        self.lilystring = " % voice 1\n{ \\tempo 4=60 } | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -72,10 +68,10 @@ class testMeasureTempo(MeasureTests):
 
 class testMeasureTwoDirections(MeasureTests):
     def setUp(self):
-        self.item = Measure.Measure()
-        self.item.addDirection(Directions.Direction(text="hello world",placement="above"),0)
-        self.item.addDirection(Directions.Metronome(beat=4,min=60),0)
-        self.lilystring = " r^\\markup { \"hello world\"  }\\tempo 4=60 | "
+        self.item = MeasureNode()
+        self.item.addDirection(Directions.Direction(text="hello world",placement="above"))
+        self.item.addDirection(Directions.Metronome(beat=4,min=60))
+        self.lilystring = " % voice 1\n{ ^\\markup { \"hello world\"  }\\tempo 4=60 } | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -83,14 +79,14 @@ class testMeasureTwoDirections(MeasureTests):
 
 class testMeasureTwoNotes(MeasureTests):
     def setUp(self):
-        self.item = Measure.Measure()
+        self.item = MeasureNode()
         note = Note.Note()
         note.pitch = Note.Pitch()
         self.item.addNote(note)
         note2 = Note.Note()
         note2.pitch = Note.Pitch()
         self.item.addNote(note2)
-        self.lilystring = " c' c' | "
+        self.lilystring = " % voice 1\n{ c' c' } | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -98,30 +94,16 @@ class testMeasureTwoNotes(MeasureTests):
 
 class testMeasureOneNoteOneDirection(MeasureTests):
     def setUp(self):
-        self.item = Measure.Measure()
+        self.item = MeasureNode()
         note = Note.Note()
         note.pitch = Note.Pitch()
         self.item.addNote(note)
-        self.item.addDirection(Directions.Direction(text="hello",placement="below"), 0)
-        self.lilystring = " c'_\\markup { \"hello\"  } | "
+        self.item.addDirection(Directions.Direction(text="hello",placement="below"))
+        self.lilystring = " % voice 1\n{ c'_\\markup { \"hello\"  } } | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
         self.name = "measurenotedirection"
-
-
-
-class testMeasureSecondStave(MeasureTests):
-    def setUp(self):
-        self.item = Measure.Measure()
-        note = Note.Note()
-        note.pitch = Note.Pitch()
-        self.item.addNote(note)
-        self.lilystring = " c' | "
-        self.compile = True
-        self.wrappers = ["<<\\new Staff{}\\new Staff {", "}>>"]
-        Lily.setUp(self)
-        self.name = "measurenote"
 
 
 

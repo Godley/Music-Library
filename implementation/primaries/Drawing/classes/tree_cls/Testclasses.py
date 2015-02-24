@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.classes.tree_cls.PieceTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
-from implementation.primaries.Drawing.classes import Measure
+from implementation.primaries.Drawing.classes import Measure, Note
 class PieceTree(Tree):
     def __init__(self):
         Tree.__init__(self)
@@ -171,8 +171,13 @@ class MeasureNode(IndexedNode):
         direction_obj.SetItem(item)
         voice_obj = self.getVoice(voice)
         note_obj = Search(NoteNode, voice_obj, self.index)
-        if type(note_obj) is NoteNode:
-            note_obj.AttachDirection(direction_obj)
+        plcholder = Search(Placeholder, voice_obj, self.index+1)
+        if note_obj is not None or plcholder is not None:
+            if note_obj is not None:
+                note_obj.AttachDirection(direction_obj)
+            if plcholder is not None:
+                plcholder.AttachDirection(direction_obj)
+
         else:
             self.addPlaceholder()
             note_obj = Search(Placeholder, voice_obj, self.index+1)
@@ -194,14 +199,39 @@ class MeasureNode(IndexedNode):
             if type(note_obj) is Placeholder:
                 note_obj.AttachExpression(direction_obj)
 
+    def toLily(self):
+        lilystring = ""
+        #lilystring += self.item.toLily()
+        voices = self.GetChildrenIndexes()
+        for voice in voices:
+            v_obj = self.getVoice(voice)
+            lilystring += " % voice "+str(voice)+"\n"
+            lilystring += v_obj.toLily()
+        lilystring += " | "
+        return lilystring
+
 class VoiceNode(Node):
     def __init__(self):
         Node.__init__(self, rules=[NoteNode, Placeholder])
 
     def toLily(self):
-        start = "\n{ "
-        end = " } \n"
-        return [start, end]
+        lilystring = "{ "
+        children = self.GetChildrenIndexes()
+        for child in range(len(children)):
+            note = self.GetChild(children[child])
+            if len(children) == child+1:
+                item = note.GetItem()
+                if hasattr(item, "chord"):
+                    if item.chord != "stop":
+                        item.chord = "stop"
+                result = item.Search(Note.GraceNote)
+                if result is not None:
+                    if not hasattr(result, "last") or not result.last:
+                        result.last = True
+            lilystring += note.toLily() + " "
+
+        lilystring += "}"
+        return lilystring
 
 
 class NoteNode(Node):
@@ -212,6 +242,8 @@ class NoteNode(Node):
         if "duration" in kwargs:
             self.duration = kwargs["duration"]
         Node.__init__(self, rules=[DirectionNode,ExpressionNode],limit=2)
+        if self.item is None:
+            self.item = Note.Note()
 
     def AttachDirection(self, item):
         if 2 > len(self.GetChildrenIndexes()) > 0:
@@ -249,7 +281,12 @@ class NoteNode(Node):
             self.AddChild(new_node)
 
     def toLily(self):
-        return ""
+        lilystring = ""
+        lilystring += self.item.toLily()
+        children = self.GetChildrenIndexes()
+        for child in children:
+            lilystring += self.GetChild(child).toLily()
+        return lilystring
 
 class Placeholder(NoteNode):
     pass
@@ -257,6 +294,15 @@ class Placeholder(NoteNode):
 class SelfNode(Node):
     def __init__(self):
         Node.__init__(self, rules=[type(self)],limit=1)
+
+    def toLily(self):
+        lilystring = ""
+        if self.item is not None:
+            lilystring += self.item.toLily()
+        child = self.GetChild(0)
+        if child is not None:
+            lilystring += child.toLily()
+        return lilystring
 
 class DirectionNode(SelfNode):
     pass

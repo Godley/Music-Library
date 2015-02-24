@@ -159,7 +159,7 @@ class Note(BaseClass.Base):
 
     def addNotation(self, obj):
         add = True
-        wrap_notation = [Arpeggiate,NonArpeggiate,Slide,Glissando,Mark.Caesura,Mark.BreathMark]
+        wrap_notation = [Arpeggiate,NonArpeggiate,Slide,Glissando,Mark.Caesura,Mark.BreathMark, GraceNote]
         # method to handle addition of notation: done here to avoid repetitive code in main parser
         if isinstance(obj, Ornaments.Tremolo) or isinstance(obj, Tuplet):
             if isinstance(obj, Ornaments.Tremolo):
@@ -330,6 +330,23 @@ class Note(BaseClass.Base):
 
         return val
 
+    def Search(self, cls_type, list_id=-1):
+        options = {"pre":self.prenotation,"post":self.postnotation,"wrap":self.wrap_notation}
+        if list_id in options:
+            for item in options[list_id]:
+                if type(item) == cls_type:
+                    return item
+        else:
+            for item in self.prenotation:
+                if type(item) == cls_type:
+                    return item
+            for item in self.wrap_notation:
+                if type(item) == cls_type:
+                    return item
+            for item in self.postnotation:
+                if type(item) == cls_type:
+                    return item
+
 class Tuplet(BaseClass.Base):
     def __init__(self, **kwargs):
         if "type" in kwargs:
@@ -363,13 +380,16 @@ class GraceNote(BaseClass.Base):
 
     def toLily(self):
         val = "\grace"
+        ending = ""
         if hasattr(self, "slash") and self.slash:
             val = "\slashedGrace"
         if hasattr(self, "first") and self.first:
             val += " {"
         else:
             val = ""
-        return val
+        if hasattr(self, "last") and self.last:
+            ending = " }"
+        return [val, ending]
 class TimeModifier(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
