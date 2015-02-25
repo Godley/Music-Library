@@ -131,6 +131,10 @@ class Note(BaseClass.Base):
             self.rest = kwargs["rest"]
         else:
             self.rest = False
+        if "dotted" in kwargs:
+            self.dotted = kwargs["dotted"]
+        else:
+            self.dotted = False
         if "pitch" in kwargs:
             self.pitch = kwargs["pitch"]
         if "chord" in kwargs and kwargs["chord"] is not None:
@@ -296,6 +300,7 @@ class Note(BaseClass.Base):
             val += self.handlePreLilies()
             if hasattr(self, "pitch") and not self.rest:
                 val += self.pitch.toLily()
+
             if self.rest:
                 if not hasattr(self, "MeasureRest") or not self.MeasureRest:
                     val += "r"
@@ -304,6 +309,8 @@ class Note(BaseClass.Base):
             if hasattr(self, "duration") and (not hasattr(self, "MeasureRest") or not self.MeasureRest):
                 if not hasattr(self,"chord"):
                     val += self.getLilyDuration()
+                    if self.dotted:
+                        val += "."
             val += self.handlePostLilies()
             value = self.LilyWrap(val)
         return value
@@ -323,6 +330,8 @@ class Note(BaseClass.Base):
         if hasattr(self,"chord") and self.chord == "stop":
             val += ">"
             val += self.getLilyDuration()
+            if self.dotted:
+                val += "."
         if not hasattr(self,"chord") or self.chord == "stop":
             if hasattr(self, "beams"):
                 val += "".join([self.beams[beam].toLily() for beam in self.beams])

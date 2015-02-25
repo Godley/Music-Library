@@ -148,25 +148,28 @@ class MxmlParser(object):
             previous = None
             if measure is not None:
                 children = measure.GetChildrenIndexes()
-                for index in children:
-                    note = measure.GetChild(index).GetItem()
-                    if previous is not None:
-                        if hasattr(note, "chord"):
-                            if note.chord == "continue":
-                                if not hasattr(previous, "chord"):
-                                    previous.chord = "start"
-                                    note.chord = "stop"
-                                    beams = previous.GetBeams()
-                                    if beams is not None:
-                                        note.beams = copy.deepcopy(beams)
-                                elif previous.chord == "stop":
-                                    previous.chord = "continue"
-                                    note.chord = "stop"
-                    else:
-                        if hasattr(note, "chord"):
-                            if note.chord == "continue":
-                                note.chord = "start"
-                    previous = note
+                for voice in children:
+                    vnode = measure.getVoice(voice)
+                    notes = vnode.GetChildrenIndexes()
+                    for n in notes:
+                        note = vnode.GetChild(n).GetItem()
+                        if previous is not None:
+                            if hasattr(note, "chord"):
+                                if note.chord == "continue":
+                                    if not hasattr(previous, "chord"):
+                                        previous.chord = "start"
+                                        note.chord = "stop"
+                                        beams = previous.GetBeams()
+                                        if beams is not None:
+                                            note.beams = copy.deepcopy(beams)
+                                    elif previous.chord == "stop":
+                                        previous.chord = "continue"
+                                        note.chord = "stop"
+                        else:
+                            if hasattr(note, "chord"):
+                                if note.chord == "continue":
+                                    note.chord = "start"
+                        previous = note
 
     def EndTag(self, name):
         global note, degree, frame_note, staff_id,direction,expression,last_barline,last_barline_pos, voice
