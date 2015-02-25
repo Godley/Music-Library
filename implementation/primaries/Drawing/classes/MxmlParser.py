@@ -242,6 +242,7 @@ class MxmlParser(object):
             self.UpdateMeasureBeamsChordsAndGracenotes(part_id, int(measure_id), staff_id)
             part = self.piece.getPart(part_id)
             part.CheckMeasureDivisions(int(measure_id))
+            part.CheckMeasureMeter(int(measure_id))
             staff_id = 1
             voice = 1
         if name in self.attribs:

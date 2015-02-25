@@ -51,6 +51,13 @@ class PartNode(IndexedNode):
             child = self.getStaff(staff)
             child.CheckDivisions()
 
+    def CheckTotals(self):
+        """method to calculate the maximum total lilypond value for a measure without a time signature"""
+        staves = self.GetChildrenIndexes()
+        for staff in staves:
+            child = self.getStaff(staff)
+            child.CheckTotals()
+
     def CheckMeasureDivisions(self, measure):
         divisions = None
         staves = self.GetChildrenIndexes()
@@ -60,6 +67,18 @@ class PartNode(IndexedNode):
                 divisions = measure_obj.GetItem().divisions
             elif divisions is not None:
                 measure_obj.GetItem().divisions = divisions
+
+    def CheckMeasureMeter(self, measure):
+        meter = None
+        staves = self.GetChildrenIndexes()
+        for staff in staves:
+            measure_obj = self.getMeasure(measure, staff)
+            item = measure_obj.GetItem()
+            if hasattr(item, "meter"):
+                meter = item.meter
+            else:
+                if meter is not None:
+                    item.meter = meter
 
     def setDivisions(self, measure=1,divisions=1):
         staves = self.GetChildrenIndexes()
@@ -107,6 +126,7 @@ class PartNode(IndexedNode):
 
     def toLily(self):
         self.CheckDivisions()
+        self.CheckTotals()
         staves = self.GetChildrenIndexes()
         name = ""
         if hasattr(self.item, "name"):
@@ -142,6 +162,19 @@ class PartNode(IndexedNode):
 class StaffNode(IndexedNode):
     def __init__(self):
         IndexedNode.__init__(self, rules=[MeasureNode])
+
+    def CheckTotals(self):
+        measures = self.GetChildrenIndexes()
+        total = "1"
+        for m_id in measures:
+            mNode = self.GetChild(m_id)
+            mItem = mNode.GetItem()
+            mItemTotal = mItem.GetTotalValue()
+            if mItemTotal == "":
+                mNode.value = total
+            else:
+                total = mItemTotal
+                mNode.value = mItemTotal
 
     def toLily(self):
         lilystring = "\\autoBeamOff"
@@ -359,10 +392,12 @@ class MeasureNode(IndexedNode):
         voices = self.GetChildrenIndexes()
         value = 1
         if hasattr(self, "rest"):
-            value = self.GetItem().GetTotalValue()
+            if not hasattr(self, "value"):
+                self.value = self.GetItem().GetTotalValue()
         for voice in voices:
             v_obj = self.getVoice(voice)
-            v_obj.total = value
+            if hasattr(self, "rest"):
+                v_obj.total = self.value
             lilystring += " % voice "+str(voice)+"\n"
             lilystring += v_obj.toLily()
         lilystring += wrap[1]
