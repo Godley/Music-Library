@@ -93,13 +93,16 @@ class PartNode(IndexedNode):
     def CalculateVariable(self, name, staves):
         variables = []
         for staff in staves:
-            lcase = name.lower()
-            no_spaces = lcase.replace(' ', '')
-            no_dots = no_spaces.replace('.', '')
-            first_letter = no_dots[0]
-            if first_letter in [str(i) for i in range(10)]:
-                first_letter = Part.NumbersToWords(int(first_letter))
-            variable = first_letter + no_dots[1:len(no_dots)] + "staff"+Part.NumbersToWords(staff)
+            variable = ""
+            if len(name) > 0:
+                lcase = name.lower()
+                no_spaces = lcase.replace(' ', '')
+                no_dots = no_spaces.replace('.', '')
+                first_letter = no_dots[0]
+                if first_letter in [str(i) for i in range(10)]:
+                    first_letter = Part.NumbersToWords(int(first_letter))
+                variable = first_letter + no_dots[1:len(no_dots)]
+            variable += "staff"+Part.NumbersToWords(staff)
             variables.append(variable)
         return variables
 
