@@ -1,5 +1,10 @@
-from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
-from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
+
+try:
+    from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
+    from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
+except:
+    from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
+    from classes import Measure, Note, Part, Piece, Directions
 class PieceTree(Tree):
     def __init__(self):
         Tree.__init__(self)
@@ -116,10 +121,12 @@ class PartNode(IndexedNode):
                 lcase = name.lower()
                 no_spaces = lcase.replace(' ', '')
                 no_dots = no_spaces.replace('.', '')
-                first_letter = no_dots[0]
-                if first_letter in [str(i) for i in range(10)]:
-                    first_letter = Part.NumbersToWords(int(first_letter))
-                variable = first_letter + no_dots[1:len(no_dots)]
+                variable = ""
+                for letter in no_dots:
+                    if letter in [str(i) for i in range(10)]:
+                        variable += Part.NumbersToWords(int(letter))
+                    else:
+                        variable += letter
             variable += "staff"+Part.NumbersToWords(staff)
             variables.append(variable)
         return variables

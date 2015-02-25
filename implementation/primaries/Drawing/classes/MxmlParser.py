@@ -3,6 +3,7 @@ from xml.sax import make_parser, handler
 import copy
 try:
     from classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
+    from classes.tree_cls import PieceTree, BaseTree
 except:
     from implementation.primaries.Drawing.classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
     from implementation.primaries.Drawing.classes.tree_cls import PieceTree, BaseTree

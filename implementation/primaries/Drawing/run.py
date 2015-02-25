@@ -1,9 +1,10 @@
-import os
+
 try:
     from classes import MxmlParser, LilypondRender
 except:
     from implementation.primaries.Drawing.classes import MxmlParser, LilypondRender
 import os, sys
+
 
 testcases = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases'
 file = os.path.join(testcases, sys.argv[1])
