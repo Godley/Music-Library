@@ -238,48 +238,62 @@ class MeasureNode(IndexedNode):
             voice_obj.AddChild(item)
             [voice_obj.AddChild(p) for p in popped]
 
-    def addNote(self, item, voice=1, increment=1):
+    def addNote(self, item, voice=1, increment=1, chord=False):
+        # get the appropriate voice
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
+
+        # set up a basic duration: this val will only be used for a placeholder
         duration = 0
         if type(item) is not NoteNode and type(item) is not Placeholder:
+            # wrap the item in a node if it isn't wrapped already
             if hasattr(item, "duration"):
                 duration = item.duration
             node = NoteNode(duration=duration)
             node.SetItem(item)
         else:
             node = item
-        placeholder = voice_obj.GetChild(self.index)
-        if type(placeholder) is Placeholder and type(node) is not Placeholder:
-            if placeholder.duration == 0:
-                voice_obj.ReplaceChild(self.index, node)
-                if type(node) is not Placeholder:
-                    self.index += 1
-
-        elif placeholder is None:
-            voice_obj.AddChild(node)
-            if type(node) is not Placeholder:
-                self.index += 1
-        else:
-            proposed_node = voice_obj.GetChild(self.index)
-            new_duration = voice_obj.GetChild(self.index).duration
-            if proposed_node.GetItem() is None:
-                if hasattr(item, "duration"):
-                    new_duration = item.duration
-                if new_duration == proposed_node.duration:
-                    node.SetItem(node.GetItem())
+        if not chord:
+            #get whatever is at the current index
+            placeholder = voice_obj.GetChild(self.index)
+            if type(placeholder) is Placeholder and type(node) is not Placeholder:
+                # if it's an empty placeholder, replace it with a note
+                if placeholder.duration == 0:
                     voice_obj.ReplaceChild(self.index, node)
-                elif new_duration > proposed_node.duration:
-                    proposed_node.SetItem(node.GetItem())
-                    proposed_node.duration = new_duration
-                elif new_duration < proposed_node.duration:
-                    proposed_node.duration -= new_duration
-                    voice_obj.AddChild(node)
                     if type(node) is not Placeholder:
                         self.index += 1
+
+            # nothing there? add our note
+            elif placeholder is None:
+                voice_obj.AddChild(node)
+                if type(node) is not Placeholder:
+                    self.index += 1
             else:
-                self.PositionChild(node, self.index, voice=voice)
+                proposed_node = voice_obj.GetChild(self.index)
+                new_duration = voice_obj.GetChild(self.index).duration
+                if proposed_node.GetItem() is None:
+                    if hasattr(item, "duration"):
+                        new_duration = item.duration
+                    if new_duration == proposed_node.duration:
+                        node.SetItem(node.GetItem())
+                        voice_obj.ReplaceChild(self.index, node)
+                    elif new_duration > proposed_node.duration:
+                        proposed_node.SetItem(node.GetItem())
+                        proposed_node.duration = new_duration
+                    elif new_duration < proposed_node.duration:
+                        proposed_node.duration -= new_duration
+                        voice_obj.AddChild(node)
+                        if type(node) is not Placeholder:
+                            self.index += 1
+                else:
+                    self.PositionChild(node, self.index, voice=voice)
+
+        else:
+            #get whatever is at the current index
+            placeholder = voice_obj.GetChild(self.index-1)
+            if placeholder is not None:
+                placeholder.AttachNote(node)
 
 
 
@@ -326,7 +340,11 @@ class MeasureNode(IndexedNode):
         direction_obj = ExpressionNode()
         direction_obj.SetItem(item)
         voice_obj = self.getVoice(voice)
-        note_obj = voice_obj.GetChild(self.index)
+        if self.index == 0:
+            finder = 0
+        else:
+            finder = self.index-1
+        note_obj = voice_obj.GetChild(finder)
         if type(note_obj) is NoteNode or type(note_obj) is Placeholder:
             note_obj.AttachExpression(direction_obj)
         else:
@@ -390,7 +408,7 @@ class NoteNode(Node):
     def __init__(self, **kwargs):
         if "duration" in kwargs:
             self.duration = kwargs["duration"]
-        Node.__init__(self, rules=[DirectionNode,ExpressionNode],limit=2)
+        Node.__init__(self, rules=[DirectionNode,ExpressionNode,NoteNode],limit=3)
         if self.item is None:
             self.item = Note.Note()
 
@@ -429,6 +447,17 @@ class NoteNode(Node):
         else:
             self.AddChild(new_node)
 
+
+    def AttachNote(self, new_note):
+        if len(self.children) > 0:
+            firstchild = self.GetChild(0)
+            if type(firstchild) is NoteNode:
+                firstchild.AttachNote(new_note)
+            else:
+                self.PositionChild(0, new_note)
+        else:
+            self.AddChild(new_note)
+
     def toLily(self):
         lilystring = ""
         if self.item is not None:
@@ -437,6 +466,19 @@ class NoteNode(Node):
         for child in children:
             lilystring += self.GetChild(child).toLily()
         return lilystring
+
+    def PositionChild(self, key, node):
+        children = self.GetChildrenIndexes()
+        if key in children:
+            start = key
+            end = children[len(children)-1]
+            popped = []
+            for index in range(start, end+1):
+                child = self.PopChild(index)
+                popped.append(child)
+            self.AddChild(node)
+            [self.AddChild(pop) for pop in popped]
+
 
 class Placeholder(NoteNode):
     def __init__(self, **kwargs):

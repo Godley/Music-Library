@@ -121,3 +121,21 @@ class testAddToMeasure(unittest.TestCase):
         self.measure.addDirection(dir)
         voice = self.measure.getVoice(1)
         self.assertEqual(voice.GetChild(1).GetChild(0).GetItem(), dir)
+
+    def testAddChordNote(self):
+        note = 2
+        note1 = 3
+        self.measure.addNote(note)
+        self.measure.addNote(note1, chord=True)
+        voice = self.measure.getVoice(1)
+        self.assertEqual(voice.GetChild(0).GetChild(0).GetItem(), 3)
+
+    def testAddExpressionThenChordNote(self):
+        note = 2
+        note1 = 3
+        exp = 0
+        self.measure.addNote(note)
+        self.measure.addExpression(exp)
+        self.measure.addNote(note1, chord=True)
+        voice = self.measure.getVoice(1)
+        self.assertEqual(voice.GetChild(0).GetChild(0).GetItem(), 3)
