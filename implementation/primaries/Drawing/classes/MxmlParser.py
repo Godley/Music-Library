@@ -20,6 +20,7 @@ frame_note = None
 last_note = 0
 #indicates current staff being loaded
 staff_id = 1
+voice = 1
 
 # indicators of where we last found a repeat barline, and which staff, measure and part it was found in. Needed because we may
 # have to modify it depending on what comes next
@@ -119,25 +120,23 @@ class MxmlParser(object):
                 self.chars[self.tags[-1]] = text
 
     def CopyNote(self, part, measure_id, new_note):
-        global last_note
+        global voice
         # handles copying the latest note into the measure note list.
         # done at end of note loading to make sure staff_id is right as staff id could be encountered
         # any point during the note tag
         if part.getMeasure(int(measure_id), staff_id) is None:
             part.addEmptyMeasure(int(measure_id), staff_id)
         measure = part.getMeasure(int(measure_id), staff_id)
-        children = measure.GetChildrenIndexes()
+        voice_obj = measure.getVoice(voice)
         add = True
-        for i in children:
-            voice = measure.GetChild(i)
-            notes = voice.GetChildrenIndexes()
-            for n in notes:
-                no = voice.GetChild(n)
-                if new_note == no:
-                    add = False
-                    break
+        notes = voice_obj.GetChildrenIndexes()
+        for n in notes:
+            no = voice_obj.GetChild(n)
+            if new_note == no:
+                add = False
+                break
         if add:
-            measure.addNote(new_note)
+            measure.addNote(new_note, voice)
 
     def UpdateMeasureBeamsChordsAndGracenotes(self, part_id, measure_id, staff):
         # handles updating all notes beams, chords, and gracenotes - done because of the various
@@ -170,7 +169,7 @@ class MxmlParser(object):
                     previous = note
 
     def EndTag(self, name):
-        global note, degree, frame_note, staff_id, last_note, last_fwd_repeat, notes, direction,expression,expressions, items, last_barline,last_barline_pos
+        global note, degree, frame_note, staff_id,direction,expression,last_barline,last_barline_pos, voice
         if self.handler is not None and not self.d:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -188,6 +187,7 @@ class MxmlParser(object):
         if name in self.tags:
             self.tags.remove(name)
         if name == "direction":
+            voice = 1
             if direction is not None:
                 measure_id = int(GetID(self.attribs, "measure", "number"))
                 part_id = GetID(self.attribs, "part", "id")
@@ -196,7 +196,7 @@ class MxmlParser(object):
                     if part.getMeasure(measure_id, staff_id) is None:
                         part.addEmptyMeasure(measure_id, staff_id)
                     measure = part.getMeasure(measure_id, staff_id)
-                    measure.addDirection(copy.deepcopy(direction))
+                    measure.addDirection(copy.deepcopy(direction), voice)
                 direction = None
             if expression is not None:
                 measure_id = int(GetID(self.attribs, "measure", "number"))
@@ -206,7 +206,7 @@ class MxmlParser(object):
                     if part.getMeasure(measure_id, staff_id) is None:
                         part.addEmptyMeasure(measure_id, staff_id)
                     measure = part.getMeasure(measure_id, staff_id)
-                    measure.addExpression(copy.deepcopy(expression))
+                    measure.addExpression(copy.deepcopy(expression), voice)
                 expression = None
         if name == "barline":
             measure_id = GetID(self.attribs, "measure", "number")
@@ -229,7 +229,6 @@ class MxmlParser(object):
         if name == "measure":
             part_id = GetID(self.attribs, "part", "id")
             measure_id = GetID(self.attribs, "measure", "number")
-            last_note = 0
             self.UpdateMeasureBeamsChordsAndGracenotes(part_id, int(measure_id), staff_id)
         if name in self.attribs:
             self.attribs.pop(name)
@@ -245,6 +244,7 @@ class MxmlParser(object):
                 if part is not None:
                     self.CopyNote(part, measure_id, copy.deepcopy(note))
             note = None
+            voice = 1
         if name == "degree":
             degree = None
         if name == "frame-note":
@@ -801,7 +801,7 @@ def CheckID(tag, attrs, string, id_name):
 
 
 def CreateNote(tag, attrs, content, piece):
-    global note, item_list, staff_id, notes, last_note
+    global note, staff_id, voice
     ret_value = None
 
     if len(tag) > 0 and "note" in tag:
@@ -843,7 +843,8 @@ def CreateNote(tag, attrs, content, piece):
             note.chord = "continue"
         if tag[-1] == "stem":
             note.stem = Note.Stem(content["stem"])
-
+        if tag[-1] == "voice":
+            voice = int(content["voice"])
 
         if tag[-1] == "beam":
             type = ""
@@ -1016,7 +1017,8 @@ def HandleDirections(tags, attrs, chars, piece):
                 if "font-family" in attrs["words"]:
                     font = attrs["words"]["font-family"]
             direction = Directions.Direction(font=font,text=text,size=size,placement=placement)
-
+        if tags[-1] == "voice":
+            voice = int(chars["voice"])
         if tags[-1] == "rehearsal":
             return_val = 1
 
@@ -1126,6 +1128,8 @@ def HandleDirections(tags, attrs, chars, piece):
 def HandleRepeatMarking(tags, attrs, chars, piece):
     global staff_id, last_note, direction
     if "direction" in tags or "forward" in tags:
+        if tags[-1] == "voice":
+            voice = int(chars["voice"])
         measure = None
         part_id = GetID(attrs, "part", "id")
         measure_id = GetID(attrs, "measure", "number")

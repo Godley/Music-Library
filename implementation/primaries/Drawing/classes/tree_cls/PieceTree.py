@@ -55,7 +55,7 @@ class PartNode(IndexedNode):
         staff_obj = self.GetChild(staff)
         measure_obj = None
         if staff_obj is not None:
-            measure_obj = FindByIndex(staff_obj, measure)
+            measure_obj = staff_obj.GetChild(measure)
         return measure_obj
 
     def getStaff(self, key):
@@ -204,6 +204,8 @@ class MeasureNode(IndexedNode):
         self.AddChild(item, id)
 
     def getVoice(self, key):
+        if key not in self.children:
+            self.AddChild(VoiceNode(), key)
         return self.GetChild(key)
 
     def PositionChild(self, item, key, voice=1):
@@ -211,10 +213,12 @@ class MeasureNode(IndexedNode):
         children = voice_obj.GetChildrenIndexes()
         if key in children:
             start_index = key
-            end_index = children[-1]
+            end_index = len(children)
             popped = []
-            for index in range(start_index, end_index+1):
-                popped.append(voice_obj.PopChild(index))
+            for index in range(start_index, end_index):
+                child = voice_obj.PopChild(index)
+                if child is not None:
+                    popped.append(child)
             voice_obj.AddChild(item)
             [voice_obj.AddChild(p) for p in popped]
 
@@ -340,9 +344,6 @@ class VoiceNode(Node):
             item = note.GetItem()
             if item is not None:
                 if len(children) == child+1:
-                    if hasattr(item, "chord"):
-                        if item.chord != "stop":
-                            item.chord = "stop"
                     result = item.Search(Note.GraceNote)
                     if result is not None:
                         if not hasattr(result, "last") or not result.last:
@@ -351,11 +352,6 @@ class VoiceNode(Node):
                     next = self.GetChild(children[child+1])
                     next_item = next.GetItem()
                     if next_item is not None:
-                        if hasattr(item, "chord"):
-                            if not hasattr(next_item, "chord"):
-                                item.chord = "stop"
-                            else:
-                                item.chord = "start"
                         result = item.Search(Note.GraceNote)
                         next_result = next_item.Search(Note.GraceNote)
                         if result is not None:

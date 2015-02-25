@@ -151,7 +151,8 @@ class Node(object):
         self.children.append(item)
 
     def PopChild(self, key):
-        return self.children.pop(key)
+        if key < len(self.children):
+            return self.children.pop(key)
 
     def AddRule(self, rule):
         self.rules.append(rule)
