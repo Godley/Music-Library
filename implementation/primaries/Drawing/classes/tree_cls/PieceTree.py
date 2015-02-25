@@ -24,7 +24,7 @@ class PieceTree(Tree):
         self.item = i
 
     def toLily(self):
-        lilystring = "\\version \"2.18.2\" \n"
+        lilystring = ""
         children = self.root.GetChildrenIndexes()
         partstrings = []
         for child in children:
@@ -296,7 +296,6 @@ class MeasureNode(IndexedNode):
                 placeholder.AttachNote(node)
 
 
-
     def addPlaceholder(self, duration=0, voice=1):
         holder = Placeholder(duration=duration)
         if self.getVoice(voice) is None:
@@ -358,8 +357,12 @@ class MeasureNode(IndexedNode):
         wrap = self.item.toLily()
         lilystring += wrap[0]
         voices = self.GetChildrenIndexes()
+        value = 1
+        if hasattr(self, "rest"):
+            value = self.GetItem().GetTotalValue()
         for voice in voices:
             v_obj = self.getVoice(voice)
+            v_obj.total = value
             lilystring += " % voice "+str(voice)+"\n"
             lilystring += v_obj.toLily()
         lilystring += wrap[1]
@@ -395,7 +398,10 @@ class VoiceNode(Node):
                             else:
                                 result.last = False
                                 next_result.first = False
-            lilystring += note.toLily() + " "
+            if hasattr(self, "rest") and hasattr(self, "total"):
+                lilystring += "R"+self.total
+            else:
+                lilystring += note.toLily() + " "
 
         lilystring += "}"
         return lilystring

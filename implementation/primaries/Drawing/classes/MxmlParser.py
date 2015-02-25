@@ -139,7 +139,11 @@ class MxmlParser(object):
             chord = False
             if hasattr(new_note, "chord"):
                 chord = new_note.chord
+
             measure.addNote(new_note, voice, chord=chord)
+            if hasattr(new_note, "MeasureRest") and new_note.MeasureRest:
+                measure.rest = True
+                voice_obj.rest = True
 
     def UpdateMeasureBeamsChordsAndGracenotes(self, part_id, measure_id, staff):
         # handles updating all notes beams, chords, and gracenotes - done because of the various
@@ -385,8 +389,6 @@ def SetupPiece(tag, attrib, content, piece):
                         if not hasattr(piece.GetItem().meta, "pageNum"):
                             piece.GetItem().meta.pageNum = True
                     handleType = ""
-
-
     return return_val
 
 
@@ -554,7 +556,7 @@ def HandleMeasures(tag, attrib, content, piece):
             else:
                 measure.meter = Meter.Meter(beats=int(content["beats"]))
             return_val = 1
-        if tag[-1] == "beat-type" and "meter" in tag:
+        if tag[-1] == "beat-type" and ("time" in tag or "meter" in tag):
             if hasattr(measure, "meter"):
                 measure.meter.type= int(content["beat-type"])
             else:

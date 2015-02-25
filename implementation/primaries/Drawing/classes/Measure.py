@@ -82,6 +82,25 @@ class Measure(BaseClass.Base):
         end = self.HandleClosingAttributes()
         return [start, end]
 
+    def GetTotalValue(self):
+        """Gets the total value of the bar according to it's time signature"""
+        value = ""
+        if hasattr(self, "meter"):
+            top_value = self.meter.beats
+            bottom = self.meter.type
+            fraction = top_value/bottom
+            if fraction == 1:
+                value = "1"
+            else:
+                if fraction > 1:
+                    value = "1."
+                if fraction < 1:
+                    if fraction >= 0.5:
+                        fraction -= 0.5
+                        value = "2"
+                        if fraction == 0.25:
+                            value += "."
+        return value
 
 
 class Barline(BaseClass.Base):

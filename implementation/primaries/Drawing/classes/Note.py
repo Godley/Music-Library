@@ -304,8 +304,6 @@ class Note(BaseClass.Base):
             if self.rest:
                 if not hasattr(self, "MeasureRest") or not self.MeasureRest:
                     val += "r"
-                else:
-                    val += "R1"
             if hasattr(self, "duration") and (not hasattr(self, "MeasureRest") or not self.MeasureRest):
                 if not hasattr(self,"chord"):
                     val += self.getLilyDuration()
