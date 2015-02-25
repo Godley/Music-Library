@@ -60,8 +60,15 @@ class testCreateNoteHandler(notes):
     def testRestTag(self):
         self.tags.append("rest")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note, "rest"), "ERROR: note should have rest attrib")
-        self.assertEqual(True, MxmlParser.note.rest, "ERROR: rest tag should make note's rest value true in testRestTag")
+        self.assertTrue(hasattr(MxmlParser.note, "rest"))
+        self.assertEqual(True, MxmlParser.note.rest)
+
+    def testRestMeasure(self):
+        self.tags.append("rest")
+        self.attrs["rest"] = {"measure":"yes"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.note, "MeasureRest"))
+        self.assertEqual(True, MxmlParser.note.MeasureRest)
 
     def testCueTag(self):
         self.tags.append("cue")

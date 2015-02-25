@@ -297,8 +297,11 @@ class Note(BaseClass.Base):
             if hasattr(self, "pitch") and not self.rest:
                 val += self.pitch.toLily()
             if self.rest:
-                val += "r"
-            if hasattr(self, "duration"):
+                if not hasattr(self, "MeasureRest") or not self.MeasureRest:
+                    val += "r"
+                else:
+                    val += "R1"
+            if hasattr(self, "duration") and (not hasattr(self, "MeasureRest") or not self.MeasureRest):
                 if not hasattr(self,"chord"):
                     val += self.getLilyDuration()
             val += self.handlePostLilies()

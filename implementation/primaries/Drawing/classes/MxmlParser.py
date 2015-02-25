@@ -819,6 +819,10 @@ def CreateNote(tag, attrs, content, piece):
                 result = YesNoToBool(attrs["note"]["print-object"])
                 note.print = result
         if "rest" in tag:
+            measure = GetID(attrs, "rest", "measure")
+            if measure is not None:
+                value = YesNoToBool(measure)
+                note.MeasureRest = value
             note.rest = True
         if "cue" in tag:
             note.cue = True
