@@ -230,6 +230,8 @@ class MxmlParser(object):
             part_id = GetID(self.attribs, "part", "id")
             measure_id = GetID(self.attribs, "measure", "number")
             self.UpdateMeasureBeamsChordsAndGracenotes(part_id, int(measure_id), staff_id)
+            part = self.piece.getPart(part_id)
+            part.CheckMeasureDivisions(int(measure_id))
         if name in self.attribs:
             self.attribs.pop(name)
         if name in self.chars:
@@ -524,7 +526,6 @@ def HandleMeasures(tag, attrib, content, piece):
                 measure = measure.GetItem()
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
-            return_val = 1
         if tag[-1] == "mode" and "key" in tag and measure is not None:
             if hasattr(measure, "key"):
                 measure.key.mode = content["mode"]

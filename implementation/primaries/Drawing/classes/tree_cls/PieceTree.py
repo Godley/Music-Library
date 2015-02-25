@@ -51,6 +51,22 @@ class PartNode(IndexedNode):
             child = self.getStaff(staff)
             child.CheckDivisions()
 
+    def CheckMeasureDivisions(self, measure):
+        divisions = None
+        staves = self.GetChildrenIndexes()
+        for staff in staves:
+            measure_obj = self.getMeasure(measure, staff)
+            if hasattr(measure_obj.GetItem(), "divisions"):
+                divisions = measure_obj.GetItem().divisions
+            elif divisions is not None:
+                measure_obj.GetItem().divisions = divisions
+
+    def setDivisions(self, measure=1,divisions=1):
+        staves = self.GetChildrenIndexes()
+        for staff in staves:
+            measure_obj = self.getMeasure(measure, staff)
+            measure_obj.GetItem().divisions = divisions
+
     def getMeasure(self, measure=1, staff=1):
         staff_obj = self.GetChild(staff)
         measure_obj = None
