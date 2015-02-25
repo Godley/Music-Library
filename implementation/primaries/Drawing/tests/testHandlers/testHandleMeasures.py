@@ -17,6 +17,9 @@ class MeasureTesting(unittest.TestCase):
         MxmlParser.note = None
         MxmlParser.expression = None
 
+    def tearDown(self):
+        self.piece = None
+
 
 
 class testHandleMeasures(MeasureTesting):
@@ -430,6 +433,7 @@ class testBarline(MeasureTesting):
         self.measure = self.part.getMeasure(1,1).GetItem()
         self.handler = MxmlParser.handleBarline
         self.tags.append("barline")
+        MxmlParser.staff_id = 1
         MxmlParser.last_barline = None
 
     def testBarline(self):

@@ -326,33 +326,34 @@ class VoiceNode(Node):
         children = self.GetChildrenIndexes()
         for child in range(len(children)):
             note = self.GetChild(children[child])
-            if len(children) == child+1:
-                item = note.GetItem()
-                if hasattr(item, "chord"):
-                    if item.chord != "stop":
-                        item.chord = "stop"
-                result = item.Search(Note.GraceNote)
-                if result is not None:
-                    if not hasattr(result, "last") or not result.last:
-                        result.last = True
-            else:
-                item = note.GetItem()
-                next = self.GetChild(children[child+1])
-                next_item = next.GetItem()
-                if hasattr(item, "chord"):
-                    if not hasattr(next_item, "chord"):
-                        item.chord = "stop"
-                    else:
-                        item.chord = "start"
-                result = item.Search(Note.GraceNote)
-                next_result = next_item.Search(Note.GraceNote)
-                if result is not None:
-                    if next_result is None:
+            item = note.GetItem()
+            if item is not None:
+                if len(children) == child+1:
+                    if hasattr(item, "chord"):
+                        if item.chord != "stop":
+                            item.chord = "stop"
+                    result = item.Search(Note.GraceNote)
+                    if result is not None:
                         if not hasattr(result, "last") or not result.last:
                             result.last = True
-                    else:
-                        result.last = False
-                        next_result.first = False
+                else:
+                    next = self.GetChild(children[child+1])
+                    next_item = next.GetItem()
+                    if next_item is not None:
+                        if hasattr(item, "chord"):
+                            if not hasattr(next_item, "chord"):
+                                item.chord = "stop"
+                            else:
+                                item.chord = "start"
+                        result = item.Search(Note.GraceNote)
+                        next_result = next_item.Search(Note.GraceNote)
+                        if result is not None:
+                            if next_result is None:
+                                if not hasattr(result, "last") or not result.last:
+                                    result.last = True
+                            else:
+                                result.last = False
+                                next_result.first = False
             lilystring += note.toLily() + " "
 
         lilystring += "}"
@@ -407,7 +408,8 @@ class NoteNode(Node):
 
     def toLily(self):
         lilystring = ""
-        lilystring += self.item.toLily()
+        if self.item is not None:
+            lilystring += self.item.toLily()
         children = self.GetChildrenIndexes()
         for child in children:
             lilystring += self.GetChild(child).toLily()

@@ -2,6 +2,7 @@ from implementation.primaries.Drawing.classes import MxmlParser, Measure, Part, 
 from implementation.primaries.Drawing.tests.testHandlers import testclass
 
 
+
 class testHandleDirections(testclass.TestClass):
     def setUp(self):
         testclass.TestClass.setUp(self)
@@ -13,6 +14,7 @@ class testHandleDirections(testclass.TestClass):
         self.attrs["measure"] = {"number": "1"}
         self.attrs["part"] = {"id": "P1"}
         MxmlParser.direction = None
+        MxmlParser.staff_id = 1
 
 
     def testNoTags(self):
