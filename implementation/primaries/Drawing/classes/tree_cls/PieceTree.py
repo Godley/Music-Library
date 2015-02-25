@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
-from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece
+from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
 class PieceTree(Tree):
     def __init__(self):
         Tree.__init__(self)
@@ -47,26 +47,9 @@ class PartNode(IndexedNode):
 
     def CheckDivisions(self):
         staves = self.GetChildrenIndexes()
-        divisions = 1
         for staff in staves:
             child = self.getStaff(staff)
-            measures = child.GetChildrenIndexes()
-            for m_id in measures:
-                measure = child.GetChild(m_id)
-                item = measure.GetItem()
-                if hasattr(item, "divisions"):
-                    divisions = item.divisions
-                else:
-                    item.divisions = divisions
-                voices = measure.GetChildrenIndexes()
-                for voice in voices:
-                    v = measure.GetChild(voice)
-                    notes = v.GetChildrenIndexes()
-                    for note in notes:
-                        noteNode = v.GetChild(note)
-                        note_item = noteNode.GetItem()
-                        if not hasattr(note_item, "divisions"):
-                            note_item.divisions = item.divisions
+            child.CheckDivisions()
 
     def getMeasure(self, measure=1, staff=1):
         staff_obj = self.GetChild(staff)
@@ -164,12 +147,36 @@ class StaffNode(IndexedNode):
 
         return lilystring
 
+    def CheckDivisions(self):
+        children = self.GetChildrenIndexes()
+        divisions = 1
+        for child in children:
+            measure = self.GetChild(child)
+            item = measure.GetItem()
+            if hasattr(item, "divisions"):
+                divisions = item.divisions
+            else:
+                item.divisions = divisions
+            measure.CheckDivisions()
+
 class MeasureNode(IndexedNode):
     def __init__(self):
         IndexedNode.__init__(self, rules=[VoiceNode])
         self.index = 0
         if self.item is None:
             self.item = Measure.Measure()
+
+    def CheckDivisions(self):
+        children = self.GetChildrenIndexes()
+        divisions = self.item.divisions
+        for child in children:
+            voice = self.GetChild(child)
+            indexes = voice.GetChildrenIndexes()
+            for i in indexes:
+                note = voice.GetChild(i)
+                item = note.GetItem()
+                if item is not None:
+                    item.divisions = divisions
 
     def Forward(self, duration=0):
         for voice in self.GetChildrenIndexes():
@@ -270,6 +277,10 @@ class MeasureNode(IndexedNode):
 
 
     def addDirection(self, item, voice=1):
+        wrappers = [Directions.Bracket]
+        if type(item) in wrappers:
+            self.item.addWrapper(item)
+            return
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         direction_obj = DirectionNode()
@@ -427,6 +438,8 @@ class SelfNode(Node):
     def toLily(self):
         lilystring = ""
         if self.item is not None:
+            if type(self.item.toLily()) is list:
+                print(self.item)
             lilystring += self.item.toLily()
         child = self.GetChild(0)
         if child is not None:

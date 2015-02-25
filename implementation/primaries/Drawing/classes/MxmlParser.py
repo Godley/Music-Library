@@ -438,7 +438,6 @@ def handleArticulation(tag, attrs, content, piece):
 
 def HandleMovementBetweenDurations(tags, attrs, chars, piece):
     global staff_id, last_note
-    print("hello")
     measure_id = GetID(attrs, "measure","number")
 
     part_id = GetID(attrs, "part","id")

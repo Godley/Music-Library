@@ -8,12 +8,7 @@ class Measure(BaseClass.Base):
         BaseClass.Base.__init__(self)
         if "width" in kwargs:
             self.width = float(kwargs["width"])
-        self.items = {}
-        self.preitems = {}
-        self.expressions = {}
-        self.notes = []
-        self.forwards = {}
-        self.octaveShift = {}
+        self.items = []
 
 
     def GetBarline(self, side):
@@ -54,6 +49,10 @@ class Measure(BaseClass.Base):
         ret_str = BaseClass.Base.__str__(self)
         return ret_str
 
+    def addWrapper(self, item):
+        # method to add any notation that needs to wrap the whole bar
+        self.items.append(item)
+
     def HandleAttributes(self):
         lilystring = ""
         if hasattr(self, "clef") and self.clef is not None:
@@ -63,13 +62,16 @@ class Measure(BaseClass.Base):
         if hasattr(self, "barlines"):
             if "left" in self.barlines:
                 lilystring += self.GetBarline("left").toLily()
+        lilystring += "".join([item.toLily()[0] for item in self.items])
         return lilystring
 
     def HandleClosingAttributes(self):
         lstring = ""
+        lstring += "".join([item.toLily()[0] for item in self.items])
         if self.GetBarline("right") is not None:
             bline = self.GetBarline("right").toLily()
             lstring += bline
+
         return lstring
 
     def toLily(self):
