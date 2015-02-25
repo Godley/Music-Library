@@ -9,7 +9,7 @@ class Meter(object):
         return str(self.beats) + "/" + str(self.type)
 
     def toLily(self):
-        val = "\time"
+        val = "\\time"
         if hasattr(self, "beats"):
             val += " " + str(self.beats)
             if hasattr(self, "type"):

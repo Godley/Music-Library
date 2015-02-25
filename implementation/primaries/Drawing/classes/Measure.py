@@ -59,9 +59,12 @@ class Measure(BaseClass.Base):
             lilystring += self.clef.toLily() + " "
         if hasattr(self, "key") and self.key is not None:
             lilystring += self.key.toLily() + " "
+        if hasattr(self, "meter"):
+            lilystring += self.meter.toLily() + " "
         if hasattr(self, "barlines"):
             if "left" in self.barlines:
                 lilystring += self.GetBarline("left").toLily()
+
         lilystring += "".join([item.toLily()[0] for item in self.items])
         return lilystring
 

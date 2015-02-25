@@ -542,7 +542,7 @@ def HandleMeasures(tag, attrib, content, piece):
                 measure.key = Key.Key(fifths=int(content["fifths"]))
             return_val = 1
 
-        if tag[-1] == "beats" and "meter" in tag:
+        if tag[-1] == "beats" and ("time" in tag or "meter" in tag):
             if hasattr(measure, "meter"):
                 measure.meter.beats = int(content["beats"])
             else:
