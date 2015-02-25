@@ -10,9 +10,9 @@ class testPartMeasureWithNote(Lily):
         note = Note.Note()
         note.pitch = Note.Pitch()
         measure.addNote(note)
-        self.lilystring = ["Sone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", '\\Sone']
+        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", '\\staffone']
 
-class testPartMultiStavesWithName(Lily):
+class testPartMultistafftavesWithName(Lily):
     def setUp(self):
         self.item = PartNode()
         self.item.GetItem().name = "Piano"
@@ -26,9 +26,9 @@ class testPartMultiStavesWithName(Lily):
         note2 = Note.Note()
         note2.pitch = Note.Pitch()
         measure2.addNote(note2)
-        self.lilystring = ["pianoSone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\npianoStwo = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", "\\new StaffGroup \\with {\ninstrumentName = #\"Piano \"\n }<<\pianoSone\n\pianoStwo>>"]
+        self.lilystring = ["pianostaffone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\npianostafftwo = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", "\\new StaffGroup \\with {\ninstrumentName = #\"Piano \"\n }<<\pianostaffone\n\pianostafftwo>>"]
 
-class testPartMultiStaves(Lily):
+class testPartMultistafftaves(Lily):
     def setUp(self):
         self.item = PartNode()
         self.item.addEmptyMeasure(1,1)
@@ -41,7 +41,7 @@ class testPartMultiStaves(Lily):
         note2.pitch = Note.Pitch()
         measure1.addNote(note1)
         measure2.addNote(note2)
-        self.lilystring = ["Sone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\nStwo = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", "\\new StaffGroup <<\Sone\n\Stwo>>"]
+        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\nstafftwo = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", "\\new StaffGroup <<\staffone\n\stafftwo>>"]
 
 class testPartMultiBars(Lily):
     def setUp(self):
@@ -56,9 +56,9 @@ class testPartMultiBars(Lily):
         note2.pitch = Note.Pitch()
         measure.addNote(note)
         measure2.addNote(note2)
-        self.lilystring = ["Sone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n % measure 2\n % voice 1\n{ c' } | \n\n }\n\n","\\Sone"]
+        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n % measure 2\n % voice 1\n{ c' } | \n\n }\n\n","\\staffone"]
 
-class testPartMultiBarsStaves(Lily):
+class testPartMultiBarsstafftaves(Lily):
     def setUp(self):
         self.item = PartNode()
         self.item.addEmptyMeasure(1,1)
@@ -76,11 +76,11 @@ class testPartMultiBarsStaves(Lily):
         note3 = Note.Note()
         note3.pitch = Note.Pitch()
         measure3.addNote(note3)
-        self.lilystring = ["Sone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n % measure 2\n % voice 1\n{ c' } | \n\n }\n\nStwo = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", "\\new StaffGroup <<\\Sone\n\\Stwo>>"]
+        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n % measure 2\n % voice 1\n{ c' } | \n\n }\n\nstafftwo = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", "\\new StaffGroup <<\\staffone\n\\stafftwo>>"]
 
 class testPartWithName(Lily):
     def setUp(self):
         self.item = PartNode()
         self.item.addEmptyMeasure(1,1)
         self.item.GetItem().name = "charlotte"
-        self.lilystring = ["charlotteSone = \\new Staff \with {\ninstrumentName = #\"charlotte \"\n }{\\autoBeamOff % measure 1\n | \n\n }\n\n", "\charlotteSone"]
+        self.lilystring = ["charlottestaffone = \\new Staff \with {\ninstrumentName = #\"charlotte \"\n }{\\autoBeamOff % measure 1\n | \n\n }\n\n", "\charlottestaffone"]
