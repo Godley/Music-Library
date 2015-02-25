@@ -136,7 +136,10 @@ class MxmlParser(object):
                 add = False
                 break
         if add:
-            measure.addNote(new_note, voice)
+            chord = False
+            if hasattr(new_note, "chord"):
+                chord = new_note.chord
+            measure.addNote(new_note, voice, chord=chord)
 
     def UpdateMeasureBeamsChordsAndGracenotes(self, part_id, measure_id, staff):
         # handles updating all notes beams, chords, and gracenotes - done because of the various
@@ -153,22 +156,22 @@ class MxmlParser(object):
                     notes = vnode.GetChildrenIndexes()
                     for n in notes:
                         note = vnode.GetChild(n).GetItem()
-                        if previous is not None:
-                            if hasattr(note, "chord"):
-                                if note.chord == "continue":
-                                    if not hasattr(previous, "chord"):
-                                        previous.chord = "start"
-                                        note.chord = "stop"
-                                        beams = previous.GetBeams()
-                                        if beams is not None:
-                                            note.beams = copy.deepcopy(beams)
-                                    elif previous.chord == "stop":
-                                        previous.chord = "continue"
-                                        note.chord = "stop"
-                        else:
-                            if hasattr(note, "chord"):
-                                if note.chord == "continue":
-                                    note.chord = "start"
+                        # if previous is not None:
+                        #     if hasattr(note, "chord"):
+                        #         if note.chord == "continue":
+                        #             if not hasattr(previous, "chord"):
+                        #                 previous.chord = "start"
+                        #                 note.chord = "stop"
+                        #                 beams = previous.GetBeams()
+                        #                 if beams is not None:
+                        #                     note.beams = copy.deepcopy(beams)
+                        #             elif previous.chord == "stop":
+                        #                 previous.chord = "continue"
+                        #                 note.chord = "stop"
+                        # else:
+                        #     if hasattr(note, "chord"):
+                        #         if note.chord == "continue":
+                        #             note.chord = "start"
                         previous = note
 
     def EndTag(self, name):
@@ -326,14 +329,14 @@ def SetupPiece(tag, attrib, content, piece):
                         if "creator" in content:
                             composer = content["creator"]
         if tag[-1] == "movement-title" or "creator":
-            if not hasattr(piece, "meta"):
-                piece.meta = Meta.Meta(composer=composer, title=title)
+            if not hasattr(piece.GetItem(), "meta"):
+                piece.GetItem().meta = Meta.Meta(composer=composer, title=title)
 
             else:
-                if not hasattr(piece.meta, "composer"):
-                    piece.meta.composer = composer
-                if not hasattr(piece.meta, "title"):
-                    piece.meta.title = title
+                if not hasattr(piece.GetItem().meta, "composer"):
+                    piece.GetItem().meta.composer = composer
+                if not hasattr(piece.GetItem().meta, "title"):
+                    piece.GetItem().meta.title = title
         if "credit" in tag:
             page = 0
             if "credit" in attrib:
@@ -365,22 +368,22 @@ def SetupPiece(tag, attrib, content, piece):
                     text = content["credit-words"]
                 if handleType == "":
                     credit = Directions.CreditText(page=page, x=x,y=y,size=size,justify=justify,valign=valign,text=text)
-                    if not hasattr(piece, "meta"):
-                        piece.meta = Meta.Meta()
-                    piece.meta.AddCredit(credit)
+                    if not hasattr(piece.GetItem(), "meta"):
+                        piece.GetItem().meta = Meta.Meta()
+                    piece.GetItem().meta.AddCredit(credit)
                 else:
                     if handleType == "composer":
-                        if not hasattr(piece.meta, "composer"):
-                            piece.meta.composer = text
+                        if not hasattr(piece.GetItem().meta, "composer"):
+                            piece.GetItem().meta.composer = text
                     if handleType == "rights":
-                        if not hasattr(piece.meta, "copyright"):
-                            piece.meta.copyright = text
+                        if not hasattr(piece.GetItem().meta, "copyright"):
+                            piece.GetItem().meta.copyright = text
                     if handleType == "title":
-                        if not hasattr(piece.meta, "title"):
-                            piece.meta.title = text
+                        if not hasattr(piece.GetItem().meta, "title"):
+                            piece.GetItem().meta.title = text
                     if handleType == "page number":
-                        if not hasattr(piece.meta, "pageNum"):
-                            piece.meta.pageNum = True
+                        if not hasattr(piece.GetItem().meta, "pageNum"):
+                            piece.GetItem().meta.pageNum = True
                     handleType = ""
 
 
@@ -850,7 +853,7 @@ def CreateNote(tag, attrs, content, piece):
         if tag[-1] == "tie":
             note.AddTie(attrs["tie"]["type"])
         if "chord" in tag:
-            note.chord = "continue"
+            note.chord = True
         if tag[-1] == "stem":
             note.stem = Note.Stem(content["stem"])
         if tag[-1] == "voice":

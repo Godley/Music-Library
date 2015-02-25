@@ -431,21 +431,21 @@ class NoteNode(Node):
                 self.AddChild(item)
 
     def AttachExpression(self, new_node):
-        if len(self.GetChildrenIndexes()) > 0:
-            node = self.GetChild(0)
-            if node is not ExpressionNode and node is not None:
-                first_child = self.PopChild(0)
-                self.AddChild(new_node)
-                if first_child is not None:
-                    self.AddChild(first_child)
-            elif node is not None and node.GetItem() is None:
-                node.SetItem(new_node.GetItem())
-            if node is not None and node.GetItem() is not None:
-                parent = FindPosition(node, new_node)
-                if parent is not None:
-                    parent.AddChild(new_node)
+        if len(self.children) > 0:
+            if type(self.GetChild(0)) is DirectionNode:
+                self.PositionChild(0, new_node)
+            if type(self.GetChild(0)) is NoteNode:
+                second = self.GetChild(1)
+                if second is None:
+                    self.AddChild(new_node)
+                elif type(second) is ExpressionNode:
+                    node = FindPosition(second, new_node)
+                    node.AddChild(new_node)
+                else:
+                    self.PositionChild(1, new_node)
         else:
             self.AddChild(new_node)
+
 
 
     def AttachNote(self, new_note):
@@ -461,21 +461,29 @@ class NoteNode(Node):
     def toLily(self):
         lilystring = ""
         if self.item is not None:
+            if type(self.GetChild(0)) is not NoteNode:
+                if hasattr(self.item, "chord") and self.item.chord:
+                    self.item.chord = "stop"
+            if type(self.GetChild(0)) is NoteNode:
+                if not hasattr(self.item, "chord") or not self.item.chord:
+                    self.item.chord = "start"
             lilystring += self.item.toLily()
         children = self.GetChildrenIndexes()
         for child in children:
-            lilystring += self.GetChild(child).toLily()
+            if self.GetChild(child) is not None:
+                if type(self.GetChild(child)) is NoteNode:
+                    lilystring += " "
+                lilystring += self.GetChild(child).toLily()
+            else:
+                wat=True
         return lilystring
 
     def PositionChild(self, key, node):
         children = self.GetChildrenIndexes()
         if key in children:
             start = key
-            end = children[len(children)-1]
-            popped = []
-            for index in range(start, end+1):
-                child = self.PopChild(index)
-                popped.append(child)
+            popped = self.children[start:]
+            self.children = self.children[:start]
             self.AddChild(node)
             [self.AddChild(pop) for pop in popped]
 
