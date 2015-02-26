@@ -8,13 +8,13 @@ class testSetupPiece(unittest.TestCase):
         self.tags = []
         self.attrs = {}
         self.chars = {}
-        self.piece = Piece.Piece()
+        self.piece = PieceTree()
 
     def testNoTags(self):
         self.assertEqual(None, self.handler(self.tags,self.attrs,self.chars,self.piece), "ERROR: testNoTags failed: nothing should happen if there are no tags in list")
 
     def testMetaExists(self):
-        self.assertFalse(hasattr(self.piece, "meta"), "ERROR: testMetaExists failed: meta should not be set in piece class at beginning of testing")
+        self.assertFalse(hasattr(self.piece.GetItem(), "meta"), "ERROR: testMetaExists failed: meta should not be set in piece class at beginning of testing")
 
     def testIrrelevantTag(self):
         self.tags.append("lol")
@@ -24,8 +24,8 @@ class testSetupPiece(unittest.TestCase):
         self.tags.append("movement-title")
         self.chars["movement-title"] = "hehehe"
         self.handler(self.tags, self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(self.piece, "meta"), "ERROR: Meta should exist in TestTitleTag")
-        self.assertEqual("hehehe", self.piece.meta.title, "ERROR: title set incorrectly in TestTitleTag")
+        self.assertTrue(hasattr(self.piece.GetItem(), "meta"), "ERROR: Meta should exist in TestTitleTag")
+        self.assertEqual("hehehe", self.piece.GetItem().meta.title, "ERROR: title set incorrectly in TestTitleTag")
 
 
     def testCompTag(self):
@@ -33,8 +33,8 @@ class testSetupPiece(unittest.TestCase):
         self.attrs["creator"] = {"type":"composer"}
         self.chars["creator"] = "lee"
         self.handler(self.tags, self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(self.piece, "meta"), "ERROR: meta should exist in piece class in TestCompTag")
-        self.assertEqual("lee",self.piece.meta.composer, "ERROR: composer should match expected in TestCompTag")
+        self.assertTrue(hasattr(self.piece.GetItem(), "meta"), "ERROR: meta should exist in piece class in TestCompTag")
+        self.assertEqual("lee",self.piece.GetItem().meta.composer, "ERROR: composer should match expected in TestCompTag")
 
     def testTitleCompTag(self):
         self.tags.append("creator")
@@ -42,12 +42,12 @@ class testSetupPiece(unittest.TestCase):
         self.chars["creator"] = "lee"
         self.chars["movement-title"] = "hello world"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(self.piece.meta, "composer"), "ERROR: meta should have composer attrib in TestTitleCompTag")
-        self.assertEqual("lee",self.piece.meta.composer, "ERROR: composer should match test in TestTitleCompTag")
+        self.assertTrue(hasattr(self.piece.GetItem().meta, "composer"), "ERROR: meta should have composer attrib in TestTitleCompTag")
+        self.assertEqual("lee",self.piece.GetItem().meta.composer, "ERROR: composer should match test in TestTitleCompTag")
         self.tags.append("movement-title")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(self.piece.meta, "title"), "ERROR: meta should have title in TestTitleCompTag")
-        self.assertEqual("hello world", self.piece.meta.title, "ERROR: meta title set incorrectly in TestTitleCompTag")
+        self.assertTrue(hasattr(self.piece.GetItem().meta, "title"), "ERROR: meta should have title in TestTitleCompTag")
+        self.assertEqual("hello world", self.piece.GetItem().meta.title, "ERROR: meta title set incorrectly in TestTitleCompTag")
 
 class testHandlePart(unittest.TestCase):
     def setUp(self):
@@ -103,10 +103,10 @@ class testRights(unittest.TestCase):
         self.tags.append("credit-words")
         self.chars["credit-words"] = "copyright lol"
         self.handler(self.tags, self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(self.piece.meta, "copyright"))
+        self.assertTrue(hasattr(self.piece.GetItem().meta, "copyright"))
 
     def testRightsValue(self):
         self.tags.append("credit-words")
         self.chars["credit-words"] = "copyright lol"
         self.handler(self.tags, self.attrs,self.chars,self.piece)
-        self.assertEqual(self.piece.meta.copyright, "copyright lol")
+        self.assertEqual(self.piece.GetItem().meta.copyright, "copyright lol")

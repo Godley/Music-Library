@@ -22,6 +22,6 @@ class Meter(object):
         elif not hasattr(self, "type"):
             val += " 4/4"
         else:
-            val += " " + str(self.beats) + "/" + str(self.type)
+            val += " " + str(self.type) + "/" + str(self.type)
 
         return val

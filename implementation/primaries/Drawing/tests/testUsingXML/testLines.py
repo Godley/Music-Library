@@ -102,8 +102,7 @@ class testBracket(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
         if hasattr(self, "item_id"):
-            note = Search(NoteNode, self.measure, 1)
-            self.item = Search(DirectionNode, note, self.item_id+1).GetItem()
+            self.item = self.measure.GetItem().getWrapper(self.item_id)
 
     def testInstance(self):
         if hasattr(self, "item"):

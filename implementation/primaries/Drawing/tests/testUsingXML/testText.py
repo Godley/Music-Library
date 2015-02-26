@@ -26,10 +26,10 @@ class testCredit(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
         if hasattr(self, "note_id"):
-            self.item = piece.meta.credits[self.note_id]
+            self.item = piece.GetItem().meta.credits[self.note_id]
 
     def testHasCredits(self):
-        meta = piece.meta
+        meta = piece.GetItem().meta
         self.assertTrue(hasattr(meta, "credits"))
 
     def testCredOne(self):

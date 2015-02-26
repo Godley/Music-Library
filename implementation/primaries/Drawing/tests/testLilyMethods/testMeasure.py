@@ -31,12 +31,12 @@ class testMeasureNote(MeasureTests):
 class testMeasureChord(MeasureTests):
     def setUp(self):
         self.item = MeasureNode()
-        note = Note.Note(chord="start")
+        note = Note.Note()
         note.pitch= Note.Pitch()
         self.item.addNote(note)
-        note2 = Note.Note(chord="continue")
+        note2 = Note.Note(chord=True)
         note2.pitch = Note.Pitch()
-        self.item.addNote(note2)
+        self.item.addNote(note2, chord=True)
         self.lilystring = " % voice 1\n{ <c' c'> } | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]

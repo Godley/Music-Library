@@ -5,6 +5,21 @@ try:
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
     from classes import Measure, Note, Part, Piece, Directions
+
+def SplitString(value):
+    """simple method that puts in spaces every 10 characters"""
+    string_length = len(value)
+    chunks = string_length / 10
+    string_list = list(value)
+    spaced_string_list = []
+    if chunks > 1:
+        for i in range(chunks):
+            index = i*10
+            for i in range(index):
+                spaced_string_list.append(string_list[i])
+            spaced_string_list.append("\n")
+    return "".join(spaced_string_list)
+
 class PieceTree(Tree):
     def __init__(self):
         Tree.__init__(self)
@@ -29,7 +44,7 @@ class PieceTree(Tree):
         self.item = i
 
     def toLily(self):
-        lilystring = ""
+        lilystring = "\\version \"2.18.2\" \n"
         children = self.root.GetChildrenIndexes()
         partstrings = []
         for child in children:
@@ -138,6 +153,8 @@ class PartNode(IndexedNode):
         name = ""
         if hasattr(self.item, "name"):
             name = self.item.name
+            if not hasattr(self.item, "shortname") and len(name) > 10:
+                SplitString(name)
         if hasattr(self.item, "shortname") and self.item.shortname is not None and (not hasattr(self.item, "name") or len(self.item.name) > 10):
             name = self.item.shortname
         variables = self.CalculateVariable(name, staves)

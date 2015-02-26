@@ -82,6 +82,10 @@ class Measure(BaseClass.Base):
         end = self.HandleClosingAttributes()
         return [start, end]
 
+    def getWrapper(self, index):
+        if index < len(self.items):
+            return self.items[index]
+
     def GetTotalValue(self):
         """Gets the total value of the bar according to it's time signature"""
         value = ""
