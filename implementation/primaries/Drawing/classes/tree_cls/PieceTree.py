@@ -119,22 +119,24 @@ class PartNode(IndexedNode):
         staves = self.GetChildrenIndexes()
         for staff in staves:
             measure_obj = self.getMeasure(measure, staff)
-            if hasattr(measure_obj.GetItem(), "divisions"):
-                divisions = measure_obj.GetItem().divisions
-            elif divisions is not None:
-                measure_obj.GetItem().divisions = divisions
+            if measure_obj is not None:
+                if hasattr(measure_obj.GetItem(), "divisions"):
+                    divisions = measure_obj.GetItem().divisions
+                elif divisions is not None:
+                    measure_obj.GetItem().divisions = divisions
 
     def CheckMeasureMeter(self, measure):
         meter = None
         staves = self.GetChildrenIndexes()
         for staff in staves:
             measure_obj = self.getMeasure(measure, staff)
-            item = measure_obj.GetItem()
-            if hasattr(item, "meter"):
-                meter = item.meter
-            else:
-                if meter is not None:
-                    item.meter = meter
+            if measure_obj is not None:
+                item = measure_obj.GetItem()
+                if hasattr(item, "meter"):
+                    meter = item.meter
+                else:
+                    if meter is not None:
+                        item.meter = meter
 
     def setDivisions(self, measure=1,divisions=1):
         staves = self.GetChildrenIndexes()
@@ -275,7 +277,7 @@ class MeasureNode(IndexedNode):
     def __init__(self):
         IndexedNode.__init__(self, rules=[VoiceNode])
         self.index = 0
-        if self.item is None:
+        if self.item is None or not hasattr(self, "item"):
             self.item = Measure.Measure()
 
     def CheckDivisions(self):

@@ -707,7 +707,9 @@ def handleClef(tag,attrib,content,piece):
     staff = GetID(attrib, "clef", "number")
     if staff is not None:
         staff_id = int(staff)
-    measure_id = int(GetID(attrib,"measure","number"))
+    measure_id = GetID(attrib,"measure","number")
+    if measure_id is not None:
+        measure_id = int(measure_id)
     part_id = GetID(attrib,"part","id")
     part = piece.getPart(part_id)
     if part is not None:
