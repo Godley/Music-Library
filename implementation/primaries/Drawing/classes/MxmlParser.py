@@ -372,6 +372,10 @@ def SetupPiece(tag, attrib, content, piece):
                         valign = temp["valign"]
                         if valign == "bottom":
                             handleType = "rights"
+                        if valign == "center":
+                            handleType = "title"
+                        if valign == "right":
+                            handleType = "composer"
                 if "credit-words" in content:
                     text = content["credit-words"]
                 if handleType == "":
@@ -383,12 +387,21 @@ def SetupPiece(tag, attrib, content, piece):
                     if handleType == "composer":
                         if not hasattr(piece.GetItem().meta, "composer"):
                             piece.GetItem().meta.composer = text
+                        else:
+                            if text.replace(" ","") not in piece.GetItem().meta.composer.replace(" ","") and piece.GetItem().meta.composer.replace(" ","") not in text.replace(" ",""):
+                                piece.GetItem().meta.composer += text
                     if handleType == "rights":
                         if not hasattr(piece.GetItem().meta, "copyright"):
                             piece.GetItem().meta.copyright = text
+                        else:
+                            if text.replace(" ","") not in piece.GetItem().meta.copyright.replace(" ","") and piece.GetItem().meta.copyright.replace(" ","") not in text.replace(" ",""):
+                                piece.GetItem().meta.copyright += text
                     if handleType == "title":
                         if not hasattr(piece.GetItem().meta, "title"):
                             piece.GetItem().meta.title = text
+                        else:
+                            if text.replace(" ","") not in piece.GetItem().meta.title.replace(" ","") and piece.GetItem().meta.title.replace(" ","") not in text.replace(" ",""):
+                                piece.GetItem().meta.title += text
                     if handleType == "page number":
                         if not hasattr(piece.GetItem().meta, "pageNum"):
                             piece.GetItem().meta.pageNum = True
@@ -424,7 +437,7 @@ def handleArticulation(tag, attrs, content, piece):
             if note is not None:
                 accent = None
                 if tag[-1] == "accent":
-                    accent = Mark.Accent()
+                    note.addNotation(Mark.Accent())
                 if tag[-1] == "strong-accent":
                     type = ""
                     if "strong-accent" in attrs:
@@ -432,23 +445,22 @@ def handleArticulation(tag, attrs, content, piece):
                             type = attrs["strong-accent"]["type"]
                     accent = Mark.StrongAccent(type=type)
                 if tag[-1] == "staccato":
-                    accent = Mark.Staccato()
+                    note.addNotation(Mark.Staccato())
                 if tag[-1] == "staccatissimo":
-                    accent = Mark.Staccatissimo()
+                    note.addNotation(Mark.Staccatissimo())
                 if tag[-1] == "detached-legato":
-                    accent = Mark.DetachedLegato()
+                    note.addNotation(Mark.DetachedLegato())
                 if tag[-1] == "tenuto":
-                    accent = Mark.Tenuto()
+                    note.addNotation(Mark.Tenuto())
                 if "placement" in attrs:
                     accent.placement = attrs["placement"]
-                if accent is not None:
-                    note.addNotation(accent)
                 if tag[-1] == "breath-mark":
                     note.addNotation(Mark.BreathMark())
                 if tag[-1] == "caesura":
                     note.addNotation(Mark.Caesura())
                 if accent is not None:
                     note.addNotation(accent)
+                    accent = None
             return 1
     return None
 
