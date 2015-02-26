@@ -61,7 +61,7 @@ class MxmlParser(object):
 
         # add any handlers, along with the tagname associated with it, to this dictionary
         self.structure = {"movement-title": SetupPiece, "credit": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
-             "score-part": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
+             "score-part": UpdatePart, "part-group": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
              "pitch":  HandlePitch, "unpitched": HandlePitch,"articulations":handleArticulation,
              "fermata": HandleFermata, "slur":handleOtherNotations, "lyric":handleLyrics,
              "technical": handleOtherNotations, "backup":HandleMovementBetweenDurations, "forward":HandleMovementBetweenDurations}

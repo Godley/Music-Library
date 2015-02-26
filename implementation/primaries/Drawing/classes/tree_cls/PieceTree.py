@@ -66,8 +66,22 @@ class PieceTree(Tree):
 
     def toLily(self):
         lilystring = "\\version \"2.18.2\" \n"
-        children = self.root.GetChildrenIndexes()
+
         partstrings = []
+        ids_loaded = []
+        groupings = []
+        if len(self.groups) > 0:
+            for group in self.groups:
+                groupstr = "\\new StaffGroup <<"
+                for part_id in self.groups[group]:
+                    part = self.getPart(part_id)
+                    pstring = part.toLily()
+                    lilystring += pstring[0]
+                    groupstr += pstring[1]
+                    ids_loaded.append(part_id)
+                groupstr += ">>"
+                groupings.append(groupstr)
+        children = [child for child in self.root.GetChildrenIndexes() if child not in ids_loaded]
         for child in children:
             part = self.getPart(child)
             partstring = part.toLily()
@@ -75,6 +89,7 @@ class PieceTree(Tree):
             partstrings.append(partstring[1])
         lilystring += self.item.toLily()
         lilystring += "<<"
+        lilystring += "".join([gstring for gstring in groupings])
         lilystring += "".join([partstring for partstring in partstrings])
         lilystring += ">>"
         return lilystring
