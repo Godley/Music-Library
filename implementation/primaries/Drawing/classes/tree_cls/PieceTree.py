@@ -25,6 +25,8 @@ class PieceTree(Tree):
         Tree.__init__(self)
         self.root = IndexedNode(rules=[PartNode])
         self.item = Piece.Piece()
+        self.groups = {}
+        self.current = None
 
     def SetValue(self, item):
         self.root.SetItem(item)
@@ -33,6 +35,25 @@ class PieceTree(Tree):
         node = PartNode()
         node.SetItem(item)
         self.AddNode(node, index=index)
+        if self.current != None:
+            self.AddToGroup(self.current, index)
+
+    def startGroup(self, index):
+        if index not in self.groups:
+            self.groups[index] = []
+        self.current = index
+
+    def stopGroup(self, index):
+        self.current = None
+
+    def AddToGroup(self, name, index):
+        if name not in self.groups:
+            self.groups[name] = []
+        self.groups[name].append(index)
+
+    def getGroup(self, name):
+        if name in self.groups:
+            return self.groups[name]
 
     def getPart(self, key):
         return self.FindNodeByIndex(key)

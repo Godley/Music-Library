@@ -91,7 +91,32 @@ class testHandlePart(unittest.TestCase):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertEqual("w", self.piece.getPart("P1").GetItem().shortname)
 
-class testRights(testSe):
+    def testPartGroupOpen(self):
+        self.tags.append("part-group")
+        self.attrs["part-group"] = {"number":"1","type":"start"}
+        self.tags.append("score-part")
+        self.attrs["score-part"] = {"id":"P1"}
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.tags.append("score-part")
+        self.attrs["score-part"] = {"id":"P2"}
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertEqual(["P1","P2"], self.piece.getGroup(1))
+
+    def testPartGroupClose(self):
+        self.tags.append("part-group")
+        self.attrs["part-group"] = {"number":"1","type":"start"}
+        self.tags.append("score-part")
+        self.attrs["score-part"] = {"id":"P1"}
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.tags.append("part-group")
+        self.attrs["part-group"] = {"number":"1","type":"stop"}
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.tags.append("score-part")
+        self.attrs["score-part"] = {"id":"P2"}
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertEqual(["P1"], self.piece.getGroup(1))
+
+class testRights(unittest.TestCase):
     def setUp(self):
         testSetupPiece.setUp(self)
         self.tags.append("credit")

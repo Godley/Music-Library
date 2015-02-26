@@ -5,6 +5,14 @@ class testPieceTree(unittest.TestCase):
     def setUp(self):
         self.item = PieceTree.PieceTree()
 
+    def testAddPartGroup(self):
+        part = PieceTree.PartNode()
+        part2 = PieceTree.PartNode()
+        self.item.AddNode(part, index="P1")
+        self.item.AddNode(part2, index="P2")
+        self.item.AddGroup("wind", indexes=["P1", "P2"])
+        self.assertEqual(self.item.getGroup("wind"), ["P1","P2"])
+
     def testAddPart(self):
         part = PieceTree.PartNode()
         self.item.AddNode(part, index="P1")

@@ -387,6 +387,19 @@ def UpdatePart(tag, attrib, content, piece):
         part_id = GetID(attrib, "score-part", "id")
     return_val = None
     if len(tag) > 0:
+        if "part-group" in tag:
+            index = 0
+            type = ""
+            if "part-group" in attrib:
+                if "number" in attrib["part-group"]:
+                   index=int(attrib["part-group"]["number"])
+                if "type" in attrib["part-group"]:
+                    type = attrib["part-group"]["type"]
+            if type != "":
+                if type == "start":
+                    piece.startGroup(index)
+                if type=="stop":
+                    piece.stopGroup(index)
         if "score-part" in tag:
             if part_id is None:
                 raise(Exceptions.NoScorePartException("ERROR IN UPDATEPART: no score-part id found"))
@@ -400,6 +413,7 @@ def UpdatePart(tag, attrib, content, piece):
             if "part-abbreviation" in tag:
                 if "part-abbreviation" in content and part_id is not None:
                     piece.getPart(part_id).GetItem().shortname = content["part-abbreviation"]
+
     return return_val
 
 def handleArticulation(tag, attrs, content, piece):
