@@ -169,7 +169,7 @@ class MxmlParser(object):
         if name in self.tags:
             self.tags.remove(name)
         if name == "direction":
-            voice = 1
+
             if direction is not None:
                 measure_id = int(GetID(self.attribs, "measure", "number"))
                 part_id = GetID(self.attribs, "part", "id")
@@ -190,6 +190,7 @@ class MxmlParser(object):
                     measure = part.getMeasure(measure_id, staff_id)
                     measure.addExpression(copy.deepcopy(expression), voice)
                 expression = None
+            voice = 1
         if name == "barline":
             measure_id = GetID(self.attribs, "measure", "number")
             part_id = GetID(self.attribs, "part", "id")
