@@ -13,14 +13,23 @@ class Meta(BaseClass.Base):
             if kwargs["composer"] is not None:
                 self.composer = kwargs["composer"]
 
+    def EscapeQuotes(self, value):
+        list_of_string = list(value)
+        output = []
+        for item in list_of_string:
+            if item == "\"":
+                output.append("\\")
+            output.append(item)
+        return "".join(output)
+
     def toLily(self):
         val = "\header {\n"
         if hasattr(self, "title") and self.title is not None:
-            val += "title = \""+self.title+"\"\n"
+            val += "title = \""+self.EscapeQuotes(self.title)+"\"\n"
         if hasattr(self, "composer") and self.composer is not None:
-            val += "composer = \""+self.composer +"\"\n"
+            val += "composer = \""+self.EscapeQuotes(self.composer) +"\"\n"
         if hasattr(self, "copyright"):
-            val += "tagline = \""+self.copyright +"\""
+            val += "tagline = \""+self.EscapeQuotes(self.copyright) +"\""
         val += "\n}"
         if hasattr(self, "pageNum"):
             if self.pageNum:

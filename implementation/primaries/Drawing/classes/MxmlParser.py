@@ -118,7 +118,10 @@ class MxmlParser(object):
 
         if self.validateData(text):
             if len(self.tags) > 0:
-                self.chars[self.tags[-1]] = text
+                if self.tags[-1] not in self.chars:
+                    self.chars[self.tags[-1]] = text
+                else:
+                    self.chars[self.tags[-1]] += text
 
     def CopyNote(self, part, measure_id, new_note):
         global voice
@@ -146,38 +149,6 @@ class MxmlParser(object):
                 measure.rest = True
                 voice_obj.rest = True
 
-    def UpdateMeasureBeamsChordsAndGracenotes(self, part_id, measure_id, staff):
-        # handles updating all notes beams, chords, and gracenotes - done because of the various
-        # ways beams/chords/gracenotes are loaded mean they have to be updated once all the information
-        # is handled abt the notes
-        part = self.piece.getPart(part_id)
-        for staves in part.GetChildrenIndexes():
-            measure = part.getMeasure(measure_id, staves)
-            previous = None
-            if measure is not None:
-                children = measure.GetChildrenIndexes()
-                for voice in children:
-                    vnode = measure.getVoice(voice)
-                    notes = vnode.GetChildrenIndexes()
-                    for n in notes:
-                        note = vnode.GetChild(n).GetItem()
-                        # if previous is not None:
-                        #     if hasattr(note, "chord"):
-                        #         if note.chord == "continue":
-                        #             if not hasattr(previous, "chord"):
-                        #                 previous.chord = "start"
-                        #                 note.chord = "stop"
-                        #                 beams = previous.GetBeams()
-                        #                 if beams is not None:
-                        #                     note.beams = copy.deepcopy(beams)
-                        #             elif previous.chord == "stop":
-                        #                 previous.chord = "continue"
-                        #                 note.chord = "stop"
-                        # else:
-                        #     if hasattr(note, "chord"):
-                        #         if note.chord == "continue":
-                        #             note.chord = "start"
-                        previous = note
 
     def EndTag(self, name):
         global note, degree, frame_note, staff_id,direction,expression,last_barline,last_barline_pos, voice
@@ -240,7 +211,6 @@ class MxmlParser(object):
         if name == "measure":
             part_id = GetID(self.attribs, "part", "id")
             measure_id = GetID(self.attribs, "measure", "number")
-            self.UpdateMeasureBeamsChordsAndGracenotes(part_id, int(measure_id), staff_id)
             part = self.piece.getPart(part_id)
             part.CheckMeasureDivisions(int(measure_id))
             part.CheckMeasureMeter(int(measure_id))
@@ -339,9 +309,9 @@ def SetupPiece(tag, attrib, content, piece):
                 piece.GetItem().meta = Meta.Meta(composer=composer, title=title)
 
             else:
-                if not hasattr(piece.GetItem().meta, "composer"):
+                if composer is not None:
                     piece.GetItem().meta.composer = composer
-                if not hasattr(piece.GetItem().meta, "title"):
+                if title is not None:
                     piece.GetItem().meta.title = title
         if "credit" in tag:
             page = 0
@@ -368,16 +338,18 @@ def SetupPiece(tag, attrib, content, piece):
                         size = float(temp["font-size"])
                     if "justify" in temp:
                         justify = temp["justify"]
+                        if justify == "center":
+                            handleType = "title"
+                        if justify == "right":
+                            handleType = "composer"
                     if "valign" in temp:
                         valign = temp["valign"]
                         if valign == "bottom":
                             handleType = "rights"
-                        if valign == "center":
-                            handleType = "title"
-                        if valign == "right":
-                            handleType = "composer"
+
                 if "credit-words" in content:
                     text = content["credit-words"]
+
                 if handleType == "":
                     credit = Directions.CreditText(page=page, x=x,y=y,size=size,justify=justify,valign=valign,text=text)
                     if not hasattr(piece.GetItem(), "meta"):
