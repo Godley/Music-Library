@@ -153,8 +153,11 @@ class RehearsalMark(Direction):
         if self.text == "":
             text += "\default"
         else:
-            index = string.ascii_lowercase.index(self.text.lower()) + 1
-            text += "#"+str(index)
+            try:
+                index = string.ascii_lowercase.index(self.text.lower()) + 1
+                text += "#"+str(index)
+            except:
+                text += "\default"
         return text
 
 

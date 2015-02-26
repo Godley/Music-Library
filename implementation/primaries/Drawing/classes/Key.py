@@ -25,9 +25,11 @@ class Key(object):
             if hasattr(self, "mode"):
                 keyname = ""
                 if self.mode == "major":
-                     keyname = majors[self.fifths].lower()
+                     if self.fifths in majors:
+                         keyname = majors[self.fifths].lower()
                 if self.mode == "minor":
-                    keyname = minors[self.fifths].lower()
+                    if self.fifths in minors:
+                        keyname = minors[self.fifths].lower()
                 if len(keyname) > 1:
                     symbol = keyname[1:len(keyname)]
                     if symbol == "flat":

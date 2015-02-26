@@ -128,9 +128,9 @@ class MxmlParser(object):
         # handles copying the latest note into the measure note list.
         # done at end of note loading to make sure staff_id is right as staff id could be encountered
         # any point during the note tag
-        if part.getMeasure(int(measure_id), staff_id) is None:
-            part.addEmptyMeasure(int(measure_id), staff_id)
-        measure = part.getMeasure(int(measure_id), staff_id)
+        if part.getMeasure(measure_id, staff_id) is None:
+            part.addEmptyMeasure(measure_id, staff_id)
+        measure = part.getMeasure(measure_id, staff_id)
         voice_obj = measure.getVoice(voice)
         add = True
         notes = voice_obj.GetChildrenIndexes()
@@ -194,7 +194,7 @@ class MxmlParser(object):
         if name == "barline":
             measure_id = GetID(self.attribs, "measure", "number")
             part_id = GetID(self.attribs, "part", "id")
-            measure = self.piece.getPart(part_id).getMeasure(int(measure_id), staff_id).GetItem()
+            measure = self.piece.getPart(part_id).getMeasure(measure_id, staff_id).GetItem()
             if measure is not None:
                 location = GetID(self.attribs, "barline", "location")
                 last_barline_temp = measure.GetBarline(location)
@@ -203,7 +203,7 @@ class MxmlParser(object):
                     if last_barline_temp.repeat == "forward":
                         last_fwd_repeat = last_barline_temp
                     last_barline = last_barline_temp
-                    last_barline_pos = {"part":part_id,"measure":int(measure_id),"location":location}
+                    last_barline_pos = {"part":part_id,"measure":measure_id,"location":location}
         if name == "part":
             previous_part = GetID(self.attribs, "part", "id")
             if last_barline is not None:
@@ -213,8 +213,10 @@ class MxmlParser(object):
             part_id = GetID(self.attribs, "part", "id")
             measure_id = GetID(self.attribs, "measure", "number")
             part = self.piece.getPart(part_id)
-            part.CheckMeasureDivisions(int(measure_id))
-            part.CheckMeasureMeter(int(measure_id))
+            if part is None:
+                part = self.piece.getLastPart()
+            part.CheckMeasureDivisions(measure_id)
+            part.CheckMeasureMeter(measure_id)
             staff_id = 1
             voice = 1
         if name in self.attribs:
@@ -223,13 +225,13 @@ class MxmlParser(object):
             self.chars.pop(name)
 
         if name == "note":
-            measure_id_string = GetID(self.attribs, "measure", "number")
-            if measure_id_string is not None:
-                measure_id = int(measure_id_string)
-                part_id = GetID(self.attribs, "part", "id")
-                part = self.piece.getPart(part_id)
-                if part is not None:
-                    self.CopyNote(part, measure_id, copy.deepcopy(note))
+            measure_id = GetID(self.attribs, "measure", "number")
+            part_id = GetID(self.attribs, "part", "id")
+            part = self.piece.getPart(part_id)
+            if part is None:
+                part = self.piece.getLastPart()
+            if part is not None:
+                self.CopyNote(part, measure_id, copy.deepcopy(note))
             note = None
             voice = 1
         if name == "degree":
@@ -456,7 +458,7 @@ def HandleMovementBetweenDurations(tags, attrs, chars, piece):
     part_id = GetID(attrs, "part","id")
     if part_id is not None:
         if measure_id is not None:
-            measure_id = int(measure_id)
+            measure_id = measure_id
             part = piece.getPart(part_id)
             if part.getMeasure(measure_id, staff_id) is None:
                 part.addEmptyMeasure(measure_id, staff_id)
@@ -513,8 +515,6 @@ def HandleMeasures(tag, attrib, content, piece):
     global items, notes, expressions, staff_id, direction, expression, voice
     part_id = GetID(attrib, "part", "id")
     measure_id = GetID(attrib, "measure", "number")
-    if measure_id is not None:
-        measure_id = int(measure_id)
     part = None
     return_val = None
     global degree
@@ -522,11 +522,12 @@ def HandleMeasures(tag, attrib, content, piece):
         if "staff" in tag:
                 staff_id = int(content["staff"])
         if part_id is None:
-            raise(Exceptions.NoScorePartException())
+            part_id = piece.root.GetChildrenIndexes()[-1]
         if part_id is not None:
             part = piece.getPart(part_id)
             if part is None:
-                raise(Exceptions.NoPartCreatedException())
+                part_id = piece.root.GetChildrenIndexes()[-1]
+                part = piece.getPart(part_id)
         measure = None
         if part is not None:
             measure = part.getMeasure(measure=measure_id, staff=staff_id)
@@ -708,8 +709,7 @@ def handleClef(tag,attrib,content,piece):
     if staff is not None:
         staff_id = int(staff)
     measure_id = GetID(attrib,"measure","number")
-    if measure_id is not None:
-        measure_id = int(measure_id)
+
     part_id = GetID(attrib,"part","id")
     part = piece.getPart(part_id)
     if part is not None:
@@ -743,14 +743,15 @@ def handleBarline(tag, attrib, content, piece):
     part_id = GetID(attrib, "part", "id")
     measure_id = GetID(attrib, "measure", "number")
     measure = None
-    if measure_id is not None:
-        measure_id = int(measure_id)
     if part_id is not None and measure_id is not None:
         part = piece.getPart(part_id)
-        node = part.getMeasure(int(measure_id), int(staff_id))
-        if node is None:
-            part.addEmptyMeasure(int(measure_id), int(staff_id))
-        measure = piece.getPart(part_id).getMeasure(int(measure_id), int(staff_id)).GetItem()
+        if part is None:
+            part = piece.getLastPart()
+
+        if part.getMeasure(measure_id, int(staff_id)) is None:
+            part.addEmptyMeasure(measure_id, int(staff_id))
+        node = part.getMeasure(measure_id, int(staff_id))
+        measure = node.GetItem()
     if "barline" in tag and measure is not None:
         if not hasattr(measure, "barlines"):
             measure.barlines = {}
@@ -1002,7 +1003,7 @@ def HandleDirections(tags, attrs, chars, piece):
     if "direction" in tags:
         measure_id = GetID(attrs, "measure", "number")
         if measure_id is not None:
-            measure_id = int(measure_id)
+            measure_id = measure_id
         part_id = GetID(attrs, "part", "id")
         measure = None
         if measure_id is not None and part_id is not None:
@@ -1151,8 +1152,6 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
         measure = None
         part_id = GetID(attrs, "part", "id")
         measure_id = GetID(attrs, "measure", "number")
-        if measure_id is not None:
-            measure_id = int(measure_id)
         if part_id is not None:
             if measure_id is not None:
                 measure = piece.getPart(part_id).getMeasure(measure_id, staff_id).GetItem()

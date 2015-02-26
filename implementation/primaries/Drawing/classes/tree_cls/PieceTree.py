@@ -31,6 +31,11 @@ class PieceTree(Tree):
     def SetValue(self, item):
         self.root.SetItem(item)
 
+    def getLastPart(self):
+        indexes = self.root.GetChildrenIndexes()
+        if len(indexes) > 0:
+            return self.getPart(indexes[-1])
+
     def addPart(self, item, index=-1):
         node = PartNode()
         node.SetItem(item)
