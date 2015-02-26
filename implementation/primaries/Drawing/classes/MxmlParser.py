@@ -338,13 +338,13 @@ def SetupPiece(tag, attrib, content, piece):
                         size = float(temp["font-size"])
                     if "justify" in temp:
                         justify = temp["justify"]
-                        if justify == "center":
+                        if justify == "center" and handleType == "":
                             handleType = "title"
-                        if justify == "right":
+                        if justify == "right" and handleType == "":
                             handleType = "composer"
                     if "valign" in temp:
                         valign = temp["valign"]
-                        if valign == "bottom":
+                        if valign == "bottom" and handleType == "":
                             handleType = "rights"
 
                 if "credit-words" in content:

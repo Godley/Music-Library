@@ -7,7 +7,7 @@ import os, sys
 
 
 testcases = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases'
-file = os.path.join(testcases, "lg-213324487.xml")
+file = os.path.join(testcases, sys.argv[1])
 parser = MxmlParser.MxmlParser()
 pieceObj = parser.parse(file)
 render = LilypondRender.LilypondRender(pieceObj, file)

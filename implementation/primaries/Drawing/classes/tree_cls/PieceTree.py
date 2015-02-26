@@ -13,7 +13,7 @@ def SplitString(value):
     string_list = list(value)
     spaced_string_list = []
     if chunks > 1:
-        for i in range(chunks):
+        for i in range(int(chunks)):
             index = i*10
             for i in range(index):
                 spaced_string_list.append(string_list[i])
@@ -151,12 +151,13 @@ class PartNode(IndexedNode):
         self.CheckTotals()
         staves = self.GetChildrenIndexes()
         name = ""
+        shortname = ""
         if hasattr(self.item, "name"):
             name = self.item.name
-            if not hasattr(self.item, "shortname") and len(name) > 10:
+            if len(name) > 10:
                 SplitString(name)
-        if hasattr(self.item, "shortname") and self.item.shortname is not None and (not hasattr(self.item, "name") or len(self.item.name) > 10):
-            name = self.item.shortname
+        if hasattr(self.item, "shortname"):
+            shortname = self.item.shortname
         variables = self.CalculateVariable(name, staves)
         first_part = ""
         for staff, variable in zip(staves, variables):
@@ -165,6 +166,8 @@ class PartNode(IndexedNode):
                 if name != "":
                     staffstring += " \with {\n"
                     staffstring += "instrumentName = #\""+ name +" \"\n"
+                    if shortname != "":
+                        staffstring += "shortInstrumentName = #\""+ shortname +" \"\n"
                     staffstring += " }"
             staffstring += "{"+self.GetChild(staff).toLily() + " }\n\n"
             first_part += staffstring

@@ -91,7 +91,7 @@ class testHandlePart(unittest.TestCase):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertEqual("w", self.piece.getPart("P1").GetItem().shortname)
 
-class testRights(unittest.TestCase):
+class testRights(testSe):
     def setUp(self):
         testSetupPiece.setUp(self)
         self.tags.append("credit")
