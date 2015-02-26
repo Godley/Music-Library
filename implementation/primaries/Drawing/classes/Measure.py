@@ -74,6 +74,8 @@ class Measure(BaseClass.Base):
         if self.GetBarline("right") is not None:
             bline = self.GetBarline("right").toLily()
             lstring += bline
+        else:
+            lstring += " | "
 
         return lstring
 
@@ -133,11 +135,14 @@ class Barline(BaseClass.Base):
             lilystring += " \\bar \""
             if hasattr(self, "style"):
                 options = {"light-light":"||","heavy-light":".|","light-heavy":"|.",
-                           "heavy-heavy":"..","dotted":";","dashed":"!"}
+                           "heavy-heavy":"..","dotted":";","dashed":"!","none":"","tick":"'"}
                 if self.style in options:
-                    lilystring += options[self.style] + "\""
+                    lilystring += options[self.style]
+                else:
+                    lilystring += "|"
+                lilystring+= "\""
             else:
-                lilystring += "|\""
+                lilystring += "\""
         else:
 
 

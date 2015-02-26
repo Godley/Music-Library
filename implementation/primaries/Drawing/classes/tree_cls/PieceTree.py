@@ -249,9 +249,13 @@ class StaffNode(IndexedNode):
     def toLily(self):
         lilystring = "\\autoBeamOff"
         children = self.GetChildrenIndexes()
-        for child in range(len(children)):
-            measureNode = self.GetChild(children[child])
-            lilystring += " % measure "+str(children[child])+"\n"
+        #implicit measures are not being handled, for now
+        non_implicit_measures = [child for child in children if type(child) is int or (type(child) is str and child.isdigit())]
+        int_children = [int(child) for child in non_implicit_measures]
+        int_children.sort()
+        for child in range(len(int_children)):
+            measureNode = self.GetChild(str(int_children[child]))
+            lilystring += " % measure "+str(int_children[child])+"\n"
             lilystring += measureNode.toLily()+"\n\n"
             measure = measureNode.GetItem()
             right_barline = measure.GetBarline("right")
@@ -474,7 +478,7 @@ class MeasureNode(IndexedNode):
             lilystring += " % voice "+str(voice)+"\n"
             lilystring += v_obj.toLily()
         lilystring += wrap[1]
-        lilystring += " | "
+
         return lilystring
 
 class VoiceNode(Node):

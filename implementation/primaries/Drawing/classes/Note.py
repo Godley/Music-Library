@@ -21,24 +21,27 @@ class Notehead(BaseClass.Base):
         self.filled = filled
         self.type = type
     def toLily(self):
-        val = "\\revert NoteHead.style"
-        pre_note = "\n\\override NoteHead.style = #'"
+        pre_note = "\n\\tweak #'style #'"
         if self.type != "":
+            ignore = ["slashed","back slashed","inverted triangle","arrow up", "arrow down", "normal"]
             if self.type == "diamond":
                 val = "\\harmonic"
                 return [val]
             if self.type == "x":
                 val = "\\xNote"
-                return [val]
+                return [val, ""]
             options = {"diamond":"harmonic","x":"cross","circle-x":"xcircle"}
             if self.type in options:
                 pre_note += options[self.type]
-            else:
+            elif self.type not in ignore:
                 pre_note += self.type
+            if self.type in ignore:
+                pre_note = ""
+                val = ""
         else:
             pre_note = ""
 
-        return [pre_note+"\n", "\n"+val+"\n"]
+        return [pre_note+"\n", ""]
 
 
 class Stem(BaseClass.Base):
