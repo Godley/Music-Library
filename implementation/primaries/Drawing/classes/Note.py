@@ -333,6 +333,8 @@ class Note(BaseClass.Base):
         if not hasattr(self,"chord") or self.chord == "stop":
             if hasattr(self, "beams"):
                 val += "".join([self.beams[beam].toLily() for beam in self.beams])
+            if hasattr(self, "slurs"):
+                val += "".join([self.slurs[slur].toLily() for slur in self.slurs])
             val += "".join([tie.toLily() for tie in self.ties])
         val += "".join([value.toLily() for value in self.postnotation if type(value.toLily()) is str])
         val += "".join([value.toLily()[0] for value in self.postnotation if type(value.toLily()) is list and len(value.toLily()) > 0])

@@ -492,15 +492,15 @@ def handleOtherNotations(tag, attrs, content, piece):
                     note.slurs = {}
 
                 notation = Directions.Slur()
-                id = len(note.slurs)
-                if "placement" in attrs:
-                    notation.placement = attrs["placement"]
-                if "number" in attrs:
-                    id = int(attrs["number"])
+                num = len(note.slurs)
+                if "placement" in attrs["slur"]:
+                    notation.placement = attrs["slur"]["placement"]
+                if "number" in attrs["slur"]:
+                    num = int(attrs["slur"]["number"])
 
-                if "type" in attrs:
-                    notation.type = attrs["type"]
-                note.slurs[id] = notation
+                if "type" in attrs["slur"]:
+                    notation.type = attrs["slur"]["type"]
+                note.slurs[num] = notation
             if tag[-2] == "technical":
                 text = None
                 if tag[-1] in content:
