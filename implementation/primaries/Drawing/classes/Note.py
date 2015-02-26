@@ -153,6 +153,9 @@ class Note(BaseClass.Base):
         self.postnotation = []
         self.has_tremolo = False
 
+    def GetAllNotation(self):
+        return self.prenotation, self.wrap_notation, self.postnotation
+
     def GetNotation(self, id, type):
         if type=="post":
             if (id==-1 and len(self.postnotation) > 0) or (id!=-1 and len(self.postnotation) > id):
@@ -163,6 +166,11 @@ class Note(BaseClass.Base):
         if type=="wrap":
             if (id==-1 and len(self.wrap_notation) > 0) or (id!=-1 and len(self.postnotation) > id):
                 return self.wrap_notation[id]
+
+    def FlushNotation(self):
+        self.prenotation = []
+        self.wrap_notation = []
+        self.postnotation = []
 
     def addNotation(self, obj):
         add = True
@@ -355,8 +363,10 @@ class Note(BaseClass.Base):
                 if type(item) == cls_type:
                     return item
             for item in self.wrap_notation:
-                if type(item) == cls_type:
+                if item.__class__.__name__ == cls_type.__name__:
                     return item
+                else:
+                    print(item.__class__.__name__, cls_type.__name__)
             for item in self.postnotation:
                 if type(item) == cls_type:
                     return item
@@ -403,6 +413,7 @@ class GraceNote(BaseClass.Base):
             val = ""
         if hasattr(self, "last") and self.last:
             ending = " }"
+            return ending
         return [val, ending]
 class TimeModifier(BaseClass.Base):
     def __init__(self, **kwargs):

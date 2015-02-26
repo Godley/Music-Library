@@ -2,6 +2,7 @@
 try:
     from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
     from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
+    from implementation.primaries.Drawing.classes.Note import GraceNote
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
     from classes import Measure, Note, Part, Piece, Directions
@@ -493,20 +494,18 @@ class VoiceNode(Node):
             item = note.GetItem()
             if item is not None:
                 if len(children) == child+1:
-                    result = item.Search(Note.GraceNote)
+                    result = item.Search(GraceNote)
                     if result is not None:
-                        if not hasattr(result, "last") or not result.last:
-                            result.last = True
+                        note.CheckForGraceNotes()
                 else:
                     next = self.GetChild(children[child+1])
                     next_item = next.GetItem()
                     if next_item is not None:
-                        result = item.Search(Note.GraceNote)
-                        next_result = next_item.Search(Note.GraceNote)
+                        result = item.Search(GraceNote)
+                        next_result = next_item.Search(GraceNote)
                         if result is not None:
                             if next_result is None:
-                                if not hasattr(result, "last") or not result.last:
-                                    result.last = True
+                                note.CheckForGraceNotes()
                             else:
                                 result.last = False
                                 next_result.first = False
@@ -529,6 +528,25 @@ class NoteNode(Node):
         Node.__init__(self, rules=[DirectionNode,ExpressionNode,NoteNode],limit=3)
         if self.item is None:
             self.item = Note.Note()
+
+    def SetGrace(self):
+        if self.item.Search(GraceNote) is None:
+            self.item.addNotation(GraceNote())
+
+    def SetLast(self):
+        result = self.item.Search(GraceNote)
+        if result is not None:
+            result.last = True
+
+    def CheckForGraceNotes(self):
+        result = self.item.Search(GraceNote)
+        if result is not None:
+            first_child = self.GetChild(0)
+            if type(self.GetChild(0)) is NoteNode:
+                first_child.SetGrace()
+                first_child.CheckForGraceNotes()
+            else:
+                self.SetLast()
 
     def AttachDirection(self, item):
         if 2 > len(self.GetChildrenIndexes()) > 0:
@@ -567,13 +585,24 @@ class NoteNode(Node):
 
 
     def AttachNote(self, new_note):
+
         if len(self.children) > 0:
             firstchild = self.GetChild(0)
             if type(firstchild) is NoteNode:
                 firstchild.AttachNote(new_note)
             else:
+                post, pre, wrap = new_note.GetItem().GetAllNotation()
+                [self.GetItem().addNotation(n) for n in post if self.GetItem().Search(type(n)) is None]
+                [self.GetItem().addNotation(p) for p in pre if self.GetItem().Search(type(p)) is None]
+                [self.GetItem().addNotation(w) for w in wrap if self.GetItem().Search(type(w)) is None]
+                new_note.GetItem().FlushNotation()
                 self.PositionChild(0, new_note)
         else:
+            post, pre, wrap = new_note.GetItem().GetAllNotation()
+            [self.GetItem().addNotation(n) for n in post if self.GetItem().Search(type(n)) is None]
+            [self.GetItem().addNotation(p) for p in pre if self.GetItem().Search(type(p)) is None]
+            [self.GetItem().addNotation(w) for w in wrap if self.GetItem().Search(type(w)) is None]
+            new_note.GetItem().FlushNotation()
             self.AddChild(new_note)
 
     def toLily(self):
