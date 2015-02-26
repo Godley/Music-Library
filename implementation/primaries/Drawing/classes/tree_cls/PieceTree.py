@@ -388,6 +388,9 @@ class MeasureNode(IndexedNode):
         else:
             #get whatever is at the current index
             placeholder = voice_obj.GetChild(self.index-1)
+            if placeholder.GetItem() is not None:
+                if hasattr(placeholder.GetItem(), "beams"):
+                    node.GetItem().beams = placeholder.GetItem().beams
             if placeholder is not None:
                 placeholder.AttachNote(node)
 
