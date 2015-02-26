@@ -37,12 +37,6 @@ class testHandleArticulation(testclass.TestClass):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertEqual("-",self.note.GetNotation(-1, "post").symbol)
 
-    def testArticulationAccentAttrib(self):
-        self.tags.append("accent")
-        self.attrs = {"placement":"below"}
-        self.handler(self.tags,self.attrs,None,self.piece)
-
-        self.assertEqual("below",self.note.GetNotation(-1, "post").placement)
 
     def testArticulationSaccentTag(self):
         self.tags.append("strong-accent")
@@ -176,22 +170,16 @@ class testSlurs(testclass.TestClass):
         self.assertTrue(hasattr(MxmlParser.note, "slurs"))
         self.assertEqual(Directions.Slur, type(MxmlParser.note.slurs[0]))
 
-    def testSlurPlacement(self):
-        self.tags.append("slur")
-        self.attrs = {"placement":"above"}
-        self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertTrue(hasattr(MxmlParser.note.slurs[0], "placement"))
-        self.assertEqual("above",MxmlParser.note.slurs[0].placement)
 
     def testSlurWithId(self):
         self.tags.append("slur")
-        self.attrs = {"number":"1"}
+        self.attrs = {"slur":{"number":"1"}}
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(1 in MxmlParser.note.slurs)
 
     def testSlurType(self):
         self.tags.append("slur")
-        self.attrs = {"type":"start"}
+        self.attrs["slur"] = {"type":"start"}
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(MxmlParser.note.slurs[0], "type"))
         self.assertEqual("start",MxmlParser.note.slurs[0].type)

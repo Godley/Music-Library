@@ -26,7 +26,8 @@ class testCredit(xmlSet):
     def setUp(self):
         xmlSet.setUp(self)
         if hasattr(self, "note_id"):
-            self.item = piece.GetItem().meta.credits[self.note_id]
+            if self.note_id in piece.GetItem().meta.credits:
+                self.item = piece.GetItem().meta.credits[self.note_id]
 
     def testHasCredits(self):
         meta = piece.GetItem().meta
@@ -34,7 +35,11 @@ class testCredit(xmlSet):
 
     def testCredOne(self):
         if hasattr(self, "item"):
-            self.assertIsInstance(self.item, Directions.CreditText)
+            if hasattr(self, "type"):
+                self.assertIsInstance(self.item, self.type)
+            else:
+                self.assertIsInstance(self.item, Directions.CreditText)
+
 
     def testVal(self):
         if hasattr(self, "item"):
@@ -130,7 +135,8 @@ class testCreditOne(testCredit):
         self.page = 1
         testCredit.setUp(self)
 
-class testCreditTwo(testCredit):
+
+class testCreditTwo(xmlSet):
     def setUp(self):
         self.note_id = 1
         self.x = 595.276
@@ -140,9 +146,14 @@ class testCreditTwo(testCredit):
         self.valign ="top"
         self.value = "Hello Friends"
         self.page = 1
-        testCredit.setUp(self)
+        xmlSet.setUp(self)
+        self.item = piece.GetItem().meta.title
+        self.type = str
 
-class testCreditThree(testCredit):
+    def testVal(self):
+        self.assertEqual(self.item, self.value)
+
+class testCreditThree(xmlSet):
     def setUp(self):
         self.note_id = 2
         self.x = 1133.86
@@ -152,7 +163,12 @@ class testCreditThree(testCredit):
         self.valign ="top"
         self.value = "Charlotte Godley"
         self.page = 1
-        testCredit.setUp(self)
+        xmlSet.setUp(self)
+        self.item = piece.GetItem().meta.composer
+        self.type = str
+
+    def testVal(self):
+        self.assertEqual(self.item, self.value)
 
 class testMeasureTwo(testDirection):
     def setUp(self):

@@ -63,7 +63,7 @@ class testDynamics(xmlSet):
 
     def testMeasure1Direction5(self):
         measure = self.piece.getPart(self.p_id).getMeasure(1,1)
-        note = Search(NoteNode, measure, 3)
+        note = Search(NoteNode, measure, 2)
         exp =  Search(ExpressionNode, note, 1)
         self.assertIsInstance(exp.GetItem(), Directions.Dynamic)
 

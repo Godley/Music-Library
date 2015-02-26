@@ -438,8 +438,6 @@ def handleArticulation(tag, attrs, content, piece):
                     note.addNotation(Mark.DetachedLegato())
                 if tag[-1] == "tenuto":
                     note.addNotation(Mark.Tenuto())
-                if "placement" in attrs:
-                    accent.placement = attrs["placement"]
                 if tag[-1] == "breath-mark":
                     note.addNotation(Mark.BreathMark())
                 if tag[-1] == "caesura":
@@ -493,12 +491,12 @@ def handleOtherNotations(tag, attrs, content, piece):
 
                 notation = Directions.Slur()
                 num = len(note.slurs)
-                if "placement" in attrs["slur"]:
+                if "slur" in attrs and "placement" in attrs["slur"]:
                     notation.placement = attrs["slur"]["placement"]
-                if "number" in attrs["slur"]:
+                if "slur" in attrs and  "number" in attrs["slur"]:
                     num = int(attrs["slur"]["number"])
 
-                if "type" in attrs["slur"]:
+                if "slur" in attrs and "type" in attrs["slur"]:
                     notation.type = attrs["slur"]["type"]
                 note.slurs[num] = notation
             if tag[-2] == "technical":
