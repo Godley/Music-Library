@@ -370,6 +370,8 @@ def SetupPiece(tag, attrib, content, piece):
                         justify = temp["justify"]
                     if "valign" in temp:
                         valign = temp["valign"]
+                        if valign == "bottom":
+                            handleType = "rights"
                 if "credit-words" in content:
                     text = content["credit-words"]
                 if handleType == "":
