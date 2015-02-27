@@ -185,7 +185,7 @@ class Note(BaseClass.Base):
                 if isinstance(obj, Ornaments.Tremolo) and obj.type != "single":
                     self.trem_length *= 2
                 if obj.type == "stop":
-                    self.postnotation.append(obj)
+                    self.wrap_notation.append(obj)
                 else:
                     self.prenotation.append(obj)
                 return
@@ -389,9 +389,10 @@ class Tuplet(BaseClass.Base):
             else:
                 val += "\override TupletBracket.bracket-visibility = ##f\n"
         val += "\\tuplet"
+        val = val
         if hasattr(self, "type"):
             if self.type == "stop":
-                val = "}"
+                val = ["","}"]
         return val
 
 class GraceNote(BaseClass.Base):

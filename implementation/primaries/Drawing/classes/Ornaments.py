@@ -51,8 +51,10 @@ class Tremolo(BaseClass.Base):
         if hasattr(self, "type"):
             if self.type == "start":
                 return_val += "{"
+                return_val = return_val
             if self.type == "stop":
                 return_val = "}"
+                return_val = ["",return_val]
 
         return return_val
 
