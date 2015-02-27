@@ -39,7 +39,7 @@ class PieceTree(Tree):
             return self.getPart(indexes[-1])
 
     def addPart(self, item, index=-1):
-        node = PartNode()
+        node = PartNode(index=index)
         node.SetItem(item)
         self.AddNode(node, index=index)
         if self.current != None:
@@ -103,8 +103,9 @@ class PieceTree(Tree):
 
 
 class PartNode(IndexedNode):
-    def __init__(self):
+    def __init__(self, index=0):
         IndexedNode.__init__(self, rules=[StaffNode])
+        self.index = index
         if self.item is None:
             self.item = Part.Part()
 
@@ -203,7 +204,7 @@ class PartNode(IndexedNode):
                 SplitString(name)
         if hasattr(self.item, "shortname"):
             shortname = self.item.shortname
-        variables = self.CalculateVariable(name, staves)
+        variables = self.CalculateVariable(self.index, staves)
         first_part = ""
         for staff, variable in zip(staves, variables):
             staffstring = variable + " = \\new Staff"
