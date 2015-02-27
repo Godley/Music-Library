@@ -8,9 +8,15 @@ import os, sys
 
 def Run(fname):
     parser = MxmlParser.MxmlParser()
-    pieceObj = parser.parse(fname)
+    try:
+        pieceObj = parser.parse(fname)
+    except BaseException as e:
+        return [fname, str(e)]
     render = LilypondRender.LilypondRender(pieceObj, fname)
-    render.run()
+    try:
+        render.run()
+    except Exception as e:
+        return [render.lyfile, str(e)]
     if os.path.exists(render.pdf):
         os.system("open "+render.pdf)
     else:
@@ -18,10 +24,9 @@ def Run(fname):
 
 testcases = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases'
 failed = []
-if len(sys.argv) > 3:
-    if len(sys.argv) > 3 or sys.argv[1].endswith(".xml"):
-        file = os.path.join(testcases, sys.argv[1])
-        Run(file)
+if len(sys.argv) > 3 or sys.argv[1].endswith(".xml"):
+    file = os.path.join(testcases, sys.argv[1])
+    Run(file)
 else:
     for root, dirs, files in os.walk(os.path.join(testcases, "lilypond-provided-testcases")):
         for file in files:
@@ -32,8 +37,11 @@ else:
 
 print("The following files failed")
 for f in failed:
-    print(f)
-    os.system("open "+f)
+    if type(f) is list:
+        print("File:",f[0])
+        print("Exception:",f[1])
+    else:
+        os.system("open "+f)
 
 
 

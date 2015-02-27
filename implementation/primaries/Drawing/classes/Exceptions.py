@@ -6,3 +6,6 @@ class NoPartCreatedException(BaseException):
 
 class NoMeasureIDException(BaseException):
     '''ERROR! NO MEASURE FOUND'''
+
+class TabNotImplementedException(BaseException):
+    '''ERROR: this application doesn't care for tab staff'''

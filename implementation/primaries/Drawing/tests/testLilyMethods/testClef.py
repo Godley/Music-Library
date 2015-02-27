@@ -1,4 +1,5 @@
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode
 from implementation.primaries.Drawing.classes import Clef
 
 class testClef(Lily):
@@ -96,4 +97,22 @@ class testClefPercussion(Lily):
 class testClefTab(Lily):
     def setUp(self):
         self.item = Clef.Clef(sign="TAB")
-        self.lilystring = "\\new TabStaff {\n\clef moderntab \n}"
+        self.lilystring = "\clef moderntab"
+
+class testClefTabInMeasure(Lily):
+    def setUp(self):
+        self.item = PartNode()
+        self.item.addEmptyMeasure(1,1)
+        self.item.getMeasure(1,1).GetItem().clef = Clef.Clef(sign="TAB")
+        self.item.CheckIfTabStaff(1)
+        self.lilystring = ["staffone = \\new TabStaff{\\autoBeamOff % measure 1\n\clef moderntab  | \n\n }\n\n", "\\staffone"]
+
+class testClefTabInMeasureWithMultiClefs(Lily):
+    def setUp(self):
+        self.item = PartNode()
+        self.item.addEmptyMeasure(1,1)
+        self.item.getMeasure(1,1).GetItem().clef = Clef.Clef(sign="TAB")
+        self.item.addEmptyMeasure(2,1)
+        self.item.getMeasure(2,1).GetItem().clef = Clef.Clef(sign="F", line=4)
+        self.item.CheckIfTabStaff(1)
+        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n\clef moderntab  | \n\n % measure 2\n\clef bass  | \n\n }\n\n", "\\staffone"]

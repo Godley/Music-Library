@@ -8,7 +8,7 @@ except:
     from implementation.primaries.Drawing.classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
     from implementation.primaries.Drawing.classes.tree_cls import PieceTree, BaseTree
 # these define the current "things" we are handling: these are added on to relevant measures after being processed,
-# because "staff" could be found anywhere whilst it's being processed
+# because "staff" could be found anywhere whilst it's being processed and we need to know that to add it to the right object
 note = None
 direction = None
 expression = None
@@ -17,8 +17,6 @@ expression = None
 degree = None
 frame_note = None
 
-# last_note indicates the last position we found a note - relevant because directions and expressions have to appear after each note
-last_note = 0
 #indicates current staff being loaded
 staff_id = 1
 voice = 1
@@ -128,9 +126,9 @@ class MxmlParser(object):
         # handles copying the latest note into the measure note list.
         # done at end of note loading to make sure staff_id is right as staff id could be encountered
         # any point during the note tag
-        if part.getMeasure(measure_id, staff_id) is None:
-            part.addEmptyMeasure(measure_id, staff_id)
-        measure = part.getMeasure(measure_id, staff_id)
+        if part.getMeasure(int(measure_id), staff_id) is None:
+            part.addEmptyMeasure(int(measure_id), staff_id)
+        measure = part.getMeasure(int(measure_id), staff_id)
         voice_obj = measure.getVoice(voice)
         add = True
         notes = voice_obj.GetChildrenIndexes()
@@ -169,7 +167,6 @@ class MxmlParser(object):
         if name in self.tags:
             self.tags.remove(name)
         if name == "direction":
-
             if direction is not None:
                 measure_id = int(GetID(self.attribs, "measure", "number"))
                 part_id = GetID(self.attribs, "part", "id")
@@ -217,6 +214,9 @@ class MxmlParser(object):
                 part = self.piece.getLastPart()
             part.CheckMeasureDivisions(measure_id)
             part.CheckMeasureMeter(measure_id)
+            result = part.CheckIfTabStaff(measure_id)
+            if result is not None:
+                raise(Exceptions.TabNotImplementedException("Tab notation found: stopping"))
             staff_id = 1
             voice = 1
         if name in self.attribs:

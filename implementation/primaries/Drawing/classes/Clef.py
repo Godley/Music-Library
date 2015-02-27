@@ -29,7 +29,7 @@ class Clef(object):
         if hasattr(self, "sign") and self.sign is not None:
             key = self.sign.upper()
             if self.sign == "TAB":
-                return "\\new TabStaff {\n\clef moderntab \n}"
+                return "\clef moderntab"
             if hasattr(self, "line"):
                 key += str(self.line)
                 if key in clef_type:

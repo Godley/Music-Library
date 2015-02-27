@@ -156,11 +156,26 @@ class PartNode(IndexedNode):
         staff_obj = self.GetChild(staff)
         measure_obj = None
         if staff_obj is not None:
-            measure_obj = staff_obj.GetChild(measure)
+            measure_obj = staff_obj.GetChild(str(measure))
         return measure_obj
 
     def getStaff(self, key):
         return self.GetChild(key)
+
+    def CheckIfTabStaff(self, measure):
+        staves = self.GetChildrenIndexes()
+        for staff in staves:
+            stave = self.getStaff(staff)
+            measureNode = self.getMeasure(measure, staff)
+            item = measureNode.GetItem()
+            if hasattr(item, "clef"):
+                clef = item.clef
+                if clef.sign == "TAB" and not hasattr(stave, "tab"):
+                    stave.tab = True
+                    return "ERROR: THIS APPLICATION DOES NOT HANDLE TAB NOTATION"
+                else:
+                    stave.tab = False
+                    break
 
     def addMeasure(self, item, measure=1, staff=1):
         if self.getStaff(staff) is None:
@@ -168,11 +183,11 @@ class PartNode(IndexedNode):
         staff_obj = self.getStaff(staff)
         measure_obj = MeasureNode()
         measure_obj.SetItem(item)
-        staff_obj.AddChild(measure_obj, measure)
+        staff_obj.AddChild(measure_obj, str(measure))
 
     def addEmptyMeasure(self, measure=1, staff=1):
         measure_obj = Measure.Measure()
-        self.addMeasure(measure_obj, measure=measure, staff=staff)
+        self.addMeasure(measure_obj, measure=str(measure), staff=staff)
 
     def CalculateVariable(self, name, staves):
         variables = []
@@ -204,10 +219,14 @@ class PartNode(IndexedNode):
                 SplitString(name)
         if hasattr(self.item, "shortname"):
             shortname = self.item.shortname
-        variables = self.CalculateVariable(self.index, staves)
+        variables = self.CalculateVariable(str(self.index), staves)
         first_part = ""
         for staff, variable in zip(staves, variables):
-            staffstring = variable + " = \\new Staff"
+            staffstring = variable
+            if hasattr(self.GetChild(staff), "tab") and self.GetChild(staff).tab:
+                staffstring += " = \\new TabStaff"
+            else:
+                staffstring += " = \\new Staff"
             if len(staves) == 1:
                 if name != "":
                     staffstring += " \with {\n"
