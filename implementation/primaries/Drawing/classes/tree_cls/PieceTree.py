@@ -170,7 +170,11 @@ class PartNode(IndexedNode):
             item = measureNode.GetItem()
             if hasattr(item, "clef"):
                 clef = item.clef
-                if clef.sign == "TAB" and not hasattr(stave, "tab"):
+                if clef.sign == "percussion" and not hasattr(stave, "drum"):
+                    stave.drum = True
+                    return "ERROR: THIS APPLICATION DOES NOT HANDLE DRUM NOTATION"
+
+                elif clef.sign == "TAB" and not hasattr(stave, "tab"):
                     stave.tab = True
                     return "ERROR: THIS APPLICATION DOES NOT HANDLE TAB NOTATION"
                 else:
@@ -225,6 +229,8 @@ class PartNode(IndexedNode):
             staffstring = variable
             if hasattr(self.GetChild(staff), "tab") and self.GetChild(staff).tab:
                 staffstring += " = \\new TabStaff"
+            elif hasattr(self.GetChild(staff), "drum") and self.GetChild(staff).drum:
+                staffstring += " = \\drums"
             else:
                 staffstring += " = \\new Staff"
             if len(staves) == 1:

@@ -1,3 +1,4 @@
+#!/usr/bin/python
 
 try:
     from classes import MxmlParser, LilypondRender
@@ -28,12 +29,14 @@ if len(sys.argv) > 3 or sys.argv[1].endswith(".xml"):
     file = os.path.join(testcases, sys.argv[1])
     Run(file)
 else:
-    for root, dirs, files in os.walk(os.path.join(testcases, "lilypond-provided-testcases")):
-        for file in files:
-            if file.endswith(".xml"):
-                result = Run(os.path.join(root, file))
-                if result is not None:
-                    failed.append(result)
+    # for root, dirs, files in os.walk(os.path.join(testcases, "lilypond-provided-testcases")):
+    #     for file in files:
+    #         if file.endswith(".xml"):
+    #             result = Run(os.path.join(root, file))
+    #             if result is not None:
+    #                 failed.append(result)
+    file = os.path.join(testcases, "lilypond-provided-testcases", "73a-Percussion.xml")
+    Run(file)
 
 print("The following files failed")
 for f in failed:
