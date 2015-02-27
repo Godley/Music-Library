@@ -426,27 +426,28 @@ def handleArticulation(tag, attrs, content, piece):
             if note is not None:
                 accent = None
                 if tag[-1] == "accent":
-                    note.addNotation(Mark.Accent())
+                    accent = Mark.Accent()
                 if tag[-1] == "strong-accent":
-                    type = ""
+                    s_type = ""
                     if "strong-accent" in attrs:
                         if "type" in attrs["strong-accent"]:
-                            type = attrs["strong-accent"]["type"]
-                    accent = Mark.StrongAccent(type=type)
+                            s_type = attrs["strong-accent"]["type"]
+                    accent = Mark.StrongAccent(type=s_type)
                 if tag[-1] == "staccato":
-                    note.addNotation(Mark.Staccato())
+                    accent = Mark.Staccato()
                 if tag[-1] == "staccatissimo":
-                    note.addNotation(Mark.Staccatissimo())
+                    accent = Mark.Staccatissimo()
                 if tag[-1] == "detached-legato":
-                    note.addNotation(Mark.DetachedLegato())
+                    accent = Mark.DetachedLegato()
                 if tag[-1] == "tenuto":
-                    note.addNotation(Mark.Tenuto())
+                    accent = Mark.Tenuto()
                 if tag[-1] == "breath-mark":
-                    note.addNotation(Mark.BreathMark())
+                    accent = Mark.BreathMark()
                 if tag[-1] == "caesura":
-                    note.addNotation(Mark.Caesura())
+                    accent = Mark.Caesura()
                 if accent is not None:
-                    note.addNotation(accent)
+                    if note.Search(type(accent)) is None:
+                        note.addNotation(accent)
                     accent = None
             return 1
     return None
@@ -678,7 +679,9 @@ def HandleMeasures(tag, attrib, content, piece):
                         if "first-fret" not in attrib:
                             direction.frame.firstFret = [content["first-fret"]]
                         else:
-                            direction.frame.firstFret = [content["first-fret"], attrib["first-fret"]["text"]]
+                            direction.frame.firstFret = [content["first-fret"]]
+                            if "text" in attrib["first-fret"]:
+                                direction.frame.firstFret.append(attrib["first-fret"]["text"])
                 if "frame-strings" in tag and "frame-strings" in content:
                     direction.frame.strings = content["frame-strings"]
                 if "frame-frets" in tag and "frame-frets" in content:
@@ -765,7 +768,9 @@ def handleBarline(tag, attrib, content, piece):
             if "ending" in attrib:
                 if "number" in attrib["ending"]:
                     if attrib["barline"]["location"] not in measure.barlines or not hasattr(measure.barlines[attrib["barline"]["location"]], "ending"):
-                        number = int(attrib["ending"]["number"])
+                        num_str = attrib["ending"]["number"]
+                        split = num_str.split(",")
+                        number = int(split[-1])
                         if last_fwd_repeat is not None and number > 2:
                             last_fwd_repeat.repeatNum = number
                     else:
@@ -796,7 +801,7 @@ def handleBarline(tag, attrib, content, piece):
                         if repeat == "backward" and last_repeat != "forward":
                             repeat += "-barline"
                         if repeat == "forward" and last_repeat == "backward-barline":
-                            if part_id == last_barline_pos["part"] and last_barline_pos["measure"] == measure_id-1:
+                            if part_id == last_barline_pos["part"] and int(last_barline_pos["measure"]) == int(measure_id)-1:
                                 if attrib["barline"]["location"] != last_barline_pos["location"]:
                                     last_barline.repeat += "-double"
                     else:

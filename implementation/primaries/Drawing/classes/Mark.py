@@ -172,5 +172,8 @@ class Technique(Notation):
                     if hasattr(self, "symbol"):
                         val = "\\"+str(self.symbol)
                 elif self.type != "fingering":
-                    val = "_\\markup { "+self.symbol+" }"
+                    val = "_\\markup { "
+                    if self.symbol is not None:
+                        val += self.symbol
+                    val+=" }"
         return val

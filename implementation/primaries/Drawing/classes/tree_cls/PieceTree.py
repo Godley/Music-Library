@@ -6,6 +6,7 @@ try:
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
     from classes import Measure, Note, Part, Piece, Directions
+    from classes.Note import GraceNote
 
 def SplitString(value):
     """simple method that puts in spaces every 10 characters"""

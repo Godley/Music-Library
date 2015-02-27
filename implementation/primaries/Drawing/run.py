@@ -14,17 +14,26 @@ def Run(fname):
     if os.path.exists(render.pdf):
         os.system("open "+render.pdf)
     else:
-        raise(BaseException("BAD LILYPOND"))
+        return render.lyfile
 
 testcases = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases'
+failed = []
 if len(sys.argv) > 3:
-    file = os.path.join(testcases, sys.argv[1])
-    Run(file)
+    if len(sys.argv) > 3 or sys.argv[1].endswith(".xml"):
+        file = os.path.join(testcases, sys.argv[1])
+        Run(file)
 else:
     for root, dirs, files in os.walk(os.path.join(testcases, "lilypond-provided-testcases")):
         for file in files:
             if file.endswith(".xml"):
-                Run(os.path.join(root, file))
+                result = Run(os.path.join(root, file))
+                if result is not None:
+                    failed.append(result)
+
+print("The following files failed")
+for f in failed:
+    print(f)
+    os.system("open "+f)
 
 
 

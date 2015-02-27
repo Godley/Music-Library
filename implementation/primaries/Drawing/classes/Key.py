@@ -38,7 +38,13 @@ class Key(object):
                         keyname = keyname[0] + "is"
                 val += " " + keyname
             else:
-                val += " " + majors[self.fifths].lower()
+                key = self.fifths
+                if type(key) == str and key.isdigit():
+                    key = int(key)
+                if key in majors:
+                    val += " " + majors[key].lower()
+                else:
+                    val = ""
         else:
             if hasattr(self, "mode"):
                 if self.mode == "major":
