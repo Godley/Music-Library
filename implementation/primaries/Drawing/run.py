@@ -38,9 +38,11 @@ else:
 print("The following files failed")
 for f in failed:
     if type(f) is list:
+
         print("File:",f[0])
-        print("Exception:",f[1])
+        print("failed with Exception:",f[1])
     else:
+        print("File:",f[0], " failed parsing through Lilypond")
         os.system("open "+f)
 
 

@@ -1,5 +1,5 @@
 __author__ = 'charlotte'
-clef_type = {"G2": "treble", "G1": "french", "F4": "bass", "F3": "varbaritone", "F5": "subbass", "C3": "alto",
+clef_type = {"G2": "treble", "G1": "french", "F4": "bass", "F3": "varbaritone", "F5": "subbass", "C3": "alto", "percussion":"percussion",
              "C4": "tenor", "C5": "baritone", "C2": "mezzosoprano", "C1": "soprano", "VARC3": "altovarC", "VARC4": "tenorvarC", "VARC5": "baritonevarC"}
 
 
@@ -28,8 +28,10 @@ class Clef(object):
         clef = ""
         if hasattr(self, "sign") and self.sign is not None:
             key = self.sign.upper()
-            if self.sign == "TAB":
+            if key == "TAB":
                 return "\clef moderntab"
+            if key=="percussion":
+                return "\clef percussion"
             if hasattr(self, "line"):
                 key += str(self.line)
                 if key in clef_type:
