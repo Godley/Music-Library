@@ -156,7 +156,7 @@ class PartNode(IndexedNode):
         staff_obj = self.GetChild(staff)
         measure_obj = None
         if staff_obj is not None:
-            measure_obj = staff_obj.GetChild(str(measure))
+            measure_obj = staff_obj.GetChild(measure)
         return measure_obj
 
     def getStaff(self, key):
@@ -187,11 +187,11 @@ class PartNode(IndexedNode):
         staff_obj = self.getStaff(staff)
         measure_obj = MeasureNode()
         measure_obj.SetItem(item)
-        staff_obj.AddChild(measure_obj, str(measure))
+        staff_obj.AddChild(measure_obj, measure)
 
     def addEmptyMeasure(self, measure=1, staff=1):
         measure_obj = Measure.Measure()
-        self.addMeasure(measure_obj, measure=str(measure), staff=staff)
+        self.addMeasure(measure_obj, measure=measure, staff=staff)
 
     def CalculateVariable(self, name, staves):
         variables = []
@@ -277,13 +277,9 @@ class StaffNode(IndexedNode):
     def toLily(self):
         lilystring = "\\autoBeamOff"
         children = self.GetChildrenIndexes()
-        #implicit measures are not being handled, for now
-        non_implicit_measures = [child for child in children if type(child) is int or (type(child) is str and child.isdigit())]
-        int_children = [int(child) for child in non_implicit_measures]
-        int_children.sort()
-        for child in range(len(int_children)):
-            measureNode = self.GetChild(str(int_children[child]))
-            lilystring += " % measure "+str(int_children[child])+"\n"
+        for child in range(len(children)):
+            measureNode = self.GetChild(children[child])
+            lilystring += " % measure "+str(children[child])+"\n"
             lilystring += measureNode.toLily()+"\n\n"
             measure = measureNode.GetItem()
             right_barline = measure.GetBarline("right")
@@ -618,18 +614,20 @@ class NoteNode(Node):
             if type(firstchild) is NoteNode:
                 firstchild.AttachNote(new_note)
             else:
+                if type(new_note.GetItem()) != int and type(new_note.GetItem()) != str:
+                    post, pre, wrap = new_note.GetItem().GetAllNotation()
+                    [self.GetItem().addNotation(n) for n in post if self.GetItem().Search(type(n)) is None]
+                    [self.GetItem().addNotation(p) for p in pre if self.GetItem().Search(type(p)) is None]
+                    [self.GetItem().addNotation(w) for w in wrap if self.GetItem().Search(type(w)) is None]
+                    new_note.GetItem().FlushNotation()
+                self.PositionChild(0, new_note)
+        else:
+            if type(new_note.GetItem()) != int and type(new_note.GetItem()) != str:
                 post, pre, wrap = new_note.GetItem().GetAllNotation()
                 [self.GetItem().addNotation(n) for n in post if self.GetItem().Search(type(n)) is None]
                 [self.GetItem().addNotation(p) for p in pre if self.GetItem().Search(type(p)) is None]
                 [self.GetItem().addNotation(w) for w in wrap if self.GetItem().Search(type(w)) is None]
                 new_note.GetItem().FlushNotation()
-                self.PositionChild(0, new_note)
-        else:
-            post, pre, wrap = new_note.GetItem().GetAllNotation()
-            [self.GetItem().addNotation(n) for n in post if self.GetItem().Search(type(n)) is None]
-            [self.GetItem().addNotation(p) for p in pre if self.GetItem().Search(type(p)) is None]
-            [self.GetItem().addNotation(w) for w in wrap if self.GetItem().Search(type(w)) is None]
-            new_note.GetItem().FlushNotation()
             self.AddChild(new_note)
 
     def toLily(self):
@@ -666,6 +664,9 @@ class Placeholder(NoteNode):
     def __init__(self, **kwargs):
         NoteNode.__init__(self, **kwargs)
         self.item = None
+
+    def toLily(self):
+        return ""
 
 class SelfNode(Node):
     def __init__(self):

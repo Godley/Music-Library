@@ -18,9 +18,7 @@ def Run(fname):
         render.run()
     except Exception as e:
         return [render.lyfile, str(e)]
-    if os.path.exists(render.pdf):
-        os.system("open "+render.pdf)
-    else:
+    if not os.path.exists(render.pdf):
         return render.lyfile
 
 testcases = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases'
@@ -29,12 +27,12 @@ if len(sys.argv) > 3 or sys.argv[1].endswith(".xml"):
     file = os.path.join(testcases, sys.argv[1])
     Run(file)
 else:
-    # for root, dirs, files in os.walk(os.path.join(testcases, "lilypond-provided-testcases")):
-    #     for file in files:
-    #         if file.endswith(".xml"):
-    #             result = Run(os.path.join(root, file))
-    #             if result is not None:
-    #                 failed.append(result)
+    for root, dirs, files in os.walk(os.path.join(testcases, "lilypond-provided-testcases")):
+        for file in files:
+            if file.endswith(".xml"):
+                result = Run(os.path.join(root, file))
+                if result is not None:
+                    failed.append(result)
     file = os.path.join(testcases, "lilypond-provided-testcases", "73a-Percussion.xml")
     Run(file)
 

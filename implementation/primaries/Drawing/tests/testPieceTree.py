@@ -148,3 +148,14 @@ class testAddToMeasure(unittest.TestCase):
         self.measure.addNote(note1, chord=True)
         voice = self.measure.getVoice(1)
         self.assertEqual(voice.GetChild(0).GetChild(0).GetItem(), 3)
+
+    def testLilyOutputOfPlaceholders(self):
+        self.measure.addPlaceholder()
+        voice = self.measure.getVoice(1)
+        self.assertEqual(voice.GetChild(0).toLily(), "")
+
+    def testLilyOutputOfPlaceholdersWithChildren(self):
+        self.measure.addPlaceholder()
+        self.measure.addDirection(1)
+        voice = self.measure.getVoice(1)
+        self.assertEqual(voice.GetChild(0).toLily(), "")
