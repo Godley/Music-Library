@@ -19,8 +19,7 @@ frame_note = None
 
 #indicates current staff being loaded
 staff_id = 1
-voice = "a"
-cache = []
+voice = 1
 
 # indicators of where we last found a repeat barline, and which staff, measure and part it was found in. Needed because we may
 # have to modify it depending on what comes next
@@ -158,7 +157,7 @@ class MxmlParser(object):
 
 
     def EndTag(self, name):
-        global note, degree, frame_note, staff_id,direction,expression,last_barline,last_barline_pos, voice, cache
+        global note, degree, frame_note, staff_id,direction,expression,last_barline,last_barline_pos, voice
         if self.handler is not None and not self.d:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -175,8 +174,8 @@ class MxmlParser(object):
                 self.handler = None
         if name in self.tags:
             self.tags.remove(name)
-        if voice != "a":
-            if len(cache) > 0:
+        if name == "direction":
+            if direction is not None:
                 measure_id = IdAsInt(GetID(self.attribs, "measure", "number"))
                 part_id = GetID(self.attribs, "part", "id")
                 part = self.piece.getPart(part_id)
@@ -184,42 +183,19 @@ class MxmlParser(object):
                     if part.getMeasure(measure_id, staff_id) is None:
                         part.addEmptyMeasure(measure_id, staff_id)
                     measure = part.getMeasure(measure_id, staff_id)
-
-                for c in cache:
-                    if c is not None:
-                        if c[0] == "dir":
-                            measure.addDirection(copy.deepcopy(c[1]), voice)
-                        if c[0] == "exp":
-                            measure.addExpression(copy.deepcopy(c[1]), voice)
-                cache = []
-        if name == "direction":
-            if direction is not None:
-                if voice != "a":
-                    measure_id = IdAsInt(GetID(self.attribs, "measure", "number"))
-                    part_id = GetID(self.attribs, "part", "id")
-                    part = self.piece.getPart(part_id)
-                    if part is not None:
-                        if part.getMeasure(measure_id, staff_id) is None:
-                            part.addEmptyMeasure(measure_id, staff_id)
-                        measure = part.getMeasure(measure_id, staff_id)
-                        measure.addDirection(copy.deepcopy(direction), voice)
-                else:
-                    cache.append(("dir",direction))
+                    measure.addDirection(copy.deepcopy(direction), voice)
                 direction = None
             if expression is not None:
-                if voice is not "a":
-                    measure_id = IdAsInt(GetID(self.attribs, "measure", "number"))
-                    part_id = GetID(self.attribs, "part", "id")
-                    part = self.piece.getPart(part_id)
-                    if part is not None:
-                        if part.getMeasure(measure_id, staff_id) is None:
-                            part.addEmptyMeasure(measure_id, staff_id)
-                        measure = part.getMeasure(measure_id, staff_id)
-                        measure.addExpression(copy.deepcopy(expression), voice)
-                else:
-                    cache.append(("exp",expression))
+                measure_id = IdAsInt(GetID(self.attribs, "measure", "number"))
+                part_id = GetID(self.attribs, "part", "id")
+                part = self.piece.getPart(part_id)
+                if part is not None:
+                    if part.getMeasure(measure_id, staff_id) is None:
+                        part.addEmptyMeasure(measure_id, staff_id)
+                    measure = part.getMeasure(measure_id, staff_id)
+                    measure.addExpression(copy.deepcopy(expression), voice)
                 expression = None
-            voice = "a"
+            voice = 1
         if name == "barline":
             measure_id = IdAsInt(GetID(self.attribs, "measure", "number"))
             part_id = GetID(self.attribs, "part", "id")
@@ -250,7 +226,7 @@ class MxmlParser(object):
             if result is not None:
                 raise(Exceptions.TabNotImplementedException("Tab notation found: stopping"))
             staff_id = 1
-            voice = "a"
+            voice = 1
         if name in self.attribs:
             self.attribs.pop(name)
         if name in self.chars:
@@ -265,7 +241,7 @@ class MxmlParser(object):
             if part is not None:
                 self.CopyNote(part, measure_id, copy.deepcopy(note))
             note = None
-            voice = "a"
+            voice = 1
         if name == "degree":
             degree = None
         if name == "frame-note":
