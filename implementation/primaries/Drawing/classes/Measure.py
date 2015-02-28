@@ -111,8 +111,6 @@ class Measure(BaseClass.Base):
             lstring += bline
         else:
             lstring += " | "
-        if hasattr(self, "transpose") and hasattr(self.transpose, "type") and self.transpose.type == "stop":
-            lstring += " }"
 
         return lstring
 

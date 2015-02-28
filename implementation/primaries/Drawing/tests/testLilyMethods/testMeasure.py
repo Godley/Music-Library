@@ -113,17 +113,17 @@ class testMeasureTranspositionCalc(unittest.TestCase):
 
     def testCalcUpWithChromatic(self):
         self.item.transpose = Measure.Transposition(chromatic=2)
-        expected = "\\transpose d' c' {"
+        expected = "\\transpose c' d' {"
         self.assertEqual(self.item.CalculateTransposition(), expected)
 
     def testCalcUpWithDiatonic(self):
         self.item.transpose = Measure.Transposition(diatonic=1)
-        expected = "\\transpose d' c' {"
+        expected = "\\transpose c' d' {"
         self.assertEqual(self.item.CalculateTransposition(), expected)
 
     def testCalcOctaveShift(self):
         self.item.transpose = Measure.Transposition(octave=1)
-        expected = "\\transpose c'' c' {"
+        expected = "\\transpose c' c'' {"
         self.assertEqual(self.item.CalculateTransposition(), expected)
 
 class testStaffWithMeasureWithTransposition(unittest.TestCase):
@@ -146,6 +146,14 @@ class testStaffWithMeasureWithTransposition(unittest.TestCase):
         self.item.AddChild(m2, 2)
         lstring = self.item.toLily()
         expected = "\\autoBeamOff % measure 1\n\\transpose c' c'' { | \n\n} % measure 2\n\\transpose c' c { | \n\n}"
+        self.assertEqual(lstring, expected)
+
+    def testOutputWithAnotherMeasure(self):
+        m2 = MeasureNode()
+        item = m2.GetItem()
+        self.item.AddChild(m2, 2)
+        lstring = self.item.toLily()
+        expected = "\\autoBeamOff % measure 1\n\\transpose c' c'' { | \n\n % measure 2\n | \n\n}"
         self.assertEqual(lstring, expected)
 
 
