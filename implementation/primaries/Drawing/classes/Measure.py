@@ -57,6 +57,7 @@ class Measure(BaseClass.Base):
         scale = ['a','bes','b','c','cis','d','dis','e','f','fis','g','gis']
         base = 3
         result = base
+        octave_shifters = "'"
         if hasattr(self.transpose, "chromatic"):
             chromatic = int(self.transpose.chromatic)
             result = base + chromatic
@@ -64,21 +65,26 @@ class Measure(BaseClass.Base):
         elif hasattr(self.transpose, "diatonic"):
             diatonic = int(self.transpose.diatonic)
             result = base + (diatonic*2)
+
+
         if result < 0:
-                result = (len(scale)-1)-result
+            result = (len(scale)-1)-result
+            octave_shifters = ""
         if result >= len(scale):
             result = result-(len(scale)-1)
+            octave_shifters += "'"
         lettername = scale[result]
-        octave_shifters = "'"
+
         if hasattr(self.transpose, "octave"):
             octave = self.transpose.octave
 
             if octave > 0:
                 octave_shifters += "".join(["'" for i in range(octave)])
             if octave < 0:
-                octave_shifters += "".join(["," for i in range(abs(octave))])
-        return "\\transpose "+lettername+octave_shifters+" c' {"
-        pass
+                octave_shifters = ""
+                if octave < -1:
+                    octave_shifters += "".join(["," for i in range(abs(octave))])
+        return "\\transpose c' "+lettername+octave_shifters+" {"
 
     def HandleAttributes(self):
         lilystring = ""

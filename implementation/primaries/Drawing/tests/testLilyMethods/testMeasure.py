@@ -1,6 +1,6 @@
 from implementation.primaries.Drawing.classes import Measure, Note, Directions
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode, StaffNode
 import unittest
 
 class MeasureTests(Lily):
@@ -126,5 +126,26 @@ class testMeasureTranspositionCalc(unittest.TestCase):
         expected = "\\transpose c'' c' {"
         self.assertEqual(self.item.CalculateTransposition(), expected)
 
+class testStaffWithMeasureWithTransposition(unittest.TestCase):
+    def setUp(self):
+        self.item = StaffNode()
+        m1 = MeasureNode()
+        item = m1.GetItem()
+        item.transpose = Measure.Transposition(octave=1)
+        self.item.AddChild(m1, 1)
+
+    def testOutput(self):
+        lstring = self.item.toLily()
+        expected = "\\autoBeamOff % measure 1\n\\transpose c' c'' { | \n\n}"
+        self.assertEqual(lstring, expected)
+
+    def testOutputWithAnotherTransposedMeasure(self):
+        m2 = MeasureNode()
+        item = m2.GetItem()
+        item.transpose = Measure.Transposition(octave=-1)
+        self.item.AddChild(m2, 2)
+        lstring = self.item.toLily()
+        expected = "\\autoBeamOff % measure 1\n\\transpose c' c'' { | \n\n} % measure 2\n\\transpose c' c { | \n\n}"
+        self.assertEqual(lstring, expected)
 
 

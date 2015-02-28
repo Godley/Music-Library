@@ -277,11 +277,19 @@ class StaffNode(IndexedNode):
     def toLily(self):
         lilystring = "\\autoBeamOff"
         children = self.GetChildrenIndexes()
+        if not hasattr(self, "transpose"):
+            self.transpose = None
         for child in range(len(children)):
             measureNode = self.GetChild(children[child])
+            measure = measureNode.GetItem()
+            if hasattr(measure, "transpose"):
+                if self.transpose is None:
+                    self.transpose = True
+                else:
+                    lilystring += "}"
             lilystring += " % measure "+str(children[child])+"\n"
             lilystring += measureNode.toLily()+"\n\n"
-            measure = measureNode.GetItem()
+
             right_barline = measure.GetBarline("right")
             if right_barline is not None and hasattr(right_barline, "ending"):
                 if len(children) == child+1:
@@ -291,7 +299,8 @@ class StaffNode(IndexedNode):
                     left_bline = nxt_measure.GetBarline("left")
                     if not hasattr(left_bline, "ending"):
                         lilystring += "}"
-
+        if self.transpose:
+            lilystring += "}"
         return lilystring
 
     def CheckDivisions(self):
