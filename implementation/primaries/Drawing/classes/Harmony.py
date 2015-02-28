@@ -27,7 +27,7 @@ class Harmony(BaseClass.Base):
     def toLily(self):
         val = "\chords {"
         if hasattr(self, "root"):
-            val += "\n\r"+self.root
+            val += "\n\r"+self.root.toLily()
         if hasattr(self, "bass") or len(self.degrees) > 0 or hasattr(self, "kind"):
             val += "\n\r:"
         if hasattr(self, "degrees"):

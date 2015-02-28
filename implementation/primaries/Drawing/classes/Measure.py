@@ -53,8 +53,37 @@ class Measure(BaseClass.Base):
         # method to add any notation that needs to wrap the whole bar
         self.items.append(item)
 
+    def CalculateTransposition(self):
+        scale = ['a','bes','b','c','cis','d','dis','e','f','fis','g','gis']
+        base = 3
+        result = base
+        if hasattr(self.transpose, "chromatic"):
+            chromatic = int(self.transpose.chromatic)
+            result = base + chromatic
+
+        elif hasattr(self.transpose, "diatonic"):
+            diatonic = int(self.transpose.diatonic)
+            result = base + (diatonic*2)
+        if result < 0:
+                result = (len(scale)-1)-result
+        if result >= len(scale):
+            result = result-(len(scale)-1)
+        lettername = scale[result]
+        octave_shifters = "'"
+        if hasattr(self.transpose, "octave"):
+            octave = self.transpose.octave
+
+            if octave > 0:
+                octave_shifters += "".join(["'" for i in range(octave)])
+            if octave < 0:
+                octave_shifters += "".join(["," for i in range(abs(octave))])
+        return "\\transpose "+lettername+octave_shifters+" c' {"
+        pass
+
     def HandleAttributes(self):
         lilystring = ""
+        if hasattr(self, "transpose"):
+            lilystring += self.CalculateTransposition()
         if hasattr(self, "clef") and self.clef is not None:
             lilystring += self.clef.toLily() + " "
         if hasattr(self, "key") and self.key is not None:
@@ -76,6 +105,8 @@ class Measure(BaseClass.Base):
             lstring += bline
         else:
             lstring += " | "
+        if hasattr(self, "transpose") and hasattr(self.transpose, "type") and self.transpose.type == "stop":
+            lstring += " }"
 
         return lstring
 

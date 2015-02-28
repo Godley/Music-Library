@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.classes import Measure, Note, Directions
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode
+import unittest
 
 class MeasureTests(Lily):
 
@@ -104,6 +105,26 @@ class testMeasureOneNoteOneDirection(MeasureTests):
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
         self.name = "measurenotedirection"
+
+class testMeasureTranspositionCalc(unittest.TestCase):
+    def setUp(self):
+        self.item = Measure.Measure()
+
+
+    def testCalcUpWithChromatic(self):
+        self.item.transpose = Measure.Transposition(chromatic=2)
+        expected = "\\transpose d' c' {"
+        self.assertEqual(self.item.CalculateTransposition(), expected)
+
+    def testCalcUpWithDiatonic(self):
+        self.item.transpose = Measure.Transposition(diatonic=1)
+        expected = "\\transpose d' c' {"
+        self.assertEqual(self.item.CalculateTransposition(), expected)
+
+    def testCalcOctaveShift(self):
+        self.item.transpose = Measure.Transposition(octave=1)
+        expected = "\\transpose c'' c' {"
+        self.assertEqual(self.item.CalculateTransposition(), expected)
 
 
 
