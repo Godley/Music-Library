@@ -30,11 +30,10 @@ last_barline_pos = {}
 handleType = ""
 
 def IdAsInt(index):
-    sint = ignore_exception(ValueError)(int)
     if index is not None:
-        if sint(index) is int:
+        try:
             return int(index)
-        else:
+        except:
             return index
 
 def GetID(attrs, tag, val):
@@ -718,7 +717,7 @@ def handleClef(tag,attrib,content,piece):
     staff = GetID(attrib, "clef", "number")
     if staff is not None:
         staff_id = int(staff)
-    measure_id = GetID(attrib,"measure","number")
+    measure_id = IdAsInt(GetID(attrib,"measure","number"))
 
     part_id = GetID(attrib,"part","id")
     part = piece.getPart(part_id)
