@@ -223,7 +223,10 @@ class MxmlParser(object):
             part.CheckMeasureMeter(measure_id)
             result = part.CheckIfTabStaff(measure_id)
             if result is not None:
-                raise(Exceptions.TabNotImplementedException("Tab notation found: stopping"))
+                if "TAB" in result:
+                    raise(Exceptions.TabNotImplementedException("Tab notation found: stopping"))
+                if "DRUM" in result:
+                    raise(Exceptions.DrumNotImplementedException("Drum Tab notation found: stopping"))
             staff_id = 1
             voice = 1
         if name in self.attribs:

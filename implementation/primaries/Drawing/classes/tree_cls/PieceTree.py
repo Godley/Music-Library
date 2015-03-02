@@ -172,14 +172,21 @@ class PartNode(IndexedNode):
                 clef = item.clef
                 if clef.sign == "percussion" and not hasattr(stave, "drum"):
                     stave.drum = True
-                    return "ERROR: THIS APPLICATION DOES NOT HANDLE DRUM NOTATION"
+                else:
+                    stave.drum = False
+                    break
 
-                elif clef.sign == "TAB" and not hasattr(stave, "tab"):
+                if clef.sign == "TAB" and not hasattr(stave, "tab"):
                     stave.tab = True
-                    return "ERROR: THIS APPLICATION DOES NOT HANDLE TAB NOTATION"
+
                 else:
                     stave.tab = False
                     break
+
+            if stave.tab:
+                return "ERROR: THIS APPLICATION DOES NOT HANDLE TAB NOTATION"
+            if stave.drum:
+                return "ERROR: THIS APPLICATION DOES NOT HANDLE DRUM NOTATION"
 
     def addMeasure(self, item, measure=1, staff=1):
         if self.getStaff(staff) is None:
