@@ -43,6 +43,7 @@ class testHandleDirections(testclass.TestClass):
         self.assertIsInstance(MxmlParser.direction, Directions.Direction)
         self.assertEqual("hello, world", MxmlParser.direction.text)
 
+
     def testWordsWithFontSizeAttrib(self):
         self.tags.append("words")
         self.chars["words"] = "hello, world"

@@ -51,7 +51,7 @@ class testHandleMeasures(MeasureTesting):
 class testKeySig(MeasureTesting):
     def tearDown(self):
         MxmlParser.staff_id = 1
-        
+
     def testModeTag(self):
         self.tags.append("key")
         self.tags.append("mode")

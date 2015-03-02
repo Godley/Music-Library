@@ -29,7 +29,11 @@ class Text(BaseClass.Base):
         # \abs-fontsize #20
         lilystring = ""
         if hasattr(self, "size"):
-            lilystring += "\\abs-fontsize #" + str(self.size) + " "
+            try:
+                size = int(self.size)
+                lilystring += "\\abs-fontsize #" + str(self.size) + " "
+            except:
+                lilystring += "\\"+str(self.size)+" "
         if hasattr(self, "font"):
             fonts_available = ["sans","typewriter","roman"]
             if self.font in fonts_available:

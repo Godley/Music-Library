@@ -12,6 +12,11 @@ class testTextSize(Lily):
         self.item = Directions.Text(size=8,text="hello")
         self.lilystring = "\\abs-fontsize #8 \"hello\" "
 
+class testTextSizeWhichIsAWord(Lily):
+    def setUp(self):
+        self.item = Directions.Text(size="medium",text="hello")
+        self.lilystring = "\medium \"hello\" "
+
 class testTextFont(Lily):
     def setUp(self):
         self.item = Directions.Text(font="typewriter",text="hello")
