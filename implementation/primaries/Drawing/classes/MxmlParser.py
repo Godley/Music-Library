@@ -995,7 +995,7 @@ def HandlePitch(tags, attrs, text, piece):
                     note.pitch.step = text["step"]
                 return_val = 1
             if tags[-1] == "alter":
-                note.pitch.alter = text["alter"]
+                note.pitch.alter = int(text["alter"])
                 return_val = 1
             if "octave" in tags[-1]:
                 if "octave" not in text:
