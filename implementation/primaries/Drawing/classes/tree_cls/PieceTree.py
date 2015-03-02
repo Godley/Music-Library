@@ -11,16 +11,49 @@ except:
 def SplitString(value):
     """simple method that puts in spaces every 10 characters"""
     string_length = len(value)
-    chunks = string_length / 10
+    chunks = int(string_length / 10)
     string_list = list(value)
     spaced_string_list = []
+    lstring = ""
+
     if chunks > 1:
+        lstring = "\\markup { \n\r \column { "
         for i in range(int(chunks)):
+            lstring += "\n\r\r \\line { \""
             index = i*10
             for i in range(index):
-                spaced_string_list.append(string_list[i])
-            spaced_string_list.append("\n")
-    return "".join(spaced_string_list)
+                lstring += string_list[i]
+            lstring += "\" \r\r}"
+        lstring += "\n\r } \n }"
+    if lstring == "":
+        indexes = [i for i in range(len(string_list)) if string_list[i] == "\r" or string_list[i] == "\n"]
+        lstring = "\\markup { \n\r \column { "
+        if len(indexes) == 0:
+            lstring += "\n\r\r \\line { \"" + "".join(string_list) + "\" \n\r\r } \n\r } \n }"
+        rows = []
+        row_1 = string_list[:indexes[0]]
+        rows.append(row_1)
+        for i in range(len(indexes)):
+            start = indexes[i]
+            if i != len(indexes)-1:
+                end = indexes[i+1]
+            else:
+                end = len(string_list)
+            row = string_list[start:end]
+            rows.append(row)
+
+        for row in rows:
+            lstring += "\n\r\r \\line { \""
+            lstring += "".join(row)
+            lstring += "\" \r\r}"
+        lstring += "\n\r } \n }"
+    return lstring
+
+# \markup {
+#     \column { "Clarinetti"
+#       \line { "in B" \smaller \flat }
+#     }
+#   }
 
 class PieceTree(Tree):
     def __init__(self):
@@ -183,9 +216,9 @@ class PartNode(IndexedNode):
                     stave.tab = False
                     break
 
-            if stave.tab:
+            if hasattr(stave, "tab") and stave.tab:
                 return "ERROR: THIS APPLICATION DOES NOT HANDLE TAB NOTATION"
-            if stave.drum:
+            if hasattr(stave, "drum") and stave.drum:
                 return "ERROR: THIS APPLICATION DOES NOT HANDLE DRUM NOTATION"
 
     def addMeasure(self, item, measure=1, staff=1):
@@ -226,10 +259,9 @@ class PartNode(IndexedNode):
         shortname = ""
         if hasattr(self.item, "name"):
             name = self.item.name
-            if len(name) > 10:
-                SplitString(name)
+            name = SplitString(name)
         if hasattr(self.item, "shortname"):
-            shortname = self.item.shortname
+            shortname = SplitString(self.item.shortname)
         variables = self.CalculateVariable(str(self.index), staves)
         first_part = ""
         for staff, variable in zip(staves, variables):
@@ -243,9 +275,9 @@ class PartNode(IndexedNode):
             if len(staves) == 1:
                 if name != "":
                     staffstring += " \with {\n"
-                    staffstring += "instrumentName = #\""+ name +" \"\n"
+                    staffstring += "instrumentName = "+ name +" \n"
                     if shortname != "":
-                        staffstring += "shortInstrumentName = #\""+ shortname +" \"\n"
+                        staffstring += "shortInstrumentName = "+ shortname +" \n"
                     staffstring += " }"
             staffstring += "{"+self.GetChild(staff).toLily() + " }\n\n"
             first_part += staffstring

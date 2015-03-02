@@ -421,7 +421,8 @@ def UpdatePart(tag, attrib, content, piece):
                 return_val = 1
             if "part-name" in tag:
                 if "part-name" in content and part_id is not None:
-                    piece.getPart(part_id).GetItem().name = content["part-name"]
+                    name_rplc = content["part-name"].replace("\r", "\n")
+                    piece.getPart(part_id).GetItem().name = name_rplc
                     return_val = 1
             if "part-abbreviation" in tag:
                 if "part-abbreviation" in content and part_id is not None:

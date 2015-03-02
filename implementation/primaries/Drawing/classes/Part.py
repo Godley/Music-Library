@@ -48,34 +48,6 @@ class Part(object):
             st += "\n--------------------------------------------------------"
         return st
 
-    def CheckDivisions(self):
-        divisions = 8
-        for staff in self.measures:
-            for number in self.measures[staff]:
-                if hasattr(self.measures[staff][number], "divisions") and self.measures[staff][number].divisions is not None:
-                    divisions = self.measures[staff][number].divisions
-            [self.measures[staff][key].SetDivisions(divisions) for key in self.measures[staff]]
-            [self.measures[staff][key].CheckDivisions() for key in self.measures[staff]]
-
-    def addMeasure(self, item, measure=1, staff=1):
-        if staff not in self.measures:
-            self.measures[staff] = {}
-        self.measures[staff][measure] = item
-
-    def addEmptyMeasure(self, measure=1, staff=1):
-        if staff not in self.measures:
-            self.measures[staff] = {}
-        self.measures[staff][measure] = Measure()
-
-    def getMeasure(self, measure=1, staff=1):
-        item = None
-        if staff in self.measures:
-            try:
-                if measure in self.measures[staff]:
-                    item = self.measures[staff][measure]
-            except:
-                print(measure, self.measures[staff])
-        return item
 
     def RepeatMeasure(self, sid, key, measure_strings, fwd, repeat_num=2):
         # recursive method. Handles situations where a bar or several bars need to use a percentage repeat.
@@ -138,25 +110,6 @@ class Part(object):
                 else:
                     lilystring = "}"
         return lilystring
-
-    def GetVariableName(self, staff):
-        # small method to get the variable name for a specific part and staff
-        # may run into issues if there are multiple parts with the same name, but let's hope not
-        variable = ""
-        if hasattr(self, "name") and (len(self.name) > 0 and self.name != " "):
-            self.name = self.name.strip()
-            split_name = self.name.split(' ')
-            joined_name = "".join(split_name)
-            first_letter = joined_name[0].lower()
-
-            #lilypond won't allow numbers to be in variable names, so convert these to words
-            if first_letter in ["0","1","2","3","4","5","6","7","8","9"]:
-                first_letter = NumbersToWords(int(first_letter))
-            variable += first_letter
-            if len(joined_name) > 1:
-                variable += joined_name[1:len(joined_name)]
-        variable += "S"+NumbersToWords(staff)
-        return variable
 
     def toLily(self):
         self.CheckDivisions()
