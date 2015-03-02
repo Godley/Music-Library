@@ -49,6 +49,9 @@ class testHandleMeasures(MeasureTesting):
 
 
 class testKeySig(MeasureTesting):
+    def tearDown(self):
+        MxmlParser.staff_id = 1
+        
     def testModeTag(self):
         self.tags.append("key")
         self.tags.append("mode")
@@ -67,7 +70,15 @@ class testKeySig(MeasureTesting):
         self.assertTrue(hasattr(exp_measure, "key"))
         self.assertEqual(3, exp_measure.key.fifths)
 
-    
+    def testKeySigWithStaffAssignment(self):
+        self.tags.append("key")
+        self.tags.append("fifths")
+        self.attrs["key"] = {"number":"2"}
+        self.chars["fifths"] = "3"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,2).GetItem()
+        new_measure = self.piece.getPart("P1").getMeasure(1,2).GetItem()
+        self.assertTrue(hasattr(exp_measure, "key"))
 
 
 class testMeter(MeasureTesting):
@@ -97,6 +108,7 @@ class testClef(MeasureTesting):
         self.chars["line"] = 2
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+
         self.assertTrue(hasattr(exp_measure, "clef"))
         self.assertEqual(2, exp_measure.clef.line)
 
@@ -112,11 +124,14 @@ class testClef(MeasureTesting):
     def testClefWithNumber(self):
         self.tags.append("clef")
         self.attrs["clef"] = {"number":"2"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.tags.append("sign")
         self.chars["sign"] = "G"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         exp_measure = self.piece.getPart("P1").getMeasure(1,2).GetItem()
+        other_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
         self.assertTrue(hasattr(exp_measure, "clef"))
+        self.assertFalse(hasattr(other_measure, "clef"))
 
 class testTranspose(MeasureTesting):
     def testTransposeDiatonicTag(self):

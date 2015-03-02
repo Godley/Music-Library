@@ -549,7 +549,21 @@ def HandleMeasures(tag, attrib, content, piece):
                 measure = measure.GetItem()
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
+        if "key" in tag:
+            if "key" in attrib:
+                if "number" in attrib["key"]:
+                    staff_id = int(attrib["key"]["number"])
+                    measure = part.getMeasure(measure=measure_id, staff=staff_id)
+                    if measure is None:
+                        part.addEmptyMeasure(measure_id, staff_id)
+                        measure = part.getMeasure(measure_id, staff_id)
+                    if measure is not None:
+                        measure = measure.GetItem()
+                else:
+                    staff_id = 1
         if tag[-1] == "mode" and "key" in tag and measure is not None:
+
+
             if hasattr(measure, "key"):
                 measure.key.mode = content["mode"]
 
