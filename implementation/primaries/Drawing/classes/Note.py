@@ -208,7 +208,7 @@ class Note(BaseClass.Base):
 
     def SetType(self, vtype):
         self.val_type = vtype
-        options = {"64th":64,"32nd":32,"16th":16,"eighth":8,"quarter":4,"half":2,"whole":1,"h":8}
+        options = {"128th":128,"64th":64,"32nd":32,"16th":16,"eighth":8,"quarter":4,"half":2,"whole":1,"h":8}
         if vtype in options:
             self.duration = options[self.val_type]
 
