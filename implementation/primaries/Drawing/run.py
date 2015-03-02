@@ -23,9 +23,10 @@ def Run(fname):
 
 testcases = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases'
 failed = []
-if len(sys.argv) > 3 or sys.argv[1].endswith(".xml"):
-    file = os.path.join(testcases, sys.argv[1])
-    Run(file)
+if len(sys.argv) > 1:
+    if len(sys.argv) > 3 or sys.argv[1].endswith(".xml"):
+        file = os.path.join(testcases, sys.argv[1])
+        Run(file)
 else:
     for root, dirs, files in os.walk(os.path.join(testcases, "lilypond-provided-testcases")):
         for file in files:

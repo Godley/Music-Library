@@ -30,23 +30,24 @@ def SplitString(value):
         lstring = "\\markup { \n\r \column { "
         if len(indexes) == 0:
             lstring += "\n\r\r \\line { \"" + "".join(string_list) + "\" \n\r\r } \n\r } \n }"
-        rows = []
-        row_1 = string_list[:indexes[0]]
-        rows.append(row_1)
-        for i in range(len(indexes)):
-            start = indexes[i]
-            if i != len(indexes)-1:
-                end = indexes[i+1]
-            else:
-                end = len(string_list)
-            row = string_list[start:end]
-            rows.append(row)
+        else:
+            rows = []
+            row_1 = string_list[:indexes[0]]
+            rows.append(row_1)
+            for i in range(len(indexes)):
+                start = indexes[i]
+                if i != len(indexes)-1:
+                    end = indexes[i+1]
+                else:
+                    end = len(string_list)
+                row = string_list[start:end]
+                rows.append(row)
 
-        for row in rows:
-            lstring += "\n\r\r \\line { \""
-            lstring += "".join(row)
-            lstring += "\" \r\r}"
-        lstring += "\n\r } \n }"
+            for row in rows:
+                lstring += "\n\r\r \\line { \""
+                lstring += "".join(row)
+                lstring += "\" \r\r}"
+            lstring += "\n\r } \n }"
     return lstring
 
 # \markup {
@@ -287,7 +288,7 @@ class PartNode(IndexedNode):
             second_part += "\\new StaffGroup "
             if name != "":
                 second_part += "\with {\n"
-                second_part += "instrumentName = #\""+ name +" \"\n"
+                second_part += "instrumentName = "+ name +" \n"
                 second_part += " }"
             second_part += "<<"
         second_part += "\n".join(["\\"+var for var in variables])

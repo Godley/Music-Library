@@ -32,7 +32,6 @@ class Part(object):
         self.measures = {}
 
     def __str__(self):
-        self.CheckDivisions()
         st = ""
         if hasattr(self, "name"):
             st += "name:"+self.name
@@ -112,7 +111,6 @@ class Part(object):
         return lilystring
 
     def toLily(self):
-        self.CheckDivisions()
         lilystring = ""
         staff_nums = list(self.measures.keys())
 

@@ -67,6 +67,8 @@ class testKeySig(MeasureTesting):
         self.assertTrue(hasattr(exp_measure, "key"))
         self.assertEqual(3, exp_measure.key.fifths)
 
+    
+
 
 class testMeter(MeasureTesting):
     def testBeatTag(self):

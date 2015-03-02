@@ -14,10 +14,7 @@ def Run(fname):
     except BaseException as e:
         return [fname, str(e)]
     render = LilypondRender.LilypondRender(pieceObj, fname)
-    try:
-        render.run()
-    except Exception as e:
-        return [render.lyfile, str(e)]
+    render.run()
     if not os.path.exists(render.pdf):
         return render.lyfile
 

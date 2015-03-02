@@ -475,10 +475,10 @@ def HandleMovementBetweenDurations(tags, attrs, chars, piece):
                 part.addEmptyMeasure(measure_id, staff_id)
             measure = part.getMeasure(measure_id, staff_id)
             if "backup" in tags and tags[-1]=="duration":
-                part.GetItem().CheckDivisions()
+                part.CheckDivisions()
                 measure.Backup(duration=int(chars["duration"]))
             if "forward" in tags and tags[-1] == "duration":
-                part.GetItem().CheckDivisions()
+                part.CheckDivisions()
                 measure.Forward(duration=int(chars["duration"]))
 
 def HandleFermata(tags, attrs, chars, piece):
