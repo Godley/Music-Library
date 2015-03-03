@@ -201,21 +201,22 @@ class PartNode(IndexedNode):
         for staff in staves:
             stave = self.getStaff(staff)
             measureNode = self.getMeasure(measure, staff)
-            item = measureNode.GetItem()
-            if hasattr(item, "clef"):
-                clef = item.clef
-                if clef.sign == "percussion" and not hasattr(stave, "drum"):
-                    stave.drum = True
-                else:
-                    stave.drum = False
-                    break
+            if measureNode is not None:
+                item = measureNode.GetItem()
+                if hasattr(item, "clef"):
+                    clef = item.clef
+                    if clef.sign == "percussion" and not hasattr(stave, "drum"):
+                        stave.drum = True
+                    else:
+                        stave.drum = False
+                        break
 
-                if clef.sign == "TAB" and not hasattr(stave, "tab"):
-                    stave.tab = True
+                    if clef.sign == "TAB" and not hasattr(stave, "tab"):
+                        stave.tab = True
 
-                else:
-                    stave.tab = False
-                    break
+                    else:
+                        stave.tab = False
+                        break
 
             if hasattr(stave, "tab") and stave.tab:
                 return "ERROR: THIS APPLICATION DOES NOT HANDLE TAB NOTATION"
@@ -694,7 +695,11 @@ class NoteNode(Node):
             if self.GetChild(child) is not None:
                 if type(self.GetChild(child)) is NoteNode:
                     lilystring += " "
-                lilystring += self.GetChild(child).toLily()
+                return_val = self.GetChild(child).toLily()
+                if type(return_val) == str:
+                    lilystring += return_val
+                else:
+                    lilystring = return_val[0] + lilystring + return_val[1]
             else:
                 wat=True
         return lilystring
@@ -724,12 +729,17 @@ class SelfNode(Node):
     def toLily(self):
         lilystring = ""
         if self.item is not None:
-            if type(self.item.toLily()) is list:
-                print(self.item)
-            lilystring += self.item.toLily()
+            lstring = self.item.toLily()
+            if type(lstring) == str:
+                lilystring += lstring
+            else:
+                lilystring = lstring
         child = self.GetChild(0)
         if child is not None:
-            lilystring += child.toLily()
+            if type(lilystring) == str:
+                lilystring += child.toLily()
+            else:
+                lilystring.append(child.toLily())
         return lilystring
 
 class DirectionNode(SelfNode):
