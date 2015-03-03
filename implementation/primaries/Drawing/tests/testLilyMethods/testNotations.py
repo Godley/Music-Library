@@ -1,4 +1,5 @@
 from implementation.primaries.Drawing.classes import Note
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 
 class testTie(Lily):
@@ -19,12 +20,12 @@ class testTieStop(Lily):
 class testNotehead(Lily):
     def setUp(self):
         self.item = Note.Notehead()
-        self.lilystring = ["\n","\n\\revert NoteHead.style\n"]
+        self.lilystring = ["\n",""]
 
 class testNoteheadCircleX(Lily):
     def setUp(self):
         self.item = Note.Notehead(type="circle-x")
-        self.lilystring = ["\n\\override NoteHead.style = #'xcircle\n", "\n\\revert NoteHead.style\n"]
+        self.lilystring = ["\n\\tweak #'style #'xcircle\n", ""]
 
 class testNoteheadType(Lily):
     def setUp(self):
@@ -34,7 +35,7 @@ class testNoteheadType(Lily):
 class testNoteheadCross(Lily):
     def setUp(self):
         self.item = Note.Notehead(type="x")
-        self.lilystring = ["\\xNote"]
+        self.lilystring = ["\\xNote", ""]
 
 class testStem(Lily):
     def setUp(self):
@@ -64,7 +65,7 @@ class testTupletType(Lily):
 class testTupletStop(Lily):
     def setUp(self):
         self.item = Note.Tuplet(type="stop")
-        self.lilystring = "}"
+        self.lilystring = ["", "}"]
 
 class testTupletBracket(Lily):
     def setUp(self):
@@ -81,7 +82,19 @@ class testNoteWithTimeModButNoTuplet(Lily):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
         self.item.timeMod = Note.TimeModifier(normal=2,actual=3)
-        self.lilystring = "\omit TupletNumber\n\\tuplet 3/2 { c'"
+        self.lilystring = "\omit TupletNumber\n\\tuplet 3/2 {c'"
+
+class testMeasureWithTimeModButNoTuplet(Lily):
+    def setUp(self):
+        self.item = MeasureNode()
+        note = Note.Note()
+        note.pitch = Note.Pitch()
+        note.timeMod = Note.TimeModifier(normal=2,actual=3)
+        note2 = Note.Note()
+        self.item.addNote(note)
+        self.item.addNote(note2)
+
+        self.lilystring = " % voice 1\n{ \omit TupletNumber\n\\tuplet 3/2 {c'  } } | "
 
 
 class testGraceNote(Lily):

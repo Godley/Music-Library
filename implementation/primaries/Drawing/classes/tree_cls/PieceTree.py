@@ -562,6 +562,7 @@ class VoiceNode(Node):
     def toLily(self):
         lilystring = "{ "
         children = self.GetChildrenIndexes()
+        close = False
         for child in range(len(children)):
             note = self.GetChild(children[child])
             item = note.GetItem()
@@ -570,6 +571,8 @@ class VoiceNode(Node):
                     result = item.Search(GraceNote)
                     if result is not None:
                         note.CheckForGraceNotes()
+                    if hasattr(item, "timeMod"):
+                        close = True
                 else:
                     next = self.GetChild(children[child+1])
                     next_item = next.GetItem()
@@ -582,11 +585,15 @@ class VoiceNode(Node):
                             else:
                                 result.last = False
                                 next_result.first = False
+                        if hasattr(item, "timeMod"):
+                            if not hasattr(next_item, "timeMod"):
+                                close = True
             if hasattr(self, "rest") and hasattr(self, "total"):
                 lilystring += "R"+self.total
             else:
                 lilystring += note.toLily() + " "
-
+        if close:
+            lilystring += "} "
         lilystring += "}"
         return lilystring
 
