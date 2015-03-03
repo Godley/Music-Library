@@ -594,17 +594,21 @@ class MeasureNode(IndexedNode):
         if hasattr(self, "rest"):
             if not hasattr(self, "value"):
                 self.value = self.GetItem().GetTotalValue()
-        lilystring += "<<"
+        if len(voices) > 1:
+            lilystring += "<<"
         for voice in voices:
             v_obj = self.getVoice(voice)
             if hasattr(self, "rest"):
                 v_obj.total = self.value
-            lilystring += " % voice "+str(voice)+"\n"
-            lilystring += "\\new Voice = \""+Part.NumbersToWords(voice)+"\"\n"
-            lilystring += "{\\voice"+Part.NumbersToWords(voice).capitalize() + " "
+            if len(voices) > 1:
+                lilystring += " % voice "+str(voice)+"\n"
+                lilystring += "\\new Voice = \""+Part.NumbersToWords(voice)+"\"\n"
+                lilystring += "{\\voice"+Part.NumbersToWords(voice).capitalize() + " "
             lilystring += v_obj.toLily()
-            lilystring += "}"
-        lilystring += ">>"
+            if len(voices) > 1:
+                lilystring += "}"
+        if len(voices) > 1:
+            lilystring += ">>"
         lilystring += wrap[1]
 
         return lilystring
