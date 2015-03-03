@@ -70,19 +70,19 @@ class testTupletStop(Lily):
 class testTupletBracket(Lily):
     def setUp(self):
         self.item = Note.Tuplet(bracket=True)
-        self.lilystring = "\override TupletBracket.bracket-visibility = ##t\n\\tuplet"
+        self.lilystring = "\once \override TupletBracket.bracket-visibility = ##t\n\\tuplet"
 
 class testTupletBracketNone(Lily):
     def setUp(self):
         self.item = Note.Tuplet(bracket=False)
-        self.lilystring = "\override TupletBracket.bracket-visibility = ##f\n\\tuplet"
+        self.lilystring = "\once \override TupletBracket.bracket-visibility = ##f\n\\tuplet"
 
 class testNoteWithTimeModButNoTuplet(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
         self.item.timeMod = Note.TimeModifier(normal=2,actual=3, first=True)
-        self.lilystring = "\omit TupletNumber\n\\tuplet 3/2 {c'"
+        self.lilystring = "\once \override TupletBracket.bracket-visibility = ##f\n\omit TupletNumber\n\\tuplet 3/2 {c'"
 
 class testMeasureWithTimeModButNoTuplet(Lily):
     def setUp(self):
@@ -94,7 +94,7 @@ class testMeasureWithTimeModButNoTuplet(Lily):
         self.item.addNote(note)
         self.item.addNote(note2)
 
-        self.lilystring = " % voice 1\n{ \omit TupletNumber\n\\tuplet 3/2 {c'  } } | "
+        self.lilystring = " % voice 1\n{ \once \override TupletBracket.bracket-visibility = ##f\n\omit TupletNumber\n\\tuplet 3/2 {c' }  } | "
 
 class testMeasureWithMultipleNoteTimeModsButNoTuplet(Lily):
     def setUp(self):
@@ -108,7 +108,7 @@ class testMeasureWithMultipleNoteTimeModsButNoTuplet(Lily):
         self.item.addNote(note)
         self.item.addNote(note2)
 
-        self.lilystring = " % voice 1\n{ \omit TupletNumber\n\\tuplet 3/2 {c' c' } } | "
+        self.lilystring = " % voice 1\n{ \once \override TupletBracket.bracket-visibility = ##f\n\omit TupletNumber\n\\tuplet 3/2 {c' c' } } | "
 
 
 class testGraceNote(Lily):

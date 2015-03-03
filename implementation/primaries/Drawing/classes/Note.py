@@ -233,6 +233,7 @@ class Note(BaseClass.Base):
             val += self.grace.toLily() + " "
         tuplet = self.Search(Tuplet, 1)
         if tuplet is None and hasattr(self, "timeMod") and self.timeMod.first:
+            val += "\once \override TupletBracket.bracket-visibility = ##f\n"
             val += "\omit TupletNumber\n"
             val += "\\tuplet "+self.timeMod.toLily() + " {"
         for item in self.prenotation:
@@ -389,9 +390,9 @@ class Tuplet(BaseClass.Base):
         val = ""
         if hasattr(self, "bracket"):
             if self.bracket:
-                val += "\override TupletBracket.bracket-visibility = ##t\n"
+                val += "\once \override TupletBracket.bracket-visibility = ##t\n"
             else:
-                val += "\override TupletBracket.bracket-visibility = ##f\n"
+                val += "\once \override TupletBracket.bracket-visibility = ##f\n"
         val += "\\tuplet"
         val = val
         if hasattr(self, "type"):

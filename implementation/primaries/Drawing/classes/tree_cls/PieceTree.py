@@ -581,6 +581,8 @@ class VoiceNode(Node):
                                 item.timeMod.first = True
                         else:
                             item.timeMod.first = True
+                    else:
+                        close = False
                 else:
                     next = self.GetChild(children[child+1])
                     next_item = next.GetItem()
@@ -596,6 +598,8 @@ class VoiceNode(Node):
                         if hasattr(item, "timeMod"):
                             if not hasattr(next_item, "timeMod"):
                                 close = True
+                            else:
+                                close = False
                             if previous is not None:
                                 if hasattr(previous.GetItem(), "timeMod"):
                                     item.timeMod.first = False
@@ -603,13 +607,16 @@ class VoiceNode(Node):
                                     item.timeMod.first = True
                             else:
                                 item.timeMod.first = True
+                        else:
+                            close = False
             if hasattr(self, "rest") and hasattr(self, "total"):
                 lilystring += "R"+self.total
             else:
                 lilystring += note.toLily() + " "
+            if close:
+                lilystring += "} "
             previous = note
-        if close:
-            lilystring += "} "
+
         lilystring += "}"
         return lilystring
 
