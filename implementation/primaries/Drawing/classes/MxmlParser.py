@@ -527,6 +527,7 @@ def HandleMeasures(tag, attrib, content, piece):
     part_id = GetID(attrib, "part", "id")
     measure_id = IdAsInt(GetID(attrib, "measure", "number"))
     part = None
+    key = None
     return_val = None
     global degree
     if len(tag) > 0 and "measure" in tag:
@@ -540,13 +541,15 @@ def HandleMeasures(tag, attrib, content, piece):
                 part_id = piece.root.GetChildrenIndexes()[-1]
                 part = piece.getPart(part_id)
         measure = None
+
         if part is not None:
-            measure = part.getMeasure(measure=measure_id, staff=staff_id)
-            if measure is None:
+            measureNode = part.getMeasure(measure=measure_id, staff=staff_id)
+            if measureNode is None:
                 part.addEmptyMeasure(measure_id, staff_id)
-                measure = part.getMeasure(measure_id, staff_id)
-            if measure is not None:
-                measure = measure.GetItem()
+                measureNode = part.getMeasure(measure_id, staff_id)
+            if measureNode is not None:
+                key = measureNode.GetLastKey(voice=voice)
+                measure = measureNode.GetItem()
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
         if "key" in tag:
@@ -554,27 +557,31 @@ def HandleMeasures(tag, attrib, content, piece):
                 if "number" in attrib["key"]:
                     staff_id = int(attrib["key"]["number"])
                     measure = part.getMeasure(measure=measure_id, staff=staff_id)
+                    measureNode = measure
                     if measure is None:
                         part.addEmptyMeasure(measure_id, staff_id)
                         measure = part.getMeasure(measure_id, staff_id)
+                        measureNode = measure
                     if measure is not None:
+                        key = measureNode.GetLastKey(voice=voice)
+                        measureNode = measure
                         measure = measure.GetItem()
                 else:
                     staff_id = 1
+        if tag[-1] == "key":
+            measureNode.addKey(Key.Key(), voice)
         if tag[-1] == "mode" and "key" in tag and measure is not None:
-
-
-            if hasattr(measure, "key"):
-                measure.key.mode = content["mode"]
-
+            key = measureNode.GetLastKey(voice=voice)
+            if key is not None:
+                key.mode = content["mode"]
             else:
-                measure.key = Key.Key(mode=content["mode"])
+                measureNode.addKey(Key.Key(mode=content["mode"]))
             return_val = 1
         if tag[-1] == "fifths" and "key" in tag:
-            if hasattr(measure, "key"):
-                measure.key.fifths = content["fifths"]
+            if key is not None:
+                key.fifths = content["fifths"]
             else:
-                measure.key = Key.Key(fifths=int(content["fifths"]))
+                measureNode.addKey(Key.Key(fifths=int(content["fifths"])), voice)
             return_val = 1
 
         if tag[-1] == "beats" and ("time" in tag or "meter" in tag):
@@ -736,16 +743,15 @@ def handleClef(tag,attrib,content,piece):
     if staff is not None:
         staff_id = int(staff)
     measure_id = IdAsInt(GetID(attrib,"measure","number"))
-
     part_id = GetID(attrib,"part","id")
     part = piece.getPart(part_id)
     if part is not None:
-        measure = part.getMeasure(measure_id,staff_id)
-        if measure is None:
+        measureNode = part.getMeasure(measure_id,staff_id)
+        if measureNode is None:
             part.addEmptyMeasure(measure_id, staff_id)
-            measure = part.getMeasure(measure_id,staff_id)
-        if measure is not None:
-            measure = measure.GetItem()
+            measureNode = part.getMeasure(measure_id,staff_id)
+        if measureNode is not None:
+            clef = measureNode.GetLastClef(voice=voice)
             sign = None
             line = None
             octave = None
@@ -755,15 +761,15 @@ def handleClef(tag,attrib,content,piece):
                 line = int(content["line"])
             if tag[-1] == "clef-octave-change":
                 octave = int(content["clef-octave-change"])
-            if not hasattr(measure, "clef"):
-                measure.clef = Clef.Clef(sign=sign,line=line,octave_change=octave)
+            if clef is None:
+                measureNode.addClef(Clef.Clef(sign=sign,line=line,octave_change=octave), voice)
             else:
                 if sign is not None:
-                    measure.clef.sign = sign
+                    clef.sign = sign
                 if line is not None:
-                    measure.clef.line = int(line)
+                    clef.line = int(line)
                 if octave is not None:
-                    measure.clef.octave_change = octave
+                    clef.octave_change = octave
     staff_id = 1
 
 def handleBarline(tag, attrib, content, piece):

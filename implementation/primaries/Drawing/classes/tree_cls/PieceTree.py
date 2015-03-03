@@ -363,6 +363,35 @@ class MeasureNode(IndexedNode):
         if self.item is None or not hasattr(self, "item"):
             self.item = Measure.Measure()
 
+    def GetLastKey(self, voice=1):
+        """key as in musical key, not index"""
+        voice_obj = self.GetChild(voice)
+        if voice_obj is not None:
+            key = Search(KeyNode, voice_obj, -1)
+            if key is not None:
+                return key
+
+    def addKey(self, item, voice=1):
+        voice_obj = self.GetChild(voice)
+        node = KeyNode()
+        node.SetItem(item)
+        if voice_obj is not None:
+            voice_obj.AddChild(node)
+
+    def GetLastClef(self, voice=1):
+        voice_obj = self.GetChild(voice)
+        if voice_obj is not None:
+            key = Search(KeyNode, voice_obj, -1)
+            if key is not None:
+                return key
+
+    def addClef(self, item, voice=1):
+        voice_obj = self.GetChild(voice)
+        node = ClefNode()
+        node.SetItem(item)
+        if voice_obj is not None:
+            voice_obj.AddChild(node)
+
     def CheckDivisions(self):
         children = self.GetChildrenIndexes()
         divisions = self.item.divisions
@@ -776,4 +805,11 @@ class DirectionNode(SelfNode):
     pass
 
 class ExpressionNode(SelfNode):
+    pass
+
+class KeyNode(Node):
+    def __init__(self):
+        Node.__init__(self,limit=-1)
+
+class ClefNode(KeyNode):
     pass
