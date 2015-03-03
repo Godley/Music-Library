@@ -337,9 +337,9 @@ class Note(BaseClass.Base):
         if hasattr(self, "notehead"):
             wrapped_notation_lilystrings.append(self.notehead.toLily())
 
-        prefixes += "".join([wrapper[0]+" " for wrapper in wrapped_notation_lilystrings if len(wrapper) > 1])
+        prefixes += "".join([wrapper[0]+" " for wrapper in wrapped_notation_lilystrings if wrapper is not None and len(wrapper) > 1])
         prefixes_and_current = prefixes + value
-        postfixes = "".join([wrapper[-1] for wrapper in wrapped_notation_lilystrings if len(wrapper) > 0])
+        postfixes = "".join([wrapper[-1] for wrapper in wrapped_notation_lilystrings if wrapper is not None and len(wrapper) > 0])
         lilystring = prefixes_and_current + postfixes
         return lilystring
     def handlePostLilies(self):
@@ -450,14 +450,20 @@ class Arpeggiate(BaseClass.Base):
         BaseClass.Base.__init__(self)
         if "direction" in kwargs:
             self.direction = kwargs["direction"]
+        self.type = "none"
 
     def toLily(self):
         var = "\\arpeggio"
         if not hasattr(self, "direction") or self.direction is None:
             var += "Normal"
         else:
-            var += "Arrow"+self.direction[0].upper() + self.direction[1:len(self.direction)]
-        return [var, "\\arpeggio"]
+            var += "Arrow"+self.direction.capitalize()
+        if self.type == "start":
+            return [var,""]
+        if self.type == "stop":
+            return ["","\\arpeggio"]
+        if self.type == "none":
+            return [""]
 
 class Slide(BaseClass.Base):
     def __init__(self, **kwargs):
@@ -506,7 +512,12 @@ class NonArpeggiate(Arpeggiate):
             self.type = kwargs["type"]
 
     def toLily(self):
-        return ["\\arpeggioBracket","\\arpeggio"]
+        if self.type == "start":
+            return ["\\arpeggioBracket", ""]
+        if self.type == "stop":
+            return ["", "\\arpeggio"]
+        if self.type == "none":
+            return [""]
 
 class Beam(Stem):
     def toLily(self):

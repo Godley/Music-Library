@@ -7,6 +7,7 @@ except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily, BackwardSearch
     from classes import Measure, Note, Part, Piece, Directions
     from classes.Note import GraceNote
+import copy
 
 def SplitString(value):
     """simple method that puts in spaces every 10 characters"""
@@ -746,8 +747,13 @@ class NoteNode(Node):
             if type=="start":
                 result.type = type
             child = self.GetChild(0)
-            if child is not None and hasattr(child, "UpdateArpeggiates"):
-                child.UpdateArpeggiates(type="stop")
+            if child is not None:
+                if child.item.Search(Arpeggiate) is None:
+                    new_obj = copy.deepcopy(result)
+                    new_obj.type = "none"
+                    child.GetItem().addNotation(new_obj)
+                if child is not None and hasattr(child, "UpdateArpeggiates"):
+                    child.UpdateArpeggiates(type="stop")
             else:
                 result.type = type
         else:
@@ -756,8 +762,14 @@ class NoteNode(Node):
                 if type=="start":
                     result.type = type
                 child = self.GetChild(0)
-                if child is not None and hasattr(child, "UpdateArpeggiates"):
-                    child.UpdateArpeggiates(type="stop")
+                if child is not None:
+                    search = child.item.Search(NonArpeggiate)
+                    if search is None:
+                        cpy = copy.deepcopy(result)
+                        cpy.type = "none"
+                        child.item.addNotation(cpy)
+                    if hasattr(child, "UpdateArpeggiates"):
+                        child.UpdateArpeggiates(type="stop")
                 else:
                     result.type = type
 
