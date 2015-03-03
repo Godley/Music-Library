@@ -112,7 +112,10 @@ class PieceTree(Tree):
         ids_loaded = []
         groupings = []
         if len(self.groups) > 0:
-            for group in self.groups:
+            # here we need to do some set union theory
+            group_ids = self.groups.keys()
+            group_ids = sorted(self.groups, key=lambda k: len(self.groups[k]), reverse=True)
+            for group in group_ids:
                 groupstr = "\\new StaffGroup <<"
                 self.groups[group].sort()
                 for part_id in self.groups[group]:
