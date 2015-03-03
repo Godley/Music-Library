@@ -573,11 +573,7 @@ def HandleMeasures(tag, attrib, content, piece):
                 else:
                     staff_id = 1
         if tag[-1] == "key":
-            voice_obj = measureNode.getVoice(voice)
-            if voice is not None:
-                child = voice_obj.GetChild(-1)
-                if child is None or type(child.GetItem()) is not Key.Key:
-                    measureNode.addKey(Key.Key(), voice)
+            measureNode.addKey(Key.Key(), voice)
         if tag[-1] == "mode" and "key" in tag and measure is not None:
             key = measureNode.GetLastKey(voice=voice)
             if key is not None and type(key) is not Key.Key:
