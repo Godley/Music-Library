@@ -20,6 +20,34 @@ def toLily(node, lilystring):
         lilystring += toLily(node.GetChild(child), "")
     return lilystring
 
+def BackwardSearch(cls_type, node, index, depth=0, start_index=0):
+    counter = depth
+    if type(node) is cls_type:
+        counter += 1
+        if counter == index:
+            return node
+    if node is None:
+        return None
+    else:
+        children = node.GetChildrenIndexes()
+        if len(children) == 0 and type(node) is cls_type:
+            return counter
+        else:
+            children.reverse()
+            for child in children:
+                result = Search(cls_type, node.GetChild(child), index, depth=counter)
+                if type(result) is int:
+                    counter = result
+                    if counter == index:
+                        return node.GetChild(child)
+                if type(result) is cls_type:
+                    return result
+            if type(node) is cls_type:
+                if counter == index:
+                    return node
+                else:
+                    return counter
+
 def Search(cls_type, node, index, depth=0, start_index=0):
     # recursive method that goes through finding the "index"th object of cls_type. outside of piecetree
     # so that it can be used by any node

@@ -549,6 +549,8 @@ def HandleMeasures(tag, attrib, content, piece):
                 measureNode = part.getMeasure(measure_id, staff_id)
             if measureNode is not None:
                 key = measureNode.GetLastKey(voice=voice)
+                if key is not None:
+                    key = key.GetItem()
                 measure = measureNode.GetItem()
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
@@ -564,6 +566,8 @@ def HandleMeasures(tag, attrib, content, piece):
                         measureNode = measure
                     if measure is not None:
                         key = measureNode.GetLastKey(voice=voice)
+                        if key is not None:
+                            key = key.GetItem()
                         measureNode = measure
                         measure = measure.GetItem()
                 else:
@@ -572,6 +576,8 @@ def HandleMeasures(tag, attrib, content, piece):
             measureNode.addKey(Key.Key(), voice)
         if tag[-1] == "mode" and "key" in tag and measure is not None:
             key = measureNode.GetLastKey(voice=voice)
+            if key is not None:
+                key = key.GetItem()
             if key is not None:
                 key.mode = content["mode"]
             else:
@@ -752,6 +758,8 @@ def handleClef(tag,attrib,content,piece):
             measureNode = part.getMeasure(measure_id,staff_id)
         if measureNode is not None:
             clef = measureNode.GetLastClef(voice=voice)
+            if clef is not None:
+                clef = clef.GetItem()
             sign = None
             line = None
             octave = None

@@ -1,10 +1,10 @@
 
 try:
-    from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
+    from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
     from implementation.primaries.Drawing.classes.Note import GraceNote
 except:
-    from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily
+    from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily, BackwardSearch
     from classes import Measure, Note, Part, Piece, Directions
     from classes.Note import GraceNote
 
@@ -13,7 +13,6 @@ def SplitString(value):
     string_length = len(value)
     chunks = int(string_length / 10)
     string_list = list(value)
-    spaced_string_list = []
     lstring = ""
 
     if chunks > 1:
@@ -367,21 +366,26 @@ class MeasureNode(IndexedNode):
         """key as in musical key, not index"""
         voice_obj = self.GetChild(voice)
         if voice_obj is not None:
-            key = Search(KeyNode, voice_obj, -1)
+            key = BackwardSearch(KeyNode, voice_obj, 1)
             if key is not None:
                 return key
 
     def addKey(self, item, voice=1):
+        if self.GetChild(voice) is None:
+            self.addVoice(VoiceNode(), voice)
         voice_obj = self.GetChild(voice)
         node = KeyNode()
         node.SetItem(item)
         if voice_obj is not None:
             voice_obj.AddChild(node)
+            self.index += 1
 
     def GetLastClef(self, voice=1):
+        if self.GetChild(voice) is None:
+            self.addVoice(VoiceNode(), voice)
         voice_obj = self.GetChild(voice)
         if voice_obj is not None:
-            key = Search(KeyNode, voice_obj, -1)
+            key = BackwardSearch(ClefNode, voice_obj, 1)
             if key is not None:
                 return key
 
@@ -391,6 +395,7 @@ class MeasureNode(IndexedNode):
         node.SetItem(item)
         if voice_obj is not None:
             voice_obj.AddChild(node)
+            self.index += 1
 
     def CheckDivisions(self):
         children = self.GetChildrenIndexes()
@@ -421,9 +426,10 @@ class MeasureNode(IndexedNode):
             for index in indexes:
                 notes += 1
                 note = v.GetChild(index)
-                total += note.duration
-                if total >=duration:
-                    break
+                if hasattr(note, "duration"):
+                    total += note.duration
+                    if total >=duration:
+                        break
         self.index -= notes
 
     def addVoice(self, item, id):
@@ -810,6 +816,12 @@ class ExpressionNode(SelfNode):
 class KeyNode(Node):
     def __init__(self):
         Node.__init__(self,limit=-1)
+
+    def toLily(self):
+        lstring = ""
+        if self.item is not None:
+            lstring += self.item.toLily()
+        return lstring
 
 class ClefNode(KeyNode):
     pass

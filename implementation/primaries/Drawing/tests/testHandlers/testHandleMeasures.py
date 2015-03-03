@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.classes import MxmlParser, Harmony, Piece, Measure, Part
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree, ClefNode, KeyNode
 import unittest
 
 
@@ -57,18 +57,18 @@ class testKeySig(MeasureTesting):
         self.tags.append("mode")
         self.chars["mode"] = "minor"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
-        self.assertTrue(hasattr(exp_measure, "key"))
-        self.assertEqual("minor", exp_measure.key.mode)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
+        self.assertIsInstance(exp_measure.GetLastKey(), KeyNode)
+        self.assertEqual("minor", exp_measure.GetLastKey().GetItem().mode)
 
     def testFifthsTag(self):
         self.tags.append("key")
         self.tags.append("fifths")
         self.chars["fifths"] = "3"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
-        self.assertTrue(hasattr(exp_measure, "key"))
-        self.assertEqual(3, exp_measure.key.fifths)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
+        self.assertIsInstance(exp_measure.GetLastKey(), KeyNode)
+        self.assertEqual(3, exp_measure.GetLastKey().GetItem().fifths)
 
     def testKeySigWithStaffAssignment(self):
         self.tags.append("key")
@@ -76,9 +76,9 @@ class testKeySig(MeasureTesting):
         self.attrs["key"] = {"number":"2"}
         self.chars["fifths"] = "3"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,2).GetItem()
-        new_measure = self.piece.getPart("P1").getMeasure(1,2).GetItem()
-        self.assertTrue(hasattr(exp_measure, "key"))
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,2)
+        self.assertIsInstance(exp_measure.GetLastKey(), KeyNode)
+
 
 
 class testMeter(MeasureTesting):
@@ -102,24 +102,26 @@ class testMeter(MeasureTesting):
 
 
 class testClef(MeasureTesting):
+    def tearDown(self):
+        exp_measure = None
     def testLineTag(self):
         self.tags.append("clef")
         self.tags.append("line")
         self.chars["line"] = 2
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
 
-        self.assertTrue(hasattr(exp_measure, "clef"))
-        self.assertEqual(2, exp_measure.clef.line)
+        self.assertIsInstance(exp_measure.GetLastClef(), ClefNode)
+        self.assertEqual(2, exp_measure.GetLastClef().GetItem().line)
 
     def testSignTag(self):
         self.tags.append("clef")
         self.tags.append("sign")
         self.chars["sign"] = "G"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
-        self.assertTrue(hasattr(exp_measure, "clef"))
-        self.assertEqual("G", exp_measure.clef.sign)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
+        self.assertIsInstance(exp_measure.GetLastClef(), ClefNode)
+        self.assertEqual("G", exp_measure.GetLastClef().GetItem().sign)
 
     def testClefWithNumber(self):
         self.tags.append("clef")
@@ -128,10 +130,10 @@ class testClef(MeasureTesting):
         self.tags.append("sign")
         self.chars["sign"] = "G"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure = self.piece.getPart("P1").getMeasure(1,2).GetItem()
-        other_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
-        self.assertTrue(hasattr(exp_measure, "clef"))
-        self.assertFalse(hasattr(other_measure, "clef"))
+        exp_measure = self.piece.getPart("P1").getMeasure(1,2)
+        other_measure =  self.piece.getPart("P1").getMeasure(1,1)
+        self.assertIsInstance(exp_measure.GetLastClef(), ClefNode)
+        self.assertIsNone(other_measure.GetLastClef())
 
 class testTranspose(MeasureTesting):
     def testTransposeDiatonicTag(self):

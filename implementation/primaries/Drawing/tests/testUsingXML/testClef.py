@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode, MeasureNode, NoteNode, Search
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode, MeasureNode, NoteNode, Search, ClefNode
 import os
 
 partname = "clefs.xml"
@@ -32,24 +32,24 @@ class CTests(xmlSet):
 
     def testClef(self):
         if self.measure is not None:
-            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1).GetItem()
-            self.assertTrue(hasattr(measure, "clef"))
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1)
+            self.assertIsInstance(measure.GetLastClef(), ClefNode)
 
     def testSign(self):
         if self.measure is not None:
-            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1).GetItem()
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1)
 
-            self.assertEqual(self.sign, measure.clef.sign)
+            self.assertEqual(self.sign, measure.GetLastClef().GetItem().sign)
 
     def testLine(self):
         if self.measure is not None:
-            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1).GetItem()
-            self.assertEqual(self.line, measure.clef.line)
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1)
+            self.assertEqual(self.line, measure.GetLastClef().GetItem().line)
 
     def testOctaveChange(self):
         if self.measure is not None and self.clef_octave_change is not 0:
-            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1).GetItem()
-            self.assertEqual(self.clef_octave_change, measure.clef.octave_change)
+            measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1)
+            self.assertEqual(self.clef_octave_change, measure.GetLastClef().GetItem().octave_change)
 
 class testMeasure1(CTests):
     def setUp(self):
