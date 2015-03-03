@@ -81,7 +81,7 @@ class testNoteWithTimeModButNoTuplet(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.timeMod = Note.TimeModifier(normal=2,actual=3)
+        self.item.timeMod = Note.TimeModifier(normal=2,actual=3, first=True)
         self.lilystring = "\omit TupletNumber\n\\tuplet 3/2 {c'"
 
 class testMeasureWithTimeModButNoTuplet(Lily):
@@ -95,6 +95,20 @@ class testMeasureWithTimeModButNoTuplet(Lily):
         self.item.addNote(note2)
 
         self.lilystring = " % voice 1\n{ \omit TupletNumber\n\\tuplet 3/2 {c'  } } | "
+
+class testMeasureWithMultipleNoteTimeModsButNoTuplet(Lily):
+    def setUp(self):
+        self.item = MeasureNode()
+        note = Note.Note()
+        note.pitch = Note.Pitch()
+        note.timeMod = Note.TimeModifier(normal=2,actual=3)
+        note2 = Note.Note()
+        note2.pitch = Note.Pitch()
+        note2.timeMod = Note.TimeModifier(normal=2,actual=3)
+        self.item.addNote(note)
+        self.item.addNote(note2)
+
+        self.lilystring = " % voice 1\n{ \omit TupletNumber\n\\tuplet 3/2 {c' c' } } | "
 
 
 class testGraceNote(Lily):

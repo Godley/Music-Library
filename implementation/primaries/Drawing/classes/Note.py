@@ -232,7 +232,7 @@ class Note(BaseClass.Base):
         if hasattr(self, "grace"):
             val += self.grace.toLily() + " "
         tuplet = self.Search(Tuplet, 1)
-        if tuplet is None and hasattr(self, "timeMod"):
+        if tuplet is None and hasattr(self, "timeMod") and self.timeMod.first:
             val += "\omit TupletNumber\n"
             val += "\\tuplet "+self.timeMod.toLily() + " {"
         for item in self.prenotation:
@@ -423,6 +423,9 @@ class GraceNote(BaseClass.Base):
 class TimeModifier(BaseClass.Base):
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
+        self.first = False
+        if "first" in kwargs and kwargs["first"] is not None:
+            self.first = kwargs["first"]
         if "normal" in kwargs:
             self.normal = kwargs["normal"]
         if "actual" in kwargs:
