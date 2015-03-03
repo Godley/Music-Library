@@ -82,15 +82,20 @@ class PieceTree(Tree):
     def startGroup(self, index):
         if index not in self.groups:
             self.groups[index] = []
-        self.current.append(index)
+        if index not in self.current:
+            self.current.append(index)
 
     def stopGroup(self, index):
-        self.current.remove(index)
+        if index in self.current:
+            self.current.remove(index)
 
     def AddToGroup(self, name, index):
         if name not in self.groups:
             self.groups[name] = []
-        self.groups[name].append(index)
+        if type(index) == str and index not in self.groups[name]:
+            self.groups[name].append(index)
+        elif type(index) == list:
+            self.groups[name].append(index)
 
     def getGroup(self, name):
         if name in self.groups:
@@ -105,6 +110,46 @@ class PieceTree(Tree):
     def SetItem(self, i):
         self.item = i
 
+    def handleGroups(self):
+        lilystring = ""
+        ids_loaded = []
+        groupings = []
+        group_ids = sorted(self.groups, key=lambda k: len(self.groups[k]), reverse=True)
+        for i in range(len(group_ids)):
+            merger = []
+            for j in range(i+1, len(group_ids)):
+                for k in self.groups[group_ids[j]]:
+                    if k in self.groups[group_ids[i]]:
+                        merger.append(k)
+            if len(merger) > 0:
+                for group in group_ids:
+                    [self.groups[group].remove(a) for a in self.groups[group] if a in merger]
+                self.AddToGroup(group_ids[i], merger)
+        for group in group_ids:
+            groupstr = "\\new StaffGroup <<"
+            not_nested = [g for g in self.groups[group] if type(g) != list]
+            not_nested.sort()
+            not_nested.extend([g for g in self.groups[group] if type(g) == list])
+            for element in not_nested:
+                if type(element) is not list and element not in ids_loaded:
+                    part = self.getPart(element)
+                    pstring = part.toLily()
+                    lilystring += pstring[0]
+                    groupstr += pstring[1]
+                    ids_loaded.append(element)
+                elif type(element) is list:
+                    groupstr += "\\new StaffGroup <<"
+                    for nested_part in element:
+                        part = self.getPart(nested_part)
+                        pstring = part.toLily()
+                        lilystring += pstring[0]
+                        groupstr += pstring[1]
+                        ids_loaded.append(nested_part)
+                    groupstr += ">>"
+            groupstr += ">>"
+            groupings.append(groupstr)
+        return lilystring, groupings, ids_loaded
+
     def toLily(self):
         lilystring = "\\version \"2.18.2\" \n"
 
@@ -113,19 +158,8 @@ class PieceTree(Tree):
         groupings = []
         if len(self.groups) > 0:
             # here we need to do some set union theory
-            group_ids = self.groups.keys()
-            group_ids = sorted(self.groups, key=lambda k: len(self.groups[k]), reverse=True)
-            for group in group_ids:
-                groupstr = "\\new StaffGroup <<"
-                self.groups[group].sort()
-                for part_id in self.groups[group]:
-                    part = self.getPart(part_id)
-                    pstring = part.toLily()
-                    lilystring += pstring[0]
-                    groupstr += pstring[1]
-                    ids_loaded.append(part_id)
-                groupstr += ">>"
-                groupings.append(groupstr)
+            lstring, groupings, ids_loaded = self.handleGroups()
+            lilystring += lstring
         children = [child for child in self.root.GetChildrenIndexes() if child not in ids_loaded]
         children.sort()
         for child in children:

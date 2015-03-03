@@ -400,7 +400,7 @@ def UpdatePart(tag, attrib, content, piece):
         part_id = GetID(attrib, "score-part", "id")
     return_val = None
     if len(tag) > 0:
-        if tag[-1] == "part-group":
+        if "part-group" in tag:
             index = 0
             type = ""
             if "part-group" in attrib:
