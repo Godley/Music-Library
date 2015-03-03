@@ -103,8 +103,15 @@ class testCreateNoteHandler(notes):
     def testDotTag(self):
         self.tags.append("dot")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(hasattr(MxmlParser.note, "dotted"), "ERROR: note should have dotted attrib")
-        self.assertTrue(MxmlParser.note.dotted, "ERROR: dotted attrib should be true")
+        self.assertEqual(MxmlParser.note.dots, 1)
+
+
+    def testDoubleDot(self):
+        self.tags.append("dot")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.tags.append("dot")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual(MxmlParser.note.dots, 2)
 
     def testTieTag(self):
         self.tags.append("tie")

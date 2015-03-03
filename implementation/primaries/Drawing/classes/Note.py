@@ -134,10 +134,10 @@ class Note(BaseClass.Base):
             self.rest = kwargs["rest"]
         else:
             self.rest = False
-        if "dotted" in kwargs:
-            self.dotted = kwargs["dotted"]
+        if "dots" in kwargs:
+            self.dots = kwargs["dots"]
         else:
-            self.dotted = False
+            self.dots = 0
         if "pitch" in kwargs:
             self.pitch = kwargs["pitch"]
         if "chord" in kwargs and kwargs["chord"] is not None:
@@ -223,6 +223,9 @@ class Note(BaseClass.Base):
             self.duration = self.duration / self.divisions
         st = BaseClass.Base.__str__(self)
         return st
+
+    def addDot(self):
+        self.dots += 1
 
     def handlePreLilies(self):
         val = ""
@@ -323,7 +326,7 @@ class Note(BaseClass.Base):
             if hasattr(self, "duration") and (not hasattr(self, "MeasureRest") or not self.MeasureRest):
                 if not hasattr(self,"chord"):
                     val += self.getLilyDuration()
-                    if self.dotted:
+                    for dot in range(self.dots):
                         val += "."
             val += self.handlePostLilies()
             value = self.LilyWrap(val)
@@ -344,7 +347,7 @@ class Note(BaseClass.Base):
         if hasattr(self,"chord") and self.chord == "stop":
             val += ">"
             val += self.getLilyDuration()
-            if self.dotted:
+            for dot in range(self.dots):
                 val += "."
         if not hasattr(self,"chord") or self.chord == "stop":
             if hasattr(self, "beams"):

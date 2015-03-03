@@ -13,6 +13,17 @@ class testNoteWithType(Lily):
         self.lilystring = "8"
         Lily.setUp(self)
 
+class testNoteWithDot(Lily):
+    def setUp(self):
+        self.item = Note.Note(type="eighth", dots=1)
+        self.lilystring = "8."
+        Lily.setUp(self)
+
+class testNoteWithDoubleDot(Lily):
+    def setUp(self):
+        self.item = Note.Note(type="eighth", dots=2)
+        self.lilystring = "8.."
+        Lily.setUp(self)
 
 class testNotePitch(Lily):
     def setUp(self):
@@ -113,7 +124,7 @@ class testNoteTupletEnd(Lily):
         self.item.pitch = Note.Pitch()
         self.item.timeMod = Note.TimeModifier(normal=2, actual=3)
         self.item.addNotation(Note.Tuplet(type="stop"))
-        self.lilystring = "c'}"
+        self.lilystring = " c'}"
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{\\tuplet 3/2 {","}"]

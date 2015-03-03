@@ -895,8 +895,8 @@ def CreateNote(tag, attrs, content, piece):
         if tag[-1] == "type":
             note.SetType(content["type"])
 
-        if "dot" in tag:
-            note.dotted = True
+        if tag[-1] == "dot":
+            note.addDot()
         if tag[-1] == "tie":
             note.AddTie(attrs["tie"]["type"])
         if "chord" in tag:
