@@ -113,6 +113,7 @@ class PieceTree(Tree):
         if len(self.groups) > 0:
             for group in self.groups:
                 groupstr = "\\new StaffGroup <<"
+                self.groups[group].sort()
                 for part_id in self.groups[group]:
                     part = self.getPart(part_id)
                     pstring = part.toLily()
@@ -122,6 +123,7 @@ class PieceTree(Tree):
                 groupstr += ">>"
                 groupings.append(groupstr)
         children = [child for child in self.root.GetChildrenIndexes() if child not in ids_loaded]
+        children.sort()
         for child in children:
             part = self.getPart(child)
             partstring = part.toLily()
