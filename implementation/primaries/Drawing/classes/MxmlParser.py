@@ -75,7 +75,7 @@ class MxmlParser(object):
         self.multiple_attribs = ["beats", "sign"]
 
         # any tags which close instantly in here
-        self.closed_tags = ["technical","tie","dot","chord","note","measure","part",
+        self.closed_tags = ["technical","tie","chord","note","measure","part",
                             "score-part","sound","print","rest","slur",
                             "accent","strong-accent","staccato",
                             "staccatissimo","up-bow","down-bow",
