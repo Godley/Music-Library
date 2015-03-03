@@ -79,7 +79,7 @@ class MxmlParser(object):
                             "score-part","sound","print","rest","slur",
                             "accent","strong-accent","staccato",
                             "staccatissimo","up-bow","down-bow",
-                            "cue"]
+                            "cue","key","clef"]
         self.end_tag = ["tremolo"]
         self.piece = PieceTree.PieceTree()
         self.d = False
@@ -549,7 +549,7 @@ def HandleMeasures(tag, attrib, content, piece):
                 measureNode = part.getMeasure(measure_id, staff_id)
             if measureNode is not None:
                 key = measureNode.GetLastKey(voice=voice)
-                if key is not None:
+                if key is not None and type(key) is not Key.Key:
                     key = key.GetItem()
                 measure = measureNode.GetItem()
         if tag[-1] == "divisions" and measure is not None:
@@ -566,28 +566,28 @@ def HandleMeasures(tag, attrib, content, piece):
                         measureNode = measure
                     if measure is not None:
                         key = measureNode.GetLastKey(voice=voice)
-                        if key is not None:
+                        if key is not None and type(key) is not Key.Key:
                             key = key.GetItem()
                         measureNode = measure
                         measure = measure.GetItem()
                 else:
                     staff_id = 1
         if tag[-1] == "key":
-            measureNode.addKey(Key.Key(), voice)
+            voice_obj = measureNode.getVoice(voice)
+            if voice is not None:
+                child = voice_obj.GetChild(-1)
+                if child is None or type(child.GetItem()) is not Key.Key:
+                    measureNode.addKey(Key.Key(), voice)
         if tag[-1] == "mode" and "key" in tag and measure is not None:
             key = measureNode.GetLastKey(voice=voice)
-            if key is not None:
+            if key is not None and type(key) is not Key.Key:
                 key = key.GetItem()
             if key is not None:
                 key.mode = content["mode"]
-            else:
-                measureNode.addKey(Key.Key(mode=content["mode"]))
             return_val = 1
         if tag[-1] == "fifths" and "key" in tag:
             if key is not None:
                 key.fifths = content["fifths"]
-            else:
-                measureNode.addKey(Key.Key(fifths=int(content["fifths"])), voice)
             return_val = 1
 
         if tag[-1] == "beats" and ("time" in tag or "meter" in tag):
@@ -748,6 +748,8 @@ def handleClef(tag,attrib,content,piece):
     staff = GetID(attrib, "clef", "number")
     if staff is not None:
         staff_id = int(staff)
+    else:
+        staff_id = 1
     measure_id = IdAsInt(GetID(attrib,"measure","number"))
     part_id = GetID(attrib,"part","id")
     part = piece.getPart(part_id)
@@ -756,9 +758,11 @@ def handleClef(tag,attrib,content,piece):
         if measureNode is None:
             part.addEmptyMeasure(measure_id, staff_id)
             measureNode = part.getMeasure(measure_id,staff_id)
+        if tag[-1] == "clef":
+            measureNode.addClef(Clef.Clef(), voice=voice)
         if measureNode is not None:
             clef = measureNode.GetLastClef(voice=voice)
-            if clef is not None:
+            if clef is not None and type(clef) is not Clef.Clef:
                 clef = clef.GetItem()
             sign = None
             line = None
@@ -769,9 +773,7 @@ def handleClef(tag,attrib,content,piece):
                 line = int(content["line"])
             if tag[-1] == "clef-octave-change":
                 octave = int(content["clef-octave-change"])
-            if clef is None:
-                measureNode.addClef(Clef.Clef(sign=sign,line=line,octave_change=octave), voice)
-            else:
+            if clef is not None:
                 if sign is not None:
                     clef.sign = sign
                 if line is not None:

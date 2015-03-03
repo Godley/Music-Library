@@ -169,6 +169,10 @@ class Node(object):
         return self.item
 
     def GetChild(self, index):
+        if index == -1:
+            index = len(self.children)-1
+            if index == -1:
+                return None
         if index < len(self.children):
             return self.children[index]
 

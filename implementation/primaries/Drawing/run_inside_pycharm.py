@@ -9,10 +9,7 @@ import os, sys
 
 def Run(fname):
     parser = MxmlParser.MxmlParser()
-    try:
-        pieceObj = parser.parse(fname)
-    except BaseException as e:
-        return [fname, str(e)]
+    pieceObj = parser.parse(fname)
     render = LilypondRender.LilypondRender(pieceObj, fname)
     render.run()
     if not os.path.exists(render.pdf):

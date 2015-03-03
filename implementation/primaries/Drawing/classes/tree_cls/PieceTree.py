@@ -369,16 +369,22 @@ class MeasureNode(IndexedNode):
             key = BackwardSearch(KeyNode, voice_obj, 1)
             if key is not None:
                 return key
+            else:
+                if hasattr(self.item, "key"):
+                    return self.item.key
 
     def addKey(self, item, voice=1):
-        if self.GetChild(voice) is None:
-            self.addVoice(VoiceNode(), voice)
-        voice_obj = self.GetChild(voice)
-        node = KeyNode()
-        node.SetItem(item)
-        if voice_obj is not None:
-            voice_obj.AddChild(node)
-            self.index += 1
+        if not hasattr(self.item, "key"):
+            self.item.key = item
+        else:
+            if self.GetChild(voice) is None:
+                self.addVoice(VoiceNode(), voice)
+            voice_obj = self.GetChild(voice)
+            node = KeyNode()
+            node.SetItem(item)
+            if voice_obj is not None:
+                voice_obj.AddChild(node)
+                self.index += 1
 
     def GetLastClef(self, voice=1):
         if self.GetChild(voice) is None:
@@ -388,14 +394,20 @@ class MeasureNode(IndexedNode):
             key = BackwardSearch(ClefNode, voice_obj, 1)
             if key is not None:
                 return key
+            else:
+                if hasattr(self.item, "clef"):
+                    return self.item.clef
 
     def addClef(self, item, voice=1):
-        voice_obj = self.GetChild(voice)
-        node = ClefNode()
-        node.SetItem(item)
-        if voice_obj is not None:
-            voice_obj.AddChild(node)
-            self.index += 1
+        if not hasattr(self.item, "clef"):
+            self.item.clef = item
+        else:
+            voice_obj = self.GetChild(voice)
+            node = ClefNode()
+            node.SetItem(item)
+            if voice_obj is not None:
+                voice_obj.AddChild(node)
+                self.index += 1
 
     def CheckDivisions(self):
         children = self.GetChildrenIndexes()
@@ -585,7 +597,10 @@ class MeasureNode(IndexedNode):
             if hasattr(self, "rest"):
                 v_obj.total = self.value
             lilystring += " % voice "+str(voice)+"\n"
+            lilystring += "\\new Voice = \""+Part.NumbersToWords(voice)+"\"\n"
+            lilystring += "{\\voice"+Part.NumbersToWords(voice).capitalize() + " "
             lilystring += v_obj.toLily()
+            lilystring += "}"
         lilystring += wrap[1]
 
         return lilystring
@@ -595,14 +610,14 @@ class VoiceNode(Node):
         Node.__init__(self, rules=[NoteNode, Placeholder])
 
     def toLily(self):
-        lilystring = "{ "
+        lilystring = ""
         children = self.GetChildrenIndexes()
         close = False
         previous = None
         for child in range(len(children)):
             note = self.GetChild(children[child])
             item = note.GetItem()
-            if item is not None:
+            if item is not None and type(note) == NoteNode:
                 if len(children) == child+1:
                     result = item.Search(GraceNote)
                     if result is not None:
@@ -621,7 +636,7 @@ class VoiceNode(Node):
                 else:
                     next = self.GetChild(children[child+1])
                     next_item = next.GetItem()
-                    if next_item is not None:
+                    if next_item is not None and type(next) is NoteNode:
                         result = item.Search(GraceNote)
                         next_result = next_item.Search(GraceNote)
                         if result is not None:
@@ -635,7 +650,7 @@ class VoiceNode(Node):
                                 close = True
                             else:
                                 close = False
-                            if previous is not None:
+                            if previous is not None and type(previous) is NoteNode:
                                 if hasattr(previous.GetItem(), "timeMod"):
                                     item.timeMod.first = False
                                 else:
@@ -651,8 +666,6 @@ class VoiceNode(Node):
             if close:
                 lilystring += "} "
             previous = note
-
-        lilystring += "}"
         return lilystring
 
 

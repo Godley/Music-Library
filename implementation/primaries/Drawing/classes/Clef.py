@@ -1,14 +1,36 @@
 __author__ = 'charlotte'
-clef_type = {"G2": "treble", "G1": "french", "F4": "bass", "F3": "varbaritone", "F5": "subbass", "C3": "alto", "PERCUSSION":"percussion",
-             "C4": "tenor", "C5": "baritone", "C2": "mezzosoprano", "C1": "soprano", "VARC3": "altovarC", "VARC4": "tenorvarC", "VARC5": "baritonevarC"}
+clef_type = {"GG":"GG",
+             "TENORG":"tenorG",
+             "C":"C",
+             "F":"F",
+             "G2": "treble",
+             "G1": "french",
+             "F4": "bass",
+             "F3": "varbaritone",
+             "F5": "subbass",
+             "C3": "alto",
+             "PERCUSSION":"percussion",
+             "C4": "tenor",
+             "C5": "baritone",
+             "C2": "mezzosoprano",
+             "C1": "soprano",
+             "VARC": "varC",
+             "VARC3": "altovarC",
+             "VARC4": "tenorvarC",
+             "VARC5": "baritonevarC"}
 
 
 class Clef(object):
     def __init__(self, **kwargs):
         if "sign" in kwargs:
             self.sign = kwargs["sign"]
+        else:
+            self.sign = None
+
         if "line" in kwargs:
             self.line = kwargs["line"]
+        else:
+            self.line = None
         if "octave_change" in kwargs:
             self.octave_change = kwargs["octave_change"]
 

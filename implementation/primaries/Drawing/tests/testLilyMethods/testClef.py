@@ -105,7 +105,7 @@ class testClefTabInMeasure(Lily):
         self.item.addEmptyMeasure(1,1)
         self.item.getMeasure(1,1).GetItem().clef = Clef.Clef(sign="TAB")
         self.item.CheckIfTabStaff(1)
-        self.lilystring = ["staffone = \\new TabStaff{\\autoBeamOff % measure 1\n\clef moderntab  | \n\n }\n\n", "\\staffone"]
+        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n\clef moderntab  | \n\n }\n\n", "\\staffone"]
 
 class testClefTabInMeasureWithMultiClefs(Lily):
     def setUp(self):

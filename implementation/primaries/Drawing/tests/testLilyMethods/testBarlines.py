@@ -5,7 +5,7 @@ from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureN
 
 class testNormalBarline(Lily):
     def setUp(self):
-        self.item = Measure.Barline()
+        self.item = Measure.Barline(style="normal")
         self.lilystring = " \\bar \"|\""
 
 class testDottedBarline(Lily):
@@ -85,7 +85,7 @@ class testMeasureRightBarline(MeasureTests):
         self.item.addNote(note)
         self.item.GetItem().AddBarline(Measure.Barline(repeat="forward"), location="left")
         self.item.GetItem().AddBarline(Measure.Barline(repeat="backward"), location="right")
-        self.lilystring = " \\repeat volta 2 { % voice 1\n{ c' }} | "
+        self.lilystring = " \\repeat volta 2 { % voice 1\n{ c' }}"
 
 
 class testMeasureRightRepeatBarlineNoLeft(MeasureTests):
@@ -95,7 +95,7 @@ class testMeasureRightRepeatBarlineNoLeft(MeasureTests):
         note.pitch = Note.Pitch()
         self.item.addNote(note)
         self.item.GetItem().AddBarline(Measure.Barline(repeat="backward-barline"), location="right")
-        self.lilystring = " % voice 1\n{ c' } \\bar \":|.\" | "
+        self.lilystring = " % voice 1\n{ c' } \\bar \":|.\""
 
 #TODO: look at why this is commented out
 # class testPartWithRepeatsAndMultipleAlternativeEndings(MeasureTests):

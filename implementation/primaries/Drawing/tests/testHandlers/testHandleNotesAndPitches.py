@@ -1,5 +1,5 @@
 import unittest
-
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree
 from implementation.primaries.Drawing.classes import MxmlParser, Piece, Measure, Part, Note
 
 
@@ -14,9 +14,9 @@ class notes(unittest.TestCase):
         MxmlParser.note = None
         MxmlParser.expression = None
         MxmlParser.direction = None
-        self.piece = Piece.Piece()
-        self.piece.Parts["P1"] = Part.Part()
-        self.piece.Parts["P1"].addEmptyMeasure(1,1)
+        self.piece = PieceTree()
+        self.piece.addPart(Part.Part(), index="P1")
+        self.piece.getPart("P1").addEmptyMeasure(1,1)
 
 
     def copy(self):
@@ -187,7 +187,7 @@ class testHandlePitch(pitchin):
         self.chars["alter"] = "-1"
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(MxmlParser.note.pitch, "alter"))
-        self.assertEqual("-1",MxmlParser.note.pitch.alter)
+        self.assertEqual(-1,MxmlParser.note.pitch.alter)
 
     def testOctaveTag(self):
         self.tags.append("octave")
