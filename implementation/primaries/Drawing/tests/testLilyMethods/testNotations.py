@@ -76,6 +76,13 @@ class testTupletBracketNone(Lily):
         self.item = Note.Tuplet(bracket=False)
         self.lilystring = "\override TupletBracket.bracket-visibility = ##f\n\\tuplet"
 
+class testNoteWithTimeModButNoTuplet(Lily):
+    def setUp(self):
+        self.item = Note.Note()
+        self.item.pitch = Note.Pitch()
+        self.item.timeMod = Note.TimeModifier(normal=2,actual=3)
+        self.lilystring = "\omit TupletNumber\n\\tuplet 3/2 { c'"
+
 
 class testGraceNote(Lily):
     def setUp(self):

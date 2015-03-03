@@ -231,7 +231,10 @@ class Note(BaseClass.Base):
                 val += "<"
         if hasattr(self, "grace"):
             val += self.grace.toLily() + " "
-
+        tuplet = self.Search(Tuplet, 1)
+        if tuplet is None and hasattr(self, "timeMod"):
+            val += "\omit TupletNumber\n"
+            val += "\\tuplet "+self.timeMod.toLily() + " {"
         for item in self.prenotation:
             lilystring = item.toLily()
             if isinstance(item, Tuplet):
@@ -244,6 +247,7 @@ class Note(BaseClass.Base):
                     self.trem_length = lilystring[1]
                     lilystring = lilystring[0]
             val += lilystring
+
         return val
 
     def GetBeams(self):
