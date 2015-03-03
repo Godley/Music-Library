@@ -57,9 +57,9 @@ class Clef(object):
             if key in clef_type:
                 clef = clef_type[key]
             else:
-                clef = "treble"
+                val = ""
         else:
-            clef = "treble"
+            val = ""
         if hasattr(self, "octave_change") and self.octave_change is not None:
             options = {1:"^8",2:"^15",-1:"_8",-2:"_15"}
             if self.octave_change in options:
