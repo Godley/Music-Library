@@ -2,7 +2,7 @@
 try:
     from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
-    from implementation.primaries.Drawing.classes.Note import GraceNote
+    from implementation.primaries.Drawing.classes.Note import GraceNote, Arpeggiate, NonArpeggiate
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily, BackwardSearch
     from classes import Measure, Note, Part, Piece, Directions
@@ -664,10 +664,15 @@ class VoiceNode(Node):
             note = self.GetChild(children[child])
             item = note.GetItem()
             if item is not None and type(note) == NoteNode:
+                arpeg = item.Search(Arpeggiate)
+                narpeg = item.Search(NonArpeggiate)
+                if arpeg is not None or narpeg is not None:
+                    note.UpdateArpeggiates()
                 if len(children) == child+1:
                     result = item.Search(GraceNote)
                     if result is not None:
                         note.CheckForGraceNotes()
+
                     if hasattr(item, "timeMod"):
                         close = True
                         if previous is not None:
@@ -734,6 +739,28 @@ class NoteNode(Node):
         result = self.item.Search(GraceNote)
         if result is not None:
             result.last = True
+
+    def UpdateArpeggiates(self, type="start"):
+        result = self.item.Search(Arpeggiate)
+        if result is not None:
+            if type=="start":
+                result.type = type
+            child = self.GetChild(0)
+            if child is not None and hasattr(child, "UpdateArpeggiates"):
+                child.UpdateArpeggiates(type="stop")
+            else:
+                result.type = type
+        else:
+            result = self.item.Search(NonArpeggiate)
+            if result is not None:
+                if type=="start":
+                    result.type = type
+                child = self.GetChild(0)
+                if child is not None and hasattr(child, "UpdateArpeggiates"):
+                    child.UpdateArpeggiates(type="stop")
+                else:
+                    result.type = type
+
 
     def CheckForGraceNotes(self):
         result = self.item.Search(GraceNote)
