@@ -61,7 +61,7 @@ class PieceTree(Tree):
         self.root = IndexedNode(rules=[PartNode])
         self.item = Piece.Piece()
         self.groups = {}
-        self.current = None
+        self.current = []
 
     def SetValue(self, item):
         self.root.SetItem(item)
@@ -75,16 +75,17 @@ class PieceTree(Tree):
         node = PartNode(index=index)
         node.SetItem(item)
         self.AddNode(node, index=index)
-        if self.current != None:
-            self.AddToGroup(self.current, index)
+        if len(self.current) > 0:
+            for item in self.current:
+                self.AddToGroup(item, index)
 
     def startGroup(self, index):
         if index not in self.groups:
             self.groups[index] = []
-        self.current = index
+        self.current.append(index)
 
     def stopGroup(self, index):
-        self.current = None
+        self.current.remove(index)
 
     def AddToGroup(self, name, index):
         if name not in self.groups:

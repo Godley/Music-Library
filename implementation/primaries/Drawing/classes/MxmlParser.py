@@ -79,7 +79,7 @@ class MxmlParser(object):
                             "score-part","sound","print","rest","slur",
                             "accent","strong-accent","staccato",
                             "staccatissimo","up-bow","down-bow",
-                            "cue","key","clef"]
+                            "cue","key","clef","part-group"]
         self.end_tag = ["tremolo"]
         self.piece = PieceTree.PieceTree()
         self.d = False
@@ -400,7 +400,7 @@ def UpdatePart(tag, attrib, content, piece):
         part_id = GetID(attrib, "score-part", "id")
     return_val = None
     if len(tag) > 0:
-        if "part-group" in tag:
+        if tag[-1] == "part-group":
             index = 0
             type = ""
             if "part-group" in attrib:
