@@ -16,6 +16,16 @@ class testTrill(Lily):
         self.item =Ornaments.Trill()
         self.lilystring = "\\trill"
 
+class testTrillLine(Lily):
+    def setUp(self):
+        self.item =Ornaments.Trill(line="start")
+        self.lilystring = "\\startTrillSpanner"
+
+class testTrillLineStop(Lily):
+    def setUp(self):
+        self.item =Ornaments.Trill(line="stop")
+        self.lilystring = "\\stopTrillSpanner"
+
 class testTurn(Lily):
     def setUp(self):
         self.item =Ornaments.Turn()
@@ -49,4 +59,4 @@ class testTremoloTypeStart(Lily):
 class testTremoloTypeStop(Lily):
     def setUp(self):
         self.item =Ornaments.Tremolo(type="stop")
-        self.lilystring = "}"
+        self.lilystring = ["","}"]

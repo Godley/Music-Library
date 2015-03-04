@@ -101,8 +101,9 @@ class testOrnaments(notes):
         self.tags.append("trill-mark")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.tags.append("wavy-line")
+        self.attrs["wavy-line"] = {"type":"start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        self.assertTrue(MxmlParser.note.GetNotation(-1, "post").line)
+        self.assertEqual(MxmlParser.note.GetNotation(-1, "post").line, "start")
 
     def testTurn(self):
         self.tags.append("turn")
