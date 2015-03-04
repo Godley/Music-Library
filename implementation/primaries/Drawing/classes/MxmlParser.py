@@ -221,7 +221,7 @@ class MxmlParser(object):
                 part = self.piece.getLastPart()
             part.CheckMeasureDivisions(measure_id)
             part.CheckMeasureMeter(measure_id)
-            part.CheckPreviousBarline(staff_id)
+            #part.CheckPreviousBarline(staff_id)
             result = part.CheckIfTabStaff(measure_id)
             if result is not None:
                 if "TAB" in result:

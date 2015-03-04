@@ -396,14 +396,6 @@ class StaffNode(IndexedNode):
             lilystring += measureNode.toLily()+"\n\n"
 
             right_barline = measure.GetBarline("right")
-            if right_barline is not None and hasattr(right_barline, "ending"):
-                if len(children) == child+1:
-                    lilystring += "}"
-                else:
-                    nxt_measure = self.GetChild(children[child+1]).GetItem()
-                    left_bline = nxt_measure.GetBarline("left")
-                    if not hasattr(left_bline, "ending"):
-                        lilystring += "}"
         # if self.transpose:
         #     lilystring += "}"
         return lilystring

@@ -214,13 +214,13 @@ class EndingMark(BaseClass.Base):
 
         else:
             lilystring = "\\alternative {"
-        lilystring += "{"
+        if not hasattr(self, "type") or (self.type != "discontinue" and self.type != "stop"):
+            lilystring += "{"
         if hasattr(self, "type"):
             if self.type == "stop":
-                lilystring = "}\n"
-        if hasattr(self, "last"):
-            if self.last:
-                lilystring += "}"
+                lilystring = "}"
+            if self.type == "discontinue":
+                lilystring = "}\n}"
         return lilystring
 
 class Transposition(BaseClass.Base):
