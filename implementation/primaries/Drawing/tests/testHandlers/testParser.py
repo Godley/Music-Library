@@ -149,3 +149,26 @@ class testBackupAndForward(unittest.TestCase):
         self.parser.NewData("16")
         self.parser.EndTag("duration")
         self.assertEqual(self.measure.index, 3)
+
+class TestLastEnding(unittest.TestCase):
+    def setUp(self):
+        self.parser = MxmlParser.MxmlParser()
+        self.parser.piece.addPart(Part.Part(), "P1")
+        self.part = self.parser.piece.getPart("P1")
+        self.part.addEmptyMeasure(1,1)
+        self.measure = self.part.getMeasure(1,1)
+        self.parser.StartTag("part", {"id":"P1"})
+        self.parser.StartTag("measure",{"number":"1"})
+        self.parser.StartTag("barline", {"location":"right"})
+        self.parser.StartTag("ending", {"number":"1"})
+        self.parser.EndTag("ending")
+
+    def testMeasureEnding(self):
+        self.assertTrue(hasattr(self.measure.GetItem().GetBarline("right"), "ending"))
+
+    def testMeasureIsLastEndingMark(self):
+        self.part.addEmptyMeasure(2,1)
+        self.parser.StartTag("part", {"id":"P1"})
+        self.parser.StartTag("measure",{"number":"1"})
+        self.parser.EndTag("measure")
+        self.assertTrue(hasattr(self.measure.GetItem().GetBarline("right").ending, "last"))

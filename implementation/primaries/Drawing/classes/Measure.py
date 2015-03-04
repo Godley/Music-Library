@@ -218,6 +218,9 @@ class EndingMark(BaseClass.Base):
         if hasattr(self, "type"):
             if self.type == "stop":
                 lilystring = "}\n"
+        if hasattr(self, "last"):
+            if self.last:
+                lilystring += "}"
         return lilystring
 
 class Transposition(BaseClass.Base):

@@ -96,20 +96,3 @@ class testMeasureRightRepeatBarlineNoLeft(MeasureTests):
         self.item.addNote(note)
         self.item.GetItem().AddBarline(Measure.Barline(repeat="backward-barline"), location="right")
         self.lilystring = "c'  \\bar \":|.\""
-
-
-class testMeasureRightRepeatBarlineNoLeftWithAlternatives(MeasureTests):
-    def setUp(self):
-        self.item = StaffNode()
-        m2 = MeasureNode()
-        note2 = Note.Note()
-        note2.pitch = Note.Pitch()
-        m2.addNote(note2)
-        self.item.AddChild(m2, index=1)
-        m = MeasureNode()
-        note = Note.Note()
-        note.pitch = Note.Pitch()
-        m.addNote(note)
-        m.GetItem().AddBarline(Measure.Barline(repeat="backward", ending=Measure.EndingMark(number=1)), location="right")
-        self.item.AddChild(m, index=2)
-        self.lilystring = "\\autoBeamOff % measure 1\n\\repeat volta 2{c'}\n\\alternative{{c' \\bar \":|.\" }} "

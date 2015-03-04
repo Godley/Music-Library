@@ -527,3 +527,4 @@ class testRepeatBarline(MeasureTesting):
         measure = self.part.getMeasure(2,1).GetItem()
         self.assertEqual(measure.GetBarline("right").repeat, "backward-barline")
 
+

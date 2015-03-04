@@ -209,6 +209,23 @@ class PartNode(IndexedNode):
                 elif divisions is not None:
                     measure_obj.GetItem().divisions = divisions
 
+    def CheckPreviousBarline(self, staff):
+        """method which checks the bar before the current for changes we need to make to it's barlines"""
+        measure = self.GetMeasureAtPosition(-2, staff)
+        last_measure = self.GetMeasureAtPosition(-1, staff)
+        if measure is not None:
+            item1 = measure.GetItem()
+            item2 = last_measure.GetItem()
+            bline1 = item1.GetBarline("right")
+            bline2 = item2.GetBarline("left")
+            if bline1 is not None:
+                if hasattr(bline1, "ending"):
+                    if bline2 is not None:
+                        if not hasattr(bline2, "ending"):
+                            bline1.ending.last = True
+                    else:
+                        bline1.ending.last = True
+
     def CheckMeasureMeter(self, measure):
         meter = None
         staves = self.GetChildrenIndexes()
@@ -238,7 +255,7 @@ class PartNode(IndexedNode):
     def GetMeasureAtPosition(self, index, staff=1):
         staff_obj = self.getStaff(staff)
         children = staff_obj.GetChildrenIndexes()
-        if index < len(children)-1:
+        if abs(index) <= len(children):
             return self.getMeasure(children[index], staff)
     def getStaff(self, key):
         return self.GetChild(key)
