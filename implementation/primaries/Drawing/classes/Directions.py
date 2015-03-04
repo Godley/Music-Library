@@ -365,13 +365,13 @@ class Bracket(Line):
         style_line = ""
         if hasattr(self, "lineType"):
             if self.lineType == "solid":
-                style_line = "\\override TextSpanner.dash-fraction = 1.0 "
+                style_line = "\\override TextSpanner.dash-fraction = 1.0 \n"
             elif self.lineType == "dashed":
-                style_line = "\\override TextSpanner.dash-fraction = 0.5 "
+                style_line = "\\override TextSpanner.dash-fraction = 0.5 \n"
         if hasattr(self, "type") and self.type == "stop":
-            lilystring += "\\stopTextSpanner"
+            lilystring += "\n\\stopTextSpan\n"
         else:
-            lilystring += "\\startTextSpanner"
+            lilystring += "\n\\startTextSpan\n"
         if style_line == "":
             return lilystring
         return [style_line, lilystring]
