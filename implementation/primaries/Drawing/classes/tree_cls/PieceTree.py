@@ -515,18 +515,9 @@ class MeasureNode(IndexedNode):
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
-
-        # get last note and check it's shifter
         last = voice_obj.GetChild(self.index-1)
-        if last is not None:
-            if hasattr(last, "shift"):
-                shift = last.shift
-                if hasattr(item, "GetItem"):
-                    item.GetItem().pitch.octave += last.shift
-                elif item.__class__.__name__ == Note.Note.__name__:
-                    value = int(item.pitch.octave) + last.shift
-                    item.pitch.octave = str(value)
-
+        if last is not None and hasattr(last, "shift"):
+            shift = True
         # set up a basic duration: this val will only be used for a placeholder
         duration = 0
         if type(item) is not NoteNode and type(item) is not Placeholder:
@@ -539,8 +530,6 @@ class MeasureNode(IndexedNode):
                 node.shift = shift
         else:
             node = item
-            if shift != 0:
-                node.shift = shift
         if not chord:
             #get whatever is at the current index
             placeholder = voice_obj.GetChild(self.index)
@@ -822,13 +811,7 @@ class NoteNode(Node):
 
     def AttachDirection(self, item):
         if item.GetItem().__class__.__name__ == OctaveShift.__name__:
-            amount = item.GetItem().amount
-            direction = item.GetItem().type
-            converter = {8:1,15:2,0:0}
-            if direction == "up":
-                self.shift = converter[amount]*2
-            if direction == "down":
-                self.shift = (converter[amount] * -1)*2
+            self.shift = True
         if 2 > len(self.GetChildrenIndexes()) > 0:
             if self.GetChild(0) is not ExpressionNode:
                 self.AttachExpression(ExpressionNode())

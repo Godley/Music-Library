@@ -269,7 +269,7 @@ class OctaveShift(Line):
         multiplier = 1
         octave = 0
         if hasattr(self, "type"):
-            if self.type == "down":
+            if self.type == "up":
                 return_val += "-"
 
         if hasattr(self, "amount"):
