@@ -23,7 +23,7 @@ class testMeasureNote(MeasureTests):
         note = Note.Note()
         note.pitch= Note.Pitch()
         self.item.addNote(note)
-        self.lilystring = " % voice 1\n{ c' } | "
+        self.lilystring = "c'  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -38,7 +38,7 @@ class testMeasureChord(MeasureTests):
         note2 = Note.Note(chord=True)
         note2.pitch = Note.Pitch()
         self.item.addNote(note2, chord=True)
-        self.lilystring = " % voice 1\n{ <c' c'> } | "
+        self.lilystring = "<c' c'>  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -170,7 +170,7 @@ class testMeasureNoteWithShifter(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{a8 ","c'8]}"]
-        self.lilystring = "c'\n\\ottava #1\n c''  | "
+        self.lilystring = "c'\n\\ottava #1\n c'''  | "
         self.name = "noteOctaveShift"
 
 class testMeasureNoteShift(unittest.TestCase):
@@ -189,9 +189,15 @@ class testMeasureNoteShift(unittest.TestCase):
         self.assertTrue(hasattr(self.node, "shift"))
 
     def testShiftVal(self):
-        self.assertEqual(self.node.shift, 1)
+        self.assertEqual(self.node.shift, 2)
 
     def testNode2Pitch(self):
-        self.assertEqual(self.node2.GetItem().pitch.octave, 3)
+        self.assertEqual(self.node2.GetItem().pitch.octave, 4)
+
+    def testNode3Pitch(self):
+        node3 = NoteNode()
+        node3.GetItem().pitch = Note.Pitch(octave=3)
+        self.item.addNote(node3)
+        self.assertEqual(node3.GetItem().pitch.octave, 5)
 
 

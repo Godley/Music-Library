@@ -510,6 +510,7 @@ class MeasureNode(IndexedNode):
             [voice_obj.AddChild(p) for p in popped]
 
     def addNote(self, item, voice=1, increment=1, chord=False):
+        shift = 0
         # get the appropriate voice
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
@@ -519,6 +520,7 @@ class MeasureNode(IndexedNode):
         last = voice_obj.GetChild(self.index-1)
         if last is not None:
             if hasattr(last, "shift"):
+                shift = last.shift
                 if hasattr(item, "GetItem"):
                     item.GetItem().pitch.octave += last.shift
                 elif item.__class__.__name__ == Note.Note.__name__:
@@ -533,8 +535,12 @@ class MeasureNode(IndexedNode):
                 duration = item.duration
             node = NoteNode(duration=duration)
             node.SetItem(item)
+            if shift != 0:
+                node.shift = shift
         else:
             node = item
+            if shift != 0:
+                node.shift = shift
         if not chord:
             #get whatever is at the current index
             placeholder = voice_obj.GetChild(self.index)
@@ -802,7 +808,7 @@ class NoteNode(Node):
         if item.GetItem().__class__.__name__ == OctaveShift.__name__:
             amount = item.GetItem().amount
             direction = item.GetItem().type
-            converter = {8:1,15:2}
+            converter = {8:1,15:2,0:0}
             if direction == "up":
                 self.shift = converter[amount]*2
             if direction == "down":
