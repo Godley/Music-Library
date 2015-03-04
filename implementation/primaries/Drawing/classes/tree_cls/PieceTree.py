@@ -2,11 +2,13 @@
 try:
     from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
+    from implementation.primaries.Drawing.classes.Directions import OctaveShift
     from implementation.primaries.Drawing.classes.Note import GraceNote, Arpeggiate, NonArpeggiate
 except:
-    from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, FindByIndex, FindPosition, toLily, BackwardSearch
+    from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from classes import Measure, Note, Part, Piece, Directions
-    from classes.Note import GraceNote
+    from classes.Directions import OctaveShift
+    from classes.Note import GraceNote, Arpeggiate, NonArpeggiate
 import copy
 
 def SplitString(value):
@@ -513,6 +515,16 @@ class MeasureNode(IndexedNode):
             self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
 
+        # get last note and check it's shifter
+        last = voice_obj.GetChild(self.index-1)
+        if last is not None:
+            if hasattr(last, "shift"):
+                if hasattr(item, "GetItem"):
+                    item.GetItem().pitch.octave += last.shift
+                elif item.__class__.__name__ == Note.Note.__name__:
+                    value = int(item.pitch.octave) + last.shift
+                    item.pitch.octave = str(value)
+
         # set up a basic duration: this val will only be used for a placeholder
         duration = 0
         if type(item) is not NoteNode and type(item) is not Placeholder:
@@ -787,6 +799,14 @@ class NoteNode(Node):
                 self.SetLast()
 
     def AttachDirection(self, item):
+        if item.GetItem().__class__.__name__ == OctaveShift.__name__:
+            amount = item.GetItem().amount
+            direction = item.GetItem().type
+            converter = {8:1,15:2}
+            if direction == "up":
+                self.shift = converter[amount]*2
+            if direction == "down":
+                self.shift = (converter[amount] * -1)*2
         if 2 > len(self.GetChildrenIndexes()) > 0:
             if self.GetChild(0) is not ExpressionNode:
                 self.AttachExpression(ExpressionNode())

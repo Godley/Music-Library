@@ -1,6 +1,6 @@
 from implementation.primaries.Drawing.classes import Measure, Note, Directions
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode, StaffNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode, StaffNode,NoteNode,DirectionNode
 import unittest
 
 class MeasureTests(Lily):
@@ -155,5 +155,43 @@ class testStaffWithMeasureWithTransposition(unittest.TestCase):
         lstring = self.item.toLily()
         expected = "\\autoBeamOff % measure 1\n\\transpose c' c'' { | \n\n % measure 2\n | \n\n}"
         self.assertEqual(lstring, expected)
+
+class testMeasureNoteWithShifter(Lily):
+    def setUp(self):
+        self.item = MeasureNode()
+        node = NoteNode()
+        node.GetItem().pitch = Note.Pitch(octave=4)
+        self.item.addNote(node)
+        dirnode = Directions.OctaveShift(amount=8, type="up")
+        self.item.addDirection(dirnode)
+        node2 = NoteNode()
+        node2.GetItem().pitch = Note.Pitch(octave=4)
+        self.item.addNote(node2)
+        Lily.setUp(self)
+        self.compile = True
+        self.wrappers = ["\\new Staff{a8 ","c'8]}"]
+        self.lilystring = "c'\n\\ottava #1\n c''  | "
+        self.name = "noteOctaveShift"
+
+class testMeasureNoteShift(unittest.TestCase):
+    def setUp(self):
+        self.item = MeasureNode()
+        self.node = NoteNode()
+        self.node.GetItem().pitch = Note.Pitch()
+        self.item.addNote(self.node)
+        dirnode = Directions.OctaveShift(amount=8, type="up")
+        self.item.addDirection(dirnode)
+        self.node2 = NoteNode()
+        self.node2.GetItem().pitch = Note.Pitch(octave=2)
+        self.item.addNote(self.node2)
+
+    def testHasShift(self):
+        self.assertTrue(hasattr(self.node, "shift"))
+
+    def testShiftVal(self):
+        self.assertEqual(self.node.shift, 1)
+
+    def testNode2Pitch(self):
+        self.assertEqual(self.node2.GetItem().pitch.octave, 3)
 
 

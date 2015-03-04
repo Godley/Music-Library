@@ -1,5 +1,6 @@
-from implementation.primaries.Drawing.classes import Note, Ornaments, Mark
+from implementation.primaries.Drawing.classes import Note, Ornaments, Mark, Directions
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import NoteNode, DirectionNode
 
 class testNote(Lily):
     def setUp(self):
@@ -129,6 +130,7 @@ class testNoteTupletEnd(Lily):
         self.compile = True
         self.wrappers = ["\\new Staff{\\tuplet 3/2 {","}"]
         self.name = "notetupletend"
+
 
 
 
