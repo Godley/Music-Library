@@ -513,7 +513,7 @@ def handleOtherNotations(tag, attrs, content, piece):
                 if "slur" in attrs and "type" in attrs["slur"]:
                     notation.type = attrs["slur"]["type"]
                 note.slurs[num] = notation
-            if tag[-2] == "technical" and tag[-1] != "bend":
+            if tag[-2] == "technical" and tag[-1] != "bend" and tag[-1] != "hammer-on" and tag[-1] != "pull-off":
                 text = None
                 if tag[-1] in content:
                     text = content[tag[-1]]

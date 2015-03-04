@@ -545,7 +545,6 @@ class MeasureNode(IndexedNode):
                             if child.GetItem().__class__.__name__ == OctaveShift.__name__:
                                 i = placeholder.PopChild(c)
                                 voice_obj.ReplaceChild(self.index, copy.deepcopy(i))
-
                                 self.index += 1
                     if voice_obj.GetChild(self.index) == placeholder:
                         voice_obj.ReplaceChild(self.index, node)
@@ -597,7 +596,7 @@ class MeasureNode(IndexedNode):
             self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
         children = voice_obj.GetChildrenIndexes()
-        if self.index == len(children):
+        if self.index >= len(children):
             self.addNote(holder, voice)
         else:
             self.PositionChild(holder, self.index, voice=voice)
@@ -617,12 +616,19 @@ class MeasureNode(IndexedNode):
         if self.index == 0:
             finder = 0
         else:
+            if direction_obj.GetItem().__class__.__name__ == Directions.Pedal.__name__:
+                check_plc = voice_obj.GetChild(self.index-1)
+                if type(check_plc) is not Placeholder:
+                    self.index += 1
             finder = self.index-1
+
         note_obj = voice_obj.GetChild(finder)
         if type(note_obj) is NoteNode or type(note_obj) is Placeholder:
             note_obj.AttachDirection(direction_obj)
         else:
             self.addPlaceholder()
+            if self.index >= len(voice_obj.children):
+                self.index = len(voice_obj.children)-1
             note_obj = voice_obj.GetChild(self.index)
             if type(note_obj) is Placeholder:
                 note_obj.AttachDirection(direction_obj)

@@ -209,17 +209,21 @@ class testShiftBeforeNote(unittest.TestCase):
         self.node.GetItem().pitch = Note.Pitch(octave=2)
         self.item.addNote(self.node)
 
-    def testHasShift(self):
-        self.assertTrue(hasattr(self.node, "shift"))
-
-    def testShiftVal(self):
-        self.assertEqual(self.node.shift, 2)
-
-    def testNode2Pitch(self):
-        self.assertEqual(self.node.GetItem().pitch.octave, 4)
-
     def testLilystring(self):
-        value = "\n\\ottava #1\n c'  | "
+        value = "\n\\ottava #-1\n c,  | "
         self.assertEqual(value, self.item.toLily())
 
+class testPedalBeforeNote(unittest.TestCase):
+    def setUp(self):
+        self.item = MeasureNode()
+        dirnode = Directions.Pedal(type="start")
+        self.item.addDirection(dirnode)
+        self.node = NoteNode()
+        self.node.GetItem().pitch = Note.Pitch(octave=2)
+        self.item.addNote(self.node)
+
+
+    def testLilystring(self):
+        value = "\sustainOn\n c,  | "
+        self.assertEqual(value, self.item.toLily())
 

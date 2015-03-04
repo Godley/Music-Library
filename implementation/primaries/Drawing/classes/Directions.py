@@ -324,8 +324,11 @@ class Pedal(Line):
         if hasattr(self, "type"):
             if self.type == "stop":
                 return_val += "Off\n"
+            if self.type == "change":
+                return_val += "Off\n\sustainOn\n"
             elif self.type == "start":
                 return_val += "On\n"
+
         else:
             return_val += "On\n"
         return return_val
