@@ -210,10 +210,11 @@ class EndingMark(BaseClass.Base):
         lilystring = ""
         if hasattr(self, "number"):
             if self.number == 1:
-                lilystring += "}\n\\alternative {\n"
-            lilystring += "{"
+                lilystring = "\\alternative {\n"
+
         else:
-            lilystring = "}\n\\alternative {\n{"
+            lilystring = "\\alternative {"
+        lilystring += "{"
         if hasattr(self, "type"):
             if self.type == "stop":
                 lilystring = "}\n"

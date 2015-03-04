@@ -772,12 +772,22 @@ class NoteNode(Node):
 
 
     def Find(self, node_type, item_type):
+        # method for finding specific types of notation from nodes.
+        # will currently return the first one it encounters because this method's only really intended
+        #for some types of notation for which the exact value doesn't really matter.
         if node_type == DirectionNode:
             child = self.GetChild(len(self.children)-1)
             while child is not None and type(child.GetItem()) != item_type:
                 if child.GetItem().__class__.__name__ == item_type.__name__:
                     return True
                 child = child.GetChild(0)
+        if node_type == ExpressionNode:
+            child = self.GetChild(len(self.children)-2)
+            while child is not None and type(child.GetItem()) != item_type:
+                if child.GetItem().__class__.__name__ == item_type.__name__:
+                    return True
+                child = child.GetChild(0)
+
 
     def SetGrace(self):
         if self.item.Search(GraceNote) is None:
