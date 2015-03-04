@@ -826,6 +826,8 @@ def handleBarline(tag, attrib, content, piece):
 
             if attrib["barline"]["location"] in measure.barlines:
                 measure.barlines[attrib["barline"]["location"]].ending = ending
+                if hasattr(measure.barlines[attrib["barline"]["location"]], "repeat") and measure.barlines[attrib["barline"]["location"]].repeat == "backward-barline":
+                    measure.barlines[attrib["barline"]["location"]].repeat = "backward"
 
         if tag[-1] == "bar-style":
                 if attrib["barline"]["location"] not in measure.barlines:

@@ -102,8 +102,7 @@ class testMeter(MeasureTesting):
 
 
 class testClef(MeasureTesting):
-    def tearDown(self):
-        exp_measure = None
+
     def testLineTag(self):
         self.tags.append("clef")
         self.tags.append("line")
@@ -499,4 +498,14 @@ class testBarline(MeasureTesting):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         
         self.assertEqual("backward-barline", self.measure.barlines["left"].repeat)
+
+    def testRepeatValWhereNoPreviousBarWithEndings(self):
+        self.tags.append("repeat")
+        self.attrs["barline"] = {"location": "right"}
+        self.attrs["repeat"] = {"direction": "backward"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.tags.append("ending")
+        self.attrs["ending"] = {"number":"1"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual("backward", self.measure.barlines["right"].repeat)
 
