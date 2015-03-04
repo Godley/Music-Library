@@ -799,6 +799,7 @@ def handleBarline(tag, attrib, content, piece):
     if "barline" in tag and measure is not None:
         if not hasattr(measure, "barlines"):
             measure.barlines = {}
+        location = GetID(attrib, "barline", "location")
         barline = None
         style = None
         repeat = None
@@ -808,56 +809,63 @@ def handleBarline(tag, attrib, content, piece):
             number = None
             if "ending" in attrib:
                 if "number" in attrib["ending"]:
-                    if attrib["barline"]["location"] not in measure.barlines or not hasattr(measure.barlines[attrib["barline"]["location"]], "ending"):
+                    if location not in measure.barlines or not hasattr(measure.barlines[location], "ending"):
                         num_str = attrib["ending"]["number"]
                         split = num_str.split(",")
                         number = int(split[-1])
                         if last_fwd_repeat is not None and number > 2:
                             last_fwd_repeat.repeatNum = number
                     else:
-                        measure.barlines[attrib["barline"]["location"]].ending.number = int(attrib["ending"]["number"])
+                        measure.barlines[location].ending.number = int(attrib["ending"]["number"])
                 if "type" in attrib["ending"]:
-                    if attrib["barline"]["location"] not in measure.barlines or not hasattr(measure.barlines[attrib["barline"]["location"]], "ending"):
+                    if location not in measure.barlines or not hasattr(measure.barlines[location], "ending"):
                         btype = attrib["ending"]["type"]
                     else:
-                        measure.barlines[attrib["barline"]["location"]].ending.type = attrib["ending"]["type"]
+                        measure.barlines[location].ending.type = attrib["ending"]["type"]
 
             ending = Measure.EndingMark(type=btype, number=number)
 
-            if attrib["barline"]["location"] in measure.barlines:
-                measure.barlines[attrib["barline"]["location"]].ending = ending
-                if hasattr(measure.barlines[attrib["barline"]["location"]], "repeat") and measure.barlines[attrib["barline"]["location"]].repeat == "backward-barline":
-                    measure.barlines[attrib["barline"]["location"]].repeat = "backward"
+            if location in measure.barlines:
+                measure.barlines[location].ending = ending
+
 
         if tag[-1] == "bar-style":
-                if attrib["barline"]["location"] not in measure.barlines:
+                if location not in measure.barlines:
                     style = content["bar-style"]
                 else:
-                    measure.barlines[attrib["barline"]["location"]].style = style
+                    measure.barlines[location].style = style
         if tag[-1] == "repeat":
             if "repeat" in attrib:
                 if "direction" in attrib["repeat"]:
-                    barline = measure.GetBarline(attrib["barline"]["location"])
+                    barline = measure.GetBarline(location)
+
                     repeat = attrib["repeat"]["direction"]
-                    if hasattr(last_barline, "repeat"):
-                        last_repeat = last_barline.repeat
-                        if repeat == "backward" and last_repeat != "forward":
-                            repeat += "-barline"
-                        if repeat == "forward" and last_repeat == "backward-barline":
-                            if part_id == last_barline_pos["part"] and int(last_barline_pos["measure"]) == measure_id-1:
-                                if attrib["barline"]["location"] != last_barline_pos["location"]:
-                                    last_barline.repeat += "-double"
+                    if hasattr(barline, "ending"):
+                        measureNode = part.GetMeasureAtPosition(-2)
+                        item = measureNode.GetItem()
+                        item.AddBarline(Measure.Barline(repeat="backward"), location="right")
+                        item.AddBarline(Measure.Barline(repeat="forward"), location="left")
+                        barline.repeat = "backward-barline"
                     else:
-                        if repeat == "backward":
-                            repeat += "-barline"
+                        if hasattr(last_barline, "repeat"):
+                            last_repeat = last_barline.repeat
+                            if repeat == "backward" and last_repeat != "forward":
+                                repeat += "-barline"
+                            if repeat == "forward" and last_repeat == "backward-barline":
+                                if part_id == last_barline_pos["part"] and int(last_barline_pos["measure"]) == measure_id-1:
+                                    if location != last_barline_pos["location"]:
+                                        last_barline.repeat += "-double"
+                        else:
+                            if repeat == "backward":
+                                repeat += "-barline"
 
-                    if barline is not None:
-                        barline.repeat = repeat
+                        if barline is not None:
+                            barline.repeat = repeat
 
-        if attrib["barline"]["location"] not in measure.barlines:
+        if location not in measure.barlines:
             if barline is None:
                 barline = Measure.Barline(style=style, repeat=repeat, ending=ending)
-            measure.barlines[attrib["barline"]["location"]] = barline
+            measure.barlines[location] = barline
 def CheckID(tag, attrs, string, id_name):
     if string in tag:
         return attrs[string][id_name]

@@ -499,13 +499,31 @@ class testBarline(MeasureTesting):
         
         self.assertEqual("backward-barline", self.measure.barlines["left"].repeat)
 
-    def testRepeatValWhereNoPreviousBarWithEndings(self):
-        self.tags.append("repeat")
+
+class testRepeatBarline(MeasureTesting):
+    def setUp(self):
+        MeasureTesting.setUp(self)
+        self.part.addEmptyMeasure(1,1)
+        self.measure = self.part.getMeasure(1,1).GetItem()
+        self.handler = MxmlParser.handleBarline
+        self.tags.append("barline")
+        MxmlParser.staff_id = 1
+        MxmlParser.last_barline = None
+        self.part.addEmptyMeasure(2,1)
+        self.attrs["measure"] = {"number":"2"}
         self.attrs["barline"] = {"location": "right"}
-        self.attrs["repeat"] = {"direction": "backward"}
-        self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.tags.append("ending")
         self.attrs["ending"] = {"number":"1"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.tags.append("repeat")
+        self.attrs["repeat"] = {"direction": "backward"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+
+    def testRepeatValWhereNoPreviousBarWithEndings(self):
         self.assertEqual("backward", self.measure.barlines["right"].repeat)
+        self.assertEqual("forward", self.measure.barlines["left"].repeat)
+
+    def testRepeatValOfNewMeasure(self):
+        measure = self.part.getMeasure(2,1).GetItem()
+        self.assertEqual(measure.GetBarline("right").repeat, "backward-barline")
 
