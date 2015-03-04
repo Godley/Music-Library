@@ -675,6 +675,7 @@ class VoiceNode(Node):
                         note.CheckForGraceNotes()
 
                     if hasattr(item, "timeMod"):
+
                         close = True
                         if previous is not None:
                             if hasattr(previous.GetItem(), "timeMod"):
@@ -698,7 +699,9 @@ class VoiceNode(Node):
                                 result.last = False
                                 next_result.first = False
                         if hasattr(item, "timeMod"):
-                            if not hasattr(next_item, "timeMod"):
+                            res = item.Search(Note.Tuplet)
+
+                            if not hasattr(next_item, "timeMod") and res is None:
                                 close = True
                             else:
                                 close = False

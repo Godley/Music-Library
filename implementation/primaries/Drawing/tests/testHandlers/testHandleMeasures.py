@@ -1,4 +1,4 @@
-from implementation.primaries.Drawing.classes import MxmlParser, Harmony, Piece, Measure, Part
+from implementation.primaries.Drawing.classes import MxmlParser, Harmony, Piece, Measure, Part, Clef
 from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree, ClefNode, KeyNode
 import unittest
 
@@ -132,7 +132,7 @@ class testClef(MeasureTesting):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         exp_measure = self.piece.getPart("P1").getMeasure(1,2)
         other_measure =  self.piece.getPart("P1").getMeasure(1,1)
-        self.assertIsInstance(exp_measure.GetLastClef(), ClefNode)
+        self.assertIsInstance(exp_measure.GetLastClef(), Clef.Clef)
         self.assertIsNone(other_measure.GetLastClef())
 
 class testTranspose(MeasureTesting):
