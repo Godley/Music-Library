@@ -177,3 +177,20 @@ class Technique(Notation):
                         val += self.symbol
                     val+=" }"
         return val
+
+class Bend(Notation):
+    def __init__(self, **kwargs):
+        if "value" in kwargs:
+            self.value = kwargs["value"]
+        Notation.__init__(self,**kwargs)
+
+    def toLily(self):
+        val = "\\bendAfter #"
+        if hasattr(self, "value"):
+            if self.value > 0:
+                val += "+"
+            if self.value < 0:
+                val += "-"
+            val += str(self.value)
+
+        return val

@@ -75,7 +75,7 @@ class MxmlParser(object):
         self.multiple_attribs = ["beats", "sign"]
 
         # any tags which close instantly in here
-        self.closed_tags = ["technical","tie","chord","note","measure","part",
+        self.closed_tags = ["tie","chord","note","measure","part",
                             "score-part","sound","print","rest","slur",
                             "accent","strong-accent","staccato",
                             "staccatissimo","up-bow","down-bow",
@@ -513,11 +513,16 @@ def handleOtherNotations(tag, attrs, content, piece):
                 if "slur" in attrs and "type" in attrs["slur"]:
                     notation.type = attrs["slur"]["type"]
                 note.slurs[num] = notation
-            if tag[-2] == "technical":
+            if tag[-2] == "technical" and tag[-1] != "bend":
                 text = None
                 if tag[-1] in content:
                     text = content[tag[-1]]
                 note.addNotation(Mark.Technique(type=tag[-1], symbol=text))
+            elif len(tag) >= 3 and tag[-3] == "technical" and tag[-2] == "bend":
+                bend_val = None
+                if tag[-1] in content:
+                    bend_val = content[tag[-1]]
+                note.addNotation(Mark.Bend(value=int(bend_val)))
 
             return 1
     return None

@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.tests.testHandlers import testclass
 from implementation.primaries.Drawing.classes import Mark, MxmlParser, Directions, Part, Measure, Note
+import unittest
 
 class testHandleArticulation(testclass.TestClass):
     def setUp(self):
@@ -267,4 +268,16 @@ class testString(testOpenTechnique):
         testOpenTechnique.setUp(self)
         self.tag = "string"
         self.value = "0"
+
+
+class testBend(t):
+
+    def testBend(self):
+        self.tags.append("technical")
+        self.tags.append("bend")
+        self.tags.append("bend-alter")
+        self.chars["bend-alter"] = "6"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertEqual(6, MxmlParser.note.GetNotation(-1, "post").value)
+
 
