@@ -992,6 +992,10 @@ def handleOrnaments(tags, attrs, content, piece):
             note.addNotation(Ornaments.Mordent())
         if tags[-1] == "trill-mark":
             note.addNotation(Ornaments.Trill())
+        if tags[-1] == "wavy-line":
+            result = note.Search(Ornaments.Trill)
+            if result is not None:
+                result.line = True
         if tags[-1] == "turn":
             note.addNotation(Ornaments.Turn())
         if tags[-1] == "inverted-turn":
@@ -1036,7 +1040,7 @@ def HandlePitch(tags, attrs, text, piece):
     return return_val
 
 def HandleDirections(tags, attrs, chars, piece):
-    global expressions, items, staff_id, direction, expression
+    global expressions, items, staff_id, direction, expression, note
     return_val = None
     if len(tags) == 0:
         return None

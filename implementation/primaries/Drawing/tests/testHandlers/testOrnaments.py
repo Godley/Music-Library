@@ -97,6 +97,13 @@ class testOrnaments(notes):
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertIsInstance(MxmlParser.note.GetNotation(-1, "post"), Ornaments.Trill)
 
+    def testTrillWithLine(self):
+        self.tags.append("trill-mark")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.tags.append("wavy-line")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(MxmlParser.note.GetNotation(-1, "post").line)
+
     def testTurn(self):
         self.tags.append("turn")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
