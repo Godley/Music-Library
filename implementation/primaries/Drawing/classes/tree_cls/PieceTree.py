@@ -547,7 +547,23 @@ class MeasureNode(IndexedNode):
             if type(placeholder) is Placeholder and type(node) is not Placeholder:
                 # if it's an empty placeholder, replace it with a note
                 if placeholder.duration == 0:
-                    voice_obj.ReplaceChild(self.index, node)
+                    if hasattr(placeholder, "shift"):
+                        children = placeholder.GetChildrenIndexes()
+                        # this will need some recursion if we have multiple directions attached to a placeholder,
+                        # but for now this should work.
+                        for c in children:
+                            child = placeholder.GetChild(c)
+                            if child.GetItem().__class__.__name__ == OctaveShift.__name__:
+                                i = placeholder.PopChild(c)
+                                voice_obj.ReplaceChild(self.index, copy.deepcopy(i))
+
+                                self.index += 1
+                    if voice_obj.GetChild(self.index) == placeholder:
+                        voice_obj.ReplaceChild(self.index, node)
+                    elif voice_obj.GetChild(self.index) is not None:
+                        self.PositionChild(node, self.index, voice=voice)
+                    else:
+                        voice_obj.AddChild(node, self.index)
                     if type(node) is not Placeholder:
                         self.index += 1
 

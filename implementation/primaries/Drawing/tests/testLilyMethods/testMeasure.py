@@ -200,4 +200,26 @@ class testMeasureNoteShift(unittest.TestCase):
         self.item.addNote(node3)
         self.assertEqual(node3.GetItem().pitch.octave, 5)
 
+class testShiftBeforeNote(unittest.TestCase):
+    def setUp(self):
+        self.item = MeasureNode()
+        dirnode = Directions.OctaveShift(amount=8, type="up")
+        self.item.addDirection(dirnode)
+        self.node = NoteNode()
+        self.node.GetItem().pitch = Note.Pitch(octave=2)
+        self.item.addNote(self.node)
+
+    def testHasShift(self):
+        self.assertTrue(hasattr(self.node, "shift"))
+
+    def testShiftVal(self):
+        self.assertEqual(self.node.shift, 2)
+
+    def testNode2Pitch(self):
+        self.assertEqual(self.node.GetItem().pitch.octave, 4)
+
+    def testLilystring(self):
+        value = "\n\\ottava #1\n c'  | "
+        self.assertEqual(value, self.item.toLily())
+
 
