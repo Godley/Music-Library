@@ -591,17 +591,16 @@ class MeasureNode(IndexedNode):
         direction_obj = DirectionNode()
         direction_obj.SetItem(item)
         voice_obj = self.getVoice(voice)
-        note_obj = Search(NoteNode, voice_obj, self.index)
-        plcholder = Search(Placeholder, voice_obj, self.index+1)
-        if note_obj is not None or plcholder is not None:
-            if note_obj is not None:
-                note_obj.AttachDirection(direction_obj)
-            if plcholder is not None:
-                plcholder.AttachDirection(direction_obj)
-
+        if self.index == 0:
+            finder = 0
+        else:
+            finder = self.index-1
+        note_obj = voice_obj.GetChild(finder)
+        if type(note_obj) is NoteNode or type(note_obj) is Placeholder:
+            note_obj.AttachDirection(direction_obj)
         else:
             self.addPlaceholder()
-            note_obj = Search(Placeholder, voice_obj, self.index+1)
+            note_obj = voice_obj.GetChild(self.index)
             if type(note_obj) is Placeholder:
                 note_obj.AttachDirection(direction_obj)
 

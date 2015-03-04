@@ -173,7 +173,7 @@ class MxmlParser(object):
                 self.handler = None
         if name in self.tags:
             self.tags.remove(name)
-        if name == "direction":
+        if name == "direction-type":
             if direction is not None:
                 measure_id = IdAsInt(GetID(self.attribs, "measure", "number"))
                 part_id = GetID(self.attribs, "part", "id")

@@ -359,14 +359,15 @@ class Bracket(Line):
         if "type" in kwargs:
             type = kwargs["type"]
         Line.__init__(self, type=type, text=text, size=size, font=font, placement=placement)
+
     def toLily(self):
         lilystring = ""
         style_line = ""
         if hasattr(self, "lineType"):
             if self.lineType == "solid":
-                style_line = "\\override TextSpanner.dash-fraction = 1.0"
+                style_line = "\\override TextSpanner.dash-fraction = 1.0 "
             elif self.lineType == "dashed":
-                style_line = "\\override TextSpanner.dash-fraction = 0.5"
+                style_line = "\\override TextSpanner.dash-fraction = 0.5 "
         if hasattr(self, "type") and self.type == "stop":
             lilystring += "\\stopTextSpanner"
         else:
