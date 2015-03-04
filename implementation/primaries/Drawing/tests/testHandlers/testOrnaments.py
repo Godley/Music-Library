@@ -98,8 +98,6 @@ class testOrnaments(notes):
         self.assertIsInstance(MxmlParser.note.GetNotation(-1, "post"), Ornaments.Trill)
 
     def testTrillWithLine(self):
-        self.tags.append("trill-mark")
-        self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.tags.append("wavy-line")
         self.attrs["wavy-line"] = {"type":"start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)

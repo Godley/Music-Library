@@ -999,11 +999,7 @@ def handleOrnaments(tags, attrs, content, piece):
                         type = attrs["wavy-line"]["type"]
                     else:
                         type = True
-            result = note.Search(Ornaments.Trill)
-            if result is not None:
-                result.line = type
-            else:
-                note.addNotation(Ornaments.Trill(line=type))
+            note.addNotation(Ornaments.TrillSpanner(line=type))
         if tags[-1] == "turn":
             note.addNotation(Ornaments.Turn())
         if tags[-1] == "inverted-turn":

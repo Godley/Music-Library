@@ -14,17 +14,22 @@ class Mordent(BaseClass.Base):
         return "\mordent"
 
 class Trill(BaseClass.Base):
+
+    def toLily(self):
+        return "\\trill"
+
+class TrillSpanner(BaseClass.Base):
     def __init__(self, **kwargs):
         if "line" in kwargs:
             self.line = kwargs["line"]
 
     def toLily(self):
+        val = ""
         if hasattr(self, "line") and self.line != "":
-            val = "\\"
+            val += "\\"
             val += self.line.lower()
             val += "TrillSpan\n"
-        else:
-            val = "\\trill"
+
         return val
 
 class Turn(BaseClass.Base):

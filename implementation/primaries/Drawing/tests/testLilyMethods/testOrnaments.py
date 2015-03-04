@@ -16,15 +16,15 @@ class testTrill(Lily):
         self.item =Ornaments.Trill()
         self.lilystring = "\\trill"
 
-class testTrillLine(Lily):
+class testTrillLineSpanner(Lily):
     def setUp(self):
-        self.item =Ornaments.Trill(line="start")
-        self.lilystring = "\\startTrillSpanner"
+        self.item =Ornaments.TrillSpanner(line="start")
+        self.lilystring = "\\startTrillSpan\n"
 
-class testTrillLineStop(Lily):
+class testTrillLineStopSpanner(Lily):
     def setUp(self):
-        self.item =Ornaments.Trill(line="stop")
-        self.lilystring = "\\stopTrillSpanner"
+        self.item =Ornaments.TrillSpanner(line="stop")
+        self.lilystring = "\\stopTrillSpan\n"
 
 class testTurn(Lily):
     def setUp(self):
