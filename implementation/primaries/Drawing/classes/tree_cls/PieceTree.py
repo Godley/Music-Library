@@ -619,7 +619,9 @@ class MeasureNode(IndexedNode):
             if direction_obj.GetItem().__class__.__name__ == Directions.Pedal.__name__:
                 check_plc = voice_obj.GetChild(self.index-1)
                 if type(check_plc) is not Placeholder:
-                    self.index += 1
+                    result = check_plc.Find(DirectionNode, Directions.Pedal)
+                    if result:
+                        self.index += 1
             finder = self.index-1
 
         note_obj = voice_obj.GetChild(finder)
@@ -763,6 +765,15 @@ class NoteNode(Node):
         if self.item is None:
             self.item = Note.Note()
 
+
+    def Find(self, node_type, item_type):
+        if node_type == DirectionNode:
+            child = self.GetChild(len(self.children)-1)
+            while child is not None and type(child.GetItem()) != item_type:
+                if child.GetItem().__class__.__name__ == item_type.__name__:
+                    return True
+                child = child.GetChild(0)
+
     def SetGrace(self):
         if self.item.Search(GraceNote) is None:
             self.item.addNotation(GraceNote())
@@ -818,13 +829,19 @@ class NoteNode(Node):
     def AttachDirection(self, item):
         if item.GetItem().__class__.__name__ == OctaveShift.__name__:
             self.shift = True
-        if 2 > len(self.GetChildrenIndexes()) > 0:
-            if self.GetChild(0) is not ExpressionNode:
-                self.AttachExpression(ExpressionNode())
-        if 1 > len(self.GetChildrenIndexes()) > 0:
+        if len(self.children) == 0:
+            self.AttachExpression(ExpressionNode())
             self.AddChild(item)
+        elif 3 > len(self.children) > 0:
+            if type(self.GetChild(0)) != NoteNode:
+                if type(self.GetChild(0)) != ExpressionNode:
+                    self.AttachExpression(ExpressionNode())
+                    self.AddChild(item)
+            elif type(self.GetChild(1)) != ExpressionNode:
+                self.AttachExpression(ExpressionNode())
+                self.AddChild(item)
         else:
-            dir_node = self.GetChild(1)
+            dir_node = self.GetChild(len(self.children)-1)
             if dir_node is not None:
                 if dir_node.GetItem() is None:
                     dir_node.SetItem(item.GetItem())
