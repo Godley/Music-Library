@@ -1125,7 +1125,7 @@ def HandleDirections(tags, attrs, chars, piece):
                     if not hasattr(direction, "beat") or direction.beat is None:
                         direction.beat = unit
                     else:
-                        direction.secondBeat = uni
+                        direction.secondBeat = unit
                     direction.placement = placement
                 direction.text = str(direction.beat)
                 if "metronome" in attrs:

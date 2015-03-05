@@ -101,7 +101,7 @@ class CreditText(Text):
             lily += "\general-align #Y #"+option[self.valign]+"\n "
         lily += Text.toLily(self)
         if hasattr(self, "justify"):
-            options = {"right":"\n}\n\r}\n\\null\\null","center":"\n}\n}"}
+            options = {"right":"\n}\n\t}\n\\null\\null","center":"\n}\n}"}
             if self.justify in options:
                 lily += options[self.justify]
         return lily
@@ -384,6 +384,8 @@ class Metronome(Direction):
         size = None
         font = None
         text = None
+        if "secondBeat" in kwargs:
+            self.secondBeat = kwargs["secondBeat"]
         if "beat" in kwargs:
             self.beat = kwargs["beat"]
         if "min" in kwargs:
@@ -404,18 +406,20 @@ class Metronome(Direction):
         else:
             self.parentheses = False
     def toLily(self):
-        return_val = "\\tempo "
+        return_val = " \\tempo "
+        converter = {"eighth":8,"quarter":4,"half":2,"whole":1,"long":"longa","32nd":32}
         if hasattr(self, "parentheses"):
             if self.parentheses:
                 return_val += "\"\" "
-        if hasattr(self, "beat"):
-            converter = {"quarter":4,"eighth":8,"half":2}
-            if self.beat in converter:
-                return_val += str(converter[self.beat]) + "="
-            else:
-                return_val += str(self.beat) + "="
-        if hasattr(self, "min"):
-            return_val += str(self.min)
+        if hasattr(self, "beat") and hasattr(self, "min"):
+            return_val += str(converter[self.beat]) +"=" + str(self.min)
+        elif hasattr(self, "secondBeat") and hasattr(self, "beat"):
+            return_val += "\markup {\n\t\concat {\n\t\t(\n\t\t\t\smaller \general-align #Y #DOWN \\note #\""
+            return_val += str(converter[self.beat])+"\" #1\n\t\t\t\t\" = \"\n\t\t\t\t\smaller \general-align #Y #DOWN \\note #\""
+            return_val += str(converter[self.secondBeat])+"\" #1\n\t\t)\n\t}\n}"
+        else:
+            return_val = ""
+
         return return_val
 
     def get_detail(self):

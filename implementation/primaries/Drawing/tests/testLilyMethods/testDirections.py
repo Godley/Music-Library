@@ -45,7 +45,7 @@ class testDirectionWithText(Lily):
 class testDirectionFont(Lily):
     def setUp(self):
         self.item = Directions.Direction(font="roman",text="lol")
-        self.lilystring = "\markup { \\roman \"lol\"  }"
+        self.lilystring = "\markup { \\toman \"lol\"  }"
 
 class testDirectionWithFontSize(Lily):
     def setUp(self):
@@ -101,7 +101,7 @@ class testOctaveShiftUp(Lily):
 class testOctaveShiftDown(Lily):
     def setUp(self):
         self.item = Directions.OctaveShift(amount=15, type="down")
-        self.lilystring = "\n\ottava #-2\n"
+        self.lilystring = "\n\ottava #2\n"
 
 class testWavyLine(Lily):
     def setUp(self):
@@ -138,43 +138,48 @@ class testPedalTypeOff(Lily):
 class testBracket(Lily):
     def setUp(self):
         self.item = Directions.Bracket()
-        self.lilystring = "\\startTextSpanner"
+        self.lilystring = "\n\\startTextSpan\n"
 
 class testBracketStop(Lily):
     def setUp(self):
         self.item = Directions.Bracket(type="stop")
-        self.lilystring = "\\stopTextSpanner"
+        self.lilystring = "\n\\stopTextSpan\n"
 
 class testBracketlType(Lily):
     def setUp(self):
         self.item = Directions.Bracket(ltype="solid")
-        self.lilystring = ["\override TextSpanner.dash-fraction = 1.0","\\startTextSpanner"]
+        self.lilystring = ["\override TextSpanner.dash-fraction = 1.0 \n","\n\\startTextSpan\n"]
 
 class testMetronome(Lily):
     def setUp(self):
         self.item = Directions.Metronome()
-        self.lilystring = "\\tempo "
+        self.lilystring = ""
 
 class testMetronomeBeat(Lily):
     def setUp(self):
-        self.item = Directions.Metronome(beat=2)
-        self.lilystring = "\\tempo 2="
+        self.item = Directions.Metronome(beat="quarter")
+        self.lilystring = ""
+
+class testMetronome2Beats(Lily):
+    def setUp(self):
+        self.item = Directions.Metronome(beat="quarter", secondBeat="half")
+        self.lilystring = "\\tempo \markup {\n\t\concat {\n\t\t(\n\t\t\t\smaller \general-align #Y #DOWN \\note #\"4\" #1\n\t\t\t\t\" = \"\n\t\t\t\t\smaller \general-align #Y #DOWN \\note #\"2\" #1\n\t\t)\n\t}\n}"
 
 class testMetronomeMin(Lily):
     def setUp(self):
         self.item = Directions.Metronome(min=60)
-        self.lilystring = "\\tempo 60"
+        self.lilystring = ""
 
 class testMetronomeBeatMin(Lily):
     def setUp(self):
-        self.item = Directions.Metronome(beat=2,min=60)
+        self.item = Directions.Metronome(beat="half",min=60)
         self.lilystring = "\\tempo 2=60"
 
 
 class testMetronomeParenthesis(Lily):
     def setUp(self):
         self.item = Directions.Metronome(parentheses=True)
-        self.lilystring = "\\tempo \"\" "
+        self.lilystring = ""
 
 class testDynamic(Lily):
     def setUp(self):
@@ -235,7 +240,7 @@ class testCreditTextValign(Lily):
 class testCreditTextJustify(Lily):
     def setUp(self):
         self.item = Directions.CreditText(justify="right",text="hello")
-        self.lilystring = "\\fill-line {\n\\null \n\override #'(baseline-skip . 4)\n\override #'(line-width . 40) {\"hello\" \n}\n\r}\n\\null\\null"
+        self.lilystring = "\\fill-line {\n\\null \n\override #'(baseline-skip . 4)\n\override #'(line-width . 40) {\"hello\" \n}\n\t}\n\\null\\null"
 
 class testCreditTextCenterJustify(Lily):
     def setUp(self):
