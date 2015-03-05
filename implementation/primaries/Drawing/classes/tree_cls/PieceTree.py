@@ -404,8 +404,6 @@ class StaffNode(IndexedNode):
             #         lilystring += "}"
             lilystring += " % measure "+str(children[child])+"\n"
             lilystring += measureNode.toLily()+"\n\n"
-
-            right_barline = measure.GetBarline("right")
         # if self.transpose:
         #     lilystring += "}"
         return lilystring
@@ -697,15 +695,16 @@ class MeasureNode(IndexedNode):
         lilystring += wrap[0]
         voices = self.GetChildrenIndexes()
         value = 1
-        if hasattr(self, "rest"):
-            if not hasattr(self, "value"):
-                self.value = self.GetItem().GetTotalValue()
+        if not hasattr(self, "value"):
+            self.value = self.GetItem().GetTotalValue()
         if len(voices) > 1:
             lilystring += "<<"
         for voice in voices:
+            mid_barline = self.GetBarline("middle")
             v_obj = self.getVoice(voice)
-            if hasattr(self, "rest"):
-                v_obj.total = self.value
+            if mid_barline is not None:
+                v_obj.mid_barline = mid_barline
+            v_obj.total = self.value
             if len(voices) > 1:
                 lilystring += " % voice "+str(voice)+"\n"
                 lilystring += "\\new Voice = \""+Part.NumbersToWords(voice)+"\"\n"
@@ -727,14 +726,31 @@ class VoiceNode(Node):
     def __init__(self):
         Node.__init__(self, rules=[NoteNode, Placeholder])
 
+    def GetNoteTotal(self):
+        """gets the total duration of all notes in the current voice"""
+        children = self.GetChildrenIndexes()
+        int_total = 0
+        for child_id in children:
+            child = self.GetChild(child_id)
+            if hasattr(child, "duration"):
+                int_total += child.duration
+        return int_total
+
     def toLily(self):
         lilystring = ""
         children = self.GetChildrenIndexes()
         close = False
         previous = None
+        total= self.GetNoteTotal()
+        counter = 0
         for child in range(len(children)):
             note = self.GetChild(children[child])
             item = note.GetItem()
+            counter += note.duration
+            if counter > total/2:
+                if hasattr(self, "mid_barline"):
+                    lilystring += self.mid_barline.toLily()
+                    self.__delattr__("mid_barline")
             if item is not None and type(note) == NoteNode:
                 arpeg = item.Search(Arpeggiate)
                 narpeg = item.Search(NonArpeggiate)

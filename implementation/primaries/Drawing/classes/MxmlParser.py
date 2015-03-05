@@ -198,7 +198,7 @@ class MxmlParser(object):
         if name == "barline":
             measure_id = IdAsInt(GetID(self.attribs, "measure", "number"))
             part_id = GetID(self.attribs, "part", "id")
-            measure = self.piece.getPart(part_id).getMeasure(measure_id, staff_id).GetItem()
+            measure = self.piece.getPart(part_id).getMeasure(measure_id, staff_id)
             if measure is not None:
                 location = GetID(self.attribs, "barline", "location")
                 last_barline_temp = measure.GetBarline(location)
