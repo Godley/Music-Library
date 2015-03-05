@@ -10,7 +10,7 @@ def NumbersToWords(number):
     units = ['one','two','three','four','five','six','seven','eight','nine']
     tens = ['ten','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety']
     output = ""
-    if number > 0:
+    if number != 0:
         str_val = str(number)
         if 4 > len(str_val) > 2:
             output += units[int(str_val[0])-1]
@@ -25,6 +25,8 @@ def NumbersToWords(number):
                 output += units[int(str_val[1])-1]
         if 2 > len(str_val) == 1:
             output += units[int(str_val[0])-1]
+    else:
+        output = "zero"
     return output
 
 class Part(object):
