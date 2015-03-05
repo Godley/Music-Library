@@ -421,14 +421,15 @@ class MeasureNode(IndexedNode):
 
     def GetLastKey(self, voice=1):
         """key as in musical key, not index"""
+
         voice_obj = self.GetChild(voice)
         if voice_obj is not None:
             key = BackwardSearch(KeyNode, voice_obj, 1)
             if key is not None:
                 return key
-            else:
-                if hasattr(self.item, "key"):
-                    return self.item.key
+        else:
+            if hasattr(self.item, "key"):
+                return self.item.key
 
     def addKey(self, item, voice=1):
         if not hasattr(self.item, "key"):

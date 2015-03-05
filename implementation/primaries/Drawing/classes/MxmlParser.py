@@ -588,8 +588,11 @@ def HandleMeasures(tag, attrib, content, piece):
                 key.mode = content["mode"]
             return_val = 1
         if tag[-1] == "fifths" and "key" in tag:
+            key = measureNode.GetLastKey(voice=voice)
+            if key is not None and type(key) is not Key.Key:
+                key = key.GetItem()
             if key is not None:
-                key.fifths = content["fifths"]
+                key.fifths = int(content["fifths"])
             return_val = 1
 
         if tag[-1] == "beats" and ("time" in tag or "meter" in tag):

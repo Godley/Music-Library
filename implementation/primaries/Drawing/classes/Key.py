@@ -37,6 +37,7 @@ class Key(object):
                     if symbol == "sharp":
                         keyname = keyname[0] + "is"
                 val += " " + keyname
+                val += " \\"+self.mode
             else:
                 val = ""
         else:
