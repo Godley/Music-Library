@@ -66,6 +66,17 @@ class PieceTree(Tree):
         self.groups = {}
         self.current = []
 
+    def GetSortedChildren(self):
+        children = self.root.GetChildrenIndexes()
+        numbers = []
+        for child in children:
+            if child[0] == "P":
+                number = child[1:len(child)]
+                numbers.append(int(number))
+        numbers.sort()
+        part_ids = map(lambda x: "P"+str(x), numbers)
+        return part_ids
+
     def SetValue(self, item):
         self.root.SetItem(item)
 
@@ -163,8 +174,7 @@ class PieceTree(Tree):
             # here we need to do some set union theory
             lstring, groupings, ids_loaded = self.handleGroups()
             lilystring += lstring
-        children = [child for child in self.root.GetChildrenIndexes() if child not in ids_loaded]
-        children.sort()
+        children = [child for child in self.GetSortedChildren() if child not in ids_loaded]
         for child in children:
             part = self.getPart(child)
             partstring = part.toLily()
