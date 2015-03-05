@@ -195,6 +195,22 @@ class PartNode(IndexedNode):
         if self.item is None:
             self.item = Part.Part()
 
+    def Backup(self, measure_id, duration=0):
+        staves = self.GetChildrenIndexes()
+        for staff_id in staves:
+            staff = self.GetChild(staff_id)
+            measure = staff.GetChild(measure_id)
+            if measure is not None:
+                measure.Backup(duration=duration)
+
+    def Forward(self, measure_id, duration=0):
+        staves = self.GetChildrenIndexes()
+        for staff_id in staves:
+            staff = self.GetChild(staff_id)
+            measure = staff.GetChild(measure_id)
+            if measure is not None:
+                measure.Forward(duration=duration)
+
     def CheckDivisions(self):
         staves = self.GetChildrenIndexes()
         for staff in staves:
@@ -515,7 +531,7 @@ class MeasureNode(IndexedNode):
                 note = v.GetChild(index)
                 if hasattr(note, "duration"):
                     total += note.duration
-                    if total >=duration:
+                    if total >= duration:
                         break
         self.index -= notes
 

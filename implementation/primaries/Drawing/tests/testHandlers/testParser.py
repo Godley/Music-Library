@@ -132,6 +132,23 @@ class testBackupAndForward(unittest.TestCase):
         self.parser.NewData("16")
         self.parser.EndTag("duration")
         self.parser.EndTag("note")
+        MxmlParser.staff_id = 2
+        self.parser.StartTag("note", {})
+        self.parser.StartTag("divisions", {})
+        self.parser.NewData("8")
+        self.parser.EndTag("divisions")
+        self.parser.StartTag("note",{})
+        self.parser.StartTag("duration",{})
+        self.parser.NewData("16")
+        self.parser.EndTag("duration")
+        self.parser.EndTag("note")
+        self.parser.StartTag("note",{})
+        self.parser.StartTag("duration",{})
+        self.parser.NewData("16")
+        self.parser.EndTag("duration")
+        self.parser.EndTag("note")
+        MxmlParser.staff_id = 1
+
         self.measure = self.parser.piece.getPart("P1").getMeasure(1,1)
 
     def testBackupTag(self):
@@ -150,6 +167,28 @@ class testBackupAndForward(unittest.TestCase):
         self.parser.EndTag("duration")
         self.assertEqual(self.measure.index, 3)
 
+
+    def testBackupTagSecondStave(self):
+        m =self.parser.piece.getPart("P1").getMeasure(1,2)
+        self.assertEqual(m.index, 2)
+        self.parser.StartTag("backup",{})
+        self.parser.StartTag("duration",{})
+        self.parser.NewData("16")
+        self.parser.EndTag("duration")
+        self.assertEqual(m.index, 1)
+
+    def testForwardTagSecondStave(self):
+        m =self.parser.piece.getPart("P1").getMeasure(1,2)
+        self.assertEqual(m.index, 2)
+        self.parser.StartTag("forward",{})
+        self.parser.StartTag("duration",{})
+        self.parser.NewData("16")
+        self.parser.EndTag("duration")
+        self.assertEqual(m.index, 3)
+
+    def tearDown(self):
+        MxmlParser.staff_id = 1
+
 class TestLastEnding(unittest.TestCase):
     def setUp(self):
         self.parser = MxmlParser.MxmlParser()
@@ -164,11 +203,11 @@ class TestLastEnding(unittest.TestCase):
         self.parser.EndTag("ending")
 
     def testMeasureEnding(self):
-        self.assertTrue(hasattr(self.measure.GetItem().GetBarline("right"), "ending"))
+        self.assertTrue(hasattr(self.measure.GetBarline("right"), "ending"))
 
     def testMeasureIsLastEndingMark(self):
         self.part.addEmptyMeasure(2,1)
         self.parser.StartTag("part", {"id":"P1"})
         self.parser.StartTag("measure",{"number":"1"})
         self.parser.EndTag("measure")
-        self.assertTrue(hasattr(self.measure.GetItem().GetBarline("right").ending, "last"))
+        self.assertTrue(hasattr(self.measure.GetBarline("right").ending, "last"))
