@@ -312,24 +312,24 @@ class Note(BaseClass.Base):
     def toLily(self):
         val = ""
         value = ""
-        DoPrint = True
-        if hasattr(self, "print"):
-            DoPrint = self.print
-        if DoPrint:
-            val += self.handlePreLilies()
-            if hasattr(self, "pitch") and not self.rest:
-                val += self.pitch.toLily()
+        if hasattr(self, "print") and not self.print:
+            val += "\n\\hideNotes\n"
+        val += self.handlePreLilies()
+        if hasattr(self, "pitch") and not self.rest:
+            val += self.pitch.toLily()
 
-            if self.rest:
-                if not hasattr(self, "MeasureRest") or not self.MeasureRest:
-                    val += "r"
-            if hasattr(self, "duration") and (not hasattr(self, "MeasureRest") or not self.MeasureRest):
-                if not hasattr(self,"chord"):
-                    val += self.getLilyDuration()
-                    for dot in range(self.dots):
-                        val += "."
-            val += self.handlePostLilies()
-            value = self.LilyWrap(val)
+        if self.rest:
+            if not hasattr(self, "MeasureRest") or not self.MeasureRest:
+                val += "r"
+        if hasattr(self, "duration") and (not hasattr(self, "MeasureRest") or not self.MeasureRest):
+            if not hasattr(self,"chord"):
+                val += self.getLilyDuration()
+                for dot in range(self.dots):
+                    val += "."
+        val += self.handlePostLilies()
+        value = self.LilyWrap(val)
+        if hasattr(self, "print"):
+            value += "\n\\unHideNotes"
         return value
     def LilyWrap(self, value):
         prefixes = ""

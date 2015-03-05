@@ -132,6 +132,16 @@ class testNoteTupletEnd(Lily):
         self.name = "notetupletend"
 
 
+class testHiddenNote(Lily):
+    def setUp(self):
+        self.item = Note.Note()
+        self.item.pitch = Note.Pitch()
+        self.item.print = False
+        Lily.setUp(self)
+        self.compile = True
+        self.wrappers = ["\\new Staff{a8 ","c'8]}"]
+        self.lilystring = "\n\hideNotes\nc'\n\\unHideNotes"
+        self.name = "notebeamstart"
 
 
 class testNoteBeam(Lily):

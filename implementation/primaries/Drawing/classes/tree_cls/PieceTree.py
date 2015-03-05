@@ -746,7 +746,8 @@ class VoiceNode(Node):
         for child in range(len(children)):
             note = self.GetChild(children[child])
             item = note.GetItem()
-            counter += note.duration
+            if hasattr(note, "duration"):
+                counter += note.duration
             if counter > total/2:
                 if hasattr(self, "mid_barline"):
                     lilystring += self.mid_barline.toLily()
