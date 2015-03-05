@@ -546,6 +546,7 @@ def HandleMeasures(tag, attrib, content, piece):
     return_val = None
     global degree
     if len(tag) > 0 and "measure" in tag:
+
         if "staff" in tag:
                 staff_id = int(content["staff"])
         if part_id is None:
@@ -558,6 +559,11 @@ def HandleMeasures(tag, attrib, content, piece):
         measure = None
 
         if part is not None:
+            if tag[-1] == "staves":
+                staves = content["staves"]
+                for staff in range(1, staves+1):
+                    if part.getMeasure(measure_id, staff) is None:
+                        part.addEmptyMeasure(measure_id, staff)
             measureNode = part.getMeasure(measure=measure_id, staff=staff_id)
             if measureNode is None:
                 part.addEmptyMeasure(measure_id, staff_id)
