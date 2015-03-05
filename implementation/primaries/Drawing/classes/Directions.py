@@ -142,14 +142,16 @@ class Direction(Text):
         default = 10
         textLilyString = Text.toLily(self)
         symbol = ""
-        return_val = ""
+        return_val = " "
         if hasattr(self, "placement"):
             if self.placement == "above":
                 symbol = "^"
             if self.placement == "below":
                 symbol = "_"
+        else:
+            symbol = "^"
         if len(textLilyString) > 0:
-            return_val = symbol + "\\markup { "+textLilyString+" }"
+            return_val += symbol + "\\markup { "+textLilyString+" }"
         return return_val
 class RehearsalMark(Direction):
     def toLily(self):
