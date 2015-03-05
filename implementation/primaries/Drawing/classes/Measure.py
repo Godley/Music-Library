@@ -90,6 +90,10 @@ class Measure(BaseClass.Base):
         lilystring = ""
         #if hasattr(self, "transpose"):
             #lilystring += self.CalculateTransposition()
+        if hasattr(self, "newSystem"):
+            lilystring += "\\break "
+        if hasattr(self, "newPage"):
+             lilystring += "\\pageBreak "
         if hasattr(self, "clef") and self.clef is not None:
             lilystring += self.clef.toLily() + " "
         if hasattr(self, "key") and self.key is not None:
@@ -111,8 +115,7 @@ class Measure(BaseClass.Base):
             lstring += bline
         else:
             lstring += " | "
-        if hasattr(self, "newSystem"):
-            lstring += "\\break"
+
         return lstring
 
     def toLily(self):
