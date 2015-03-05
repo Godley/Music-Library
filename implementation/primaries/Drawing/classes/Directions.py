@@ -30,7 +30,7 @@ class Text(BaseClass.Base):
         lilystring = ""
         if hasattr(self, "size"):
             try:
-                size = int(self.size)
+                size = float(self.size)
                 lilystring += "\\abs-fontsize #" + str(self.size) + " "
             except:
                 lilystring += "\\"+str(self.size)+" "
