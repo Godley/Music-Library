@@ -569,7 +569,7 @@ def HandleMeasures(tag, attrib, content, piece):
                 measure = measureNode.GetItem()
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
-        if "key" in tag:
+        if tag[-1] == "key":
             if "key" in attrib:
                 if "number" in attrib["key"]:
                     staff_id = int(attrib["key"]["number"])
@@ -585,10 +585,11 @@ def HandleMeasures(tag, attrib, content, piece):
                             key = key.GetItem()
                         measureNode = measure
                         measure = measure.GetItem()
+                        measureNode.addKey(Key.Key(), voice)
                 else:
-                    staff_id = 1
-        if tag[-1] == "key":
-            measureNode.addKey(Key.Key(), voice)
+                    part.addKey(Key.Key(), measure_id)
+            else:
+                part.addKey(Key.Key(), measure_id)
         if tag[-1] == "mode" and "key" in tag and measure is not None:
             key = measureNode.GetLastKey(voice=voice)
             if key is not None and type(key) is not Key.Key:

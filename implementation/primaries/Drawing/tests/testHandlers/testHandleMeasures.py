@@ -1,4 +1,4 @@
-from implementation.primaries.Drawing.classes import MxmlParser, Harmony, Piece, Measure, Part, Clef
+from implementation.primaries.Drawing.classes import MxmlParser, Harmony, Piece, Measure, Part, Clef, Key
 from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree, ClefNode, KeyNode
 import unittest
 
@@ -54,30 +54,48 @@ class testKeySig(MeasureTesting):
 
     def testModeTag(self):
         self.tags.append("key")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.tags.append("mode")
         self.chars["mode"] = "minor"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
-        self.assertIsInstance(exp_measure.GetLastKey(), KeyNode)
-        self.assertEqual("minor", exp_measure.GetLastKey().GetItem().mode)
+        self.assertIsInstance(exp_measure.GetLastKey(), Key.Key)
+        self.assertEqual("minor", exp_measure.GetLastKey().mode)
 
     def testFifthsTag(self):
         self.tags.append("key")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.tags.append("fifths")
         self.chars["fifths"] = "3"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
-        self.assertIsInstance(exp_measure.GetLastKey(), KeyNode)
-        self.assertEqual(3, exp_measure.GetLastKey().GetItem().fifths)
+        self.assertIsInstance(exp_measure.GetLastKey(), Key.Key)
+        self.assertEqual(3, exp_measure.GetLastKey().fifths)
 
     def testKeySigWithStaffAssignment(self):
         self.tags.append("key")
-        self.tags.append("fifths")
         self.attrs["key"] = {"number":"2"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.tags.append("fifths")
+
         self.chars["fifths"] = "3"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         exp_measure =  self.piece.getPart("P1").getMeasure(1,2)
-        self.assertIsInstance(exp_measure.GetLastKey(), KeyNode)
+        self.assertIsInstance(exp_measure.GetLastKey(), Key.Key)
+
+    def testKeyWithoutStaffAssignment(self):
+        self.piece.getPart("P1").addEmptyMeasure(1,1)
+        self.piece.getPart("P1").addEmptyMeasure(1,2)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,2)
+        measure_2 = self.piece.getPart("P1").getMeasure(1,1)
+        self.tags.append("key")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.tags.append("fifths")
+        self.chars["fifths"] = "3"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+
+        self.assertIsInstance(exp_measure.GetLastKey(), Key.Key)
+        self.assertIsInstance(measure_2.GetLastKey(), Key.Key)
 
 
 

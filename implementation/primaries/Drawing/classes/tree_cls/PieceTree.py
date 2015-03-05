@@ -343,6 +343,19 @@ class PartNode(IndexedNode):
             variables.append(variable)
         return variables
 
+    def addKey(self, item, measure_id):
+        staves = self.GetChildrenIndexes()
+        for staff_id in staves:
+            measure = self.getMeasure(measure_id, staff_id)
+            if measure is not None:
+                measure.addKey(item)
+            else:
+                self.addEmptyMeasure(measure_id, staff_id)
+                measure = self.getMeasure(measure_id, staff_id)
+                if measure is not None:
+                    measure.addKey(item)
+
+
     def toLily(self):
         self.CheckDivisions()
         self.CheckTotals()
