@@ -27,6 +27,12 @@ class testSetupPiece(unittest.TestCase):
         self.assertTrue(hasattr(self.piece.GetItem(), "meta"), "ERROR: Meta should exist in TestTitleTag")
         self.assertEqual("hehehe", self.piece.GetItem().meta.title, "ERROR: title set incorrectly in TestTitleTag")
 
+    def testRightsTag(self):
+        self.tags.append("rights")
+        self.chars["rights"] = "lee"
+        self.handler(self.tags, self.attrs,self.chars,self.piece)
+        self.assertTrue(hasattr(self.piece.GetItem(), "meta"))
+        self.assertEqual("lee",self.piece.GetItem().meta.copyright)
 
     def testCompTag(self):
         self.tags.append("creator")

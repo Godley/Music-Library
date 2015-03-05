@@ -12,6 +12,9 @@ class Meta(BaseClass.Base):
         if "composer" in kwargs:
             if kwargs["composer"] is not None:
                 self.composer = kwargs["composer"]
+        if "copyright" in kwargs:
+            if kwargs["copyright"] is not None:
+                self.copyright = kwargs["copyright"]
 
     def EscapeQuotes(self, value):
         list_of_string = list(value)

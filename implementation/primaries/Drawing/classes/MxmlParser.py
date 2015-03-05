@@ -65,7 +65,7 @@ class MxmlParser(object):
         self.excluded = excluded
 
         # add any handlers, along with the tagname associated with it, to this dictionary
-        self.structure = {"movement-title": SetupPiece, "credit": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
+        self.structure = {"movement-title": SetupPiece, "credit": SetupPiece, "rights": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
              "score-part": UpdatePart, "part-group": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
              "pitch":  HandlePitch, "unpitched": HandlePitch,"articulations":handleArticulation,
              "fermata": HandleFermata, "slur":handleOtherNotations, "lyric":handleLyrics,
@@ -327,6 +327,15 @@ def SetupPiece(tag, attrib, content, piece):
                     piece.GetItem().meta.composer = composer
                 if title is not None:
                     piece.GetItem().meta.title = title
+        if tag[-1] == "rights":
+            if "rights" in content:
+                rights = content["rights"]+" "
+                if hasattr(piece.GetItem(), "meta"):
+                    if not hasattr(piece.GetItem().meta, "copyright"):
+                        piece.GetItem().meta.copyright = ""
+                    piece.GetItem().meta.copyright += rights
+                else:
+                    piece.GetItem().meta = Meta.Meta(copyright=rights)
         if "credit" in tag:
             page = 0
             if "credit" in attrib:
