@@ -227,3 +227,23 @@ class testPedalBeforeNote(unittest.TestCase):
         value = "\sustainOn\n c,  | "
         self.assertEqual(value, self.item.toLily())
 
+
+class testGraceAtStartOfMeasure(unittest.TestCase):
+    def setUp(self):
+        self.item = MeasureNode()
+        node = NoteNode()
+        self.note = Note.Note()
+        self.note.addNotation(Note.GraceNote())
+        self.note.pitch = Note.Pitch()
+        node.SetItem(self.note)
+        self.item.addNote(node)
+
+    def testIsFirstGraceNote(self):
+        result = self.note.Search(Note.GraceNote)
+        lstring = self.item.toLily()
+        self.assertTrue(result.first)
+
+    def testLilystring(self):
+        value = "\grace { c' }  | "
+        self.assertEqual(value, self.item.toLily())
+

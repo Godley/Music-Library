@@ -422,7 +422,8 @@ class GraceNote(BaseClass.Base):
             val = ""
         if hasattr(self, "last") and self.last:
             ending = " }"
-            return ending
+            if not hasattr(self, "first") or not self.first:
+                return ending
         return [val, ending]
 class TimeModifier(BaseClass.Base):
     def __init__(self, **kwargs):

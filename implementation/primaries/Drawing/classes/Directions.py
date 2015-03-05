@@ -139,7 +139,6 @@ class Direction(Text):
         Text.__init__(self,text=text,size=size,font=font)
 
     def toLily(self):
-        default = 10
         textLilyString = Text.toLily(self)
         symbol = ""
         return_val = " "

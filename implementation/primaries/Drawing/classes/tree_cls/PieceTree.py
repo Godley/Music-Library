@@ -713,8 +713,11 @@ class VoiceNode(Node):
                 narpeg = item.Search(NonArpeggiate)
                 if arpeg is not None or narpeg is not None:
                     note.UpdateArpeggiates()
+                result = item.Search(GraceNote)
+                if result is not None and previous is None:
+                    result.first = True
                 if len(children) == child+1:
-                    result = item.Search(GraceNote)
+
                     if result is not None:
                         note.CheckForGraceNotes()
 
