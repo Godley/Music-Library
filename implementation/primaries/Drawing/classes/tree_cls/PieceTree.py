@@ -428,6 +428,15 @@ class MeasureNode(IndexedNode):
         self.index = 0
         if self.item is None or not hasattr(self, "item"):
             self.item = Measure.Measure()
+        self.barlines = {}
+
+    def AddBarline(self, item, location):
+        self.barlines[location] = item
+
+    def GetBarline(self, location):
+        if location in self.barlines:
+            return self.barlines[location]
+
 
     def GetLastKey(self, voice=1):
         """key as in musical key, not index"""
@@ -681,6 +690,9 @@ class MeasureNode(IndexedNode):
 
     def toLily(self):
         lilystring = ""
+        left_barline = self.GetBarline("left")
+        if left_barline is not None:
+            lilystring += left_barline.toLily()
         wrap = self.item.toLily()
         lilystring += wrap[0]
         voices = self.GetChildrenIndexes()
@@ -704,7 +716,11 @@ class MeasureNode(IndexedNode):
         if len(voices) > 1:
             lilystring += ">>"
         lilystring += wrap[1]
-
+        right_barline = self.GetBarline("right")
+        if right_barline is not None:
+            lilystring += right_barline.toLily()
+        else:
+            lilystring += " | "
         return lilystring
 
 class VoiceNode(Node):

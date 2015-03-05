@@ -10,17 +10,6 @@ class Measure(BaseClass.Base):
             self.width = float(kwargs["width"])
         self.items = []
 
-
-    def GetBarline(self, side):
-        if hasattr(self, "barlines"):
-            if side in self.barlines:
-                return self.barlines[side]
-
-    def AddBarline(self, item, location="left"):
-        if not hasattr(self, "barlines"):
-            self.barlines = {}
-        self.barlines[location] = item
-
     def SetDivisions(self, divisions):
         if divisions is not None:
             if not hasattr(self, "divisions") or self.divisions is None:
@@ -100,9 +89,6 @@ class Measure(BaseClass.Base):
             lilystring += self.key.toLily() + " "
         if hasattr(self, "meter"):
             lilystring += self.meter.toLily() + " "
-        if hasattr(self, "barlines"):
-            if "left" in self.barlines:
-                lilystring += self.GetBarline("left").toLily()
 
         lilystring += "".join([item.toLily()[0] for item in self.items])
         return lilystring
@@ -110,11 +96,6 @@ class Measure(BaseClass.Base):
     def HandleClosingAttributes(self):
         lstring = ""
         lstring += "".join([item.toLily()[0] for item in self.items])
-        if self.GetBarline("right") is not None:
-            bline = self.GetBarline("right").toLily()
-            lstring += bline
-        else:
-            lstring += " | "
 
         return lstring
 

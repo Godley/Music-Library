@@ -807,11 +807,8 @@ def handleBarline(tag, attrib, content, piece):
 
         if part.getMeasure(measure_id, int(staff_id)) is None:
             part.addEmptyMeasure(measure_id, int(staff_id))
-        node = part.getMeasure(measure_id, int(staff_id))
-        measure = node.GetItem()
+        measure = part.getMeasure(measure_id, int(staff_id))
     if "barline" in tag and measure is not None:
-        if not hasattr(measure, "barlines"):
-            measure.barlines = {}
         location = GetID(attrib, "barline", "location")
         barline = None
         style = None
@@ -822,31 +819,31 @@ def handleBarline(tag, attrib, content, piece):
             number = None
             if "ending" in attrib:
                 if "number" in attrib["ending"]:
-                    if location not in measure.barlines or not hasattr(measure.barlines[location], "ending"):
+                    if measure.GetBarline(location) is None or not hasattr(measure.GetBarline(location), "ending"):
                         num_str = attrib["ending"]["number"]
                         split = num_str.split(",")
                         number = int(split[-1])
                         if last_fwd_repeat is not None and number > 2:
                             last_fwd_repeat.repeatNum = number
                     else:
-                        measure.barlines[location].ending.number = int(attrib["ending"]["number"])
+                        measure.GetBarline(location).ending.number = int(attrib["ending"]["number"])
                 if "type" in attrib["ending"]:
-                    if location not in measure.barlines or not hasattr(measure.barlines[location], "ending"):
+                    if location not in measure.barlines or not hasattr(measure.GetBarline(location), "ending"):
                         btype = attrib["ending"]["type"]
                     else:
-                        measure.barlines[location].ending.type = attrib["ending"]["type"]
+                        measure.GetBarline(location).ending.type = attrib["ending"]["type"]
 
             ending = Measure.EndingMark(type=btype, number=number)
 
             if location in measure.barlines:
-                measure.barlines[location].ending = ending
+                measure.GetBarline(location).ending = ending
 
 
         if tag[-1] == "bar-style":
                 if location not in measure.barlines:
                     style = content["bar-style"]
                 else:
-                    measure.barlines[location].style = style
+                    measure.GetBarline(location).style = style
         if tag[-1] == "repeat":
             if "repeat" in attrib:
                 if "direction" in attrib["repeat"]:
@@ -856,9 +853,8 @@ def handleBarline(tag, attrib, content, piece):
                     if hasattr(barline, "ending"):
                         measureNode = part.GetMeasureAtPosition(-2)
                         if measureNode is not None:
-                            item = measureNode.GetItem()
-                            item.AddBarline(Measure.Barline(repeat="backward"), location="right")
-                            item.AddBarline(Measure.Barline(repeat="forward"), location="left")
+                            measureNode.AddBarline(Measure.Barline(repeat="backward"), location="right")
+                            measureNode.AddBarline(Measure.Barline(repeat="forward"), location="left")
                             barline.repeat = "backward-barline"
                     else:
                         if hasattr(last_barline, "repeat"):
@@ -879,7 +875,7 @@ def handleBarline(tag, attrib, content, piece):
         if location not in measure.barlines:
             if barline is None:
                 barline = Measure.Barline(style=style, repeat=repeat, ending=ending)
-            measure.barlines[location] = barline
+            measure.AddBarline(barline, location)
 def CheckID(tag, attrs, string, id_name):
     if string in tag:
         return attrs[string][id_name]
