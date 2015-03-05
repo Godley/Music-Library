@@ -111,7 +111,8 @@ class Measure(BaseClass.Base):
             lstring += bline
         else:
             lstring += " | "
-
+        if hasattr(self, "newSystem"):
+            lstring += "\\break"
         return lstring
 
     def toLily(self):
