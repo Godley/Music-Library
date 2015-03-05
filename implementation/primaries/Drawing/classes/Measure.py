@@ -181,7 +181,8 @@ class Barline(BaseClass.Base):
         else:
 
 
-
+            if hasattr(self, "ending"):
+                lilystring += self.ending.toLily()
             if hasattr(self, "repeat"):
                 if self.repeat == "forward":
                     lilystring = " \\repeat volta "+str(self.repeatNum)+" {"
@@ -194,8 +195,7 @@ class Barline(BaseClass.Base):
                 if self.repeat == "backward-barline-double":
                     lilystring = " \\bar \":|.|:\""
 
-            if hasattr(self, "ending"):
-                lilystring += self.ending.toLily()
+
         return lilystring
 
 class EndingMark(BaseClass.Base):

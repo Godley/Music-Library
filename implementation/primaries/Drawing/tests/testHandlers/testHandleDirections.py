@@ -180,6 +180,26 @@ class testMetronome(testHandleDirections):
         self.assertTrue(hasattr(MxmlParser.direction, "beat"))
         self.assertEqual("quarter", MxmlParser.direction.beat)
 
+    def testMetronome2BeatUnitTags(self):
+        self.tags.append("beat-unit")
+        self.chars["beat-unit"] = "quarter"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.tags.append("beat-unit")
+        self.chars["beat-unit"] = "half"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.direction, "beat"))
+        self.assertEqual("quarter", MxmlParser.direction.beat)
+
+    def testMetronome2BeatUnitSecondValueTags(self):
+        self.tags.append("beat-unit")
+        self.chars["beat-unit"] = "quarter"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.tags.append("beat-unit")
+        self.chars["beat-unit"] = "half"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertTrue(hasattr(MxmlParser.direction, "secondBeat"))
+        self.assertEqual("half", MxmlParser.direction.secondBeat)
+
     def testBeatUnitWithFontAttrib(self):
         self.tags.append("beat-unit")
         self.chars["beat-unit"] = "quarter"

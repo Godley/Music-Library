@@ -1122,7 +1122,10 @@ def HandleDirections(tags, attrs, chars, piece):
                 if direction is None:
                     direction = Directions.Metronome(placement=placement,beat=unit)
                 else:
-                    direction.beat = unit
+                    if not hasattr(direction, "beat") or direction.beat is None:
+                        direction.beat = unit
+                    else:
+                        direction.secondBeat = uni
                     direction.placement = placement
                 direction.text = str(direction.beat)
                 if "metronome" in attrs:
