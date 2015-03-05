@@ -51,7 +51,7 @@ class testBackwardRepeat(Lily):
 class testEndingMark(Lily):
     def setUp(self):
         self.item = Measure.EndingMark()
-        self.lilystring = "}\n\\alternative {\n{"
+        self.lilystring = "\\alternative {{"
 
 class testEndingMark2(Lily):
     def setUp(self):
@@ -61,12 +61,17 @@ class testEndingMark2(Lily):
 class testEndingMarkEnd(Lily):
     def setUp(self):
         self.item = Measure.EndingMark(type="stop")
-        self.lilystring = "}\n"
+        self.lilystring = "}"
+
+class testEndingMarkEndOfAll(Lily):
+    def setUp(self):
+        self.item = Measure.EndingMark(type="discontinue")
+        self.lilystring = "}\n}"
 
 class testBarlineWithEndingStart(Lily):
     def setUp(self):
         self.item = Measure.Barline(style="heavy-light",ending=Measure.EndingMark())
-        self.lilystring = "}\n\\alternative {\n{"
+        self.lilystring = "\\alternative {{"
 
 class testMeasureLeftBarline(MeasureTests):
     def setUp(self):
@@ -74,7 +79,7 @@ class testMeasureLeftBarline(MeasureTests):
         note = Note.Note()
         note.pitch = Note.Pitch()
         self.item.addNote(note)
-        self.item.GetItem().AddBarline(Measure.Barline(repeat="forward"),location="left")
+        self.item.AddBarline(Measure.Barline(repeat="forward"),location="left")
         self.lilystring = " \\repeat volta 2 {c'  | "
 
 class testMeasureRightBarline(MeasureTests):
@@ -83,8 +88,8 @@ class testMeasureRightBarline(MeasureTests):
         note = Note.Note()
         note.pitch = Note.Pitch()
         self.item.addNote(note)
-        self.item.GetItem().AddBarline(Measure.Barline(repeat="forward"), location="left")
-        self.item.GetItem().AddBarline(Measure.Barline(repeat="backward"), location="right")
+        self.item.AddBarline(Measure.Barline(repeat="forward"), location="left")
+        self.item.AddBarline(Measure.Barline(repeat="backward"), location="right")
         self.lilystring = " \\repeat volta 2 {c' }"
 
 
@@ -94,5 +99,5 @@ class testMeasureRightRepeatBarlineNoLeft(MeasureTests):
         note = Note.Note()
         note.pitch = Note.Pitch()
         self.item.addNote(note)
-        self.item.GetItem().AddBarline(Measure.Barline(repeat="backward-barline"), location="right")
+        self.item.AddBarline(Measure.Barline(repeat="backward-barline"), location="right")
         self.lilystring = "c'  \\bar \":|.\""
