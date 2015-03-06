@@ -150,6 +150,13 @@ class Node(object):
         else:
             self.rules = []
 
+    def PopAllChildren(self):
+        indexes = self.GetChildrenIndexes()
+        children = []
+        for c in indexes:
+            child = self.PopChild(c)
+            children.append(child)
+        return children
     def GetChildrenIndexes(self):
         indexes = list(range(len(self.children)))
         return indexes

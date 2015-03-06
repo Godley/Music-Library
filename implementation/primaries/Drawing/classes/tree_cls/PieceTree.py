@@ -746,10 +746,32 @@ class MeasureNode(IndexedNode):
             lilystring += " | "
         return lilystring
 
+    def CopyDirectionsAndExpressions(self, v_obj):
+        child = self.GetChildrenIndexes()[0]
+        voice = self.GetChild(child)
+        voice_notes = v_obj.GetChildrenIndexes()
+        for n in voice_notes:
+            note = v_obj.GetChild(n)
+            new_position = voice.GetChild(n)
+            if new_position is not None:
+                children_to_add = note.PopAllChildren()
+                for child in children_to_add:
+                    if type(child) is NoteNode:
+                        new_position.AttachNote(child)
+                    if type(child) is ExpressionNode:
+                        new_position.AttachExpression(child)
+                    if type(child) is DirectionNode:
+                        new_position.AttachDirection(child)
+
     def RunVoiceChecks(self):
         children = self.GetChildrenIndexes()
         for child in children:
             voice = self.GetChild(child)
+            total = voice.GetNoteTotal()
+            result = Search(NoteNode, voice, 1)
+            if result is None or total == 0:
+                voice = self.PopChild(child)
+                self.CopyDirectionsAndExpressions(voice)
             voice.RunNoteChecks()
 
 class VoiceNode(Node):
