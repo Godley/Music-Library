@@ -1,5 +1,5 @@
 import unittest
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree, DirectionNode
 from implementation.primaries.Drawing.classes import MxmlParser, Piece, Measure, Part, Note
 
 
@@ -286,5 +286,11 @@ class testTuplets(notes):
         self.assertTrue(hasattr(MxmlParser.note.timeMod, "actual"))
         self.assertEqual(3, MxmlParser.note.timeMod.actual)
 
-
+    def testTupletTag(self):
+        self.tags.append("notations")
+        self.tags.append("tuplet")
+        self.attrs["tuplet"] = {"type":"stop"}
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        direction = MxmlParser.note.closing_notation[0]
+        self.assertIsInstance(direction, Note.Tuplet)
 

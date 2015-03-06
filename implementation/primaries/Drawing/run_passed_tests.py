@@ -20,6 +20,8 @@ def test_generator(output, expected):
         expected_lines = expected_obj.readlines()
         for line, expected_line in zip(lines, expected_lines):
             self.assertEqual(line, expected_line)
+        output_obj.close()
+        expected_obj.close()
     return test
 
 

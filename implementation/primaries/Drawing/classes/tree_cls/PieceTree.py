@@ -1053,6 +1053,7 @@ class NoteNode(Node):
                     self.item.chord = "start"
             lilystring += self.item.toLily()
         children = self.GetChildrenIndexes()
+        written = False
         for child in children:
             if self.GetChild(child) is not None:
                 if type(self.GetChild(child)) is NoteNode:
@@ -1062,8 +1063,12 @@ class NoteNode(Node):
                     lilystring += return_val
                 else:
                     lilystring = return_val[0] + lilystring + return_val[1]
-            else:
-                wat=True
+                if type(child) is ExpressionNode:
+                    written = True
+                    lilystring += self.item.GetClosingNotationLilies()
+
+        if len(children) == 0 or not written:
+            lilystring += self.item.GetClosingNotationLilies()
         return lilystring
 
     def PositionChild(self, key, node):

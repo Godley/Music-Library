@@ -151,6 +151,7 @@ class Note(BaseClass.Base):
         self.prenotation = []
         self.wrap_notation = []
         self.postnotation = []
+        self.closing_notation = []
         self.has_tremolo = False
 
     def GetAllNotation(self):
@@ -171,6 +172,13 @@ class Note(BaseClass.Base):
         self.prenotation = []
         self.wrap_notation = []
         self.postnotation = []
+        self.closing_notation = []
+
+    def GetClosingNotationLilies(self):
+        lstring = ""
+        for notation in self.closing_notation:
+            lstring += notation.toLily()
+        return lstring
 
     def addNotation(self, obj):
         add = True
@@ -185,7 +193,7 @@ class Note(BaseClass.Base):
                 if isinstance(obj, Ornaments.Tremolo) and obj.type != "single":
                     self.trem_length *= 2
                 if obj.type == "stop":
-                    self.wrap_notation.append(obj)
+                    self.closing_notation.append(obj)
                 else:
                     self.prenotation.append(obj)
                 return
