@@ -267,22 +267,24 @@ class testNoteArpeggiate(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.addNotation(Note.Arpeggiate())
+        self.item.addNotation(Note.Arpeggiate(type="start"))
+        self.item.addNotation(Note.Arpeggiate(type="stop"))
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
-        self.lilystring = "\\arpeggioNormal c'\\arpeggio"
+        self.lilystring = "\\arpeggioNormal  c'\\arpeggio"
         self.name = "notearpeggiate"
 
 class testNoteNonArpeggiate(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.addNotation(Note.NonArpeggiate())
+        self.item.addNotation(Note.NonArpeggiate(type="start"))
+        self.item.addNotation(Note.NonArpeggiate(type="stop"))
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{","}"]
-        self.lilystring = "\\arpeggioBracket c'\\arpeggio"
+        self.lilystring = "\\arpeggioBracket  c'\\arpeggio"
         self.name = "notenonarpegg"
 
 class testGliss(Lily):

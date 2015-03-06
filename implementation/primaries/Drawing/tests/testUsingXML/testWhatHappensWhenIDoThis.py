@@ -33,7 +33,7 @@ class testMeasure1(xmlSet):
         self.right_repeat = "backward-barline"
         self.right_style = "light-heavy"
         self.piece = parsePiece(os.path.join(folder, partname))
-        self.measure = self.piece.getPart("P1").getMeasure(measure=self.measure_id,staff=1).GetItem()
+        self.measure = self.piece.getPart("P1").getMeasure(measure=self.measure_id,staff=1)
 
 
     def testHasBarlines(self):
@@ -76,7 +76,5 @@ class testMeasure1(xmlSet):
         barline = self.measure.GetBarline("right")
         self.assertEqual(self.right_style, barline.style)
 
-    def testRightRepeat(self):
-        barline = self.measure.GetBarline("right")
-        self.assertEqual(self.right_repeat, barline.repeat)
+
 

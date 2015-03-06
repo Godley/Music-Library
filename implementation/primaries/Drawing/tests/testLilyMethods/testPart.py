@@ -10,7 +10,7 @@ class testPartMeasureWithNote(Lily):
         note = Note.Note()
         note.pitch = Note.Pitch()
         measure.addNote(note)
-        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", '\\staffone']
+        self.lilystring = ["zerostaffone = \\new Staff{\\autoBeamOff % measure 1\nc'  | \n\n }\n\n", '\\zerostaffone']
 
 class testPartMultistafftavesWithName(Lily):
     def setUp(self):
@@ -26,7 +26,7 @@ class testPartMultistafftavesWithName(Lily):
         note2 = Note.Note()
         note2.pitch = Note.Pitch()
         measure2.addNote(note2)
-        self.lilystring = ["pianostaffone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\npianostafftwo = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", "\\new StaffGroup \\with {\ninstrumentName = #\"Piano \"\n }<<\pianostaffone\n\pianostafftwo>>"]
+        self.lilystring = ["zerostaffone = \\new Staff{\\autoBeamOff % measure 1\nc'  | \n\n }\n\nzerostafftwo = \\new Staff{\\autoBeamOff % measure 1\nc'  | \n\n }\n\n", "\\new StaffGroup \\with {\ninstrumentName = \markup { \n\r \column { \n\r\r \line { \"Piano\" \n\r\r } \n } \n\r } \n }<<\zerostaffone\n\zerostafftwo>>"]
 
 class testPartMultistafftaves(Lily):
     def setUp(self):
@@ -41,7 +41,7 @@ class testPartMultistafftaves(Lily):
         note2.pitch = Note.Pitch()
         measure1.addNote(note1)
         measure2.addNote(note2)
-        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\nstafftwo = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", "\\new StaffGroup <<\staffone\n\stafftwo>>"]
+        self.lilystring = ["zerostaffone = \\new Staff{\\autoBeamOff % measure 1\nc'  | \n\n }\n\nzerostafftwo = \\new Staff{\\autoBeamOff % measure 1\nc'  | \n\n }\n\n", "\\new StaffGroup <<\zerostaffone\n\zerostafftwo>>"]
 
 class testPartMultiBars(Lily):
     def setUp(self):
@@ -56,7 +56,7 @@ class testPartMultiBars(Lily):
         note2.pitch = Note.Pitch()
         measure.addNote(note)
         measure2.addNote(note2)
-        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n % measure 2\n % voice 1\n{ c' } | \n\n }\n\n","\\staffone"]
+        self.lilystring = ["zerostaffone = \\new Staff{\\autoBeamOff % measure 1\nc'  | \n\n % measure 2\nc'  | \n\n }\n\n","\\zerostaffone"]
 
 class testPartMultiBarsstafftaves(Lily):
     def setUp(self):
@@ -76,7 +76,7 @@ class testPartMultiBarsstafftaves(Lily):
         note3 = Note.Note()
         note3.pitch = Note.Pitch()
         measure3.addNote(note3)
-        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n % measure 2\n % voice 1\n{ c' } | \n\n }\n\nstafftwo = \\new Staff{\\autoBeamOff % measure 1\n % voice 1\n{ c' } | \n\n }\n\n", "\\new StaffGroup <<\\staffone\n\\stafftwo>>"]
+        self.lilystring = ["zerostaffone = \\new Staff{\\autoBeamOff % measure 1\nc'  | \n\n % measure 2\nc'  | \n\n }\n\nzerostafftwo = \\new Staff{\\autoBeamOff % measure 1\nc'  | \n\n }\n\n", "\\new StaffGroup <<\\zerostaffone\n\\zerostafftwo>>"]
 
 class testPartWithName(Lily):
     def setUp(self):
