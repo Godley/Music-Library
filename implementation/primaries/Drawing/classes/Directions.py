@@ -148,6 +148,8 @@ class Direction(Text):
                 symbol = "^"
             if self.placement == "below":
                 symbol = "_"
+            if self.placement == "none":
+                symbol = ""
         else:
             symbol = "^"
         if len(textLilyString) > 0:
@@ -210,7 +212,8 @@ class RepeatSign(Direction):
                 text = "\musicglyph #\"scripts."+self.type+"\""
         if "placement" in kwargs:
             if kwargs["placement"] is not None:
-                placement = kwargs["placement"]
+                self.sym_placement = kwargs["placement"]
+        placement = "none"
         if "text" in kwargs:
             text = kwargs["text"]
         if "size" in kwargs:
