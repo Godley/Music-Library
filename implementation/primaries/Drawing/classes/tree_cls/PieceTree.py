@@ -704,11 +704,7 @@ class MeasureNode(IndexedNode):
         direction_obj = ExpressionNode()
         direction_obj.SetItem(item)
         voice_obj = self.getVoice(voice)
-        if self.index == 0:
-            finder = 0
-        else:
-            finder = self.index-1
-        note_obj = voice_obj.GetChild(finder)
+        note_obj = voice_obj.GetChild(self.index)
         if type(note_obj) is NoteNode or type(note_obj) is Placeholder:
             note_obj.AttachExpression(direction_obj)
         else:
@@ -1014,6 +1010,10 @@ class NoteNode(Node):
                     node.AddChild(new_node)
                 else:
                     self.PositionChild(1, new_node)
+            elif type(self.GetChild(0)) is ExpressionNode:
+                parent = self.GetChild(0)
+                node = FindPosition(parent, new_node)
+                node.AddChild(new_node)
         else:
             self.AddChild(new_node)
 

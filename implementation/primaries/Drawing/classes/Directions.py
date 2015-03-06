@@ -2,7 +2,7 @@ try:
     from classes import BaseClass
 except:
     from implementation.primaries.Drawing.classes import BaseClass
-    from implementation.primaries.Drawing.classes.MxmlParser import CheckDynamics
+
 import string, random
 class Text(BaseClass.Base):
     def __init__(self, **kwargs):
