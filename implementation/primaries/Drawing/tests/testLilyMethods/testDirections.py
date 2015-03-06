@@ -25,32 +25,32 @@ class testTextFont(Lily):
 class testBasicDirection(Lily):
     def setUp(self):
         self.item = Directions.Direction()
-        self.lilystring = ""
+        self.lilystring = " "
 
 class testDirectionPlacedBelow(Lily):
     def setUp(self):
         self.item = Directions.Direction(placement="below", text="hello")
-        self.lilystring = "_\markup { \"hello\"  }"
+        self.lilystring = " _\markup { \"hello\"  }"
 
 class testDirectionPlacedAbove(Lily):
     def setUp(self):
         self.item = Directions.Direction(placement="above", text="hello")
-        self.lilystring = "^\markup { \"hello\"  }"
+        self.lilystring = " ^\markup { \"hello\"  }"
 
 class testDirectionWithText(Lily):
     def setUp(self):
         self.item = Directions.Direction(text="whatsup")
-        self.lilystring = "\markup { \"whatsup\"  }"
+        self.lilystring = " ^\markup { \"whatsup\"  }"
 
 class testDirectionFont(Lily):
     def setUp(self):
         self.item = Directions.Direction(font="roman",text="lol")
-        self.lilystring = "\markup { \\toman \"lol\"  }"
+        self.lilystring = " ^\markup { \\roman \"lol\"  }"
 
 class testDirectionWithFontSize(Lily):
     def setUp(self):
         self.item = Directions.Direction(size=11,text="hello")
-        self.lilystring = "\\markup { \\abs-fontsize #11 \"hello\"  }"
+        self.lilystring = " ^\\markup { \\abs-fontsize #11 \"hello\"  }"
 
 class testRehearsalMark(Lily):
     def setUp(self):
@@ -76,17 +76,17 @@ class testForwardWithDuration(Lily):
 class testRepeatSign(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign()
-        self.lilystring = "\mark "
+        self.lilystring = "\mark  "
 
 class testSegno(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign(type="segno")
-        self.lilystring = "\mark \markup { \musicglyph #\"scripts.segno\" }"
+        self.lilystring = "\mark  ^\markup { \musicglyph #\"scripts.segno\" }"
 
 class testCoda(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign(type="coda")
-        self.lilystring = "\mark \markup { \musicglyph #\"scripts.coda\" }"
+        self.lilystring = "\mark  ^\markup { \musicglyph #\"scripts.coda\" }"
 
 class testOctaveShift(Lily):
     def setUp(self):
@@ -163,7 +163,7 @@ class testMetronomeBeat(Lily):
 class testMetronome2Beats(Lily):
     def setUp(self):
         self.item = Directions.Metronome(beat="quarter", secondBeat="half")
-        self.lilystring = "\\tempo \markup {\n\t\concat {\n\t\t(\n\t\t\t\smaller \general-align #Y #DOWN \\note #\"4\" #1\n\t\t\t\t\" = \"\n\t\t\t\t\smaller \general-align #Y #DOWN \\note #\"2\" #1\n\t\t)\n\t}\n}"
+        self.lilystring = " \\tempo \markup {\n\t\concat {\n\t\t(\n\t\t\t\smaller \general-align #Y #DOWN \\note #\"4\" #1\n\t\t\t\t\" = \"\n\t\t\t\t\smaller \general-align #Y #DOWN \\note #\"2\" #1\n\t\t)\n\t}\n}"
 
 class testMetronomeMin(Lily):
     def setUp(self):
@@ -173,7 +173,7 @@ class testMetronomeMin(Lily):
 class testMetronomeBeatMin(Lily):
     def setUp(self):
         self.item = Directions.Metronome(beat="half",min=60)
-        self.lilystring = "\\tempo 2=60"
+        self.lilystring = " \\tempo 2=60"
 
 
 class testMetronomeParenthesis(Lily):

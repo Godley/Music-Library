@@ -157,7 +157,7 @@ class MxmlParser(object):
 
     def EndTag(self, name):
         global note, degree, frame_note, staff_id,direction,expression,last_barline,last_barline_pos, voice
-        if self.handler is not None and not self.d:
+        if self.handler is not None and not self.d and name not in self.closed_tags:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
             if len(self.tags) > 1:

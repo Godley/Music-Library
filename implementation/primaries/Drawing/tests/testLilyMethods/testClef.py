@@ -5,7 +5,7 @@ from implementation.primaries.Drawing.classes import Clef
 class testClef(Lily):
     def setUp(self):
         self.item = Clef.Clef()
-        self.lilystring = "\clef treble"
+        self.lilystring = ""
 
 class testClefGG(Lily):
     def setUp(self):
@@ -105,7 +105,7 @@ class testClefTabInMeasure(Lily):
         self.item.addEmptyMeasure(1,1)
         self.item.getMeasure(1,1).GetItem().clef = Clef.Clef(sign="TAB")
         self.item.CheckIfTabStaff(1)
-        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n\clef moderntab  | \n\n }\n\n", "\\staffone"]
+        self.lilystring = ["zerostaffone = \\new Staff{\\autoBeamOff % measure 1\n\clef moderntab  | \n\n }\n\n", "\\zerostaffone"]
 
 class testClefTabInMeasureWithMultiClefs(Lily):
     def setUp(self):
@@ -115,4 +115,4 @@ class testClefTabInMeasureWithMultiClefs(Lily):
         self.item.addEmptyMeasure(2,1)
         self.item.getMeasure(2,1).GetItem().clef = Clef.Clef(sign="F", line=4)
         self.item.CheckIfTabStaff(1)
-        self.lilystring = ["staffone = \\new Staff{\\autoBeamOff % measure 1\n\clef moderntab  | \n\n % measure 2\n\clef bass  | \n\n }\n\n", "\\staffone"]
+        self.lilystring = ["zerostaffone = \\new Staff{\\autoBeamOff % measure 1\n\clef moderntab  | \n\n % measure 2\n\clef bass  | \n\n }\n\n", "\\zerostaffone"]

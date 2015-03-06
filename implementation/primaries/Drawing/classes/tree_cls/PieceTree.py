@@ -835,8 +835,6 @@ class VoiceNode(Node):
     def toLily(self):
         lilystring = ""
         children = self.GetChildrenIndexes()
-        close = False
-        previous = None
         total= self.GetNoteTotal()
         counter = 0
         for child in range(len(children)):
@@ -848,66 +846,10 @@ class VoiceNode(Node):
                 if hasattr(self, "mid_barline"):
                     lilystring += self.mid_barline.toLily()
                     self.__delattr__("mid_barline")
-            if item is not None and type(note) == NoteNode:
-                arpeg = item.Search(Arpeggiate)
-                narpeg = item.Search(NonArpeggiate)
-                if arpeg is not None or narpeg is not None:
-                    note.UpdateArpeggiates()
-                result = item.Search(GraceNote)
-                if result is not None and previous is None:
-                    result.first = True
-                if len(children) == child+1:
-
-                    if result is not None:
-                        note.CheckForGraceNotes()
-
-                    if hasattr(item, "timeMod"):
-
-                        close = True
-                        if previous is not None:
-                            if hasattr(previous.GetItem(), "timeMod"):
-                                item.timeMod.first = False
-                            else:
-                                item.timeMod.first = True
-                        else:
-                            item.timeMod.first = True
-                    else:
-                        close = False
-                else:
-                    next = self.GetChild(children[child+1])
-                    next_item = next.GetItem()
-                    if next_item is not None and type(next) is NoteNode:
-                        result = item.Search(GraceNote)
-                        next_result = next_item.Search(GraceNote)
-                        if result is not None:
-                            if next_result is None:
-                                note.CheckForGraceNotes()
-                            else:
-                                result.last = False
-                                next_result.first = False
-                        if hasattr(item, "timeMod"):
-                            res = item.Search(Note.Tuplet)
-
-                            if not hasattr(next_item, "timeMod") and res is None:
-                                close = True
-                            else:
-                                close = False
-                            if previous is not None and type(previous) is NoteNode:
-                                if hasattr(previous.GetItem(), "timeMod"):
-                                    item.timeMod.first = False
-                                else:
-                                    item.timeMod.first = True
-                            else:
-                                item.timeMod.first = True
-                        else:
-                            close = False
             if hasattr(self, "rest") and hasattr(self, "total"):
                 lilystring += "R"+self.total
             else:
                 lilystring += note.toLily() + " "
-            if close:
-                lilystring += "} "
-            previous = note
         return lilystring
 
 
@@ -978,7 +920,7 @@ class NoteNode(Node):
                         cpy.type = "none"
                         child.item.addNotation(cpy)
                     if hasattr(child, "UpdateArpeggiates"):
-                        child.UpdateArpeggiates(type="stop")
+                        child.UpdateArpeggiates(type="bottom")
                 else:
                     result.type = type
 

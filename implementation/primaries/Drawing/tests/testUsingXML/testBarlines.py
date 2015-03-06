@@ -24,60 +24,60 @@ class testBarlines(xmlSet):
 
     def testMeasure2Barline(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=2,staff=1).GetItem()
+        item=part.getMeasure(measure=2,staff=1)
         self.assertTrue(hasattr(item, "barlines"))
 
     def testMeasure2BarlineLocation(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=2,staff=1).GetItem()
+        item=part.getMeasure(measure=2,staff=1)
         self.assertTrue("right" in item.barlines)
 
     def testMeasure2BarlineInstance(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=2,staff=1).GetItem()
+        item=part.getMeasure(measure=2,staff=1)
         self.assertIsInstance(item.barlines["right"], Measure.Barline)
 
     def testMeasure2BarlineStyle(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=2,staff=1).GetItem()
+        item=part.getMeasure(measure=2,staff=1)
         self.assertEqual("dashed", item.barlines["right"].style)
 
     def testMeasure4Barline(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=4,staff=1).GetItem()
+        item=part.getMeasure(measure=4,staff=1)
         self.assertTrue(hasattr(item, "barlines"))
 
     def testMeasure4BarlineInstance(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=4,staff=1).GetItem()
+        item=part.getMeasure(measure=4,staff=1)
         self.assertIsInstance(item.barlines["right"], Measure.Barline)
 
     def testMeasure4BarlineRight(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=4,staff=1).GetItem()
+        item=part.getMeasure(measure=4,staff=1)
         self.assertTrue("right" in item.barlines)
 
     def testMeasure4BarlineRightStyle(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=4,staff=1).GetItem()
+        item=part.getMeasure(measure=4,staff=1)
         self.assertEqual("light-heavy", item.barlines["right"].style)
 
     def testMeasure5Barline(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=5,staff=1).GetItem()
+        item=part.getMeasure(measure=5,staff=1)
         self.assertTrue(hasattr(item, "barlines"))
 
     def testMeasure5BarlineRight(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=5,staff=1).GetItem()
+        item=part.getMeasure(measure=5,staff=1)
         self.assertTrue("right" in item.barlines)
 
     def testMeasure5BarlineRightInstance(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=5,staff=1).GetItem()
+        item=part.getMeasure(measure=5,staff=1)
         self.assertIsInstance(item.barlines["right"], Measure.Barline)
 
     def testMeasure5BarlineStyle(self):
         part=piece.getPart(self.p_id)
-        item=part.getMeasure(measure=5,staff=1).GetItem()
+        item=part.getMeasure(measure=5,staff=1)
         self.assertEqual("light-light", item.barlines["right"].style)

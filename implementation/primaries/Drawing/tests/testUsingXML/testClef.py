@@ -1,4 +1,5 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
+from implementation.primaries.Drawing.classes import Clef
 from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode, MeasureNode, NoteNode, Search, ClefNode
 import os
 
@@ -33,23 +34,23 @@ class CTests(xmlSet):
     def testClef(self):
         if self.measure is not None:
             measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1)
-            self.assertIsInstance(measure.GetLastClef(), ClefNode)
+            self.assertIsInstance(measure.GetLastClef(), Clef.Clef)
 
     def testSign(self):
         if self.measure is not None:
             measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1)
 
-            self.assertEqual(self.sign, measure.GetLastClef().GetItem().sign)
+            self.assertEqual(self.sign, measure.GetLastClef().sign)
 
     def testLine(self):
         if self.measure is not None:
             measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1)
-            self.assertEqual(self.line, measure.GetLastClef().GetItem().line)
+            self.assertEqual(self.line, measure.GetLastClef().line)
 
     def testOctaveChange(self):
         if self.measure is not None and self.clef_octave_change is not 0:
             measure = piece.getPart(self.p_id).getMeasure(measure=self.measure,staff=1)
-            self.assertEqual(self.clef_octave_change, measure.GetLastClef().GetItem().octave_change)
+            self.assertEqual(self.clef_octave_change, measure.GetLastClef().octave_change)
 
 class testMeasure1(CTests):
     def setUp(self):
