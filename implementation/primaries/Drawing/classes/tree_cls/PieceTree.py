@@ -823,7 +823,9 @@ class VoiceNode(Node):
 
                     # look for timemods
                     if hasattr(item, "timeMod"):
-                        item.close_timemod = True
+                        result = item.Search(Note.Tuplet)
+                        if result is None:
+                            item.close_timemod = True
                         if previous is not None:
                             if hasattr(previous.GetItem(), "timeMod"):
                                 item.timeMod.first = False
@@ -832,7 +834,7 @@ class VoiceNode(Node):
                         else:
                             item.timeMod.first = True
                     else:
-                        close = False
+                        item.close_timemod = False
                 else:
                     # otherwise check the next item for gracenotes and time mods
                     next = self.GetChild(children[child+1])
