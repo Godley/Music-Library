@@ -309,12 +309,23 @@ class testMetronome(testHandleDirections):
         self.assertEqual("times", MxmlParser.direction.font)
 
 class testDynamicsAndSound(testHandleDirections):
+    def tearDown(self):
+        MxmlParser.expression = None
+
     def testDynamicTag(self):
         self.tags.append("dynamics")
         self.tags.append("p")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.assertIsInstance(MxmlParser.expression, Directions.Dynamic)
         self.assertEqual("p", MxmlParser.expression.mark)
+
+    def testDynamicTagOther(self):
+        self.tags.append("dynamics")
+        self.tags.append("other-dynamics")
+        self.chars["other-dynamics"] = "other"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.assertIsInstance(MxmlParser.expression, Directions.Dynamic)
+        self.assertEqual("other", MxmlParser.expression.text)
 
     def testSoundTag(self):
         self.tags.append("sound")

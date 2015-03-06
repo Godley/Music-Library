@@ -2,6 +2,7 @@ try:
     from classes import BaseClass
 except:
     from implementation.primaries.Drawing.classes import BaseClass
+    from implementation.primaries.Drawing.classes.MxmlParser import CheckDynamics
 import string, random
 class Text(BaseClass.Base):
     def __init__(self, **kwargs):
@@ -469,8 +470,14 @@ class Dynamic(Direction):
 
     def toLily(self):
         return_val = "\\"
-        if hasattr(self, "mark"):
-            return_val += self.mark
+        if hasattr(self, "mark") and len(self.mark) < 6:
+            special_marks = ["ppppp", "pppp", "ppp", "pp", "p", "mp", "mf", "f", "ff", "fff", "ffff", "fffff", "fp", "sf", "sff", "sp", "spp", "sfz","rfz"]
+            if self.mark in special_marks:
+                return_val += self.mark
+            else:
+                return_val = ""
+        else:
+            return_val = ""
         return return_val
 
 class Wedge(Dynamic):

@@ -1177,8 +1177,11 @@ def HandleDirections(tags, attrs, chars, piece):
             expression = Directions.Wedge(placement = placement,type=w_type)
 
         if len(tags) > 1:
-            if tags[-2] == "dynamics":
+            if tags[-2] == "dynamics" and tags[-1] != "other-dynamics":
                 expression = Directions.Dynamic(placement=placement, mark=tags[-1])
+            if tags[-2] == "dynamics" and tags[-1] == "other-dynamics":
+                expression = Directions.Dynamic(placement=placement, text=chars["other-dynamics"])
+
         if "sound" in tags:
             return_val = 1
             if "sound" in attrs:
@@ -1310,7 +1313,7 @@ def CheckDynamics(tag):
         return_val = True
     elif len(tag) == 2:
         if tag[-1] in dmark:
-            if tag[0] == tag[-1] or tag[0] == "m":
+            if tag[0] == tag[-1] or tag[0] == "m" or tag[0] == "s":
                 return_val = True
     if len(tag) > 2:
         val = tag[0]
