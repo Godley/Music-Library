@@ -90,12 +90,16 @@ class Measure(BaseClass.Base):
         if hasattr(self, "meter"):
             lilystring += self.meter.toLily() + " "
 
-        lilystring += "".join([item.toLily()[0] for item in self.items])
+        for item in self.items:
+            if not hasattr(item, "type") or (hasattr(item, "type") and item.type != "stop"):
+                lilystring += item.toLily()
         return lilystring
 
     def HandleClosingAttributes(self):
         lstring = ""
-        lstring += "".join([item.toLily()[0] for item in self.items])
+        for item in self.items:
+            if hasattr(item, "type") and item.type == "stop":
+                lstring += item.toLily()
 
         return lstring
 

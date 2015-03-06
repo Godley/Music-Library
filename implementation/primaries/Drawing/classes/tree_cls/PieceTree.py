@@ -660,10 +660,17 @@ class MeasureNode(IndexedNode):
 
 
     def addDirection(self, item, voice=1):
-        wrappers = [Directions.Bracket]
-        if type(item) in wrappers:
+        wrappers = [Directions.Bracket.__name__]
+        if item.__class__.__name__ in wrappers and (not hasattr(item, "type") or (hasattr(item, "type") and item.type != "start")):
             self.item.addWrapper(item)
             return
+        if item.__class__.__name__ in wrappers and hasattr(item, "type") and item.type == "start":
+            if hasattr(item, "lineType"):
+                copy_obj = copy.deepcopy(item)
+                copy_obj.type = ""
+                item.lineType = ""
+                self.item.addWrapper(copy_obj)
+
         if self.getVoice(voice) is None:
             self.addVoice(VoiceNode(), voice)
         direction_obj = DirectionNode()
@@ -672,11 +679,11 @@ class MeasureNode(IndexedNode):
         if self.index == 0:
             finder = 0
         else:
-            if direction_obj.GetItem().__class__.__name__ == Directions.Pedal.__name__:
-                check_plc = voice_obj.GetChild(self.index-1)
-                if type(check_plc) is not Placeholder:
-                    result = check_plc.Find(DirectionNode, Directions.Pedal)
-                    if result:
+            if item.__class__.__name__ == Directions.Pedal.__name__:
+                note = voice_obj.GetChild(self.index-1)
+                if note is not None:
+                    result = note.Find(DirectionNode, Directions.Pedal)
+                    if result is not None:
                         self.index += 1
             finder = self.index-1
 

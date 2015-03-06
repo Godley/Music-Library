@@ -154,7 +154,7 @@ class Direction(Text):
         return return_val
 class RehearsalMark(Direction):
     def toLily(self):
-        text ="\mark "
+        text =" \mark "
         if self.text == "":
             text += "\default"
         else:
@@ -219,7 +219,7 @@ class RepeatSign(Direction):
         Direction.__init__(self, placement=placement, text=text,size=size,font=font)
 
     def toLily(self):
-        return "\mark " + Direction.toLily(self)
+        return " \mark " + Direction.toLily(self)
 
 class Line(Direction):
     def __init__(self, **kwargs):
@@ -326,7 +326,7 @@ class Pedal(Line):
             if self.type == "stop":
                 return_val += "Off\n"
             if self.type == "change":
-                return_val += "Off\n\sustainOn\n"
+                return_val += "Off\sustainOn\n"
             elif self.type == "start":
                 return_val += "On\n"
 
@@ -369,16 +369,15 @@ class Bracket(Line):
         style_line = ""
         if hasattr(self, "lineType"):
             if self.lineType == "solid":
-                style_line = "\\override TextSpanner.dash-fraction = 1.0 \n"
+                lilystring = "\\override TextSpanner.dash-fraction = 1.0 \n"
             elif self.lineType == "dashed":
-                style_line = "\\override TextSpanner.dash-fraction = 0.5 \n"
-        if hasattr(self, "type") and self.type == "stop":
-            lilystring += "\n\\stopTextSpan\n"
-        else:
-            lilystring += "\n\\startTextSpan\n"
-        if style_line == "":
-            return lilystring
-        return [style_line, lilystring]
+                lilystring = "\\override TextSpanner.dash-fraction = 0.5 \n"
+        if hasattr(self, "type"):
+            if self.type == "stop":
+                lilystring = "\n\\stopTextSpan\n"
+            elif self.type == "start":
+                lilystring = "\n\\startTextSpan\n"
+        return lilystring
 
 class Metronome(Direction):
     def __init__(self, **kwargs):
