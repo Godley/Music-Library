@@ -93,8 +93,9 @@ class testMeasureWithTimeModButNoTuplet(Lily):
         note2 = Note.Note()
         self.item.addNote(note)
         self.item.addNote(note2)
+        self.item.RunVoiceChecks()
 
-        self.lilystring = " % voice 1\n{ \once \override TupletBracket.bracket-visibility = ##f\n\omit TupletNumber\n\\tuplet 3/2 {c' }  } | "
+        self.lilystring = "\once \override TupletBracket.bracket-visibility = ##f\n\omit TupletNumber\n\\tuplet 3/2 {c'}   | "
 
 class testMeasureWithMultipleNoteTimeModsButNoTuplet(Lily):
     def setUp(self):
@@ -107,8 +108,9 @@ class testMeasureWithMultipleNoteTimeModsButNoTuplet(Lily):
         note2.timeMod = Note.TimeModifier(normal=2,actual=3)
         self.item.addNote(note)
         self.item.addNote(note2)
+        self.item.RunVoiceChecks()
 
-        self.lilystring = " % voice 1\n{ \once \override TupletBracket.bracket-visibility = ##f\n\omit TupletNumber\n\\tuplet 3/2 {c' c' } } | "
+        self.lilystring = "\once \override TupletBracket.bracket-visibility = ##f\n\omit TupletNumber\n\\tuplet 3/2 {c' c'}  | "
 
 
 class testGraceNote(Lily):
@@ -144,22 +146,22 @@ class testTimeModNormalActual(Lily):
 class testArpeggiate(Lily):
     def setUp(self):
         self.item = Note.Arpeggiate()
-        self.lilystring = ["\\arpeggioNormal","\\arpeggio"]
+        self.lilystring = [""]
 
 class testArpeggiateDir(Lily):
     def setUp(self):
-        self.item = Note.Arpeggiate(direction="up")
-        self.lilystring = ["\\arpeggioArrowUp","\\arpeggio"]
+        self.item = Note.Arpeggiate(direction="up", type="start")
+        self.lilystring = ["\\arpeggioArrowUp",""]
 
 class testArpeggiateDirDown(Lily):
     def setUp(self):
-        self.item = Note.Arpeggiate(direction="down")
-        self.lilystring = ["\\arpeggioArrowDown","\\arpeggio"]
+        self.item = Note.Arpeggiate(direction="down", type="start")
+        self.lilystring = ["\\arpeggioArrowDown",""]
 
 class testNonArpeggiate(Lily):
     def setUp(self):
-        self.item = Note.NonArpeggiate()
-        self.lilystring = ["\\arpeggioBracket","\\arpeggio"]
+        self.item = Note.NonArpeggiate(type="start")
+        self.lilystring = ["\\arpeggioBracket",""]
 
 
 class testSlide(Lily):

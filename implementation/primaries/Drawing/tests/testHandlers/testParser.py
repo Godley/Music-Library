@@ -41,7 +41,7 @@ class testSaxParser(unittest.TestCase):
         self.assertEqual(handler, self.parser.handler, "ERROR: TestHandlerValue failed - handler should be SetupPiece when tag is movement-title")
 
     def testHandlerCall(self):
-        tag = "chord"
+        tag = "type"
         self.parser.handler = mock.MagicMock()
         self.parser.EndTag(tag)
         self.parser.handler.assert_called_once_with(self.parser.tags,{},{}, self.parser.piece)
@@ -188,26 +188,3 @@ class testBackupAndForward(unittest.TestCase):
 
     def tearDown(self):
         MxmlParser.staff_id = 1
-
-class TestLastEnding(unittest.TestCase):
-    def setUp(self):
-        self.parser = MxmlParser.MxmlParser()
-        self.parser.piece.addPart(Part.Part(), "P1")
-        self.part = self.parser.piece.getPart("P1")
-        self.part.addEmptyMeasure(1,1)
-        self.measure = self.part.getMeasure(1,1)
-        self.parser.StartTag("part", {"id":"P1"})
-        self.parser.StartTag("measure",{"number":"1"})
-        self.parser.StartTag("barline", {"location":"right"})
-        self.parser.StartTag("ending", {"number":"1"})
-        self.parser.EndTag("ending")
-
-    def testMeasureEnding(self):
-        self.assertTrue(hasattr(self.measure.GetBarline("right"), "ending"))
-
-    def testMeasureIsLastEndingMark(self):
-        self.part.addEmptyMeasure(2,1)
-        self.parser.StartTag("part", {"id":"P1"})
-        self.parser.StartTag("measure",{"number":"1"})
-        self.parser.EndTag("measure")
-        self.assertTrue(hasattr(self.measure.GetBarline("right").ending, "last"))

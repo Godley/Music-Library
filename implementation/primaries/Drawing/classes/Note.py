@@ -453,7 +453,10 @@ class Arpeggiate(BaseClass.Base):
         BaseClass.Base.__init__(self)
         if "direction" in kwargs:
             self.direction = kwargs["direction"]
-        self.type = "none"
+        if "type" in kwargs:
+            self.type = kwargs["type"]
+        else:
+            self.type = "none"
 
     def toLily(self):
         var = "\\arpeggio"

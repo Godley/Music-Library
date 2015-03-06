@@ -794,7 +794,7 @@ class VoiceNode(Node):
 
                     # look for timemods
                     if hasattr(item, "timeMod"):
-                        close = True
+                        item.close_timemod = True
                         if previous is not None:
                             if hasattr(previous.GetItem(), "timeMod"):
                                 item.timeMod.first = False
