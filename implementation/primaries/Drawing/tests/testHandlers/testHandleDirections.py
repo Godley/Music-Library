@@ -172,6 +172,16 @@ class testMetronome(testHandleDirections):
         self.tags.append("metronome")
 
 
+    def testText(self):
+        self.tags.remove("metronome")
+        self.tags.append("words")
+        self.chars["words"] = "hello"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        self.tags.append("metronome")
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertEqual(MxmlParser.direction.text, "hello")
+        self.assertIsInstance(MxmlParser.direction, Directions.Metronome)
+
     def testMetronomeBeatUnitTag(self):
         self.tags.append("beat-unit")
         self.chars["beat-unit"] = "quarter"

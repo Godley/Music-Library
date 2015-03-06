@@ -391,11 +391,11 @@ class Metronome(Direction):
             self.beat = kwargs["beat"]
         if "min" in kwargs:
             self.min = kwargs["min"]
-        if hasattr(self, "min"):
-            if hasattr(self, "beat"):
-                text = str(self.beat) + " = " + str(self.min)
-            else:
-                text = self.min
+        if "text" in kwargs:
+            if type(kwargs["text"]) is str:
+                text = kwargs["text"]
+            elif kwargs["text"] is not None:
+                text = kwargs["text"].text
         if "size" in kwargs:
             size = kwargs["text"]
         if "font" in kwargs:
@@ -406,18 +406,29 @@ class Metronome(Direction):
                 self.parentheses = kwargs["parentheses"]
         else:
             self.parentheses = False
+
     def toLily(self):
         return_val = " \\tempo "
-        converter = {"eighth":8,"quarter":4,"half":2,"whole":1,"long":"longa","32nd":32}
+        converter = {"eighth":8,"quarter":4,"half":2,"whole":1,"long":"longa","breve":"\\breve","32nd":32}
         if hasattr(self, "parentheses"):
-            if self.parentheses:
+            if self.parentheses and self.text == "" and not hasattr(self, "secondBeat"):
                 return_val += "\"\" "
+        if self.text != "":
+            return_val += "\""+self.text+"\" "
         if hasattr(self, "beat") and hasattr(self, "min"):
+            if self.beat == "long":
+                return_val += "\\"
             return_val += str(converter[self.beat]) +"=" + str(self.min)
         elif hasattr(self, "secondBeat") and hasattr(self, "beat"):
-            return_val += "\markup {\n\t\concat {\n\t\t(\n\t\t\t\smaller \general-align #Y #DOWN \\note #\""
+            return_val += "\markup {\n\t\concat {\n\t\t"
+            if hasattr(self, "parentheses") and self.parentheses:
+                return_val += "("
+            return_val += "\n\t\t\t\smaller \general-align #Y #DOWN \\note #\""
             return_val += str(converter[self.beat])+"\" #1\n\t\t\t\t\" = \"\n\t\t\t\t\smaller \general-align #Y #DOWN \\note #\""
-            return_val += str(converter[self.secondBeat])+"\" #1\n\t\t)\n\t}\n}"
+            return_val += str(converter[self.secondBeat])+"\" #1\n\t\t"
+            if hasattr(self, "parentheses") and self.parentheses:
+                return_val += ")"
+            return_val += "\n\t}\n}"
         else:
             return_val = ""
 

@@ -79,7 +79,7 @@ class MxmlParser(object):
                             "score-part","sound","print","rest","slur",
                             "accent","strong-accent","staccato",
                             "staccatissimo","up-bow","down-bow",
-                            "cue","key","clef","part-group"]
+                            "cue","key","clef","part-group","metronome"]
         self.end_tag = ["tremolo"]
         self.piece = PieceTree.PieceTree()
         self.d = False
@@ -1130,6 +1130,11 @@ def HandleDirections(tags, attrs, chars, piece):
                 if "font-family" in attrs["words"]:
                     font = attrs["words"]["font-family"]
             direction = Directions.RehearsalMark(font=font,text=text,size=size,placement=placement)
+        if tags[-1] == "metronome":
+            if direction is not None:
+                if type(direction) != Directions.Metronome:
+                    new_obj = Directions.Metronome(text=copy.deepcopy(direction))
+                    direction = new_obj
         if "metronome" in tags:
             if tags[-1] == "beat-unit":
                 return_val = 1
@@ -1142,7 +1147,6 @@ def HandleDirections(tags, attrs, chars, piece):
                     else:
                         direction.secondBeat = unit
                     direction.placement = placement
-                direction.text = str(direction.beat)
                 if "metronome" in attrs:
                     if "font-family" in attrs["metronome"]:
                         direction.font = attrs["metronome"]["font-family"]
@@ -1158,7 +1162,6 @@ def HandleDirections(tags, attrs, chars, piece):
                     direction = Directions.Metronome(min=pm)
                 else:
                     direction.min = pm
-                direction.text += " = " + direction.min
                 if "metronome" in attrs:
                     if "font-family" in attrs["metronome"]:
                         direction.font = attrs["metronome"]["font-family"]
