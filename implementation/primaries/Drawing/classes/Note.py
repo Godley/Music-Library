@@ -330,6 +330,8 @@ class Note(BaseClass.Base):
         value = self.LilyWrap(val)
         if hasattr(self, "print"):
             value += "\n\\unHideNotes"
+        if hasattr(self, "close_timemod") and self.close_timemod:
+            value += "}"
         return value
     def LilyWrap(self, value):
         prefixes = ""

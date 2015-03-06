@@ -228,6 +228,8 @@ class MxmlParser(object):
                     raise(Exceptions.TabNotImplementedException("Tab notation found: stopping"))
                 if "DRUM" in result:
                     raise(Exceptions.DrumNotImplementedException("Drum Tab notation found: stopping"))
+            measure = part.getMeasure(measure_id, staff_id)
+            measure.RunVoiceChecks()
             staff_id = 1
             voice = 1
         if name in self.attribs:
@@ -560,7 +562,7 @@ def HandleMeasures(tag, attrib, content, piece):
 
         if part is not None:
             if tag[-1] == "staves":
-                staves = content["staves"]
+                staves = int(content["staves"])
                 for staff in range(1, staves+1):
                     if part.getMeasure(measure_id, staff) is None:
                         part.addEmptyMeasure(measure_id, staff)
