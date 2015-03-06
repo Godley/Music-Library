@@ -29,7 +29,7 @@ class testSetupPiece(unittest.TestCase):
 
     def testRightsTag(self):
         self.tags.append("rights")
-        self.chars["rights"] = "lee"
+        self.chars["rights"] = "lee  "
         self.handler(self.tags, self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(self.piece.GetItem(), "meta"))
         self.assertEqual("lee",self.piece.GetItem().meta.copyright)

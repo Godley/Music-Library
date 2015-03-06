@@ -4,17 +4,17 @@ from implementation.primaries.Drawing.classes import Key
 class testKey(Lily):
     def setUp(self):
         self.item = Key.Key()
-        self.lilystring = "\key c \major"
+        self.lilystring = ""
 
 class testKeyFifths(Lily):
     def setUp(self):
         self.item = Key.Key(fifths=1)
-        self.lilystring = "\key g \major"
+        self.lilystring = ""
 
 class testKeyMode(Lily):
     def setUp(self):
         self.item = Key.Key(mode="minor")
-        self.lilystring = "\key a \minor"
+        self.lilystring = ""
 
 class testKeyFifthsMode(Lily):
     def setUp(self):

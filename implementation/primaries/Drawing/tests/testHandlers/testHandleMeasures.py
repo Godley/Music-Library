@@ -123,22 +123,23 @@ class testClef(MeasureTesting):
 
     def testLineTag(self):
         self.tags.append("clef")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.tags.append("line")
         self.chars["line"] = 2
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
-
-        self.assertIsInstance(exp_measure.GetLastClef(), ClefNode)
-        self.assertEqual(2, exp_measure.GetLastClef().GetItem().line)
+        self.assertIsInstance(exp_measure.GetLastClef(), Clef.Clef)
+        self.assertEqual(2, exp_measure.GetLastClef().line)
 
     def testSignTag(self):
         self.tags.append("clef")
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
         self.tags.append("sign")
         self.chars["sign"] = "G"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
-        self.assertIsInstance(exp_measure.GetLastClef(), ClefNode)
-        self.assertEqual("G", exp_measure.GetLastClef().GetItem().sign)
+        self.assertIsInstance(exp_measure.GetLastClef(), Clef.Clef)
+        self.assertEqual("G", exp_measure.GetLastClef().sign)
 
     def testClefWithNumber(self):
         self.tags.append("clef")

@@ -51,7 +51,8 @@ class testMeasureNoteWithGrace(MeasureTests):
         note.pitch= Note.Pitch()
         note.addNotation(Note.GraceNote(first=True))
         self.item.addNote(note)
-        self.lilystring = " % voice 1\n{ \grace { c' } } | "
+        self.item.RunVoiceChecks()
+        self.lilystring = "\grace { c' }  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -60,8 +61,9 @@ class testMeasureNoteWithGrace(MeasureTests):
 class testMeasureTempo(MeasureTests):
     def setUp(self):
         self.item = MeasureNode()
-        self.item.addDirection(Directions.Metronome(beat=4,min=60))
-        self.lilystring = " % voice 1\n{ \\tempo 4=60 } | "
+        self.item.addNote(NoteNode())
+        self.item.addDirection(Directions.Metronome(beat="quarter",min=60))
+        self.lilystring = " \\tempo 4=60  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -70,9 +72,10 @@ class testMeasureTempo(MeasureTests):
 class testMeasureTwoDirections(MeasureTests):
     def setUp(self):
         self.item = MeasureNode()
+        self.item.addNote(NoteNode())
         self.item.addDirection(Directions.Direction(text="hello world",placement="above"))
-        self.item.addDirection(Directions.Metronome(beat=4,min=60))
-        self.lilystring = " % voice 1\n{ ^\\markup { \"hello world\"  }\\tempo 4=60 } | "
+        self.item.addDirection(Directions.Metronome(beat="quarter",min=60))
+        self.lilystring = " ^\\markup { \"hello world\"  } \\tempo 4=60  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -87,7 +90,7 @@ class testMeasureTwoNotes(MeasureTests):
         note2 = Note.Note()
         note2.pitch = Note.Pitch()
         self.item.addNote(note2)
-        self.lilystring = " % voice 1\n{ c' c' } | "
+        self.lilystring = "c' c'  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -100,7 +103,7 @@ class testMeasureOneNoteOneDirection(MeasureTests):
         note.pitch = Note.Pitch()
         self.item.addNote(note)
         self.item.addDirection(Directions.Direction(text="hello",placement="below"))
-        self.lilystring = " % voice 1\n{ c'_\\markup { \"hello\"  } } | "
+        self.lilystring = "c' _\\markup { \"hello\"  }  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -126,35 +129,8 @@ class testMeasureTranspositionCalc(unittest.TestCase):
         expected = "\\transpose c' c'' {"
         self.assertEqual(self.item.CalculateTransposition(), expected)
 
-class testStaffWithMeasureWithTransposition(unittest.TestCase):
-    def setUp(self):
-        self.item = StaffNode()
-        m1 = MeasureNode()
-        item = m1.GetItem()
-        item.transpose = Measure.Transposition(octave=1)
-        self.item.AddChild(m1, 1)
 
-    def testOutput(self):
-        lstring = self.item.toLily()
-        expected = "\\autoBeamOff % measure 1\n\\transpose c' c'' { | \n\n}"
-        self.assertEqual(lstring, expected)
 
-    def testOutputWithAnotherTransposedMeasure(self):
-        m2 = MeasureNode()
-        item = m2.GetItem()
-        item.transpose = Measure.Transposition(octave=-1)
-        self.item.AddChild(m2, 2)
-        lstring = self.item.toLily()
-        expected = "\\autoBeamOff % measure 1\n\\transpose c' c'' { | \n\n} % measure 2\n\\transpose c' c { | \n\n}"
-        self.assertEqual(lstring, expected)
-
-    def testOutputWithAnotherMeasure(self):
-        m2 = MeasureNode()
-        item = m2.GetItem()
-        self.item.AddChild(m2, 2)
-        lstring = self.item.toLily()
-        expected = "\\autoBeamOff % measure 1\n\\transpose c' c'' { | \n\n % measure 2\n | \n\n}"
-        self.assertEqual(lstring, expected)
 
 class testMeasureNoteWithShifter(Lily):
     def setUp(self):
@@ -170,35 +146,8 @@ class testMeasureNoteWithShifter(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{a8 ","c'8]}"]
-        self.lilystring = "c'\n\\ottava #1\n c'''  | "
+        self.lilystring = "c'\n\\ottava #-1\n c'  | "
         self.name = "noteOctaveShift"
-
-class testMeasureNoteShift(unittest.TestCase):
-    def setUp(self):
-        self.item = MeasureNode()
-        self.node = NoteNode()
-        self.node.GetItem().pitch = Note.Pitch()
-        self.item.addNote(self.node)
-        dirnode = Directions.OctaveShift(amount=8, type="up")
-        self.item.addDirection(dirnode)
-        self.node2 = NoteNode()
-        self.node2.GetItem().pitch = Note.Pitch(octave=2)
-        self.item.addNote(self.node2)
-
-    def testHasShift(self):
-        self.assertTrue(hasattr(self.node, "shift"))
-
-    def testShiftVal(self):
-        self.assertEqual(self.node.shift, 2)
-
-    def testNode2Pitch(self):
-        self.assertEqual(self.node2.GetItem().pitch.octave, 4)
-
-    def testNode3Pitch(self):
-        node3 = NoteNode()
-        node3.GetItem().pitch = Note.Pitch(octave=3)
-        self.item.addNote(node3)
-        self.assertEqual(node3.GetItem().pitch.octave, 5)
 
 class testShiftBeforeNote(unittest.TestCase):
     def setUp(self):
@@ -213,20 +162,6 @@ class testShiftBeforeNote(unittest.TestCase):
         value = "\n\\ottava #-1\n c,  | "
         self.assertEqual(value, self.item.toLily())
 
-class testPedalBeforeNote(unittest.TestCase):
-    def setUp(self):
-        self.item = MeasureNode()
-        dirnode = Directions.Pedal(type="start")
-        self.item.addDirection(dirnode)
-        self.node = NoteNode()
-        self.node.GetItem().pitch = Note.Pitch(octave=2)
-        self.item.addNote(self.node)
-
-
-    def testLilystring(self):
-        value = "\sustainOn\n c,  | "
-        self.assertEqual(value, self.item.toLily())
-
 
 class testGraceAtStartOfMeasure(unittest.TestCase):
     def setUp(self):
@@ -237,10 +172,10 @@ class testGraceAtStartOfMeasure(unittest.TestCase):
         self.note.pitch = Note.Pitch()
         node.SetItem(self.note)
         self.item.addNote(node)
+        self.item.RunVoiceChecks()
 
     def testIsFirstGraceNote(self):
         result = self.note.Search(Note.GraceNote)
-        lstring = self.item.toLily()
         self.assertTrue(result.first)
 
     def testLilystring(self):

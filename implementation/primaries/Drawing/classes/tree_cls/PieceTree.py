@@ -465,6 +465,9 @@ class MeasureNode(IndexedNode):
             key = BackwardSearch(KeyNode, voice_obj, 1)
             if key is not None:
                 return key
+            else:
+                if hasattr(self.item, "key"):
+                    return self.item.key
         else:
             if hasattr(self.item, "key"):
                 return self.item.key
@@ -945,6 +948,12 @@ class NoteNode(Node):
             if type(self.GetChild(0)) != NoteNode:
                 if type(self.GetChild(0)) != ExpressionNode:
                     self.AttachExpression(ExpressionNode())
+                dir = self.GetChild(1)
+                if type(dir) == DirectionNode:
+                    parent = FindPosition(dir, item)
+                    if parent is not None:
+                        parent.AddChild(item)
+                elif dir is None:
                     self.AddChild(item)
             elif type(self.GetChild(1)) != ExpressionNode:
                 self.AttachExpression(ExpressionNode())
