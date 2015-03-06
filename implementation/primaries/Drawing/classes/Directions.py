@@ -279,6 +279,8 @@ class OctaveShift(Line):
                 octave = 1
             if self.amount == 15:
                 octave = 2
+        else:
+            octave = 1
 
         return_val += str(octave)+"\n"
         if hasattr(self, "type"):

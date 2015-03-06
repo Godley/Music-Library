@@ -685,7 +685,7 @@ class MeasureNode(IndexedNode):
                     result = note.Find(DirectionNode, Directions.Pedal)
                     if result is not None:
                         self.index += 1
-            finder = self.index-1
+            finder = self.index
 
         note_obj = voice_obj.GetChild(finder)
         if type(note_obj) is NoteNode or type(note_obj) is Placeholder:
