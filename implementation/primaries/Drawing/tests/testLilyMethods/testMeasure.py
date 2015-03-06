@@ -52,7 +52,7 @@ class testMeasureNoteWithGrace(MeasureTests):
         note.addNotation(Note.GraceNote(first=True))
         self.item.addNote(note)
         self.item.RunVoiceChecks()
-        self.lilystring = "\grace { c' }  | "
+        self.lilystring = "\grace { c' }  | "  
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
