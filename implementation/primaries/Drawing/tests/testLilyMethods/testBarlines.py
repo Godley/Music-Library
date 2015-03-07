@@ -2,6 +2,7 @@ from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 from implementation.primaries.Drawing.tests.testLilyMethods.testMeasure import MeasureTests
 from implementation.primaries.Drawing.classes import Measure, Note
 from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode, StaffNode
+import unittest
 
 class testNormalBarline(Lily):
     def setUp(self):
@@ -101,3 +102,27 @@ class testMeasureRightRepeatBarlineNoLeft(MeasureTests):
         self.item.addNote(note)
         self.item.AddBarline(Measure.Barline(repeat="backward-barline"), location="right")
         self.lilystring = "c'  \\bar \":|.\""
+
+class testStaffMeasureFlagValues(unittest.TestCase):
+    def setUp(self):
+        self.item = StaffNode()
+        self.item.AddBarline(item=Measure.Barline(repeat="forward"), location="left", measure_id=1)
+
+
+    def testFlagExists(self):
+        self.assertTrue(hasattr(self.item, "forward_repeat"))
+
+    def testFlagValue(self):
+        self.assertTrue(self.item.forward_repeat)
+
+    def testBackwardFlag(self):
+        self.item.AddBarline(item=Measure.Barline(repeat="backward"), location="right", measure_id=1)
+        self.assertTrue(hasattr(self.item, "forward_repeat"))
+
+    def testBackwardFlagValue(self):
+        self.item.AddBarline(item=Measure.Barline(repeat="backward"), location="right", measure_id=1)
+        self.assertFalse(self.item.forward_repeat)
+
+    def testFOrwardFlagValueAfterBackwardAdded(self):
+        self.item.AddBarline(item=Measure.Barline(repeat="backward"), location="right", measure_id=1)
+        self.assertFalse(self.item.forward_repeat)

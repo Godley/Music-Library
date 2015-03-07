@@ -439,6 +439,21 @@ class StaffNode(IndexedNode):
                 item.divisions = divisions
             measure.CheckDivisions()
 
+    def AddBarline(self, item=None, measure_id=1, location="left"):
+        measure = self.GetChild(measure_id)
+        if measure is None:
+            self.AddChild(MeasureNode(), measure_id)
+            measure = self.GetChild(measure_id)
+        if hasattr(item, "repeat"):
+            if item.repeat == "forward":
+                self.forward_repeat = True
+            if item.repeat == "backward":
+                self.backward_repeat = True
+                if hasattr(self, "forward_repeat") and self.forward_repeat:
+                    self.forward_repeat = False
+                    self.backward_repeat = False
+        measure.AddBarline(item, location=location)
+
 class MeasureNode(IndexedNode):
     def __init__(self):
         IndexedNode.__init__(self, rules=[VoiceNode])
