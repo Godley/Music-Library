@@ -218,6 +218,12 @@ class PartNode(IndexedNode):
             staff_obj = self.getStaff(staff)
         staff_obj.AddBarline(measure_id=measure, location=location, item=item)
 
+    def DoBarlineChecks(self):
+        staves = self.GetChildrenIndexes()
+        for s in staves:
+            staff = self.getStaff(s)
+            staff.DoBarlineChecks()
+
     def CheckDivisions(self):
         staves = self.GetChildrenIndexes()
         for staff in staves:
@@ -453,6 +459,19 @@ class StaffNode(IndexedNode):
                 item.divisions = divisions
             measure.CheckDivisions()
 
+    def DoBarlineChecks(self):
+        measure_indexes = self.GetChildrenIndexes()
+        if hasattr(self, "backward_repeat"):
+            if self.backward_repeat > 0:
+                measure = self.GetChild(measure_indexes[0])
+                for repeat in range(self.backward_repeat):
+                    measure.AddBarline(Measure.Barline(repeat="forward"), location="left-1")
+        if hasattr(self, "forward_repeat"):
+            if self.forward_repeat > 0:
+                measure = self.GetChild(measure_indexes[-1])
+                for repeat in range(self.forward_repeat):
+                    measure.AddBarline(Measure.Barline(repeat="backward"), location="right-1")
+
     def AddBarline(self, item=None, measure_id=1, location="left"):
         measure = self.GetChild(measure_id)
         if measure is None:
@@ -460,12 +479,16 @@ class StaffNode(IndexedNode):
             measure = self.GetChild(measure_id)
         if hasattr(item, "repeat"):
             if item.repeat == "forward":
-                self.forward_repeat = True
+                if not hasattr(self, "forward_repeat"):
+                    self.forward_repeat = 0
+                self.forward_repeat += 1
             if item.repeat == "backward":
-                self.backward_repeat = True
-                if hasattr(self, "forward_repeat") and self.forward_repeat:
-                    self.forward_repeat = False
-                    self.backward_repeat = False
+                if not hasattr(self, "backward_repeat"):
+                    self.backward_repeat = 0
+                self.backward_repeat += 1
+                if hasattr(self, "forward_repeat") and self.forward_repeat > 0:
+                    self.forward_repeat -= 1
+                    self.backward_repeat -= 1
         measure.AddBarline(item, location=location)
 
 class MeasureNode(IndexedNode):
@@ -477,7 +500,12 @@ class MeasureNode(IndexedNode):
         self.barlines = {}
 
     def AddBarline(self, item, location):
-        self.barlines[location] = item
+        if location != "left" and location != "right" and location != "center":
+            if location not in self.barlines:
+                self.barlines[location] = []
+            self.barlines[location].append(item)
+        else:
+            self.barlines[location] = item
 
     def GetBarline(self, location):
         if location in self.barlines:
@@ -743,8 +771,14 @@ class MeasureNode(IndexedNode):
     def toLily(self):
         lilystring = ""
         left_barline = self.GetBarline("left")
+        other_lefts = self.GetBarline("left-1")
+        if other_lefts is not None:
+            for left in other_lefts:
+                lilystring += left.toLily()
+
         if left_barline is not None:
             lilystring += left_barline.toLily()
+
         wrap = self.item.toLily()
         lilystring += wrap[0]
         voices = self.GetChildrenIndexes()
@@ -770,6 +804,11 @@ class MeasureNode(IndexedNode):
             lilystring += ">>"
         lilystring += wrap[1]
         right_barline = self.GetBarline("right")
+        other_rights = self.GetBarline("right-1")
+        if other_rights is not None:
+            for right in other_rights:
+                lilystring += right.toLily()
+
         if right_barline is not None:
             lilystring += right_barline.toLily()
         else:

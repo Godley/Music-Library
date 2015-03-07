@@ -208,10 +208,10 @@ class MxmlParser(object):
                     last_barline = last_barline_temp
                     last_barline_pos = {"part":part_id,"measure":measure_id,"location":location}
         if name == "part":
-            previous_part = GetID(self.attribs, "part", "id")
-            if last_barline is not None:
-                if last_barline.repeat == "forward":
-                    last_barline.repeat += "-barline"
+            part_id = GetID(self.attribs, "part", "id")
+            part = self.piece.getPart(part_id)
+            part.DoBarlineChecks()
+
         if name == "measure":
             part_id = GetID(self.attribs, "part", "id")
             measure_id = IdAsInt(GetID(self.attribs, "measure", "number"))
@@ -858,12 +858,17 @@ def handleBarline(tag, attrib, content, piece):
 
                     repeat = attrib["repeat"]["direction"]
                     if hasattr(barline, "ending"):
-                        index = part.GetMeasureIDAtPosition(-2, staff=staff_id)
+                        position = -2
+                        index = part.GetMeasureIDAtPosition(position, staff=staff_id)
                         # todo: this part should be changed so that the previous bar has a backward repeat,
                         # todo: and the beginning of the part should have a forward repeat
                         if index is not None:
+                            right_barline = part.getMeasure(index, staff_id).GetBarline("right")
+                            if right_barline is not None and hasattr(right_barline, "ending"):
+                                position -= 1
+                                index = part.GetMeasureIDAtPosition(position, staff=staff_id)
                             part.AddBarline(measure=index, staff=staff_id, item=Measure.Barline(repeat="backward"), location="right")
-                            part.AddBarline(measure=index, staff=staff_id, item=Measure.Barline(repeat="forward"), location="left")
+                            #part.AddBarline(measure=index, staff=staff_id, item=Measure.Barline(repeat="forward"), location="left")
                             barline.repeat = "backward-barline"
                     else:
                         if hasattr(last_barline, "repeat"):
