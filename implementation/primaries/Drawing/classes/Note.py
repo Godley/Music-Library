@@ -365,7 +365,7 @@ class Note(BaseClass.Base):
             for dot in range(self.dots):
                 val += "."
         if not hasattr(self,"chord") or self.chord == "stop":
-            if hasattr(self, "beams"):
+            if hasattr(self, "beams") and (not hasattr(self, "autoBeam") or not self.autoBeam):
                 val += "".join([self.beams[beam].toLily() for beam in self.beams])
             if hasattr(self, "slurs"):
                 val += "".join([slur.toLily() for slur in self.slurs])

@@ -932,6 +932,9 @@ def CreateNote(tag, attrs, content, piece):
                 id = int(attrs["beam"]["number"])
             else:
                 id = len(note.beams)
+            part_id = GetID(attrs, "part", "id")
+            part = piece.getPart(part_id)
+            part.NewBeam(type, staff_id)
             note.addBeam(id, Note.Beam(type))
 
 

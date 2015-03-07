@@ -1,6 +1,6 @@
 from implementation.primaries.Drawing.classes import Note, Ornaments, Mark, Directions
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import NoteNode, DirectionNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import NoteNode, DirectionNode, StaffNode, MeasureNode
 
 class testNote(Lily):
     def setUp(self):
@@ -154,6 +154,20 @@ class testNoteMultipleBeam(Lily):
         self.wrappers = ["\\new Staff{a8 ","c'8]}"]
         self.lilystring = "c']["
         self.name = "notebeamstart"
+
+class testStaffWithNoEndBeams(Lily):
+    def setUp(self):
+        self.item = StaffNode()
+        self.item.AddChild(MeasureNode(), 1)
+        measure = self.item.GetChild(1)
+        note = Note.Note()
+        note.pitch = Note.Pitch()
+        note.addBeam(2, Note.Beam("begin"))
+        measure.addNote(note)
+        self.item.NewBeam("begin")
+        Lily.setUp(self)
+        self.lilystring = " % measure 1\nc'  | \n\n"
+        self.name = "notenoendbeam"
 
 class testNoteContinue(Lily):
     def setUp(self):

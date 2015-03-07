@@ -195,6 +195,10 @@ class PartNode(IndexedNode):
         if self.item is None:
             self.item = Part.Part()
 
+    def NewBeam(self, type, staff):
+        staff_obj = self.getStaff(staff)
+        staff_obj.NewBeam(type)
+
     def Backup(self, measure_id, duration=0):
         staves = self.GetChildrenIndexes()
         for staff_id in staves:
@@ -422,6 +426,11 @@ class PartNode(IndexedNode):
 class StaffNode(IndexedNode):
     def __init__(self):
         IndexedNode.__init__(self, rules=[MeasureNode])
+        self.autoBeam = True
+
+    def NewBeam(self, type):
+        if type == "end":
+            self.autoBeam = False
 
     def CheckTotals(self):
         measures = self.GetChildrenIndexes()
@@ -437,12 +446,16 @@ class StaffNode(IndexedNode):
                 mNode.value = mItemTotal
 
     def toLily(self):
-        lilystring = "\\autoBeamOff"
+        lilystring = ""
+
+        if not self.autoBeam:
+            lilystring += "\\autoBeamOff"
         children = self.GetChildrenIndexes()
         if not hasattr(self, "transpose"):
             self.transpose = None
         for child in range(len(children)):
             measureNode = self.GetChild(children[child])
+            measureNode.autoBeam = self.autoBeam
             lilystring += " % measure "+str(children[child])+"\n"
             lilystring += measureNode.toLily()+"\n\n"
         return lilystring
@@ -792,6 +805,7 @@ class MeasureNode(IndexedNode):
         for voice in voices:
             mid_barline = self.GetBarline("middle")
             v_obj = self.getVoice(voice)
+            v_obj.autoBeam = self.autoBeam
             if mid_barline is not None:
                 v_obj.mid_barline = mid_barline
             v_obj.total = self.value
@@ -938,6 +952,7 @@ class VoiceNode(Node):
         for child in range(len(children)):
             note = self.GetChild(children[child])
             item = note.GetItem()
+            item.autoBeam = self.autoBeam
             if hasattr(note, "duration"):
                 counter += note.duration
             if counter > total/2:
@@ -1155,7 +1170,10 @@ class Placeholder(NoteNode):
         self.item = None
 
     def toLily(self):
-        return ""
+        lilystring = ""
+        if self.duration > 0:
+            lilystring += "r"+str(self.duration)
+        return lilystring
 
 class SelfNode(Node):
     def __init__(self):
