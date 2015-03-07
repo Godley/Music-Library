@@ -211,6 +211,13 @@ class PartNode(IndexedNode):
             if measure is not None:
                 measure.Forward(duration=duration)
 
+    def AddBarline(self, staff=1, measure=1, location="left", item=None):
+        staff_obj = self.getStaff(staff)
+        if staff_obj is None:
+            self.AddChild(StaffNode(), staff)
+            staff_obj = self.getStaff(staff)
+        staff_obj.AddBarline(measure_id=measure, location=location, item=item)
+
     def CheckDivisions(self):
         staves = self.GetChildrenIndexes()
         for staff in staves:
@@ -281,6 +288,13 @@ class PartNode(IndexedNode):
         children = staff_obj.GetChildrenIndexes()
         if abs(index) <= len(children):
             return self.getMeasure(children[index], staff)
+
+    def GetMeasureIDAtPosition(self, index, staff=1):
+        staff_obj = self.getStaff(staff)
+        children = staff_obj.GetChildrenIndexes()
+        if abs(index) <= len(children):
+            return children[index]
+
     def getStaff(self, key):
         return self.GetChild(key)
 
