@@ -176,7 +176,7 @@ class testSlurs(testclass.TestClass):
         self.tags.append("slur")
         self.attrs = {"slur":{"number":"1"}}
         self.handler(self.tags,self.attrs,self.chars,self.piece)
-        self.assertTrue(1 in MxmlParser.note.slurs)
+        self.assertTrue(len(MxmlParser.note.slurs) == 1)
 
     def testSlurType(self):
         self.tags.append("slur")
@@ -184,6 +184,16 @@ class testSlurs(testclass.TestClass):
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         self.assertTrue(hasattr(MxmlParser.note.slurs[0], "type"))
         self.assertEqual("start",MxmlParser.note.slurs[0].type)
+
+    def testTwoSlursOfTheSameIndex(self):
+        self.tags.append("slur")
+        self.attrs["slur"] = {"number":"1","type":"start"}
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.tags.append("slur")
+        self.attrs["slur"] = {"number":"1","type":"stop"}
+        self.handler(self.tags,self.attrs,self.chars,self.piece)
+        self.assertEqual(MxmlParser.note.slurs[0].type, "start")
+        self.assertEqual("stop",MxmlParser.note.slurs[1].type)
 
 class t(testclass.TestClass):
     def setUp(self):

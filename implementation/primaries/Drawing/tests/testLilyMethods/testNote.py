@@ -119,17 +119,6 @@ class testNoteTuplet(Lily):
         self.wrappers = ["\\new Staff{","}}"]
         self.name = "notetuplet"
 
-class testNoteTupletEnd(Lily):
-    def setUp(self):
-        self.item = Note.Note()
-        self.item.pitch = Note.Pitch()
-        self.item.timeMod = Note.TimeModifier(normal=2, actual=3)
-        self.item.addNotation(Note.Tuplet(type="stop"))
-        self.lilystring = " c'}"
-        Lily.setUp(self)
-        self.compile = True
-        self.wrappers = ["\\new Staff{\\tuplet 3/2 {","}"]
-        self.name = "notetupletend"
 
 
 class testHiddenNote(Lily):
@@ -386,4 +375,21 @@ class testNoteTremolo(Lily):
         self.compile = True
         self.wrappers = ["\\new Staff{","}}"]
         self.name = "notetremolo"
+
+class testNoteSlur(Lily):
+    def setUp(self):
+        self.item = Note.Note()
+        self.item.pitch = Note.Pitch()
+        self.item.AddSlur(Directions.Slur(type="start"))
+
+        self.lilystring = "c'("
+
+class testNoteTwoSlurs(Lily):
+    def setUp(self):
+        self.item = Note.Note()
+        self.item.pitch = Note.Pitch()
+        self.item.AddSlur(Directions.Slur(type="stop"))
+        self.item.AddSlur(Directions.Slur(type="start"))
+        self.lilystring = "c')("
+        Lily.setUp(self)
 

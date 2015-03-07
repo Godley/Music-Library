@@ -493,19 +493,14 @@ def handleOtherNotations(tag, attrs, content, piece):
     if len(tag) > 0:
         if "notations" in tag:
             if tag[-1] == "slur":
-                if not hasattr(note, "slurs"):
-                    note.slurs = {}
 
                 notation = Directions.Slur()
-                num = len(note.slurs)
                 if "slur" in attrs and "placement" in attrs["slur"]:
                     notation.placement = attrs["slur"]["placement"]
-                if "slur" in attrs and  "number" in attrs["slur"]:
-                    num = int(attrs["slur"]["number"])
 
                 if "slur" in attrs and "type" in attrs["slur"]:
                     notation.type = attrs["slur"]["type"]
-                note.slurs[num] = notation
+                note.AddSlur(notation)
             if tag[-2] == "technical" and tag[-1] != "bend" and tag[-1] != "hammer-on" and tag[-1] != "pull-off":
                 text = None
                 if tag[-1] in content:

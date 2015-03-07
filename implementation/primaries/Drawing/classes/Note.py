@@ -154,6 +154,11 @@ class Note(BaseClass.Base):
         self.closing_notation = []
         self.has_tremolo = False
 
+    def AddSlur(self, item):
+        if not hasattr(self, "slurs"):
+            self.slurs = []
+        self.slurs.append(item)
+
     def GetAllNotation(self):
         return self.prenotation, self.wrap_notation, self.postnotation
 
@@ -363,7 +368,7 @@ class Note(BaseClass.Base):
             if hasattr(self, "beams"):
                 val += "".join([self.beams[beam].toLily() for beam in self.beams])
             if hasattr(self, "slurs"):
-                val += "".join([self.slurs[slur].toLily() for slur in self.slurs])
+                val += "".join([slur.toLily() for slur in self.slurs])
             val += "".join([tie.toLily() for tie in self.ties])
         val += "".join([value.toLily() for value in self.postnotation if type(value.toLily()) is str])
         val += "".join([value.toLily()[0] for value in self.postnotation if type(value.toLily()) is list and len(value.toLily()) > 0])
