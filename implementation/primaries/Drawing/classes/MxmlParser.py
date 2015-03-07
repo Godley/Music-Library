@@ -835,7 +835,9 @@ def handleBarline(tag, attrib, content, piece):
                     measure.GetBarline(location).style = style
         if tag[-1] == "repeat":
             if "repeat" in attrib:
-                times = int(GetID(attrib, "repeat", "times"))
+                times = GetID(attrib, "repeat", "times")
+                if times is not None:
+                    times = int(times)
                 if "direction" in attrib["repeat"]:
                     barline = measure.GetBarline(location)
 
@@ -856,7 +858,8 @@ def handleBarline(tag, attrib, content, piece):
                     else:
                         if barline is not None:
                             barline.repeat = repeat
-                            barline.repeatNum = times
+                            if times is not None:
+                                barline.repeatNum = times
                             part.AddBarline(item=barline, measure=measure_id, staff=staff_id, location=location)
 
 

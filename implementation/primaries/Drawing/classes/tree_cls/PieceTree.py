@@ -488,11 +488,9 @@ class StaffNode(IndexedNode):
                 if not hasattr(self, "backward_repeat"):
                     self.backward_repeats = []
                 self.backward_repeats.append(num)
-                if hasattr(self, "forward_repeats") and len(self.forward_repeats) > 0:
-                    if num in self.forward_repeats:
-                        self.forward_repeats.remove(num)
-                    if num in self.backward_repeats:
-                        self.backward_repeats.remove(num)
+                if hasattr(self, "forward_repeats") and (len(self.forward_repeats) == len(self.backward_repeats) and len(self.forward_repeats) > 0):
+                    self.forward_repeats.pop()
+                    self.backward_repeats.pop()
         measure.AddBarline(item, location=location)
 
 class MeasureNode(IndexedNode):
