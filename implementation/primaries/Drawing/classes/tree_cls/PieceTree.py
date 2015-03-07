@@ -237,20 +237,18 @@ class PartNode(IndexedNode):
 
     def CheckPreviousBarline(self, staff):
         """method which checks the bar before the current for changes we need to make to it's barlines"""
-        measure = self.GetMeasureAtPosition(-2, staff)
+        measure_before_last = self.GetMeasureAtPosition(-2, staff)
         last_measure = self.GetMeasureAtPosition(-1, staff)
-        if measure is not None:
-            item1 = measure.GetItem()
-            item2 = last_measure.GetItem()
-            bline1 = item1.GetBarline("right")
-            bline2 = item2.GetBarline("left")
+        if last_measure is not None and measure_before_last is not None:
+            bline1 = measure_before_last.GetBarline("right")
+            bline2 = last_measure.GetBarline("left")
             if bline1 is not None:
                 if hasattr(bline1, "ending"):
                     if bline2 is not None:
                         if not hasattr(bline2, "ending"):
-                            bline1.ending.last = True
+                            bline1.ending.type = "discontinue"
                     else:
-                        bline1.ending.last = True
+                        bline1.ending.type = "discontinue"
 
     def CheckMeasureMeter(self, measure):
         meter = None
