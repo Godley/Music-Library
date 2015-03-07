@@ -461,16 +461,16 @@ class StaffNode(IndexedNode):
 
     def DoBarlineChecks(self):
         measure_indexes = self.GetChildrenIndexes()
-        if hasattr(self, "backward_repeat"):
-            if self.backward_repeat > 0:
+        if hasattr(self, "backward_repeats"):
+            if len(self.backward_repeats) > 0:
                 measure = self.GetChild(measure_indexes[0])
-                for repeat in range(self.backward_repeat):
-                    measure.AddBarline(Measure.Barline(repeat="forward"), location="left-1")
-        if hasattr(self, "forward_repeat"):
-            if self.forward_repeat > 0:
+                for repeat in self.backward_repeats:
+                    measure.AddBarline(Measure.Barline(repeat="forward", repeatNum=repeat), location="left-1")
+        if hasattr(self, "forward_repeats"):
+            if len(self.forward_repeats) > 0:
                 measure = self.GetChild(measure_indexes[-1])
-                for repeat in range(self.forward_repeat):
-                    measure.AddBarline(Measure.Barline(repeat="backward"), location="right-1")
+                for repeat in self.forward_repeats:
+                    measure.AddBarline(Measure.Barline(repeat="backward", repeatNum=repeat), location="right-1")
 
     def AddBarline(self, item=None, measure_id=1, location="left"):
         measure = self.GetChild(measure_id)
@@ -478,17 +478,21 @@ class StaffNode(IndexedNode):
             self.AddChild(MeasureNode(), measure_id)
             measure = self.GetChild(measure_id)
         if hasattr(item, "repeat"):
+            num = item.repeatNum
             if item.repeat == "forward":
-                if not hasattr(self, "forward_repeat"):
-                    self.forward_repeat = 0
-                self.forward_repeat += 1
+                if not hasattr(self, "forward_repeats"):
+                    self.forward_repeats = []
+                self.forward_repeats.append(num)
             if item.repeat == "backward":
+                num = item.repeatNum
                 if not hasattr(self, "backward_repeat"):
-                    self.backward_repeat = 0
-                self.backward_repeat += 1
-                if hasattr(self, "forward_repeat") and self.forward_repeat > 0:
-                    self.forward_repeat -= 1
-                    self.backward_repeat -= 1
+                    self.backward_repeats = []
+                self.backward_repeats.append(num)
+                if hasattr(self, "forward_repeats") and len(self.forward_repeats) > 0:
+                    if num in self.forward_repeats:
+                        self.forward_repeats.remove(num)
+                    if num in self.backward_repeats:
+                        self.backward_repeats.remove(num)
         measure.AddBarline(item, location=location)
 
 class MeasureNode(IndexedNode):

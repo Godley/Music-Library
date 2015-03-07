@@ -110,19 +110,19 @@ class testStaffMeasureFlagValues(unittest.TestCase):
 
 
     def testFlagExists(self):
-        self.assertTrue(hasattr(self.item, "forward_repeat"))
+        self.assertTrue(hasattr(self.item, "forward_repeats"))
 
     def testFlagValue(self):
-        self.assertTrue(self.item.forward_repeat)
+        self.assertEqual(len(self.item.forward_repeats), 1)
 
     def testBackwardFlag(self):
         self.item.AddBarline(item=Measure.Barline(repeat="backward"), location="right", measure_id=1)
-        self.assertTrue(hasattr(self.item, "forward_repeat"))
+        self.assertTrue(hasattr(self.item, "forward_repeats"))
 
     def testBackwardFlagValue(self):
         self.item.AddBarline(item=Measure.Barline(repeat="backward"), location="right", measure_id=1)
-        self.assertFalse(self.item.forward_repeat)
+        self.assertEqual(len(self.item.backward_repeats), 0)
 
     def testFOrwardFlagValueAfterBackwardAdded(self):
         self.item.AddBarline(item=Measure.Barline(repeat="backward"), location="right", measure_id=1)
-        self.assertFalse(self.item.forward_repeat)
+        self.assertEqual(len(self.item.forward_repeats), 0)

@@ -144,9 +144,9 @@ class Barline(BaseClass.Base):
         if "ending" in kwargs:
             if kwargs["ending"] is not None:
                 self.ending = kwargs["ending"]
-        if "repeat-num" in kwargs:
-            if kwargs["repeat-num"] is not None:
-                self.repeatNum = kwargs["repeat-num"]
+        if "repeatNum" in kwargs:
+            if kwargs["repeaNum"] is not None:
+                self.repeatNum = kwargs["repeatNum"]
             else:
                 self.repeatNum = 2
         else:
