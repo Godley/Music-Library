@@ -790,6 +790,7 @@ def handleBarline(tag, attrib, content, piece):
     part_id = GetID(attrib, "part", "id")
     measure_id = IdAsInt(GetID(attrib, "measure", "number"))
     measure = None
+    times = 2
     if part_id is not None and measure_id is not None:
         part = piece.getPart(part_id)
         if part is None:
@@ -813,8 +814,6 @@ def handleBarline(tag, attrib, content, piece):
                         num_str = attrib["ending"]["number"]
                         split = num_str.split(",")
                         number = int(split[-1])
-                        if last_fwd_repeat is not None and number > 2:
-                            last_fwd_repeat.repeatNum = number
                     else:
                         measure.GetBarline(location).ending.number = int(attrib["ending"]["number"])
                 if "type" in attrib["ending"]:
@@ -836,6 +835,7 @@ def handleBarline(tag, attrib, content, piece):
                     measure.GetBarline(location).style = style
         if tag[-1] == "repeat":
             if "repeat" in attrib:
+                times = int(GetID(attrib, "repeat", "times"))
                 if "direction" in attrib["repeat"]:
                     barline = measure.GetBarline(location)
 
@@ -848,7 +848,7 @@ def handleBarline(tag, attrib, content, piece):
                             if right_barline is not None and hasattr(right_barline, "ending"):
                                 position -= 1
                                 index = part.GetMeasureIDAtPosition(position, staff=staff_id)
-                            part.AddBarline(measure=index, staff=staff_id, item=Measure.Barline(repeat="backward"), location="right")
+                            part.AddBarline(measure=index, staff=staff_id, item=Measure.Barline(repeat="backward", repeatNum=times), location="right")
                             #part.AddBarline(measure=index, staff=staff_id, item=Measure.Barline(repeat="forward"), location="left")
                             if barline.ending.number == 1:
                                 barline.repeat = "backward-barline"
@@ -856,7 +856,8 @@ def handleBarline(tag, attrib, content, piece):
                     else:
                         if barline is not None:
                             barline.repeat = repeat
-                            part.AddBarline(measure=measure_id, staff=staff_id, item=barline, location=location)
+                            barline.repeatNum = times
+                            part.AddBarline(item=barline, measure=measure_id, staff=staff_id, location=location)
 
 
         if location not in measure.barlines:
