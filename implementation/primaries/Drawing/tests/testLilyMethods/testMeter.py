@@ -21,3 +21,9 @@ class testTimeSigBeatAndType(Lily):
         self.item = Meter.Meter(type=8, beats=6)
         self.lilystring = "\\time 6/8"
 
+class testTimeSigSingleNumber(Lily):
+    def setUp(self):
+        self.item = Meter.Meter(type=8, beats=6, style="single-number")
+        self.lilystring = "\n\once \override Staff.TimeSignature.style = #'single-digit\n\\time 6/8"
+
+

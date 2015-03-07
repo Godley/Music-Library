@@ -86,6 +86,8 @@ class Measure(BaseClass.Base):
         if hasattr(self, "clef") and self.clef is not None:
             lilystring += self.clef.toLily() + " "
         if hasattr(self, "key") and self.key is not None:
+            if not hasattr(self.key, "mode"):
+                self.key.mode = "major"
             lilystring += self.key.toLily() + " "
         if hasattr(self, "meter"):
             lilystring += self.meter.toLily() + " "

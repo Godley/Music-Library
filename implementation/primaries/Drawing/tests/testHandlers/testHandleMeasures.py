@@ -100,6 +100,16 @@ class testKeySig(MeasureTesting):
 
 
 class testMeter(MeasureTesting):
+    def testSingleBeatAttrib(self):
+        self.tags.append("time")
+        self.attrs["time"] = {"symbol":"single-number"}
+        self.tags.append("beats")
+        self.chars["beats"] = "3"
+        self.handler(self.tags, self.attrs, self.chars, self.piece)
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        self.assertTrue(hasattr(exp_measure, "meter"))
+        self.assertEqual("single-number", exp_measure.meter.style)
+
     def testBeatTag(self):
         self.tags.append("meter")
         self.tags.append("beats")
@@ -516,7 +526,7 @@ class testBarline(MeasureTesting):
         self.attrs["repeat"] = {"direction": "backward"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         
-        self.assertEqual("backward-barline", self.measure.GetBarline("left").repeat)
+        self.assertEqual("backward", self.measure.GetBarline("left").repeat)
 
 
 class testRepeatBarline(MeasureTesting):
@@ -538,9 +548,6 @@ class testRepeatBarline(MeasureTesting):
         self.attrs["repeat"] = {"direction": "backward"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
 
-    def testRepeatValWhereNoPreviousBarWithEndings(self):
-        self.assertEqual("backward", self.measure.GetBarline("right").repeat)
-        self.assertEqual("forward", self.measure.GetBarline("left").repeat)
 
     def testRepeatValOfNewMeasure(self):
         measure = self.part.getMeasure(2,1)

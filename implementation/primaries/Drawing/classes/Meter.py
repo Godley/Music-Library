@@ -4,12 +4,17 @@ class Meter(object):
             self.beats = kwargs["beats"]
         if "type" in kwargs:
             self.type = kwargs["type"]
+        if "style" in kwargs and kwargs["style"] is not None:
+            self.style = kwargs["style"]
 
     def __str__(self):
         return str(self.beats) + "/" + str(self.type)
 
     def toLily(self):
-        val = "\\time"
+        val = ""
+        if hasattr(self, "style") and self.style == "single-number":
+            val += "\n\once \override Staff.TimeSignature.style = #'single-digit\n"
+        val += "\\time"
         if hasattr(self, "beats"):
             val += " " + str(self.beats)
             if hasattr(self, "type"):

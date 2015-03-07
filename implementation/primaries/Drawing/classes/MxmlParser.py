@@ -595,16 +595,22 @@ def HandleMeasures(tag, attrib, content, piece):
             return_val = 1
 
         if tag[-1] == "beats" and ("time" in tag or "meter" in tag):
+            symbol = GetID(attrib, "time", "symbol")
             if hasattr(measure, "meter"):
                 measure.meter.beats = int(content["beats"])
+                if symbol is not None:
+                    measure.meter.style = symbol
             else:
-                measure.meter = Meter.Meter(beats=int(content["beats"]))
+                measure.meter = Meter.Meter(beats=int(content["beats"]), style=symbol)
             return_val = 1
         if tag[-1] == "beat-type" and ("time" in tag or "meter" in tag):
+            symbol = GetID(attrib, "time", "symbol")
             if hasattr(measure, "meter"):
                 measure.meter.type= int(content["beat-type"])
+                if symbol is not None:
+                    measure.meter.style = symbol
             else:
-                measure.meter = Meter.Meter(type=int(content["beat-type"]))
+                measure.meter = Meter.Meter(type=int(content["beat-type"]), style=symbol)
             return_val = 1
         if "clef" in tag:
             handleClef(tag,attrib,content,piece)
