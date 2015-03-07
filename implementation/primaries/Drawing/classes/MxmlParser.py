@@ -860,8 +860,6 @@ def handleBarline(tag, attrib, content, piece):
                     if hasattr(barline, "ending"):
                         position = -2
                         index = part.GetMeasureIDAtPosition(position, staff=staff_id)
-                        # todo: this part should be changed so that the previous bar has a backward repeat,
-                        # todo: and the beginning of the part should have a forward repeat
                         if index is not None:
                             right_barline = part.getMeasure(index, staff_id).GetBarline("right")
                             if right_barline is not None and hasattr(right_barline, "ending"):
@@ -869,7 +867,9 @@ def handleBarline(tag, attrib, content, piece):
                                 index = part.GetMeasureIDAtPosition(position, staff=staff_id)
                             part.AddBarline(measure=index, staff=staff_id, item=Measure.Barline(repeat="backward"), location="right")
                             #part.AddBarline(measure=index, staff=staff_id, item=Measure.Barline(repeat="forward"), location="left")
-                            barline.repeat = "backward-barline"
+                            if barline.ending.number == 1:
+                                barline.repeat = "backward-barline"
+
                     else:
                         if hasattr(last_barline, "repeat"):
                             last_repeat = last_barline.repeat
