@@ -21,11 +21,6 @@ frame_note = None
 staff_id = 1
 voice = 1
 
-# indicators of where we last found a repeat barline, and which staff, measure and part it was found in. Needed because we may
-# have to modify it depending on what comes next
-last_barline = None
-last_fwd_repeat = None
-last_barline_pos = {}
 
 handleType = ""
 
@@ -156,7 +151,7 @@ class MxmlParser(object):
 
 
     def EndTag(self, name):
-        global note, degree, frame_note, staff_id,direction,expression,last_barline,last_barline_pos, voice
+        global note, degree, frame_note, staff_id,direction,expression,voice
         if self.handler is not None and not self.d and name not in self.closed_tags:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -194,19 +189,7 @@ class MxmlParser(object):
                     measure = part.getMeasure(measure_id, staff_id)
                     measure.addExpression(copy.deepcopy(expression), voice)
                 expression = None
-        if name == "barline":
-            measure_id = IdAsInt(GetID(self.attribs, "measure", "number"))
-            part_id = GetID(self.attribs, "part", "id")
-            measure = self.piece.getPart(part_id).getMeasure(measure_id, staff_id)
-            if measure is not None:
-                location = GetID(self.attribs, "barline", "location")
-                last_barline_temp = measure.GetBarline(location)
 
-                if hasattr(last_barline_temp, "repeat"):
-                    if last_barline_temp.repeat == "forward":
-                        last_fwd_repeat = last_barline_temp
-                    last_barline = last_barline_temp
-                    last_barline_pos = {"part":part_id,"measure":measure_id,"location":location}
         if name == "part":
             part_id = GetID(self.attribs, "part", "id")
             part = self.piece.getPart(part_id)
@@ -871,18 +854,6 @@ def handleBarline(tag, attrib, content, piece):
                                 barline.repeat = "backward-barline"
 
                     else:
-                        if hasattr(last_barline, "repeat"):
-                            last_repeat = last_barline.repeat
-                            if repeat == "backward" and last_repeat != "forward":
-                                repeat += "-barline"
-                            if repeat == "forward" and last_repeat == "backward-barline":
-                                if part_id == last_barline_pos["part"] and int(last_barline_pos["measure"]) == measure_id-1:
-                                    if location != last_barline_pos["location"]:
-                                        last_barline.repeat += "-double"
-                        else:
-                            if repeat == "backward":
-                                repeat += "-barline"
-
                         if barline is not None:
                             barline.repeat = repeat
                             part.AddBarline(measure=measure_id, staff=staff_id, item=barline, location=location)
