@@ -1,4 +1,4 @@
-from implementation.primaries.Drawing.classes import Measure, Note, Directions
+from implementation.primaries.Drawing.classes import Measure, Note, Directions, Meter
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode, StaffNode,NoteNode,DirectionNode
 import unittest
@@ -47,12 +47,12 @@ class testMeasureChord(MeasureTests):
 class testMeasureNoteWithGrace(MeasureTests):
     def setUp(self):
         self.item = MeasureNode()
-        note = Note.Note()
+        note = Note.Note(type="quarter")
         note.pitch= Note.Pitch()
         note.addNotation(Note.GraceNote(first=True))
         self.item.addNote(note)
         self.item.RunVoiceChecks()
-        self.lilystring = "\grace { c' }  | "
+        self.lilystring = "\grace { c'4 }  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
@@ -61,8 +61,8 @@ class testMeasureNoteWithGrace(MeasureTests):
 class testMeasureTempo(MeasureTests):
     def setUp(self):
         self.item = MeasureNode()
-        self.item.addNote(NoteNode())
         self.item.addDirection(Directions.Metronome(beat="quarter",min=60))
+        self.item.addNote(NoteNode())
         self.lilystring = " \\tempo 4=60  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
@@ -72,9 +72,9 @@ class testMeasureTempo(MeasureTests):
 class testMeasureTwoDirections(MeasureTests):
     def setUp(self):
         self.item = MeasureNode()
-        self.item.addNote(NoteNode())
         self.item.addDirection(Directions.Direction(text="hello world",placement="above"))
         self.item.addDirection(Directions.Metronome(beat="quarter",min=60))
+        self.item.addNote(NoteNode())
         self.lilystring = " ^\\markup { \"hello world\"  } \\tempo 4=60  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
@@ -101,13 +101,27 @@ class testMeasureOneNoteOneDirection(MeasureTests):
         self.item = MeasureNode()
         note = Note.Note()
         note.pitch = Note.Pitch()
-        self.item.addNote(note)
         self.item.addDirection(Directions.Direction(text="hello",placement="below"))
+        self.item.addNote(note)
         self.lilystring = "c' _\\markup { \"hello\"  }  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
         self.name = "measurenotedirection"
+
+class testPartialMeasure(MeasureTests):
+    def setUp(self):
+        self.item = MeasureNode()
+        self.item.GetItem().partial = True
+        self.item.GetItem().meter = Meter.Meter(beats=4, type=4)
+        note = Note.Note(type="quarter")
+        note.pitch = Note.Pitch()
+        self.item.addNote(note)
+        self.lilystring = "\\time 4/4 \partial 4 c'4 | "
+        self.compile = True
+        self.wrappers = ["\\new Staff {", "}"]
+        Lily.setUp(self)
+        self.name = "measurePartial"
 
 class testMeasureTranspositionCalc(unittest.TestCase):
     def setUp(self):
@@ -146,7 +160,7 @@ class testMeasureNoteWithShifter(Lily):
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{a8 ","c'8]}"]
-        self.lilystring = "c'\n\\ottava #-1\n c'  | "
+        self.lilystring = "c' \n\\ottava #-1\n c'  | "
         self.name = "noteOctaveShift"
 
 class testShiftBeforeNote(unittest.TestCase):
@@ -167,7 +181,7 @@ class testGraceAtStartOfMeasure(unittest.TestCase):
     def setUp(self):
         self.item = MeasureNode()
         node = NoteNode()
-        self.note = Note.Note()
+        self.note = Note.Note(type="quarter")
         self.note.addNotation(Note.GraceNote())
         self.note.pitch = Note.Pitch()
         node.SetItem(self.note)
@@ -179,6 +193,6 @@ class testGraceAtStartOfMeasure(unittest.TestCase):
         self.assertTrue(result.first)
 
     def testLilystring(self):
-        value = "\grace { c' }  | "
+        value = "\grace { c'4 }  | "
         self.assertEqual(value, self.item.toLily())
 
