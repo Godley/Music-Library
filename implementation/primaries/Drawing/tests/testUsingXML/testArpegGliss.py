@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Search, FindByIndex
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import NoteNode, MeasureNode
+from implementation.primaries.Drawing.classes.tree_cls.NoteNode import NoteNode
+from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
 from implementation.primaries.Drawing.classes import Note
 import os, unittest
 

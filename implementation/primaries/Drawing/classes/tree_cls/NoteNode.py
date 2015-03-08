@@ -1,8 +1,8 @@
 try:
     from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
-    from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
+    from implementation.primaries.Drawing.classes.tree_cls import OtherNodes
     from implementation.primaries.Drawing.classes.Directions import OctaveShift
-    from implementation.primaries.Drawing.classes.Note import GraceNote, Arpeggiate, NonArpeggiate
+    from implementation.primaries.Drawing.classes.Note import Arpeggiate, NonArpeggiate, Note, GraceNote
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from classes import Measure, Note, Part, Piece, Directions
@@ -17,22 +17,22 @@ class NoteNode(Node):
     def __init__(self, **kwargs):
         if "duration" in kwargs:
             self.duration = kwargs["duration"]
-        Node.__init__(self, rules=[DirectionNode,ExpressionNode,NoteNode],limit=3)
+        Node.__init__(self, rules=[OtherNodes.DirectionNode,OtherNodes.ExpressionNode,NoteNode],limit=3)
         if self.item is None:
-            self.item = Note.Note()
+            self.item = Note()
 
 
     def Find(self, node_type, item_type):
         # method for finding specific types of notation from nodes.
         # will currently return the first one it encounters because this method's only really intended
         #for some types of notation for which the exact value doesn't really matter.
-        if node_type == DirectionNode:
+        if node_type == OtherNodes.DirectionNode:
             child = self.GetChild(len(self.children)-1)
             while child is not None and type(child.GetItem()) != item_type:
                 if child.GetItem().__class__.__name__ == item_type.__name__:
                     return True
                 child = child.GetChild(0)
-        if node_type == ExpressionNode:
+        if node_type == OtherNodes.ExpressionNode:
             child = self.GetChild(len(self.children)-2)
             while child is not None and type(child.GetItem()) != item_type:
                 if child.GetItem().__class__.__name__ == item_type.__name__:
@@ -103,14 +103,14 @@ class NoteNode(Node):
         if item.GetItem().__class__.__name__ == OctaveShift.__name__:
             self.shift = True
         if len(self.children) == 0:
-            self.AttachExpression(ExpressionNode())
+            self.AttachExpression(OtherNodes.ExpressionNode())
             self.AddChild(item)
         elif 3 > len(self.children) > 0:
             if type(self.GetChild(0)) != NoteNode:
-                if type(self.GetChild(0)) != ExpressionNode:
-                    self.AttachExpression(ExpressionNode())
+                if type(self.GetChild(0)) != OtherNodes.ExpressionNode:
+                    self.AttachExpression(OtherNodes.ExpressionNode())
                 dir = self.GetChild(1)
-                if type(dir) == DirectionNode:
+                if type(dir) == OtherNodes.DirectionNode:
                     parent = FindPosition(dir, item)
                     if parent is not None:
                         parent.AddChild(item)

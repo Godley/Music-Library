@@ -542,15 +542,14 @@ def HandleMeasures(tag, attrib, content, piece):
                 for staff in range(1, staves+1):
                     if part.getMeasure(measure_id, staff) is None:
                         part.addEmptyMeasure(measure_id, staff)
-            measureNode = part.getMeasure(measure=measure_id, staff=staff_id)
-            if measureNode is None:
+            measure = part.getMeasure(measure=measure_id, staff=staff_id)
+            if measure is None:
                 part.addEmptyMeasure(measure_id, staff_id)
-                measureNode = part.getMeasure(measure_id, staff_id)
-            if measureNode is not None:
-                key = measureNode.GetLastKey(voice=voice)
+                measure = part.getMeasure(measure_id, staff_id)
+            if measure is not None:
+                key = measure.GetLastKey(voice=voice)
                 if key is not None and type(key) is not Key.Key:
                     key = key.GetItem()
-                measure = measureNode.GetItem()
         implicit = GetID(attrib, "measure", "implicit")
         if implicit is not None:
             measure.partial = YesNoToBool(implicit)
@@ -561,31 +560,27 @@ def HandleMeasures(tag, attrib, content, piece):
                 if "number" in attrib["key"]:
                     staff_id = int(attrib["key"]["number"])
                     measure = part.getMeasure(measure=measure_id, staff=staff_id)
-                    measureNode = measure
                     if measure is None:
                         part.addEmptyMeasure(measure_id, staff_id)
                         measure = part.getMeasure(measure_id, staff_id)
-                        measureNode = measure
                     if measure is not None:
-                        key = measureNode.GetLastKey(voice=voice)
+                        key = measure.GetLastKey(voice=voice)
                         if key is not None and type(key) is not Key.Key:
                             key = key.GetItem()
-                        measureNode = measure
-                        measure = measure.GetItem()
-                        measureNode.addKey(Key.Key(), voice)
+                        measure.addKey(Key.Key(), voice)
                 else:
                     part.addKey(Key.Key(), measure_id)
             else:
                 part.addKey(Key.Key(), measure_id)
         if tag[-1] == "mode" and "key" in tag and measure is not None:
-            key = measureNode.GetLastKey(voice=voice)
+            key = measure.GetLastKey(voice=voice)
             if key is not None and type(key) is not Key.Key:
                 key = key.GetItem()
             if key is not None:
                 key.mode = content["mode"]
             return_val = 1
         if tag[-1] == "fifths" and "key" in tag:
-            key = measureNode.GetLastKey(voice=voice)
+            key = measure.GetLastKey(voice=voice)
             if key is not None and type(key) is not Key.Key:
                 key = key.GetItem()
             if key is not None:
@@ -637,13 +632,13 @@ def HandleMeasures(tag, attrib, content, piece):
                     for staff in staves:
                         if part.getMeasure(measure_id, staff) is None:
                             part.addEmptyMeasure(measure_id, staff)
-                        measure= part.getMeasure(measure_id, staff).GetItem()
+                        measure= part.getMeasure(measure_id, staff)
                         measure.newSystem = YesNoToBool(attrib["print"]["new-system"])
                 if "new-page" in attrib["print"]:
                     for staff in staves:
                         if part.getMeasure(measure_id, staff) is None:
                             part.addEmptyMeasure(measure_id, staff)
-                        measure= part.getMeasure(measure_id, staff).GetItem()
+                        measure= part.getMeasure(measure_id, staff)
                         measure.newPage = YesNoToBool(attrib["print"]["new-page"])
             return_val = 1
 
@@ -753,10 +748,8 @@ def HandleMeasures(tag, attrib, content, piece):
 
 def handleClef(tag,attrib,content,piece):
     global staff_id
-    staff = GetID(attrib, "clef", "number")
-    if staff is not None:
-        staff_id = int(staff)
-    else:
+    staff_id = IdAsInt(GetID(attrib, "clef", "number"))
+    if staff_id is None:
         staff_id = 1
     measure_id = IdAsInt(GetID(attrib,"measure","number"))
     part_id = GetID(attrib,"part","id")
@@ -1078,11 +1071,10 @@ def HandleDirections(tags, attrs, chars, piece):
         part_id = GetID(attrs, "part", "id")
         measure = None
         if measure_id is not None and part_id is not None:
-            measure_node = piece.getPart(part_id).getMeasure(measure_id, staff_id)
-            if measure_node is None:
+            measure = piece.getPart(part_id).getMeasure(measure_id, staff_id)
+            if measure is None:
                 piece.getPart(part_id).addEmptyMeasure(measure_id, staff_id)
-                measure_node = piece.getPart(part_id).getMeasure(measure_id, staff_id)
-            measure = measure_node.GetItem()
+                measure = piece.getPart(part_id).getMeasure(measure_id, staff_id)
         placement = None
         if measure is None:
             return None

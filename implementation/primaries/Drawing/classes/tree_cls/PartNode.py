@@ -1,8 +1,8 @@
 try:
     from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
-    from implementation.primaries.Drawing.classes.Directions import OctaveShift
-    from implementation.primaries.Drawing.classes.Note import GraceNote, Arpeggiate, NonArpeggiate
+    from implementation.primaries.Drawing.classes.tree_cls.StaffNode import StaffNode
+    from implementation.primaries.Drawing.classes.tree_cls import MeasureNode
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from classes import Measure, Note, Part, Piece, Directions
@@ -161,13 +161,10 @@ class PartNode(IndexedNode):
         if self.getStaff(staff) is None:
             self.AddChild(StaffNode(), staff)
         staff_obj = self.getStaff(staff)
-        measure_obj = MeasureNode()
-        measure_obj.SetItem(item)
-        staff_obj.AddChild(measure_obj, measure)
+        staff_obj.AddChild(item, measure)
 
     def addEmptyMeasure(self, measure=1, staff=1):
-        measure_obj = Measure.Measure()
-        self.addMeasure(measure_obj, measure=measure, staff=staff)
+        self.addMeasure(MeasureNode.MeasureNode(), measure=measure, staff=staff)
 
     def CalculateVariable(self, name, staves):
         variables = []

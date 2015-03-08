@@ -1,6 +1,10 @@
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes import Directions
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree, PartNode, MeasureNode, NoteNode, DirectionNode, Search
+from implementation.primaries.Drawing.classes.tree_cls.PartNode import PartNode
+from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
+from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Search
+from implementation.primaries.Drawing.classes.tree_cls.NoteNode import NoteNode
+from implementation.primaries.Drawing.classes.tree_cls.OtherNodes import DirectionNode
 import os
 
 partname = "text.xml"

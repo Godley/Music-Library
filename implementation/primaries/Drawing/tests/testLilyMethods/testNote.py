@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.classes import Note, Ornaments, Mark, Directions
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import NoteNode, DirectionNode, StaffNode, MeasureNode
+from implementation.primaries.Drawing.classes.tree_cls.StaffNode import StaffNode
+from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
 
 class testNote(Lily):
     def setUp(self):

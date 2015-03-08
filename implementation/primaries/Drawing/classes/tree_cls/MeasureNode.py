@@ -1,9 +1,10 @@
 try:
-    from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
-    from implementation.primaries.Drawing.classes.tree_cls import PieceTree, NoteNode
-    from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
+    from implementation.primaries.Drawing.classes.tree_cls.BaseTree import IndexedNode, BackwardSearch, Search
+    from implementation.primaries.Drawing.classes.tree_cls.VoiceNode import VoiceNode
+    from implementation.primaries.Drawing.classes.tree_cls.OtherNodes import DirectionNode, ExpressionNode, KeyNode, ClefNode
+    from implementation.primaries.Drawing.classes.tree_cls import NoteNode
+    from implementation.primaries.Drawing.classes import Directions
     from implementation.primaries.Drawing.classes.Directions import OctaveShift
-    from implementation.primaries.Drawing.classes.Note import GraceNote, Arpeggiate, NonArpeggiate
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from classes import Measure, Note, Part, Piece, Directions
@@ -13,9 +14,10 @@ import copy
 
 class MeasureNode(IndexedNode):
     def __init__(self):
-        IndexedNode.__init__(self, rules=[PieceTree.VoiceNode])
+        IndexedNode.__init__(self, rules=[VoiceNode])
         self.index = 0
         self.barlines = {}
+        self.items = []
         self.autoBeam = False
 
     def addWrapper(self, item):
@@ -70,7 +72,7 @@ class MeasureNode(IndexedNode):
         if hasattr(self, "meter"):
             lilystring += self.meter.toLily() + " "
         if hasattr(self, "partial") and self.partial:
-            lilystring += "\\partial "+
+            lilystring += "\\partial "+""
         for item in self.items:
             if not hasattr(item, "type") or (hasattr(item, "type") and item.type != "stop"):
                 lilystring += item.toLily()
@@ -135,18 +137,18 @@ class MeasureNode(IndexedNode):
             if key is not None:
                 return key
             else:
-                if hasattr(self.item, "key"):
-                    return self.item.key
+                if hasattr(self, "key"):
+                    return self.key
         else:
-            if hasattr(self.item, "key"):
-                return self.item.key
+            if hasattr(self, "key"):
+                return self.key
 
     def addKey(self, item, voice=1):
-        if not hasattr(self.item, "key"):
-            self.item.key = item
+        if not hasattr(self, "key"):
+            self.key = item
         else:
             if self.GetChild(voice) is None:
-                self.addVoice(PieceTree.VoiceNode(), voice)
+                self.addVoice(VoiceNode(), voice)
             voice_obj = self.GetChild(voice)
             node = KeyNode()
             node.SetItem(item)
@@ -156,19 +158,19 @@ class MeasureNode(IndexedNode):
 
     def GetLastClef(self, voice=1):
         if self.GetChild(voice) is None:
-            self.addVoice(PieceTree.VoiceNode(), voice)
+            self.addVoice(VoiceNode(), voice)
         voice_obj = self.GetChild(voice)
         if voice_obj is not None:
             key = BackwardSearch(ClefNode, voice_obj, 1)
             if key is not None:
                 return key
             else:
-                if hasattr(self.item, "clef"):
-                    return self.item.clef
+                if hasattr(self, "clef"):
+                    return self.clef
 
     def addClef(self, item, voice=1):
-        if not hasattr(self.item, "clef"):
-            self.item.clef = item
+        if not hasattr(self, "clef"):
+            self.clef = item
         else:
             voice_obj = self.GetChild(voice)
             node = ClefNode()
@@ -179,7 +181,7 @@ class MeasureNode(IndexedNode):
 
     def CheckDivisions(self):
         children = self.GetChildrenIndexes()
-        divisions = self.item.divisions
+        divisions = self.divisions
         for child in children:
             voice = self.GetChild(child)
             indexes = voice.GetChildrenIndexes()
@@ -217,7 +219,7 @@ class MeasureNode(IndexedNode):
 
     def getVoice(self, key):
         if key not in self.children:
-            self.AddChild(PieceTree.VoiceNode(), key)
+            self.AddChild(VoiceNode(), key)
         return self.GetChild(key)
 
     def PositionChild(self, item, key, voice=1):
@@ -238,14 +240,14 @@ class MeasureNode(IndexedNode):
         shift = 0
         # get the appropriate voice
         if self.getVoice(voice) is None:
-            self.addVoice(PieceTree.VoiceNode(), voice)
+            self.addVoice(StaffAndVoice.VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
         last = voice_obj.GetChild(self.index-1)
         if last is not None and hasattr(last, "shift"):
             shift = True
         # set up a basic duration: this val will only be used for a placeholder
         duration = 0
-        if type(item) is not NoteNode.NoteNode and type(item) is not Placeholder:
+        if type(item) is not NoteNode.NoteNode and type(item) is not NoteNode.Placeholder:
             # wrap the item in a node if it isn't wrapped already
             if hasattr(item, "duration"):
                 duration = item.duration
@@ -258,7 +260,7 @@ class MeasureNode(IndexedNode):
         if not chord:
             #get whatever is at the current index
             placeholder = voice_obj.GetChild(self.index)
-            if type(placeholder) is Placeholder and type(node) is not Placeholder:
+            if type(placeholder) is NoteNode.Placeholder and type(node) is not NoteNode.Placeholder:
                 # if it's an empty placeholder, replace it with a note
                 if placeholder.duration == 0:
                     if hasattr(placeholder, "shift"):
@@ -277,13 +279,13 @@ class MeasureNode(IndexedNode):
                         self.PositionChild(node, self.index, voice=voice)
                     else:
                         voice_obj.AddChild(node, self.index)
-                    if type(node) is not Placeholder:
+                    if type(node) is not NoteNode.Placeholder:
                         self.index += 1
 
             # nothing there? add our note
             elif placeholder is None:
                 voice_obj.AddChild(node)
-                if type(node) is not Placeholder:
+                if type(node) is not NoteNode.Placeholder:
                     self.index += 1
             else:
                 proposed_node = voice_obj.GetChild(self.index)
@@ -316,9 +318,9 @@ class MeasureNode(IndexedNode):
 
 
     def addPlaceholder(self, duration=0, voice=1):
-        holder = Placeholder(duration=duration)
+        holder = NoteNode.Placeholder(duration=duration)
         if self.getVoice(voice) is None:
-            self.addVoice(PieceTree.VoiceNode(), voice)
+            self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
         children = voice_obj.GetChildrenIndexes()
         if self.index >= len(children):
@@ -331,17 +333,17 @@ class MeasureNode(IndexedNode):
     def addDirection(self, item, voice=1):
         wrappers = [Directions.Bracket.__name__]
         if item.__class__.__name__ in wrappers and (not hasattr(item, "type") or (hasattr(item, "type") and item.type != "start")):
-            self.item.addWrapper(item)
+            self.addWrapper(item)
             return
         if item.__class__.__name__ in wrappers and hasattr(item, "type") and item.type == "start":
             if hasattr(item, "lineType"):
                 copy_obj = copy.deepcopy(item)
                 copy_obj.type = ""
                 item.lineType = ""
-                self.item.addWrapper(copy_obj)
+                self.addWrapper(copy_obj)
 
         if self.getVoice(voice) is None:
-            self.addVoice(PieceTree.VoiceNode(), voice)
+            self.addVoice(VoiceNode(), voice)
         direction_obj = DirectionNode()
         direction_obj.SetItem(item)
         voice_obj = self.getVoice(voice)
@@ -357,29 +359,29 @@ class MeasureNode(IndexedNode):
             finder = self.index
 
         note_obj = voice_obj.GetChild(finder)
-        if type(note_obj) is NoteNode.NoteNode or type(note_obj) is Placeholder:
+        if type(note_obj) is NoteNode.NoteNode or type(note_obj) is NoteNode.Placeholder:
             note_obj.AttachDirection(direction_obj)
         else:
             self.addPlaceholder()
             if self.index >= len(voice_obj.children):
                 self.index = len(voice_obj.children)-1
             note_obj = voice_obj.GetChild(self.index)
-            if type(note_obj) is Placeholder:
+            if type(note_obj) is NoteNode.Placeholder:
                 note_obj.AttachDirection(direction_obj)
 
     def addExpression(self, item, voice=1):
         if self.getVoice(voice) is None:
-            self.addVoice(PieceTree.VoiceNode(), voice)
+            self.addVoice(VoiceNode(), voice)
         direction_obj = ExpressionNode()
         direction_obj.SetItem(item)
         voice_obj = self.getVoice(voice)
         note_obj = voice_obj.GetChild(self.index)
-        if type(note_obj) is NoteNode.NoteNode or type(note_obj) is Placeholder:
+        if type(note_obj) is NoteNode.NoteNode or type(note_obj) is NoteNode.Placeholder:
             note_obj.AttachExpression(direction_obj)
         else:
             self.addPlaceholder()
             note_obj = voice_obj.GetChild(self.index)
-            if type(note_obj) is Placeholder:
+            if type(note_obj) is NoteNode.Placeholder:
                 note_obj.AttachExpression(direction_obj)
 
     def toLily(self):
@@ -393,8 +395,7 @@ class MeasureNode(IndexedNode):
         if left_barline is not None:
             lilystring += left_barline.toLily()
 
-        wrap = self.item.toLily()
-        lilystring += wrap[0]
+        lilystring += self.HandleAttributes()
         voices = self.GetChildrenIndexes()
 
         if not hasattr(self, "value"):
@@ -417,7 +418,7 @@ class MeasureNode(IndexedNode):
                 lilystring += "}"
         if len(voices) > 1:
             lilystring += ">>"
-        lilystring += wrap[1]
+        lilystring += self.HandleClosingAttributes()
         right_barline = self.GetBarline("right")
         other_rights = self.GetBarline("right-1")
         if other_rights is not None:

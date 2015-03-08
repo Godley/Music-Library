@@ -128,7 +128,6 @@ class testHandleDirections(testclass.TestClass):
     def testBracket(self):
         self.tags.append("bracket")
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        
         self.assertIsInstance(MxmlParser.direction, Directions.Bracket)
 
     def testBracketType(self):
@@ -336,26 +335,26 @@ class testDynamicsAndSound(testHandleDirections):
         self.attrs["sound"] = {"dynamics": "80"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         
-        self.assertTrue(hasattr(self.measure.GetItem(), "volume"))
-        self.assertEqual("80", self.measure.GetItem().volume)
+        self.assertTrue(hasattr(self.measure, "volume"))
+        self.assertEqual("80", self.measure.volume)
 
     def testSoundTempoAttr(self):
         self.tags.append("sound")
         self.attrs["sound"] = {"tempo": "80"}
         self.handler(self.tags, self.attrs, self.chars, self.piece)
         
-        self.assertTrue(hasattr(self.measure.GetItem(), "tempo"))
-        self.assertEqual("80", self.measure.GetItem().tempo)
+        self.assertTrue(hasattr(self.measure, "tempo"))
+        self.assertEqual("80", self.measure.tempo)
 
     def testSoundAttrs(self):
         self.tags.append("sound")
         self.attrs["sound"] = {"dynamics": "60", "tempo": "50"}
         self.handler(self.tags,self.attrs,self.chars,self.piece)
         
-        self.assertTrue(hasattr(self.measure.GetItem(), "tempo"))
-        self.assertEqual("50", self.measure.GetItem().tempo)
-        self.assertTrue(hasattr(self.measure.GetItem(), "volume"))
-        self.assertEqual("60", self.measure.GetItem().volume)
+        self.assertTrue(hasattr(self.measure, "tempo"))
+        self.assertEqual("50", self.measure.tempo)
+        self.assertTrue(hasattr(self.measure, "volume"))
+        self.assertEqual("60", self.measure.volume)
 
     def testWedgeTag(self):
         self.tags.append("wedge")

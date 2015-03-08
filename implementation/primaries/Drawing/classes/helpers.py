@@ -38,3 +38,29 @@ def SplitString(value):
                 lstring += "\" \r\r}"
             lstring += "\n\r } \n }"
     return lstring
+
+def NumbersToWords(number):
+    # little function that converts numbers to words. This could be more efficient,
+    # and won't work if the number is bigger than 999 but it's for stave names,
+    # and I doubt any part would have more than 10 staves let alone 999.
+    units = ['one','two','three','four','five','six','seven','eight','nine']
+    tens = ['ten','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety']
+    output = ""
+    if number != 0:
+        str_val = str(number)
+        if 4 > len(str_val) > 2:
+            output += units[int(str_val[0])-1]
+            output += "hundred"
+            if str_val[1] != 0:
+                output += "and" + tens[int(str_val[1])-1]
+                if str_val[2] != 0:
+                    output += units[int(str_val[2])-1]
+        if 3 > len(str_val) > 1:
+            output += tens[int(str_val[0])-1]
+            if str_val[1] != 0:
+                output += units[int(str_val[1])-1]
+        if 2 > len(str_val) == 1:
+            output += units[int(str_val[0])-1]
+    else:
+        output = "zero"
+    return output

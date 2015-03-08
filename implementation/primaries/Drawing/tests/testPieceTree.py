@@ -1,13 +1,15 @@
 import unittest
-from implementation.primaries.Drawing.classes.tree_cls import BaseTree,PieceTree
+from implementation.primaries.Drawing.classes.tree_cls import BaseTree,PieceTree, NoteNode, MeasureNode, StaffNode
+from implementation.primaries.Drawing.classes.tree_cls.PartNode import PartNode
+
 
 class testPieceTree(unittest.TestCase):
     def setUp(self):
         self.item = PieceTree.PieceTree()
 
     def testAddPartGroup(self):
-        part = PieceTree.PartNode()
-        part2 = PieceTree.PartNode()
+        part = PartNode()
+        part2 = PartNode()
         self.item.AddNode(part, index="P1")
         self.item.AddNode(part2, index="P2")
         self.item.AddToGroup("wind", index="P1")
@@ -15,46 +17,46 @@ class testPieceTree(unittest.TestCase):
         self.assertEqual(self.item.getGroup("wind"), ["P1","P2"])
 
     def testAddPart(self):
-        part = PieceTree.PartNode()
+        part = PartNode()
         self.item.AddNode(part, index="P1")
         self.assertEqual(self.item.FindNodeByIndex("P1"), part)
 
     def testAddInvalidMeasure(self):
-        measure = PieceTree.MeasureNode()
+        measure = MeasureNode.MeasureNode()
         with self.assertRaises(BaseTree.CannotAddToTreeException):
             self.item.AddNode(measure, index=1)
 
     def testFindStaff(self):
-        part = PieceTree.PartNode()
-        staff = PieceTree.StaffNode()
+        part = PartNode()
+        staff = StaffNode.StaffNode()
         self.item.AddNode(part, index="P1")
         self.item.AddNode(staff, index=1)
         self.assertEqual(part.getStaff(1), staff)
 
     def testFindMeasure(self):
-        part = PieceTree.PartNode()
-        staff = PieceTree.StaffNode()
+        part = PartNode()
+        staff = StaffNode.StaffNode()
         self.item.AddNode(part, index="P1")
         self.item.AddNode(staff, index=1)
-        measure = PieceTree.MeasureNode()
+        measure = MeasureNode.MeasureNode()
         self.item.AddNode(measure, index=1)
         self.assertEqual(part.getMeasure(1, 1), measure)
 
     def testAddMeasureOnSecondStave(self):
-        part = PieceTree.PartNode()
-        staff = PieceTree.StaffNode()
-        staff2 = PieceTree.StaffNode()
-        measure = None
+        part = PartNode()
+        staff = StaffNode.StaffNode()
+        staff2 = StaffNode.StaffNode()
+        measure = MeasureNode.MeasureNode()
         self.item.AddNode(part, index="P1")
         self.item.AddNode(staff, index=1)
         self.item.AddNode(staff2, index=2)
         part.addMeasure(measure,staff=2)
-        self.assertEqual(part.getMeasure(1,2).GetItem(),measure)
+        self.assertEqual(part.getMeasure(1,2),measure)
 
 class testAddToMeasure(unittest.TestCase):
     def setUp(self):
         self.item = PieceTree.PieceTree()
-        self.part = PieceTree.PartNode()
+        self.part = PartNode()
         self.item.AddNode(self.part, index="P1")
         self.part.addEmptyMeasure()
         self.measure = self.part.getMeasure()
@@ -104,7 +106,7 @@ class testAddToMeasure(unittest.TestCase):
         self.measure.addNote(1)
         self.measure.Forward(duration=16)
         voice = self.measure.getVoice(1)
-        self.assertIsInstance(voice.GetChild(1), PieceTree.NoteNode)
+        self.assertIsInstance(voice.GetChild(1), NoteNode.NoteNode)
 
     def testBackupAndAddNote(self):
         self.measure.addNote(1)
@@ -126,8 +128,8 @@ class testAddToMeasure(unittest.TestCase):
         note = 2
         note1 = 3
         self.measure.addNote(note)
-        self.measure.addNote(note1)
         self.measure.addDirection(dir)
+        self.measure.addNote(note1)
         voice = self.measure.getVoice(1)
         self.assertEqual(voice.GetChild(1).GetChild(1).GetItem(), dir)
 

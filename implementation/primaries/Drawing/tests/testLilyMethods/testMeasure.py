@@ -1,6 +1,6 @@
 from implementation.primaries.Drawing.classes import Measure, Note, Directions, Meter
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import MeasureNode, StaffNode,NoteNode,DirectionNode
+from implementation.primaries.Drawing.classes.tree_cls.NoteNode import NoteNode
 import unittest
 
 class MeasureTests(Lily):

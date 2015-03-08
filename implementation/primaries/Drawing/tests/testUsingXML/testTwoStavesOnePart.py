@@ -1,6 +1,6 @@
 import unittest, os
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import StaffNode
+from implementation.primaries.Drawing.classes.tree_cls.StaffNode import StaffNode
 
 partname = "two_staves_one_part.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"

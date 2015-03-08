@@ -1,5 +1,7 @@
 from implementation.primaries.Drawing.classes import MxmlParser, Harmony, Piece, Measure, Part, Clef, Key
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree, ClefNode, KeyNode
+from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree
+from implementation.primaries.Drawing.classes.tree_cls.OtherNodes import ClefNode, KeyNode
+from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
 import unittest
 
 
@@ -39,18 +41,18 @@ class testHandleMeasures(MeasureTesting):
 
     def testMeasureTag(self):
         self.handler(self.tags, self.attrs, None, self.piece)
-        self.assertEqual(Measure.Measure, type(self.piece.getPart("P1").getMeasure(1,1).GetItem()))
+        self.assertEqual(MeasureNode, type(self.piece.getPart("P1").getMeasure(1,1)))
 
     def testMeasurePrintTag(self):
         self.tags.append("print")
         self.attrs["print"] = {"new-system":"yes"}
         self.handler(self.tags, self.attrs, None, self.piece)
-        self.assertTrue(hasattr(self.piece.getPart("P1").getMeasure(1,1).GetItem(),"newSystem"))
+        self.assertTrue(hasattr(self.piece.getPart("P1").getMeasure(1,1),"newSystem"))
 
     def testImplicitMeasure(self):
         self.attrs["measure"] = {"number":"1","implicit":"yes"}
         self.handler(self.tags, self.attrs, None, self.piece)
-        self.assertTrue(hasattr(self.piece.getPart("P1").getMeasure(1,1).GetItem(),"partial"))
+        self.assertTrue(hasattr(self.piece.getPart("P1").getMeasure(1,1),"partial"))
 
 class testKeySig(MeasureTesting):
     def tearDown(self):
@@ -110,7 +112,7 @@ class testMeter(MeasureTesting):
         self.tags.append("beats")
         self.chars["beats"] = "3"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
         self.assertTrue(hasattr(exp_measure, "meter"))
         self.assertEqual("single-number", exp_measure.meter.style)
 
@@ -119,7 +121,7 @@ class testMeter(MeasureTesting):
         self.tags.append("beats")
         self.chars["beats"] = "4"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
         self.assertTrue(hasattr(exp_measure, "meter"))
         self.assertEqual(4, exp_measure.meter.beats)
 
@@ -128,7 +130,7 @@ class testMeter(MeasureTesting):
         self.tags.append("beat-type")
         self.chars["beat-type"] = "4"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
         self.assertTrue(hasattr(exp_measure, "meter"))
         self.assertEqual(4, exp_measure.meter.type)
 
@@ -173,7 +175,7 @@ class testTranspose(MeasureTesting):
         self.tags.append("diatonic")
         self.chars["diatonic"] = "0"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
         self.assertTrue(hasattr(exp_measure, "transpose"))
         self.assertEqual("0", exp_measure.transpose.diatonic)
 
@@ -182,7 +184,7 @@ class testTranspose(MeasureTesting):
         self.tags.append("chromatic")
         self.chars["chromatic"] = "0"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
         self.assertTrue(hasattr(exp_measure, "transpose"))
         self.assertEqual("0", exp_measure.transpose.chromatic)
 
@@ -191,7 +193,7 @@ class testTranspose(MeasureTesting):
         self.tags.append("octave-change")
         self.chars["octave-change"] = "1"
         self.handler(self.tags, self.attrs, self.chars, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
         self.assertTrue(hasattr(exp_measure, "transpose"))
         self.assertEqual("1", exp_measure.transpose.octave)
 
@@ -208,7 +210,7 @@ class testPrint(MeasureTesting):
         self.tags.append("print")
         self.attrs["print"] = {"new-system": "yes"}
         self.handler(self.tags, self.attrs, None, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
         self.assertTrue(hasattr(exp_measure, "newSystem"))
         self.assertTrue(exp_measure.newSystem)
 
@@ -216,7 +218,7 @@ class testPrint(MeasureTesting):
         self.tags.append("print")
         self.attrs["print"] = {"new-page": "yes"}
         self.handler(self.tags, self.attrs, None, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
         self.assertTrue(hasattr(exp_measure, "newPage"))
         self.assertTrue(exp_measure.newPage)
 
@@ -224,7 +226,7 @@ class testPrint(MeasureTesting):
         self.tags.append("print")
         self.attrs["print"] = {"new-page": "yes", "new-system": "yes"}
         self.handler(self.tags, self.attrs, None, self.piece)
-        exp_measure =  self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        exp_measure =  self.piece.getPart("P1").getMeasure(1,1)
         self.assertTrue(hasattr(exp_measure, "newPage"))
         self.assertTrue(exp_measure.newPage)
         self.assertTrue(hasattr(exp_measure, "newSystem"))
