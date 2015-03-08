@@ -45,8 +45,12 @@ class testHandleMeasures(MeasureTesting):
         self.tags.append("print")
         self.attrs["print"] = {"new-system":"yes"}
         self.handler(self.tags, self.attrs, None, self.piece)
-        self.assertTrue(hasattr( self.piece.getPart("P1").getMeasure(1,1).GetItem(),"newSystem"))
+        self.assertTrue(hasattr(self.piece.getPart("P1").getMeasure(1,1).GetItem(),"newSystem"))
 
+    def testImplicitMeasure(self):
+        self.attrs["measure"] = {"number":"1","implicit":"yes"}
+        self.handler(self.tags, self.attrs, None, self.piece)
+        self.assertTrue(hasattr(self.piece.getPart("P1").getMeasure(1,1).GetItem(),"partial"))
 
 class testKeySig(MeasureTesting):
     def tearDown(self):

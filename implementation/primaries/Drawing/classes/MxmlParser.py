@@ -551,6 +551,9 @@ def HandleMeasures(tag, attrib, content, piece):
                 if key is not None and type(key) is not Key.Key:
                     key = key.GetItem()
                 measure = measureNode.GetItem()
+        implicit = GetID(attrib, "measure", "implicit")
+        if implicit is not None:
+            measure.partial = YesNoToBool(implicit)
         if tag[-1] == "divisions" and measure is not None:
             measure.divisions = int(content["divisions"])
         if tag[-1] == "key":
