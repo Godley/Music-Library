@@ -6,16 +6,7 @@ from implementation.primaries.Drawing.classes.Note import Arpeggiate, NonArpeggi
 class VoiceNode(Node):
     def __init__(self):
         Node.__init__(self, rules=[NoteNode.NoteNode, NoteNode.Placeholder])
-
-    def GetNoteTotal(self):
-        """gets the total duration of all notes in the current voice"""
-        children = self.GetChildrenIndexes()
-        int_total = 0
-        for child_id in children:
-            child = self.GetChild(child_id)
-            if hasattr(child, "duration"):
-                int_total += child.duration
-        return int_total
+        self.note_total = 0
     
     def RunNoteChecks(self):
         children = self.GetChildrenIndexes()
@@ -91,7 +82,7 @@ class VoiceNode(Node):
     def toLily(self):
         lilystring = ""
         children = self.GetChildrenIndexes()
-        total= self.GetNoteTotal()
+        total= self.note_total
         counter = 0
         for child in range(len(children)):
             note = self.GetChild(children[child])
@@ -99,7 +90,7 @@ class VoiceNode(Node):
             if item is not None:
                 item.autoBeam = self.autoBeam
             if hasattr(note, "duration"):
-                counter += note.duration
+                counter += int(note.duration)
             if counter > total/2:
                 if hasattr(self, "mid_barline"):
                     lilystring += self.mid_barline.toLily()

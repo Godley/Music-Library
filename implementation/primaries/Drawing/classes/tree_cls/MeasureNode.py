@@ -261,7 +261,7 @@ class MeasureNode(IndexedNode):
             node = item
             duration = item.duration
         if not chord:
-            voice_obj.total += duration
+            voice_obj.note_total += int(duration)
             #get whatever is at the current index
             placeholder = voice_obj.GetChild(self.index)
             if type(placeholder) is NoteNode.Placeholder and type(node) is not NoteNode.Placeholder:
@@ -299,16 +299,16 @@ class MeasureNode(IndexedNode):
                         new_duration = item.duration
                     if new_duration == proposed_node.duration:
                         node.SetItem(node.GetItem())
-                        voice_obj.total -= proposed_node.duration
+                        voice_obj.note_total -= int(proposed_node.duration)
                         voice_obj.ReplaceChild(self.index, node)
                     elif new_duration > proposed_node.duration:
                         proposed_node.SetItem(node.GetItem())
                         proposed_node.duration = new_duration
-                        voice_obj.total -= proposed_node.duration
+                        voice_obj.note_total -= int(proposed_node.duration)
                     elif new_duration < proposed_node.duration:
-                        voice_obj.total -= proposed_node.duration + new_duration
+                        voice_obj.note_total -= int(proposed_node.duration) + int(new_duration)
                         proposed_node.duration -= new_duration
-                        voice_obj.total += proposed_node.duration + new_duration
+                        voice_obj.note_total += int(proposed_node.duration) + int(new_duration)
                         voice_obj.AddChild(node)
                         if type(node) is not NoteNode.Placeholder:
                             self.index += 1
@@ -415,7 +415,7 @@ class MeasureNode(IndexedNode):
             v_obj = self.getVoice(voice)
             v_obj.autoBeam = self.autoBeam
             if mid_barline is not None:
-                v_obj.mid_barline = mid_barline
+                v_obj.mid_barline = mid_barline[0]
             v_obj.total = self.value
             if len(voices) > 1:
                 lilystring += " % voice "+str(voice)+"\n"
@@ -460,7 +460,7 @@ class MeasureNode(IndexedNode):
         children = self.GetChildrenIndexes()
         for child in children:
             voice = self.GetChild(child)
-            total = voice.GetNoteTotal()
+            total = voice.note_total
             result = Search(NoteNode.NoteNode, voice, 1)
             if result is None or total == 0:
                 voice = self.PopChild(child)
