@@ -57,6 +57,7 @@ class MeasureNode(IndexedNode):
                     octave_shifters += "".join(["," for i in range(abs(octave))])
         return "\\transpose c' "+lettername+octave_shifters+" {"
 
+
     def HandleAttributes(self):
         lilystring = ""
         if hasattr(self, "newSystem"):
@@ -251,13 +252,16 @@ class MeasureNode(IndexedNode):
             # wrap the item in a node if it isn't wrapped already
             if hasattr(item, "duration"):
                 duration = item.duration
+
             node = NoteNode.NoteNode(duration=duration)
             node.SetItem(item)
             if shift != 0:
                 node.shift = shift
         else:
             node = item
+            duration = item.duration
         if not chord:
+            voice_obj.total += duration
             #get whatever is at the current index
             placeholder = voice_obj.GetChild(self.index)
             if type(placeholder) is NoteNode.Placeholder and type(node) is not NoteNode.Placeholder:
@@ -295,12 +299,16 @@ class MeasureNode(IndexedNode):
                         new_duration = item.duration
                     if new_duration == proposed_node.duration:
                         node.SetItem(node.GetItem())
+                        voice_obj.total -= proposed_node.duration
                         voice_obj.ReplaceChild(self.index, node)
                     elif new_duration > proposed_node.duration:
                         proposed_node.SetItem(node.GetItem())
                         proposed_node.duration = new_duration
+                        voice_obj.total -= proposed_node.duration
                     elif new_duration < proposed_node.duration:
+                        voice_obj.total -= proposed_node.duration + new_duration
                         proposed_node.duration -= new_duration
+                        voice_obj.total += proposed_node.duration + new_duration
                         voice_obj.AddChild(node)
                         if type(node) is not NoteNode.Placeholder:
                             self.index += 1
