@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -49,6 +48,7 @@
     <SUITE FILE_PATH="coverage/FYP$FYP_test_handler_methods.coverage" NAME="FYP test handler methods Coverage Results" MODIFIED="1424788698258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeter.coverage" NAME="Unittests in testMeter Coverage Results" MODIFIED="1425741004270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArticulation.coverage" NAME="Unittests in testArticulation Coverage Results" MODIFIED="1425743471819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$SQLExperiment.coverage" NAME="SQLExperiment Coverage Results" MODIFIED="1425920843485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPlaylister.coverage" NAME="Unittests in testPlaylister Coverage Results" MODIFIED="1419795804913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testRepeatMarks.coverage" NAME="Unittests in testRepeatMarks Coverage Results" MODIFIED="1425860792000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTremolo.coverage" NAME="Unittests in testTremolo Coverage Results" MODIFIED="1425841393935" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
@@ -130,9 +130,12 @@
       <file leaf-file-name="SQLExperiment.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.48387095" vertical-offset="0" max-vertical-offset="496">
+              <caret line="16" column="15" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
+              <folding>
+                <marker date="1425920843000" expanded="true" signature="101:192" placeholder="CREATE TABLE..stocks..." />
+                <marker date="1425920843000" expanded="true" signature="232:295" placeholder="INSERT INTO ..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -339,7 +342,7 @@
     <property name="recentsLimit" value="5" />
     <property name="FullScreen" value="true" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="options.lastSelected" value="configurable.group.appearance" />
+    <property name="options.lastSelected" value="preferences.fileTypes" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="full.screen.before.presentation.mode" value="false" />
@@ -366,32 +369,7 @@
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/to-Verify" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.run inside pycharm">
-    <configuration default="false" name="Unittests in testDirections" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="FYP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testDirections.py" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.SQLExperiment">
     <configuration default="false" name="Unittests in testMeasure" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -495,6 +473,26 @@
       <RunnerSettings RunnerId="PyDebugRunner" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="SQLExperiment" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FYP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -956,19 +954,19 @@
       <item index="9" class="java.lang.String" itemvalue="Python tests.Drawing Lilypond tests" />
       <item index="10" class="java.lang.String" itemvalue="Python tests.Drawing testcases" />
       <item index="11" class="java.lang.String" itemvalue="Python tests.unittests in testtwostavesonepart" />
-      <item index="12" class="java.lang.String" itemvalue="Python tests.Unittests in testDirections" />
-      <item index="13" class="java.lang.String" itemvalue="Python tests.Unittests in testMeasure" />
-      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in testLines" />
-      <item index="15" class="java.lang.String" itemvalue="Python tests.Unittests in run_passed_tests" />
-      <item index="16" class="java.lang.String" itemvalue="Python tests.Unittests in testParser" />
+      <item index="12" class="java.lang.String" itemvalue="Python tests.Unittests in testMeasure" />
+      <item index="13" class="java.lang.String" itemvalue="Python tests.Unittests in testLines" />
+      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in run_passed_tests" />
+      <item index="15" class="java.lang.String" itemvalue="Python tests.Unittests in testParser" />
+      <item index="16" class="java.lang.String" itemvalue="Python.SQLExperiment" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in testParser" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testMeasure" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in run_passed_tests" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in testLines" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in testDirections" />
+        <item index="0" class="java.lang.String" itemvalue="Python.SQLExperiment" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testParser" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testMeasure" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in run_passed_tests" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in testLines" />
       </list>
     </recent_temporary>
   </component>
@@ -984,12 +982,6 @@
       <created>1418346903128</created>
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
-    </task>
-    <task id="LOCAL-00435" summary="work toward issue #154&#10;&#10;lilypond testfixes">
-      <created>1425583948851</created>
-      <option name="number" value="00435" />
-      <option name="project" value="LOCAL" />
-      <updated>1425583948851</updated>
     </task>
     <task id="LOCAL-00436" summary="issue fix #154&#10;&#10;Fixed the issue by adding a new method to the voicenode which gets the total of all notes/placeholders in it's child list. Once the toLily method goes past half way, the barline is outputted and then removed from the class.">
       <created>1425584953948</created>
@@ -1279,7 +1271,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425920171891</updated>
     </task>
-    <option name="localTasksCounter" value="484" />
+    <task id="LOCAL-00484" summary="initial commit for issue #59&#10;&#10;Added a new file for anything relating to playing with SQLite libraries">
+      <created>1425920511598</created>
+      <option name="number" value="00484" />
+      <option name="project" value="LOCAL" />
+      <updated>1425920511598</updated>
+    </task>
+    <option name="localTasksCounter" value="485" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1318,7 +1316,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3861111" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3861111" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850942" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36638454" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1370,7 +1368,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="work towards issue #135&#10;&#10;implemented the addbarline method at part level aswell so that we don't have to mess around with staff objects in the parser code. tested this against test 45e and output looks the same, tho I've marked a todo item where I think there should be a change so that it looks exactly the same as the image on lilypond's website" />
     <MESSAGE value="work toward issue #135&#10;&#10;Implemented the code in main parser and the DoBarlineChecks - changed the flag from a bool to an int so that we can count how many of each type have been added and add the appropriate number of opening/closing repeats to the beginning/end of the piece." />
     <MESSAGE value="issue fix #135&#10;&#10;Made a final change that makes 45d look exactly as expected - where barline has an ending and a repeat, check the ending is the first one. If it is, set the repeat to backward-barline, otherwise ignore it.&#10;Will need to implement issue #134 before the warning goes away, but otherwise, good to go" />
     <MESSAGE value="removed another global variable + shifted some files around&#10;&#10;- removed the global variable last_barline and the associated part checks as these are no longer necessary&#10;- moved the now passed 45d and 45e tests into the passing folder&#10;- moved 45a and 45c into the provided folder as I'd like to get them both passed&#10;- removing the global constitutes work toward issue #132 as this now uses voltas, we just need to change the flags again in staff so that they hold info about how many times the new forward repeat marker needs to repeat, if different from default." />
@@ -1395,7 +1392,8 @@
     <MESSAGE value="work toward voice navigation&#10;&#10;- testcase 46e passes: going to do a check on the other multivoice tests to see what happens now (think most of them are in ignored)&#10;- issue fix #180, note is now under the approriate note" />
     <MESSAGE value="work toward tab fixing&#10;&#10;- issue fix #164: changed to use 2 booleans which are checked when a measure is closed" />
     <MESSAGE value="issue fix #159&#10;&#10;- switched CheckIfTabStaff to check 2 bools instead of every measure&#10;- removed part if drum or tab found&#10;- kept exception and added a couple of tests to check the results" />
-    <option name="LAST_COMMIT_MESSAGE" value="issue fix #159&#10;&#10;- switched CheckIfTabStaff to check 2 bools instead of every measure&#10;- removed part if drum or tab found&#10;- kept exception and added a couple of tests to check the results" />
+    <MESSAGE value="initial commit for issue #59&#10;&#10;Added a new file for anything relating to playing with SQLite libraries" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial commit for issue #59&#10;&#10;Added a new file for anything relating to playing with SQLite libraries" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2023,11 +2021,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/example.db">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48387095" vertical-offset="0" max-vertical-offset="496">
+          <caret line="16" column="15" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
+          <folding>
+            <marker date="1425920843000" expanded="true" signature="101:192" placeholder="CREATE TABLE..stocks..." />
+            <marker date="1425920843000" expanded="true" signature="232:295" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
