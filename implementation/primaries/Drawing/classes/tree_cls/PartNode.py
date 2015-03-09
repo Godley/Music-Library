@@ -3,6 +3,7 @@ try:
     from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
     from implementation.primaries.Drawing.classes.tree_cls.StaffNode import StaffNode
     from implementation.primaries.Drawing.classes.tree_cls import MeasureNode
+    from implementation.primaries.Drawing.classes import helpers
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from classes import Measure, Note, Part, Piece, Directions
@@ -177,10 +178,10 @@ class PartNode(IndexedNode):
                 variable = ""
                 for letter in no_dots:
                     if letter in [str(i) for i in range(10)]:
-                        variable += Part.NumbersToWords(int(letter))
+                        variable += helpers.NumbersToWords(int(letter))
                     else:
                         variable += letter
-            variable += "staff"+Part.NumbersToWords(staff)
+            variable += "staff"+helpers.NumbersToWords(staff)
             variables.append(variable)
         return variables
 
@@ -205,9 +206,9 @@ class PartNode(IndexedNode):
         shortname = ""
         if hasattr(self.item, "name"):
             name = self.item.name
-            name = SplitString(name)
+            name = helpers.SplitString(name)
         if hasattr(self.item, "shortname"):
-            shortname = SplitString(self.item.shortname)
+            shortname = helpers.SplitString(self.item.shortname)
         variables = self.CalculateVariable(str(self.index), staves)
         first_part = ""
         for staff, variable in zip(staves, variables):

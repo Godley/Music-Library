@@ -31,7 +31,7 @@ class testMeasure1(xmlSet):
         self.left_number = 1
         self.left_type = "start"
         self.right_number = 1
-        self.right_type = "stop"
+        self.right_type = "discontinue"
         self.right_repeat = "backward-barline"
         self.right_style = "light-heavy"
         self.piece = parsePiece(os.path.join(folder, partname))

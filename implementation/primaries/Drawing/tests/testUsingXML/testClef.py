@@ -17,7 +17,7 @@ class testClef(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode.PartNode)
         self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):

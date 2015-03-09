@@ -55,7 +55,7 @@ class testTimeMod(xmlSet):
             if hasattr(self, "type") and self.type == "start":
                 self.assertIsInstance(self.item.prenotation[self.notation_id], Note.Tuplet)
             else:
-                self.assertIsInstance(self.item.wrap_notation[self.notation_id], Note.Tuplet)
+                self.assertIsInstance(self.item.closing_notation[self.notation_id], Note.Tuplet)
 
     def testType(self):
         if hasattr(self, "item") and hasattr(self, "type"):
@@ -63,7 +63,7 @@ class testTimeMod(xmlSet):
                 self.assertEqual(self.type, self.item.prenotation[self.notation_id].type)
 
             else:
-                self.assertEqual(self.type, self.item.wrap_notation[self.notation_id].type)
+                self.assertEqual(self.type, self.item.closing_notation[self.notation_id].type)
 
     def testBracket(self):
         if hasattr(self, "item") and hasattr(self, "bracket"):

@@ -34,7 +34,7 @@ class testTremolo(xmlSet):
             self.item = Search(NoteNode, self.measure, self.item_id+1).GetItem()
         if hasattr(self, "notation_id"):
             if self.type == "stop":
-                self.notation = self.item.wrap_notation[self.notation_id]
+                self.notation = self.item.closing_notation[self.notation_id]
             else:
                 self.notation = self.item.prenotation[self.notation_id]
 
@@ -47,7 +47,7 @@ class testTremolo(xmlSet):
                     self.assertEqual(1, len(self.item.prenotation))
             else:
                 if self.type == "stop":
-                    self.assertEqual(self.notate_num, len(self.item.wrap_notation))
+                    self.assertEqual(self.notate_num, len(self.item.closing_notation))
                 else:
                     self.assertEqual(self.notate_num, len(self.item.prenotation))
 

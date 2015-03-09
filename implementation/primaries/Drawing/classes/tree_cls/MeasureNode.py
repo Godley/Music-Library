@@ -240,7 +240,7 @@ class MeasureNode(IndexedNode):
         shift = 0
         # get the appropriate voice
         if self.getVoice(voice) is None:
-            self.addVoice(StaffAndVoice.VoiceNode(), voice)
+            self.addVoice(VoiceNode(), voice)
         voice_obj = self.getVoice(voice)
         last = voice_obj.GetChild(self.index-1)
         if last is not None and hasattr(last, "shift"):
@@ -399,7 +399,7 @@ class MeasureNode(IndexedNode):
         voices = self.GetChildrenIndexes()
 
         if not hasattr(self, "value"):
-            self.value = self.GetItem().GetTotalValue()
+            self.value = self.GetTotalValue()
         if len(voices) > 1:
             lilystring += "<<"
         for voice in voices:

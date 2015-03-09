@@ -1226,7 +1226,7 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
         measure_id = IdAsInt(GetID(attrs, "measure","number"))
         if part_id is not None:
             if measure_id is not None:
-                measure = piece.getPart(part_id).getMeasure(measure_id, staff_id).GetItem()
+                measure = piece.getPart(part_id).getMeasure(measure_id, staff_id)
 
         if measure is not None:
             d_type = None

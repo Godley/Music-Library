@@ -44,11 +44,11 @@ class testSegno(xmlSet):
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure.GetItem(), "segno"))
+            self.assertTrue(hasattr(self.measure, "segno"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.segno, self.measure.GetItem().segno)
+            self.assertEqual(self.segno, self.measure.segno)
 
 
 class testCoda(xmlSet):
@@ -69,11 +69,11 @@ class testCoda(xmlSet):
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure.GetItem(), "coda"))
+            self.assertTrue(hasattr(self.measure, "coda"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.coda, self.measure.GetItem().coda)
+            self.assertEqual(self.coda, self.measure.coda)
 
 class testFine(xmlSet):
     def setUp(self):
@@ -88,16 +88,16 @@ class testFine(xmlSet):
             self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
 
         if hasattr(self, "item_id"):
-            note = Search(NoteNode, self.measure, 1)
+            note = Search(Placeholder, self.measure, 1)
             self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure.GetItem(), "fine"))
+            self.assertTrue(hasattr(self.measure, "fine"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.fine, self.measure.GetItem().fine)
+            self.assertEqual(self.fine, self.measure.fine)
 
     def testItem(self):
         if hasattr(self, "item"):
@@ -119,16 +119,16 @@ class testDaCapo(xmlSet):
             self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
 
         if hasattr(self, "item_id"):
-            note = Search(NoteNode, self.measure, 1)
+            note = Search(Placeholder, self.measure, 1)
             self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure.GetItem(), "dacapo"))
+            self.assertTrue(hasattr(self.measure, "dacapo"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.dacapo, self.measure.GetItem().dacapo)
+            self.assertEqual(self.dacapo, self.measure.dacapo)
 
     def testItem(self):
         if hasattr(self, "item"):
@@ -149,19 +149,18 @@ class testDaCapoAlFine(xmlSet):
         self.dacapo = True
         if hasattr(self, "measure_id"):
             self.measureNode = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
-            self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            note = Search(NoteNode, self.measureNode, 1)
+            note = Search(Placeholder, self.measureNode, 1)
             self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure, "dacapo"))
+            self.assertTrue(hasattr(self.measureNode, "dacapo"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.dacapo, self.measure.dacapo)
+            self.assertEqual(self.dacapo, self.measureNode.dacapo)
 
     def testItem(self):
         if hasattr(self, "item"):
@@ -182,19 +181,18 @@ class testDaCapoAlCoda(xmlSet):
         self.dacapo = True
         if hasattr(self, "measure_id"):
             self.measureNode = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
-            self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            note = Search(NoteNode, self.measureNode, 1)
+            note = Search(Placeholder, self.measureNode, 1)
             self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure, "dacapo"))
+            self.assertTrue(hasattr(self.measureNode, "dacapo"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.dacapo, self.measure.dacapo)
+            self.assertEqual(self.dacapo, self.measureNode.dacapo)
 
     def testItem(self):
         if hasattr(self, "item"):
@@ -214,10 +212,9 @@ class testDalSegnoAlCoda(xmlSet):
         self.dalsegno = "segno"
         if hasattr(self, "measure_id"):
             self.measureNode = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
-            self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            note = Search(NoteNode, self.measureNode, 1)
+            note = Search(Placeholder, self.measureNode, 1)
             self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
@@ -249,16 +246,16 @@ class testDalSegnoAlFine(xmlSet):
             self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            note = Search(NoteNode, self.measureNode, 1)
+            note = Search(Placeholder, self.measureNode, 1)
             self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure, "dalsegno"))
+            self.assertTrue(hasattr(self.measureNode, "dalsegno"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.dalsegno, self.measure.dalsegno)
+            self.assertEqual(self.dalsegno, self.measureNode.dalsegno)
 
     def testItem(self):
         if hasattr(self, "item"):
@@ -281,16 +278,16 @@ class testDalSegno(xmlSet):
             self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            note = Search(NoteNode, self.measureNode, 1)
+            note = Search(Placeholder, self.measureNode, 1)
             self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure, "dalsegno"))
+            self.assertTrue(hasattr(self.measureNode, "dalsegno"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.dalsegno, self.measure.dalsegno)
+            self.assertEqual(self.dalsegno, self.measureNode.dalsegno)
 
     def testItem(self):
         if hasattr(self, "item"):
@@ -310,19 +307,18 @@ class testToCoda(xmlSet):
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
             self.measureNode = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
-            self.measure = self.measureNode.GetItem()
 
         if hasattr(self, "item_id"):
-            note = Search(NoteNode, self.measureNode, 1)
+            note = Search(Placeholder, self.measureNode, 1)
             self.item = Search(DirectionNode, note, 1).GetItem()
 
     def testHasAttr(self):
         if hasattr(self, "measure"):
-            self.assertTrue(hasattr(self.measure, "tocoda"))
+            self.assertTrue(hasattr(self.measureNode, "tocoda"))
 
     def testValue(self):
         if hasattr(self, "measure"):
-            self.assertEqual(self.tocoda, self.measure.tocoda)
+            self.assertEqual(self.tocoda, self.measureNode.tocoda)
 
     def testItem(self):
         if hasattr(self, "item"):

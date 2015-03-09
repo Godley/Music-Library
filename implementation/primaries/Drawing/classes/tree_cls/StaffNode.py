@@ -15,8 +15,7 @@ class StaffNode(IndexedNode):
         total = "1"
         for m_id in measures:
             mNode = self.GetChild(m_id)
-            mItem = mNode.GetItem()
-            mItemTotal = mItem.GetTotalValue()
+            mItemTotal = mNode.GetTotalValue()
             if mItemTotal == "":
                 mNode.value = total
             else:
