@@ -7,6 +7,21 @@ class VoiceNode(Node):
     def __init__(self):
         Node.__init__(self, rules=[NoteNode.NoteNode, NoteNode.Placeholder])
         self.note_total = 0
+        self.note_types = []
+
+    def addNoteDuration(self, duration):
+        self.note_total += duration
+        self.note_types.append(duration)
+
+    def removeNoteDuration(self, duration):
+        self.note_total -= duration
+        self.note_types.remove(duration)
+
+    def GetAllNoteTypes(self):
+        """ method to collect all note values from each node
+        :return: list of note values
+        """
+        return self.note_types
     
     def RunNoteChecks(self):
         children = self.GetChildrenIndexes()

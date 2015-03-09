@@ -116,11 +116,41 @@ class testPartialMeasure(MeasureTests):
         note = Note.Note(type="quarter")
         note.pitch = Note.Pitch()
         self.item.addNote(note)
-        self.lilystring = "\\time 4/4 \partial 4 c'4 | "
+        self.lilystring = "\\time 4/4 \partial 4 c'4  | "
         self.compile = True
         self.wrappers = ["\\new Staff {", "}"]
         Lily.setUp(self)
         self.name = "measurePartial"
+
+class testPartialMeasureTwoNotes(Lily):
+    def setUp(self):
+        self.item = MeasureNode(partial=True)
+        self.item.meter = Meter.Meter(type=4,beats=4)
+        note = Note.Note()
+        note.SetType("quarter")
+        note.pitch = Note.Pitch(octave=4)
+        note2 = Note.Note()
+        note2.SetType("quarter")
+        note2.pitch = Note.Pitch(octave=4)
+        self.item.addNote(note)
+        self.item.addNote(note2)
+        Lily.setUp(self)
+        self.lilystring = "\\time 4/4 \partial 2 c'4 c'4 | "
+
+class testPartialMeasureTwoNotesDifferentTypes(Lily):
+    def setUp(self):
+        self.item = MeasureNode(partial=True)
+        self.item.meter = Meter.Meter(type=4,beats=4)
+        note = Note.Note()
+        note.SetType("quarter")
+        note.pitch = Note.Pitch(octave=4)
+        note2 = Note.Note()
+        note2.SetType("half")
+        note2.pitch = Note.Pitch(octave=4)
+        self.item.addNote(note)
+        self.item.addNote(note2)
+        Lily.setUp(self)
+        self.lilystring = "\\time 4/4 \partial 2. c'4 c'2 | "
 
 class testMeasureTranspositionCalc(unittest.TestCase):
     def setUp(self):
