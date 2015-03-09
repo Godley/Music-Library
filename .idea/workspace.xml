@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="partial measure work&#10;&#10;- added a list to voice which keeps track of all the note durations in the voice&#10;- need to figure out how to use this - work on issue #116">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/02e-Rests-NoType.xml" afterPath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/ignored-lilypond-testcases/02e-Rests-NoType.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/21e-Chords-PickupMeasures.xml" afterPath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/21e-Chords-PickupMeasures.xml" />
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/expected/21e-Chords-PickupMeasures.ly" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/expected/46d-PickupMeasure-ImplicitMeasures.ly" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/MeasureNode.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/MeasureNode.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -63,7 +63,7 @@
     <SUITE FILE_PATH="coverage/FYP$xmlToObject.coverage" NAME="xmlToObject Coverage Results" MODIFIED="1418666322776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testParser.coverage" NAME="Unittests in testParser Coverage Results" MODIFIED="1425649800926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNotehead.coverage" NAME="Unittests in testNotehead Coverage Results" MODIFIED="1419898720944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeasure.coverage" NAME="Unittests in testMeasure Coverage Results" MODIFIED="1425908796658" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeasure.coverage" NAME="Unittests in testMeasure Coverage Results" MODIFIED="1425910740066" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNote.coverage" NAME="Unittests in testNote Coverage Results" MODIFIED="1425748160810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testWhatHappensWhenIDoThis.coverage" NAME="Unittests in testWhatHappensWhenIDoThis Coverage Results" MODIFIED="1425652511258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFolderParser.coverage" NAME="Unittests in testFolderParser Coverage Results" MODIFIED="1419820128744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
@@ -87,7 +87,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testUnzipper.coverage" NAME="Unittests in testUnzipper Coverage Results" MODIFIED="1419717350738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testtext.coverage" NAME="Unittests in testtext Coverage Results" MODIFIED="1423411041193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeta.coverage" NAME="Unittests in testMeta Coverage Results" MODIFIED="1424033301783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$run_inside_pycharm.coverage" NAME="run inside pycharm Coverage Results" MODIFIED="1425909093888" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
+    <SUITE FILE_PATH="coverage/FYP$run_inside_pycharm.coverage" NAME="run inside pycharm Coverage Results" MODIFIED="1425909936658" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches__1_.coverage" NAME="Unittests in testHandleNotesAndPitches (1) Coverage Results" MODIFIED="1424192729501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testKey.coverage" NAME="Unittests in testKey Coverage Results" MODIFIED="1420327826313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Piece.coverage" NAME="Piece Coverage Results" MODIFIED="1422221459924" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/classes" />
@@ -132,8 +132,8 @@
       <file leaf-file-name="MeasureNode.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/MeasureNode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.222222" vertical-offset="4434" max-vertical-offset="7140">
-              <caret line="356" column="41" selection-start-line="356" selection-start-column="41" selection-end-line="356" selection-end-column="41" />
+            <state vertical-scroll-proportion="-5.2222223" vertical-offset="4794" max-vertical-offset="7320">
+              <caret line="362" column="51" selection-start-line="362" selection-start-column="51" selection-end-line="362" selection-end-column="51" />
               <folding>
                 <element signature="e#1274#1367#0" expanded="false" />
                 <element signature="e#1415#2517#0" expanded="false" />
@@ -142,30 +142,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="21e-Chords-PickupMeasures.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="46e-PickupMeasure-SecondVoiceStartsLater.ly" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/46e-PickupMeasure-SecondVoiceStartsLater.ly">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="21e-Chords-PickupMeasures.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/21e-Chords-PickupMeasures.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="1395">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="46d-PickupMeasure-ImplicitMeasures.ly" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/46d-PickupMeasure-ImplicitMeasures.ly">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6770833" vertical-offset="195" max-vertical-offset="525">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="21e-Chords-PickupMeasures.ly" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/expected/21e-Chords-PickupMeasures.ly">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
+            <state vertical-scroll-proportion="-0.15625" vertical-offset="45" max-vertical-offset="1395">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -175,8 +165,8 @@
       <file leaf-file-name="testMeasure.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2337" max-vertical-offset="3735">
-              <caret line="168" column="62" selection-start-line="168" selection-start-column="62" selection-end-line="168" selection-end-column="62" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1977" max-vertical-offset="3975">
+              <caret line="137" column="58" selection-start-line="137" selection-start-column="58" selection-end-line="137" selection-end-column="58" />
               <folding>
                 <element signature="e#0#85#0" expanded="true" />
               </folding>
@@ -225,7 +215,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/Spanners/33c-Spanners-Slurs.ly" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testArticulation.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/03b-Rhythm-Backup.ly" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
@@ -274,6 +263,7 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testLines.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/43e-Multistaff-ClefDynamics.ly" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/VoiceNode.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/46e-PickupMeasure-SecondVoiceStartsLater.ly" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/MeasureNode.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py" />
       </list>
@@ -456,6 +446,70 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="SampleMusicXML" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testcases" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lilypond-passing-tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SampleMusicXML" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testcases" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lilypond-passing-tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="expected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Drawing" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -554,7 +608,7 @@
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/to-Verify" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.run inside pycharm">
+  <component name="RunManager" selected="Python tests.Unittests in testMeasure">
     <configuration default="false" name="Unittests in testClef" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -1171,12 +1225,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00429" summary="work toward issue #124&#10;&#10;changed the cast in the toLily method of text class to be a float rather than an int: this was causing some issues with testcase 31a because font sizes like 10.25 can't be cast by an int, but they're not text and yet the exception handler tells the system to output it as is rather than attaching &quot;abs-fontsize&quot;. I think this has now fixed that particular testcase or whatever else I was working on has, but I'm waiting on the lilypond server to come back up so I can check. Also there's still some barcheck failures that I need to get rid of and a warning about a text spanner.">
-      <created>1425578326634</created>
-      <option name="number" value="00429" />
-      <option name="project" value="LOCAL" />
-      <updated>1425578326634</updated>
-    </task>
     <task id="LOCAL-00430" summary="work toward issue #151&#10;&#10;Implemented system break notation">
       <created>1425579232902</created>
       <option name="number" value="00430" />
@@ -1465,7 +1513,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425905951584</updated>
     </task>
-    <option name="localTasksCounter" value="478" />
+    <task id="LOCAL-00478" summary="partial measure work&#10;&#10;- handling for singular notes in measure works&#10;- handling for a measure containing halves of starter measure (e.g c'2 c'4 c'8 etc)&#10;- work toward issue #116&#10;- moved tests that pass or don't fail too hard into relevant folders (02e is in ignored due to issue #175, but chorded testcase works just fine)">
+      <created>1425909227778</created>
+      <option name="number" value="00478" />
+      <option name="project" value="LOCAL" />
+      <updated>1425909227778</updated>
+    </task>
+    <option name="localTasksCounter" value="479" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1490,7 +1544,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="714" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32406288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32706222" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1504,7 +1558,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.434375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.434375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850942" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.48949918" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1556,7 +1610,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #163&#10;&#10;dynamic tests now pass - handled this by switching the finder id to self.index, rather than self.index-1" />
     <MESSAGE value="work toward issue #124&#10;&#10;Got some more symbols working in the right place" />
     <MESSAGE value="issue fix #124&#10;&#10;Closing this issue as it mostly looks ok and doesn't fail any bar checks, but there's a couple of symbols that aren't covered so I'm moving the testcase to ignored" />
     <MESSAGE value="issue fix #136&#10;&#10;Fixed the problem by reinstating the barline check at the end of every measure, which looks at the previous bar we loaded and checks whether it has an ending - if it does, and the new one doesn't, then change it's type from &quot;stop&quot; to &quot;discontinue&quot; which adds an extra closing brace to end the alternative ending section. Testcase 45e now passes, so have moved the outputted lily file to &quot;expected&quot; and the xml file to the passing tests folder" />
@@ -1581,7 +1634,8 @@
     <MESSAGE value="changed voice totaller&#10;&#10;- added incrementer and decrementers to addNote, issue #165&#10;- started calculator method for implicit measure handling, issue #116" />
     <MESSAGE value="voice totaller work&#10;&#10;- checked any errors with new method of voice totalling using the mid-measure barline testcase, which is what the totaller was put in for in the first place&#10;- test now passes, issue fix #165" />
     <MESSAGE value="partial measure work&#10;&#10;- added a list to voice which keeps track of all the note durations in the voice&#10;- need to figure out how to use this - work on issue #116" />
-    <option name="LAST_COMMIT_MESSAGE" value="partial measure work&#10;&#10;- added a list to voice which keeps track of all the note durations in the voice&#10;- need to figure out how to use this - work on issue #116" />
+    <MESSAGE value="partial measure work&#10;&#10;- handling for singular notes in measure works&#10;- handling for a measure containing halves of starter measure (e.g c'2 c'4 c'8 etc)&#10;- work toward issue #116&#10;- moved tests that pass or don't fail too hard into relevant folders (02e is in ignored due to issue #175, but chorded testcase works just fine)" />
+    <option name="LAST_COMMIT_MESSAGE" value="partial measure work&#10;&#10;- handling for singular notes in measure works&#10;- handling for a measure containing halves of starter measure (e.g c'2 c'4 c'8 etc)&#10;- work toward issue #116&#10;- moved tests that pass or don't fail too hard into relevant folders (02e is in ignored due to issue #175, but chorded testcase works just fine)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1689,14 +1743,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testDurationAndStems.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3270">
-          <caret line="2" column="60" selection-start-line="2" selection-start-column="60" selection-end-line="2" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testFingering.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3285">
@@ -2183,20 +2229,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/46e-PickupMeasure-SecondVoiceStartsLater.ly">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2337" max-vertical-offset="3735">
-          <caret line="168" column="62" selection-start-line="168" selection-start-column="62" selection-end-line="168" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#85#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/MeasureNode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.222222" vertical-offset="4434" max-vertical-offset="7140">
-          <caret line="356" column="41" selection-start-line="356" selection-start-column="41" selection-end-line="356" selection-end-column="41" />
+        <state vertical-scroll-proportion="-5.2222223" vertical-offset="4794" max-vertical-offset="7320">
+          <caret line="362" column="51" selection-start-line="362" selection-start-column="51" selection-end-line="362" selection-end-column="51" />
           <folding>
             <element signature="e#1274#1367#0" expanded="false" />
             <element signature="e#1415#2517#0" expanded="false" />
@@ -2204,17 +2248,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/21e-Chords-PickupMeasures.xml">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="1395">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1977" max-vertical-offset="3975">
+          <caret line="137" column="58" selection-start-line="137" selection-start-column="58" selection-end-line="137" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#85#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/expected/46d-PickupMeasure-ImplicitMeasures.ly">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.6770833" vertical-offset="225" max-vertical-offset="570">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/46d-PickupMeasure-ImplicitMeasures.ly">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/21e-Chords-PickupMeasures.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6770833" vertical-offset="195" max-vertical-offset="525">
+        <state vertical-scroll-proportion="-0.15625" vertical-offset="45" max-vertical-offset="1395">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>

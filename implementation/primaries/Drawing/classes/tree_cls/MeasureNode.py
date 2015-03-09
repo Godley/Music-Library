@@ -352,10 +352,22 @@ class MeasureNode(IndexedNode):
                     total = note_types[0]
                     result = str(total)
                     previous = total
+                    count = 0
                     for value in note_types[1:]:
                         if previous * 2 == value:
                             result += "."
+                        if previous == value:
+                            if total >= previous:
+                                total -= previous
+                            else:
+                                total -= previous/2
+                            total += previous/2
+                            value = previous/2
                         previous = value
+
+                    first_digit = str(int(total))
+                    result = first_digit + result[1:]
+
 
         return result
 
