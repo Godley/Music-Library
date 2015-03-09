@@ -512,10 +512,10 @@ def handleOtherNotations(tag, attrs, content, piece):
                     text = content[tag[-1]]
                 note.addNotation(Mark.Technique(type=tag[-1], symbol=text))
             elif len(tag) >= 3 and tag[-3] == "technical" and tag[-2] == "bend":
-                bend_val = None
+                bend_val = 0
                 if tag[-1] in content:
                     bend_val = content[tag[-1]]
-                note.addNotation(Mark.Bend(value=int(bend_val)))
+                note.addNotation(Mark.Bend(value=float(bend_val)))
 
             return 1
     return None
