@@ -1,0 +1,31 @@
+\documentclass{article}
+
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{tabularx}
+
+\newcolumntype{S}{>{\centering\arraybackslash}m{1.5em}}
+
+\renewcommand{\tabularxcolumn}[1]{m{#1}} % redefine 'X' to use 'm'
+
+\begin{document}
+\section*{Feedback survey for A Sheet Music Organisation System}
+Please answer the following questions by marking a tick in the box according to how easy each feature it is to use, where 1 is difficult to use and 5 is easy to use.
+\makebox[\textwidth]{%
+\begin{tabularx}{1.2\textwidth}{|X|S|S|S|S|S|X|}
+  \hline
+  Task & 1 & 2 & 3 & 4 & 5 & Comments on how to improve\\
+  \hline
+  \hline
+Importing a piece  & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ &        \\[10ex] \hline
+Refreshing the collection & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ &        \\[10ex] \hline
+Creating a new playlist & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ &  \\[10ex] \hline
+Editing a playlist & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ &  \\[10ex] \hline
+Finding a piece by clef & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ &  \\[10ex] \hline
+Finding a piece by key & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ &  \\[10ex] \hline
+Finding all pieces in a key & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ &  \\[10ex] \hline
+Finding all pieces in 4/4 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ &  \\[10ex] \hline
+\end{tabularx}%
+}
+
+\end{document}

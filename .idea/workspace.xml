@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -983,12 +982,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00436" summary="issue fix #154&#10;&#10;Fixed the issue by adding a new method to the voicenode which gets the total of all notes/placeholders in it's child list. Once the toLily method goes past half way, the barline is outputted and then removed from the class.">
-      <created>1425584953948</created>
-      <option name="number" value="00436" />
-      <option name="project" value="LOCAL" />
-      <updated>1425584953948</updated>
-    </task>
     <task id="LOCAL-00437" summary="issue fix #147&#10;&#10;Added a new test and changed the output where the print attribute is checked. Confirmed this works on testcase, not moved it to pass folder because there's 1 other issue to fix on the testcase (removing noteheads/stems)">
       <created>1425590632809</created>
       <option name="number" value="00437" />
@@ -1277,7 +1270,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425920511598</updated>
     </task>
-    <option name="localTasksCounter" value="485" />
+    <task id="LOCAL-00485" summary="work toward issue #59">
+      <created>1425920908098</created>
+      <option name="number" value="00485" />
+      <option name="project" value="LOCAL" />
+      <updated>1425920908098</updated>
+    </task>
+    <option name="localTasksCounter" value="486" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1368,7 +1367,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="work toward issue #135&#10;&#10;Implemented the code in main parser and the DoBarlineChecks - changed the flag from a bool to an int so that we can count how many of each type have been added and add the appropriate number of opening/closing repeats to the beginning/end of the piece." />
     <MESSAGE value="issue fix #135&#10;&#10;Made a final change that makes 45d look exactly as expected - where barline has an ending and a repeat, check the ending is the first one. If it is, set the repeat to backward-barline, otherwise ignore it.&#10;Will need to implement issue #134 before the warning goes away, but otherwise, good to go" />
     <MESSAGE value="removed another global variable + shifted some files around&#10;&#10;- removed the global variable last_barline and the associated part checks as these are no longer necessary&#10;- moved the now passed 45d and 45e tests into the passing folder&#10;- moved 45a and 45c into the provided folder as I'd like to get them both passed&#10;- removing the global constitutes work toward issue #132 as this now uses voltas, we just need to change the flags again in staff so that they hold info about how many times the new forward repeat marker needs to repeat, if different from default." />
     <MESSAGE value="work toward issue #132&#10;&#10;changed the staff flags for forward and backward repeats to be lists - this should now create the appropriate repeats with the repeat number attribute" />
@@ -1393,7 +1391,8 @@
     <MESSAGE value="work toward tab fixing&#10;&#10;- issue fix #164: changed to use 2 booleans which are checked when a measure is closed" />
     <MESSAGE value="issue fix #159&#10;&#10;- switched CheckIfTabStaff to check 2 bools instead of every measure&#10;- removed part if drum or tab found&#10;- kept exception and added a couple of tests to check the results" />
     <MESSAGE value="initial commit for issue #59&#10;&#10;Added a new file for anything relating to playing with SQLite libraries" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit for issue #59&#10;&#10;Added a new file for anything relating to playing with SQLite libraries" />
+    <MESSAGE value="work toward issue #59" />
+    <option name="LAST_COMMIT_MESSAGE" value="work toward issue #59" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
