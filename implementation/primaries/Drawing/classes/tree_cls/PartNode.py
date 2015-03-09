@@ -131,32 +131,6 @@ class PartNode(IndexedNode):
     def getStaff(self, key):
         return self.GetChild(key)
 
-    def CheckIfTabStaff(self, measure):
-        staves = self.GetChildrenIndexes()
-        for staff in staves:
-            stave = self.getStaff(staff)
-            measureNode = self.getMeasure(measure, staff)
-            if measureNode is not None:
-                item = measureNode.GetItem()
-                if hasattr(item, "clef"):
-                    clef = item.clef
-                    if clef.sign == "percussion" and not hasattr(stave, "drum"):
-                        stave.drum = True
-                    else:
-                        stave.drum = False
-                        break
-
-                    if clef.sign == "TAB" and not hasattr(stave, "tab"):
-                        stave.tab = True
-
-                    else:
-                        stave.tab = False
-                        break
-
-            if hasattr(stave, "tab") and stave.tab:
-                return "ERROR: THIS APPLICATION DOES NOT HANDLE TAB NOTATION"
-            if hasattr(stave, "drum") and stave.drum:
-                return "ERROR: THIS APPLICATION DOES NOT HANDLE DRUM NOTATION"
 
     def addMeasure(self, item, measure=1, staff=1):
         if self.getStaff(staff) is None:
@@ -196,6 +170,30 @@ class PartNode(IndexedNode):
                 measure = self.getMeasure(measure_id, staff_id)
                 if measure is not None:
                     measure.addKey(item)
+
+    def addClef(self, item, measure_id, staff_id, voice):
+        measure = self.getMeasure(measure_id, staff_id)
+        if measure is not None:
+            measure.addClef(item, voice)
+        else:
+            self.addEmptyMeasure(measure_id, staff_id)
+            measure = self.getMeasure(measure_id, staff_id)
+            if measure is not None:
+                measure.addClef(item)
+        if item.sign == "percussion":
+            self.drum = True
+        else:
+            self.drum = False
+        if item.sign == "tab":
+            self.tab = True
+        else:
+            self.tab = False
+
+    def CheckIfTabStaff(self):
+        if self.tab:
+            return "TAB"
+        if self.drum:
+            return "DRUM"
 
 
     def toLily(self):

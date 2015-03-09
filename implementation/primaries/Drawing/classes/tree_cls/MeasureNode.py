@@ -523,11 +523,12 @@ class MeasureNode(IndexedNode):
 
     def RunVoiceChecks(self):
         children = self.GetChildrenIndexes()
-        for child in children:
-            voice = self.GetChild(child)
-            total = voice.note_total
-            result = Search(NoteNode.NoteNode, voice, 1)
-            if result is None or total == 0:
-                voice = self.PopChild(child)
-                self.CopyDirectionsAndExpressions(voice)
-            voice.RunNoteChecks()
+        if len(children) > 1:
+            for child in children:
+                voice = self.GetChild(child)
+                total = voice.note_total
+                result = Search(NoteNode.NoteNode, voice, 1)
+                if result is None or total == 0:
+                    voice = self.PopChild(child)
+                    self.CopyDirectionsAndExpressions(voice)
+                voice.RunNoteChecks()

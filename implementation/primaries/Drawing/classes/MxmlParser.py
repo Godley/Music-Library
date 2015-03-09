@@ -207,7 +207,7 @@ class MxmlParser(object):
             part.CheckMeasureDivisions(measure_id)
             part.CheckMeasureMeter(measure_id)
             part.CheckPreviousBarline(staff_id)
-            result = part.CheckIfTabStaff(measure_id)
+            result = part.CheckIfTabStaff()
             if result is not None:
                 if "TAB" in result:
                     raise(Exceptions.TabNotImplementedException("Tab notation found: stopping"))
@@ -423,7 +423,6 @@ def UpdatePart(tag, attrib, content, piece):
             if "part-abbreviation" in tag:
                 if "part-abbreviation" in content and part_id is not None:
                     piece.getPart(part_id).GetItem().shortname = content["part-abbreviation"]
-
     return return_val
 
 def handleArticulation(tag, attrs, content, piece):
@@ -763,7 +762,7 @@ def handleClef(tag,attrib,content,piece):
             part.addEmptyMeasure(measure_id, staff_id)
             measureNode = part.getMeasure(measure_id,staff_id)
         if tag[-1] == "clef":
-            measureNode.addClef(Clef.Clef(), voice=voice)
+            part.addClef(Clef.Clef(), measure_id, staff_id, voice)
         if measureNode is not None:
             clef = measureNode.GetLastClef(voice=voice)
             if clef is not None and type(clef) is not Clef.Clef:
@@ -773,6 +772,14 @@ def handleClef(tag,attrib,content,piece):
             octave = None
             if tag[-1] == "sign":
                 sign = content["sign"]
+                if sign == "percussion":
+                    part.drum = True
+                else:
+                    part.drum = False
+                if sign == "tab":
+                    part.tab = True
+                else:
+                    part.tab = False
             if tag[-1] == "line":
                 line = int(content["line"])
             if tag[-1] == "clef-octave-change":

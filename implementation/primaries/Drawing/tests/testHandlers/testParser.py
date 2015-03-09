@@ -188,3 +188,22 @@ class testBackupAndForward(unittest.TestCase):
 
     def tearDown(self):
         MxmlParser.staff_id = 1
+
+
+class testDrumAndGuitarTabHandling(unittest.TestCase):
+    def setUp(self):
+        self.parser = MxmlParser.MxmlParser()
+        self.tag_list = []
+        self.attrs = []
+
+    def testGuitarTab(self):
+        self.parser.StartTag("score-part",{"id":"P1"})
+        self.parser.StartTag("part",{"id":"P1"})
+        self.parser.StartTag("measure",{"number":"1"})
+        self.parser.StartTag("clef", {})
+        self.parser.StartTag("sign", {})
+        self.parser.NewData("tab")
+        self.parser.EndTag("sign")
+        self.parser.EndTag("clef")
+        self.parser.EndTag("measure")
+        self.assertIsNone(self.parser.piece.getPart("P1"))
