@@ -22,6 +22,7 @@ class MeasureNode(IndexedNode):
         if "partial" in kwargs:
             if kwargs["partial"] is not None:
                 self.partial = kwargs["partial"]
+        self.gap = 0
 
     def addWrapper(self, item):
         # method to add any notation that needs to wrap the whole bar
@@ -204,26 +205,43 @@ class MeasureNode(IndexedNode):
 
     def Backup(self, duration=0):
         total = 0
+        duration_total = duration * 4
         children = self.GetChildrenIndexes()
         notes = 0
         for voice in children:
             v = self.GetChild(voice)
             indexes = v.GetChildrenIndexes()
+            if len(indexes) > 1:
+                indexes.reverse()
             for index in indexes:
                 notes += 1
                 note = v.GetChild(index)
                 if hasattr(note, "duration"):
                     total += note.duration
-                    if total >= duration:
+                    if total >= duration_total:
                         break
+            gap = [v.GetChild(i).duration for i in range(0,self.index-notes) if hasattr(v.GetChild(i), "duration")]
+            previous = 0
+            for item in gap:
+                if item == previous:
+                    self.gap -= previous
+                    item = item/2
+                self.gap += item
+                previous = item
+            #self.gap = sum([])
         self.index -= notes
 
-    def addVoice(self, item, id):
+
+    def addVoice(self, item=None, id=1):
+        if item is None:
+            item = VoiceNode()
         self.AddChild(item, id)
+        if self.gap != 0:
+            voice = self.GetChild(id)
+            voice.AddChild(NoteNode.Placeholder(duration=self.gap))
+            self.gap = 0
 
     def getVoice(self, key):
-        if key not in self.children:
-            self.AddChild(VoiceNode(), key)
         return self.GetChild(key)
 
     def PositionChild(self, item, key, voice=1):

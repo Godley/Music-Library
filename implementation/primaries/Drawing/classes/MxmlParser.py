@@ -132,6 +132,9 @@ class MxmlParser(object):
             part.addEmptyMeasure(measure_id, staff_id)
         measure = part.getMeasure(measure_id, staff_id)
         voice_obj = measure.getVoice(voice)
+        if voice_obj is None:
+            measure.addVoice(id=voice)
+            voice_obj = measure.getVoice(voice)
         add = True
         notes = voice_obj.GetChildrenIndexes()
         for n in notes:

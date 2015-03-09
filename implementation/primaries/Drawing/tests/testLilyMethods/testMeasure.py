@@ -269,3 +269,24 @@ class testGraceAtStartOfMeasure(unittest.TestCase):
         value = "\grace { c'4 }  | "
         self.assertEqual(value, self.item.toLily())
 
+class testTwoVoicesMeasureNotePosition(Lily):
+    def setUp(self):
+        self.item = MeasureNode()
+        node = Note.Note(type="quarter")
+        node.pitch = Note.Pitch(octave=4)
+        self.item.addNote(node, voice=1)
+        self.item.addNote(node, voice=1)
+        self.item.Backup(4)
+        node2 = Note.Note(type="quarter")
+        node2.pitch = Note.Pitch(octave=4)
+        self.item.addNote(node2, voice=2)
+        Lily.setUp(self)
+        self.compile = True
+        self.wrappers = ["\\new Staff{a8 ","c'8]}"]
+        self.lilystring = "<< % voice 1\n\\new Voice = \"one\"\n{\\voiceOne c'4 c'4 } % voice 2\n\\new Voice = \"two\"\n{\\voiceTwo r4 c'4 }>> | "
+        self.name = "noteOctaveShift"
+
+    def tearDown(self):
+        self.item = None
+
+

@@ -12,15 +12,12 @@ instrumentName = \markup {
 
  % measure 1
 f'4 g'4  \bar ""
+
  % measure X1
-a'4 b'4  \bar "|" 
+\partial 2 a'4 b'4  | 
 
  % measure 2
-\cadenzaOn 
-c''4 d''4 r4  \bar "|." 
-\cadenzaOff
-
-
+c''4 d''4 r4  \bar "|."
 
  }
 
