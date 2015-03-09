@@ -23,12 +23,40 @@ class StaffNode(IndexedNode):
                 total = mItemTotal
                 mNode.value = mItemTotal
 
+    def SortedChildren(self):
+        children = self.GetChildrenIndexes()
+        integers = [child for child in children if type(child) == int]
+        strings = [child for child in children if type(child) == str]
+        result = []
+        integers.sort()
+        waiting = []
+        if len(strings) > 0:
+            strings.sort()
+            counter = 0
+            str_counter = 0
+            while counter < len(integers) or str_counter < len(strings):
+                result.append(integers[counter])
+                if str_counter < len(strings):
+                    number = strings[str_counter][1:]
+                    digit = int(number)
+                    if digit == integers[counter]:
+                        result.append(strings[str_counter])
+                    else:
+                        waiting.append((strings[str_counter][0],digit))
+                result.extend([w[0]+str(w[1]) for w in waiting if integers[counter] == w[1]])
+                counter += 1
+                str_counter += 1
+        else:
+            result = integers
+
+        return result
+
     def toLily(self):
         lilystring = ""
 
         if not self.autoBeam:
             lilystring += "\\autoBeamOff"
-        children = self.GetChildrenIndexes()
+        children = self.SortedChildren()
         if not hasattr(self, "transpose"):
             self.transpose = None
         for child in range(len(children)):

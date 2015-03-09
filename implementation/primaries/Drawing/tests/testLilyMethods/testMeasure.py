@@ -2,6 +2,7 @@ from implementation.primaries.Drawing.classes import Measure, Note, Directions, 
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 from implementation.primaries.Drawing.classes.tree_cls.NoteNode import NoteNode
 from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
+from implementation.primaries.Drawing.classes.tree_cls.StaffNode import StaffNode
 import unittest
 
 class MeasureTests(Lily):
@@ -183,6 +184,17 @@ class testPartialMeasureThreeNotesSameTypes(Lily):
         self.item.addNote(note3)
         Lily.setUp(self)
         self.lilystring = "\\time 4/4 \partial 2. c'4 c'4 c'4  | "
+
+class testMeasureOrder(Lily):
+    def setUp(self):
+        self.item = StaffNode()
+        measure1 = MeasureNode()
+        self.item.AddChild(measure1, index=1)
+        measure2 = MeasureNode()
+        measure3 = MeasureNode()
+        self.item.AddChild(measure2, index="X1")
+        self.item.AddChild(measure3, index=2)
+        self.lilystring = " % measure 1\n | \n\n % measure X1\n | \n\n % measure 2\n | \n\n"
 
 class testMeasureTranspositionCalc(unittest.TestCase):
     def setUp(self):
