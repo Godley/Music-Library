@@ -55,12 +55,12 @@ class testDirectionWithFontSize(Lily):
 class testRehearsalMark(Lily):
     def setUp(self):
         self.item = Directions.RehearsalMark()
-        self.lilystring = "\mark \default"
+        self.lilystring = " \mark \default"
 
 class testRehearsalMarkWithText(Lily):
     def setUp(self):
         self.item = Directions.RehearsalMark(text="B")
-        self.lilystring = "\mark #2"
+        self.lilystring = " \mark #2"
 
 
 class testForward(Lily):
@@ -76,22 +76,22 @@ class testForwardWithDuration(Lily):
 class testRepeatSign(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign()
-        self.lilystring = "\mark  "
+        self.lilystring = " \mark  "
 
 class testSegno(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign(type="segno")
-        self.lilystring = "\mark  ^\markup { \musicglyph #\"scripts.segno\" }"
+        self.lilystring = " \mark  \markup { \musicglyph #\"scripts.segno\" }"
 
 class testCoda(Lily):
     def setUp(self):
         self.item = Directions.RepeatSign(type="coda")
-        self.lilystring = "\mark  ^\markup { \musicglyph #\"scripts.coda\" }"
+        self.lilystring = " \mark  \markup { \musicglyph #\"scripts.coda\" }"
 
 class testOctaveShift(Lily):
     def setUp(self):
         self.item = Directions.OctaveShift()
-        self.lilystring = "\n\ottava #0\n"
+        self.lilystring = "\n\ottava #1\n"
 
 class testOctaveShiftUp(Lily):
     def setUp(self):
@@ -134,10 +134,10 @@ class testPedalTypeOff(Lily):
         self.item = Directions.Pedal(type="stop")
         self.lilystring = "\sustainOff\n"
 
-# TODO: REFACTOR BRACKET CLASS ACCORDING TO LILYPOND NOTATION
+
 class testBracket(Lily):
     def setUp(self):
-        self.item = Directions.Bracket()
+        self.item = Directions.Bracket(type="start")
         self.lilystring = "\n\\startTextSpan\n"
 
 class testBracketStop(Lily):
@@ -148,7 +148,7 @@ class testBracketStop(Lily):
 class testBracketlType(Lily):
     def setUp(self):
         self.item = Directions.Bracket(ltype="solid")
-        self.lilystring = ["\override TextSpanner.dash-fraction = 1.0 \n","\n\\startTextSpan\n"]
+        self.lilystring = "\override TextSpanner.dash-fraction = 1.0 \n"
 
 class testMetronome(Lily):
     def setUp(self):
@@ -184,7 +184,7 @@ class testMetronomeParenthesis(Lily):
 class testDynamic(Lily):
     def setUp(self):
         self.item = Directions.Dynamic()
-        self.lilystring = "\\"
+        self.lilystring = ""
 
 class testDynamicMark(Lily):
     def setUp(self):

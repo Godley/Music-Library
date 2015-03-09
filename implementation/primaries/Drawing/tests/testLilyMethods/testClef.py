@@ -101,18 +101,18 @@ class testClefTab(Lily):
 
 class testClefTabInMeasure(Lily):
     def setUp(self):
-        self.item = PartNode()
+        self.item = PartNode.PartNode()
         self.item.addEmptyMeasure(1,1)
-        self.item.getMeasure(1,1).GetItem().clef = Clef.Clef(sign="TAB")
+        self.item.getMeasure(1,1).clef = Clef.Clef(sign="TAB")
         self.item.CheckIfTabStaff(1)
-        self.lilystring = ["zerostaffone = \\new Staff{\\autoBeamOff % measure 1\n\clef moderntab  | \n\n }\n\n", "\\zerostaffone"]
+        self.lilystring = ["zerostaffone = \\new Staff{ % measure 1\n\clef moderntab  | \n\n }\n\n", "\\zerostaffone"]
 
 class testClefTabInMeasureWithMultiClefs(Lily):
     def setUp(self):
-        self.item = PartNode()
+        self.item = PartNode.PartNode()
         self.item.addEmptyMeasure(1,1)
-        self.item.getMeasure(1,1).GetItem().clef = Clef.Clef(sign="TAB")
+        self.item.getMeasure(1,1).clef = Clef.Clef(sign="TAB")
         self.item.addEmptyMeasure(2,1)
-        self.item.getMeasure(2,1).GetItem().clef = Clef.Clef(sign="F", line=4)
+        self.item.getMeasure(2,1).clef = Clef.Clef(sign="F", line=4)
         self.item.CheckIfTabStaff(1)
-        self.lilystring = ["zerostaffone = \\new Staff{\\autoBeamOff % measure 1\n\clef moderntab  | \n\n % measure 2\n\clef bass  | \n\n }\n\n", "\\zerostaffone"]
+        self.lilystring = ["zerostaffone = \\new Staff{ % measure 1\n\clef moderntab  | \n\n % measure 2\n\clef bass  | \n\n }\n\n", "\\zerostaffone"]

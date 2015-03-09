@@ -59,7 +59,9 @@ class testOctaveShift(xmlSet):
                 note = Search(NoteNode, self.measure, self.note_id)
             else:
                 note = Search(NoteNode, self.measure, 1)
-            self.item = Search(DirectionNode, note, self.item_id+1).GetItem()
+            self.item = Search(DirectionNode, note, self.item_id+1)
+            if self.item is not None:
+                self.item = self.item.GetItem()
 
     def testInstance(self):
         if hasattr(self, "item"):
@@ -106,7 +108,7 @@ class testBracket(xmlSet):
         if hasattr(self, "measure_id"):
             self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
         if hasattr(self, "item_id"):
-            self.item = self.measure.GetItem().getWrapper(self.item_id)
+            self.item = self.measure.getWrapper(self.item_id)
 
     def testInstance(self):
         if hasattr(self, "item"):
@@ -175,7 +177,7 @@ class testEndings(xmlSet):
         xmlSet.setUp(self)
         self.p_id = "P1"
         if hasattr(self, "measure_id"):
-            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1).GetItem()
+            self.measure = piece.getPart(self.p_id).getMeasure(self.measure_id, 1)
 
     def testHasBarline(self):
         if hasattr(self, "measure"):
@@ -249,7 +251,7 @@ class testMeasure5Right(testEndings):
         self.measure_id = 5
         self.key = "right"
         self.num = 3
-        self.type = "stop"
+        self.type = "discontinue"
         testEndings.setUp(self)
 
 class testMeasure6Item1(testOctaveShift):
@@ -261,6 +263,9 @@ class testMeasure6Item1(testOctaveShift):
         self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
+        if hasattr(self, "item_id"):
+            self.item = Search(DirectionNode, self.measure, self.item_id+1).GetItem()
+
 
 class testMeasure6Item3(testOctaveShift):
     def setUp(self):
@@ -268,9 +273,12 @@ class testMeasure6Item3(testOctaveShift):
         self.amount = 8
         self.type = "stop"
         self.measure_id = 6
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
+        if hasattr(self, "item_id"):
+            pcholder = Search(Placeholder, self.measure, 1)
+            self.item = Search(DirectionNode, pcholder, self.item_id+1).GetItem()
 
 class testMeasure7Item1(testOctaveShift):
     def setUp(self):
@@ -281,6 +289,8 @@ class testMeasure7Item1(testOctaveShift):
         self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
+        if hasattr(self, "item_id"):
+            self.item = Search(DirectionNode, self.measure, self.item_id+1).GetItem()
 
 class testMeasure7Item3(testOctaveShift):
     def setUp(self):
@@ -288,9 +298,12 @@ class testMeasure7Item3(testOctaveShift):
         self.amount = 15
         self.type = "stop"
         self.measure_id = 7
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
+        if hasattr(self, "item_id"):
+            pcholder = Search(Placeholder, self.measure, 1)
+            self.item = Search(DirectionNode, pcholder, self.item_id+1).GetItem()
 
 class testMeasure8Item1(testOctaveShift):
     def setUp(self):
@@ -301,6 +314,8 @@ class testMeasure8Item1(testOctaveShift):
         self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
+        if hasattr(self, "item_id"):
+            self.item = Search(DirectionNode, self.measure, self.item_id+1).GetItem()
 
 class testMeasure8Item3(testOctaveShift):
     def setUp(self):
@@ -308,9 +323,12 @@ class testMeasure8Item3(testOctaveShift):
         self.amount = 8
         self.type = "stop"
         self.measure_id = 8
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
+        if hasattr(self, "item_id"):
+            pcholder = Search(Placeholder, self.measure, 1)
+            self.item = Search(DirectionNode, pcholder, self.item_id+1).GetItem()
 
 class testMeasure9Item1(testOctaveShift):
     def setUp(self):
@@ -321,6 +339,8 @@ class testMeasure9Item1(testOctaveShift):
         self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
+        if hasattr(self, "item_id"):
+            self.item = Search(DirectionNode, self.measure, self.item_id+1).GetItem()
 
 class testMeasure9Item3(testOctaveShift):
     def setUp(self):
@@ -328,9 +348,12 @@ class testMeasure9Item3(testOctaveShift):
         self.amount = 15
         self.type = "stop"
         self.measure_id = 9
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testOctaveShift.setUp(self)
+        if hasattr(self, "item_id"):
+            pcholder = Search(Placeholder, self.measure, 1)
+            self.item = Search(DirectionNode, pcholder, self.item_id+1).GetItem()
 
 class testMeasure12Item1(testPedal):
     def setUp(self):
@@ -346,9 +369,12 @@ class testMeasure12Item3(testPedal):
         self.type = "stop"
         self.line = True
         self.measure_id = 12
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testPedal.setUp(self)
+        if hasattr(self, "item_id"):
+            pcholder = Search(Placeholder, self.measure, 1)
+            self.item = Search(DirectionNode, pcholder, self.item_id+1).GetItem()
 
 class testMeasure13Item1(testPedal):
     def setUp(self):
@@ -364,13 +390,16 @@ class testMeasure13Item3(testPedal):
         self.type = "stop"
         self.line = True
         self.measure_id = 13
-        self.item_id = 1
+        self.item_id = 0
         self.p_id = "P1"
         testPedal.setUp(self)
+        if hasattr(self, "item_id"):
+            pcholder = Search(Placeholder, self.measure, 1)
+            self.item = Search(DirectionNode, pcholder, self.item_id+1).GetItem()
 
 class testMeasure14Item2(testBracket):
     def setUp(self):
-        self.type = "start"
+        self.type = ""
         self.number = 1
         self.lineend = "none"
         self.measure_id = 14

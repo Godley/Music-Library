@@ -133,18 +133,18 @@ class NoteNode(Node):
 
     def AttachExpression(self, new_node):
         if len(self.children) > 0:
-            if type(self.GetChild(0)) is DirectionNode:
+            if type(self.GetChild(0)) is OtherNodes.DirectionNode:
                 self.PositionChild(0, new_node)
             if type(self.GetChild(0)) is NoteNode:
                 second = self.GetChild(1)
                 if second is None:
                     self.AddChild(new_node)
-                elif type(second) is ExpressionNode:
+                elif type(second) is OtherNodes.ExpressionNode:
                     node = FindPosition(second, new_node)
                     node.AddChild(new_node)
                 else:
                     self.PositionChild(1, new_node)
-            elif type(self.GetChild(0)) is ExpressionNode:
+            elif type(self.GetChild(0)) is OtherNodes.ExpressionNode:
                 parent = self.GetChild(0)
                 node = FindPosition(parent, new_node)
                 node.AddChild(new_node)
@@ -197,7 +197,7 @@ class NoteNode(Node):
                     lilystring += return_val
                 else:
                     lilystring = return_val[0] + lilystring + return_val[1]
-                if type(child) is ExpressionNode:
+                if type(child) is OtherNodes.ExpressionNode:
                     written = True
                     lilystring += self.item.GetClosingNotationLilies()
 

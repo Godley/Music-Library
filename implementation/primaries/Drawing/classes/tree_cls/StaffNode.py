@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.classes.tree_cls.BaseTree import IndexedNode
 from implementation.primaries.Drawing.classes.tree_cls import MeasureNode
+from implementation.primaries.Drawing.classes import Measure
 
 class StaffNode(IndexedNode):
     def __init__(self):

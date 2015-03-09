@@ -3,7 +3,7 @@ try:
     from implementation.primaries.Drawing.classes.tree_cls.VoiceNode import VoiceNode
     from implementation.primaries.Drawing.classes.tree_cls.OtherNodes import DirectionNode, ExpressionNode, KeyNode, ClefNode
     from implementation.primaries.Drawing.classes.tree_cls import NoteNode
-    from implementation.primaries.Drawing.classes import Directions
+    from implementation.primaries.Drawing.classes import Directions, helpers
     from implementation.primaries.Drawing.classes.Directions import OctaveShift
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
@@ -411,8 +411,8 @@ class MeasureNode(IndexedNode):
             v_obj.total = self.value
             if len(voices) > 1:
                 lilystring += " % voice "+str(voice)+"\n"
-                lilystring += "\\new Voice = \""+Part.NumbersToWords(voice)+"\"\n"
-                lilystring += "{\\voice"+Part.NumbersToWords(voice).capitalize() + " "
+                lilystring += "\\new Voice = \""+helpers.NumbersToWords(voice)+"\"\n"
+                lilystring += "{\\voice"+helpers.NumbersToWords(voice).capitalize() + " "
             lilystring += v_obj.toLily()
             if len(voices) > 1:
                 lilystring += "}"

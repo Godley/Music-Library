@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.classes import Measure, Note, Directions, Meter
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 from implementation.primaries.Drawing.classes.tree_cls.NoteNode import NoteNode
+from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
 import unittest
 
 class MeasureTests(Lily):
@@ -13,13 +14,11 @@ class MeasureTests(Lily):
 class testMeasure(MeasureTests):
     def setUp(self):
         self.item = MeasureNode()
-        self.item.SetItem(Measure.Measure())
         self.lilystring = " | "
 
 class testMeasureNote(MeasureTests):
     def setUp(self):
         self.item = MeasureNode()
-        self.item.SetItem(Measure.Measure())
         note = Note.Note()
         note.pitch= Note.Pitch()
         self.item.addNote(note)
@@ -112,8 +111,8 @@ class testMeasureOneNoteOneDirection(MeasureTests):
 class testPartialMeasure(MeasureTests):
     def setUp(self):
         self.item = MeasureNode()
-        self.item.GetItem().partial = True
-        self.item.GetItem().meter = Meter.Meter(beats=4, type=4)
+        self.item.partial = True
+        self.item.meter = Meter.Meter(beats=4, type=4)
         note = Note.Note(type="quarter")
         note.pitch = Note.Pitch()
         self.item.addNote(note)
@@ -125,7 +124,7 @@ class testPartialMeasure(MeasureTests):
 
 class testMeasureTranspositionCalc(unittest.TestCase):
     def setUp(self):
-        self.item = Measure.Measure()
+        self.item = MeasureNode()
 
 
     def testCalcUpWithChromatic(self):

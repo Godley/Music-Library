@@ -22,7 +22,7 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertIsInstance(self.piece.getPart(self.p_id), PartNode)
+        self.assertIsInstance(self.piece.getPart(self.p_id), PartNode.PartNode)
         self.assertEqual(self.p_name, self.piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):

@@ -10,7 +10,7 @@ class testRepeatSymbols(testclass.TestClass):
         self.piece.getPart("P1").addEmptyMeasure(1,1)
         self.attrs["measure"] = {"number": "1"}
         self.attrs["part"] = {"id": "P1"}
-        self.measure = self.piece.getPart("P1").getMeasure(1,1).GetItem()
+        self.measure = self.piece.getPart("P1").getMeasure(1,1)
         self.tags.append("direction")
         self.attrs["direction"] = {"placement": "above"}
 
