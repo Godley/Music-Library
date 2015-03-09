@@ -1,10 +1,14 @@
 import unittest
 import sqlite3
 from implementation.primaries.ExtractMetadata.classes.DataLayer import MusicData
+import os
 
 class testDataLayer(unittest.TestCase):
     def setUp(self):
         self.data = MusicData("example.db")
+
+    def tearDown(self):
+        os.remove("example.db")
 
     def testAddPiece(self):
         self.data.addPiece("file.xml",{})
@@ -15,10 +19,24 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual(len(c.fetchall()), 1)
 
     def testFindPieceByFname(self):
-        pass
+        self.data.addPiece("file.xml",{})
+        t = ('file.xml',)
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        c.execute('SELECT * FROM pieces WHERE filename=?', t)
+        self.assertEqual(c.fetchall(), self.data.getPiece("file.xml"))
 
     def testFindPieceByInstruments(self):
-        pass
+        self.data.addPiece("file.xml",{"instruments":["clarinet"]})
+        t = ('clarinet',)
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        c.execute('SELECT ROWID FROM instruments WHERE name=?', t)
+        result = c.fetchall()
+        c.execute('SELECT piece_id FROM instruments_piece_join WHERE instrument_id=?', result[0])
+        result_2 = c.fetchall()
+        c.execute('SELECT * FROM pieces WHERE ROWID=?', result_2[0])
+        self.assertEqual(c.fetchall(), self.data.getPiecesByInstrument("clarinet"))
 
     def testFindPieceByComposer(self):
         pass
