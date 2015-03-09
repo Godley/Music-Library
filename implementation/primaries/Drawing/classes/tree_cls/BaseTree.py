@@ -224,6 +224,10 @@ class IndexedNode(Node):
         self.__delattr__("children")
         self.children = {}
 
+    def PopChild(self, key):
+        if key in self.children:
+            return self.children.pop(key)
+
 
     def GetChildrenIndexes(self):
         return list(self.children.keys())

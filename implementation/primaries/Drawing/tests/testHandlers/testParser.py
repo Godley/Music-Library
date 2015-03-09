@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 try:
-    from implementation.primaries.Drawing.classes import MxmlParser, Part, Measure
+    from implementation.primaries.Drawing.classes import MxmlParser, Part, Measure, Exceptions
 except:
     from classes import MxmlParser, Part, Measure
 
@@ -206,4 +206,20 @@ class testDrumAndGuitarTabHandling(unittest.TestCase):
         self.parser.EndTag("sign")
         self.parser.EndTag("clef")
         self.parser.EndTag("measure")
+        with self.assertRaises(Exceptions.TabNotImplementedException):
+            self.parser.EndTag("part")
+        self.assertIsNone(self.parser.piece.getPart("P1"))
+
+    def testDrumTab(self):
+        self.parser.StartTag("score-part",{"id":"P1"})
+        self.parser.StartTag("part",{"id":"P1"})
+        self.parser.StartTag("measure",{"number":"1"})
+        self.parser.StartTag("clef", {})
+        self.parser.StartTag("sign", {})
+        self.parser.NewData("percussion")
+        self.parser.EndTag("sign")
+        self.parser.EndTag("clef")
+        self.parser.EndTag("measure")
+        with self.assertRaises(Exceptions.DrumNotImplementedException):
+            self.parser.EndTag("part")
         self.assertIsNone(self.parser.piece.getPart("P1"))

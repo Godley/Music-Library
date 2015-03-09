@@ -53,6 +53,10 @@ class PieceTree(Tree):
             for item in self.current:
                 self.AddToGroup(item, index)
 
+    def removePart(self, id):
+        if id in self.root.children:
+            self.root.PopChild(id)
+
     def startGroup(self, index):
         if index not in self.groups:
             self.groups[index] = []
