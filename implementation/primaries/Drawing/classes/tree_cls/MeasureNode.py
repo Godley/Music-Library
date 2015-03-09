@@ -332,19 +332,32 @@ class MeasureNode(IndexedNode):
 
     def getPartialLength(self):
         """ method to calculate how much to give the "partial" indicator where a measure is a pickup
-        :return: int which is the lilypond bar length
+        :return: str which is the lilypond bar length
         """
         indexes = self.GetChildrenIndexes()
         length = 0
         divider = 0
+        total = 0
+        result = ""
         for v in indexes:
             voice = self.GetChild(v)
             if voice.note_total > length:
                 length = voice.note_total
                 note_types = voice.GetAllNoteTypes()
-                divider = len(voice.GetChildrenIndexes())
-        total = int(length/divider)
-        return total
+                if len(note_types) == 1:
+                    total = length
+                    result = str(total)
+                else:
+                    note_types.sort()
+                    total = note_types[0]
+                    result = str(total)
+                    previous = total
+                    for value in note_types[1:]:
+                        if previous * 2 == value:
+                            result += "."
+                        previous = value
+
+        return result
 
 
     def addPlaceholder(self, duration=0, voice=1):
