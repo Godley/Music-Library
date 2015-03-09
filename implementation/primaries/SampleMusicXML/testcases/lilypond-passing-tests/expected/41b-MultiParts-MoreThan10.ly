@@ -7,7 +7,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -19,7 +19,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -31,7 +31,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -43,7 +43,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -55,7 +55,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -67,7 +67,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -79,7 +79,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -91,7 +91,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -103,7 +103,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -115,7 +115,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -127,7 +127,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -139,7 +139,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -151,7 +151,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -163,7 +163,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -175,7 +175,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -187,7 +187,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -199,7 +199,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -211,7 +211,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -223,7 +223,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }
@@ -235,7 +235,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 r1  | 
 
  }

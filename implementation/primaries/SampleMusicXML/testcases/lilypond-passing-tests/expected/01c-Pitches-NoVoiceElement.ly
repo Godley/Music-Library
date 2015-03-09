@@ -7,7 +7,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble g'1  \bar "|."
 
  }

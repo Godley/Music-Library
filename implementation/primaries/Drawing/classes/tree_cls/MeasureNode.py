@@ -302,7 +302,7 @@ class MeasureNode(IndexedNode):
                     elif new_duration < proposed_node.duration:
                         proposed_node.duration -= new_duration
                         voice_obj.AddChild(node)
-                        if type(node) is not Placeholder:
+                        if type(node) is not NoteNode.Placeholder:
                             self.index += 1
                 else:
                     self.PositionChild(node, self.index, voice=voice)

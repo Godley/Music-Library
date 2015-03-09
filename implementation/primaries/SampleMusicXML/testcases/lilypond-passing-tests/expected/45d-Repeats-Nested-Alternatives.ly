@@ -7,8 +7,8 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
- \repeat volta 2 { \repeat volta 2 {\clef treble \key c \major \time 4/4 r1 }
+ }{ % measure 1
+ \repeat volta 2 {\clef treble \key c \major \time 4/4 r1 }
 
  % measure 2
 \alternative {

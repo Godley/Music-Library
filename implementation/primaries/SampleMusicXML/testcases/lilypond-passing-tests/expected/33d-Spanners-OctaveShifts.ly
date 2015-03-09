@@ -8,19 +8,18 @@ instrumentName = \markup {
  } 
  } 
  }{\autoBeamOff % measure 1
-\clef treble \key c \major \time 4/4 a'8[ c''8
+\clef treble \key c \major \time 4/4 a'8[ c''8 
 \ottava #2
- a'''8
+ a'''8 
 \ottava #0
 \ottava #-2
- c8] b,8[
+ c8] b,8[ 
 \ottava #0
 \ottava #1
- a''8] a''8[
+ a''8] a''8[ 
 \ottava #0
 \ottava #-1
- b16[ c'16]
-\ottava #0  \bar "|."
+ b16[ c'16]   \bar "|."
 
  }
 

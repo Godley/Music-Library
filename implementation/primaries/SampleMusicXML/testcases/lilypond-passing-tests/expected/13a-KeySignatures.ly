@@ -7,7 +7,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key  \major \time 2/4 c'2  | 
 
  % measure 2

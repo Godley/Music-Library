@@ -13,7 +13,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key e \major \time 4/4 a'1  \bar "|."
 
  }
@@ -31,7 +31,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key a \major \time 4/4 d''1  \bar "|."
 
  }
@@ -49,7 +49,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key bes \major \time 4/4 ees''1  \bar "|."
 
  }
@@ -67,7 +67,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key d \major \time 4/4 g''1  \bar "|."
 
  }
@@ -85,7 +85,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key e \major \time 4/4 a''1  \bar "|."
 
  }
@@ -103,7 +103,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key bes \major \time 4/4 ees'1  \bar "|."
 
  }
@@ -121,7 +121,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key a \major \time 4/4 d''1  \bar "|."
 
  }
@@ -139,7 +139,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key g \major \time 4/4 c''1  \bar "|."
 
  }
@@ -157,7 +157,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key f \major \time 4/4 bes'1  \bar "|."
 
  }
@@ -169,7 +169,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef "bass_8" \key cis \major \time 4/4 fis,,1  \bar "|."
 
  }
@@ -181,7 +181,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key g \major \time 4/4 c''1  \bar "|."
 
  }

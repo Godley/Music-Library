@@ -7,8 +7,8 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
-\clef treble  \time 3/4 a'4\staccato \accent  a'4\staccato \accent  a'4\staccato \accent   | 
+ }{ % measure 1
+\clef treble \key c \major \time 3/4 a'4\staccato \accent  a'4\staccato \accent  a'4\staccato \accent   | 
 
  }
 

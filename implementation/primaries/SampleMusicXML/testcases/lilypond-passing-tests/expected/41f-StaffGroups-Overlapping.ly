@@ -7,7 +7,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key c \major \time 4/4 r1  \bar "|."
 
  }
@@ -19,7 +19,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key c \major \time 4/4 r1  \bar "|."
 
  }
@@ -31,7 +31,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key c \major \time 4/4 r1  \bar "|."
 
  }
@@ -43,7 +43,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key c \major \time 4/4 r1  \bar "|."
 
  }
@@ -55,7 +55,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key c \major \time 4/4 r1  \bar "|."
 
  }
@@ -67,7 +67,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key c \major \time 4/4 r1  \bar "|."
 
  }

@@ -7,11 +7,11 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key c \major \time 4/4 c''1  | 
 
  % measure 2
- \bar ".|:"c''1  \bar "|."
+ \repeat volta 2 {c''1 } \bar "|."
 
  }
 

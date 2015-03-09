@@ -7,7 +7,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \time 4/4 <a' f'>4 <a' f'>4 <a' f'>4 <a' f'>4  | 
 
  % measure 2

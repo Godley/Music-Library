@@ -2,18 +2,12 @@
 \version "2.18.2" 
 ponestaffone = \new Staff \with {
 instrumentName = \markup { 
-
- \column { 
-
-
- \line { "MusicXML Part" 
-
-
+ \column { 
+ \line { "MusicXML Part" 
+ } 
+ } 
  } 
-
- } 
- } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
  \repeat volta 2 {\clef treble \key c \major \time 4/4 c''1 }
 
  % measure 2

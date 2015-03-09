@@ -9,7 +9,7 @@ ponestaffone = \new Staff{\autoBeamOff % measure 84
  }
 
 ponestafftwo = \new Staff{\autoBeamOff % measure 84
-\clef bass \time 6/8 r8 g,8[\staccato  g,8]\staccato  g,8[( a,16[ g,16 fis,16 g,16])  \bar "||"
+\clef bass r8 g,8[\staccato  g,8]\staccato  g,8[( a,16[ g,16 fis,16 g,16])  \bar "||"
 
  % measure 85
 <c e g c'>4 r8 r4 g8\staccato   | 

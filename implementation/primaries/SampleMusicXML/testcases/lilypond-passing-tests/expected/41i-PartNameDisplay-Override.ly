@@ -13,7 +13,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 c'1  | 
 
  % measure 2
@@ -34,7 +34,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 c'1  | 
 
  % measure 2

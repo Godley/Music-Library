@@ -7,8 +7,8 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
-\clef treble \time 4/4 <a' fis' d'>4\p \mark  ^\markup { \musicglyph #"scripts.segno" } r4 r2  | 
+ }{ % measure 1
+\clef treble \time 4/4 <a' fis' d'>4 r4\p \mark  \markup { \musicglyph #"scripts.segno" } r2  | 
 
  }
 

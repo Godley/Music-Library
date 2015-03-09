@@ -13,7 +13,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key d \major \time 4/4 d'4 e'4 fis'4 g'4  | 
 
  % measure 2
@@ -34,7 +34,7 @@ shortInstrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key a \major \time 4/4 a'4 b'4 cis''4 d''4  | 
 
  % measure 2
@@ -49,7 +49,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key c \major \time 4/4 c'4 d'4 e'4 f'4  | 
 
  % measure 2

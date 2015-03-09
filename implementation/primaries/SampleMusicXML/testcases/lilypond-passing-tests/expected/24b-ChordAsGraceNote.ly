@@ -7,7 +7,7 @@ instrumentName = \markup {
  } 
  } 
  } 
- }{\autoBeamOff % measure 1
+ }{ % measure 1
 \clef treble \key c \major \time 4/4 c''4 \slashedGrace { <d'' f''>8 } c''4 \slashedGrace { <b' d''>8 } <a' c''>4  \bar "|."
 
  }
