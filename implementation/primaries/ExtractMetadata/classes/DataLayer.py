@@ -187,21 +187,7 @@ class MusicData(object):
         result = cursor.fetchall()
         return result[0][0]
 
-    def getPiecesByInstrument(self, instrument):
-        '''
-        method to get all the pieces containing a certain instrument
-        :param instrument: name of instrument
-        :return: list of files containing that instrumnet
-        '''
-        connection, cursor = self.connect()
-        instrument_id = self.getInstrumentId(instrument, cursor)
-        cursor.execute('SELECT piece_id FROM instruments_piece_join WHERE instrument_id=?', (instrument_id,))
-        result = cursor.fetchall()
-        file_list = self.getPiecesByRowId(result, cursor)
-        self.disconnect(connection)
-        return file_list
-
-    def getPiecesByMultipleInstruments(self, instruments):
+    def getPiecesByInstruments(self, instruments):
         '''
         method to get all the pieces containing a certain instrument
         :param instrument: name of instrument

@@ -24,17 +24,17 @@ class testDataLayer(unittest.TestCase):
 
     def testFindPieceByInstruments(self):
         self.data.addPiece("file.xml",{"instruments":["clarinet"]})
-        self.assertEqual("file.xml", self.data.getPiecesByInstrument("clarinet")[0])
+        self.assertEqual(["file.xml"], self.data.getPiecesByInstruments(["clarinet"]))
 
     def testFindPieceByMultipleInstruments(self):
         self.data.addPiece("file.xml",{"instruments":["clarinet", "flute"]})
         self.data.addPiece("file2.xml",{"instruments":["flute"]})
-        self.assertEqual(["file.xml"], self.data.getPiecesByMultipleInstruments(["clarinet", "flute"]))
+        self.assertEqual(["file.xml"], self.data.getPiecesByInstruments(["clarinet", "flute"]))
 
     def testFindPieceByInstrumentWhereTwoItemsExist(self):
         self.data.addPiece("file.xml",{"instruments":["flute"]})
         self.data.addPiece("file2.xml",{"instruments":["flute"]})
-        self.assertEqual(["file.xml","file2.xml"], self.data.getPiecesByInstrument("flute"))
+        self.assertEqual(["file.xml","file2.xml"], self.data.getPiecesByInstruments(["flute"]))
 
     def testFindPieceByComposer(self):
         self.data.addPiece("file.xml",{"composer":"Bartok"})
@@ -47,6 +47,11 @@ class testDataLayer(unittest.TestCase):
     def testFindPieceByKey(self):
         self.data.addPiece("file.xml",{"key":{"clarinet":{"fifths":2,"mode":"major"}}})
         self.assertEqual("file.xml", self.data.getPieceByKey("D major")[0])
+
+    def testFindPieceByInstrumentInKey(self):
+        self.data.addPiece("file.xml",{"key":{"clarinet":{"fifths":2,"mode":"major"}}})
+        self.data.addPiece("file2.xml",{"key":{"flute":{"fifths":2,"mode":"major"}}})
+        self.assertEqual("file.xml", self.data.getPieceByInstrumentInKey({"clarinet":"D major"})[0])
 
     def testFindPieceByClef(self):
         pass
