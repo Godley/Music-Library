@@ -264,6 +264,22 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
+    def getPieceByInstrumentInKey(self, data):
+        connection, cursor = self.connect()
+        search_ids = []
+        tuple_data = [instrument for instrument in data]
+        for instrument in data:
+            search_ids.append(self.getInstrumentId(instrument, cursor))
+            search_ids.append(self.getKeyId(data[instrument], cursor))
+        query = 'SELECT key.piece_id FROM key_piece_join key WHERE EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key.piece_id AND instrument_id = ? AND key_id = ?)'
+        for i in range(1,len(tuple_data)):
+            query += ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key.piece_id AND instrument_id = ? AND key_id = ?)'
+        query += ";"
+        cursor.execute(query, tuple(search_ids))
+        results = cursor.fetchall()
+        file_list = self.getPiecesByRowId(results, cursor)
+        return file_list
+
     def disconnect(self, connection):
         '''
         method which shuts down db connection
