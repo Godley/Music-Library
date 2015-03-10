@@ -14,27 +14,24 @@ class MusicData(object):
         :return: None
         '''
         connection, cursor = self.connect()
-        cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='keys';''')
-        result = cursor.fetchall()
-        if len(result) == 0:
-            cursor.execute('''CREATE TABLE keys
-                 (name text, fifths int, mode text)''')
-            keys = [("C major",0,"major",),
-                    ("G major",1,"major",),
-                    ("D major",2,"major",),
-                    ("A major",3,"major",),
-                    ("E major",4,"major",),
-                    ("C# major",5,"major",),
-                    ("F# major",6,"major",),
-                    ("A minor",0,"minor",)]
-            for key in keys:
+        cursor.execute('''CREATE TABLE IF NOT EXISTS keys
+             (name text, fifths int, mode text)''')
+        keys = [("C major",0,"major",),
+                ("G major",1,"major",),
+                ("D major",2,"major",),
+                ("A major",3,"major",),
+                ("E major",4,"major",),
+                ("C# major",5,"major",),
+                ("F# major",6,"major",),
+                ("A minor",0,"minor",)]
+        for key in keys:
+            key[0]
+            cursor.execute('SELECT * FROM KEYS WHERE name=?', (key[0],))
+            result = cursor.fetchone()
+            if result is None or len(result) == 0:
                 cursor.execute('INSERT INTO keys VALUES(?,?,?)', key)
 
-
-        cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='key_piece_join';''')
-        result = cursor.fetchall()
-        if len(result) == 0:
-            cursor.execute('CREATE TABLE key_piece_join(key_id INTEGER, piece_id INTEGER)')
+        cursor.execute('CREATE TABLE IF NOT EXISTS key_piece_join (key_id INTEGER, piece_id INTEGER)')
         connection.commit()
         self.disconnect(connection)
 
@@ -44,11 +41,8 @@ class MusicData(object):
         :return: none
         '''
         connection, cursor = self.connect()
-        cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='pieces';''')
-        result = cursor.fetchall()
-        if len(result) == 0:
-            cursor.execute('''CREATE TABLE pieces
-                 (filename text, title text)''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS pieces
+             (filename text, title text)''')
         self.disconnect(connection)
 
     def createInstrumentTable(self):
@@ -57,16 +51,10 @@ class MusicData(object):
         :return: none
         '''
         connection, cursor = self.connect()
-        cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='instruments';''')
-        result = cursor.fetchall()
-        if len(result) == 0:
-            cursor.execute('''CREATE TABLE instruments
+        cursor.execute('''CREATE TABLE IF NOT EXISTS instruments
                  (name text)''')
-        cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='instruments_piece_join';''')
-        result = cursor.fetchall()
-        if len(result) == 0:
-            cursor.execute('''CREATE TABLE instruments_piece_join
-                 (instrument_id INTEGER, piece_id INTEGER)''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS instruments_piece_join
+             (instrument_id INTEGER, piece_id INTEGER)''')
         self.disconnect(connection)
 
     def createComposerTable(self):
@@ -75,18 +63,12 @@ class MusicData(object):
         :return:
         '''
         connection, cursor = self.connect()
-        cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='composers';''')
-        result = cursor.fetchall()
-        if len(result) == 0:
-            #cursor.execute('''CREATE TABLE composers
-                 #(name text,birth DATE,death DATE,country text)''')
-            cursor.execute('''CREATE TABLE composers
-                 (name text)''')
-        cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='composer_piece_join';''')
-        result = cursor.fetchall()
-        if len(result) == 0:
-            cursor.execute('''CREATE TABLE composer_piece_join
-                 (composer_id INTEGER, piece_id INTEGER)''')
+        #cursor.execute('''CREATE TABLE composers
+             #(name text,birth DATE,death DATE,country text)''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS composers
+             (name text)''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS composer_piece_join
+             (composer_id INTEGER, piece_id INTEGER)''')
         self.disconnect(connection)
 
 
@@ -144,7 +126,7 @@ class MusicData(object):
             mode = data["key"]["mode"]
             cursor.execute('SELECT ROWID FROM keys WHERE fifths=? AND mode=?', (fifths, mode,))
             key = cursor.fetchone()
-            if len(key) > 0:
+            if key is not None and len(key) > 0:
                 cursor.execute('INSERT INTO key_piece_join VALUES(?,?)',(key[0],result,))
 
         connection.commit()
@@ -203,7 +185,7 @@ class MusicData(object):
         :return: list of files containing that instrumnet
         '''
         connection, cursor = self.connect()
-        instrument_id = self.getInstrumentId(instrument, connection, cursor)
+        instrument_id = self.getInstrumentId(instrument, cursor)
         cursor.execute('SELECT piece_id FROM instruments_piece_join WHERE instrument_id=?', (instrument_id,))
         result = cursor.fetchall()
         file_list = self.getPiecesByRowId(result, cursor)
@@ -230,7 +212,7 @@ class MusicData(object):
         :return: list of strings (filenames)
         '''
         connection, cursor = self.connect()
-        composer_id = self.getComposerId(composer, connection, cursor)
+        composer_id = self.getComposerId(composer, cursor)
         cursor.execute('SELECT piece_id FROM composer_piece_join WHERE composer_id=?', (composer_id,))
         result = cursor.fetchall()
         file_list = self.getPiecesByRowId(result, cursor)
@@ -257,7 +239,7 @@ class MusicData(object):
         :return: list of strings (files)
         '''
         connection, cursor = self.connect()
-        key_id = self.getKeyId(key, connection, cursor)
+        key_id = self.getKeyId(key, cursor)
         cursor.execute('SELECT piece_id FROM key_piece_join WHERE key_id=?', (key_id,))
         result = cursor.fetchall()
         file_list = self.getPiecesByRowId(result, cursor)
