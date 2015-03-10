@@ -48,7 +48,7 @@ class testDataLayer(unittest.TestCase):
         c.execute('SELECT piece_id FROM instruments_piece_join WHERE instrument_id=?', result[0])
         result_2 = c.fetchall()
         c.execute('SELECT * FROM pieces WHERE ROWID=?', result_2[0])
-        self.assertEqual(c.fetchone()[0], self.data.getPiecesByMultipleInstruments("clarinet", "flute")[0])
+        self.assertEqual(c.fetchone()[0], self.data.getPiecesByMultipleInstruments(["clarinet", "flute"])[0])
 
     def testFindPieceByComposer(self):
         self.data.addPiece("file.xml",{"composer":"Bartok"})

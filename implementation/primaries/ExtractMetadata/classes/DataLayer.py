@@ -192,6 +192,27 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
+    def getPiecesByMultipleInstruments(self, instruments):
+        '''
+        method to get all the pieces containing a certain instrument
+        :param instrument: name of instrument
+        :return: list of files containing that instrumnet
+        '''
+        connection, cursor = self.connect()
+        instrument_ids = [self.getInstrumentId(instrument, cursor) for instrument in instruments]
+        all_results = []
+        results = []
+        iterator = 0
+        while iterator < len(instrument_ids):
+            cursor.execute('SELECT * FROM instruments_piece_join WHERE instrument_id=?', (instrument_ids[iterator],))
+            res = cursor.fetchall()
+            all_results.extend(res)
+            iterator += 1
+        results = [(result[1],) for result in all_results]
+        file_list = self.getPiecesByRowId(results, cursor)
+        self.disconnect(connection)
+        return file_list
+
     def getPiecesByRowId(self, rows, cursor):
         '''
         method which takes in a list of rows which are ROWIDs in the piece table and returns a list of files
