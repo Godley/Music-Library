@@ -59,7 +59,16 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual(c.fetchall(), self.data.getPieceByTitle("Blabla"))
 
     def testFindPieceByKey(self):
-        pass
+        self.data.addPiece("file.xml",{"key":{"fifths":2,"mode":"major"}})
+        t = (2,"major",)
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        c.execute('SELECT ROWID FROM keys WHERE fifths=? AND mode=?', t)
+        result = c.fetchone()
+        c.execute('SELECT piece_id FROM key_piece_join WHERE key_id=?', result)
+        result2 = c.fetchone()
+        c.execute('SELECT * FROM pieces WHERE ROWID=?', result2)
+        self.assertEqual(c.fetchone()[0], self.data.getPieceByKey("D major")[0])
 
     def testFindPieceByClef(self):
         pass

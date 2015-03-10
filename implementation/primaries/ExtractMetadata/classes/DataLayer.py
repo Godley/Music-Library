@@ -6,6 +6,33 @@ class MusicData(object):
         self.createMusicTable()
         self.createInstrumentTable()
         self.createComposerTable()
+        self.createKeyTable()
+
+    def createKeyTable(self):
+        connection, cursor = self.connect()
+        cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='keys';''')
+        result = cursor.fetchall()
+        if len(result) == 0:
+            cursor.execute('''CREATE TABLE keys
+                 (name text, fifths int, mode text)''')
+            keys = [("C major",0,"major",),
+                    ("G major",1,"major",),
+                    ("D major",2,"major",),
+                    ("A major",3,"major",),
+                    ("E major",4,"major",),
+                    ("C# major",5,"major",),
+                    ("F# major",6,"major",),
+                    ("A minor",0,"minor",)]
+            for key in keys:
+                cursor.execute('INSERT INTO keys VALUES(?,?,?)', key)
+
+
+        cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='key_piece_join';''')
+        result = cursor.fetchall()
+        if len(result) == 0:
+            cursor.execute('CREATE TABLE key_piece_join(key_id INTEGER, piece_id INTEGER)')
+        connection.commit()
+        self.disconnect(connection)
 
     def createMusicTable(self):
         connection, cursor = self.connect()
@@ -75,6 +102,7 @@ class MusicData(object):
                 instrument_ids.append(inst_id[0][0])
             for index in instrument_ids:
                 cursor.execute('INSERT INTO instruments_piece_join VALUES(?,?)', (index,result,))
+
         if "composer" in data:
             query = 'SELECT ROWID FROM composers WHERE name=?'
             cursor.execute(query, (data["composer"],))
@@ -84,6 +112,14 @@ class MusicData(object):
                 cursor.execute(query, (data["composer"],))
             composer_id = cursor.fetchall()[0][0]
             cursor.execute('INSERT INTO composer_piece_join VALUES(?,?)', (composer_id, result))
+
+        if "key" in data:
+            fifths = data["key"]["fifths"]
+            mode = data["key"]["mode"]
+            cursor.execute('SELECT ROWID FROM keys WHERE fifths=? AND mode=?', (fifths, mode,))
+            key = cursor.fetchone()
+            if len(key) > 0:
+                cursor.execute('INSERT INTO key_piece_join VALUES(?,?)',(key[0],result,))
 
         connection.commit()
         self.disconnect(connection)
@@ -103,6 +139,11 @@ class MusicData(object):
 
     def getComposerId(self, instrument, connection, cursor):
         cursor.execute('SELECT ROWID FROM composers WHERE name=?', (instrument,))
+        result = cursor.fetchall()
+        return result[0][0]
+
+    def getKeyId(self, key, connection, cursor):
+        cursor.execute('SELECT ROWID FROM keys WHERE name=?', (key,))
         result = cursor.fetchall()
         return result[0][0]
 
@@ -138,6 +179,15 @@ class MusicData(object):
         result = cursor.fetchall()
         self.disconnect(connection)
         return result
+
+    def getPieceByKey(self, key):
+        connection, cursor = self.connect()
+        key_id = self.getKeyId(key, connection, cursor)
+        cursor.execute('SELECT piece_id FROM key_piece_join WHERE key_id=?', (key_id,))
+        result = cursor.fetchall()
+        file_list = self.getPiecesByRowId(result, cursor)
+        self.disconnect(connection)
+        return file_list
 
     def disconnect(self, connection):
         connection.close()
