@@ -40,15 +40,8 @@ class testDataLayer(unittest.TestCase):
 
     def testFindPieceByMultipleInstruments(self):
         self.data.addPiece("file.xml",{"instruments":["clarinet", "flute"]})
-        t = ('clarinet','flute',)
-        conn = sqlite3.connect('example.db')
-        c = conn.cursor()
-        c.execute('SELECT ROWID FROM instruments WHERE name=? OR name=?', t)
-        result = c.fetchall()
-        c.execute('SELECT piece_id FROM instruments_piece_join WHERE instrument_id=?', result[0])
-        result_2 = c.fetchall()
-        c.execute('SELECT * FROM pieces WHERE ROWID=?', result_2[0])
-        self.assertEqual(c.fetchone()[0], self.data.getPiecesByMultipleInstruments(["clarinet", "flute"])[0])
+        self.data.addPiece("file2.xml",{"instruments":["flute"]})
+        self.assertEqual("file.xml", self.data.getPiecesByMultipleInstruments(["clarinet", "flute"])[0])
 
     def testFindPieceByComposer(self):
         self.data.addPiece("file.xml",{"composer":"Bartok"})
@@ -56,10 +49,8 @@ class testDataLayer(unittest.TestCase):
         conn = sqlite3.connect('example.db')
         c = conn.cursor()
         c.execute('SELECT ROWID FROM composers WHERE name=?', t)
-        result = c.fetchall()
-        c.execute('SELECT piece_id FROM composer_piece_join WHERE composer_id=?', result[0])
-        result_2 = c.fetchall()
-        c.execute('SELECT * FROM pieces WHERE ROWID=?', result_2[0])
+        result = c.fetchone()
+        c.execute('SELECT * FROM pieces WHERE composer_id=?', result)
         self.assertEqual(c.fetchone()[0], self.data.getPiecesByComposer("Bartok")[0])
 
     def testFindPieceByTitle(self):
