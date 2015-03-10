@@ -20,58 +20,33 @@ class testDataLayer(unittest.TestCase):
 
     def testFindPieceByFname(self):
         self.data.addPiece("file.xml",{})
-        t = ('file.xml',)
-        conn = sqlite3.connect('example.db')
-        c = conn.cursor()
-        c.execute('SELECT * FROM pieces WHERE filename=?', t)
-        self.assertEqual(c.fetchall(), self.data.getPiece("file.xml"))
+        self.assertEqual("file.xml", self.data.getPiece("file.xml")[0])
 
     def testFindPieceByInstruments(self):
         self.data.addPiece("file.xml",{"instruments":["clarinet"]})
-        t = ('clarinet',)
-        conn = sqlite3.connect('example.db')
-        c = conn.cursor()
-        c.execute('SELECT ROWID FROM instruments WHERE name=?', t)
-        result = c.fetchall()
-        c.execute('SELECT piece_id FROM instruments_piece_join WHERE instrument_id=?', result[0])
-        result_2 = c.fetchall()
-        c.execute('SELECT * FROM pieces WHERE ROWID=?', result_2[0])
-        self.assertEqual(c.fetchone()[0], self.data.getPiecesByInstrument("clarinet")[0])
+        self.assertEqual("file.xml", self.data.getPiecesByInstrument("clarinet")[0])
 
     def testFindPieceByMultipleInstruments(self):
         self.data.addPiece("file.xml",{"instruments":["clarinet", "flute"]})
         self.data.addPiece("file2.xml",{"instruments":["flute"]})
-        self.assertEqual("file.xml", self.data.getPiecesByMultipleInstruments(["clarinet", "flute"])[0])
+        self.assertEqual(["file.xml"], self.data.getPiecesByMultipleInstruments(["clarinet", "flute"]))
+
+    def testFindPieceByInstrumentWhereTwoItemsExist(self):
+        self.data.addPiece("file.xml",{"instruments":["flute"]})
+        self.data.addPiece("file2.xml",{"instruments":["flute"]})
+        self.assertEqual(["file.xml","file2.xml"], self.data.getPiecesByInstrument("flute"))
 
     def testFindPieceByComposer(self):
         self.data.addPiece("file.xml",{"composer":"Bartok"})
-        t = ('Bartok',)
-        conn = sqlite3.connect('example.db')
-        c = conn.cursor()
-        c.execute('SELECT ROWID FROM composers WHERE name=?', t)
-        result = c.fetchone()
-        c.execute('SELECT * FROM pieces WHERE composer_id=?', result)
-        self.assertEqual(c.fetchone()[0], self.data.getPiecesByComposer("Bartok")[0])
+        self.assertEqual("file.xml", self.data.getPiecesByComposer("Bartok")[0])
 
     def testFindPieceByTitle(self):
         self.data.addPiece("file.xml",{"title":"Blabla"})
-        t = ('Blabla',)
-        conn = sqlite3.connect('example.db')
-        c = conn.cursor()
-        c.execute('SELECT * FROM pieces WHERE title=?', t)
-        self.assertEqual(c.fetchall(), self.data.getPieceByTitle("Blabla"))
+        self.assertEqual("file.xml", self.data.getPieceByTitle("Blabla")[0])
 
     def testFindPieceByKey(self):
-        self.data.addPiece("file.xml",{"key":{"fifths":2,"mode":"major"}})
-        t = (2,"major",)
-        conn = sqlite3.connect('example.db')
-        c = conn.cursor()
-        c.execute('SELECT ROWID FROM keys WHERE fifths=? AND mode=?', t)
-        result = c.fetchone()
-        c.execute('SELECT piece_id FROM key_piece_join WHERE key_id=?', result)
-        result2 = c.fetchone()
-        c.execute('SELECT * FROM pieces WHERE ROWID=?', result2)
-        self.assertEqual(c.fetchone()[0], self.data.getPieceByKey("D major")[0])
+        self.data.addPiece("file.xml",{"key":{"clarinet":{"fifths":2,"mode":"major"}}})
+        self.assertEqual("file.xml", self.data.getPieceByKey("D major")[0])
 
     def testFindPieceByClef(self):
         pass

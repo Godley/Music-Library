@@ -31,7 +31,7 @@ class MusicData(object):
             if result is None or len(result) == 0:
                 cursor.execute('INSERT INTO keys VALUES(?,?,?)', key)
 
-        cursor.execute('CREATE TABLE IF NOT EXISTS key_piece_join (key_id INTEGER, piece_id INTEGER)')
+        cursor.execute('CREATE TABLE IF NOT EXISTS key_piece_join (key_id INTEGER, piece_id INTEGER, instrument_id INTEGER)')
         connection.commit()
         self.disconnect(connection)
 
@@ -113,24 +113,28 @@ class MusicData(object):
             for name in data["instruments"]:
                 query = 'SELECT ROWID FROM instruments WHERE name=?'
                 cursor.execute(query, (name,))
-                if len(cursor.fetchall()) == 0:
+                inst_id = cursor.fetchall()
+                if len(inst_id) == 0:
                     cursor.execute('INSERT INTO instruments VALUES(?)', (name,))
                     connection.commit()
                     cursor.execute(query, (name,))
-                inst_id = cursor.fetchall()
-                instrument_ids.append(inst_id[0][0])
+                    inst_id = cursor.fetchall()
+                if inst_id is not None and len(inst_id) > 0:
+                    instrument_ids.append(inst_id[0][0])
             for index in instrument_ids:
                 cursor.execute('INSERT INTO instruments_piece_join VALUES(?,?)', (index,result,))
 
-
-
         if "key" in data:
-            fifths = data["key"]["fifths"]
-            mode = data["key"]["mode"]
-            cursor.execute('SELECT ROWID FROM keys WHERE fifths=? AND mode=?', (fifths, mode,))
-            key = cursor.fetchone()
-            if key is not None and len(key) > 0:
-                cursor.execute('INSERT INTO key_piece_join VALUES(?,?)',(key[0],result,))
+            for instrument in data["key"]:
+                fifths = data["key"][instrument]["fifths"]
+                mode = data["key"][instrument]["mode"]
+                instrument_id = self.getInstrumentId(instrument, cursor)
+                if instrument_id is None:
+                    instrument_id = -1
+                cursor.execute('SELECT ROWID FROM keys WHERE fifths=? AND mode=?', (fifths, mode,))
+                key = cursor.fetchone()
+                if key is not None and len(key) > 0:
+                    cursor.execute('INSERT INTO key_piece_join VALUES(?,?,?)',(key[0],result,instrument_id,))
 
         connection.commit()
         self.disconnect(connection)
@@ -145,6 +149,7 @@ class MusicData(object):
         thing = (filename,)
         cursor.execute('SELECT * FROM pieces WHERE filename=?',thing)
         result = cursor.fetchall()
+        result = [r[0] for r in result]
         self.disconnect(connection)
         return result
 
@@ -157,7 +162,8 @@ class MusicData(object):
         '''
         cursor.execute('SELECT ROWID FROM instruments WHERE name=?', (instrument,))
         result = cursor.fetchall()
-        return result[0][0]
+        if len(result) > 0:
+            return result[0][0]
 
     def getComposerId(self, composer, cursor):
         '''
@@ -203,15 +209,13 @@ class MusicData(object):
         '''
         connection, cursor = self.connect()
         instrument_ids = [self.getInstrumentId(instrument, cursor) for instrument in instruments]
-        all_results = []
-        results = []
-        iterator = 0
-        while iterator < len(instrument_ids):
-            cursor.execute('SELECT * FROM instruments_piece_join WHERE instrument_id=?', (instrument_ids[iterator],))
-            res = cursor.fetchall()
-            all_results.extend(res)
-            iterator += 1
-        results = [(result[1],) for result in all_results]
+        query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS (SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND instrument_id = ?)'
+        for i in range(1,len(instrument_ids)):
+            query += ' AND EXISTS (SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND instrument_id = ?)'
+        query += ";"
+        input = tuple(instrument_ids)
+        cursor.execute(query, input)
+        results = cursor.fetchall()
         file_list = self.getPiecesByRowId(results, cursor)
         self.disconnect(connection)
         return file_list
@@ -224,9 +228,12 @@ class MusicData(object):
         :return: list of strings pertaining to xml files
         '''
         file_list = []
+        previous = None
         for element in rows:
-            cursor.execute('SELECT filename FROM pieces WHERE ROWID=?',element)
-            file_list.append(cursor.fetchone()[0])
+            if element != previous:
+                cursor.execute('SELECT filename FROM pieces WHERE ROWID=?',element)
+                file_list.append(cursor.fetchone()[0])
+            previous = element
         return file_list
 
     def getPiecesByComposer(self, composer):
@@ -253,6 +260,7 @@ class MusicData(object):
         thing = (title,)
         cursor.execute('SELECT * FROM pieces WHERE title=?',thing)
         result = cursor.fetchall()
+        result = [r[0] for r in result]
         self.disconnect(connection)
         return result
 
