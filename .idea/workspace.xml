@@ -2,25 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/Extractor.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/Finder.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/FolderBrowser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/FolderExtractor.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/FolderParser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/Playlister.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/Unzipper.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/example.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testExtractor.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testFinder.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testFolderBrowser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testFolderExtractor.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testFolderParser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testPlaylister.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testlist.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -105,7 +88,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeta.coverage" NAME="Unittests in testMeta Coverage Results" MODIFIED="1424033301783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$run_inside_pycharm.coverage" NAME="run inside pycharm Coverage Results" MODIFIED="1425920347917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches__1_.coverage" NAME="Unittests in testHandleNotesAndPitches (1) Coverage Results" MODIFIED="1424192729501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDataLayer.coverage" NAME="Unittests in testDataLayer Coverage Results" MODIFIED="1425942342153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDataLayer.coverage" NAME="Unittests in testDataLayer Coverage Results" MODIFIED="1425947854327" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testKey.coverage" NAME="Unittests in testKey Coverage Results" MODIFIED="1420327826313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Piece.coverage" NAME="Piece Coverage Results" MODIFIED="1422221459924" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/classes" />
     <SUITE FILE_PATH="coverage/FYP$finder.coverage" NAME="finder Coverage Results" MODIFIED="1418408064598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -149,12 +132,32 @@
       <file leaf-file-name="testDataLayer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33261338" vertical-offset="11" max-vertical-offset="690">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.3951613" vertical-offset="674" max-vertical-offset="1170">
+              <caret line="58" column="37" selection-start-line="58" selection-start-column="37" selection-end-line="58" selection-end-column="37" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
-                <marker date="1425941994000" expanded="true" signature="405:442" placeholder="SELECT * FRO..stocks..." />
+                <marker date="1425947854000" expanded="true" signature="472:509" placeholder="SELECT * FRO..stocks..." />
+                <marker date="1425947854000" expanded="true" signature="757:794" placeholder="SELECT * FRO..pieces..." />
+                <marker date="1425947854000" expanded="true" signature="1098:1140" placeholder="SELECT ROWID..instruments..." />
+                <marker date="1425947854000" expanded="true" signature="1195:1245" placeholder="SELECT ROWID..instruments_piece_join..." />
+                <marker date="1425947854000" expanded="true" signature="1195:1260" placeholder="SELECT piece..instruments_piece_join..." />
+                <marker date="1425947854000" expanded="true" signature="1195:1273" placeholder="SELECT ROWID..instruments_piece_join..." />
+                <marker date="1425947854000" expanded="true" signature="1325:1359" placeholder="SELECT * FRO..pieces..." />
+                <marker date="1425947854000" expanded="true" signature="1680:1720" placeholder="SELECT ROWID..composers..." />
+                <marker date="1425947854000" expanded="true" signature="1775:1835" placeholder="SELECT piece..composer_piece_join..." />
+                <marker date="1425947854000" expanded="true" signature="1900:1934" placeholder="SELECT * FRO..pieces..." />
+                <marker date="1425947854000" expanded="true" signature="2245:2279" placeholder="SELECT * FRO..pieces..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="case.py" pinned="false" current-in-tab="false">
+        <entry file="file:///System/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/unittest/case.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="8291" max-vertical-offset="20895">
+              <caret line="576" column="0" selection-start-line="576" selection-start-column="0" selection-end-line="576" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -172,13 +175,36 @@
       <file leaf-file-name="DataLayer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="62" max-vertical-offset="525">
-              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1634" max-vertical-offset="2220">
+              <caret line="135" column="22" selection-start-line="135" selection-start-column="22" selection-end-line="135" selection-end-column="22" />
               <folding>
-                <marker date="1425942303000" expanded="true" signature="262:329" placeholder="SELECT name ..sqlite_master..." />
-                <marker date="1425942303000" expanded="true" signature="419:471" placeholder="CREATE TABLE..stocks..." />
-                <marker date="1425942303000" expanded="true" signature="768:796" placeholder="INSERT INTO ..." />
-                <marker date="1425942303000" expanded="true" signature="774:775" placeholder="SELECT * FRO..pieces..." />
+                <marker date="1425947836000" expanded="true" signature="315:382" placeholder="SELECT name ..sqlite_master..." />
+                <marker date="1425947836000" expanded="true" signature="482:546" placeholder="CREATE TABLE..stocks..." />
+                <marker date="1425947836000" expanded="true" signature="695:767" placeholder="SELECT name ..sqlite_master..." />
+                <marker date="1425947836000" expanded="true" signature="867:920" placeholder="CREATE TABLE..instruments..." />
+                <marker date="1425947836000" expanded="true" signature="951:1034" placeholder="SELECT name ..sqlite_master..." />
+                <marker date="1425947836000" expanded="true" signature="1134:1228" placeholder="CREATE TABLE..instruments_piece_join..." />
+                <marker date="1425947836000" expanded="true" signature="1375:1445" placeholder="SELECT name ..sqlite_master..." />
+                <marker date="1425947836000" expanded="true" signature="1546:1633" placeholder="CREATE TABLE..composers..." />
+                <marker date="1425947836000" expanded="true" signature="1668:1719" placeholder="CREATE TABLE..composers..." />
+                <marker date="1425947836000" expanded="true" signature="1750:1830" placeholder="SELECT name ..sqlite_master..." />
+                <marker date="1425947836000" expanded="true" signature="1930:2019" placeholder="CREATE TABLE..composer_piece_join..." />
+                <marker date="1425947836000" expanded="true" signature="2390:2420" placeholder="INSERT INTO ..." />
+                <marker date="1425947836000" expanded="true" signature="2396:2397" placeholder="SELECT * FRO..pieces..." />
+                <marker date="1425947836000" expanded="true" signature="2516:2557" placeholder="SELECT ROWID..pieces..." />
+                <marker date="1425947836000" expanded="true" signature="2751:2793" placeholder="SELECT ROWID..instruments..." />
+                <marker date="1425947836000" expanded="true" signature="2926:2959" placeholder="INSERT INTO ..." />
+                <marker date="1425947836000" expanded="true" signature="3232:3278" placeholder="INSERT INTO ..." />
+                <marker date="1425947836000" expanded="true" signature="3350:3390" placeholder="SELECT ROWID..composers..." />
+                <marker date="1425947836000" expanded="true" signature="3523:3554" placeholder="INSERT INTO ..." />
+                <marker date="1425947836000" expanded="true" signature="3751:3794" placeholder="INSERT INTO ..." />
+                <marker date="1425947836000" expanded="true" signature="4016:4053" placeholder="SELECT * FRO..pieces..." />
+                <marker date="1425947836000" expanded="true" signature="4243:4285" placeholder="SELECT ROWID..instruments..." />
+                <marker date="1425947836000" expanded="true" signature="4452:4492" placeholder="SELECT ROWID..composers..." />
+                <marker date="1425947836000" expanded="true" signature="4768:4833" placeholder="SELECT piece..instruments_piece_join..." />
+                <marker date="1425947836000" expanded="true" signature="5135:5176" placeholder="SELECT filen..pieces..." />
+                <marker date="1425947836000" expanded="true" signature="5448:5508" placeholder="SELECT piece..composer_piece_join..." />
+                <marker date="1425947836000" expanded="true" signature="5813:5847" placeholder="SELECT * FRO..pieces..." />
               </folding>
             </state>
           </provider>
@@ -242,8 +268,8 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
       </list>
     </option>
   </component>
@@ -1060,18 +1086,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00437" summary="issue fix #147&#10;&#10;Added a new test and changed the output where the print attribute is checked. Confirmed this works on testcase, not moved it to pass folder because there's 1 other issue to fix on the testcase (removing noteheads/stems)">
-      <created>1425590632809</created>
-      <option name="number" value="00437" />
-      <option name="project" value="LOCAL" />
-      <updated>1425590632809</updated>
-    </task>
-    <task id="LOCAL-00438" summary="issue fix #150">
-      <created>1425592291946</created>
-      <option name="number" value="00438" />
-      <option name="project" value="LOCAL" />
-      <updated>1425592291947</updated>
-    </task>
     <task id="LOCAL-00439" summary="issue fix #149&#10;&#10;Fixed issue by adding an add key method to the partnode which goes through each created staff adding keys to the appropriate measure. May need to modify how staves are loaded (i.e use the staves tag) if a key is positioned but all of the staves have not been encountered (i.e first bar)">
       <created>1425595178531</created>
       <option name="number" value="00439" />
@@ -1354,7 +1368,19 @@
       <option name="project" value="LOCAL" />
       <updated>1425920908098</updated>
     </task>
-    <option name="localTasksCounter" value="486" />
+    <task id="LOCAL-00486" summary="restarted second objective&#10;&#10;- cleared out old files: as I'm using a new structure most of the code from those is now irrelevant, and it's all in source code control if I need it back&#10;- started creating tests based on the key elements of data mentioned in issue #182&#10;- work toward issue #66">
+      <created>1425942500494</created>
+      <option name="number" value="00486" />
+      <option name="project" value="LOCAL" />
+      <updated>1425942500494</updated>
+    </task>
+    <task id="LOCAL-00487" summary="added more tests and functionality to metadata browser&#10;&#10;- created 2 new tables - instruments and instrument_pieces_join: doing it this way because of the many to many relationship between the two, but also so that later we can create other relationships between instruments such as their transpositions and instrument groupings&#10;- implemented further tests such as get by filename and get by instrument name&#10;- work toward issue #66">
+      <created>1425944699856</created>
+      <option name="number" value="00487" />
+      <option name="project" value="LOCAL" />
+      <updated>1425944699856</updated>
+    </task>
+    <option name="localTasksCounter" value="488" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1379,12 +1405,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32406288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32706222" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4062878" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4062878" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55845773" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1393,9 +1419,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3861111" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3861111" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850942" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36638454" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36638454" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1445,8 +1471,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #135&#10;&#10;Made a final change that makes 45d look exactly as expected - where barline has an ending and a repeat, check the ending is the first one. If it is, set the repeat to backward-barline, otherwise ignore it.&#10;Will need to implement issue #134 before the warning goes away, but otherwise, good to go" />
-    <MESSAGE value="removed another global variable + shifted some files around&#10;&#10;- removed the global variable last_barline and the associated part checks as these are no longer necessary&#10;- moved the now passed 45d and 45e tests into the passing folder&#10;- moved 45a and 45c into the provided folder as I'd like to get them both passed&#10;- removing the global constitutes work toward issue #132 as this now uses voltas, we just need to change the flags again in staff so that they hold info about how many times the new forward repeat marker needs to repeat, if different from default." />
     <MESSAGE value="work toward issue #132&#10;&#10;changed the staff flags for forward and backward repeats to be lists - this should now create the appropriate repeats with the repeat number attribute" />
     <MESSAGE value="issue fix #132" />
     <MESSAGE value="work toward issue #134&#10;&#10;Handled a problem whereby if the two numbers (forward repeat times, backward repeat times) didn't match then one of the numbers would remain on the list, causing a problem later on as it would appear that the repeat matches another repeat when it doesn't.&#10;Visually looks right, but need to fix a problem whereby if the backward repeat holds the &quot;times&quot; info, and the forward doesn't then the repeat number will be wrong" />
@@ -1470,7 +1494,9 @@
     <MESSAGE value="issue fix #159&#10;&#10;- switched CheckIfTabStaff to check 2 bools instead of every measure&#10;- removed part if drum or tab found&#10;- kept exception and added a couple of tests to check the results" />
     <MESSAGE value="initial commit for issue #59&#10;&#10;Added a new file for anything relating to playing with SQLite libraries" />
     <MESSAGE value="work toward issue #59" />
-    <option name="LAST_COMMIT_MESSAGE" value="work toward issue #59" />
+    <MESSAGE value="restarted second objective&#10;&#10;- cleared out old files: as I'm using a new structure most of the code from those is now irrelevant, and it's all in source code control if I need it back&#10;- started creating tests based on the key elements of data mentioned in issue #182&#10;- work toward issue #66" />
+    <MESSAGE value="added more tests and functionality to metadata browser&#10;&#10;- created 2 new tables - instruments and instrument_pieces_join: doing it this way because of the many to many relationship between the two, but also so that later we can create other relationships between instruments such as their transpositions and instrument groupings&#10;- implemented further tests such as get by filename and get by instrument name&#10;- work toward issue #66" />
+    <option name="LAST_COMMIT_MESSAGE" value="added more tests and functionality to metadata browser&#10;&#10;- created 2 new tables - instruments and instrument_pieces_join: doing it this way because of the many to many relationship between the two, but also so that later we can create other relationships between instruments such as their transpositions and instrument groupings&#10;- implemented further tests such as get by filename and get by instrument name&#10;- work toward issue #66" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1585,11 +1611,6 @@
           <line>174</line>
           <option name="timeStamp" value="592" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py</url>
-          <line>9</line>
-          <option name="timeStamp" value="593" />
-        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -1598,7 +1619,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="594" />
+      <option name="time" value="597" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1864,14 +1885,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/unittest/case.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="9052" max-vertical-offset="20895">
-          <caret line="624" column="0" selection-start-line="624" selection-start-column="0" selection-end-line="624" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///System/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/unittest/suite.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1702" max-vertical-offset="4905">
@@ -2095,6 +2108,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="8291" max-vertical-offset="20895">
+          <caret line="576" column="0" selection-start-line="576" selection-start-column="0" selection-end-line="576" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1634" max-vertical-offset="2220">
+          <caret line="135" column="22" selection-start-line="135" selection-start-column="22" selection-end-line="135" selection-end-column="22" />
+          <folding>
+            <marker date="1425947836000" expanded="true" signature="315:382" placeholder="SELECT name ..sqlite_master..." />
+            <marker date="1425947836000" expanded="true" signature="482:546" placeholder="CREATE TABLE..stocks..." />
+            <marker date="1425947836000" expanded="true" signature="695:767" placeholder="SELECT name ..sqlite_master..." />
+            <marker date="1425947836000" expanded="true" signature="867:920" placeholder="CREATE TABLE..instruments..." />
+            <marker date="1425947836000" expanded="true" signature="951:1034" placeholder="SELECT name ..sqlite_master..." />
+            <marker date="1425947836000" expanded="true" signature="1134:1228" placeholder="CREATE TABLE..instruments_piece_join..." />
+            <marker date="1425947836000" expanded="true" signature="1375:1445" placeholder="SELECT name ..sqlite_master..." />
+            <marker date="1425947836000" expanded="true" signature="1546:1633" placeholder="CREATE TABLE..composers..." />
+            <marker date="1425947836000" expanded="true" signature="1668:1719" placeholder="CREATE TABLE..composers..." />
+            <marker date="1425947836000" expanded="true" signature="1750:1830" placeholder="SELECT name ..sqlite_master..." />
+            <marker date="1425947836000" expanded="true" signature="1930:2019" placeholder="CREATE TABLE..composer_piece_join..." />
+            <marker date="1425947836000" expanded="true" signature="2390:2420" placeholder="INSERT INTO ..." />
+            <marker date="1425947836000" expanded="true" signature="2396:2397" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1425947836000" expanded="true" signature="2516:2557" placeholder="SELECT ROWID..pieces..." />
+            <marker date="1425947836000" expanded="true" signature="2751:2793" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1425947836000" expanded="true" signature="2926:2959" placeholder="INSERT INTO ..." />
+            <marker date="1425947836000" expanded="true" signature="3232:3278" placeholder="INSERT INTO ..." />
+            <marker date="1425947836000" expanded="true" signature="3350:3390" placeholder="SELECT ROWID..composers..." />
+            <marker date="1425947836000" expanded="true" signature="3523:3554" placeholder="INSERT INTO ..." />
+            <marker date="1425947836000" expanded="true" signature="3751:3794" placeholder="INSERT INTO ..." />
+            <marker date="1425947836000" expanded="true" signature="4016:4053" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1425947836000" expanded="true" signature="4243:4285" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1425947836000" expanded="true" signature="4452:4492" placeholder="SELECT ROWID..composers..." />
+            <marker date="1425947836000" expanded="true" signature="4768:4833" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1425947836000" expanded="true" signature="5135:5176" placeholder="SELECT filen..pieces..." />
+            <marker date="1425947836000" expanded="true" signature="5448:5508" placeholder="SELECT piece..composer_piece_join..." />
+            <marker date="1425947836000" expanded="true" signature="5813:5847" placeholder="SELECT * FRO..pieces..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PartNode.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2565" max-vertical-offset="3720">
@@ -2103,26 +2160,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="62" max-vertical-offset="525">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding>
-            <marker date="1425942303000" expanded="true" signature="262:329" placeholder="SELECT name ..sqlite_master..." />
-            <marker date="1425942303000" expanded="true" signature="419:471" placeholder="CREATE TABLE..stocks..." />
-            <marker date="1425942303000" expanded="true" signature="768:796" placeholder="INSERT INTO ..." />
-            <marker date="1425942303000" expanded="true" signature="774:775" placeholder="SELECT * FRO..pieces..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33261338" vertical-offset="11" max-vertical-offset="690">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3951613" vertical-offset="674" max-vertical-offset="1170">
+          <caret line="58" column="37" selection-start-line="58" selection-start-column="37" selection-end-line="58" selection-end-column="37" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-            <marker date="1425941994000" expanded="true" signature="405:442" placeholder="SELECT * FRO..stocks..." />
+            <marker date="1425947854000" expanded="true" signature="472:509" placeholder="SELECT * FRO..stocks..." />
+            <marker date="1425947854000" expanded="true" signature="757:794" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1425947854000" expanded="true" signature="1098:1140" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1425947854000" expanded="true" signature="1195:1245" placeholder="SELECT ROWID..instruments_piece_join..." />
+            <marker date="1425947854000" expanded="true" signature="1195:1260" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1425947854000" expanded="true" signature="1195:1273" placeholder="SELECT ROWID..instruments_piece_join..." />
+            <marker date="1425947854000" expanded="true" signature="1325:1359" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1425947854000" expanded="true" signature="1680:1720" placeholder="SELECT ROWID..composers..." />
+            <marker date="1425947854000" expanded="true" signature="1775:1835" placeholder="SELECT piece..composer_piece_join..." />
+            <marker date="1425947854000" expanded="true" signature="1900:1934" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1425947854000" expanded="true" signature="2245:2279" placeholder="SELECT * FRO..pieces..." />
           </folding>
         </state>
       </provider>

@@ -36,13 +36,27 @@ class testDataLayer(unittest.TestCase):
         c.execute('SELECT piece_id FROM instruments_piece_join WHERE instrument_id=?', result[0])
         result_2 = c.fetchall()
         c.execute('SELECT * FROM pieces WHERE ROWID=?', result_2[0])
-        self.assertEqual(c.fetchall(), self.data.getPiecesByInstrument("clarinet"))
+        self.assertEqual(c.fetchone()[0], self.data.getPiecesByInstrument("clarinet")[0])
 
     def testFindPieceByComposer(self):
-        pass
+        self.data.addPiece("file.xml",{"composer":"Bartok"})
+        t = ('Bartok',)
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        c.execute('SELECT ROWID FROM composers WHERE name=?', t)
+        result = c.fetchall()
+        c.execute('SELECT piece_id FROM composer_piece_join WHERE composer_id=?', result[0])
+        result_2 = c.fetchall()
+        c.execute('SELECT * FROM pieces WHERE ROWID=?', result_2[0])
+        self.assertEqual(c.fetchone()[0], self.data.getPiecesByComposer("Bartok")[0])
 
     def testFindPieceByTitle(self):
-        pass
+        self.data.addPiece("file.xml",{"title":"Blabla"})
+        t = ('Blabla',)
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        c.execute('SELECT * FROM pieces WHERE title=?', t)
+        self.assertEqual(c.fetchall(), self.data.getPieceByTitle("Blabla"))
 
     def testFindPieceByKey(self):
         pass
