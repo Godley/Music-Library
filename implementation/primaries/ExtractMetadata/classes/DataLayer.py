@@ -9,6 +9,10 @@ class MusicData(object):
         self.createKeyTable()
 
     def createKeyTable(self):
+        '''
+        method to create a new key table if one does not already exist
+        :return: None
+        '''
         connection, cursor = self.connect()
         cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='keys';''')
         result = cursor.fetchall()
@@ -35,6 +39,10 @@ class MusicData(object):
         self.disconnect(connection)
 
     def createMusicTable(self):
+        '''
+        method to create piece table if one does not already exist
+        :return: none
+        '''
         connection, cursor = self.connect()
         cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='pieces';''')
         result = cursor.fetchall()
@@ -44,6 +52,10 @@ class MusicData(object):
         self.disconnect(connection)
 
     def createInstrumentTable(self):
+        '''
+        method to create instrument table if one does not already exist
+        :return: none
+        '''
         connection, cursor = self.connect()
         cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='instruments';''')
         result = cursor.fetchall()
@@ -58,6 +70,10 @@ class MusicData(object):
         self.disconnect(connection)
 
     def createComposerTable(self):
+        '''
+        method to create composer table if one does not already exist
+        :return:
+        '''
         connection, cursor = self.connect()
         cursor.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='composers';''')
         result = cursor.fetchall()
@@ -75,10 +91,20 @@ class MusicData(object):
 
 
     def connect(self):
+        '''
+        method to create new sqlite connection and set up the cursor
+        :return: connection object, cursor object
+        '''
         conn = sqlite3.connect(self.database)
         return conn, conn.cursor()
 
     def addPiece(self, filename, data):
+        '''
+        method which takes in stuff about a piece and adds it to the relevant tables
+        :param filename: filename the piece is talking about
+        :param data: dictionary containing information - ids can be "composer", "title", "key" (which contains a dict of mode and fifths), "clef", "instruments"
+        :return: None
+        '''
         connection, cursor = self.connect()
         title = ""
         if "title" in data:
@@ -125,6 +151,11 @@ class MusicData(object):
         self.disconnect(connection)
 
     def getPiece(self, filename):
+        '''
+        method to get a piece's table entry according to it's filename
+        :param filename: string indicating the file name
+        :return:
+        '''
         connection, cursor = self.connect()
         thing = (filename,)
         cursor.execute('SELECT * FROM pieces WHERE filename=?',thing)
@@ -132,22 +163,45 @@ class MusicData(object):
         self.disconnect(connection)
         return result
 
-    def getInstrumentId(self, instrument, connection, cursor):
+    def getInstrumentId(self, instrument, cursor):
+        '''
+        method which takes in instrument name and returns the row id of that instrument
+        :param instrument: name of instrument
+        :param cursor: cursor object
+        :return: int pertaining to row id of instrument in database
+        '''
         cursor.execute('SELECT ROWID FROM instruments WHERE name=?', (instrument,))
         result = cursor.fetchall()
         return result[0][0]
 
-    def getComposerId(self, instrument, connection, cursor):
-        cursor.execute('SELECT ROWID FROM composers WHERE name=?', (instrument,))
+    def getComposerId(self, composer, cursor):
+        '''
+        method which takes in composer name and outputs its database id
+        :param composer: name of composer
+        :param cursor: database cursor object
+        :return: int pertaining to row id of composer in database
+        '''
+        cursor.execute('SELECT ROWID FROM composers WHERE name=?', (composer,))
         result = cursor.fetchall()
         return result[0][0]
 
-    def getKeyId(self, key, connection, cursor):
+    def getKeyId(self, key, cursor):
+        '''
+        method which takes in string of key name (e.g C major) and outputs row id
+        :param key: string name of the key (e.g C major, A minor)
+        :param cursor:  database cursor object
+        :return: int pertaining to row id
+        '''
         cursor.execute('SELECT ROWID FROM keys WHERE name=?', (key,))
         result = cursor.fetchall()
         return result[0][0]
 
     def getPiecesByInstrument(self, instrument):
+        '''
+        method to get all the pieces containing a certain instrument
+        :param instrument: name of instrument
+        :return: list of files containing that instrumnet
+        '''
         connection, cursor = self.connect()
         instrument_id = self.getInstrumentId(instrument, connection, cursor)
         cursor.execute('SELECT piece_id FROM instruments_piece_join WHERE instrument_id=?', (instrument_id,))
@@ -157,6 +211,12 @@ class MusicData(object):
         return file_list
 
     def getPiecesByRowId(self, rows, cursor):
+        '''
+        method which takes in a list of rows which are ROWIDs in the piece table and returns a list of files
+        :param rows: list of tuples pertaining to ROWIDs in pieces table
+        :param cursor: connection cursor object
+        :return: list of strings pertaining to xml files
+        '''
         file_list = []
         for element in rows:
             cursor.execute('SELECT filename FROM pieces WHERE ROWID=?',element)
@@ -164,6 +224,11 @@ class MusicData(object):
         return file_list
 
     def getPiecesByComposer(self, composer):
+        '''
+        method which takes in string of composer name and outputs list of files written by that guy
+        :param composer: composer's name
+        :return: list of strings (filenames)
+        '''
         connection, cursor = self.connect()
         composer_id = self.getComposerId(composer, connection, cursor)
         cursor.execute('SELECT piece_id FROM composer_piece_join WHERE composer_id=?', (composer_id,))
@@ -173,6 +238,11 @@ class MusicData(object):
         return file_list
 
     def getPieceByTitle(self, title):
+        '''
+        method which takes in title of piece and outputs list of files named that
+        :param title: title of piece
+        :return: list of tuples
+        '''
         connection, cursor = self.connect()
         thing = (title,)
         cursor.execute('SELECT * FROM pieces WHERE title=?',thing)
@@ -181,6 +251,11 @@ class MusicData(object):
         return result
 
     def getPieceByKey(self, key):
+        '''
+        method which takes in a key and outputs list of files in that key
+        :param key: string name of key (e.g C major)
+        :return: list of strings (files)
+        '''
         connection, cursor = self.connect()
         key_id = self.getKeyId(key, connection, cursor)
         cursor.execute('SELECT piece_id FROM key_piece_join WHERE key_id=?', (key_id,))
@@ -190,4 +265,9 @@ class MusicData(object):
         return file_list
 
     def disconnect(self, connection):
+        '''
+        method which shuts down db connection
+        :param connection: connection object
+        :return: None
+        '''
         connection.close()
