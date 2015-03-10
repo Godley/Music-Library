@@ -126,15 +126,16 @@ class MusicData(object):
 
         if "key" in data:
             for instrument in data["key"]:
-                fifths = data["key"][instrument]["fifths"]
-                mode = data["key"][instrument]["mode"]
-                instrument_id = self.getInstrumentId(instrument, cursor)
-                if instrument_id is None:
-                    instrument_id = -1
-                cursor.execute('SELECT ROWID FROM keys WHERE fifths=? AND mode=?', (fifths, mode,))
-                key = cursor.fetchone()
-                if key is not None and len(key) > 0:
-                    cursor.execute('INSERT INTO key_piece_join VALUES(?,?,?)',(key[0],result,instrument_id,))
+                for key in data["key"][instrument]:
+                    fifths = key["fifths"]
+                    mode = key["mode"]
+                    instrument_id = self.getInstrumentId(instrument, cursor)
+                    if instrument_id is None:
+                        instrument_id = -1
+                    cursor.execute('SELECT ROWID FROM keys WHERE fifths=? AND mode=?', (fifths, mode,))
+                    key = cursor.fetchone()
+                    if key is not None and len(key) > 0:
+                        cursor.execute('INSERT INTO key_piece_join VALUES(?,?,?)',(key[0],result,instrument_id,))
 
         connection.commit()
         self.disconnect(connection)

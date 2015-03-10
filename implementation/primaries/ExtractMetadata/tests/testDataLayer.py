@@ -45,21 +45,26 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual("file.xml", self.data.getPieceByTitle("Blabla")[0])
 
     def testFindPieceByKey(self):
-        self.data.addPiece("file.xml",{"key":{"clarinet":{"fifths":2,"mode":"major"}}})
+        self.data.addPiece("file.xml",{"key":{"clarinet":[{"fifths":2,"mode":"major"}]}})
         self.assertEqual("file.xml", self.data.getPieceByKey("D major")[0])
 
     def testFindPieceByInstrumentInKey(self):
-        self.data.addPiece("file.xml",{"instruments":["clarinet"],"key":{"clarinet":{"fifths":2,"mode":"major"}}})
-        self.data.addPiece("file2.xml",{"key":{"flute":{"fifths":2,"mode":"major"}}})
+        self.data.addPiece("file.xml",{"instruments":["clarinet"],"key":{"clarinet":[{"fifths":2,"mode":"major"}]}})
+        self.data.addPiece("file2.xml",{"key":{"flute":[{"fifths":2,"mode":"major"}]}})
         self.assertEqual("file.xml", self.data.getPieceByInstrumentInKey({"clarinet":"D major"})[0])
 
     def testFindPieceByInstrumentInKeyWithTwoEntries(self):
-        self.data.addPiece("file.xml",{"instruments":["clarinet"],"key":{"clarinet":{"fifths":2,"mode":"major"}}})
-        self.data.addPiece("file2.xml",{"instruments":["clarinet"],"key":{"clarinet":{"fifths":2,"mode":"major"}}})
+        self.data.addPiece("file.xml",{"instruments":["clarinet"],"key":{"clarinet":[{"fifths":2,"mode":"major"}]}})
+        self.data.addPiece("file2.xml",{"instruments":["clarinet"],"key":{"clarinet":[{"fifths":2,"mode":"major"}]}})
         self.assertEqual(["file.xml","file2.xml"], self.data.getPieceByInstrumentInKey({"clarinet":"D major"}))
 
+    def testFindPieceByInstrumentInKeyWithTwoEntriesWhichHaveDifferentKeys(self):
+        self.data.addPiece("file.xml",{"instruments":["clarinet"],"key":{"clarinet":[{"fifths":2,"mode":"major"}]}})
+        self.data.addPiece("file2.xml",{"instruments":["clarinet"],"key":{"clarinet":[{"fifths":1,"mode":"major"}]}})
+        self.assertEqual(["file.xml"], self.data.getPieceByInstrumentInKey({"clarinet":"D major"}))
+
     def testFindPieceByClef(self):
-        pass
+        self.data.addPiece("file", {"instruments":["clarinet"],"clef":{"clarinet":[{"sign":"G","line":2}]}})
 
     def testFindPieceByMeter(self):
         pass
