@@ -17,7 +17,7 @@ class MusicData(object):
         :return: None
         '''
         connection, cursor = self.connect()
-        cursor.execute('CREATE TABLE IF NOT EXISTS tempos (beat int, minute int, beat_2 int)')
+        cursor.execute('CREATE TABLE IF NOT EXISTS tempos (beat text, minute int, beat_2 text)')
         cursor.execute('''CREATE TABLE IF NOT EXISTS tempo_piece_join
              (piece_id int, tempo_id int)''')
         connection.commit()
@@ -508,18 +508,24 @@ class MusicData(object):
         return file_list
 
     def getPieceByTempo(self, tempos):
-        converter = {"quaver":4,"quarter":4,"half":2,"minim":2}
         tempo_list = []
         tempo_tuple_list = []
+        converter = {"crotchet":"quarter","quaver":"eighth","minim":"half","semibreve":"whole"}
         for tempo in tempos:
             parts = tempo.split("=")
-            beat = converter[parts[0]]
+            if parts[0] in converter:
+                beat = converter[parts[0]]
+            else:
+                beat = parts[0]
             beat_2 = -1
             minute = -1
-            if parts[1] in converter:
-                beat_2 = converter[parts[1]]
-            else:
+            try:
                 minute = int(parts[1])
+            except:
+                if parts[1] in converter:
+                    beat_2 = converter[parts[1]]
+                else:
+                    beat_2 = parts[1]
             tempo_list.append((beat,minute,beat_2))
             tempo_tuple_list.append(beat)
             tempo_tuple_list.append(minute)

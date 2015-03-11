@@ -49,10 +49,10 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual("file.xml", c.fetchone()[0])
 
     def testAddPieceWithTempo(self):
-        self.data.addPiece("file.xml",{"tempo":[{"beat":4,"minute":60}]})
+        self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","minute":60}]})
         conn = sqlite3.connect('example.db')
         c = conn.cursor()
-        t = (4,60)
+        t = ("quarter",60)
         c.execute('SELECT ROWID FROM tempos WHERE beat=? and minute=?', t)
         result = c.fetchone()
         c.execute('SELECT piece_id FROM tempo_piece_join WHERE tempo_id=?',result)
@@ -177,18 +177,18 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual(["file.xml"], self.data.getPieceByMeter(["4/4"]))
 
     def testFindPieceByTempo(self):
-        self.data.addPiece("file.xml",{"tempo":[{"beat":4,"minute":60}]})
-        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quaver=60"]))
+        self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","minute":60}]})
+        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["crotchet=60"]))
 
     def testFindPieceByTempoWhereTempoIsTwoBeats(self):
-        self.data.addPiece("file.xml",{"tempo":[{"beat":4,"beat_2":2}]})
-        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quaver=minim"]))
+        self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
+        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["crotchet=minim"]))
 
     def testFindPieceByTempoInAmerican(self):
-        self.data.addPiece("file.xml",{"tempo":[{"beat":4,"minute":60}]})
+        self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","minute":60}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quarter=60"]))
 
     def testFindPieceByTempoWhereTempoIsTwoBeatsInAmerican(self):
-        self.data.addPiece("file.xml",{"tempo":[{"beat":4,"beat_2":2}]})
+        self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quarter=half"]))
 
