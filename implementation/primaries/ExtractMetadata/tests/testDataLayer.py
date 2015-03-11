@@ -67,6 +67,21 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file", {"instruments":["clarinet"],"clef":{"clarinet":[{"sign":"G","line":2}]}})
         self.assertEqual(["file"], self.data.getPieceByClefs(["treble"]))
 
+    def testFindPieceByInstrumentInClef(self):
+        self.data.addPiece("file.xml",{"instruments":["clarinet"],"clef":{"clarinet":[{"line":2,"sign":"G"}]}})
+        self.data.addPiece("file2.xml",{"clef":{"flute":[{"line":2,"sign":"G"}]}})
+        self.assertEqual("file.xml", self.data.getPieceByInstrumentInClef({"clarinet":"treble"})[0])
+
+    def testFindPieceByInstrumentInClefWithTwoEntries(self):
+        self.data.addPiece("file.xml",{"instruments":["clarinet"],"clef":{"clarinet":[{"line":2,"sign":"G"}]}})
+        self.data.addPiece("file2.xml",{"instruments":["clarinet"],"clef":{"clarinet":[{"line":2,"sign":"G"}]}})
+        self.assertEqual(["file.xml","file2.xml"], self.data.getPieceByInstrumentInClef({"clarinet":"treble"}))
+
+    def testFindPieceByInstrumentInClefWithTwoEntriesWhichHaveDifferentKeys(self):
+        self.data.addPiece("file.xml",{"instruments":["clarinet"],"clef":{"clarinet":[{"line":2,"sign":"G"}]}})
+        self.data.addPiece("file2.xml",{"instruments":["clarinet"],"clef":{"clarinet":[{"line":1,"sign":"G"}]}})
+        self.assertEqual(["file.xml"], self.data.getPieceByInstrumentInClef({"clarinet":"treble"}))
+
     def testFindPieceByMeter(self):
         pass
 
