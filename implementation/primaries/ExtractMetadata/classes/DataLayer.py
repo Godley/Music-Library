@@ -8,6 +8,19 @@ class MusicData(object):
         self.createComposerTable()
         self.createKeyTable()
         self.createClefsTable()
+        self.createTimeTable()
+
+    def createTimeTable(self):
+        '''
+        method to create a new key table if one does not already exist
+        :return: None
+        '''
+        connection, cursor = self.connect()
+        cursor.execute('CREATE TABLE IF NOT EXISTS timesigs (beat int, type int)')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS time_piece_join
+             (piece_id int, time_id int)''')
+        connection.commit()
+        self.disconnect(connection)
 
     def createKeyTable(self):
         '''
@@ -206,6 +219,18 @@ class MusicData(object):
                     if clef_id is not None and len(clef_id) > 0:
                         cursor.execute('INSERT INTO clef_piece_join VALUES(?,?,?)',(clef_id[0],result,instrument_id,))
 
+        if "time" in data:
+            for meter in data["time"]:
+                beat = meter["beat"]
+                b_type = meter["type"]
+                cursor.execute('SELECT ROWID FROM timesigs WHERE beat=? AND type=?',(beat,b_type))
+                res = cursor.fetchone()
+                if res is None or len(res) == 0:
+                    cursor.execute('INSERT INTO timesigs VALUES(?,?)',(beat,b_type))
+                    connection.commit()
+                    cursor.execute('SELECT ROWID FROM timesigs WHERE beat=? AND type=?',(beat,b_type))
+                    res = cursor.fetchone()
+                cursor.execute('INSERT INTO time_piece_join VALUES(?,?)',(result,res[0]))
 
 
         connection.commit()
@@ -406,6 +431,30 @@ class MusicData(object):
         file_list = self.getPiecesByRowId(results, cursor)
         return file_list
 
+    def getPieceByMeter(self, meters):
+        meter_in_parts = []
+        for meter in meters:
+            if "/" in meter:
+                values = meter.split("/")
+                beat = int(values[0])
+                b_type = int(values[1])
+                meter_in_parts.append(beat)
+                meter_in_parts.append(b_type)
+        connection, cursor = self.connect()
+        time_ids = [self.getMeterId(meter, cursor) for meter in meter_list]
+        query = 'SELECT i.piece_id FROM clef_piece_join i WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
+        for i in range(1,len(clef_ids)):
+            query += ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
+        query += ";"
+        input = tuple(clef_ids)
+        cursor.execute(query, input)
+        results = cursor.fetchall()
+        file_list = self.getPiecesByRowId(results, cursor)
+        self.disconnect(connection)
+        return file_list
+
+    def getPieceByTempo(self, tempos):
+        pass
     def disconnect(self, connection):
         '''
         method which shuts down db connection

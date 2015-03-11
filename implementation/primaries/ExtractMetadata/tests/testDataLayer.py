@@ -18,6 +18,36 @@ class testDataLayer(unittest.TestCase):
         c.execute('SELECT * FROM pieces WHERE filename=?', t)
         self.assertEqual(len(c.fetchall()), 1)
 
+    def testAddPieceWithTitle(self):
+        self.data.addPiece("file.xml",{"title":"blabla"})
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        t = ('blabla',)
+        c.execute('SELECT * FROM pieces WHERE title=?', t)
+        self.assertEqual("file.xml", c.fetchone()[0])
+
+    def testAddPieceWithComposer(self):
+        self.data.addPiece("file.xml",{"composer":"blabla"})
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        t = ('blabla',)
+        c.execute('SELECT ROWID FROM composers WHERE name=?', t)
+        result = c.fetchone()
+        c.execute('SELECT * FROM pieces WHERE composer_id=?', result)
+        self.assertEqual("file.xml", c.fetchone()[0])
+
+    def testAddPieceWithMeter(self):
+        self.data.addPiece("file.xml",{"time":[{"beat":4,"type":4}]})
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        t = (4,4)
+        c.execute('SELECT ROWID FROM timesigs WHERE beat=? and type=?', t)
+        result = c.fetchone()
+        c.execute('SELECT piece_id FROM time_piece_join WHERE time_id=?',result)
+        piece_id = c.fetchone()
+        c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
+        self.assertEqual("file.xml", c.fetchone()[0])
+
     def testFindPieceByFname(self):
         self.data.addPiece("file.xml",{})
         self.assertEqual("file.xml", self.data.getPiece("file.xml")[0])
@@ -120,9 +150,9 @@ class testDataLayer(unittest.TestCase):
 
     def testFindPieceByMeter(self):
         self.data.addPiece("file.xml",{"meter":{"beats":4,"type":4}})
-        self.assertEqual(["file.xml"], self.data.getPieceByMeter("4/4"))
+        self.assertEqual(["file.xml"], self.data.getPieceByMeter(["4/4"]))
 
     def testFindPieceByTempo(self):
         self.data.addPiece("file.xml",{"tempo":{"beat":4,"minute":60}})
-        self.assertEqual(["file.xml"], self.data.getPieceByTempo("quaver=60"))
+        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quaver=60"]))
 
