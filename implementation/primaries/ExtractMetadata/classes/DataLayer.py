@@ -510,24 +510,74 @@ class MusicData(object):
     def getPieceByTempo(self, tempos):
         tempo_list = []
         tempo_tuple_list = []
+        dot_count = 0
         converter = {"crotchet":"quarter","quaver":"eighth","minim":"half","semibreve":"whole"}
         for tempo in tempos:
             parts = tempo.split("=")
-            if parts[0] in converter:
+            beat_one = parts[0]
+            beat = -1
+            if parts[0][:4] == "semi" or parts[0][:4] == "hemi" or parts[0][:4] == "demi":
+                    index = 4
+                    last_index = 0
+                    number = 8
+                    while index < len(parts[0]):
+                        section = parts[0][last_index:index]
+                        if section == "semi" or section == "hemi" or section == "demi":
+                            number *= 2
+                        else:
+                            break
+                        last_index = index
+                        index += 4
+                    beat_2_str_digit = str(number)
+                    if beat_2_str_digit == "2":
+                        beat_2_str_digit += "nd"
+                    else:
+                        beat_2_str_digit += "th"
+                    beat = beat_2_str_digit
+
+            if parts[0][-1] == ".":
+                index = len(parts[0])-1
+                while index > -1:
+                    if parts[0][index] == ".":
+                        beat_one = beat_one[:-1]
+                        dot_count += 1
+                    else:
+                        break
+                    index -= 1
+            if beat_one in converter and beat == -1:
                 beat = converter[parts[0]]
-            else:
+
+            elif beat == -1:
                 beat = parts[0]
+
+            beat+= "".join(["." for dot in range(dot_count)])
             beat_2 = -1
             minute = -1
             try:
                 minute = int(parts[1])
             except:
-                if parts[1][:5] == "semi":
-                    # need to do handling here so that we get smaller and smaller
-                    pass
+                if parts[1][:5] == "semi" or parts[1][:5] == "hemi" or parts[1][:5] == "demi":
+                    index = 0
+                    last_index = 0
+                    number = 8
+                    while index < len(parts[1]):
+                        section = parts[1][last_index:index]
+                        if section == "semi" or section == "hemi" or section == "demi":
+                            number *= 2
+                        else:
+                            break
+                        last_index = index
+                        index += 4
+                    beat_2_str_digit = str(number)
+                    if number[-1] == "2":
+                        beat_2_str_digit += "nd"
+                    else:
+                        beat_2_str_digit += "th"
+                    beat_2 = beat_2_str_digit
+
                 if parts[1] in converter:
                     beat_2 = converter[parts[1]]
-                else:
+                elif beat_2 == -1:
                     beat_2 = parts[1]
             tempo_list.append((beat,minute,beat_2))
             tempo_tuple_list.append(beat)
@@ -621,7 +671,7 @@ class MusicData(object):
                     tempo_string += str(tempo[2])
                 tempos.append(tempo_string)
         return tempos
-    
+
     def getAllPieceInfo(self, filenames):
         file_data = []
         for filename in filenames:

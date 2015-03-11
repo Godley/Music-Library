@@ -190,7 +190,7 @@ class testDataLayer(unittest.TestCase):
 
     def testFindPieceByDottedTempo(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"16th.","minute":60}]})
-        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["dotted semiquaver=60"]))
+        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["semiquaver.=60"]))
 
     def testFindPieceByTempoInAmerican(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","minute":60}]})
