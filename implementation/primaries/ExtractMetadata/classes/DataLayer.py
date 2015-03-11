@@ -134,7 +134,7 @@ class MusicData(object):
         '''
         connection, cursor = self.connect()
         cursor.execute('''CREATE TABLE IF NOT EXISTS instruments
-                 (name text)''')
+                 (name text,octave int,diatonic int,chromatic int)''')
         cursor.execute('''CREATE TABLE IF NOT EXISTS instruments_piece_join
              (instrument_id INTEGER, piece_id INTEGER)''')
         self.disconnect(connection)
@@ -193,14 +193,25 @@ class MusicData(object):
         result = cursor.fetchall()[0][0]
         if "instruments" in data:
             instrument_ids = []
-            for name in data["instruments"]:
-                query = 'SELECT ROWID FROM instruments WHERE name=?'
-                cursor.execute(query, (name,))
+            for item in data["instruments"]:
+                octave = 0
+                diatonic = 0
+                chromatic = 0
+                if "transposition" in item:
+                    transposition = item["transposition"]
+                    if "octave" in transposition:
+                        octave = transposition["octave"]
+                    if "diatonic" in transposition:
+                        diatonic = transposition["diatonic"]
+                    if "chromatic" in transposition:
+                        chromatic = transposition["chromatic"]
+                query = 'SELECT ROWID FROM instruments WHERE name=? AND octave=? AND diatonic=? AND chromatic=?'
+                cursor.execute(query, (item["name"],octave,diatonic,chromatic,))
                 inst_id = cursor.fetchall()
                 if len(inst_id) == 0:
-                    cursor.execute('INSERT INTO instruments VALUES(?)', (name,))
+                    cursor.execute('INSERT INTO instruments VALUES(?,?,?,?)', (item["name"],octave,diatonic,chromatic,))
                     connection.commit()
-                    cursor.execute(query, (name,))
+                    cursor.execute(query, (item["name"],octave,diatonic,chromatic,))
                     inst_id = cursor.fetchall()
                 if inst_id is not None and len(inst_id) > 0:
                     instrument_ids.append(inst_id[0][0])
