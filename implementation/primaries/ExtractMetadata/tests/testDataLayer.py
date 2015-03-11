@@ -74,7 +74,7 @@ class testDataLayer(unittest.TestCase):
 
     def testFindPieceByFname(self):
         self.data.addPiece("file.xml",{})
-        self.assertEqual("file.xml", self.data.getPiece("file.xml")[0])
+        self.assertEqual([(1, "file.xml","",-1)], self.data.getPiece("file.xml"))
 
     def testAddPieceWithInstruments(self):
         self.data.addPiece("file.xml",{"instruments":["clarinet"]})
@@ -199,5 +199,9 @@ class testDataLayer(unittest.TestCase):
     def testFindPieceByTempoWhereTempoIsTwoBeatsInAmerican(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quarter=half"]))
+
+    def testFindAllInfoForAPiece(self):
+        self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
+        self.assertEqual([{"composer_id":-1,"id":1,"title":"","composer":-1,"tempos":["quarter=half"],"instruments":[], "clefs":[], "keys":[], "time_signatures":[], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
 
 
