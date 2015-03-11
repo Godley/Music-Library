@@ -41,12 +41,36 @@ class testDataLayer(unittest.TestCase):
         conn = sqlite3.connect('example.db')
         c = conn.cursor()
         t = (4,4)
-        c.execute('SELECT ROWID FROM timesigs WHERE beat=? and type=?', t)
+        c.execute('SELECT ROWID FROM timesigs WHERE beat=? and b_type=?', t)
         result = c.fetchone()
         c.execute('SELECT piece_id FROM time_piece_join WHERE time_id=?',result)
         piece_id = c.fetchone()
         c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
         self.assertEqual("file.xml", c.fetchone()[0])
+
+    def testAddPieceWithTempo(self):
+        self.data.addPiece("file.xml",{"tempo":[{"beat":4,"minute":60}]})
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        t = (4,60)
+        c.execute('SELECT ROWID FROM tempos WHERE beat=? and minute=?', t)
+        result = c.fetchone()
+        c.execute('SELECT piece_id FROM tempo_piece_join WHERE tempo_id=?',result)
+        piece_id = c.fetchone()
+        c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
+        self.assertEqual([("file.xml","",-1)], c.fetchall())
+
+    def testAddPieceWithTempoOfTwoBeats(self):
+        self.data.addPiece("file.xml",{"tempo":[{"beat":4,"beat_2":4}]})
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        t = (4,4)
+        c.execute('SELECT ROWID FROM tempos WHERE beat=? and beat_2=?', t)
+        result = c.fetchone()
+        c.execute('SELECT piece_id FROM tempo_piece_join WHERE tempo_id=?',result)
+        piece_id = c.fetchone()
+        c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
+        self.assertEqual([("file.xml","",-1)], c.fetchall())
 
     def testFindPieceByFname(self):
         self.data.addPiece("file.xml",{})
@@ -149,10 +173,22 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual(["file.xml"], self.data.getPieceByInstrumentInClef({"clarinet":"treble"}))
 
     def testFindPieceByMeter(self):
-        self.data.addPiece("file.xml",{"meter":{"beats":4,"type":4}})
+        self.data.addPiece("file.xml",{"time":[{"beat":4,"type":4}]})
         self.assertEqual(["file.xml"], self.data.getPieceByMeter(["4/4"]))
 
     def testFindPieceByTempo(self):
-        self.data.addPiece("file.xml",{"tempo":{"beat":4,"minute":60}})
+        self.data.addPiece("file.xml",{"tempo":[{"beat":4,"minute":60}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quaver=60"]))
+
+    def testFindPieceByTempoWhereTempoIsTwoBeats(self):
+        self.data.addPiece("file.xml",{"tempo":[{"beat":4,"beat_2":2}]})
+        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quaver=minim"]))
+
+    def testFindPieceByTempoInAmerican(self):
+        self.data.addPiece("file.xml",{"tempo":[{"beat":4,"minute":60}]})
+        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quarter=60"]))
+
+    def testFindPieceByTempoWhereTempoIsTwoBeatsInAmerican(self):
+        self.data.addPiece("file.xml",{"tempo":[{"beat":4,"beat_2":2}]})
+        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quarter=half"]))
 
