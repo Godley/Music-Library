@@ -547,6 +547,81 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
+    def getInstrumentsByPieceId(self, piece_id, cursor):
+        instrument_query = 'SELECT instrument_id FROM instruments_piece_join WHERE piece_id=?'
+        cursor.execute(instrument_query,(piece_id,))
+        instrument_ids = cursor.fetchall()
+        instruments = []
+        if len(instrument_ids) > 0:
+            for id in instrument_ids:
+                q = 'SELECT name FROM instruments WHERE ROWID=?'
+                cursor.execute(q, id)
+                name = cursor.fetchone()
+                if name is not None and len(name) > 0:
+                    instruments.append(name[0])
+        return instruments
+
+    def getClefsByPieceId(self, piece_id, cursor):
+        clef_query = 'SELECT clef_id, instrument_id FROM clef_piece_join WHERE piece_id=?'
+        cursor.execute(clef_query,(piece_id,))
+        clef_ids = cursor.fetchall()
+        clefs = {}
+        for id in clef_ids:
+            q = 'SELECT clefs.name, instruments.name FROM clefs, instruments WHERE clefs.ROWID=? AND instruments.ROWID=?'
+            cursor.execute(q, id)
+            name = cursor.fetchone()
+            if name is not None and len(name) > 0:
+                if name[1] not in clefs:
+                    clefs[name[1]] = []
+                clefs[name[1]].append(name[0])
+        return clefs
+
+    def getKeysByPieceId(self, piece_id, cursor):
+        key_query = 'SELECT key_id, instrument_id FROM key_piece_join WHERE piece_id=?'
+        cursor.execute(key_query,(piece_id,))
+        key_ids = cursor.fetchall()
+        keys = {}
+        for id in key_ids:
+            q = 'SELECT keys.name, instruments.name FROM keys, instruments WHERE keys.ROWID=? AND instruments.ROWID=?'
+            cursor.execute(q, id)
+            name = cursor.fetchone()
+            if len(name) > 0:
+                if name[1] not in keys:
+                    keys[name[1]] = []
+                keys[name[1]].append(name[0])
+        return keys
+
+    def getTimeSigsByPieceId(self, piece_id, cursor):
+        time_query = 'SELECT time_id FROM time_piece_join WHERE piece_id=?'
+        cursor.execute(time_query,(piece_id,))
+        time_ids = cursor.fetchall()
+        meters = []
+        for id in time_ids:
+            q = 'SELECT * FROM timesigs WHERE ROWID=?'
+            cursor.execute(q, id)
+            timesig = cursor.fetchone()
+            if timesig is not None and len(timesig) > 0:
+                meters.append(str(timesig[0])+"/"+str(timesig[1]))
+        return meters
+
+    def getTemposByPieceId(self, piece_id, cursor):
+        tempo_query = 'SELECT tempo_id FROM tempo_piece_join WHERE piece_id=?'
+        cursor.execute(tempo_query,(piece_id,))
+        tempo_ids = cursor.fetchall()
+        tempos = []
+        for id in tempo_ids:
+            q = 'SELECT * FROM tempos WHERE ROWID=?'
+            cursor.execute(q, id)
+            tempo = cursor.fetchone()
+            if tempo is not None and len(tempo) > 0:
+                tempo_string = str(tempo[0])+"="
+                if tempo[1] != -1:
+                    tempo_string += str(tempo[1])
+                elif tempo[2] != -1:
+                    tempo_string += str(tempo[2])
+                tempos.append(tempo_string)
+        return tempos
+    
     def getAllPieceInfo(self, filenames):
         file_data = []
         for filename in filenames:
@@ -566,76 +641,12 @@ class MusicData(object):
                     file_data["composer"] = fetched[0]
             else:
                 file["composer"] = -1
-            instrument_query = 'SELECT instrument_id FROM instruments_piece_join WHERE piece_id=?'
-            cursor.execute(instrument_query,(index,))
-            instrument_ids = cursor.fetchall()
-            instruments = []
-            if len(instrument_ids) > 0:
-                for id in instrument_ids:
-                    q = 'SELECT name FROM instruments WHERE ROWID=?'
-                    cursor.execute(q, id)
-                    name = cursor.fetchone()
-                    if name is not None and len(name) > 0:
-                        instruments.append(name[0])
-            file["instruments"] = instruments
 
-            clef_query = 'SELECT clef_id, instrument_id FROM clef_piece_join WHERE piece_id=?'
-            cursor.execute(clef_query,(index,))
-            clef_ids = cursor.fetchall()
-            clefs = []
-            for id in clef_ids:
-                # TODO: need to do a table join for instruments here. could do this using 2 select statements,
-                # but I'm sure there's a way to do this in one.
-                q = 'SELECT name FROM clefs WHERE ROWID=?'
-                cursor.execute(q, id)
-                name = cursor.fetchone()
-                if name is not None and len(name) > 0:
-                    clefs.append(name[0])
-            file["clefs"] = clefs
-
-
-            key_query = 'SELECT key_id, instrument_id FROM key_piece_join WHERE piece_id=?'
-            cursor.execute(key_query,(index,))
-            key_ids = cursor.fetchall()
-            keys = []
-            for id in clef_ids:
-                # TODO: need to do a table join for instruments here. could do this using 2 select statements,
-                # but I'm sure there's a way to do this with one.
-                q = 'SELECT name FROM keys WHERE ROWID=?'
-                cursor.execute(q, id)
-                name = cursor.fetchone()
-                if name is not None and len(name) > 0:
-                    keys.append(name[0])
-            file["keys"] = keys
-
-            time_query = 'SELECT time_id FROM time_piece_join WHERE piece_id=?'
-            cursor.execute(time_query,(index,))
-            time_ids = cursor.fetchall()
-            meters = []
-            for id in time_ids:
-                q = 'SELECT * FROM timesigs WHERE ROWID=?'
-                cursor.execute(q, id)
-                timesig = cursor.fetchone()
-                if timesig is not None and len(timesig) > 0:
-                    meters.append(str(timesig[0])+"/"+str(timesig[1]))
-            file["time_signatures"] = meters
-
-            tempo_query = 'SELECT tempo_id FROM tempo_piece_join WHERE piece_id=?'
-            cursor.execute(tempo_query,(index,))
-            tempo_ids = cursor.fetchall()
-            tempos = []
-            for id in tempo_ids:
-                q = 'SELECT * FROM tempos WHERE ROWID=?'
-                cursor.execute(q, id)
-                tempo = cursor.fetchone()
-                if tempo is not None and len(tempo) > 0:
-                    tempo_string = str(tempo[0])+"="
-                    if tempo[1] != -1:
-                        tempo_string += str(tempo[1])
-                    elif tempo[2] != -1:
-                        tempo_string += str(tempo[2])
-                    tempos.append(tempo_string)
-            file["tempos"] = tempos
+            file["instruments"] = self.getInstrumentsByPieceId(index, cursor)
+            file["clefs"] = self.getClefsByPieceId(index, cursor)
+            file["keys"] = self.getKeysByPieceId(index, cursor)
+            file["time_signatures"] = self.getTimeSigsByPieceId(index, cursor)
+            file["tempos"] = self.getTemposByPieceId(index, cursor)
             file.pop("id")
             file.pop("composer_id")
         self.disconnect(connection)
