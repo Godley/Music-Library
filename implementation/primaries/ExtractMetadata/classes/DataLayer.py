@@ -151,6 +151,26 @@ class MusicData(object):
              (name text)''')
         self.disconnect(connection)
 
+    def addInstruments(self, data):
+        connection, cursor = self.connect()
+        elements = []
+        for item in data:
+            octave = 0
+            diatonic = 0
+            chromatic = 0
+            if "transposition" in item:
+                trans = item["transposition"]
+                if "octave" in trans:
+                    octave = trans["octave"]
+                if "diatonic" in trans:
+                    diatonic = trans["diatonic"]
+                if "chromatic" in trans:
+                    chromatic = trans["chromatic"]
+            item_data = (item["name"],octave,diatonic,chromatic)
+            elements.append(item_data)
+        cursor.executemany('INSERT INTO instruments VALUES(?,?,?,?)', elements)
+        connection.commit()
+        self.disconnect(connection)
 
     def connect(self):
         '''
@@ -613,13 +633,33 @@ class MusicData(object):
         cursor.execute(instrument_query,(piece_id,))
         instrument_ids = cursor.fetchall()
         instruments = []
-        if len(instrument_ids) > 0:
-            for id in instrument_ids:
-                q = 'SELECT name FROM instruments WHERE ROWID=?'
-                cursor.execute(q, id)
-                name = cursor.fetchone()
-                if name is not None and len(name) > 0:
-                    instruments.append(name[0])
+        for id in instrument_ids:
+            data = {}
+            q = 'SELECT * FROM instruments WHERE ROWID=?'
+            cursor.execute(q, id)
+            record = cursor.fetchone()
+            if record is not None and len(record) > 0:
+                data["name"] = record[0]
+                if record[1] != 0 or record[2] != 0 or record[3] != 0:
+                    data["transposition"] = {"octave":record[1],"diatonic":record[2],"chromatic":record[3]}
+                instruments.append(data)
+
+        return instruments
+
+    def getInstrumentByTransposition(self, transposition):
+        connection, cursor = self.connect()
+        data = []
+        instrument_query = 'SELECT ROWID, name FROM instruments WHERE'
+        keys = list(transposition.keys())
+        for index in range(len(keys)):
+            instrument_query += ' '+keys[index]+"=?"
+            if index != len(keys) -1:
+                instrument_query += ' AND'
+            data.append(transposition[keys[index]])
+
+        cursor.execute(instrument_query,tuple(data))
+        instruments = cursor.fetchall()
+        self.disconnect(connection)
         return instruments
 
     def getClefsByPieceId(self, piece_id, cursor):

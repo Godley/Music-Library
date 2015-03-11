@@ -195,6 +195,11 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","minute":60}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["crotchet=60"]))
 
+    def testFindInstrumentsByTranspositions(self):
+        self.data.addInstruments([{"name":"clarinet","transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}, {"name":"trumpet", "transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}])
+        self.assertEqual([(1, "clarinet"),(2, "trumpet")], self.data.getInstrumentByTransposition({"octave":0,"diatonic":-1,"chromatic":-2}))
+
+
     def testFindPieceByTempoWhereTempoIsTwoBeats(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["crotchet=minim"]))
@@ -221,9 +226,12 @@ class testDataLayer(unittest.TestCase):
 
     def testFindAllInfoForAPieceWhereHasKeys(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}], "key":{"clarinet":[{"mode":"major","fifths":2}]}})
-        self.assertEqual([{"title":"","composer":-1,"tempos":[],"instruments":["clarinet"], "clefs":{}, "keys":{"clarinet":["D major"]}, "time_signatures":[], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
+        self.assertEqual([{"title":"","composer":-1,"tempos":[],"instruments":[{"name":"clarinet"}], "clefs":{}, "keys":{"clarinet":["D major"]}, "time_signatures":[], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
 
     def testFindAllInfoForAPieceWhereHasClefs(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}], "clef":{"clarinet":[{"sign":"G","line":2}]}})
-        self.assertEqual([{"title":"","composer":-1,"tempos":[],"instruments":["clarinet"], "clefs":{"clarinet":["treble"]}, "keys":{}, "time_signatures":[], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
+        self.assertEqual([{"title":"","composer":-1,"tempos":[],"instruments":[{"name":"clarinet"}], "clefs":{"clarinet":["treble"]}, "keys":{}, "time_signatures":[], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
 
+    def testFindAllInfoForAPieceWhereHasTransposedInstruments(self):
+        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}]})
+        self.assertEqual([{"title":"","composer":-1,"tempos":[],"instruments":[{"name":"clarinet", "transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}], "clefs":{}, "keys":{}, "time_signatures":[], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
