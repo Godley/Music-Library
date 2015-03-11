@@ -46,7 +46,7 @@ class testDataLayer(unittest.TestCase):
 
     def testFindPieceByKey(self):
         self.data.addPiece("file.xml",{"key":{"clarinet":[{"fifths":2,"mode":"major"}]}})
-        self.assertEqual("file.xml", self.data.getPieceByKey("D major")[0])
+        self.assertEqual("file.xml", self.data.getPieceByKeys(["D major"])[0])
 
     def testFindPieceByInstrumentInKey(self):
         self.data.addPiece("file.xml",{"instruments":["clarinet"],"key":{"clarinet":[{"fifths":2,"mode":"major"}]}})
@@ -65,6 +65,7 @@ class testDataLayer(unittest.TestCase):
 
     def testFindPieceByClef(self):
         self.data.addPiece("file", {"instruments":["clarinet"],"clef":{"clarinet":[{"sign":"G","line":2}]}})
+        self.assertEqual(["file"], self.data.getPieceByClefs(["treble"]))
 
     def testFindPieceByMeter(self):
         pass

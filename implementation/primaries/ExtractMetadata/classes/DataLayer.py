@@ -7,6 +7,7 @@ class MusicData(object):
         self.createInstrumentTable()
         self.createComposerTable()
         self.createKeyTable()
+        self.createClefsTable()
 
     def createKeyTable(self):
         '''
@@ -16,22 +17,77 @@ class MusicData(object):
         connection, cursor = self.connect()
         cursor.execute('''CREATE TABLE IF NOT EXISTS keys
              (name text, fifths int, mode text)''')
-        keys = [("C major",0,"major",),
+        keys = [("C flat major",-7, "major"),
+                ("G flat major",-6, "major"),
+                ("D flat major",-5, "major"),
+                ("A flat major",-4, "major"),
+                ("E flat major",-3, "major"),
+                ("B flat major",-2, "major"),
+                ("F major",-1,"major"),
+                ("C major",0,"major",),
                 ("G major",1,"major",),
                 ("D major",2,"major",),
                 ("A major",3,"major",),
                 ("E major",4,"major",),
-                ("C# major",5,"major",),
+                ("B major",5,"major"),
                 ("F# major",6,"major",),
-                ("A minor",0,"minor",)]
+                ("C# major",7,"major",),
+                ("A flat minor",-7,"minor"),
+                ("E flat minor",-6,"minor"),
+                ("B flat minor",-5,"minor"),
+                ("F minor",-4,"minor"),
+                ("C minor",-3,"minor"),
+                ("G minor",-2,"minor"),
+                ("D minor",-1,"minor"),
+                ("A minor",0,"minor",),
+                ("E minor",1,"minor"),
+                ("B minor",2,"minor"),
+            ("F# minor",3,"minor"),
+            ("C# minor",4,"minor"),
+            ("G# minor",5,"minor"),
+            ("D# minor",6,"minor"),
+            ("A# minor",7,"minor")]
         for key in keys:
-            key[0]
             cursor.execute('SELECT * FROM KEYS WHERE name=?', (key[0],))
             result = cursor.fetchone()
             if result is None or len(result) == 0:
                 cursor.execute('INSERT INTO keys VALUES(?,?,?)', key)
 
         cursor.execute('CREATE TABLE IF NOT EXISTS key_piece_join (key_id INTEGER, piece_id INTEGER, instrument_id INTEGER)')
+        connection.commit()
+        self.disconnect(connection)
+
+
+    def createClefsTable(self):
+        '''
+        method to create a new key table if one does not already exist
+        :return: None
+        '''
+        connection, cursor = self.connect()
+        cursor.execute('''CREATE TABLE IF NOT EXISTS clefs
+             (name text, sign text, line int)''')
+        clefs = [("treble","G",2,),
+                 ("french","G",1),
+                 ("varbaritone","F",3,),
+                 ("subbass","F",5),
+                ("bass","F",4),
+                ("alto","C",3),
+                 ("percussion","percussion",-1,),
+                 ("tenor","C",4),
+                 ("baritone","C",5,),
+                 ("mezzosoprano","C",2),
+                ("soprano","C",1),
+                ("varC","VARC",-1),
+                ("alto varC","VARC",3),
+                ("tenor varC","VARC",4),
+                 ("baritone varC","VARC",5)]
+        for clef in clefs:
+            cursor.execute('SELECT * FROM clefs WHERE name=?', (clef[0],))
+            result = cursor.fetchone()
+            if result is None or len(result) == 0:
+                cursor.execute('INSERT INTO clefs VALUES(?,?,?)', clef)
+
+        cursor.execute('CREATE TABLE IF NOT EXISTS clef_piece_join (clef_id INTEGER, piece_id INTEGER, instrument_id INTEGER)')
         connection.commit()
         self.disconnect(connection)
 
@@ -137,6 +193,21 @@ class MusicData(object):
                     if key is not None and len(key) > 0:
                         cursor.execute('INSERT INTO key_piece_join VALUES(?,?,?)',(key[0],result,instrument_id,))
 
+        if "clef" in data:
+            for instrument in data["clef"]:
+                for clef in data["clef"][instrument]:
+                    sign = clef["sign"]
+                    line = clef["line"]
+                    instrument_id = self.getInstrumentId(instrument, cursor)
+                    if instrument_id is None:
+                        instrument_id = -1
+                    cursor.execute('SELECT ROWID FROM clefs WHERE sign=? AND line=?', (sign, line,))
+                    clef_id = cursor.fetchone()
+                    if clef_id is not None and len(clef_id) > 0:
+                        cursor.execute('INSERT INTO clef_piece_join VALUES(?,?,?)',(clef_id[0],result,instrument_id,))
+
+
+
         connection.commit()
         self.disconnect(connection)
 
@@ -185,6 +256,17 @@ class MusicData(object):
         :return: int pertaining to row id
         '''
         cursor.execute('SELECT ROWID FROM keys WHERE name=?', (key,))
+        result = cursor.fetchall()
+        return result[0][0]
+
+    def getClefId(self, clef, cursor):
+        '''
+        method which takes in string of clef name (e.g treble) and outputs row id
+        :param key: string name of the clef (e.g treble, bass)
+        :param cursor:  database cursor object
+        :return: int pertaining to row id
+        '''
+        cursor.execute('SELECT ROWID FROM clefs WHERE name=?', (clef,))
         result = cursor.fetchall()
         return result[0][0]
 
@@ -251,17 +333,41 @@ class MusicData(object):
         self.disconnect(connection)
         return result
 
-    def getPieceByKey(self, key):
+    def getPieceByKeys(self, keys):
         '''
         method which takes in a key and outputs list of files in that key
         :param key: string name of key (e.g C major)
         :return: list of strings (files)
         '''
         connection, cursor = self.connect()
-        key_id = self.getKeyId(key, cursor)
-        cursor.execute('SELECT piece_id FROM key_piece_join WHERE key_id=?', (key_id,))
-        result = cursor.fetchall()
-        file_list = self.getPiecesByRowId(result, cursor)
+        key_ids = [self.getKeyId(key, cursor) for key in keys]
+        query = 'SELECT i.piece_id FROM key_piece_join i WHERE EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
+        for i in range(1,len(key_ids)):
+            query += ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
+        query += ";"
+        input = tuple(key_ids)
+        cursor.execute(query, input)
+        results = cursor.fetchall()
+        file_list = self.getPiecesByRowId(results, cursor)
+        self.disconnect(connection)
+        return file_list
+
+    def getPieceByClefs(self, clefs):
+        '''
+        method which takes in a key and outputs list of files in that key
+        :param key: string name of key (e.g C major)
+        :return: list of strings (files)
+        '''
+        connection, cursor = self.connect()
+        clef_ids = [self.getClefId(clef, cursor) for clef in clefs]
+        query = 'SELECT i.piece_id FROM clef_piece_join i WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
+        for i in range(1,len(clef_ids)):
+            query += ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
+        query += ";"
+        input = tuple(clef_ids)
+        cursor.execute(query, input)
+        results = cursor.fetchall()
+        file_list = self.getPiecesByRowId(results, cursor)
         self.disconnect(connection)
         return file_list
 
