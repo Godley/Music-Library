@@ -293,6 +293,18 @@ class MusicData(object):
         if len(result) > 0:
             return result[0][0]
 
+    def getTempoId(self, beat, minute, beat_2, cursor):
+        '''
+        method which takes in instrument name and returns the row id of that instrument
+        :param instrument: name of instrument
+        :param cursor: cursor object
+        :return: int pertaining to row id of instrument in database
+        '''
+        cursor.execute('SELECT ROWID FROM tempos WHERE beat=? AND minute=? AND beat_2=? ', (beat, minute, beat_2))
+        result = cursor.fetchall()
+        if len(result) > 0:
+            return result[0][0]
+
     def getInstrumentId(self, instrument, cursor):
         '''
         method which takes in instrument name and returns the row id of that instrument
@@ -496,7 +508,36 @@ class MusicData(object):
         return file_list
 
     def getPieceByTempo(self, tempos):
-        pass
+        converter = {"quaver":4,"quarter":4,"half":2,"minim":2}
+        tempo_list = []
+        tempo_tuple_list = []
+        for tempo in tempos:
+            parts = tempo.split("=")
+            beat = converter[parts[0]]
+            beat_2 = -1
+            minute = -1
+            if parts[1] in converter:
+                beat_2 = converter[parts[1]]
+            else:
+                minute = int(parts[1])
+            tempo_list.append((beat,minute,beat_2))
+            tempo_tuple_list.append(beat)
+            tempo_tuple_list.append(minute)
+            tempo_tuple_list.append(beat_2)
+
+        connection, cursor = self.connect()
+        tempo_ids = [self.getTempoId(tempo[0],tempo[1],tempo[2], cursor) for tempo in tempo_list]
+        query = 'SELECT i.piece_id FROM tempo_piece_join i WHERE EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
+        for i in range(1,len(tempo_ids)):
+            query += ' AND EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
+        query += ";"
+        input = tuple(tempo_ids)
+        cursor.execute(query, input)
+        results = cursor.fetchall()
+        file_list = self.getPiecesByRowId(results, cursor)
+        self.disconnect(connection)
+        return file_list
+
     def disconnect(self, connection):
         '''
         method which shuts down db connection
