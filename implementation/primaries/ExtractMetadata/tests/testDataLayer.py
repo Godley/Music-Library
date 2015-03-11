@@ -184,6 +184,14 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["crotchet=minim"]))
 
+    def testFindPieceByTempoLessThanAQuaver(self):
+        self.data.addPiece("file.xml",{"tempo":[{"beat":"16th","minute":60}]})
+        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["semiquaver=60"]))
+
+    def testFindPieceByDottedTempo(self):
+        self.data.addPiece("file.xml",{"tempo":[{"beat":"16th.","minute":60}]})
+        self.assertEqual(["file.xml"], self.data.getPieceByTempo(["dotted semiquaver=60"]))
+
     def testFindPieceByTempoInAmerican(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","minute":60}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quarter=60"]))
@@ -191,4 +199,5 @@ class testDataLayer(unittest.TestCase):
     def testFindPieceByTempoWhereTempoIsTwoBeatsInAmerican(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quarter=half"]))
+
 

@@ -522,6 +522,9 @@ class MusicData(object):
             try:
                 minute = int(parts[1])
             except:
+                if parts[1][:5] == "semi":
+                    # need to do handling here so that we get smaller and smaller
+                    pass
                 if parts[1] in converter:
                     beat_2 = converter[parts[1]]
                 else:
