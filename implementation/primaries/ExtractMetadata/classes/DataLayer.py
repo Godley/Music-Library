@@ -662,6 +662,28 @@ class MusicData(object):
         self.disconnect(connection)
         return instruments
 
+    def getInstrumentsBySameTranspositionAs(self, instrument):
+        connection, cursor = self.connect()
+        instrument_query = '''SELECT i2.ROWID, i2.name FROM instruments i1, instruments i2
+                              WHERE i1.name = ? AND i2.diatonic = i1.diatonic
+                              AND i2.chromatic = i1.chromatic
+                              AND i2.octave = i1.octave
+                              AND i2.name != i1.name'''
+        cursor.execute(instrument_query, (instrument,))
+        instruments = cursor.fetchall()
+        self.disconnect(connection)
+        return instruments
+
+    def getPieceByInstrumentsOrSimilar(self, instruments):
+        '''
+        method which searches first for any pieces containing the exact instrument, then by the name in dict,
+        then by the transposition of the name if it isn't in the instruments table.
+        :param instruments: list of instruments to search by
+        :return: list of files + their instruments
+        '''
+        pass
+
+
     def getClefsByPieceId(self, piece_id, cursor):
         clef_query = 'SELECT clef_id, instrument_id FROM clef_piece_join WHERE piece_id=?'
         cursor.execute(clef_query,(piece_id,))

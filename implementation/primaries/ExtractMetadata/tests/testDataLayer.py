@@ -199,6 +199,26 @@ class testDataLayer(unittest.TestCase):
         self.data.addInstruments([{"name":"clarinet","transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}, {"name":"trumpet", "transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}])
         self.assertEqual([(1, "clarinet"),(2, "trumpet")], self.data.getInstrumentByTransposition({"octave":0,"diatonic":-1,"chromatic":-2}))
 
+    def testFindSimilarInstruments(self):
+        self.data.addInstruments([{"name":"clarinet","transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}, {"name":"trumpet", "transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}])
+        self.assertEqual([(2, "trumpet")], self.data.getInstrumentsBySameTranspositionAs("clarinet"))
+
+    def testFindSimilarInstrumentsWhereOneIsDiff(self):
+        self.data.addInstruments([{"name":"clarinet","transposition":{"octave":0,"diatonic":-1,"chromatic":-2}},
+                                  {"name":"lute", "transposition":{"octave":1,"diatonic":-1,"chromatic":-2}},
+                                  {"name":"trumpet", "transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}
+                                  ]
+                                )
+        self.assertEqual([(3, "trumpet")], self.data.getInstrumentsBySameTranspositionAs("clarinet"))
+
+    def testFindPiecesContainingInstrumentsOrSimilar(self):
+        self.data.addPiece("file.xml", {"instruments":
+                                            [{"name":"clarinet","transposition":{"octave":0,"diatonic":1,"chromatic":2}},
+                                                {"name":"violin","transposition":{"octave":0,"diatonic":0,"chromatic":0}}
+                                              ]
+                                             })
+        self.data.addInstruments([{"name":"flute","transposition":{"octave":0,"diatonic":0,"chromatic":0}}])
+        self.assertEqual(["file.xml"], self.data.getPieceByInstrumentsOrSimilar(["flute","clarinet"]))
 
     def testFindPieceByTempoWhereTempoIsTwoBeats(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
