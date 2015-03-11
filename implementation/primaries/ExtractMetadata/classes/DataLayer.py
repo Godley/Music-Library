@@ -579,11 +579,13 @@ class MusicData(object):
                         instruments.append(name[0])
             file["instruments"] = instruments
 
-            clef_query = 'SELECT clef_id FROM clef_piece_join WHERE piece_id=?'
+            clef_query = 'SELECT clef_id, instrument_id FROM clef_piece_join WHERE piece_id=?'
             cursor.execute(clef_query,(index,))
             clef_ids = cursor.fetchall()
             clefs = []
             for id in clef_ids:
+                # TODO: need to do a table join for instruments here. could do this using 2 select statements,
+                # but I'm sure there's a way to do this in one.
                 q = 'SELECT name FROM clefs WHERE ROWID=?'
                 cursor.execute(q, id)
                 name = cursor.fetchone()
@@ -592,11 +594,13 @@ class MusicData(object):
             file["clefs"] = clefs
 
 
-            key_query = 'SELECT key_id FROM key_piece_join WHERE piece_id=?'
+            key_query = 'SELECT key_id, instrument_id FROM key_piece_join WHERE piece_id=?'
             cursor.execute(key_query,(index,))
             key_ids = cursor.fetchall()
             keys = []
             for id in clef_ids:
+                # TODO: need to do a table join for instruments here. could do this using 2 select statements,
+                # but I'm sure there's a way to do this with one.
                 q = 'SELECT name FROM keys WHERE ROWID=?'
                 cursor.execute(q, id)
                 name = cursor.fetchone()
@@ -632,6 +636,8 @@ class MusicData(object):
                         tempo_string += str(tempo[2])
                     tempos.append(tempo_string)
             file["tempos"] = tempos
+            file.pop("id")
+            file.pop("composer_id")
         self.disconnect(connection)
         return file_data
 
