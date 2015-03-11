@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="added advanced clef searching method&#10;&#10;- added ability to search by clef attached to a particular instrument&#10;- added if statement around get&lt;value&gt;Id method return statements to stop exceptions occuring where no results are found&#10;- work toward issue #66">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -88,7 +87,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeta.coverage" NAME="Unittests in testMeta Coverage Results" MODIFIED="1424033301783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$run_inside_pycharm.coverage" NAME="run inside pycharm Coverage Results" MODIFIED="1425920347917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches__1_.coverage" NAME="Unittests in testHandleNotesAndPitches (1) Coverage Results" MODIFIED="1424192729501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDataLayer.coverage" NAME="Unittests in testDataLayer Coverage Results" MODIFIED="1426033182519" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDataLayer.coverage" NAME="Unittests in testDataLayer Coverage Results" MODIFIED="1426034268298" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testKey.coverage" NAME="Unittests in testKey Coverage Results" MODIFIED="1420327826313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Piece.coverage" NAME="Piece Coverage Results" MODIFIED="1422221459924" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/classes" />
     <SUITE FILE_PATH="coverage/FYP$finder.coverage" NAME="finder Coverage Results" MODIFIED="1418408064598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -129,15 +128,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="testDataLayer.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="testDataLayer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="809" max-vertical-offset="1440">
-              <caret line="79" column="67" selection-start-line="79" selection-start-column="67" selection-end-line="79" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.8185484" vertical-offset="419" max-vertical-offset="2010">
+              <caret line="55" column="66" selection-start-line="55" selection-start-column="66" selection-end-line="55" selection-end-column="66" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
-                <marker date="1426033142000" expanded="true" signature="472:509" placeholder="SELECT * FRO..stocks..." />
+                <marker date="1426034268000" expanded="true" signature="472:509" placeholder="SELECT * FRO..stocks..." />
+                <marker date="1426034268000" expanded="true" signature="941:983" placeholder="SELECT ROWID..instruments..." />
+                <marker date="1426034268000" expanded="true" signature="1035:1100" placeholder="SELECT piece..instruments_piece_join..." />
+                <marker date="1426034268000" expanded="true" signature="1160:1201" placeholder="SELECT filen..pieces..." />
+                <marker date="1426034268000" expanded="true" signature="1539:1574" placeholder="SELECT ROWID..instruments..." />
+                <marker date="1426034268000" expanded="true" signature="1626:1676" placeholder="SELECT piece..instruments_piece_join..." />
+                <marker date="1426034268000" expanded="true" signature="1736:1777" placeholder="SELECT filen..pieces..." />
+                <marker date="1426034268000" expanded="true" signature="2110:2146" placeholder="SELECT ROWID..clefs..." />
+                <marker date="1426034268000" expanded="true" signature="2198:2250" placeholder="SELECT piece..clef_piece_join..." />
+                <marker date="1426034268000" expanded="true" signature="2310:2351" placeholder="SELECT filen..pieces..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="3repeats.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/3repeats.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="5940">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -152,10 +170,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DataLayer.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DataLayer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.19153225" vertical-offset="580" max-vertical-offset="2880">
+            <state vertical-scroll-proportion="0.0" vertical-offset="580" max-vertical-offset="2880">
               <caret line="263" column="38" selection-start-line="263" selection-start-column="38" selection-end-line="263" selection-end-column="38" />
               <folding>
                 <element signature="e#313#2254#0" expanded="false" />
@@ -293,8 +311,8 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
       </list>
     </option>
   </component>
@@ -375,6 +393,54 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SampleMusicXML" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SampleMusicXML" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testcases" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1159,12 +1225,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00450" summary="work toward issue #160&#10;&#10;Generated a bunch of files (and then changed any that failed) from the program and moved those into expected. Created a new file (run_passed_tests) which generates parameterised tests for every file in the lilypond-passing-tests folder">
-      <created>1425674360838</created>
-      <option name="number" value="00450" />
-      <option name="project" value="LOCAL" />
-      <updated>1425674360838</updated>
-    </task>
     <task id="LOCAL-00451" summary="issue fix #161&#10;&#10;Fixed problem by putting closing tuplets onto a separate notation list - &quot;closing_notation&quot; which gets outputted after expressions">
       <created>1425677766122</created>
       <option name="number" value="00451" />
@@ -1453,7 +1513,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426032987072</updated>
     </task>
-    <option name="localTasksCounter" value="499" />
+    <task id="LOCAL-00499" summary="added advanced clef searching method&#10;&#10;- added ability to search by clef attached to a particular instrument&#10;- added if statement around get&lt;value&gt;Id method return statements to stop exceptions occuring where no results are found&#10;- work toward issue #66">
+      <created>1426033263937</created>
+      <option name="number" value="00499" />
+      <option name="project" value="LOCAL" />
+      <updated>1426033263937</updated>
+    </task>
+    <option name="localTasksCounter" value="500" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1544,7 +1610,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="test fixes and updates to expected output&#10;&#10;- ran the run_passing_tests file and checked generated output&#10;- diff was the autobeaming for sib5&#10;- issue fix #176 as majority of tests now pass" />
     <MESSAGE value="changed voice totaller&#10;&#10;- added incrementer and decrementers to addNote, issue #165&#10;- started calculator method for implicit measure handling, issue #116" />
     <MESSAGE value="voice totaller work&#10;&#10;- checked any errors with new method of voice totalling using the mid-measure barline testcase, which is what the totaller was put in for in the first place&#10;- test now passes, issue fix #165" />
     <MESSAGE value="partial measure work&#10;&#10;- added a list to voice which keeps track of all the note durations in the voice&#10;- need to figure out how to use this - work on issue #116" />
@@ -1569,7 +1634,8 @@
     <MESSAGE value="added multi-instrument multi-key method&#10;&#10;- added new method which takes in pairings of instruments and keys and finds all the pieces containing all of the instruments in specified keys&#10;- added relevant tests, including tests to check it doesn't just return all the data and tests where it should return more than one value&#10;- work toward issue #66" />
     <MESSAGE value="changed add method to allow multiple keys&#10;&#10;- changed all inputs of keys in tests to be instrument name followed by a list of dictionaries&#10;- changed the add method to match so that it now loops the keys adding each one in the join table" />
     <MESSAGE value="changed clef and key search methods to allow multiples&#10;&#10;- changed clef and key methods to be basically the same logic as instrument searching so that they allow the user to search for a piece containing a list of clefs or list of keys, rather than just allowing them to use one&#10;- work toward issue #66" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed clef and key search methods to allow multiples&#10;&#10;- changed clef and key methods to be basically the same logic as instrument searching so that they allow the user to search for a piece containing a list of clefs or list of keys, rather than just allowing them to use one&#10;- work toward issue #66" />
+    <MESSAGE value="added advanced clef searching method&#10;&#10;- added ability to search by clef attached to a particular instrument&#10;- added if statement around get&lt;value&gt;Id method return statements to stop exceptions occuring where no results are found&#10;- work toward issue #66" />
+    <option name="LAST_COMMIT_MESSAGE" value="added advanced clef searching method&#10;&#10;- added ability to search by clef attached to a particular instrument&#10;- added if statement around get&lt;value&gt;Id method return statements to stop exceptions occuring where no results are found&#10;- work toward issue #66" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1697,14 +1763,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testFingering.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3285">
-          <caret line="6" column="71" selection-start-line="6" selection-start-column="71" selection-end-line="6" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testGraceNotes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1830">
@@ -2213,20 +2271,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="809" max-vertical-offset="1440">
-          <caret line="79" column="67" selection-start-line="79" selection-start-column="67" selection-end-line="79" selection-end-column="67" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <marker date="1426033142000" expanded="true" signature="472:509" placeholder="SELECT * FRO..stocks..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19153225" vertical-offset="580" max-vertical-offset="2880">
+        <state vertical-scroll-proportion="0.0" vertical-offset="580" max-vertical-offset="2880">
           <caret line="263" column="38" selection-start-line="263" selection-start-column="38" selection-end-line="263" selection-end-column="38" />
           <folding>
             <element signature="e#313#2254#0" expanded="false" />
@@ -2281,6 +2328,34 @@
             <marker date="1426033217000" expanded="true" signature="15065:15138" placeholder="SELECT * FRO..clef_piece_join..." />
             <marker date="1426033217000" expanded="true" signature="15904:16058" placeholder="SELECT key.p..key_piece_join..." />
             <marker date="1426033217000" expanded="true" signature="16793:16950" placeholder="SELECT key.p..clef_piece_join..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/3repeats.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5940">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8185484" vertical-offset="419" max-vertical-offset="2010">
+          <caret line="55" column="66" selection-start-line="55" selection-start-column="66" selection-end-line="55" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <marker date="1426034268000" expanded="true" signature="472:509" placeholder="SELECT * FRO..stocks..." />
+            <marker date="1426034268000" expanded="true" signature="941:983" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426034268000" expanded="true" signature="1035:1100" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1426034268000" expanded="true" signature="1160:1201" placeholder="SELECT filen..pieces..." />
+            <marker date="1426034268000" expanded="true" signature="1539:1574" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426034268000" expanded="true" signature="1626:1676" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1426034268000" expanded="true" signature="1736:1777" placeholder="SELECT filen..pieces..." />
+            <marker date="1426034268000" expanded="true" signature="2110:2146" placeholder="SELECT ROWID..clefs..." />
+            <marker date="1426034268000" expanded="true" signature="2198:2250" placeholder="SELECT piece..clef_piece_join..." />
+            <marker date="1426034268000" expanded="true" signature="2310:2351" placeholder="SELECT filen..pieces..." />
           </folding>
         </state>
       </provider>

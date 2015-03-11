@@ -22,6 +22,42 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{})
         self.assertEqual("file.xml", self.data.getPiece("file.xml")[0])
 
+    def testAddPieceWithInstruments(self):
+        self.data.addPiece("file.xml",{"instruments":["clarinet"]})
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        t = ('clarinet',)
+        c.execute('SELECT ROWID FROM instruments WHERE name=?', t)
+        row = c.fetchone()
+        c.execute('SELECT piece_id FROM instruments_piece_join WHERE instrument_id=?', row)
+        piece_row = c.fetchone()
+        c.execute('SELECT filename FROM pieces WHERE ROWID=?', piece_row)
+        self.assertEqual("file.xml", c.fetchone()[0])
+
+    def testAddPieceWithKeys(self):
+        self.data.addPiece("file.xml",{"instruments":["clarinet"], "key":{"clarinet":[{"mode":"major","fifths":0}]}})
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        t = ('C major',)
+        c.execute('SELECT ROWID FROM keys WHERE name=?', t)
+        row = c.fetchone()
+        c.execute('SELECT piece_id FROM key_piece_join WHERE key_id=?', row)
+        piece_row = c.fetchone()
+        c.execute('SELECT filename FROM pieces WHERE ROWID=?', piece_row)
+        self.assertEqual("file.xml", c.fetchone()[0])
+
+    def testAddPieceWithClefs(self):
+        self.data.addPiece("file.xml",{"instruments":["clarinet"], "clef":{"clarinet":[{"sign":"G","line":2}]}})
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        t = ('treble',)
+        c.execute('SELECT ROWID FROM clefs WHERE name=?', t)
+        row = c.fetchone()
+        c.execute('SELECT piece_id FROM clef_piece_join WHERE clef_id=?', row)
+        piece_row = c.fetchone()
+        c.execute('SELECT filename FROM pieces WHERE ROWID=?', piece_row)
+        self.assertEqual("file.xml", c.fetchone()[0])
+
     def testFindPieceByInstruments(self):
         self.data.addPiece("file.xml",{"instruments":["clarinet"]})
         self.assertEqual(["file.xml"], self.data.getPiecesByInstruments(["clarinet"]))
@@ -83,8 +119,10 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual(["file.xml"], self.data.getPieceByInstrumentInClef({"clarinet":"treble"}))
 
     def testFindPieceByMeter(self):
-        pass
+        self.data.addPiece("file.xml",{"meter":{"beats":4,"type":4}})
+        self.assertEqual(["file.xml"], self.data.getPieceByMeter("4/4"))
 
     def testFindPieceByTempo(self):
-        pass
+        self.data.addPiece("file.xml",{"tempo":{"beat":4,"minute":60}})
+        self.assertEqual(["file.xml"], self.data.getPieceByTempo("quaver=60"))
 
