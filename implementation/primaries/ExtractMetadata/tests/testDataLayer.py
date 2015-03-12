@@ -163,6 +163,10 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{"composer":"Bartok"})
         self.assertEqual("file.xml", self.data.getPiecesByComposer("Bartok")[0])
 
+    def testFindPieceByLyricist(self):
+        self.data.addPiece("file.xml",{"lyricist":"Bartok"})
+        self.assertEqual("file.xml", self.data.getPiecesByLyricist("Bartok")[0])
+
     def testFindPieceByTitle(self):
         self.data.addPiece("file.xml",{"title":"Blabla"})
         self.assertEqual("file.xml", self.data.getPieceByTitle("Blabla")[0])

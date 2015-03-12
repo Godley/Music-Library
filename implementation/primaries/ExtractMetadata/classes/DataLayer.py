@@ -394,6 +394,18 @@ class MusicData(object):
         if len(result) > 0:
             return result[0][0]
 
+    def getLyricistId(self, lyricist, cursor):
+        '''
+        method which takes in composer name and outputs its database id
+        :param composer: name of composer
+        :param cursor: database cursor object
+        :return: int pertaining to row id of composer in database
+        '''
+        cursor.execute('SELECT ROWID FROM lyricists WHERE name=?', (lyricist,))
+        result = cursor.fetchall()
+        if len(result) > 0:
+            return result[0][0]
+
     def getKeyId(self, key, cursor):
         '''
         method which takes in string of key name (e.g C major) and outputs row id
@@ -462,6 +474,20 @@ class MusicData(object):
         connection, cursor = self.connect()
         composer_id = self.getComposerId(composer, cursor)
         cursor.execute('SELECT filename FROM pieces WHERE composer_id=?', (composer_id,))
+        result = cursor.fetchall()
+        file_list = [r[0] for r in result]
+        self.disconnect(connection)
+        return file_list
+
+    def getPiecesByLyricist(self, lyricist):
+        '''
+        method which takes in string of lyricist name and outputs list of files written by that guy/woman
+        :param composer: lyricist's name
+        :return: list of strings (filenames)
+        '''
+        connection, cursor = self.connect()
+        lyricist_id = self.getLyricistId(lyricist, cursor)
+        cursor.execute('SELECT filename FROM pieces WHERE lyricist_id=?', (lyricist_id,))
         result = cursor.fetchall()
         file_list = [r[0] for r in result]
         self.disconnect(connection)
