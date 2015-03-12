@@ -8,7 +8,8 @@ class MetaParser(object):
         self.attribs = {}
         self.chars = {}
         self.handlers = {"part-name":makeNewPart,"key":handleKey,"clef":handleClef,"transpose":handleTransposition,
-                         "time":handleMeter,"metronome":handleTempo}
+                         "time":handleMeter,"metronome":handleTempo,
+                         "movement-title":handleBibliography, "creator":handleBibliography, "credit-words":handleBibliography}
         self.close_tags = []
         self.current_handler = None
         self.parts = {}
@@ -192,7 +193,37 @@ def handleTempo(tags, attrs, chars, parts, data):
             else:
                 data["tempo"][-1]["minute"] = int(minute)
 
+def handleBibliography(tags, attrs, chars, parts, data):
+    if tags[-1] == "creator":
+        creator_type = helpers.GetID(attrs, "creator", "type")
+        if creator_type is not None and creator_type == "composer":
+            if "composer" not in data:
+                data["composer"] = ""
+            if "creator" in chars:
+                data["composer"] += chars["creator"]
 
+    if tags[-1] == "movement-title":
+        title = ""
+        if "movement-title" in chars:
+            title = chars["movement-title"]
+        if "title" not in data:
+            data["title"] = ""
+        data["title"] += title
+
+    if tags[-1] == "credit-words":
+        h_alignment = helpers.GetID(attrs, "credit-words", "justify")
+        v_alignment = helpers.GetID(attrs, "credit-words", "valign")
+        if h_alignment is not None and v_alignment is not None:
+            if h_alignment == "center" and v_alignment == "top":
+                if "title" not in data:
+                    data["title"] = ""
+
+                data["title"] += chars["credit-words"]
+            if h_alignment == "right" and v_alignment == "top":
+                if "composer" not in data:
+                    data["composer"] = ""
+
+                data["composer"] += chars["credit-words"]
 
 
 

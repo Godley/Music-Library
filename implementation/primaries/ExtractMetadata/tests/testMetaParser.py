@@ -268,3 +268,38 @@ class testAddTempo(testMetaParser):
         self.parser.NewData("half")
         self.assertEqual(self.parser.data, {"tempo":[{"beat":"quarter","beat_2":"half"}]})
 
+class testAddBibliography(testMetaParser):
+    def setUp(self):
+        testMetaParser.setUp(self)
+
+    def testBibHandler(self):
+        self.parser.StartTag("movement-title", {})
+        self.assertEqual(self.parser.current_handler, MetaParser.handleBibliography)
+
+    def testBibCall(self):
+        self.parser.StartTag("movement-title", {})
+        self.parser.current_handler = MagicMock(name="method")
+        self.parser.NewData("hello, world")
+        self.parser.current_handler.assert_called_once_with(self.parser.tags,self.parser.attribs,self.parser.chars,self.parser.parts,self.parser.data)
+
+    def testCreator(self):
+        self.parser.StartTag("creator", {"type":"composer"})
+        self.parser.NewData("quarter")
+        self.assertEqual(self.parser.data, {"composer":"quarter"})
+
+    def testTitle(self):
+        self.parser.StartTag("movement-title", {})
+        self.parser.NewData("100")
+        self.assertEqual(self.parser.data, {"title":"100"})
+
+    def testCreatorWhereInCreditText(self):
+        self.parser.StartTag("credit-words", {"valign":"top","justify":"right"})
+        self.parser.NewData("quarter")
+        self.assertEqual(self.parser.data, {"composer":"quarter"})
+
+    def testTitleWhereInCreditText(self):
+        self.parser.StartTag("credit-words", {"valign":"top","justify":"center"})
+        self.parser.NewData("100")
+        self.assertEqual(self.parser.data, {"title":"100"})
+
+
