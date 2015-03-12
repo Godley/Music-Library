@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="issue fix #189&#10;&#10;- think the music manager class has progressed far enough to close this issue: the next steps are simply to pu">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/manager_tests/file1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/manager_tests/file5.mxl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" />
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParser.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -157,15 +153,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MusicManager.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MusicManager.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.1209677" vertical-offset="614" max-vertical-offset="1290">
+            <state vertical-scroll-proportion="0.0" vertical-offset="614" max-vertical-offset="1290">
               <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
                 <element signature="e#1406#4015#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testMetaParser.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParser.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="150">
+              <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MetaParser.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.09072581" vertical-offset="0" max-vertical-offset="496">
+              <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -302,8 +320,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testNotations.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testAccidentals.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/StaffAndVoice.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testBarlines.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testNote.py" />
@@ -353,6 +369,8 @@
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParser.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py" />
       </list>
     </option>
   </component>
@@ -560,104 +578,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FYP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FYP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="primaries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExtractMetadata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test_files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FYP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FYP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="primaries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExtractMetadata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test_files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manager_tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FYP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FYP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="implementation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="primaries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ExtractMetadata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tests" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test_files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="folder_tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1369,12 +1289,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00470" summary="Moved classes around&#10;&#10;- moved all the bigger classes from PieceTree into their own files&#10;- NoteNode and Placeholder are both the same sort of thing so they're both in NoteNode file&#10;- direction/expression/clef/key/selfNode are all in OtherNodes because they don't really have any special methods that mean they're big classes&#10;- Moved a lot of the stuff from the Measure class into MeasureNode and deleted the class so I know what tips over when it's finally gone. This means Measure file is probably wrongly named so I'll have to update that. Work toward issue #176">
-      <created>1425820967389</created>
-      <option name="number" value="00470" />
-      <option name="project" value="LOCAL" />
-      <updated>1425820967389</updated>
-    </task>
     <task id="LOCAL-00471" summary="test fixes and import statement fixes&#10;&#10;- Split the staffAndVoice file into 2 because measureNode couldn't import the VoiceObject because the file imports MeasureNode...&#10;- fixed the import statements on all the tests&#10;- (work toward #176)">
       <created>1425838494645</created>
       <option name="number" value="00471" />
@@ -1663,7 +1577,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426174569915</updated>
     </task>
-    <option name="localTasksCounter" value="519" />
+    <task id="LOCAL-00519" summary="issue fix #189&#10;&#10;- think the music manager class has progressed far enough to close this issue: the next steps are to create 2 further blocks - the parser, mentioned in issue #186, and another method in the data layer which deletes or marks files as archived.">
+      <created>1426177237434</created>
+      <option name="number" value="00519" />
+      <option name="project" value="LOCAL" />
+      <updated>1426177237436</updated>
+    </task>
+    <option name="localTasksCounter" value="520" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1697,6 +1617,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55845773" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32889965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1708,7 +1629,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1754,7 +1674,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="fixed multi-instrument browser&#10;&#10;- fixed the method that searches for multiple instruments in 1 piece so that the query handles this rather than doing data manipulation. Doesn't look massively tidy but does the job and should be extendible no matter how many instruments are in the list.&#10;- work toward issue #66" />
     <MESSAGE value="removed single instrument method as it's not necessary" />
     <MESSAGE value="added multi-instrument multi-key method&#10;&#10;- added new method which takes in pairings of instruments and keys and finds all the pieces containing all of the instruments in specified keys&#10;- added relevant tests, including tests to check it doesn't just return all the data and tests where it should return more than one value&#10;- work toward issue #66" />
     <MESSAGE value="changed add method to allow multiple keys&#10;&#10;- changed all inputs of keys in tests to be instrument name followed by a list of dictionaries&#10;- changed the add method to match so that it now loops the keys adding each one in the join table" />
@@ -1779,7 +1698,8 @@
     <MESSAGE value="created folderBrowser&#10;&#10;- created a class which collates a file dict from a given folder of 2 indexes - xml and mxl files&#10;- also provided 2 methods which take this method and figure out from a given list of files in the db which are old in the db and which are new to the db&#10;- created tests to match&#10;- work toward issue #185" />
     <MESSAGE value="update to folderbrowser&#10;&#10;- added a method which collates all the old files and all the new files into one dictionary. made this to avoid calling getFolderFiles twice which is probably inefficient&#10;- added test to confirm functionality of this new method&#10;- issue fix #185" />
     <MESSAGE value="initial musicManager class&#10;&#10;- created testclass and music manager class&#10;- work toward issue #189" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial musicManager class&#10;&#10;- created testclass and music manager class&#10;- work toward issue #189" />
+    <MESSAGE value="issue fix #189&#10;&#10;- think the music manager class has progressed far enough to close this issue: the next steps are to create 2 further blocks - the parser, mentioned in issue #186, and another method in the data layer which deletes or marks files as archived." />
+    <option name="LAST_COMMIT_MESSAGE" value="issue fix #189&#10;&#10;- think the music manager class has progressed far enough to close this issue: the next steps are to create 2 further blocks - the parser, mentioned in issue #186, and another method in the data layer which deletes or marks files as archived." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1927,24 +1847,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/repeatMarks.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6390">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testRepeatMarks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4269" max-vertical-offset="4695">
-          <caret line="320" column="58" selection-start-line="320" selection-start-column="58" selection-end-line="320" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#88#0" expanded="false" />
-            <element signature="e#2049#2776#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testPart.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.76785713" vertical-offset="253" max-vertical-offset="1365">
@@ -2482,12 +2384,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1209677" vertical-offset="614" max-vertical-offset="1290">
+        <state vertical-scroll-proportion="0.0" vertical-offset="614" max-vertical-offset="1290">
           <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
             <element signature="e#1406#4015#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="150">
+          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09072581" vertical-offset="0" max-vertical-offset="496">
+          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
