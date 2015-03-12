@@ -833,7 +833,11 @@ class MusicData(object):
     def getAllPieceInfo(self, filenames):
         file_data = []
         for filename in filenames:
-            piece_tuple = self.getPiece(filename)[0]
+            piece_tuple = self.getPiece(filename)
+            if len(piece_tuple) > 0:
+                piece_tuple = piece_tuple[0]
+            else:
+                break
             data = {"id":piece_tuple[0],"filename":piece_tuple[1],"title":piece_tuple[2],"composer_id":piece_tuple[3]}
             file_data.append(data)
 
@@ -859,6 +863,28 @@ class MusicData(object):
             file.pop("composer_id")
         self.disconnect(connection)
         return file_data
+
+    def removePieces(self, filenames):
+        connection, cursor = self.connect()
+        for file in filenames:
+            id_query = '''SELECT ROWID from pieces WHERE filename=?'''
+            cursor.execute(id_query, (file,))
+            result = cursor.fetchone()
+            instrument_query = '''DELETE FROM instruments_piece_join WHERE piece_id =?'''
+            cursor.execute(instrument_query,result)
+            tempo_query = '''DELETE FROM tempo_piece_join WHERE piece_id =?'''
+            cursor.execute(tempo_query,result)
+            key_query = '''DELETE FROM key_piece_join WHERE piece_id =?'''
+            cursor.execute(key_query,result)
+            clef_query = '''DELETE FROM clef_piece_join WHERE piece_id =?'''
+            cursor.execute(clef_query,result)
+            time_query = '''DELETE FROM time_piece_join WHERE piece_id =?'''
+            cursor.execute(time_query,result)
+            piece_query = '''DELETE FROM pieces WHERE ROWID=?'''
+            cursor.execute(piece_query,result)
+        connection.commit()
+        self.disconnect(connection)
+
 
     def disconnect(self, connection):
         '''

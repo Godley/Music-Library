@@ -289,3 +289,9 @@ class testDataLayer(unittest.TestCase):
     def testFindAllInfoForAPieceWhereHasTransposedInstruments(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":-1,"chromatic":-2}}]})
         self.assertEqual([{"title":"","composer":-1,"tempos":[],"instruments":[{"name":"clarinet", "transposition":{"diatonic":-1,"chromatic":-2}}], "clefs":{}, "keys":{}, "time_signatures":[], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
+
+    def testRemovePiece(self):
+        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":-1,"chromatic":-2}}]})
+        self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 1)
+        self.data.removePieces(["file.xml"])
+        self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 0)
