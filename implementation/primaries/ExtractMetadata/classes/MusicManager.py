@@ -1,5 +1,6 @@
-import os
+import os, shutil
 import zipfile
+from implementation.primaries.ExtractMetadata.classes import DataLayer
 
 class Unzipper(object):
     def __init__(self, folder="/Users/charlottegodley/PycharmProjects/FYP", files=[]):
@@ -19,6 +20,7 @@ class Unzipper(object):
                 zip_file.extractall(path=self.folder)
                 file = [f.filename for f in zip_file.filelist if "META-INF" not in f.filename]
                 resulting_file_list.append(file[0])
+
         return resulting_file_list
 
 
@@ -29,6 +31,9 @@ class Unzipper(object):
         for expected, result, path in zip(output_list, results, output_paths):
             if result != expected:
                 os.rename(os.path.join(self.folder, result), path)
+
+        if os.path.exists(os.path.join(self.folder, 'META-INF')):
+            shutil.rmtree(os.path.join(self.folder, 'META-INF'))
 
 class FolderBrowser(object):
     def __init__(self, db_files=[], folder='/Users/charlottegodley/PycharmProjects/FYP'):
@@ -52,6 +57,11 @@ class FolderBrowser(object):
                         folder_files["mxl"] = []
                     folder_files["mxl"].append(file)
         return folder_files
+
+    def getZipFiles(self):
+        files = self.getFolderFiles()
+        if "mxl" in files:
+            return files["mxl"]
 
     def getNewFileList(self):
         '''
@@ -93,5 +103,43 @@ class FolderBrowser(object):
         return result_set
 
 class MusicManager(object):
-    pass
+    def __init__(self, folder='/Users/charlottegodley/PycharmProjects/FYP'):
+        self.folder = folder
+        self.data = DataLayer.MusicData(os.path.join(self.folder, "music.db"))
+
+    def setupFolderBrowser(self):
+        db_files = self.data.getFileList()
+        self.folder_browser = FolderBrowser(db_files=db_files, folder=self.folder)
+
+    def handleZips(self):
+        zip_files = self.folder_browser.getZipFiles()
+        unzipper = Unzipper(folder=self.folder, files=zip_files)
+        unzipper.unzip()
+
+    def parseOldFiles(self, file_list):
+        '''
+        method to remove or archive all the files in the list within the db
+        :param file_list:
+        :return:
+        '''
+        pass
+
+    def parseNewFiles(self, file_list):
+        '''
+        method to call the sax parser on each of the new files then send the data to the data layer
+        :param file_list:
+        :return:
+        '''
+        pass
+
+    def handleXMLFiles(self):
+        '''
+        method to get all the new and old files from the folder browser and call parseNew and parseOld methods
+        :return:
+        '''
+        files = self.folder_browser.getNewAndOldFiles()
+        if "new" in files:
+            self.parseNewFiles(files["new"])
+        if "old" in files:
+            self.parseOldFiles(files["old"])
 

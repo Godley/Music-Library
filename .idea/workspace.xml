@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" />
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="issue fix #189&#10;&#10;- think the music manager class has progressed far enough to close this issue: the next steps are simply to pu">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/manager_tests/file1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/manager_tests/file5.mxl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -42,8 +46,8 @@
     <SUITE FILE_PATH="coverage/FYP$Drawing_XML_Object_handlers.coverage" NAME="Drawing XML&gt;Object handlers Coverage Results" MODIFIED="1424820275124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleMeasures.coverage" NAME="Unittests in testHandleMeasures Coverage Results" MODIFIED="1425838319810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFingering.coverage" NAME="Unittests in testFingering Coverage Results" MODIFIED="1424711025926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testActorPreludeSample.coverage" NAME="Unittests in testActorPreludeSample Coverage Results" MODIFIED="1423257573110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArpegGliss.coverage" NAME="Unittests in testArpegGliss Coverage Results" MODIFIED="1425644898006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testActorPreludeSample.coverage" NAME="Unittests in testActorPreludeSample Coverage Results" MODIFIED="1423257573110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBeams.coverage" NAME="Unittests in testBeams Coverage Results" MODIFIED="1424638607443" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDurationAndStems.coverage" NAME="Unittests in testDurationAndStems Coverage Results" MODIFIED="1424640760636" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$FYP_test_handler_methods.coverage" NAME="FYP test handler methods Coverage Results" MODIFIED="1424788698258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -68,47 +72,48 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFolderParser.coverage" NAME="Unittests in testFolderParser Coverage Results" MODIFIED="1419820128744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$run_all_lilypond_mxml_testcases.coverage" NAME="run all lilypond mxml testcases Coverage Results" MODIFIED="1425494286937" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$FYP_testcases.coverage" NAME="FYP testcases Coverage Results" MODIFIED="1424788691730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testKeySignatures.coverage" NAME="Unittests in testKeySignatures Coverage Results" MODIFIED="1425647086306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHarmony.coverage" NAME="Unittests in testHarmony Coverage Results" MODIFIED="1420907543732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testChordNoteEnd.coverage" NAME="Unittests in testChordNoteEnd Coverage Results" MODIFIED="1423761728787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$unittests_in_testtwostavesonepart.coverage" NAME="unittests in testtwostavesonepart Coverage Results" MODIFIED="1424873381361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHarmony.coverage" NAME="Unittests in testHarmony Coverage Results" MODIFIED="1420907543732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testKeySignatures.coverage" NAME="Unittests in testKeySignatures Coverage Results" MODIFIED="1425647086306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleDirections.coverage" NAME="Unittests in testHandleDirections Coverage Results" MODIFIED="1425837618017" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$unittests_in_testtwostavesonepart.coverage" NAME="unittests in testtwostavesonepart Coverage Results" MODIFIED="1424873381361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDynamics.coverage" NAME="Unittests in testDynamics Coverage Results" MODIFIED="1425681689502" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testClef.coverage" NAME="Unittests in testClef Coverage Results" MODIFIED="1425861728815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testRepeatMarks__1_.coverage" NAME="Unittests in testRepeatMarks (1) Coverage Results" MODIFIED="1425861563587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$createTestTable.coverage" NAME="createTestTable Coverage Results" MODIFIED="1422209245882" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$FYP_testing.coverage" NAME="FYP testing Coverage Results" MODIFIED="1419355403844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testLilypondRun.coverage" NAME="Unittests in testActorPreludeSample Coverage Results" MODIFIED="1424905826880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches.coverage" NAME="Unittests in testHandleNotesAndPitches Coverage Results" MODIFIED="1425677380244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testLilypondRun.coverage" NAME="Unittests in testActorPreludeSample Coverage Results" MODIFIED="1424905826880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDynamics__1_.coverage" NAME="run script Coverage Results" MODIFIED="1424977937132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBreathMarks.coverage" NAME="Unittests in testBreathMarks Coverage Results" MODIFIED="1424639267387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testUnzipper.coverage" NAME="Unittests in testUnzipper Coverage Results" MODIFIED="1426170804422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testUnzipper.coverage" NAME="Unittests in testUnzipper Coverage Results" MODIFIED="1426176904986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDirections.coverage" NAME="Unittests in testDirections Coverage Results" MODIFIED="1425861826938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeta.coverage" NAME="Unittests in testMeta Coverage Results" MODIFIED="1424033301783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testtext.coverage" NAME="Unittests in testtext Coverage Results" MODIFIED="1423411041193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeta.coverage" NAME="Unittests in testMeta Coverage Results" MODIFIED="1424033301783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$run_inside_pycharm.coverage" NAME="run inside pycharm Coverage Results" MODIFIED="1425920347917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches__1_.coverage" NAME="Unittests in testHandleNotesAndPitches (1) Coverage Results" MODIFIED="1424192729501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDataLayer.coverage" NAME="Unittests in testDataLayer Coverage Results" MODIFIED="1426168198377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testKey.coverage" NAME="Unittests in testKey Coverage Results" MODIFIED="1420327826313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Piece.coverage" NAME="Piece Coverage Results" MODIFIED="1422221459924" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/classes" />
     <SUITE FILE_PATH="coverage/FYP$finder.coverage" NAME="finder Coverage Results" MODIFIED="1418408064598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testListComparator.coverage" NAME="Unittests in testListComparator Coverage Results" MODIFIED="1426172215038" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testListComparator.coverage" NAME="Unittests in testListComparator Coverage Results" MODIFIED="1426174963749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFolderBrowser.coverage" NAME="Unittests in testFolderBrowser Coverage Results" MODIFIED="1419715766900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPieceTree.coverage" NAME="Unittests in testPieceTree Coverage Results" MODIFIED="1425837311010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTuplets.coverage" NAME="Unittests in testTuplets Coverage Results" MODIFIED="1425841294122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Playlist.coverage" NAME="Playlist Coverage Results" MODIFIED="1418480483942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/SearchWIthSax" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testLines.coverage" NAME="Unittests in testLines Coverage Results" MODIFIED="1425863277366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testAccidentals.coverage" NAME="Unittests in testAccidentals Coverage Results" MODIFIED="1424710671100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$run_script.coverage" NAME="run script Coverage Results" MODIFIED="1425077255408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$run_passed_tests.coverage" NAME="run_passed_tests Coverage Results" MODIFIED="1425685436353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
+    <SUITE FILE_PATH="coverage/FYP$run_script.coverage" NAME="run script Coverage Results" MODIFIED="1425077255408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$All_Drawing_tests.coverage" NAME="All Drawing tests Coverage Results" MODIFIED="1425917067919" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$run.coverage" NAME="run Coverage Results" MODIFIED="1424967819780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testSaxParser.coverage" NAME="Unittests in testExtractor Coverage Results" MODIFIED="1419713470743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testText.coverage" NAME="Unittests in testText Coverage Results" MODIFIED="1424969560390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$All_FYP_extractor_tests.coverage" NAME="All FYP extractor tests Coverage Results" MODIFIED="1421351426779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMusicManager.coverage" NAME="Unittests in testMusicManager Coverage Results" MODIFIED="1426177163563" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPiece.coverage" NAME="Unittests in testPiece Coverage Results" MODIFIED="1424908735948" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMultipleParts.coverage" NAME="Unittests in testMultipleParts Coverage Results" MODIFIED="1424737548430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testOrnaments.coverage" NAME="Unittests in testOrnaments Coverage Results" MODIFIED="1425477649562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMultipleParts.coverage" NAME="Unittests in testMultipleParts Coverage Results" MODIFIED="1424737548430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$PieceTree.coverage" NAME="PieceTree Coverage Results" MODIFIED="1425820374524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testAccidentals__1_.coverage" NAME="Unittests in testAccidentals (1) Coverage Results" MODIFIED="1424568099740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
   </component>
@@ -143,10 +148,10 @@
       <file leaf-file-name="testMusicManager.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="29" max-vertical-offset="540">
+              <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -155,12 +160,131 @@
       <file leaf-file-name="MusicManager.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24193548" vertical-offset="0" max-vertical-offset="496">
-              <caret line="95" column="8" selection-start-line="95" selection-start-column="8" selection-end-line="95" selection-end-column="8" />
+            <state vertical-scroll-proportion="1.1209677" vertical-offset="614" max-vertical-offset="1290">
+              <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
-                <element signature="e#54#1159#0" expanded="false" />
-                <element signature="e#1194#3678#0" expanded="false" />
+                <element signature="e#0#17#0" expanded="true" />
+                <element signature="e#1406#4015#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataLayer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="461" max-vertical-offset="1680">
+              <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+              <folding>
+                <element signature="e#378#807#0" expanded="false" />
+                <element signature="e#848#1263#0" expanded="false" />
+                <element signature="e#1303#3244#0" expanded="false" />
+                <element signature="e#3287#4577#0" expanded="false" />
+                <element signature="e#4619#4925#0" expanded="false" />
+                <element signature="e#4972#5432#0" expanded="false" />
+                <element signature="e#5477#5866#0" expanded="false" />
+                <element signature="e#5912#6667#0" expanded="false" />
+                <element signature="e#6700#6915#0" expanded="false" />
+                <element signature="e#6965#12863#0" expanded="false" />
+                <element signature="e#13208#13637#0" expanded="false" />
+                <element signature="e#13693#14137#0" expanded="false" />
+                <element signature="e#14203#14667#0" expanded="false" />
+                <element signature="e#14728#15161#0" expanded="false" />
+                <element signature="e#15218#15634#0" expanded="false" />
+                <element signature="e#15681#16098#0" expanded="false" />
+                <element signature="e#16147#16563#0" expanded="false" />
+                <element signature="e#16624#17545#0" expanded="false" />
+                <element signature="e#17601#18210#0" expanded="false" />
+                <element signature="e#18265#18798#0" expanded="false" />
+                <element signature="e#18846#19281#0" expanded="false" />
+                <element signature="e#19327#20156#0" expanded="false" />
+                <element signature="e#20204#21045#0" expanded="false" />
+                <element signature="e#21102#21932#0" expanded="false" />
+                <element signature="e#21990#22826#0" expanded="false" />
+                <element signature="e#22875#23794#0" expanded="false" />
+                <element signature="e#23843#27515#0" expanded="false" />
+                <element signature="e#27582#28320#0" expanded="false" />
+                <element signature="e#28389#28937#0" expanded="false" />
+                <element signature="e#29616#31527#0" expanded="false" />
+                <element signature="e#31589#32195#0" expanded="false" />
+                <element signature="e#32255#32826#0" expanded="false" />
+                <element signature="e#32890#33364#0" expanded="false" />
+                <element signature="e#33426#34096#0" expanded="false" />
+                <element signature="e#34148#35373#0" expanded="false" />
+                <element signature="e#35421#35576#0" expanded="false" />
+                <marker date="1426168179000" expanded="true" signature="555:625" placeholder="CREATE TABLE..tempos..." />
+                <marker date="1426168179000" expanded="true" signature="654:739" placeholder="CREATE TABLE..tempo_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="1025:1083" placeholder="CREATE TABLE..timesigs..." />
+                <marker date="1426168179000" expanded="true" signature="1112:1195" placeholder="CREATE TABLE..time_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="1482:1561" placeholder="CREATE TABLE..keys..." />
+                <marker date="1426168179000" expanded="true" signature="2849:2880" placeholder="SELECT * FRO..KEYS..." />
+                <marker date="1426168179000" expanded="true" signature="3016:3046" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="3079:3178" placeholder="CREATE TABLE..key_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="3466:3544" placeholder="CREATE TABLE..clefs..." />
+                <marker date="1426168179000" expanded="true" signature="4176:4208" placeholder="SELECT * FRO..clefs..." />
+                <marker date="1426168179000" expanded="true" signature="4345:4376" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="4410:4511" placeholder="CREATE TABLE..clef_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="4794:4885" placeholder="CREATE TABLE..pieces..." />
+                <marker date="1426168179000" expanded="true" signature="5152:5257" placeholder="CREATE TABLE..instruments..." />
+                <marker date="1426168179000" expanded="true" signature="5288:5392" placeholder="CREATE TABLE..instruments_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="5765:5826" placeholder="CREATE TABLE..composers..." />
+                <marker date="1426168179000" expanded="true" signature="6552:6591" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="7569:7609" placeholder="SELECT ROWID..composers..." />
+                <marker date="1426168179000" expanded="true" signature="7742:7773" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="8092:8124" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="8220:8261" placeholder="SELECT ROWID..pieces..." />
+                <marker date="1426168179000" expanded="true" signature="8979:9065" placeholder="SELECT ROWID..instruments..." />
+                <marker date="1426168179000" expanded="true" signature="9266:9305" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="9715:9761" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="10187:10235" placeholder="SELECT ROWID..keys..." />
+                <marker date="1426168179000" expanded="true" signature="10396:10436" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="10878:10925" placeholder="SELECT ROWID..clefs..." />
+                <marker date="1426168179000" expanded="true" signature="11096:11137" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="11350:11402" placeholder="SELECT ROWID..timesigs..." />
+                <marker date="1426168179000" expanded="true" signature="11544:11576" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="11669:11721" placeholder="SELECT ROWID..timesigs..." />
+                <marker date="1426168179000" expanded="true" signature="11814:11853" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="12232:12295" placeholder="SELECT ROWID..tempos..." />
+                <marker date="1426168179000" expanded="true" signature="12444:12476" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="12576:12639" placeholder="SELECT ROWID..tempos..." />
+                <marker date="1426168179000" expanded="true" signature="12739:12779" placeholder="INSERT INTO ..." />
+                <marker date="1426168179000" expanded="true" signature="12953:12980" placeholder="SELECT filen..pieces..." />
+                <marker date="1426168179000" expanded="true" signature="13465:13536" placeholder="SELECT ROWID..pieces..." />
+                <marker date="1426168179000" expanded="true" signature="13972:14024" placeholder="SELECT ROWID..timesigs..." />
+                <marker date="1426168179000" expanded="true" signature="14482:14545" placeholder="SELECT ROWID..tempos..." />
+                <marker date="1426168179000" expanded="true" signature="15007:15049" placeholder="SELECT ROWID..instruments..." />
+                <marker date="1426168179000" expanded="true" signature="15484:15524" placeholder="SELECT ROWID..composers..." />
+                <marker date="1426168179000" expanded="true" signature="15958:15993" placeholder="SELECT ROWID..keys..." />
+                <marker date="1426168179000" expanded="true" signature="16421:16457" placeholder="SELECT ROWID..clefs..." />
+                <marker date="1426168179000" expanded="true" signature="16972:17121" placeholder="SELECT i.pie..instruments_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="17034:17120" placeholder="SELECT * FRO..instruments_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="18048:18089" placeholder="SELECT filen..pieces..." />
+                <marker date="1426168179000" expanded="true" signature="18594:18641" placeholder="SELECT filen..pieces..." />
+                <marker date="1426168179000" expanded="true" signature="19106:19140" placeholder="SELECT * FRO..pieces..." />
+                <marker date="1426168179000" expanded="true" signature="19635:19761" placeholder="SELECT i.pie..key_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="19689:19760" placeholder="SELECT * FRO..key_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="20517:20646" placeholder="SELECT i.pie..clef_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="20572:20645" placeholder="SELECT * FRO..clef_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="21411:21565" placeholder="SELECT key.p..key_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="22300:22457" placeholder="SELECT key.p..clef_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="23266:23395" placeholder="SELECT i.pie..time_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="23321:23394" placeholder="SELECT * FRO..time_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="26980:27112" placeholder="SELECT i.pie..tempo_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="27036:27111" placeholder="SELECT * FRO..tempo_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="27602:27667" placeholder="SELECT instr..instruments_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="27863:27902" placeholder="SELECT * FRO..instruments..." />
+                <marker date="1426168179000" expanded="true" signature="28471:28512" placeholder="SELECT ROWID..instruments..." />
+                <marker date="1426168179000" expanded="true" signature="29076:29385" placeholder="SELECT i2.RO..instruments..." />
+                <marker date="1426168179000" expanded="true" signature="30706:30764" placeholder="SELECT piece..instruments_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="31603:31670" placeholder="SELECT clef_..clef_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="31820:31923" placeholder="SELECT clefs..clefs..." />
+                <marker date="1426168179000" expanded="true" signature="32268:32333" placeholder="SELECT key_i..key_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="32479:32579" placeholder="SELECT keys...keys..." />
+                <marker date="1426168179000" expanded="true" signature="32904:32956" placeholder="SELECT time_..time_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="33107:33143" placeholder="SELECT * FRO..timesigs..." />
+                <marker date="1426168179000" expanded="true" signature="33441:33495" placeholder="SELECT tempo..tempo_piece_join..." />
+                <marker date="1426168179000" expanded="true" signature="33649:33683" placeholder="SELECT * FRO..tempos..." />
+                <marker date="1426168179000" expanded="true" signature="34611:34651" placeholder="SELECT name ..composers..." />
               </folding>
             </state>
           </provider>
@@ -225,10 +349,10 @@
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SQLExperiment.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" />
       </list>
     </option>
   </component>
@@ -353,6 +477,62 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="SampleMusicXML" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testcases" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SampleMusicXML" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testcases" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="metadata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="ExtractMetadata" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -435,6 +615,74 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test_files" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manager_tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ExtractMetadata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test_files" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="folder_tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ExtractMetadata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="classes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -485,11 +733,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/manager_tests" />
       <recent name="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files" />
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/expected" />
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/metadata" />
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases" />
-      <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/real scores" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/unzip_tests" />
@@ -499,147 +747,7 @@
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests" />
     </key>
   </component>
-  <component name="RestoreUpdateTree">
-    <UpdateInfo date="Moments ago" ActionInfo="_Update">
-      <UpdatedFiles>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated from server" />
-          <option name="myStatusName" value="Changed on server" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CHANGED_ON_SERVER" />
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Updated" />
-            <option name="myStatusName" value="Changed" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="UPDATED" />
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Created" />
-            <option name="myStatusName" value="Created" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="CREATED" />
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/implementation/primaries/Drawing/readme.md</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/implementation/primaries/ExtractMetadata/readme.md</PATH>
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Deleted" />
-            <option name="myStatusName" value="Deleted" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="true" />
-            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Restored" />
-            <option name="myStatusName" value="Will be restored" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="RESTORED" />
-          </FILE-GROUP>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Modified" />
-          <option name="myStatusName" value="Modified" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MODIFIED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Skipped" />
-          <option name="myStatusName" value="Skipped" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="SKIPPED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with conflicts" />
-          <option name="myStatusName" value="Will be merged with conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_CONFLICTS" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with tree conflicts" />
-          <option name="myStatusName" value="Merged with tree conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with property conflicts" />
-          <option name="myStatusName" value="Will be merged with property conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged" />
-          <option name="myStatusName" value="Will be merged" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Not in repository" />
-          <option name="myStatusName" value="Not in repository" />
-          <option name="mySupportsDeletion" value="true" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UNKNOWN" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally added" />
-          <option name="myStatusName" value="Locally added" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_ADDED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally removed" />
-          <option name="myStatusName" value="Locally removed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_REMOVED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Switched" />
-          <option name="myStatusName" value="Switched" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="SWITCHED" />
-        </FILE-GROUP>
-      </UpdatedFiles>
-    </UpdateInfo>
-  </component>
-  <component name="RunManager" selected="Python tests.Unittests in testListComparator">
-    <configuration default="false" name="Unittests in testParser" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="FYP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testParser.py" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PyDebugRunner" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Unittests in testMusicManager">
     <configuration default="false" name="SQLExperiment" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -741,6 +849,33 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
+    <configuration default="false" name="Unittests in testMusicManager" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FYP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -826,7 +961,10 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+    <configuration default="true" type="com.intellij.database.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
+      <option name="VM_PARAMETERS" value="" />
+      <option name="USER_CFG_CLASS" />
+      <option name="CONTEXT_PROVIDER" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -852,10 +990,7 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="com.intellij.database.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
-      <option name="VM_PARAMETERS" value="" />
-      <option name="USER_CFG_CLASS" />
-      <option name="CONTEXT_PROVIDER" />
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
     <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
@@ -901,20 +1036,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="FYP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="ADDITIONAL_ARGS" value="" />
-      <method />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -933,6 +1054,20 @@
       <option name="TEST_TYPE" value="TEST_SCRIPT" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FYP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
       <method />
     </configuration>
     <configuration default="false" name="run passing tests" type="PythonConfigurationType" factoryName="Python">
@@ -1205,19 +1340,19 @@
       <item index="9" class="java.lang.String" itemvalue="Python tests.Drawing Lilypond tests" />
       <item index="10" class="java.lang.String" itemvalue="Python tests.Drawing testcases" />
       <item index="11" class="java.lang.String" itemvalue="Python tests.unittests in testtwostavesonepart" />
-      <item index="12" class="java.lang.String" itemvalue="Python tests.Unittests in testParser" />
-      <item index="13" class="java.lang.String" itemvalue="Python.SQLExperiment" />
-      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
-      <item index="15" class="java.lang.String" itemvalue="Python tests.Unittests in testUnzipper" />
-      <item index="16" class="java.lang.String" itemvalue="Python tests.Unittests in testListComparator" />
+      <item index="12" class="java.lang.String" itemvalue="Python.SQLExperiment" />
+      <item index="13" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
+      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in testUnzipper" />
+      <item index="15" class="java.lang.String" itemvalue="Python tests.Unittests in testListComparator" />
+      <item index="16" class="java.lang.String" itemvalue="Python tests.Unittests in testMusicManager" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in testListComparator" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in testMusicManager" />
         <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testUnzipper" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
-        <item index="3" class="java.lang.String" itemvalue="Python.SQLExperiment" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in testParser" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testListComparator" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
+        <item index="4" class="java.lang.String" itemvalue="Python.SQLExperiment" />
       </list>
     </recent_temporary>
   </component>
@@ -1233,12 +1368,6 @@
       <created>1418346903128</created>
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
-    </task>
-    <task id="LOCAL-00469" summary="work toward issue #116&#10;&#10;Added handling for measure attribute &quot;implicit&quot; and a test to check the result&#10;this adds a new attribute to measure item called &quot;partial&quot;">
-      <created>1425818657006</created>
-      <option name="number" value="00469" />
-      <option name="project" value="LOCAL" />
-      <updated>1425818657007</updated>
     </task>
     <task id="LOCAL-00470" summary="Moved classes around&#10;&#10;- moved all the bigger classes from PieceTree into their own files&#10;- NoteNode and Placeholder are both the same sort of thing so they're both in NoteNode file&#10;- direction/expression/clef/key/selfNode are all in OtherNodes because they don't really have any special methods that mean they're big classes&#10;- Moved a lot of the stuff from the Measure class into MeasureNode and deleted the class so I know what tips over when it's finally gone. This means Measure file is probably wrongly named so I'll have to update that. Work toward issue #176">
       <created>1425820967389</created>
@@ -1528,7 +1657,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426172269717</updated>
     </task>
-    <option name="localTasksCounter" value="518" />
+    <task id="LOCAL-00518" summary="initial musicManager class&#10;&#10;- created testclass and music manager class&#10;- work toward issue #189">
+      <created>1426174569915</created>
+      <option name="number" value="00518" />
+      <option name="project" value="LOCAL" />
+      <updated>1426174569915</updated>
+    </task>
+    <option name="localTasksCounter" value="519" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1562,7 +1697,6 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55845773" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32889965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1572,11 +1706,12 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36638454" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1592,15 +1727,15 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328125" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3840733" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329235" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.43560058" sideWeight="0.884375" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.43560058" sideWeight="0.884375" order="2" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1619,7 +1754,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="modified how composers are saved&#10;&#10;- removed composer_piece_join table which wasn't necessary&#10;- changed queries to reflect this + tests&#10;- work toward issue #66" />
     <MESSAGE value="fixed multi-instrument browser&#10;&#10;- fixed the method that searches for multiple instruments in 1 piece so that the query handles this rather than doing data manipulation. Doesn't look massively tidy but does the job and should be extendible no matter how many instruments are in the list.&#10;- work toward issue #66" />
     <MESSAGE value="removed single instrument method as it's not necessary" />
     <MESSAGE value="added multi-instrument multi-key method&#10;&#10;- added new method which takes in pairings of instruments and keys and finds all the pieces containing all of the instruments in specified keys&#10;- added relevant tests, including tests to check it doesn't just return all the data and tests where it should return more than one value&#10;- work toward issue #66" />
@@ -1644,7 +1778,8 @@
     <MESSAGE value="created unzipper&#10;&#10;- created unzipper in stages using unit tests: issue fix #184&#10;- put in file musicManager which should encapsulate this and the comparator for file lists to db lists" />
     <MESSAGE value="created folderBrowser&#10;&#10;- created a class which collates a file dict from a given folder of 2 indexes - xml and mxl files&#10;- also provided 2 methods which take this method and figure out from a given list of files in the db which are old in the db and which are new to the db&#10;- created tests to match&#10;- work toward issue #185" />
     <MESSAGE value="update to folderbrowser&#10;&#10;- added a method which collates all the old files and all the new files into one dictionary. made this to avoid calling getFolderFiles twice which is probably inefficient&#10;- added test to confirm functionality of this new method&#10;- issue fix #185" />
-    <option name="LAST_COMMIT_MESSAGE" value="update to folderbrowser&#10;&#10;- added a method which collates all the old files and all the new files into one dictionary. made this to avoid calling getFolderFiles twice which is probably inefficient&#10;- added test to confirm functionality of this new method&#10;- issue fix #185" />
+    <MESSAGE value="initial musicManager class&#10;&#10;- created testclass and music manager class&#10;- work toward issue #189" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial musicManager class&#10;&#10;- created testclass and music manager class&#10;- work toward issue #189" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1774,6 +1909,11 @@
           <line>675</line>
           <option name="timeStamp" value="638" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py</url>
+          <line>110</line>
+          <option name="timeStamp" value="647" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -1782,38 +1922,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="645" />
+      <option name="time" value="648" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testTremolo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="639" max-vertical-offset="1725">
-          <caret line="49" column="75" selection-start-line="49" selection-start-column="75" selection-end-line="49" selection-end-column="75" />
-          <folding>
-            <element signature="e#0#88#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testTuplets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="759" max-vertical-offset="7185">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#88#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/copy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2647" max-vertical-offset="5040">
-          <caret line="187" column="0" selection-start-line="187" selection-start-column="0" selection-end-line="187" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/repeatMarks.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6390">
@@ -2077,7 +2190,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2085,7 +2197,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1110">
           <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2116,7 +2227,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2148,7 +2258,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2168,47 +2277,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
-          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="18" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.078629" vertical-offset="3719" max-vertical-offset="4260">
           <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..stocks..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..time_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..tempo_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..tempo_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..clefs..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..clef_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <element signature="e#0#15#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2217,7 +2291,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3563715" vertical-offset="900" max-vertical-offset="6885">
           <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2229,20 +2302,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/3repeats.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5940">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4233871" vertical-offset="0" max-vertical-offset="496">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+          <caret line="14" column="70" selection-start-line="14" selection-start-column="70" selection-end-line="14" selection-end-column="70" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/manager_tests/file5.mxl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/manager_tests/file1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="89" max-vertical-offset="600">
+          <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30846775" vertical-offset="1092" max-vertical-offset="1680">
-          <caret line="675" column="0" selection-start-line="675" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="461" max-vertical-offset="1680">
+          <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
           <folding>
             <element signature="e#378#807#0" expanded="false" />
             <element signature="e#848#1263#0" expanded="false" />
@@ -2280,114 +2385,108 @@
             <element signature="e#33426#34096#0" expanded="false" />
             <element signature="e#34148#35373#0" expanded="false" />
             <element signature="e#35421#35576#0" expanded="false" />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..tempos..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..tempo_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..timesigs..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..IF..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..keys..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..keys..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..KEYS..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..key_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..clefs..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..clefs..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..clef_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..stocks..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..instruments..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..instruments_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..composers..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..composers..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..keys..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..clefs..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..keys..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..clefs..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..instruments_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..instruments_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT piece..composer_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..key_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..key_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..clef_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..clef_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT key.p..key_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT key.p..clef_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..clef_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..clef_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..tempo_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..tempo_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT instr..instruments_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..instruments..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT i2.RO..instruments..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT clef_..clef_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT clefs..clefs..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT key_i..key_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT keys...keys..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT time_..time_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..timesigs..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT tempo..tempo_piece_join..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..tempos..." />
-            <marker date="1426168179000" expanded="true" signature="-1:-1" placeholder="SELECT name ..composers..." />
+            <marker date="1426168179000" expanded="true" signature="555:625" placeholder="CREATE TABLE..tempos..." />
+            <marker date="1426168179000" expanded="true" signature="654:739" placeholder="CREATE TABLE..tempo_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="1025:1083" placeholder="CREATE TABLE..timesigs..." />
+            <marker date="1426168179000" expanded="true" signature="1112:1195" placeholder="CREATE TABLE..time_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="1482:1561" placeholder="CREATE TABLE..keys..." />
+            <marker date="1426168179000" expanded="true" signature="2849:2880" placeholder="SELECT * FRO..KEYS..." />
+            <marker date="1426168179000" expanded="true" signature="3016:3046" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="3079:3178" placeholder="CREATE TABLE..key_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="3466:3544" placeholder="CREATE TABLE..clefs..." />
+            <marker date="1426168179000" expanded="true" signature="4176:4208" placeholder="SELECT * FRO..clefs..." />
+            <marker date="1426168179000" expanded="true" signature="4345:4376" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="4410:4511" placeholder="CREATE TABLE..clef_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="4794:4885" placeholder="CREATE TABLE..pieces..." />
+            <marker date="1426168179000" expanded="true" signature="5152:5257" placeholder="CREATE TABLE..instruments..." />
+            <marker date="1426168179000" expanded="true" signature="5288:5392" placeholder="CREATE TABLE..instruments_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="5765:5826" placeholder="CREATE TABLE..composers..." />
+            <marker date="1426168179000" expanded="true" signature="6552:6591" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="7569:7609" placeholder="SELECT ROWID..composers..." />
+            <marker date="1426168179000" expanded="true" signature="7742:7773" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="8092:8124" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="8220:8261" placeholder="SELECT ROWID..pieces..." />
+            <marker date="1426168179000" expanded="true" signature="8979:9065" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426168179000" expanded="true" signature="9266:9305" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="9715:9761" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="10187:10235" placeholder="SELECT ROWID..keys..." />
+            <marker date="1426168179000" expanded="true" signature="10396:10436" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="10878:10925" placeholder="SELECT ROWID..clefs..." />
+            <marker date="1426168179000" expanded="true" signature="11096:11137" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="11350:11402" placeholder="SELECT ROWID..timesigs..." />
+            <marker date="1426168179000" expanded="true" signature="11544:11576" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="11669:11721" placeholder="SELECT ROWID..timesigs..." />
+            <marker date="1426168179000" expanded="true" signature="11814:11853" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="12232:12295" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426168179000" expanded="true" signature="12444:12476" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="12576:12639" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426168179000" expanded="true" signature="12739:12779" placeholder="INSERT INTO ..." />
+            <marker date="1426168179000" expanded="true" signature="12953:12980" placeholder="SELECT filen..pieces..." />
+            <marker date="1426168179000" expanded="true" signature="13465:13536" placeholder="SELECT ROWID..pieces..." />
+            <marker date="1426168179000" expanded="true" signature="13972:14024" placeholder="SELECT ROWID..timesigs..." />
+            <marker date="1426168179000" expanded="true" signature="14482:14545" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426168179000" expanded="true" signature="15007:15049" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426168179000" expanded="true" signature="15484:15524" placeholder="SELECT ROWID..composers..." />
+            <marker date="1426168179000" expanded="true" signature="15958:15993" placeholder="SELECT ROWID..keys..." />
+            <marker date="1426168179000" expanded="true" signature="16421:16457" placeholder="SELECT ROWID..clefs..." />
+            <marker date="1426168179000" expanded="true" signature="16972:17121" placeholder="SELECT i.pie..instruments_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="17034:17120" placeholder="SELECT * FRO..instruments_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="18048:18089" placeholder="SELECT filen..pieces..." />
+            <marker date="1426168179000" expanded="true" signature="18594:18641" placeholder="SELECT filen..pieces..." />
+            <marker date="1426168179000" expanded="true" signature="19106:19140" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426168179000" expanded="true" signature="19635:19761" placeholder="SELECT i.pie..key_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="19689:19760" placeholder="SELECT * FRO..key_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="20517:20646" placeholder="SELECT i.pie..clef_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="20572:20645" placeholder="SELECT * FRO..clef_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="21411:21565" placeholder="SELECT key.p..key_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="22300:22457" placeholder="SELECT key.p..clef_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="23266:23395" placeholder="SELECT i.pie..time_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="23321:23394" placeholder="SELECT * FRO..time_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="26980:27112" placeholder="SELECT i.pie..tempo_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="27036:27111" placeholder="SELECT * FRO..tempo_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="27602:27667" placeholder="SELECT instr..instruments_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="27863:27902" placeholder="SELECT * FRO..instruments..." />
+            <marker date="1426168179000" expanded="true" signature="28471:28512" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426168179000" expanded="true" signature="29076:29385" placeholder="SELECT i2.RO..instruments..." />
+            <marker date="1426168179000" expanded="true" signature="30706:30764" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="31603:31670" placeholder="SELECT clef_..clef_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="31820:31923" placeholder="SELECT clefs..clefs..." />
+            <marker date="1426168179000" expanded="true" signature="32268:32333" placeholder="SELECT key_i..key_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="32479:32579" placeholder="SELECT keys...keys..." />
+            <marker date="1426168179000" expanded="true" signature="32904:32956" placeholder="SELECT time_..time_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="33107:33143" placeholder="SELECT * FRO..timesigs..." />
+            <marker date="1426168179000" expanded="true" signature="33441:33495" placeholder="SELECT tempo..tempo_piece_join..." />
+            <marker date="1426168179000" expanded="true" signature="33649:33683" placeholder="SELECT * FRO..tempos..." />
+            <marker date="1426168179000" expanded="true" signature="34611:34651" placeholder="SELECT name ..composers..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/3repeats.xml">
+    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/unittest/mock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5940">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="13211" max-vertical-offset="34995">
+          <caret line="894" column="0" selection-start-line="894" selection-start-column="0" selection-end-line="894" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="29" max-vertical-offset="540">
+          <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24193548" vertical-offset="0" max-vertical-offset="496">
-          <caret line="95" column="8" selection-start-line="95" selection-start-column="8" selection-end-line="95" selection-end-column="8" />
+        <state vertical-scroll-proportion="1.1209677" vertical-offset="614" max-vertical-offset="1290">
+          <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#54#1159#0" expanded="false" />
-            <element signature="e#1194#3678#0" expanded="false" />
+            <element signature="e#0#17#0" expanded="true" />
+            <element signature="e#1406#4015#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -20,11 +20,12 @@ class testUnzipper(unittest.TestCase):
         self.assertEqual(len(xml_files), 3)
 
     def testXMLFileRenaming(self):
-        expected =['zip_test_2.xml', 'zip_test_1.xml']
+        expected =['zip_test_2.xml', 'zip_test_1.xml', 'META-INF']
         expected_paths = [os.path.join(self.folder, new_file) for new_file in expected]
         self.unzipper.unzip()
         self.assertTrue(os.path.exists(expected_paths[0]))
         self.assertTrue(os.path.exists(expected_paths[1]))
+        self.assertFalse(os.path.exists(expected_paths[2]))
 
     def tearDown(self):
         new_files = ['zip_test_2.xml','zip_test_1.xml']

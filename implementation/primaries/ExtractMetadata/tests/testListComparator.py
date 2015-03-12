@@ -10,6 +10,10 @@ class testListComparator(unittest.TestCase):
     def testGetListFromFolder(self):
         self.assertEqual(self.folderBrowser.getFolderFiles(), {"xml":["file1.xml","file3.xml"], "mxl":["file5.mxl"]})
 
+
+    def testGetZipList(self):
+        self.assertEqual(self.folderBrowser.getZipFiles(), ["file5.mxl"])
+
     def testFilesToBeAdded(self):
         self.assertEqual(self.folderBrowser.getNewFileList(), ["file3.xml"])
 
