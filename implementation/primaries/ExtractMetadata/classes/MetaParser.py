@@ -9,8 +9,9 @@ class MetaParser(object):
         self.chars = {}
         self.handlers = {"part-name":makeNewPart,"key":handleKey,"clef":handleClef,"transpose":handleTransposition,
                          "time":handleMeter,"metronome":handleTempo,
-                         "movement-title":handleBibliography, "creator":handleBibliography, "credit-words":handleBibliography}
-        self.close_tags = []
+                         "movement-title":handleBibliography,"work-title":handleBibliography,
+                         "creator":handleBibliography, "credit-words":handleBibliography}
+        self.close_tags = ["beat-unit-dot"]
         self.current_handler = None
         self.parts = {}
         self.data = {}
@@ -115,7 +116,7 @@ def handleKey(tags, attrs, chars, parts, data):
         if "key" not in parts[id]:
             parts[id]["key"] = []
 
-        if tags[-1] != "key":
+        if tags[-1] == "fifths" or tags[-1] == "mode":
             thing = 0
             if "fifths" in chars:
                 thing = int(chars["fifths"])
@@ -135,7 +136,7 @@ def handleClef(tags, attrs, chars, parts, data):
         if "clef" not in parts[id]:
             parts[id]["clef"] = []
 
-        if tags[-1] != "clef":
+        if tags[-1] == "line" or tags[-1] == "sign":
             thing = 0
             if "line" in chars:
                 thing = int(chars["line"])
@@ -193,15 +194,23 @@ def handleTempo(tags, attrs, chars, parts, data):
     if tags[-1] != "metronome":
         beat = 0
         minute = 0
+
+        if tags[-1] == "beat-unit-dot":
+            if len(data["tempo"]) > 0:
+                if "beat_2" in data["tempo"][-1]:
+                    data["tempo"][-1]["beat_2"] += "."
+                elif "beat" in data["tempo"][-1]:
+                    data["tempo"][-1]["beat"] += "."
+
         if tags[-1] == "beat-unit":
             if "beat-unit" in chars:
                 beat = chars["beat-unit"]
 
-            if len(data["tempo"]) == 0 or ("beat" in data["tempo"][-1] and ("per-minute" in data["tempo"][-1] or "beat_2" in data["tempo"][-1])):
+            if len(data["tempo"]) == 0 or ("beat" in data["tempo"][-1] and ("minute" in data["tempo"][-1] or "beat_2" in data["tempo"][-1])):
                 data["tempo"].append({"beat":beat})
             elif "beat" not in data["tempo"][-1]:
                 data["tempo"][-1]["beat"] = beat
-            elif "per-minute" not in data["tempo"][-1] and "beat_2" not in data["tempo"][-1]:
+            elif "minute" not in data["tempo"][-1] and "beat_2" not in data["tempo"][-1]:
                 data["tempo"][-1]["beat_2"] = beat
 
         if tags[-1] == "per-minute":
@@ -216,34 +225,22 @@ def handleTempo(tags, attrs, chars, parts, data):
 def handleBibliography(tags, attrs, chars, parts, data):
     if tags[-1] == "creator":
         creator_type = helpers.GetID(attrs, "creator", "type")
-        if creator_type is not None and creator_type == "composer":
-            if "composer" not in data:
-                data["composer"] = ""
+        if creator_type is not None:
+            if creator_type not in data:
+                data[creator_type] = ""
             if "creator" in chars:
-                data["composer"] += chars["creator"]
+                data[creator_type] += chars["creator"]
 
-    if tags[-1] == "movement-title":
+    if tags[-1] == "movement-title" or tags[-1] == "work-title":
         title = ""
         if "movement-title" in chars:
             title = chars["movement-title"]
+        if "work-title" in chars:
+            title = chars["work-title"]
         if "title" not in data:
             data["title"] = ""
         data["title"] += title
 
-    if tags[-1] == "credit-words":
-        h_alignment = helpers.GetID(attrs, "credit-words", "justify")
-        v_alignment = helpers.GetID(attrs, "credit-words", "valign")
-        if h_alignment is not None and v_alignment is not None:
-            if h_alignment == "center" and v_alignment == "top":
-                if "title" not in data:
-                    data["title"] = ""
-
-                data["title"] += chars["credit-words"]
-            if h_alignment == "right" and v_alignment == "top":
-                if "composer" not in data:
-                    data["composer"] = ""
-
-                data["composer"] += chars["credit-words"]
 
 
 
