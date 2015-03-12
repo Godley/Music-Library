@@ -135,7 +135,7 @@ class MusicData(object):
         '''
         connection, cursor = self.connect()
         cursor.execute('''CREATE TABLE IF NOT EXISTS instruments
-                 (name text,octave int,diatonic int,chromatic int)''')
+                 (name text,diatonic int,chromatic int)''')
         cursor.execute('''CREATE TABLE IF NOT EXISTS instruments_piece_join
              (instrument_id INTEGER, piece_id INTEGER)''')
         self.disconnect(connection)
@@ -173,15 +173,13 @@ class MusicData(object):
             chromatic = 0
             if "transposition" in item:
                 trans = item["transposition"]
-                if "octave" in trans:
-                    octave = trans["octave"]
                 if "diatonic" in trans:
                     diatonic = trans["diatonic"]
                 if "chromatic" in trans:
                     chromatic = trans["chromatic"]
-            item_data = (item["name"],octave,diatonic,chromatic)
+            item_data = (item["name"],diatonic,chromatic)
             elements.append(item_data)
-        cursor.executemany('INSERT INTO instruments VALUES(?,?,?,?)', elements)
+        cursor.executemany('INSERT INTO instruments VALUES(?,?,?)', elements)
         connection.commit()
         self.disconnect(connection)
 
@@ -244,19 +242,17 @@ class MusicData(object):
                 chromatic = 0
                 if "transposition" in item:
                     transposition = item["transposition"]
-                    if "octave" in transposition:
-                        octave = transposition["octave"]
                     if "diatonic" in transposition:
                         diatonic = transposition["diatonic"]
                     if "chromatic" in transposition:
                         chromatic = transposition["chromatic"]
-                query = 'SELECT ROWID FROM instruments WHERE name=? AND octave=? AND diatonic=? AND chromatic=?'
-                cursor.execute(query, (item["name"],octave,diatonic,chromatic,))
+                query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
+                cursor.execute(query, (item["name"],diatonic,chromatic,))
                 inst_id = cursor.fetchall()
                 if len(inst_id) == 0:
-                    cursor.execute('INSERT INTO instruments VALUES(?,?,?,?)', (item["name"],octave,diatonic,chromatic,))
+                    cursor.execute('INSERT INTO instruments VALUES(?,?,?)', (item["name"],diatonic,chromatic,))
                     connection.commit()
-                    cursor.execute(query, (item["name"],octave,diatonic,chromatic,))
+                    cursor.execute(query, (item["name"],diatonic,chromatic,))
                     inst_id = cursor.fetchall()
                 if inst_id is not None and len(inst_id) > 0:
                     instrument_ids.append(inst_id[0][0])
@@ -700,8 +696,8 @@ class MusicData(object):
             record = cursor.fetchone()
             if record is not None and len(record) > 0:
                 data["name"] = record[0]
-                if record[1] != 0 or record[2] != 0 or record[3] != 0:
-                    data["transposition"] = {"octave":record[1],"diatonic":record[2],"chromatic":record[3]}
+                if record[1] != 0 or record[2] != 0:
+                    data["transposition"] = {"diatonic":record[1],"chromatic":record[2]}
                 instruments.append(data)
 
         return instruments
@@ -727,7 +723,6 @@ class MusicData(object):
         instrument_query = '''SELECT i2.ROWID, i2.name FROM instruments i1, instruments i2
                               WHERE i1.name = ? AND i2.diatonic = i1.diatonic
                               AND i2.chromatic = i1.chromatic
-                              AND i2.octave = i1.octave
                               AND i2.name != i1.name'''
         cursor.execute(instrument_query, (instrument,))
         instruments = cursor.fetchall()

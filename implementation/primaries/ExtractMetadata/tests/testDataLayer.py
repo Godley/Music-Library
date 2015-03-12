@@ -95,15 +95,14 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual([(1, "file.xml","",-1)], self.data.getPiece("file.xml"))
 
     def testAddPieceWithInstrumentsWithTranspositions(self):
-        self.data.addPiece("file.xml",{"instruments":[{"name":"Bflat clarinet","transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}]})
+        self.data.addPiece("file.xml",{"instruments":[{"name":"Bflat clarinet","transposition":{"diatonic":-1,"chromatic":-2}}]})
         conn = sqlite3.connect('example.db')
         c = conn.cursor()
         t = ('Bflat clarinet',)
-        c.execute('SELECT ROWID, octave, diatonic, chromatic FROM instruments WHERE name=?', t)
+        c.execute('SELECT ROWID, diatonic, chromatic FROM instruments WHERE name=?', t)
         row = c.fetchone()
-        self.assertEqual(row[1],0)
-        self.assertEqual(row[2],-1)
-        self.assertEqual(row[3],-2)
+        self.assertEqual(row[1],-1)
+        self.assertEqual(row[2],-2)
         c.execute('SELECT piece_id FROM instruments_piece_join WHERE instrument_id=?', (row[0],))
         piece_row = c.fetchone()
         c.execute('SELECT filename FROM pieces WHERE ROWID=?', piece_row)
@@ -218,38 +217,38 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["crotchet=60"]))
 
     def testFindInstrumentsByTranspositions(self):
-        self.data.addInstruments([{"name":"clarinet","transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}, {"name":"trumpet", "transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}])
-        self.assertEqual([(1, "clarinet"),(2, "trumpet")], self.data.getInstrumentByTransposition({"octave":0,"diatonic":-1,"chromatic":-2}))
+        self.data.addInstruments([{"name":"clarinet","transposition":{"diatonic":-1,"chromatic":-2}}, {"name":"trumpet", "transposition":{"diatonic":-1,"chromatic":-2}}])
+        self.assertEqual([(1, "clarinet"),(2, "trumpet")], self.data.getInstrumentByTransposition({"diatonic":-1,"chromatic":-2}))
 
     def testFindSimilarInstruments(self):
-        self.data.addInstruments([{"name":"clarinet","transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}, {"name":"trumpet", "transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}])
+        self.data.addInstruments([{"name":"clarinet","transposition":{"diatonic":-1,"chromatic":-2}}, {"name":"trumpet", "transposition":{"diatonic":-1,"chromatic":-2}}])
         self.assertEqual([(2, "trumpet")], self.data.getInstrumentsBySameTranspositionAs("clarinet"))
 
     def testFindSimilarInstrumentsWhereOneIsDiff(self):
-        self.data.addInstruments([{"name":"clarinet","transposition":{"octave":0,"diatonic":-1,"chromatic":-2}},
-                                  {"name":"lute", "transposition":{"octave":1,"diatonic":-1,"chromatic":-2}},
-                                  {"name":"trumpet", "transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}
+        self.data.addInstruments([{"name":"clarinet","transposition":{"diatonic":-1,"chromatic":-2}},
+                                  {"name":"lute", "transposition":{"diatonic":0,"chromatic":-2}},
+                                  {"name":"trumpet", "transposition":{"diatonic":-1,"chromatic":-2}}
                                   ]
                                 )
         self.assertEqual([(3, "trumpet")], self.data.getInstrumentsBySameTranspositionAs("clarinet"))
 
     def testFindPiecesContainingInstrumentsOrSimilar(self):
         self.data.addPiece("file.xml", {"instruments":
-                                            [{"name":"clarinet","transposition":{"octave":0,"diatonic":1,"chromatic":2}},
-                                                {"name":"violin","transposition":{"octave":0,"diatonic":0,"chromatic":0}}
+                                            [{"name":"clarinet","transposition":{"diatonic":1,"chromatic":2}},
+                                                {"name":"violin","transposition":{"diatonic":0,"chromatic":0}}
                                               ]
                                              })
-        self.data.addInstruments([{"name":"flute","transposition":{"octave":0,"diatonic":0,"chromatic":0}}])
+        self.data.addInstruments([{"name":"flute","transposition":{"diatonic":0,"chromatic":0}}])
         self.assertEqual(["file.xml"], self.data.getPieceByInstrumentsOrSimilar([{"name":"flute"},
                                                                                  {"name":"clarinet"}]))
 
     def testFindPiecesContainingInstrumentsOrSimilarWhereInstrumentNotInTable(self):
         self.data.addPiece("file.xml", {"instruments":
-                                            [{"name":"clarinet","transposition":{"octave":0,"diatonic":1,"chromatic":2}},
-                                                {"name":"violin","transposition":{"octave":0,"diatonic":0,"chromatic":0}}
+                                            [{"name":"clarinet","transposition":{"diatonic":1,"chromatic":2}},
+                                                {"name":"violin","transposition":{"diatonic":0,"chromatic":0}}
                                               ]
                                              })
-        self.data.addInstruments([{"name":"flute","transposition":{"octave":0,"diatonic":0,"chromatic":0}}])
+        self.data.addInstruments([{"name":"flute","transposition":{"diatonic":0,"chromatic":0}}])
         self.assertEqual(["file.xml"], self.data.getPieceByInstrumentsOrSimilar([{"name":"flute"},
                                                                                  {"name":"clarinet"},
                                                                                 {"name":"trumpet","transposition":{"diatonic":1,"chromatic":2,"octave":0}}]))
@@ -288,5 +287,5 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual([{"title":"","composer":-1,"tempos":[],"instruments":[{"name":"clarinet"}], "clefs":{"clarinet":["treble"]}, "keys":{}, "time_signatures":[], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
 
     def testFindAllInfoForAPieceWhereHasTransposedInstruments(self):
-        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}]})
-        self.assertEqual([{"title":"","composer":-1,"tempos":[],"instruments":[{"name":"clarinet", "transposition":{"octave":0,"diatonic":-1,"chromatic":-2}}], "clefs":{}, "keys":{}, "time_signatures":[], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
+        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":-1,"chromatic":-2}}]})
+        self.assertEqual([{"title":"","composer":-1,"tempos":[],"instruments":[{"name":"clarinet", "transposition":{"diatonic":-1,"chromatic":-2}}], "clefs":{}, "keys":{}, "time_signatures":[], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
