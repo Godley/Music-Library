@@ -77,4 +77,19 @@ class FolderBrowser(object):
             old_files = [f for f in self.db_files if f not in xml_files]
         return old_files
 
+    def getNewAndOldFiles(self):
+        '''
+        method which will do both of the above methods without calling self.getFolderFiles twice which is probably inefficient
+        :return: dict containing new and old files separated by relevant indices
+        '''
+        files = self.getFolderFiles()
+        result_set = {}
+        if "xml" in files:
+            xml_files = files["xml"]
+            old_files = [f for f in self.db_files if f not in xml_files]
+            new_files = [f for f in xml_files if f not in self.db_files]
+            result_set["old"] = old_files
+            result_set["new"] = new_files
+        return result_set
+
 

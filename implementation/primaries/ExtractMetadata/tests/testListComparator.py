@@ -15,3 +15,6 @@ class testListComparator(unittest.TestCase):
 
     def testRecordsToBeArchived(self):
         self.assertEqual(self.folderBrowser.getOldRecords(), ["file2.xml"])
+
+    def testOldAndNewFiles(self):
+        self.assertEqual(self.folderBrowser.getNewAndOldFiles(), {"old":["file2.xml"],"new":["file3.xml"]})
