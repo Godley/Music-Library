@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/zip_test_1.mxl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/zip_test_2.mxl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/unzip_tests/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/folder_tests/file1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/folder_tests/file3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/folder_tests/file5.mxl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/zip_test_1.mxl" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/unzip_tests/zip_test_1.mxl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/zip_test_2.mxl" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/unzip_tests/zip_test_2.mxl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -85,7 +89,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches.coverage" NAME="Unittests in testHandleNotesAndPitches Coverage Results" MODIFIED="1425677380244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDynamics__1_.coverage" NAME="run script Coverage Results" MODIFIED="1424977937132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBreathMarks.coverage" NAME="Unittests in testBreathMarks Coverage Results" MODIFIED="1424639267387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testUnzipper.coverage" NAME="Unittests in testUnzipper Coverage Results" MODIFIED="1426170526513" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testUnzipper.coverage" NAME="Unittests in testUnzipper Coverage Results" MODIFIED="1426170804422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDirections.coverage" NAME="Unittests in testDirections Coverage Results" MODIFIED="1425861826938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeta.coverage" NAME="Unittests in testMeta Coverage Results" MODIFIED="1424033301783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testtext.coverage" NAME="Unittests in testtext Coverage Results" MODIFIED="1423411041193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
@@ -95,6 +99,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testKey.coverage" NAME="Unittests in testKey Coverage Results" MODIFIED="1420327826313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Piece.coverage" NAME="Piece Coverage Results" MODIFIED="1422221459924" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/classes" />
     <SUITE FILE_PATH="coverage/FYP$finder.coverage" NAME="finder Coverage Results" MODIFIED="1418408064598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testListComparator.coverage" NAME="Unittests in testListComparator Coverage Results" MODIFIED="1426171928784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFolderBrowser.coverage" NAME="Unittests in testFolderBrowser Coverage Results" MODIFIED="1419715766900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPieceTree.coverage" NAME="Unittests in testPieceTree Coverage Results" MODIFIED="1425837311010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTuplets.coverage" NAME="Unittests in testTuplets Coverage Results" MODIFIED="1425841294122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
@@ -132,43 +137,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="testDataLayer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3719" max-vertical-offset="4260">
-              <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-                <marker date="1426168198000" expanded="true" signature="472:509" placeholder="SELECT * FRO..stocks..." />
-                <marker date="1426168198000" expanded="true" signature="772:806" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426168198000" expanded="true" signature="1082:1122" placeholder="SELECT ROWID..composers..." />
-                <marker date="1426168198000" expanded="true" signature="1177:1217" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426168198000" expanded="true" signature="1498:1550" placeholder="SELECT ROWID..timesigs..." />
-                <marker date="1426168198000" expanded="true" signature="1605:1657" placeholder="SELECT piece..time_piece_join..." />
-                <marker date="1426168198000" expanded="true" signature="1718:1752" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426168198000" expanded="true" signature="2056:2106" placeholder="SELECT ROWID..tempos..." />
-                <marker date="1426168198000" expanded="true" signature="2161:2215" placeholder="SELECT piece..tempo_piece_join..." />
-                <marker date="1426168198000" expanded="true" signature="2276:2310" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426168198000" expanded="true" signature="2613:2663" placeholder="SELECT ROWID..tempos..." />
-                <marker date="1426168198000" expanded="true" signature="2718:2772" placeholder="SELECT piece..tempo_piece_join..." />
-                <marker date="1426168198000" expanded="true" signature="2833:2867" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426168198000" expanded="true" signature="3722:3793" placeholder="SELECT ROWID..instruments..." />
-                <marker date="1426168198000" expanded="true" signature="3952:4017" placeholder="SELECT piece..instruments_piece_join..." />
-                <marker date="1426168198000" expanded="true" signature="4083:4124" placeholder="SELECT filen..pieces..." />
-                <marker date="1426168198000" expanded="true" signature="4431:4473" placeholder="SELECT ROWID..instruments..." />
-                <marker date="1426168198000" expanded="true" signature="4525:4590" placeholder="SELECT piece..instruments_piece_join..." />
-                <marker date="1426168198000" expanded="true" signature="4650:4691" placeholder="SELECT filen..pieces..." />
-                <marker date="1426168198000" expanded="true" signature="5038:5073" placeholder="SELECT ROWID..instruments..." />
-                <marker date="1426168198000" expanded="true" signature="5125:5175" placeholder="SELECT piece..instruments_piece_join..." />
-                <marker date="1426168198000" expanded="true" signature="5235:5276" placeholder="SELECT filen..pieces..." />
-                <marker date="1426168198000" expanded="true" signature="5618:5654" placeholder="SELECT ROWID..clefs..." />
-                <marker date="1426168198000" expanded="true" signature="5706:5758" placeholder="SELECT piece..clef_piece_join..." />
-                <marker date="1426168198000" expanded="true" signature="5818:5859" placeholder="SELECT filen..pieces..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="3repeats.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/3repeats.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -304,36 +272,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testUnzipper.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
-              <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#73#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MusicManager.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6048387" vertical-offset="0" max-vertical-offset="585">
-              <caret line="20" column="49" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.87903225" vertical-offset="299" max-vertical-offset="885">
+              <caret line="76" column="71" selection-start-line="76" selection-start-column="71" selection-end-line="76" selection-end-column="71" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#54#1159#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="posixpath.py" pinned="false" current-in-tab="false">
-        <entry file="file:///System/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/posixpath.py">
+      <file leaf-file-name="testListComparator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="6885">
-              <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+              <caret line="10" column="113" selection-start-line="10" selection-start-column="113" selection-end-line="10" selection-end-column="113" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -350,7 +309,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/helpers.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleNotesAndPitches.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testNotations.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testAccidentals.py" />
@@ -400,6 +358,7 @@
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
       </list>
     </option>
@@ -615,6 +574,74 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="unzip_tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ExtractMetadata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test_files" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="folder_tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ExtractMetadata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test_files" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="META-INF" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -698,11 +725,11 @@
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/real scores" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/unzip_tests" />
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/ignored-lilypond-testcases" />
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases" />
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/expected" />
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests" />
-      <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-provided-testcases/to-Verify" />
     </key>
   </component>
   <component name="RestoreUpdateTree">
@@ -818,34 +845,7 @@
       </UpdatedFiles>
     </UpdateInfo>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in testUnzipper">
-    <configuration default="false" name="Unittests in testMeasure" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="FYP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PyDebugRunner" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Unittests in testListComparator">
     <configuration default="false" name="Unittests in testParser" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -932,6 +932,33 @@
       <module name="FYP" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in testListComparator" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FYP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
@@ -1411,19 +1438,19 @@
       <item index="9" class="java.lang.String" itemvalue="Python tests.Drawing Lilypond tests" />
       <item index="10" class="java.lang.String" itemvalue="Python tests.Drawing testcases" />
       <item index="11" class="java.lang.String" itemvalue="Python tests.unittests in testtwostavesonepart" />
-      <item index="12" class="java.lang.String" itemvalue="Python tests.Unittests in testMeasure" />
-      <item index="13" class="java.lang.String" itemvalue="Python tests.Unittests in testParser" />
-      <item index="14" class="java.lang.String" itemvalue="Python.SQLExperiment" />
-      <item index="15" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
-      <item index="16" class="java.lang.String" itemvalue="Python tests.Unittests in testUnzipper" />
+      <item index="12" class="java.lang.String" itemvalue="Python tests.Unittests in testParser" />
+      <item index="13" class="java.lang.String" itemvalue="Python.SQLExperiment" />
+      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
+      <item index="15" class="java.lang.String" itemvalue="Python tests.Unittests in testUnzipper" />
+      <item index="16" class="java.lang.String" itemvalue="Python tests.Unittests in testListComparator" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in testUnzipper" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
-        <item index="2" class="java.lang.String" itemvalue="Python.SQLExperiment" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in testParser" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in testMeasure" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in testListComparator" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testUnzipper" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
+        <item index="3" class="java.lang.String" itemvalue="Python.SQLExperiment" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in testParser" />
       </list>
     </recent_temporary>
   </component>
@@ -1439,12 +1466,6 @@
       <created>1418346903128</created>
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
-    </task>
-    <task id="LOCAL-00466" summary="issue fix #169&#10;&#10;relatively simple fix - did the tests and then put in the code. also cleaned up a couple of the tests in the handleMeasure file which weren't passing because of other system changes">
-      <created>1425741475126</created>
-      <option name="number" value="00466" />
-      <option name="project" value="LOCAL" />
-      <updated>1425741475126</updated>
     </task>
     <task id="LOCAL-00467" summary="moved some more files that pass or close to passing into appropriate folders&#10;&#10;also fixed issue #171 by changing slurs to being a list rather than a dictionary.">
       <created>1425744120852</created>
@@ -1734,7 +1755,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426168287383</updated>
     </task>
-    <option name="localTasksCounter" value="515" />
+    <task id="LOCAL-00515" summary="created unzipper&#10;&#10;- created unzipper in stages using unit tests: issue fix #184&#10;- put in file musicManager which should encapsulate this and the comparator for file lists to db lists">
+      <created>1426170619738</created>
+      <option name="number" value="00515" />
+      <option name="project" value="LOCAL" />
+      <updated>1426170619738</updated>
+    </task>
+    <option name="localTasksCounter" value="516" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1825,7 +1852,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="added more tests and functionality to metadata browser&#10;&#10;- added another test which should test the system collecting pieces which contain 2 diff instruments&#10;- added docstrings to every method in DataLayer explaining what each one does and what the params/return values are&#10;- work toward issue #66" />
     <MESSAGE value="modified the table setup &#10;&#10;- switched all the tables to use CREATE TABLE IF NOT EXISTS on first setup: alleviates using 2 queries to do 1 job&#10;- switched the ID methods to use just 2 params rather than 3 (name, cursor) as the connection object is never used&#10;- work on issue #66" />
     <MESSAGE value="more data browsing&#10;&#10;- added functionality for adding multiple instruments&#10;- added functionality for getting multiple instruments&#10;- working on combining multi instruments with screening pieces to see if they contain both instruments&#10;- work toward issue #66" />
     <MESSAGE value="modified how composers are saved&#10;&#10;- removed composer_piece_join table which wasn't necessary&#10;- changed queries to reflect this + tests&#10;- work toward issue #66" />
@@ -1850,7 +1876,8 @@
     <MESSAGE value="further work to search by transposition&#10;&#10;- added method to find instruments with the same transposition as the one given - this searches the table for the item and searches the table again by the item's transposition in one query&#10;- work toward issue #66" />
     <MESSAGE value="further work to search by transposition&#10;&#10;- added method to search for all pieces containing first a particular instrument, then by that instrument or other instruments which are of the same transposition: this won't give preferential treatment to either option, but this isn't a problem because ultimately, if a piece exists containing a violin, flute, sax and trumpet and you're looking for something containing a flute, it doesn't matter whether the system finds it because a violin is in the piece.&#10;- also not sure whether searches should return just a file list or a list of all info, but I've provided a method which does the latter for a given filename so I guess it doesn't really matter.&#10;- issue fix #66" />
     <MESSAGE value="changes to datalayer&#10;&#10;- added a new method and tests for finding a generic list of all files in the db, ready for issue #185&#10;- removed old object SearchLoad.py and some other code that's unnecessary/from someone else's repo" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes to datalayer&#10;&#10;- added a new method and tests for finding a generic list of all files in the db, ready for issue #185&#10;- removed old object SearchLoad.py and some other code that's unnecessary/from someone else's repo" />
+    <MESSAGE value="created unzipper&#10;&#10;- created unzipper in stages using unit tests: issue fix #184&#10;- put in file musicManager which should encapsulate this and the comparator for file lists to db lists" />
+    <option name="LAST_COMMIT_MESSAGE" value="created unzipper&#10;&#10;- created unzipper in stages using unit tests: issue fix #184&#10;- put in file musicManager which should encapsulate this and the comparator for file lists to db lists" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1988,48 +2015,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="642" />
+      <option name="time" value="645" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testPieceTree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1869" max-vertical-offset="2520">
-          <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testBarlines.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1194" max-vertical-offset="2010">
-          <caret line="86" column="6" selection-start-line="86" selection-start-column="6" selection-end-line="86" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testArpegGliss.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1464" max-vertical-offset="3795">
-          <caret line="104" column="6" selection-start-line="104" selection-start-column="6" selection-end-line="104" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#88#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testClef.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="189" max-vertical-offset="2925">
-          <caret line="19" column="73" selection-start-line="19" selection-start-column="73" selection-end-line="19" selection-end-column="73" />
-          <folding>
-            <element signature="e#0#88#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testWhatHappensWhenIDoThis.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="309" max-vertical-offset="1320">
@@ -2362,15 +2352,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/3repeats.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5940">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/zip_test_2.mxl">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/unzip_tests/zip_test_2.mxl">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2394,37 +2376,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/run_inside_pycharm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3719" max-vertical-offset="4260">
-          <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/META-INF/container.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/folder_tests/file1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/folder_tests/file3.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="18" selection-end-column="42" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <marker date="1426168198000" expanded="true" signature="472:509" placeholder="SELECT * FRO..stocks..." />
-            <marker date="1426168198000" expanded="true" signature="772:806" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="1082:1122" placeholder="SELECT ROWID..composers..." />
-            <marker date="1426168198000" expanded="true" signature="1177:1217" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="1498:1550" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1426168198000" expanded="true" signature="1605:1657" placeholder="SELECT piece..time_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="1718:1752" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="2056:2106" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426168198000" expanded="true" signature="2161:2215" placeholder="SELECT piece..tempo_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="2276:2310" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="2613:2663" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426168198000" expanded="true" signature="2718:2772" placeholder="SELECT piece..tempo_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="2833:2867" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="3722:3793" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426168198000" expanded="true" signature="3952:4017" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="4083:4124" placeholder="SELECT filen..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="4431:4473" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426168198000" expanded="true" signature="4525:4590" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="4650:4691" placeholder="SELECT filen..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="5038:5073" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426168198000" expanded="true" signature="5125:5175" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="5235:5276" placeholder="SELECT filen..pieces..." />
-            <marker date="1426168198000" expanded="true" signature="5618:5654" placeholder="SELECT ROWID..clefs..." />
-            <marker date="1426168198000" expanded="true" signature="5706:5758" placeholder="SELECT piece..clef_piece_join..." />
-            <marker date="1426168198000" expanded="true" signature="5818:5859" placeholder="SELECT filen..pieces..." />
+            <element signature="e#0#73#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2552,46 +2541,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/run_inside_pycharm.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/META-INF/container.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
-          <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+        <state vertical-scroll-proportion="-5.078629" vertical-offset="3719" max-vertical-offset="4260">
+          <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
           <folding>
-            <element signature="e#0#73#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..stocks..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..time_piece_join..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..tempo_piece_join..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..tempo_piece_join..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..clefs..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT piece..clef_piece_join..." />
+            <marker date="1426168198000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/3repeats.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5940">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file:///System/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/posixpath.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="911" max-vertical-offset="6885">
+        <state vertical-scroll-proportion="0.3563715" vertical-offset="900" max-vertical-offset="6885">
           <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/folder_tests/file5.mxl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+          <caret line="10" column="113" selection-start-line="10" selection-start-column="113" selection-end-line="10" selection-end-column="113" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6048387" vertical-offset="0" max-vertical-offset="585">
-          <caret line="20" column="49" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
+        <state vertical-scroll-proportion="0.87903225" vertical-offset="299" max-vertical-offset="885">
+          <caret line="76" column="71" selection-start-line="76" selection-start-column="71" selection-end-line="76" selection-end-column="71" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#54#1159#0" expanded="false" />
           </folding>
         </state>
       </provider>

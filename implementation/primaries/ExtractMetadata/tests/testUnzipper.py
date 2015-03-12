@@ -3,7 +3,7 @@ import unittest, os
 
 class testUnzipper(unittest.TestCase):
     def setUp(self):
-        self.folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/ExtractMetadata/tests/test_files"
+        self.folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/ExtractMetadata/tests/test_files/unzip_tests"
         files = ['zip_test_1.mxl','zip_test_2.mxl']
         self.unzipper = MusicManager.Unzipper(folder=self.folder, files=files)
 

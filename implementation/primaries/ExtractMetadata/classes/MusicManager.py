@@ -30,4 +30,51 @@ class Unzipper(object):
             if result != expected:
                 os.rename(os.path.join(self.folder, result), path)
 
+class FolderBrowser(object):
+    def __init__(self, db_files=[], folder='/Users/charlottegodley/PycharmProjects/FYP'):
+        self.db_files = db_files
+        self.folder = folder
+
+    def getFolderFiles(self):
+        '''
+        method to search the given folder for all xml and mxl files
+        :return: dictionary containing 2 optional indexes - xml and mxl depending whether any exist of either type
+        '''
+        folder_files = {}
+        for root, dirs, files in os.walk(self.folder):
+            for file in files:
+                if file.endswith(".xml"):
+                    if "xml" not in folder_files:
+                        folder_files["xml"] = []
+                    folder_files["xml"].append(file)
+                if file.endswith(".mxl"):
+                    if "mxl" not in folder_files:
+                        folder_files["mxl"] = []
+                    folder_files["mxl"].append(file)
+        return folder_files
+
+    def getNewFileList(self):
+        '''
+        method to determine from a list of collected xml files from getFolderFiles which ones are new to the DB
+        :return: list of file names which aren't in the db
+        '''
+        files = self.getFolderFiles()
+        new_files = []
+        if "xml" in files:
+            xml_files = files["xml"]
+            new_files = [f for f in xml_files if f not in self.db_files]
+        return new_files
+
+    def getOldRecords(self):
+        '''
+        method to determine from a list of xml files from getFolderFiles which ones in the DB no longer exist in this folder
+        :return: list of file names which are in the db but don't exist
+        '''
+        files = self.getFolderFiles()
+        old_files = []
+        if "xml" in files:
+            xml_files = files["xml"]
+            old_files = [f for f in self.db_files if f not in xml_files]
+        return old_files
+
 
