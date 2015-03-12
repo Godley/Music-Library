@@ -292,15 +292,6 @@ class testAddBibliography(testMetaParser):
         self.parser.NewData("100")
         self.assertEqual(self.parser.data, {"title":"100"})
 
-    def testCreatorWhereInCreditText(self):
-        self.parser.StartTag("credit-words", {"valign":"top","justify":"right"})
-        self.parser.NewData("quarter")
-        self.assertEqual(self.parser.data, {"composer":"quarter"})
-
-    def testTitleWhereInCreditText(self):
-        self.parser.StartTag("credit-words", {"valign":"top","justify":"center"})
-        self.parser.NewData("100")
-        self.assertEqual(self.parser.data, {"title":"100"})
 
 class testPartCollation(unittest.TestCase):
     def setUp(self):

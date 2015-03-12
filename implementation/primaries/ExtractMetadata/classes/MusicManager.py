@@ -1,6 +1,6 @@
 import os, shutil
 import zipfile
-from implementation.primaries.ExtractMetadata.classes import DataLayer
+from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser
 
 class Unzipper(object):
     def __init__(self, folder="/Users/charlottegodley/PycharmProjects/FYP", files=[]):
@@ -39,6 +39,9 @@ class FolderBrowser(object):
     def __init__(self, db_files=[], folder='/Users/charlottegodley/PycharmProjects/FYP'):
         self.db_files = db_files
         self.folder = folder
+
+    def resetDbFileList(self, files):
+        self.db_files = files
 
     def getFolderFiles(self):
         '''
@@ -105,16 +108,31 @@ class FolderBrowser(object):
 class MusicManager(object):
     def __init__(self, folder='/Users/charlottegodley/PycharmProjects/FYP'):
         self.folder = folder
-        self.data = DataLayer.MusicData(os.path.join(self.folder, "music.db"))
+        self.__data = DataLayer.MusicData(os.path.join(self.folder, "music.db"))
+        self.setupFolderBrowser()
+
+    def addPiece(self, filename, data):
+        self.__data.addPiece(filename, data)
+
+    def getPieceInfo(self, filenames):
+        return self.__data.getAllPieceInfo(filenames)
+
+    def getFileList(self):
+        return self.__data.getFileList()
 
     def setupFolderBrowser(self):
-        db_files = self.data.getFileList()
+        db_files = self.__data.getFileList()
         self.folder_browser = FolderBrowser(db_files=db_files, folder=self.folder)
 
     def handleZips(self):
         zip_files = self.folder_browser.getZipFiles()
         unzipper = Unzipper(folder=self.folder, files=zip_files)
         unzipper.unzip()
+
+    def refresh(self):
+        db_files = self.__data.getFileList()
+        self.folder_browser.resetDbFileList(db_files)
+        pass
 
     def parseOldFiles(self, file_list):
         '''
@@ -124,13 +142,20 @@ class MusicManager(object):
         '''
         pass
 
+    def parseXMLFile(self, filename):
+        parser = MetaParser.MetaParser()
+        data_set = parser.parse(os.path.join(self.folder,filename))
+        return data_set
+
     def parseNewFiles(self, file_list):
         '''
         method to call the sax parser on each of the new files then send the data to the data layer
         :param file_list:
         :return:
         '''
-        pass
+        for file in file_list:
+            data_set = self.parseXMLFile(file)
+            self.__data.addPiece(file, data_set)
 
     def handleXMLFiles(self):
         '''

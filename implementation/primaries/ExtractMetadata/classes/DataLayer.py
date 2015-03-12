@@ -843,10 +843,10 @@ class MusicData(object):
             composer = file["composer_id"]
             if composer != -1:
                 query = 'SELECT name FROM composers WHERE ROWID=?'
-                cursor.execute(query,(composer))
+                cursor.execute(query,(composer,))
                 fetched = cursor.fetchone()
                 if len(fetched) > 0:
-                    file_data["composer"] = fetched[0]
+                    file["composer"] = fetched[0]
             else:
                 file["composer"] = -1
 
