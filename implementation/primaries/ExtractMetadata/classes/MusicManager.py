@@ -92,4 +92,6 @@ class FolderBrowser(object):
             result_set["new"] = new_files
         return result_set
 
+class MusicManager(object):
+    pass
 
