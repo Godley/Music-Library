@@ -125,7 +125,7 @@ class MusicData(object):
         '''
         connection, cursor = self.connect()
         cursor.execute('''CREATE TABLE IF NOT EXISTS pieces
-             (filename text, title text, composer_id int, lyricist_id int)''')
+             (filename text, title text, composer_id int, lyricist_id int, archived BOOLEAN)''')
         self.disconnect(connection)
 
     def createInstrumentTable(self):
@@ -228,8 +228,8 @@ class MusicData(object):
             if lyricist_id is not None:
                 lyricist_id = lyricist_id[0]
 
-        input = (filename,title,composer_id,lyricist_id,)
-        cursor.execute('INSERT INTO pieces VALUES(?,?,?,?)',input)
+        input = (filename,title,composer_id,lyricist_id,False)
+        cursor.execute('INSERT INTO pieces VALUES(?,?,?,?,?)',input)
         connection.commit()
         select_input = (filename,)
         cursor.execute('SELECT ROWID FROM pieces WHERE filename=?', select_input)
@@ -322,22 +322,22 @@ class MusicData(object):
 
     def getFileList(self):
         connection, cursor = self.connect()
-        query = 'SELECT filename FROM pieces'
+        query = 'SELECT filename FROM pieces WHERE archived=0'
         cursor.execute(query, ())
         results = cursor.fetchall()
         self.disconnect(connection)
         filelist = [result[0] for result in results]
         return filelist
 
-    def getPiece(self, filename):
+    def getPiece(self, filename, archived=0):
         '''
         method to get a piece's table entry according to it's filename
         :param filename: string indicating the file name
         :return:
         '''
         connection, cursor = self.connect()
-        thing = (filename,)
-        cursor.execute('SELECT ROWID, filename, title, composer_id FROM pieces WHERE filename=?',thing)
+        thing = (filename,archived,)
+        cursor.execute('SELECT ROWID, filename, title, composer_id FROM pieces WHERE filename=? AND archived=?',thing)
         result = cursor.fetchall()
         self.disconnect(connection)
         return result
@@ -426,7 +426,7 @@ class MusicData(object):
         if len(result) > 0:
             return result[0][0]
 
-    def getPiecesByInstruments(self, instruments):
+    def getPiecesByInstruments(self, instruments, archived=0):
         '''
         method to get all the pieces containing a certain instrument
         :param instrument: name of instrument
@@ -441,11 +441,11 @@ class MusicData(object):
         input = tuple(instrument_ids)
         cursor.execute(query, input)
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor)
+        file_list = self.getPiecesByRowId(results, cursor, archived)
         self.disconnect(connection)
         return file_list
 
-    def getPiecesByRowId(self, rows, cursor):
+    def getPiecesByRowId(self, rows, cursor, archived=0):
         '''
         method which takes in a list of rows which are ROWIDs in the piece table and returns a list of files
         :param rows: list of tuples pertaining to ROWIDs in pieces table
@@ -456,12 +456,12 @@ class MusicData(object):
         previous = None
         for element in rows:
             if element != previous:
-                cursor.execute('SELECT filename FROM pieces WHERE ROWID=?',element)
+                cursor.execute('SELECT filename FROM pieces WHERE ROWID=? AND archived=?',(element[0],archived))
                 file_list.append(cursor.fetchone()[0])
             previous = element
         return file_list
 
-    def getPiecesByComposer(self, composer):
+    def getPiecesByComposer(self, composer, archived=0):
         '''
         method which takes in string of composer name and outputs list of files written by that guy
         :param composer: composer's name
@@ -469,13 +469,13 @@ class MusicData(object):
         '''
         connection, cursor = self.connect()
         composer_id = self.getComposerId(composer, cursor)
-        cursor.execute('SELECT filename FROM pieces WHERE composer_id=?', (composer_id,))
+        cursor.execute('SELECT filename FROM pieces WHERE composer_id=? AND archived=?', (composer_id,archived))
         result = cursor.fetchall()
         file_list = [r[0] for r in result]
         self.disconnect(connection)
         return file_list
 
-    def getPiecesByLyricist(self, lyricist):
+    def getPiecesByLyricist(self, lyricist, archived=0):
         '''
         method which takes in string of lyricist name and outputs list of files written by that guy/woman
         :param composer: lyricist's name
@@ -483,27 +483,27 @@ class MusicData(object):
         '''
         connection, cursor = self.connect()
         lyricist_id = self.getLyricistId(lyricist, cursor)
-        cursor.execute('SELECT filename FROM pieces WHERE lyricist_id=?', (lyricist_id,))
+        cursor.execute('SELECT filename FROM pieces WHERE lyricist_id=? AND archived=?', (lyricist_id,archived))
         result = cursor.fetchall()
         file_list = [r[0] for r in result]
         self.disconnect(connection)
         return file_list
 
-    def getPieceByTitle(self, title):
+    def getPieceByTitle(self, title, archived=0):
         '''
         method which takes in title of piece and outputs list of files named that
         :param title: title of piece
         :return: list of tuples
         '''
         connection, cursor = self.connect()
-        thing = (title,)
-        cursor.execute('SELECT * FROM pieces WHERE title=?',thing)
+        thing = (title,archived,)
+        cursor.execute('SELECT * FROM pieces WHERE title=? AND archived=?',thing)
         result = cursor.fetchall()
         result = [r[0] for r in result]
         self.disconnect(connection)
         return result
 
-    def getPieceByKeys(self, keys):
+    def getPieceByKeys(self, keys, archived=0):
         '''
         method which takes in a key and outputs list of files in that key
         :param key: string name of key (e.g C major)
@@ -518,11 +518,11 @@ class MusicData(object):
         input = tuple(key_ids)
         cursor.execute(query, input)
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor)
+        file_list = self.getPiecesByRowId(results, cursor, archived)
         self.disconnect(connection)
         return file_list
 
-    def getPieceByClefs(self, clefs):
+    def getPieceByClefs(self, clefs, archived=0):
         '''
         method which takes in a key and outputs list of files in that key
         :param key: string name of key (e.g C major)
@@ -537,11 +537,11 @@ class MusicData(object):
         input = tuple(clef_ids)
         cursor.execute(query, input)
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor)
+        file_list = self.getPiecesByRowId(results, cursor, archived)
         self.disconnect(connection)
         return file_list
 
-    def getPieceByInstrumentInKey(self, data):
+    def getPieceByInstrumentInKey(self, data, archived=0):
         connection, cursor = self.connect()
         search_ids = []
         tuple_data = [instrument for instrument in data]
@@ -554,10 +554,10 @@ class MusicData(object):
         query += ";"
         cursor.execute(query, tuple(search_ids))
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor)
+        file_list = self.getPiecesByRowId(results, cursor, archived)
         return file_list
 
-    def getPieceByInstrumentInClef(self, data):
+    def getPieceByInstrumentInClef(self, data, archived=0):
         connection, cursor = self.connect()
         search_ids = []
         tuple_data = [instrument for instrument in data]
@@ -570,10 +570,10 @@ class MusicData(object):
         query += ";"
         cursor.execute(query, tuple(search_ids))
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor)
+        file_list = self.getPiecesByRowId(results, cursor, archived=archived)
         return file_list
 
-    def getPieceByMeter(self, meters):
+    def getPieceByMeter(self, meters, archived=0):
         meter_list = []
         for meter in meters:
             if "/" in meter:
@@ -590,11 +590,11 @@ class MusicData(object):
         input = tuple(time_ids)
         cursor.execute(query, input)
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor)
+        file_list = self.getPiecesByRowId(results, cursor, archived)
         self.disconnect(connection)
         return file_list
 
-    def getPieceByTempo(self, tempos):
+    def getPieceByTempo(self, tempos, archived=0):
         tempo_list = []
         tempo_tuple_list = []
         dot_count = 0
@@ -680,7 +680,7 @@ class MusicData(object):
         input = tuple(tempo_ids)
         cursor.execute(query, input)
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor)
+        file_list = self.getPiecesByRowId(results, cursor, archived)
         self.disconnect(connection)
         return file_list
 
@@ -729,7 +729,7 @@ class MusicData(object):
         self.disconnect(connection)
         return instruments
 
-    def getPieceByInstrumentsOrSimilar(self, instruments):
+    def getPieceByInstrumentsOrSimilar(self, instruments, archived=0):
         '''
         method which searches first for any pieces containing the exact instrument, then by the name in dict,
         then by the transposition of the name if it isn't in the instruments table.
@@ -764,7 +764,7 @@ class MusicData(object):
             query += ";"
             cursor.execute(query,tuple(query_input))
             results = cursor.fetchall()
-            file_list = self.getPiecesByRowId(results, cursor)
+            file_list = self.getPiecesByRowId(results, cursor, archived=0)
         self.disconnect(connection)
         return file_list
 
@@ -830,10 +830,10 @@ class MusicData(object):
                 tempos.append(tempo_string)
         return tempos
 
-    def getAllPieceInfo(self, filenames):
+    def getAllPieceInfo(self, filenames, archived=0):
         file_data = []
         for filename in filenames:
-            piece_tuple = self.getPiece(filename)
+            piece_tuple = self.getPiece(filename, archived)
             if len(piece_tuple) > 0:
                 piece_tuple = piece_tuple[0]
             else:

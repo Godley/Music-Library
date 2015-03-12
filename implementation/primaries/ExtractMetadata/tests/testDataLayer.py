@@ -296,3 +296,10 @@ class testDataLayer(unittest.TestCase):
         self.data.archivePieces(["file.xml"])
         self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 0)
         self.assertEqual(len(self.data.getArchivedPieces()), 1)
+
+    def testRemovePiece(self):
+        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":-1,"chromatic":-2}}]})
+        self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 1)
+        self.data.removePieces(["file.xml"])
+        self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 0)
+        self.assertEqual(len(self.data.getArchivedPieces()), 0)
