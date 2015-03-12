@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/extractor_test/testcase2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -81,7 +81,7 @@
     <SUITE FILE_PATH="coverage/FYP$FYP_testing.coverage" NAME="FYP testing Coverage Results" MODIFIED="1419355403844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches.coverage" NAME="Unittests in testHandleNotesAndPitches Coverage Results" MODIFIED="1425677380244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testLilypondRun.coverage" NAME="Unittests in testActorPreludeSample Coverage Results" MODIFIED="1424905826880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMetaParserUsingXML.coverage" NAME="Unittests in testMetaParserUsingXML Coverage Results" MODIFIED="1426192585383" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMetaParserUsingXML.coverage" NAME="Unittests in testMetaParserUsingXML Coverage Results" MODIFIED="1426193909544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDynamics__1_.coverage" NAME="run script Coverage Results" MODIFIED="1424977937132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBreathMarks.coverage" NAME="Unittests in testBreathMarks Coverage Results" MODIFIED="1424639267387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testUnzipper.coverage" NAME="Unittests in testUnzipper Coverage Results" MODIFIED="1426176904986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
@@ -149,17 +149,17 @@
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/extractor_test/testcase1.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="1290" max-vertical-offset="6255">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="94" column="24" selection-start-line="0" selection-start-column="0" selection-end-line="411" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testMetaParserUsingXML.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="testMetaParserUsingXML.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
-              <caret line="28" column="60" selection-start-line="28" selection-start-column="60" selection-end-line="28" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.546371" vertical-offset="419" max-vertical-offset="915">
+              <caret line="46" column="82" selection-start-line="46" selection-start-column="82" selection-end-line="46" selection-end-column="82" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -288,10 +288,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testDataLayer.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="testDataLayer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26363635" vertical-offset="3259" max-vertical-offset="4410">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3803" max-vertical-offset="4410">
               <caret line="228" column="79" selection-start-line="228" selection-start-column="79" selection-end-line="228" selection-end-column="79" />
               <folding>
                 <marker date="1426193603000" expanded="true" signature="472:509" placeholder="SELECT * FRO..pieces..." />
@@ -326,6 +326,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="testcase2.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/extractor_test/testcase2.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="5760">
+              <caret line="60" column="41" selection-start-line="60" selection-start-column="41" selection-end-line="60" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="Git.Push.Settings">
@@ -338,7 +348,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testNote.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testArpegGliss.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testBarlines.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testBeams.py" />
@@ -386,9 +395,10 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/extractor_test/testcase2.xml" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py" />
       </list>
     </option>
   </component>
@@ -697,7 +707,7 @@
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in testDataLayer">
+  <component name="RunManager" selected="Python tests.Unittests in testMetaParserUsingXML">
     <configuration default="false" name="Unittests in testUnzipper" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -1303,8 +1313,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testMetaParserUsingXML" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in testMetaParserUsingXML" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
         <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testMetaParser" />
         <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in testMusicManager" />
         <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in testUnzipper" />
@@ -1323,12 +1333,6 @@
       <created>1418346903128</created>
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
-    </task>
-    <task id="LOCAL-00481" summary="work toward voice navigation&#10;&#10;- testcase 46e passes: going to do a check on the other multivoice tests to see what happens now (think most of them are in ignored)&#10;- issue fix #180, note is now under the approriate note">
-      <created>1425918185321</created>
-      <option name="number" value="00481" />
-      <option name="project" value="LOCAL" />
-      <updated>1425918185321</updated>
     </task>
     <task id="LOCAL-00482" summary="work toward tab fixing&#10;&#10;- issue fix #164: changed to use 2 booleans which are checked when a measure is closed">
       <created>1425919746889</created>
@@ -1618,7 +1622,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426193300653</updated>
     </task>
-    <option name="localTasksCounter" value="530" />
+    <task id="LOCAL-00530" summary="issue fix #190, removed superfluous octave column">
+      <created>1426193628458</created>
+      <option name="number" value="00530" />
+      <option name="project" value="LOCAL" />
+      <updated>1426193628458</updated>
+    </task>
+    <option name="localTasksCounter" value="531" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1709,7 +1719,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="added more tempo tests&#10;&#10;- added a test for 16th (here we should do some funky for loops to get it to calculate the size because storing things less than eighth seems silly as you could have unlimited uses of the sequence &quot;hemi demi semi&quot;&#10;- added a test for dotted notes" />
     <MESSAGE value="added find all info method&#10;&#10;- added a method which finds all the info accross all tables for a particular file. Doesn't currently apply instrument names to keys and clefs so will need further testing/work before it's useful. Also need to take out the return values of &quot;id&quot; and &quot;composer_id&quot; because a user doesn't need to know this info and therefore it's best to keep that to data-level only.&#10;- added test for this method&#10;- work toward issue #66" />
     <MESSAGE value="added further tests for find info method&#10;&#10;- added key test for find info method&#10;- removed indexes &quot;id&quot; and &quot;composer_id&quot;&#10;- work toward issue #66" />
     <MESSAGE value="changes to getAllPieceInfo&#10;&#10;- changed keys and clefs so that they are properly organised by instrument&#10;- cleaned up getAllPieceInfo so that it calls methods for most of the info it's collecting, as all the queries could be potentially useful later.&#10;- work toward issue #66" />
@@ -1734,7 +1743,8 @@
     <MESSAGE value="added testcase/tests for testcase + other&#10;&#10;- added testcase which tests bibliography (title, composer, lyricist), tempo, time sig, key sig, instruments&#10;-created a testclass for this testcase and made sure all tests pass&#10;- added handling for beat-unit-dot&#10;- added handling for lyricist and removed credit-words section as I notice latest version of MuseScore uses the right tags, not credit-words. Hoping sibelius does the same." />
     <MESSAGE value="added lyricist support&#10;&#10;- added new table to database (lyricists): not sure if this is entirely useful, may be better to have a creators table which combines both lyricist and composer. For now doesn't make a massive diff&#10;- added tests for add method&#10;- work toward issue #191" />
     <MESSAGE value="added search by lyricist&#10;&#10;- added helper method to find lyricist id and method to find pieces by that lyricist&#10;- issue fix #191" />
-    <option name="LAST_COMMIT_MESSAGE" value="added search by lyricist&#10;&#10;- added helper method to find lyricist id and method to find pieces by that lyricist&#10;- issue fix #191" />
+    <MESSAGE value="issue fix #190, removed superfluous octave column" />
+    <option name="LAST_COMMIT_MESSAGE" value="issue fix #190, removed superfluous octave column" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1887,13 +1897,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/unittest/suite.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1702" max-vertical-offset="4905">
-          <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/expected/43e-Multistaff-ClefDynamics.ly">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.9791667" vertical-offset="282" max-vertical-offset="750">
@@ -2333,30 +2336,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/extractor_test/testcase1.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6255">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3780">
           <caret line="13" column="41" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
-          <caret line="28" column="60" selection-start-line="28" selection-start-column="60" selection-end-line="28" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2482,7 +2467,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26363635" vertical-offset="3259" max-vertical-offset="4410">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3803" max-vertical-offset="4410">
           <caret line="228" column="79" selection-start-line="228" selection-start-column="79" selection-end-line="228" selection-end-column="79" />
           <folding>
             <marker date="1426193603000" expanded="true" signature="472:509" placeholder="SELECT * FRO..pieces..." />
@@ -2512,6 +2497,32 @@
             <marker date="1426193603000" expanded="true" signature="5986:6022" placeholder="SELECT ROWID..clefs..." />
             <marker date="1426193603000" expanded="true" signature="6074:6126" placeholder="SELECT piece..clef_piece_join..." />
             <marker date="1426193603000" expanded="true" signature="6186:6227" placeholder="SELECT filen..pieces..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/extractor_test/testcase1.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1290" max-vertical-offset="6255">
+          <caret line="94" column="24" selection-start-line="0" selection-start-column="0" selection-end-line="411" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/extractor_test/testcase2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="5760">
+          <caret line="60" column="41" selection-start-line="60" selection-start-column="41" selection-end-line="60" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.546371" vertical-offset="419" max-vertical-offset="915">
+          <caret line="46" column="82" selection-start-line="46" selection-start-column="82" selection-end-line="46" selection-end-column="82" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
