@@ -8,7 +8,7 @@ class MetaParser(object):
         self.attribs = {}
         self.chars = {}
         self.handlers = {"part-name":makeNewPart,"key":handleKey,"clef":handleClef,"transpose":handleTransposition,
-                         "time":handleMeter}
+                         "time":handleMeter,"metronome":handleTempo}
         self.close_tags = []
         self.current_handler = None
         self.parts = {}
@@ -165,8 +165,32 @@ def handleMeter(tags, attrs, chars, parts, data):
             else:
                 data["time"][-1]["type"] = int(b_type)
 
-def handleMetronome(tags, attrs, chars, parts, data):
-    pass
+def handleTempo(tags, attrs, chars, parts, data):
+    if "tempo" not in data:
+        data["tempo"] = []
+
+    if tags[-1] != "metronome":
+        beat = 0
+        minute = 0
+        if tags[-1] == "beat-unit":
+            if "beat-unit" in chars:
+                beat = chars["beat-unit"]
+
+            if len(data["tempo"]) == 0 or ("beat" in data["tempo"][-1] and ("per-minute" in data["tempo"][-1] or "beat_2" in data["tempo"][-1])):
+                data["tempo"].append({"beat":beat})
+            elif "beat" not in data["tempo"][-1]:
+                data["tempo"][-1]["beat"] = beat
+            elif "per-minute" not in data["tempo"][-1] and "beat_2" not in data["tempo"][-1]:
+                data["tempo"][-1]["beat_2"] = beat
+
+        if tags[-1] == "per-minute":
+            if "per-minute" in chars:
+                minute = chars["per-minute"]
+
+            if len(data["tempo"]) == 0 or "minute" in data["tempo"][-1]:
+                data["tempo"].append({"minute":int(minute)})
+            else:
+                data["tempo"][-1]["minute"] = int(minute)
 
 
 

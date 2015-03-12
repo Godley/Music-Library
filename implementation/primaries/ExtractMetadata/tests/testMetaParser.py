@@ -256,7 +256,7 @@ class testAddTempo(testMetaParser):
         self.parser.EndTag("beat-unit")
         self.parser.StartTag("per-minute",{})
         self.parser.NewData("100")
-        self.assertEqual(self.parser.parts, {"tempo":[{"beat":"quarter","minute":100}]})
+        self.assertEqual(self.parser.data, {"tempo":[{"beat":"quarter","minute":100}]})
 
     def testTempoBeatAndSecondBeat(self):
         self.parser.StartTag("part", {"id":"P1"})
@@ -266,5 +266,5 @@ class testAddTempo(testMetaParser):
         self.parser.EndTag("beat-unit")
         self.parser.StartTag("beat-unit",{})
         self.parser.NewData("half")
-        self.assertEqual(self.parser.parts, {"tempo":[{"beat":"quarter","beat_2":"half"}]})
+        self.assertEqual(self.parser.data, {"tempo":[{"beat":"quarter","beat_2":"half"}]})
 
