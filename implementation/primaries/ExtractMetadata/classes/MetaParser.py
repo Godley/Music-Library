@@ -7,7 +7,7 @@ class MetaParser(object):
         self.tags = []
         self.attribs = {}
         self.chars = {}
-        self.handlers = {"part-name":makeNewPart}
+        self.handlers = {"part-name":makeNewPart,"key":handleKey,"clef":handleClef}
         self.close_tags = []
         self.current_handler = None
         self.parts = {}
@@ -23,17 +23,12 @@ class MetaParser(object):
         if len(self.tags) > 0:
             self.chars[self.tags[-1]] = data
             if self.current_handler is not None and self.tags[-1] not in self.close_tags:
-                data = self.current_handler(self.tags, self.attribs, self.chars)
-                if self.tags[-1] == "part-name":
-                    self.parts.update(data[1])
-                    if "instruments" not in self.data:
-                        self.data["instruments"] = []
-                    self.data["instruments"].append(data[0])
+                self.current_handler(self.tags, self.attribs, self.chars, self.parts, self.data)
 
     def EndTag(self, name):
         if name in self.close_tags:
             if self.current_handler is not None:
-                data = self.current_handler(self.tags,self.attribs,self.chars)
+                self.current_handler(self.tags,self.attribs,self.chars, self.parts, self.data)
         self.tags.remove(name)
 
         if len(self.tags) > 0 and self.tags[-1] in self.handlers:
@@ -69,21 +64,65 @@ class MetaParser(object):
         return self.piece
 
 # HANDLER METHODS
-def makeNewPart(tags, attrs, chars):
+def makeNewPart(tags, attrs, chars, parts, data):
     '''
     handler which works with anything inside the score-part tag, which creates a new part inside the data dict
     :param tags: current list of xml tags
     :param attrs: current dict of attribs
     :param chars: current dict of content of each tag
-    :return: not sure yet lol
+    :return: string of instrument name and a dict so the part dict can be updated
     '''
-    data = {}
     id = helpers.GetID(attrs, "score-part", "id")
     if id is not None:
-        data = {id:{}}
+        if id not in parts:
+            parts[id] = {}
     if tags[-1] == "part-name":
         if "part-name" in chars:
             name = chars["part-name"]
-            data[id]["name"] = name
-            return name, data
-    return data
+            parts[id]["name"] = name
+            if "instruments" not in data:
+                data["instruments"] = []
+            data["instruments"].append(name)
+
+def handleKey(tags, attrs, chars, parts, data):
+    id = helpers.GetID(attrs, "part", "id")
+    if id is not None:
+        if id not in parts:
+            parts[id] = {}
+
+        if "key" not in parts[id]:
+            parts[id]["key"] = []
+
+        if tags[-1] != "key":
+            thing = 0
+            if "fifths" in chars:
+                thing = int(chars["fifths"])
+            if "mode" in chars:
+                thing = chars["mode"]
+            if len(parts[id]["key"]) == 0 or tags[-1] in parts[id]["key"][-1]:
+                parts[id]["key"].append({tags[-1]:thing})
+            elif tags[-1] not in parts[id]["key"][-1]:
+                parts[id]["key"][-1][tags[-1]] = thing
+
+def handleClef(tags, attrs, chars, parts, data):
+    id = helpers.GetID(attrs, "part", "id")
+    if id is not None:
+        if id not in parts:
+            parts[id] = {}
+
+        if "clef" not in parts[id]:
+            parts[id]["clef"] = []
+
+        if tags[-1] != "clef":
+            thing = 0
+            if "line" in chars:
+                thing = int(chars["line"])
+            if "sign" in chars:
+                thing = chars["sign"]
+            if len(parts[id]["clef"]) == 0 or tags[-1] in parts[id]["clef"][-1]:
+                parts[id]["clef"].append({tags[-1]:thing})
+            elif tags[-1] not in parts[id]["clef"][-1]:
+                parts[id]["clef"][-1][tags[-1]] = thing
+
+
+
