@@ -140,7 +140,7 @@ class MusicManager(object):
         :param file_list:
         :return:
         '''
-        pass
+        self.__data.archivePieces(file_list)
 
     def parseXMLFile(self, filename):
         parser = MetaParser.MetaParser()
