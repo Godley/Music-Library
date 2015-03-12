@@ -36,6 +36,16 @@ class testDataLayer(unittest.TestCase):
         c.execute('SELECT * FROM pieces WHERE composer_id=?', result)
         self.assertEqual("file.xml", c.fetchone()[0])
 
+    def testAddPieceWithLyricist(self):
+        self.data.addPiece("file.xml",{"lyricist":"blabla"})
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        t = ('blabla',)
+        c.execute('SELECT ROWID FROM lyricists WHERE name=?', t)
+        result = c.fetchone()
+        c.execute('SELECT * FROM pieces WHERE lyricist_id=?', result)
+        self.assertEqual("file.xml", c.fetchone()[0])
+
     def testAddPieceWithMeter(self):
         self.data.addPiece("file.xml",{"time":[{"beat":4,"type":4}]})
         conn = sqlite3.connect('example.db')
@@ -58,7 +68,7 @@ class testDataLayer(unittest.TestCase):
         c.execute('SELECT piece_id FROM tempo_piece_join WHERE tempo_id=?',result)
         piece_id = c.fetchone()
         c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
-        self.assertEqual([("file.xml","",-1)], c.fetchall())
+        self.assertEqual([("file.xml","",-1,-1)], c.fetchall())
 
     def testAddPieceWithTempoOfTwoBeats(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":4,"beat_2":4}]})
@@ -70,7 +80,7 @@ class testDataLayer(unittest.TestCase):
         c.execute('SELECT piece_id FROM tempo_piece_join WHERE tempo_id=?',result)
         piece_id = c.fetchone()
         c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
-        self.assertEqual([("file.xml","",-1)], c.fetchall())
+        self.assertEqual([("file.xml","",-1,-1)], c.fetchall())
 
     def testGetAllPieces(self):
         self.data.addPiece("file.xml",{})
