@@ -886,6 +886,24 @@ class MusicData(object):
         self.disconnect(connection)
 
 
+    def archivePieces(self, filenames):
+        connection, cursor = self.connect()
+        for file in filenames:
+            id_query = '''UPDATE pieces SET archived = 1 WHERE filename=?'''
+            cursor.execute(id_query,(file,))
+        connection.commit()
+        self.disconnect(connection)
+
+    def getArchivedPieces(self):
+        file_list = []
+        connection, cursor = self.connect()
+        query = '''SELECT filename FROM pieces WHERE archived = 1'''
+        cursor.execute(query)
+        results = cursor.fetchall()
+        file_list = [result[0] for result in results]
+        self.disconnect(connection)
+        return file_list
+
     def disconnect(self, connection):
         '''
         method which shuts down db connection

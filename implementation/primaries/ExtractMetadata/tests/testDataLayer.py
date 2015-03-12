@@ -68,7 +68,7 @@ class testDataLayer(unittest.TestCase):
         c.execute('SELECT piece_id FROM tempo_piece_join WHERE tempo_id=?',result)
         piece_id = c.fetchone()
         c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
-        self.assertEqual([("file.xml","",-1,-1)], c.fetchall())
+        self.assertEqual([("file.xml","",-1,-1,0)], c.fetchall())
 
     def testAddPieceWithTempoOfTwoBeats(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":4,"beat_2":4}]})
@@ -80,7 +80,7 @@ class testDataLayer(unittest.TestCase):
         c.execute('SELECT piece_id FROM tempo_piece_join WHERE tempo_id=?',result)
         piece_id = c.fetchone()
         c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
-        self.assertEqual([("file.xml","",-1,-1)], c.fetchall())
+        self.assertEqual([("file.xml","",-1,-1,0)], c.fetchall())
 
     def testGetAllPieces(self):
         self.data.addPiece("file.xml",{})
@@ -290,8 +290,9 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":-1,"chromatic":-2}}]})
         self.assertEqual([{"title":"","composer":-1,"tempos":[],"instruments":[{"name":"clarinet", "transposition":{"diatonic":-1,"chromatic":-2}}], "clefs":{}, "keys":{}, "time_signatures":[], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
 
-    def testRemovePiece(self):
+    def testArchivePiece(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":-1,"chromatic":-2}}]})
         self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 1)
-        self.data.removePieces(["file.xml"])
+        self.data.archivePieces(["file.xml"])
         self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 0)
+        self.assertEqual(len(self.data.getArchivedPieces()), 1)
