@@ -681,7 +681,37 @@ class MusicData(object):
         :param instruments: list of instruments to search by
         :return: list of files + their instruments
         '''
-        pass
+        connection, cursor = self.connect()
+        instrument_names = [entry["name"] for entry in instruments]
+        instrument_keys = []
+        for name in instrument_names:
+            key = self.getInstrumentId(name, cursor)
+            if key is not None:
+                instrument_keys.append((name, key))
+            else:
+                self.addInstruments([entry for entry in instruments if entry["name"] == name])
+                key = self.getInstrumentId(name, cursor)
+                instrument_keys.append((name, key))
+        results = self.getPiecesByInstruments(instrument_names)
+        if len(results) == 0:
+            alternates = [(item, self.getInstrumentsBySameTranspositionAs(item[0])) for item in instrument_keys]
+            query = '''SELECT piece_id FROM instruments_piece_join i WHERE EXISTS'''
+            query_input = []
+            for instrument in alternates:
+                query_input.append(instrument[0][1])
+                query += ''' (SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND instrument_id = ?'''
+                for value in instrument[1]:
+                    query_input.append(value[0])
+                    query += ''' OR instrument_id =?'''
+                query += ''')'''
+                if instrument != alternates[-1]:
+                    query += " AND EXISTS"
+            query += ";"
+            cursor.execute(query,tuple(query_input))
+            results = cursor.fetchall()
+            file_list = self.getPiecesByRowId(results, cursor)
+        self.disconnect(connection)
+        return file_list
 
 
     def getClefsByPieceId(self, piece_id, cursor):

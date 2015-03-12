@@ -218,7 +218,20 @@ class testDataLayer(unittest.TestCase):
                                               ]
                                              })
         self.data.addInstruments([{"name":"flute","transposition":{"octave":0,"diatonic":0,"chromatic":0}}])
-        self.assertEqual(["file.xml"], self.data.getPieceByInstrumentsOrSimilar(["flute","clarinet"]))
+        self.assertEqual(["file.xml"], self.data.getPieceByInstrumentsOrSimilar([{"name":"flute"},
+                                                                                 {"name":"clarinet"}]))
+
+    def testFindPiecesContainingInstrumentsOrSimilarWhereInstrumentNotInTable(self):
+        self.data.addPiece("file.xml", {"instruments":
+                                            [{"name":"clarinet","transposition":{"octave":0,"diatonic":1,"chromatic":2}},
+                                                {"name":"violin","transposition":{"octave":0,"diatonic":0,"chromatic":0}}
+                                              ]
+                                             })
+        self.data.addInstruments([{"name":"flute","transposition":{"octave":0,"diatonic":0,"chromatic":0}}])
+        self.assertEqual(["file.xml"], self.data.getPieceByInstrumentsOrSimilar([{"name":"flute"},
+                                                                                 {"name":"clarinet"},
+                                                                                {"name":"trumpet","transposition":{"diatonic":1,"chromatic":2,"octave":0}}]))
+
 
     def testFindPieceByTempoWhereTempoIsTwoBeats(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
