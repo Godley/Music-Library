@@ -63,7 +63,27 @@ class MetaParser(object):
         parser.setFeature(handler.feature_external_ges, False)
         fob = open(file, 'r')
         parser.parse(fob)
-        return self.piece
+        self.CollatePartsIntoData()
+        return self.data
+
+    def CollatePartsIntoData(self):
+        instrument_list = []
+        clef_list = {}
+        key_list = {}
+        for part in self.parts:
+            data = {"name":self.parts[part]["name"]}
+            if "transposition" in self.parts[part]:
+                data["transposition"] = self.parts[part]["transposition"]
+            if "key" in self.parts[part]:
+                key_list[self.parts[part]["name"]] = self.parts[part]["key"]
+            if "clef" in self.parts[part]:
+                clef_list[self.parts[part]["name"]] = self.parts[part]["clef"]
+            instrument_list.append(data)
+        self.data["instruments"] = instrument_list
+        if key_list != {}:
+            self.data["key"] = key_list
+        if clef_list != {}:
+            self.data["clef"] = clef_list
 
 # HANDLER METHODS
 def makeNewPart(tags, attrs, chars, parts, data):

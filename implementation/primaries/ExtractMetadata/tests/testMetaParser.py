@@ -302,4 +302,26 @@ class testAddBibliography(testMetaParser):
         self.parser.NewData("100")
         self.assertEqual(self.parser.data, {"title":"100"})
 
+class testPartCollation(unittest.TestCase):
+    def setUp(self):
+        self.parser = MetaParser.MetaParser()
+
+    def testCollationOfTranspositions(self):
+        self.parser.parts = {"P1":{"name":"clarinet","transposition":{}}}
+        self.parser.data = {"instruments":["clarinet"]}
+        self.parser.CollatePartsIntoData()
+        self.assertEqual(self.parser.data, {"instruments":[{"name":"clarinet","transposition":{}}]})
+
+    def testCollationOfKeys(self):
+        self.parser.parts = {"P1":{"name":"clarinet","key":[{}]}}
+        self.parser.data = {"instruments":["clarinet"]}
+        self.parser.CollatePartsIntoData()
+        self.assertEqual(self.parser.data, {"instruments":[{"name":"clarinet"}], "key":{"clarinet":[{}]}})
+
+    def testCollationOfClefs(self):
+        self.parser.parts = {"P1":{"name":"clarinet","clef":[{}]}}
+        self.parser.data = {"instruments":["clarinet"]}
+        self.parser.CollatePartsIntoData()
+        self.assertEqual(self.parser.data, {"instruments":[{"name":"clarinet"}], "clef":{"clarinet":[{}]}})
+
 
