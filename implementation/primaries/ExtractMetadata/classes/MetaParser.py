@@ -7,7 +7,8 @@ class MetaParser(object):
         self.tags = []
         self.attribs = {}
         self.chars = {}
-        self.handlers = {"part-name":makeNewPart,"key":handleKey,"clef":handleClef}
+        self.handlers = {"part-name":makeNewPart,"key":handleKey,"clef":handleClef,"transpose":handleTransposition,
+                         "time":handleMeter}
         self.close_tags = []
         self.current_handler = None
         self.parts = {}
@@ -123,6 +124,51 @@ def handleClef(tags, attrs, chars, parts, data):
                 parts[id]["clef"].append({tags[-1]:thing})
             elif tags[-1] not in parts[id]["clef"][-1]:
                 parts[id]["clef"][-1][tags[-1]] = thing
+
+def handleTransposition(tags, attrs, chars, parts, data):
+    id = helpers.GetID(attrs, "part", "id")
+    if id is not None:
+        if id not in parts:
+            parts[id] = {}
+
+        if "transposition" not in parts[id]:
+            parts[id]["transposition"] = {}
+
+        if tags[-1] != "transposition":
+            content = 0
+            if tags[-1] in chars:
+                content = int(chars[tags[-1]])
+            parts[id]["transposition"][tags[-1]] = content
+
+def handleMeter(tags, attrs, chars, parts, data):
+    if "time" not in data:
+        data["time"] = []
+
+    if tags[-1] != "time":
+        beat = 0
+        b_type = 0
+        if tags[-1] == "beats":
+            if "beats" in chars:
+                beat = chars["beats"]
+
+            if len(data["time"]) == 0 or "beat" in data["time"][-1]:
+                data["time"].append({"beat":int(beat)})
+            else:
+                data["time"][-1]["beat"] = int(beat)
+
+        if tags[-1] == "beat-type":
+            if "beat-type" in chars:
+                b_type = chars["beat-type"]
+
+            if len(data["time"]) == 0 or "type" in data["time"][-1]:
+                data["time"].append({"type":int(b_type)})
+            else:
+                data["time"][-1]["type"] = int(b_type)
+
+def handleMetronome(tags, attrs, chars, parts, data):
+    pass
+
+
 
 
 
