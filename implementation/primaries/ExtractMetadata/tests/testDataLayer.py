@@ -72,6 +72,14 @@ class testDataLayer(unittest.TestCase):
         c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
         self.assertEqual([("file.xml","",-1)], c.fetchall())
 
+    def testGetAllPieces(self):
+        self.data.addPiece("file.xml",{})
+        self.data.addPiece("file2.xml",{})
+        self.assertEqual(["file.xml","file2.xml"], self.data.getFileList())
+
+    def testGetAllPiecesWhereNoneExist(self):
+        self.assertEqual([], self.data.getFileList())
+
     def testFindPieceByFname(self):
         self.data.addPiece("file.xml",{})
         self.assertEqual([(1, "file.xml","",-1)], self.data.getPiece("file.xml"))

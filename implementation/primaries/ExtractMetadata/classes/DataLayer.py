@@ -299,6 +299,15 @@ class MusicData(object):
         connection.commit()
         self.disconnect(connection)
 
+    def getFileList(self):
+        connection, cursor = self.connect()
+        query = 'SELECT filename FROM pieces'
+        cursor.execute(query, ())
+        results = cursor.fetchall()
+        self.disconnect(connection)
+        filelist = [result[0] for result in results]
+        return filelist
+
     def getPiece(self, filename):
         '''
         method to get a piece's table entry according to it's filename
