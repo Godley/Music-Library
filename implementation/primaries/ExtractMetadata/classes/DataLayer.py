@@ -339,7 +339,7 @@ class MusicData(object):
         '''
         connection, cursor = self.connect()
         thing = (filename,archived,)
-        cursor.execute('SELECT ROWID, filename, title, composer_id FROM pieces WHERE filename=? AND archived=?',thing)
+        cursor.execute('SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces WHERE filename=? AND archived=?',thing)
         result = cursor.fetchall()
         self.disconnect(connection)
         return result
@@ -981,7 +981,8 @@ class MusicData(object):
                 piece_tuple = piece_tuple[0]
             else:
                 break
-            data = {"id":piece_tuple[0],"filename":piece_tuple[1],"title":piece_tuple[2],"composer_id":piece_tuple[3]}
+            data = {"id":piece_tuple[0],"filename":piece_tuple[1],"title":piece_tuple[2],"composer_id":piece_tuple[3],
+                    "lyricist_id":piece_tuple[4]}
             file_data.append(data)
 
         connection, cursor = self.connect()
@@ -997,6 +998,16 @@ class MusicData(object):
             else:
                 file["composer"] = -1
 
+            lyricist = file["lyricist_id"]
+            if lyricist != -1:
+                query = 'SELECT name FROM lyricists WHERE ROWID=?'
+                cursor.execute(query,(lyricist,))
+                fetched = cursor.fetchone()
+                if len(fetched) > 0:
+                    file["lyricist"] = fetched[0]
+            else:
+                file["lyricist"] = -1
+
             file["instruments"] = self.getInstrumentsByPieceId(index, cursor)
             file["clefs"] = self.getClefsByPieceId(index, cursor)
             file["keys"] = self.getKeysByPieceId(index, cursor)
@@ -1004,6 +1015,7 @@ class MusicData(object):
             file["tempos"] = self.getTemposByPieceId(index, cursor)
             file.pop("id")
             file.pop("composer_id")
+            file.pop("lyricist_id")
         self.disconnect(connection)
         return file_data
 
