@@ -30,7 +30,7 @@ class testMusicManager(unittest.TestCase):
     def testHandleOldFiles(self):
         self.manager.parseOldFiles(["file.xml"])
         self.assertEqual(self.manager.getPieceInfo(["file.xml"]), [])
-        
+
     def testRefresh(self):
         self.manager.refresh()
         self.assertEqual(self.manager.folder_browser.getNewAndOldFiles()["old"], ["file.xml"])

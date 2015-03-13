@@ -132,7 +132,8 @@ class MusicManager(object):
     def refresh(self):
         db_files = self.__data.getFileList()
         self.folder_browser.resetDbFileList(db_files)
-        pass
+        self.handleZips()
+        self.handleXMLFiles()
 
     def parseOldFiles(self, file_list):
         '''
