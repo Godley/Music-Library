@@ -190,6 +190,18 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file1.xml",{"tempo":[{"beat":"quarter","beat_2":"eighth"}]})
         self.assertEqual({"quarter=eighth":["file1.xml"],"quarter=100":["file.xml"]}, self.data.getPiecesByAllTempos())
 
+    def testFindAllPiecesByAllInstruments(self):
+        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}, {"name":"flute"}]})
+        self.data.addPiece("file1.xml",{"instruments":[{"name":"clarinet"}]})
+        self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}]})
+        self.assertEqual({"flute":["file.xml", "file2.xml"],"clarinet":["file.xml", "file1.xml"]}, self.data.getPiecesByAllInstruments())
+
+    def testFindAllPiecesByAllInstrumentsWithTranspositions(self):
+        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}, {"name":"clarinet","transposition":{"diatonic":1}}]})
+        self.data.addPiece("file1.xml",{"instruments":[{"name":"clarinet"}]})
+        self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}]})
+        self.assertEqual({"flute":["file2.xml"],"clarinet":["file.xml", "file1.xml"], "clarinetTransposedBy1Diatonic":["file.xml"]}, self.data.getPiecesByAllInstruments())
+
     def testFindAllPiecesByAllComposers(self):
         self.data.addPiece("file.xml",{"composer":"Charlotte"})
         self.data.addPiece("file1.xml",{"composer":"Charlie"})

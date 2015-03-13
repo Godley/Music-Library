@@ -598,6 +598,27 @@ class MusicData(object):
             clef_dict[key_input].append(pair[3])
         return clef_dict
 
+    def getPiecesByAllInstruments(self, archived=0):
+        connection, cursor = self.connect()
+        query = '''SELECT instrument.name, instrument.diatonic, instrument.chromatic, piece.filename
+                  FROM instruments instrument, pieces piece, instruments_piece_join instrument_piece
+                    WHERE instrument_piece.instrument_id = instrument.ROWID AND piece.ROWID = instrument_piece.piece_id
+        '''
+        cursor.execute(query)
+        results = cursor.fetchall()
+        self.disconnect(connection)
+        clef_dict = {}
+        for pair in results:
+            key_input = pair[0]
+            if pair[1] != 0:
+                key_input += "TransposedBy"+str(pair[1])+"Diatonic"
+            if pair[2] != 0:
+                key_input += "TransposedBy"+str(pair[2])+"Chromatic"
+            if key_input not in clef_dict:
+                clef_dict[key_input] = []
+            clef_dict[key_input].append(pair[3])
+        return clef_dict
+
     def getPiecesByAllComposers(self, archived=0):
         connection, cursor = self.connect()
         query = '''SELECT comp.name, piece.filename FROM composers comp, pieces piece
