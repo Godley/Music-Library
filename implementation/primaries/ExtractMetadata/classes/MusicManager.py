@@ -169,3 +169,11 @@ class MusicManager(object):
         if "old" in files:
             self.parseOldFiles(files["old"])
 
+    def getPlaylists(self):
+        result_set = {}
+        clefs = self.__data.getPiecesByAllClefs()
+        for playlist_id in clefs:
+            if len(clefs[playlist_id]) > 1:
+                result_set[playlist_id] = clefs[playlist_id]
+        return result_set
+

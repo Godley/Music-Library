@@ -159,7 +159,7 @@ def handleTransposition(tags, attrs, chars, parts, data):
 
         if "transposition" not in parts[id]:
             parts[id]["transposition"] = {}
-            
+
         if tags[-1] == "diatonic" or tags[-1] == "chromatic":
             content = 0
             if tags[-1] in chars:
@@ -233,7 +233,7 @@ def handleBibliography(tags, attrs, chars, parts, data):
             if creator_type not in data:
                 data[creator_type] = ""
             if "creator" in chars:
-                data[creator_type] += chars["creator"]
+                data[creator_type] += chars["creator"].lower()
 
     if tags[-1] == "movement-title" or tags[-1] == "work-title":
         title = ""
@@ -243,7 +243,7 @@ def handleBibliography(tags, attrs, chars, parts, data):
             title = chars["work-title"]
         if "title" not in data:
             data["title"] = ""
-        data["title"] += title
+        data["title"] += title.lower()
 
 
 

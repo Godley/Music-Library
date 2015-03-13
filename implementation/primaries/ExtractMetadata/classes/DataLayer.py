@@ -546,6 +546,87 @@ class MusicData(object):
             key_dict[pair[0]].append(pair[1])
         return key_dict
 
+    def getPiecesByAllClefs(self, archived=0):
+        connection, cursor = self.connect()
+        query = '''SELECT c.name, piece.filename FROM clefs c, pieces piece, clef_piece_join clef_piece
+                    WHERE clef_piece.clef_id = c.ROWID AND piece.ROWID = clef_piece.piece_id
+        '''
+        cursor.execute(query)
+        results = cursor.fetchall()
+        self.disconnect(connection)
+        clef_dict = {}
+        for pair in results:
+            if pair[0] not in clef_dict:
+                clef_dict[pair[0]] = []
+            clef_dict[pair[0]].append(pair[1])
+        return clef_dict
+
+    def getPiecesByAllTimeSigs(self, archived=0):
+        connection, cursor = self.connect()
+        query = '''SELECT time_sig.beat, time_sig.b_type, piece.filename FROM timesigs time_sig, pieces piece, time_piece_join time_piece
+                    WHERE time_piece.time_id = time_sig.ROWID AND piece.ROWID = time_piece.piece_id
+        '''
+        cursor.execute(query)
+        results = cursor.fetchall()
+        self.disconnect(connection)
+        key_dict = {}
+        for pair in results:
+            result_key = str(pair[0])+"/"+str(pair[1])
+            if result_key not in key_dict:
+                key_dict[result_key] = []
+            key_dict[result_key].append(pair[2])
+        return key_dict
+
+    def getPiecesByAllTempos(self, archived=0):
+        connection, cursor = self.connect()
+        query = '''SELECT tempo.beat, tempo.beat_2, tempo.minute, piece.filename
+                  FROM tempos tempo, pieces piece, tempo_piece_join tempo_piece
+                    WHERE tempo_piece.tempo_id = tempo.ROWID AND piece.ROWID = tempo_piece.piece_id
+        '''
+        cursor.execute(query)
+        results = cursor.fetchall()
+        self.disconnect(connection)
+        clef_dict = {}
+        for pair in results:
+            key_input = pair[0]+"="
+            if pair[1] != "-1":
+                key_input += pair[1]
+            elif pair[2] != -1:
+                key_input += str(pair[2])
+            if key_input not in clef_dict:
+                clef_dict[key_input] = []
+            clef_dict[key_input].append(pair[3])
+        return clef_dict
+
+    def getPiecesByAllComposers(self, archived=0):
+        connection, cursor = self.connect()
+        query = '''SELECT comp.name, piece.filename FROM composers comp, pieces piece
+                    WHERE comp.ROWID = piece.composer_id
+        '''
+        cursor.execute(query)
+        results = cursor.fetchall()
+        self.disconnect(connection)
+        clef_dict = {}
+        for pair in results:
+            if pair[0] not in clef_dict:
+                clef_dict[pair[0]] = []
+            clef_dict[pair[0]].append(pair[1])
+        return clef_dict
+
+    def getPiecesByAllLyricists(self, archived=0):
+        connection, cursor = self.connect()
+        query = '''SELECT lyric.name, piece.filename FROM lyricists lyric, pieces piece
+                    WHERE lyric.ROWID = piece.lyricist_id
+        '''
+        cursor.execute(query)
+        results = cursor.fetchall()
+        self.disconnect(connection)
+        clef_dict = {}
+        for pair in results:
+            if pair[0] not in clef_dict:
+                clef_dict[pair[0]] = []
+            clef_dict[pair[0]].append(pair[1])
+        return clef_dict
 
     def getPieceByClefs(self, clefs, archived=0):
         '''

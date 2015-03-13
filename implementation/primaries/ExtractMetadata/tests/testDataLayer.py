@@ -175,6 +175,31 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file1.xml",{"key":{"clari":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clari"}]})
         self.assertEqual({"C major":["file.xml"],"G major":["file1.xml"]}, self.data.getPiecesByAllKeys())
 
+    def testFindAllPiecesByAllClefs(self):
+        self.data.addPiece("file.xml",{"clef":{"clari":[{"sign":"G","line":2}]}, "instruments":[{"name":"clari"}]})
+        self.data.addPiece("file1.xml",{"clef":{"clari":[{"sign":"F","line":4}]}, "instruments":[{"name":"clari"}]})
+        self.assertEqual({"treble":["file.xml"],"bass":["file1.xml"]}, self.data.getPiecesByAllClefs())
+
+    def testFindAllPiecesByAllTimeSigs(self):
+        self.data.addPiece("file.xml",{"time":[{"beat":4,"type":4}]})
+        self.data.addPiece("file1.xml",{"time":[{"beat":4,"type":4}]})
+        self.assertEqual({"4/4":["file.xml","file1.xml"]}, self.data.getPiecesByAllTimeSigs())
+
+    def testFindAllPiecesByAllTempos(self):
+        self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","minute":100}]})
+        self.data.addPiece("file1.xml",{"tempo":[{"beat":"quarter","beat_2":"eighth"}]})
+        self.assertEqual({"quarter=eighth":["file1.xml"],"quarter=100":["file.xml"]}, self.data.getPiecesByAllTempos())
+
+    def testFindAllPiecesByAllComposers(self):
+        self.data.addPiece("file.xml",{"composer":"Charlotte"})
+        self.data.addPiece("file1.xml",{"composer":"Charlie"})
+        self.assertEqual({"Charlotte":["file.xml"],"Charlie":["file1.xml"]}, self.data.getPiecesByAllComposers())
+
+    def testFindAllPiecesByAllLyricists(self):
+        self.data.addPiece("file.xml",{"lyricist":"Charlotte"})
+        self.data.addPiece("file1.xml",{"lyricist":"Charlie"})
+        self.assertEqual({"Charlotte":["file.xml"],"Charlie":["file1.xml"]}, self.data.getPiecesByAllLyricists())
+
     def testFindAllPiecesByAllKeysWithTransposedInstruments(self):
         self.data.addPiece("file.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari","transposition":{"diatonic":1}}]})
         self.data.addPiece("file1.xml",{"key":{"clarin":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clarin"}]})
