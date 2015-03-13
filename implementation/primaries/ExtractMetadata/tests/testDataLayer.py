@@ -198,6 +198,14 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}]})
         self.assertEqual({"flute":["file.xml", "file2.xml"],"clarinet":["file.xml", "file1.xml"]}, self.data.getPiecesByAllInstruments())
 
+
+    def testFindAllPiecesByAllInstrumentsWithTranspositionsAndUniqueNames(self):
+        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":1,"chromatic":2}}, {"name":"flute"}]})
+        self.data.addPiece("file1.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":1,"chromatic":2}}]})
+        self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}]})
+        self.assertEqual({"flute":["file.xml", "file2.xml"],"clarinet":["file.xml", "file1.xml"]}, self.data.getPiecesByAllInstruments())
+
+
     def testFindAllPiecesByAllInstrumentsWithTranspositions(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}, {"name":"clarinet","transposition":{"diatonic":1}}]})
         self.data.addPiece("file1.xml",{"instruments":[{"name":"clarinet"}]})

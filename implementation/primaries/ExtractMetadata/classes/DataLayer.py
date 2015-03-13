@@ -577,13 +577,13 @@ class MusicData(object):
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
-        key_dict = {}
+        timesig_dict = {}
         for pair in results:
             result_key = str(pair[0])+"/"+str(pair[1])
-            if result_key not in key_dict:
-                key_dict[result_key] = []
-            key_dict[result_key].append(pair[2])
-        return key_dict
+            if result_key not in timesig_dict:
+                timesig_dict[result_key] = []
+            timesig_dict[result_key].append(pair[2])
+        return timesig_dict
 
     def getPiecesByAllTempos(self, archived=0):
         connection, cursor = self.connect()
@@ -596,17 +596,17 @@ class MusicData(object):
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
-        clef_dict = {}
+        tempo_dict = {}
         for pair in results:
             key_input = pair[0]+"="
             if pair[1] != "-1":
                 key_input += pair[1]
             elif pair[2] != -1:
                 key_input += str(pair[2])
-            if key_input not in clef_dict:
-                clef_dict[key_input] = []
-            clef_dict[key_input].append(pair[3])
-        return clef_dict
+            if key_input not in tempo_dict:
+                tempo_dict[key_input] = []
+            tempo_dict[key_input].append(pair[3])
+        return tempo_dict
 
     def getPiecesByAllInstruments(self, archived=0):
         connection, cursor = self.connect()
@@ -619,17 +619,18 @@ class MusicData(object):
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
-        clef_dict = {}
+        instrument_dict = {}
         for pair in results:
             key_input = pair[0]
             if pair[1] != 0:
                 key_input += "TransposedBy"+str(pair[1])+"Diatonic"
             if pair[2] != 0:
                 key_input += "TransposedBy"+str(pair[2])+"Chromatic"
-            if key_input not in clef_dict:
-                clef_dict[key_input] = []
-            clef_dict[key_input].append(pair[3])
-        return clef_dict
+            if key_input not in instrument_dict:
+                instrument_dict[key_input] = []
+            instrument_dict[key_input].append(pair[3])
+        return instrument_dict
+
 
     def getPiecesByAllComposers(self, archived=0):
         connection, cursor = self.connect()
@@ -641,12 +642,12 @@ class MusicData(object):
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
-        clef_dict = {}
+        composer_dict = {}
         for pair in results:
-            if pair[0] not in clef_dict:
-                clef_dict[pair[0]] = []
-            clef_dict[pair[0]].append(pair[1])
-        return clef_dict
+            if pair[0] not in composer_dict:
+                composer_dict[pair[0]] = []
+            composer_dict[pair[0]].append(pair[1])
+        return composer_dict
 
     def getPiecesByAllLyricists(self, archived=0):
         connection, cursor = self.connect()
@@ -658,12 +659,12 @@ class MusicData(object):
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
-        clef_dict = {}
+        lyricist_dict = {}
         for pair in results:
-            if pair[0] not in clef_dict:
-                clef_dict[pair[0]] = []
-            clef_dict[pair[0]].append(pair[1])
-        return clef_dict
+            if pair[0] not in lyricist_dict:
+                lyricist_dict[pair[0]] = []
+            lyricist_dict[pair[0]].append(pair[1])
+        return lyricist_dict
 
     def getPieceByClefs(self, clefs, archived=0):
         '''
