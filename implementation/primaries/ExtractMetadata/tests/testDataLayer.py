@@ -170,6 +170,16 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{"title":"Blabla"})
         self.assertEqual("file.xml", self.data.getPieceByTitle("Blabla")[0])
 
+    def testFindAllPiecesByAllKeys(self):
+        self.data.addPiece("file.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari"}]})
+        self.data.addPiece("file1.xml",{"key":{"clari":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clari"}]})
+        self.assertEqual({"C major":["file.xml"],"G major":["file1.xml"]}, self.data.getPiecesByAllKeys())
+
+    def testFindAllPiecesByAllKeysWithTransposedInstruments(self):
+        self.data.addPiece("file.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari","transposition":{"diatonic":1}}]})
+        self.data.addPiece("file1.xml",{"key":{"clarin":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clarin"}]})
+        self.assertEqual({"G major":["file1.xml"]}, self.data.getPiecesByAllKeys())
+
     def testFindPieceByKey(self):
         self.data.addPiece("file.xml",{"key":{"clarinet":[{"fifths":2,"mode":"major"}]}})
         self.assertEqual("file.xml", self.data.getPieceByKeys(["D major"])[0])

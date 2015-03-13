@@ -22,6 +22,10 @@ class MetaParser(object):
         if name in self.handlers:
             self.current_handler = self.handlers[name]
 
+    def ValidateData(self, data):
+
+        pass
+
     def NewData(self, data):
         if len(self.tags) > 0:
             self.chars[self.tags[-1]] = data
@@ -155,8 +159,8 @@ def handleTransposition(tags, attrs, chars, parts, data):
 
         if "transposition" not in parts[id]:
             parts[id]["transposition"] = {}
-
-        if tags[-1] != "transposition":
+            
+        if tags[-1] == "diatonic" or tags[-1] == "chromatic":
             content = 0
             if tags[-1] in chars:
                 content = int(chars[tags[-1]])

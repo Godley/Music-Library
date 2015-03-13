@@ -531,6 +531,22 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
+    def getPiecesByAllKeys(self, archived=0):
+        connection, cursor = self.connect()
+        query = '''SELECT k.name, piece.filename FROM keys k, pieces piece, key_piece_join key_piece, instruments i
+                    WHERE key_piece.key_id = k.ROWID AND i.ROWID = key_piece.instrument_id AND i.diatonic = 0 AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
+        '''
+        cursor.execute(query)
+        results = cursor.fetchall()
+        self.disconnect(connection)
+        key_dict = {}
+        for pair in results:
+            if pair[0] not in key_dict:
+                key_dict[pair[0]] = []
+            key_dict[pair[0]].append(pair[1])
+        return key_dict
+
+
     def getPieceByClefs(self, clefs, archived=0):
         '''
         method which takes in a key and outputs list of files in that key
