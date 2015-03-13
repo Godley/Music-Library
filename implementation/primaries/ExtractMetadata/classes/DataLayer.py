@@ -542,7 +542,7 @@ class MusicData(object):
                     AND i.diatonic = 0 AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
                     AND piece.archived = ?
         '''
-        cursor.execute(query, (archived))
+        cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         key_dict = {}
@@ -558,7 +558,7 @@ class MusicData(object):
                     WHERE clef_piece.clef_id = c.ROWID AND piece.ROWID = clef_piece.piece_id
                     AND piece.archived = ?
         '''
-        cursor.execute(query, (archived))
+        cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         clef_dict = {}
@@ -574,7 +574,7 @@ class MusicData(object):
                     WHERE time_piece.time_id = time_sig.ROWID AND piece.ROWID = time_piece.piece_id
                     AND piece.archived = ?
         '''
-        cursor.execute(query, (archived))
+        cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         key_dict = {}
@@ -593,7 +593,7 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM tempo_piece_join WHERE tempo_id = tempo_piece.tempo_id AND piece_id != tempo_piece.piece_id)
                     AND piece.archived = ?
         '''
-        cursor.execute(query, (archived))
+        cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         clef_dict = {}
@@ -616,7 +616,7 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM instruments_piece_join WHERE instrument_id = instrument_piece.instrument_id AND piece_id != instrument_piece.piece_id)
                     AND piece.archived = ?
         '''
-        cursor.execute(query, (archived))
+        cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         clef_dict = {}
@@ -638,7 +638,7 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM pieces WHERE composer_id = comp.ROWID AND ROWID != piece.ROWID)
                     AND piece.archived = ?
         '''
-        cursor.execute(query, (archived))
+        cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         clef_dict = {}
@@ -655,7 +655,7 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM pieces WHERE lyricist_id = piece.lyricist_id AND ROWID != piece.ROWID)
                     AND piece.archived = ?
         '''
-        cursor.execute(query, (archived))
+        cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         clef_dict = {}
