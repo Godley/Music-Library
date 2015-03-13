@@ -522,6 +522,15 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
+    def getPiecesByModularity(self, modularity, archived=0):
+        connection, cursor = self.connect()
+        query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
+        cursor.execute(query, (modularity,))
+        key_set = cursor.fetchall()
+        file_list = self.getPiecesByRowId(key_set, cursor, archived)
+        self.disconnect(connection)
+        return file_list
+
     def getPieceByClefs(self, clefs, archived=0):
         '''
         method which takes in a key and outputs list of files in that key

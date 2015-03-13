@@ -253,6 +253,13 @@ class testDataLayer(unittest.TestCase):
                                                                                  {"name":"clarinet"},
                                                                                 {"name":"trumpet","transposition":{"diatonic":1,"chromatic":2,"octave":0}}]))
 
+    def testFindByModularity(self):
+        self.data.addPiece("file.xml", {"instruments":[{"name":"clarinet"}], "key":{"clarinet":[{"mode":"major","fifths":1}]}})
+        self.data.addPiece("file2.xml", {"instruments":[{"name":"trumpet"}], "key":{"trumpet":[{"mode":"major","fifths":0}]}})
+        self.data.addPiece("file3.xnl", {"instruments":[{"name":"flute"}], "key":{"flute":[{"mode":"minor","fifths":0}]}})
+        self.assertEqual(["file.xml","file2.xml"], self.data.getPiecesByModularity("major"))
+
+
 
     def testFindPieceByTempoWhereTempoIsTwoBeats(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
