@@ -187,8 +187,10 @@ class testDataLayer(unittest.TestCase):
 
     def testFindAllPiecesByAllTempos(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","minute":100}]})
+        self.data.addPiece("file3.xml",{"tempo":[{"beat":"quarter","minute":100}]})
         self.data.addPiece("file1.xml",{"tempo":[{"beat":"quarter","beat_2":"eighth"}]})
-        self.assertEqual({"quarter=eighth":["file1.xml"],"quarter=100":["file.xml"]}, self.data.getPiecesByAllTempos())
+        self.data.addPiece("file2.xml",{"tempo":[{"beat":"quarter","beat_2":"eighth"}]})
+        self.assertEqual({"quarter=eighth":["file1.xml","file2.xml"],"quarter=100":["file.xml","file3.xml"]}, self.data.getPiecesByAllTempos())
 
     def testFindAllPiecesByAllInstruments(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}, {"name":"flute"}]})
@@ -199,18 +201,20 @@ class testDataLayer(unittest.TestCase):
     def testFindAllPiecesByAllInstrumentsWithTranspositions(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}, {"name":"clarinet","transposition":{"diatonic":1}}]})
         self.data.addPiece("file1.xml",{"instruments":[{"name":"clarinet"}]})
-        self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}]})
-        self.assertEqual({"flute":["file2.xml"],"clarinet":["file.xml", "file1.xml"], "clarinetTransposedBy1Diatonic":["file.xml"]}, self.data.getPiecesByAllInstruments())
+        self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}, {"name":"clarinet","transposition":{"diatonic":1}}]})
+        self.assertEqual({"clarinet":["file.xml", "file1.xml"], "clarinetTransposedBy1Diatonic":["file.xml","file2.xml"]}, self.data.getPiecesByAllInstruments())
 
     def testFindAllPiecesByAllComposers(self):
         self.data.addPiece("file.xml",{"composer":"Charlotte"})
         self.data.addPiece("file1.xml",{"composer":"Charlie"})
-        self.assertEqual({"Charlotte":["file.xml"],"Charlie":["file1.xml"]}, self.data.getPiecesByAllComposers())
+        self.data.addPiece("file2.xml",{"composer":"Charlie"})
+        self.assertEqual({"Charlie":["file1.xml","file2.xml"]}, self.data.getPiecesByAllComposers())
 
     def testFindAllPiecesByAllLyricists(self):
         self.data.addPiece("file.xml",{"lyricist":"Charlotte"})
         self.data.addPiece("file1.xml",{"lyricist":"Charlie"})
-        self.assertEqual({"Charlotte":["file.xml"],"Charlie":["file1.xml"]}, self.data.getPiecesByAllLyricists())
+        self.data.addPiece("file2.xml",{"lyricist":"Charlie"})
+        self.assertEqual({"Charlie":["file1.xml","file2.xml"]}, self.data.getPiecesByAllLyricists())
 
     def testFindAllPiecesByAllKeysWithTransposedInstruments(self):
         self.data.addPiece("file.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari","transposition":{"diatonic":1}}]})

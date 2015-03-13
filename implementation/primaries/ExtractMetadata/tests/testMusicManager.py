@@ -39,16 +39,6 @@ class testMusicManager(unittest.TestCase):
         self.manager.refresh()
         self.assertEqual(self.manager.folder_browser.getNewAndOldFiles()["old"], ["file.xml"])
 
-
-    def testGetPlaylistsWhereOnlyOneItem(self):
-        self.manager.addPiece("file.xml", {"clef":{"clari":[{"sign":"G","line":2}]}})
-        self.assertEqual({}, self.manager.getPlaylists())
-
-    def testGetPlaylistsWhereTwoItems(self):
-        self.manager.addPiece("file.xml", {"clef":{"clari":[{"sign":"G","line":2}]}})
-        self.manager.addPiece("file2.xml", {"clef":{"clari":[{"sign":"G","line":2}]}})
-        self.assertEqual({"treble clef":["file.xml","file2.xml"]}, self.manager.getPlaylists())
-
     def tearDown(self):
         os.remove(os.path.join(self.folder, "music.db"))
         if os.path.exists(os.path.join(self.folder, "file5.xml")):

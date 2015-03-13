@@ -209,24 +209,26 @@ class MusicData(object):
         if "composer" in data:
             query = 'SELECT ROWID FROM composers WHERE name=?'
             cursor.execute(query, (data["composer"],))
-            if len(cursor.fetchall()) == 0:
+            composer_id = cursor.fetchone()
+            if composer_id is None or len(composer_id) == 0:
                 cursor.execute('INSERT INTO composers VALUES(?)', (data["composer"],))
                 connection.commit()
                 cursor.execute(query, (data["composer"],))
-            composer_id = cursor.fetchone()
+                composer_id = cursor.fetchone()
             if composer_id is not None:
                 composer_id = composer_id[0]
 
         if "lyricist" in data:
             query = 'SELECT ROWID FROM lyricists WHERE name=?'
             cursor.execute(query, (data["lyricist"],))
-            if len(cursor.fetchall()) == 0:
+            lyric_id = cursor.fetchone()
+            if lyric_id is None or len(lyric_id) == 0:
                 cursor.execute('INSERT INTO lyricists VALUES(?)', (data["lyricist"],))
                 connection.commit()
                 cursor.execute(query, (data["lyricist"],))
-            lyricist_id = cursor.fetchone()
-            if lyricist_id is not None:
-                lyricist_id = lyricist_id[0]
+                lyric_id = cursor.fetchone()
+            if lyric_id is not None:
+                lyricist_id = lyric_id[0]
 
         input = (filename,title,composer_id,lyricist_id,False)
         cursor.execute('INSERT INTO pieces VALUES(?,?,?,?,?)',input)
@@ -342,6 +344,7 @@ class MusicData(object):
         self.disconnect(connection)
         return result
 
+    # helper methods which go to specific tables looking for a ROWID
     def getTimeId(self, beats, type, cursor):
         '''
         method which takes in instrument name and returns the row id of that instrument
@@ -426,6 +429,7 @@ class MusicData(object):
         if len(result) > 0:
             return result[0][0]
 
+    # methods used in querying by user
     def getPiecesByInstruments(self, instruments, archived=0):
         '''
         method to get all the pieces containing a certain instrument
@@ -534,9 +538,11 @@ class MusicData(object):
     def getPiecesByAllKeys(self, archived=0):
         connection, cursor = self.connect()
         query = '''SELECT k.name, piece.filename FROM keys k, pieces piece, key_piece_join key_piece, instruments i
-                    WHERE key_piece.key_id = k.ROWID AND i.ROWID = key_piece.instrument_id AND i.diatonic = 0 AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
+                    WHERE key_piece.key_id = k.ROWID AND i.ROWID = key_piece.instrument_id
+                    AND i.diatonic = 0 AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
+                    AND piece.archived = ?
         '''
-        cursor.execute(query)
+        cursor.execute(query, (archived))
         results = cursor.fetchall()
         self.disconnect(connection)
         key_dict = {}
@@ -550,8 +556,9 @@ class MusicData(object):
         connection, cursor = self.connect()
         query = '''SELECT c.name, piece.filename FROM clefs c, pieces piece, clef_piece_join clef_piece
                     WHERE clef_piece.clef_id = c.ROWID AND piece.ROWID = clef_piece.piece_id
+                    AND piece.archived = ?
         '''
-        cursor.execute(query)
+        cursor.execute(query, (archived))
         results = cursor.fetchall()
         self.disconnect(connection)
         clef_dict = {}
@@ -565,8 +572,9 @@ class MusicData(object):
         connection, cursor = self.connect()
         query = '''SELECT time_sig.beat, time_sig.b_type, piece.filename FROM timesigs time_sig, pieces piece, time_piece_join time_piece
                     WHERE time_piece.time_id = time_sig.ROWID AND piece.ROWID = time_piece.piece_id
+                    AND piece.archived = ?
         '''
-        cursor.execute(query)
+        cursor.execute(query, (archived))
         results = cursor.fetchall()
         self.disconnect(connection)
         key_dict = {}
@@ -582,8 +590,10 @@ class MusicData(object):
         query = '''SELECT tempo.beat, tempo.beat_2, tempo.minute, piece.filename
                   FROM tempos tempo, pieces piece, tempo_piece_join tempo_piece
                     WHERE tempo_piece.tempo_id = tempo.ROWID AND piece.ROWID = tempo_piece.piece_id
+                    AND EXISTS (SELECT * FROM tempo_piece_join WHERE tempo_id = tempo_piece.tempo_id AND piece_id != tempo_piece.piece_id)
+                    AND piece.archived = ?
         '''
-        cursor.execute(query)
+        cursor.execute(query, (archived))
         results = cursor.fetchall()
         self.disconnect(connection)
         clef_dict = {}
@@ -603,8 +613,10 @@ class MusicData(object):
         query = '''SELECT instrument.name, instrument.diatonic, instrument.chromatic, piece.filename
                   FROM instruments instrument, pieces piece, instruments_piece_join instrument_piece
                     WHERE instrument_piece.instrument_id = instrument.ROWID AND piece.ROWID = instrument_piece.piece_id
+                    AND EXISTS (SELECT * FROM instruments_piece_join WHERE instrument_id = instrument_piece.instrument_id AND piece_id != instrument_piece.piece_id)
+                    AND piece.archived = ?
         '''
-        cursor.execute(query)
+        cursor.execute(query, (archived))
         results = cursor.fetchall()
         self.disconnect(connection)
         clef_dict = {}
@@ -622,9 +634,11 @@ class MusicData(object):
     def getPiecesByAllComposers(self, archived=0):
         connection, cursor = self.connect()
         query = '''SELECT comp.name, piece.filename FROM composers comp, pieces piece
-                    WHERE comp.ROWID = piece.composer_id
+                    WHERE piece.composer_id = comp.ROWID
+                    AND EXISTS (SELECT * FROM pieces WHERE composer_id = comp.ROWID AND ROWID != piece.ROWID)
+                    AND piece.archived = ?
         '''
-        cursor.execute(query)
+        cursor.execute(query, (archived))
         results = cursor.fetchall()
         self.disconnect(connection)
         clef_dict = {}
@@ -638,8 +652,10 @@ class MusicData(object):
         connection, cursor = self.connect()
         query = '''SELECT lyric.name, piece.filename FROM lyricists lyric, pieces piece
                     WHERE lyric.ROWID = piece.lyricist_id
+                    AND EXISTS (SELECT * FROM pieces WHERE lyricist_id = piece.lyricist_id AND ROWID != piece.ROWID)
+                    AND piece.archived = ?
         '''
-        cursor.execute(query)
+        cursor.execute(query, (archived))
         results = cursor.fetchall()
         self.disconnect(connection)
         clef_dict = {}
@@ -891,11 +907,11 @@ class MusicData(object):
             query += ";"
             cursor.execute(query,tuple(query_input))
             results = cursor.fetchall()
-            file_list = self.getPiecesByRowId(results, cursor, archived=0)
+            file_list = self.getPiecesByRowId(results, cursor, archived=archived)
         self.disconnect(connection)
         return file_list
 
-
+    # again, helper methods for other methods which just go off and find the joins for specific pieces
     def getClefsByPieceId(self, piece_id, cursor):
         clef_query = 'SELECT clef_id, instrument_id FROM clef_piece_join WHERE piece_id=?'
         cursor.execute(clef_query,(piece_id,))
@@ -991,6 +1007,8 @@ class MusicData(object):
         self.disconnect(connection)
         return file_data
 
+    # methods to clear out old records. In general we just archive them on the off chance the piece comes back -
+    # if it does give the user the option to un-archive or else remove all old data
     def removePieces(self, filenames):
         connection, cursor = self.connect()
         for file in filenames:
@@ -1012,12 +1030,19 @@ class MusicData(object):
         connection.commit()
         self.disconnect(connection)
 
-
     def archivePieces(self, filenames):
         connection, cursor = self.connect()
         for file in filenames:
             id_query = '''UPDATE pieces SET archived = 1 WHERE filename=?'''
             cursor.execute(id_query,(file,))
+        connection.commit()
+        self.disconnect(connection)
+
+    def unarchivePieces(self, filenames):
+        connection, cursor = self.connect()
+        for file in filenames:
+            query = '''UPDATE pieces SET archived=0 WHERE filename=?'''
+            cursor.execute(query, (file))
         connection.commit()
         self.disconnect(connection)
 

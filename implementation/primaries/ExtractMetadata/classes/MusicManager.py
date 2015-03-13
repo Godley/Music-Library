@@ -172,8 +172,25 @@ class MusicManager(object):
     def getPlaylists(self):
         result_set = {}
         clefs = self.__data.getPiecesByAllClefs()
-        for playlist_id in clefs:
-            if len(clefs[playlist_id]) > 1:
-                result_set[playlist_id] = clefs[playlist_id]
+        keys = self.__data.getPiecesByAllKeys()
+        composers = self.__data.getPiecesByAllComposers()
+        lyricists = self.__data.getPiecesByAllLyricists()
+        instruments = self.__data.getPiecesByAllInstruments()
+        timesigs = self.__data.getPiecesByAllTimeSigs()
+        tempos = self.__data.getPiecesByAllTempos()
+        if len(clefs) > 0:
+            result_set["clefs"] = clefs
+        if len(keys) > 0:
+            result_set["keys"] = keys
+        if len(composers) > 0:
+            result_set["composers"] = composers
+        if len(lyricists) > 0:
+            result_set["lyricsts"] = lyricists
+        if len(instruments) > 0:
+            result_set["instruments"] = instruments
+        if len(timesigs) > 0:
+            result_set["time_signatures"] = timesigs
+        if len(tempos) > 0:
+            result_set["tempos"] = tempos
         return result_set
 
