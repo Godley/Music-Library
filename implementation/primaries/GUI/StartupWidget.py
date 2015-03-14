@@ -35,7 +35,6 @@ class RightFrame(Frame):
         return folder
 
 def main():
-
     root = Tk()
     root.wm_resizable(0,0)
     root.wm_title("MuseLib | Landing")
