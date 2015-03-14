@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/__init__.py" />
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="issue fix #194: finished startup window">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -113,7 +112,7 @@
     <SUITE FILE_PATH="coverage/FYP$All_Drawing_tests.coverage" NAME="All Drawing tests Coverage Results" MODIFIED="1425917067919" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$run.coverage" NAME="run Coverage Results" MODIFIED="1424967819780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testSaxParser.coverage" NAME="Unittests in testExtractor Coverage Results" MODIFIED="1419713470743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$MainWindow.coverage" NAME="MainWindow Coverage Results" MODIFIED="1426291091347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$MainWindow.coverage" NAME="MainWindow Coverage Results" MODIFIED="1426296139482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testOrnaments.coverage" NAME="Unittests in testOrnaments Coverage Results" MODIFIED="1425477649562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testAccidentals__1_.coverage" NAME="Unittests in testAccidentals (1) Coverage Results" MODIFIED="1424568099740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
   </component>
@@ -343,22 +342,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
+      <file leaf-file-name="StartupWidget.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3267974" vertical-offset="30" max-vertical-offset="765">
-              <caret line="12" column="54" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file:///System/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/tkinter/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="30116" max-vertical-offset="58560">
-              <caret line="2018" column="0" selection-start-line="2018" selection-start-column="0" selection-end-line="2018" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.71895427" vertical-offset="270" max-vertical-offset="945">
+              <caret line="40" column="36" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -704,7 +695,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="FYP" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <RunnerSettings RunnerId="PyDebugRunner" />
@@ -1232,12 +1223,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00497" summary="changed add method to allow multiple keys&#10;&#10;- changed all inputs of keys in tests to be instrument name followed by a list of dictionaries&#10;- changed the add method to match so that it now loops the keys adding each one in the join table">
-      <created>1426030789730</created>
-      <option name="number" value="00497" />
-      <option name="project" value="LOCAL" />
-      <updated>1426030789730</updated>
-    </task>
     <task id="LOCAL-00498" summary="changed clef and key search methods to allow multiples&#10;&#10;- changed clef and key methods to be basically the same logic as instrument searching so that they allow the user to search for a piece containing a list of clefs or list of keys, rather than just allowing them to use one&#10;- work toward issue #66">
       <created>1426032987071</created>
       <option name="number" value="00498" />
@@ -1526,7 +1511,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426256764920</updated>
     </task>
-    <option name="localTasksCounter" value="546" />
+    <task id="LOCAL-00546" summary="created startup window&#10;&#10;- issue #194">
+      <created>1426291150867</created>
+      <option name="number" value="00546" />
+      <option name="project" value="LOCAL" />
+      <updated>1426291150868</updated>
+    </task>
+    <option name="localTasksCounter" value="547" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -1551,7 +1542,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32406288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32706222" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1560,18 +1551,18 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55845773" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32889965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3861111" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3861111" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850942" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41112456" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1617,7 +1608,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="handling for parts&#10;&#10;- added handler and tests for part-names&#10;- work toward issue #186" />
     <MESSAGE value="handling for clefs and keys&#10;&#10;- added handler and tests for clefs and keys&#10;- these work pretty much the same way and could be merged into the same method, but only for simplification I'll leave as is for now&#10;- work toward issue #186" />
     <MESSAGE value="handling for meters, tests for meters and tempos&#10;&#10;work toward issue #186" />
     <MESSAGE value="handling for tempos&#10;&#10;work toward issue #186" />
@@ -1642,7 +1632,8 @@
     <MESSAGE value="bug fix: comma added to usages of archived so that SQLIte doesn't complain" />
     <MESSAGE value="addition to issue #191: added lyricist to output from querying data layer" />
     <MESSAGE value="refactoring to dict names in playlister data methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring to dict names in playlister data methods" />
+    <MESSAGE value="created startup window&#10;&#10;- issue #194" />
+    <option name="LAST_COMMIT_MESSAGE" value="created startup window&#10;&#10;- issue #194" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2386,11 +2377,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3267974" vertical-offset="30" max-vertical-offset="765">
-          <caret line="12" column="54" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
-          <folding />
+        <state vertical-scroll-proportion="0.71895427" vertical-offset="270" max-vertical-offset="945">
+          <caret line="40" column="36" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
