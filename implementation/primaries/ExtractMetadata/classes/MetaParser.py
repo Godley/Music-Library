@@ -76,7 +76,13 @@ class MetaParser(object):
         clef_list = {}
         key_list = {}
         for part in self.parts:
-            data = {"name":self.parts[part]["name"]}
+            data = {}
+            if "name" in self.parts[part]:
+                data["name"]=self.parts[part]["name"]
+            else:
+                self.parts[part]["name"] = "hello, world"
+                data["name"] = "hello, world"
+
             if "transposition" in self.parts[part]:
                 data["transposition"] = self.parts[part]["transposition"]
             if "key" in self.parts[part]:

@@ -20,11 +20,16 @@ class Application(object):
 
     def setupMainWindow(self):
         self.manager = MusicManager.MusicManager(folder=self.folder)
+        self.updateDb()
         self.main = MainWindow.MainWindow(self)
         self.main.show()
 
-    def loadPieces(self):
-        pass
+    def updateDb(self):
+        self.manager.refresh()
+
+    def loadPieces(self, method="title"):
+        summary_strings = self.manager.getPieceSummaryStrings(method)
+        return summary_strings
 
     def loadPlaylists(self):
         pass

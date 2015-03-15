@@ -126,14 +126,39 @@ class MusicManager(object):
 
     def handleZips(self):
         zip_files = self.folder_browser.getZipFiles()
-        unzipper = Unzipper(folder=self.folder, files=zip_files)
-        unzipper.unzip()
+        if zip_files is not None:
+            unzipper = Unzipper(folder=self.folder, files=zip_files)
+            unzipper.unzip()
 
     def refresh(self):
         db_files = self.__data.getFileList()
         self.folder_browser.resetDbFileList(db_files)
         self.handleZips()
         self.handleXMLFiles()
+
+    def getPieceSummaryStrings(self, sort_method="title"):
+        file_list = self.__data.getFileList()
+        summaries = []
+        info = self.__data.getAllPieceInfo(file_list)
+        summaries = [{"title":i["title"], "composer":i["composer"],"lyricist":i["lyricist"],
+                      "filename":i["filename"]} for i in info]
+        results = sorted(summaries, key=lambda k: str(k[sort_method]))
+        summary_strings = []
+        for result in results:
+            summary = result["title"]
+            if result["title"] == "":
+                summary = "(noTitle)"
+            if result["composer"] != -1 or result["lyricist"] != -1:
+                summary += " by "
+            if result["composer"] != -1:
+                summary += result["composer"]
+            if result["lyricist"] != -1:
+                summary += ", "+result["lyricist"]
+            summary += "("+result["filename"]+")"
+            summary_strings.append(summary)
+
+        return summary_strings
+
 
     def parseOldFiles(self, file_list):
         '''

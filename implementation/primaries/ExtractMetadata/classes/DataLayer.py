@@ -264,8 +264,12 @@ class MusicData(object):
         if "key" in data:
             for instrument in data["key"]:
                 for key in data["key"][instrument]:
-                    fifths = key["fifths"]
-                    mode = key["mode"]
+                    fifths = 0
+                    mode = "major"
+                    if "fifths" in key:
+                        fifths = key["fifths"]
+                    if "mode" in key:
+                        mode = key["mode"]
                     instrument_id = self.getInstrumentId(instrument, cursor)
                     if instrument_id is None:
                         instrument_id = -1
@@ -277,8 +281,12 @@ class MusicData(object):
         if "clef" in data:
             for instrument in data["clef"]:
                 for clef in data["clef"][instrument]:
-                    sign = clef["sign"]
-                    line = clef["line"]
+                    sign = "G"
+                    line = 2
+                    if "sign" in clef:
+                        sign = clef["sign"]
+                    if "line" in clef:
+                        line = clef["line"]
                     instrument_id = self.getInstrumentId(instrument, cursor)
                     if instrument_id is None:
                         instrument_id = -1
