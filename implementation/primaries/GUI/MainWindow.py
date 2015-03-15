@@ -6,6 +6,27 @@ class MainWindow(QtGui.QMainWindow):
         #somewhere in constructor:
         QtGui.QMainWindow.__init__(self)
         uic.loadUi('MainWindow.ui', self)
+        self.refreshScoreBtn.clicked.connect(self.refreshScores)
+        self.refreshAutoBtn.clicked.connect(self.refreshPlaylists)
+        self.AddPlaylistButton.clicked.connect(self.addPlaylist)
+        self.searchInput.textChanged.connect(self.updateOptions)
+        self.searchInput.returnPressed.connect(self.searchDb)
+
+
+    def refreshScores(self):
+        print("refreshed scores")
+
+    def refreshPlaylists(self):
+        print("refreshed playlists")
+
+    def addPlaylist(self):
+        print("added playlist")
+
+    def searchDb(self):
+        print("finding thing")
+
+    def updateOptions(self):
+        print("updating autocomplete searchbox under lineedit")
 
 def main():
 

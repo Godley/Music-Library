@@ -38,7 +38,7 @@ border:1px solid #CCC;
 background:#DDD;
 }</string>
     </property>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="searchInput">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -58,7 +58,7 @@ border:1px solid #BBB;
      </property>
     </widget>
    </widget>
-   <widget class="QFrame" name="frame">
+   <widget class="QWidget" name="scoreBox" native="true">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -82,36 +82,7 @@ border:1px solid #999;
 background:#BBB;
 }</string>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <widget class="Line" name="line">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>30</y>
-       <width>241</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">Line {
-border:0px;
-border-top:1px solid;
-background:transparent;
-}</string>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="scoreTitle">
      <property name="geometry">
       <rect>
        <x>70</x>
@@ -136,27 +107,7 @@ border:0px;
       <string>My Scores</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>198</x>
-       <y>10</y>
-       <width>41</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QLabel
-{
-background:transparent;
-border:0px;
-}</string>
-     </property>
-     <property name="text">
-      <string>refresh</string>
-     </property>
-    </widget>
-    <widget class="QComboBox" name="comboBox">
+    <widget class="QComboBox" name="scoreSortCombo">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -166,7 +117,7 @@ border:0px;
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="sortByLabel">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -183,25 +134,7 @@ background:transparent;</string>
       <string>Sort by...</string>
      </property>
     </widget>
-    <widget class="Line" name="line_2">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>150</y>
-       <width>241</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border:0px;
-background:transparent;
-border-top:1px solid;</string>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="QListWidget" name="listWidget">
+    <widget class="QListWidget" name="scoreListWidget">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -211,8 +144,29 @@ border-top:1px solid;</string>
       </rect>
      </property>
     </widget>
+    <widget class="QToolButton" name="refreshScoreBtn">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>0</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background:none;
+border:0pt;</string>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="images/glyphicons-82-refresh.qrc">
+       <normaloff>:/newPrefix/glyphicons-82-refresh.png</normaloff>:/newPrefix/glyphicons-82-refresh.png</iconset>
+     </property>
+    </widget>
    </widget>
-   <widget class="QWidget" name="widget" native="true">
+   <widget class="QWidget" name="MyPlaylistsWidget" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -233,7 +187,7 @@ border:1px solid #999;
 background:#C4C4C4;
 </string>
     </property>
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="myPlaylistsTitle">
      <property name="geometry">
       <rect>
        <x>60</x>
@@ -255,7 +209,7 @@ background:transparent;</string>
       <string>My Playlists</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="AddPlaylistButton">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -278,7 +232,7 @@ inset 0px 1px 1px rgba(255,255,255,0.8); /*top internal highlight*/</string>
       <string>+</string>
      </property>
     </widget>
-    <widget class="QListView" name="listView">
+    <widget class="QListView" name="myPlaylistsView">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -289,7 +243,7 @@ inset 0px 1px 1px rgba(255,255,255,0.8); /*top internal highlight*/</string>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="widget_2" native="true">
+   <widget class="QWidget" name="autoPlaylistsWidget" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -308,7 +262,7 @@ inset 0px 1px 1px rgba(255,255,255,0.8); /*top internal highlight*/</string>
      <string notr="true">background:#DDD;
 border:1px solid #CCC;</string>
     </property>
-    <widget class="QLabel" name="label_5">
+    <widget class="QLabel" name="autoPlaylistsTitle">
      <property name="geometry">
       <rect>
        <x>60</x>
@@ -330,7 +284,7 @@ border:0px;</string>
       <string>Auto-Playlists</string>
      </property>
     </widget>
-    <widget class="QListWidget" name="listWidget_2">
+    <widget class="QListWidget" name="autoPlaylistsView">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -340,21 +294,25 @@ border:0px;</string>
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="label_6">
+    <widget class="QToolButton" name="refreshAutoBtn">
      <property name="geometry">
       <rect>
-       <x>180</x>
-       <y>20</y>
-       <width>59</width>
-       <height>16</height>
+       <x>205</x>
+       <y>1</y>
+       <width>31</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background:transparent;
-border:0px;</string>
+      <string notr="true">border:0pt;
+background:none;</string>
      </property>
      <property name="text">
-      <string>Refresh</string>
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="images/glyphicons-82-refresh.qrc">
+       <normaloff>:/newPrefix/glyphicons-82-refresh.png</normaloff>:/newPrefix/glyphicons-82-refresh.png</iconset>
      </property>
     </widget>
    </widget>
@@ -378,7 +336,7 @@ border:1px #DDD solid;</string>
      <enum>QFrame::Raised</enum>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_3" native="true">
+   <widget class="QWidget" name="PieceInfoWidget" native="true">
     <property name="geometry">
      <rect>
       <x>1070</x>
@@ -397,7 +355,7 @@ border:1px #DDD solid;</string>
      <string notr="true">background:#DDD;
 border:1px solid #CCC;</string>
     </property>
-    <widget class="QLabel" name="label_7">
+    <widget class="QLabel" name="pieceInfoTitle">
      <property name="geometry">
       <rect>
        <x>38</x>
@@ -438,7 +396,7 @@ border-top:1px solid;</string>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="widget_4" native="true">
+   <widget class="QWidget" name="FeaturedInWidget" native="true">
     <property name="geometry">
      <rect>
       <x>1070</x>
@@ -451,7 +409,7 @@ border-top:1px solid;</string>
      <string notr="true">background:#CCC;
 border:1px solid #BBB;</string>
     </property>
-    <widget class="QLabel" name="label_8">
+    <widget class="QLabel" name="featuredTitle">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -473,7 +431,7 @@ border:0px;</string>
       <string>Featured in...</string>
      </property>
     </widget>
-    <widget class="QListWidget" name="listWidget_3">
+    <widget class="QListWidget" name="featuredInList">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -484,7 +442,7 @@ border:0px;</string>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="widget_5" native="true">
+   <widget class="QWidget" name="playlistBrowserWidget" native="true">
     <property name="geometry">
      <rect>
       <x>1070</x>
@@ -497,7 +455,7 @@ border:0px;</string>
      <string notr="true">background:#DDD;
 border:1px solid #CCC;</string>
     </property>
-    <widget class="QListWidget" name="listWidget_4">
+    <widget class="QListWidget" name="playlistPieceList">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -507,7 +465,7 @@ border:1px solid #CCC;</string>
       </rect>
      </property>
     </widget>
-    <widget class="QLabel" name="label_9">
+    <widget class="QLabel" name="playlistBrowserTitle">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -527,12 +485,12 @@ border:0px;</string>
    </widget>
    <zorder>MusicWindow</zorder>
    <zorder>SearchBox</zorder>
-   <zorder>frame</zorder>
-   <zorder>widget_2</zorder>
-   <zorder>widget</zorder>
-   <zorder>widget_3</zorder>
-   <zorder>widget_4</zorder>
-   <zorder>widget_5</zorder>
+   <zorder>scoreBox</zorder>
+   <zorder>autoPlaylistsWidget</zorder>
+   <zorder>MyPlaylistsWidget</zorder>
+   <zorder>PieceInfoWidget</zorder>
+   <zorder>FeaturedInWidget</zorder>
+   <zorder>playlistBrowserWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -588,6 +546,8 @@ border:0px;</string>
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="images/glyphicons-82-refresh.qrc"/>
+ </resources>
  <connections/>
 </ui>
