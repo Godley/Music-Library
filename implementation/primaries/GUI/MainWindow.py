@@ -10,7 +10,8 @@ class MainWindow(QtGui.QMainWindow):
         uic.loadUi('MainWindow.ui', self)
         pieces = self.parent.loadPieces()
         for i in pieces:
-            item = QtGui.QListWidgetItem(i)
+            item = QtGui.QListWidgetItem(i[0])
+            item.setData(1, i[1])
             self.scoreListWidget.addItem(item)
         options = ["title","composer","lyricist"]
         self.scoreSortCombo.addItems(options)
@@ -21,7 +22,12 @@ class MainWindow(QtGui.QMainWindow):
         self.searchInput.textChanged.connect(self.updateOptions)
         self.searchInput.returnPressed.connect(self.searchDb)
         self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
+        self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
 
+
+    def onItemDoubleClicked(self, current_item):
+        file_to_load = current_item.data(1)
+        self.parent.loadFile(file_to_load)
 
     def onSortMethodChange(self):
         sort_method = self.scoreSortCombo.currentText()

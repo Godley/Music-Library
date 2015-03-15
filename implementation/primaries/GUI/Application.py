@@ -24,6 +24,16 @@ class Application(object):
         self.main = MainWindow.MainWindow(self)
         self.main.show()
 
+    def loadFile(self, filename):
+        '''
+        This method should:
+        - setup a renderer object
+        - run it
+        - return the pdf location
+        :return: filename of generated pdf
+        '''
+        pass
+
     def updateDb(self):
         self.manager.refresh()
 

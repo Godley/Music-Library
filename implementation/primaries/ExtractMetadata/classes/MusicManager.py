@@ -155,7 +155,7 @@ class MusicManager(object):
             if result["lyricist"] != -1:
                 summary += ", "+result["lyricist"]
             summary += "("+result["filename"]+")"
-            summary_strings.append(summary)
+            summary_strings.append((summary,result["filename"]))
 
         return summary_strings
 
