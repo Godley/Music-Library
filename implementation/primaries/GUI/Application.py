@@ -1,10 +1,15 @@
 from PyQt4 import QtCore, QtGui
 import sys
+import pickle
 from implementation.primaries.GUI import StartupWidget, MainWindow
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 
 class Application(object):
     def __init__(self):
+        self.previous_collections = []
+        self.col_file = ".collections"
+        self.getPreviousCollections()
+        self.SaveCollections()
         self.startup = StartupWidget.Startup(self)
         self.startup.show()
         self.manager = None
@@ -12,9 +17,28 @@ class Application(object):
         self.folder = ""
 
 
+    def getPreviousCollections(self):
+        try:
+            col_fob = open(self.col_file, 'rb')
+        except:
+            self.SaveCollections()
+            col_fob = open(self.col_file, 'rb')
+        result_temp = pickle.load(col_fob)
+        if result_temp is not None:
+            self.previous_collections = result_temp
+        return self.previous_collections
+
+    def SaveCollections(self):
+        col_fob = open(self.col_file, 'wb')
+        pickle_obj = pickle.Pickler(col_fob)
+        pickle_obj.dump(self.previous_collections)
+
+
     def FolderFetched(self, foldername):
         self.folder = foldername
         if self.folder != "":
+            self.previous_collections.append(self.folder)
+            self.SaveCollections()
             self.startup.close()
             self.setupMainWindow()
 
