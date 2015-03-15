@@ -33,11 +33,15 @@ class Application(object):
         pickle_obj = pickle.Pickler(col_fob)
         pickle_obj.dump(self.previous_collections)
 
+    def addFolderToCollectionList(self, name):
+        if name not in self.previous_collections:
+            self.previous_collections.append(name)
+
 
     def FolderFetched(self, foldername):
         self.folder = foldername
         if self.folder != "":
-            self.previous_collections.append(self.folder)
+            self.addFolderToCollectionList(foldername)
             self.SaveCollections()
             self.startup.close()
             self.setupMainWindow()

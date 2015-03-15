@@ -33,7 +33,8 @@ class MainWindow(QtGui.QMainWindow):
         sort_method = self.scoreSortCombo.currentText()
         pieces = self.parent.loadPieces(method=sort_method)
         for i in pieces:
-            item = QtGui.QListWidgetItem(i)
+            item = QtGui.QListWidgetItem(i[0])
+            item.setData(1, i[1])
             self.scoreListWidget.addItem(item)
         self.scoreListWidget.show()
 
