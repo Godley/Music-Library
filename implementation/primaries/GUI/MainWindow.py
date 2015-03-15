@@ -1,17 +1,7 @@
 from tkinter import *
 from PIL import Image, ImageTk
 
-class MainWindow(object):
-    def __init__(self, root):
-        self.root = root
-        Search = DarkFrame(self, background="#333", name="Search",height=80, width=300)
-        Search.place(relx=0.0)
-        ScoreBook = CloseableFrame(self, background="#333", name="Scorebook",height=300, width=300)
-        ScoreBook.place(relx=0.0,rely=0.103)
-        MyPlaylists = CloseableFrame(self, background="#333", name="My Playlists", height=200,width=300)
-        MyPlaylists.place(relx=0.0,rely=0.485)
-        GenPlaylists = GenPlaylist(self, background="#333", name="Auto-Playlists", height=200,width=300)
-        GenPlaylists.place(relx=0.0,rely=0.741)
+
 
 class DarkFrame(Frame):
     def __init__(self, root, **kwargs):
@@ -61,6 +51,25 @@ class GenPlaylist(CloseableFrame):
         print("refresh")
         pass
 
+
+class ScoreBook(GenPlaylist):
+    pass
+
+class MainWindow(object):
+    def __init__(self, root):
+        self.root = root
+        Search = DarkFrame(self, background="#333", name="Search",height=80, width=300)
+        Search.place(relx=0.0)
+        ScoreBook = GenPlaylist(self, background="#333", name="Scorebook",height=300, width=300)
+        ScoreBook.place(relx=0.0,rely=0.103)
+        MyPlaylists = CloseableFrame(self, background="#333", name="My Playlists", height=200,width=300)
+        MyPlaylists.place(relx=0.0,rely=0.485)
+        GenPlaylists = GenPlaylist(self, background="#333", name="Auto-Playlists", height=200,width=300)
+        GenPlaylists.place(relx=0.0,rely=0.741)
+        PieceInfo = CloseableFrame(self, background="#333", name="Piece Information", height=450, width=300)
+        PieceInfo.place(relx=0.79, rely=0.0)
+        PlaylistFeature = CloseableFrame(self, background="#333", name="Features in...", height=200, width=300)
+        PlaylistFeature.place(relx=0.79, rely=0.573)
 
 def main():
     root = Tk()
