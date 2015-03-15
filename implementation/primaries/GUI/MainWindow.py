@@ -1,21 +1,26 @@
 from tkinter import *
-from tkinter import filedialog, dialog
+from PIL import Image, ImageTk
 
 class MainWindow(object):
     def __init__(self, root):
         self.root = root
-        Search = CloseableFrame(self, background="#333", name="Search",height=80)
+        Search = DarkFrame(self, background="#333", name="Search",height=80, width=300)
         Search.place(relx=0.0)
-        ScoreBook = CloseableFrame(self, background="#333", name="Scorebook",height=300)
+        ScoreBook = CloseableFrame(self, background="#333", name="Scorebook",height=300, width=300)
         ScoreBook.place(relx=0.0,rely=0.103)
-        MyPlaylists = CloseableFrame(self, background="#333", name="My Playlists", height=300)
+        MyPlaylists = CloseableFrame(self, background="#333", name="My Playlists", height=200,width=300)
         MyPlaylists.place(relx=0.0,rely=0.485)
-class CloseableFrame(Frame):
+        GenPlaylists = GenPlaylist(self, background="#333", name="Auto-Playlists", height=200,width=300)
+        GenPlaylists.place(relx=0.0,rely=0.741)
+
+class DarkFrame(Frame):
     def __init__(self, root, **kwargs):
         self.width=350
         self.height=350
         self.background="white"
         self.name="frame"
+        self.textcolor = "#666"
+        self.textHighlight = "#888"
         if "background" in kwargs:
             self.background = kwargs["background"]
         if "name" in kwargs:
@@ -25,8 +30,14 @@ class CloseableFrame(Frame):
         if "height" in kwargs:
             self.height = kwargs["height"]
         Frame.__init__(self, width=self.width, height=self.height, bg=self.background, bd=5)
-        title_label = Label(self, text=self.name, bg=self.background, fg="#222", font=("Purisa",15))
+        title_label = Label(self, text=self.name, bg=self.background, fg=self.textcolor, font=("Purisa",15))
+        title_label.bind("<Enter>", lambda e: e.widget.config(fg=self.textHighlight))
+        title_label.bind("<Leave>", lambda e: e.widget.config(fg=self.textcolor))
         title_label.place(relx=0.4, rely=0.0)
+
+class CloseableFrame(DarkFrame):
+    def __init__(self, root, **kwargs):
+        DarkFrame.__init__(self, root, **kwargs)
         xButton = Label(self, text="x", bg=self.background, fg="#222")
         xButton.place(relx=0.0,rely=0.0)
         xButton.bind("<Button-1>", self.quit)
@@ -35,6 +46,20 @@ class CloseableFrame(Frame):
     def quit(self, event):
         self.destroy()
 
+class GenPlaylist(CloseableFrame):
+    def __init__(self, root, **kwargs):
+        CloseableFrame.__init__(self, root, **kwargs)
+        piece_list = Listbox(self, bg=self.background, height=8,width=37)
+        piece_list.place(relx=0.05,rely=0.15)
+        self.refresh = Image.open("images/glyphicons-82-refresh.png")
+        self.tkpi = ImageTk.PhotoImage(self.refresh)
+        refresh_label = Label(self, width=self.refresh.size[0], height=self.refresh.size[1], image=self.tkpi)
+        refresh_label.place(relx=0.9, rely=0.0)
+        refresh_label.bind("<Button-1>",self.refresh_playlists)
+
+    def refresh_playlists(self, event):
+        print("refresh")
+        pass
 
 
 def main():
