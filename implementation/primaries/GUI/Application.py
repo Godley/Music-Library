@@ -1,18 +1,34 @@
-from PyQt4 import QtCore, QtGui, uic
+from PyQt4 import QtCore, QtGui
 import sys
 from implementation.primaries.GUI import StartupWidget, MainWindow
+from implementation.primaries.ExtractMetadata.classes import MusicManager
 
 class Application(object):
     def __init__(self):
         self.startup = StartupWidget.Startup(self)
         self.startup.show()
-        self.main = MainWindow.MainWindow()
+        self.manager = None
+        self.main = None
+        self.folder = ""
+
 
     def FolderFetched(self, foldername):
         self.folder = foldername
-        self.startup.close()
-        self.main.folder = self.folder
+        if self.folder != "":
+            self.startup.close()
+            self.setupMainWindow()
+
+    def setupMainWindow(self):
+        self.manager = MusicManager.MusicManager(folder=self.folder)
+        self.main = MainWindow.MainWindow(self)
         self.main.show()
+
+    def loadPieces(self):
+        pass
+
+    def loadPlaylists(self):
+        pass
+
 
 def main():
 

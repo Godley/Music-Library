@@ -2,7 +2,9 @@ from PyQt4 import QtCore, QtGui, uic
 import sys
 
 class MainWindow(QtGui.QMainWindow):
-    def __init__(self):
+    def __init__(self, parent):
+        self.parent = parent
+
         #somewhere in constructor:
         QtGui.QMainWindow.__init__(self)
         uic.loadUi('MainWindow.ui', self)
