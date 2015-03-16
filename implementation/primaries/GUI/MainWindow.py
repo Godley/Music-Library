@@ -27,7 +27,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def onItemDoubleClicked(self, current_item):
         file_to_load = current_item.data(1)
-        self.parent.loadFile(file_to_load)
+        filename = self.parent.loadFile(file_to_load)
 
     def onSortMethodChange(self):
         sort_method = self.scoreSortCombo.currentText()

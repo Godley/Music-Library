@@ -283,7 +283,13 @@ class MeasureNode(IndexedNode):
             if hasattr(node, "duration"):
                 duration = node.duration
         if not chord:
-            voice_obj.addNoteDuration(int(duration))
+            try:
+                voice_obj.addNoteDuration(int(duration))
+            except:
+                if duration == "\\longa":
+                    voice_obj.addNoteDuration(0.25)
+                if duration == "\\breve":
+                    voice_obj.addNoteDuration(0.5)
             #get whatever is at the current index
             placeholder = voice_obj.GetChild(self.index)
             if type(placeholder) is NoteNode.Placeholder and type(node) is not NoteNode.Placeholder:

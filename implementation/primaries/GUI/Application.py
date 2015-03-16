@@ -1,8 +1,9 @@
 from PyQt4 import QtCore, QtGui
-import sys
+import sys, os
 import pickle
 from implementation.primaries.GUI import StartupWidget, MainWindow
 from implementation.primaries.ExtractMetadata.classes import MusicManager
+from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser
 
 class Application(object):
     def __init__(self):
@@ -60,7 +61,15 @@ class Application(object):
         - return the pdf location
         :return: filename of generated pdf
         '''
-        pass
+        pdf_version = filename.split(".")[0]+".pdf"
+        if os.path.exists(os.path.join(self.folder, pdf_version)):
+            return pdf_version
+        else:
+            parser = MxmlParser.MxmlParser()
+            piece_obj = parser.parse(os.path.join(self.folder,filename))
+            loader = LilypondRender.LilypondRender(piece_obj, os.path.join(self.folder,filename))
+            loader.run()
+            return pdf_version
 
     def updateDb(self):
         self.manager.refresh()

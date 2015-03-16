@@ -105,7 +105,13 @@ class VoiceNode(Node):
             if item is not None:
                 item.autoBeam = self.autoBeam
             if hasattr(note, "duration"):
-                counter += int(note.duration)
+                try:
+                    counter += int(note.duration)
+                except:
+                    if note.duration == "\\longa":
+                        counter += 0.25
+                    if note.duration == "\\breve":
+                        counter += 0.5
             if counter > total/2:
                 if hasattr(self, "mid_barline"):
                     lilystring += self.mid_barline.toLily()

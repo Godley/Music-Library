@@ -138,7 +138,6 @@ class MusicManager(object):
 
     def getPieceSummaryStrings(self, sort_method="title"):
         file_list = self.__data.getFileList()
-        summaries = []
         info = self.__data.getAllPieceInfo(file_list)
         summaries = [{"title":i["title"], "composer":i["composer"],"lyricist":i["lyricist"],
                       "filename":i["filename"]} for i in info]
