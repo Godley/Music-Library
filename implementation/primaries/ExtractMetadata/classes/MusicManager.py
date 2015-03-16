@@ -193,6 +193,10 @@ class MusicManager(object):
         if "old" in files:
             self.parseOldFiles(files["old"])
 
+    def getFileInfo(self, filename):
+        data = self.__data.getAllPieceInfo([filename])
+        return data
+
     def getPlaylists(self):
         result_set = {}
         clefs = self.__data.getPiecesByAllClefs()

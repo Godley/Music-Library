@@ -543,12 +543,13 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
+    # playlist queries
     def getPiecesByAllKeys(self, archived=0):
         connection, cursor = self.connect()
         query = '''SELECT k.name, piece.filename FROM keys k, pieces piece, key_piece_join key_piece, instruments i
                     WHERE key_piece.key_id = k.ROWID AND i.ROWID = key_piece.instrument_id
                     AND i.diatonic = 0 AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
-                    AND piece.archived = ?
+                    AND piece.archived = ? AND EXISTS (SELECT NULL FROM key_piece_join WHERE key_id = k.ROWID AND piece_id != key_piece.piece_id)
         '''
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
@@ -562,9 +563,9 @@ class MusicData(object):
 
     def getPiecesByAllClefs(self, archived=0):
         connection, cursor = self.connect()
-        query = '''SELECT c.name, piece.filename FROM clefs c, pieces piece, clef_piece_join clef_piece
-                    WHERE clef_piece.clef_id = c.ROWID AND piece.ROWID = clef_piece.piece_id
-                    AND piece.archived = ?
+        query = '''SELECT clef.name, piece.filename FROM clefs clef, pieces piece, clef_piece_join clef_piece
+                    WHERE clef_piece.clef_id = clef.ROWID AND piece.ROWID = clef_piece.piece_id
+                    AND piece.archived = ? AND EXISTS (SELECT NULL FROM clef_piece_join WHERE clef_id = clef_piece.clef_id AND piece_id != clef_piece.piece_id)
         '''
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
@@ -580,7 +581,7 @@ class MusicData(object):
         connection, cursor = self.connect()
         query = '''SELECT time_sig.beat, time_sig.b_type, piece.filename FROM timesigs time_sig, pieces piece, time_piece_join time_piece
                     WHERE time_piece.time_id = time_sig.ROWID AND piece.ROWID = time_piece.piece_id
-                    AND piece.archived = ?
+                    AND piece.archived = ? AND EXISTS(SELECT null FROM time_piece_join WHERE time_id=time_sig.ROWID AND time_piece_join.piece_id != time_piece.piece_id)
         '''
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
@@ -630,10 +631,15 @@ class MusicData(object):
         instrument_dict = {}
         for pair in results:
             key_input = pair[0]
+            if pair[1] != 0 or pair[2] != 0:
+                key_input += "\n("
+                key_input += "Transposed By "
             if pair[1] != 0:
-                key_input += "TransposedBy"+str(pair[1])+"Diatonic"
+                key_input+=str(pair[1])+" Diatonic \n"
             if pair[2] != 0:
-                key_input += "TransposedBy"+str(pair[2])+"Chromatic"
+                key_input += str(pair[2])+" Chromatic"
+            if pair[1] != 0 or pair[2] != 0:
+                key_input += ")"
             if key_input not in instrument_dict:
                 instrument_dict[key_input] = []
             instrument_dict[key_input].append(pair[3])
@@ -1016,12 +1022,21 @@ class MusicData(object):
                     file["lyricist"] = fetched[0]
             else:
                 file["lyricist"] = -1
-
-            file["instruments"] = self.getInstrumentsByPieceId(index, cursor)
-            file["clefs"] = self.getClefsByPieceId(index, cursor)
-            file["keys"] = self.getKeysByPieceId(index, cursor)
-            file["time_signatures"] = self.getTimeSigsByPieceId(index, cursor)
-            file["tempos"] = self.getTemposByPieceId(index, cursor)
+            instruments = self.getInstrumentsByPieceId(index, cursor)
+            if len(instruments) > 0:
+                file["instruments"] = instruments
+            clefs = self.getClefsByPieceId(index, cursor)
+            if len(clefs) > 0:
+                file["clefs"] = clefs
+            keys = self.getKeysByPieceId(index, cursor)
+            if len(keys) > 0:
+                file["keys"] = keys
+            timesigs = self.getTimeSigsByPieceId(index, cursor)
+            if len(timesigs) > 0:
+                file["time_signatures"] = timesigs
+            tempos = self.getTemposByPieceId(index, cursor)
+            if len(tempos) > 0:
+                file["tempos"] = tempos
             file.pop("id")
             file.pop("composer_id")
             file.pop("lyricist_id")

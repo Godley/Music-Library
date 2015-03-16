@@ -53,6 +53,10 @@ class Application(object):
         self.main = MainWindow.MainWindow(self)
         self.main.show()
 
+    def getFileInfo(self, filename):
+        file_info = self.manager.getFileInfo(filename)
+        return file_info
+
     def loadFile(self, filename):
         '''
         This method should:

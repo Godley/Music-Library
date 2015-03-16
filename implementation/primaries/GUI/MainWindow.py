@@ -30,13 +30,42 @@ class MainWindow(QtGui.QMainWindow):
     def onItemDoubleClicked(self, current_item):
         file_to_load = current_item.data(1)
         filename = self.parent.loadFile(file_to_load)
+        self.loadPieceData(file_to_load)
         rendered_pdf = self.pdf_view(filename)
         self.musicArea.show()
+
+    def loadPieceData(self, filename):
+        data = self.parent.getFileInfo(filename)[0]
+        datastring = ""
+        for index in data:
+            datastring += index + ": "
+            if type(data[index]) == str:
+                datastring += data[index]
+            elif type(data[index]) == list:
+                for item in data[index]:
+                    if type(item) == str:
+                        datastring += item+","
+                    elif type(item) == dict:
+                        for key in item:
+                            datastring += item[key]+","
+                datastring += "\n"
+            elif type(data[index]) == dict:
+                for key in data[index]:
+                    if type(data[index][key]) == str:
+                        datastring += data[index][key]+","
+                    elif type(data[index][key]) == list:
+                        datastring += ", ".join(data[index][key])
+                datastring += "\n"
+            datastring += "\n"
+        self.pieceInfoLabel.setText(datastring)
+        self.pieceInfoLabel.repaint()
+
 
     def pdf_view(self, filename):
         """Return a Scrollarea showing the first page of the specified PDF file."""
 
         label = QtGui.QLabel(self)
+
 
         doc = Poppler.Document.load(filename)
         doc.setRenderHint(Poppler.Document.Antialiasing)
@@ -52,6 +81,7 @@ class MainWindow(QtGui.QMainWindow):
     def onSortMethodChange(self):
         sort_method = self.scoreSortCombo.currentText()
         pieces = self.parent.loadPieces(method=sort_method)
+        self.scoreListWidget.clear()
         for i in pieces:
             item = QtGui.QListWidgetItem(i[0])
             item.setData(1, i[1])
@@ -64,6 +94,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def loadPlaylists(self):
         playlist_summaries = self.parent.getPlaylists()
+        self.autoPlaylistsView.clear()
         for i in playlist_summaries:
             item = QtGui.QListWidgetItem(i)
             self.autoPlaylistsView.addItem(item)
