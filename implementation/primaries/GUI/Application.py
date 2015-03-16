@@ -1,7 +1,7 @@
 from PyQt4 import QtCore, QtGui
 import sys, os
 import pickle
-from implementation.primaries.GUI import StartupWidget, MainWindow
+from implementation.primaries.GUI import StartupWidget, MainWindow, PlaylistDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser
 
@@ -77,6 +77,14 @@ class Application(object):
     def loadPieces(self, method="title"):
         summary_strings = self.manager.getPieceSummaryStrings(method)
         return summary_strings
+
+    def getPlaylists(self):
+        results = self.manager.getPlaylists()
+        return results
+
+    def PlaylistPopup(self):
+        popup = PlaylistDialog.PlaylistDialog(self)
+        popup.show()
 
     def loadPlaylists(self):
         pass

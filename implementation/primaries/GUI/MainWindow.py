@@ -14,6 +14,7 @@ class MainWindow(QtGui.QMainWindow):
             item = QtGui.QListWidgetItem(i[0])
             item.setData(1, i[1])
             self.scoreListWidget.addItem(item)
+        self.loadPlaylists()
         options = ["title","composer","lyricist"]
         self.scoreSortCombo.addItems(options)
         self.scoreListWidget.show()
@@ -61,11 +62,23 @@ class MainWindow(QtGui.QMainWindow):
         self.parent.updateDb()
         self.onSortMethodChange()
 
+    def loadPlaylists(self):
+        playlist_summaries = self.parent.getPlaylists()
+        for i in playlist_summaries:
+            item = QtGui.QListWidgetItem(i)
+            self.autoPlaylistsView.addItem(item)
+            for j in playlist_summaries[i]:
+                item = QtGui.QListWidgetItem(j)
+                item.setData(1, playlist_summaries[i][j])
+                self.autoPlaylistsView.addItem(item)
+        self.autoPlaylistsView.show()
+
     def refreshPlaylists(self):
-        print("refreshed playlists")
+        self.parent.updateDb()
+        self.loadPlaylists()
 
     def addPlaylist(self):
-        print("added playlist")
+        self.parent.PlaylistPopup()
 
     def searchDb(self):
         print("finding thing")
