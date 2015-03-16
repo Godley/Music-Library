@@ -63,13 +63,13 @@ class Application(object):
         '''
         pdf_version = filename.split(".")[0]+".pdf"
         if os.path.exists(os.path.join(self.folder, pdf_version)):
-            return pdf_version
+            return os.path.join(self.folder, pdf_version)
         else:
             parser = MxmlParser.MxmlParser()
             piece_obj = parser.parse(os.path.join(self.folder,filename))
             loader = LilypondRender.LilypondRender(piece_obj, os.path.join(self.folder,filename))
             loader.run()
-            return pdf_version
+            return os.path.join(self.folder, pdf_version)
 
     def updateDb(self):
         self.manager.refresh()

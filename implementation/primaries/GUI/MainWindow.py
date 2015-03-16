@@ -1,4 +1,5 @@
 from PyQt4 import QtCore, QtGui, uic
+from popplerqt4 import Poppler
 import sys
 
 class MainWindow(QtGui.QMainWindow):
@@ -28,6 +29,24 @@ class MainWindow(QtGui.QMainWindow):
     def onItemDoubleClicked(self, current_item):
         file_to_load = current_item.data(1)
         filename = self.parent.loadFile(file_to_load)
+        rendered_pdf = self.pdf_view(filename)
+        self.musicArea.show()
+
+    def pdf_view(self, filename):
+        """Return a Scrollarea showing the first page of the specified PDF file."""
+
+        label = QtGui.QLabel(self)
+
+        doc = Poppler.Document.load(filename)
+        doc.setRenderHint(Poppler.Document.Antialiasing)
+        doc.setRenderHint(Poppler.Document.TextAntialiasing)
+
+        page = doc.page(0)
+        image = page.renderToImage()
+
+        label.setPixmap(QtGui.QPixmap.fromImage(image))
+
+        self.musicArea.setWidget(label)
 
     def onSortMethodChange(self):
         sort_method = self.scoreSortCombo.currentText()
