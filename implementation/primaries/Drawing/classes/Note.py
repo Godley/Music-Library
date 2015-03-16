@@ -415,7 +415,7 @@ class Tuplet(BaseClass.Base):
         val = val
         if hasattr(self, "type"):
             if self.type == "stop":
-                val = ["","}"]
+                val = "}"
         return val
 
 class GraceNote(BaseClass.Base):

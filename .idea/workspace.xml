@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.ui" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PartNode.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PartNode.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -40,7 +39,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArticulation.coverage" NAME="Unittests in testArticulation Coverage Results" MODIFIED="1425743471819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPlaylister.coverage" NAME="Unittests in testPlaylister Coverage Results" MODIFIED="1419795804913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTree.coverage" NAME="Unittests in testTree Coverage Results" MODIFIED="1424305552955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1426524866766" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1426525736552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$pil.coverage" NAME="pil Coverage Results" MODIFIED="1426380488649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPart.coverage" NAME="Unittests in testPart Coverage Results" MODIFIED="1425861081183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testGraceNotes.coverage" NAME="Unittests in testGraceNotes Coverage Results" MODIFIED="1424820087867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
@@ -203,10 +202,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PartNode.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PartNode.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2716" max-vertical-offset="3720">
+              <caret line="194" column="37" selection-start-line="194" selection-start-column="37" selection-end-line="194" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Note.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8458244" vertical-offset="5860" max-vertical-offset="8310">
+              <caret line="417" column="24" selection-start-line="417" selection-start-column="24" selection-end-line="417" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33259425" vertical-offset="315" max-vertical-offset="1380">
+            <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1380">
               <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
@@ -239,7 +258,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testGraceNotes.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testKeySignatures.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testMultipleParts.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testNoteheads.py" />
@@ -265,7 +283,6 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/StaffNode.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PartNode.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PieceTree.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/BaseTree.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testParser.py" />
@@ -290,6 +307,8 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/VoiceNode.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PartNode.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
       </list>
     </option>
   </component>
@@ -1149,12 +1168,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00512" summary="further work to search by transposition&#10;&#10;- added method to find instruments with the same transposition as the one given - this searches the table for the item and searches the table again by the item's transposition in one query&#10;- work toward issue #66">
-      <created>1426116728488</created>
-      <option name="number" value="00512" />
-      <option name="project" value="LOCAL" />
-      <updated>1426116728488</updated>
-    </task>
     <task id="LOCAL-00513" summary="further work to search by transposition&#10;&#10;- added method to search for all pieces containing first a particular instrument, then by that instrument or other instruments which are of the same transposition: this won't give preferential treatment to either option, but this isn't a problem because ultimately, if a piece exists containing a violin, flute, sax and trumpet and you're looking for something containing a flute, it doesn't matter whether the system finds it because a violin is in the piece.&#10;- also not sure whether searches should return just a file list or a list of all info, but I've provided a method which does the latter for a given filename so I guess it doesn't really matter.&#10;- issue fix #66">
       <created>1426118952438</created>
       <option name="number" value="00513" />
@@ -1443,7 +1456,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426468052692</updated>
     </task>
-    <option name="localTasksCounter" value="561" />
+    <task id="LOCAL-00561" summary="got poppler working: issue fix #202&#10;&#10;- poppler fixed by installing poppler from source rather than from brew: this ensured that the proper links were created&#10;- installed python-poppler lib using pip, and then had pycharm install the same lib on the homebrew pythonpackage manager.&#10;- this now loads pdfs reasonably quickly, thow rendering should happen on a separate thread so that we can display a &quot;loading&quot; gif">
+      <created>1426525184710</created>
+      <option name="number" value="00561" />
+      <option name="project" value="LOCAL" />
+      <updated>1426525184712</updated>
+    </task>
+    <option name="localTasksCounter" value="562" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1468,27 +1487,27 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32406288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561505" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40422887" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40422887" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55845773" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32889965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32416788" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.47711015" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3806078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35074627" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35074627" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1534,7 +1553,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #192&#10;&#10;- implemented archiving system in every method which ignores any pieces which are archived - this can be switched to searching only the archives by putting in the param at the end archived=1" />
     <MESSAGE value="implemented archiving at manager level&#10;&#10;- added method call in handleOldFiles&#10;- issue fix #189" />
     <MESSAGE value="implemented refresh method&#10;&#10;- added method calls for unzipping and xml handling to refresh method&#10;- issue fix #65" />
     <MESSAGE value="added method to data layer&#10;&#10;- added find by modularity&#10;- added unit test to confirm functionality" />
@@ -1559,7 +1577,8 @@
     <MESSAGE value="finished connecting startup box to callbacks&#10;&#10;- connected select folder button to a folder browser, which upon return/selection of a valid folder will open up the main GUI&#10;- created a new method which will save the folder to a list which then gets serialised to a file (.collections) &#10;- connected the listbox to the left of the gui to the items from this file&#10;- connected the callbacks from each listbox item to open that folder upon double clicking the item&#10;- issue fix #200" />
     <MESSAGE value="created new playlist box and made some bug fixes&#10;&#10;- upon testing a few things bugs were encountered with for example, refresh buttons so fixed those&#10;- added new playlist dialog UI design, need to connect this with code (work toward issue #75)" />
     <MESSAGE value="linked selection to callback&#10;&#10;- linked selection of things in myScores listbox to a callback which calls the parser and renderer. Can't progress further because need to sort out poppler (issue #202)&#10;- work toward issue #69" />
-    <option name="LAST_COMMIT_MESSAGE" value="linked selection to callback&#10;&#10;- linked selection of things in myScores listbox to a callback which calls the parser and renderer. Can't progress further because need to sort out poppler (issue #202)&#10;- work toward issue #69" />
+    <MESSAGE value="got poppler working: issue fix #202&#10;&#10;- poppler fixed by installing poppler from source rather than from brew: this ensured that the proper links were created&#10;- installed python-poppler lib using pip, and then had pycharm install the same lib on the homebrew pythonpackage manager.&#10;- this now loads pdfs reasonably quickly, thow rendering should happen on a separate thread so that we can display a &quot;loading&quot; gif" />
+    <option name="LAST_COMMIT_MESSAGE" value="got poppler working: issue fix #202&#10;&#10;- poppler fixed by installing poppler from source rather than from brew: this ensured that the proper links were created&#10;- installed python-poppler lib using pip, and then had pycharm install the same lib on the homebrew pythonpackage manager.&#10;- this now loads pdfs reasonably quickly, thow rendering should happen on a separate thread so that we can display a &quot;loading&quot; gif" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1687,66 +1706,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46055436" vertical-offset="1329" max-vertical-offset="2670">
-          <caret line="169" column="54" selection-start-line="169" selection-start-column="54" selection-end-line="169" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#105#0" expanded="false" />
-            <element signature="e#428#938#0" expanded="false" />
-            <element signature="e#453#887#0" expanded="false" />
-            <element signature="e#921#938#0" expanded="false" />
-            <element signature="e#1248#1470#0" expanded="false" />
-            <element signature="e#2234#2257#0" expanded="false" />
-            <element signature="e#2294#2717#0" expanded="false" />
-            <element signature="e#3230#3632#0" expanded="false" />
-            <element signature="e#3687#4278#0" expanded="false" />
-            <element signature="e#5583#5999#0" expanded="false" />
-            <element signature="e#6036#6456#0" expanded="false" />
-            <element signature="e#8337#8623#0" expanded="false" />
-            <element signature="e#9881#19154#0" expanded="false" />
-            <element signature="e#9906#10038#0" expanded="false" />
-            <element signature="e#10079#10301#0" expanded="false" />
-            <element signature="e#10339#10628#0" expanded="false" />
-            <element signature="e#10669#10957#0" expanded="false" />
-            <element signature="e#10996#11287#0" expanded="false" />
-            <element signature="e#11324#11537#0" expanded="false" />
-            <element signature="e#11574#11828#0" expanded="false" />
-            <element signature="e#11869#12361#0" expanded="false" />
-            <element signature="e#12398#12648#0" expanded="false" />
-            <element signature="e#12689#12977#0" expanded="false" />
-            <element signature="e#13016#13298#0" expanded="false" />
-            <element signature="e#13337#13552#0" expanded="false" />
-            <element signature="e#13593#13897#0" expanded="false" />
-            <element signature="e#13938#14242#0" expanded="false" />
-            <element signature="e#14282#14587#0" expanded="false" />
-            <element signature="e#14630#14984#0" expanded="false" />
-            <element signature="e#15019#15234#0" expanded="false" />
-            <element signature="e#15273#15497#0" expanded="false" />
-            <element signature="e#15536#15800#0" expanded="false" />
-            <element signature="e#15842#16142#0" expanded="false" />
-            <element signature="e#16184#16516#0" expanded="false" />
-            <element signature="e#16556#16851#0" expanded="false" />
-            <element signature="e#16890#17217#0" expanded="false" />
-            <element signature="e#17262#17585#0" expanded="false" />
-            <element signature="e#17628#18094#0" expanded="false" />
-            <element signature="e#18138#18625#0" expanded="false" />
-            <element signature="e#18673#19154#0" expanded="false" />
-            <element signature="e#19195#21441#0" expanded="false" />
-            <element signature="e#19220#19489#0" expanded="false" />
-            <element signature="e#19526#19756#0" expanded="false" />
-            <element signature="e#19801#20057#0" expanded="false" />
-            <element signature="e#20095#20372#0" expanded="false" />
-            <element signature="e#20408#20697#0" expanded="false" />
-            <element signature="e#20736#21095#0" expanded="false" />
-            <element signature="e#21151#21441#0" expanded="false" />
-            <element signature="e#21489#22400#0" expanded="false" />
-            <element signature="e#21514#22232#0" expanded="false" />
-            <element signature="e#22284#22400#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/BaseTree.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.9072581" vertical-offset="2970" max-vertical-offset="4185">
@@ -2137,14 +2096,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PartNode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2460" max-vertical-offset="3720">
-          <caret line="174" column="0" selection-start-line="174" selection-start-column="0" selection-end-line="174" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/MeasureNode.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="7274" max-vertical-offset="7725">
@@ -2193,11 +2144,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33259425" vertical-offset="315" max-vertical-offset="1380">
+        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1380">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PartNode.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2716" max-vertical-offset="3720">
+          <caret line="194" column="37" selection-start-line="194" selection-start-column="37" selection-end-line="194" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8458244" vertical-offset="5860" max-vertical-offset="8310">
+          <caret line="417" column="24" selection-start-line="417" selection-start-column="24" selection-end-line="417" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -190,9 +190,9 @@ class PartNode(IndexedNode):
             self.tab = False
 
     def CheckIfTabStaff(self):
-        if self.tab:
+        if hasattr(self, "tab") and self.tab:
             return "TAB"
-        if self.drum:
+        if hasattr(self, "drum") and self.drum:
             return "DRUM"
 
 
