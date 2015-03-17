@@ -21,8 +21,8 @@ class MainWindow(QtGui.QMainWindow):
         self.refreshScoreBtn.clicked.connect(self.refreshScores)
         self.refreshAutoBtn.clicked.connect(self.refreshPlaylists)
         self.AddPlaylistButton.clicked.connect(self.addPlaylist)
-        self.searchInput.textChanged.connect(self.updateOptions)
-        self.searchInput.returnPressed.connect(self.searchDb)
+        #self.searchInput.textChanged.connect(self.updateOptions)
+        #self.searchInput.returnPressed.connect(self.searchDb)
         self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
         self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
 
@@ -31,34 +31,52 @@ class MainWindow(QtGui.QMainWindow):
         file_to_load = current_item.data(1)
         filename = self.parent.loadFile(file_to_load)
         self.loadPieceData(file_to_load)
-        rendered_pdf = self.pdf_view(filename)
-        self.musicArea.show()
+        self.pdf_view(filename)
+        self.musicTitle.setText(file_to_load)
+        self.musicTitle.repaint()
 
     def loadPieceData(self, filename):
+        self.pieceInfoView.clear()
         data = self.parent.getFileInfo(filename)[0]
         datastring = ""
-        for index in data:
-            datastring += index + ": "
-            if type(data[index]) == str:
-                datastring += data[index]
-            elif type(data[index]) == list:
-                for item in data[index]:
-                    if type(item) == str:
-                        datastring += item+","
-                    elif type(item) == dict:
-                        for key in item:
-                            datastring += item[key]+","
-                datastring += "\n"
-            elif type(data[index]) == dict:
-                for key in data[index]:
-                    if type(data[index][key]) == str:
-                        datastring += data[index][key]+","
-                    elif type(data[index][key]) == list:
-                        datastring += ", ".join(data[index][key])
-                datastring += "\n"
-            datastring += "\n"
-        self.pieceInfoLabel.setText(datastring)
-        self.pieceInfoLabel.repaint()
+
+        datastring = "title: "+data["title"]
+        title = QtGui.QListWidgetItem(datastring)
+        self.pieceInfoView.addItem(title)
+        if "composer" in data and data["composer"] != -1:
+            datastring = "composer: "+data["composer"]
+            composer = QtGui.QListWidgetItem(datastring)
+            self.pieceInfoView.addItem(composer)
+        if "lyricist" in data and data["lyricist"] != -1:
+            datastring = "lyricist: "+data["lyricist"]
+            lyricist = QtGui.QListWidgetItem(datastring)
+            self.pieceInfoView.addItem(lyricist)
+        if "instruments" in data:
+            datastring = "instruments: "+", ".join([d["name"] for d in data["instruments"]])
+            instruments = QtGui.QListWidgetItem(datastring)
+            self.pieceInfoView.addItem(instruments)
+        if "clefs" in data:
+            datastring = "clefs: "
+            clef_list = []
+            for instrument in data["clefs"]:
+                for clef in data["clefs"][instrument]:
+                    if clef not in clef_list:
+                        clef_list.append(clef)
+            datastring += ", ".join(clef_list)
+            clefs = QtGui.QListWidgetItem(datastring)
+            self.pieceInfoView.addItem(clefs)
+        if "keys" in data:
+            datastring = "keys: "
+            key_list = []
+            for instrument in data["keys"]:
+                for key in data["keys"][instrument]:
+                    if key_list not in key_list:
+                        key_list.append(key)
+            datastring += ", ".join(key_list)
+            keys = QtGui.QListWidgetItem(datastring)
+            self.pieceInfoView.addItem(keys)
+
+        self.pieceInfoView.show()
 
 
     def pdf_view(self, filename):
@@ -76,7 +94,8 @@ class MainWindow(QtGui.QMainWindow):
 
         label.setPixmap(QtGui.QPixmap.fromImage(image))
 
-        self.musicArea.setWidget(label)
+        self.scoreWindow.setWidget(label)
+
 
     def onSortMethodChange(self):
         sort_method = self.scoreSortCombo.currentText()
