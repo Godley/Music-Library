@@ -108,7 +108,10 @@ class MainWindow(QtGui.QMainWindow):
         doc.setRenderHint(Poppler.Document.TextAntialiasing)
 
         page = doc.page(0)
-        image = page.renderToImage()
+        dimensions = page.pageSize()
+        scroll_height = self.scoreWindow.height()
+        scroll_width = self.scoreWindow.width()
+        image = page.renderToImage(90, 90, -10, 0, scroll_width, scroll_height)
 
         label.setPixmap(QtGui.QPixmap.fromImage(image))
 
