@@ -31,6 +31,69 @@ border:1px solid black;
 border-radius:10px;
 }
 
+QWidget#scoreWidget {
+background:#B3C833;
+}
+
+QWidget#scoreWidget, QWidget#scoreWidget QListWidget {
+border-color:#A2B52D;
+}
+
+QWidget#playlistWidget {
+background:#A1C5AB;
+}
+
+QWidget#playlistWidget, QWidget#playlistWidget QListWidget {
+border-color:#92B39B;
+}
+
+QWidget#autoPlaylistWidget {
+background:#CE5043;
+}
+
+QWidget#autoPlaylistWidget, QWidget#autoPlaylistWidget QListWidget {
+border-color:#B0453A;
+}
+
+QWidget#pieceInfoWidget {
+background:#D11E48;
+}
+
+QWidget#pieceInfoWidget, QWidget#pieceInfoWidget QListWidget {
+border-color:#9C3D33;
+}
+
+QWidget#featuredInWidget {
+background:#1AA1E1;
+}
+
+QWidget#featuredInWidget, QWidget#featuredInWidget QListWidget {
+border-color:#1892CC;
+}
+
+QWidget#playlistBrowserWidget {
+background:#FB8521;
+}
+
+QWidget#playlistBrowserWidget, QWidget#playlistBrowserWidget QTableWidget {
+border-color:#E3771B;
+}
+
+QLineEdit {
+border:1px solid #AAA;
+}
+
+QLabel#musicSearchHint {
+color:rgba(0, 0, 0, 50);
+}
+
+QFrame#second_menu {
+background: #DDD;
+border:0px;
+border-bottom:1px solid #AAA;
+border-top:1px solid #AAA;
+}
+
 QWidget#musicWidget{
 border-radius:20px;
 border:1px solid #999;
@@ -38,13 +101,14 @@ background:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(227, 
 }
 
 
-QListWidget {
+QListWidget, QTableWidget, QWidget QListWidget, QWidget QTableWidget {
 background:rgba(255, 255, 255, 50);
 opacity:0.5;
-border:1px solid #666;
+border-top:1px solid;
+border-bottom:1px solid;
 }
 
-QListWidget#pieceInfoView, QListWidget#featuredListWidget, QListWidget#playlistList {
+QListWidget#pieceInfoView, QListWidget#featuredListWidget, QTableWidget#playlistList {
 border-bottom-left-radius:10px;
 border-bottom-right-radius:10px;
 }
@@ -61,11 +125,14 @@ color:#CCC;
 }
 
 QPushButton#addPlaylist, QToolButton {
-background:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(227, 227, 227, 255), stop:1 rgba(154, 154, 154, 255));
-color:#DDD;
-border-left:1px solid black;
-border-bottom:1px solid black;
+background:transparent;
 border-top-right-radius:10px;
+}
+
+QToolButton#searchBtn, QToolButton#playBtn {
+background:transparent;
+border:0px;
+border-radius:0px;
 }
 
 QScrollArea#scoreWindow {
@@ -152,7 +219,7 @@ border-radius:10px;
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>70</y>
             <width>301</width>
             <height>251</height>
            </rect>
@@ -218,9 +285,9 @@ border-radius:10px;
           <widget class="QListWidget" name="scoreListWidget">
            <property name="geometry">
             <rect>
-             <x>3</x>
+             <x>1</x>
              <y>35</y>
-             <width>295</width>
+             <width>297</width>
              <height>181</height>
             </rect>
            </property>
@@ -382,7 +449,7 @@ border-radius:10px;
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>260</y>
+            <y>340</y>
             <width>300</width>
             <height>250</height>
            </rect>
@@ -448,9 +515,9 @@ border-radius:10px;
           <widget class="QListWidget" name="playlistWidget_2">
            <property name="geometry">
             <rect>
-             <x>3</x>
+             <x>1</x>
              <y>35</y>
-             <width>295</width>
+             <width>297</width>
              <height>181</height>
             </rect>
            </property>
@@ -484,7 +551,7 @@ border-radius:10px;
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>520</y>
+            <y>610</y>
             <width>300</width>
             <height>250</height>
            </rect>
@@ -550,9 +617,9 @@ border-radius:10px;
           <widget class="QListWidget" name="autoPlaylistsView">
            <property name="geometry">
             <rect>
-             <x>3</x>
+             <x>1</x>
              <y>35</y>
-             <width>295</width>
+             <width>297</width>
              <height>181</height>
             </rect>
            </property>
@@ -602,7 +669,7 @@ border-radius:10px;
           <property name="geometry">
            <rect>
             <x>1110</x>
-            <y>0</y>
+            <y>70</y>
             <width>300</width>
             <height>250</height>
            </rect>
@@ -674,6 +741,15 @@ border-radius:10px;
              <height>215</height>
             </rect>
            </property>
+           <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
+           <property name="isWrapping" stdset="0">
+            <bool>true</bool>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
           </widget>
           <zorder>closeInfoBtn_drop</zorder>
           <zorder>title_4</zorder>
@@ -684,10 +760,10 @@ border-radius:10px;
          <widget class="QWidget" name="musicWidget" native="true">
           <property name="geometry">
            <rect>
-            <x>310</x>
-            <y>0</y>
-            <width>781</width>
-            <height>861</height>
+            <x>330</x>
+            <y>40</y>
+            <width>751</width>
+            <height>831</height>
            </rect>
           </property>
           <property name="minimumSize">
@@ -701,8 +777,8 @@ border-radius:10px;
             <rect>
              <x>4</x>
              <y>40</y>
-             <width>771</width>
-             <height>801</height>
+             <width>741</width>
+             <height>771</height>
             </rect>
            </property>
            <property name="minimumSize">
@@ -719,8 +795,8 @@ border-radius:10px;
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>769</width>
-              <height>799</height>
+              <width>739</width>
+              <height>769</height>
              </rect>
             </property>
             <widget class="QLabel" name="label">
@@ -801,12 +877,17 @@ border-radius:10px;
             <string>x</string>
            </property>
           </widget>
+          <zorder>closeMusicBtn_drop</zorder>
+          <zorder>scoreWindow</zorder>
+          <zorder>line</zorder>
+          <zorder>musicTitle</zorder>
+          <zorder>closeMusicBtn</zorder>
          </widget>
          <widget class="QWidget" name="featuredInWidget" native="true">
           <property name="geometry">
            <rect>
             <x>1110</x>
-            <y>260</y>
+            <y>340</y>
             <width>300</width>
             <height>250</height>
            </rect>
@@ -902,12 +983,18 @@ border-radius:10px;
             </size>
            </property>
           </widget>
+          <zorder>closeFeaturedBtn_drop</zorder>
+          <zorder>title_5</zorder>
+          <zorder>topBorder_5</zorder>
+          <zorder>closeFeaturedBtn</zorder>
+          <zorder>featuredListWidget</zorder>
+          <zorder>featuredListRefresh</zorder>
          </widget>
          <widget class="QWidget" name="playlistBrowserWidget" native="true">
           <property name="geometry">
            <rect>
             <x>1110</x>
-            <y>520</y>
+            <y>610</y>
             <width>300</width>
             <height>250</height>
            </rect>
@@ -970,16 +1057,6 @@ border-radius:10px;
             <string>x</string>
            </property>
           </widget>
-          <widget class="QListWidget" name="playlistList">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>35</y>
-             <width>300</width>
-             <height>215</height>
-            </rect>
-           </property>
-          </widget>
           <widget class="QToolButton" name="playlistRefresh">
            <property name="geometry">
             <rect>
@@ -1001,6 +1078,127 @@ border-radius:10px;
              <width>15</width>
              <height>15</height>
             </size>
+           </property>
+          </widget>
+          <widget class="QTableWidget" name="playlistList">
+           <property name="geometry">
+            <rect>
+             <x>1</x>
+             <y>35</y>
+             <width>298</width>
+             <height>215</height>
+            </rect>
+           </property>
+           <column>
+            <property name="text">
+             <string>#</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>title</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>composer</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>filename</string>
+            </property>
+           </column>
+          </widget>
+          <zorder>closePlaylistBtn_drop</zorder>
+          <zorder>title_6</zorder>
+          <zorder>topBorder_6</zorder>
+          <zorder>closePlaylistBtn</zorder>
+          <zorder>playlistRefresh</zorder>
+          <zorder>playlistList</zorder>
+         </widget>
+         <widget class="QFrame" name="second_menu">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>1441</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QLineEdit" name="lineEdit">
+           <property name="geometry">
+            <rect>
+             <x>3</x>
+             <y>5</y>
+             <width>288</width>
+             <height>21</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QLabel" name="musicSearchHint">
+           <property name="geometry">
+            <rect>
+             <x>15</x>
+             <y>10</y>
+             <width>161</width>
+             <height>16</height>
+            </rect>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Search music collection...</string>
+           </property>
+          </widget>
+          <widget class="QToolButton" name="searchBtn">
+           <property name="geometry">
+            <rect>
+             <x>293</x>
+             <y>5</y>
+             <width>21</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>images/glyphicons-28-search.png</normaloff>images/glyphicons-28-search.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>16</width>
+             <height>16</height>
+            </size>
+           </property>
+          </widget>
+          <widget class="QToolButton" name="playBtn">
+           <property name="geometry">
+            <rect>
+             <x>699</x>
+             <y>5</y>
+             <width>21</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>images/glyphicons-174-play.png</normaloff>images/glyphicons-174-play.png</iconset>
            </property>
           </widget>
          </widget>

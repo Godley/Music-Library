@@ -76,6 +76,24 @@ class MainWindow(QtGui.QMainWindow):
             keys = QtGui.QListWidgetItem(datastring)
             self.pieceInfoView.addItem(keys)
 
+        if "tempos" in data:
+            datastring = "tempos: "
+            tempo_list = []
+            for tempo in data["tempos"]:
+                datastring += tempo
+                datastring += ", "
+            tempos = QtGui.QListWidgetItem(datastring)
+            self.pieceInfoView.addItem(tempos)
+
+        if "time_signatures" in data:
+            datastring = "time signatures: "
+            tempo_list = []
+            for tempo in data["time_signatures"]:
+                datastring += tempo
+                datastring += ", "
+            tempos = QtGui.QListWidgetItem(datastring)
+            self.pieceInfoView.addItem(tempos)
+
         self.pieceInfoView.show()
 
 
