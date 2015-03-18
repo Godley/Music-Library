@@ -11,6 +11,7 @@ class MusicData(object):
         self.createClefsTable()
         self.createTimeTable()
         self.createTempoTable()
+        self.createPlaylistTable()
 
     def createTempoTable(self):
         '''
@@ -84,6 +85,13 @@ class MusicData(object):
         connection.commit()
         self.disconnect(connection)
 
+
+    def createPlaylistTable(self):
+        connection, cursor = self.connect()
+        cursor.execute('''CREATE TABLE IF NOT EXISTS playlists(name text)''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS playlist_join(playlist_id int, piece_id int)''')
+        connection.commit()
+        self.disconnect(connection)
 
     def createClefsTable(self):
         '''
@@ -1042,6 +1050,26 @@ class MusicData(object):
             file.pop("lyricist_id")
         self.disconnect(connection)
         return file_data
+
+    def addPlaylist(self, pname, files):
+        connection, cursor = self.connect()
+        cursor.execute('''INSERT INTO playlists VALUES(?)''', (pname,))
+        cursor.execute('''SELECT ROWID from playlists WHERE name = ?''', (pname,))
+        val = cursor.fetchone()
+        for name in files:
+            cursor.execute('''SELECT ROWID FROM pieces WHERE filename = ?''', (name,))
+            file_id = cursor.fetchone()
+            cursor.execute('''INSERT INTO playlist_join VALUES(?,?)''', (val[0],file_id[0]))
+        connection.commit()
+        self.disconnect(connection)
+
+    def getAllUserPlaylists(self):
+        connection, cursor = self.connect()
+        cursor.execute('''SELECT piece.name, play.name, play.ROWID FROM playlists play, playlist_join playjoin, pieces piece
+                          WHERE playjoin.playlist_id = play.ROWID and piece.ROWID = playjoin.piece_id''')
+        results = cursor.fetchall()
+        self.disconnect(connection)
+        return results
 
     # methods to clear out old records. In general we just archive them on the off chance the piece comes back -
     # if it does give the user the option to un-archive or else remove all old data

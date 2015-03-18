@@ -78,12 +78,19 @@ class Application(object):
     def updateDb(self):
         self.manager.refresh()
 
+    def addPlaylist(self, data):
+        self.manager.addPlaylist(data)
+
     def loadPieces(self, method="title"):
         summary_strings = self.manager.getPieceSummaryStrings(method)
         return summary_strings
 
     def getPlaylists(self):
         results = self.manager.getPlaylists()
+        return results
+
+    def getCreatedPlaylists(self):
+        results = self.manager.getPlaylistsFromPlaylistTable()
         return results
 
     def PlaylistPopup(self):
