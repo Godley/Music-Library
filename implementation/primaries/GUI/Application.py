@@ -88,7 +88,8 @@ class Application(object):
 
     def PlaylistPopup(self):
         popup = PlaylistDialog.PlaylistDialog(self)
-        popup.show()
+        popup.setWindowFlags(QtCore.Qt.Popup)
+        popup.exec()
 
     def loadPlaylists(self):
         pass
