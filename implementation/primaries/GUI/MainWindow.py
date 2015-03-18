@@ -15,6 +15,7 @@ class MainWindow(QtGui.QMainWindow):
             item.setData(1, i[1])
             self.scoreListWidget.addItem(item)
         self.loadPlaylists()
+        self.loadMyPlaylists()
         options = ["title","composer","lyricist"]
         self.scoreSortCombo.addItems(options)
         self.scoreListWidget.show()
@@ -70,7 +71,6 @@ class MainWindow(QtGui.QMainWindow):
             if "time_signatures" in file_data:
                 item = QtGui.QTableWidgetItem(", ".join(file_data["time_signatures"]))
                 self.playlistTable.setItem(i, 9, item)
-        num = self.playlistTable.rowCount()
         playlist_title = current_item.data(3)
         self.musicTitle.setText(playlist_title)
         self.editPlaylistTitle.show()
@@ -199,12 +199,23 @@ class MainWindow(QtGui.QMainWindow):
                 self.autoPlaylistsView.addItem(item)
         self.autoPlaylistsView.show()
 
+    def loadMyPlaylists(self):
+        self.myPlaylistsWidget.clear()
+        myPlaylists = self.parent.getCreatedPlaylists()
+        for entry in myPlaylists:
+            item = QtGui.QListWidgetItem(entry["name"])
+            item.setData(1, entry["pieces"])
+            self.myPlaylistsWidget.addItem(item)
+        self.myPlaylistsWidget.show()
+
+
     def refreshPlaylists(self):
         self.parent.updateDb()
         self.loadPlaylists()
 
     def addPlaylist(self):
         self.parent.PlaylistPopup()
+        self.loadMyPlaylists()
 
     def searchDb(self):
         print("finding thing")

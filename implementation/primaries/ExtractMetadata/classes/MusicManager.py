@@ -222,8 +222,9 @@ class MusicManager(object):
             result_set["tempos"] = tempos
         return result_set
 
-    def getPlaylistsFromPlaylistsTable(self):
+    def getPlaylistsFromPlaylistTable(self):
         data = self.__data.getAllUserPlaylists()
+        return data
 
     def addPlaylist(self, data):
         self.__data.addPlaylist(data["name"], data["pieces"])
