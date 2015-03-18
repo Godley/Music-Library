@@ -1065,11 +1065,16 @@ class MusicData(object):
 
     def getAllUserPlaylists(self):
         connection, cursor = self.connect()
-        cursor.execute('''SELECT piece.name, play.name, play.ROWID FROM playlists play, playlist_join playjoin, pieces piece
+        cursor.execute('''SELECT piece.filename, play.name, play.ROWID FROM playlists play, playlist_join playjoin, pieces piece
                           WHERE playjoin.playlist_id = play.ROWID and piece.ROWID = playjoin.piece_id''')
         results = cursor.fetchall()
         self.disconnect(connection)
-        return results
+        data = {}
+        for item in results:
+            if item[1] not in data:
+                data[item[1]] = []
+            data[item[1]].append(item[0])
+        return data
 
     # methods to clear out old records. In general we just archive them on the off chance the piece comes back -
     # if it does give the user the option to un-archive or else remove all old data

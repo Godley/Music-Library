@@ -26,7 +26,7 @@ class testMusicManager(unittest.TestCase):
         self.manager.addPiece("file.xml",{})
         self.manager.refresh()
         self.manager.parseNewFiles(["testcase2.xml"])
-        expected_result = {'filename':'testcase2.xml','keys': {'Piano': ['D major']}, 'tempos': ['half=quarter', 'eighth.=80'], 'clefs': {'Piano': ['treble','bass','alto']}, 'title': 'My MetaParsing Testcase', 'composer': 'Charlotte Godley', 'instruments': [{'name': 'Piano'}], 'time_signatures': ['4/4']}
+        expected_result = {'filename':'testcase2.xml','keys': {'Piano': ['D major']}, 'tempos': ['half=quarter', 'eighth.=80'], 'clefs': {'Piano': ['treble','bass','alto']}, 'title': 'my metaparsing testcase', 'composer': 'charlotte godley', 'instruments': [{'name': 'Piano'}], 'time_signatures': ['4/4']}
         self.assertEqual(self.manager.getPieceInfo(["testcase2.xml"]), [expected_result])
         self.assertEqual(["file.xml","testcase2.xml"], self.manager.getFileList())
 

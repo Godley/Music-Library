@@ -20,13 +20,13 @@ class testCase1(unittest.TestCase):
         self.assertEqual(self.result["tempo"], [{"beat":"half","minute":80},{"minute":80,"beat":"eighth."}])
 
     def testTitle(self):
-        self.assertEqual(self.result["title"], "My MetaParsing Testcase")
+        self.assertEqual(self.result["title"], "my metaparsing testcase")
 
     def testLyricist(self):
-        self.assertEqual(self.result["lyricist"], "Fran Godley")
+        self.assertEqual(self.result["lyricist"], "fran godley")
 
     def testComposer(self):
-        self.assertEqual(self.result["composer"], "Charlotte Godley")
+        self.assertEqual(self.result["composer"], "charlotte godley")
 
 class testCase2(unittest.TestCase):
     def setUp(self):
@@ -47,10 +47,10 @@ class testCase2(unittest.TestCase):
         self.assertEqual(self.result["tempo"], [{"beat":"half","beat_2":"quarter"},{"minute":80,"beat":"eighth."}])
 
     def testTitle(self):
-        self.assertEqual(self.result["title"], "My MetaParsing Testcase")
+        self.assertEqual(self.result["title"], "my metaparsing testcase")
 
     def testLyricist(self):
-        self.assertEqual(self.result["lyricist"], "Fran Godley")
+        self.assertEqual(self.result["lyricist"], "fran godley")
 
     def testComposer(self):
-        self.assertEqual(self.result["composer"], "Charlotte Godley")
+        self.assertEqual(self.result["composer"], "charlotte godley")
