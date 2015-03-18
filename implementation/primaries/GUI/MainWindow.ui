@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1440</width>
-    <height>900</height>
+    <width>1451</width>
+    <height>922</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -113,6 +113,10 @@ border-bottom-left-radius:10px;
 border-bottom-right-radius:10px;
 }
 
+QTableWidget#playlistTable{
+border:0px;
+}
+
 
 QPushButton{
 background:transparent;
@@ -151,6 +155,12 @@ border-radius:10px;
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>1451</width>
+     <height>900</height>
+    </size>
    </property>
    <property name="styleSheet">
     <string notr="true"/>
@@ -215,11 +225,14 @@ border-radius:10px;
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <property name="lineWidth">
+          <number>0</number>
+         </property>
          <widget class="QWidget" name="scoreWidget" native="true">
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>70</y>
+            <x>20</x>
+            <y>50</y>
             <width>301</width>
             <height>251</height>
            </rect>
@@ -448,8 +461,8 @@ border-radius:10px;
          <widget class="QWidget" name="playlistWidget" native="true">
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>340</y>
+            <x>20</x>
+            <y>320</y>
             <width>300</width>
             <height>250</height>
            </rect>
@@ -512,7 +525,7 @@ border-radius:10px;
             <string>x</string>
            </property>
           </widget>
-          <widget class="QListWidget" name="playlistWidget_2">
+          <widget class="QListWidget" name="myPlaylistsWidget">
            <property name="geometry">
             <rect>
              <x>1</x>
@@ -543,15 +556,15 @@ border-radius:10px;
           <zorder>closeMyPlayBtn_drop</zorder>
           <zorder>title_2</zorder>
           <zorder>topBorder_2</zorder>
-          <zorder>closeMyPlayBtn</zorder>
-          <zorder>playlistWidget_2</zorder>
+          <zorder>myPlaylistsWidget</zorder>
           <zorder>AddPlaylistButton</zorder>
+          <zorder>closeMyPlayBtn</zorder>
          </widget>
          <widget class="QWidget" name="autoPlaylistWidget" native="true">
           <property name="geometry">
            <rect>
-            <x>0</x>
-            <y>610</y>
+            <x>20</x>
+            <y>590</y>
             <width>300</width>
             <height>250</height>
            </rect>
@@ -660,16 +673,16 @@ border-radius:10px;
           <zorder>closeAutoBtn_drop</zorder>
           <zorder>title_3</zorder>
           <zorder>topBorder_3</zorder>
-          <zorder>closeAutoBtn</zorder>
           <zorder>autoPlaylistsView</zorder>
           <zorder>AutoSortCombo</zorder>
           <zorder>refreshAutoBtn</zorder>
+          <zorder>closeAutoBtn</zorder>
          </widget>
          <widget class="QWidget" name="pieceInfoWidget" native="true">
           <property name="geometry">
            <rect>
-            <x>1110</x>
-            <y>70</y>
+            <x>1120</x>
+            <y>50</y>
             <width>300</width>
             <height>250</height>
            </rect>
@@ -754,13 +767,13 @@ border-radius:10px;
           <zorder>closeInfoBtn_drop</zorder>
           <zorder>title_4</zorder>
           <zorder>topBorder_4</zorder>
-          <zorder>closeInfoBtn</zorder>
           <zorder>pieceInfoView</zorder>
+          <zorder>closeInfoBtn</zorder>
          </widget>
          <widget class="QWidget" name="musicWidget" native="true">
           <property name="geometry">
            <rect>
-            <x>330</x>
+            <x>350</x>
             <y>40</y>
             <width>751</width>
             <height>831</height>
@@ -877,17 +890,120 @@ border-radius:10px;
             <string>x</string>
            </property>
           </widget>
+          <widget class="QToolButton" name="editPlaylistTitle">
+           <property name="geometry">
+            <rect>
+             <x>500</x>
+             <y>7</y>
+             <width>21</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>images/glyphicons-151-edit.png</normaloff>images/glyphicons-151-edit.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>21</width>
+             <height>21</height>
+            </size>
+           </property>
+          </widget>
+          <widget class="QWidget" name="playlistViewer" native="true">
+           <property name="geometry">
+            <rect>
+             <x>4</x>
+             <y>40</y>
+             <width>741</width>
+             <height>771</height>
+            </rect>
+           </property>
+           <widget class="QTableWidget" name="playlistTable">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>1</y>
+              <width>741</width>
+              <height>771</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>75</number>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>#</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Title</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Composer</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Lyricist</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Instruments</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>filename</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Clefs</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Keys</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Tempos</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>time sigs</string>
+             </property>
+            </column>
+           </widget>
+          </widget>
           <zorder>closeMusicBtn_drop</zorder>
           <zorder>scoreWindow</zorder>
           <zorder>line</zorder>
           <zorder>musicTitle</zorder>
           <zorder>closeMusicBtn</zorder>
+          <zorder>editPlaylistTitle</zorder>
+          <zorder>playlistViewer</zorder>
          </widget>
          <widget class="QWidget" name="featuredInWidget" native="true">
           <property name="geometry">
            <rect>
-            <x>1110</x>
-            <y>340</y>
+            <x>1120</x>
+            <y>320</y>
             <width>300</width>
             <height>250</height>
            </rect>
@@ -986,15 +1102,15 @@ border-radius:10px;
           <zorder>closeFeaturedBtn_drop</zorder>
           <zorder>title_5</zorder>
           <zorder>topBorder_5</zorder>
-          <zorder>closeFeaturedBtn</zorder>
           <zorder>featuredListWidget</zorder>
           <zorder>featuredListRefresh</zorder>
+          <zorder>closeFeaturedBtn</zorder>
          </widget>
          <widget class="QWidget" name="playlistBrowserWidget" native="true">
           <property name="geometry">
            <rect>
-            <x>1110</x>
-            <y>610</y>
+            <x>1120</x>
+            <y>590</y>
             <width>300</width>
             <height>250</height>
            </rect>
@@ -1089,6 +1205,9 @@ border-radius:10px;
              <height>215</height>
             </rect>
            </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>75</number>
+           </attribute>
            <column>
             <property name="text">
              <string>#</string>
@@ -1113,9 +1232,9 @@ border-radius:10px;
           <zorder>closePlaylistBtn_drop</zorder>
           <zorder>title_6</zorder>
           <zorder>topBorder_6</zorder>
-          <zorder>closePlaylistBtn</zorder>
           <zorder>playlistRefresh</zorder>
           <zorder>playlistList</zorder>
+          <zorder>closePlaylistBtn</zorder>
          </widget>
          <widget class="QFrame" name="second_menu">
           <property name="geometry">
@@ -1214,7 +1333,7 @@ border-radius:10px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1440</width>
+     <width>1451</width>
      <height>22</height>
     </rect>
    </property>
