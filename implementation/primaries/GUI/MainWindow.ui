@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1451</width>
-    <height>922</height>
+    <width>1280</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,8 +19,17 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget#scoreWidget, QWidget#playlistWidget, QWidget#autoPlaylistWidget, QWidget#pieceInfoWidget, QWidget#musicWidget, QWidget#featuredInWidget,
@@ -144,22 +153,22 @@ background:white;
 border:1px solid #999;
 }
 
-QPushButton#closeScoreBtn_drop, QPushButton#closeMyPlayBtn_drop, QPushButton#closeAutoBtn_drop, QPushButton#closeMusicBtn_drop, QPushButton#closeInfoBtn_drop, QPushButton#closeFeaturedBtn_drop { 
+QPushButton#closeScoreBtn_drop, QPushButton#closeMyPlayBtn_drop, QPushButton#closeAutoBtn_drop, QPushButton#closeMusicBtn_drop, QPushButton#closeInfoBtn_drop, QPushButton#closeFeaturedBtn_drop, QPushButton#closePlaylistBtn_drop { 
 color:#555;
 border-radius:10px;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
    <property name="minimumSize">
     <size>
-     <width>1451</width>
-     <height>900</height>
+     <width>900</width>
+     <height>600</height>
     </size>
    </property>
    <property name="styleSheet">
@@ -199,7 +208,7 @@ border-radius:10px;
        <property name="leftMargin">
         <number>1</number>
        </property>
-       <item row="0" column="0">
+       <item row="1" column="0">
         <widget class="QFrame" name="frame">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -231,16 +240,22 @@ border-radius:10px;
          <widget class="QWidget" name="scoreWidget" native="true">
           <property name="geometry">
            <rect>
-            <x>20</x>
+            <x>10</x>
             <y>50</y>
             <width>301</width>
             <height>251</height>
            </rect>
           </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>1</horstretch>
+            <verstretch>1</verstretch>
+           </sizepolicy>
+          </property>
           <widget class="QLabel" name="title">
            <property name="geometry">
             <rect>
-             <x>89</x>
+             <x>40</x>
              <y>10</y>
              <width>121</width>
              <height>21</height>
@@ -274,19 +289,6 @@ border-radius:10px;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>31</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>x</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="closeScoreBtn_drop">
-           <property name="geometry">
-            <rect>
-             <x>2</x>
-             <y>2</y>
              <width>31</width>
              <height>31</height>
             </rect>
@@ -399,7 +401,7 @@ border-radius:10px;
             <enum>QFrame::Raised</enum>
            </property>
            <property name="verticalScrollBarPolicy">
-            <enum>Qt::ScrollBarAlwaysOff</enum>
+            <enum>Qt::ScrollBarAsNeeded</enum>
            </property>
            <property name="horizontalScrollBarPolicy">
             <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -448,6 +450,19 @@ border-radius:10px;
              <width>15</width>
              <height>15</height>
             </size>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="closeScoreBtn_drop">
+           <property name="geometry">
+            <rect>
+             <x>2</x>
+             <y>2</y>
+             <width>31</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>x</string>
            </property>
           </widget>
           <zorder>closeScoreBtn_drop</zorder>
@@ -512,19 +527,6 @@ border-radius:10px;
             <string>x</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="closeMyPlayBtn_drop">
-           <property name="geometry">
-            <rect>
-             <x>2</x>
-             <y>2</y>
-             <width>31</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>x</string>
-           </property>
-          </widget>
           <widget class="QListWidget" name="myPlaylistsWidget">
            <property name="geometry">
             <rect>
@@ -551,6 +553,19 @@ border-radius:10px;
            </property>
            <property name="text">
             <string>+</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="closeMyPlayBtn_drop">
+           <property name="geometry">
+            <rect>
+             <x>2</x>
+             <y>2</y>
+             <width>31</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>x</string>
            </property>
           </widget>
           <zorder>closeMyPlayBtn_drop</zorder>
@@ -614,19 +629,6 @@ border-radius:10px;
             <string>x</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="closeAutoBtn_drop">
-           <property name="geometry">
-            <rect>
-             <x>2</x>
-             <y>2</y>
-             <width>31</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>x</string>
-           </property>
-          </widget>
           <widget class="QListWidget" name="autoPlaylistsView">
            <property name="geometry">
             <rect>
@@ -668,6 +670,19 @@ border-radius:10px;
              <width>15</width>
              <height>15</height>
             </size>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="closeAutoBtn_drop">
+           <property name="geometry">
+            <rect>
+             <x>2</x>
+             <y>2</y>
+             <width>31</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>x</string>
            </property>
           </widget>
           <zorder>closeAutoBtn_drop</zorder>
@@ -732,19 +747,6 @@ border-radius:10px;
             <string>x</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="closeInfoBtn_drop">
-           <property name="geometry">
-            <rect>
-             <x>2</x>
-             <y>2</y>
-             <width>31</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>x</string>
-           </property>
-          </widget>
           <widget class="QListWidget" name="pieceInfoView">
            <property name="geometry">
             <rect>
@@ -762,6 +764,19 @@ border-radius:10px;
            </property>
            <property name="wordWrap">
             <bool>true</bool>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="closeInfoBtn_drop">
+           <property name="geometry">
+            <rect>
+             <x>2</x>
+             <y>2</y>
+             <width>31</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>x</string>
            </property>
           </widget>
           <zorder>closeInfoBtn_drop</zorder>
@@ -830,6 +845,22 @@ border-radius:10px;
               <string>Your sheet music or playlists will appear here</string>
              </property>
             </widget>
+            <widget class="QProgressBar" name="progressBarRendering">
+             <property name="geometry">
+              <rect>
+               <x>330</x>
+               <y>300</y>
+               <width>118</width>
+               <height>23</height>
+              </rect>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
+            </widget>
+            <zorder>label</zorder>
+            <zorder>progressBarRendering</zorder>
+            <zorder>playlistViewer</zorder>
            </widget>
           </widget>
           <widget class="Line" name="line">
@@ -869,19 +900,6 @@ border-radius:10px;
             <rect>
              <x>2</x>
              <y>2</y>
-             <width>31</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>x</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="closeMusicBtn_drop">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
              <width>31</width>
              <height>31</height>
             </rect>
@@ -931,19 +949,141 @@ border-radius:10px;
               <height>771</height>
              </rect>
             </property>
+            <property name="palette">
+             <palette>
+              <active>
+               <colorrole role="Button">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="50">
+                  <red>255</red>
+                  <green>255</green>
+                  <blue>255</blue>
+                 </color>
+                </brush>
+               </colorrole>
+               <colorrole role="Base">
+                <brush brushstyle="NoBrush">
+                 <color alpha="255">
+                  <red>0</red>
+                  <green>0</green>
+                  <blue>0</blue>
+                 </color>
+                </brush>
+               </colorrole>
+               <colorrole role="Window">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="50">
+                  <red>255</red>
+                  <green>255</green>
+                  <blue>255</blue>
+                 </color>
+                </brush>
+               </colorrole>
+              </active>
+              <inactive>
+               <colorrole role="Button">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="50">
+                  <red>255</red>
+                  <green>255</green>
+                  <blue>255</blue>
+                 </color>
+                </brush>
+               </colorrole>
+               <colorrole role="Base">
+                <brush brushstyle="NoBrush">
+                 <color alpha="255">
+                  <red>0</red>
+                  <green>0</green>
+                  <blue>0</blue>
+                 </color>
+                </brush>
+               </colorrole>
+               <colorrole role="Window">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="50">
+                  <red>255</red>
+                  <green>255</green>
+                  <blue>255</blue>
+                 </color>
+                </brush>
+               </colorrole>
+              </inactive>
+              <disabled>
+               <colorrole role="Button">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="50">
+                  <red>255</red>
+                  <green>255</green>
+                  <blue>255</blue>
+                 </color>
+                </brush>
+               </colorrole>
+               <colorrole role="Base">
+                <brush brushstyle="NoBrush">
+                 <color alpha="255">
+                  <red>0</red>
+                  <green>0</green>
+                  <blue>0</blue>
+                 </color>
+                </brush>
+               </colorrole>
+               <colorrole role="Window">
+                <brush brushstyle="SolidPattern">
+                 <color alpha="50">
+                  <red>255</red>
+                  <green>255</green>
+                  <blue>255</blue>
+                 </color>
+                </brush>
+               </colorrole>
+              </disabled>
+             </palette>
+            </property>
             <property name="font">
              <font>
               <pointsize>14</pointsize>
              </font>
             </property>
-            <attribute name="horizontalHeaderDefaultSectionSize">
-             <number>75</number>
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAsNeeded</enum>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>false</bool>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="horizontalScrollMode">
+             <enum>QAbstractItemView::ScrollPerItem</enum>
+            </property>
+            <property name="showGrid">
+             <bool>false</bool>
+            </property>
+            <property name="gridStyle">
+             <enum>Qt::NoPen</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <attribute name="horizontalHeaderCascadingSectionResizes">
+             <bool>true</bool>
             </attribute>
-            <column>
-             <property name="text">
-              <string>#</string>
-             </property>
-            </column>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>82</number>
+            </attribute>
+            <attribute name="verticalHeaderCascadingSectionResizes">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderDefaultSectionSize">
+             <number>40</number>
+            </attribute>
+            <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+             <bool>true</bool>
+            </attribute>
             <column>
              <property name="text">
               <string>Title</string>
@@ -990,6 +1130,19 @@ border-radius:10px;
              </property>
             </column>
            </widget>
+          </widget>
+          <widget class="QPushButton" name="closeMusicBtn_drop">
+           <property name="geometry">
+            <rect>
+             <x>2</x>
+             <y>2</y>
+             <width>31</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
           </widget>
           <zorder>closeMusicBtn_drop</zorder>
           <zorder>scoreWindow</zorder>
@@ -1040,19 +1193,6 @@ border-radius:10px;
             <enum>Qt::Horizontal</enum>
            </property>
           </widget>
-          <widget class="QPushButton" name="closeFeaturedBtn_drop">
-           <property name="geometry">
-            <rect>
-             <x>2</x>
-             <y>2</y>
-             <width>31</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>x</string>
-           </property>
-          </widget>
           <widget class="QPushButton" name="closeFeaturedBtn">
            <property name="geometry">
             <rect>
@@ -1097,6 +1237,19 @@ border-radius:10px;
              <width>15</width>
              <height>15</height>
             </size>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="closeFeaturedBtn_drop">
+           <property name="geometry">
+            <rect>
+             <x>2</x>
+             <y>2</y>
+             <width>31</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>x</string>
            </property>
           </widget>
           <zorder>closeFeaturedBtn_drop</zorder>
@@ -1160,19 +1313,6 @@ border-radius:10px;
             <string>x</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="closePlaylistBtn_drop">
-           <property name="geometry">
-            <rect>
-             <x>2</x>
-             <y>2</y>
-             <width>31</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>x</string>
-           </property>
-          </widget>
           <widget class="QToolButton" name="playlistRefresh">
            <property name="geometry">
             <rect>
@@ -1205,14 +1345,12 @@ border-radius:10px;
              <height>215</height>
             </rect>
            </property>
+           <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
            <attribute name="horizontalHeaderDefaultSectionSize">
-            <number>75</number>
+            <number>100</number>
            </attribute>
-           <column>
-            <property name="text">
-             <string>#</string>
-            </property>
-           </column>
            <column>
             <property name="text">
              <string>title</string>
@@ -1228,6 +1366,19 @@ border-radius:10px;
              <string>filename</string>
             </property>
            </column>
+          </widget>
+          <widget class="QPushButton" name="closePlaylistBtn_drop">
+           <property name="geometry">
+            <rect>
+             <x>2</x>
+             <y>2</y>
+             <width>31</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
           </widget>
           <zorder>closePlaylistBtn_drop</zorder>
           <zorder>title_6</zorder>
@@ -1333,7 +1484,7 @@ border-radius:10px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1451</width>
+     <width>1280</width>
      <height>22</height>
     </rect>
    </property>

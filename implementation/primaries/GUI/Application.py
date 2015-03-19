@@ -1,9 +1,9 @@
 from PyQt4 import QtCore, QtGui
-import sys, os
-import pickle
+import sys, os, pickle, threading, time
 from implementation.primaries.GUI import StartupWidget, MainWindow, PlaylistDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser
+
 
 class Application(object):
     def __init__(self):
@@ -53,6 +53,9 @@ class Application(object):
         self.main = MainWindow.MainWindow(self)
         self.main.show()
 
+    def getPlaylistFileInfo(self, playlist):
+        return self.manager.getPlaylistFileInfo(playlist)
+
     def getFileInfo(self, filename):
         file_info = self.manager.getFileInfo(filename)
         return file_info
@@ -69,11 +72,21 @@ class Application(object):
         if os.path.exists(os.path.join(self.folder, pdf_version)):
             return os.path.join(self.folder, pdf_version)
         else:
-            parser = MxmlParser.MxmlParser()
-            piece_obj = parser.parse(os.path.join(self.folder,filename))
-            loader = LilypondRender.LilypondRender(piece_obj, os.path.join(self.folder,filename))
-            loader.run()
+            process = threading.Thread(target=self.startRenderingTask, args=(filename,))
+            process.start()
+            #time = 0
+            #max = 60
+            while process.isAlive() and not os.path.exists(os.path.join(self.folder, pdf_version)):
+                self.main.updateProgressBar()
+                time.sleep(1)
+            process.join()
             return os.path.join(self.folder, pdf_version)
+
+    def startRenderingTask(self, filename):
+        parser = MxmlParser.MxmlParser()
+        piece_obj = parser.parse(os.path.join(self.folder,filename))
+        loader = LilypondRender.LilypondRender(piece_obj, os.path.join(self.folder,filename))
+        loader.run()
 
     def updateDb(self):
         self.manager.refresh()

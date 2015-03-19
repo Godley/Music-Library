@@ -1,6 +1,7 @@
 from PyQt4 import QtCore, QtGui, uic
 from popplerqt4 import Poppler
 import sys
+import threading
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, parent):
@@ -16,6 +17,7 @@ class MainWindow(QtGui.QMainWindow):
             self.scoreListWidget.addItem(item)
         self.loadPlaylists()
         self.loadMyPlaylists()
+        self.progressBarRendering.hide()
         options = ["title","composer","lyricist"]
         self.scoreSortCombo.addItems(options)
         self.scoreListWidget.show()
@@ -27,51 +29,130 @@ class MainWindow(QtGui.QMainWindow):
         self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
         self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
         self.autoPlaylistsView.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
+        self.playlistTable.itemDoubleClicked.connect(self.onItemInPlaylistDoubleClicked)
         #self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
         self.editPlaylistTitle.hide()
         self.playlistViewer.hide()
+
+    def onItemInPlaylistDoubleClicked(self, current_item):
+        playlist = current_item.data(4)
+        filename = current_item.data(1)
+        index_in_playlist = current_item.data(3)
+        data = self.parent.getPlaylistFileInfo(playlist)
+        self.playlistList.clear()
+        self.playlistList.setRowCount(len(data))
+        for i in range(0, index_in_playlist):
+            if "composer" in data[i]:
+                item = QtGui.QTableWidgetItem(data[i]["composer"])
+                self.playlistList.setItem(i, 1, item)
+            if "title" in data[i]:
+                item = QtGui.QTableWidgetItem(data[i]["title"])
+                self.playlistList.setItem(i, 0, item)
+            if "filename" in data[i]:
+                item = QtGui.QTableWidgetItem(data[i]["filename"])
+                self.playlistList.setItem(i, 3, item)
+        if "title" in data[index_in_playlist]:
+            item = QtGui.QTableWidgetItem(data[index_in_playlist]["title"])
+            self.playlistList.setItem(index_in_playlist, 0, item)
+
+        if "composer" in data[index_in_playlist]:
+            item = QtGui.QTableWidgetItem(data[index_in_playlist]["composer"])
+            self.playlistList.setItem(index_in_playlist, 1, item)
+
+        if "filename" in data[index_in_playlist]:
+            item = QtGui.QTableWidgetItem(data[index_in_playlist]["filename"])
+            self.playlistList.setItem(index_in_playlist, 2, item)
+
+        for i in range(index_in_playlist+1, len(data)):
+            if "composer" in data[i]:
+                item = QtGui.QTableWidgetItem(data[i]["composer"])
+                self.playlistList.setItem(i, 1, item)
+            if "title" in data[i]:
+                item = QtGui.QTableWidgetItem(data[i]["title"])
+                self.playlistList.setItem(i, 0, item)
+            if "filename" in data[i]:
+                item = QtGui.QTableWidgetItem(data[i]["filename"])
+                self.playlistList.setItem(i, 3, item)
+        self.playlistList.show()
+
+    def setUpDataItems(self, playlist_fnames, playlist_data, start_index, end_index):
+        items = []
+        for i in range(start_index, end_index):
+            file = playlist_data[i]
+            row = []
+            item = QtGui.QTableWidgetItem(file["title"])
+            item.setData(1, file["filename"])
+            item.setData(3, i)
+            item.setData(4, playlist_fnames)
+            row.append(item)
+            if "composer" in file:
+                item = QtGui.QTableWidgetItem(file["composer"])
+                item.setData(1, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+            if "lyricist" in file:
+                item = QtGui.QTableWidgetItem(file["lyricist"])
+                item.setData(1, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+            if "instruments" in file:
+                item = QtGui.QTableWidgetItem(", ".join([data["name"] for data in file["instruments"]]))
+                item.setData(1, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+            item = QtGui.QTableWidgetItem(file["filename"])
+            item.setData(1, file["filename"])
+            item.setData(3, i)
+            item.setData(4, playlist_fnames)
+            row.append(item)
+            if "clefs" in file:
+                result = ""
+                for instrument in file["clefs"]:
+                    result += ", ".join(file["clefs"][instrument])
+                item = QtGui.QTableWidgetItem(result)
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                item.setData(1, file["filename"])
+                row.append(item)
+            if "keys" in file:
+                result = ""
+                for instrument in file["keys"]:
+                    result += ", ".join(file["keys"][instrument])
+                item = QtGui.QTableWidgetItem(result)
+                item.setData(1, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+            if "tempos" in file:
+                item = QtGui.QTableWidgetItem(", ".join(file["tempos"]))
+                item.setData(1, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                self.playlistTable.setItem(i, 7, item)
+            if "time_signatures" in file:
+                item = QtGui.QTableWidgetItem(", ".join(file["time_signatures"]))
+                item.setData(1, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+            items.append(row)
+        return items
+
 
     def onPlaylistDoubleClicked(self, current_item):
         self.scoreWindow.hide()
         playlist_to_load = current_item.data(1)
         length = len(playlist_to_load)
-        self.playlistTable.setRowCount(length)
-        for i in range(length):
-            file_data = self.parent.getFileInfo(playlist_to_load[i])[0]
-            item = QtGui.QTableWidgetItem(str(i))
-            self.playlistTable.setItem(i, 0, item)
-            item = QtGui.QTableWidgetItem(file_data["title"])
-            self.playlistTable.setItem(i, 1, item)
-            if "composer" in file_data:
-                item = QtGui.QTableWidgetItem(file_data["composer"])
-                self.playlistTable.setItem(i, 2, item)
-            if "lyricist" in file_data:
-                item = QtGui.QTableWidgetItem(file_data["lyricist"])
-                self.playlistTable.setItem(i, 3, item)
-            if "instruments" in file_data:
-                item = QtGui.QTableWidgetItem(", ".join([data["name"] for data in file_data["instruments"]]))
-                self.playlistTable.setItem(i, 4, item)
-            item = QtGui.QTableWidgetItem(playlist_to_load[i])
-            self.playlistTable.setItem(i, 5, item)
-            if "clefs" in file_data:
-                result = ""
-                for instrument in file_data["clefs"]:
-                    result += ", ".join(file_data["clefs"][instrument])
-                item = QtGui.QTableWidgetItem(result)
-                self.playlistTable.setItem(i, 6, item)
-            if "keys" in file_data:
-                result = ""
-                for instrument in file_data["keys"]:
-                    result += ", ".join(file_data["keys"][instrument])
-                item = QtGui.QTableWidgetItem(result)
-                self.playlistTable.setItem(i, 7, item)
-            if "tempos" in file_data:
-                item = QtGui.QTableWidgetItem(", ".join(file_data["tempos"]))
-                self.playlistTable.setItem(i, 8, item)
-            if "time_signatures" in file_data:
-                item = QtGui.QTableWidgetItem(", ".join(file_data["time_signatures"]))
-                self.playlistTable.setItem(i, 9, item)
         playlist_title = current_item.data(3)
+        self.playlistTable.setRowCount(length)
+        file_data = self.parent.getPlaylistFileInfo(playlist_to_load)
+        data_items = self.setUpDataItems(playlist_to_load, file_data, 0, len(file_data))
+        for i in range(len(data_items)):
+            for j in range(len(data_items[i])):
+                self.playlistTable.setItem(i, j, data_items[i][j])
         self.musicTitle.setText(playlist_title)
         self.editPlaylistTitle.show()
         self.playlistTable.show()
@@ -80,14 +161,22 @@ class MainWindow(QtGui.QMainWindow):
 
     def onItemDoubleClicked(self, current_item):
         self.scoreWindow.show()
+        self.progressBarRendering.show()
+        self.progressBarRendering.setRange(0, 100)
         self.editPlaylistTitle.hide()
         file_to_load = current_item.data(1)
         filename = self.parent.loadFile(file_to_load)
+
         self.loadPieceData(file_to_load)
         self.pdf_view(filename)
         self.musicTitle.setText(file_to_load)
         self.musicTitle.repaint()
         self.playlistViewer.hide()
+
+    def updateProgressBar(self):
+        bar_value = self.progressBarRendering.value()
+        self.progressBarRendering.setValue(bar_value+1)
+        self.progressBarRendering.repaint()
 
     def loadPieceData(self, filename):
         self.pieceInfoView.clear()
