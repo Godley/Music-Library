@@ -80,7 +80,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTrillsFermataOtherOrnaments.coverage" NAME="Unittests in testTrillsFermataOtherOrnaments Coverage Results" MODIFIED="1424789296446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_run_passed_tests.coverage" NAME="Unittests in run_passed_tests Coverage Results" MODIFIED="1425863398650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBarlines__1_.coverage" NAME="Unittests in testBarlines (1) Coverage Results" MODIFIED="1425644235900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testSearchProcessor.coverage" NAME="Unittests in testSearchProcessor Coverage Results" MODIFIED="1426801619341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testSearchProcessor.coverage" NAME="Unittests in testSearchProcessor Coverage Results" MODIFIED="1426802371165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$findAndLoad.coverage" NAME="findAndLoad Coverage Results" MODIFIED="1418481456915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1418648734071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testClef__1_.coverage" NAME="Unittests in testClef (1) Coverage Results" MODIFIED="1425646586286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
@@ -142,11 +142,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="testSearchProcessor.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="testSearchProcessor.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testSearchProcessor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="1035">
-              <caret line="63" column="101" selection-start-line="63" selection-start-column="101" selection-end-line="63" selection-end-column="101" />
+            <state vertical-scroll-proportion="0.5294118" vertical-offset="0" max-vertical-offset="1005">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -154,11 +154,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchProcessor.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SearchProcessor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8617647" vertical-offset="952" max-vertical-offset="1815">
-              <caret line="83" column="80" selection-start-line="83" selection-start-column="80" selection-end-line="83" selection-end-column="80" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1785">
+              <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -1188,12 +1188,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00527" summary="added testcase/tests for testcase + other&#10;&#10;- added testcase which tests bibliography (title, composer, lyricist), tempo, time sig, key sig, instruments&#10;-created a testclass for this testcase and made sure all tests pass&#10;- added handling for beat-unit-dot&#10;- added handling for lyricist and removed credit-words section as I notice latest version of MuseScore uses the right tags, not credit-words. Hoping sibelius does the same.">
-      <created>1426192717229</created>
-      <option name="number" value="00527" />
-      <option name="project" value="LOCAL" />
-      <updated>1426192717229</updated>
-    </task>
     <task id="LOCAL-00528" summary="added lyricist support&#10;&#10;- added new table to database (lyricists): not sure if this is entirely useful, may be better to have a creators table which combines both lyricist and composer. For now doesn't make a massive diff&#10;- added tests for add method&#10;- work toward issue #191">
       <created>1426193140523</created>
       <option name="number" value="00528" />
@@ -1482,7 +1476,13 @@
       <option name="project" value="LOCAL" />
       <updated>1426784882868</updated>
     </task>
-    <option name="localTasksCounter" value="576" />
+    <task id="LOCAL-00576" summary="issue fix #206&#10;&#10;- finished off querying structure: this needed a bit of a change to make sure with keyword worked for keys">
+      <created>1426801770704</created>
+      <option name="number" value="00576" />
+      <option name="project" value="LOCAL" />
+      <updated>1426801770704</updated>
+    </task>
+    <option name="localTasksCounter" value="577" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1523,7 +1523,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38691437" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3806078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39772728" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39772728" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1573,7 +1573,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #194&#10;&#10;- created both the startup window and the main window in QtDesigner: these need converting to dynamic code by the PyQt lib, but both look a lot better than the old tkinter versions" />
     <MESSAGE value="issue fix #195&#10;&#10;see previous commit message" />
     <MESSAGE value="work toward issue #67&#10;&#10;Added a lot of placeholder callbacks to main gui" />
     <MESSAGE value="created application file&#10;&#10;- created class which manages switching between startup box and main window&#10;- work toward issue #67" />
@@ -1598,7 +1597,8 @@
     <MESSAGE value="work toward issue #203&#10;&#10;- moved work on rendering to a separate thread&#10;- added method and progress bar, tho it doesn't appear to work just yet" />
     <MESSAGE value="work toward issue #63&#10;&#10;- added new class (SearchProcessor) which should probs be a method, will refactor later&#10;- this takes in a string, splits it by spaces and tries to figure out what to do with the output&#10;- returns a dict of the input as a formatted search query&#10;" />
     <MESSAGE value="work toward issue #206&#10;&#10;- implemented base level querying &#10;- implemented &quot;with&quot; keyword which associates keys and clefs to a particular part name. also put in transposition keyword.&#10;&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="work toward issue #206&#10;&#10;- implemented base level querying &#10;- implemented &quot;with&quot; keyword which associates keys and clefs to a particular part name. also put in transposition keyword.&#10;&#10;" />
+    <MESSAGE value="issue fix #206&#10;&#10;- finished off querying structure: this needed a bit of a change to make sure with keyword worked for keys" />
+    <option name="LAST_COMMIT_MESSAGE" value="issue fix #206&#10;&#10;- finished off querying structure: this needed a bit of a change to make sure with keyword worked for keys" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1750,7 +1750,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py</url>
-          <line>34</line>
+          <line>32</line>
           <option name="timeStamp" value="794" />
         </line-breakpoint>
       </breakpoints>
@@ -2367,21 +2367,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testSearchProcessor.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="1035">
-          <caret line="63" column="101" selection-start-line="63" selection-start-column="101" selection-end-line="63" selection-end-column="101" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1785">
+          <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testSearchProcessor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8617647" vertical-offset="952" max-vertical-offset="1815">
-          <caret line="83" column="80" selection-start-line="83" selection-start-column="80" selection-end-line="83" selection-end-column="80" />
-          <folding />
+        <state vertical-scroll-proportion="0.5294118" vertical-offset="0" max-vertical-offset="1005">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
