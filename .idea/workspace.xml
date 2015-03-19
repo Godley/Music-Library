@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/images/glyphicons-151-edit.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/images/glyphicons-174-play.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/images/glyphicons-28-search.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/images/glyphicons-82-refresh.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/images/glyphicons-82-refresh.qrc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testSearchProcessor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -45,7 +40,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArticulation.coverage" NAME="Unittests in testArticulation Coverage Results" MODIFIED="1425743471819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPlaylister.coverage" NAME="Unittests in testPlaylister Coverage Results" MODIFIED="1419795804913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTree.coverage" NAME="Unittests in testTree Coverage Results" MODIFIED="1424305552955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1426692627905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1426769333801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$pil.coverage" NAME="pil Coverage Results" MODIFIED="1426380488649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPart.coverage" NAME="Unittests in testPart Coverage Results" MODIFIED="1425861081183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testGraceNotes.coverage" NAME="Unittests in testGraceNotes Coverage Results" MODIFIED="1424820087867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
@@ -86,6 +81,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTrillsFermataOtherOrnaments.coverage" NAME="Unittests in testTrillsFermataOtherOrnaments Coverage Results" MODIFIED="1424789296446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_run_passed_tests.coverage" NAME="Unittests in run_passed_tests Coverage Results" MODIFIED="1425863398650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBarlines__1_.coverage" NAME="Unittests in testBarlines (1) Coverage Results" MODIFIED="1425644235900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testSearchProcessor.coverage" NAME="Unittests in testSearchProcessor Coverage Results" MODIFIED="1426775841627" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$findAndLoad.coverage" NAME="findAndLoad Coverage Results" MODIFIED="1418481456915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1418648734071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testClef__1_.coverage" NAME="Unittests in testClef (1) Coverage Results" MODIFIED="1425646586286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
@@ -146,300 +142,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Application.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
+      <file leaf-file-name="testSearchProcessor.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testSearchProcessor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1064" max-vertical-offset="1800">
-              <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="56" max-vertical-offset="480">
+              <caret line="17" column="41" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
               <folding>
-                <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#0#15#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlaylistDialog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py">
+      <file leaf-file-name="SearchProcessor.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DataLayer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="7711" max-vertical-offset="9015">
-              <caret line="1063" column="0" selection-start-line="1063" selection-start-column="0" selection-end-line="1063" selection-end-column="0" />
-              <folding>
-                <element signature="e#448#877#0" expanded="false" />
-                <element signature="e#448#556#1" expanded="false" />
-                <element signature="e#918#1333#0" expanded="false" />
-                <element signature="e#918#1026#1" expanded="false" />
-                <element signature="e#1373#3314#0" expanded="false" />
-                <element signature="e#1373#1481#1" expanded="false" />
-                <element signature="e#6329#6718#0" expanded="false" />
-                <element signature="e#6329#6431#1" expanded="false" />
-                <element signature="e#6764#7427#0" expanded="false" />
-                <element signature="e#7460#7675#0" expanded="false" />
-                <element signature="e#7460#7594#1" expanded="false" />
-                <element signature="e#7725#8125#1" expanded="false" />
-                <element signature="e#14478#14759#0" expanded="false" />
-                <element signature="e#14815#14975#1" expanded="false" />
-                <element signature="e#15406#15850#0" expanded="false" />
-                <element signature="e#15916#16380#0" expanded="false" />
-                <element signature="e#16441#16874#0" expanded="false" />
-                <element signature="e#16931#17347#0" expanded="false" />
-                <element signature="e#17404#17820#0" expanded="false" />
-                <element signature="e#17867#18284#0" expanded="false" />
-                <element signature="e#18861#19792#0" expanded="false" />
-                <element signature="e#19860#20498#0" expanded="false" />
-                <element signature="e#20565#21121#0" expanded="false" />
-                <element signature="e#21188#21750#0" expanded="false" />
-                <element signature="e#21810#22269#0" expanded="false" />
-                <element signature="e#22327#23166#0" expanded="false" />
-                <element signature="e#23237#23613#0" expanded="false" />
-                <element signature="e#23692#24503#0" expanded="false" />
-                <element signature="e#24560#25293#0" expanded="false" />
-                <element signature="e#26264#27264#0" expanded="false" />
-                <element signature="e#28726#29409#0" expanded="false" />
-                <element signature="e#29470#30163#0" expanded="false" />
-                <element signature="e#30223#31074#0" expanded="false" />
-                <element signature="e#31143#31983#0" expanded="false" />
-                <element signature="e#32053#32908#0" expanded="false" />
-                <element signature="e#32969#33898#0" expanded="false" />
-                <element signature="e#33959#37641#0" expanded="false" />
-                <element signature="e#37708#38409#0" expanded="false" />
-                <element signature="e#38478#39026#0" expanded="false" />
-                <element signature="e#39099#39580#0" expanded="false" />
-                <marker date="1426686799000" expanded="true" signature="625:695" placeholder="CREATE TABLE..tempos..." />
-                <marker date="1426686799000" expanded="true" signature="724:809" placeholder="CREATE TABLE..tempo_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="1095:1153" placeholder="CREATE TABLE..timesigs..." />
-                <marker date="1426686799000" expanded="true" signature="1182:1265" placeholder="CREATE TABLE..time_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="1552:1631" placeholder="CREATE TABLE..keys..." />
-                <marker date="1426686799000" expanded="true" signature="2919:2950" placeholder="SELECT * FRO..KEYS..." />
-                <marker date="1426686799000" expanded="true" signature="3086:3116" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="3149:3248" placeholder="CREATE TABLE..key_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="3422:3469" placeholder="CREATE TABLE..playlists..." />
-                <marker date="1426686799000" expanded="true" signature="3422:3672" placeholder="CREATE TABLE..IF..." />
-                <marker date="1426686799000" expanded="true" signature="3500:3571" placeholder="CREATE TABLE..playlist_join..." />
-                <marker date="1426686799000" expanded="true" signature="3500:3672" placeholder="CREATE TABLE..IF..." />
-                <marker date="1426686799000" expanded="true" signature="3860:3938" placeholder="CREATE TABLE..clefs..." />
-                <marker date="1426686799000" expanded="true" signature="4570:4602" placeholder="SELECT * FRO..clefs..." />
-                <marker date="1426686799000" expanded="true" signature="4739:4770" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="4804:4905" placeholder="CREATE TABLE..clef_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="5188:5314" placeholder="CREATE TABLE..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="5581:5675" placeholder="CREATE TABLE..instruments..." />
-                <marker date="1426686799000" expanded="true" signature="5706:5810" placeholder="CREATE TABLE..instruments_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="6183:6244" placeholder="CREATE TABLE..composers..." />
-                <marker date="1426686799000" expanded="true" signature="6617:6678" placeholder="CREATE TABLE..lyricists..." />
-                <marker date="1426686799000" expanded="true" signature="7314:7351" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="8354:8394" placeholder="SELECT ROWID..composers..." />
-                <marker date="1426686799000" expanded="true" signature="8588:8619" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="8924:8964" placeholder="SELECT ROWID..lyricists..." />
-                <marker date="1426686799000" expanded="true" signature="9149:9180" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="9511:9547" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="9643:9684" placeholder="SELECT ROWID..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="10295:10368" placeholder="SELECT ROWID..instruments..." />
-                <marker date="1426686799000" expanded="true" signature="10562:10599" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="10995:11041" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="11619:11667" placeholder="SELECT ROWID..keys..." />
-                <marker date="1426686799000" expanded="true" signature="11828:11868" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="12456:12503" placeholder="SELECT ROWID..clefs..." />
-                <marker date="1426686799000" expanded="true" signature="12674:12715" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="12928:12980" placeholder="SELECT ROWID..timesigs..." />
-                <marker date="1426686799000" expanded="true" signature="13122:13154" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="13247:13299" placeholder="SELECT ROWID..timesigs..." />
-                <marker date="1426686799000" expanded="true" signature="13392:13431" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="13810:13873" placeholder="SELECT ROWID..tempos..." />
-                <marker date="1426686799000" expanded="true" signature="14022:14054" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="14154:14217" placeholder="SELECT ROWID..tempos..." />
-                <marker date="1426686799000" expanded="true" signature="14317:14357" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="14531:14575" placeholder="SELECT filen..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="15081:15180" placeholder="SELECT ROWID..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="15685:15737" placeholder="SELECT ROWID..timesigs..." />
-                <marker date="1426686799000" expanded="true" signature="16195:16258" placeholder="SELECT ROWID..tempos..." />
-                <marker date="1426686799000" expanded="true" signature="16720:16762" placeholder="SELECT ROWID..instruments..." />
-                <marker date="1426686799000" expanded="true" signature="17197:17237" placeholder="SELECT ROWID..composers..." />
-                <marker date="1426686799000" expanded="true" signature="17670:17710" placeholder="SELECT ROWID..lyricists..." />
-                <marker date="1426686799000" expanded="true" signature="18144:18179" placeholder="SELECT ROWID..keys..." />
-                <marker date="1426686799000" expanded="true" signature="18607:18643" placeholder="SELECT ROWID..clefs..." />
-                <marker date="1426686799000" expanded="true" signature="19209:19358" placeholder="SELECT i.pie..instruments_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="19271:19357" placeholder="SELECT * FRO..instruments_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="20307:20363" placeholder="SELECT filen..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="20894:20956" placeholder="SELECT filen..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="21523:21585" placeholder="SELECT filen..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="22079:22128" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="22635:22761" placeholder="SELECT i.pie..key_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="22689:22760" placeholder="SELECT * FRO..key_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="23290:23401" placeholder="SELECT key_p..keys..." />
-                <marker date="1426686799000" expanded="true" signature="23747:24176" placeholder="SELECT k.nam..keys..." />
-                <marker date="1426686799000" expanded="true" signature="24086:24175" placeholder="SELECT NULL ..key_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="24615:24961" placeholder="SELECT clef...clefs..." />
-                <marker date="1426686799000" expanded="true" signature="24857:24960" placeholder="SELECT NULL ..clef_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="25408:25795" placeholder="SELECT time_..timesigs..." />
-                <marker date="1426686799000" expanded="true" signature="25681:25794" placeholder="SELECT null ..time_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="26319:26742" placeholder="SELECT tempo..tempos..." />
-                <marker date="1426686799000" expanded="true" signature="26593:26698" placeholder="SELECT * FRO..tempo_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="27382:27892" placeholder="SELECT instr..instruments..." />
-                <marker date="1426686799000" expanded="true" signature="27717:27848" placeholder="SELECT * FRO..instruments_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="28781:29057" placeholder="SELECT comp...composers..." />
-                <marker date="1426686799000" expanded="true" signature="28937:29013" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="29525:29811" placeholder="SELECT lyric..lyricists..." />
-                <marker date="1426686799000" expanded="true" signature="29684:29767" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="30536:30665" placeholder="SELECT i.pie..clef_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="30591:30664" placeholder="SELECT * FRO..clef_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="31452:31606" placeholder="SELECT key.p..key_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="32363:32520" placeholder="SELECT key.p..clef_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="33360:33489" placeholder="SELECT i.pie..time_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="33415:33488" placeholder="SELECT * FRO..time_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="37096:37228" placeholder="SELECT i.pie..tempo_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="37152:37227" placeholder="SELECT * FRO..tempo_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="37728:37793" placeholder="SELECT instr..instruments_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="37989:38028" placeholder="SELECT * FRO..instruments..." />
-                <marker date="1426686799000" expanded="true" signature="38560:38601" placeholder="SELECT ROWID..instruments..." />
-                <marker date="1426686799000" expanded="true" signature="39165:39418" placeholder="SELECT i2.RO..instruments..." />
-                <marker date="1426686799000" expanded="true" signature="40751:40809" placeholder="SELECT piece..instruments_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="41769:41836" placeholder="SELECT clef_..clef_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="41986:42089" placeholder="SELECT clefs..clefs..." />
-                <marker date="1426686799000" expanded="true" signature="42434:42499" placeholder="SELECT key_i..key_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="42645:42745" placeholder="SELECT keys...keys..." />
-                <marker date="1426686799000" expanded="true" signature="43070:43122" placeholder="SELECT time_..time_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="43273:43309" placeholder="SELECT * FRO..timesigs..." />
-                <marker date="1426686799000" expanded="true" signature="43607:43661" placeholder="SELECT tempo..tempo_piece_join..." />
-                <marker date="1426686799000" expanded="true" signature="43815:43849" placeholder="SELECT * FRO..tempos..." />
-                <marker date="1426686799000" expanded="true" signature="44968:45008" placeholder="SELECT name ..composers..." />
-                <marker date="1426686799000" expanded="true" signature="45347:45387" placeholder="SELECT name ..lyricists..." />
-                <marker date="1426686799000" expanded="true" signature="46585:46616" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="46657:46699" placeholder="SELECT ROWID..playlists..." />
-                <marker date="1426686799000" expanded="true" signature="46657:47958" placeholder="SELECT ROWID..playlists..." />
-                <marker date="1426686799000" expanded="true" signature="46803:46846" placeholder="SELECT ROWID..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="46803:47958" placeholder="SELECT ROWID..." />
-                <marker date="1426686799000" expanded="true" signature="46930:46967" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="46930:47958" placeholder="INSERT INTO ..." />
-                <marker date="1426686799000" expanded="true" signature="47163:47367" placeholder="SELECT piece..playlists..." />
-                <marker date="1426686799000" expanded="true" signature="47962:48003" placeholder="SELECT ROWID..pieces..." />
-                <marker date="1426686799000" expanded="true" signature="48126:48178" placeholder="DELETE FROM ..." />
-                <marker date="1426686799000" expanded="true" signature="48263:48309" placeholder="DELETE FROM ..." />
-                <marker date="1426686799000" expanded="true" signature="48387:48431" placeholder="DELETE FROM ..." />
-                <marker date="1426686799000" expanded="true" signature="48508:48553" placeholder="DELETE FROM ..." />
-                <marker date="1426686799000" expanded="true" signature="48631:48676" placeholder="DELETE FROM ..." />
-                <marker date="1426686799000" expanded="true" signature="48755:48787" placeholder="DELETE FROM ..." />
-                <marker date="1426686799000" expanded="true" signature="49044:49091" placeholder="UPDATE piece..." />
-                <marker date="1426686799000" expanded="true" signature="49345:49390" placeholder="UPDATE piece..." />
-                <marker date="1426686799000" expanded="true" signature="49620:49666" placeholder="SELECT filen..pieces..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="testDataLayer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="346" max-vertical-offset="6090">
-              <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
-              <folding>
-                <marker date="1426686839000" expanded="true" signature="472:509" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="772:806" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="1121:1144" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="1121:1146" placeholder="SELECT * FRO..playlists..." />
-                <marker date="1426686839000" expanded="true" signature="1478:1485" placeholder="SELECT ROWID..playlists..." />
-                <marker date="1426686839000" expanded="true" signature="1478:1499" placeholder="SELECT playl..." />
-                <marker date="1426686839000" expanded="true" signature="1478:1514" placeholder="SELECT playl..." />
-                <marker date="1426686839000" expanded="true" signature="1478:1535" placeholder="SELECT playl..playlists..." />
-                <marker date="1426686839000" expanded="true" signature="1478:1572" placeholder="SELECT playl..playlists..." />
-                <marker date="1426686839000" expanded="true" signature="1478:1684" placeholder="SELECT playl..playlists..." />
-                <marker date="1426686839000" expanded="true" signature="1478:23800" placeholder="SELECT playl..playlists..." />
-                <marker date="1426686839000" expanded="true" signature="2261:2301" placeholder="SELECT ROWID..composers..." />
-                <marker date="1426686839000" expanded="true" signature="2261:2356" placeholder="SELECT ROWID..composers..." />
-                <marker date="1426686839000" expanded="true" signature="2356:2396" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="2356:2677" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="2677:2717" placeholder="SELECT ROWID..lyricists..." />
-                <marker date="1426686839000" expanded="true" signature="2677:2772" placeholder="SELECT ROWID..lyricists..." />
-                <marker date="1426686839000" expanded="true" signature="2772:2812" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="2772:3093" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="3093:3145" placeholder="SELECT ROWID..timesigs..." />
-                <marker date="1426686839000" expanded="true" signature="3093:3200" placeholder="SELECT ROWID..timesigs..." />
-                <marker date="1426686839000" expanded="true" signature="3200:3252" placeholder="SELECT piece..time_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="3200:3313" placeholder="SELECT piece..time_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="3313:3347" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="3313:3651" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="3651:3701" placeholder="SELECT ROWID..tempos..." />
-                <marker date="1426686839000" expanded="true" signature="3651:3756" placeholder="SELECT ROWID..tempos..." />
-                <marker date="1426686839000" expanded="true" signature="3756:3810" placeholder="SELECT piece..tempo_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="3756:3871" placeholder="SELECT piece..tempo_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="3871:3905" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="3871:4213" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="4213:4263" placeholder="SELECT ROWID..tempos..." />
-                <marker date="1426686839000" expanded="true" signature="4213:4318" placeholder="SELECT ROWID..tempos..." />
-                <marker date="1426686839000" expanded="true" signature="4318:4372" placeholder="SELECT piece..tempo_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="4318:4433" placeholder="SELECT piece..tempo_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="4433:4467" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="4433:5319" placeholder="SELECT * FRO..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="5319:5382" placeholder="SELECT ROWID..instruments..." />
-                <marker date="1426686839000" expanded="true" signature="5319:5506" placeholder="SELECT ROWID..instruments..." />
-                <marker date="1426686839000" expanded="true" signature="5506:5571" placeholder="SELECT piece..instruments_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="5506:5637" placeholder="SELECT piece..instruments_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="5637:5678" placeholder="SELECT filen..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="5637:5985" placeholder="SELECT filen..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="5985:6027" placeholder="SELECT ROWID..instruments..." />
-                <marker date="1426686839000" expanded="true" signature="5985:6079" placeholder="SELECT ROWID..instruments..." />
-                <marker date="1426686839000" expanded="true" signature="6079:6144" placeholder="SELECT piece..instruments_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="6079:6204" placeholder="SELECT piece..instruments_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="6204:6245" placeholder="SELECT filen..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="6204:6592" placeholder="SELECT filen..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="6592:6627" placeholder="SELECT ROWID..keys..." />
-                <marker date="1426686839000" expanded="true" signature="6592:6679" placeholder="SELECT ROWID..keys..." />
-                <marker date="1426686839000" expanded="true" signature="6679:6729" placeholder="SELECT piece..key_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="6679:6789" placeholder="SELECT piece..key_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="6789:6830" placeholder="SELECT filen..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="6789:7172" placeholder="SELECT filen..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="7172:7208" placeholder="SELECT ROWID..clefs..." />
-                <marker date="1426686839000" expanded="true" signature="7172:7260" placeholder="SELECT ROWID..clefs..." />
-                <marker date="1426686839000" expanded="true" signature="7260:7312" placeholder="SELECT piece..clef_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="7260:7372" placeholder="SELECT piece..clef_piece_join..." />
-                <marker date="1426686839000" expanded="true" signature="7372:7413" placeholder="SELECT filen..pieces..." />
-                <marker date="1426686839000" expanded="true" signature="7372:23800" placeholder="SELECT filen..pieces..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="testMetaParserUsingXML.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="406" max-vertical-offset="900">
-              <caret line="52" column="57" selection-start-line="52" selection-start-column="57" selection-end-line="52" selection-end-column="57" />
+            <state vertical-scroll-proportion="0.73350257" vertical-offset="221" max-vertical-offset="705">
+              <caret line="34" column="59" selection-start-line="34" selection-start-column="59" selection-end-line="34" selection-end-column="59" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33333334" vertical-offset="2024" max-vertical-offset="2745">
-              <caret line="204" column="0" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
-                <element signature="e#4221#6668#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MusicManager.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3102" max-vertical-offset="3555">
-              <caret line="229" column="0" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -456,9 +176,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testText.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testTrillsFermataOtherOrnaments.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testTwoStavesOnePart.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testPieceTree.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleDirections.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testClef.py" />
@@ -499,7 +216,6 @@
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/MyWidget.cpp" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/MyWidget.h" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
@@ -507,6 +223,10 @@
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManager.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testSearchInput.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testSearchProcessor.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py" />
       </list>
     </option>
   </component>
@@ -514,8 +234,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -893,7 +613,7 @@
       <recent name="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Application">
+  <component name="RunManager" selected="Python tests.Unittests in testSearchProcessor">
     <configuration default="false" name="MainWindow" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -908,28 +628,6 @@
       <module name="FYP" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <RunnerSettings RunnerId="PyDebugRunner" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="MainWindow_Pyside" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/GUI" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="FYP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow_Pyside.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <RunnerSettings RunnerId="PyDebugRunner" />
@@ -1004,6 +702,33 @@
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
       <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in testSearchProcessor" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FYP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testSearchProcessor.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -1435,18 +1160,18 @@
       <item index="8" class="java.lang.String" itemvalue="Python tests.unittests in testtwostavesonepart" />
       <item index="9" class="java.lang.String" itemvalue="Python tests.all ExtractMetadata tests" />
       <item index="10" class="java.lang.String" itemvalue="Python.MainWindow" />
-      <item index="11" class="java.lang.String" itemvalue="Python.MainWindow_Pyside" />
-      <item index="12" class="java.lang.String" itemvalue="Python.StartupWidget" />
-      <item index="13" class="java.lang.String" itemvalue="Python.Application" />
-      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
+      <item index="11" class="java.lang.String" itemvalue="Python.StartupWidget" />
+      <item index="12" class="java.lang.String" itemvalue="Python.Application" />
+      <item index="13" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
+      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in testSearchProcessor" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Application" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
-        <item index="2" class="java.lang.String" itemvalue="Python.MainWindow" />
-        <item index="3" class="java.lang.String" itemvalue="Python.StartupWidget" />
-        <item index="4" class="java.lang.String" itemvalue="Python.MainWindow_Pyside" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in testSearchProcessor" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Application" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testDataLayer" />
+        <item index="3" class="java.lang.String" itemvalue="Python.MainWindow" />
+        <item index="4" class="java.lang.String" itemvalue="Python.StartupWidget" />
       </list>
     </recent_temporary>
   </component>
@@ -1462,18 +1187,6 @@
       <created>1418346903128</created>
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
-    </task>
-    <task id="LOCAL-00523" summary="handling for meters, tests for meters and tempos&#10;&#10;work toward issue #186">
-      <created>1426188145326</created>
-      <option name="number" value="00523" />
-      <option name="project" value="LOCAL" />
-      <updated>1426188145326</updated>
-    </task>
-    <task id="LOCAL-00524" summary="handling for tempos&#10;&#10;work toward issue #186">
-      <created>1426188843831</created>
-      <option name="number" value="00524" />
-      <option name="project" value="LOCAL" />
-      <updated>1426188843831</updated>
     </task>
     <task id="LOCAL-00525" summary="bibliography handler&#10;&#10;- added handling for movement title and creator tags&#10;- also added &quot;predictive&quot; handling of credit-words tags based on justification and vertical alignment - this is because MuseScore uses credit-words for all text rather than putting title and creator in the right places...&#10;- work toward issue #186">
       <created>1426190122785</created>
@@ -1757,7 +1470,19 @@
       <option name="project" value="LOCAL" />
       <updated>1426686938449</updated>
     </task>
-    <option name="localTasksCounter" value="572" />
+    <task id="LOCAL-00572" summary="issue fix #75&#10;&#10;- think tests at data layer level are suffice to test the playlist functionality: seems to add fine&#10;- need to implement searcher for both new playlist box and for the main GUI before this works fully (issue #71 / issue #63)">
+      <created>1426692811734</created>
+      <option name="number" value="00572" />
+      <option name="project" value="LOCAL" />
+      <updated>1426692811734</updated>
+    </task>
+    <task id="LOCAL-00573" summary="work toward issue #203&#10;&#10;- moved work on rendering to a separate thread&#10;- added method and progress bar, tho it doesn't appear to work just yet">
+      <created>1426769500204</created>
+      <option name="number" value="00573" />
+      <option name="project" value="LOCAL" />
+      <updated>1426769500205</updated>
+    </task>
+    <option name="localTasksCounter" value="574" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1781,13 +1506,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32406288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561505" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4017413" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4005682" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55845773" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32889965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1796,9 +1521,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34263232" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38691437" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3806078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35074627" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4005682" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1848,8 +1573,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="created startup window&#10;&#10;- issue #194" />
-    <MESSAGE value="issue fix #194: finished startup window" />
     <MESSAGE value="Created main window&#10;&#10;- created main window and closeable frames to go in it&#10;- work toward issue #195" />
     <MESSAGE value="Work toward main window&#10;&#10;- got pil working eventually and added refresh button and callback placeholder&#10;- work toward issue #195" />
     <MESSAGE value="issue fix #194&#10;&#10;- created both the startup window and the main window in QtDesigner: these need converting to dynamic code by the PyQt lib, but both look a lot better than the old tkinter versions" />
@@ -1873,7 +1596,9 @@
     <MESSAGE value="work toward issue #75&#10;&#10;- playlist window now displays and has focus&#10;- need to connect data to source/add functionality to data layer" />
     <MESSAGE value="work toward issue #75&#10;&#10;- added table to data layer for playlists&#10;- added functionality to add to data layer&#10;- working on functionality to fetch from it, need to add tests as it's not possible to test it using the UI just yet as search hasn't been put in" />
     <MESSAGE value="added playlist data layer tests&#10;&#10;- added tests for both adding playlists and for fetching them&#10;- one of the testMusicManager tests seems to fail at min due to duplicates being created for one of the testcases?&#10;- work toward issue #75" />
-    <option name="LAST_COMMIT_MESSAGE" value="added playlist data layer tests&#10;&#10;- added tests for both adding playlists and for fetching them&#10;- one of the testMusicManager tests seems to fail at min due to duplicates being created for one of the testcases?&#10;- work toward issue #75" />
+    <MESSAGE value="issue fix #75&#10;&#10;- think tests at data layer level are suffice to test the playlist functionality: seems to add fine&#10;- need to implement searcher for both new playlist box and for the main GUI before this works fully (issue #71 / issue #63)" />
+    <MESSAGE value="work toward issue #203&#10;&#10;- moved work on rendering to a separate thread&#10;- added method and progress bar, tho it doesn't appear to work just yet" />
+    <option name="LAST_COMMIT_MESSAGE" value="work toward issue #203&#10;&#10;- moved work on rendering to a separate thread&#10;- added method and progress bar, tho it doesn't appear to work just yet" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1980,23 +1705,43 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>233</line>
+          <line>322</line>
           <option name="timeStamp" value="687" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>164</line>
-          <option name="timeStamp" value="725" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>35</line>
-          <option name="timeStamp" value="727" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>217</line>
+          <line>306</line>
           <option name="timeStamp" value="735" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
+          <line>37</line>
+          <option name="timeStamp" value="743" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
+          <line>66</line>
+          <option name="timeStamp" value="744" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
+          <line>177</line>
+          <option name="timeStamp" value="747" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
+          <line>176</line>
+          <option name="timeStamp" value="748" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py</url>
+          <line>78</line>
+          <option name="timeStamp" value="750" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py</url>
+          <line>18</line>
+          <option name="timeStamp" value="751" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -2006,32 +1751,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="736" />
+      <option name="time" value="752" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Clef.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1110">
-          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/unzip_tests/zip_test_2.mxl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/run_passed_tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="990">
-          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/run.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="870">
@@ -2288,7 +2012,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#0#36#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2305,14 +2029,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
           <caret line="24" column="1" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="406" max-vertical-offset="900">
-          <caret line="52" column="57" selection-start-line="52" selection-start-column="57" selection-end-line="52" selection-end-column="57" />
           <folding />
         </state>
       </provider>
@@ -2346,87 +2062,67 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="346" max-vertical-offset="6090">
           <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
           <folding>
-            <marker date="1426686839000" expanded="true" signature="472:509" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="772:806" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="1121:1144" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="1121:1146" placeholder="SELECT * FRO..playlists..." />
-            <marker date="1426686839000" expanded="true" signature="1478:1485" placeholder="SELECT ROWID..playlists..." />
-            <marker date="1426686839000" expanded="true" signature="1478:1499" placeholder="SELECT playl..." />
-            <marker date="1426686839000" expanded="true" signature="1478:1514" placeholder="SELECT playl..." />
-            <marker date="1426686839000" expanded="true" signature="1478:1535" placeholder="SELECT playl..playlists..." />
-            <marker date="1426686839000" expanded="true" signature="1478:1572" placeholder="SELECT playl..playlists..." />
-            <marker date="1426686839000" expanded="true" signature="1478:1684" placeholder="SELECT playl..playlists..." />
-            <marker date="1426686839000" expanded="true" signature="1478:23800" placeholder="SELECT playl..playlists..." />
-            <marker date="1426686839000" expanded="true" signature="2261:2301" placeholder="SELECT ROWID..composers..." />
-            <marker date="1426686839000" expanded="true" signature="2261:2356" placeholder="SELECT ROWID..composers..." />
-            <marker date="1426686839000" expanded="true" signature="2356:2396" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="2356:2677" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="2677:2717" placeholder="SELECT ROWID..lyricists..." />
-            <marker date="1426686839000" expanded="true" signature="2677:2772" placeholder="SELECT ROWID..lyricists..." />
-            <marker date="1426686839000" expanded="true" signature="2772:2812" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="2772:3093" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="3093:3145" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1426686839000" expanded="true" signature="3093:3200" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1426686839000" expanded="true" signature="3200:3252" placeholder="SELECT piece..time_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="3200:3313" placeholder="SELECT piece..time_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="3313:3347" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="3313:3651" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="3651:3701" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426686839000" expanded="true" signature="3651:3756" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426686839000" expanded="true" signature="3756:3810" placeholder="SELECT piece..tempo_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="3756:3871" placeholder="SELECT piece..tempo_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="3871:3905" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="3871:4213" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="4213:4263" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426686839000" expanded="true" signature="4213:4318" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426686839000" expanded="true" signature="4318:4372" placeholder="SELECT piece..tempo_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="4318:4433" placeholder="SELECT piece..tempo_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="4433:4467" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="4433:5319" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="5319:5382" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426686839000" expanded="true" signature="5319:5506" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426686839000" expanded="true" signature="5506:5571" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="5506:5637" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="5637:5678" placeholder="SELECT filen..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="5637:5985" placeholder="SELECT filen..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="5985:6027" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426686839000" expanded="true" signature="5985:6079" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426686839000" expanded="true" signature="6079:6144" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="6079:6204" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="6204:6245" placeholder="SELECT filen..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="6204:6592" placeholder="SELECT filen..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="6592:6627" placeholder="SELECT ROWID..keys..." />
-            <marker date="1426686839000" expanded="true" signature="6592:6679" placeholder="SELECT ROWID..keys..." />
-            <marker date="1426686839000" expanded="true" signature="6679:6729" placeholder="SELECT piece..key_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="6679:6789" placeholder="SELECT piece..key_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="6789:6830" placeholder="SELECT filen..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="6789:7172" placeholder="SELECT filen..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="7172:7208" placeholder="SELECT ROWID..clefs..." />
-            <marker date="1426686839000" expanded="true" signature="7172:7260" placeholder="SELECT ROWID..clefs..." />
-            <marker date="1426686839000" expanded="true" signature="7260:7312" placeholder="SELECT piece..clef_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="7260:7372" placeholder="SELECT piece..clef_piece_join..." />
-            <marker date="1426686839000" expanded="true" signature="7372:7413" placeholder="SELECT filen..pieces..." />
-            <marker date="1426686839000" expanded="true" signature="7372:23800" placeholder="SELECT filen..pieces..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1064" max-vertical-offset="1800">
-          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3102" max-vertical-offset="3555">
-          <caret line="229" column="0" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..playlists..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..playlists..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT playl..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT playl..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT playl..playlists..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT playl..playlists..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT playl..playlists..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT playl..playlists..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..lyricists..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..lyricists..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..time_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..time_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..tempo_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..tempo_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..tempo_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..tempo_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..keys..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..keys..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..key_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..key_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..clefs..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..clefs..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..clef_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT piece..clef_piece_join..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686839000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
           </folding>
         </state>
       </provider>
@@ -2443,8 +2139,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7711" max-vertical-offset="9015">
-          <caret line="1063" column="0" selection-start-line="1063" selection-start-column="0" selection-end-line="1063" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="6781" max-vertical-offset="9015">
+          <caret line="1001" column="0" selection-start-line="1001" selection-start-column="0" selection-end-line="1001" selection-end-column="0" />
           <folding>
             <element signature="e#448#877#0" expanded="false" />
             <element signature="e#448#556#1" expanded="false" />
@@ -2486,134 +2182,193 @@
             <element signature="e#37708#38409#0" expanded="false" />
             <element signature="e#38478#39026#0" expanded="false" />
             <element signature="e#39099#39580#0" expanded="false" />
-            <marker date="1426686799000" expanded="true" signature="625:695" placeholder="CREATE TABLE..tempos..." />
-            <marker date="1426686799000" expanded="true" signature="724:809" placeholder="CREATE TABLE..tempo_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="1095:1153" placeholder="CREATE TABLE..timesigs..." />
-            <marker date="1426686799000" expanded="true" signature="1182:1265" placeholder="CREATE TABLE..time_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="1552:1631" placeholder="CREATE TABLE..keys..." />
-            <marker date="1426686799000" expanded="true" signature="2919:2950" placeholder="SELECT * FRO..KEYS..." />
-            <marker date="1426686799000" expanded="true" signature="3086:3116" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="3149:3248" placeholder="CREATE TABLE..key_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="3422:3469" placeholder="CREATE TABLE..playlists..." />
-            <marker date="1426686799000" expanded="true" signature="3422:3672" placeholder="CREATE TABLE..IF..." />
-            <marker date="1426686799000" expanded="true" signature="3500:3571" placeholder="CREATE TABLE..playlist_join..." />
-            <marker date="1426686799000" expanded="true" signature="3500:3672" placeholder="CREATE TABLE..IF..." />
-            <marker date="1426686799000" expanded="true" signature="3860:3938" placeholder="CREATE TABLE..clefs..." />
-            <marker date="1426686799000" expanded="true" signature="4570:4602" placeholder="SELECT * FRO..clefs..." />
-            <marker date="1426686799000" expanded="true" signature="4739:4770" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="4804:4905" placeholder="CREATE TABLE..clef_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="5188:5314" placeholder="CREATE TABLE..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="5581:5675" placeholder="CREATE TABLE..instruments..." />
-            <marker date="1426686799000" expanded="true" signature="5706:5810" placeholder="CREATE TABLE..instruments_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="6183:6244" placeholder="CREATE TABLE..composers..." />
-            <marker date="1426686799000" expanded="true" signature="6617:6678" placeholder="CREATE TABLE..lyricists..." />
-            <marker date="1426686799000" expanded="true" signature="7314:7351" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="8354:8394" placeholder="SELECT ROWID..composers..." />
-            <marker date="1426686799000" expanded="true" signature="8588:8619" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="8924:8964" placeholder="SELECT ROWID..lyricists..." />
-            <marker date="1426686799000" expanded="true" signature="9149:9180" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="9511:9547" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="9643:9684" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="10295:10368" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426686799000" expanded="true" signature="10562:10599" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="10995:11041" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="11619:11667" placeholder="SELECT ROWID..keys..." />
-            <marker date="1426686799000" expanded="true" signature="11828:11868" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="12456:12503" placeholder="SELECT ROWID..clefs..." />
-            <marker date="1426686799000" expanded="true" signature="12674:12715" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="12928:12980" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1426686799000" expanded="true" signature="13122:13154" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="13247:13299" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1426686799000" expanded="true" signature="13392:13431" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="13810:13873" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426686799000" expanded="true" signature="14022:14054" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="14154:14217" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426686799000" expanded="true" signature="14317:14357" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="14531:14575" placeholder="SELECT filen..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="15081:15180" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="15685:15737" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1426686799000" expanded="true" signature="16195:16258" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1426686799000" expanded="true" signature="16720:16762" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426686799000" expanded="true" signature="17197:17237" placeholder="SELECT ROWID..composers..." />
-            <marker date="1426686799000" expanded="true" signature="17670:17710" placeholder="SELECT ROWID..lyricists..." />
-            <marker date="1426686799000" expanded="true" signature="18144:18179" placeholder="SELECT ROWID..keys..." />
-            <marker date="1426686799000" expanded="true" signature="18607:18643" placeholder="SELECT ROWID..clefs..." />
-            <marker date="1426686799000" expanded="true" signature="19209:19358" placeholder="SELECT i.pie..instruments_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="19271:19357" placeholder="SELECT * FRO..instruments_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="20307:20363" placeholder="SELECT filen..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="20894:20956" placeholder="SELECT filen..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="21523:21585" placeholder="SELECT filen..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="22079:22128" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="22635:22761" placeholder="SELECT i.pie..key_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="22689:22760" placeholder="SELECT * FRO..key_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="23290:23401" placeholder="SELECT key_p..keys..." />
-            <marker date="1426686799000" expanded="true" signature="23747:24176" placeholder="SELECT k.nam..keys..." />
-            <marker date="1426686799000" expanded="true" signature="24086:24175" placeholder="SELECT NULL ..key_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="24615:24961" placeholder="SELECT clef...clefs..." />
-            <marker date="1426686799000" expanded="true" signature="24857:24960" placeholder="SELECT NULL ..clef_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="25408:25795" placeholder="SELECT time_..timesigs..." />
-            <marker date="1426686799000" expanded="true" signature="25681:25794" placeholder="SELECT null ..time_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="26319:26742" placeholder="SELECT tempo..tempos..." />
-            <marker date="1426686799000" expanded="true" signature="26593:26698" placeholder="SELECT * FRO..tempo_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="27382:27892" placeholder="SELECT instr..instruments..." />
-            <marker date="1426686799000" expanded="true" signature="27717:27848" placeholder="SELECT * FRO..instruments_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="28781:29057" placeholder="SELECT comp...composers..." />
-            <marker date="1426686799000" expanded="true" signature="28937:29013" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="29525:29811" placeholder="SELECT lyric..lyricists..." />
-            <marker date="1426686799000" expanded="true" signature="29684:29767" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="30536:30665" placeholder="SELECT i.pie..clef_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="30591:30664" placeholder="SELECT * FRO..clef_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="31452:31606" placeholder="SELECT key.p..key_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="32363:32520" placeholder="SELECT key.p..clef_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="33360:33489" placeholder="SELECT i.pie..time_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="33415:33488" placeholder="SELECT * FRO..time_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="37096:37228" placeholder="SELECT i.pie..tempo_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="37152:37227" placeholder="SELECT * FRO..tempo_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="37728:37793" placeholder="SELECT instr..instruments_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="37989:38028" placeholder="SELECT * FRO..instruments..." />
-            <marker date="1426686799000" expanded="true" signature="38560:38601" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1426686799000" expanded="true" signature="39165:39418" placeholder="SELECT i2.RO..instruments..." />
-            <marker date="1426686799000" expanded="true" signature="40751:40809" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="41769:41836" placeholder="SELECT clef_..clef_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="41986:42089" placeholder="SELECT clefs..clefs..." />
-            <marker date="1426686799000" expanded="true" signature="42434:42499" placeholder="SELECT key_i..key_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="42645:42745" placeholder="SELECT keys...keys..." />
-            <marker date="1426686799000" expanded="true" signature="43070:43122" placeholder="SELECT time_..time_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="43273:43309" placeholder="SELECT * FRO..timesigs..." />
-            <marker date="1426686799000" expanded="true" signature="43607:43661" placeholder="SELECT tempo..tempo_piece_join..." />
-            <marker date="1426686799000" expanded="true" signature="43815:43849" placeholder="SELECT * FRO..tempos..." />
-            <marker date="1426686799000" expanded="true" signature="44968:45008" placeholder="SELECT name ..composers..." />
-            <marker date="1426686799000" expanded="true" signature="45347:45387" placeholder="SELECT name ..lyricists..." />
-            <marker date="1426686799000" expanded="true" signature="46585:46616" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="46657:46699" placeholder="SELECT ROWID..playlists..." />
-            <marker date="1426686799000" expanded="true" signature="46657:47958" placeholder="SELECT ROWID..playlists..." />
-            <marker date="1426686799000" expanded="true" signature="46803:46846" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="46803:47958" placeholder="SELECT ROWID..." />
-            <marker date="1426686799000" expanded="true" signature="46930:46967" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="46930:47958" placeholder="INSERT INTO ..." />
-            <marker date="1426686799000" expanded="true" signature="47163:47367" placeholder="SELECT piece..playlists..." />
-            <marker date="1426686799000" expanded="true" signature="47962:48003" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1426686799000" expanded="true" signature="48126:48178" placeholder="DELETE FROM ..." />
-            <marker date="1426686799000" expanded="true" signature="48263:48309" placeholder="DELETE FROM ..." />
-            <marker date="1426686799000" expanded="true" signature="48387:48431" placeholder="DELETE FROM ..." />
-            <marker date="1426686799000" expanded="true" signature="48508:48553" placeholder="DELETE FROM ..." />
-            <marker date="1426686799000" expanded="true" signature="48631:48676" placeholder="DELETE FROM ..." />
-            <marker date="1426686799000" expanded="true" signature="48755:48787" placeholder="DELETE FROM ..." />
-            <marker date="1426686799000" expanded="true" signature="49044:49091" placeholder="UPDATE piece..." />
-            <marker date="1426686799000" expanded="true" signature="49345:49390" placeholder="UPDATE piece..." />
-            <marker date="1426686799000" expanded="true" signature="49620:49666" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..tempos..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..tempo_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..timesigs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..time_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..keys..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..KEYS..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..key_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..playlists..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..IF..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..playlist_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..IF..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..clefs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..clefs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..clef_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..instruments..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..instruments_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..composers..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..lyricists..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..lyricists..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..keys..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..clefs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..lyricists..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..keys..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..clefs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..instruments_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..instruments_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..key_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..key_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT key_p..keys..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT k.nam..keys..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT NULL ..key_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT clef...clefs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT NULL ..clef_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT time_..timesigs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT null ..time_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT tempo..tempos..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..tempo_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT instr..instruments..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..instruments_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT comp...composers..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT lyric..lyricists..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..clef_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..clef_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT key.p..key_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT key.p..clef_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..time_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..time_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..tempo_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..tempo_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT instr..instruments_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..instruments..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT i2.RO..instruments..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT clef_..clef_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT clefs..clefs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT key_i..key_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT keys...keys..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT time_..time_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..timesigs..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT tempo..tempo_piece_join..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..tempos..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT name ..composers..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT name ..lyricists..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..playlists..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..playlists..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT piece..playlists..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="UPDATE piece..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="UPDATE piece..." />
+            <marker date="1426686799000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/lib/python3.4/threading.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2081218" vertical-offset="13309" max-vertical-offset="20460">
+          <caret line="920" column="0" selection-start-line="920" selection-start-column="0" selection-end-line="920" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12436548" vertical-offset="1091" max-vertical-offset="1980">
+          <caret line="76" column="12" selection-start-line="76" selection-start-column="12" selection-end-line="76" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9111675" vertical-offset="406" max-vertical-offset="900">
+          <caret line="52" column="57" selection-start-line="52" selection-start-column="57" selection-end-line="52" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="2024" max-vertical-offset="2745">
-          <caret line="204" column="0" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.94162434" vertical-offset="544" max-vertical-offset="2175">
+          <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#4221#6668#0" expanded="false" />
+            <element signature="e#1635#3554#0" expanded="false" />
+            <element signature="e#3650#6454#0" expanded="false" />
+            <element signature="e#6518#7191#0" expanded="false" />
+            <element signature="e#7928#10375#0" expanded="false" />
+            <element signature="e#11085#11418#0" expanded="false" />
+            <element signature="e#11457#11513#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41624364" vertical-offset="2776" max-vertical-offset="3615">
+          <caret line="196" column="51" selection-start-line="196" selection-start-column="51" selection-end-line="196" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testSearchProcessor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="56" max-vertical-offset="480">
+          <caret line="17" column="41" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.73350257" vertical-offset="221" max-vertical-offset="705">
+          <caret line="34" column="59" selection-start-line="34" selection-start-column="59" selection-end-line="34" selection-end-column="59" />
+          <folding />
         </state>
       </provider>
     </entry>

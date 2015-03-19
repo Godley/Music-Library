@@ -74,8 +74,7 @@ class Application(object):
         else:
             process = threading.Thread(target=self.startRenderingTask, args=(filename,))
             process.start()
-            #time = 0
-            #max = 60
+
             while process.isAlive() and not os.path.exists(os.path.join(self.folder, pdf_version)):
                 self.main.updateProgressBar()
                 time.sleep(1)
