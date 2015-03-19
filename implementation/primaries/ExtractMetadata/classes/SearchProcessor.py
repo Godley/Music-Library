@@ -9,122 +9,107 @@ class SearchProcessor(object):
 
     def process(self, input):
         result = {}
-        list_of_input = list(input.split(" "))
-        for i in range(len(list_of_input)):
-            item = list_of_input[i]
+        with_split = input.split("with")
+        split_input = [unit.split("\"") for unit in with_split]
+        spaced_input = []
+        for unit in split_input:
+            data = []
+            for value in unit:
+                new_unit = value.split(" ")
+                data.append(new_unit)
+            spaced_input.append(data)
+        previous = None
+        for i in range(len(spaced_input)):
             nxt = None
-            if i != len(list_of_input)-1:
-                nxt = list_of_input[i+1]
-            if item.endswith(".xml"):
-                if "filename" not in result:
-                    result["filename"] = []
-                result["filename"].append(item)
+            for j in range(len(spaced_input[i])):
+                if j+1 != len(spaced_input[i]):
+                    nxt = spaced_input[i][j+1]
+                for k in range(len(spaced_input[i][j])):
+                    entry = spaced_input[i][j][k]
+                    if entry.endswith(".xml"):
+                        if "filename" not in result:
+                            result["filename"] = []
+                        result["filename"].append(entry)
 
-            if ":" in item:
-                pairing = item.split(":")
-                options = ["instrument","tempo","time","meter","key","clef","title",
-                           "composer","lyricist","lyrics","playlist","filename","transposition"]
-                if pairing[0] in options:
-                    if pairing[0] not in result and pairing[0] != "meter" and pairing[0] != "key" and pairing[0] != "clef":
-                        result[pairing[0]] = []
-                    elif pairing[0] == "meter" and "time" not in result:
-                        result["time"] = []
-                    elif (pairing[0] == "key" or pairing[0] == "clef") and pairing[0] not in result:
-                        result[pairing[0]] = {"other":[]}
-                    if pairing[0] == "key":
-                        if "other" not in result[pairing[0]]:
-                            result[pairing[0]]["other"] = []
-                        if nxt == "major" or nxt == "minor":
-                            result[pairing[0]]["other"].append(pairing[1]+" "+nxt)
-                        else:
-                            result[pairing[0]]["other"].append(pairing[1]+" major")
-                    if pairing[0] == "clef":
-                        if "other" not in result[pairing[0]]:
-                            result[pairing[0]]["other"] = []
-                        result[pairing[0]]["other"].append(pairing[1])
-                    if pairing[0] == "filename" and not pairing[1].endswith(".xml"):
-                        result[pairing[0]].append(pairing[1]+".xml")
-                    if pairing[0] == "meter":
-                        result["time"].append(pairing[1])
-                    elif pairing[0] != "key" and pairing[0] != "clef" and pairing[0] != "filename" and pairing[0] != "meter":
-                        result[pairing[0]].append(pairing[1])
-                else:
-                    if pairing[0] == "with":
-                        instrument = ""
-                        length = len(pairing)
-                        updated_pairing = []
-                        for index in range(length):
-                            text = pairing[index]
-                            if ";" in text:
-                                split_text = text.split(";")
-                                updated_pairing.append(split_text[0])
-                                updated_pairing.append(split_text[1])
-                            else:
-                                updated_pairing.append(text)
-                        pairing = updated_pairing
+                    if ":" in entry or ";" in entry:
+                        if entry[0] == ":" or entry[0] == ";":
 
-                        if "instrument" in result and len(result["instrument"]) > 0:
-                            instrument = result["instrument"][-1]
-                        if instrument != "":
-                            index = 1
-                            while index < len(pairing):
-                                if pairing[index] == "key":
+                            key_value_pair = entry.split(":")
+                            semicolon_spacer = []
+                            [semicolon_spacer.extend(value.split(";")) for value in key_value_pair]
+                            index = 0
+                            instrument = ""
+                            if "instrument" in result:
+                                if len(result["instrument"]) > 0:
+                                    instrument = result["instrument"][-1]
+                            while index < len(semicolon_spacer):
+                                new_key = semicolon_spacer[index]
+                                if new_key == "key":
                                     if "key" not in result:
                                         result["key"] = {}
-                                    elif "key" in result and result["key"] == []:
-                                        data = result["key"]
-                                        result["key"] = {"other":data}
-
-                                    if nxt == "major" or nxt == "minor":
-                                        if instrument not in result["key"]:
-                                            result["key"][instrument] = []
-                                        result["key"][instrument].append(pairing[index+1]+" "+nxt)
-                                    else:
-                                        if instrument not in result["key"]:
-                                            result["key"][instrument] = []
-                                        result["key"][instrument].append(pairing[index+1]+" major")
-
-                                if pairing[index] == "clef":
+                                    if instrument not in result["key"]:
+                                        result["key"][instrument] = []
+                                    if nxt is not None:
+                                        result["key"][instrument].append(" ".join(nxt))
+                                if new_key == "clef":
                                     if "clef" not in result:
                                         result["clef"] = {}
-                                    elif "clef" in result and result["clef"] == []:
-                                        data = result["clef"]
-                                        if data is None:
-                                            data = []
-                                        result["clef"] = {"other":data}
                                     if instrument not in result["clef"]:
                                         result["clef"][instrument] = []
-                                    result["clef"][instrument].append(pairing[index+1])
-                                index += 2
+                                    result["clef"][instrument].append(semicolon_spacer[index+1])
+                                if new_key == "":
+                                    index += 1
+                                else:
+                                    index += 2
+                        else:
+                            key_value_pair = entry.split(":")
+                            options = ["instrument","key","clef","with","time","meter",
+                                       "composer","title","lyricist","transposition"]
+                            key = key_value_pair[0]
+                            value = key_value_pair[1]
+                            if key in options:
+                                if key == "meter":
+                                    if "time" not in result:
+                                        result["time"] = []
+                                    result["time"].append(value)
 
+                                if key in ["key","clef"]:
+                                    if key not in result:
+                                        result[key] = {}
+                                    if "other" not in result[key]:
+                                        result[key]["other"] = []
+                                    if key == "clef":
+                                        result[key]["other"].append(value)
+                                    if key=="key":
+                                        result[key]["other"].append(" ".join(nxt))
+                                elif key != "meter" and key != "with" and key != "clef" and key != "key":
+                                    if key not in result:
+                                        result[key] = []
+                                    result[key].append(value)
+                    elif not entry.endswith(".xml"):
+                        if len(entry) == 1 and (previous is None or "key" not in previous[-1]):
+                            if k != len(spaced_input[i][j])-1 and (spaced_input[i][j][k+1] == "major" or spaced_input[i][j][k+1] == "minor"):
+                                if "key" not in result:
+                                    result["key"] = {}
+                                if "other" not in result["key"]:
+                                    result["key"]["other"] = []
+                                result["key"]["other"].append(" ".join(spaced_input[i][j]))
+                                continue
 
+                        if "/" in entry:
+                            if "time" not in result:
+                                result["time"] = []
+                            result["time"].append(entry)
 
-                continue
-            elif not item.endswith(".xml") and ":" not in item:
-                if "/" in item:
-                    if "time_signature" not in result:
-                        result["time"] = []
-                    result["time"].append(item)
-                    continue
+                        if "=" in entry:
+                            if "tempo" not in result:
+                                result["tempo"] = []
+                            result["tempo"].append(entry)
 
-                if "=" in item:
-                    if "tempo" not in result:
-                        result["tempo"] = []
-                    result["tempo"].append(item)
-                    continue
-
-                if len(item) == 1 or "sharp" in item or "flat" in item or "#" in item:
-                    if "key" not in result:
-                        result["key"] = []
-                    if nxt == "major" or nxt == "minor":
-                        result["key"].append(item+" "+nxt)
-                    else:
-                        result["key"].append(item+" major")
-                    continue
-
-                elif item != "major" and item != "minor":
-                    if "text" not in result:
-                        result["text"] = []
-                    result["text"].append(item)
+                        elif entry not in ["major","minor"] and "=" not in entry and "/" not in entry and len(entry) > 1:
+                            if "text" not in result:
+                                result["text"] = []
+                            result["text"].append(entry)
+                previous = spaced_input[i][j]
         return result
 

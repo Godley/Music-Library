@@ -31,14 +31,14 @@ class testSearchProcessor(unittest.TestCase):
 
     def testKey(self):
         input = "C major"
-        self.assertEqual({"key":["C major"]}, self.processor.process(input))
+        self.assertEqual({"key":{"other":["C major"]}}, self.processor.process(input))
 
     def testTransposition(self):
         input = "transposition:clarinet"
         self.assertEqual({"transposition":["clarinet"]}, self.processor.process(input))
 
     def testWithKey(self):
-        input = "instrument:clarinet with:key:C major"
+        input = "instrument:clarinet with:key:\"C major\""
         self.assertEqual({"instrument":["clarinet"], "key":{"clarinet":["C major"]}}, self.processor.process(input))
 
     def testWithClef(self):
@@ -46,13 +46,19 @@ class testSearchProcessor(unittest.TestCase):
         self.assertEqual({"instrument":["clarinet"], "clef":{"clarinet":["bass"]}}, self.processor.process(input))
 
     def testSemiColon(self):
-        input = "instrument:clarinet with:clef:bass;key:C major"
-        self.assertEqual({"instrument":["clarinet"], "clef":{"clarinet":["bass"]}, "key":{"clarinet":["C major"]}}, self.processor.process(input))
+        input = "instrument:clarinet with:clef:bass;key:\"C major\""
+        result = self.processor.process(input)
+        self.assertEqual({"clef":{"clarinet":["bass"]}, "key":{"clarinet":["C major"]}, "instrument":["clarinet"]}, result)
 
     def testSemiColonKeyThenClef(self):
-        input = "instrument:clarinet with:key:C major;clef:bass"
-        self.assertEqual({"instrument":["clarinet"], "clef":{"clarinet":["bass"]}, "key":{"clarinet":["C major"]}}, self.processor.process(input))
+        input = "instrument:clarinet with:key:\"C major\";clef:bass"
+        result = self.processor.process(input)
+        self.assertEqual({"instrument":["clarinet"], "clef":{"clarinet":["bass"]}, "key":{"clarinet":["C major"]}}, result)
 
     def testSpecificAndGeneralUsingWithKeyword(self):
         input = "instrument:clarinet with:clef:bass clef:treble"
         self.assertEqual({"instrument":["clarinet"], "clef":{"clarinet":["bass"], "other":["treble"]}}, self.processor.process(input))
+
+    def testSpecificKeyAndGeneralUsingWithKeyword(self):
+        input = "instrument:clarinet with:key:\"C major\" key:\"D major\""
+        self.assertEqual({"instrument":["clarinet"], "key":{"clarinet":["C major"], "other":["D major"]}}, self.processor.process(input))
