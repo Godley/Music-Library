@@ -6,29 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>399</width>
-    <height>208</height>
+    <width>429</width>
+    <height>365</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Add New Playlist</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>170</y>
-     <width>341</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
+  <property name="styleSheet">
+   <string notr="true">QListWidget#autoCompleteBox {
+background:rgba(230, 230, 230, 180);
+}</string>
+  </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -47,8 +36,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>401</width>
-     <height>169</height>
+     <width>418</width>
+     <height>336</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
@@ -58,6 +47,13 @@
     <property name="fieldGrowthPolicy">
      <enum>QFormLayout::FieldsStayAtSizeHint</enum>
     </property>
+    <item row="0" column="0">
+     <widget class="QLabel" name="playlistNameLabel">
+      <property name="text">
+       <string>Playlist name</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="1">
      <widget class="QLineEdit" name="playlistNameLineEdit"/>
     </item>
@@ -88,21 +84,71 @@
     <item row="2" column="1">
      <widget class="QListWidget" name="listWidget">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="playlistNameLabel">
-      <property name="text">
-       <string>Playlist name</string>
+    <item row="3" column="1">
+     <widget class="QDialogButtonBox" name="buttonBox">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="standardButtons">
+       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
       </property>
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QFrame" name="autoCompleteFrame">
+   <property name="geometry">
+    <rect>
+     <x>146</x>
+     <y>54</y>
+     <width>200</width>
+     <height>400</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <widget class="QListWidget" name="autoCompleteBox">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>201</width>
+      <height>79</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>2</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>79</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>200</width>
+      <height>400</height>
+     </size>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

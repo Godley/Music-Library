@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.ui" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/NewPlaylist.ui" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/NewPlaylist.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -42,7 +40,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArticulation.coverage" NAME="Unittests in testArticulation Coverage Results" MODIFIED="1425743471819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPlaylister.coverage" NAME="Unittests in testPlaylister Coverage Results" MODIFIED="1419795804913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTree.coverage" NAME="Unittests in testTree Coverage Results" MODIFIED="1424305552955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1426810548500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1426812298745" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$pil.coverage" NAME="pil Coverage Results" MODIFIED="1426380488649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPart.coverage" NAME="Unittests in testPart Coverage Results" MODIFIED="1425861081183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testGraceNotes.coverage" NAME="Unittests in testGraceNotes Coverage Results" MODIFIED="1424820087867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
@@ -157,11 +155,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="PlaylistDialog.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7697368" vertical-offset="174" max-vertical-offset="645">
+              <caret line="35" column="30" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="SearchProcessor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1324" max-vertical-offset="1785">
-              <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1785">
+              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -335,19 +345,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.103535354" vertical-offset="394" max-vertical-offset="2415">
-              <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="2430">
+              <caret line="319" column="4" selection-start-line="319" selection-start-column="4" selection-end-line="328" selection-end-column="37" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
-                <element signature="e#1800#3719#0" expanded="false" />
-                <element signature="e#3815#6619#0" expanded="false" />
-                <element signature="e#6683#7356#0" expanded="false" />
-                <element signature="e#8206#10653#0" expanded="false" />
-                <element signature="e#11363#11696#0" expanded="false" />
-                <element signature="e#11735#11791#0" expanded="false" />
+                <element signature="e#1881#3800#0" expanded="false" />
+                <element signature="e#3896#6700#0" expanded="false" />
+                <element signature="e#6764#7437#0" expanded="false" />
+                <element signature="e#8325#10772#0" expanded="false" />
+                <element signature="e#11482#11815#0" expanded="false" />
+                <element signature="e#11854#11910#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -404,7 +414,6 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/MyWidget.cpp" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/MyWidget.h" />
-        <option value="$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMetaParserUsingXML.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
@@ -416,6 +425,7 @@
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py" />
       </list>
     </option>
   </component>
@@ -423,8 +433,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1280" />
-    <option name="height" value="800" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -1377,18 +1387,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00529" summary="added search by lyricist&#10;&#10;- added helper method to find lyricist id and method to find pieces by that lyricist&#10;- issue fix #191">
-      <created>1426193300653</created>
-      <option name="number" value="00529" />
-      <option name="project" value="LOCAL" />
-      <updated>1426193300653</updated>
-    </task>
-    <task id="LOCAL-00530" summary="issue fix #190, removed superfluous octave column">
-      <created>1426193628458</created>
-      <option name="number" value="00530" />
-      <option name="project" value="LOCAL" />
-      <updated>1426193628458</updated>
-    </task>
     <task id="LOCAL-00531" summary="added a second testcase&#10;&#10;- added testcase2.xml to test beat=beat metronome markings&#10;- added unit tests and confirmed they pass&#10;- issue fix #186">
       <created>1426193950906</created>
       <option name="number" value="00531" />
@@ -1671,7 +1669,19 @@
       <option name="project" value="LOCAL" />
       <updated>1426802399572</updated>
     </task>
-    <option name="localTasksCounter" value="578" />
+    <task id="LOCAL-00578" summary="implemented autocomplete&#10;&#10;- implemented list widget which appears when search bar is being edited and loads results&#10;- not implemented loading on click, also not sure whether to apply AND to each thing or OR, at the minute it's AND on a pairwise basis&#10;- issue fix #70">
+      <created>1426810660786</created>
+      <option name="number" value="00578" />
+      <option name="project" value="LOCAL" />
+      <updated>1426810660786</updated>
+    </task>
+    <task id="LOCAL-00579" summary="connected rendering callback to search autocomplete&#10;- implemented same callback in autocomplete listing&#10;- had to take out the dissapearing act of the box because if you click out of the textbox it dissapears before you can select anything&#10;- issue fix #71">
+      <created>1426811293345</created>
+      <option name="number" value="00579" />
+      <option name="project" value="LOCAL" />
+      <updated>1426811293345</updated>
+    </task>
+    <option name="localTasksCounter" value="580" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1695,13 +1705,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32406288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561505" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39914772" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39800996" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55845773" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32889965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1710,9 +1720,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38691437" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34263232" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3806078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39772728" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3482587" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1762,8 +1772,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="work toward issue #67&#10;&#10;Added a lot of placeholder callbacks to main gui" />
-    <MESSAGE value="created application file&#10;&#10;- created class which manages switching between startup box and main window&#10;- work toward issue #67" />
     <MESSAGE value="cleanup of app file&#10;&#10;- moved some of the main window stuff into a new method&#10;- added music manager to parent application which will handle talking to each window + data links: this makes sure any popup boxes can get access to data without talking to the main app window.&#10;- work toward issue #67" />
     <MESSAGE value="connected first widget&#10;&#10;- issue fix #199: connected the first listbox to it's data source and implemented sorting according to drop down change. Will need some testing on files containing composers/lyricists etc." />
     <MESSAGE value="connected listbox to appropriate callback&#10;&#10;- gave each qListWidget an item relating to it's filename&#10;- connected each item to a callback when it's double clicked&#10;- created a method in the parent application which will handle rendering and give the main window a pdf to play with&#10;- work toward issue #69" />
@@ -1787,7 +1795,9 @@
     <MESSAGE value="work toward issue #206&#10;&#10;- implemented base level querying &#10;- implemented &quot;with&quot; keyword which associates keys and clefs to a particular part name. also put in transposition keyword.&#10;&#10;" />
     <MESSAGE value="issue fix #206&#10;&#10;- finished off querying structure: this needed a bit of a change to make sure with keyword worked for keys" />
     <MESSAGE value="quick refactor&#10;- moved search processor so that it's just a method, rather than a member of a pointless class" />
-    <option name="LAST_COMMIT_MESSAGE" value="quick refactor&#10;- moved search processor so that it's just a method, rather than a member of a pointless class" />
+    <MESSAGE value="implemented autocomplete&#10;&#10;- implemented list widget which appears when search bar is being edited and loads results&#10;- not implemented loading on click, also not sure whether to apply AND to each thing or OR, at the minute it's AND on a pairwise basis&#10;- issue fix #70" />
+    <MESSAGE value="connected rendering callback to search autocomplete&#10;- implemented same callback in autocomplete listing&#10;- had to take out the dissapearing act of the box because if you click out of the textbox it dissapears before you can select anything&#10;- issue fix #71" />
+    <option name="LAST_COMMIT_MESSAGE" value="connected rendering callback to search autocomplete&#10;- implemented same callback in autocomplete listing&#10;- had to take out the dissapearing act of the box because if you click out of the textbox it dissapears before you can select anything&#10;- issue fix #71" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1894,43 +1904,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>338</line>
+          <line>339</line>
           <option name="timeStamp" value="687" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>40</line>
+          <line>41</line>
           <option name="timeStamp" value="743" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>69</line>
+          <line>70</line>
           <option name="timeStamp" value="744" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>184</line>
+          <line>185</line>
           <option name="timeStamp" value="747" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>183</line>
+          <line>184</line>
           <option name="timeStamp" value="748" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py</url>
-          <line>32</line>
-          <option name="timeStamp" value="794" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>323</line>
-          <option name="timeStamp" value="804" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>18</line>
-          <option name="timeStamp" value="807" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -2295,16 +2290,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/lib/python3.4/threading.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.2081218" vertical-offset="13309" max-vertical-offset="20460">
@@ -2355,14 +2340,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1324" max-vertical-offset="1785">
-          <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1659" max-vertical-offset="2055">
@@ -2370,6 +2347,22 @@
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3348" max-vertical-offset="4455">
+          <caret line="234" column="35" selection-start-line="234" selection-start-column="35" selection-end-line="234" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1785">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2529,26 +2522,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3348" max-vertical-offset="4455">
-          <caret line="234" column="35" selection-start-line="234" selection-start-column="35" selection-end-line="234" selection-end-column="35" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1789" max-vertical-offset="2430">
+          <caret line="319" column="4" selection-start-line="319" selection-start-column="4" selection-end-line="328" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#1881#3800#0" expanded="false" />
+            <element signature="e#3896#6700#0" expanded="false" />
+            <element signature="e#6764#7437#0" expanded="false" />
+            <element signature="e#8325#10772#0" expanded="false" />
+            <element signature="e#11482#11815#0" expanded="false" />
+            <element signature="e#11854#11910#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.103535354" vertical-offset="394" max-vertical-offset="2415">
-          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.7697368" vertical-offset="174" max-vertical-offset="645">
+          <caret line="35" column="30" selection-start-line="35" selection-start-column="30" selection-end-line="35" selection-end-column="30" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#1800#3719#0" expanded="false" />
-            <element signature="e#3815#6619#0" expanded="false" />
-            <element signature="e#6683#7356#0" expanded="false" />
-            <element signature="e#8206#10653#0" expanded="false" />
-            <element signature="e#11363#11696#0" expanded="false" />
-            <element signature="e#11735#11791#0" expanded="false" />
           </folding>
         </state>
       </provider>
