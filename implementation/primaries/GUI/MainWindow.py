@@ -334,6 +334,19 @@ class MainWindow(QtGui.QMainWindow):
         if len(results) == 0:
             self.noResultsSmiley.show()
             self.noResultsLabel.show()
+        else:
+            self.noResultsSmiley.hide()
+            self.noResultsLabel.hide()
+            rows = self.autoCompleteBox.count()
+            rowSize = self.autoCompleteBox.sizeHintForRow(0)
+            height = rows * rowSize
+            frameWidth = self.autoCompleteBox.frameWidth()
+            fixedHeight = height + frameWidth * 2
+            if fixedHeight > self.sizeHint().height():
+                fixedHeight = self.sizeHint().height() / 1.2
+            self.autoCompleteBox.setFixedHeight(fixedHeight)
+            self.autoCompleteFrame.setFixedHeight(fixedHeight+50)
+
         self.autoCompleteBox.show()
         self.autoCompleteFrame.show()
 
