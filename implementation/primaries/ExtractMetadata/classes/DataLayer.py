@@ -707,6 +707,67 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
+    def getPieceByInstrumentInKeys(self, data, archived=0):
+        connection, cursor = self.connect()
+        search_ids = []
+        tuple_data = [instrument for instrument in data]
+        key_ids = {}
+        file_list = []
+        for instrument in data:
+            search_ids.append(self.getInstrumentId(instrument, cursor))
+            key_ids[instrument] = []
+            for key in data[instrument]:
+                id = self.getKeyId(key, cursor)
+                if id is not None:
+                    search_ids.append(id)
+                    key_ids[instrument].append(id)
+        if len(tuple_data) > 0 and len(key_ids) > 0:
+            query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece WHERE EXISTS '
+            for i in range(len(tuple_data)):
+                query += '(SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ? AND '
+                for j in range(len(key_ids[tuple_data[i]])):
+                    query += 'key_id = ?'
+                    if j != len(key_ids[tuple_data[i]])-1:
+                        query += ' AND '
+                query += ")"
+                if i != len(tuple_data)-1:
+                    query += ' AND EXISTS '
+            cursor.execute(query, tuple(search_ids))
+            results = cursor.fetchall()
+
+            file_list = self.getPiecesByRowId(results, cursor, archived)
+        return file_list
+
+    def getPieceByInstrumentInClefs(self, data, archived=0):
+        connection, cursor = self.connect()
+        search_ids = []
+        tuple_data = [instrument for instrument in data]
+        clef_ids = {}
+        file_list = []
+        for instrument in data:
+            search_ids.append(self.getInstrumentId(instrument, cursor))
+            clef_ids[instrument] = []
+            for key in data[instrument]:
+                id = self.getClefId(key, cursor)
+                if id is not None:
+                    search_ids.append(id)
+                    clef_ids[instrument].append(id)
+        if len(tuple_data) > 0 and len(clef_ids) > 0:
+            query = 'SELECT clef_piece.piece_id FROM clef_piece_join clef_piece WHERE EXISTS '
+            for i in range(len(tuple_data)):
+                query += '(SELECT * FROM clef_piece_join WHERE piece_id = clef_piece.piece_id AND instrument_id = ? AND '
+                for j in range(len(clef_ids[tuple_data[i]])):
+                    query += 'clef_id = ?'
+                    if j != len(clef_ids[tuple_data[i]])-1:
+                        query += ' AND '
+                query += ")"
+                if i != len(tuple_data)-1:
+                    query += ' AND EXISTS '
+            cursor.execute(query, tuple(search_ids))
+            results = cursor.fetchall()
+            file_list = self.getPiecesByRowId(results, cursor, archived)
+        return file_list
+
     def getPieceByInstrumentInKey(self, data, archived=0):
         connection, cursor = self.connect()
         search_ids = []
@@ -714,7 +775,7 @@ class MusicData(object):
         for instrument in data:
             search_ids.append(self.getInstrumentId(instrument, cursor))
             search_ids.append(self.getKeyId(data[instrument], cursor))
-        query = 'SELECT key.piece_id FROM key_piece_join key WHERE EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key.piece_id AND instrument_id = ? AND key_id = ?)'
+        query = 'SELECT key.piece_id FROM key_piece_join key_piece WHERE EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key.piece_id AND instrument_id = ? AND key_id = ?)'
         for i in range(1,len(tuple_data)):
             query += ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key.piece_id AND instrument_id = ? AND key_id = ?)'
         query += ";"

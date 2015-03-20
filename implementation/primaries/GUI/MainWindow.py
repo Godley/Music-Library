@@ -37,6 +37,8 @@ class MainWindow(QtGui.QMainWindow):
         #self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
         self.editPlaylistTitle.hide()
         self.playlistViewer.hide()
+        self.noResultsLabel.hide()
+        self.noResultsSmiley.hide()
 
     def onItemInPlaylistDoubleClicked(self, current_item):
         playlist = current_item.data(4)
@@ -164,9 +166,12 @@ class MainWindow(QtGui.QMainWindow):
 
 
     def onInactiveSearchBar(self):
-        if self.searchInput.text() == "" or self.searchInput.text() == " ":
+        if self.searchInput.text() == "" or self.searchInput.text() == " " or self.autoCompleteBox.count() == 0:
             self.autoCompleteBox.clear()
+            self.autoCompleteFrame.hide()
             self.autoCompleteBox.hide()
+        else:
+            self.updateOptions()
 
     def onItemDoubleClicked(self, current_item):
         self.scoreWindow.show()
@@ -326,6 +331,9 @@ class MainWindow(QtGui.QMainWindow):
             item = QtGui.QListWidgetItem(result[0])
             item.setData(1, result[1])
             self.autoCompleteBox.addItem(item)
+        if len(results) == 0:
+            self.noResultsSmiley.show()
+            self.noResultsLabel.show()
         self.autoCompleteBox.show()
         self.autoCompleteFrame.show()
 

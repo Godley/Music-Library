@@ -65,6 +65,8 @@ def process(input):
                                    "composer","title","lyricist","transposition"]
                         key = key_value_pair[0]
                         value = key_value_pair[1]
+                        if len(value) == 0 and nxt is not None:
+                            value = " ".join(nxt)
                         if key in options:
                             if key == "meter":
                                 if "time" not in result:
@@ -84,6 +86,7 @@ def process(input):
                                 if key not in result:
                                     result[key] = []
                                 result[key].append(value)
+                                continue
                 elif not entry.endswith(".xml"):
                     if ((len(entry) == 1 and entry in ["A","B","C","D","E","F","G"]) or "sharp" in entry or "flat" in entry) and (previous is None or "key" not in previous[-1]):
                         if k != len(spaced_input[i][j])-1 and (spaced_input[i][j][k+1] == "major" or spaced_input[i][j][k+1] == "minor"):
@@ -104,10 +107,12 @@ def process(input):
                             result["tempo"] = []
                         result["tempo"].append(entry)
 
-                    elif entry not in ["major","minor"] and "=" not in entry and "/" not in entry and ((len(entry) > 1 or entry not in ["A","B","C","D","E","F","G"]) and k != len(spaced_input[i][j])):
-                        if "text" not in result:
-                            result["text"] = []
-                        result["text"].append(entry)
+                    elif entry not in ["major","minor"] and "=" not in entry and "/" not in entry and ((len(entry) > 1 or entry not in ["A","B","C","D","E","F","G"]) and k != len(spaced_input[i][j]))\
+                            and (previous is None or len([item for item in previous if ":" in item]) == 0):
+                        if len(entry) > 0:
+                            if "text" not in result:
+                                result["text"] = []
+                            result["text"].append(entry)
             previous = spaced_input[i][j]
     return result
 

@@ -220,7 +220,19 @@ class MusicManager(object):
                     results.extend(combined)
 
         if "instrument" in search_data:
-            results.extend(self.__data.getPiecesByInstruments(search_data["instrument"]))
+            result_data = {}
+            if "key" in search_data:
+                for instrument in search_data["instrument"]:
+                    if instrument not in search_data["key"]:
+                        result_data[instrument] = search_data["instrument"][instrument]
+            if "clef" in search_data:
+                for instrument in search_data["instrument"]:
+                    if instrument not in search_data["clef"]:
+                        result_data[instrument] = search_data["instrument"][instrument]
+            elif "key" not in search_data and "clef" not in search_data:
+                result_data = search_data["instrument"]
+            if len(result_data) > 0:
+                results.extend(self.__data.getPiecesByInstruments(result_data))
 
         if "tempo" in search_data:
             results.extend(self.__data.getPieceByTempo(search_data["tempo"]))
@@ -233,7 +245,9 @@ class MusicManager(object):
                 results.extend(self.__data.getPieceByKeys(search_data["key"]["other"]))
                 search_data["key"].pop("other")
             if len(search_data["key"]) > 0:
-                results.extend(self.__data.getPieceByInstrumentInKey(search_data["key"]))
+                new_results = self.__data.getPieceByInstrumentInKeys(search_data["key"])
+                if new_results not in results:
+                    results.extend(new_results)
 
         if "transposition" in search_data:
             results.extend(self.__data.getPieceByInstrumentsOrSimilar(search_data["transposition"]))
@@ -243,12 +257,14 @@ class MusicManager(object):
                 results.extend(self.__data.getPieceByClefs(search_data["clef"]["other"]))
                 search_data["clef"].pop("other")
             if len(search_data["clef"]) > 0:
-                results.extend(self.__data.getPieceByInstrumentInClef(search_data["clef"]))
+                results.extend(self.__data.getPieceByInstrumentInClefs(search_data["clef"]))
 
         if "filename" in search_data:
             results.extend([self.__data.getPiece(fname) for fname in search_data["filename"]])
 
-        summaries = self.getPieceSummary(results)
+        summaries = []
+        if len(results) > 0:
+            summaries = self.getPieceSummary(results)
         return summaries
 
     def getPlaylistFileInfo(self, playlist):

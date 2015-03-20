@@ -60,3 +60,7 @@ class testSearchProcessor(unittest.TestCase):
     def testSpecificKeyAndGeneralUsingWithKeyword(self):
         input = "instrument:clarinet with:key:\"C major\" key:\"D major\""
         self.assertEqual({"instrument":["clarinet"], "key":{"clarinet":["C major"], "other":["D major"]}}, SearchProcessor.process(input))
+
+    def testSpecificInstrumentInclSpace(self):
+        input = "instrument:\"MusicXML Part\""
+        self.assertEqual({"instrument":["MusicXML Part"]}, SearchProcessor.process(input))

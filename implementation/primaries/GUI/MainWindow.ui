@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1440</width>
-    <height>900</height>
+    <height>799</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -869,9 +869,6 @@ border:0px;
             <number>0</number>
            </property>
           </widget>
-          <zorder>label</zorder>
-          <zorder>progressBarRendering</zorder>
-          <zorder>playlistViewer</zorder>
          </widget>
         </widget>
         <widget class="Line" name="line">
@@ -1530,6 +1527,42 @@ border:0px;
          </property>
          <property name="sortingEnabled">
           <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QToolButton" name="noResultsSmiley">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>30</y>
+           <width>131</width>
+           <height>111</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../../../../Downloads/RidEyBni9.png</normaloff>../../../../../Downloads/RidEyBni9.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>100</width>
+           <height>100</height>
+          </size>
+         </property>
+        </widget>
+        <widget class="QLabel" name="noResultsLabel">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>140</y>
+           <width>161</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>We couldn't find anything</string>
          </property>
         </widget>
        </widget>
