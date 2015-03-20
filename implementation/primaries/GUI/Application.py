@@ -1,7 +1,7 @@
 from PyQt4 import QtCore, QtGui
 import sys, os, pickle, threading, time
 from implementation.primaries.GUI import StartupWidget, MainWindow, PlaylistDialog
-from implementation.primaries.ExtractMetadata.classes import MusicManager
+from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser
 
 
@@ -80,6 +80,11 @@ class Application(object):
                 time.sleep(1)
             process.join()
             return os.path.join(self.folder, pdf_version)
+
+    def query(self, input):
+        data = SearchProcessor.process(input)
+        results = self.manager.runQueries(data)
+        return results
 
     def startRenderingTask(self, filename):
         parser = MxmlParser.MxmlParser()

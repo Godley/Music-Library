@@ -11,6 +11,7 @@ class MainWindow(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
         uic.loadUi('MainWindow.ui', self)
         pieces = self.parent.loadPieces()
+        self.autoCompleteFrame.hide()
         for i in pieces:
             item = QtGui.QListWidgetItem(i[0])
             item.setData(1, i[1])
@@ -24,8 +25,10 @@ class MainWindow(QtGui.QMainWindow):
         self.refreshScoreBtn.clicked.connect(self.refreshScores)
         self.refreshAutoBtn.clicked.connect(self.refreshPlaylists)
         self.AddPlaylistButton.clicked.connect(self.addPlaylist)
-        #self.searchInput.textChanged.connect(self.updateOptions)
-        #self.searchInput.returnPressed.connect(self.searchDb)
+        self.searchInput.textChanged.connect(self.updateOptions)
+        self.searchInput.returnPressed.connect(self.searchDb)
+        self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
+        self.searchBtn.clicked.connect(self.searchDb)
         self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
         self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
         self.autoPlaylistsView.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
@@ -159,10 +162,14 @@ class MainWindow(QtGui.QMainWindow):
         self.playlistViewer.show()
 
 
+    def onInactiveSearchBar(self):
+        self.autoCompleteBox.clear()
+        self.autoCompleteFrame.hide()
+
     def onItemDoubleClicked(self, current_item):
         self.scoreWindow.show()
-        self.progressBarRendering.show()
-        self.progressBarRendering.setRange(0, 100)
+        #self.progressBarRendering.show()
+        #self.progressBarRendering.setRange(0, 100)
         self.editPlaylistTitle.hide()
         file_to_load = current_item.data(1)
         filename = self.parent.loadFile(file_to_load)
@@ -310,7 +317,16 @@ class MainWindow(QtGui.QMainWindow):
         print("finding thing")
 
     def updateOptions(self):
-        print("updating autocomplete searchbox under lineedit")
+        text = self.searchInput.text()
+        results = self.parent.query(text)
+        self.autoCompleteBox.clear()
+        for result in results:
+            item = QtGui.QListWidgetItem(result[0])
+            item.setData(1, result[1])
+            self.autoCompleteBox.addItem(item)
+        self.autoCompleteBox.show()
+        self.autoCompleteFrame.show()
+
 
 def main():
 

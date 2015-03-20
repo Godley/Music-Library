@@ -85,7 +85,7 @@ def process(input):
                                     result[key] = []
                                 result[key].append(value)
                 elif not entry.endswith(".xml"):
-                    if len(entry) == 1 and (previous is None or "key" not in previous[-1]):
+                    if ((len(entry) == 1 and entry in ["A","B","C","D","E","F","G"]) or "sharp" in entry or "flat" in entry) and (previous is None or "key" not in previous[-1]):
                         if k != len(spaced_input[i][j])-1 and (spaced_input[i][j][k+1] == "major" or spaced_input[i][j][k+1] == "minor"):
                             if "key" not in result:
                                 result["key"] = {}
@@ -94,7 +94,7 @@ def process(input):
                             result["key"]["other"].append(" ".join(spaced_input[i][j]))
                             continue
 
-                    if "/" in entry:
+                    if "/" in entry and entry.split("/")[-1] != "":
                         if "time" not in result:
                             result["time"] = []
                         result["time"].append(entry)
@@ -104,7 +104,7 @@ def process(input):
                             result["tempo"] = []
                         result["tempo"].append(entry)
 
-                    elif entry not in ["major","minor"] and "=" not in entry and "/" not in entry and len(entry) > 1:
+                    elif entry not in ["major","minor"] and "=" not in entry and "/" not in entry and ((len(entry) > 1 or entry not in ["A","B","C","D","E","F","G"]) and k != len(spaced_input[i][j])):
                         if "text" not in result:
                             result["text"] = []
                         result["text"].append(entry)

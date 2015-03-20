@@ -136,8 +136,7 @@ class MusicManager(object):
         self.handleZips()
         self.handleXMLFiles()
 
-    def getPieceSummaryStrings(self, sort_method="title"):
-        file_list = self.__data.getFileList()
+    def getPieceSummary(self, file_list, sort_method="title"):
         info = self.__data.getAllPieceInfo(file_list)
         summaries = [{"title":i["title"], "composer":i["composer"],"lyricist":i["lyricist"],
                       "filename":i["filename"]} for i in info]
@@ -155,6 +154,11 @@ class MusicManager(object):
                 summary += ", "+result["lyricist"]
             summary += "("+result["filename"]+")"
             summary_strings.append((summary,result["filename"]))
+        return summary_strings
+
+    def getPieceSummaryStrings(self, sort_method="title"):
+        file_list = self.__data.getFileList()
+        summary_strings = self.getPieceSummary(file_list, sort_method=sort_method)
 
         return summary_strings
 
@@ -192,6 +196,60 @@ class MusicManager(object):
             self.parseNewFiles(files["new"])
         if "old" in files:
             self.parseOldFiles(files["old"])
+
+    def runQueries(self, search_data):
+        results = []
+
+        if "text" in search_data:
+            # check title, composer, lyricist, instruments for matches
+            for value in search_data["text"]:
+                combined = []
+                title_result = self.__data.getPieceByTitle(value)
+                if len(title_result) > 0:
+                    combined.extend(title_result)
+                composer_result = self.__data.getPiecesByComposer(value)
+                if len(composer_result) > 0:
+                    combined.extend(composer_result)
+                lyricist_result = self.__data.getPiecesByLyricist(value)
+                if len(lyricist_result) > 0:
+                    combined.extend(lyricist_result)
+                instrument_result = self.__data.getPiecesByInstruments([value])
+                if len(instrument_result) > 0:
+                    combined.extend(instrument_result)
+                if len(combined) > 0:
+                    results.extend(combined)
+
+        if "instrument" in search_data:
+            results.extend(self.__data.getPiecesByInstruments(search_data["instrument"]))
+
+        if "tempo" in search_data:
+            results.extend(self.__data.getPieceByTempo(search_data["tempo"]))
+
+        if "time" in search_data:
+            results.extend(self.__data.getPieceByMeter(search_data["time"]))
+
+        if "key" in search_data:
+            if "other" in search_data["key"]:
+                results.extend(self.__data.getPieceByKeys(search_data["key"]["other"]))
+                search_data["key"].pop("other")
+            if len(search_data["key"]) > 0:
+                results.extend(self.__data.getPieceByInstrumentInKey(search_data["key"]))
+
+        if "transposition" in search_data:
+            results.extend(self.__data.getPieceByInstrumentsOrSimilar(search_data["transposition"]))
+
+        if "clef" in search_data:
+            if "other" in search_data["clef"]:
+                results.extend(self.__data.getPieceByClefs(search_data["clef"]["other"]))
+                search_data["clef"].pop("other")
+            if len(search_data["clef"]) > 0:
+                results.extend(self.__data.getPieceByInstrumentInClef(search_data["clef"]))
+
+        if "filename" in search_data:
+            results.extend([self.__data.getPiece(fname) for fname in search_data["filename"]])
+
+        summaries = self.getPieceSummary(results)
+        return summaries
 
     def getPlaylistFileInfo(self, playlist):
         data = self.__data.getAllPieceInfo(playlist)
