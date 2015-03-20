@@ -30,6 +30,7 @@ class MainWindow(QtGui.QMainWindow):
         self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
         self.searchBtn.clicked.connect(self.searchDb)
         self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
+        self.autoCompleteBox.itemDoubleClicked.connect(self.onItemDoubleClicked)
         self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
         self.autoPlaylistsView.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
         self.playlistTable.itemDoubleClicked.connect(self.onItemInPlaylistDoubleClicked)
@@ -163,8 +164,8 @@ class MainWindow(QtGui.QMainWindow):
 
 
     def onInactiveSearchBar(self):
-        self.autoCompleteBox.clear()
-        self.autoCompleteFrame.hide()
+        self.autoCompleteBox.style("background:rgba(255, 255, 255, 117)")
+        self.autoCompleteBox.repaint()
 
     def onItemDoubleClicked(self, current_item):
         self.scoreWindow.show()
