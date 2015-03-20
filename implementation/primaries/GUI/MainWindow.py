@@ -164,8 +164,9 @@ class MainWindow(QtGui.QMainWindow):
 
 
     def onInactiveSearchBar(self):
-        self.autoCompleteBox.style("background:rgba(255, 255, 255, 117)")
-        self.autoCompleteBox.repaint()
+        if self.searchInput.text() == "" or self.searchInput.text() == " ":
+            self.autoCompleteBox.clear()
+            self.autoCompleteBox.hide()
 
     def onItemDoubleClicked(self, current_item):
         self.scoreWindow.show()
