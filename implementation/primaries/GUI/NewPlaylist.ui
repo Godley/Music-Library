@@ -14,7 +14,7 @@
    <string>Add New Playlist</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QListWidget#autoCompleteBox {
+   <string notr="true">QTreeWidget#autoCompleteBox {
 background:rgba(230, 230, 230, 180);
 }</string>
   </property>
@@ -36,16 +36,13 @@ background:rgba(230, 230, 230, 180);
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>418</width>
-     <height>336</height>
+     <width>431</width>
+     <height>371</height>
     </rect>
    </property>
-   <layout class="QFormLayout" name="formLayout">
+   <layout class="QGridLayout" name="gridLayout">
     <property name="sizeConstraint">
      <enum>QLayout::SetMinimumSize</enum>
-    </property>
-    <property name="fieldGrowthPolicy">
-     <enum>QFormLayout::FieldsStayAtSizeHint</enum>
     </property>
     <item row="0" column="0">
      <widget class="QLabel" name="playlistNameLabel">
@@ -82,18 +79,54 @@ background:rgba(230, 230, 230, 180);
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QListWidget" name="listWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
       </property>
-      <item>
-       <property name="text">
-        <string>tex</string>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QListWidget" name="listWidget">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>291</width>
+         <height>231</height>
+        </rect>
        </property>
-      </item>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="dragEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::MultiSelection</enum>
+       </property>
+       <property name="isWrapping" stdset="0">
+        <bool>false</bool>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QToolButton" name="deleteItem">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>230</y>
+         <width>291</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>delete selected items</string>
+       </property>
+      </widget>
      </widget>
     </item>
     <item row="3" column="1">
@@ -126,33 +159,20 @@ background:rgba(230, 230, 230, 180);
    <property name="lineWidth">
     <number>0</number>
    </property>
-   <widget class="QListWidget" name="autoCompleteBox">
+   <widget class="QTreeWidget" name="autoCompleteBox">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
       <width>201</width>
-      <height>79</height>
+      <height>192</height>
      </rect>
     </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>2</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>201</width>
-      <height>79</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>200</width>
-      <height>400</height>
-     </size>
-    </property>
+    <column>
+     <property name="text">
+      <string>results</string>
+     </property>
+    </column>
    </widget>
   </widget>
  </widget>

@@ -30,7 +30,7 @@ class MainWindow(QtGui.QMainWindow):
         self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
         self.searchBtn.clicked.connect(self.searchDb)
         self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
-        self.autoCompleteBox.itemDoubleClicked.connect(self.onItemDoubleClicked)
+        self.autoCompleteBox.itemDoubleClicked.connect(self.onAutoCompleteDoubleClicked)
         self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
         self.autoPlaylistsView.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
         self.playlistTable.itemDoubleClicked.connect(self.onItemInPlaylistDoubleClicked)
@@ -174,15 +174,25 @@ class MainWindow(QtGui.QMainWindow):
         else:
             self.updateOptions()
 
-    def onItemDoubleClicked(self, current_item):
+    def onAutoCompleteDoubleClicked(self, current_item):
         self.scoreWindow.show()
         #self.progressBarRendering.show()
         #self.progressBarRendering.setRange(0, 100)
         self.autoCompleteFrame.hide()
         self.editPlaylistTitle.hide()
         file_to_load = current_item.data(0,0)
-        filename = self.parent.loadFile(file_to_load)
+        self.loadPiece(file_to_load)
 
+    def onItemDoubleClicked(self, current_item):
+        self.scoreWindow.show()
+        #self.progressBarRendering.show()
+        #self.progressBarRendering.setRange(0, 100)
+        self.editPlaylistTitle.hide()
+        file_to_load = current_item.data(1)
+        self.loadPiece(file_to_load)
+
+    def loadPiece(self, file_to_load):
+        filename = self.parent.loadFile(file_to_load)
         self.loadPieceData(file_to_load)
         self.pdf_view(filename)
         self.musicTitle.setText(file_to_load)
@@ -308,8 +318,8 @@ class MainWindow(QtGui.QMainWindow):
         self.myPlaylistsWidget.clear()
         myPlaylists = self.parent.getCreatedPlaylists()
         for entry in myPlaylists:
-            item = QtGui.QListWidgetItem(entry["name"])
-            item.setData(1, entry["pieces"])
+            item = QtGui.QListWidgetItem(entry)
+            item.setData(1, myPlaylists[entry])
             self.myPlaylistsWidget.addItem(item)
         self.myPlaylistsWidget.show()
 
