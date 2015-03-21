@@ -790,66 +790,11 @@ border:0px;
           <string>x</string>
          </property>
         </widget>
-        <widget class="QTableWidget" name="tableWidget">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>30</y>
-           <width>301</width>
-           <height>221</height>
-          </rect>
-         </property>
-         <attribute name="horizontalHeaderCascadingSectionResizes">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="horizontalHeaderDefaultSectionSize">
-          <number>50</number>
-         </attribute>
-         <attribute name="verticalHeaderStretchLastSection">
-          <bool>false</bool>
-         </attribute>
-         <column>
-          <property name="text">
-           <string>Title</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Composer</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Lyricist</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Time Signatures</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Tempos</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Instruments</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Clefs</string>
-          </property>
-         </column>
-        </widget>
         <zorder>closeInfoBtn_drop</zorder>
         <zorder>title_4</zorder>
         <zorder>topBorder_4</zorder>
         <zorder>pieceInfoView</zorder>
         <zorder>closeInfoBtn</zorder>
-        <zorder>tableWidget</zorder>
        </widget>
        <widget class="QWidget" name="musicWidget" native="true">
         <property name="geometry">

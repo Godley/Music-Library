@@ -16,6 +16,15 @@ class Startup(QtGui.QMainWindow):
         self.collectionListWidget.show()
         self.folderBtn.clicked.connect(self.openFolderDialog)
         self.collectionListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
+        self.removeCollBtn.clicked.connect(self.deleteCollection)
+
+    def deleteCollection(self):
+        listItems=self.collectionListWidget.selectedItems()
+        if not listItems: return
+        for item in listItems:
+            self.parent.removeCollection(item.data(1))
+            self.collectionListWidget.takeItem(self.collectionListWidget.row(item))
+        self.collectionListWidget.show()
 
     def onItemDoubleClicked(self, item):
         self.parent.FolderFetched(item.data(1))
