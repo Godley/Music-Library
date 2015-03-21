@@ -33,6 +33,7 @@ class MainWindow(QtGui.QMainWindow):
         self.autoCompleteBox.itemDoubleClicked.connect(self.onAutoCompleteDoubleClicked)
         self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
         self.autoPlaylistsView.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
+        self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
         self.playlistTable.itemDoubleClicked.connect(self.onItemInPlaylistDoubleClicked)
         #self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
         self.editPlaylistTitle.hide()
@@ -320,6 +321,7 @@ class MainWindow(QtGui.QMainWindow):
         for entry in myPlaylists:
             item = QtGui.QListWidgetItem(entry)
             item.setData(1, myPlaylists[entry])
+            item.setData(3, entry)
             self.myPlaylistsWidget.addItem(item)
         self.myPlaylistsWidget.show()
 
