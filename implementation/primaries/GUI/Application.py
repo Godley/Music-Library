@@ -11,14 +11,17 @@ class Application(object):
         self.col_file = ".collections"
         self.getPreviousCollections()
         self.SaveCollections()
-        # if len(self.previous_collections) == 0:
-        #     self.startup = StartupWidget.Startup(self)
-        #     self.startup.show()
-        self.startup = StartupWidget.Startup(self)
-        self.startup.show()
         self.manager = None
         self.main = None
         self.folder = ""
+        if len(self.previous_collections) == 0:
+             self.startup = StartupWidget.Startup(self)
+             self.startup.show()
+        else:
+            self.folder = self.previous_collections[-1]
+            self.setupMainWindow()
+
+
 
     def removeCollection(self, folder):
         if os.path.exists(os.path.join(folder, "music.db")):
