@@ -128,7 +128,7 @@ class Application(object):
 
     def PlaylistPopup(self):
         popup = PlaylistDialog.PlaylistDialog(self)
-        popup.setWindowFlags(QtCore.Qt.Popup)
+        popup.setWindowFlags(QtCore.Qt.Dialog)
         popup.exec()
 
     def updatePlaylistTitle(self, new_title, old_title):

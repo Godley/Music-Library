@@ -38,7 +38,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArticulation.coverage" NAME="Unittests in testArticulation Coverage Results" MODIFIED="1425743471819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPlaylister.coverage" NAME="Unittests in testPlaylister Coverage Results" MODIFIED="1419795804913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTree.coverage" NAME="Unittests in testTree Coverage Results" MODIFIED="1424305552955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1426950983147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1426951381458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$pil.coverage" NAME="pil Coverage Results" MODIFIED="1426380488649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPart.coverage" NAME="Unittests in testPart Coverage Results" MODIFIED="1425861081183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testGraceNotes.coverage" NAME="Unittests in testGraceNotes Coverage Results" MODIFIED="1424820087867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
@@ -154,13 +154,13 @@
       <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="583" max-vertical-offset="4245">
-              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1545" max-vertical-offset="4305">
+              <caret line="58" column="8" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
-                <element signature="e#4838#7642#0" expanded="false" />
-                <element signature="e#9931#12378#0" expanded="false" />
-                <element signature="e#13460#13516#0" expanded="false" />
+                <element signature="e#4925#7729#0" expanded="false" />
+                <element signature="e#10018#12465#0" expanded="false" />
+                <element signature="e#13547#13603#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -179,8 +179,8 @@
       <file leaf-file-name="Application.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21572581" vertical-offset="118" max-vertical-offset="2280">
-              <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.48790324" vertical-offset="1693" max-vertical-offset="2340">
+              <caret line="129" column="38" selection-start-line="129" selection-start-column="38" selection-end-line="129" selection-end-column="38" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -433,9 +433,9 @@
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/SearchProcessor.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
       </list>
     </option>
@@ -1398,18 +1398,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00540" summary=" further &quot;get-all&quot; methods in data layer&#10; &#10; - added methods for clef/tempo/meter/composer/lyricist&#10; - also added tests + made it so that all titles, composer names and lyricists are lower case: this is so that they are more likely to match to other composers/lyricists etc.&#10; - work toward issue #183">
-      <created>1426249999182</created>
-      <option name="number" value="00540" />
-      <option name="project" value="LOCAL" />
-      <updated>1426249999183</updated>
-    </task>
-    <task id="LOCAL-00541" summary="get-all method for instruments&#10;&#10;- added method to get all parts related by instrument to data layer&#10;- also included handling where instruments are transposed: this could be improved a bit, will explain in an issue&#10;- work toward issue #186">
-      <created>1426250649362</created>
-      <option name="number" value="00541" />
-      <option name="project" value="LOCAL" />
-      <updated>1426250649362</updated>
-    </task>
     <task id="LOCAL-00542" summary="changed data layer getter methods&#10;&#10;- changed all querying for playlists methods so that they don't collect results unless there are more than 1 unique files with that attribute &#10;- implemented data layer call methods in playlists and again checked length of each result before adding to the returned playlist dictionary&#10;- issue fix #183">
       <created>1426252799867</created>
       <option name="number" value="00542" />
@@ -1692,7 +1680,19 @@
       <option name="project" value="LOCAL" />
       <updated>1426950753391</updated>
     </task>
-    <option name="localTasksCounter" value="589" />
+    <task id="LOCAL-00589" summary="issue fix #207">
+      <created>1426951016978</created>
+      <option name="number" value="00589" />
+      <option name="project" value="LOCAL" />
+      <updated>1426951016978</updated>
+    </task>
+    <task id="LOCAL-00590" summary="issue fix #208">
+      <created>1426951272399</created>
+      <option name="number" value="00590" />
+      <option name="project" value="LOCAL" />
+      <updated>1426951272399</updated>
+    </task>
+    <option name="localTasksCounter" value="591" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1783,8 +1783,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="connected about pane: issue #77" />
-    <MESSAGE value="changed main window styling&#10;&#10;- made a stylesheet which uses gradients etc&#10;- updated code to match relevant window names&#10;- added x buttons to every widget&#10;- still need to put back in the search box and add some widgets along the top" />
     <MESSAGE value="changed main window styling&#10;&#10;- made a stylesheet which uses nicer colours&#10;- added in search box &#10;- added MyWidget C++  class which might fix resizing/closing aspects (tho it's not linked at minute)" />
     <MESSAGE value="fixed poppler screwyness&#10;&#10;- made it so poppler has a window size in which to render stuff and a DPI&#10;- also moved widgets over by about 20px so that margins on either side are right" />
     <MESSAGE value="connected playlist callback&#10;&#10;- created playlist callback which will be used for both auto and my playlist views&#10;- added table which appears/dissapears at relevant points&#10;- issue fix #196" />
@@ -1808,7 +1806,9 @@
     <MESSAGE value="issue fix #73" />
     <MESSAGE value="issue fix #209" />
     <MESSAGE value="issue fix #201" />
-    <option name="LAST_COMMIT_MESSAGE" value="issue fix #201" />
+    <MESSAGE value="issue fix #207" />
+    <MESSAGE value="issue fix #208" />
+    <option name="LAST_COMMIT_MESSAGE" value="issue fix #208" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1915,17 +1915,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>399</line>
+          <line>403</line>
           <option name="timeStamp" value="687" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>64</line>
+          <line>68</line>
           <option name="timeStamp" value="743" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>93</line>
+          <line>97</line>
           <option name="timeStamp" value="744" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1955,7 +1955,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py</url>
-          <line>21</line>
+          <line>20</line>
           <option name="timeStamp" value="840" />
         </line-breakpoint>
       </breakpoints>
@@ -2362,19 +2362,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="583" max-vertical-offset="4245">
-          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#4838#7642#0" expanded="false" />
-            <element signature="e#9931#12378#0" expanded="false" />
-            <element signature="e#13460#13516#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3199" max-vertical-offset="3975">
@@ -2571,10 +2558,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1545" max-vertical-offset="4305">
+          <caret line="58" column="8" selection-start-line="58" selection-start-column="8" selection-end-line="58" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#4925#7729#0" expanded="false" />
+            <element signature="e#10018#12465#0" expanded="false" />
+            <element signature="e#13547#13603#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21572581" vertical-offset="118" max-vertical-offset="2280">
-          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.48790324" vertical-offset="1693" max-vertical-offset="2340">
+          <caret line="129" column="38" selection-start-line="129" selection-start-column="38" selection-end-line="129" selection-end-column="38" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
