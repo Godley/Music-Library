@@ -115,6 +115,9 @@ class Application(object):
         popup.setWindowFlags(QtCore.Qt.Popup)
         popup.exec()
 
+    def updatePlaylistTitle(self, new_title, old_title):
+        self.manager.updatePlaylistTitle(new_title, old_title)
+
     def loadPlaylists(self):
         pass
 

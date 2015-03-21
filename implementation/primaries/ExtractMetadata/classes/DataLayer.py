@@ -1137,6 +1137,24 @@ class MusicData(object):
             data[item[1]].append(item[0])
         return data
 
+    def getUserPlaylist(self, title):
+        connection, cursor = self.connect()
+        cursor.execute('''SELECT ROWID from playlists WHERE name=?''', (title,))
+        result = cursor.fetchone()
+        self.disconnect(connection)
+        return result[0]
+
+    def updateUserPlaylist(self, rowid, data):
+        connection, cursor = self.connect()
+        if "title" in data:
+            query = '''UPDATE playlists SET name = ? WHERE ROWID = ?'''
+            cursor.execute(query, (data["title"], rowid,))
+
+        if "pieces" in data:
+            pass
+        connection.commit()
+        self.disconnect(connection)
+
     # methods to clear out old records. In general we just archive them on the off chance the piece comes back -
     # if it does give the user the option to un-archive or else remove all old data
     def removePieces(self, filenames):

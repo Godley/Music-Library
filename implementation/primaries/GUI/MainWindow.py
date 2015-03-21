@@ -40,6 +40,26 @@ class MainWindow(QtGui.QMainWindow):
         self.playlistViewer.hide()
         self.noResultsLabel.hide()
         self.noResultsSmiley.hide()
+        self.editPlaylistTitle.clicked.connect(self.onPlaylistEditClicked)
+        self.playlistTitleLineEdit.hide()
+        self.playlistTitleLineEdit.returnPressed.connect(self.updatePlaylistTitle)
+
+    def updatePlaylistTitle(self):
+        text = self.playlistTitleLineEdit.text()
+        old_value = self.musicTitle.text()
+        self.parent.updatePlaylistTitle(text, old_value)
+        self.musicTitle.setText(text)
+        self.musicTitle.repaint()
+        self.playlistTitleLineEdit.hide()
+        self.editPlaylistTitle.show()
+        self.loadMyPlaylists()
+
+
+    def onPlaylistEditClicked(self):
+        title = self.musicTitle.text()
+        self.playlistTitleLineEdit.setText(title)
+        self.playlistTitleLineEdit.show()
+        self.editPlaylistTitle.hide()
 
     def onItemInPlaylistDoubleClicked(self, current_item):
         playlist = current_item.data(4)

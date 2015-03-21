@@ -320,6 +320,12 @@ class MusicManager(object):
         data = self.__data.getAllPieceInfo([filename])
         return data
 
+    def updatePlaylistTitle(self, new_title, old_title):
+        row_id = self.__data.getUserPlaylist(old_title)
+        data = {"title":new_title}
+        self.__data.updateUserPlaylist(row_id, data)
+
+
     def getPlaylists(self):
         result_set = {}
         clefs = self.__data.getPiecesByAllClefs()

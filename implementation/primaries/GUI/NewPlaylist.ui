@@ -16,6 +16,10 @@
   <property name="styleSheet">
    <string notr="true">QTreeWidget#autoCompleteBox {
 background:rgba(230, 230, 230, 180);
+}
+
+QFrame#frame {
+border:0px;
 }</string>
   </property>
   <widget class="QLabel" name="label">
@@ -91,7 +95,7 @@ background:rgba(230, 230, 230, 180);
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>291</width>
+         <width>295</width>
          <height>231</height>
         </rect>
        </property>
@@ -119,7 +123,7 @@ background:rgba(230, 230, 230, 180);
         <rect>
          <x>0</x>
          <y>230</y>
-         <width>291</width>
+         <width>295</width>
          <height>22</height>
         </rect>
        </property>
@@ -144,9 +148,9 @@ background:rgba(230, 230, 230, 180);
   <widget class="QFrame" name="autoCompleteFrame">
    <property name="geometry">
     <rect>
-     <x>146</x>
+     <x>130</x>
      <y>54</y>
-     <width>200</width>
+     <width>295</width>
      <height>400</height>
     </rect>
    </property>
@@ -164,7 +168,7 @@ background:rgba(230, 230, 230, 180);
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>201</width>
+      <width>295</width>
       <height>192</height>
      </rect>
     </property>
