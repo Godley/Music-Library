@@ -158,7 +158,7 @@ color:#555;
 border-radius:10px;
 }
 
-QListWidget#autoCompleteBox {
+QTreeWidget#autoCompleteBox {
 background:#DDD;
 border:1px solid;
 border-radius:5px;
@@ -1498,37 +1498,6 @@ border:0px;
         <property name="lineWidth">
          <number>0</number>
         </property>
-        <widget class="QListWidget" name="autoCompleteBox">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>311</width>
-           <height>192</height>
-          </rect>
-         </property>
-         <property name="horizontalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
-         </property>
-         <property name="tabKeyNavigation">
-          <bool>true</bool>
-         </property>
-         <property name="alternatingRowColors">
-          <bool>true</bool>
-         </property>
-         <property name="isWrapping" stdset="0">
-          <bool>false</bool>
-         </property>
-         <property name="resizeMode">
-          <enum>QListView::Fixed</enum>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-         <property name="sortingEnabled">
-          <bool>true</bool>
-         </property>
-        </widget>
         <widget class="QToolButton" name="noResultsSmiley">
          <property name="geometry">
           <rect>
@@ -1565,6 +1534,24 @@ border:0px;
           <string>We couldn't find anything</string>
          </property>
         </widget>
+        <widget class="QTreeWidget" name="autoCompleteBox">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>291</width>
+           <height>192</height>
+          </rect>
+         </property>
+         <column>
+          <property name="text">
+           <string>results</string>
+          </property>
+         </column>
+        </widget>
+        <zorder>autoCompleteBox</zorder>
+        <zorder>noResultsSmiley</zorder>
+        <zorder>noResultsLabel</zorder>
        </widget>
       </widget>
      </widget>

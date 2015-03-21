@@ -166,7 +166,8 @@ class MainWindow(QtGui.QMainWindow):
 
 
     def onInactiveSearchBar(self):
-        if self.searchInput.text() == "" or self.searchInput.text() == " " or self.autoCompleteBox.count() == 0:
+        if self.searchInput.text() == "" or self.searchInput.text() == " " or self.autoCompleteBox.topLevelItemCount() == 0\
+                or self.focusWidget() != self.autoCompleteBox:
             self.autoCompleteBox.clear()
             self.autoCompleteFrame.hide()
             self.autoCompleteBox.hide()
@@ -177,8 +178,9 @@ class MainWindow(QtGui.QMainWindow):
         self.scoreWindow.show()
         #self.progressBarRendering.show()
         #self.progressBarRendering.setRange(0, 100)
+        self.autoCompleteFrame.hide()
         self.editPlaylistTitle.hide()
-        file_to_load = current_item.data(1)
+        file_to_load = current_item.data(0,0)
         filename = self.parent.loadFile(file_to_load)
 
         self.loadPieceData(file_to_load)
@@ -327,25 +329,29 @@ class MainWindow(QtGui.QMainWindow):
         text = self.searchInput.text()
         results = self.parent.query(text)
         self.autoCompleteBox.clear()
-        for result in results:
-            item = QtGui.QListWidgetItem(result[0])
-            item.setData(1, result[1])
-            self.autoCompleteBox.addItem(item)
+        for key in results:
+            item = QtGui.QTreeWidgetItem(key)
+            item.setData(0,0,key)
+            self.autoCompleteBox.addTopLevelItem(item)
+            for file in results[key]:
+                fitem = QtGui.QTreeWidgetItem(file[0])
+                fitem.setData(0,0, file[1])
+                item.addChild(fitem)
         if len(results) == 0:
             self.noResultsSmiley.show()
             self.noResultsLabel.show()
         else:
             self.noResultsSmiley.hide()
             self.noResultsLabel.hide()
-            rows = self.autoCompleteBox.count()
-            rowSize = self.autoCompleteBox.sizeHintForRow(0)
-            height = rows * rowSize
-            frameWidth = self.autoCompleteBox.frameWidth()
-            fixedHeight = height + frameWidth * 2
-            if fixedHeight > self.sizeHint().height():
-                fixedHeight = self.sizeHint().height() / 1.2
-            self.autoCompleteBox.setFixedHeight(fixedHeight)
-            self.autoCompleteFrame.setFixedHeight(fixedHeight+50)
+            # rows = len(results)
+            # rowSize = self.autoCompleteBox.sizeHintForRow(0)
+            # height = rows * rowSize
+            # frameWidth = self.autoCompleteBox.frameWidth()
+            # fixedHeight = height + frameWidth * 2
+            # if fixedHeight > self.sizeHint().height():
+            #     fixedHeight = self.sizeHint().height() / 1.2
+            # self.autoCompleteBox.setFixedHeight(fixedHeight)
+            # self.autoCompleteFrame.setFixedHeight(fixedHeight+50)
 
         self.autoCompleteBox.show()
         self.autoCompleteFrame.show()
