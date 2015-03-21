@@ -15,11 +15,15 @@ class Application(object):
         self.main = None
         self.folder = ""
         if len(self.previous_collections) == 0:
-             self.startup = StartupWidget.Startup(self)
-             self.startup.show()
+             self.startUp()
         else:
             self.folder = self.previous_collections[-1]
             self.setupMainWindow()
+
+    def startUp(self):
+        self.folder = ""
+        self.startup = StartupWidget.Startup(self)
+        self.startup.show()
 
 
 

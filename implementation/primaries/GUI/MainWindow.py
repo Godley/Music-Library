@@ -54,6 +54,10 @@ class MainWindow(QtGui.QMainWindow):
         self.editPlaylistTitle.show()
         self.loadMyPlaylists()
 
+    def closeEvent(self, event):
+        self.parent.startUp()
+        event.accept()
+
 
     def onPlaylistEditClicked(self):
         title = self.musicTitle.text()
