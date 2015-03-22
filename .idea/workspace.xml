@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.ui" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/ResizableWidget.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -359,10 +358,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.8886364" vertical-offset="5149" max-vertical-offset="7200">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7200">
               <caret line="428" column="53" selection-start-line="428" selection-start-column="53" selection-end-line="428" selection-end-column="53" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
@@ -372,6 +371,18 @@
                 <element signature="e#18767#19261#0" expanded="false" />
                 <element signature="e#19683#19734#0" expanded="false" />
                 <element signature="e#19924#21146#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResizableWidget.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/ResizableWidget.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="3.0846775" vertical-offset="0" max-vertical-offset="1935">
+              <caret line="102" column="24" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -433,7 +444,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testPieceTree.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleDirections.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testClef.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testWhatHappensWhenIDoThis.py" />
@@ -484,6 +494,7 @@
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/ResizableWidget.py" />
       </list>
     </option>
   </component>
@@ -1447,12 +1458,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00548" summary="Created main window&#10;&#10;- created main window and closeable frames to go in it&#10;- work toward issue #195">
-      <created>1426355813947</created>
-      <option name="number" value="00548" />
-      <option name="project" value="LOCAL" />
-      <updated>1426355813947</updated>
-    </task>
     <task id="LOCAL-00549" summary="Work toward main window&#10;&#10;- got pil working eventually and added refresh button and callback placeholder&#10;- work toward issue #195">
       <created>1426381432605</created>
       <option name="number" value="00549" />
@@ -1741,7 +1746,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427057337113</updated>
     </task>
-    <option name="localTasksCounter" value="597" />
+    <task id="LOCAL-00597" summary="issue fix #218&#10;&#10;- implemented checking/unchecking on actions&#10;- also implemented showing/hiding according to them being clicked&#10;- implemented box hiding/showing upon clicking of different options e.g pieces and playlists">
+      <created>1427061284963</created>
+      <option name="number" value="00597" />
+      <option name="project" value="LOCAL" />
+      <updated>1427061284963</updated>
+    </task>
+    <option name="localTasksCounter" value="598" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1832,7 +1843,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #75&#10;&#10;- think tests at data layer level are suffice to test the playlist functionality: seems to add fine&#10;- need to implement searcher for both new playlist box and for the main GUI before this works fully (issue #71 / issue #63)" />
     <MESSAGE value="work toward issue #203&#10;&#10;- moved work on rendering to a separate thread&#10;- added method and progress bar, tho it doesn't appear to work just yet" />
     <MESSAGE value="work toward issue #63&#10;&#10;- added new class (SearchProcessor) which should probs be a method, will refactor later&#10;- this takes in a string, splits it by spaces and tries to figure out what to do with the output&#10;- returns a dict of the input as a formatted search query&#10;" />
     <MESSAGE value="work toward issue #206&#10;&#10;- implemented base level querying &#10;- implemented &quot;with&quot; keyword which associates keys and clefs to a particular part name. also put in transposition keyword.&#10;&#10;" />
@@ -1857,7 +1867,8 @@
     <MESSAGE value="connected playlist callback&#10;&#10;- issue fix #213&#10;- both the playlist view and playlist browser display the PDF of the sheet music on double click" />
     <MESSAGE value="implemented featured in and pane clearing&#10;&#10;- implemented featured in code which finds all the user created playlists a piece belongs to&#10;- also implemented clearing of the three right panes when a playlist is clicked, as all of them pertain to a piece of music not a playlist. Once I have some other code implemented will also put in .hide() calls on all 3 panes and .show() elsewhere.&#10;- issue fix #215" />
     <MESSAGE value="issue fix #216&#10;&#10;- implemented delete playlist button and more tests to back it up. Also fixed a bug whereby featured in panel was pulling duplicates" />
-    <option name="LAST_COMMIT_MESSAGE" value="issue fix #216&#10;&#10;- implemented delete playlist button and more tests to back it up. Also fixed a bug whereby featured in panel was pulling duplicates" />
+    <MESSAGE value="issue fix #218&#10;&#10;- implemented checking/unchecking on actions&#10;- also implemented showing/hiding according to them being clicked&#10;- implemented box hiding/showing upon clicking of different options e.g pieces and playlists" />
+    <option name="LAST_COMMIT_MESSAGE" value="issue fix #218&#10;&#10;- implemented checking/unchecking on actions&#10;- also implemented showing/hiding according to them being clicked&#10;- implemented box hiding/showing upon clicking of different options e.g pieces and playlists" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2020,13 +2031,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/folder_tests/file3.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///System/Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/posixpath.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3563715" vertical-offset="900" max-vertical-offset="6885">
@@ -2600,7 +2604,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.8886364" vertical-offset="5149" max-vertical-offset="7200">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7200">
           <caret line="428" column="53" selection-start-line="428" selection-start-column="53" selection-end-line="428" selection-end-column="53" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
@@ -2610,6 +2614,16 @@
             <element signature="e#18767#19261#0" expanded="false" />
             <element signature="e#19683#19734#0" expanded="false" />
             <element signature="e#19924#21146#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/ResizableWidget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.0846775" vertical-offset="0" max-vertical-offset="1935">
+          <caret line="102" column="24" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
