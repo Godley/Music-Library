@@ -775,9 +775,9 @@ class MusicData(object):
         for instrument in data:
             search_ids.append(self.getInstrumentId(instrument, cursor))
             search_ids.append(self.getKeyId(data[instrument], cursor))
-        query = 'SELECT key.piece_id FROM key_piece_join key_piece WHERE EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key.piece_id AND instrument_id = ? AND key_id = ?)'
+        query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece WHERE EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ? AND key_id = ?)'
         for i in range(1,len(tuple_data)):
-            query += ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key.piece_id AND instrument_id = ? AND key_id = ?)'
+            query += ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ? AND key_id = ?)'
         query += ";"
         cursor.execute(query, tuple(search_ids))
         results = cursor.fetchall()
@@ -791,7 +791,7 @@ class MusicData(object):
         for instrument in data:
             search_ids.append(self.getInstrumentId(instrument, cursor))
             search_ids.append(self.getClefId(data[instrument], cursor))
-        query = 'SELECT key.piece_id FROM clef_piece_join key WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = key.piece_id AND instrument_id = ? AND clef_id = ?)'
+        query = 'SELECT clef_piece.piece_id FROM clef_piece_join clef_piece WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = clef_piece.piece_id AND instrument_id = ? AND clef_id = ?)'
         for i in range(1,len(tuple_data)):
             query += ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = key.piece_id AND instrument_id = ? AND clef_id = ?)'
         query += ";"
@@ -1156,7 +1156,7 @@ class MusicData(object):
         self.disconnect(connection)
 
     def getUserPlaylistsForFile(self, filename):
-        data = []
+        data = {}
         connection, cursor = self.connect()
         query = '''SELECT playlist.name from playlists playlist, playlist_join play, pieces piece
                     WHERE piece.filename = ? AND piece.ROWID = play.piece_id'''
@@ -1167,10 +1167,22 @@ class MusicData(object):
         for i in range(len(results)):
             cursor.execute(query_2, results[i])
             files = cursor.fetchall()
-            new_entry = {"name":results[i][0], "files":[file[0] for file in files]}
-            data.append(new_entry)
+            if results[i][0] not in data:
+                data[results[i][0]] = [file[0] for file in files]
         self.disconnect(connection)
         return data
+
+    def deletePlaylist(self, playlist_name):
+        connection, cursor = self.connect()
+        id_query = '''SELECT ROWID FROM playlists WHERE name = ?'''
+        cursor.execute(id_query, (playlist_name,))
+        res = cursor.fetchone()
+        query = '''DELETE FROM playlists WHERE name = ?'''
+        cursor.execute(query, (playlist_name,))
+        join_query = '''DELETE FROM playlist_join WHERE playlist_id = ?'''
+        cursor.execute(join_query, res)
+        connection.commit()
+        self.disconnect(connection)
 
     # methods to clear out old records. In general we just archive them on the off chance the piece comes back -
     # if it does give the user the option to un-archive or else remove all old data
@@ -1212,7 +1224,6 @@ class MusicData(object):
         self.disconnect(connection)
 
     def getArchivedPieces(self):
-        file_list = []
         connection, cursor = self.connect()
         query = '''SELECT filename FROM pieces WHERE archived = 1'''
         cursor.execute(query)

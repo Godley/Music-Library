@@ -44,8 +44,24 @@ class testDataLayer(unittest.TestCase):
         t = ('play',)
         c.execute('''SELECT playlist.name, piece.filename FROM playlists playlist, pieces piece, playlist_join play
                   WHERE playlist.name = ? AND play.playlist_id = playlist.ROWID AND piece.ROWID = play.piece_id''', t)
-        result = c.fetchone()
-        self.assertEqual(("play","file.xml"), result)
+        result = c.fetchall()
+        self.assertEqual([("play","file.xml")], result)
+        conn.close()
+
+    def testAddPlaylistFilesMultiPlaylists(self):
+        self.data.addPiece("file.xml",{"title":"blabla"})
+        self.data.addPlaylist("play",["file.xml"])
+        self.data.addPlaylist("play1",["file.xml"])
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        t = [('play',),('play1',)]
+        combined = []
+        for p in t:
+            c.execute('''SELECT playlist.name, piece.filename FROM playlists playlist, pieces piece, playlist_join play
+                  WHERE playlist.name = ? AND play.playlist_id = playlist.ROWID AND piece.ROWID = play.piece_id''', p)
+            result = c.fetchall()
+            combined.extend(result)
+        self.assertEqual([("play","file.xml"),("play1","file.xml")], combined)
         conn.close()
 
     def testFetchPlaylist(self):
@@ -53,6 +69,46 @@ class testDataLayer(unittest.TestCase):
         self.data.addPlaylist("play",["file.xml"])
         result = self.data.getAllUserPlaylists()
         self.assertEqual({"play":["file.xml"]}, result)
+
+    def testFetchPlaylistByPiece(self):
+        self.data.addPiece("file.xml",{"title":"blabla"})
+        self.data.addPlaylist("play",["file.xml"])
+        result = self.data.getUserPlaylistsForFile("file.xml")
+        self.assertEqual({"play":["file.xml"]}, result)
+
+    def testFetchPlaylistByPieceWithMultiplePlaylists(self):
+        self.data.addPiece("file.xml",{"title":"blabla"})
+        self.data.addPlaylist("play",["file.xml"])
+        self.data.addPlaylist("play1",["file.xml"])
+        result = self.data.getUserPlaylistsForFile("file.xml")
+        self.assertEqual({"play":["file.xml"], "play1":["file.xml"]}, result)
+
+    def testDeletePlaylistFromTable(self):
+        self.data.addPiece("file.xml",{"title":"blabla"})
+        self.data.addPlaylist("play",["file.xml"])
+        self.data.deletePlaylist("play")
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        query = 'SELECT * FROM playlists WHERE name = ?'
+        c.execute(query, ('play',))
+        result = c.fetchall()
+        conn.close()
+        self.assertEqual(result, [])
+
+    def testDeletePlaylistFromJoinTable(self):
+        self.data.addPiece("file.xml",{"title":"blabla"})
+        self.data.addPlaylist("play",["file.xml"])
+        query = 'SELECT ROWID FROM playlists WHERE name = ?'
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        c.execute(query, ('play',))
+        row_id = c.fetchone()
+        self.data.deletePlaylist("play")
+        join_query = 'SELECT * FROM playlist_join WHERE playlist_id = ?'
+        c.execute(join_query, row_id)
+        result = c.fetchall()
+        conn.close()
+        self.assertEqual(result, [])
 
     def testAddPieceWithComposer(self):
         self.data.addPiece("file.xml",{"composer":"blabla"})
@@ -73,6 +129,7 @@ class testDataLayer(unittest.TestCase):
         result = c.fetchone()
         c.execute('SELECT * FROM pieces WHERE lyricist_id=?', result)
         self.assertEqual("file.xml", c.fetchone()[0])
+        conn.close()
 
     def testAddPieceWithMeter(self):
         self.data.addPiece("file.xml",{"time":[{"beat":4,"type":4}]})
@@ -85,6 +142,7 @@ class testDataLayer(unittest.TestCase):
         piece_id = c.fetchone()
         c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
         self.assertEqual("file.xml", c.fetchone()[0])
+        conn.close()
 
     def testAddPieceWithTempo(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","minute":60}]})
@@ -97,6 +155,7 @@ class testDataLayer(unittest.TestCase):
         piece_id = c.fetchone()
         c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
         self.assertEqual([("file.xml","",-1,-1,0)], c.fetchall())
+        conn.close()
 
     def testAddPieceWithTempoOfTwoBeats(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":4,"beat_2":4}]})

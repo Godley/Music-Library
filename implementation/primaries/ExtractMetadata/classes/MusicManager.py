@@ -361,3 +361,6 @@ class MusicManager(object):
     def addPlaylist(self, data):
         self.__data.addPlaylist(data["name"], data["pieces"])
 
+    def deletePlaylists(self, names):
+        [self.__data.deletePlaylist(name) for name in names]
+

@@ -137,6 +137,9 @@ class Application(object):
         popup.setWindowFlags(QtCore.Qt.Dialog)
         popup.exec()
 
+    def removePlaylists(self, playlists):
+        self.manager.deletePlaylists(playlists)
+
     def updatePlaylistTitle(self, new_title, old_title):
         self.manager.updatePlaylistTitle(new_title, old_title)
 

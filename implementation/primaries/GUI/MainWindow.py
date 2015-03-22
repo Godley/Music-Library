@@ -34,6 +34,8 @@ class MainWindow(QtGui.QMainWindow):
         self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
         self.autoPlaylistsView.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
         self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
+        self.myPlaylistsWidget.itemClicked.connect(self.deletePlaylistBtn.show)
+        self.deletePlaylistBtn.clicked.connect(self.deletePlaylist)
         self.playlistTable.itemDoubleClicked.connect(self.onItemInPlaylistDoubleClicked)
         #self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
         self.editPlaylistTitle.hide()
@@ -43,10 +45,18 @@ class MainWindow(QtGui.QMainWindow):
         self.playBtn.hide()
         self.zoomInBtn.hide()
         self.zoomOutBtn.hide()
+        self.deletePlaylistBtn.hide()
         self.playlistList.itemDoubleClicked.connect(self.onItemDoubleClicked)
         self.editPlaylistTitle.clicked.connect(self.onPlaylistEditClicked)
         self.playlistTitleLineEdit.hide()
         self.playlistTitleLineEdit.returnPressed.connect(self.updatePlaylistTitle)
+
+    def deletePlaylist(self):
+        items = self.myPlaylistsWidget.selectedItems()
+        names = [item.data(2) for item in items]
+        self.parent.removePlaylists(names)
+        [self.myPlaylistsWidget.takeItem(self.myPlaylistsWidget.row(thing)) for thing in items]
+        self.myPlaylistsWidget.show()
 
     def updatePlaylistTitle(self):
         text = self.playlistTitleLineEdit.text()
@@ -307,8 +317,8 @@ class MainWindow(QtGui.QMainWindow):
         data = self.parent.loadUserPlaylistsForAGivenFile(filename)
         self.featuredListWidget.clear()
         for item in data:
-            widget = QtGui.QListWidgetItem(item["name"])
-            widget.setData(1, item["files"])
+            widget = QtGui.QListWidgetItem(item)
+            widget.setData(1, data[item])
             self.featuredListWidget.addItem(widget)
         self.featuredListWidget.show()
 

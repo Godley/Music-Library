@@ -551,20 +551,28 @@ border-color:;
            <height>181</height>
           </rect>
          </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::MultiSelection</enum>
+         </property>
         </widget>
         <widget class="QPushButton" name="AddPlaylistButton">
          <property name="geometry">
           <rect>
-           <x>265</x>
-           <y>216</y>
-           <width>31</width>
-           <height>31</height>
+           <x>270</x>
+           <y>217</y>
+           <width>21</width>
+           <height>25</height>
           </rect>
          </property>
          <property name="font">
           <font>
-           <pointsize>26</pointsize>
+           <pointsize>32</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color:green;</string>
          </property>
          <property name="text">
           <string>+</string>
@@ -583,12 +591,36 @@ border-color:;
           <string>x</string>
          </property>
         </widget>
+        <widget class="QToolButton" name="deletePlaylistBtn">
+         <property name="geometry">
+          <rect>
+           <x>5</x>
+           <y>220</y>
+           <width>26</width>
+           <height>26</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>images/trash-128.png</normaloff>images/trash-128.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>21</width>
+           <height>21</height>
+          </size>
+         </property>
+        </widget>
         <zorder>closeMyPlayBtn_drop</zorder>
         <zorder>title_2</zorder>
         <zorder>topBorder_2</zorder>
         <zorder>myPlaylistsWidget</zorder>
         <zorder>AddPlaylistButton</zorder>
         <zorder>closeMyPlayBtn</zorder>
+        <zorder>deletePlaylistBtn</zorder>
        </widget>
        <widget class="QWidget" name="autoPlaylistWidget" native="true">
         <property name="geometry">
