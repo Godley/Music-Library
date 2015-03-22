@@ -84,7 +84,7 @@ QWidget#playlistBrowserWidget {
 background:#FB8521;
 }
 
-QWidget#playlistBrowserWidget, QWidget#playlistBrowserWidget QTableWidget {
+QWidget#playlistBrowserWidget, QTableWidget#playlistList {
 border-color:#E3771B;
 }
 
@@ -167,6 +167,10 @@ border-color:#BBB;
 
 QFrame#autoCompleteFrame {
 border:0px;
+}
+
+QTableWidget#playlistList {
+border-color:;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -1370,11 +1374,23 @@ border:0px;
            <height>215</height>
           </rect>
          </property>
+         <property name="lineWidth">
+          <number>0</number>
+         </property>
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="showGrid">
+          <bool>false</bool>
+         </property>
+         <property name="gridStyle">
+          <enum>Qt::DotLine</enum>
+         </property>
          <attribute name="horizontalHeaderDefaultSectionSize">
-          <number>100</number>
+          <number>95</number>
          </attribute>
          <column>
           <property name="text">

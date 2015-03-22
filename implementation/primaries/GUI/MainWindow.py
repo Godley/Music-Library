@@ -73,40 +73,41 @@ class MainWindow(QtGui.QMainWindow):
         filename = current_item.data(1)
         index_in_playlist = current_item.data(3)
         data = self.parent.getPlaylistFileInfo(playlist)
-        self.playlistList.clear()
+        if self.playlistList.rowCount() != 0:
+            self.playlistList.clear()
+            self.playlistList.setHorizontalHeaderItem(0, QtGui.QTableWidgetItem("Title"))
+            self.playlistList.setHorizontalHeaderItem(1, QtGui.QTableWidgetItem("Composer"))
+            self.playlistList.setHorizontalHeaderItem(2, QtGui.QTableWidgetItem("Filename"))
         self.playlistList.setRowCount(len(data))
-        for i in range(0, index_in_playlist):
+        for i in range(len(data)):
             if "composer" in data[i]:
                 item = QtGui.QTableWidgetItem(data[i]["composer"])
+                item.setData(3,data[i]["filename"])
                 self.playlistList.setItem(i, 1, item)
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(3, data[i]["filename"])
+                self.playlistList.setItem(i, 1, item)
+
             if "title" in data[i]:
                 item = QtGui.QTableWidgetItem(data[i]["title"])
+                item.setData(3,data[i]["filename"])
                 self.playlistList.setItem(i, 0, item)
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(3, data[i]["filename"])
+                self.playlistList.setItem(i, 0, item)
+
             if "filename" in data[i]:
                 item = QtGui.QTableWidgetItem(data[i]["filename"])
-                self.playlistList.setItem(i, 3, item)
-        if "title" in data[index_in_playlist]:
-            item = QtGui.QTableWidgetItem(data[index_in_playlist]["title"])
-            self.playlistList.setItem(index_in_playlist, 0, item)
+                item.setData(3, data[i]["filename"])
+                self.playlistList.setItem(i, 2, item)
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(3, data[i]["filename"])
+                self.playlistList.setItem(i, 2, item)
 
-        if "composer" in data[index_in_playlist]:
-            item = QtGui.QTableWidgetItem(data[index_in_playlist]["composer"])
-            self.playlistList.setItem(index_in_playlist, 1, item)
-
-        if "filename" in data[index_in_playlist]:
-            item = QtGui.QTableWidgetItem(data[index_in_playlist]["filename"])
-            self.playlistList.setItem(index_in_playlist, 2, item)
-
-        for i in range(index_in_playlist+1, len(data)):
-            if "composer" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["composer"])
-                self.playlistList.setItem(i, 1, item)
-            if "title" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["title"])
-                self.playlistList.setItem(i, 0, item)
-            if "filename" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["filename"])
-                self.playlistList.setItem(i, 3, item)
+        self.playlistList.selectRow(index_in_playlist)
         self.playlistList.show()
 
 
