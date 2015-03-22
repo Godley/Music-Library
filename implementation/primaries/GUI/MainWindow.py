@@ -37,6 +37,15 @@ class MainWindow(QtGui.QMainWindow):
         self.myPlaylistsWidget.itemClicked.connect(self.deletePlaylistBtn.show)
         self.deletePlaylistBtn.clicked.connect(self.deletePlaylist)
         self.playlistTable.itemDoubleClicked.connect(self.onItemInPlaylistDoubleClicked)
+        self.actionMy_Scorebook.triggered.connect(self.onScorebookClicked)
+        self.actionMy_Playlists.triggered.connect(self.onMyPlaylistsClicked)
+        self.actionAuto_Playlists.triggered.connect(self.onAutoPlaylistsClicked)
+        self.actionPiece_Information.triggered.connect(self.PieceInfoClicked)
+        self.actionFeatured_in.triggered.connect(self.FeaturedInClicked)
+        self.actionPlaylist_Browser.triggered.connect(self.PlaylistBrowserClicked)
+        self.pieceInfoWidget.hide()
+        self.featuredInWidget.hide()
+        self.playlistBrowserWidget.hide()
         #self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
         self.editPlaylistTitle.hide()
         self.playlistViewer.hide()
@@ -50,6 +59,24 @@ class MainWindow(QtGui.QMainWindow):
         self.editPlaylistTitle.clicked.connect(self.onPlaylistEditClicked)
         self.playlistTitleLineEdit.hide()
         self.playlistTitleLineEdit.returnPressed.connect(self.updatePlaylistTitle)
+
+    def onScorebookClicked(self):
+        self.scoreWidget.setHidden(not self.scoreWidget.isHidden())
+
+    def onMyPlaylistsClicked(self):
+        self.playlistWidget.setHidden(not self.playlistWidget.isHidden())
+
+    def onAutoPlaylistsClicked(self):
+        self.autoPlaylistWidget.setHidden(not self.autoPlaylistWidget.isHidden())
+
+    def PieceInfoClicked(self):
+        self.pieceInfoWidget.setHidden(not self.pieceInfoWidget.isHidden())
+
+    def FeaturedInClicked(self):
+        self.featuredInWidget.setHidden(not self.featuredInWidget.isHidden())
+
+    def PlaylistBrowserClicked(self):
+        self.playlistBrowserWidget.setHidden(not self.playlistBrowserWidget.isHidden())
 
     def deletePlaylist(self):
         items = self.myPlaylistsWidget.selectedItems()
@@ -119,8 +146,9 @@ class MainWindow(QtGui.QMainWindow):
 
         self.playlistList.selectRow(index_in_playlist)
         self.playlistList.show()
+        self.playlistBrowserWidget.show()
         self.onItemDoubleClicked(current_item)
-
+        self.actionPlaylist_Browser.setChecked(True)
 
 
     def showToolbarBtns(self):
@@ -307,6 +335,7 @@ class MainWindow(QtGui.QMainWindow):
         self.musicTitle.repaint()
         self.loadFeaturedIn(file_to_load)
         self.playlistViewer.hide()
+        self.pieceInfoWidget.show()
 
     def updateProgressBar(self):
         bar_value = self.progressBarRendering.value()
@@ -321,15 +350,20 @@ class MainWindow(QtGui.QMainWindow):
             widget.setData(1, data[item])
             self.featuredListWidget.addItem(widget)
         self.featuredListWidget.show()
+        self.featuredInWidget.show()
+        self.actionFeatured_in.setChecked(True)
 
     def clearUnusedWidgets(self):
         self.featuredListWidget.clear()
+        self.featuredInWidget.hide()
         self.pieceInfoView.clear()
+        self.pieceInfoWidget.hide()
         self.playlistList.clear()
         self.playlistList.setHorizontalHeaderItem(0, QtGui.QTableWidgetItem("Title"))
         self.playlistList.setHorizontalHeaderItem(1, QtGui.QTableWidgetItem("Composer"))
         self.playlistList.setHorizontalHeaderItem(2, QtGui.QTableWidgetItem("Filename"))
         self.playlistList.setRowCount(0)
+        self.playlistBrowserWidget.hide()
 
     def loadPieceData(self, filename):
         self.pieceInfoView.clear()
@@ -391,6 +425,8 @@ class MainWindow(QtGui.QMainWindow):
             self.pieceInfoView.addItem(tempos)
 
         self.pieceInfoView.show()
+        self.pieceInfoWidget.show()
+        self.actionPiece_Information.setChecked(True)
 
 
     def pdf_view(self, filename):

@@ -1719,31 +1719,61 @@ border-color:;
    </property>
   </action>
   <action name="actionMy_Scorebook">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>My Scorebook</string>
    </property>
   </action>
   <action name="actionMy_Playlists">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>My Playlists</string>
    </property>
   </action>
   <action name="actionAuto_Playlists">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Auto Playlists</string>
    </property>
   </action>
   <action name="actionPiece_Information">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Piece Information</string>
    </property>
   </action>
   <action name="actionFeatured_in">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Featured in</string>
    </property>
   </action>
   <action name="actionPlaylist_Browser">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Playlist Browser</string>
    </property>
