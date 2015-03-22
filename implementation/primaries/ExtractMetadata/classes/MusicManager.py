@@ -325,6 +325,9 @@ class MusicManager(object):
         data = {"title":new_title}
         self.__data.updateUserPlaylist(row_id, data)
 
+    def getPlaylistByFilename(self, filename):
+        data = self.__data.getUserPlaylistsForFile(filename)
+        return data
 
     def getPlaylists(self):
         result_set = {}

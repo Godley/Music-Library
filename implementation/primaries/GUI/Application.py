@@ -78,6 +78,10 @@ class Application(object):
         file_info = self.manager.getFileInfo(filename)
         return file_info
 
+    def loadUserPlaylistsForAGivenFile(self, filename):
+        data = self.manager.getPlaylistByFilename(filename)
+        return data
+
     def loadFile(self, filename):
         '''
         This method should:
@@ -93,9 +97,9 @@ class Application(object):
             process = threading.Thread(target=self.startRenderingTask, args=(filename,))
             process.start()
 
-            while process.isAlive() and not os.path.exists(os.path.join(self.folder, pdf_version)):
-                self.main.updateProgressBar()
-                time.sleep(1)
+            # while process.isAlive() and not os.path.exists(os.path.join(self.folder, pdf_version)):
+            #     self.main.updateProgressBar()
+            #     time.sleep(1)
             process.join()
             return os.path.join(self.folder, pdf_version)
 

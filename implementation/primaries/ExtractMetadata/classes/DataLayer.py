@@ -1155,6 +1155,23 @@ class MusicData(object):
         connection.commit()
         self.disconnect(connection)
 
+    def getUserPlaylistsForFile(self, filename):
+        data = []
+        connection, cursor = self.connect()
+        query = '''SELECT playlist.name from playlists playlist, playlist_join play, pieces piece
+                    WHERE piece.filename = ? AND piece.ROWID = play.piece_id'''
+        cursor.execute(query, (filename,))
+        results = cursor.fetchall()
+        query_2 = '''SELECT piece.filename FROM pieces piece, playlist_join play, playlists playlist
+                  WHERE playlist.name = ? AND play.playlist_id = playlist.ROWID AND piece.ROWID = play.piece_id'''
+        for i in range(len(results)):
+            cursor.execute(query_2, results[i])
+            files = cursor.fetchall()
+            new_entry = {"name":results[i][0], "files":[file[0] for file in files]}
+            data.append(new_entry)
+        self.disconnect(connection)
+        return data
+
     # methods to clear out old records. In general we just archive them on the off chance the piece comes back -
     # if it does give the user the option to un-archive or else remove all old data
     def removePieces(self, filenames):

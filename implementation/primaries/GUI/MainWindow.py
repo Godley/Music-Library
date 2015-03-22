@@ -259,6 +259,7 @@ class MainWindow(QtGui.QMainWindow):
         self.playlistTable.show()
         self.playlistViewer.show()
         self.hideToolbarBtns()
+        self.clearUnusedWidgets()
 
 
     def onInactiveSearchBar(self):
@@ -294,12 +295,31 @@ class MainWindow(QtGui.QMainWindow):
         self.pdf_view(filename)
         self.musicTitle.setText(file_to_load)
         self.musicTitle.repaint()
+        self.loadFeaturedIn(file_to_load)
         self.playlistViewer.hide()
 
     def updateProgressBar(self):
         bar_value = self.progressBarRendering.value()
         self.progressBarRendering.setValue(bar_value+1)
         self.progressBarRendering.repaint()
+
+    def loadFeaturedIn(self, filename):
+        data = self.parent.loadUserPlaylistsForAGivenFile(filename)
+        self.featuredListWidget.clear()
+        for item in data:
+            widget = QtGui.QListWidgetItem(item["name"])
+            widget.setData(1, item["files"])
+            self.featuredListWidget.addItem(widget)
+        self.featuredListWidget.show()
+
+    def clearUnusedWidgets(self):
+        self.featuredListWidget.clear()
+        self.pieceInfoView.clear()
+        self.playlistList.clear()
+        self.playlistList.setHorizontalHeaderItem(0, QtGui.QTableWidgetItem("Title"))
+        self.playlistList.setHorizontalHeaderItem(1, QtGui.QTableWidgetItem("Composer"))
+        self.playlistList.setHorizontalHeaderItem(2, QtGui.QTableWidgetItem("Filename"))
+        self.playlistList.setRowCount(0)
 
     def loadPieceData(self, filename):
         self.pieceInfoView.clear()
