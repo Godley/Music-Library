@@ -43,6 +43,7 @@ class MainWindow(QtGui.QMainWindow):
         self.playBtn.hide()
         self.zoomInBtn.hide()
         self.zoomOutBtn.hide()
+        self.playlistList.itemDoubleClicked.connect(self.onItemDoubleClicked)
         self.editPlaylistTitle.clicked.connect(self.onPlaylistEditClicked)
         self.playlistTitleLineEdit.hide()
         self.playlistTitleLineEdit.returnPressed.connect(self.updatePlaylistTitle)
@@ -70,7 +71,6 @@ class MainWindow(QtGui.QMainWindow):
 
     def onItemInPlaylistDoubleClicked(self, current_item):
         playlist = current_item.data(4)
-        filename = current_item.data(1)
         index_in_playlist = current_item.data(3)
         data = self.parent.getPlaylistFileInfo(playlist)
         if self.playlistList.rowCount() != 0:
@@ -82,33 +82,34 @@ class MainWindow(QtGui.QMainWindow):
         for i in range(len(data)):
             if "composer" in data[i]:
                 item = QtGui.QTableWidgetItem(data[i]["composer"])
-                item.setData(3,data[i]["filename"])
+                item.setData(1,data[i]["filename"])
                 self.playlistList.setItem(i, 1, item)
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(3, data[i]["filename"])
+                item.setData(1, data[i]["filename"])
                 self.playlistList.setItem(i, 1, item)
 
             if "title" in data[i]:
                 item = QtGui.QTableWidgetItem(data[i]["title"])
-                item.setData(3,data[i]["filename"])
+                item.setData(1,data[i]["filename"])
                 self.playlistList.setItem(i, 0, item)
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(3, data[i]["filename"])
+                item.setData(1, data[i]["filename"])
                 self.playlistList.setItem(i, 0, item)
 
             if "filename" in data[i]:
                 item = QtGui.QTableWidgetItem(data[i]["filename"])
-                item.setData(3, data[i]["filename"])
+                item.setData(1, data[i]["filename"])
                 self.playlistList.setItem(i, 2, item)
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(3, data[i]["filename"])
+                item.setData(1, data[i]["filename"])
                 self.playlistList.setItem(i, 2, item)
 
         self.playlistList.selectRow(index_in_playlist)
         self.playlistList.show()
+        self.onItemDoubleClicked(current_item)
 
 
 
