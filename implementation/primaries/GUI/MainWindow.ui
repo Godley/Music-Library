@@ -1057,7 +1057,10 @@ border:0px;
            <enum>QFrame::Sunken</enum>
           </property>
           <property name="horizontalScrollBarPolicy">
-           <enum>Qt::ScrollBarAsNeeded</enum>
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
           </property>
           <property name="alternatingRowColors">
            <bool>false</bool>
@@ -1491,6 +1494,52 @@ border:0px;
          <property name="icon">
           <iconset>
            <normaloff>images/glyphicons-174-play.png</normaloff>images/glyphicons-174-play.png</iconset>
+         </property>
+        </widget>
+        <widget class="QToolButton" name="zoomOutBtn">
+         <property name="geometry">
+          <rect>
+           <x>673</x>
+           <y>5</y>
+           <width>26</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>images/glyphicons-238-zoom-out.png</normaloff>images/glyphicons-238-zoom-out.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
+         </property>
+        </widget>
+        <widget class="QToolButton" name="zoomInBtn">
+         <property name="geometry">
+          <rect>
+           <x>647</x>
+           <y>5</y>
+           <width>26</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>images/glyphicons-237-zoom-in.png</normaloff>images/glyphicons-237-zoom-in.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>16</width>
+           <height>16</height>
+          </size>
          </property>
         </widget>
        </widget>

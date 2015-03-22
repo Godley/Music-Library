@@ -6,7 +6,8 @@ from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser
 
 
 class Application(object):
-    def __init__(self):
+    def __init__(self, app):
+        self.app = app
         self.previous_collections = []
         self.col_file = ".collections"
         self.getPreviousCollections()
@@ -19,6 +20,7 @@ class Application(object):
         else:
             self.folder = self.previous_collections[-1]
             self.setupMainWindow()
+
 
     def startUp(self):
         self.folder = ""
@@ -142,7 +144,7 @@ def main():
 
     app = QtGui.QApplication(sys.argv)
 
-    app_obj = Application()
+    app_obj = Application(app)
     sys.exit(app.exec_())
 
 
