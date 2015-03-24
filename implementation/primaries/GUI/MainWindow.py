@@ -282,6 +282,7 @@ class MainWindow(QtGui.QMainWindow):
 
 
     def onPlaylistDoubleClicked(self, current_item):
+        self.playlistTable.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
         self.scoreWindow.hide()
         playlist_to_load = current_item.data(1)
         length = len(playlist_to_load)
