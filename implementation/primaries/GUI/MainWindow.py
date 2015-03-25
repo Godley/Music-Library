@@ -73,9 +73,38 @@ class MainWindow(QtGui.QMainWindow):
 
     def PieceInfoClicked(self):
         self.pieceInfoWidget.setHidden(not self.pieceInfoWidget.isHidden())
+        if not self.pieceInfoWidget.isHidden():
+            if not self.featuredInWidget.isHidden():
+                self.featuredInWidget.move(0, 250)
+                if not self.playlistBrowserWidget.isHidden():
+                    self.playlistBrowserWidget.move(0,500)
+            elif not self.playlistBrowserWidget.isHidden():
+                self.playlistBrowserWidget.move(0,250)
+        else:
+            if not self.featuredInWidget.isHidden():
+                self.featuredInWidget.move(0, 0)
+                if not self.playlistBrowserWidget.isHidden():
+                    self.playlistBrowserWidget.move(0,250)
+            elif not self.playlistBrowserWidget.isHidden():
+                self.playlistBrowserWidget.move(0,0)
+
 
     def FeaturedInClicked(self):
         self.featuredInWidget.setHidden(not self.featuredInWidget.isHidden())
+        yval=0
+        if not self.featuredInWidget.isHidden():
+            if not self.pieceInfoWidget.isHidden():
+                yval=250
+            self.featuredInWidget.move(0, yval)
+            if not self.playlistBrowserWidget.isHidden():
+                self.playlistBrowserWidget.move(0, yval+250)
+        else:
+            if not self.playlistBrowserWidget.isHidden():
+                yval=0
+                if not self.pieceInfoWidget.isHidden():
+                    yval=250
+                self.playlistBrowserWidget.move(0, yval)
+
 
     def PlaylistBrowserClicked(self):
         self.playlistBrowserWidget.setHidden(not self.playlistBrowserWidget.isHidden())
