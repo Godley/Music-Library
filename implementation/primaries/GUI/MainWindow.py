@@ -43,6 +43,7 @@ class MainWindow(QtGui.QMainWindow):
         self.actionPiece_Information.triggered.connect(self.PieceInfoClicked)
         self.actionFeatured_in.triggered.connect(self.FeaturedInClicked)
         self.actionPlaylist_Browser.triggered.connect(self.PlaylistBrowserClicked)
+        self.actionImport.triggered.connect(self.parent.importPopup)
         self.pieceInfoWidget.hide()
         self.featuredInWidget.hide()
         self.playlistBrowserWidget.hide()
@@ -329,14 +330,15 @@ class MainWindow(QtGui.QMainWindow):
 
     def loadPiece(self, file_to_load):
         filename = self.parent.loadFile(file_to_load)
-        self.showToolbarBtns()
-        self.loadPieceData(file_to_load)
-        self.pdf_view(filename)
-        self.musicTitle.setText(file_to_load)
-        self.musicTitle.repaint()
-        self.loadFeaturedIn(file_to_load)
-        self.playlistViewer.hide()
-        self.pieceInfoWidget.show()
+        if filename is not None:
+            self.showToolbarBtns()
+            self.loadPieceData(file_to_load)
+            self.pdf_view(filename)
+            self.musicTitle.setText(file_to_load)
+            self.musicTitle.repaint()
+            self.loadFeaturedIn(file_to_load)
+            self.playlistViewer.hide()
+            self.pieceInfoWidget.show()
 
     def updateProgressBar(self):
         bar_value = self.progressBarRendering.value()

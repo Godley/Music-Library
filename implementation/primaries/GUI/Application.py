@@ -1,6 +1,6 @@
 from PyQt4 import QtCore, QtGui
 import sys, os, pickle, threading, time
-from implementation.primaries.GUI import StartupWidget, MainWindow, PlaylistDialog, renderingErrorPopup
+from implementation.primaries.GUI import StartupWidget, MainWindow, PlaylistDialog, renderingErrorPopup, ImportDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
 
@@ -102,6 +102,11 @@ class Application(object):
                 self.errorPopup(errorList)
             if os.path.exists(pdf):
                 return pdf
+
+    def importPopup(self):
+        dialog = ImportDialog.ImportDialog(self)
+        dialog.setWindowFlags(QtCore.Qt.Dialog)
+        dialog.exec()
 
     def errorPopup(self, errors):
         popup = renderingErrorPopup.RenderingErrorPopup(self, errors)
