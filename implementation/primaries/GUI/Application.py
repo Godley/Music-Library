@@ -108,6 +108,9 @@ class Application(object):
         dialog.setWindowFlags(QtCore.Qt.Dialog)
         dialog.exec()
 
+    def copyFiles(self, fnames):
+        pass
+
     def errorPopup(self, errors):
         popup = renderingErrorPopup.RenderingErrorPopup(self, errors)
         popup.setWindowFlags(QtCore.Qt.Dialog)
