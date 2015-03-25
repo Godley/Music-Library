@@ -108,6 +108,13 @@ class MainWindow(QtGui.QMainWindow):
 
     def PlaylistBrowserClicked(self):
         self.playlistBrowserWidget.setHidden(not self.playlistBrowserWidget.isHidden())
+        yval=0
+        if not self.playlistBrowserWidget.isHidden():
+            if not self.pieceInfoWidget.isHidden():
+                yval+=250
+            if not self.featuredInWidget.isHidden():
+                yval += 250
+            self.playlistBrowserWidget.move(0, yval)
 
     def deletePlaylist(self):
         items = self.myPlaylistsWidget.selectedItems()
