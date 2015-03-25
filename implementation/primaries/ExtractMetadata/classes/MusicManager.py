@@ -354,6 +354,18 @@ class MusicManager(object):
             result_set["tempos"] = tempos
         return result_set
 
+    def copyFiles(self, filenames):
+        '''
+        method to copy a list of files from one folder to another
+        :param filenames: list of files including extension and folder
+        :return: none
+        '''
+        for file in filenames:
+            folder_file_split = file.split("/")
+            f = folder_file_split[-1]
+            shutil.copyfile(file, os.path.join(self.folder, f))
+
+
     def getPlaylistsFromPlaylistTable(self):
         data = self.__data.getAllUserPlaylists()
         return data

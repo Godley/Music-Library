@@ -46,7 +46,16 @@ class testMusicManager(unittest.TestCase):
         self.manager.refresh()
         self.assertEqual(self.manager.folder_browser.getNewAndOldFiles()["old"], ["file.xml"])
 
+    def testCopyFiles(self):
+        file = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases/3repeats.xml"
+        self.manager.copyFiles([file])
+        self.assertTrue(os.path.exists(os.path.join(self.folder, "3repeats.xml")))
+
+
     def tearDown(self):
         os.remove(os.path.join(self.folder, "music.db"))
         if os.path.exists(os.path.join(self.folder, "file5.xml")):
             os.remove(os.path.join(self.folder, "file5.xml"))
+
+        if os.path.exists(os.path.join(self.folder, "3repeats.xml")):
+            os.remove(os.path.join(self.folder, "3repeats.xml"))

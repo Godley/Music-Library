@@ -109,7 +109,10 @@ class Application(object):
         dialog.exec()
 
     def copyFiles(self, fnames):
-        pass
+        self.manager.copyFiles(fnames)
+        self.updateDb()
+        self.main.onSortMethodChange()
+        self.main.loadPlaylists()
 
     def errorPopup(self, errors):
         popup = renderingErrorPopup.RenderingErrorPopup(self, errors)

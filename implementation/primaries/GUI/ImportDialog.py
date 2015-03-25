@@ -7,6 +7,7 @@ class ImportDialog(QtGui.QDialog):
         QtGui.QDialog.__init__(self)
         uic.loadUi('importDialog.ui', self)
         self.browseBtn.clicked.connect(self.findFiles)
+        self.buttonBox.accepted.connect(self.updateAndClose)
         self.fnames = []
 
     def findFiles(self):
@@ -18,9 +19,9 @@ class ImportDialog(QtGui.QDialog):
         self.fnames = fnames
         self.listWidget.show()
 
-    def close(self):
+    def updateAndClose(self):
         self.parent.copyFiles(self.fnames)
-        self.close()
+
 
 
 
