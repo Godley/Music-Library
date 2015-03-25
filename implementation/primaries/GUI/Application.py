@@ -1,8 +1,8 @@
 from PyQt4 import QtCore, QtGui
 import sys, os, pickle, threading, time
-from implementation.primaries.GUI import StartupWidget, MainWindow, PlaylistDialog
+from implementation.primaries.GUI import StartupWidget, MainWindow, PlaylistDialog, renderingErrorPopup
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
-from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser
+from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
 
 
 class Application(object):
@@ -94,14 +94,19 @@ class Application(object):
         if os.path.exists(os.path.join(self.folder, pdf_version)):
             return os.path.join(self.folder, pdf_version)
         else:
-            process = threading.Thread(target=self.startRenderingTask, args=(filename,))
-            process.start()
+            errorList = self.startRenderingTask(filename)
+            pdf = os.path.join(self.folder, pdf_version)
+            if not os.path.exists(pdf):
+                errorList.append("file rendering failed to produce a pdf, check above errors")
+            if len(errorList) > 0:
+                self.errorPopup(errorList)
+            if os.path.exists(pdf):
+                return pdf
 
-            # while process.isAlive() and not os.path.exists(os.path.join(self.folder, pdf_version)):
-            #     self.main.updateProgressBar()
-            #     time.sleep(1)
-            process.join()
-            return os.path.join(self.folder, pdf_version)
+    def errorPopup(self, errors):
+        popup = renderingErrorPopup.RenderingErrorPopup(self, errors)
+        popup.setWindowFlags(QtCore.Qt.Dialog)
+        popup.exec()
 
     def query(self, input):
         data = SearchProcessor.process(input)
@@ -109,10 +114,23 @@ class Application(object):
         return results
 
     def startRenderingTask(self, filename):
+        errorList = []
         parser = MxmlParser.MxmlParser()
-        piece_obj = parser.parse(os.path.join(self.folder,filename))
-        loader = LilypondRender.LilypondRender(piece_obj, os.path.join(self.folder,filename))
-        loader.run()
+        piece_obj = None
+        try:
+            piece_obj = parser.parse(os.path.join(self.folder,filename))
+        except Exceptions.DrumNotImplementedException as e:
+            errorList.append("Drum tab found in piece: this application does not handle drum tab.")
+        except Exceptions.TabNotImplementedException as e:
+            errorList.append("Guitar tab found in this piece: this application does not handle guitar tab.")
+
+        if piece_obj is not None:
+            try:
+                loader = LilypondRender.LilypondRender(piece_obj, os.path.join(self.folder,filename))
+                loader.run()
+            except BaseException as e:
+                errorList.append(str(e))
+        return errorList
 
     def updateDb(self):
         self.manager.refresh()
