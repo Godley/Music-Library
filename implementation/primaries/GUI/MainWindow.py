@@ -81,9 +81,29 @@ class MainWindow(QtGui.QMainWindow):
 
     def onMyPlaylistsClicked(self):
         self.playlistWidget.setHidden(not self.playlistWidget.isHidden())
+        yval=0
+        if not self.playlistWidget.isHidden():
+            if not self.scoreWidget.isHidden():
+                yval=250
+            self.playlistWidget.move(0, yval)
+            if not self.autoPlaylistWidget.isHidden():
+                self.autoPlaylistWidget.move(0, yval+250)
+        else:
+            if not self.autoPlaylistWidget.isHidden():
+                yval=0
+                if not self.scoreWidget.isHidden():
+                    yval=250
+                self.autoPlaylistWidget.move(0, yval)
 
     def onAutoPlaylistsClicked(self):
         self.autoPlaylistWidget.setHidden(not self.autoPlaylistWidget.isHidden())
+        yval=0
+        if not self.autoPlaylistWidget.isHidden():
+            if not self.scoreWidget.isHidden():
+                yval+=250
+            if not self.playlistWidget.isHidden():
+                yval += 250
+            self.autoPlaylistWidget.move(0, yval)
 
     def PieceInfoClicked(self):
         self.pieceInfoWidget.setHidden(not self.pieceInfoWidget.isHidden())

@@ -38,7 +38,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArticulation.coverage" NAME="Unittests in testArticulation Coverage Results" MODIFIED="1425743471819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPlaylister.coverage" NAME="Unittests in testPlaylister Coverage Results" MODIFIED="1419795804913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTree.coverage" NAME="Unittests in testTree Coverage Results" MODIFIED="1424305552955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1427308164682" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1427308384876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$pil.coverage" NAME="pil Coverage Results" MODIFIED="1426380488649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPart.coverage" NAME="Unittests in testPart Coverage Results" MODIFIED="1425861081183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testGraceNotes.coverage" NAME="Unittests in testGraceNotes Coverage Results" MODIFIED="1424820087867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
@@ -179,14 +179,14 @@
       <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6475196" vertical-offset="922" max-vertical-offset="6585">
-              <caret line="78" column="24" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.92167103" vertical-offset="1222" max-vertical-offset="6885">
+              <caret line="105" column="29" selection-start-line="105" selection-start-column="29" selection-end-line="105" selection-end-column="29" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
-                <element signature="e#9560#13998#0" expanded="false" />
-                <element signature="e#20876#21209#0" expanded="false" />
-                <element signature="e#21343#21837#0" expanded="false" />
-                <element signature="e#22500#23722#0" expanded="false" />
+                <element signature="e#10350#14788#0" expanded="false" />
+                <element signature="e#21666#21999#0" expanded="false" />
+                <element signature="e#22133#22627#0" expanded="false" />
+                <element signature="e#23290#24512#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -980,12 +980,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00558" summary="finished connecting startup box to callbacks&#10;&#10;- connected select folder button to a folder browser, which upon return/selection of a valid folder will open up the main GUI&#10;- created a new method which will save the folder to a list which then gets serialised to a file (.collections) &#10;- connected the listbox to the left of the gui to the items from this file&#10;- connected the callbacks from each listbox item to open that folder upon double clicking the item&#10;- issue fix #200">
-      <created>1426461148404</created>
-      <option name="number" value="00558" />
-      <option name="project" value="LOCAL" />
-      <updated>1426461148404</updated>
-    </task>
     <task id="LOCAL-00559" summary="created new playlist box and made some bug fixes&#10;&#10;- upon testing a few things bugs were encountered with for example, refresh buttons so fixed those&#10;- added new playlist dialog UI design, need to connect this with code (work toward issue #75)">
       <created>1426462286965</created>
       <option name="number" value="00559" />
@@ -1274,7 +1268,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427307832718</updated>
     </task>
-    <option name="localTasksCounter" value="607" />
+    <task id="LOCAL-00607" summary="work toward issue #226&#10;&#10;- applied logic to my scorebook">
+      <created>1427308214277</created>
+      <option name="number" value="00607" />
+      <option name="project" value="LOCAL" />
+      <updated>1427308214277</updated>
+    </task>
+    <option name="localTasksCounter" value="608" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1365,7 +1365,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="work toward issue #70&#10;- fixed querying problem with a new multiple clefs to an instrument method/same with keys&#10;- however, this will still need some manipulation in the dataManager method because currently it does keys and clefs in exclusion from each other, when really with should apply both filters - for example, if a piece is in D major and has a treble clef, it shouldn't show if we use &quot;with:key:&quot;D major&quot;;clef:bass&quot;&#10;- also want to do it so that the results are categorised by what was found/where + make the search box adjust vertically to how many results there are&#10;- also need to add a &quot;offline&quot; label to all data found so that we can then have an &quot;online&quot; label once objective 3 is done" />
     <MESSAGE value="work toward issue #70&#10;- made autocomplete box adjust to the size of it's results: if the resulting size is larger than the size of the window, it will instead set it to the size of the 4/5 of the size of the window&#10;" />
     <MESSAGE value="work toward issue #70&#10;- switched autocomplete box to a tree widget, which now organises results by what was found in those results&#10;" />
     <MESSAGE value="work toward issue #70&#10;- implemented same autocomplete in new playlist, and linked delete callback on said window. This now adds and the main window reloads &quot;my playlists&quot; upon closing the popup." />
@@ -1390,7 +1389,8 @@
     <MESSAGE value="issue fix #225&#10;&#10;- connected &quot;New collection&quot; file menu button to reopening of startup window" />
     <MESSAGE value="work toward issue #226&#10;&#10;- applied logic explained in issue to showing/hiding of piece info&#10;- applied to featured in" />
     <MESSAGE value="work toward issue #226&#10;&#10;- applied logic to playlist browser" />
-    <option name="LAST_COMMIT_MESSAGE" value="work toward issue #226&#10;&#10;- applied logic to playlist browser" />
+    <MESSAGE value="work toward issue #226&#10;&#10;- applied logic to my scorebook" />
+    <option name="LAST_COMMIT_MESSAGE" value="work toward issue #226&#10;&#10;- applied logic to my scorebook" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1497,7 +1497,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>595</line>
+          <line>615</line>
           <option name="timeStamp" value="687" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1960,14 +1960,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6475196" vertical-offset="922" max-vertical-offset="6585">
-          <caret line="78" column="24" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.92167103" vertical-offset="1222" max-vertical-offset="6885">
+          <caret line="105" column="29" selection-start-line="105" selection-start-column="29" selection-end-line="105" selection-end-column="29" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#9560#13998#0" expanded="false" />
-            <element signature="e#20876#21209#0" expanded="false" />
-            <element signature="e#21343#21837#0" expanded="false" />
-            <element signature="e#22500#23722#0" expanded="false" />
+            <element signature="e#10350#14788#0" expanded="false" />
+            <element signature="e#21666#21999#0" expanded="false" />
+            <element signature="e#22133#22627#0" expanded="false" />
+            <element signature="e#23290#24512#0" expanded="false" />
           </folding>
         </state>
       </provider>
