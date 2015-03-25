@@ -44,6 +44,7 @@ class MainWindow(QtGui.QMainWindow):
         self.actionFeatured_in.triggered.connect(self.FeaturedInClicked)
         self.actionPlaylist_Browser.triggered.connect(self.PlaylistBrowserClicked)
         self.actionImport.triggered.connect(self.parent.importPopup)
+        self.actionNew_Collection.triggered.connect(self.parent.makeNewCollection)
         self.pieceInfoWidget.hide()
         self.featuredInWidget.hide()
         self.playlistBrowserWidget.hide()

@@ -146,6 +146,10 @@ class Application(object):
     def updateDb(self):
         self.manager.refresh()
 
+    def makeNewCollection(self):
+        self.main.close()
+        self.startUp()
+
     def addPlaylist(self, data):
         self.manager.addPlaylist(data)
 
