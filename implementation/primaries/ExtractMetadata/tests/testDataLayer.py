@@ -259,6 +259,16 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{"composer":"Bartok"})
         self.assertEqual("file.xml", self.data.getPiecesByComposer("Bartok")[0])
 
+    def testFindPieceByPartialComposer(self):
+        self.data.addPiece("file.xml",{"composer":"Bella Bartok"})
+        self.data.addPiece("file2.xml",{"composer":"Bella Bartok"})
+        self.assertEqual(["file.xml","file2.xml"], self.data.getPiecesByComposer("Bartok"))
+
+    def testFindPieceByPartialComposerWhereTwoExist(self):
+        self.data.addPiece("file.xml",{"composer":"Bella Bartok"})
+        self.data.addPiece("file2.xml",{"composer":"Tina Bartok"})
+        self.assertEqual(["file.xml","file2.xml"], self.data.getPiecesByComposer("Bartok"))
+
     def testFindPieceByLyricist(self):
         self.data.addPiece("file.xml",{"lyricist":"Bartok"})
         self.assertEqual("file.xml", self.data.getPiecesByLyricist("Bartok")[0])

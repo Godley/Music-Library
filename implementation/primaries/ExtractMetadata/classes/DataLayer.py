@@ -409,6 +409,18 @@ class MusicData(object):
         if len(result) > 0:
             return result[0][0]
 
+    def getComposerIdWhereTextInName(self, composer, cursor):
+        '''
+        method which takes in composer name and outputs its database id
+        :param composer: name of composer
+        :param cursor: database cursor object
+        :return: int pertaining to row id of composer in database
+        '''
+        cursor.execute('SELECT ROWID FROM composers WHERE name=? OR name LIKE ?', (composer,"%"+composer+"%"))
+        result = cursor.fetchall()
+        composer_ids = [res[0] for res in result]
+        return composer_ids
+
     def getComposerId(self, composer, cursor):
         '''
         method which takes in composer name and outputs its database id
@@ -513,12 +525,22 @@ class MusicData(object):
         :return: list of strings (filenames)
         '''
         connection, cursor = self.connect()
-        composer_id = self.getComposerId(composer, cursor)
-        cursor.execute('SELECT filename FROM pieces WHERE composer_id=? AND archived=?', (composer_id,archived))
-        result = cursor.fetchall()
-        file_list = [r[0] for r in result]
-        self.disconnect(connection)
-        return file_list
+        composer_ids = self.getComposerIdWhereTextInName(composer, cursor)
+        if len(composer_ids) > 0:
+            query = 'SELECT filename FROM pieces WHERE archived=? AND (composer_id=?'
+            for id in composer_ids:
+                if id != composer_ids[-1]:
+                    query += "OR composer_id LIKE ?"
+                if id == composer_ids[-1]:
+                    query += ")"
+            input_list = [archived]
+            input_list.extend(composer_ids)
+            input = tuple(input_list)
+            cursor.execute(query, input)
+            result = cursor.fetchall()
+            file_list = [r[0] for r in result]
+            self.disconnect(connection)
+            return file_list
 
     def getPiecesByLyricist(self, lyricist, archived=0):
         '''
