@@ -385,6 +385,18 @@ class MusicData(object):
         if len(result) > 0:
             return result[0][0]
 
+    def getInstrumentIdWhereTextInName(self, instrument, cursor):
+        '''
+        method which takes in partial instrument name and returns the row id of that instrument
+        :param instrument: name of instrument
+        :param cursor: cursor object
+        :return: int pertaining to row id of instrument in database
+        '''
+        cursor.execute('SELECT ROWID FROM instruments WHERE name=? OR name LIKE ?', (instrument, "%"+instrument+"%"))
+        result = cursor.fetchall()
+        instrument_ids = [id[0] for id in result]
+        return instrument_ids
+
     def getInstrumentId(self, instrument, cursor):
         '''
         method which takes in instrument name and returns the row id of that instrument
@@ -392,7 +404,7 @@ class MusicData(object):
         :param cursor: cursor object
         :return: int pertaining to row id of instrument in database
         '''
-        cursor.execute('SELECT ROWID FROM instruments WHERE name LIKE ?', ("%"+instrument+"%",))
+        cursor.execute('SELECT ROWID FROM instruments WHERE name=?', (instrument,))
         result = cursor.fetchall()
         if len(result) > 0:
             return result[0][0]
@@ -453,12 +465,25 @@ class MusicData(object):
         :return: list of files containing that instrumnet
         '''
         connection, cursor = self.connect()
-        instrument_ids = [self.getInstrumentId(instrument, cursor) for instrument in instruments]
-        query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS (SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND instrument_id = ?)'
-        for i in range(1,len(instrument_ids)):
-            query += ' AND EXISTS (SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND instrument_id = ?)'
+        instrument_ids = [self.getInstrumentIdWhereTextInName(instrument, cursor) for instrument in instruments]
+        tuple_ids = []
+        [tuple_ids.extend(inst_id) for inst_id in instrument_ids]
+        query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
+        for i in range(len(instrument_ids)):
+            query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND '
+            for result in instrument_ids[i]:
+                if result == instrument_ids[i][0]:
+                    query += '('
+                query += 'instrument_id = ?'
+                if result != instrument_ids[i][-1]:
+                    query += ' OR '
+                else:
+                    query += ')'
+            query += ')'
+            if i != len(instrument_ids)-1:
+                query += ' AND EXISTS '
         query += ";"
-        input = tuple(instrument_ids)
+        input = tuple(tuple_ids)
         cursor.execute(query, input)
         results = cursor.fetchall()
         file_list = self.getPiecesByRowId(results, cursor, archived)
