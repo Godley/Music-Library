@@ -433,6 +433,18 @@ class MusicData(object):
         if len(result) > 0:
             return result[0][0]
 
+    def getLyricistIdWhereTextInName(self, lyricist, cursor):
+        '''
+        method which takes in composer name and outputs its database id
+        :param composer: name of composer
+        :param cursor: database cursor object
+        :return: int pertaining to row id of composer in database
+        '''
+        cursor.execute('SELECT ROWID FROM lyricists WHERE name=? OR name LIKE ?', (lyricist,"%"+lyricist+"%"))
+        result = cursor.fetchall()
+        lyricist_ids = [res[0] for res in result]
+        return lyricist_ids
+
     def getLyricistId(self, lyricist, cursor):
         '''
         method which takes in composer name and outputs its database id
@@ -549,12 +561,22 @@ class MusicData(object):
         :return: list of strings (filenames)
         '''
         connection, cursor = self.connect()
-        lyricist_id = self.getLyricistId(lyricist, cursor)
-        cursor.execute('SELECT filename FROM pieces WHERE lyricist_id=? AND archived=?', (lyricist_id,archived))
-        result = cursor.fetchall()
-        file_list = [r[0] for r in result]
-        self.disconnect(connection)
-        return file_list
+        lyricist_ids = self.getLyricistIdWhereTextInName(lyricist, cursor)
+        if len(lyricist_ids) > 0:
+            query = 'SELECT filename FROM pieces WHERE archived=? AND (lyricist_id=?'
+            for id in lyricist_ids:
+                if id != lyricist_ids[-1]:
+                    query += "OR lyricist_id LIKE ?"
+                if id == lyricist_ids[-1]:
+                    query += ")"
+            input_list = [archived]
+            input_list.extend(lyricist_ids)
+            input = tuple(input_list)
+            cursor.execute(query, input)
+            result = cursor.fetchall()
+            file_list = [r[0] for r in result]
+            self.disconnect(connection)
+            return file_list
 
     def getPieceByTitle(self, title, archived=0):
         '''
