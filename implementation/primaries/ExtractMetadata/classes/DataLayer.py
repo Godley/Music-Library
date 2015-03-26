@@ -392,7 +392,7 @@ class MusicData(object):
         :param cursor: cursor object
         :return: int pertaining to row id of instrument in database
         '''
-        cursor.execute('SELECT ROWID FROM instruments WHERE name=?', (instrument,))
+        cursor.execute('SELECT ROWID FROM instruments WHERE name LIKE ?', ("%"+instrument+"%",))
         result = cursor.fetchall()
         if len(result) > 0:
             return result[0][0]

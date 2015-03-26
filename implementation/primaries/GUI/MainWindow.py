@@ -32,7 +32,7 @@ class MainWindow(QtGui.QMainWindow):
         self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
         self.autoCompleteBox.itemDoubleClicked.connect(self.onAutoCompleteDoubleClicked)
         self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
-        self.autoPlaylistsView.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
+        self.autoPlaylistsView.itemDoubleClicked.connect(self.onAutoPlaylistDoubleClicked)
         self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
         self.myPlaylistsWidget.itemClicked.connect(self.deletePlaylistBtn.show)
         self.deletePlaylistBtn.clicked.connect(self.deletePlaylist)
@@ -353,8 +353,11 @@ class MainWindow(QtGui.QMainWindow):
         return items
 
 
+    def onAutoPlaylistDoubleClicked(self, current_item):
+        self.onPlaylistDoubleClicked(current_item)
+        self.editPlaylistTitle.hide()
+
     def onPlaylistDoubleClicked(self, current_item):
-        #self.playlistTable.horizontalHeader().setResizeMode(QtGui.QHeaderView.ResizeToContents)
         self.scoreWindow.hide()
         playlist_to_load = current_item.data(1)
         length = len(playlist_to_load)
