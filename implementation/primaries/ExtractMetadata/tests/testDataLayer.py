@@ -287,6 +287,11 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{"title":"Blabla"})
         self.assertEqual("file.xml", self.data.getPieceByTitle("Blabla")[0])
 
+    def testFindPieceByPartialTitle(self):
+        self.data.addPiece("file.xml",{"title":"abcdef"})
+        self.data.addPiece("file2.xml",{"title":"abcd"})
+        self.assertEqual(["file.xml","file2.xml"], self.data.getPieceByTitle("abc"))
+
     def testFindAllPiecesByAllKeys(self):
         self.data.addPiece("file.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari"}]})
         self.data.addPiece("file2.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari"}]})

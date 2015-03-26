@@ -585,8 +585,9 @@ class MusicData(object):
         :return: list of tuples
         '''
         connection, cursor = self.connect()
-        thing = (title,archived,)
-        cursor.execute('SELECT * FROM pieces WHERE title=? AND archived=?',thing)
+        thing = (title,"%"+title+"%",archived,)
+        query = 'SELECT * FROM pieces WHERE title=? OR title LIKE ? AND archived=?'
+        cursor.execute(query,thing)
         result = cursor.fetchall()
         result = [r[0] for r in result]
         self.disconnect(connection)
