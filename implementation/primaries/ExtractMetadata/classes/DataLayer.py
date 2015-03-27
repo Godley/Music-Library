@@ -354,8 +354,8 @@ class MusicData(object):
         :return:
         '''
         connection, cursor = self.connect()
-        thing = (filename,archived,)
-        cursor.execute('SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces WHERE filename=? AND archived=?',thing)
+        thing = (filename,"%"+filename+"%",archived,)
+        cursor.execute('SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces WHERE filename=? OR filename LIKE ? AND archived=?',thing)
         result = cursor.fetchall()
         self.disconnect(connection)
         return result
@@ -492,26 +492,28 @@ class MusicData(object):
         instrument_ids = [self.getInstrumentIdWhereTextInName(instrument, cursor) for instrument in instruments]
         tuple_ids = []
         [tuple_ids.extend(inst_id) for inst_id in instrument_ids]
-        query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
-        for i in range(len(instrument_ids)):
-            query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND '
-            for result in instrument_ids[i]:
-                if result == instrument_ids[i][0]:
-                    query += '('
-                query += 'instrument_id = ?'
-                if result != instrument_ids[i][-1]:
-                    query += ' OR '
-                else:
-                    query += ')'
-            query += ')'
-            if i != len(instrument_ids)-1:
-                query += ' AND EXISTS '
-        query += ";"
-        input = tuple(tuple_ids)
-        cursor.execute(query, input)
-        results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor, archived)
-        self.disconnect(connection)
+        file_list = []
+        if len(tuple_ids) > 0:
+            query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
+            for i in range(len(instrument_ids)):
+                query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND '
+                for result in instrument_ids[i]:
+                    if result == instrument_ids[i][0]:
+                        query += '('
+                    query += 'instrument_id = ?'
+                    if result != instrument_ids[i][-1]:
+                        query += ' OR '
+                    else:
+                        query += ')'
+                query += ')'
+                if i != len(instrument_ids)-1:
+                    query += ' AND EXISTS '
+            query += ";"
+            input = tuple(tuple_ids)
+            cursor.execute(query, input)
+            results = cursor.fetchall()
+            file_list = self.getPiecesByRowId(results, cursor, archived)
+            self.disconnect(connection)
         return file_list
 
     def getPiecesByRowId(self, rows, cursor, archived=0):
@@ -536,6 +538,7 @@ class MusicData(object):
         :param composer: composer's name
         :return: list of strings (filenames)
         '''
+        file_list = []
         connection, cursor = self.connect()
         composer_ids = self.getComposerIdWhereTextInName(composer, cursor)
         if len(composer_ids) > 0:
@@ -552,7 +555,7 @@ class MusicData(object):
             result = cursor.fetchall()
             file_list = [r[0] for r in result]
             self.disconnect(connection)
-            return file_list
+        return file_list
 
     def getPiecesByLyricist(self, lyricist, archived=0):
         '''
@@ -562,6 +565,7 @@ class MusicData(object):
         '''
         connection, cursor = self.connect()
         lyricist_ids = self.getLyricistIdWhereTextInName(lyricist, cursor)
+        file_list = []
         if len(lyricist_ids) > 0:
             query = 'SELECT filename FROM pieces WHERE archived=? AND (lyricist_id=?'
             for id in lyricist_ids:
@@ -576,7 +580,7 @@ class MusicData(object):
             result = cursor.fetchall()
             file_list = [r[0] for r in result]
             self.disconnect(connection)
-            return file_list
+        return file_list
 
     def getPieceByTitle(self, title, archived=0):
         '''

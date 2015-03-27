@@ -204,6 +204,10 @@ class MusicManager(object):
             # check title, composer, lyricist, instruments for matches
             for value in search_data["text"]:
                 combined = {}
+                file_result = self.__data.getPiece(value)
+                if len(file_result) > 0:
+                    combined["filename"] = [result[1] for result in file_result]
+
                 title_result = self.__data.getPieceByTitle(value)
                 if len(title_result) > 0:
                     combined["Title"] = title_result
@@ -274,6 +278,7 @@ class MusicManager(object):
                 results["Instrument in Clefs"] = instrument_by_clef
 
         if "filename" in search_data:
+            #todo: implement wildcard functionality
             files = self.__data.getFileList()
             result_files = [filename for filename in search_data["filename"] if filename in files]
             if len(result_files) > 0:

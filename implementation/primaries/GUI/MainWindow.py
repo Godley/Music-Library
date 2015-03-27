@@ -509,22 +509,33 @@ class MainWindow(QtGui.QMainWindow):
     def pdf_view(self, filename):
         """Return a Scrollarea showing the first page of the specified PDF file."""
 
-        label = QtGui.QLabel(self)
-
-
+        scene = QtGui.QGraphicsScene()
+        scene.setBackgroundBrush(QtGui.QColor('darkGray'))
+        layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Vertical)
         doc = Poppler.Document.load(filename)
         doc.setRenderHint(Poppler.Document.Antialiasing)
         doc.setRenderHint(Poppler.Document.TextAntialiasing)
 
-        page = doc.page(0)
-        dimensions = page.pageSize()
-        scroll_height = self.scoreWindow.height()
-        scroll_width = self.scoreWindow.width()
-        image = page.renderToImage(90, 90, -10, 0, scroll_width, scroll_height)
 
-        label.setPixmap(QtGui.QPixmap.fromImage(image))
+        pageNum = doc.numPages()
+        for number in range(pageNum):
+            page = doc.page(number)
+            image = page.renderToImage(100, 100)
+            pixmap = QtGui.QPixmap.fromImage(image)
+            container = QtGui.QLabel()
+            container.setFixedSize(page.pageSize())
+            container.setStyleSheet("Page { background-color : white}")
+            container.setContentsMargins(0, 0, 0, 0)
+            container.setScaledContents(True)
+            container.setPixmap(pixmap)
+            label = scene.addWidget(container)
+            layout.addItem(label)
 
-        self.scoreWindow.setWidget(label)
+        graphicsWidget = QtGui.QGraphicsWidget()
+        graphicsWidget.setLayout(layout)
+        scene.addItem(graphicsWidget)
+        self.view = View(scene)
+        self.scoreWindow.setWidget(self.view)
 
 
     def onSortMethodChange(self):
@@ -606,6 +617,19 @@ class MainWindow(QtGui.QMainWindow):
 
         self.autoCompleteBox.show()
         self.autoCompleteFrame.show()
+
+
+class View(QtGui.QGraphicsView):
+
+    def __init__(self, parent = None):
+        QtGui.QGraphicsView.__init__(self, parent)
+
+    def wheelEvent(self, event):
+
+        if event.delta() > 0:
+            self.scale(1.1, 1.1)
+        else:
+            self.scale(0.9, 0.9)
 
 
 def main():
