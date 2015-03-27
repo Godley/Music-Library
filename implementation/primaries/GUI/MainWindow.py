@@ -539,17 +539,21 @@ class MainWindow(QtGui.QMainWindow):
             pixmap = QtGui.QPixmap.fromImage(image)
             container = QtGui.QLabel()
             container.setFixedSize(page.pageSize())
-            container.setStyleSheet("Page { background-color : white}")
+            container.setStyleSheet("Page { background-color : rgba(255,255,255,80)}")
             container.setContentsMargins(0, 0, 0, 0)
             container.setScaledContents(True)
             container.setPixmap(pixmap)
             label = scene.addWidget(container)
+            opacity = QtGui.QGraphicsOpacityEffect(self)
+            opacity.setOpacity(0.6)
+            label.setGraphicsEffect(opacity)
             layout.addItem(label)
 
         graphicsWidget = QtGui.QGraphicsWidget()
         graphicsWidget.setLayout(layout)
         scene.addItem(graphicsWidget)
         self.view = View(scene)
+
         self.scoreWindow.setWidget(self.view)
 
 
