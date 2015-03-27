@@ -18,10 +18,14 @@ class MainWindow(QtGui.QMainWindow):
             self.scoreListWidget.addItem(item)
         self.loadPlaylists()
         self.loadMyPlaylists()
-        self.progressBarRendering.hide()
+        #self.progressBarRendering.hide()
         options = ["title","composer","lyricist"]
         self.scoreSortCombo.addItems(options)
         self.scoreListWidget.show()
+
+        autoSort = ["all", "time signatures","clefs","instruments","keys","tempos"]
+        self.AutoSortCombo.addItems(autoSort)
+        self.AutoSortCombo.show()
         self.refreshScoreBtn.clicked.connect(self.refreshScores)
         self.refreshAutoBtn.clicked.connect(self.refreshPlaylists)
         self.AddPlaylistButton.clicked.connect(self.addPlaylist)
@@ -544,17 +548,17 @@ class MainWindow(QtGui.QMainWindow):
             container.setScaledContents(True)
             container.setPixmap(pixmap)
             label = scene.addWidget(container)
-            opacity = QtGui.QGraphicsOpacityEffect(self)
-            opacity.setOpacity(0.6)
-            label.setGraphicsEffect(opacity)
+            #opacity = QtGui.QGraphicsOpacityEffect(self)
+            #opacity.setOpacity(0.6)
+            #label.setGraphicsEffect(opacity)
             layout.addItem(label)
 
         graphicsWidget = QtGui.QGraphicsWidget()
         graphicsWidget.setLayout(layout)
         scene.addItem(graphicsWidget)
-        self.view = View(scene)
+        #self.view = View(scene)
 
-        self.scoreWindow.setWidget(self.view)
+        self.scoreWindow.setScene(scene)
 
 
     def onSortMethodChange(self):

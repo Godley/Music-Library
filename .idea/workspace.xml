@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.ui" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -38,7 +39,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArticulation.coverage" NAME="Unittests in testArticulation Coverage Results" MODIFIED="1425743471819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPlaylister.coverage" NAME="Unittests in testPlaylister Coverage Results" MODIFIED="1419795804913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTree.coverage" NAME="Unittests in testTree Coverage Results" MODIFIED="1424305552955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1427480757352" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1427489348923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$pil.coverage" NAME="pil Coverage Results" MODIFIED="1426380488649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPart.coverage" NAME="Unittests in testPart Coverage Results" MODIFIED="1425861081183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testGraceNotes.coverage" NAME="Unittests in testGraceNotes Coverage Results" MODIFIED="1424820087867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
@@ -146,11 +147,11 @@
       <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45786518" vertical-offset="6137" max-vertical-offset="8235">
-              <caret line="537" column="42" selection-start-line="537" selection-start-column="42" selection-end-line="537" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.33146068" vertical-offset="182" max-vertical-offset="8355">
+              <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
-                <element signature="e#10460#14898#0" expanded="false" />
+                <element signature="e#10626#15064#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -1025,18 +1026,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00566" summary="changed main window styling&#10;&#10;- made a stylesheet which uses nicer colours&#10;- added in search box &#10;- added MyWidget C++  class which might fix resizing/closing aspects (tho it's not linked at minute)">
-      <created>1426618282905</created>
-      <option name="number" value="00566" />
-      <option name="project" value="LOCAL" />
-      <updated>1426618282905</updated>
-    </task>
-    <task id="LOCAL-00567" summary="fixed poppler screwyness&#10;&#10;- made it so poppler has a window size in which to render stuff and a DPI&#10;- also moved widgets over by about 20px so that margins on either side are right">
-      <created>1426619283062</created>
-      <option name="number" value="00567" />
-      <option name="project" value="LOCAL" />
-      <updated>1426619283062</updated>
-    </task>
     <task id="LOCAL-00568" summary="connected playlist callback&#10;&#10;- created playlist callback which will be used for both auto and my playlist views&#10;- added table which appears/dissapears at relevant points&#10;- issue fix #196">
       <created>1426645932343</created>
       <option name="number" value="00568" />
@@ -1319,7 +1308,19 @@
       <option name="project" value="LOCAL" />
       <updated>1427479842079</updated>
     </task>
-    <option name="localTasksCounter" value="615" />
+    <task id="LOCAL-00615" summary="issue fix #210&#10;- removed wheelEvent: this meant it couldn't pan properly on mac.&#10;- implemented button callbacks&#10;- using a graphics view now enables panning, as well, at a certain zoom level.">
+      <created>1427480820550</created>
+      <option name="number" value="00615" />
+      <option name="project" value="LOCAL" />
+      <updated>1427480820550</updated>
+    </task>
+    <task id="LOCAL-00616" summary="work toward issue #232&#10;&#10;- applied qGraphicsEffect: seems to make it very blurry, tho.">
+      <created>1427481482113</created>
+      <option name="number" value="00616" />
+      <option name="project" value="LOCAL" />
+      <updated>1427481482113</updated>
+    </task>
+    <option name="localTasksCounter" value="617" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1410,8 +1411,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="fixed playlist popup irritation&#10;&#10;- switched create-playlist popup from being a popup to a dialog, which means the chrome's no longer not there." />
-    <MESSAGE value="fixed playlist view&#10;&#10;- got rid of edit double click problem&#10;- fixed formatting problem where playlist view was putting data in wrong column. issue fix #211" />
     <MESSAGE value="fixed playlist browser&#10;&#10;- fixed problem of playlist browser headings being wrong&#10;- also fixed so that all cells have the data item of the file to be rendered&#10;- issue fix #212" />
     <MESSAGE value="connected playlist callback&#10;&#10;- issue fix #213&#10;- both the playlist view and playlist browser display the PDF of the sheet music on double click" />
     <MESSAGE value="implemented featured in and pane clearing&#10;&#10;- implemented featured in code which finds all the user created playlists a piece belongs to&#10;- also implemented clearing of the three right panes when a playlist is clicked, as all of them pertain to a piece of music not a playlist. Once I have some other code implemented will also put in .hide() calls on all 3 panes and .show() elsewhere.&#10;- issue fix #215" />
@@ -1435,7 +1434,9 @@
     <MESSAGE value="issue fix #217&#10;&#10;- applied &quot;in&quot; logic to title" />
     <MESSAGE value="more autocomplete + multi page work&#10;- additional work on issue #217: wildcard applied at datalayer level to &quot;filename&quot; where filename is text rather than just label. should also modify the filename portion in the mainManager so it uses the same method. (see comment to do comment)&#10;- issue fix #228: implemented multiple pages. also implemented zooming using the trackpad/mouse wheel: issue #210" />
     <MESSAGE value="more autocomplete + multi page work&#10;- additional work on issue #217: wildcard applied at datalayer level to &quot;filename&quot; where filename is text rather than just label. should also modify the filename portion in the mainManager so it uses the same method. (see to do comment)&#10;- issue fix #228: implemented multiple pages. also implemented zooming using the trackpad/mouse wheel: issue #210" />
-    <option name="LAST_COMMIT_MESSAGE" value="more autocomplete + multi page work&#10;- additional work on issue #217: wildcard applied at datalayer level to &quot;filename&quot; where filename is text rather than just label. should also modify the filename portion in the mainManager so it uses the same method. (see to do comment)&#10;- issue fix #228: implemented multiple pages. also implemented zooming using the trackpad/mouse wheel: issue #210" />
+    <MESSAGE value="issue fix #210&#10;- removed wheelEvent: this meant it couldn't pan properly on mac.&#10;- implemented button callbacks&#10;- using a graphics view now enables panning, as well, at a certain zoom level." />
+    <MESSAGE value="work toward issue #232&#10;&#10;- applied qGraphicsEffect: seems to make it very blurry, tho." />
+    <option name="LAST_COMMIT_MESSAGE" value="work toward issue #232&#10;&#10;- applied qGraphicsEffect: seems to make it very blurry, tho." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1542,7 +1543,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>657</line>
+          <line>665</line>
           <option name="timeStamp" value="687" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -2165,11 +2166,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45786518" vertical-offset="6137" max-vertical-offset="8235">
-          <caret line="537" column="42" selection-start-line="537" selection-start-column="42" selection-end-line="537" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.33146068" vertical-offset="182" max-vertical-offset="8355">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#10460#14898#0" expanded="false" />
+            <element signature="e#10626#15064#0" expanded="false" />
           </folding>
         </state>
       </provider>
