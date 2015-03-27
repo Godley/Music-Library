@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="more autocomplete + multi page work&#10;- additional work on issue #217: wildcard applied at datalayer level to &quot;filename&quot; where filename is text rather than just label. should also modify the filename portion in the mainManager so it uses the same method. (see comment to do comment)&#10;- issue fix #228: implemented multiple pages. also implemented zooming using the trackpad/mouse wheel: issue #210">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.ui" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -41,7 +38,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArticulation.coverage" NAME="Unittests in testArticulation Coverage Results" MODIFIED="1425743471819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPlaylister.coverage" NAME="Unittests in testPlaylister Coverage Results" MODIFIED="1419795804913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTree.coverage" NAME="Unittests in testTree Coverage Results" MODIFIED="1424305552955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1427479470858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1427480757352" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$pil.coverage" NAME="pil Coverage Results" MODIFIED="1426380488649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPart.coverage" NAME="Unittests in testPart Coverage Results" MODIFIED="1425861081183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testGraceNotes.coverage" NAME="Unittests in testGraceNotes Coverage Results" MODIFIED="1424820087867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
@@ -146,27 +143,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="6095" max-vertical-offset="7290">
-              <caret line="537" column="44" selection-start-line="537" selection-start-column="44" selection-end-line="537" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.45786518" vertical-offset="6137" max-vertical-offset="8235">
+              <caret line="537" column="42" selection-start-line="537" selection-start-column="42" selection-end-line="537" selection-end-column="42" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
-                <element signature="e#10354#14792#0" expanded="false" />
-                <element signature="e#22303#22636#0" expanded="false" />
-                <element signature="e#22770#23264#0" expanded="false" />
-                <element signature="e#23927#25149#0" expanded="false" />
+                <element signature="e#10460#14898#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MusicManager.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MusicManager.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38961038" vertical-offset="2565" max-vertical-offset="4350">
-              <caret line="280" column="51" selection-start-line="280" selection-start-column="51" selection-end-line="280" selection-end-column="51" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4350">
+              <caret line="291" column="11" selection-start-line="291" selection-start-column="11" selection-end-line="291" selection-end-column="11" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
                 <element signature="e#145#1383#0" expanded="false" />
@@ -237,8 +231,8 @@
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testDataLayer.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
       </list>
     </option>
   </component>
@@ -1031,12 +1025,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00565" summary="changed main window styling&#10;&#10;- made a stylesheet which uses gradients etc&#10;- updated code to match relevant window names&#10;- added x buttons to every widget&#10;- still need to put back in the search box and add some widgets along the top">
-      <created>1426611197347</created>
-      <option name="number" value="00565" />
-      <option name="project" value="LOCAL" />
-      <updated>1426611197348</updated>
-    </task>
     <task id="LOCAL-00566" summary="changed main window styling&#10;&#10;- made a stylesheet which uses nicer colours&#10;- added in search box &#10;- added MyWidget C++  class which might fix resizing/closing aspects (tho it's not linked at minute)">
       <created>1426618282905</created>
       <option name="number" value="00566" />
@@ -1325,7 +1313,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427381823052</updated>
     </task>
-    <option name="localTasksCounter" value="614" />
+    <task id="LOCAL-00614" summary="more autocomplete + multi page work&#10;- additional work on issue #217: wildcard applied at datalayer level to &quot;filename&quot; where filename is text rather than just label. should also modify the filename portion in the mainManager so it uses the same method. (see to do comment)&#10;- issue fix #228: implemented multiple pages. also implemented zooming using the trackpad/mouse wheel: issue #210">
+      <created>1427479842078</created>
+      <option name="number" value="00614" />
+      <option name="project" value="LOCAL" />
+      <updated>1427479842079</updated>
+    </task>
+    <option name="localTasksCounter" value="615" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1359,18 +1353,18 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55845773" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32889965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32416788" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36266094" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3806078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4040404" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40520984" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3265625" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1416,8 +1410,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #207" />
-    <MESSAGE value="issue fix #208" />
     <MESSAGE value="fixed playlist popup irritation&#10;&#10;- switched create-playlist popup from being a popup to a dialog, which means the chrome's no longer not there." />
     <MESSAGE value="fixed playlist view&#10;&#10;- got rid of edit double click problem&#10;- fixed formatting problem where playlist view was putting data in wrong column. issue fix #211" />
     <MESSAGE value="fixed playlist browser&#10;&#10;- fixed problem of playlist browser headings being wrong&#10;- also fixed so that all cells have the data item of the file to be rendered&#10;- issue fix #212" />
@@ -1441,7 +1433,9 @@
     <MESSAGE value="work toward issue #217&#10;&#10;- added 2 more tests to check where searching by part of a composer name on multiple different composers&#10;- created new method to handle &quot;LIKE&quot; keyword as well as direct = in composer name" />
     <MESSAGE value="work toward issue #217&#10;&#10;- applied to lyricist" />
     <MESSAGE value="issue fix #217&#10;&#10;- applied &quot;in&quot; logic to title" />
-    <option name="LAST_COMMIT_MESSAGE" value="issue fix #217&#10;&#10;- applied &quot;in&quot; logic to title" />
+    <MESSAGE value="more autocomplete + multi page work&#10;- additional work on issue #217: wildcard applied at datalayer level to &quot;filename&quot; where filename is text rather than just label. should also modify the filename portion in the mainManager so it uses the same method. (see comment to do comment)&#10;- issue fix #228: implemented multiple pages. also implemented zooming using the trackpad/mouse wheel: issue #210" />
+    <MESSAGE value="more autocomplete + multi page work&#10;- additional work on issue #217: wildcard applied at datalayer level to &quot;filename&quot; where filename is text rather than just label. should also modify the filename portion in the mainManager so it uses the same method. (see to do comment)&#10;- issue fix #228: implemented multiple pages. also implemented zooming using the trackpad/mouse wheel: issue #210" />
+    <option name="LAST_COMMIT_MESSAGE" value="more autocomplete + multi page work&#10;- additional work on issue #217: wildcard applied at datalayer level to &quot;filename&quot; where filename is text rather than just label. should also modify the filename portion in the mainManager so it uses the same method. (see to do comment)&#10;- issue fix #228: implemented multiple pages. also implemented zooming using the trackpad/mouse wheel: issue #210" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1548,7 +1542,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py</url>
-          <line>642</line>
+          <line>657</line>
           <option name="timeStamp" value="687" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -2157,28 +2151,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6095" max-vertical-offset="7290">
-          <caret line="537" column="44" selection-start-line="537" selection-start-column="44" selection-end-line="537" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#10354#14792#0" expanded="false" />
-            <element signature="e#22303#22636#0" expanded="false" />
-            <element signature="e#22770#23264#0" expanded="false" />
-            <element signature="e#23927#25149#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38961038" vertical-offset="2565" max-vertical-offset="4350">
-          <caret line="280" column="51" selection-start-line="280" selection-start-column="51" selection-end-line="280" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4350">
+          <caret line="291" column="11" selection-start-line="291" selection-start-column="11" selection-end-line="291" selection-end-column="11" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
             <element signature="e#145#1383#0" expanded="false" />
             <element signature="e#1418#4096#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45786518" vertical-offset="6137" max-vertical-offset="8235">
+          <caret line="537" column="42" selection-start-line="537" selection-start-column="42" selection-end-line="537" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#10460#14898#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -61,6 +61,8 @@ class MainWindow(QtGui.QMainWindow):
         self.editPlaylistTitle.clicked.connect(self.onPlaylistEditClicked)
         self.playlistTitleLineEdit.hide()
         self.playlistTitleLineEdit.returnPressed.connect(self.updatePlaylistTitle)
+        self.zoomInBtn.clicked.connect(self.zoomIn)
+        self.zoomOutBtn.clicked.connect(self.zoomOut)
 
     def onScorebookClicked(self):
         self.scoreWidget.setHidden(not self.scoreWidget.isHidden())
@@ -505,6 +507,19 @@ class MainWindow(QtGui.QMainWindow):
         self.pieceInfoWidget.show()
         self.actionPiece_Information.setChecked(True)
 
+    def zoomIn(self):
+        '''
+        callback for zoom in button
+        :return:
+        '''
+        self.view.zoomIn()
+
+    def zoomOut(self):
+        '''
+        callback for zoom out button
+        :return:
+        '''
+        self.view.zoomOut()
 
     def pdf_view(self, filename):
         """Return a Scrollarea showing the first page of the specified PDF file."""
@@ -624,12 +639,12 @@ class View(QtGui.QGraphicsView):
     def __init__(self, parent = None):
         QtGui.QGraphicsView.__init__(self, parent)
 
-    def wheelEvent(self, event):
 
-        if event.delta() > 0:
-            self.scale(1.1, 1.1)
-        else:
-            self.scale(0.9, 0.9)
+    def zoomIn(self):
+        self.scale(1.1, 1.1)
+
+    def zoomOut(self):
+        self.scale(0.9, 0.9)
 
 
 def main():
