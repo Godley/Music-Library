@@ -157,8 +157,8 @@ class Application(object):
         summary_strings = self.manager.getPieceSummaryStrings(method)
         return summary_strings
 
-    def getPlaylists(self):
-        results = self.manager.getPlaylists()
+    def getPlaylists(self, select_method="all"):
+        results = self.manager.getPlaylists(select_method=select_method)
         return results
 
     def getCreatedPlaylists(self):

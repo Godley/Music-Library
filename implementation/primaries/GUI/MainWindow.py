@@ -33,6 +33,7 @@ class MainWindow(QtGui.QMainWindow):
         self.searchInput.returnPressed.connect(self.searchDb)
         self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
         self.searchBtn.clicked.connect(self.searchDb)
+        self.AutoSortCombo.currentIndexChanged.connect(self.onAutoSortMethodChange)
         self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
         self.autoCompleteBox.itemDoubleClicked.connect(self.onAutoCompleteDoubleClicked)
         self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
@@ -561,6 +562,10 @@ class MainWindow(QtGui.QMainWindow):
         self.scoreWindow.setScene(scene)
 
 
+    def onAutoSortMethodChange(self):
+        sort_method = self.AutoSortCombo.currentText()
+        self.loadPlaylists(select_method=sort_method)
+
     def onSortMethodChange(self):
         sort_method = self.scoreSortCombo.currentText()
         pieces = self.parent.loadPieces(method=sort_method)
@@ -575,8 +580,8 @@ class MainWindow(QtGui.QMainWindow):
         self.parent.updateDb()
         self.onSortMethodChange()
 
-    def loadPlaylists(self):
-        playlist_summaries = self.parent.getPlaylists()
+    def loadPlaylists(self, select_method="all"):
+        playlist_summaries = self.parent.getPlaylists(select_method=select_method)
         self.autoPlaylistsView.clear()
         for i in playlist_summaries:
             item = QtGui.QListWidgetItem(i)
