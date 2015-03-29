@@ -22,7 +22,7 @@ font-size:20pt;
 }
 
 QWidget#playlistViewer, QWidget#playlistViewer QTableWidget {
-background:transparentd
+background:transparent
 }
 
 QWidget QLabel {
@@ -82,7 +82,7 @@ text-transform:none;
 
 
 QListWidget, QTableWidget, QWidget QListWidget, QWidget QTableWidget {
-background:rgba(255, 255, 255, 20);
+background:rgba(0, 0, 0, 20);
 opacity:0.5;
 border-top:1px solid #ccc;
 border-bottom:1px solid #CCC;
@@ -97,7 +97,6 @@ border:0px;
 QPushButton{
 background:transparent;
 color:#EEE;
-border-radius:10px;
 }
 
 QPushButton#addPlaylist, QToolButton {
@@ -135,3 +134,40 @@ QListWidget {
 font:13pt arial;
 text-transform:uppercase;
         }
+
+QDialog {
+background:#EEE;
+}
+
+QDialog QFrame {
+border:0px;
+}
+
+
+QDialog QLineEdit {
+border:1px solid #555;
+background:#DDD;
+}
+
+
+QDialog QPushButton, QToolButton#deleteItem {
+border-style:outset;
+background:#CCC;
+border:1px solid #BBB;
+padding:3px;
+color:#333;
+}
+
+QPushButton:checked {
+border-style:inset;
+}
+
+QLabel#importLabel, QDialog#renderingErrorDialog QLabel, QDialog#renderingErrorDialog QListWidget {
+    color:#000;
+    text-transform:none;
+    font:12pt Helvetica Neue DeskInterface;
+}
+
+QDialog#renderingErrorDialog QListWidget {
+    background:#DDD;
+}

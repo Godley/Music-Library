@@ -2,13 +2,15 @@ from PyQt4 import QtCore, QtGui, uic
 from PyQt4.QtGui import QFileDialog
 
 class ImportDialog(QtGui.QDialog):
-    def __init__(self, parent):
+    def __init__(self, parent, theme):
         self.parent = parent
+        self.theme = theme
         QtGui.QDialog.__init__(self)
         uic.loadUi('importDialog.ui', self)
         self.browseBtn.clicked.connect(self.findFiles)
         self.buttonBox.accepted.connect(self.updateAndClose)
         self.fnames = []
+        self.setTheme()
 
     def findFiles(self):
         filterList = ["*.xml","*.mxl"]
@@ -21,6 +23,12 @@ class ImportDialog(QtGui.QDialog):
 
     def updateAndClose(self):
         self.parent.copyFiles(self.fnames)
+
+    def setTheme(self):
+        file = open("themes/"+self.theme+".qss",'r')
+        fstring = file.readlines()
+        self.setStyleSheet("".join(fstring))
+        self.repaint()
 
 
 

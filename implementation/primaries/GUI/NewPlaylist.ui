@@ -6,20 +6,47 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>429</width>
-    <height>365</height>
+    <width>447</width>
+    <height>376</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MuseLib | Add New Playlist</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QTreeWidget#autoCompleteBox {
-background:rgba(230, 230, 230, 180);
+   <string notr="true">QDialog {
+background:#222;
 }
 
-QFrame#frame {
+QFrame {
 border:0px;
+}
+
+QLabel {
+font:15pt avenir;
+text-transform:uppercase;
+color:#AAA;
+}
+
+QLineEdit {
+border:1px solid #555;
+background:#EEE;
+}
+
+QListWidget {
+background:rgba(255,255,255,60);
+}
+
+QDialog QPushButton, QToolButton#deleteItem {
+border-style:outset;
+background:#333;
+border:1px solid #444;
+padding:3px;
+color:#CCC
+}
+
+QPushButton:checked {
+border-style:inset;
 }</string>
   </property>
   <widget class="QLabel" name="label">
@@ -88,15 +115,18 @@ border:0px;
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="lineWidth">
+       <number>0</number>
       </property>
       <widget class="QListWidget" name="listWidget">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>295</width>
-         <height>231</height>
+         <width>260</width>
+         <height>229</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -123,7 +153,7 @@ border:0px;
         <rect>
          <x>0</x>
          <y>230</y>
-         <width>295</width>
+         <width>260</width>
          <height>22</height>
         </rect>
        </property>

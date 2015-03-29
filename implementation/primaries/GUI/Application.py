@@ -105,7 +105,7 @@ class Application(object):
                 return pdf
 
     def importPopup(self):
-        dialog = ImportDialog.ImportDialog(self)
+        dialog = ImportDialog.ImportDialog(self, self.theme)
         dialog.setWindowFlags(QtCore.Qt.Dialog)
         dialog.exec()
 

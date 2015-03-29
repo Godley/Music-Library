@@ -2,10 +2,6 @@ QMainWindow, QWidget#centralwidget, QDialog {
     background:#222
     }
 
-QButtonBox {
-    margin:10px;
-}
-
     QWidget#bg, QWidget#bg2 {
     background:#000;
     }
@@ -105,7 +101,6 @@ QButtonBox {
     QPushButton{
     background:transparent;
     color:#EEE;
-    border-radius:10px;
     }
 
     QPushButton#addPlaylist, QToolButton {
@@ -143,3 +138,40 @@ QButtonBox {
     font:13pt arial;
     text-transform:uppercase;
     }
+
+    QDialog {
+background:#222;
+}
+
+QDialog QFrame {
+border:0px;
+}
+
+
+QDialog QLineEdit {
+border:1px solid #555;
+background:#EEE;
+}
+
+
+QDialog QPushButton, QToolButton#deleteItem {
+border-style:outset;
+background:#333;
+border:1px solid #444;
+padding:3px;
+color:#CCC;
+}
+
+QPushButton:checked {
+border-style:inset;
+}
+
+QLabel#importLabel, QDialog#renderingErrorDialog QLabel, QDialog#renderingErrorDialog QListWidget {
+    color:#EEE;
+    text-transform:none;
+    font:12pt Helvetica Neue DeskInterface;
+}
+
+QDialog#renderingErrorDialog QListWidget {
+    background:#CCC;
+}
