@@ -50,6 +50,8 @@ class MainWindow(QtGui.QMainWindow):
         self.actionPlaylist_Browser.triggered.connect(self.PlaylistBrowserClicked)
         self.actionImport.triggered.connect(self.parent.importPopup)
         self.actionNew_Collection.triggered.connect(self.parent.makeNewCollection)
+        self.actionLight.triggered.connect(self.lightTheme)
+        self.actionDark.triggered.connect(self.darkTheme)
         self.pieceInfoWidget.hide()
         self.featuredInWidget.hide()
         self.playlistBrowserWidget.hide()
@@ -68,6 +70,298 @@ class MainWindow(QtGui.QMainWindow):
         self.playlistTitleLineEdit.returnPressed.connect(self.updatePlaylistTitle)
         self.zoomInBtn.clicked.connect(self.zoomIn)
         self.zoomOutBtn.clicked.connect(self.zoomOut)
+
+    def darkTheme(self):
+        self.setStyleSheet('''QMainWindow, QWidget#centralwidget {
+        background:#222
+        }
+
+        QWidget#bg, QWidget#bg2 {
+        background:#000;
+        }
+
+        QWidget#scoreWidget, QWidget#playlistWidget, QWidget#autoPlaylistWidget, QWidget#pieceInfoWidget, QWidget#musicWidget, QWidget#featuredInWidget,
+        QWidget#playlistBrowserWidget {
+        color:white;
+        }
+
+
+        QFrame#frame {
+        background:#222;
+        }
+
+        QToolButton#deletePlaylistBtn {
+        color:#777;
+        font-size:20pt;
+        }
+
+        QWidget#playlistViewer, QWidget#playlistViewer QTableWidget {
+        background:#111;
+        }
+
+        QWidget QLabel {
+        color:#666666;
+        text-transform:uppercase;
+        font-size:15pt;
+        font-family:avenir
+        }
+
+        QLabel#noResultsLabel, QLabel#musicSearchHint {
+        text-transform:none
+        }
+
+        QWidget Line {
+        background:transparent;
+        }
+
+        QHeaderView::section {
+        background: transparent;
+        border:0px;
+        text-transform:uppercase;
+        }
+
+        QHeaderView {
+        background:rgba(25, 25, 25, 189);
+        text-transform:uppercase;
+        border-bottom:1px solid #252525;
+        color:#555;
+        height:50px;
+        }
+
+        QLineEdit#searchInput {
+        background:white;
+        border:1px solid #555;
+        border-radius: 10px;
+
+        }
+
+        QGraphicsView#scoreWindow {
+        background:transparent
+        }
+
+        QLabel#musicSearchHint {
+        color:rgba(0, 0, 0, 50);
+        }
+
+        QFrame#second_menu {
+        background: #333;
+        border:0px;
+        border-bottom:1px solid #222;
+        }
+
+        QWidget#musicWidget{
+        border:1px solid #222;
+        background:#111;
+        }
+
+        QWidget#musicWidget QLabel{
+        text-transform:none;
+        }
+
+
+        QListWidget, QTableWidget, QWidget QListWidget, QWidget QTableWidget {
+        background:rgba(255, 255, 255, 20);
+        opacity:0.5;
+        border-top:1px solid;
+        border-bottom:1px solid;
+        }
+
+
+        QTableWidget#playlistTable{
+        border:0px;
+        }
+
+
+        QPushButton{
+        background:transparent;
+        color:#EEE;
+        border-radius:10px;
+        }
+
+        QPushButton#addPlaylist, QToolButton {
+        background:transparent;
+        }
+
+        QToolButton#searchBtn, QToolButton#playBtn {
+        background:transparent;
+        border:0px;
+        border-radius:0px;
+        }
+
+        QScrollArea#scoreWindow {
+        border:1px solid #999;
+        }
+
+        QTreeWidget#autoCompleteBox {
+        background:#252525;
+        border:1px solid #111;
+        }
+
+        QFrame#autoCompleteFrame {
+        border:0px;
+        }
+
+        QListWidget:item, QTableWidget:item, QTreeWidget:item {
+        color:#444;
+        }
+
+        QTreeWidget:item:item {
+        color:#666;
+        }
+
+        QListWidget {
+        font:13pt arial;
+        text-transform:uppercase;
+        }
+
+        ''')
+        self.parent.theme = "dark"
+        self.repaint()
+
+    def lightTheme(self):
+
+        self.setStyleSheet('''QMainWindow, QWidget#centralwidget {
+        background:#CCC
+        }
+
+        QWidget#bg, QWidget#bg2 {
+        background:#eee
+        }
+
+        QWidget#scoreWidget, QWidget#playlistWidget, QWidget#autoPlaylistWidget, QWidget#pieceInfoWidget, QWidget#musicWidget, QWidget#featuredInWidget,
+        QWidget#playlistBrowserWidget {
+        color:white;
+        }
+
+
+        QFrame#frame {
+        background:#CCC;
+        }
+
+        QToolButton#deletePlaylistBtn {
+        color:#777;
+        font-size:20pt;
+        }
+
+        QWidget#playlistViewer, QWidget#playlistViewer QTableWidget {
+        background:transparentd
+        }
+
+        QWidget QLabel {
+        color:#777;
+        text-transform:uppercase;
+        font-size:15pt;
+        font-family:avenir
+        }
+
+        QLabel#noResultsLabel, QLabel#musicSearchHint {
+        text-transform:none
+        }
+
+        QWidget Line {
+        background:transparent;
+        }
+
+        QHeaderView::section {
+        background: transparent;
+        border:0px;
+        text-transform:uppercase;
+        }
+
+        QHeaderView {
+        background:rgba(255, 255, 255, 189);
+        text-transform:uppercase;
+        border-bottom:1px solid #eee;
+        color:#555;
+        height:50px;
+        }
+
+        QLineEdit#searchInput {
+        background:#bbb;
+        border:1px solid #555;
+        border-radius: 10px;
+
+        }
+
+        QLabel#musicSearchHint {
+        color:rgba(0, 0, 0, 50);
+        }
+
+        QFrame#second_menu {
+        background: #DDD;
+        border:0px;
+        border-bottom:1px solid #777;
+        }
+
+        QWidget#musicWidget{
+        border:1px solid #ddd;
+        background:#eee;
+        }
+
+        QWidget#musicWidget QLabel{
+        text-transform:none;
+        }
+
+
+        QListWidget, QTableWidget, QWidget QListWidget, QWidget QTableWidget {
+        background:rgba(255, 255, 255, 20);
+        opacity:0.5;
+        border-top:1px solid #ccc;
+        border-bottom:1px solid #CCC;
+        }
+
+
+        QTableWidget#playlistTable{
+        border:0px;
+        }
+
+
+        QPushButton{
+        background:transparent;
+        color:#EEE;
+        border-radius:10px;
+        }
+
+        QPushButton#addPlaylist, QToolButton {
+        background:transparent;
+        }
+
+        QToolButton#searchBtn, QToolButton#playBtn {
+        background:transparent;
+        border:0px;
+        border-radius:0px;
+        }
+
+        QScrollArea#scoreWindow {
+        border:1px solid #999;
+        }
+
+        QTreeWidget#autoCompleteBox {
+        background:#DDD;
+        border:1px solid #CCC;
+        }
+
+        QFrame#autoCompleteFrame {
+        border:0px;
+        }
+
+        QListWidget:item, QTableWidget:item, QTreeWidget:item {
+        color:#444;
+        }
+
+        QTreeWidget:item:item {
+        color:#666;
+        }
+
+        QListWidget {
+        font:13pt arial;
+        text-transform:uppercase;
+        }
+
+        ''')
+        self.parent.theme = "light"
+        self.repaint()
+
 
     def onScorebookClicked(self):
         self.scoreWidget.setHidden(not self.scoreWidget.isHidden())
@@ -517,14 +811,14 @@ class MainWindow(QtGui.QMainWindow):
         callback for zoom in button
         :return:
         '''
-        self.view.zoomIn()
+        self.scoreWindow.scale(1.1, 1.1)
 
     def zoomOut(self):
         '''
         callback for zoom out button
         :return:
         '''
-        self.view.zoomOut()
+        self.scoreWindow.scale(0.9, 0.9)
 
     def pdf_view(self, filename):
         """Return a Scrollarea showing the first page of the specified PDF file."""
@@ -544,21 +838,22 @@ class MainWindow(QtGui.QMainWindow):
             pixmap = QtGui.QPixmap.fromImage(image)
             container = QtGui.QLabel()
             container.setFixedSize(page.pageSize())
-            container.setStyleSheet("Page { background-color : rgba(255,255,255,80)}")
+            container.setStyleSheet("Page { background-color : transparent}")
             container.setContentsMargins(0, 0, 0, 0)
             container.setScaledContents(True)
             container.setPixmap(pixmap)
             label = scene.addWidget(container)
-            #opacity = QtGui.QGraphicsOpacityEffect(self)
-            #opacity.setOpacity(0.6)
-            #label.setGraphicsEffect(opacity)
+            opacity = QtGui.QGraphicsOpacityEffect(self)
+            opacity.setOpacity(0.5)
+            label.setGraphicsEffect(opacity)
             layout.addItem(label)
 
         graphicsWidget = QtGui.QGraphicsWidget()
         graphicsWidget.setLayout(layout)
         scene.addItem(graphicsWidget)
         #self.view = View(scene)
-
+        #self.scoreWindow.scale(1,1)
+        #self.scoreWindow.scale(1.4,1.4)
         self.scoreWindow.setScene(scene)
 
 
@@ -659,16 +954,3 @@ class View(QtGui.QGraphicsView):
     def zoomOut(self):
         self.scale(0.9, 0.9)
 
-
-def main():
-
-    app = QtGui.QApplication(sys.argv)
-
-    w = MainWindow()
-    w.show()
-
-    sys.exit(app.exec_())
-
-
-if __name__ == '__main__':
-    main()

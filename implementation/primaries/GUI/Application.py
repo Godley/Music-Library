@@ -15,6 +15,7 @@ class Application(object):
         self.manager = None
         self.main = None
         self.folder = ""
+        self.theme = "dark"
         if len(self.previous_collections) == 0:
              self.startUp()
         else:
@@ -115,7 +116,7 @@ class Application(object):
         self.main.loadPlaylists()
 
     def errorPopup(self, errors):
-        popup = renderingErrorPopup.RenderingErrorPopup(self, errors)
+        popup = renderingErrorPopup.RenderingErrorPopup(self, errors, self.theme)
         popup.setWindowFlags(QtCore.Qt.Dialog)
         popup.exec()
 
@@ -166,7 +167,7 @@ class Application(object):
         return results
 
     def PlaylistPopup(self):
-        popup = PlaylistDialog.PlaylistDialog(self)
+        popup = PlaylistDialog.PlaylistDialog(self, self.theme)
         popup.setWindowFlags(QtCore.Qt.Dialog)
         popup.exec()
 

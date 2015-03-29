@@ -1,8 +1,9 @@
 from PyQt4 import QtCore, QtGui, uic
 
 class PlaylistDialog(QtGui.QDialog):
-    def __init__(self, parent):
+    def __init__(self, parent, theme):
         self.parent = parent
+        self.theme = theme
         QtGui.QDialog.__init__(self)
         uic.loadUi('NewPlaylist.ui', self)
         self.autoCompleteFrame.hide()

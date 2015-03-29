@@ -188,15 +188,16 @@ class MxmlParser(object):
         if name == "part":
             part_id = helpers.GetID(self.attribs, "part", "id")
             part = self.piece.getPart(part_id)
-            part.DoBarlineChecks()
-            result = part.CheckIfTabStaff()
-            if result is not None:
-                if "TAB" in result:
-                    self.piece.removePart(part_id)
-                    raise(Exceptions.TabNotImplementedException("Tab notation found: stopping"))
-                if "DRUM" in result:
-                    self.piece.removePart(part_id)
-                    raise(Exceptions.DrumNotImplementedException("Drum Tab notation found: stopping"))
+            if part is not None:
+                part.DoBarlineChecks()
+                result = part.CheckIfTabStaff()
+                if result is not None:
+                    if "TAB" in result:
+                        self.piece.removePart(part_id)
+                        raise(Exceptions.TabNotImplementedException("Tab notation found: stopping"))
+                    if "DRUM" in result:
+                        self.piece.removePart(part_id)
+                        raise(Exceptions.DrumNotImplementedException("Drum Tab notation found: stopping"))
 
         if name == "measure":
             part_id = helpers.GetID(self.attribs, "part", "id")

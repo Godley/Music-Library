@@ -1,7 +1,8 @@
 from PyQt4 import QtCore, QtGui, uic
 
 class RenderingErrorPopup(QtGui.QDialog):
-    def __init__(self, parent, errorList):
+    def __init__(self, parent, errorList, theme):
+        self.theme = theme
         self.parent = parent
         QtGui.QDialog.__init__(self)
         uic.loadUi('renderingErrorPopup.ui', self)
