@@ -4,6 +4,7 @@ class PlaylistDialog(QtGui.QDialog):
     def __init__(self, parent, theme):
         self.parent = parent
         self.theme = theme
+
         QtGui.QDialog.__init__(self)
         uic.loadUi('NewPlaylist.ui', self)
         self.autoCompleteFrame.hide()
@@ -12,6 +13,13 @@ class PlaylistDialog(QtGui.QDialog):
         self.piecesLineEdit.editingFinished.connect(self.onInactiveSearchBar)
         self.deleteItem.clicked.connect(self.removeItem)
         self.piecesLineEdit.textChanged.connect(self.updateOptions)
+        self.setTheme()
+
+    def setTheme(self):
+        file = open("themes/"+self.theme+".qss",'r')
+        fstring = file.readlines()
+        self.setStyleSheet("".join(fstring))
+        self.repaint()
 
     def removeItem(self):
         listItems=self.listWidget.selectedItems()

@@ -1,0 +1,145 @@
+QMainWindow, QWidget#centralwidget, QDialog {
+    background:#222
+    }
+
+QButtonBox {
+    margin:10px;
+}
+
+    QWidget#bg, QWidget#bg2 {
+    background:#000;
+    }
+
+    QWidget#scoreWidget, QWidget#playlistWidget, QWidget#autoPlaylistWidget, QWidget#pieceInfoWidget, QWidget#musicWidget, QWidget#featuredInWidget,
+    QWidget#playlistBrowserWidget {
+    color:white;
+    }
+
+
+    QFrame#frame {
+    background:#222;
+    }
+
+    QToolButton#deletePlaylistBtn {
+    color:#777;
+    font-size:20pt;
+    }
+
+    QWidget#playlistViewer, QWidget#playlistViewer QTableWidget {
+    background:#111;
+    }
+
+    QWidget QLabel {
+    color:#666666;
+    text-transform:uppercase;
+    font-size:15pt;
+    font-family:avenir
+    }
+
+    QLabel#noResultsLabel, QLabel#musicSearchHint {
+    text-transform:none
+    }
+
+    QWidget Line {
+    background:transparent;
+    }
+
+    QHeaderView::section {
+    background: transparent;
+    border:0px;
+    text-transform:uppercase;
+    }
+
+    QHeaderView {
+    background:rgba(25, 25, 25, 189);
+    text-transform:uppercase;
+    border-bottom:1px solid #252525;
+    color:#555;
+    height:50px;
+    }
+
+    QLineEdit#searchInput {
+    background:white;
+    border:1px solid #555;
+    border-radius: 10px;
+
+    }
+
+    QGraphicsView#scoreWindow {
+    background:transparent
+    }
+
+    QLabel#musicSearchHint {
+    color:rgba(0, 0, 0, 50);
+    }
+
+    QFrame#second_menu {
+    background: #333;
+    border:0px;
+    border-bottom:1px solid #222;
+    }
+
+    QWidget#musicWidget{
+    border:1px solid #222;
+    background:#111;
+    }
+
+    QWidget#musicWidget QLabel{
+    text-transform:none;
+    }
+
+
+    QListWidget, QTableWidget, QWidget QListWidget, QWidget QTableWidget {
+    background:rgba(255, 255, 255, 20);
+    opacity:0.5;
+    border-top:1px solid;
+    border-bottom:1px solid;
+    }
+
+
+    QTableWidget#playlistTable{
+    border:0px;
+    }
+
+
+    QPushButton{
+    background:transparent;
+    color:#EEE;
+    border-radius:10px;
+    }
+
+    QPushButton#addPlaylist, QToolButton {
+    background:transparent;
+    }
+
+    QToolButton#searchBtn, QToolButton#playBtn {
+    background:transparent;
+    border:0px;
+    border-radius:0px;
+    }
+
+    QScrollArea#scoreWindow {
+    border:1px solid #999;
+    }
+
+    QTreeWidget#autoCompleteBox {
+    background:#252525;
+    border:1px solid #111;
+    }
+
+    QFrame#autoCompleteFrame {
+    border:0px;
+    }
+
+    QListWidget:item, QTableWidget:item, QTreeWidget:item {
+    color:#444;
+    }
+
+    QTreeWidget:item:item {
+    color:#666;
+    }
+
+    QListWidget {
+    font:13pt arial;
+    text-transform:uppercase;
+    }
