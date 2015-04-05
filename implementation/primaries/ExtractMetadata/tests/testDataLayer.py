@@ -287,6 +287,51 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{"title":"Blabla"})
         self.assertEqual("file.xml", self.data.getPieceByTitle("Blabla")[0])
 
+    def testFindPieceByTitleAndComposer(self):
+        self.data.addPiece("file.xml",{"title":"Blabla","composer":"Bartok"})
+        self.data.addPiece("file1.xml",{"title":"Blabla"})
+        self.assertEqual(["file.xml"], self.data.query({"title":"Blabla","composer":"Bartok"}))
+
+    def testFindPieceByTitleAndLyricist(self):
+        self.data.addPiece("file.xml",{"title":"Blabla","lyricist":"Bartok"})
+        self.data.addPiece("file1.xml",{"title":"Blabla"})
+        self.assertEqual(["file.xml"], self.data.query({"title":"Blabla","lyricist":"Bartok"}))
+
+    def testFindPieceByTitleAndKey(self):
+        self.data.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"}],"key":{"Clarinet":[{"fifths":0,"mode":"major"}]}})
+        self.data.addPiece("file1.xml",{"title":"Blabla"})
+        self.assertEqual(["file.xml"], self.data.query({"title":"Blabla","key":["C major"]}))
+
+    def testFindPieceByTitleAndKeyAndClef(self):
+        self.data.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"}],"clef":{"Clarinet":["treble"]}, "key":{"Clarinet":["C major"]}})
+        self.data.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Clarinet"}], "key":{"Clarinet":["C major"]}})
+        self.assertEqual(["file.xml"], self.data.query({"title":"Blabla","key":["C major"], "clef":["treble"]}))
+
+    def testFindPieceByTitleAndKeyAndClefAndInstrument(self):
+        self.data.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"}],"clef":{"Clarinet":["treble"]}, "key":{"Clarinet":["C major"]}})
+        self.data.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Sax"}], "key":{"Sax":["C major"]}})
+        self.assertEqual(["file.xml"], self.data.query({"title":"Blabla","key":["C major"], "clef":["treble"],"instruments":["Clarinet"]}))
+
+    def testFindPieceByTitleAndInstrumentWithClef(self):
+        self.data.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"}],"clef":{"Clarinet":["treble"]}, "key":{"Clarinet":["C major"]}})
+        self.data.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Sax"},{"name":"Clarinet"}], "clef":{"Sax":["treble"]}})
+        self.assertEqual(["file.xml"], self.data.query({"title":"Blabla","key":["C major"], "clef":{"Clarinet":["treble"]},"instruments":["Clarinet"]}))
+
+    def testFindPieceByTitleAndInstrumentWithClefAndOther(self):
+        self.data.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"},{"name":"Sax"}],"clef":{"Clarinet":[{"sign":"G", "line":2}],"Sax":[{"line":4,"sign":"F"}]}, "key":{"Clarinet":["C major"]}})
+        self.data.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Sax"},{"name":"Clarinet"}], "clef":{"Sax":[{"line":4,"sign":"F"}]}})
+        self.assertEqual(["file.xml"], self.data.query({"title":"Blabla","key":["C major"], "clef":{"Clarinet":["treble"],"other":["bass"]},"instruments":["Clarinet"]}))
+
+    def testFindPieceByTitleAndInstrumentWithKey(self):
+        self.data.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"},{"name":"Sax"}],"clef":{"Clarinet":[{"sign":"G", "line":2}],"Sax":[{"line":4,"sign":"F"}]}, "key":{"Clarinet":[{"fifths":2,"mode":"major"}]}})
+        self.data.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Sax"},{"name":"Clarinet"}], "key":{"Sax":[{"fifths":2,"mode":"major"}]}, "clef":{"Sax":[{"line":4,"sign":"F"}]}})
+        self.assertEqual(["file.xml"], self.data.query({"title":"Blabla","key":{"Clarinet":["D major"]},"instruments":["Clarinet"]}))
+
+    def testFindPieceByTitleAndInstrumentWithKeyAndClef(self):
+        self.data.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"},{"name":"Sax"}],"clef":{"Clarinet":[{"sign":"G", "line":2}],"Sax":[{"line":4,"sign":"F"}]}, "key":{"Clarinet":[{"fifths":2,"mode":"major"}]}})
+        self.data.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Sax"},{"name":"Clarinet"}], "key":{"Clarinet":[{"fifths":2,"mode":"major"}]}, "clef":{"Sax":[{"line":4,"sign":"F"}]}})
+        self.assertEqual(["file.xml"], self.data.query({"title":"Blabla","key":{"Clarinet":["D major"]},"instruments":["Clarinet"],"clef":{"Clarinet":["treble"]}}))
+
     def testFindPieceByPartialTitle(self):
         self.data.addPiece("file.xml",{"title":"abcdef"})
         self.data.addPiece("file2.xml",{"title":"abcd"})

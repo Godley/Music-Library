@@ -55,8 +55,8 @@ height:50px;
 }
 
 QLineEdit#searchInput {
-background:#bbb;
-border:1px solid #555;
+background:#eee;
+border:1px solid #ccc;
 border-radius: 10px;
 
 }
@@ -170,4 +170,12 @@ QLabel#importLabel, QDialog#renderingErrorDialog QLabel, QDialog#renderingErrorD
 
 QDialog#renderingErrorDialog QListWidget {
     background:#DDD;
+}
+
+QDialog QLabel {
+    text-transform:none;
+}
+
+QDialog QFrame {
+    background:transparent;
 }

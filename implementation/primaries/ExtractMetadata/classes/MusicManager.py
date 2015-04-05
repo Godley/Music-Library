@@ -200,6 +200,11 @@ class MusicManager(object):
     def runQueries(self, search_data):
         results = {}
 
+        # run a query on all data
+        pieceMatchesOnEverything = self.__data.query(search_data)
+        if len(pieceMatchesOnEverything) > 0:
+            results["All"] = pieceMatchesOnEverything
+
         if "text" in search_data:
             # check title, composer, lyricist, instruments for matches
             for value in search_data["text"]:
@@ -208,6 +213,7 @@ class MusicManager(object):
                 if len(file_result) > 0:
                     combined["filename"] = [result[1] for result in file_result]
 
+
                 title_result = self.__data.getPieceByTitle(value)
                 if len(title_result) > 0:
                     combined["Title"] = title_result
@@ -215,14 +221,19 @@ class MusicManager(object):
                 composer_result = self.__data.getPiecesByComposer(value)
                 if len(composer_result) > 0:
                     combined["Composer"] = composer_result
+
                 lyricist_result = self.__data.getPiecesByLyricist(value)
                 if len(lyricist_result) > 0:
                     combined["Lyricist"] = lyricist_result
+
                 instrument_result = self.__data.getPiecesByInstruments([value])
                 if len(instrument_result) > 0:
                     combined["Instruments"] = instrument_result
+
                 if len(combined) > 0:
                     results.update(combined)
+
+
 
         if "instrument" in search_data:
             result_data = {}
@@ -262,10 +273,12 @@ class MusicManager(object):
                 if len(new_results) > 0:
                     results["Instruments in Keys"] = new_results
 
+
         if "transposition" in search_data:
             transpos = self.__data.getPieceByInstrumentsOrSimilar(search_data["transposition"])
             if len(transpos) > 0:
                 results["Instrument or transposition"] = transpos
+
 
         if "clef" in search_data:
             if "other" in search_data["clef"]:
@@ -273,9 +286,12 @@ class MusicManager(object):
                 if len(clefs) > 0:
                     results["Clefs"] = clefs
                 search_data["clef"].pop("other")
+
             if len(search_data["clef"]) > 0:
                 instrument_by_clef = self.__data.getPieceByInstrumentInClefs(search_data["clef"])
-                results["Instrument in Clefs"] = instrument_by_clef
+                if len(instrument_by_clef) > 0:
+                    results["Instrument in Clefs"] = instrument_by_clef
+
 
         if "filename" in search_data:
             #todo: implement wildcard functionality
@@ -283,6 +299,7 @@ class MusicManager(object):
             result_files = [filename for filename in search_data["filename"] if filename in files]
             if len(result_files) > 0:
                 results["Filename"] = result_files
+
 
         if "title" in search_data:
             files = {}
@@ -296,7 +313,7 @@ class MusicManager(object):
         if "composer" in search_data:
             files = {}
             for title in search_data["composer"]:
-                file_list = self.__data.getPieceByTitle(title)
+                file_list = self.__data.getPiecesByComposer(title)
                 if len(file_list) > 0:
                     files["Composer: "+title] = file_list
             if len(files) > 0:
@@ -305,11 +322,12 @@ class MusicManager(object):
         if "lyricist" in search_data:
             files = {}
             for title in search_data["lyricist"]:
-                file_list = self.__data.getPieceByTitle(title)
+                file_list = self.__data.getPiecesByLyricist(title)
                 if len(file_list) > 0:
                     files["Lyricist: "+title] = file_list
             if len(files) > 0:
                 results.update(files)
+
 
         summaries = {}
         if len(results) > 0:

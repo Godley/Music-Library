@@ -51,6 +51,11 @@ class testMusicManager(unittest.TestCase):
         self.manager.copyFiles([file])
         self.assertTrue(os.path.exists(os.path.join(self.folder, "3repeats.xml")))
 
+    def testQueryUnion(self):
+        self.manager.addPiece("file.xml",{"time":[{"beat":4,"type":4}],"tempo":[{"beat":"quarter","beat_2":"half"}]})
+        self.manager.addPiece("file1.xml",{"time":[{"beat":4,"type":4}]})
+        dataset = self.manager.runQueries({"time":["4/4"],"tempo":["quarter=half"]})
+        self.assertEqual(dataset, {"Time Signatures":["file.xml","file1.xml"], "Tempo":["file.xml"], "Exact Match":["file.xml"]})
 
     def tearDown(self):
         os.remove(os.path.join(self.folder, "music.db"))
