@@ -345,172 +345,64 @@ class MusicData(object):
         connection, cursor = self.connect()
         comp_id = None
         lyric_id = None
+        sets = []
 
         if "composer" in data:
-            comp_query = '''SELECT ROWID FROM composers WHERE name=?'''
-            cursor.execute(comp_query, (data["composer"],))
-            comp_id = cursor.fetchone()
-            data.pop("composer")
+            compos = [set(self.getPiecesByComposer(composer)) for composer in data["composer"]]
+            sets.append(set.intersection(*compos))
 
         if "lyricist" in data:
-            lyric_query = '''SELECT ROWID FROM lyricists WHERE name=?'''
-            cursor.execute(lyric_query, (data["lyricist"],))
-            lyric_id = cursor.fetchone()
-            data.pop("lyricist")
+            lyricists = [set(self.getPiecesByLyricist(lyricist)) for lyricist in data["lyricist"]]
 
-        query = '''SELECT ROWID, filename FROM pieces'''
+            sets.append(set.intersection(*lyricists))
+
         if "title" in data:
-            query += ' WHERE title=?'
-            entry.append(data["title"])
-            data.pop("title")
+            titles = [set(self.getPieceByTitle(title)) for title in data["title"]]
+            sets.append(set.intersection(*titles))
 
         if "filename" in data:
-            if "WHERE" in query:
-                query += ' AND'
+            fnames = [set(self.getPiece(fname)) for fname in data["filename"]]
+            sets.append(set.intersection(*fnames))
+
+
+
+        if "key" in data:
+            key_data = set([])
+            if type(data["key"]) == dict:
+                other_data = None
+                if "other" in data["key"]:
+                    other_data = set(self.getPieceByKeys(data["key"]["other"]))
+                    data["key"] = {i:data["key"][i] for i in data["key"] if i != "other"}
+                instrument_data = set(self.getPieceByInstrumentInKey(data["key"]))
+                if other_data is not None:
+                    key_data = set.intersection(other_data, instrument_data)
+                else:
+                    key_data = instrument_data
             else:
-                query += ' WHERE'
-            query += ' filename=?'
-            entry.append(data["filename"])
-            data.remove("filename")
+                key_data = set(self.getPieceByKeys(data["key"]))
+            sets.append(key_data)
 
-        if lyric_id is not None:
-            if "WHERE" in query:
-                query += ' AND'
+        if "clef" in data:
+            clef_data = set([])
+            if type(data["clef"]) == dict:
+                other_data =None
+                if "other" in data["clef"]:
+                    other_data = set(self.getPieceByClefs(data["clef"]["other"]))
+                    data["clef"] = {i:data["clef"][i] for i in data["clef"] if i != "other"}
+                instrument_data = set(self.getPieceByInstrumentInClef(data["clef"]))
+                if other_data is not None:
+                    clef_data = set.intersection(other_data, instrument_data)
+                else:
+                    clef_data = instrument_data
             else:
-                query += ' WHERE'
-            query += ' lyricist_id=?'
-            entry.append(lyric_id[0])
+                clef_data = set(self.getPieceByClefs(data["clef"]))
+            sets.append(clef_data)
 
+        if "instruments" in data:
+            sets.append(set(self.getPiecesByInstruments(data["instruments"])))
 
-        if comp_id is not None:
-            if "WHERE" in query:
-                query += ' AND'
-            else:
-                query += ' WHERE'
-            query += ' composer_id=?'
-            entry.append(comp_id[0])
-
-        cursor.execute(query, tuple(entry))
-        result = cursor.fetchall()
-
-        if len(result) > 0:
-            if len(data) > 0:
-                if "key" in data:
-                    key_data = None
-                    if type(data["key"]) == dict:
-                        input = [r[0] for r in result]
-                        key_query = '''SELECT piece.ROWID, piece.filename FROM pieces piece, key_piece_join k WHERE (piece.ROWID = ?'''
-                        for entry in range(1,len(input)):
-                            key_query += '''OR piece.ROWID =? '''
-                        key_query += ')'
-                        for instrument in data["key"]:
-                            if instrument != "other":
-                                inst_id = self.getInstrumentId(instrument, cursor)
-                                key_ids = [self.getKeyId(key, cursor) for key in data["key"][instrument]]
-                                input.append(inst_id)
-                                input.extend(key_ids)
-                                key_query += ''' AND EXISTS (SELECT NULL FROM key_piece_join WHERE piece_id = piece.ROWID AND instrument_id = ? AND key_id =?'''
-                                for clef in range(1,len(key_ids)):
-                                    key_query += ''' AND clef_id = ?'''
-                                key_query += ')'
-                        cursor.execute(key_query, tuple(input))
-                        found = cursor.fetchall()
-                        result = []
-                        for f in found:
-                            if f not in result:
-                                result.append(f)
-
-                        if "other" in data["key"]:
-                            key_data = data["key"]["other"]
-                    else:
-                        key_data = data["key"]
-
-                    if key_data is not None:
-                        key_ids = [self.getKeyId(k, cursor) for k in key_data]
-
-                        if len(key_ids) > 0:
-                            join_query = '''SELECT piece.ROWID, piece.filename FROM key_piece_join piece_join, pieces piece WHERE piece.ROWID = piece_join.piece_id'''
-                            join_query += ''' AND (piece_join.piece_id = ?'''
-                            for item_id in range(1, len(result)):
-                                join_query += ''' OR piece_join.piece_id = ?'''
-                            join_query += ')'
-                            join_query += ''' AND piece_join.key_id = ?'''
-                            for key_id in range(1, len(key_ids)):
-                                join_query += ''' AND EXISTS (SELECT NULL FROM key_piece_join WHERE piece_id = piece_join.piece_id AND key_id =?)'''
-                            input = [r[0] for r in result]
-                            input.extend(key_ids)
-                            cursor.execute(join_query, tuple(input))
-                            found = cursor.fetchall()
-                            result = found
-
-                if "clef" in data:
-                    clef_data = None
-                    if type(data["clef"]) == dict:
-                        input = [r[0] for r in result]
-                        clef_query = '''SELECT piece.ROWID, piece.filename FROM pieces piece, clef_piece_join k WHERE (piece.ROWID = ?'''
-                        for entry in range(1,len(input)):
-                            clef_query += '''OR piece.ROWID =? '''
-                        clef_query += ')'
-                        for instrument in data["clef"]:
-                            if instrument != "other":
-                                inst_id = self.getInstrumentId(instrument, cursor)
-                                clef_ids = [self.getClefId(clef, cursor) for clef in data["clef"][instrument]]
-                                input.append(inst_id)
-                                input.extend(clef_ids)
-                                clef_query += ''' AND EXISTS (SELECT NULL FROM clef_piece_join WHERE piece_id = piece.ROWID AND instrument_id = ? AND clef_id =?'''
-                                for clef in range(1,len(clef_ids)):
-                                    clef_query += ''' AND clef_id = ?'''
-                                clef_query += ')'
-                        cursor.execute(clef_query, tuple(input))
-                        found = cursor.fetchall()
-                        result = []
-                        for f in found:
-                            if f not in result:
-                                result.append(f)
-
-
-                        if "other" in data["clef"]:
-                            clef_data = data["clef"]["other"]
-                    else:
-                        clef_data = data["clef"]
-                    if clef_data is not None:
-                        input = []
-                        clef_ids = [self.getClefId(c, cursor) for c in clef_data]
-                        if len(clef_ids) > 0:
-                            join_query = '''SELECT piece.ROWID, piece.filename FROM clef_piece_join piece_join, pieces piece WHERE piece.ROWID = piece_join.piece_id'''
-                            join_query += ''' AND (piece_join.piece_id = ?'''
-                            for item_id in range(1, len(result)):
-                                join_query += ''' OR piece_join.piece_id = ?'''
-                            join_query += ')'
-                            join_query += ''' AND piece_join.clef_id = ?'''
-                            for key_id in range(1, len(clef_ids)):
-                                join_query += ''' AND EXISTS (SELECT NULL FROM clef_piece_join WHERE piece_id = piece_join.piece_id AND clef_id =?)'''
-                            input = [r[0] for r in result]
-                            input.extend(clef_ids)
-                            cursor.execute(join_query, tuple(input))
-                            found = cursor.fetchall()
-                            result = found
-
-                if "instruments" in data:
-                    instrument_ids = [self.getInstrumentId(c, cursor) for c in data["instruments"]]
-                    if len(instrument_ids) > 0:
-                        join_query = '''SELECT piece.ROWID, piece.filename FROM instruments_piece_join piece_join, pieces piece WHERE piece.ROWID = piece_join.piece_id'''
-                        join_query += ''' AND (piece_join.piece_id = ?'''
-                        for item_id in range(1, len(result)):
-                            join_query += ''' OR piece_join.piece_id = ?'''
-                        join_query += ')'
-                        join_query += ''' AND piece_join.instrument_id = ?'''
-                        for key_id in range(1, len(instrument_ids)):
-                            join_query += ''' AND EXISTS (SELECT NULL FROM instruments_piece_join WHERE piece_id = piece_join.piece_id AND instrument_id =?)'''
-                        input = [r[0] for r in result]
-                        input.extend(instrument_ids)
-                        cursor.execute(join_query, tuple(input))
-                        found = cursor.fetchall()
-                        result = found
-
-
-        filelist = [r[1] for r in result]
-
+        file_set = set.intersection(*sets)
+        filelist = list(file_set)
         self.disconnect(connection)
         return filelist
 
@@ -1022,12 +914,23 @@ class MusicData(object):
         connection, cursor = self.connect()
         search_ids = []
         tuple_data = [instrument for instrument in data]
+        key_data = []
         for instrument in data:
             search_ids.append(self.getInstrumentId(instrument, cursor))
-            search_ids.append(self.getKeyId(data[instrument], cursor))
-        query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece WHERE EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ? AND key_id = ?)'
-        for i in range(1,len(tuple_data)):
-            query += ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ? AND key_id = ?)'
+            if type(data[instrument]) == str:
+                search_ids.append(self.getKeyId(data[instrument], cursor))
+                key_data = [self.getKeyId(data[instrument], cursor)]
+            if type(data[instrument]) == list:
+                key_data = [self.getKeyId(key, cursor) for key in data[instrument]]
+                search_ids.extend(key_data)
+        query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece'
+        for i in range(len(tuple_data)):
+            if i==0:
+                query += ' WHERE '
+            else:
+                query += ' AND '
+            for j in range(len(key_data)):
+                query += 'EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ? AND key_id = ?)'
         query += ";"
         cursor.execute(query, tuple(search_ids))
         results = cursor.fetchall()
@@ -1038,12 +941,30 @@ class MusicData(object):
         connection, cursor = self.connect()
         search_ids = []
         tuple_data = [instrument for instrument in data]
+        clef_data = []
+
+
         for instrument in data:
             search_ids.append(self.getInstrumentId(instrument, cursor))
-            search_ids.append(self.getClefId(data[instrument], cursor))
-        query = 'SELECT clef_piece.piece_id FROM clef_piece_join clef_piece WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = clef_piece.piece_id AND instrument_id = ? AND clef_id = ?)'
-        for i in range(1,len(tuple_data)):
-            query += ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = key.piece_id AND instrument_id = ? AND clef_id = ?)'
+            if type(data[instrument]) == str:
+                search_ids.append(self.getClefId(data[instrument], cursor))
+                clef_data = [self.getClefId(data[instrument], cursor)]
+            if type(data[instrument]) == list:
+                clef_data = [self.getClefId(clef, cursor) for clef in data[instrument]]
+                search_ids.extend(clef_data)
+
+
+
+        query = 'SELECT clef_piece.piece_id FROM clef_piece_join clef_piece '
+        for i in range(len(tuple_data)):
+            if i==0:
+                query += 'WHERE'
+            else:
+                query += 'AND'
+            for clef in clef_data:
+                query += ' EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = clef_piece.piece_id AND instrument_id = ? '
+                query += 'AND clef_id = ?)'
+
         query += ";"
         cursor.execute(query, tuple(search_ids))
         results = cursor.fetchall()
