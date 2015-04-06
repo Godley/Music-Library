@@ -6,15 +6,19 @@ class testAPI(unittest.TestCase):
         self.api = API.Api(folder="")
 
     def testDownloadFile(self):
-        self.assertEqual(self.api.downloadFile("fname.xml"), "fname.xml")
+        with self.assertRaises(NotImplementedError):
+            self.api.downloadFile("heh")
 
     def testGetCollection(self):
-        self.assertEqual(self.api.getCollection(), [])
+        with self.assertRaises(NotImplementedError):
+            self.api.getCollection()
 
     def testSearchForAnyMatch(self):
-        self.assertEqual(self.api.searchForAnyMatch({}), [])
+        with self.assertRaises(NotImplementedError):
+            self.api.searchForAnyMatch({})
 
     def testSearchForExactMatch(self):
-        self.assertEqual(self.api.searchForExactMatch({}), [])
+        with self.assertRaises(NotImplementedError):
+            self.api.searchForExactMatch({})
 
 

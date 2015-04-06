@@ -5,13 +5,13 @@ class Api(object):
         self.folder = folder
 
     def downloadFile(self, fname):
-        return os.path.join(self.folder, fname)
+        raise NotImplementedError
 
     def getCollection(self):
-        return []
+        raise NotImplementedError
 
     def searchForAnyMatch(self, filters):
-        return []
+        raise NotImplementedError
 
     def searchForExactMatch(self, filters):
-        return []
+        raise NotImplementedError
