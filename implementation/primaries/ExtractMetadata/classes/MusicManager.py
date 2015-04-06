@@ -350,12 +350,13 @@ class MusicManager(object):
             else:
                 all_matched = False
 
-        if all_matched:
-            intersection = set.intersection(*[set(results[key]) for key in results])
-            if len(intersection) > 0:
-                results["Exact Matches"] = intersection
+
         summaries = {}
         if len(results) > 0:
+            if all_matched:
+                intersection = set.intersection(*[set(results[key]) for key in results])
+                if len(intersection) > 0:
+                    results["Exact Matches"] = intersection
             for key in results:
                 summaries[key] = self.getPieceSummary(results[key])
         return summaries
