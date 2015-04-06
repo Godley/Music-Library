@@ -199,11 +199,7 @@ class MusicManager(object):
 
     def runQueries(self, search_data):
         results = {}
-
-        # run a query on all data
-        pieceMatchesOnEverything = self.__data.query(search_data)
-        if len(pieceMatchesOnEverything) > 0:
-            results["All"] = pieceMatchesOnEverything
+        all_matched = True
 
         if "text" in search_data:
             # check title, composer, lyricist, instruments for matches
@@ -232,6 +228,8 @@ class MusicManager(object):
 
                 if len(combined) > 0:
                     results.update(combined)
+                else:
+                    all_matched = False
 
 
 
@@ -251,33 +249,45 @@ class MusicManager(object):
                 instrument_data = self.__data.getPiecesByInstruments(result_data)
                 if len(instrument_data) > 0:
                     results["Instruments"] = instrument_data
+                else:
+                    all_matched = False
 
         if "tempo" in search_data:
             tempo_data = self.__data.getPieceByTempo(search_data["tempo"])
             if len(tempo_data) > 0:
                 results["Tempo"] = tempo_data
+            else:
+                all_matched = False
 
         if "time" in search_data:
             time_data = self.__data.getPieceByMeter(search_data["time"])
             if len(time_data) > 0:
                 results["Time Signatures"] = time_data
+            else:
+                all_matched = False
 
         if "key" in search_data:
             if "other" in search_data["key"]:
                 keydata = self.__data.getPieceByKeys(search_data["key"]["other"])
                 if len(keydata) > 0:
                     results["Keys"] = keydata
+                else:
+                    all_matched = False
                 search_data["key"].pop("other")
             if len(search_data["key"]) > 0:
                 new_results = self.__data.getPieceByInstrumentInKeys(search_data["key"])
                 if len(new_results) > 0:
                     results["Instruments in Keys"] = new_results
+                else:
+                    all_matched = False
 
 
         if "transposition" in search_data:
             transpos = self.__data.getPieceByInstrumentsOrSimilar(search_data["transposition"])
             if len(transpos) > 0:
                 results["Instrument or transposition"] = transpos
+            else:
+                all_matched = False
 
 
         if "clef" in search_data:
@@ -285,12 +295,16 @@ class MusicManager(object):
                 clefs = self.__data.getPieceByClefs(search_data["clef"]["other"])
                 if len(clefs) > 0:
                     results["Clefs"] = clefs
+                else:
+                    all_matched = False
                 search_data["clef"].pop("other")
 
             if len(search_data["clef"]) > 0:
                 instrument_by_clef = self.__data.getPieceByInstrumentInClefs(search_data["clef"])
                 if len(instrument_by_clef) > 0:
                     results["Instrument in Clefs"] = instrument_by_clef
+                else:
+                    all_matched = False
 
 
         if "filename" in search_data:
@@ -299,6 +313,8 @@ class MusicManager(object):
             result_files = [filename for filename in search_data["filename"] if filename in files]
             if len(result_files) > 0:
                 results["Filename"] = result_files
+            else:
+                all_matched = False
 
 
         if "title" in search_data:
@@ -309,6 +325,8 @@ class MusicManager(object):
                     files["Title: "+title] = file_list
             if len(files) > 0:
                 results.update(files)
+            else:
+                all_matched = False
 
         if "composer" in search_data:
             files = {}
@@ -318,6 +336,8 @@ class MusicManager(object):
                     files["Composer: "+title] = file_list
             if len(files) > 0:
                 results.update(files)
+            else:
+                all_matched = False
 
         if "lyricist" in search_data:
             files = {}
@@ -327,8 +347,13 @@ class MusicManager(object):
                     files["Lyricist: "+title] = file_list
             if len(files) > 0:
                 results.update(files)
+            else:
+                all_matched = False
 
-
+        if all_matched:
+            intersection = set.intersection(*[set(results[key]) for key in results])
+            if len(intersection) > 0:
+                results["Exact Matches"] = intersection
         summaries = {}
         if len(results) > 0:
             for key in results:

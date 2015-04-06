@@ -51,11 +51,62 @@ class testMusicManager(unittest.TestCase):
         self.manager.copyFiles([file])
         self.assertTrue(os.path.exists(os.path.join(self.folder, "3repeats.xml")))
 
-    def testQueryUnion(self):
-        self.manager.addPiece("file.xml",{"time":[{"beat":4,"type":4}],"tempo":[{"beat":"quarter","beat_2":"half"}]})
-        self.manager.addPiece("file1.xml",{"time":[{"beat":4,"type":4}]})
-        dataset = self.manager.runQueries({"time":["4/4"],"tempo":["quarter=half"]})
-        self.assertEqual(dataset, {"Time Signatures":["file.xml","file1.xml"], "Tempo":["file.xml"], "Exact Match":["file.xml"]})
+    def testFindPieceByTitleAndComposer(self):
+        self.manager.addPiece("file.xml",{"title":"Blabla","composer":"Bartok"})
+        self.manager.addPiece("file1.xml",{"title":"Blabla"})
+        self.assertEqual({'Composer: Bartok':[('Blabla by Bartok(file.xml)', 'file.xml')],
+                          'Exact Matches':[('Blabla by Bartok(file.xml)', 'file.xml')],
+                          'Title: Blabla':[('Blabla by Bartok(file.xml)', 'file.xml'),('Blabla(file1.xml)', 'file1.xml')]}, self.manager.runQueries({"title":["Blabla"],"composer":["Bartok"]}))
+
+    def testFindPieceByTitleAndLyricist(self):
+        self.manager.addPiece("file.xml",{"title":"Blabla","lyricist":"Bartok"})
+        self.manager.addPiece("file1.xml",{"title":"Blabla"})
+        self.assertEqual(["file.xml"], self.manager.runQueries({"title":["Blabla"],"lyricist":["Bartok"]}))
+
+    def testFindPieceByTitleAndKey(self):
+        self.manager.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"}],"key":{"Clarinet":[{"fifths":0,"mode":"major"}]}})
+        self.manager.addPiece("file1.xml",{"title":"Blabla"})
+        self.assertEqual(["file.xml"], self.manager.runQueries({"title":"Blabla","key":["C major"]}))
+
+    def testFindPieceByTitleAndKeyAndClef(self):
+        self.manager.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"}],"clef":{"Clarinet":["treble"]}, "key":{"Clarinet":["C major"]}})
+        self.manager.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Clarinet"}], "key":{"Clarinet":["C major"]}})
+        self.assertEqual(["file.xml"], self.manager.runQueries({"title":"Blabla","key":["C major"], "clef":["treble"]}))
+
+    def testFindPieceByTitleAndKeyAndClefAndInstrument(self):
+        self.manager.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"}],"clef":{"Clarinet":["treble"]}, "key":{"Clarinet":["C major"]}})
+        self.manager.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Sax"}], "key":{"Sax":["C major"]}})
+        self.assertEqual(["file.xml"], self.manager.runQueries({"title":"Blabla","key":["C major"], "clef":["treble"],"instrument":["Clarinet"]}))
+
+    def testFindPieceByTitleAndInstrumentWithClef(self):
+        self.manager.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"}],"clef":{"Clarinet":["treble"]}, "key":{"Clarinet":["C major"]}})
+        self.manager.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Sax"},{"name":"Clarinet"}], "clef":{"Sax":["treble"]}})
+        self.assertEqual({'Instrument in Clefs':[('Blabla(file.xml)', 'file.xml')],
+                          'Exact Matches':[('Blabla(file.xml)', 'file.xml')],
+                          'Instruments':[('Blabla(file.xml)', 'file.xml'),('Blabla(file1.xml)', 'file1.xml')],
+                          'Keys':[('Blabla(file.xml)', 'file.xml')],
+                          'Title: Blabla':[('Blabla(file.xml)', 'file.xml'),('Blabla(file1.xml)', 'file1.xml')]}, self.manager.runQueries({"title":["Blabla"],"key":{"other":["C major"]}, "clef":{"Clarinet":["treble"]},"instrument":{"Clarinet":{}}}))
+
+    def testFindPieceByTitleAndInstrumentWithClefAndOther(self):
+        self.manager.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"},{"name":"Sax"}],"clef":{"Clarinet":[{"sign":"G", "line":2}],"Sax":[{"line":4,"sign":"F"}]}, "key":{"Clarinet":["C major"]}})
+        self.manager.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Sax"},{"name":"Clarinet"}], "clef":{"Sax":[{"line":4,"sign":"F"}]}})
+        self.assertEqual({'Exact Matches':[('Blabla(file.xml)', 'file.xml')],
+                          'Title: Blabla':[('Blabla(file.xml)', 'file.xml')]}, self.manager.runQueries({"title":["Blabla"],"key":{"other":["C major"]}, "clef":{"Clarinet":["treble"],"other":["bass"]},"instrument":{"Clarinet":{}}}))
+
+    def testFindPieceByTitleAndInstrumentWithKey(self):
+        self.manager.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"},{"name":"Sax"}],"clef":{"Clarinet":[{"sign":"G", "line":2}],"Sax":[{"line":4,"sign":"F"}]}, "key":{"Clarinet":[{"fifths":2,"mode":"major"}]}})
+        self.manager.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Sax"},{"name":"Clarinet"}], "key":{"Sax":[{"fifths":2,"mode":"major"}]}, "clef":{"Sax":[{"line":4,"sign":"F"}]}})
+        self.assertEqual(["file.xml"], self.manager.runQueries({"title":"Blabla","key":{"Clarinet":[{"other":"D major"}]},"instrument":["Clarinet"]}))
+
+    def testFindPieceByTitleAndInstrumentWithKeyAndOther(self):
+        self.manager.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"},{"name":"Sax"}],"clef":{"Clarinet":[{"sign":"G", "line":2}],"Sax":[{"line":4,"sign":"F"}]}, "key":{"Clarinet":[{"fifths":2,"mode":"major"}], "Sax":[{"fifths":0,"mode":"major"}]}})
+        self.manager.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Sax"},{"name":"Clarinet"}], "key":{"Sax":[{"fifths":0,"mode":"major"},{"fifths":2,"mode":"major"}]}, "clef":{"Sax":[{"line":4,"sign":"F"}]}})
+        self.assertEqual(["file.xml"], self.manager.runQueries({"title":"Blabla","key":{"Clarinet":["D major"],"other":["C major"]},"instrument":["Clarinet"]}))
+
+    def testFindPieceByTitleAndInstrumentWithKeyAndClef(self):
+        self.manager.addPiece("file.xml",{"title":"Blabla","instruments":[{"name":"Clarinet"},{"name":"Sax"}],"clef":{"Clarinet":[{"sign":"G", "line":2}],"Sax":[{"line":4,"sign":"F"}]}, "key":{"Clarinet":[{"fifths":2,"mode":"major"}]}})
+        self.manager.addPiece("file1.xml",{"title":"Blabla", "instruments":[{"name":"Sax"},{"name":"Clarinet"}], "key":{"Clarinet":[{"fifths":2,"mode":"major"}]}, "clef":{"Sax":[{"line":4,"sign":"F"}]}})
+        self.assertEqual(["file.xml"], self.manager.runQueries({"title":"Blabla","key":{"Clarinet":["D major"]},"instrument":["Clarinet"],"clef":{"Clarinet":["treble"]}}))
 
     def tearDown(self):
         os.remove(os.path.join(self.folder, "music.db"))

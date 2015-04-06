@@ -339,72 +339,72 @@ class MusicData(object):
         self.disconnect(connection)
 
 
-    def query(self, data):
-        entry = []
-        filelist = []
-        connection, cursor = self.connect()
-        comp_id = None
-        lyric_id = None
-        sets = []
-
-        if "composer" in data:
-            compos = [set(self.getPiecesByComposer(composer)) for composer in data["composer"]]
-            sets.append(set.intersection(*compos))
-
-        if "lyricist" in data:
-            lyricists = [set(self.getPiecesByLyricist(lyricist)) for lyricist in data["lyricist"]]
-
-            sets.append(set.intersection(*lyricists))
-
-        if "title" in data:
-            titles = [set(self.getPieceByTitle(title)) for title in data["title"]]
-            sets.append(set.intersection(*titles))
-
-        if "filename" in data:
-            fnames = [set(self.getPiece(fname)) for fname in data["filename"]]
-            sets.append(set.intersection(*fnames))
-
-
-
-        if "key" in data:
-            key_data = set([])
-            if type(data["key"]) == dict:
-                other_data = None
-                if "other" in data["key"]:
-                    other_data = set(self.getPieceByKeys(data["key"]["other"]))
-                    data["key"] = {i:data["key"][i] for i in data["key"] if i != "other"}
-                instrument_data = set(self.getPieceByInstrumentInKey(data["key"]))
-                if other_data is not None:
-                    key_data = set.intersection(other_data, instrument_data)
-                else:
-                    key_data = instrument_data
-            else:
-                key_data = set(self.getPieceByKeys(data["key"]))
-            sets.append(key_data)
-
-        if "clef" in data:
-            clef_data = set([])
-            if type(data["clef"]) == dict:
-                other_data =None
-                if "other" in data["clef"]:
-                    other_data = set(self.getPieceByClefs(data["clef"]["other"]))
-                    data["clef"] = {i:data["clef"][i] for i in data["clef"] if i != "other"}
-                instrument_data = set(self.getPieceByInstrumentInClef(data["clef"]))
-                if other_data is not None:
-                    clef_data = set.intersection(other_data, instrument_data)
-                else:
-                    clef_data = instrument_data
-            else:
-                clef_data = set(self.getPieceByClefs(data["clef"]))
-            sets.append(clef_data)
-
-        if "instruments" in data:
-            sets.append(set(self.getPiecesByInstruments(data["instruments"])))
-
-        file_set = set.intersection(*sets)
-        filelist = list(file_set)
-        self.disconnect(connection)
-        return filelist
+    # def query(self, data):
+    #     entry = []
+    #     filelist = []
+    #     connection, cursor = self.connect()
+    #     comp_id = None
+    #     lyric_id = None
+    #     sets = []
+    #
+    #     if "composer" in data:
+    #         compos = [set(self.getPiecesByComposer(composer)) for composer in data["composer"]]
+    #         sets.append(set.intersection(*compos))
+    #
+    #     if "lyricist" in data:
+    #         lyricists = [set(self.getPiecesByLyricist(lyricist)) for lyricist in data["lyricist"]]
+    #
+    #         sets.append(set.intersection(*lyricists))
+    #
+    #     if "title" in data:
+    #         titles = [set(self.getPieceByTitle(title)) for title in data["title"]]
+    #         sets.append(set.intersection(*titles))
+    #
+    #     if "filename" in data:
+    #         fnames = [set(self.getPiece(fname)) for fname in data["filename"]]
+    #         sets.append(set.intersection(*fnames))
+    #
+    #
+    #
+    #     if "key" in data:
+    #         key_data = set([])
+    #         if type(data["key"]) == dict:
+    #             other_data = None
+    #             if "other" in data["key"]:
+    #                 other_data = set(self.getPieceByKeys(data["key"]["other"]))
+    #                 data["key"] = {i:data["key"][i] for i in data["key"] if i != "other"}
+    #             instrument_data = set(self.getPieceByInstrumentInKey(data["key"]))
+    #             if other_data is not None:
+    #                 key_data = set.intersection(other_data, instrument_data)
+    #             else:
+    #                 key_data = instrument_data
+    #         else:
+    #             key_data = set(self.getPieceByKeys(data["key"]))
+    #         sets.append(key_data)
+    #
+    #     if "clef" in data:
+    #         clef_data = set([])
+    #         if type(data["clef"]) == dict:
+    #             other_data =None
+    #             if "other" in data["clef"]:
+    #                 other_data = set(self.getPieceByClefs(data["clef"]["other"]))
+    #                 data["clef"] = {i:data["clef"][i] for i in data["clef"] if i != "other"}
+    #             instrument_data = set(self.getPieceByInstrumentInClef(data["clef"]))
+    #             if other_data is not None:
+    #                 clef_data = set.intersection(other_data, instrument_data)
+    #             else:
+    #                 clef_data = instrument_data
+    #         else:
+    #             clef_data = set(self.getPieceByClefs(data["clef"]))
+    #         sets.append(clef_data)
+    #
+    #     if "instruments" in data:
+    #         sets.append(set(self.getPiecesByInstruments(data["instruments"])))
+    #
+    #     file_set = set.intersection(*sets)
+    #     filelist = list(file_set)
+    #     self.disconnect(connection)
+    #     return filelist
 
     def getFileList(self):
         connection, cursor = self.connect()
