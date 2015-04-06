@@ -12,6 +12,14 @@ class MusicData(object):
         self.createTimeTable()
         self.createTempoTable()
         self.createPlaylistTable()
+        self.createSourcesTable()
+
+    def createSourcesTable(self):
+        connection, cursor = self.connect()
+        query = 'CREATE TABLE IF NOT EXISTS sources (piece_id int, source text)'
+        cursor.execute(query)
+        connection.commit()
+        self.disconnect(connection)
 
     def createTempoTable(self):
         '''

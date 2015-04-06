@@ -36,12 +36,6 @@ class testMusicManager(unittest.TestCase):
         self.assertEqual(self.manager.getPieceInfo(["file.xml"]), [])
 
 
-    def testGetAutoPlaylist(self):
-        pass
-
-    def testGetPlaylist(self):
-        pass
-
     def testRefresh(self):
         self.manager.addPiece("file.xml",{})
         self.manager.refresh()
