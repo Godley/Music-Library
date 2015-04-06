@@ -195,6 +195,15 @@ class testDataLayer(unittest.TestCase):
         c.execute('SELECT filename FROM pieces WHERE ROWID=?', piece_row)
         self.assertEqual([("file.xml",)], c.fetchall())
 
+    def testAddOnlinePiece(self):
+        self.data.addPiece("file.xml", {"source":"MuseScore"})
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        c.execute('SELECT source FROM sources WHERE piece_id = 1')
+        row = c.fetchone()
+        conn.close()
+        self.assertEqual(('MuseScore',), row)
+
     def testAddPieceWithInstruments(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}]})
         conn = sqlite3.connect('example.db')
@@ -467,6 +476,8 @@ class testDataLayer(unittest.TestCase):
     def testFindPieceByTempoWhereTempoIsTwoBeatsInAmerican(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quarter=half"]))
+
+
 
     def testFindAllInfoForAPiece(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
