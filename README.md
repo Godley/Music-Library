@@ -1,7 +1,7 @@
 #A Sheet Music Organisation System
 This project aims to create an application which manages a person's music collection - that is, sheet music, the visual
 representation of a composed piece of music.
-#Design
+##Design
 The system works by:
 - taking a folder
 - finding all the musicXML (.xml) files in that folder, and all the zipped musicXMl files in the folder (.mxl)
@@ -16,11 +16,11 @@ The system works by:
   - loads info about the piece and displays it
   - also checks for whether it's in any user created playlists and displays that
 
-#Documentation
+##Documentation
 Currently the system is documented using github issues and the reports stored in Documentation. Most of these were for submission to my degree, but they give a good overview for new users and are pitched at a compsci level so that people without knowledge of music can learn a bit and understand it without prior knowledge of sheet music.
 Once I have a bit of time to do more writing there will be a proper documentation site with instructions on setting up
 
-#Infrastructure
+##Infrastructure
 Language: Python
 GUI: PyQt4
 Rendering: Lilypond
@@ -28,5 +28,5 @@ Input format: MusicXML
 Output Format for rendering: PDF via lilypond
 APIs used: MuseScore
 
-#Installation
+##Installation
 I don't currently have installer scripts written, but for deving this you will need to preinstall Lilypond and set up some scripts and such. I'll get to that when I've done some crossplatform work
