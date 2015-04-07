@@ -13,12 +13,12 @@ class testAPI(unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             self.api.getCollection()
 
-    def testSearchForAnyMatch(self):
+    def testCleanCollection(self):
         with self.assertRaises(NotImplementedError):
-            self.api.searchForAnyMatch({})
+            self.api.cleanCollection()
 
-    def testSearchForExactMatch(self):
+    def testSearch(self):
         with self.assertRaises(NotImplementedError):
-            self.api.searchForExactMatch({})
+            self.api.search({})
 
 

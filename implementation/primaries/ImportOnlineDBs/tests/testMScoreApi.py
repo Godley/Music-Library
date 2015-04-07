@@ -6,13 +6,31 @@ class testMScoreApi(unittest.TestCase):
         self.api = MScoreApi.MuseScoreApi(folder="")
 
     def testDownloadFile(self):
-        self.assertEqual("heh", self.api.downloadFile("heh"))
+        uri = 'http://api.musescore.com/services/rest/score/770081'
+
+        self.assertEqual(None, self.api.downloadFile(uri))
 
     def testGetCollection(self):
-        self.assertEqual([], self.api.getCollection())
+        self.assertIsInstance(self.api.getCollection(), list)
 
-    def testSearchForAnyMatch(self):
-        self.assertEqual([],self.api.searchForAnyMatch({}))
+    def testGetCollectionLength(self):
+        self.assertTrue(len(self.api.getCollection()) > 0)
 
-    def testSearchForExactMatch(self):
-        self.assertEqual([], self.api.searchForExactMatch({}))
+    def testCleanCollection(self):
+        self.assertIsInstance(self.api.cleanCollection(), list)
+
+
+    def testSearchForExactMatchTitle(self):
+        self.assertIsInstance(self.api.search({'text':['"Natural (di Vassily B.)-Album:Life(completd Song)"']}), dict)
+
+    def testSearchKeys(self):
+        results = self.api.search({'text':['"Natural (di Vassily B.)-Album:Life(completd Song)"']})
+        self.assertEqual(list(results.keys()), ['"Natural (di Vassily B.)-Album:Life(completd Song)"'])
+
+    def testSearchForExactMatchTitleLength(self):
+        self.assertTrue(len(self.api.search({'text':['"Natural (di Vassily B.)-Album:Life(completd Song)"']})) > 0)
+
+
+    def testSearchForAnyMatchTitles(self):
+        self.assertIsInstance(self.api.searchForExactMatch({'text':['"Natural (di Vassily B.)-Album:Life(completd Song)"', 'Hello']}), list)
+

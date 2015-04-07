@@ -13,8 +13,14 @@ class Api(object):
     def getCollection(self):
         raise NotImplementedError
 
-    def searchForAnyMatch(self, filters):
+    def cleanCollection(self):
         raise NotImplementedError
 
-    def searchForExactMatch(self, filters):
+    def search(self, filters):
         raise NotImplementedError
+
+    def searchForAnyMatch(self, filters):
+        pass
+
+    def searchForExactMatch(self, filters):
+        pass
