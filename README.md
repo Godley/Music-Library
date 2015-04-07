@@ -21,12 +21,12 @@ Currently the system is documented using github issues and the reports stored in
 Once I have a bit of time to do more writing there will be a proper documentation site with instructions on setting up
 
 ##Infrastructure
-Language: Python
-GUI: PyQt4
-Rendering: Lilypond
-Input format: MusicXML
-Output Format for rendering: PDF via lilypond
-APIs used: MuseScore
+- Language: Python
+- GUI: PyQt4
+- Rendering: Lilypond
+- Input format: MusicXML
+- Output Format for rendering: PDF via lilypond
+- APIs used: MuseScore
 
 ##Installation
 I don't currently have installer scripts written, but for deving this you will need to preinstall Lilypond and set up some scripts and such. I'll get to that when I've done some crossplatform work
