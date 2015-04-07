@@ -161,7 +161,6 @@ However, this particular format was designed by a third party, Make Music, who h
 
 For reason of inclusion in composition software packages, MusicXML has been selected as the file format for the project. This adds an advantage to the project over the composition software packages mentioned as the project will be designed to work well with MusicXML, whilst those mentioned are designed to work with their own file formats and thus have some issues converting to MusicXML\parencite{mscoreBugTracker}, meaning that this project will be more precise in it's rendering of MusicXML.
 
-
 \subsection{Comparison of Algorithms for Rendering and Organising Sheet Music}
 Figure \ref{fig:flow} shows a flow diagram for the system of rendering and organising sheet music. Where there are process markings which are specific to this project,(unzipping is not counted in this category), these will be described and analysed in the following sections.
 Mxl files are the format used to compress MusicXML files, and as such the procedure for decompressing them is not complicated. Where arrows have text, this indicates that the arrow will only be followed if the text condition is met.
@@ -212,6 +211,9 @@ It would be possible to alleviate the panning and zooming problem by converting 
 
 Considering these factors, it has been decided that the algorithm will be outputting files to a third party system known as Lilypond. Lilypond is a language and system developed to typeset the highest quality sheet music \parencite{Lilypond}, which takes an input file and outputs a PDF or image. As this is a language unto itself and has been in development for many years by the Open Source community, this will alleviate the problem of visual debugging - instead, each class can create a formatted Lilypond output based on its attributes and unit tests can automatically confirm that the result is as expected.
 
+This adds a further technical challenge as the design aims of MusicXML as explained in an earlier section were found to be very different from the design aims of Lilypond. Designing the system and structure around both objects at the start of the project was difficult, due to the developer's lack of knowledge of both formats and frameworks, and thus changes were made late into the project that set back development time.
+
+Furthermore, as rendering of sheet music is not the main aim of this project, it was decided that specific areas of notation should not be included in order to ensure that other areas of the project, such as metadata extraction, did not have a significantly shorter development time, and to ensure that all implemented objectives were implemented to a high quality, at the expense of rendering all symbols.
 
 \subsection{Comparison of Technologies for Importing Online Musical Sources}
 \subsubsection{Musical Sources}
