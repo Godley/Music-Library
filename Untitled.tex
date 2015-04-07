@@ -1,0 +1,215 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{abc}
+\usepackage{graphicx}
+
+\setlength{\parindent}{0pt}
+
+% -----
+
+\begin{document}
+
+\title{\texttt{tunebook-sample.tex}:\\
+Example of ABC collection in \LaTeX}
+
+\author{Guido Gonzato, Ph. D.}
+
+\date{\today}
+
+\maketitle
+
+\tableofcontents
+
+% -----
+
+\section{Introduction}
+
+This is a sample tunebook written in \LaTeX. It employs Prof. Enrico
+Gregorio's \texttt{abc.sty} style for defining the new \texttt{abc}
+environment.
+
+The commands to typeset this file are:
+
+\begin{verbatim}
+  latex -shell-escape tunebook-sample.tex
+  latex -shell-escape tunebook-sample.tex
+  dvips tunebook-sample.dvi
+\end{verbatim}
+
+Read the \LaTeX{} source carefully to see how it works.
+
+% -----
+
+\section{Hornpipes}
+
+Let's make the first tune a bit wider. The command is
+
+\begin{verbatim}
+\renewcommand{\abcwidth}{1.2\linewidth}
+\end{verbatim}
+
+It's up to the user to change the page margins.
+
+\bigskip
+
+\renewcommand{\abcwidth}{1.1\linewidth}
+
+\addcontentsline{toc}{subsection}{Bonaparte Crossing the Rhine}
+\begin{abc}[name=bonaparte]
+X:1
+T:Bonaparte Crossing the Rhine
+R:hornpipe
+M:4/4
+L:1/8
+K:Ador
+E(G | "Am" A2)   AB    A(GEG) | "C" cde(c "G" d2)     eg | "Am" age(d          cd)ed  | "Am" cAG(E "G" G2) c(B |
+      "Am" A2)   AB    A(GEG) | "C" cde(c "G" d2) (3ef(g | "Am" a)ge(d  "F" cA)"G"G(E | "Am" A2) A{d}(B    A2) :|
+e(g | "Am" a2) ag (3ef(g e)(d | ^cd)e(f g2)           eg | age(d                cd)ed | "Am" cAG(E "G" G2) c(B |
+      "Am" A2)   AB    A(GEG) | "C" cde(c "G" d2) (3ef(g | "Am" a)ge(d  "F" cA)"G"G(E | "Am" A2) A{d}(B    A2) :|
+\end{abc}
+
+\medskip
+
+\renewcommand{\abcwidth}{\linewidth}
+
+The next tune has a \texttt{\%\%scale 0.5} command:
+
+\begin{center}
+\addcontentsline{toc}{subsection}{The Boys of Bluehill}
+\begin{abc}[name=bluehill]
+%%scale 0.5
+X:2
+T:The Boys of Bluehill
+R:hornpipe
+O:Ireland
+M:4/4
+L:1/8
+K:D
+FA | "D" BAFA    D2    FA | "G" BA (3(Bcd) "A" e2 de | "D" fagf "A" egfe | "D" dfed "G" B2 dB |
+     "D" (3(ABA) FA D2 FA | "G" BA (3(Bcd) "A" e2 de | "D" fagf "A" egfe | "D" d2 {e}dc    d2 :| 
+fg | "D" afdf    a2    gf | "G" efga      b2      ag | "D" fagf "A" egfe | "D" dfed "G" B2 dB |
+     "D" (3(ABA) FA D2 FA | "G" BA (3(Bcd) "A" e2 de | "D" fagf "A" egfe | "D" d2 {e}dc    d2 :| 
+\end{abc}
+\end{center}
+
+\medskip
+
+\addcontentsline{toc}{subsection}{Chief O'Neill's}
+\begin{abc}[name=chief]
+X:3
+T:Chief O'Neill's
+R:hornpipe
+O:Ireland
+M:4/4
+L:1/8
+K:Dmix
+de | "D" fefg "G" afge | "D" fded "A" dcAG | "D" FEFD "G" FGAB | "C" =cAd^c "A" A2 de |
+     "D" fefg "G" afge | "D" fded "A" dcAG | "D" FEFD "G" GBAG | "A" F2  D2    "D" D2 :|
+DE | "F" =FEFD    FGAB | "C" =cAdB    cAGB | "D" Adde     fded | "A" cAdc    A2    de |
+     "D" fefg "G" afge | "D" fdef "A" dcAG | "D" FEFD "G" GBAG | "A" F2  D2    "D" D2 :|
+\end{abc}
+
+% -----
+
+\section{Reels}
+
+\addcontentsline{toc}{subsection}{Abbey Reel}
+\begin{abc}[name=abbey]
+X:1
+T:The Abbey Reel
+R:reel
+O:Scotland, (Ireland?)
+M:C|
+L:1/8
+K:Ador
+%%MIDI program 1 22
+~A3 B A2  GE | A2 GA BddB | ~A3B    AGEF |1 ~G3 A BedB :|2 ~G3 A Bd ~d2 ||
+eg ~g2 a2 ba | gabg  aged | eg ~g2 a2 ga | bgaf   gedg |
+eg ~g2  agbg | agbg  aged | eg ~g2 a2 ga | bgaf   gedB |
+\end{abc}
+
+\addcontentsline{toc}{subsection}{Anything for John Joe}
+\begin{abc}[name=anything]
+X:2
+T:Anything for John Joe
+R:reel
+O:Ireland
+M:4/4
+L:1/8
+K:D
+A | F2 AF G2 BG | F z AF EFDE | F2 AF G2 BG | ABcA   d3 :|
+e | f2 fg  fede | faaf   efde | f2 af  efed | cABc d3 e |
+    f2 fg  fede | faaf   efde | fefg  a3  A | ABcA   d3 |]
+\end{abc}
+
+\addcontentsline{toc}{subsection}{Banshee, The}
+\begin{abc}[name=banshee]
+X:3
+T:The Banshee
+R:reel
+C:James McMahon
+O:Ireland
+M:4/4
+L:1/8
+K:G
+"G" G2 GD  EDEG | "C" AGAB "D" d2 Bd | "C" eged    "G" BAGA | "C" BAGE  "D" EDDE |
+"G" G2 GD  EDEG | "C" AGAB "D" d2 Bd | "C" eged    "G" BAGA | "C" BAGE "D" ED D2 :|
+"Am" eaag  efge | "Em" dBBA    B2 Bd | "Em" eB ~B2 "G" gBfB | "Em"  eBBA  B2  Bd |
+"Am" eaag  efge | "Em" dBBA    B2 Bd | "C" eged    "G" BAGA | "C" BAGE "D" ED D2 :|
+\end{abc}
+
+% -----
+
+\section{Jigs}
+
+\addcontentsline{toc}{subsection}{Banish Misfortune}
+\begin{abc}[name=banish]
+X:1
+T:Banish Misfortune
+R:jig
+O:Ireland
+M:6/8
+L:1/8
+K:G
+"D"  fed "C" cAG | "D"  Add "C" cAG | "D"  F2   D  DED | "D" FEF  "C" GFG |
+"D"  AGA     cAG | "D"  AGA "C" cde | "D" fed "Am" cAG | "G" Add "D" d2 e :|
+"D"  f2  d  d^cd |      f2   g  agf | "C"  e2   c  cBc | "Am" e2   f  gfe |
+"D"  f2  g   agf | "C"  e2   f  gfe | "D" fed "Am" cAG | "G" Add   "D" d3 :|
+"D"  f2  g  e2 f |      ded  c2   d | "D" A3       GAG |     F2   A   GED |
+"C"  ~c3     cAG | "Am" AGA "C" cde | "D" fed "Am" cAG | "G" Add   "D" d3 :|
+\end{abc}
+
+\addcontentsline{toc}{subsection}{Blarney Pilgrim, The}
+\begin{abc}[name=blarney]
+X:2
+T:The Blarney Pilgrim
+R:jig
+O:Ireland
+M:6/8
+L:1/8
+K:G
+"G" DED   DEG | "D" A2 G ABc | "C" BAG  AGE |     GEA    GED |
+"G" DED   DEG | "D" A2 G ABc | "C" BAG  AGE |     GED  D2  z :|
+"G" ded   dBG | "D" AGA  BGE | "G" ded  dBG | "D" ABA "G" G3 |
+"G" ~g2 e dBA | "D" AGA  BGE | "C" B2 G AGE |     GAG  G2  z :|
+"D" A2 D B2 D |     AGG  ABc | "G" BAG  AGE | "C" GEA    GED |
+"D" A2 D B2 D |     A2 D ABc | "G" BAG  AGE | "C" GED  D2  z :|
+\end{abc}
+
+\addcontentsline{toc}{subsection}{Calliope House}
+\begin{abc}[name=calliope]
+X:3
+T:Calliope House
+R:jig
+C:Dave Richardson (USA)
+M:6/8
+L:1/8
+K:Dmaj
+A | "D" dAA  fAA | eAA   fAA |  "G" Bee e2 d | "(A)" efd BdB |
+    "D" ABA A2 F | A2 B d2 e |1 "D" f2 a fed | "A7" e3 e2  :|2 "D" faf "A" edB | "D" d3 dfg |]
+ |: "D" a3   faa | eaa   faa |  "G" g3   fgf | "(A)" efe edB |
+    "D" ABA A2 F | A2 B d2 e |1 "D" f2 a fed | "A7" e3 efg :|2 "D" faf "A" edB | "D" d3 d2 |]
+\end{abc}
+
+% -----
+
+\end{document}
