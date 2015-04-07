@@ -1,4 +1,4 @@
-import unittest
+import unittest, os
 from implementation.primaries.ImportOnlineDBs.classes import MScoreApi
 
 class testMScoreApi(unittest.TestCase):
@@ -6,9 +6,13 @@ class testMScoreApi(unittest.TestCase):
         self.api = MScoreApi.MuseScoreApi(folder="")
 
     def testDownloadFile(self):
-        uri = 'http://api.musescore.com/services/rest/score/770081'
+        file_tuple = (770336, '6c3a00d9e0')
+        self.assertEqual(200, self.api.downloadFile(file_tuple))
 
-        self.assertEqual(None, self.api.downloadFile(uri))
+    def testDownloadFileExists(self):
+        file_tuple = (770336, '6c3a00d9e0')
+        self.api.downloadFile(file_tuple)
+        self.assertTrue(os.path.exists('770336.mxl'))
 
     def testGetCollection(self):
         self.assertIsInstance(self.api.getCollection(), list)

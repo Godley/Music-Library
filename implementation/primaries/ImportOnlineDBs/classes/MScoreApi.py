@@ -2,8 +2,7 @@
 Classes dealing with the MuseScore community api
 '''
 from implementation.primaries.ImportOnlineDBs.classes.API import Api
-import requests
-import pprint
+import requests, pprint, os, shutil
 
 class MuseScoreApi(Api):
 
@@ -11,6 +10,7 @@ class MuseScoreApi(Api):
         Api.__init__(self, folder=folder)
         self.params = params
         self.endpoint = 'http://api.musescore.com/services/rest/score.json'
+        self.download_endpoint = 'http://static.musescore.com/'
 
     def getCollection(self):
         '''
@@ -32,6 +32,7 @@ class MuseScoreApi(Api):
         for element in collection:
             data = {}
             data["uri"] = element["uri"]
+            data["secret"] = element["secret"]
             data["title"] = element["metadata"]["title"]
             data["composer"] = element["metadata"]["composer"]
             data["lyricist"] = element["metadata"]["poet"]
@@ -39,13 +40,21 @@ class MuseScoreApi(Api):
             results.append(data)
         return results
 
-    def downloadFile(self, fname):
+    def downloadFile(self, fname, type='mxl'):
         '''
         method to download a file
-        :param fname:
-        :return:
+        :param fname: tuple of the ID and secret for the given
+        :param type: the file extension to download
+        :return: location of given file
         '''
-        pass
+        endpoint = self.download_endpoint+str(fname[0])+"/"+str(fname[1])+"/score."+type
+        request = requests.get(endpoint, stream=True)
+        if request.status_code == 200:
+            with open(os.path.join(self.folder, str(fname[0])+"."+type), 'wb') as f:
+                request.raw.decode_content = True
+                shutil.copyfileobj(request.raw, f)
+        return request.status_code
+
 
     def searchForExactMatch(self, filters):
         '''
