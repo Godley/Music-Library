@@ -1,6 +1,7 @@
 '''
 A basic class which defines what methods sub classes must implement using exceptions.
-If methods are not implemented and should be, the dev will know because it tips over.
+If methods are not implemented and should be, the dev will know because it tips over. For a worked example,
+see the MuseScore api class.
 '''
 
 class Api(object):

@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/API.py" afterPath="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/API.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/MScoreApi.py" afterPath="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/MScoreApi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/tests/testMScoreApi.py" afterPath="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/tests/testMScoreApi.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -159,11 +157,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MScoreApi.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MScoreApi.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/MScoreApi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8616188" vertical-offset="195" max-vertical-offset="1455">
-              <caret line="42" column="42" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="1455">
+              <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
               <folding>
                 <element signature="e#57#125#0" expanded="true" />
                 <element signature="e#574#869#0" expanded="false" />
@@ -184,11 +182,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="API.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="API.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/API.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="8" max-vertical-offset="960">
-              <caret line="9" column="42" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.62663186" vertical-offset="0" max-vertical-offset="975">
+              <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -1041,12 +1039,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00583" summary="work toward issue #70&#10;- made autocomplete box adjust to the size of it's results: if the resulting size is larger than the size of the window, it will instead set it to the size of the 4/5 of the size of the window&#10;">
-      <created>1426865410658</created>
-      <option name="number" value="00583" />
-      <option name="project" value="LOCAL" />
-      <updated>1426865410658</updated>
-    </task>
     <task id="LOCAL-00584" summary="work toward issue #70&#10;- switched autocomplete box to a tree widget, which now organises results by what was found in those results&#10;">
       <created>1426944364374</created>
       <option name="number" value="00584" />
@@ -1335,7 +1327,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428409018333</updated>
     </task>
-    <option name="localTasksCounter" value="632" />
+    <task id="LOCAL-00632" summary="issue fix #239&#10;- implemented download method and confirmed it works: xml files will have to be unzipped and then parsed at the next stage&#10;- added param to download (type) which allows us to use the same method for downloading PDF files, mp3 files etc. which is useful">
+      <created>1428410941597</created>
+      <option name="number" value="00632" />
+      <option name="project" value="LOCAL" />
+      <updated>1428410941597</updated>
+    </task>
+    <option name="localTasksCounter" value="633" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1376,7 +1374,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38268957" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3806078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40520984" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40520984" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1426,7 +1424,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #226" />
     <MESSAGE value="edit button, &quot;LIKE&quot; in db queries&#10;&#10;- issue fix #214 : edit playlist title hidden when an auto playlist is clicked&#10;- work toward issue #217: applied LIKE keyword to instrument queries, tho I'll probably change this because the method instrumentID doesn't seem an appropriate place to start using this" />
     <MESSAGE value="work toward issue #217&#10;&#10;- added 2 more tests to check where searching by part of an instrument name on multiple different instruments&#10;- created new method to handle &quot;LIKE&quot; keyword as well as direct = in instrument name" />
     <MESSAGE value="work toward issue #217&#10;&#10;- added 2 more tests to check where searching by part of a composer name on multiple different composers&#10;- created new method to handle &quot;LIKE&quot; keyword as well as direct = in composer name" />
@@ -1451,7 +1448,8 @@
     <MESSAGE value="issue #238&#10;- changed parent class to raise exceptions: will ensure any sub classes implement all methods" />
     <MESSAGE value="work toward issue #239&#10;- put in unit tests for MuseScore API class" />
     <MESSAGE value="work toward issue #239&#10;- changed issue #238: all apis must implement just a search function, and optionally searchForExactMatch. Changed because MuseScore automatically does searchForAnyMatch in it's api so I'm guessing others will too.&#10;- implemented search and searchForExactMatch in museScore API class. Not sure how to get downloadFile working, awaiting response from email." />
-    <option name="LAST_COMMIT_MESSAGE" value="work toward issue #239&#10;- changed issue #238: all apis must implement just a search function, and optionally searchForExactMatch. Changed because MuseScore automatically does searchForAnyMatch in it's api so I'm guessing others will too.&#10;- implemented search and searchForExactMatch in museScore API class. Not sure how to get downloadFile working, awaiting response from email." />
+    <MESSAGE value="issue fix #239&#10;- implemented download method and confirmed it works: xml files will have to be unzipped and then parsed at the next stage&#10;- added param to download (type) which allows us to use the same method for downloading PDF files, mp3 files etc. which is useful" />
+    <option name="LAST_COMMIT_MESSAGE" value="issue fix #239&#10;- implemented download method and confirmed it works: xml files will have to be unzipped and then parsed at the next stage&#10;- added param to download (type) which allows us to use the same method for downloading PDF files, mp3 files etc. which is useful" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2133,22 +2131,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/API.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="8" max-vertical-offset="960">
-          <caret line="9" column="42" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/MScoreApi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8616188" vertical-offset="195" max-vertical-offset="1455">
-          <caret line="42" column="42" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="1455">
+          <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
           <folding>
             <element signature="e#57#125#0" expanded="true" />
             <element signature="e#574#869#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/API.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.62663186" vertical-offset="0" max-vertical-offset="975">
+          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>

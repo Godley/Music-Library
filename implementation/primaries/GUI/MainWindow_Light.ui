@@ -1,0 +1,1465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1440</width>
+    <height>787</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MuseLib | Scorebook</string>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow, QWidget#centralwidget {
+background:#222
+}
+
+QWidget#bg, QWidget#bg2 {
+background:#000;
+}
+
+QWidget#scoreWidget, QWidget#playlistWidget, QWidget#autoPlaylistWidget, QWidget#pieceInfoWidget, QWidget#musicWidget, QWidget#featuredInWidget,
+QWidget#playlistBrowserWidget {
+color:white;
+}
+
+
+QFrame#frame {
+background:#222;
+}
+
+QToolButton#deletePlaylistBtn {
+color:#777;
+font-size:20pt;
+}
+
+QWidget#playlistViewer, QWidget#playlistViewer QTableWidget {
+background:#111;
+}
+
+QWidget QLabel {
+color:#666666;
+text-transform:uppercase;
+font-size:15pt;
+font-family:avenir
+}
+
+QLabel#noResultsLabel, QLabel#musicSearchHint {
+text-transform:none
+}
+
+QWidget Line {
+background:transparent;
+}
+
+QHeaderView::section {
+background: transparent;
+border:0px;
+text-transform:uppercase;
+}
+
+QHeaderView {
+background:rgba(25, 25, 25, 189);
+text-transform:uppercase;
+border-bottom:1px solid #252525;
+color:#555;
+height:50px;
+}
+
+QLineEdit#searchInput {
+background:white;
+border:1px solid #555;
+border-radius: 10px;
+
+}
+
+QLabel#musicSearchHint {
+color:rgba(0, 0, 0, 50);
+}
+
+QFrame#second_menu {
+background: #333;
+border:0px;
+border-bottom:1px solid #222;
+}
+
+QWidget#musicWidget{
+border:1px solid #222;
+background:#111;
+}
+
+QWidget#musicWidget QLabel{
+text-transform:none;
+}
+
+
+QListWidget, QTableWidget, QWidget QListWidget, QWidget QTableWidget {
+background:rgba(255, 255, 255, 20);
+opacity:0.5;
+border-top:1px solid;
+border-bottom:1px solid;
+}
+
+
+QTableWidget#playlistTable{
+border:0px;
+}
+
+
+QPushButton{
+background:transparent;
+color:#EEE;
+border-radius:10px;
+}
+
+QPushButton#addPlaylist, QToolButton {
+background:transparent;
+}
+
+QToolButton#searchBtn, QToolButton#playBtn {
+background:transparent;
+border:0px;
+border-radius:0px;
+}
+
+QScrollArea#scoreWindow {
+border:1px solid #999;
+}
+
+QTreeWidget#autoCompleteBox {
+background:#252525;
+border:1px solid #111;
+}
+
+QFrame#autoCompleteFrame {
+border:0px;
+}
+
+QListWidget:item, QTableWidget:item, QTreeWidget:item {
+color:#444;
+}
+
+QTreeWidget:item:item {
+color:#666;
+}
+
+QListWidget {
+font:13pt arial;
+text-transform:uppercase;
+}
+
+</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>900</width>
+     <height>600</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QFrame" name="gridFrame">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>1430</width>
+        <height>0</height>
+       </size>
+      </property>
+      <widget class="QFrame" name="frame">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>12</y>
+         <width>1440</width>
+         <height>876</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>1438</width>
+         <height>876</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="lineWidth">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="musicWidget" native="true">
+        <property name="geometry">
+         <rect>
+          <x>320</x>
+          <y>20</y>
+          <width>800</width>
+          <height>831</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>741</width>
+          <height>791</height>
+         </size>
+        </property>
+        <widget class="QLabel" name="musicTitle">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>15</y>
+           <width>221</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>avenir</family>
+           <pointsize>15</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Playlist or Music title/filename</string>
+         </property>
+        </widget>
+        <widget class="QToolButton" name="editPlaylistTitle">
+         <property name="geometry">
+          <rect>
+           <x>500</x>
+           <y>7</y>
+           <width>21</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>...</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>images/glyphicons-151-edit.png</normaloff>images/glyphicons-151-edit.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>21</width>
+           <height>21</height>
+          </size>
+         </property>
+        </widget>
+        <widget class="QWidget" name="playlistViewer" native="true">
+         <property name="geometry">
+          <rect>
+           <x>4</x>
+           <y>40</y>
+           <width>800</width>
+           <height>771</height>
+          </rect>
+         </property>
+         <widget class="QTableWidget" name="playlistTable">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>1</y>
+            <width>800</width>
+            <height>771</height>
+           </rect>
+          </property>
+          <property name="palette">
+           <palette>
+            <active>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>17</red>
+                <green>17</green>
+                <blue>17</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>17</red>
+                <green>17</green>
+                <blue>17</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>17</red>
+                <green>17</green>
+                <blue>17</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </active>
+            <inactive>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>17</red>
+                <green>17</green>
+                <blue>17</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>17</red>
+                <green>17</green>
+                <blue>17</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>17</red>
+                <green>17</green>
+                <blue>17</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </inactive>
+            <disabled>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>17</red>
+                <green>17</green>
+                <blue>17</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Base">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>17</red>
+                <green>17</green>
+                <blue>17</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>17</red>
+                <green>17</green>
+                <blue>17</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </disabled>
+           </palette>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>false</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="horizontalScrollMode">
+           <enum>QAbstractItemView::ScrollPerItem</enum>
+          </property>
+          <property name="showGrid">
+           <bool>false</bool>
+          </property>
+          <property name="gridStyle">
+           <enum>Qt::NoPen</enum>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="horizontalHeaderCascadingSectionResizes">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>82</number>
+          </attribute>
+          <attribute name="verticalHeaderCascadingSectionResizes">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="verticalHeaderDefaultSectionSize">
+           <number>80</number>
+          </attribute>
+          <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+           <bool>true</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Title</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Composer</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Lyricist</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Instruments</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>filename</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Clefs</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Keys</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Tempos</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>time sigs</string>
+           </property>
+          </column>
+         </widget>
+        </widget>
+        <widget class="QLineEdit" name="playlistTitleLineEdit">
+         <property name="geometry">
+          <rect>
+           <x>280</x>
+           <y>10</y>
+           <width>221</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Playlist Title</string>
+         </property>
+        </widget>
+        <widget class="QGraphicsView" name="scoreWindow">
+         <property name="geometry">
+          <rect>
+           <x>4</x>
+           <y>40</y>
+           <width>800</width>
+           <height>771</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="bg" native="true">
+        <property name="geometry">
+         <rect>
+          <x>1140</x>
+          <y>20</y>
+          <width>300</width>
+          <height>1460</height>
+         </rect>
+        </property>
+        <widget class="QWidget" name="featuredInWidget" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>250</y>
+           <width>300</width>
+           <height>250</height>
+          </rect>
+         </property>
+         <widget class="QLabel" name="title_5">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>10</y>
+            <width>121</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>avenir</family>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Featured in...</string>
+          </property>
+         </widget>
+         <widget class="QListWidget" name="featuredListWidget">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>35</y>
+            <width>300</width>
+            <height>215</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QToolButton" name="featuredListRefresh">
+          <property name="geometry">
+           <rect>
+            <x>269</x>
+            <y>1</y>
+            <width>30</width>
+            <height>30</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>images/glyphicons-82-refresh.png</normaloff>images/glyphicons-82-refresh.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>15</width>
+            <height>15</height>
+           </size>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="pieceInfoWidget" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>300</width>
+           <height>250</height>
+          </rect>
+         </property>
+         <widget class="QLabel" name="title_4">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>10</y>
+            <width>200</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>avenir</family>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Piece Information</string>
+          </property>
+         </widget>
+         <widget class="QListWidget" name="pieceInfoView">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>35</y>
+            <width>300</width>
+            <height>215</height>
+           </rect>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="isWrapping" stdset="0">
+           <bool>true</bool>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="playlistBrowserWidget" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>500</y>
+           <width>300</width>
+           <height>250</height>
+          </rect>
+         </property>
+         <widget class="QLabel" name="title_6">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>10</y>
+            <width>150</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>avenir</family>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Playlist Browser</string>
+          </property>
+         </widget>
+         <widget class="QToolButton" name="playlistRefresh">
+          <property name="geometry">
+           <rect>
+            <x>269</x>
+            <y>1</y>
+            <width>30</width>
+            <height>30</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>images/glyphicons-82-refresh.png</normaloff>images/glyphicons-82-refresh.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>15</width>
+            <height>15</height>
+           </size>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="playlistList">
+          <property name="geometry">
+           <rect>
+            <x>1</x>
+            <y>35</y>
+            <width>298</width>
+            <height>215</height>
+           </rect>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
+          <property name="showGrid">
+           <bool>false</bool>
+          </property>
+          <property name="gridStyle">
+           <enum>Qt::DotLine</enum>
+          </property>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>95</number>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>title</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>composer</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>filename</string>
+           </property>
+          </column>
+         </widget>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="bg2" native="true">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>300</width>
+          <height>1460</height>
+         </rect>
+        </property>
+        <widget class="QWidget" name="playlistWidget" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>250</y>
+           <width>300</width>
+           <height>250</height>
+          </rect>
+         </property>
+         <widget class="QLabel" name="title_2">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>10</y>
+            <width>150</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>avenir</family>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>My Playlists</string>
+          </property>
+         </widget>
+         <widget class="QListWidget" name="myPlaylistsWidget">
+          <property name="geometry">
+           <rect>
+            <x>1</x>
+            <y>35</y>
+            <width>297</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QListWidget::item {
+color:white;
+}</string>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::MultiSelection</enum>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="AddPlaylistButton">
+          <property name="geometry">
+           <rect>
+            <x>270</x>
+            <y>217</y>
+            <width>21</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>32</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:#555;</string>
+          </property>
+          <property name="text">
+           <string>+</string>
+          </property>
+         </widget>
+         <widget class="QToolButton" name="deletePlaylistBtn">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>220</y>
+            <width>26</width>
+            <height>26</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Chalkboard SE</family>
+            <pointsize>20</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>x</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>21</width>
+            <height>21</height>
+           </size>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="scoreWidget" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>300</width>
+           <height>250</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>1</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <widget class="QLabel" name="title">
+          <property name="geometry">
+           <rect>
+            <x>40</x>
+            <y>10</y>
+            <width>121</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>avenir</family>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>My Scorebook</string>
+          </property>
+         </widget>
+         <widget class="QListWidget" name="scoreListWidget">
+          <property name="geometry">
+           <rect>
+            <x>1</x>
+            <y>35</y>
+            <width>297</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="palette">
+           <palette>
+            <active>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="20">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Base">
+              <brush brushstyle="NoBrush">
+               <color alpha="255">
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="20">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </active>
+            <inactive>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="20">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Base">
+              <brush brushstyle="NoBrush">
+               <color alpha="255">
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="20">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </inactive>
+            <disabled>
+             <colorrole role="Button">
+              <brush brushstyle="SolidPattern">
+               <color alpha="20">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Base">
+              <brush brushstyle="NoBrush">
+               <color alpha="255">
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+               </color>
+              </brush>
+             </colorrole>
+             <colorrole role="Window">
+              <brush brushstyle="SolidPattern">
+               <color alpha="20">
+                <red>255</red>
+                <green>255</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </disabled>
+           </palette>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="isWrapping" stdset="0">
+           <bool>false</bool>
+          </property>
+          <property name="uniformItemSizes">
+           <bool>true</bool>
+          </property>
+          <property name="batchSize">
+           <number>90</number>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="scoreSortCombo">
+          <property name="geometry">
+           <rect>
+            <x>13</x>
+            <y>220</y>
+            <width>281</width>
+            <height>21</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QToolButton" name="refreshScoreBtn">
+          <property name="geometry">
+           <rect>
+            <x>269</x>
+            <y>1</y>
+            <width>30</width>
+            <height>30</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>images/glyphicons-82-refresh.png</normaloff>images/glyphicons-82-refresh.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>15</width>
+            <height>15</height>
+           </size>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="autoPlaylistWidget" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>500</y>
+           <width>300</width>
+           <height>250</height>
+          </rect>
+         </property>
+         <widget class="QLabel" name="title_3">
+          <property name="geometry">
+           <rect>
+            <x>5</x>
+            <y>10</y>
+            <width>125</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>avenir</family>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Auto Playlists</string>
+          </property>
+         </widget>
+         <widget class="QListWidget" name="autoPlaylistsView">
+          <property name="geometry">
+           <rect>
+            <x>1</x>
+            <y>35</y>
+            <width>297</width>
+            <height>181</height>
+           </rect>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+         </widget>
+         <widget class="QComboBox" name="AutoSortCombo">
+          <property name="geometry">
+           <rect>
+            <x>13</x>
+            <y>220</y>
+            <width>281</width>
+            <height>21</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QToolButton" name="refreshAutoBtn">
+          <property name="geometry">
+           <rect>
+            <x>269</x>
+            <y>1</y>
+            <width>30</width>
+            <height>30</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>images/glyphicons-82-refresh.png</normaloff>images/glyphicons-82-refresh.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>15</width>
+            <height>15</height>
+           </size>
+          </property>
+         </widget>
+        </widget>
+       </widget>
+       <zorder>bg2</zorder>
+       <zorder>bg</zorder>
+       <zorder>musicWidget</zorder>
+      </widget>
+      <widget class="QFrame" name="second_menu">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>1441</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLineEdit" name="searchInput">
+        <property name="geometry">
+         <rect>
+          <x>3</x>
+          <y>5</y>
+          <width>288</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="musicSearchHint">
+        <property name="geometry">
+         <rect>
+          <x>15</x>
+          <y>10</y>
+          <width>171</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>avenir</family>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Search music collection...</string>
+        </property>
+       </widget>
+       <widget class="QToolButton" name="searchBtn">
+        <property name="geometry">
+         <rect>
+          <x>293</x>
+          <y>5</y>
+          <width>21</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>images/glyphicons-28-search.png</normaloff>images/glyphicons-28-search.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QToolButton" name="playBtn">
+        <property name="geometry">
+         <rect>
+          <x>699</x>
+          <y>5</y>
+          <width>21</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>images/glyphicons-174-play.png</normaloff>images/glyphicons-174-play.png</iconset>
+        </property>
+       </widget>
+       <widget class="QToolButton" name="zoomOutBtn">
+        <property name="geometry">
+         <rect>
+          <x>673</x>
+          <y>5</y>
+          <width>26</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>images/glyphicons-238-zoom-out.png</normaloff>images/glyphicons-238-zoom-out.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QToolButton" name="zoomInBtn">
+        <property name="geometry">
+         <rect>
+          <x>647</x>
+          <y>5</y>
+          <width>26</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>images/glyphicons-237-zoom-in.png</normaloff>images/glyphicons-237-zoom-in.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="autoCompleteFrame">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>25</y>
+         <width>275</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Plain</enum>
+       </property>
+       <property name="lineWidth">
+        <number>0</number>
+       </property>
+       <widget class="QToolButton" name="noResultsSmiley">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>30</y>
+          <width>131</width>
+          <height>111</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../Downloads/RidEyBni9.png</normaloff>../../../../../Downloads/RidEyBni9.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>100</width>
+          <height>100</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLabel" name="noResultsLabel">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>140</y>
+          <width>168</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>We couldn't find anything</string>
+        </property>
+       </widget>
+       <widget class="QTreeWidget" name="autoCompleteBox">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>291</width>
+          <height>192</height>
+         </rect>
+        </property>
+        <column>
+         <property name="text">
+          <string>results</string>
+         </property>
+        </column>
+       </widget>
+       <zorder>autoCompleteBox</zorder>
+       <zorder>noResultsSmiley</zorder>
+       <zorder>noResultsLabel</zorder>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1440</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionImport"/>
+    <addaction name="actionNew_Collection"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionMy_Scorebook"/>
+    <addaction name="actionMy_Playlists"/>
+    <addaction name="actionAuto_Playlists"/>
+    <addaction name="actionPiece_Information"/>
+    <addaction name="actionFeatured_in"/>
+    <addaction name="actionPlaylist_Browser"/>
+   </widget>
+   <widget class="QMenu" name="menuThemes">
+    <property name="title">
+     <string>Themes</string>
+    </property>
+    <addaction name="actionLight"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuThemes"/>
+  </widget>
+  <action name="actionImport">
+   <property name="text">
+    <string>Import...</string>
+   </property>
+  </action>
+  <action name="actionNew_Collection">
+   <property name="text">
+    <string>New Collection</string>
+   </property>
+  </action>
+  <action name="actionMy_Scorebook">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>My Scorebook</string>
+   </property>
+  </action>
+  <action name="actionMy_Playlists">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>My Playlists</string>
+   </property>
+  </action>
+  <action name="actionAuto_Playlists">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Auto Playlists</string>
+   </property>
+  </action>
+  <action name="actionPiece_Information">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Piece Information</string>
+   </property>
+  </action>
+  <action name="actionFeatured_in">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Featured in</string>
+   </property>
+  </action>
+  <action name="actionPlaylist_Browser">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Playlist Browser</string>
+   </property>
+  </action>
+  <action name="actionLight">
+   <property name="text">
+    <string>Light</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
