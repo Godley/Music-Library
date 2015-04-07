@@ -22,26 +22,27 @@ This document discusses the aims and objectives of this project, technical scope
 \section{Aims and Objectives}
 \subsection{Project Aim}
 \begin{center}
-\textit{The overall aim of the project is to design and develop a sheet music library application, with the ability to organise and view personal sheet music collections, and download sheet music from the internet. Time permitting, it should also be able to generate sound from the sheet music, and import editable music from flat images.}
+\textit{The overall aim of the project is to design and develop a sheet music library application, with the ability to organise and view personal sheet music collections, and download sheet music from the internet. Time permitting, it should also be able to generate sound from the sheet music, provide a difficulty rating for each piece in the catalog and import knowledgeable sheet music from flat images.}
 \end{center}
 \subsection{Primary Objectives}
 The following objectives are of the highest importance to the project, and are a measure of whether the project has been completed.
 \begin{itemize}
     \item \textbf{Rendering of Musical Files}\\
-    It will be necessary to render one or more formats of commonly stored musical files, as the aim of the project is to enable users to view and organise their sheet music collections.
+    The project successfully produces sheet music from a knowledgeable music file. This portion of the project is necessary as many of the current sheet music viewers are closed source, and as such standard methods for converting from an input knowledgeable file format to an output format are not common.
     \item \textbf{Extraction of Metadata}\\
-    The project will be required to extract important information from each piece, ranging from the simple nominal data such as title, composer, lyricist, to the more complex notation such as clefs, key signatures and meters used. 
-    \item \textbf{Ability to search metadata extracted and auto-generate playlists}\\ From the extracted metadata it should be possible to search the catalog of music for specific requirements, such as key, clef, meter, time signature (explained in the background section). The system should also be capable of generating playlists based on related data.
+    The project extracts important information from each piece, ranging from the simple nominal data such as title, composer, lyricist, to the more complex notation such as clefs, key signatures and meters used. 
+    \item \textbf{Ability to search metadata extracted and auto-generate playlists}\\ From the extracted metadata it is possible to search the catalog of music for specific requirements, such as key, clef, meter, time signature (explained in the background section). The system also generates automatic playlists based on related data.
     \item \textbf{Connection to Online Music Collections}\\
-    It should also be possible to connect to online music collections, as it would be beneficial to users to be able to search and add to their collections using the same interface.
+    The project allows users to expand their local collection by implementing search of online collections using the same methods as searching the local collection. This enables the expansion of local collections without the necessity of using a search engine or browser.
 
 \end{itemize}
 \subsection{Secondary Objectives}
-The secondary objectives are to be completed only if they do not threaten the completion of primary objectives.
+The following secondary objectives were defined in order to provide further features to the solution, but with the proviso that the primary objectives were of main concern of the project. As such, these objectives are nice to have, but do not define the success or failure of the project as a whole.
 
 \begin{itemize}
     \item \textbf{Audio playback}\\
     It would be useful to a cross section of users to be able to play music files as sound clips. This enables performers who regularly play with an accompany musician or ensemble to create practice accompaniments from their sheet music, or hear an approximation of how a melody should sound.
     \item \textbf{MusicOCR conversion of images to parseable Music files}\\
 It would be easier for musicians to merge their physical and virtual music collections for automatic organisation if the solution provided a way to import flat, scanned sheet music into marked-up music files. 
+	\item \textbf{Difficulty rating of each piece based on metadata}\\It would be useful for the system to rate each piece based on the data extracted. This rating is something that most musicians will do upon reading a new piece, and provides more complexity to the project because this is sometimes specific to each instrument and as such will require research into how musicians rate pieces.
 \end{itemize}
