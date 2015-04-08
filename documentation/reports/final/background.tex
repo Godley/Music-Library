@@ -161,22 +161,45 @@ However, this particular format was designed by a third party, Make Music, who h
 
 For reason of inclusion in composition software packages, MusicXML has been selected as the file format for the project. This adds an advantage to the project over the composition software packages mentioned as the project will be designed to work well with MusicXML, whilst those mentioned are designed to work with their own file formats and thus have some issues converting to MusicXML\parencite{mscoreBugTracker}, meaning that this project will be more precise in it's rendering of MusicXML.
 
-\subsection{Comparison of Algorithms for Rendering and Organising Sheet Music}
-Figure \ref{fig:flow} shows a flow diagram for the system of rendering and organising sheet music. Where there are process markings which are specific to this project,(unzipping is not counted in this category), these will be described and analysed in the following sections.
-Mxl files are the format used to compress MusicXML files, and as such the procedure for decompressing them is not complicated. Where arrows have text, this indicates that the arrow will only be followed if the text condition is met.
+\subsection{Comparison of Algorithms for Rendering Music}
+Figure \ref{fig:flow} shows a flow diagram for the system of rendering sheet music. Each decision taken in order to reach this method will be discussed in detail below.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=320pt]{flowchart}
-    \caption{A flow diagram describing the rendering and organising system}
+    \includegraphics[width=80pt]{render_algorithm-crop}
+    \caption{A flow diagram describing the rendering system}
     \label{fig:flow}
 \end{figure}
 
-\subsubsection{Algorithms for parsing XML to Objects}
-For the rendering of sheet music, it will be necessary to parse a musicXML file into a hierarchy of objects, beginning with the overall piece and descending into each part and measure. 
+\subsubsection{Algorithms for parsing XML to memory}
+For the rendering of sheet music, the system must in some way manipulate an XML file to an output format.
 
-Objects will be necessary to avoid coupling, but there are two other proposed options. The first is applying an XSL stylesheet to the XML file. This is not possible because of the complexity of music, though this is the usual method for rendering an XML file in browser.
-The second more viable option is a converter script, which would take in MusicXML files and directly output to the output method of the project. This has not been chosen for two reasons, the first being that this would couple the project with MusicXML, and any new input formats would have to create a completely new script, rather than converting to a standard object structure which would do conversion to output formats. The second reason is that conversion from input to output in this manner would have the big O representation of $O(n^2)$, whilst a conversion of input to object, and object to any output would have the representation of $O(n)$.
+The first option for this would be applying an XSL stylesheet, which is commonly the method of choice for rendering XML files in a web browser. This is not an option in MusicXML because the notation is too complicated and requires too many symbols, whilst XSL stylesheets are usually used for images and text representations. Sheet music is somewhere in between the two, and thus this option cannot be selected.
 
+The second option would be to create or reuse a converter script from XML to the output format, meaning the output would be generated at the same time as the input. However, this couples the system with MusicXML and would slow down development if it were required to use a different additional input, or decisions were made to change the output format. Furthermore, the Big O representation of this type of script to any output format is $O(n^2)$, whilst the selected final option using objects would be $O(n)$.
+
+The final option, which has been chosen for the project, is to create a converter script which would parse the MusicXML and create a hierarchy of objects. This avoids coupling directly to MusicXML as new formats of both input and output would only need a converter script creating to the object hierarchy which would then handle input or output to other formats.
+
+However, whilst this avoids coupling, a technical challenge is created using this method in that the object structure needs careful planning to cater for the structure of MusicXML and the structure or method of output, which with little knowledge of the input or output format is difficult to achieve.
+
+\subsubsection{Rendering Algorithm}
+The program is required to take the object structure and transform it, in some way, to musician readable sheet music. The user should be able to pan around the sheet music and zoom in and out of it to view specific details.
+
+This could be achieved using an entirely new algorithm, with the output going directly to the render window using different glyphs and fonts extracted from their relevant classes.
+
+However, the functionality of panning and zooming using this algorithm may be difficult to optimise, as both could possibly require running the algorithm each time the user provides input. 
+
+Furthermore, the conversion of even basic sheet music to a readable format would require a high level of precision and complexity, and creating a new algorithm would be considered reinventing the wheel, so to speak, as this is a process that has been covered by many different applications (like MuseScore \parencite{MuseTour}, Finale \parencite{mxml} and Sibelius \parencite{avid}). 
+Lastly, the process of debugging whether the symbols are correct would require visual checking and would be difficult to debug automatically.
+
+It would be possible to alleviate the panning and zooming problem by converting the collection of symbols to an image or PDF file and using a built in image rendering library, such as wxPython \parencite{WX}. However, this method still involves reinventing the wheel and incurs problems with visual debugging.
+
+Considering these factors, it has been decided that the algorithm will be outputting files to a third party system known as Lilypond. Lilypond is a language and system developed to typeset the highest quality sheet music \parencite{Lilypond}, which takes an input file and outputs a PDF or image. As this is a language unto itself and has been in development for many years by the Open Source community, this will alleviate the problem of visual debugging - instead, each class can create a formatted Lilypond output based on its attributes and unit tests can automatically confirm that the result is as expected.
+
+This adds a further technical challenge as the design aims of MusicXML as explained in an earlier section were found to be very different from the design aims of Lilypond. Designing the system and structure around both objects at the start of the project was difficult, due to the developer's lack of knowledge of both formats and frameworks, and thus changes were made late into the project that set back development time.
+
+Furthermore, as rendering of sheet music is not the main aim of this project, it was decided that specific areas of notation should not be included in order to ensure that other areas of the project, such as metadata extraction, did not have a significantly shorter development time, and to ensure that all implemented objectives were implemented to a high quality, at the expense of rendering all symbols. In most areas, the information is not lost completely as it is imported from the MusicXML file into the object structure, but ignored upon request for render of a given piece.
+
+\subsubsection{Algorithms for parsing XML for information}
 For the parsing of XML itself, there are two potential built in methods to choose from. The first, known as DOM or Document Object Model, loads the entire XML file into memory and provides methods to search the loaded file for specified tags. The developer has used this before in personal and industrial projects, and believes it is cumbersome to manipulate data in this way. Furthermore, this project is focussing on rendering the information rather than rendering it with precise formatting, and many software packages implant musicXML files with very complex formatting information which may or may not be necessary\parencite{MusicXMLPresentation}.
 
 The second option is using a different api called the Simple API for XML (SAX). In this method, the program loads the XML file tag by tag, and connects to call backs when specified things occur in the file, for example a new tag or piece of data inside tags, or the closing of an old tag. This is easier to work with as functionality can iteratively be built up by creating handlers for each tag, and is better for memory management as only tags which are necessary to the project will have any effect on the object structure. For these reasons, this method has been selected.
@@ -189,34 +212,48 @@ Furthermore, if the user is browsing their own music collection, it should not b
 
 Due to speed and functionality considerations, the choice has been made that the XML parser algorithm will not verify XML being converted to objects, or being examined for metadata. Given that most musicXML will be produced automatically by other programs, it is unlikely files opened by the project will be corrupt, though necessary steps will be taken to avoid this causing a problem in the program.
 
+\subsection{Comparison of Algorithms for Organising Sheet Music}
+The system design for the automatic extraction of meta information for each sheet music file is described by the flow diagram in figure \ref{fig:meta}. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=250pt]{metadata_algorithm-crop}
+    \caption{A flow diagram describing the meta scanning system}
+    \label{fig:meta}
+\end{figure}
+
+Figure \ref{fig:uiLoader} shows how the user interface will load the information and apply the rendering algorithm. Finally, figure \ref{fig:metaSearching} shows how search and autocomplete will function. The decisions made in order to arrive at these methods shall be discussed and compared in the following subsections.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=250pt]{UI_loading_algorithm-crop}
+    \caption{A flow diagram describing the loading of metadata and usage in the User Interface}
+    \label{fig:uiLoader}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=250pt]{search_algorithm-crop}
+    \caption{A flow diagram describing the loading of metadata and usage in the User Interface}
+    \label{fig:metaSearching}
+\end{figure}
+
 \subsubsection{Metadata Scanning algorithm}
-The metadata algorithm has been designed so that, for a given folder, the program will parse all of the files with the XML extension for a given selection of information (for example, composer, piece title, instruments). Based on development and testing of this algorithm, the data will be cached to a permanent file in order to ensure unchanged files do not have to be parsed more than once.
+The metadata algorithm has been designed so that, for a given folder, the program will parse all of the files with the XML extension for a given selection of information (for example, composer, piece title, instruments - the full details of the meta model are described in the problem context). Based on development and testing of this algorithm, the data will be cached to a permanent file in order to ensure unchanged files do not have to be parsed more than once.
 
-This is to be indexed either by the information title - e.g "composer"; or by the information itself - e.g "bartok". This will facilitate faster searching of the database for use when the user is finding a particular piece, and simplify the production of auto generated playlists by the system. Depending on the method of indexing, the alternate indexer should be stored as part of the value in a key value pair format, alongside the file in which it was found.
+It would be possible to store this data in memory using a generic type or a record object. This would be easy to implement and designed to the requirements of the system, but would be reinventing the wheel as SQL was developed for this purpose\parencite{SQLite}.
 
-It has been decided that in memory, this will be structured using a generic type. This decision has been taken because only 3 pieces of information per item of data will be stored, one of which will be the index of the data, so using a dictionary holding tuples would be more appropriate than creating an object as it simplifies the algorithm and therefore the debugging process.
+It has therefore been decided that the algorithm will store all data to an SQLite file using several tables to link the data together, and not create an in memory object. This will be much faster than using a developer defined object as database systems store data using a B-Tree and have been optimised to be faster than any sorting algorithm that could be produced during the course of this project\parencite{SQLiteBTree}.
 
-Further to this, of the two xml algorithms described in section 3.3.1, the algorithm will use SAX, as the described metadata algorithm does not require all of the data and would therefore waste a lot of memory by loading in the entire file.
+This also means that the system does not need to create a cache file and means that the future improvements or developments will not have to use python to access the data, as SQLite has built in APIs in most programming languages.
 
-Finally, the initial implementation of this algorithm used a serialised copy of the generic type to store the metadata to file. It has been decided for the purposes of extensibility and portability that data will be stored to an SQLite file, a light implementation of SQL databases. This is a more complex file type and as such will take longer to implement, but ensures that if this project is developed on in the future, that the file format can be used by other platforms and languages without converting to and from a Python object.
+\subsubsection{XML data acquisition algorithm}
+The system should take in a selection of XML files and parse them for information. As described previously, this could use either the DOM method of XML parsing, or the SAX method of parsing.
+The system will use SAX because there are only a select few tags and collections of information that the database will need to peruse, and SAX means that only these tags will have an effect on the algorithm or memory.
 
-\subsubsection{Rendering Algorithm}
-The program is required to take the object structure and transform it, in some way, to musician readable sheet music. The user should be able to pan around the sheet music and zoom in and out of it to view specific details.
+\subsubsection{Metadata Searching Algorithm}
+The application should allow the user to input a search query and find results which match the input. A user can then select from a list of result options which will render the selected file.
 
-This could be achieved using an entirely new algorithm, with the output going directly to the render window using different glyphs and fonts extracted from their relevant classes.
+It has been decided that the input will allow for both simple strings, such as 4/4 or quarter=half when defining time signatures and tempos, and for more complex input, such as instrument:clarinet with:clef:alto. This will enable users to search without needing to know or use too much search syntax and is aimed to be intuitive and simple.
 
-However, the functionality of panning and zooming using this algorithm may be difficult to optimise, as both could possibly require running the algorithm each time the user provides input. 
-
-Furthermore, the conversion of even basic sheet music to a readable format would require a high level of precision and complexity, and creating a new algorithm would be considered reinventing the wheel, so to speak, as this is a process that has been covered by many different applications (like MuseScore \parencite{MuseTour}, Finale \parencite{mxml} and Sibelius \parencite{avid}). 
-Lastly, the process of debugging whether the symbols are correct would require visual checking and would be difficult to debug automatically.
-
-It would be possible to alleviate the panning and zooming problem by converting the collection of symbols to an image or PDF file and using a built in image rendering library, such as wxPython \parencite{WX}. However, this method still involves reinventing the wheel and problems with visual debugging being required.
-
-Considering these factors, it has been decided that the algorithm will be outputting files to a third party system known as Lilypond. Lilypond is a language and system developed to typeset the highest quality sheet music \parencite{Lilypond}, which takes an input file and outputs a PDF or image. As this is a language unto itself and has been in development for many years by the Open Source community, this will alleviate the problem of visual debugging - instead, each class can create a formatted Lilypond output based on its attributes and unit tests can automatically confirm that the result is as expected.
-
-This adds a further technical challenge as the design aims of MusicXML as explained in an earlier section were found to be very different from the design aims of Lilypond. Designing the system and structure around both objects at the start of the project was difficult, due to the developer's lack of knowledge of both formats and frameworks, and thus changes were made late into the project that set back development time.
-
-Furthermore, as rendering of sheet music is not the main aim of this project, it was decided that specific areas of notation should not be included in order to ensure that other areas of the project, such as metadata extraction, did not have a significantly shorter development time, and to ensure that all implemented objectives were implemented to a high quality, at the expense of rendering all symbols. In most areas, the information is not lost completely as it is imported from the MusicXML file into the object structure, but ignored upon request for render of a given piece.
+The alternative would be to allow only key value pairs or define a new search syntax which the user would need to learn. However, as this application is being developed for musicians who may not have the patience or desire to learn a querying language, the decision has been taken to make the search syntax as intuitive as possible.
 
 \subsection{Comparison of Technologies for Importing Online Musical Sources}
 \subsubsection{Musical Sources}

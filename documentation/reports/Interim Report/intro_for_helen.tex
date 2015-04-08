@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage[utf8]{inputenc}
+\usepackage[compact]{titlesec}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{sectsty}
+\usepackage[T1]{fontenc}
+\usepackage{XCharter}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tabu}
+\usepackage[toc,page]{appendix}
+\usepackage{pdflscape}
+\usepackage[
+top    = 1in,
+bottom =1in,
+left   = 1in,
+right  = 1in]{geometry}
+\usepackage[parfill]{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{xpatch}
+\usepackage{csquotes}
+\xpretobibmacro{date+extrayear}{\addperiod\space}{}{}
+\xapptobibmacro{date+extrayear}{\nopunct}{}{}
+\usepackage[backend=biber, style=authoryear]{biblatex}
+\addbibresource{refs.bib}
+\usepackage{hyperref}
+
+\titlespacing{\section}{0pt}{*0}{*0}
+\titlespacing{\subsection}{0pt}{*0}{*0}
+\titlespacing{\subsubsection}{0pt}{*0}{*0}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage{amssymb}
+\begin{document}
+\DeclareFieldFormat{postnote}{#1}
+\DeclareFieldFormat{multipostnote}{#1}
+\renewcommand*{\nameyeardelim}{\addcomma\space}
+\renewcommand*{\postnotedelim}{\addcolon\space}
+\include{title}
+\include{contents}
+\include{intro}
+\include{references}
+\end{document}
