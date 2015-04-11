@@ -51,3 +51,13 @@ class ApiManager(object):
         else:
             status = 4004
         return status
+
+    def parseAllData(self):
+        '''
+        method to fetch the data for all files, download them all, parse them all for metadata
+        and then delete the originals
+        :return: dictionary indexed by file id. Each index should point to another dictionary, containing
+        source as an id
+        '''
+        results = {}
+        return results
