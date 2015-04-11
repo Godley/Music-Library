@@ -5,7 +5,7 @@ class ApiManager(object):
     def __init__(self, folder=""):
         self.folder = folder
         self.sources = {}
-        self.sources["MuseScore"] = MScoreApi.MuseScoreApi(folder)
+        self.sources["MuseScore"] = (MScoreApi.MuseScoreApi(folder), ["movement-title","work-title","creator"])
 
     def fetchAllData(self):
         '''
@@ -14,7 +14,7 @@ class ApiManager(object):
         '''
         results = {}
         for source_id in self.sources:
-            result_set = self.sources[source_id].cleanCollection()
+            result_set = self.sources[source_id][0].cleanCollection()
             results[source_id] = result_set
         return results
 
@@ -30,7 +30,7 @@ class ApiManager(object):
             for file in data_set[source_id]:
                 id = file["id"]
                 secret = file["secret"]
-                status = self.sources[source_id].downloadFile(id, secret, type=extension)
+                status = self.sources[source_id][0].downloadFile(id, secret, type=extension)
                 if(status == 200):
                     location = os.path.join(self.folder,id + "."+extension)
                     data_list.append(location)
@@ -47,17 +47,11 @@ class ApiManager(object):
         '''
         status = 0
         if source in self.sources:
-            status = self.sources[source].downloadFile(file, secret, type=extension)
+            status = self.sources[source][0].downloadFile(file, secret, type=extension)
         else:
             status = 4004
         return status
 
-    def parseAllData(self):
-        '''
-        method to fetch the data for all files, download them all, parse them all for metadata
-        and then delete the originals
-        :return: dictionary indexed by file id. Each index should point to another dictionary, containing
-        source as an id
-        '''
-        results = {}
-        return results
+    def getSourceIgnoreList(self, source):
+        if source in self.sources:
+            return self.sources[source][1]

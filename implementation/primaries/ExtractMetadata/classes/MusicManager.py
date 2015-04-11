@@ -1,6 +1,7 @@
 import os, shutil
 import zipfile
-from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser
+from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
+from implementation.primaries.ImportOnlineDBs.classes import ApiManager
 
 class Unzipper(object):
     def __init__(self, folder="/Users/charlottegodley/PycharmProjects/FYP", files=[]):
@@ -110,6 +111,38 @@ class MusicManager(object):
         self.folder = folder
         self.__data = DataLayer.MusicData(os.path.join(self.folder, "music.db"))
         self.setupFolderBrowser()
+        self.apiManager = ApiManager.ApiManager(folder=self.folder)
+
+    def unzipApiFiles(self):
+        '''
+        method to download API files and unzip them as necessary
+        :return: dictionary of results indexed by source name
+        '''
+        file_set = self.apiManager.downloadAllFiles()
+        self.handleZips()
+        results = {}
+        for source in file_set:
+            results[source] = []
+            for file in file_set[source]:
+                n_filename = file.split(".")[0]+".xml"
+                results[source].append(n_filename)
+        return results
+
+    def parseApiFiles(self):
+        '''
+        method to extract data from apis and parse each created file for metadata
+        :return: dictionary of data indexed by filename
+        '''
+        cleaned_set = self.apiManager.fetchAllData()
+        file_set = self.unzipApiFiles()
+        result_set = {}
+        for source in file_set:
+            result_set[source] = {}
+            for file in file_set[source]:
+                ignore_list = self.apiManager.getSourceIgnoreList(source)
+                data = self.parseXMLFile(file, parser=OnlineMetaParser.OnlineMetaParser(source=source, ignored=ignore_list))
+                result_set[source][file] = data
+        return result_set
 
     def addPiece(self, filename, data):
         self.__data.addPiece(filename, data)
@@ -171,8 +204,7 @@ class MusicManager(object):
         '''
         self.__data.archivePieces(file_list)
 
-    def parseXMLFile(self, filename):
-        parser = MetaParser.MetaParser()
+    def parseXMLFile(self, filename, parser=MetaParser.MetaParser()):
         data_set = parser.parse(os.path.join(self.folder,filename))
         return data_set
 
