@@ -8,12 +8,26 @@ class Api(object):
     def __init__(self, folder=""):
         self.folder = folder
 
-    def downloadFile(self, fname, type='mxl'):
+    def downloadFile(self, fname, secret, type='mxl'):
         '''
         this method should download a given file from the API
         :param fname: an ID or filename the api can use to download the file
+        example:
+            data["id"] = element["id"]
+            data["secret"] = element["secret"]
+            data["title"] = element["metadata"]["title"]
+            data["composer"] = element["metadata"]["composer"]
+            data["lyricist"] = element["metadata"]["poet"]
+            data["parts"] = element["metadata"]["parts"]
         :param type: file extension to download
-        :return: the location the file has been downloaded to
+        :return: status code of request
+        '''
+        raise NotImplementedError
+
+    def getKey(self):
+        '''
+        method to fetch the API key from the store. SHOULD NOT be just hard coded
+        :return: string of api key
         '''
         raise NotImplementedError
 

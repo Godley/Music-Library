@@ -6,11 +6,22 @@ import requests, pprint, os, shutil
 
 class MuseScoreApi(Api):
 
-    def __init__(self, folder="", params={'oauth_consumer_key':'VeKr5Zab4bbTLoCCa6wLuFJFGUVYSkhj','license':'to_modify_commercially'}):
+    def __init__(self, folder=""):
         Api.__init__(self, folder=folder)
-        self.params = params
+        self.license = 'to_modify_commercially'
+        self.key = self.getKey()
+        self.params = {'oauth_consumer_key':self.key, 'license':self.license}
         self.endpoint = 'http://api.musescore.com/services/rest/score.json'
         self.download_endpoint = 'http://static.musescore.com/'
+
+    def getKey(self):
+        '''
+        method to fetch the API key. SHOULD NOT be just a string, this part is temporary
+        :return: api key
+        '''
+        file = open(os.path.join('/users/charlottegodley/PycharmProjects/FYP/implementation/primaries/ImportOnlineDBs/classes', 'Keys','mscore'), 'r')
+        line = file.readline()
+        return line
 
     def getCollection(self):
         '''
@@ -31,7 +42,7 @@ class MuseScoreApi(Api):
         results = []
         for element in collection:
             data = {}
-            data["uri"] = element["uri"]
+            data["id"] = element["id"]
             data["secret"] = element["secret"]
             data["title"] = element["metadata"]["title"]
             data["composer"] = element["metadata"]["composer"]
@@ -40,17 +51,18 @@ class MuseScoreApi(Api):
             results.append(data)
         return results
 
-    def downloadFile(self, fname, type='mxl'):
+    def downloadFile(self, fname, secret, type='mxl'):
         '''
         method to download a file
-        :param fname: tuple of the ID and secret for the given
+        :param fname: ID of the file
+        :param secret: code to get the file
         :param type: the file extension to download
-        :return: location of given file
+        :return: status code of request
         '''
-        endpoint = self.download_endpoint+str(fname[0])+"/"+str(fname[1])+"/score."+type
+        endpoint = self.download_endpoint+str(fname)+"/"+str(secret)+"/score."+type
         request = requests.get(endpoint, stream=True)
         if request.status_code == 200:
-            with open(os.path.join(self.folder, str(fname[0])+"."+type), 'wb') as f:
+            with open(os.path.join(self.folder, str(fname)+"."+type), 'wb') as f:
                 request.raw.decode_content = True
                 shutil.copyfileobj(request.raw, f)
         return request.status_code
