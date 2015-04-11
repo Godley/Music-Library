@@ -352,7 +352,7 @@ class MusicData(object):
         connection.commit()
         self.disconnect(connection)
 
-    def getFileList(self):
+    def getFileList(self, online=False):
         connection, cursor = self.connect()
         query = 'SELECT filename FROM pieces WHERE archived=0'
         cursor.execute(query, ())
@@ -361,7 +361,7 @@ class MusicData(object):
         filelist = [result[0] for result in results]
         return filelist
 
-    def getPiece(self, filename, archived=0):
+    def getPiece(self, filename, archived=0, online=False):
         '''
         method to get a piece's table entry according to it's filename
         :param filename: string indicating the file name
@@ -496,7 +496,7 @@ class MusicData(object):
             return result[0][0]
 
     # methods used in querying by user
-    def getPiecesByInstruments(self, instruments, archived=0):
+    def getPiecesByInstruments(self, instruments, archived=0, online=False):
         '''
         method to get all the pieces containing a certain instrument
         :param instrument: name of instrument
@@ -530,7 +530,7 @@ class MusicData(object):
             self.disconnect(connection)
         return file_list
 
-    def getPiecesByRowId(self, rows, cursor, archived=0):
+    def getPiecesByRowId(self, rows, cursor, archived=0, online=False):
         '''
         method which takes in a list of rows which are ROWIDs in the piece table and returns a list of files
         :param rows: list of tuples pertaining to ROWIDs in pieces table
@@ -546,7 +546,7 @@ class MusicData(object):
             previous = element
         return file_list
 
-    def getPiecesByComposer(self, composer, archived=0):
+    def getPiecesByComposer(self, composer, archived=0, online=False):
         '''
         method which takes in string of composer name and outputs list of files written by that guy
         :param composer: composer's name
@@ -571,7 +571,7 @@ class MusicData(object):
             self.disconnect(connection)
         return file_list
 
-    def getPiecesByLyricist(self, lyricist, archived=0):
+    def getPiecesByLyricist(self, lyricist, archived=0, online=False):
         '''
         method which takes in string of lyricist name and outputs list of files written by that guy/woman
         :param composer: lyricist's name
@@ -596,7 +596,7 @@ class MusicData(object):
             self.disconnect(connection)
         return file_list
 
-    def getPieceByTitle(self, title, archived=0):
+    def getPieceByTitle(self, title, archived=0, online=False):
         '''
         method which takes in title of piece and outputs list of files named that
         :param title: title of piece
@@ -611,7 +611,7 @@ class MusicData(object):
         self.disconnect(connection)
         return result
 
-    def getPieceByKeys(self, keys, archived=0):
+    def getPieceByKeys(self, keys, archived=0, online=False):
         '''
         method which takes in a key and outputs list of files in that key
         :param key: string name of key (e.g C major)
@@ -630,7 +630,7 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
-    def getPiecesByModularity(self, modularity, archived=0):
+    def getPiecesByModularity(self, modularity, archived=0, online=False):
         connection, cursor = self.connect()
         query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
         cursor.execute(query, (modularity,))
@@ -640,7 +640,7 @@ class MusicData(object):
         return file_list
 
     # playlist queries
-    def getPiecesByAllKeys(self, archived=0):
+    def getPiecesByAllKeys(self, archived=0, online=False):
         connection, cursor = self.connect()
         query = '''SELECT k.name, piece.filename FROM keys k, pieces piece, key_piece_join key_piece, instruments i
                     WHERE key_piece.key_id = k.ROWID AND i.ROWID = key_piece.instrument_id
@@ -657,7 +657,7 @@ class MusicData(object):
             key_dict[pair[0]].append(pair[1])
         return key_dict
 
-    def getPiecesByAllClefs(self, archived=0):
+    def getPiecesByAllClefs(self, archived=0, online=False):
         connection, cursor = self.connect()
         query = '''SELECT clef.name, piece.filename FROM clefs clef, pieces piece, clef_piece_join clef_piece
                     WHERE clef_piece.clef_id = clef.ROWID AND piece.ROWID = clef_piece.piece_id
@@ -673,7 +673,7 @@ class MusicData(object):
             clef_dict[pair[0]].append(pair[1])
         return clef_dict
 
-    def getPiecesByAllTimeSigs(self, archived=0):
+    def getPiecesByAllTimeSigs(self, archived=0, online=False):
         connection, cursor = self.connect()
         query = '''SELECT time_sig.beat, time_sig.b_type, piece.filename FROM timesigs time_sig, pieces piece, time_piece_join time_piece
                     WHERE time_piece.time_id = time_sig.ROWID AND piece.ROWID = time_piece.piece_id
@@ -690,7 +690,7 @@ class MusicData(object):
             timesig_dict[result_key].append(pair[2])
         return timesig_dict
 
-    def getPiecesByAllTempos(self, archived=0):
+    def getPiecesByAllTempos(self, archived=0, online=False):
         connection, cursor = self.connect()
         query = '''SELECT tempo.beat, tempo.beat_2, tempo.minute, piece.filename
                   FROM tempos tempo, pieces piece, tempo_piece_join tempo_piece
@@ -713,7 +713,7 @@ class MusicData(object):
             tempo_dict[key_input].append(pair[3])
         return tempo_dict
 
-    def getPiecesByAllInstruments(self, archived=0):
+    def getPiecesByAllInstruments(self, archived=0, online=False):
         connection, cursor = self.connect()
         query = '''SELECT instrument.name, instrument.diatonic, instrument.chromatic, piece.filename
                   FROM instruments instrument, pieces piece, instruments_piece_join instrument_piece
@@ -742,7 +742,7 @@ class MusicData(object):
         return instrument_dict
 
 
-    def getPiecesByAllComposers(self, archived=0):
+    def getPiecesByAllComposers(self, archived=0, online=False):
         connection, cursor = self.connect()
         query = '''SELECT comp.name, piece.filename FROM composers comp, pieces piece
                     WHERE piece.composer_id = comp.ROWID
@@ -759,7 +759,7 @@ class MusicData(object):
             composer_dict[pair[0]].append(pair[1])
         return composer_dict
 
-    def getPiecesByAllLyricists(self, archived=0):
+    def getPiecesByAllLyricists(self, archived=0, online=False):
         connection, cursor = self.connect()
         query = '''SELECT lyric.name, piece.filename FROM lyricists lyric, pieces piece
                     WHERE lyric.ROWID = piece.lyricist_id
@@ -776,7 +776,7 @@ class MusicData(object):
             lyricist_dict[pair[0]].append(pair[1])
         return lyricist_dict
 
-    def getPieceByClefs(self, clefs, archived=0):
+    def getPieceByClefs(self, clefs, archived=0, online=False):
         '''
         method which takes in a key and outputs list of files in that key
         :param key: string name of key (e.g C major)
@@ -795,7 +795,7 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
-    def getPieceByInstrumentInKeys(self, data, archived=0):
+    def getPieceByInstrumentInKeys(self, data, archived=0, online=False):
         connection, cursor = self.connect()
         search_ids = []
         tuple_data = [instrument for instrument in data]
@@ -826,7 +826,7 @@ class MusicData(object):
             file_list = self.getPiecesByRowId(results, cursor, archived)
         return file_list
 
-    def getPieceByInstrumentInClefs(self, data, archived=0):
+    def getPieceByInstrumentInClefs(self, data, archived=0, online=False):
         connection, cursor = self.connect()
         search_ids = []
         tuple_data = [instrument for instrument in data]
@@ -856,7 +856,7 @@ class MusicData(object):
             file_list = self.getPiecesByRowId(results, cursor, archived)
         return file_list
 
-    def getPieceByInstrumentInKey(self, data, archived=0):
+    def getPieceByInstrumentInKey(self, data, archived=0, online=False):
         connection, cursor = self.connect()
         search_ids = []
         tuple_data = [instrument for instrument in data]
@@ -883,7 +883,7 @@ class MusicData(object):
         file_list = self.getPiecesByRowId(results, cursor, archived)
         return file_list
 
-    def getPieceByInstrumentInClef(self, data, archived=0):
+    def getPieceByInstrumentInClef(self, data, archived=0, online=False):
         connection, cursor = self.connect()
         search_ids = []
         tuple_data = [instrument for instrument in data]
@@ -917,7 +917,7 @@ class MusicData(object):
         file_list = self.getPiecesByRowId(results, cursor, archived=archived)
         return file_list
 
-    def getPieceByMeter(self, meters, archived=0):
+    def getPieceByMeter(self, meters, archived=0, online=False):
         meter_list = []
         for meter in meters:
             if "/" in meter:
@@ -938,7 +938,7 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
-    def getPieceByTempo(self, tempos, archived=0):
+    def getPieceByTempo(self, tempos, archived=0, online=False):
         tempo_list = []
         tempo_tuple_list = []
         dot_count = 0
@@ -1028,7 +1028,7 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
-    def getInstrumentsByPieceId(self, piece_id, cursor):
+    def getInstrumentsByPieceId(self, piece_id, cursor, online=False):
         instrument_query = 'SELECT instrument_id FROM instruments_piece_join WHERE piece_id=?'
         cursor.execute(instrument_query,(piece_id,))
         instrument_ids = cursor.fetchall()
@@ -1046,7 +1046,7 @@ class MusicData(object):
 
         return instruments
 
-    def getInstrumentByTransposition(self, transposition):
+    def getInstrumentByTransposition(self, transposition, online=False):
         connection, cursor = self.connect()
         data = []
         instrument_query = 'SELECT ROWID, name FROM instruments WHERE'
@@ -1073,7 +1073,7 @@ class MusicData(object):
         self.disconnect(connection)
         return instruments
 
-    def getPieceByInstrumentsOrSimilar(self, instruments, archived=0):
+    def getPieceByInstrumentsOrSimilar(self, instruments, archived=0, online=False):
         '''
         method which searches first for any pieces containing the exact instrument, then by the name in dict,
         then by the transposition of the name if it isn't in the instruments table.
@@ -1113,7 +1113,7 @@ class MusicData(object):
         return file_list
 
     # again, helper methods for other methods which just go off and find the joins for specific pieces
-    def getClefsByPieceId(self, piece_id, cursor):
+    def getClefsByPieceId(self, piece_id, cursor, online=False):
         clef_query = 'SELECT clef_id, instrument_id FROM clef_piece_join WHERE piece_id=?'
         cursor.execute(clef_query,(piece_id,))
         clef_ids = cursor.fetchall()
@@ -1128,7 +1128,7 @@ class MusicData(object):
                 clefs[name[1]].append(name[0])
         return clefs
 
-    def getKeysByPieceId(self, piece_id, cursor):
+    def getKeysByPieceId(self, piece_id, cursor, online=False):
         key_query = 'SELECT key_id, instrument_id FROM key_piece_join WHERE piece_id=?'
         cursor.execute(key_query,(piece_id,))
         key_ids = cursor.fetchall()
@@ -1143,7 +1143,7 @@ class MusicData(object):
                 keys[name[1]].append(name[0])
         return keys
 
-    def getTimeSigsByPieceId(self, piece_id, cursor):
+    def getTimeSigsByPieceId(self, piece_id, cursor, online=False):
         time_query = 'SELECT time_id FROM time_piece_join WHERE piece_id=?'
         cursor.execute(time_query,(piece_id,))
         time_ids = cursor.fetchall()
@@ -1156,7 +1156,7 @@ class MusicData(object):
                 meters.append(str(timesig[0])+"/"+str(timesig[1]))
         return meters
 
-    def getTemposByPieceId(self, piece_id, cursor):
+    def getTemposByPieceId(self, piece_id, cursor, online=False):
         tempo_query = 'SELECT tempo_id FROM tempo_piece_join WHERE piece_id=?'
         cursor.execute(tempo_query,(piece_id,))
         tempo_ids = cursor.fetchall()
@@ -1174,7 +1174,7 @@ class MusicData(object):
                 tempos.append(tempo_string)
         return tempos
 
-    def getAllPieceInfo(self, filenames, archived=0):
+    def getAllPieceInfo(self, filenames, archived=0, online=False):
         file_data = []
         for filename in filenames:
             piece_tuple = self.getPiece(filename, archived)

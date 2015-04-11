@@ -142,6 +142,14 @@ class MusicManager(object):
                 ignore_list = self.apiManager.getSourceIgnoreList(source)
                 data = self.parseXMLFile(file, parser=OnlineMetaParser.OnlineMetaParser(source=source, ignored=ignore_list))
                 result_set[source][file] = data
+                file_id = file.split("/")[-1].split(".")[0]
+                if "title" in cleaned_set[source][file_id]:
+                    result_set[source][file]["title"] = cleaned_set[source][file_id]["title"]
+                if "composer" in cleaned_set[source][file_id]:
+                    result_set[source][file]["composer"] = cleaned_set[source][file_id]["composer"]
+
+                if "lyricist" in cleaned_set[source][file_id]:
+                    result_set[source][file]["lyricist"] = cleaned_set[source][file_id]["lyricist"]
         return result_set
 
     def addPiece(self, filename, data):

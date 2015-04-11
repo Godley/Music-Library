@@ -508,3 +508,6 @@ class testDataLayer(unittest.TestCase):
         self.data.removePieces(["file.xml"])
         self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 0)
         self.assertEqual(len(self.data.getArchivedPieces()), 0)
+
+    def testFindOnlinePiece(self):
+        pass

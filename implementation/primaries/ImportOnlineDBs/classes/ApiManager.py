@@ -15,7 +15,7 @@ class ApiManager(object):
         results = {}
         for source_id in self.sources:
             result_set = self.sources[source_id][0].cleanCollection()
-            results[source_id] = result_set
+            results[source_id] = {result["id"]:result for result in result_set}
         return results
 
     def downloadAllFiles(self, extension="mxl"):
@@ -28,8 +28,8 @@ class ApiManager(object):
         for source_id in data_set:
             data_list = []
             for file in data_set[source_id]:
-                id = file["id"]
-                secret = file["secret"]
+                id = file
+                secret = data_set[source_id][id]["secret"]
                 status = self.sources[source_id][0].downloadFile(id, secret, type=extension)
                 if(status == 200):
                     location = os.path.join(self.folder,id + "."+extension)
