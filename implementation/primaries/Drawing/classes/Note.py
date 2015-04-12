@@ -4,7 +4,10 @@ except:
     from implementation.primaries.Drawing.classes import BaseClass, Ornaments, Mark
 
 import math
+
+
 class Tie(BaseClass.Base):
+
     def __init__(self, type):
         if type is not None:
             self.type = type
@@ -16,21 +19,33 @@ class Tie(BaseClass.Base):
                 lily = "~"
         return lily
 
+
 class Notehead(BaseClass.Base):
+
     def __init__(self, filled=False, type=""):
         self.filled = filled
         self.type = type
+
     def toLily(self):
         pre_note = "\n\\tweak #'style #'"
         if self.type != "":
-            ignore = ["slashed","back slashed","inverted triangle","arrow up", "arrow down", "normal"]
+            ignore = [
+                "slashed",
+                "back slashed",
+                "inverted triangle",
+                "arrow up",
+                "arrow down",
+                "normal"]
             if self.type == "diamond":
                 val = "\\harmonic"
                 return [val]
             if self.type == "x":
                 val = "\\xNote"
                 return [val, ""]
-            options = {"diamond":"harmonic","x":"cross","circle-x":"xcircle"}
+            options = {
+                "diamond": "harmonic",
+                "x": "cross",
+                "circle-x": "xcircle"}
             if self.type in options:
                 pre_note += options[self.type]
             elif self.type not in ignore:
@@ -41,10 +56,11 @@ class Notehead(BaseClass.Base):
         else:
             pre_note = ""
 
-        return [pre_note+"\n", ""]
+        return [pre_note + "\n", ""]
 
 
 class Stem(BaseClass.Base):
+
     def __init__(self, type):
         if type is not None:
             self.type = type
@@ -63,6 +79,7 @@ class Stem(BaseClass.Base):
 
 
 class Pitch(BaseClass.Base):
+
     def __init__(self, **kwargs):
         if "alter" in kwargs:
             self.alter = kwargs["alter"]
@@ -78,8 +95,10 @@ class Pitch(BaseClass.Base):
 
     def __str__(self):
         st = ""
-        alter = {1:"sharp",-1:"flat",0:"",2:"double-sharp",-2:"double-flat"}
-        if hasattr(self,"unpitched"):
+        alter = {1: "sharp", -
+                 1: "flat", 0: "", 2: "double-sharp", -
+                 2: "double-flat"}
+        if hasattr(self, "unpitched"):
             st += "unpitched"
         if hasattr(self, "step"):
             st += self.step
@@ -87,7 +106,7 @@ class Pitch(BaseClass.Base):
         if hasattr(self, "alter"):
             st += alter[int(self.alter)]
         if hasattr(self, "accidental"):
-            st += "("+self.accidental+")"
+            st += "(" + self.accidental + ")"
         if hasattr(self, "octave"):
             st += self.octave
         return st
@@ -104,9 +123,13 @@ class Pitch(BaseClass.Base):
             elif self.alter == -1:
                 val += "es"
         if hasattr(self, "accidental"):
-            names = {"three-quarters-sharp":"isih", "three-quarters-flat":"eseh",
-                    "quarter-sharp":"ih", "quarter-flat": "eh",
-                    "flat-flat": "eses", "double-sharp": "isis"}
+            names = {
+                "three-quarters-sharp": "isih",
+                "three-quarters-flat": "eseh",
+                "quarter-sharp": "ih",
+                "quarter-flat": "eh",
+                "flat-flat": "eses",
+                "double-sharp": "isis"}
             if self.accidental in names:
                 val += names[self.accidental]
         if not hasattr(self, "octave"):
@@ -114,7 +137,7 @@ class Pitch(BaseClass.Base):
         else:
             oct = int(self.octave)
             if oct > 3:
-                for i in range(oct-3):
+                for i in range(oct - 3):
                     val += "'"
             elif oct < 3:
                 counter = 3 - oct
@@ -126,6 +149,7 @@ class Pitch(BaseClass.Base):
 
 
 class Note(BaseClass.Base):
+
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
         self.ties = []
@@ -163,14 +187,20 @@ class Note(BaseClass.Base):
         return self.prenotation, self.wrap_notation, self.postnotation
 
     def GetNotation(self, id, type):
-        if type=="post":
-            if (id==-1 and len(self.postnotation) > 0) or (id!=-1 and len(self.postnotation) > id):
+        if type == "post":
+            if (id == -
+                1 and len(self.postnotation) > 0) or (id != -
+                                                      1 and len(self.postnotation) > id):
                 return self.postnotation[id]
-        if type=="pre":
-            if (id==-1 and len(self.prenotation) > 0) or (id!=-1 and len(self.postnotation) > id):
+        if type == "pre":
+            if (id == -
+                1 and len(self.prenotation) > 0) or (id != -
+                                                     1 and len(self.postnotation) > id):
                 return self.prenotation[id]
-        if type=="wrap":
-            if (id==-1 and len(self.wrap_notation) > 0) or (id!=-1 and len(self.postnotation) > id):
+        if type == "wrap":
+            if (id == -
+                1 and len(self.wrap_notation) > 0) or (id != -
+                                                       1 and len(self.postnotation) > id):
                 return self.wrap_notation[id]
 
     def FlushNotation(self):
@@ -187,11 +217,19 @@ class Note(BaseClass.Base):
 
     def addNotation(self, obj):
         add = True
-        wrap_notation = [Arpeggiate,NonArpeggiate,Slide,Glissando,Mark.Caesura,Mark.BreathMark, GraceNote]
-        # method to handle addition of notation: done here to avoid repetitive code in main parser
+        wrap_notation = [
+            Arpeggiate,
+            NonArpeggiate,
+            Slide,
+            Glissando,
+            Mark.Caesura,
+            Mark.BreathMark,
+            GraceNote]
+        # method to handle addition of notation: done here to avoid repetitive
+        # code in main parser
         if isinstance(obj, Ornaments.Tremolo) or isinstance(obj, Tuplet):
             if isinstance(obj, Ornaments.Tremolo):
-                options = {1:2,2:4,3:8}
+                options = {1: 2, 2: 4, 3: 8}
                 if hasattr(obj, "value"):
                     self.trem_length = options[obj.value]
             if hasattr(obj, "type"):
@@ -213,7 +251,10 @@ class Note(BaseClass.Base):
                 self.wrap_notation.append(obj)
                 return
         if hasattr(obj, "type") and len(self.postnotation) > 0:
-            duplicate_check = [True for thing in self.postnotation if hasattr(thing, "type") and thing.type == obj.type]
+            duplicate_check = [
+                True for thing in self.postnotation if hasattr(
+                    thing,
+                    "type") and thing.type == obj.type]
             if len(duplicate_check) > 0:
                 add = False
         if len(self.postnotation) == 0 or add:
@@ -221,7 +262,18 @@ class Note(BaseClass.Base):
 
     def SetType(self, vtype):
         self.val_type = vtype
-        options = {"128th":128,"64th":64,"32nd":32,"16th":16,"eighth":8,"quarter":4,"half":2,"whole":1,"h":8, "long":"\\longa","breve":"\\breve"}
+        options = {
+            "128th": 128,
+            "64th": 64,
+            "32nd": 32,
+            "16th": 16,
+            "eighth": 8,
+            "quarter": 4,
+            "half": 2,
+            "whole": 1,
+            "h": 8,
+            "long": "\\longa",
+            "breve": "\\breve"}
         if vtype in options:
             self.duration = options[self.val_type]
 
@@ -251,12 +303,12 @@ class Note(BaseClass.Base):
         if tuplet is None and hasattr(self, "timeMod") and self.timeMod.first:
             val += "\once \override TupletBracket.bracket-visibility = ##f\n"
             val += "\omit TupletNumber\n"
-            val += "\\tuplet "+self.timeMod.toLily() + " {"
+            val += "\\tuplet " + self.timeMod.toLily() + " {"
         for item in self.prenotation:
             lilystring = item.toLily()
             if isinstance(item, Tuplet):
                 if hasattr(self, "timeMod"):
-                    lilystring += " "+self.timeMod.toLily()
+                    lilystring += " " + self.timeMod.toLily()
                     lilystring += " {"
 
             if isinstance(item, Ornaments.Tremolo):
@@ -334,8 +386,13 @@ class Note(BaseClass.Base):
         if self.rest:
             if not hasattr(self, "MeasureRest") or not self.MeasureRest:
                 val += "r"
-        if hasattr(self, "duration") and (not hasattr(self, "MeasureRest") or not self.MeasureRest):
-            if not hasattr(self,"chord"):
+        if hasattr(
+                self,
+                "duration") and (
+                not hasattr(
+                self,
+                "MeasureRest") or not self.MeasureRest):
+            if not hasattr(self, "chord"):
                 val += self.getLilyDuration()
                 for dot in range(self.dots):
                     val += "."
@@ -346,37 +403,53 @@ class Note(BaseClass.Base):
         if hasattr(self, "close_timemod") and self.close_timemod:
             value += "}"
         return value
+
     def LilyWrap(self, value):
         prefixes = ""
-        wrapped_notation_lilystrings = [wrap.toLily() for wrap in self.wrap_notation]
+        wrapped_notation_lilystrings = [
+            wrap.toLily() for wrap in self.wrap_notation]
         if hasattr(self, "notehead"):
             wrapped_notation_lilystrings.append(self.notehead.toLily())
 
-        prefixes += "".join([wrapper[0]+" " for wrapper in wrapped_notation_lilystrings if wrapper is not None and len(wrapper) > 1])
+        prefixes += "".join([wrapper[0] +
+                             " " for wrapper in wrapped_notation_lilystrings if wrapper is not None and len(wrapper) > 1])
         prefixes_and_current = prefixes + value
-        postfixes = "".join([wrapper[-1] for wrapper in wrapped_notation_lilystrings if wrapper is not None and len(wrapper) > 0])
+        postfixes = "".join(
+            [wrapper[-1] for wrapper in wrapped_notation_lilystrings if wrapper is not None and len(wrapper) > 0])
         lilystring = prefixes_and_current + postfixes
         return lilystring
+
     def handlePostLilies(self):
         val = ""
-        if hasattr(self,"chord") and self.chord == "stop":
+        if hasattr(self, "chord") and self.chord == "stop":
             val += ">"
             val += self.getLilyDuration()
             for dot in range(self.dots):
                 val += "."
-        if not hasattr(self,"chord") or self.chord == "stop":
-            if hasattr(self, "beams") and (not hasattr(self, "autoBeam") or not self.autoBeam):
-                val += "".join([self.beams[beam].toLily() for beam in self.beams])
+        if not hasattr(self, "chord") or self.chord == "stop":
+            if hasattr(
+                self,
+                "beams") and (
+                not hasattr(
+                    self,
+                    "autoBeam") or not self.autoBeam):
+                val += "".join([self.beams[beam].toLily()
+                                for beam in self.beams])
             if hasattr(self, "slurs"):
                 val += "".join([slur.toLily() for slur in self.slurs])
             val += "".join([tie.toLily() for tie in self.ties])
-        val += "".join([value.toLily() for value in self.postnotation if type(value.toLily()) is str])
-        val += "".join([value.toLily()[0] for value in self.postnotation if type(value.toLily()) is list and len(value.toLily()) > 0])
+        val += "".join([value.toLily()
+                        for value in self.postnotation if type(value.toLily()) is str])
+        val += "".join([value.toLily()[0] for value in self.postnotation if type(
+            value.toLily()) is list and len(value.toLily()) > 0])
 
         return val
 
     def Search(self, cls_type, list_id=-1):
-        options = {"pre":self.prenotation,"post":self.postnotation,"wrap":self.wrap_notation}
+        options = {
+            "pre": self.prenotation,
+            "post": self.postnotation,
+            "wrap": self.wrap_notation}
         if list_id in options:
             for item in options[list_id]:
                 if type(item) == cls_type:
@@ -394,7 +467,9 @@ class Note(BaseClass.Base):
                 if type(item) == cls_type:
                     return item
 
+
 class Tuplet(BaseClass.Base):
+
     def __init__(self, **kwargs):
         if "type" in kwargs:
             if kwargs["type"] is not None:
@@ -418,7 +493,9 @@ class Tuplet(BaseClass.Base):
                 val = "}"
         return val
 
+
 class GraceNote(BaseClass.Base):
+
     def __init__(self, **kwargs):
         if "slash" in kwargs:
             self.slash = kwargs["slash"]
@@ -440,7 +517,10 @@ class GraceNote(BaseClass.Base):
             if not hasattr(self, "first") or not self.first:
                 return ending
         return [val, ending]
+
+
 class TimeModifier(BaseClass.Base):
+
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
         self.first = False
@@ -460,7 +540,9 @@ class TimeModifier(BaseClass.Base):
             val += str(self.normal)
         return val
 
+
 class Arpeggiate(BaseClass.Base):
+
     def __init__(self, **kwargs):
         self.wrapped = True
         BaseClass.Base.__init__(self)
@@ -476,15 +558,17 @@ class Arpeggiate(BaseClass.Base):
         if not hasattr(self, "direction") or self.direction is None:
             var += "Normal"
         else:
-            var += "Arrow"+self.direction.capitalize()
+            var += "Arrow" + self.direction.capitalize()
         if self.type == "start":
-            return [var,""]
+            return [var, ""]
         if self.type == "stop":
-            return ["","\\arpeggio"]
+            return ["", "\\arpeggio"]
         if self.type == "none":
             return [""]
 
+
 class Slide(BaseClass.Base):
+
     def __init__(self, **kwargs):
         self.wrapped = True
         BaseClass.Base.__init__(self)
@@ -515,15 +599,17 @@ class Slide(BaseClass.Base):
             values.append(gliss)
         return values
 
+
 class Glissando(Slide):
+
     def toLily(self):
         self.lineType = "wavy"
         vals = Slide.toLily(self)
         return vals
 
 
-
 class NonArpeggiate(Arpeggiate):
+
     def __init__(self, **kwargs):
 
         Arpeggiate.__init__(self)
@@ -538,7 +624,9 @@ class NonArpeggiate(Arpeggiate):
         if self.type == "none":
             return [""]
 
+
 class Beam(Stem):
+
     def toLily(self):
         val = ""
         if hasattr(self, "type"):

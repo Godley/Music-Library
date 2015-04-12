@@ -9,7 +9,7 @@ class MainWindow(QtGui.QMainWindow):
 
         #somewhere in constructor:
         QtGui.QMainWindow.__init__(self)
-        uic.loadUi('MainWindow.ui', self)
+        uic.loadUi('designer_files/MainWindow.ui', self)
         pieces = self.parent.loadPieces()
         self.autoCompleteFrame.hide()
         for i in pieces:

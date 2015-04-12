@@ -1,4 +1,5 @@
 class Meter(object):
+
     def __init__(self, **kwargs):
         if "beats" in kwargs:
             self.beats = kwargs["beats"]

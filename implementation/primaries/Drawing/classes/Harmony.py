@@ -6,7 +6,9 @@ try:
 except:
     from implementation.primaries.Drawing.classes import Note, BaseClass
 
+
 class Harmony(BaseClass.Base):
+
     def __init__(self, **kwargs):
         self.degrees = []
         if "root" in kwargs:
@@ -27,8 +29,13 @@ class Harmony(BaseClass.Base):
     def toLily(self):
         val = "\chords {"
         if hasattr(self, "root"):
-            val += "\n\r"+self.root.toLily()
-        if hasattr(self, "bass") or len(self.degrees) > 0 or hasattr(self, "kind"):
+            val += "\n\r" + self.root.toLily()
+        if hasattr(
+                self,
+                "bass") or len(
+                self.degrees) > 0 or hasattr(
+                self,
+                "kind"):
             val += "\n\r:"
         if hasattr(self, "degrees"):
             for degree in self.degrees:
@@ -40,7 +47,7 @@ class Harmony(BaseClass.Base):
                     if self.kind.parenthesis:
                         val += ")"
         if hasattr(self, "bass"):
-            val += "/"+self.bass
+            val += "/" + self.bass
         val += "\n\r}"
         if hasattr(self, "frame"):
             return_val = []
@@ -49,7 +56,9 @@ class Harmony(BaseClass.Base):
             val = return_val
         return val
 
+
 class Frame(BaseClass.Base):
+
     def __init__(self, **kwargs):
         if "strings" in kwargs:
             if kwargs["strings"] is not None:
@@ -68,9 +77,9 @@ class Frame(BaseClass.Base):
         val = ""
         val += "^\markup {\n\r\\fret-diagram #\""
         if hasattr(self, "frets"):
-            val += "h:"+str(self.frets)+";"
+            val += "h:" + str(self.frets) + ";"
         if hasattr(self, "strings"):
-            val += "w:"+str(self.strings)+";"
+            val += "w:" + str(self.strings) + ";"
             value = self.strings
             while value > 0:
                 val += str(value)
@@ -80,9 +89,9 @@ class Frame(BaseClass.Base):
                         fret = int(val[-2])
                         if val[-1] == "-":
                             barres = [str(key) for key in self.notes.keys()
-                                     if hasattr(self.notes[key], "barre")
-                                     and self.notes[key].barre=="stop"
-                                     and self.notes[key].fret == fret]
+                                      if hasattr(self.notes[key], "barre")
+                                      and self.notes[key].barre == "stop"
+                                      and self.notes[key].fret == fret]
                             if len(barres) > 0:
                                 val += "-".join(barres)
 
@@ -92,12 +101,14 @@ class Frame(BaseClass.Base):
                 else:
                     val += "-o"
                 val += ";"
-                value-=1
+                value -= 1
 
         val += "\"\n}"
         return val
 
+
 class FrameNote(BaseClass.Base):
+
     def __init__(self, **kwargs):
         if "string" in kwargs:
             self.string = kwargs["string"]
@@ -117,7 +128,9 @@ class FrameNote(BaseClass.Base):
                 val += "-"
         return val
 
+
 class Kind(BaseClass.Base):
+
     def __init__(self, **kwargs):
         if "value" in kwargs:
             if kwargs["value"] is not None:
@@ -148,7 +161,9 @@ class Kind(BaseClass.Base):
                 val += ")"
         return val
 
+
 class Degree(BaseClass.Base):
+
     def __init__(self, **kwargs):
         if "alter" in kwargs and kwargs["alter"] is not None:
             self.alter = kwargs["alter"]
@@ -173,6 +188,7 @@ class Degree(BaseClass.Base):
             val += str(self.value)
 
         return val
+
 
 class harmonyPitch(Note.Pitch):
     pass

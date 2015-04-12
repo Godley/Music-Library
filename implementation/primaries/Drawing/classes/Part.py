@@ -1,9 +1,10 @@
 
 class Part(object):
+
     def __str__(self):
         st = ""
         if hasattr(self, "name"):
-            st += "name:"+self.name
+            st += "name:" + self.name
         for stave in self.measures.keys():
             st += "\n"
             st += "Staff: "

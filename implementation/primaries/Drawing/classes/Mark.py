@@ -1,4 +1,5 @@
 class Notation(object):
+
     def __init__(self, **kwargs):
         if "placement" in kwargs:
             self.placement = kwargs["placement"]
@@ -16,7 +17,9 @@ class Notation(object):
     def toLily(self):
         return "\\"
 
+
 class Accent(Notation):
+
     def __init__(self, **kwargs):
         placement = None
         if "placement" in kwargs:
@@ -27,7 +30,10 @@ class Accent(Notation):
         val = Notation.toLily(self)
         val += "accent "
         return val
+
+
 class StrongAccent(Notation):
+
     def __init__(self, **kwargs):
         placement = None
         if "placement" in kwargs:
@@ -40,68 +46,80 @@ class StrongAccent(Notation):
                 symbol = "^"
             else:
                 symbol = "V"
-        Notation.__init__(self,placement=placement, symbol=symbol)
+        Notation.__init__(self, placement=placement, symbol=symbol)
+
     def toLily(self):
         val = Notation.toLily(self)
         val += "marcato "
         return val
 
+
 class Staccato(Notation):
+
     def __init__(self, **kwargs):
         placement = None
         if "placement" in kwargs:
             placement = kwargs["placement"]
 
         symbol = "."
-        Notation.__init__(self,placement=placement,symbol=symbol)
+        Notation.__init__(self, placement=placement, symbol=symbol)
 
     def toLily(self):
         val = Notation.toLily(self)
         val += "staccato "
         return val
+
+
 class Staccatissimo(Notation):
+
     def __init__(self, **kwargs):
         placement = None
         if "placement" in kwargs:
             placement = kwargs["placement"]
 
         symbol = "triangle"
-        Notation.__init__(self,placement=placement,symbol=symbol)
+        Notation.__init__(self, placement=placement, symbol=symbol)
 
     def toLily(self):
         val = Notation.toLily(self)
         val += "staccatissimo "
         return val
 
+
 class Tenuto(Notation):
+
     def __init__(self, **kwargs):
         placement = None
         if "placement" in kwargs:
             placement = kwargs["placement"]
 
         symbol = "line"
-        Notation.__init__(self,placement=placement,symbol=symbol)
+        Notation.__init__(self, placement=placement, symbol=symbol)
 
     def toLily(self):
         val = Notation.toLily(self)
         val += "tenuto "
         return val
 
+
 class DetachedLegato(Notation):
+
     def __init__(self, **kwargs):
         placement = None
         if "placement" in kwargs:
             placement = kwargs["placement"]
 
         symbol = "lineDot"
-        Notation.__init__(self,placement=placement,symbol=symbol)
+        Notation.__init__(self, placement=placement, symbol=symbol)
 
     def toLily(self):
         val = Notation.toLily(self)
-        val+= "portato "
+        val += "portato "
         return val
 
+
 class Fermata(Notation):
+
     def __init__(self, **kwargs):
         placement = None
         if "placement" in kwargs:
@@ -114,7 +132,7 @@ class Fermata(Notation):
         if "symbol" in kwargs:
             symbol = kwargs["symbol"]
 
-        Notation.__init__(self,placement=placement,symbol=symbol)
+        Notation.__init__(self, placement=placement, symbol=symbol)
 
     def toLily(self):
         val = Notation.toLily(self)
@@ -128,20 +146,27 @@ class Fermata(Notation):
                     val += "verylong"
         val += "fermata "
         return val
+
+
 class BreathMark(Notation):
+
     def toLily(self):
         val = Notation.toLily(self)
         val += "breathe "
         styling = "\override Staff.BreathingSign.text = \markup { \musicglyph #\"scripts.rvarcomma\" }"
         return [styling, val]
 
+
 class Caesura(BreathMark):
+
     def toLily(self):
         lstring = BreathMark.toLily(self)
         styling = "\override BreathingSign.text = \markup { \musicglyph #\"scripts.caesura.curved\" }"
-        return [styling,lstring[1]]
+        return [styling, lstring[1]]
+
 
 class Technique(Notation):
+
     def __init__(self, **kwargs):
         placement = None
         size = None
@@ -154,35 +179,37 @@ class Technique(Notation):
             symbol = kwargs["symbol"]
         if "placement" in kwargs:
             placement = kwargs["placement"]
-        Notation.__init__(self,placement=placement,
-                            symbol=symbol)
+        Notation.__init__(self, placement=placement,
+                          symbol=symbol)
 
     def toLily(self):
         val = Notation.toLily(self)
         if hasattr(self, "type"):
-            if self.type != "fingering" and self.type != "pluck" and self.type !="string":
+            if self.type != "fingering" and self.type != "pluck" and self.type != "string":
                 splitter = self.type.split("-")
                 joined = "".join(splitter)
-                val += joined+ " "
+                val += joined + " "
             else:
                 if self.type == "fingering":
                     if hasattr(self, "symbol"):
-                        val = "-"+str(self.symbol)
+                        val = "-" + str(self.symbol)
                 if self.type == "string":
                     if hasattr(self, "symbol"):
-                        val = "\\"+str(self.symbol)
+                        val = "\\" + str(self.symbol)
                 elif self.type != "fingering":
                     val = "_\\markup { "
                     if self.symbol is not None:
                         val += self.symbol
-                    val+=" }"
+                    val += " }"
         return val
 
+
 class Bend(Notation):
+
     def __init__(self, **kwargs):
         if "value" in kwargs:
             self.value = kwargs["value"]
-        Notation.__init__(self,**kwargs)
+        Notation.__init__(self, **kwargs)
 
     def toLily(self):
         val = "\\bendAfter #"

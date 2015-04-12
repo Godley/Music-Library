@@ -3,8 +3,12 @@ try:
 except:
     from implementation.primaries.Drawing.classes import BaseClass
 
-import string, random
+import string
+import random
+
+
 class Text(BaseClass.Base):
+
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
         if "font" in kwargs and kwargs["font"] is not None:
@@ -34,18 +38,28 @@ class Text(BaseClass.Base):
                 size = float(self.size)
                 lilystring += "\\abs-fontsize #" + str(self.size) + " "
             except:
-                lilystring += "\\"+str(self.size)+" "
+                lilystring += "\\" + str(self.size) + " "
         if hasattr(self, "font"):
-            fonts_available = ["sans","typewriter","roman"]
+            fonts_available = ["sans", "typewriter", "roman"]
             if self.font in fonts_available:
-                lilystring += "\\"+self.font + " "
+                lilystring += "\\" + self.font + " "
             else:
                 rand = random.Random()
                 selected = rand.choice(fonts_available)
-                lilystring += "\\"+selected + " "
+                lilystring += "\\" + selected + " "
         valid = False
         for char in self.text:
-            if char in string.ascii_letters or char in ["0","1","2","3","4","5","6","7","8","9"]:
+            if char in string.ascii_letters or char in [
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9"]:
                 if not hasattr(self, "noquotes"):
                     lilystring += "\""
                 lilystring += self.text
@@ -59,7 +73,9 @@ class Text(BaseClass.Base):
             lilystring = ""
         return lilystring
 
+
 class CreditText(Text):
+
     def __init__(self, **kwargs):
         font = None
         size = None
@@ -93,20 +109,24 @@ class CreditText(Text):
     def toLily(self):
         lily = ""
         if hasattr(self, "justify"):
-            options = {"right":"\\fill-line {\n\\null \n\override #'(baseline-skip . 4)\n\override #'(line-width . 40) {"
-            , "center":"\\fill-line { \n \\center-column {\n"}
+            options = {
+                "right": "\\fill-line {\n\\null \n\override #'(baseline-skip . 4)\n\override #'(line-width . 40) {",
+                "center": "\\fill-line { \n \\center-column {\n"}
             if self.justify in options:
                 lily += options[self.justify]
         if hasattr(self, "valign"):
-            option = {"top":"UP","bottom":"DOWN"}
-            lily += "\general-align #Y #"+option[self.valign]+"\n "
+            option = {"top": "UP", "bottom": "DOWN"}
+            lily += "\general-align #Y #" + option[self.valign] + "\n "
         lily += Text.toLily(self)
         if hasattr(self, "justify"):
-            options = {"right":"\n}\n\t}\n\\null\\null","center":"\n}\n}"}
+            options = {"right": "\n}\n\t}\n\\null\\null", "center": "\n}\n}"}
             if self.justify in options:
                 lily += options[self.justify]
         return lily
+
+
 class Lyric(Text):
+
     def __init__(self, **kwargs):
         font = None
         text = None
@@ -122,8 +142,8 @@ class Lyric(Text):
         Text.__init__(self, text=text, font=font, size=size)
 
 
-
 class Direction(Text):
+
     def __init__(self, **kwargs):
         text = None
         size = None
@@ -137,7 +157,7 @@ class Direction(Text):
             size = kwargs["size"]
         if "font" in kwargs:
             font = kwargs["font"]
-        Text.__init__(self,text=text,size=size,font=font)
+        Text.__init__(self, text=text, size=size, font=font)
 
     def toLily(self):
         textLilyString = Text.toLily(self)
@@ -153,23 +173,27 @@ class Direction(Text):
         else:
             symbol = "^"
         if len(textLilyString) > 0:
-            return_val += symbol + "\\markup { "+textLilyString+" }"
+            return_val += symbol + "\\markup { " + textLilyString + " }"
         return return_val
+
+
 class RehearsalMark(Direction):
+
     def toLily(self):
-        text =" \mark "
+        text = " \mark "
         if self.text == "":
             text += "\default"
         else:
             try:
                 index = string.ascii_lowercase.index(self.text.lower()) + 1
-                text += "#"+str(index)
+                text += "#" + str(index)
             except:
                 text += "\default"
         return text
 
 
 class Forward(Direction):
+
     def __init__(self, **kwargs):
         text = None
         size = None
@@ -188,7 +212,12 @@ class Forward(Direction):
             size = kwargs["size"]
         if "font" in kwargs:
             font = kwargs["font"]
-        Direction.__init__(self, placement=placement, text=text, size=size, font=font)
+        Direction.__init__(
+            self,
+            placement=placement,
+            text=text,
+            size=size,
+            font=font)
 
     def toLily(self):
         lilystring = "percent repeat"
@@ -199,7 +228,9 @@ class Forward(Direction):
             return_list.append(int(self.duration))
         return return_list
 
+
 class RepeatSign(Direction):
+
     def __init__(self, **kwargs):
         text = None
         size = None
@@ -209,7 +240,7 @@ class RepeatSign(Direction):
         if "type" in kwargs:
             if kwargs["type"] is not None:
                 self.type = kwargs["type"]
-                text = "\musicglyph #\"scripts."+self.type+"\""
+                text = "\musicglyph #\"scripts." + self.type + "\""
         if "placement" in kwargs:
             if kwargs["placement"] is not None:
                 self.sym_placement = kwargs["placement"]
@@ -220,12 +251,19 @@ class RepeatSign(Direction):
             size = kwargs["size"]
         if "font" in kwargs:
             font = kwargs["font"]
-        Direction.__init__(self, placement=placement, text=text,size=size,font=font)
+        Direction.__init__(
+            self,
+            placement=placement,
+            text=text,
+            size=size,
+            font=font)
 
     def toLily(self):
         return " \mark " + Direction.toLily(self)
 
+
 class Line(Direction):
+
     def __init__(self, **kwargs):
         text = None
         size = None
@@ -243,9 +281,16 @@ class Line(Direction):
         if "type" in kwargs:
             if kwargs["type"] is not None:
                 self.type = kwargs["type"]
-        Direction.__init__(self, text=text, size=size, font=font, placement=placement)
+        Direction.__init__(
+            self,
+            text=text,
+            size=size,
+            font=font,
+            placement=placement)
+
 
 class OctaveShift(Line):
+
     def __init__(self, **kwargs):
         placement = None
         text = None
@@ -267,7 +312,13 @@ class OctaveShift(Line):
         if "type" in kwargs:
             if kwargs["type"] is not None:
                 type = kwargs["type"]
-        Line.__init__(self, text=text, type=type, size=size, font=font, placement=placement)
+        Line.__init__(
+            self,
+            text=text,
+            type=type,
+            size=size,
+            font=font,
+            placement=placement)
 
     def toLily(self):
         return_val = "\n\ottava #"
@@ -285,21 +336,25 @@ class OctaveShift(Line):
         else:
             octave = 1
 
-        return_val += str(octave)+"\n"
+        return_val += str(octave) + "\n"
         if hasattr(self, "type"):
             if self.type == "stop":
                 return_val = "\n\ottava #0"
         return return_val
 
+
 class WavyLine(Line):
+
     def toLily(self):
         if not hasattr(self, "type"):
             text = "\start"
         else:
-            text = "\\"+self.type
+            text = "\\" + self.type
         return text + "TrillSpan"
 
+
 class Pedal(Line):
+
     def __init__(self, **kwargs):
         text = None
         size = None
@@ -319,11 +374,18 @@ class Pedal(Line):
             font = kwargs["font"]
         if "type" in kwargs:
             type = kwargs["type"]
-        Line.__init__(self, type=type, text=text, size=size, font=font, placement=placement)
+        Line.__init__(
+            self,
+            type=type,
+            text=text,
+            size=size,
+            font=font,
+            placement=placement)
 
     def toLily(self):
         return_val = ""
-        if (hasattr(self, "type") and self.type != "stop") or not hasattr(self, "type"):
+        if (hasattr(self, "type") and self.type != "stop") or not hasattr(
+                self, "type"):
             if hasattr(self, "line"):
                 if not self.line:
                     return_val += "\n\set Staff.pedalSustainStyle = #'text\n"
@@ -339,7 +401,10 @@ class Pedal(Line):
         else:
             return_val += "On\n"
         return return_val
+
+
 class Bracket(Line):
+
     def __init__(self, **kwargs):
         text = None
         size = None
@@ -368,7 +433,13 @@ class Bracket(Line):
             font = kwargs["font"]
         if "type" in kwargs:
             type = kwargs["type"]
-        Line.__init__(self, type=type, text=text, size=size, font=font, placement=placement)
+        Line.__init__(
+            self,
+            type=type,
+            text=text,
+            size=size,
+            font=font,
+            placement=placement)
 
     def toLily(self):
         lilystring = ""
@@ -385,7 +456,9 @@ class Bracket(Line):
                 lilystring = "\n\\startTextSpan\n"
         return lilystring
 
+
 class Metronome(Direction):
+
     def __init__(self, **kwargs):
         size = None
         font = None
@@ -397,7 +470,7 @@ class Metronome(Direction):
         if "min" in kwargs:
             self.min = kwargs["min"]
         if "text" in kwargs:
-            if type(kwargs["text"]) is str:
+            if isinstance(kwargs["text"], str):
                 text = kwargs["text"]
             elif kwargs["text"] is not None:
                 text = kwargs["text"].text
@@ -405,7 +478,7 @@ class Metronome(Direction):
             size = kwargs["text"]
         if "font" in kwargs:
             font = kwargs["font"]
-        Text.__init__(self,text=text,size=size,font=font)
+        Text.__init__(self, text=text, size=size, font=font)
         if "parentheses" in kwargs:
             if kwargs["parentheses"] is not None:
                 self.parentheses = kwargs["parentheses"]
@@ -414,23 +487,34 @@ class Metronome(Direction):
 
     def toLily(self):
         return_val = " \\tempo "
-        converter = {"eighth":8,"quarter":4,"half":2,"whole":1,"long":"longa","breve":"\\breve","32nd":32}
+        converter = {
+            "eighth": 8,
+            "quarter": 4,
+            "half": 2,
+            "whole": 1,
+            "long": "longa",
+            "breve": "\\breve",
+            "32nd": 32}
         if hasattr(self, "parentheses"):
-            if self.parentheses and self.text == "" and not hasattr(self, "secondBeat"):
+            if self.parentheses and self.text == "" and not hasattr(
+                    self,
+                    "secondBeat"):
                 return_val += "\"\" "
         if self.text != "":
-            return_val += "\""+self.text+"\" "
+            return_val += "\"" + self.text + "\" "
         if hasattr(self, "beat") and hasattr(self, "min"):
             if self.beat == "long":
                 return_val += "\\"
-            return_val += str(converter[self.beat]) +"=" + str(self.min)
+            return_val += str(converter[self.beat]) + "=" + str(self.min)
         elif hasattr(self, "secondBeat") and hasattr(self, "beat"):
             return_val += "\markup {\n\t\concat {\n\t\t"
             if hasattr(self, "parentheses") and self.parentheses:
                 return_val += "("
             return_val += "\n\t\t\t\smaller \general-align #Y #DOWN \\note #\""
-            return_val += str(converter[self.beat])+"\" #1\n\t\t\t\t\" = \"\n\t\t\t\t\smaller \general-align #Y #DOWN \\note #\""
-            return_val += str(converter[self.secondBeat])+"\" #1\n\t\t"
+            return_val += str(
+                converter[
+                    self.beat]) + "\" #1\n\t\t\t\t\" = \"\n\t\t\t\t\smaller \general-align #Y #DOWN \\note #\""
+            return_val += str(converter[self.secondBeat]) + "\" #1\n\t\t"
             if hasattr(self, "parentheses") and self.parentheses:
                 return_val += ")"
             return_val += "\n\t}\n}"
@@ -449,6 +533,7 @@ class Metronome(Direction):
 
 
 class Dynamic(Direction):
+
     def __init__(self, **kwargs):
         placement = None
         size = None
@@ -468,7 +553,7 @@ class Dynamic(Direction):
         if "placement" in kwargs:
             placement = kwargs["placement"]
 
-        Direction.__init__(self,placement=placement,
+        Direction.__init__(self, placement=placement,
                            font=font,
                            size=size,
                            text=text)
@@ -476,7 +561,26 @@ class Dynamic(Direction):
     def toLily(self):
         return_val = "\\"
         if hasattr(self, "mark") and len(self.mark) < 6:
-            special_marks = ["ppppp", "pppp", "ppp", "pp", "p", "mp", "mf", "f", "ff", "fff", "ffff", "fffff", "fp", "sf", "sff", "sp", "spp", "sfz","rfz"]
+            special_marks = [
+                "ppppp",
+                "pppp",
+                "ppp",
+                "pp",
+                "p",
+                "mp",
+                "mf",
+                "f",
+                "ff",
+                "fff",
+                "ffff",
+                "fffff",
+                "fp",
+                "sf",
+                "sff",
+                "sp",
+                "spp",
+                "sfz",
+                "rfz"]
             if self.mark in special_marks:
                 return_val += self.mark
             else:
@@ -485,7 +589,9 @@ class Dynamic(Direction):
             return_val = ""
         return return_val
 
+
 class Wedge(Dynamic):
+
     def __init__(self, **kwargs):
         placement = None
         self.type = None
@@ -494,7 +600,7 @@ class Wedge(Dynamic):
         if "type" in kwargs:
             self.type = kwargs["type"]
 
-        Dynamic.__init__(self,placement=placement,text=self.type)
+        Dynamic.__init__(self, placement=placement, text=self.type)
 
     def toLily(self):
         return_val = "\\"
@@ -510,6 +616,7 @@ class Wedge(Dynamic):
 
 
 class Slur(Direction):
+
     def __init__(self, **kwargs):
         placement = None
         size = None
@@ -526,7 +633,7 @@ class Slur(Direction):
             if kwargs["type"] is not None:
                 self.type = kwargs["type"]
 
-        Direction.__init__(self,placement=placement,
+        Direction.__init__(self, placement=placement,
                            font=font,
                            size=size)
 

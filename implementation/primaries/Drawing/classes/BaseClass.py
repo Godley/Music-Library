@@ -1,8 +1,11 @@
 class Base(object):
+
     def __init__(self):
         self.indent = 1
+
     def toLily(self):
         pass
+
     def __str__(self):
         st = str(type(self))
         values = vars(self)
@@ -12,7 +15,11 @@ class Base(object):
             st += "\n"
             for i in range(self.indent):
                 st += "\t"
-            if type(values[key]) is not dict and type(values[key]) is not list:
+            if not isinstance(
+                    values[key],
+                    dict) and not isinstance(
+                    values[key],
+                    list):
                 try:
                     values[key].indent = self.indent + 1
                 except:
@@ -23,18 +30,30 @@ class Base(object):
                 except:
                     st += "None"
 
-            if type(values[key]) is list:
+            if isinstance(values[key], list):
                 if len(values[key]) > 0:
                     st += key + " : "
                     for item in values[key]:
-                        if type(item) is not str and type(item) is not int and type(item) is not float:
-                            item.indent = self.indent +1
-                        st +=  str(item) + "\n"
-            if type(values[key]) is dict:
+                        if not isinstance(
+                            item,
+                            str) and not isinstance(
+                            item,
+                            int) and not isinstance(
+                            item,
+                                float):
+                            item.indent = self.indent + 1
+                        st += str(item) + "\n"
+            if isinstance(values[key], dict):
                 if len(values[key]) > 0:
                     st += key + " : "
                     for k in values[key].keys():
-                        if type(values[key][k]) is not str and type(values[key][k]) is not int and type(values[key][k]) is not float:
+                        if not isinstance(
+                            values[key][k],
+                            str) and not isinstance(
+                            values[key][k],
+                            int) and not isinstance(
+                            values[key][k],
+                                float):
                             values[key][k].indent = self.indent + 1
                         st += key + " : " + str(values[key][k])
         return st

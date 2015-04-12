@@ -4,21 +4,28 @@ except:
     from implementation.primaries.Drawing.classes import BaseClass
 
 # TODO: probably needs refactoring to 1 ornament class?
+
+
 class InvertedMordent(BaseClass.Base):
+
     def toLily(self):
         return "\prall"
+
 
 class Mordent(BaseClass.Base):
 
     def toLily(self):
         return "\mordent"
 
+
 class Trill(BaseClass.Base):
 
     def toLily(self):
         return "\\trill"
 
+
 class TrillSpanner(BaseClass.Base):
+
     def __init__(self, **kwargs):
         if "line" in kwargs:
             self.line = kwargs["line"]
@@ -32,15 +39,21 @@ class TrillSpanner(BaseClass.Base):
 
         return val
 
+
 class Turn(BaseClass.Base):
+
     def toLily(self):
         return "\\turn"
 
+
 class InvertedTurn(BaseClass.Base):
+
     def toLily(self):
         return "\\reverseturn"
 
+
 class Tremolo(BaseClass.Base):
+
     def __init__(self, **kwargs):
         self.preNote = True
         BaseClass.Base.__init__(self)
@@ -58,7 +71,7 @@ class Tremolo(BaseClass.Base):
         return_val = "\\repeat tremolo "
         num = ""
         if hasattr(self, "value"):
-            options = {1:2,2:4,3:8}
+            options = {1: 2, 2: 4, 3: 8}
             num = str(options[self.value])
 
         if num != "":
@@ -69,7 +82,6 @@ class Tremolo(BaseClass.Base):
                 return_val = return_val
             if self.type == "stop":
                 return_val = "}"
-                return_val = ["",return_val]
+                return_val = ["", return_val]
 
         return return_val
-

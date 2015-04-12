@@ -3,7 +3,9 @@ try:
 except:
     from implementation.primaries.Drawing.classes import BaseClass
 
+
 class Meta(BaseClass.Base):
+
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
         if "title" in kwargs:
@@ -28,11 +30,11 @@ class Meta(BaseClass.Base):
     def toLily(self):
         val = "\header {\n"
         if hasattr(self, "title") and self.title is not None:
-            val += "title = \""+self.EscapeQuotes(self.title)+"\"\n"
+            val += "title = \"" + self.EscapeQuotes(self.title) + "\"\n"
         if hasattr(self, "composer") and self.composer is not None:
-            val += "composer = \""+self.EscapeQuotes(self.composer) +"\"\n"
+            val += "composer = \"" + self.EscapeQuotes(self.composer) + "\"\n"
         if hasattr(self, "copyright"):
-            val += "tagline = \""+self.EscapeQuotes(self.copyright) +"\""
+            val += "tagline = \"" + self.EscapeQuotes(self.copyright) + "\""
         val += "\n}"
         if hasattr(self, "pageNum"):
             if self.pageNum:
@@ -41,7 +43,7 @@ class Meta(BaseClass.Base):
             val += "\\markuplist {"
             for credit in self.credits:
                 val += "\n\\vspace #0.5\n"
-                val += "\n"+credit.toLily()
+                val += "\n" + credit.toLily()
             val += " }"
 
         return val
@@ -50,4 +52,3 @@ class Meta(BaseClass.Base):
         if not hasattr(self, "credits"):
             self.credits = []
         self.credits.append(credit)
-

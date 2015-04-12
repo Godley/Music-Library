@@ -1,10 +1,17 @@
-majors = {-7: "Cflat", -6: "Gflat", -5: "Dflat", -4: "Aflat", -3: "Eflat", -2: "Bflat", -1: "F", 0: "C", 1: "G", 2: "D", 3: "A",
-          4: "E", 5: "B", 6:"Fsharp", 7:"Csharp"}
-minors = {-7:"Aflat",-6: "Eflat", -5: "Bflat", -4: "F", -3: "C", -2: "G", -1: "D", 0: "A", 1: "E", 2: "B", 3: "Fsharp",
-          4: "Csharp", 5: "Gsharp", 6:"Dsharp",7:"Asharp"}
+majors = {-
+          7: "Cflat", -
+          6: "Gflat", -
+          5: "Dflat", -
+          4: "Aflat", -
+          3: "Eflat", -
+          2: "Bflat", -
+          1: "F", 0: "C", 1: "G", 2: "D", 3: "A", 4: "E", 5: "B", 6: "Fsharp", 7: "Csharp"}
+minors = {-7: "Aflat", -6: "Eflat", -5: "Bflat", -4: "F", -3: "C", -2: "G", -1: "D",
+          0: "A", 1: "E", 2: "B", 3: "Fsharp", 4: "Csharp", 5: "Gsharp", 6: "Dsharp", 7: "Asharp"}
 
 
 class Key(object):
+
     def __init__(self, **kwargs):
         if "fifths" in kwargs:
             self.fifths = kwargs["fifths"]
@@ -25,8 +32,8 @@ class Key(object):
             if hasattr(self, "mode"):
                 keyname = ""
                 if self.mode == "major":
-                     if self.fifths in majors:
-                         keyname = majors[self.fifths].lower()
+                    if self.fifths in majors:
+                        keyname = majors[self.fifths].lower()
                 if self.mode == "minor":
                     if self.fifths in minors:
                         keyname = minors[self.fifths].lower()
@@ -37,7 +44,7 @@ class Key(object):
                     if symbol == "sharp":
                         keyname = keyname[0] + "is"
                 val += " " + keyname
-                val += " \\"+self.mode
+                val += " \\" + self.mode
             else:
                 val = ""
         else:

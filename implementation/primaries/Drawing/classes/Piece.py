@@ -1,4 +1,5 @@
 class Piece(object):
+
     def __init__(self):
         self.Parts = {}
 
@@ -17,7 +18,7 @@ class Piece(object):
     def toLily(self):
         lilystring = ""
         if hasattr(self, "meta"):
-            lilystring += "\n"+self.meta.toLily()
+            lilystring += "\n" + self.meta.toLily()
         return lilystring
 
     def addPart(self, id="gubbins", part=None):

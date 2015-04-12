@@ -8,21 +8,24 @@ except:
     from implementation.primaries.Drawing.classes import Exceptions, Mark, Ornaments, helpers, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
     from implementation.primaries.Drawing.classes.tree_cls import PieceTree, BaseTree
 # these define the current "things" we are handling: these are added on to relevant measures after being processed,
-# because "staff" could be found anywhere whilst it's being processed and we need to know that to add it to the right object
+# because "staff" could be found anywhere whilst it's being processed and
+# we need to know that to add it to the right object
 note = None
 direction = None
 expression = None
 
-# not sure whether still relevant, but globals for checking which degree/frame_note we are handling within the harmony section
+# not sure whether still relevant, but globals for checking which
+# degree/frame_note we are handling within the harmony section
 degree = None
 frame_note = None
 
-#indicates current staff being loaded
+# indicates current staff being loaded
 staff_id = 1
 voice = 1
 
 
 handleType = ""
+
 
 def IdAsInt(index):
     if index is not None:
@@ -32,41 +35,61 @@ def IdAsInt(index):
             return index
 
 
-
 class MxmlParser(object):
+
     """this needs a huge tidy, but this class:
         sets up a few things that define where the tags get handled
         runs sax, which calls the parent methods according to what's happened
         the parent methods call the handlers defined in structure, or else figure out what handler to use. If there absolutely isn't one, nothing gets called
         spits out a piece class holding all this info.
     """
+
     def __init__(self, excluded=[]):
         # stuff for parsing. Tags refers to the xml tag list, chars refers to the content of each tag,
-        # attribs refers to attributes of each tag, and handler is a method we call to work with each tag
+        # attribs refers to attributes of each tag, and handler is a method we
+        # call to work with each tag
         self.tags = []
         self.chars = {}
         self.attribs = {}
         self.handler = None
 
-        # this will be put in later, but parser can take in tags we want to ignore, e.g clefs, measures etc.
+        # this will be put in later, but parser can take in tags we want to
+        # ignore, e.g clefs, measures etc.
         self.excluded = excluded
 
-        # add any handlers, along with the tagname associated with it, to this dictionary
-        self.structure = {"movement-title": SetupPiece, "credit": SetupPiece, "rights": SetupPiece, "creator": SetupPiece, "defaults": SetupFormat, "part": UpdatePart,
-             "score-part": UpdatePart, "part-group": UpdatePart, "measure": HandleMeasures, "note": CreateNote,
-             "pitch":  HandlePitch, "unpitched": HandlePitch,"articulations":handleArticulation,
-             "fermata": HandleFermata, "slur":handleOtherNotations, "lyric":handleLyrics,
-             "technical": handleOtherNotations, "backup":HandleMovementBetweenDurations, "forward":HandleMovementBetweenDurations}
+        # add any handlers, along with the tagname associated with it, to this
+        # dictionary
+        self.structure = {
+            "movement-title": SetupPiece,
+            "credit": SetupPiece,
+            "rights": SetupPiece,
+            "creator": SetupPiece,
+            "defaults": SetupFormat,
+            "part": UpdatePart,
+            "score-part": UpdatePart,
+            "part-group": UpdatePart,
+            "measure": HandleMeasures,
+            "note": CreateNote,
+            "pitch": HandlePitch,
+            "unpitched": HandlePitch,
+            "articulations": handleArticulation,
+            "fermata": HandleFermata,
+            "slur": handleOtherNotations,
+            "lyric": handleLyrics,
+            "technical": handleOtherNotations,
+            "backup": HandleMovementBetweenDurations,
+            "forward": HandleMovementBetweenDurations}
 
-        # not sure this is needed anymore, but tags which we shouldn't clear the previous data for should be added here
+        # not sure this is needed anymore, but tags which we shouldn't clear
+        # the previous data for should be added here
         self.multiple_attribs = ["beats", "sign"]
 
         # any tags which close instantly in here
-        self.closed_tags = ["tie","chord","note","measure","part",
-                            "score-part","sound","print","rest","slur",
-                            "accent","strong-accent","staccato",
-                            "staccatissimo","up-bow","down-bow",
-                            "cue","key","clef","part-group","metronome"]
+        self.closed_tags = ["tie", "chord", "note", "measure", "part",
+                            "score-part", "sound", "print", "rest", "slur",
+                            "accent", "strong-accent", "staccato",
+                            "staccatissimo", "up-bow", "down-bow",
+                            "cue", "key", "clef", "part-group", "metronome"]
         self.end_tag = ["tremolo"]
         self.piece = PieceTree.PieceTree()
         self.d = False
@@ -89,6 +112,7 @@ class MxmlParser(object):
                 self.handler(self.tags, self.attribs, self.chars, self.piece)
             if name in self.closed_tags and self.handler is not None:
                 self.handler(self.tags, self.attribs, self.chars, self.piece)
+
     def validateData(self, text):
         if text == "\n":
             return False
@@ -99,7 +123,6 @@ class MxmlParser(object):
             except:
                 return False
         return False
-
 
     def NewData(self, text):
         sint = ignore_exception(ValueError)(int)
@@ -144,9 +167,8 @@ class MxmlParser(object):
                 measure.rest = True
                 voice_obj.rest = True
 
-
     def EndTag(self, name):
-        global note, degree, frame_note, staff_id,direction,expression,voice
+        global note, degree, frame_note, staff_id, direction, expression, voice
         if self.handler is not None and not self.d and name not in self.closed_tags:
             self.handler(self.tags, self.attribs, self.chars, self.piece)
         if name in self.tags:
@@ -165,7 +187,11 @@ class MxmlParser(object):
             self.tags.remove(name)
         if name == "direction":
             if direction is not None:
-                measure_id = IdAsInt(helpers.GetID(self.attribs, "measure", "number"))
+                measure_id = IdAsInt(
+                    helpers.GetID(
+                        self.attribs,
+                        "measure",
+                        "number"))
                 part_id = helpers.GetID(self.attribs, "part", "id")
                 part = self.piece.getPart(part_id)
                 if part is not None:
@@ -175,7 +201,11 @@ class MxmlParser(object):
                     measure.addDirection(copy.deepcopy(direction), voice)
                 direction = None
             if expression is not None:
-                measure_id = IdAsInt(helpers.GetID(self.attribs, "measure", "number"))
+                measure_id = IdAsInt(
+                    helpers.GetID(
+                        self.attribs,
+                        "measure",
+                        "number"))
                 part_id = helpers.GetID(self.attribs, "part", "id")
                 part = self.piece.getPart(part_id)
                 if part is not None:
@@ -194,14 +224,20 @@ class MxmlParser(object):
                 if result is not None:
                     if "TAB" in result:
                         self.piece.removePart(part_id)
-                        raise(Exceptions.TabNotImplementedException("Tab notation found: stopping"))
+                        raise(
+                            Exceptions.TabNotImplementedException("Tab notation found: stopping"))
                     if "DRUM" in result:
                         self.piece.removePart(part_id)
-                        raise(Exceptions.DrumNotImplementedException("Drum Tab notation found: stopping"))
+                        raise(
+                            Exceptions.DrumNotImplementedException("Drum Tab notation found: stopping"))
 
         if name == "measure":
             part_id = helpers.GetID(self.attribs, "part", "id")
-            measure_id = IdAsInt(helpers.GetID(self.attribs, "measure", "number"))
+            measure_id = IdAsInt(
+                helpers.GetID(
+                    self.attribs,
+                    "measure",
+                    "number"))
             part = self.piece.getPart(part_id)
             if part is None:
                 part = self.piece.getLastPart()
@@ -219,7 +255,11 @@ class MxmlParser(object):
             self.chars.pop(name)
 
         if name == "note":
-            measure_id = IdAsInt(helpers.GetID(self.attribs, "measure", "number"))
+            measure_id = IdAsInt(
+                helpers.GetID(
+                    self.attribs,
+                    "measure",
+                    "number"))
             part_id = helpers.GetID(self.attribs, "part", "id")
             part = self.piece.getPart(part_id)
             if part is None:
@@ -232,10 +272,11 @@ class MxmlParser(object):
         if name == "frame-note":
             frame_note = None
 
-
     def parse(self, file):
         parser = make_parser()
+
         class Extractor(xml.sax.ContentHandler):
+
             def __init__(self, parent):
                 self.parent = parent
 
@@ -258,11 +299,13 @@ class MxmlParser(object):
         parser.parse(fob)
         return self.piece
 
+
 def YesNoToBool(entry):
     if entry == "yes":
         return True
     if entry == "no":
         return False
+
 
 def ignore_exception(IgnoreException=Exception, DefaultVal=None):
     """ Decorator for ignoring exception from a function
@@ -302,7 +345,9 @@ def SetupPiece(tag, attrib, content, piece):
                             composer = content["creator"]
         if tag[-1] == "movement-title" or "creator":
             if not hasattr(piece.GetItem(), "meta"):
-                piece.GetItem().meta = Meta.Meta(composer=composer, title=title)
+                piece.GetItem().meta = Meta.Meta(
+                    composer=composer,
+                    title=title)
 
             else:
                 if composer is not None:
@@ -311,7 +356,7 @@ def SetupPiece(tag, attrib, content, piece):
                     piece.GetItem().meta.title = title
         if tag[-1] == "rights":
             if "rights" in content:
-                rights = content["rights"]+" "
+                rights = content["rights"] + " "
                 if hasattr(piece.GetItem(), "meta"):
                     if not hasattr(piece.GetItem().meta, "copyright"):
                         piece.GetItem().meta.copyright = ""
@@ -356,7 +401,14 @@ def SetupPiece(tag, attrib, content, piece):
                     text = content["credit-words"]
 
                 if handleType == "":
-                    credit = Directions.CreditText(page=page, x=x,y=y,size=size,justify=justify,valign=valign,text=text)
+                    credit = Directions.CreditText(
+                        page=page,
+                        x=x,
+                        y=y,
+                        size=size,
+                        justify=justify,
+                        valign=valign,
+                        text=text)
                     if not hasattr(piece.GetItem(), "meta"):
                         piece.GetItem().meta = Meta.Meta()
                     piece.GetItem().meta.AddCredit(credit)
@@ -365,19 +417,43 @@ def SetupPiece(tag, attrib, content, piece):
                         if not hasattr(piece.GetItem().meta, "composer"):
                             piece.GetItem().meta.composer = text
                         else:
-                            if text.replace(" ","") not in piece.GetItem().meta.composer.replace(" ","") and piece.GetItem().meta.composer.replace(" ","") not in text.replace(" ",""):
+                            if text.replace(
+                                " ",
+                                "") not in piece.GetItem().meta.composer.replace(
+                                " ",
+                                "") and piece.GetItem().meta.composer.replace(
+                                " ",
+                                "") not in text.replace(
+                                " ",
+                                    ""):
                                 piece.GetItem().meta.composer += text
                     if handleType == "rights":
                         if not hasattr(piece.GetItem().meta, "copyright"):
                             piece.GetItem().meta.copyright = text
                         else:
-                            if text.replace(" ","") not in piece.GetItem().meta.copyright.replace(" ","") and piece.GetItem().meta.copyright.replace(" ","") not in text.replace(" ",""):
+                            if text.replace(
+                                " ",
+                                "") not in piece.GetItem().meta.copyright.replace(
+                                " ",
+                                "") and piece.GetItem().meta.copyright.replace(
+                                " ",
+                                "") not in text.replace(
+                                " ",
+                                    ""):
                                 piece.GetItem().meta.copyright += text
                     if handleType == "title":
                         if not hasattr(piece.GetItem().meta, "title"):
                             piece.GetItem().meta.title = text
                         else:
-                            if text.replace(" ","") not in piece.GetItem().meta.title.replace(" ","") and piece.GetItem().meta.title.replace(" ","") not in text.replace(" ",""):
+                            if text.replace(
+                                " ",
+                                "") not in piece.GetItem().meta.title.replace(
+                                " ",
+                                "") and piece.GetItem().meta.title.replace(
+                                " ",
+                                "") not in text.replace(
+                                " ",
+                                    ""):
                                 piece.GetItem().meta.title += text
                     if handleType == "page number":
                         if not hasattr(piece.GetItem().meta, "pageNum"):
@@ -397,17 +473,18 @@ def UpdatePart(tag, attrib, content, piece):
             type = ""
             if "part-group" in attrib:
                 if "number" in attrib["part-group"]:
-                   index=int(attrib["part-group"]["number"])
+                    index = int(attrib["part-group"]["number"])
                 if "type" in attrib["part-group"]:
                     type = attrib["part-group"]["type"]
             if type != "":
                 if type == "start":
                     piece.startGroup(index)
-                if type=="stop":
+                if type == "stop":
                     piece.stopGroup(index)
         if "score-part" in tag:
             if part_id is None:
-                raise(Exceptions.NoScorePartException("ERROR IN UPDATEPART: no score-part id found"))
+                raise(
+                    Exceptions.NoScorePartException("ERROR IN UPDATEPART: no score-part id found"))
             elif piece.getPart(part_id) is None:
                 piece.addPart(Part.Part(), index=part_id)
                 return_val = 1
@@ -418,8 +495,10 @@ def UpdatePart(tag, attrib, content, piece):
                     return_val = 1
             if "part-abbreviation" in tag:
                 if "part-abbreviation" in content and part_id is not None:
-                    piece.getPart(part_id).GetItem().shortname = content["part-abbreviation"]
+                    piece.getPart(part_id).GetItem().shortname = content[
+                        "part-abbreviation"]
     return return_val
+
 
 def handleArticulation(tag, attrs, content, piece):
     global note
@@ -454,23 +533,25 @@ def handleArticulation(tag, attrs, content, piece):
             return 1
     return None
 
+
 def HandleMovementBetweenDurations(tags, attrs, chars, piece):
     global staff_id, last_note
-    measure_id = IdAsInt(helpers.GetID(attrs, "measure","number"))
+    measure_id = IdAsInt(helpers.GetID(attrs, "measure", "number"))
 
-    part_id = helpers.GetID(attrs, "part","id")
+    part_id = helpers.GetID(attrs, "part", "id")
     if part_id is not None:
         if measure_id is not None:
             part = piece.getPart(part_id)
             if part.getMeasure(measure_id, staff_id) is None:
                 part.addEmptyMeasure(measure_id, staff_id)
             measure = part.getMeasure(measure_id, staff_id)
-            if "backup" in tags and tags[-1]=="duration":
+            if "backup" in tags and tags[-1] == "duration":
                 part.CheckDivisions()
                 part.Backup(measure_id, duration=float(chars["duration"]))
             if "forward" in tags and tags[-1] == "duration":
                 part.CheckDivisions()
                 part.Forward(measure_id, duration=float(chars["duration"]))
+
 
 def HandleFermata(tags, attrs, chars, piece):
     global note
@@ -486,6 +567,7 @@ def HandleFermata(tags, attrs, chars, piece):
         note.addNotation(fermata)
     return None
 
+
 def handleOtherNotations(tag, attrs, content, piece):
     global note
     if len(tag) > 0:
@@ -499,7 +581,11 @@ def handleOtherNotations(tag, attrs, content, piece):
                 if "slur" in attrs and "type" in attrs["slur"]:
                     notation.type = attrs["slur"]["type"]
                 note.AddSlur(notation)
-            if tag[-2] == "technical" and tag[-1] != "bend" and tag[-1] != "hammer-on" and tag[-1] != "pull-off":
+            if tag[-
+                   2] == "technical" and tag[-
+                                             1] != "bend" and tag[-
+                                                                  1] != "hammer-on" and tag[-
+                                                                                            1] != "pull-off":
                 text = None
                 if tag[-1] in content:
                     text = content[tag[-1]]
@@ -513,6 +599,7 @@ def handleOtherNotations(tag, attrs, content, piece):
             return 1
     return None
 
+
 def HandleMeasures(tag, attrib, content, piece):
     global items, notes, expressions, staff_id, direction, expression, voice
     part_id = helpers.GetID(attrib, "part", "id")
@@ -524,7 +611,7 @@ def HandleMeasures(tag, attrib, content, piece):
     if len(tag) > 0 and "measure" in tag:
 
         if "staff" in tag:
-                staff_id = int(content["staff"])
+            staff_id = int(content["staff"])
         if part_id is None:
             part_id = piece.root.GetChildrenIndexes()[-1]
         if part_id is not None:
@@ -537,7 +624,7 @@ def HandleMeasures(tag, attrib, content, piece):
         if part is not None:
             if tag[-1] == "staves":
                 staves = int(content["staves"])
-                for staff in range(1, staves+1):
+                for staff in range(1, staves + 1):
                     if part.getMeasure(measure_id, staff) is None:
                         part.addEmptyMeasure(measure_id, staff)
             measure = part.getMeasure(measure=measure_id, staff=staff_id)
@@ -557,7 +644,9 @@ def HandleMeasures(tag, attrib, content, piece):
             if "key" in attrib:
                 if "number" in attrib["key"]:
                     staff_id = int(attrib["key"]["number"])
-                    measure = part.getMeasure(measure=measure_id, staff=staff_id)
+                    measure = part.getMeasure(
+                        measure=measure_id,
+                        staff=staff_id)
                     if measure is None:
                         part.addEmptyMeasure(measure_id, staff_id)
                         measure = part.getMeasure(measure_id, staff_id)
@@ -592,35 +681,44 @@ def HandleMeasures(tag, attrib, content, piece):
                 if symbol is not None:
                     measure.meter.style = symbol
             else:
-                measure.meter = Meter.Meter(beats=int(content["beats"]), style=symbol)
+                measure.meter = Meter.Meter(
+                    beats=int(
+                        content["beats"]),
+                    style=symbol)
             return_val = 1
         if tag[-1] == "beat-type" and ("time" in tag or "meter" in tag):
             symbol = helpers.GetID(attrib, "time", "symbol")
             if hasattr(measure, "meter"):
-                measure.meter.type= int(content["beat-type"])
+                measure.meter.type = int(content["beat-type"])
                 if symbol is not None:
                     measure.meter.style = symbol
             else:
-                measure.meter = Meter.Meter(type=int(content["beat-type"]), style=symbol)
+                measure.meter = Meter.Meter(
+                    type=int(
+                        content["beat-type"]),
+                    style=symbol)
             return_val = 1
         if "clef" in tag:
-            handleClef(tag,attrib,content,piece)
+            handleClef(tag, attrib, content, piece)
         if "transpose" in tag:
             if "diatonic" in tag:
                 if hasattr(measure, "transpose"):
                     measure.transpose.diatonic = content["diatonic"]
                 else:
-                    measure.transpose = Measure.Transposition(diatonic=content["diatonic"])
+                    measure.transpose = Measure.Transposition(
+                        diatonic=content["diatonic"])
             if "chromatic" in tag:
                 if hasattr(measure, "transpose"):
                     measure.transpose.chromatic = content["chromatic"]
                 else:
-                    measure.transpose = Measure.Transposition(chromatic=content["chromatic"])
+                    measure.transpose = Measure.Transposition(
+                        chromatic=content["chromatic"])
             if "octave-change" in tag:
                 if hasattr(measure, "transpose"):
                     measure.transpose.octave = content["octave-change"]
                 else:
-                    measure.transpose = Measure.Transposition(octave=content["octave-change"])
+                    measure.transpose = Measure.Transposition(
+                        octave=content["octave-change"])
             return_val = 1
         if "print" in tag:
             part = piece.getPart(part_id)
@@ -630,14 +728,16 @@ def HandleMeasures(tag, attrib, content, piece):
                     for staff in staves:
                         if part.getMeasure(measure_id, staff) is None:
                             part.addEmptyMeasure(measure_id, staff)
-                        measure= part.getMeasure(measure_id, staff)
-                        measure.newSystem = YesNoToBool(attrib["print"]["new-system"])
+                        measure = part.getMeasure(measure_id, staff)
+                        measure.newSystem = YesNoToBool(
+                            attrib["print"]["new-system"])
                 if "new-page" in attrib["print"]:
                     for staff in staves:
                         if part.getMeasure(measure_id, staff) is None:
                             part.addEmptyMeasure(measure_id, staff)
-                        measure= part.getMeasure(measure_id, staff)
-                        measure.newPage = YesNoToBool(attrib["print"]["new-page"])
+                        measure = part.getMeasure(measure_id, staff)
+                        measure.newPage = YesNoToBool(
+                            attrib["print"]["new-page"])
             return_val = 1
 
         if "harmony" in tag:
@@ -676,7 +776,8 @@ def HandleMeasures(tag, attrib, content, piece):
                     if "halign" in attrib["kind"]:
                         kind.halign = attrib["kind"]["halign"]
                     if "parenthesis-degrees" in attrib["kind"]:
-                        kind.parenthesis = attrib["kind"]["parenthesis-degrees"]
+                        kind.parenthesis = attrib[
+                            "kind"]["parenthesis-degrees"]
 
             if tag[-1] == "voice":
                 voice = int(content["voice"])
@@ -719,7 +820,8 @@ def HandleMeasures(tag, attrib, content, piece):
                         else:
                             direction.frame.firstFret = [content["first-fret"]]
                             if "text" in attrib["first-fret"]:
-                                direction.frame.firstFret.append(attrib["first-fret"]["text"])
+                                direction.frame.firstFret.append(
+                                    attrib["first-fret"]["text"])
                 if "frame-strings" in tag and "frame-strings" in content:
                     direction.frame.strings = content["frame-strings"]
                 if "frame-frets" in tag and "frame-frets" in content:
@@ -731,7 +833,8 @@ def HandleMeasures(tag, attrib, content, piece):
 
                     if "string" in tag and "string" in content:
                         frame_note.string = content["string"]
-                        direction.frame.notes[int(content["string"])] = frame_note
+                        direction.frame.notes[
+                            int(content["string"])] = frame_note
                     if "fret" in tag and "fret" in content:
                         frame_note.fret = content["fret"]
                     if "barre" in tag and "barre" in attrib:
@@ -744,19 +847,20 @@ def HandleMeasures(tag, attrib, content, piece):
 
     return return_val
 
-def handleClef(tag,attrib,content,piece):
+
+def handleClef(tag, attrib, content, piece):
     global staff_id
     staff_id = IdAsInt(helpers.GetID(attrib, "clef", "number"))
     if staff_id is None:
         staff_id = 1
-    measure_id = IdAsInt(helpers.GetID(attrib,"measure","number"))
-    part_id = helpers.GetID(attrib,"part","id")
+    measure_id = IdAsInt(helpers.GetID(attrib, "measure", "number"))
+    part_id = helpers.GetID(attrib, "part", "id")
     part = piece.getPart(part_id)
     if part is not None:
-        measureNode = part.getMeasure(measure_id,staff_id)
+        measureNode = part.getMeasure(measure_id, staff_id)
         if measureNode is None:
             part.addEmptyMeasure(measure_id, staff_id)
-            measureNode = part.getMeasure(measure_id,staff_id)
+            measureNode = part.getMeasure(measure_id, staff_id)
         if tag[-1] == "clef":
             part.addClef(Clef.Clef(), measure_id, staff_id, voice)
         if measureNode is not None:
@@ -789,6 +893,7 @@ def handleClef(tag,attrib,content,piece):
                     clef.octave_change = octave
     staff_id = 1
 
+
 def handleBarline(tag, attrib, content, piece):
     part_id = helpers.GetID(attrib, "part", "id")
     measure_id = IdAsInt(helpers.GetID(attrib, "measure", "number"))
@@ -813,29 +918,34 @@ def handleBarline(tag, attrib, content, piece):
             number = None
             if "ending" in attrib:
                 if "number" in attrib["ending"]:
-                    if measure.GetBarline(location) is None or not hasattr(measure.GetBarline(location), "ending"):
+                    if measure.GetBarline(location) is None or not hasattr(
+                            measure.GetBarline(location),
+                            "ending"):
                         num_str = attrib["ending"]["number"]
                         split = num_str.split(",")
                         number = int(split[-1])
                     else:
-                        measure.GetBarline(location).ending.number = int(attrib["ending"]["number"])
+                        measure.GetBarline(location).ending.number = int(
+                            attrib["ending"]["number"])
                 if "type" in attrib["ending"]:
-                    if location not in measure.barlines or not hasattr(measure.GetBarline(location), "ending"):
+                    if location not in measure.barlines or not hasattr(
+                            measure.GetBarline(location),
+                            "ending"):
                         btype = attrib["ending"]["type"]
                     else:
-                        measure.GetBarline(location).ending.type = attrib["ending"]["type"]
+                        measure.GetBarline(
+                            location).ending.type = attrib["ending"]["type"]
 
             ending = Measure.EndingMark(type=btype, number=number)
 
             if location in measure.barlines:
                 measure.GetBarline(location).ending = ending
 
-
         if tag[-1] == "bar-style":
-                if location not in measure.barlines:
-                    style = content["bar-style"]
-                else:
-                    measure.GetBarline(location).style = style
+            if location not in measure.barlines:
+                style = content["bar-style"]
+            else:
+                measure.GetBarline(location).style = style
         if tag[-1] == "repeat":
             if "repeat" in attrib:
                 times = helpers.GetID(attrib, "repeat", "times")
@@ -847,13 +957,27 @@ def handleBarline(tag, attrib, content, piece):
                     repeat = attrib["repeat"]["direction"]
                     if hasattr(barline, "ending"):
                         position = -2
-                        index = part.GetMeasureIDAtPosition(position, staff=staff_id)
+                        index = part.GetMeasureIDAtPosition(
+                            position,
+                            staff=staff_id)
                         if index is not None:
-                            right_barline = part.getMeasure(index, staff_id).GetBarline("right")
-                            if right_barline is not None and hasattr(right_barline, "ending"):
+                            right_barline = part.getMeasure(
+                                index,
+                                staff_id).GetBarline("right")
+                            if right_barline is not None and hasattr(
+                                    right_barline,
+                                    "ending"):
                                 position -= 1
-                                index = part.GetMeasureIDAtPosition(position, staff=staff_id)
-                            part.AddBarline(measure=index, staff=staff_id, item=Measure.Barline(repeat="backward", repeatNum=times), location="right")
+                                index = part.GetMeasureIDAtPosition(
+                                    position,
+                                    staff=staff_id)
+                            part.AddBarline(
+                                measure=index,
+                                staff=staff_id,
+                                item=Measure.Barline(
+                                    repeat="backward",
+                                    repeatNum=times),
+                                location="right")
                             #part.AddBarline(measure=index, staff=staff_id, item=Measure.Barline(repeat="forward"), location="left")
                             if barline.ending.number == 1:
                                 barline.repeat = "backward-barline"
@@ -863,13 +987,24 @@ def handleBarline(tag, attrib, content, piece):
                             barline.repeat = repeat
                             if times is not None:
                                 barline.repeatNum = times
-                            part.AddBarline(item=barline, measure=measure_id, staff=staff_id, location=location)
-
+                            part.AddBarline(
+                                item=barline,
+                                measure=measure_id,
+                                staff=staff_id,
+                                location=location)
 
         if location not in measure.barlines:
             if barline is None:
-                barline = Measure.Barline(style=style, repeat=repeat, ending=ending)
-            part.AddBarline(measure=measure_id, staff=staff_id, item=barline, location=location)
+                barline = Measure.Barline(
+                    style=style,
+                    repeat=repeat,
+                    ending=ending)
+            part.AddBarline(
+                measure=measure_id,
+                staff=staff_id,
+                item=barline,
+                location=location)
+
 
 def CheckID(tag, attrs, string, id_name):
     if string in tag:
@@ -899,8 +1034,6 @@ def CreateNote(tag, attrs, content, piece):
             note.rest = True
         if "cue" in tag:
             note.cue = True
-
-
 
         if tag[-1] == "grace":
             slash = False
@@ -939,7 +1072,6 @@ def CreateNote(tag, attrs, content, piece):
             part.NewBeam(type, staff_id)
             note.addBeam(id, Note.Beam(type))
 
-
         if tag[-1] == "accidental":
             if not hasattr(note, "pitch"):
                 note.pitch = Note.Pitch()
@@ -960,6 +1092,7 @@ def CreateNote(tag, attrs, content, piece):
     handleTimeMod(tag, attrs, content, piece)
     return ret_value
 
+
 def HandleNoteheads(tags, attrs, content, piece):
     if "note" in tags:
         if tags[-1] == "notehead":
@@ -970,6 +1103,8 @@ def HandleNoteheads(tags, attrs, content, piece):
                     note.notehead.filled = filled
             if "notehead" in content:
                 note.notehead.type = content["notehead"]
+
+
 def HandleArpeggiates(tags, attrs, content, piece):
     if len(tags) > 0:
         if tags[-1] == "arpeggiate":
@@ -986,6 +1121,7 @@ def HandleArpeggiates(tags, attrs, content, piece):
                     type = attrs["non-arpeggiate"]["type"]
             narpegg = Note.NonArpeggiate(type=type)
             note.addNotation(narpegg)
+
 
 def HandleSlidesAndGliss(tags, attrs, content, piece):
     type = None
@@ -1006,6 +1142,7 @@ def HandleSlidesAndGliss(tags, attrs, content, piece):
         gliss = Note.Glissando(type=type, lineType=lineType, number=number)
         note.addNotation(gliss)
 
+
 def handleOrnaments(tags, attrs, content, piece):
     global note
     if "ornaments" in tags:
@@ -1018,10 +1155,10 @@ def handleOrnaments(tags, attrs, content, piece):
         if tags[-1] == "wavy-line":
             type = ""
             if "wavy-line" in attrs:
-                    if "type" in attrs["wavy-line"]:
-                        type = attrs["wavy-line"]["type"]
-                    else:
-                        type = True
+                if "type" in attrs["wavy-line"]:
+                    type = attrs["wavy-line"]["type"]
+                else:
+                    type = True
             note.addNotation(Ornaments.TrillSpanner(line=type))
         if tags[-1] == "turn":
             note.addNotation(Ornaments.Turn())
@@ -1036,6 +1173,7 @@ def handleOrnaments(tags, attrs, content, piece):
             if "tremolo" in content:
                 value = int(content["tremolo"])
             note.addNotation(Ornaments.Tremolo(type=type, value=value))
+
 
 def SetupFormat(tags, attrs, text, piece):
     return None
@@ -1066,6 +1204,7 @@ def HandlePitch(tags, attrs, text, piece):
                 return_val = 1
     return return_val
 
+
 def HandleDirections(tags, attrs, chars, piece):
     global expressions, items, staff_id, direction, expression, note
     return_val = None
@@ -1073,14 +1212,16 @@ def HandleDirections(tags, attrs, chars, piece):
         return None
 
     if "direction" in tags:
-        measure_id = IdAsInt(helpers.GetID(attrs, "measure","number"))
+        measure_id = IdAsInt(helpers.GetID(attrs, "measure", "number"))
         part_id = helpers.GetID(attrs, "part", "id")
         measure = None
         if measure_id is not None and part_id is not None:
             measure = piece.getPart(part_id).getMeasure(measure_id, staff_id)
             if measure is None:
                 piece.getPart(part_id).addEmptyMeasure(measure_id, staff_id)
-                measure = piece.getPart(part_id).getMeasure(measure_id, staff_id)
+                measure = piece.getPart(part_id).getMeasure(
+                    measure_id,
+                    staff_id)
         placement = None
         if measure is None:
             return None
@@ -1104,7 +1245,11 @@ def HandleDirections(tags, attrs, chars, piece):
                     size = attrs["words"]["font-size"]
                 if "font-family" in attrs["words"]:
                     font = attrs["words"]["font-family"]
-            direction = Directions.Direction(font=font,text=text,size=size,placement=placement)
+            direction = Directions.Direction(
+                font=font,
+                text=text,
+                size=size,
+                placement=placement)
         if tags[-1] == "voice":
             voice = int(chars["voice"])
         if tags[-1] == "rehearsal":
@@ -1119,20 +1264,29 @@ def HandleDirections(tags, attrs, chars, piece):
                     size = attrs["words"]["font-size"]
                 if "font-family" in attrs["words"]:
                     font = attrs["words"]["font-family"]
-            direction = Directions.RehearsalMark(font=font,text=text,size=size,placement=placement)
+            direction = Directions.RehearsalMark(
+                font=font,
+                text=text,
+                size=size,
+                placement=placement)
         if tags[-1] == "metronome":
             if direction is not None:
                 if type(direction) != Directions.Metronome:
-                    new_obj = Directions.Metronome(text=copy.deepcopy(direction))
+                    new_obj = Directions.Metronome(
+                        text=copy.deepcopy(direction))
                     direction = new_obj
         if "metronome" in tags:
             if tags[-1] == "beat-unit":
                 return_val = 1
                 unit = chars["beat-unit"]
                 if direction is None:
-                    direction = Directions.Metronome(placement=placement,beat=unit)
+                    direction = Directions.Metronome(
+                        placement=placement,
+                        beat=unit)
                 else:
-                    if not hasattr(direction, "beat") or direction.beat is None:
+                    if not hasattr(
+                            direction,
+                            "beat") or direction.beat is None:
                         direction.beat = unit
                     else:
                         direction.secondBeat = unit
@@ -1143,7 +1297,8 @@ def HandleDirections(tags, attrs, chars, piece):
                     if "font-size" in attrs["metronome"]:
                         direction.size = attrs["metronome"]["font-size"]
                     if "parentheses" in attrs["metronome"]:
-                        direction.parentheses = YesNoToBool(attrs["metronome"]["parentheses"])
+                        direction.parentheses = YesNoToBool(
+                            attrs["metronome"]["parentheses"])
             if tags[-1] == "per-minute":
                 return_val = 1
                 pm = chars["per-minute"]
@@ -1158,19 +1313,23 @@ def HandleDirections(tags, attrs, chars, piece):
                     if "font-size" in attrs["metronome"]:
                         direction.size = float(attrs["metronome"]["font-size"])
                     if "parentheses" in attrs["metronome"]:
-                        direction.parentheses = YesNoToBool(attrs["metronome"]["parentheses"])
+                        direction.parentheses = YesNoToBool(
+                            attrs["metronome"]["parentheses"])
         if tags[-1] == "wedge":
             w_type = None
             if "wedge" in attrs:
                 if "type" in attrs["wedge"]:
                     w_type = attrs["wedge"]["type"]
-            expression = Directions.Wedge(placement = placement,type=w_type)
+            expression = Directions.Wedge(placement=placement, type=w_type)
 
         if len(tags) > 1:
             if tags[-2] == "dynamics" and tags[-1] != "other-dynamics":
-                expression = Directions.Dynamic(placement=placement, mark=tags[-1])
+                expression = Directions.Dynamic(
+                    placement=placement, mark=tags[-1])
             if tags[-2] == "dynamics" and tags[-1] == "other-dynamics":
-                expression = Directions.Dynamic(placement=placement, text=chars["other-dynamics"])
+                expression = Directions.Dynamic(
+                    placement=placement,
+                    text=chars["other-dynamics"])
 
         if "sound" in tags:
             return_val = 1
@@ -1180,7 +1339,7 @@ def HandleDirections(tags, attrs, chars, piece):
                 if "tempo" in attrs["sound"]:
                     measure.tempo = attrs["sound"]["tempo"]
         l_type = None
-        if tags[-1] in ["wavy-line","octave-shift","pedal","bracket"]:
+        if tags[-1] in ["wavy-line", "octave-shift", "pedal", "bracket"]:
             if tags[-1] in attrs:
                 if "type" in attrs[tags[-1]]:
                     l_type = attrs[tags[-1]]["type"]
@@ -1192,8 +1351,10 @@ def HandleDirections(tags, attrs, chars, piece):
                     amount = int(attrs["octave-shift"]["size"])
                 if "font" in attrs["octave-shift"]:
                     font = attrs["octave-shift"]["font"]
-            direction = Directions.OctaveShift(type=l_type, amount=amount, font=font)
-
+            direction = Directions.OctaveShift(
+                type=l_type,
+                amount=amount,
+                font=font)
 
         if tags[-1] == "wavy-line":
             direction = Directions.WavyLine(type=l_type)
@@ -1206,8 +1367,8 @@ def HandleDirections(tags, attrs, chars, piece):
         if tags[-1] == "bracket":
             num = None
             ltype = None
-            elength=None
-            lineend=None
+            elength = None
+            lineend = None
             if "bracket" in attrs:
                 if "number" in attrs["bracket"]:
                     num = int(attrs["bracket"]["number"])
@@ -1217,10 +1378,16 @@ def HandleDirections(tags, attrs, chars, piece):
                     elength = int(attrs["bracket"]["end-length"])
                 if "line-end" in attrs["bracket"]:
                     lineend = attrs["bracket"]["line-end"]
-            direction = Directions.Bracket(lineEnd=lineend, elength=elength, type=l_type, ltype=ltype, number=num)
+            direction = Directions.Bracket(
+                lineEnd=lineend,
+                elength=elength,
+                type=l_type,
+                ltype=ltype,
+                number=num)
     HandleRepeatMarking(tags, attrs, chars, piece)
 
     return return_val
+
 
 def HandleRepeatMarking(tags, attrs, chars, piece):
     global staff_id, last_note, direction
@@ -1229,10 +1396,12 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
             voice = int(chars["voice"])
         measure = None
         part_id = helpers.GetID(attrs, "part", "id")
-        measure_id = IdAsInt(helpers.GetID(attrs, "measure","number"))
+        measure_id = IdAsInt(helpers.GetID(attrs, "measure", "number"))
         if part_id is not None:
             if measure_id is not None:
-                measure = piece.getPart(part_id).getMeasure(measure_id, staff_id)
+                measure = piece.getPart(part_id).getMeasure(
+                    measure_id,
+                    staff_id)
 
         if measure is not None:
             d_type = None
@@ -1257,7 +1426,6 @@ def HandleRepeatMarking(tags, attrs, chars, piece):
                         measure.tocoda = attrs["sound"]["tocoda"]
 
 
-
 def handleLyrics(tags, attrs, chars, piece):
     global note
     if "lyric" in tags:
@@ -1273,6 +1441,7 @@ def handleLyrics(tags, attrs, chars, piece):
             note.lyrics[number].text = chars["text"]
         if tags[-1] == "syllabic":
             note.lyrics[number].syllabic = chars["syllabic"]
+
 
 def handleTimeMod(tags, attrs, chars, piece):
     if "notations" in tags:
@@ -1296,9 +1465,10 @@ def handleTimeMod(tags, attrs, chars, piece):
             note.timeMod.normal = int(chars["normal-notes"])
     return None
 
+
 def CheckDynamics(tag):
     return_val = False
-    dmark = ["p","f"]
+    dmark = ["p", "f"]
     if len(tag) == 1 and tag in dmark:
         return_val = True
     elif len(tag) == 2:
@@ -1314,6 +1484,3 @@ def CheckDynamics(tag):
                 else:
                     return_val = False
     return return_val
-
-
-

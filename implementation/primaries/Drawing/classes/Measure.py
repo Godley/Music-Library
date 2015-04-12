@@ -5,6 +5,7 @@ except:
 
 
 class Barline(BaseClass.Base):
+
     def __init__(self, **kwargs):
         if "style" in kwargs:
             if kwargs["style"] is not None:
@@ -29,22 +30,28 @@ class Barline(BaseClass.Base):
         if not hasattr(self, "ending") and not hasattr(self, "repeat"):
             lilystring += " \\bar \""
             if hasattr(self, "style"):
-                options = {"light-light":"||","heavy-light":".|","light-heavy":"|.",
-                           "heavy-heavy":"..","dotted":";","dashed":"!","none":"","tick":"'"}
+                options = {
+                    "light-light": "||",
+                    "heavy-light": ".|",
+                    "light-heavy": "|.",
+                    "heavy-heavy": "..",
+                    "dotted": ";",
+                    "dashed": "!",
+                    "none": "",
+                    "tick": "'"}
                 if self.style in options:
                     lilystring += options[self.style]
                 else:
                     lilystring += "|"
-                lilystring+= "\""
+                lilystring += "\""
             else:
                 lilystring += "\""
         else:
 
-
-
             if hasattr(self, "repeat"):
                 if self.repeat == "forward":
-                    lilystring = " \\repeat volta "+str(self.repeatNum)+" {"
+                    lilystring = " \\repeat volta " + \
+                        str(self.repeatNum) + " {"
                 if self.repeat == "backward" and not hasattr(self, "ending"):
                     lilystring += "}"
                 if self.repeat == "forward-barline":
@@ -58,7 +65,9 @@ class Barline(BaseClass.Base):
 
         return lilystring
 
+
 class EndingMark(BaseClass.Base):
+
     def __init__(self, **kwargs):
         if "number" in kwargs:
             self.number = kwargs["number"]
@@ -74,7 +83,10 @@ class EndingMark(BaseClass.Base):
 
         else:
             lilystring = "\\alternative {"
-        if not hasattr(self, "type") or (self.type != "discontinue" and self.type != "stop"):
+        if not hasattr(
+                self,
+                "type") or (
+                self.type != "discontinue" and self.type != "stop"):
             lilystring += "{"
         if hasattr(self, "type"):
             if self.type == "stop":
@@ -83,7 +95,9 @@ class EndingMark(BaseClass.Base):
                 lilystring = "}\n}"
         return lilystring
 
+
 class Transposition(BaseClass.Base):
+
     def __init__(self, **kwargs):
         BaseClass.Base.__init__(self)
         if "diatonic" in kwargs:

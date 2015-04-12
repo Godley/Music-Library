@@ -1,15 +1,15 @@
 __author__ = 'charlotte'
-clef_type = {"GG":"GG",
-             "TENORG":"tenorG",
-             "C":"C",
-             "F":"F",
+clef_type = {"GG": "GG",
+             "TENORG": "tenorG",
+             "C": "C",
+             "F": "F",
              "G2": "treble",
              "G1": "french",
              "F4": "bass",
              "F3": "varbaritone",
              "F5": "subbass",
              "C3": "alto",
-             "PERCUSSION":"percussion",
+             "PERCUSSION": "percussion",
              "C4": "tenor",
              "C5": "baritone",
              "C2": "mezzosoprano",
@@ -21,6 +21,7 @@ clef_type = {"GG":"GG",
 
 
 class Clef(object):
+
     def __init__(self, **kwargs):
         if "sign" in kwargs:
             self.sign = kwargs["sign"]
@@ -61,8 +62,8 @@ class Clef(object):
         else:
             val = ""
         if hasattr(self, "octave_change") and self.octave_change is not None:
-            options = {1:"^8",2:"^15",-1:"_8",-2:"_15"}
+            options = {1: "^8", 2: "^15", -1: "_8", -2: "_15"}
             if self.octave_change in options:
-                clef = "\""+clef+ options[self.octave_change]+"\""
+                clef = "\"" + clef + options[self.octave_change] + "\""
         val += clef
         return val
