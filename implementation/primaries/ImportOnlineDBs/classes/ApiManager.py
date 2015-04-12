@@ -32,7 +32,7 @@ class ApiManager(object):
                 secret = data_set[source_id][id]["secret"]
                 status = self.sources[source_id][0].downloadFile(id, secret, type=extension)
                 if(status == 200):
-                    location = os.path.join(self.folder,id + "."+extension)
+                    location = os.path.join(id + "."+extension)
                     data_list.append(location)
             results[source_id] = data_list
         return results

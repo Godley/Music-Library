@@ -1,16 +1,21 @@
+
 import unittest
 import os
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 
-
+manager = MusicManager.MusicManager()
+result_set = manager.parseApiFiles()
+file_list = manager.unzipApiFiles()
 class TestMusicManagerWithApiIntegration(unittest.TestCase):
-
+    """
+    tests which confirm functionality of API manager inside the musicmanager class
+    separated from music manager tests because these take longer on a slow internet connection
+    """
     def setUp(self):
         self.manager = MusicManager.MusicManager()
-        self.result_set = self.manager.parseApiFiles()
+        self.result_set = result_set
 
     def testUnzipData(self):
-        file_list = self.manager.unzipApiFiles()
         for source in file_list:
             for file in file_list[source]:
                 self.assertTrue(os.path.exists(file))
@@ -36,3 +41,8 @@ class TestMusicManagerWithApiIntegration(unittest.TestCase):
         for source in self.result_set:
             for file in self.result_set[source]:
                 self.assertTrue("lyricist" in self.result_set[source][file])
+
+    def testParseAddAndFind(self):
+        self.manager.addApiFiles(result_set)
+        results = self.manager.getFileList(online=True)
+        self.assertEqual(len(results), len(self.result_set["MuseScore"]))

@@ -180,14 +180,20 @@ class MusicManager(object):
                         source][file_id]["lyricist"]
         return result_set
 
+    def addApiFiles(self, data):
+        for source in data:
+            for file in data[source]:
+                self.addPiece(file, data[source][file])
+
+
     def addPiece(self, filename, data):
         self.__data.addPiece(filename, data)
 
     def getPieceInfo(self, filenames):
         return self.__data.getAllPieceInfo(filenames)
 
-    def getFileList(self):
-        return self.__data.getFileList()
+    def getFileList(self, online=False):
+        return self.__data.getFileList(online=online)
 
     def setupFolderBrowser(self):
         db_files = self.__data.getFileList()
