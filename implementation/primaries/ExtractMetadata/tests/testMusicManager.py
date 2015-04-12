@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 
 
-class testMusicManager(unittest.TestCase):
+class TestMusicManager(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None

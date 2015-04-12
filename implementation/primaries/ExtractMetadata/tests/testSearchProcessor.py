@@ -2,7 +2,7 @@ import unittest
 from implementation.primaries.ExtractMetadata.classes import SearchProcessor
 
 
-class testSearchProcessor(unittest.TestCase):
+class TestSearchProcessor(unittest.TestCase):
 
     def testTitleOrComposerOrLyricist(self):
         input = "hello, world"

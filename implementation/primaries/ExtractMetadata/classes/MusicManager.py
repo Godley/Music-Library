@@ -1,10 +1,16 @@
-import os, shutil
+import os
+import shutil
 import zipfile
 from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
 
+
 class Unzipper(object):
-    def __init__(self, folder="/Users/charlottegodley/PycharmProjects/FYP", files=[]):
+
+    def __init__(
+            self,
+            folder="/Users/charlottegodley/PycharmProjects/FYP",
+            files=[]):
         self.folder = folder
         self.files = files
 
@@ -19,15 +25,18 @@ class Unzipper(object):
             if os.path.exists(path):
                 zip_file = zipfile.ZipFile(path)
                 zip_file.extractall(path=self.folder)
-                file = [f.filename for f in zip_file.filelist if "META-INF" not in f.filename]
+                file = [
+                    f.filename for f in zip_file.filelist if "META-INF" not in f.filename]
                 resulting_file_list.append(file[0])
 
         return resulting_file_list
 
-
     def unzip(self):
         output_list = self.createOutputList()
-        output_paths = [os.path.join(self.folder, file) for file in output_list]
+        output_paths = [
+            os.path.join(
+                self.folder,
+                file) for file in output_list]
         results = self.unzipInputFiles()
         for expected, result, path in zip(output_list, results, output_paths):
             if result != expected:
@@ -36,8 +45,13 @@ class Unzipper(object):
         if os.path.exists(os.path.join(self.folder, 'META-INF')):
             shutil.rmtree(os.path.join(self.folder, 'META-INF'))
 
+
 class FolderBrowser(object):
-    def __init__(self, db_files=[], folder='/Users/charlottegodley/PycharmProjects/FYP'):
+
+    def __init__(
+            self,
+            db_files=[],
+            folder='/Users/charlottegodley/PycharmProjects/FYP'):
         self.db_files = db_files
         self.folder = folder
 
@@ -45,10 +59,10 @@ class FolderBrowser(object):
         self.db_files = files
 
     def getFolderFiles(self):
-        '''
+        """
         method to search the given folder for all xml and mxl files
         :return: dictionary containing 2 optional indexes - xml and mxl depending whether any exist of either type
-        '''
+        """
         folder_files = {}
         for root, dirs, files in os.walk(self.folder):
             for file in files:
@@ -68,10 +82,10 @@ class FolderBrowser(object):
             return files["mxl"]
 
     def getNewFileList(self):
-        '''
+        """
         method to determine from a list of collected xml files from getFolderFiles which ones are new to the DB
         :return: list of file names which aren't in the db
-        '''
+        """
         files = self.getFolderFiles()
         new_files = []
         if "xml" in files:
@@ -80,10 +94,11 @@ class FolderBrowser(object):
         return new_files
 
     def getOldRecords(self):
-        '''
-        method to determine from a list of xml files from getFolderFiles which ones in the DB no longer exist in this folder
+        """
+        method to determine from a list of xml files from getFolderFiles which ones in the DB no
+        longer exist in this folder
         :return: list of file names which are in the db but don't exist
-        '''
+        """
         files = self.getFolderFiles()
         old_files = []
         if "xml" in files:
@@ -92,10 +107,11 @@ class FolderBrowser(object):
         return old_files
 
     def getNewAndOldFiles(self):
-        '''
-        method which will do both of the above methods without calling self.getFolderFiles twice which is probably inefficient
+        """
+        method which will do both of the above methods without calling self.getFolderFiles twice
+        which is probably inefficient
         :return: dict containing new and old files separated by relevant indices
-        '''
+        """
         files = self.getFolderFiles()
         result_set = {}
         if "xml" in files:
@@ -106,33 +122,38 @@ class FolderBrowser(object):
             result_set["new"] = new_files
         return result_set
 
+
 class MusicManager(object):
+
     def __init__(self, folder='/Users/charlottegodley/PycharmProjects/FYP'):
         self.folder = folder
-        self.__data = DataLayer.MusicData(os.path.join(self.folder, "music.db"))
+        self.__data = DataLayer.MusicData(
+            os.path.join(
+                self.folder,
+                "music.db"))
         self.setupFolderBrowser()
         self.apiManager = ApiManager.ApiManager(folder=self.folder)
 
     def unzipApiFiles(self):
-        '''
+        """
         method to download API files and unzip them as necessary
         :return: dictionary of results indexed by source name
-        '''
+        """
         file_set = self.apiManager.downloadAllFiles()
         self.handleZips()
         results = {}
         for source in file_set:
             results[source] = []
             for file in file_set[source]:
-                n_filename = file.split(".")[0]+".xml"
+                n_filename = file.split(".")[0] + ".xml"
                 results[source].append(n_filename)
         return results
 
     def parseApiFiles(self):
-        '''
+        """
         method to extract data from apis and parse each created file for metadata
         :return: dictionary of data indexed by filename
-        '''
+        """
         cleaned_set = self.apiManager.fetchAllData()
         file_set = self.unzipApiFiles()
         result_set = {}
@@ -140,16 +161,23 @@ class MusicManager(object):
             result_set[source] = {}
             for file in file_set[source]:
                 ignore_list = self.apiManager.getSourceIgnoreList(source)
-                data = self.parseXMLFile(file, parser=OnlineMetaParser.OnlineMetaParser(source=source, ignored=ignore_list))
+                data = self.parseXMLFile(
+                    file,
+                    parser=OnlineMetaParser.OnlineMetaParser(
+                        source=source,
+                        ignored=ignore_list))
                 result_set[source][file] = data
                 file_id = file.split("/")[-1].split(".")[0]
                 if "title" in cleaned_set[source][file_id]:
-                    result_set[source][file]["title"] = cleaned_set[source][file_id]["title"]
+                    result_set[source][file]["title"] = cleaned_set[
+                        source][file_id]["title"]
                 if "composer" in cleaned_set[source][file_id]:
-                    result_set[source][file]["composer"] = cleaned_set[source][file_id]["composer"]
+                    result_set[source][file]["composer"] = cleaned_set[
+                        source][file_id]["composer"]
 
                 if "lyricist" in cleaned_set[source][file_id]:
-                    result_set[source][file]["lyricist"] = cleaned_set[source][file_id]["lyricist"]
+                    result_set[source][file]["lyricist"] = cleaned_set[
+                        source][file_id]["lyricist"]
         return result_set
 
     def addPiece(self, filename, data):
@@ -163,7 +191,9 @@ class MusicManager(object):
 
     def setupFolderBrowser(self):
         db_files = self.__data.getFileList()
-        self.folder_browser = FolderBrowser(db_files=db_files, folder=self.folder)
+        self.folder_browser = FolderBrowser(
+            db_files=db_files,
+            folder=self.folder)
 
     def handleZips(self):
         zip_files = self.folder_browser.getZipFiles()
@@ -179,7 +209,9 @@ class MusicManager(object):
 
     def getPieceSummary(self, file_list, sort_method="title"):
         info = self.__data.getAllPieceInfo(file_list)
-        summaries = [{"title":i["title"], "composer":i["composer"],"lyricist":i["lyricist"],
+        summaries = [{"title": i["title"],
+                      "composer":i["composer"],
+                      "lyricist":i["lyricist"],
                       "filename":i["filename"]} for i in info]
         results = sorted(summaries, key=lambda k: str(k[sort_method]))
         summary_strings = []
@@ -192,45 +224,46 @@ class MusicManager(object):
             if result["composer"] != -1:
                 summary += result["composer"]
             if result["lyricist"] != -1:
-                summary += ", "+result["lyricist"]
-            summary += "("+result["filename"]+")"
-            summary_strings.append((summary,result["filename"]))
+                summary += ", " + result["lyricist"]
+            summary += "(" + result["filename"] + ")"
+            summary_strings.append((summary, result["filename"]))
         return summary_strings
 
     def getPieceSummaryStrings(self, sort_method="title"):
         file_list = self.__data.getFileList()
-        summary_strings = self.getPieceSummary(file_list, sort_method=sort_method)
+        summary_strings = self.getPieceSummary(
+            file_list,
+            sort_method=sort_method)
 
         return summary_strings
 
-
     def parseOldFiles(self, file_list):
-        '''
+        """
         method to remove or archive all the files in the list within the db
-        :param file_list:
-        :return:
-        '''
+        :param file_list: files to archive
+        :return: None
+        """
         self.__data.archivePieces(file_list)
 
     def parseXMLFile(self, filename, parser=MetaParser.MetaParser()):
-        data_set = parser.parse(os.path.join(self.folder,filename))
+        data_set = parser.parse(os.path.join(self.folder, filename))
         return data_set
 
     def parseNewFiles(self, file_list):
-        '''
+        """
         method to call the sax parser on each of the new files then send the data to the data layer
         :param file_list:
         :return:
-        '''
+        """
         for file in file_list:
             data_set = self.parseXMLFile(file)
             self.__data.addPiece(file, data_set)
 
     def handleXMLFiles(self):
-        '''
+        """
         method to get all the new and old files from the folder browser and call parseNew and parseOld methods
         :return:
-        '''
+        """
         files = self.folder_browser.getNewAndOldFiles()
         if "new" in files:
             self.parseNewFiles(files["new"])
@@ -247,8 +280,8 @@ class MusicManager(object):
                 combined = {}
                 file_result = self.__data.getPiece(value)
                 if len(file_result) > 0:
-                    combined["filename"] = [result[1] for result in file_result]
-
+                    combined["filename"] = [result[1]
+                                            for result in file_result]
 
                 title_result = self.__data.getPieceByTitle(value)
                 if len(title_result) > 0:
@@ -271,22 +304,23 @@ class MusicManager(object):
                 else:
                     all_matched = False
 
-
-
         if "instrument" in search_data:
             result_data = {}
             if "key" in search_data:
                 for instrument in search_data["instrument"]:
                     if instrument not in search_data["key"]:
-                        result_data[instrument] = search_data["instrument"][instrument]
+                        result_data[instrument] = search_data[
+                            "instrument"][instrument]
             if "clef" in search_data:
                 for instrument in search_data["instrument"]:
                     if instrument not in search_data["clef"]:
-                        result_data[instrument] = search_data["instrument"][instrument]
+                        result_data[instrument] = search_data[
+                            "instrument"][instrument]
             elif "key" not in search_data and "clef" not in search_data:
                 result_data = search_data["instrument"]
             if len(result_data) > 0:
-                instrument_data = self.__data.getPiecesByInstruments(result_data)
+                instrument_data = self.__data.getPiecesByInstruments(
+                    result_data)
                 if len(instrument_data) > 0:
                     results["Instruments"] = instrument_data
                 else:
@@ -308,31 +342,33 @@ class MusicManager(object):
 
         if "key" in search_data:
             if "other" in search_data["key"]:
-                keydata = self.__data.getPieceByKeys(search_data["key"]["other"])
+                keydata = self.__data.getPieceByKeys(
+                    search_data["key"]["other"])
                 if len(keydata) > 0:
                     results["Keys"] = keydata
                 else:
                     all_matched = False
                 search_data["key"].pop("other")
             if len(search_data["key"]) > 0:
-                new_results = self.__data.getPieceByInstrumentInKeys(search_data["key"])
+                new_results = self.__data.getPieceByInstrumentInKeys(
+                    search_data["key"])
                 if len(new_results) > 0:
                     results["Instruments in Keys"] = new_results
                 else:
                     all_matched = False
 
-
         if "transposition" in search_data:
-            transpos = self.__data.getPieceByInstrumentsOrSimilar(search_data["transposition"])
+            transpos = self.__data.getPieceByInstrumentsOrSimilar(
+                search_data["transposition"])
             if len(transpos) > 0:
                 results["Instrument or transposition"] = transpos
             else:
                 all_matched = False
 
-
         if "clef" in search_data:
             if "other" in search_data["clef"]:
-                clefs = self.__data.getPieceByClefs(search_data["clef"]["other"])
+                clefs = self.__data.getPieceByClefs(
+                    search_data["clef"]["other"])
                 if len(clefs) > 0:
                     results["Clefs"] = clefs
                 else:
@@ -340,29 +376,29 @@ class MusicManager(object):
                 search_data["clef"].pop("other")
 
             if len(search_data["clef"]) > 0:
-                instrument_by_clef = self.__data.getPieceByInstrumentInClefs(search_data["clef"])
+                instrument_by_clef = self.__data.getPieceByInstrumentInClefs(
+                    search_data["clef"])
                 if len(instrument_by_clef) > 0:
                     results["Instrument in Clefs"] = instrument_by_clef
                 else:
                     all_matched = False
 
-
         if "filename" in search_data:
-            #todo: implement wildcard functionality
+            # todo: implement wildcard functionality
             files = self.__data.getFileList()
-            result_files = [filename for filename in search_data["filename"] if filename in files]
+            result_files = [
+                filename for filename in search_data["filename"] if filename in files]
             if len(result_files) > 0:
                 results["Filename"] = result_files
             else:
                 all_matched = False
-
 
         if "title" in search_data:
             files = {}
             for title in search_data["title"]:
                 file_list = self.__data.getPieceByTitle(title)
                 if len(file_list) > 0:
-                    files["Title: "+title] = file_list
+                    files["Title: " + title] = file_list
             if len(files) > 0:
                 results.update(files)
             else:
@@ -373,7 +409,7 @@ class MusicManager(object):
             for title in search_data["composer"]:
                 file_list = self.__data.getPiecesByComposer(title)
                 if len(file_list) > 0:
-                    files["Composer: "+title] = file_list
+                    files["Composer: " + title] = file_list
             if len(files) > 0:
                 results.update(files)
             else:
@@ -384,17 +420,17 @@ class MusicManager(object):
             for title in search_data["lyricist"]:
                 file_list = self.__data.getPiecesByLyricist(title)
                 if len(file_list) > 0:
-                    files["Lyricist: "+title] = file_list
+                    files["Lyricist: " + title] = file_list
             if len(files) > 0:
                 results.update(files)
             else:
                 all_matched = False
 
-
         summaries = {}
         if len(results) > 0:
             if all_matched:
-                intersection = set.intersection(*[set(results[key]) for key in results])
+                intersection = set.intersection(
+                    *[set(results[key]) for key in results])
                 if len(intersection) > 0:
                     results["Exact Matches"] = intersection
             for key in results:
@@ -411,7 +447,7 @@ class MusicManager(object):
 
     def updatePlaylistTitle(self, new_title, old_title):
         row_id = self.__data.getUserPlaylist(old_title)
-        data = {"title":new_title}
+        data = {"title": new_title}
         self.__data.updateUserPlaylist(row_id, data)
 
     def getPlaylistByFilename(self, filename):
@@ -471,16 +507,15 @@ class MusicManager(object):
         return result_set
 
     def copyFiles(self, filenames):
-        '''
+        """
         method to copy a list of files from one folder to another
         :param filenames: list of files including extension and folder
         :return: none
-        '''
+        """
         for file in filenames:
             folder_file_split = file.split("/")
             f = folder_file_split[-1]
             shutil.copyfile(file, os.path.join(self.folder, f))
-
 
     def getPlaylistsFromPlaylistTable(self):
         data = self.__data.getAllUserPlaylists()
@@ -491,4 +526,3 @@ class MusicManager(object):
 
     def deletePlaylists(self, names):
         [self.__data.deletePlaylist(name) for name in names]
-

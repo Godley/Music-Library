@@ -3,7 +3,7 @@ import os
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 
 
-class testMusicManagerWithApiIntegration(unittest.TestCase):
+class TestMusicManagerWithApiIntegration(unittest.TestCase):
 
     def setUp(self):
         self.manager = MusicManager.MusicManager()

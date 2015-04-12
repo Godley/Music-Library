@@ -2,40 +2,60 @@ import xml.sax
 from xml.sax import handler, make_parser
 from implementation.primaries.Drawing.classes import helpers
 
+
 class MetaParser(object):
+
     def __init__(self):
         self.tags = []
         self.attribs = {}
         self.chars = {}
-        self.handlers = {"part-name":makeNewPart,"key":handleKey,"clef":handleClef,"transpose":handleTransposition,
-                         "time":handleMeter,"metronome":handleTempo,
-                         "movement-title":handleBibliography,"work-title":handleBibliography,
-                         "creator":handleBibliography, "credit-words":handleBibliography}
+        self.handlers = {
+            "part-name": makeNewPart,
+            "key": handleKey,
+            "clef": handleClef,
+            "transpose": handleTransposition,
+            "time": handleMeter,
+            "metronome": handleTempo,
+            "movement-title": handleBibliography,
+            "work-title": handleBibliography,
+            "creator": handleBibliography,
+            "credit-words": handleBibliography}
         self.close_tags = ["beat-unit-dot"]
         self.current_handler = None
         self.parts = {}
         self.data = {}
 
-    def StartTag(self, name, attrs):
+    def startTag(self, name, attrs):
         self.tags.append(name)
         self.attribs[name] = attrs
         if name in self.handlers:
             self.current_handler = self.handlers[name]
 
-    def ValidateData(self, data):
+    def validateData(self, data):
 
         pass
 
-    def NewData(self, data):
+    def newData(self, data):
         if len(self.tags) > 0:
             self.chars[self.tags[-1]] = data
-            if self.current_handler is not None and self.tags[-1] not in self.close_tags:
-                self.current_handler(self.tags, self.attribs, self.chars, self.parts, self.data)
+            if self.current_handler is not None and self.tags[
+                    -1] not in self.close_tags:
+                self.current_handler(
+                    self.tags,
+                    self.attribs,
+                    self.chars,
+                    self.parts,
+                    self.data)
 
-    def EndTag(self, name):
+    def endTag(self, name):
         if name in self.close_tags:
             if self.current_handler is not None:
-                self.current_handler(self.tags,self.attribs,self.chars, self.parts, self.data)
+                self.current_handler(
+                    self.tags,
+                    self.attribs,
+                    self.chars,
+                    self.parts,
+                    self.data)
         self.tags.remove(name)
 
         if len(self.tags) > 0 and self.tags[-1] in self.handlers:
@@ -47,7 +67,9 @@ class MetaParser(object):
 
     def parse(self, file):
         parser = make_parser()
+
         class Extractor(xml.sax.ContentHandler):
+
             def __init__(self, parent):
                 self.parent = parent
 
@@ -56,29 +78,29 @@ class MetaParser(object):
                 for attrname in attrs.getNames():
                     attrvalue = attrs.get(attrname)
                     attribs[attrname] = attrvalue
-                self.parent.StartTag(name, attribs)
+                self.parent.startTag(name, attribs)
 
             def characters(self, text):
-                self.parent.NewData(text)
+                self.parent.newData(text)
 
             def endElement(self, name):
-                self.parent.EndTag(name)
+                self.parent.endTag(name)
         parser.setContentHandler(Extractor(self))
         # OFFLINE MODE
         parser.setFeature(handler.feature_external_ges, False)
         fob = open(file, 'r')
         parser.parse(fob)
-        self.CollatePartsIntoData()
+        self.collatePartsIntoData()
         return self.data
 
-    def CollatePartsIntoData(self):
+    def collatePartsIntoData(self):
         instrument_list = []
         clef_list = {}
         key_list = {}
         for part in self.parts:
             data = {}
             if "name" in self.parts[part]:
-                data["name"]=self.parts[part]["name"]
+                data["name"] = self.parts[part]["name"]
             else:
                 self.parts[part]["name"] = "hello, world"
                 data["name"] = "hello, world"
@@ -97,14 +119,16 @@ class MetaParser(object):
             self.data["clef"] = clef_list
 
 # HANDLER METHODS
+
+
 def makeNewPart(tags, attrs, chars, parts, data):
-    '''
+    """
     handler which works with anything inside the score-part tag, which creates a new part inside the data dict
     :param tags: current list of xml tags
     :param attrs: current dict of attribs
     :param chars: current dict of content of each tag
     :return: string of instrument name and a dict so the part dict can be updated
-    '''
+    """
     id = helpers.GetID(attrs, "score-part", "id")
     if id is not None:
         if id not in parts:
@@ -116,6 +140,7 @@ def makeNewPart(tags, attrs, chars, parts, data):
             if "instruments" not in data:
                 data["instruments"] = []
             data["instruments"].append(name)
+
 
 def handleKey(tags, attrs, chars, parts, data):
     id = helpers.GetID(attrs, "part", "id")
@@ -133,9 +158,10 @@ def handleKey(tags, attrs, chars, parts, data):
             if "mode" in chars:
                 thing = chars["mode"]
             if len(parts[id]["key"]) == 0 or tags[-1] in parts[id]["key"][-1]:
-                parts[id]["key"].append({tags[-1]:thing})
+                parts[id]["key"].append({tags[-1]: thing})
             elif tags[-1] not in parts[id]["key"][-1]:
                 parts[id]["key"][-1][tags[-1]] = thing
+
 
 def handleClef(tags, attrs, chars, parts, data):
     id = helpers.GetID(attrs, "part", "id")
@@ -152,10 +178,13 @@ def handleClef(tags, attrs, chars, parts, data):
                 thing = int(chars["line"])
             if "sign" in chars:
                 thing = chars["sign"]
-            if len(parts[id]["clef"]) == 0 or tags[-1] in parts[id]["clef"][-1]:
-                parts[id]["clef"].append({tags[-1]:thing})
+            if len(parts[id]["clef"]) == 0 or tags[-
+                                                   1] in parts[id]["clef"][-
+                                                                           1]:
+                parts[id]["clef"].append({tags[-1]: thing})
             elif tags[-1] not in parts[id]["clef"][-1]:
                 parts[id]["clef"][-1][tags[-1]] = thing
+
 
 def handleTransposition(tags, attrs, chars, parts, data):
     id = helpers.GetID(attrs, "part", "id")
@@ -172,6 +201,7 @@ def handleTransposition(tags, attrs, chars, parts, data):
                 content = int(chars[tags[-1]])
             parts[id]["transposition"][tags[-1]] = content
 
+
 def handleMeter(tags, attrs, chars, parts, data):
     if "time" not in data:
         data["time"] = []
@@ -184,7 +214,7 @@ def handleMeter(tags, attrs, chars, parts, data):
                 beat = chars["beats"]
 
             if len(data["time"]) == 0 or "beat" in data["time"][-1]:
-                data["time"].append({"beat":int(beat)})
+                data["time"].append({"beat": int(beat)})
             else:
                 data["time"][-1]["beat"] = int(beat)
 
@@ -193,9 +223,10 @@ def handleMeter(tags, attrs, chars, parts, data):
                 b_type = chars["beat-type"]
 
             if len(data["time"]) == 0 or "type" in data["time"][-1]:
-                data["time"].append({"type":int(b_type)})
+                data["time"].append({"type": int(b_type)})
             else:
                 data["time"][-1]["type"] = int(b_type)
+
 
 def handleTempo(tags, attrs, chars, parts, data):
     if "tempo" not in data:
@@ -216,8 +247,11 @@ def handleTempo(tags, attrs, chars, parts, data):
             if "beat-unit" in chars:
                 beat = chars["beat-unit"]
 
-            if len(data["tempo"]) == 0 or ("beat" in data["tempo"][-1] and ("minute" in data["tempo"][-1] or "beat_2" in data["tempo"][-1])):
-                data["tempo"].append({"beat":beat})
+            if len(data["tempo"]) == 0 or ("beat" in data["tempo"][-
+                                                                   1] and ("minute" in data["tempo"][-
+                                                                                                     1] or "beat_2" in data["tempo"][-
+                                                                                                                                     1])):
+                data["tempo"].append({"beat": beat})
             elif "beat" not in data["tempo"][-1]:
                 data["tempo"][-1]["beat"] = beat
             elif "minute" not in data["tempo"][-1] and "beat_2" not in data["tempo"][-1]:
@@ -228,9 +262,10 @@ def handleTempo(tags, attrs, chars, parts, data):
                 minute = chars["per-minute"]
 
             if len(data["tempo"]) == 0 or "minute" in data["tempo"][-1]:
-                data["tempo"].append({"minute":int(minute)})
+                data["tempo"].append({"minute": int(minute)})
             else:
                 data["tempo"][-1]["minute"] = int(minute)
+
 
 def handleBibliography(tags, attrs, chars, parts, data):
     if tags[-1] == "creator":
@@ -250,7 +285,3 @@ def handleBibliography(tags, attrs, chars, parts, data):
         if "title" not in data:
             data["title"] = ""
         data["title"] += title.lower()
-
-
-
-

@@ -2,7 +2,7 @@ import unittest
 from implementation.primaries.ExtractMetadata.classes import MetaParser
 
 
-class testCase1(unittest.TestCase):
+class TestCase1(unittest.TestCase):
 
     def setUp(self):
         self.file = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/ExtractMetadata/tests/test_files/extractor_test/testcase1.xml'
@@ -39,7 +39,7 @@ class testCase1(unittest.TestCase):
         self.assertEqual(self.result["composer"], "charlotte godley")
 
 
-class testCase2(unittest.TestCase):
+class TestCase2(unittest.TestCase):
 
     def setUp(self):
         self.file = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/ExtractMetadata/tests/test_files/extractor_test/testcase2.xml'

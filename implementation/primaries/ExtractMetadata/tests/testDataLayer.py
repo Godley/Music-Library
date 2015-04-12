@@ -238,7 +238,7 @@ class TestDataLayerAdd(unittest.TestCase):
         conn.close()
 
 
-class testDataLayerUserPlaylists(unittest.TestCase):
+class TestDataLayerUserPlaylists(unittest.TestCase):
 
     def setUp(self):
         self.data = MusicData("example.db")
@@ -293,7 +293,7 @@ class testDataLayerUserPlaylists(unittest.TestCase):
         self.assertEqual(result, [])
 
 
-class testDataLayerUserQueries(unittest.TestCase):
+class TestDataLayerUserQueries(unittest.TestCase):
 
     def setUp(self):
         self.data = MusicData("example.db")
@@ -570,7 +570,7 @@ class testDataLayerUserQueries(unittest.TestCase):
                 ["quarter=half"]))
 
 
-class testDataLayerGeneral(unittest.TestCase):
+class TestDataLayerGeneral(unittest.TestCase):
 
     def setUp(self):
         self.data = MusicData("example.db")
@@ -636,7 +636,7 @@ class testDataLayerGeneral(unittest.TestCase):
                          self.data.getAllPieceInfo(["file.xml"]))
 
 
-class testDataLayerGeneratePlaylists(unittest.TestCase):
+class TestDataLayerGeneratePlaylists(unittest.TestCase):
 
     def setUp(self):
         self.data = MusicData("example.db")
@@ -795,7 +795,7 @@ class testDataLayerGeneratePlaylists(unittest.TestCase):
         self.assertEqual(len(self.data.getArchivedPieces()), 0)
 
 
-class testDataLayerOnlineSearching(unittest.TestCase):
+class TestDataLayerOnlineSearching(unittest.TestCase):
 
     def setUp(self):
         self.data = MusicData("example.db")

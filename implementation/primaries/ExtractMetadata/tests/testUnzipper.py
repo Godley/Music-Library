@@ -3,7 +3,7 @@ import unittest
 import os
 
 
-class testUnzipper(unittest.TestCase):
+class TestUnzipper(unittest.TestCase):
 
     def setUp(self):
         self.folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/ExtractMetadata/tests/test_files/unzip_tests"
