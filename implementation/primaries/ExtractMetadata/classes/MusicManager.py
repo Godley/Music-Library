@@ -185,6 +185,26 @@ class MusicManager(object):
             for file in data[source]:
                 self.addPiece(file, data[source][file])
 
+    def cleanupApiFiles(self, data, extensions=['mxl', 'xml']):
+        for source in data:
+            for file in data[source]:
+                for ext in extensions:
+                    file_ext = file.split(".")[0]+"."+ext
+                    if os.path.exists(os.path.join(self.folder, file_ext)):
+                        os.remove(os.path.join(self.folder, file_ext))
+
+
+    def runApiOperation(self):
+        """
+        method which gets all the data from the apis, unzips them,
+        parses them for data, puts the data in the database and finally
+        deletes the files
+        :return:
+        """
+        result_set = self.parseApiFiles()
+        self.addApiFiles(result_set)
+        self.cleanupApiFiles(result_set)
+
 
     def addPiece(self, filename, data):
         self.__data.addPiece(filename, data)
