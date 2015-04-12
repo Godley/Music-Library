@@ -1,7 +1,10 @@
-import unittest, os
+import unittest
+import os
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 
+
 class testMusicManagerWithApiIntegration(unittest.TestCase):
+
     def setUp(self):
         self.manager = MusicManager.MusicManager()
         self.result_set = self.manager.parseApiFiles()
@@ -15,7 +18,8 @@ class testMusicManagerWithApiIntegration(unittest.TestCase):
     def testParseData(self):
         self.assertTrue(len(self.result_set) > 0)
         for source in self.result_set:
-            comp = {fname:self.result_set[source][fname] for fname in self.result_set[source] if "source" in self.result_set[source][fname]}
+            comp = {fname: self.result_set[source][fname] for fname in self.result_set[
+                source] if "source" in self.result_set[source][fname]}
             self.assertEqual(len(comp), len(self.result_set[source]))
 
     def testTitleInResult(self):

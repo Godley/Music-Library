@@ -664,6 +664,11 @@ class MusicData(object):
     def getPiecesByModularity(self, modularity, archived=0, online=False):
         connection, cursor = self.connect()
         query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = key_piece.piece_id)'
         cursor.execute(query, (modularity,))
         key_set = cursor.fetchall()
         file_list = self.getPiecesByRowId(key_set, cursor, archived)
@@ -678,6 +683,11 @@ class MusicData(object):
                     AND i.diatonic = 0 AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
                     AND piece.archived = ? AND EXISTS (SELECT NULL FROM key_piece_join WHERE key_id = k.ROWID AND piece_id != key_piece.piece_id)
         '''
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -694,6 +704,11 @@ class MusicData(object):
                     WHERE clef_piece.clef_id = clef.ROWID AND piece.ROWID = clef_piece.piece_id
                     AND piece.archived = ? AND EXISTS (SELECT NULL FROM clef_piece_join WHERE clef_id = clef_piece.clef_id AND piece_id != clef_piece.piece_id)
         '''
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -710,6 +725,11 @@ class MusicData(object):
                     WHERE time_piece.time_id = time_sig.ROWID AND piece.ROWID = time_piece.piece_id
                     AND piece.archived = ? AND EXISTS(SELECT null FROM time_piece_join WHERE time_id=time_sig.ROWID AND time_piece_join.piece_id != time_piece.piece_id)
         '''
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -729,6 +749,11 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM tempo_piece_join WHERE tempo_id = tempo_piece.tempo_id AND piece_id != tempo_piece.piece_id)
                     AND piece.archived = ?
         '''
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -752,6 +777,11 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM instruments_piece_join WHERE instrument_id = instrument_piece.instrument_id AND piece_id != instrument_piece.piece_id)
                     AND piece.archived = ?
         '''
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -780,6 +810,11 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM pieces WHERE composer_id = comp.ROWID AND ROWID != piece.ROWID)
                     AND piece.archived = ?
         '''
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -797,6 +832,11 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM pieces WHERE lyricist_id = piece.lyricist_id AND ROWID != piece.ROWID)
                     AND piece.archived = ?
         '''
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -818,6 +858,11 @@ class MusicData(object):
         query = 'SELECT i.piece_id FROM clef_piece_join i WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
         for i in range(1,len(clef_ids)):
             query += ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
         query += ";"
         input = tuple(clef_ids)
         cursor.execute(query, input)
@@ -851,6 +896,11 @@ class MusicData(object):
                 query += ")"
                 if i != len(tuple_data)-1:
                     query += ' AND EXISTS '
+            if online:
+                query += ' AND EXISTS '
+            else:
+                query += ' AND NOT EXISTS '
+            query += '(SELECT * FROM sources WHERE piece_id = key_piece.piece_id)'
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
 
@@ -882,70 +932,14 @@ class MusicData(object):
                 query += ")"
                 if i != len(tuple_data)-1:
                     query += ' AND EXISTS '
+            if online:
+                query += ' AND EXISTS '
+            else:
+                query += ' AND NOT EXISTS '
+            query += '(SELECT * FROM sources WHERE piece_id = clef_piece.piece_id)'
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
             file_list = self.getPiecesByRowId(results, cursor, archived)
-        return file_list
-
-    def getPieceByInstrumentInKey(self, data, archived=0, online=False):
-        connection, cursor = self.connect()
-        search_ids = []
-        tuple_data = [instrument for instrument in data]
-        key_data = []
-        for instrument in data:
-            search_ids.append(self.getInstrumentId(instrument, cursor))
-            if type(data[instrument]) == str:
-                search_ids.append(self.getKeyId(data[instrument], cursor))
-                key_data = [self.getKeyId(data[instrument], cursor)]
-            if type(data[instrument]) == list:
-                key_data = [self.getKeyId(key, cursor) for key in data[instrument]]
-                search_ids.extend(key_data)
-        query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece'
-        for i in range(len(tuple_data)):
-            if i==0:
-                query += ' WHERE '
-            else:
-                query += ' AND '
-            for j in range(len(key_data)):
-                query += 'EXISTS (SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ? AND key_id = ?)'
-        query += ";"
-        cursor.execute(query, tuple(search_ids))
-        results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor, archived)
-        return file_list
-
-    def getPieceByInstrumentInClef(self, data, archived=0, online=False):
-        connection, cursor = self.connect()
-        search_ids = []
-        tuple_data = [instrument for instrument in data]
-        clef_data = []
-
-
-        for instrument in data:
-            search_ids.append(self.getInstrumentId(instrument, cursor))
-            if type(data[instrument]) == str:
-                search_ids.append(self.getClefId(data[instrument], cursor))
-                clef_data = [self.getClefId(data[instrument], cursor)]
-            if type(data[instrument]) == list:
-                clef_data = [self.getClefId(clef, cursor) for clef in data[instrument]]
-                search_ids.extend(clef_data)
-
-
-
-        query = 'SELECT clef_piece.piece_id FROM clef_piece_join clef_piece '
-        for i in range(len(tuple_data)):
-            if i==0:
-                query += 'WHERE'
-            else:
-                query += 'AND'
-            for clef in clef_data:
-                query += ' EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = clef_piece.piece_id AND instrument_id = ? '
-                query += 'AND clef_id = ?)'
-
-        query += ";"
-        cursor.execute(query, tuple(search_ids))
-        results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor, archived=archived)
         return file_list
 
     def getPieceByMeter(self, meters, archived=0, online=False):
@@ -961,6 +955,11 @@ class MusicData(object):
         query = 'SELECT i.piece_id FROM time_piece_join i WHERE EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
         for i in range(1,len(time_ids)):
             query += ' AND EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
         query += ";"
         input = tuple(time_ids)
         cursor.execute(query, input)
@@ -1051,6 +1050,11 @@ class MusicData(object):
         query = 'SELECT i.piece_id FROM tempo_piece_join i WHERE EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
         for i in range(1,len(tempo_ids)):
             query += ' AND EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
         query += ";"
         input = tuple(tempo_ids)
         cursor.execute(query, input)
