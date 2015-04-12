@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 from implementation.primaries.ExtractMetadata.classes import MetaParser
 
 
-class testMetaParser(unittest.TestCase):
+class TestMetaParser(unittest.TestCase):
 
     def setUp(self):
         self.parser = MetaParser.MetaParser()
@@ -26,10 +26,10 @@ class testMetaParser(unittest.TestCase):
         self.parser = None
 
 
-class testAddPart(testMetaParser):
+class TestAddPart(TestMetaParser):
 
     def setUp(self):
-        testMetaParser.setUp(self)
+        TestMetaParser.setUp(self)
 
     def testPartNameHandler(self):
         self.parser.StartTag("score-part", {})
@@ -56,10 +56,10 @@ class testAddPart(testMetaParser):
         self.assertEqual(self.parser.data, {"instruments": ["laura"]})
 
 
-class testAddKey(testMetaParser):
+class TestAddKey(TestMetaParser):
 
     def setUp(self):
-        testMetaParser.setUp(self)
+        TestMetaParser.setUp(self)
 
     def testPartNameHandler(self):
         self.parser.StartTag("part", {"id": "P1"})
@@ -104,10 +104,10 @@ class testAddKey(testMetaParser):
             self.parser.parts, {"P1": {"key": [{"fifths": 5, "mode": "major"}]}})
 
 
-class testAddClef(testMetaParser):
+class TestAddClef(TestMetaParser):
 
     def setUp(self):
-        testMetaParser.setUp(self)
+        TestMetaParser.setUp(self)
 
     def testClefHandler(self):
         self.parser.StartTag("part", {"id": "P1"})
@@ -153,10 +153,10 @@ class testAddClef(testMetaParser):
             self.parser.parts, {"P1": {"clef": [{"sign": "G", "line": 2}]}})
 
 
-class testAddTransposition(testMetaParser):
+class TestAddTransposition(TestMetaParser):
 
     def setUp(self):
-        testMetaParser.setUp(self)
+        TestMetaParser.setUp(self)
 
     def testTransHandler(self):
         self.parser.StartTag("part", {"id": "P1"})
@@ -215,10 +215,10 @@ class testAddTransposition(testMetaParser):
                         "diatonic": 0, "chromatic": 1}}})
 
 
-class testAddMeter(testMetaParser):
+class TestAddMeter(TestMetaParser):
 
     def setUp(self):
-        testMetaParser.setUp(self)
+        TestMetaParser.setUp(self)
 
     def testMeterHandler(self):
         self.parser.StartTag("part", {"id": "P1"})
@@ -272,10 +272,10 @@ class testAddMeter(testMetaParser):
         self.assertEqual(self.parser.data, {"time": [{"type": 4, "beat": 3}]})
 
 
-class testAddTempo(testMetaParser):
+class TestAddTempo(TestMetaParser):
 
     def setUp(self):
-        testMetaParser.setUp(self)
+        TestMetaParser.setUp(self)
 
     def testTempoHandler(self):
         self.parser.StartTag("part", {"id": "P1"})
@@ -332,10 +332,10 @@ class testAddTempo(testMetaParser):
             self.parser.data, {"tempo": [{"beat": "quarter", "beat_2": "half"}]})
 
 
-class testAddBibliography(testMetaParser):
+class TestAddBibliography(TestMetaParser):
 
     def setUp(self):
-        testMetaParser.setUp(self)
+        TestMetaParser.setUp(self)
 
     def testBibHandler(self):
         self.parser.StartTag("movement-title", {})
@@ -365,7 +365,7 @@ class testAddBibliography(testMetaParser):
         self.assertEqual(self.parser.data, {"title": "100"})
 
 
-class testPartCollation(unittest.TestCase):
+class TestPartCollation(unittest.TestCase):
 
     def setUp(self):
         self.parser = MetaParser.MetaParser()

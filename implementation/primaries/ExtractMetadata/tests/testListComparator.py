@@ -2,10 +2,11 @@ import unittest
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 
 
-class testListComparator(unittest.TestCase):
+class TestListComparator(unittest.TestCase):
 
     def setUp(self):
-        self.folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/ExtractMetadata/tests/test_files/folder_tests'
+        self.folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/' \
+                      'ExtractMetadata/tests/test_files/folder_tests'
         self.folderBrowser = MusicManager.FolderBrowser(
             db_files=[
                 'file1.xml',
