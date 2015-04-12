@@ -354,7 +354,11 @@ class MusicData(object):
 
     def getFileList(self, online=False):
         connection, cursor = self.connect()
-        query = 'SELECT filename FROM pieces WHERE archived=0'
+        query = 'SELECT filename FROM pieces p WHERE p.archived=0'
+        if not online:
+            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        else:
+            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
         cursor.execute(query, ())
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -369,7 +373,13 @@ class MusicData(object):
         '''
         connection, cursor = self.connect()
         thing = (filename,"%"+filename+"%",archived,)
-        cursor.execute('SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces WHERE filename=? OR filename LIKE ? AND archived=?',thing)
+        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces p WHERE (p.filename=? OR p.filename LIKE ?) AND p.archived=?'
+        if online:
+            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id=p.ROWID)'
+        else:
+            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        cursor.execute(query,thing)
+
         result = cursor.fetchall()
         self.disconnect(connection)
         return result
@@ -522,6 +532,10 @@ class MusicData(object):
                 query += ')'
                 if i != len(instrument_ids)-1:
                     query += ' AND EXISTS '
+            if online:
+                query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+            else:
+                query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = i.piece_id)'
             query += ";"
             input = tuple(tuple_ids)
             cursor.execute(query, input)
@@ -530,7 +544,7 @@ class MusicData(object):
             self.disconnect(connection)
         return file_list
 
-    def getPiecesByRowId(self, rows, cursor, archived=0, online=False):
+    def getPiecesByRowId(self, rows, cursor, archived=0):
         '''
         method which takes in a list of rows which are ROWIDs in the piece table and returns a list of files
         :param rows: list of tuples pertaining to ROWIDs in pieces table
@@ -556,12 +570,16 @@ class MusicData(object):
         connection, cursor = self.connect()
         composer_ids = self.getComposerIdWhereTextInName(composer, cursor)
         if len(composer_ids) > 0:
-            query = 'SELECT filename FROM pieces WHERE archived=? AND (composer_id=?'
+            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND (p.composer_id=?'
             for id in composer_ids:
                 if id != composer_ids[-1]:
-                    query += "OR composer_id LIKE ?"
+                    query += "OR p.composer_id LIKE ?"
                 if id == composer_ids[-1]:
                     query += ")"
+            if online:
+                query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+            else:
+                query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
             input_list = [archived]
             input_list.extend(composer_ids)
             input = tuple(input_list)
@@ -581,12 +599,16 @@ class MusicData(object):
         lyricist_ids = self.getLyricistIdWhereTextInName(lyricist, cursor)
         file_list = []
         if len(lyricist_ids) > 0:
-            query = 'SELECT filename FROM pieces WHERE archived=? AND (lyricist_id=?'
+            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND (p.lyricist_id=?'
             for id in lyricist_ids:
                 if id != lyricist_ids[-1]:
-                    query += "OR lyricist_id LIKE ?"
+                    query += "OR p.lyricist_id LIKE ?"
                 if id == lyricist_ids[-1]:
                     query += ")"
+            if online:
+                query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+            else:
+                query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
             input_list = [archived]
             input_list.extend(lyricist_ids)
             input = tuple(input_list)
@@ -604,7 +626,11 @@ class MusicData(object):
         '''
         connection, cursor = self.connect()
         thing = (title,"%"+title+"%",archived,)
-        query = 'SELECT * FROM pieces WHERE title=? OR title LIKE ? AND archived=?'
+        query = 'SELECT * FROM pieces p WHERE (p.title=? OR p.title LIKE ?) AND p.archived=?'
+        if online:
+            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        else:
+            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
         cursor.execute(query,thing)
         result = cursor.fetchall()
         result = [r[0] for r in result]
@@ -622,6 +648,11 @@ class MusicData(object):
         query = 'SELECT i.piece_id FROM key_piece_join i WHERE EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
         for i in range(1,len(key_ids)):
             query += ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
+        if online:
+            query += ' AND EXISTS '
+        else:
+            query += ' AND NOT EXISTS '
+        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
         query += ";"
         input = tuple(key_ids)
         cursor.execute(query, input)

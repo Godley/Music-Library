@@ -1,9 +1,21 @@
+'''
+there's a lot of tests in here, so I've sorted them a bit:
+testDataLayerAdd: as the title suggests, checks adding pieces puts stuff in the right tables
+testDataLayerUserPlaylists: anything relating to user created playlists, so stuff in the playlist and playlist join table
+testDataLayerUserQueries: anything which will be used when a user types something into the search bar
+testDataLayerGeneratePlaylists: anything which will be used to generate playlists of related data
+testDataLayerGeneral: anything which doesn't fit into the other class categories so generally searching for specific pieces
+testDataLayerOnlineSearching: anything relating to the diff between each method when online is set to false or true.
+                                This is to confirm that API searching does not get mixed up with local searching
+'''
 import unittest
 import sqlite3
 from implementation.primaries.ExtractMetadata.classes.DataLayer import MusicData
 import os
 
-class testDataLayer(unittest.TestCase):
+
+
+class testDataLayerAdd(unittest.TestCase):
     def setUp(self):
         self.data = MusicData("example.db")
 
@@ -17,6 +29,7 @@ class testDataLayer(unittest.TestCase):
         t = ('file.xml',)
         c.execute('SELECT * FROM pieces WHERE filename=?', t)
         self.assertEqual(len(c.fetchall()), 1)
+        conn.close()
 
     def testAddPieceWithTitle(self):
         self.data.addPiece("file.xml",{"title":"blabla"})
@@ -25,6 +38,7 @@ class testDataLayer(unittest.TestCase):
         t = ('blabla',)
         c.execute('SELECT * FROM pieces WHERE title=?', t)
         self.assertEqual("file.xml", c.fetchone()[0])
+        conn.close()
 
     def testAddPlaylist(self):
         self.data.addPiece("file.xml",{"title":"blabla"})
@@ -64,51 +78,20 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual([("play","file.xml"),("play1","file.xml")], combined)
         conn.close()
 
-    def testFetchPlaylist(self):
-        self.data.addPiece("file.xml",{"title":"blabla"})
-        self.data.addPlaylist("play",["file.xml"])
-        result = self.data.getAllUserPlaylists()
-        self.assertEqual({"play":["file.xml"]}, result)
-
-    def testFetchPlaylistByPiece(self):
-        self.data.addPiece("file.xml",{"title":"blabla"})
-        self.data.addPlaylist("play",["file.xml"])
-        result = self.data.getUserPlaylistsForFile("file.xml")
-        self.assertEqual({"play":["file.xml"]}, result)
-
-    def testFetchPlaylistByPieceWithMultiplePlaylists(self):
-        self.data.addPiece("file.xml",{"title":"blabla"})
-        self.data.addPlaylist("play",["file.xml"])
-        self.data.addPlaylist("play1",["file.xml"])
-        result = self.data.getUserPlaylistsForFile("file.xml")
-        self.assertEqual({"play":["file.xml"], "play1":["file.xml"]}, result)
-
-    def testDeletePlaylistFromTable(self):
-        self.data.addPiece("file.xml",{"title":"blabla"})
-        self.data.addPlaylist("play",["file.xml"])
-        self.data.deletePlaylist("play")
+    def testAddPieceWithSource(self):
+        self.data.addPiece("file.xml",{"composer":"blabla", "source":"MuseScore"})
         conn = sqlite3.connect('example.db')
         c = conn.cursor()
-        query = 'SELECT * FROM playlists WHERE name = ?'
-        c.execute(query, ('play',))
-        result = c.fetchall()
+        c.execute('SELECT ROWID FROM pieces')
+        rowid = c.fetchone()
+        t = ('MuseScore',)
+        c.execute('SELECT piece_id FROM sources WHERE source=?', t)
+        found = c.fetchone()
+        self.assertEqual(found, rowid)
         conn.close()
-        self.assertEqual(result, [])
 
-    def testDeletePlaylistFromJoinTable(self):
-        self.data.addPiece("file.xml",{"title":"blabla"})
-        self.data.addPlaylist("play",["file.xml"])
-        query = 'SELECT ROWID FROM playlists WHERE name = ?'
-        conn = sqlite3.connect('example.db')
-        c = conn.cursor()
-        c.execute(query, ('play',))
-        row_id = c.fetchone()
-        self.data.deletePlaylist("play")
-        join_query = 'SELECT * FROM playlist_join WHERE playlist_id = ?'
-        c.execute(join_query, row_id)
-        result = c.fetchall()
-        conn.close()
-        self.assertEqual(result, [])
+
+
 
     def testAddPieceWithComposer(self):
         self.data.addPiece("file.xml",{"composer":"blabla"})
@@ -119,6 +102,7 @@ class testDataLayer(unittest.TestCase):
         result = c.fetchone()
         c.execute('SELECT * FROM pieces WHERE composer_id=?', result)
         self.assertEqual("file.xml", c.fetchone()[0])
+        conn.close()
 
     def testAddPieceWithLyricist(self):
         self.data.addPiece("file.xml",{"lyricist":"blabla"})
@@ -168,18 +152,7 @@ class testDataLayer(unittest.TestCase):
         piece_id = c.fetchone()
         c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
         self.assertEqual([("file.xml","",-1,-1,0)], c.fetchall())
-
-    def testGetAllPieces(self):
-        self.data.addPiece("file.xml",{})
-        self.data.addPiece("file2.xml",{})
-        self.assertEqual(["file.xml","file2.xml"], self.data.getFileList())
-
-    def testGetAllPiecesWhereNoneExist(self):
-        self.assertEqual([], self.data.getFileList())
-
-    def testFindPieceByFname(self):
-        self.data.addPiece("file.xml",{})
-        self.assertEqual([(1, "file.xml","",-1,-1)], self.data.getPiece("file.xml"))
+        conn.close()
 
     def testAddPieceWithInstrumentsWithTranspositions(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"Bflat clarinet","transposition":{"diatonic":-1,"chromatic":-2}}]})
@@ -215,6 +188,7 @@ class testDataLayer(unittest.TestCase):
         piece_row = c.fetchone()
         c.execute('SELECT filename FROM pieces WHERE ROWID=?', piece_row)
         self.assertEqual("file.xml", c.fetchone()[0])
+        conn.close()
 
     def testAddPieceWithKeys(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}], "key":{"clarinet":[{"mode":"major","fifths":0}]}})
@@ -227,6 +201,7 @@ class testDataLayer(unittest.TestCase):
         piece_row = c.fetchone()
         c.execute('SELECT filename FROM pieces WHERE ROWID=?', piece_row)
         self.assertEqual("file.xml", c.fetchone()[0])
+        conn.close()
 
     def testAddPieceWithClefs(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}], "clef":{"clarinet":[{"sign":"G","line":2}]}})
@@ -239,6 +214,67 @@ class testDataLayer(unittest.TestCase):
         piece_row = c.fetchone()
         c.execute('SELECT filename FROM pieces WHERE ROWID=?', piece_row)
         self.assertEqual("file.xml", c.fetchone()[0])
+        conn.close()
+
+class testDataLayerUserPlaylists(unittest.TestCase):
+    def setUp(self):
+        self.data = MusicData("example.db")
+
+    def tearDown(self):
+        os.remove("example.db")
+
+    def testFetchPlaylist(self):
+        self.data.addPiece("file.xml",{"title":"blabla"})
+        self.data.addPlaylist("play",["file.xml"])
+        result = self.data.getAllUserPlaylists()
+        self.assertEqual({"play":["file.xml"]}, result)
+
+    def testFetchPlaylistByPiece(self):
+        self.data.addPiece("file.xml",{"title":"blabla"})
+        self.data.addPlaylist("play",["file.xml"])
+        result = self.data.getUserPlaylistsForFile("file.xml")
+        self.assertEqual({"play":["file.xml"]}, result)
+
+    def testFetchPlaylistByPieceWithMultiplePlaylists(self):
+        self.data.addPiece("file.xml",{"title":"blabla"})
+        self.data.addPlaylist("play",["file.xml"])
+        self.data.addPlaylist("play1",["file.xml"])
+        result = self.data.getUserPlaylistsForFile("file.xml")
+        self.assertEqual({"play":["file.xml"], "play1":["file.xml"]}, result)
+
+    def testDeletePlaylistFromTable(self):
+        self.data.addPiece("file.xml",{"title":"blabla"})
+        self.data.addPlaylist("play",["file.xml"])
+        self.data.deletePlaylist("play")
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        query = 'SELECT * FROM playlists WHERE name = ?'
+        c.execute(query, ('play',))
+        result = c.fetchall()
+        conn.close()
+        self.assertEqual(result, [])
+
+    def testDeletePlaylistFromJoinTable(self):
+        self.data.addPiece("file.xml",{"title":"blabla"})
+        self.data.addPlaylist("play",["file.xml"])
+        query = 'SELECT ROWID FROM playlists WHERE name = ?'
+        conn = sqlite3.connect('example.db')
+        c = conn.cursor()
+        c.execute(query, ('play',))
+        row_id = c.fetchone()
+        self.data.deletePlaylist("play")
+        join_query = 'SELECT * FROM playlist_join WHERE playlist_id = ?'
+        c.execute(join_query, row_id)
+        result = c.fetchall()
+        conn.close()
+        self.assertEqual(result, [])
+
+class testDataLayerUserQueries(unittest.TestCase):
+    def setUp(self):
+        self.data = MusicData("example.db")
+
+    def tearDown(self):
+        os.remove("example.db")
 
     def testFindPieceByInstruments(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}]})
@@ -301,70 +337,6 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{"title":"abcdef"})
         self.data.addPiece("file2.xml",{"title":"abcd"})
         self.assertEqual(["file.xml","file2.xml"], self.data.getPieceByTitle("abc"))
-
-    def testFindAllPiecesByAllKeys(self):
-        self.data.addPiece("file.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari"}]})
-        self.data.addPiece("file2.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari"}]})
-        self.data.addPiece("file1.xml",{"key":{"clari":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clari"}]})
-        self.data.addPiece("file3.xml",{"key":{"clari":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clari"}]})
-        self.assertEqual({"C major":["file.xml","file2.xml"],"G major":["file1.xml","file3.xml"]}, self.data.getPiecesByAllKeys())
-
-    def testFindAllPiecesByAllClefs(self):
-        self.data.addPiece("file.xml",{"clef":{"clari":[{"sign":"G","line":2}]}, "instruments":[{"name":"clari"}]})
-        self.data.addPiece("file3.xml",{"clef":{"clari":[{"sign":"G","line":2}]}, "instruments":[{"name":"clari"}]})
-        self.data.addPiece("file1.xml",{"clef":{"clari":[{"sign":"F","line":4}]}, "instruments":[{"name":"clari"}]})
-        self.data.addPiece("file2.xml",{"clef":{"clari":[{"sign":"F","line":4}]}, "instruments":[{"name":"clari"}]})
-        self.assertEqual({"treble":["file.xml","file3.xml"],"bass":["file1.xml","file2.xml"]}, self.data.getPiecesByAllClefs())
-
-    def testFindAllPiecesByAllTimeSigs(self):
-        self.data.addPiece("file.xml",{"time":[{"beat":4,"type":4}]})
-        self.data.addPiece("file1.xml",{"time":[{"beat":4,"type":4}]})
-        self.assertEqual({"4/4":["file.xml","file1.xml"]}, self.data.getPiecesByAllTimeSigs())
-
-    def testFindAllPiecesByAllTempos(self):
-        self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","minute":100}]})
-        self.data.addPiece("file3.xml",{"tempo":[{"beat":"quarter","minute":100}]})
-        self.data.addPiece("file1.xml",{"tempo":[{"beat":"quarter","beat_2":"eighth"}]})
-        self.data.addPiece("file2.xml",{"tempo":[{"beat":"quarter","beat_2":"eighth"}]})
-        self.assertEqual({"quarter=eighth":["file1.xml","file2.xml"],"quarter=100":["file.xml","file3.xml"]}, self.data.getPiecesByAllTempos())
-
-    def testFindAllPiecesByAllInstruments(self):
-        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}, {"name":"flute"}]})
-        self.data.addPiece("file1.xml",{"instruments":[{"name":"clarinet"}]})
-        self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}]})
-        self.assertEqual({"flute":["file.xml", "file2.xml"],"clarinet":["file.xml", "file1.xml"]}, self.data.getPiecesByAllInstruments())
-
-
-    def testFindAllPiecesByAllInstrumentsWithTranspositionsAndUniqueNames(self):
-        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":1,"chromatic":2}}, {"name":"flute"}]})
-        self.data.addPiece("file1.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":1,"chromatic":2}}]})
-        self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}]})
-        self.assertEqual({"flute":["file.xml", "file2.xml"],"clarinet\n(Transposed By 1 Diatonic \n2 Chromatic)":["file.xml", "file1.xml"]}, self.data.getPiecesByAllInstruments())
-
-
-    def testFindAllPiecesByAllInstrumentsWithTranspositions(self):
-        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}, {"name":"clarinet","transposition":{"diatonic":1}}]})
-        self.data.addPiece("file1.xml",{"instruments":[{"name":"clarinet"}]})
-        self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}, {"name":"clarinet","transposition":{"diatonic":1}}]})
-        self.assertEqual({"clarinet":["file.xml", "file1.xml"], "clarinet\n(Transposed By 1 Diatonic \n)":["file.xml","file2.xml"]}, self.data.getPiecesByAllInstruments())
-
-    def testFindAllPiecesByAllComposers(self):
-        self.data.addPiece("file.xml",{"composer":"Charlotte"})
-        self.data.addPiece("file1.xml",{"composer":"Charlie"})
-        self.data.addPiece("file2.xml",{"composer":"Charlie"})
-        self.assertEqual({"Charlie":["file1.xml","file2.xml"]}, self.data.getPiecesByAllComposers())
-
-    def testFindAllPiecesByAllLyricists(self):
-        self.data.addPiece("file.xml",{"lyricist":"Charlotte"})
-        self.data.addPiece("file1.xml",{"lyricist":"Charlie"})
-        self.data.addPiece("file2.xml",{"lyricist":"Charlie"})
-        self.assertEqual({"Charlie":["file1.xml","file2.xml"]}, self.data.getPiecesByAllLyricists())
-
-    def testFindAllPiecesByAllKeysWithTransposedInstruments(self):
-        self.data.addPiece("file.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari","transposition":{"diatonic":1}}]})
-        self.data.addPiece("file1.xml",{"key":{"clarin":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clarin"}]})
-        self.data.addPiece("file2.xml",{"key":{"clarin":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clarin"}]})
-        self.assertEqual({"G major":["file1.xml","file2.xml"]}, self.data.getPiecesByAllKeys())
 
     def testFindPieceByKey(self):
         self.data.addPiece("file.xml",{"key":{"clarinet":[{"fifths":2,"mode":"major"}]}})
@@ -456,7 +428,6 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual(["file.xml","file2.xml"], self.data.getPiecesByModularity("major"))
 
 
-
     def testFindPieceByTempoWhereTempoIsTwoBeats(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["crotchet=minim"]))
@@ -477,7 +448,25 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
         self.assertEqual(["file.xml"], self.data.getPieceByTempo(["quarter=half"]))
 
+class testDataLayerGeneral(unittest.TestCase):
+    def setUp(self):
+        self.data = MusicData("example.db")
 
+    def tearDown(self):
+        os.remove("example.db")
+
+    def testGetAllPieces(self):
+        self.data.addPiece("file.xml",{})
+        self.data.addPiece("file2.xml",{})
+        self.assertEqual(["file.xml","file2.xml"], self.data.getFileList())
+
+
+    def testGetAllPiecesWhereNoneExist(self):
+        self.assertEqual([], self.data.getFileList())
+
+    def testFindPieceByFname(self):
+        self.data.addPiece("file.xml",{})
+        self.assertEqual([(1, "file.xml","",-1,-1)], self.data.getPiece("file.xml"))
 
     def testFindAllInfoForAPiece(self):
         self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","beat_2":"half"}]})
@@ -495,6 +484,87 @@ class testDataLayer(unittest.TestCase):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":-1,"chromatic":-2}}]})
         self.assertEqual([{"title":"","composer":-1,"lyricist":-1,"instruments":[{"name":"clarinet", "transposition":{"diatonic":-1,"chromatic":-2}}], "filename":"file.xml"}], self.data.getAllPieceInfo(["file.xml"]))
 
+
+
+class testDataLayerGeneratePlaylists(unittest.TestCase):
+    def setUp(self):
+        self.data = MusicData("example.db")
+
+    def tearDown(self):
+        os.remove("example.db")
+
+    def testFindAllPiecesByAllKeys(self):
+        self.data.addPiece("file.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari"}]})
+        self.data.addPiece("file2.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari"}]})
+        self.data.addPiece("file1.xml",{"key":{"clari":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clari"}]})
+        self.data.addPiece("file3.xml",{"key":{"clari":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clari"}]})
+        self.assertEqual({"C major":["file.xml","file2.xml"],"G major":["file1.xml","file3.xml"]}, self.data.getPiecesByAllKeys())
+
+    def testFindAllPiecesByAllClefs(self):
+        self.data.addPiece("file.xml",{"clef":{"clari":[{"sign":"G","line":2}]}, "instruments":[{"name":"clari"}]})
+        self.data.addPiece("file3.xml",{"clef":{"clari":[{"sign":"G","line":2}]}, "instruments":[{"name":"clari"}]})
+        self.data.addPiece("file1.xml",{"clef":{"clari":[{"sign":"F","line":4}]}, "instruments":[{"name":"clari"}]})
+        self.data.addPiece("file2.xml",{"clef":{"clari":[{"sign":"F","line":4}]}, "instruments":[{"name":"clari"}]})
+        self.assertEqual({"treble":["file.xml","file3.xml"],"bass":["file1.xml","file2.xml"]}, self.data.getPiecesByAllClefs())
+
+    def testFindAllPiecesByAllTimeSigs(self):
+        self.data.addPiece("file.xml",{"time":[{"beat":4,"type":4}]})
+        self.data.addPiece("file1.xml",{"time":[{"beat":4,"type":4}]})
+        self.assertEqual({"4/4":["file.xml","file1.xml"]}, self.data.getPiecesByAllTimeSigs())
+
+    def testFindAllPiecesByAllTempos(self):
+        self.data.addPiece("file.xml",{"tempo":[{"beat":"quarter","minute":100}]})
+        self.data.addPiece("file3.xml",{"tempo":[{"beat":"quarter","minute":100}]})
+        self.data.addPiece("file1.xml",{"tempo":[{"beat":"quarter","beat_2":"eighth"}]})
+        self.data.addPiece("file2.xml",{"tempo":[{"beat":"quarter","beat_2":"eighth"}]})
+        self.assertEqual({"quarter=eighth":["file1.xml","file2.xml"],"quarter=100":["file.xml","file3.xml"]}, self.data.getPiecesByAllTempos())
+
+    def testFindAllPiecesByAllInstruments(self):
+        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}, {"name":"flute"}]})
+        self.data.addPiece("file1.xml",{"instruments":[{"name":"clarinet"}]})
+        self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}]})
+        self.assertEqual({"flute":["file.xml", "file2.xml"],"clarinet":["file.xml", "file1.xml"]}, self.data.getPiecesByAllInstruments())
+
+
+    def testFindAllPiecesByAllInstrumentsWithTranspositionsAndUniqueNames(self):
+        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":1,"chromatic":2}}, {"name":"flute"}]})
+        self.data.addPiece("file1.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":1,"chromatic":2}}]})
+        self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}]})
+        self.assertEqual({"flute":["file.xml", "file2.xml"],"clarinet\n(Transposed By 1 Diatonic \n2 Chromatic)":["file.xml", "file1.xml"]}, self.data.getPiecesByAllInstruments())
+
+
+    def testFindAllPiecesByAllInstrumentsWithTranspositions(self):
+        self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet"}, {"name":"clarinet","transposition":{"diatonic":1}}]})
+        self.data.addPiece("file1.xml",{"instruments":[{"name":"clarinet"}]})
+        self.data.addPiece("file2.xml",{"instruments":[{"name":"flute"}, {"name":"clarinet","transposition":{"diatonic":1}}]})
+        self.assertEqual({"clarinet":["file.xml", "file1.xml"], "clarinet\n(Transposed By 1 Diatonic \n)":["file.xml","file2.xml"]}, self.data.getPiecesByAllInstruments())
+
+    def testFindAllPiecesByAllComposers(self):
+        self.data.addPiece("file.xml",{"composer":"Charlotte"})
+        self.data.addPiece("file1.xml",{"composer":"Charlie"})
+        self.data.addPiece("file2.xml",{"composer":"Charlie"})
+        self.assertEqual({"Charlie":["file1.xml","file2.xml"]}, self.data.getPiecesByAllComposers())
+
+    def testFindAllPiecesByAllLyricists(self):
+        self.data.addPiece("file.xml",{"lyricist":"Charlotte"})
+        self.data.addPiece("file1.xml",{"lyricist":"Charlie"})
+        self.data.addPiece("file2.xml",{"lyricist":"Charlie"})
+        self.assertEqual({"Charlie":["file1.xml","file2.xml"]}, self.data.getPiecesByAllLyricists())
+
+    def testFindAllPiecesByAllKeysWithTransposedInstruments(self):
+        self.data.addPiece("file.xml",{"key":{"clari":[{"mode":"major","fifths":0}]}, "instruments":[{"name":"clari","transposition":{"diatonic":1}}]})
+        self.data.addPiece("file1.xml",{"key":{"clarin":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clarin"}]})
+        self.data.addPiece("file2.xml",{"key":{"clarin":[{"mode":"major","fifths":1}]}, "instruments":[{"name":"clarin"}]})
+        self.assertEqual({"G major":["file1.xml","file2.xml"]}, self.data.getPiecesByAllKeys())
+
+
+
+
+
+
+
+
+
     def testArchivePiece(self):
         self.data.addPiece("file.xml",{"instruments":[{"name":"clarinet","transposition":{"diatonic":-1,"chromatic":-2}}]})
         self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 1)
@@ -509,5 +579,81 @@ class testDataLayer(unittest.TestCase):
         self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 0)
         self.assertEqual(len(self.data.getArchivedPieces()), 0)
 
-    def testFindOnlinePiece(self):
-        pass
+class testDataLayerOnlineSearching(unittest.TestCase):
+    def setUp(self):
+        self.data = MusicData("example.db")
+
+    def tearDown(self):
+        os.remove("example.db")
+
+    def testGetPieceListOffline(self):
+        self.data.addPiece("file.xml",{"composer":"blabla", "source":"MuseScore"})
+        self.data.addPiece("file1.xml",{"composer":"blabla"})
+        result_set = self.data.getFileList()
+        self.assertEqual(result_set, ["file1.xml"])
+
+    def testGetPieceListOnline(self):
+        self.data.addPiece("file.xml",{"composer":"blabla", "source":"MuseScore"})
+        self.data.addPiece("file1.xml",{"composer":"blabla"})
+        result_set = self.data.getFileList(online=True)
+        self.assertEqual(result_set, ["file.xml"])
+
+    def testGetPieceOffline(self):
+        self.data.addPiece("file.xml",{"composer":"blabla", "source":"MuseScore"})
+        result_set = self.data.getPiece("file.xml")
+        self.assertEqual(result_set, [])
+
+    def testGetPieceOnline(self):
+        self.data.addPiece("file.xml",{"composer":"blabla", "source":"MuseScore"})
+        result_set = self.data.getPiece("file.xml", online=True)
+        self.assertEqual(result_set, [(1, 'file.xml', '', 1, -1)])
+
+    def testGetPieceByInstrumentsOffline(self):
+        self.data.addPiece("file.xml",{"composer":"blabla", "source":"MuseScore", "instruments":[{"name":"Clarinet"}]})
+        result_set = self.data.getPiecesByInstruments(["Clarinet"])
+        self.assertEqual(result_set, [])
+
+    def testGetPieceByInstrumentsOnline(self):
+        self.data.addPiece("file.xml",{"composer":"blabla", "source":"MuseScore", "instruments":[{"name":"Clarinet"}]})
+        result_set = self.data.getPiecesByInstruments(["Clarinet"], online=True)
+        self.assertEqual(result_set, ['file.xml'])
+
+    def testGetPieceByComposerOffline(self):
+        self.data.addPiece("file.xml",{"composer":"blabla", "source":"MuseScore"})
+        result_set = self.data.getPiecesByComposer("blabla")
+        self.assertEqual(result_set, [])
+
+    def testGetPieceByComposerOnline(self):
+        self.data.addPiece("file.xml",{"composer":"blabla", "source":"MuseScore"})
+        result_set = self.data.getPiecesByComposer("blabla", online=True)
+        self.assertEqual(result_set, ['file.xml'])
+
+    def testGetPieceByLyricistOffline(self):
+        self.data.addPiece("file.xml",{"lyricist":"blabla", "source":"MuseScore"})
+        result_set = self.data.getPiecesByLyricist("blabla")
+        self.assertEqual(result_set, [])
+
+    def testGetPieceByLyricistOnline(self):
+        self.data.addPiece("file.xml",{"lyricist":"blabla", "source":"MuseScore"})
+        result_set = self.data.getPiecesByLyricist("blabla", online=True)
+        self.assertEqual(result_set, ['file.xml'])
+
+    def testGetPieceByTitleOffline(self):
+        self.data.addPiece("file.xml",{"title":"blabla", "source":"MuseScore"})
+        result_set = self.data.getPieceByTitle("blabla")
+        self.assertEqual(result_set, [])
+
+    def testGetPieceByTitleOnline(self):
+        self.data.addPiece("file.xml",{"title":"blabla", "source":"MuseScore"})
+        result_set = self.data.getPieceByTitle("blabla", online=True)
+        self.assertEqual(result_set, ['file.xml'])
+
+    def testGetPieceByKeysOffline(self):
+        self.data.addPiece("file.xml",{"title":"blabla", "source":"MuseScore", "key":{"Clarinet":[{"mode":"major","fifths":2}]}, "instruments":[{"name":"Clarinet"}]})
+        result_set = self.data.getPieceByKeys(["D major"])
+        self.assertEqual(result_set, [])
+
+    def testGetPieceByKeysOnline(self):
+        self.data.addPiece("file.xml",{"title":"blabla", "source":"MuseScore", "key":{"Clarinet":[{"mode":"major","fifths":2}]}, "instruments":[{"name":"Clarinet"}]})
+        result_set = self.data.getPieceByKeys(["D major"], online=True)
+        self.assertEqual(result_set, ['file.xml'])
