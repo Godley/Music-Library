@@ -2,7 +2,9 @@ from implementation.primaries.Drawing.classes.tree_cls.BaseTree import IndexedNo
 from implementation.primaries.Drawing.classes.tree_cls import MeasureNode
 from implementation.primaries.Drawing.classes import Measure
 
+
 class StaffNode(IndexedNode):
+
     def __init__(self):
         IndexedNode.__init__(self, rules=[MeasureNode.MeasureNode])
         self.autoBeam = True
@@ -25,8 +27,8 @@ class StaffNode(IndexedNode):
 
     def SortedChildren(self):
         children = self.GetChildrenIndexes()
-        integers = [child for child in children if type(child) == int]
-        strings = [child for child in children if type(child) == str]
+        integers = [child for child in children if isinstance(child, int)]
+        strings = [child for child in children if isinstance(child, str)]
         result = []
         integers.sort()
         waiting = []
@@ -42,8 +44,9 @@ class StaffNode(IndexedNode):
                     if digit == integers[counter]:
                         result.append(strings[str_counter])
                     else:
-                        waiting.append((strings[str_counter][0],digit))
-                result.extend([w[0]+str(w[1]) for w in waiting if integers[counter] == w[1]])
+                        waiting.append((strings[str_counter][0], digit))
+                result.extend([w[0] + str(w[1])
+                               for w in waiting if integers[counter] == w[1]])
                 counter += 1
                 str_counter += 1
         else:
@@ -62,8 +65,8 @@ class StaffNode(IndexedNode):
         for child in range(len(children)):
             measureNode = self.GetChild(children[child])
             measureNode.autoBeam = self.autoBeam
-            lilystring += " % measure "+str(children[child])+"\n"
-            lilystring += measureNode.toLily()+"\n\n"
+            lilystring += " % measure " + str(children[child]) + "\n"
+            lilystring += measureNode.toLily() + "\n\n"
         return lilystring
 
     def CheckDivisions(self):
@@ -83,12 +86,20 @@ class StaffNode(IndexedNode):
             if len(self.backward_repeats) > 0:
                 measure = self.GetChild(measure_indexes[0])
                 for repeat in self.backward_repeats:
-                    measure.AddBarline(Measure.Barline(repeat="forward", repeatNum=repeat), location="left-1")
+                    measure.AddBarline(
+                        Measure.Barline(
+                            repeat="forward",
+                            repeatNum=repeat),
+                        location="left-1")
         if hasattr(self, "forward_repeats"):
             if len(self.forward_repeats) > 0:
                 measure = self.GetChild(measure_indexes[-1])
                 for repeat in self.forward_repeats:
-                    measure.AddBarline(Measure.Barline(repeat="backward", repeatNum=repeat), location="right-1")
+                    measure.AddBarline(
+                        Measure.Barline(
+                            repeat="backward",
+                            repeatNum=repeat),
+                        location="right-1")
 
     def AddBarline(self, item=None, measure_id=1, location="left"):
         measure = self.GetChild(measure_id)
@@ -106,7 +117,12 @@ class StaffNode(IndexedNode):
                 if not hasattr(self, "backward_repeat"):
                     self.backward_repeats = []
                 self.backward_repeats.append(num)
-                if hasattr(self, "forward_repeats") and (len(self.forward_repeats) == len(self.backward_repeats) and len(self.forward_repeats) > 0):
+                if hasattr(
+                    self, "forward_repeats") and (
+                    len(
+                        self.forward_repeats) == len(
+                        self.backward_repeats) and len(
+                        self.forward_repeats) > 0):
                     self.forward_repeats.pop()
                     self.backward_repeats.pop()
         measure.AddBarline(item, location=location)

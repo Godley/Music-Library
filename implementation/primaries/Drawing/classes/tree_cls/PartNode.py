@@ -11,7 +11,9 @@ except:
     from classes.Note import GraceNote, Arpeggiate, NonArpeggiate
 import copy
 
+
 class PartNode(IndexedNode):
+
     def __init__(self, index=0):
         IndexedNode.__init__(self, rules=[StaffNode])
         self.index = index
@@ -103,7 +105,7 @@ class PartNode(IndexedNode):
                     if meter is not None:
                         item.meter = meter
 
-    def setDivisions(self, measure=1,divisions=1):
+    def setDivisions(self, measure=1, divisions=1):
         staves = self.GetChildrenIndexes()
         for staff in staves:
             measure_obj = self.getMeasure(measure, staff)
@@ -131,7 +133,6 @@ class PartNode(IndexedNode):
     def getStaff(self, key):
         return self.GetChild(key)
 
-
     def addMeasure(self, item, measure=1, staff=1):
         if self.getStaff(staff) is None:
             self.AddChild(StaffNode(), staff)
@@ -139,7 +140,10 @@ class PartNode(IndexedNode):
         staff_obj.AddChild(item, measure)
 
     def addEmptyMeasure(self, measure=1, staff=1):
-        self.addMeasure(MeasureNode.MeasureNode(), measure=measure, staff=staff)
+        self.addMeasure(
+            MeasureNode.MeasureNode(),
+            measure=measure,
+            staff=staff)
 
     def CalculateVariable(self, name, staves):
         variables = []
@@ -155,7 +159,7 @@ class PartNode(IndexedNode):
                         variable += helpers.NumbersToWords(int(letter))
                     else:
                         variable += letter
-            variable += "staff"+helpers.NumbersToWords(staff)
+            variable += "staff" + helpers.NumbersToWords(staff)
             variables.append(variable)
         return variables
 
@@ -195,7 +199,6 @@ class PartNode(IndexedNode):
         if hasattr(self, "drum") and self.drum:
             return "DRUM"
 
-
     def toLily(self):
         self.CheckDivisions()
         self.CheckTotals()
@@ -211,7 +214,9 @@ class PartNode(IndexedNode):
         first_part = ""
         for staff, variable in zip(staves, variables):
             staffstring = variable
-            if hasattr(self.GetChild(staff), "tab") and self.GetChild(staff).tab:
+            if hasattr(
+                    self.GetChild(staff),
+                    "tab") and self.GetChild(staff).tab:
                 staffstring += " = \\new TabStaff"
             elif hasattr(self.GetChild(staff), "drum") and self.GetChild(staff).drum:
                 staffstring += " = \\drums"
@@ -220,11 +225,12 @@ class PartNode(IndexedNode):
             if len(staves) == 1:
                 if name != "":
                     staffstring += " \with {\n"
-                    staffstring += "instrumentName = "+ name +" \n"
+                    staffstring += "instrumentName = " + name + " \n"
                     if shortname != "":
-                        staffstring += "shortInstrumentName = "+ shortname +" \n"
+                        staffstring += "shortInstrumentName = " + \
+                            shortname + " \n"
                     staffstring += " }"
-            staffstring += "{"+self.GetChild(staff).toLily() + " }\n\n"
+            staffstring += "{" + self.GetChild(staff).toLily() + " }\n\n"
             first_part += staffstring
 
         second_part = ""
@@ -232,11 +238,10 @@ class PartNode(IndexedNode):
             second_part += "\\new StaffGroup "
             if name != "":
                 second_part += "\with {\n"
-                second_part += "instrumentName = "+ name +" \n"
+                second_part += "instrumentName = " + name + " \n"
                 second_part += " }"
             second_part += "<<"
-        second_part += "\n".join(["\\"+var for var in variables])
+        second_part += "\n".join(["\\" + var for var in variables])
         if len(variables) > 1:
             second_part += ">>"
         return [first_part, second_part]
-

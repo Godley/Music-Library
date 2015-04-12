@@ -2,7 +2,7 @@
 Classes dealing with the MuseScore community api
 '''
 from implementation.primaries.ImportOnlineDBs.classes.API import Api
-import requests, pprint, os, shutil
+import requests, os, shutil
 
 class MuseScoreApi(Api):
 

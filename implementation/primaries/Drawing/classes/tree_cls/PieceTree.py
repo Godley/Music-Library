@@ -11,7 +11,6 @@ except:
 import copy
 
 
-
 # \markup {
 #     \column { "Clarinetti"
 #       \line { "in B" \smaller \flat }
@@ -19,6 +18,7 @@ import copy
 #   }
 
 class PieceTree(Tree):
+
     def __init__(self):
         Tree.__init__(self)
         self.root = IndexedNode(rules=[PartNode.PartNode])
@@ -34,7 +34,7 @@ class PieceTree(Tree):
                 number = child[1:len(child)]
                 numbers.append(int(number))
         numbers.sort()
-        part_ids = map(lambda x: "P"+str(x), numbers)
+        part_ids = map(lambda x: "P" + str(x), numbers)
         return part_ids
 
     def SetValue(self, item):
@@ -70,9 +70,9 @@ class PieceTree(Tree):
     def AddToGroup(self, name, index):
         if name not in self.groups:
             self.groups[name] = []
-        if type(index) == str and index not in self.groups[name]:
+        if isinstance(index, str) and index not in self.groups[name]:
             self.groups[name].append(index)
-        elif type(index) == list:
+        elif isinstance(index, list):
             self.groups[name].append(index)
 
     def getGroup(self, name):
@@ -92,30 +92,36 @@ class PieceTree(Tree):
         lilystring = ""
         ids_loaded = []
         groupings = []
-        group_ids = sorted(self.groups, key=lambda k: len(self.groups[k]), reverse=True)
+        group_ids = sorted(
+            self.groups,
+            key=lambda k: len(
+                self.groups[k]),
+            reverse=True)
         for i in range(len(group_ids)):
             merger = []
-            for j in range(i+1, len(group_ids)):
+            for j in range(i + 1, len(group_ids)):
                 for k in self.groups[group_ids[j]]:
                     if k in self.groups[group_ids[i]]:
                         merger.append(k)
             if len(merger) > 0:
                 for group in group_ids:
-                    [self.groups[group].remove(a) for a in self.groups[group] if a in merger]
+                    [self.groups[group].remove(
+                        a) for a in self.groups[group] if a in merger]
                 self.AddToGroup(group_ids[i], merger)
         for group in group_ids:
             groupstr = "\\new StaffGroup <<"
-            not_nested = [g for g in self.groups[group] if type(g) != list]
-            not_nested.sort()
-            not_nested.extend([g for g in self.groups[group] if type(g) == list])
+            not_nested = sorted(
+                [g for g in self.groups[group] if not isinstance(g, list)])
+            not_nested.extend(
+                [g for g in self.groups[group] if isinstance(g, list)])
             for element in not_nested:
-                if type(element) is not list and element not in ids_loaded:
+                if not isinstance(element, list) and element not in ids_loaded:
                     part = self.getPart(element)
                     pstring = part.toLily()
                     lilystring += pstring[0]
                     groupstr += pstring[1]
                     ids_loaded.append(element)
-                elif type(element) is list:
+                elif isinstance(element, list):
                     groupstr += "\\new StaffGroup <<"
                     for nested_part in element:
                         part = self.getPart(nested_part)
@@ -138,7 +144,8 @@ class PieceTree(Tree):
             # here we need to do some set union theory
             lstring, groupings, ids_loaded = self.handleGroups()
             lilystring += lstring
-        children = [child for child in self.GetSortedChildren() if child not in ids_loaded]
+        children = [
+            child for child in self.GetSortedChildren() if child not in ids_loaded]
         for child in children:
             part = self.getPart(child)
             partstring = part.toLily()

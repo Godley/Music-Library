@@ -1203,3 +1203,53 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                            "title": "blabla", "source": "MuseScore", "time": [{"beat": 4, "type": 4}]})
         result_set = self.data.getPieceByMeter(["4/4"], online=True)
         self.assertEqual(result_set, ['file.xml'])
+
+    def testGetPieceByTempoOffline(self):
+        self.data.addPiece("file.xml", {
+                           "title": "blabla",
+                           "source": "MuseScore",
+                           "tempo": [{"beat": "quarter", "minute": 100}]})
+        result_set = self.data.getPieceByTempo(["quarter=100"])
+        self.assertEqual(result_set, [])
+
+    def testGetPieceByTempoOnline(self):
+        self.data.addPiece("file.xml", {
+                           "title": "blabla",
+                           "source": "MuseScore",
+                           "tempo": [{"beat": "quarter", "minute":100}]})
+        result_set = self.data.getPieceByTempo(["quarter=100"], online=True)
+        self.assertEqual(result_set, ['file.xml'])
+
+    def testGetPieceByInstrumentsOrSimilarOffline(self):
+        self.data.addPiece("file.xml", {
+                           "title": "blabla",
+                           "source": "MuseScore",
+                           "instruments": [{"name": "Clarinet"}]})
+        result_set = self.data.getPieceByInstrumentsOrSimilar([{"name": "Clarinet"}])
+        self.assertEqual(result_set, [])
+
+    def testGetPieceByInstrumentsOrSimilarOnline(self):
+        self.data.addPiece("file.xml", {
+                           "title": "blabla",
+                           "source": "MuseScore",
+                           "instruments": [{"name": "Clarinet"}]})
+        result_set = self.data.getPieceByInstrumentsOrSimilar([{"name": "Clarinet"}], online=True)
+        self.assertEqual(result_set, ['file.xml'])
+
+    def testGetPieceSource(self):
+        self.data.addPiece("file.xml", {
+                           "title": "blabla",
+                           "source": "MuseScore",
+                           "instruments": [{"name": "Clarinet"}]})
+        result = self.data.getPieceSource("file.xml")
+        self.assertEqual(result, ("MuseScore",))
+
+    def testDownloadPiece(self):
+        self.data.addPiece("file.xml", {
+                           "title": "blabla",
+                           "source": "MuseScore",
+                           "instruments": [{"name": "Clarinet"}]})
+        self.data.downloadPiece("file.xml")
+        result = self.data.getPieceSource("file.xml")
+        self.assertEqual(result, None)
+

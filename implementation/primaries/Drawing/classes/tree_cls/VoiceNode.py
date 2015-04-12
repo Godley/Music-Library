@@ -4,6 +4,7 @@ from implementation.primaries.Drawing.classes.Note import Arpeggiate, NonArpeggi
 
 
 class VoiceNode(Node):
+
     def __init__(self):
         Node.__init__(self, rules=[NoteNode.NoteNode, NoteNode.Placeholder])
         self.note_total = 0
@@ -22,31 +23,34 @@ class VoiceNode(Node):
         :return: list of note values
         """
         return self.note_types
-    
+
     def RunNoteChecks(self):
         children = self.GetChildrenIndexes()
         previous = None
         for child in range(len(children)):
             note = self.GetChild(children[child])
             item = note.GetItem()
-            if item is not None and type(note) == NoteNode.NoteNode:
+            if item is not None and isinstance(note, NoteNode.NoteNode):
                 # look for arpeggiates or non-arpeggiates, and update the note's childnodes
-                # used where a note is part of a chord (usually the case in arpeggiates)
+                # used where a note is part of a chord (usually the case in
+                # arpeggiates)
                 arpeg = item.Search(Arpeggiate)
                 narpeg = item.Search(NonArpeggiate)
                 if arpeg is not None or narpeg is not None:
                     note.UpdateArpeggiates()
-                
-                # now look for gracenotes    
+
+                # now look for gracenotes
                 result = item.Search(GraceNote)
                 if result is not None and previous is None:
-                    # if this is the first note in the bar, it must be the first gracenote
+                    # if this is the first note in the bar, it must be the
+                    # first gracenote
                     result.first = True
-                    
-                if len(children) == child+1:
+
+                if len(children) == child + 1:
                     # if we're at the last note...
                     if result is not None:
-                        # same check as arpeggiates - handles the case where notes are part of a chord
+                        # same check as arpeggiates - handles the case where
+                        # notes are part of a chord
                         note.CheckForGraceNotes()
 
                     # look for timemods
@@ -64,10 +68,13 @@ class VoiceNode(Node):
                     else:
                         item.close_timemod = False
                 else:
-                    # otherwise check the next item for gracenotes and time mods
-                    next = self.GetChild(children[child+1])
+                    # otherwise check the next item for gracenotes and time
+                    # mods
+                    next = self.GetChild(children[child + 1])
                     next_item = next.GetItem()
-                    if next_item is not None and type(next) is NoteNode.NoteNode:
+                    if next_item is not None and isinstance(
+                            next,
+                            NoteNode.NoteNode):
                         result = item.Search(GraceNote)
                         next_result = next_item.Search(GraceNote)
                         if result is not None:
@@ -79,13 +86,18 @@ class VoiceNode(Node):
                         if hasattr(item, "timeMod"):
                             res = item.Search(Tuplet)
 
-                            if not hasattr(next_item, "timeMod") and res is None:
+                            if not hasattr(
+                                    next_item,
+                                    "timeMod") and res is None:
                                 item.close_timemod = True
                             else:
                                 item.close_timemod = False
-                            
-                            # not sure if checking next and previous is necessary?
-                            if previous is not None and type(previous) is NoteNode.NoteNode:
+
+                            # not sure if checking next and previous is
+                            # necessary?
+                            if previous is not None and isinstance(
+                                    previous,
+                                    NoteNode.NoteNode):
                                 if hasattr(previous.GetItem(), "timeMod"):
                                     item.timeMod.first = False
                                 else:
@@ -97,7 +109,7 @@ class VoiceNode(Node):
     def toLily(self):
         lilystring = ""
         children = self.GetChildrenIndexes()
-        total= self.note_total
+        total = self.note_total
         counter = 0
         for child in range(len(children)):
             note = self.GetChild(children[child])
@@ -112,12 +124,12 @@ class VoiceNode(Node):
                         counter += 0.25
                     if note.duration == "\\breve":
                         counter += 0.5
-            if counter > total/2:
+            if counter > total / 2:
                 if hasattr(self, "mid_barline"):
                     lilystring += self.mid_barline.toLily()
                     self.__delattr__("mid_barline")
             if hasattr(self, "rest") and hasattr(self, "total"):
-                lilystring += "R"+self.total
+                lilystring += "R" + self.total
             else:
                 lilystring += note.toLily() + " "
         return lilystring

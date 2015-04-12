@@ -1157,7 +1157,7 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
-    def getInstrumentsByPieceId(self, piece_id, cursor, online=False):
+    def getInstrumentsByPieceId(self, piece_id, cursor):
         instrument_query = 'SELECT instrument_id FROM instruments_piece_join WHERE piece_id=?'
         cursor.execute(instrument_query, (piece_id,))
         instrument_ids = cursor.fetchall()
@@ -1209,12 +1209,12 @@ class MusicData(object):
             instruments,
             archived=0,
             online=False):
-        '''
+        """
         method which searches first for any pieces containing the exact instrument, then by the name in dict,
         then by the transposition of the name if it isn't in the instruments table.
         :param instruments: list of instruments to search by
         :return: list of files + their instruments
-        '''
+        """
         connection, cursor = self.connect()
         instrument_names = [entry["name"] for entry in instruments]
         instrument_keys = []
@@ -1244,6 +1244,12 @@ class MusicData(object):
                 query += ''')'''
                 if instrument != alternates[-1]:
                     query += " AND EXISTS"
+
+            if online:
+                query += ' AND EXISTS '
+            else:
+                query += ' AND NOT EXISTS '
+            query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
             query += ";"
             cursor.execute(query, tuple(query_input))
             results = cursor.fetchall()
@@ -1256,7 +1262,7 @@ class MusicData(object):
 
     # again, helper methods for other methods which just go off and find the
     # joins for specific pieces
-    def getClefsByPieceId(self, piece_id, cursor, online=False):
+    def getClefsByPieceId(self, piece_id, cursor):
         clef_query = 'SELECT clef_id, instrument_id FROM clef_piece_join WHERE piece_id=?'
         cursor.execute(clef_query, (piece_id,))
         clef_ids = cursor.fetchall()
@@ -1271,7 +1277,7 @@ class MusicData(object):
                 clefs[name[1]].append(name[0])
         return clefs
 
-    def getKeysByPieceId(self, piece_id, cursor, online=False):
+    def getKeysByPieceId(self, piece_id, cursor):
         key_query = 'SELECT key_id, instrument_id FROM key_piece_join WHERE piece_id=?'
         cursor.execute(key_query, (piece_id,))
         key_ids = cursor.fetchall()
@@ -1286,7 +1292,7 @@ class MusicData(object):
                 keys[name[1]].append(name[0])
         return keys
 
-    def getTimeSigsByPieceId(self, piece_id, cursor, online=False):
+    def getTimeSigsByPieceId(self, piece_id, cursor):
         time_query = 'SELECT time_id FROM time_piece_join WHERE piece_id=?'
         cursor.execute(time_query, (piece_id,))
         time_ids = cursor.fetchall()
@@ -1299,7 +1305,7 @@ class MusicData(object):
                 meters.append(str(timesig[0]) + "/" + str(timesig[1]))
         return meters
 
-    def getTemposByPieceId(self, piece_id, cursor, online=False):
+    def getTemposByPieceId(self, piece_id, cursor):
         tempo_query = 'SELECT tempo_id FROM tempo_piece_join WHERE piece_id=?'
         cursor.execute(tempo_query, (piece_id,))
         tempo_ids = cursor.fetchall()
@@ -1317,7 +1323,7 @@ class MusicData(object):
                 tempos.append(tempo_string)
         return tempos
 
-    def getAllPieceInfo(self, filenames, archived=0, online=False):
+    def getAllPieceInfo(self, filenames, archived=0):
         file_data = []
         for filename in filenames:
             piece_tuple = self.getPiece(filename, archived)
@@ -1504,10 +1510,33 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
+    def getPieceSource(self, filename):
+        connection, cursor = self.connect()
+        query = 'SELECT source FROM sources, pieces p WHERE p.filename =? AND p.ROWID = sources.piece_id'
+        cursor.execute(query, (filename,))
+        result = cursor.fetchone()
+        self.disconnect(connection)
+        return result
+
+    def downloadPiece(self, filename):
+        """
+        method to get rid of the source entry for a given filename
+        :param filename:
+        :return:
+        """
+        connection, cursor = self.connect()
+        query = 'SELECT ROWID FROM pieces WHERE filename =?'
+        cursor.execute(query, (filename,))
+        result = cursor.fetchone()
+        query = 'DELETE FROM sources WHERE piece_id = ?'
+        cursor.execute(query, result)
+        connection.commit()
+        self.disconnect(connection)
+
     def disconnect(self, connection):
-        '''
+        """
         method which shuts down db connection
         :param connection: connection object
         :return: None
-        '''
+        """
         connection.close()
