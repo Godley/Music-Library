@@ -24,6 +24,7 @@ class Async_Handler_Queue(Async_Handler):
     def execute(self):
         thr = threading.Thread(target=self.function, args=self.data, kwargs=self.kwargs)
         thr.start() # will run "foo"
+
         data = self.queue.get()
         self.callback(data, **self.kwargs)
 

@@ -31,7 +31,7 @@ class MainWindow(QtGui.QMainWindow):
         self.AddPlaylistButton.clicked.connect(self.addPlaylist)
         self.searchInput.textChanged.connect(self.updateOptions)
         self.searchInput.returnPressed.connect(self.searchDb)
-        # self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
+        self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
         self.searchBtn.clicked.connect(self.searchDb)
         self.AutoSortCombo.currentIndexChanged.connect(self.onAutoSortMethodChange)
         self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
@@ -661,8 +661,8 @@ class MainWindow(QtGui.QMainWindow):
 
     def updateOptions(self):
         text = self.searchInput.text()
-        self.parent.query(text)
         self.autoCompleteBox.clear()
+        self.parent.query(text)
         self.autoCompleteBox.show()
         self.autoCompleteFrame.show()
 
