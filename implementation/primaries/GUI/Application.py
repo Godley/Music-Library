@@ -1,10 +1,7 @@
 from PyQt4 import QtCore, QtGui
-import sys
-import os
-import pickle
-import threading
+import sys, os, pickle, threading, queue
 import time
-from implementation.primaries.GUI import StartupWidget, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
+from implementation.primaries.GUI import StartupWidget, thread_classes, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
 
@@ -67,7 +64,7 @@ class Application(object):
             self.setupMainWindow()
 
     def setupMainWindow(self):
-        self.manager = MusicManager.MusicManager(folder=self.folder)
+        self.manager = MusicManager.MusicManager(self, folder=self.folder)
         self.manager.runApiOperation()
         self.updateDb()
         self.main = MainWindow.MainWindow(self)
@@ -84,10 +81,18 @@ class Application(object):
         data = self.manager.getPlaylistByFilename(filename)
         return data
 
+    def async_handle(self, data, method, callback, callback_data):
+        thr = threading.Thread(target=method, args=data, kwargs={})
+        thr.start() # will run "foo"
+        while(thr.is_alive()):
+            print("running")# will return whether foo is running currently
+        thr.join() # will wait till "foo" is done
+        callback(callback_data)
+
+
     def downloadFile(self, filename):
-        completed = self.manager.downloadFile(filename)
-        if completed:
-            self.main.loadPiece(filename)
+        async = thread_classes.Async_Handler((filename,), self.manager.downloadFile, self.main.loadPiece, filename)
+        async.execute()
 
     def loadFile(self, filename):
         '''
@@ -136,11 +141,29 @@ class Application(object):
         popup.setWindowFlags(QtCore.Qt.Dialog)
         popup.exec()
 
+    def onQueryComplete(self, data, online=False):
+        query_results = {}
+        if online:
+            query_results["Online"] = data
+        else:
+            query_results["Offline"] = data
+        self.main.onQueryReturned(query_results)
+
     def query(self, input):
         data = SearchProcessor.process(input)
-        offline_results = self.manager.runQueries(data)
-        online_results = self.manager.runQueries(data, online=True)
-        return {"Offline": offline_results, "Online": online_results}
+        data_queue = queue.Queue()
+        offline_handler = thread_classes.Async_Handler_Queue(self.manager.runQueries,
+                                                             self.onQueryComplete,
+                                                             data_queue, (data,))
+        online_handler = thread_classes.Async_Handler_Queue(self.manager.runQueries,
+                                                             self.onQueryComplete,
+                                                             data_queue, (data,),
+                                                             kwargs={"online":True})
+        offline_handler.execute()
+        online_handler.execute()
+
+        self.query_results = {}
+
 
     def startRenderingTask(self, filename):
         errorList = []

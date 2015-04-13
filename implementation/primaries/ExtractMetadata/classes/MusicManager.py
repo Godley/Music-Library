@@ -3,6 +3,7 @@ import shutil
 import zipfile
 from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
+from xml.sax._exceptions import *
 
 
 class Unzipper(object):
@@ -125,7 +126,8 @@ class FolderBrowser(object):
 
 class MusicManager(object):
 
-    def __init__(self, folder='/Users/charlottegodley/PycharmProjects/FYP'):
+    def __init__(self, parent, folder='/Users/charlottegodley/PycharmProjects/FYP'):
+        self.parent = parent
         self.folder = folder
         self.__data = DataLayer.MusicData(
             os.path.join(
@@ -154,6 +156,7 @@ class MusicManager(object):
         method to extract data from apis and parse each created file for metadata
         :return: dictionary of data indexed by filename
         """
+        parsing_errors = {}
         cleaned_set = self.apiManager.fetchAllData()
         filelist = self.getFileList(online=True)
         for file in filelist:
@@ -167,27 +170,30 @@ class MusicManager(object):
             result_set[source] = {}
             for file in file_set[source]:
                 ignore_list = self.apiManager.getSourceIgnoreList(source)
-                data = self.parseXMLFile(
-                    file,
-                    parser=OnlineMetaParser.OnlineMetaParser(
-                        source=source,
-                        ignored=ignore_list))
-                result_set[source][file] = data
-                file_id = file.split("/")[-1].split(".")[0]
-                if "title" in cleaned_set[source][file_id]:
-                    result_set[source][file]["title"] = cleaned_set[
-                        source][file_id]["title"]
-                if "composer" in cleaned_set[source][file_id]:
-                    result_set[source][file]["composer"] = cleaned_set[
-                        source][file_id]["composer"]
+                parser = OnlineMetaParser.OnlineMetaParser(ignored=ignore_list, source=source)
+                data = self.parseXMLFile(file, parser=parser)
+                if type(data) != tuple:
+                    result_set[source][file] = data
+                    file_id = file.split("/")[-1].split(".")[0]
+                    if "title" in cleaned_set[source][file_id]:
+                        result_set[source][file]["title"] = cleaned_set[
+                            source][file_id]["title"]
+                    if "composer" in cleaned_set[source][file_id]:
+                        result_set[source][file]["composer"] = cleaned_set[
+                            source][file_id]["composer"]
 
-                if "lyricist" in cleaned_set[source][file_id]:
-                    result_set[source][file]["lyricist"] = cleaned_set[
-                        source][file_id]["lyricist"]
-                if "secret" in cleaned_set[source][file_id]:
-                    result_set[source][file]["secret"] = cleaned_set[source][file_id]["secret"]
-                if "license" in cleaned_set[source][file_id]:
-                    result_set[source][file]["license"] = cleaned_set[source][file_id]["license"]
+                    if "lyricist" in cleaned_set[source][file_id]:
+                        result_set[source][file]["lyricist"] = cleaned_set[
+                            source][file_id]["lyricist"]
+                    if "secret" in cleaned_set[source][file_id]:
+                        result_set[source][file]["secret"] = cleaned_set[source][file_id]["secret"]
+                    if "license" in cleaned_set[source][file_id]:
+                        result_set[source][file]["license"] = cleaned_set[source][file_id]["license"]
+                else:
+                    parsing_errors[data[1]] = data[0]
+            if len(parsing_errors) > 0:
+                error_string = "".join([error + " : " + parsing_errors[error] for error in parsing_errors])
+                self.parent.errorPopup(error_string)
         return result_set
 
     def addApiFiles(self, data):
@@ -314,9 +320,22 @@ class MusicManager(object):
         """
         self.__data.archivePieces(file_list)
 
-    def parseXMLFile(self, filename, parser=MetaParser.MetaParser()):
-        data_set = parser.parse(os.path.join(self.folder, filename))
-        return data_set
+    def parseXMLFile(self, filename, parser=None):
+        errorTuple = []
+        if parser is None:
+            parser = MetaParser.MetaParser()
+        try:
+            data_set = parser.parse(os.path.join(self.folder, filename))
+            return data_set
+        except SAXException as e:
+            errorTuple.append(str(e))
+            errorTuple.append(filename)
+            return tuple(errorTuple)
+
+
+    def parseError(self, exception):
+        string_val = str(exception)
+        self.parent.errorPopup(string_val)
 
     def parseNewFiles(self, file_list):
         """

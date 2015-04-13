@@ -1,7 +1,23 @@
 import xml.sax
 from xml.sax import handler, make_parser
 from implementation.primaries.Drawing.classes import helpers
+class Extractor(xml.sax.ContentHandler):
 
+    def __init__(self, parent):
+        self.parent = parent
+
+    def startElement(self, name, attrs):
+        attribs = {}
+        for attrname in attrs.getNames():
+            attrvalue = attrs.get(attrname)
+            attribs[attrname] = attrvalue
+        self.parent.startTag(name, attribs)
+
+    def characters(self, text):
+        self.parent.newData(text)
+
+    def endElement(self, name):
+        self.parent.endTag(name)
 
 class MetaParser(object):
 
@@ -68,23 +84,7 @@ class MetaParser(object):
     def parse(self, file):
         parser = make_parser()
 
-        class Extractor(xml.sax.ContentHandler):
 
-            def __init__(self, parent):
-                self.parent = parent
-
-            def startElement(self, name, attrs):
-                attribs = {}
-                for attrname in attrs.getNames():
-                    attrvalue = attrs.get(attrname)
-                    attribs[attrname] = attrvalue
-                self.parent.startTag(name, attribs)
-
-            def characters(self, text):
-                self.parent.newData(text)
-
-            def endElement(self, name):
-                self.parent.endTag(name)
         parser.setContentHandler(Extractor(self))
         # OFFLINE MODE
         parser.setFeature(handler.feature_external_ges, False)
@@ -92,6 +92,8 @@ class MetaParser(object):
         parser.parse(fob)
         self.collatePartsIntoData()
         return self.data
+
+
 
     def collatePartsIntoData(self):
         instrument_list = []

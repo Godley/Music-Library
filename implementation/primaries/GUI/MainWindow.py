@@ -31,7 +31,7 @@ class MainWindow(QtGui.QMainWindow):
         self.AddPlaylistButton.clicked.connect(self.addPlaylist)
         self.searchInput.textChanged.connect(self.updateOptions)
         self.searchInput.returnPressed.connect(self.searchDb)
-        self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
+        # self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
         self.searchBtn.clicked.connect(self.searchDb)
         self.AutoSortCombo.currentIndexChanged.connect(self.onAutoSortMethodChange)
         self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
@@ -471,7 +471,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def loadPieceData(self, filename):
         self.pieceInfoView.clear()
-        data = self.parent.getFileInfo(filename)[0
+        data = self.parent.getFileInfo(filename)[0]
 
         datastring = "title: "+data["title"]
         title = QtGui.QListWidgetItem(datastring)
@@ -635,10 +635,7 @@ class MainWindow(QtGui.QMainWindow):
     def searchDb(self):
         print("finding thing")
 
-    def updateOptions(self):
-        text = self.searchInput.text()
-        results = self.parent.query(text)
-        self.autoCompleteBox.clear()
+    def onQueryReturned(self, results):
         for location_type in results:
             item = QtGui.QTreeWidgetItem(location_type)
             item.setData(0,0,location_type)
@@ -658,18 +655,17 @@ class MainWindow(QtGui.QMainWindow):
         else:
             self.noResultsSmiley.hide()
             self.noResultsLabel.hide()
-            # rows = len(results)
-            # rowSize = self.autoCompleteBox.sizeHintForRow(0)
-            # height = rows * rowSize
-            # frameWidth = self.autoCompleteBox.frameWidth()
-            # fixedHeight = height + frameWidth * 2
-            # if fixedHeight > self.sizeHint().height():
-            #     fixedHeight = self.sizeHint().height() / 1.2
-            # self.autoCompleteBox.setFixedHeight(fixedHeight)
-            # self.autoCompleteFrame.setFixedHeight(fixedHeight+50)
 
         self.autoCompleteBox.show()
         self.autoCompleteFrame.show()
+
+    def updateOptions(self):
+        text = self.searchInput.text()
+        self.parent.query(text)
+        self.autoCompleteBox.clear()
+        self.autoCompleteBox.show()
+        self.autoCompleteFrame.show()
+
 
 
 class View(QtGui.QGraphicsView):
