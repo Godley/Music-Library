@@ -8,11 +8,13 @@ class Async_Handler(object):
         self.callback_data = callback_data
 
     def execute(self):
+        self.execute_without_callback()
+        self.callback(self.callback_data)
+
+    def execute_without_callback(self):
         thr = threading.Thread(target=self.method, args=self.data, kwargs={})
         thr.start() # will run "foo"
-        while(thr.is_alive()):
-            print("running")# will return whether foo is running currently
-        self.callback(self.callback_data)
+
 
 class Async_Handler_Queue(Async_Handler):
     def __init__(self, method, callback, queue, data, kwargs={}):

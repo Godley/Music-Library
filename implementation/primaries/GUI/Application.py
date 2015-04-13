@@ -63,13 +63,18 @@ class Application(object):
             self.startup.close()
             self.setupMainWindow()
 
+    def updateDb(self):
+        refresh_operation = thread_classes.Async_Handler((), self.manager.refresh(), None, None)
+        refresh_operation.execute_without_callback()
+
     def setupMainWindow(self):
         self.manager = MusicManager.MusicManager(self, folder=self.folder)
-        self.manager.runApiOperation()
-        self.updateDb()
         self.main = MainWindow.MainWindow(self)
         self.main.show()
         self.main.runLoadingProcedure()
+        operation = thread_classes.Async_Handler((), self.manager.runApiOperation, None, None)
+        operation.execute_without_callback()
+        self.updateDb()
 
     def getPlaylistFileInfo(self, playlist):
         return self.manager.getPlaylistFileInfo(playlist)
@@ -232,9 +237,6 @@ class Application(object):
             except BaseException as e:
                 errorList.append(str(e))
         return errorList
-
-    def updateDb(self):
-        self.manager.refresh()
 
     def makeNewCollection(self):
         self.main.close()
