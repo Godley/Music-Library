@@ -418,7 +418,7 @@ class MainWindow(QtGui.QMainWindow):
         #self.progressBarRendering.setRange(0, 100)
         self.autoCompleteFrame.hide()
         self.editPlaylistTitle.hide()
-        file_to_load = current_item.data(0,0)
+        file_to_load = current_item.data(0,32)
         self.loadPiece(file_to_load)
 
     def onItemDoubleClicked(self, current_item):

@@ -184,6 +184,10 @@ class MusicManager(object):
                 if "lyricist" in cleaned_set[source][file_id]:
                     result_set[source][file]["lyricist"] = cleaned_set[
                         source][file_id]["lyricist"]
+                if "secret" in cleaned_set[source][file_id]:
+                    result_set[source][file]["secret"] = cleaned_set[source][file_id]["secret"]
+                if "license" in cleaned_set[source][file_id]:
+                    result_set[source][file]["license"] = cleaned_set[source][file_id]["license"]
         return result_set
 
     def addApiFiles(self, data):
@@ -198,6 +202,21 @@ class MusicManager(object):
                     file_ext = file.split(".")[0]+"."+ext
                     if os.path.exists(os.path.join(self.folder, file_ext)):
                         os.remove(os.path.join(self.folder, file_ext))
+
+    def downloadFile(self, filename):
+        file_info = filename.split(".")
+        fname = file_info[0]
+        source = self.__data.getPieceSource(filename)
+        if source is not None:
+            source = source[0]
+        secret = self.__data.getSecret(filename)
+        if secret is not None:
+            secret = secret[0]
+        status_code = self.apiManager.downloadFile(source=source, file=fname, secret=secret, extension='pdf')
+        if status_code == 200:
+            self.__data.downloadPiece(filename)
+            return True
+        return False
 
 
     def runApiOperation(self):
@@ -262,6 +281,13 @@ class MusicManager(object):
             summary += "(" + result["filename"] + ")"
             summary_strings.append((summary, result["filename"]))
         return summary_strings
+
+    def getLicense(self, filename):
+        result = self.__data.getLicense(filename)
+        # eventually we should open up a file and get the text based on the license name,
+        # but for now we need to do this
+        if result is not None:
+            return result[0]
 
     def getPieceSummaryStrings(self, sort_method="title"):
         file_list = self.__data.getFileList()

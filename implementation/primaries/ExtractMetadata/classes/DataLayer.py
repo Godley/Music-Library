@@ -15,6 +15,8 @@ class MusicData(object):
         self.createTempoTable()
         self.createPlaylistTable()
         self.createSourcesTable()
+        self.createLicenseTable()
+        self.createSecretsTable()
 
     def createSourcesTable(self):
         connection, cursor = self.connect()
@@ -22,6 +24,28 @@ class MusicData(object):
         cursor.execute(query)
         connection.commit()
         self.disconnect(connection)
+
+    def createLicenseTable(self):
+        connection, cursor = self.connect()
+        query = 'CREATE TABLE IF NOT EXISTS licenses (piece_id int, license text)'
+        cursor.execute(query)
+        connection.commit()
+        self.disconnect(connection)
+
+    def createSecretsTable(self):
+        connection, cursor = self.connect()
+        query = 'CREATE TABLE IF NOT EXISTS secrets (piece_id int, secret text)'
+        cursor.execute(query)
+        connection.commit()
+        self.disconnect(connection)
+
+    def getSecret(self, filename):
+        connection, cursor = self.connect()
+        query = 'SELECT secret FROM secrets s, pieces p WHERE p.filename=? AND s.piece_id = p.ROWID'
+        cursor.execute(query, (filename,))
+        result = cursor.fetchone()
+        self.disconnect(connection)
+        return result
 
     def createTempoTable(self):
         '''
@@ -268,6 +292,16 @@ class MusicData(object):
             query = 'INSERT INTO sources VALUES(?,?)'
             cursor.execute(query, (result, source,))
 
+        if "secret" in data:
+            secret = data["secret"]
+            query = 'INSERT INTO secrets VALUES(?,?)'
+            cursor.execute(query, (result, secret,))
+
+        if "license" in data:
+            data_license = data["license"]
+            query = 'INSERT INTO licenses VALUES(?,?)'
+            cursor.execute(query, (result, data_license,))
+
         if "instruments" in data:
             instrument_ids = []
             for item in data["instruments"]:
@@ -411,6 +445,14 @@ class MusicData(object):
         self.disconnect(connection)
         filelist = [result[0] for result in results]
         return filelist
+
+    def getLicense(self, filename):
+        connection, cursor = self.connect()
+        query = 'SELECT license FROM licenses l, pieces p WHERE p.filename = ? AND l.piece_id = p.ROWID'
+        cursor.execute(query, (filename,))
+        result = cursor.fetchone()
+        self.disconnect(connection)
+        return result
 
     def getPiece(self, filename, archived=0, online=False):
         '''
@@ -632,7 +674,9 @@ class MusicData(object):
                     'SELECT filename FROM pieces WHERE ROWID=? AND archived=?',
                     (element[0],
                      archived))
-                file_list.append(cursor.fetchone()[0])
+                result = cursor.fetchone()
+                if result is not None:
+                    file_list.append(result[0])
             previous = element
         return file_list
 

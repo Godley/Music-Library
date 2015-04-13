@@ -49,6 +49,7 @@ class MuseScoreApi(Api):
             data["composer"] = element["metadata"]["composer"]
             data["lyricist"] = element["metadata"]["poet"]
             data["parts"] = element["metadata"]["parts"]
+            data["license"] = element["license"]
             results.append(data)
         return results
 

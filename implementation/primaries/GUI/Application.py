@@ -4,7 +4,7 @@ import os
 import pickle
 import threading
 import time
-from implementation.primaries.GUI import StartupWidget, MainWindow, PlaylistDialog, renderingErrorPopup, ImportDialog
+from implementation.primaries.GUI import StartupWidget, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
 
@@ -84,6 +84,11 @@ class Application(object):
         data = self.manager.getPlaylistByFilename(filename)
         return data
 
+    def downloadFile(self, filename):
+        completed = self.manager.downloadFile(filename)
+        if completed:
+            self.main.loadPiece(filename)
+
     def loadFile(self, filename):
         '''
         This method should:
@@ -96,15 +101,21 @@ class Application(object):
         if os.path.exists(os.path.join(self.folder, pdf_version)):
             return os.path.join(self.folder, pdf_version)
         else:
-            errorList = self.startRenderingTask(filename)
-            pdf = os.path.join(self.folder, pdf_version)
-            if not os.path.exists(pdf):
-                errorList.append(
-                    "file rendering failed to produce a pdf, check above errors")
-            if len(errorList) > 0:
-                self.errorPopup(errorList)
-            if os.path.exists(pdf):
-                return pdf
+            if not os.path.exists(os.path.join(self.folder, filename)):
+                license = self.manager.getLicense(filename)
+                self.licensePopup = licensePopup.LicensePopup(self, license, filename, self.theme)
+                self.licensePopup.setWindowFlags(QtCore.Qt.Dialog)
+                self.licensePopup.exec()
+            else:
+                errorList = self.startRenderingTask(filename)
+                pdf = os.path.join(self.folder, pdf_version)
+                if not os.path.exists(pdf):
+                    errorList.append(
+                        "file rendering failed to produce a pdf, check above errors")
+                if len(errorList) > 0:
+                    self.errorPopup(errorList)
+                if os.path.exists(pdf):
+                    return pdf
 
     def importPopup(self):
         dialog = ImportDialog.ImportDialog(self, self.theme)
