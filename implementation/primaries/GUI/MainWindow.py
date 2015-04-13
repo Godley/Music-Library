@@ -471,8 +471,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def loadPieceData(self, filename):
         self.pieceInfoView.clear()
-        data = self.parent.getFileInfo(filename)[0]
-        datastring = ""
+        data = self.parent.getFileInfo(filename)[0
 
         datastring = "title: "+data["title"]
         title = QtGui.QListWidgetItem(datastring)

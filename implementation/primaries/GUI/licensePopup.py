@@ -15,8 +15,12 @@ class LicensePopup(QtGui.QDialog):
         self.setTheme()
 
     def loadLicense(self):
+        sizeHint = self.licenseScrollArea.size()
+        width = sizeHint.width()
         license = self.license_terms
         label = QtGui.QLabel()
+        label.setFixedWidth(width)
+        label.setWordWrap(True)
         label.setText(license)
         self.licenseScrollArea.setWidget(label)
         self.licenseScrollArea.show()

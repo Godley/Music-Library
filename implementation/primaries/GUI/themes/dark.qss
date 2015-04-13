@@ -166,10 +166,15 @@ QPushButton:checked {
 border-style:inset;
 }
 
-QLabel#importLabel, QDialog#renderingErrorDialog QLabel, QDialog#renderingErrorDialog QListWidget {
+QLabel#importLabel, QDialog#renderingErrorDialog QLabel, QDialog#license QLabel, QDialog#renderingErrorDialog QListWidget {
     color:#EEE;
     text-transform:none;
     font:12pt Helvetica Neue DeskInterface;
+}
+
+QDialog#license QScrollArea QLabel
+{
+    color: #000;
 }
 
 QDialog#renderingErrorDialog QListWidget {

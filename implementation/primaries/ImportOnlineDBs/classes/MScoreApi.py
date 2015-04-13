@@ -8,9 +8,8 @@ class MuseScoreApi(Api):
 
     def __init__(self, folder=""):
         Api.__init__(self, folder=folder)
-        self.license = 'to_modify_commercially'
         self.key = self.getKey()
-        self.params = {'oauth_consumer_key':self.key, 'license':self.license}
+        self.params = {'oauth_consumer_key':self.key}
         self.endpoint = 'http://api.musescore.com/services/rest/score.json'
         self.download_endpoint = 'http://static.musescore.com/'
         self.ignored_tags = ["movement-title","work-title","creator"]

@@ -287,7 +287,16 @@ class MusicManager(object):
         # eventually we should open up a file and get the text based on the license name,
         # but for now we need to do this
         if result is not None:
-            return result[0]
+            result = result[0]
+            folder = '/users/charlottegodley/PycharmProjects/FYP/implementation/primaries' \
+                     '/ImportOnlineDBs/licenses'
+            file = os.path.join(folder, result)
+            if os.path.exists(file):
+                fob = open(file, 'r')
+                lines = fob.readlines()
+                result = "\n".join(lines)
+
+        return result
 
     def getPieceSummaryStrings(self, sort_method="title"):
         file_list = self.__data.getFileList()
