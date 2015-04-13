@@ -1,6 +1,6 @@
 from PyQt4 import QtCore, QtGui
-import sys, os, pickle, threading, queue
-import time
+import sys, os, pickle, queue
+from xml.sax._exceptions import *
 from implementation.primaries.GUI import StartupWidget, thread_classes, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
@@ -81,20 +81,28 @@ class Application(object):
         data = self.manager.getPlaylistByFilename(filename)
         return data
 
-    def async_handle(self, data, method, callback, callback_data):
-        thr = threading.Thread(target=method, args=data, kwargs={})
-        thr.start() # will run "foo"
-        while(thr.is_alive()):
-            print("running")# will return whether foo is running currently
-        thr.join() # will wait till "foo" is done
-        callback(callback_data)
-
 
     def downloadFile(self, filename):
-        async = thread_classes.Async_Handler((filename,), self.manager.downloadFile, self.main.loadPiece, filename)
+        """
+        method which starts a thread to get a file from an API server, this gets called
+        by license window when a user presses "ok"
+        :param filename: xml file name not including current folder
+        :return: None, thread will call a method to pass back the result
+        """
+        async = thread_classes.Async_Handler((filename,),
+                                             self.manager.downloadFile,
+                                             self.main.loadPiece,
+                                             filename)
         async.execute()
 
     def onRenderTaskFinished(self, errorList, filename=""):
+        """
+        asynchronous handler. This gets called when an async task has finished rendering a piece,
+        adn thus comes back and calls the handler for this result in the main window
+        :param errorList: the list of problems encountered
+        :param filename: the filename ending in pdf without the current folder
+        :return: None, calls another method lower down
+        """
         pdf = os.path.join(self.folder, filename)
         if not os.path.exists(pdf):
             errorList.append(
@@ -105,16 +113,18 @@ class Application(object):
             self.main.onPieceLoaded(pdf, filename)
 
     def loadFile(self, filename):
-        '''
-        This method should:
-        - setup a renderer object
-        - run it
-        - return the pdf location
-        :return: filename of generated pdf
-        '''
+        """
+        Method which will do 3 things;
+        - check a pdf version for given file exists
+        - if not check if an xml version exists
+            - if so, start another thread to load it which will call the async callback above when done
+            - if not, open up a licensing agreement box for the file which will either load the file or close
+        :param filename: xml filename, not including current folder
+        :return: None, calls methods instead
+        """
         pdf_version = filename.split(".")[0] + ".pdf"
         if os.path.exists(os.path.join(self.folder, pdf_version)):
-            return os.path.join(self.folder, pdf_version)
+            self.onRenderTaskFinished([], pdf_version)
         else:
             if not os.path.exists(os.path.join(self.folder, filename)):
                 license = self.manager.getLicense(filename)
@@ -151,6 +161,13 @@ class Application(object):
         popup.exec()
 
     def onQueryComplete(self, data, online=False):
+        """
+        Async callback which will send the results of a query back to the main window as the user
+        types stuff in
+        :param data: the results of the query
+        :param online: bool indicator of whether files are online or local
+        :return: None, calls the handler inside main window
+        """
         query_results = {}
         if online:
             query_results["Online"] = data
@@ -159,6 +176,13 @@ class Application(object):
         self.main.onQueryReturned(query_results)
 
     def query(self, input):
+        """
+        Async method which will process the given input, create thread classes
+        for each type of query and then start those thread classes. When done they will call
+        the callback above
+        :param input: text input from the main window
+        :return: None, thread classes will call the callback above
+        """
         data = SearchProcessor.process(input)
         data_queue = queue.Queue()
         offline_handler = thread_classes.Async_Handler_Queue(self.manager.runQueries,
@@ -175,6 +199,14 @@ class Application(object):
 
 
     def startRenderingTask(self, fname, filename=""):
+        """
+        method which parses a piece, then runs the renderer class on it which takes the lilypond
+        output, runs lilypond on it and gets the pdf. This is not generally called directly,
+        but rather called by a thread class in thread_classes.py
+        :param fname: xml filename
+        :param filename: unused
+        :return: list of problems encountered
+        """
         errorList = []
         parser = MxmlParser.MxmlParser()
         piece_obj = None
@@ -186,7 +218,8 @@ class Application(object):
         except Exceptions.TabNotImplementedException as e:
             errorList.append(
                 "Guitar tab found in this piece: this application does not handle guitar tab.")
-
+        except SAXParseException as e:
+            errorList.append("Sax parser had a problem with this file:"+str(e))
         if piece_obj is not None:
             try:
                 loader = LilypondRender.LilypondRender(
