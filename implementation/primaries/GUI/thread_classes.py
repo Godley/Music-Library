@@ -26,8 +26,14 @@ class Async_Handler_Queue(Async_Handler):
         thr.start() # will run "foo"
 
         data = self.queue.get()
-        self.callback(data, **self.kwargs)
+        if len(self.kwargs) > 0:
+            self.callback(data, **self.kwargs)
+        else:
+            self.callback(data)
 
-    def function(self, data, online=False):
-        result = self.exec_method(data, online=online)
+    def function(self, data, **kwargs):
+        if len(kwargs) > 0:
+            result = self.exec_method(data, **kwargs)
+        else:
+            result = self.exec_method(data)
         self.queue.put(result)

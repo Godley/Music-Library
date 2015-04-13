@@ -94,6 +94,16 @@ class Application(object):
         async = thread_classes.Async_Handler((filename,), self.manager.downloadFile, self.main.loadPiece, filename)
         async.execute()
 
+    def onRenderTaskFinished(self, errorList, filename=""):
+        pdf = os.path.join(self.folder, filename)
+        if not os.path.exists(pdf):
+            errorList.append(
+                "file rendering failed to produce a pdf, check above errors")
+        if len(errorList) > 0:
+            self.errorPopup(errorList)
+        if os.path.exists(pdf):
+            self.main.onPieceLoaded(pdf, filename)
+
     def loadFile(self, filename):
         '''
         This method should:
@@ -112,15 +122,14 @@ class Application(object):
                 self.licensePopup.setWindowFlags(QtCore.Qt.Dialog)
                 self.licensePopup.exec()
             else:
-                errorList = self.startRenderingTask(filename)
-                pdf = os.path.join(self.folder, pdf_version)
-                if not os.path.exists(pdf):
-                    errorList.append(
-                        "file rendering failed to produce a pdf, check above errors")
-                if len(errorList) > 0:
-                    self.errorPopup(errorList)
-                if os.path.exists(pdf):
-                    return pdf
+                errorQueue = queue.Queue()
+                async_renderer = thread_classes.Async_Handler_Queue(self.startRenderingTask,
+                                                                    self.onRenderTaskFinished,
+                                                                    errorQueue,
+                                                                    (filename,),
+                                                                    kwargs={"filename" : pdf_version})
+                async_renderer.execute()
+
 
     def importPopup(self):
         dialog = ImportDialog.ImportDialog(self, self.theme)
@@ -165,12 +174,12 @@ class Application(object):
         self.query_results = {}
 
 
-    def startRenderingTask(self, filename):
+    def startRenderingTask(self, fname, filename=""):
         errorList = []
         parser = MxmlParser.MxmlParser()
         piece_obj = None
         try:
-            piece_obj = parser.parse(os.path.join(self.folder, filename))
+            piece_obj = parser.parse(os.path.join(self.folder, fname))
         except Exceptions.DrumNotImplementedException as e:
             errorList.append(
                 "Drum tab found in piece: this application does not handle drum tab.")
@@ -184,7 +193,7 @@ class Application(object):
                     piece_obj,
                     os.path.join(
                         self.folder,
-                        filename))
+                        fname))
                 loader.run()
             except BaseException as e:
                 errorList.append(str(e))

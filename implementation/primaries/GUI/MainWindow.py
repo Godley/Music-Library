@@ -429,17 +429,20 @@ class MainWindow(QtGui.QMainWindow):
         file_to_load = current_item.data(1)
         self.loadPiece(file_to_load)
 
+    def onPieceLoaded(self, filename, split_file):
+        file_to_load = split_file.split(".")[0]+".xml"
+        self.showToolbarBtns()
+        self.loadPieceData(file_to_load)
+        self.pdf_view(filename)
+        self.musicTitle.setText(file_to_load)
+        self.musicTitle.repaint()
+        self.loadFeaturedIn(file_to_load)
+        self.playlistViewer.hide()
+        self.pieceInfoWidget.show()
+
     def loadPiece(self, file_to_load):
-        filename = self.parent.loadFile(file_to_load)
-        if filename is not None:
-            self.showToolbarBtns()
-            self.loadPieceData(file_to_load)
-            self.pdf_view(filename)
-            self.musicTitle.setText(file_to_load)
-            self.musicTitle.repaint()
-            self.loadFeaturedIn(file_to_load)
-            self.playlistViewer.hide()
-            self.pieceInfoWidget.show()
+        self.parent.loadFile(file_to_load)
+
 
     def updateProgressBar(self):
         bar_value = self.progressBarRendering.value()
