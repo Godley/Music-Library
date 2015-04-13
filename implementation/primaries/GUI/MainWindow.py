@@ -10,38 +10,45 @@ class MainWindow(QtGui.QMainWindow):
         #somewhere in constructor:
         QtGui.QMainWindow.__init__(self)
         uic.loadUi('designer_files/MainWindow.ui', self)
-        pieces = self.parent.loadPieces()
-        self.autoCompleteFrame.hide()
-        for i in pieces:
-            item = QtGui.QListWidgetItem(i[0])
-            item.setData(1, i[1])
-            self.scoreListWidget.addItem(item)
-        self.loadPlaylists()
-        self.loadMyPlaylists()
+
         #self.progressBarRendering.hide()
         options = ["title","composer","lyricist"]
         self.scoreSortCombo.addItems(options)
-        self.scoreListWidget.show()
+
 
         autoSort = ["all", "time signatures","clefs","instruments","keys","tempos"]
         self.AutoSortCombo.addItems(autoSort)
         self.AutoSortCombo.show()
+
+        # button handlers
         self.refreshScoreBtn.clicked.connect(self.refreshScores)
         self.refreshAutoBtn.clicked.connect(self.refreshPlaylists)
         self.AddPlaylistButton.clicked.connect(self.addPlaylist)
         self.searchInput.textChanged.connect(self.updateOptions)
+
+        # search handlers
         self.searchInput.returnPressed.connect(self.searchDb)
         self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
         self.searchBtn.clicked.connect(self.searchDb)
+
+        # sorting of myScorebook and of the auto generated playlists box
         self.AutoSortCombo.currentIndexChanged.connect(self.onAutoSortMethodChange)
         self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
+
+        # callbacks for loading pieces from autocomplete, from the scorebook or from a loaded playlist
         self.autoCompleteBox.itemDoubleClicked.connect(self.onAutoCompleteDoubleClicked)
         self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
+        self.playlistTable.itemDoubleClicked.connect(self.onItemInPlaylistDoubleClicked)
+
+        # playlist callbacks - these load the playlist into the main render window, or else show the delete button
+        # in the case of my playlists
         self.autoPlaylistsView.itemDoubleClicked.connect(self.onAutoPlaylistDoubleClicked)
         self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
         self.myPlaylistsWidget.itemClicked.connect(self.deletePlaylistBtn.show)
         self.deletePlaylistBtn.clicked.connect(self.deletePlaylist)
-        self.playlistTable.itemDoubleClicked.connect(self.onItemInPlaylistDoubleClicked)
+        self.playlistList.itemDoubleClicked.connect(self.onItemDoubleClicked)
+
+        # actions to show and hide various widgets
         self.actionMy_Scorebook.triggered.connect(self.onScorebookClicked)
         self.actionMy_Playlists.triggered.connect(self.onMyPlaylistsClicked)
         self.actionAuto_Playlists.triggered.connect(self.onAutoPlaylistsClicked)
@@ -50,13 +57,16 @@ class MainWindow(QtGui.QMainWindow):
         self.actionPlaylist_Browser.triggered.connect(self.PlaylistBrowserClicked)
         self.actionImport.triggered.connect(self.parent.importPopup)
         self.actionNew_Collection.triggered.connect(self.parent.makeNewCollection)
+
+        # theme actions
         self.actionLight.triggered.connect(self.lightTheme)
         self.actionDark.triggered.connect(self.darkTheme)
+
+        # on startup hide various widgets that aren't needed
+        self.autoCompleteFrame.hide()
         self.pieceInfoWidget.hide()
         self.featuredInWidget.hide()
         self.playlistBrowserWidget.hide()
-        #self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
-        self.editPlaylistTitle.hide()
         self.playlistViewer.hide()
         self.noResultsLabel.hide()
         self.noResultsSmiley.hide()
@@ -64,12 +74,65 @@ class MainWindow(QtGui.QMainWindow):
         self.zoomInBtn.hide()
         self.zoomOutBtn.hide()
         self.deletePlaylistBtn.hide()
-        self.playlistList.itemDoubleClicked.connect(self.onItemDoubleClicked)
-        self.editPlaylistTitle.clicked.connect(self.onPlaylistEditClicked)
+
+        # functionality for editing user generated playlists
+        self.editPlaylistTitle.hide()
         self.playlistTitleLineEdit.hide()
+        self.editPlaylistTitle.clicked.connect(self.onPlaylistEditClicked)
         self.playlistTitleLineEdit.returnPressed.connect(self.updatePlaylistTitle)
+
+        # functionality for zooming in or out on a loaded piece
         self.zoomInBtn.clicked.connect(self.zoomIn)
         self.zoomOutBtn.clicked.connect(self.zoomOut)
+
+    def runLoadingProcedure(self):
+        self.parent.loadPieces()
+        self.scoreListWidget.show()
+        self.loadPlaylists()
+        self.loadMyPlaylists()
+
+    def onPlaylistReady(self, playlist_summaries):
+        self.autoPlaylistsView.clear()
+        for i in playlist_summaries:
+            item = QtGui.QListWidgetItem(i)
+            self.autoPlaylistsView.addItem(item)
+            for j in playlist_summaries[i]:
+                item = QtGui.QListWidgetItem(j)
+                item.setData(1, playlist_summaries[i][j])
+                item.setData(3, i+j)
+                self.autoPlaylistsView.addItem(item)
+        self.autoPlaylistsView.show()
+
+    def onMyPlaylistsReady(self, myPlaylists):
+        self.myPlaylistsWidget.clear()
+        for entry in myPlaylists:
+            item = QtGui.QListWidgetItem(entry)
+            item.setData(1, myPlaylists[entry])
+            item.setData(3, entry)
+            self.myPlaylistsWidget.addItem(item)
+        self.myPlaylistsWidget.show()
+
+    def loadPlaylists(self, select_method="all"):
+        self.parent.getPlaylists(select_method=select_method)
+
+
+    def loadMyPlaylists(self):
+        self.parent.getCreatedPlaylists()
+
+
+
+
+    def onAutoPlaylistLoad(self):
+        pass
+
+    def onMyPlaylistLoad(self):
+        pass
+
+    def onScorebookLoad(self, pieces):
+        for i in pieces:
+            item = QtGui.QListWidgetItem(i[0])
+            item.setData(1, i[1])
+            self.scoreListWidget.addItem(item)
 
     def darkTheme(self):
         file = open("themes/dark.qss",'r')
@@ -591,40 +654,12 @@ class MainWindow(QtGui.QMainWindow):
 
     def onSortMethodChange(self):
         sort_method = self.scoreSortCombo.currentText()
-        pieces = self.parent.loadPieces(method=sort_method)
-        self.scoreListWidget.clear()
-        for i in pieces:
-            item = QtGui.QListWidgetItem(i[0])
-            item.setData(1, i[1])
-            self.scoreListWidget.addItem(item)
+        self.parent.loadPieces(method=sort_method)
         self.scoreListWidget.show()
 
     def refreshScores(self):
         self.parent.updateDb()
         self.onSortMethodChange()
-
-    def loadPlaylists(self, select_method="all"):
-        playlist_summaries = self.parent.getPlaylists(select_method=select_method)
-        self.autoPlaylistsView.clear()
-        for i in playlist_summaries:
-            item = QtGui.QListWidgetItem(i)
-            self.autoPlaylistsView.addItem(item)
-            for j in playlist_summaries[i]:
-                item = QtGui.QListWidgetItem(j)
-                item.setData(1, playlist_summaries[i][j])
-                item.setData(3, i+j)
-                self.autoPlaylistsView.addItem(item)
-        self.autoPlaylistsView.show()
-
-    def loadMyPlaylists(self):
-        self.myPlaylistsWidget.clear()
-        myPlaylists = self.parent.getCreatedPlaylists()
-        for entry in myPlaylists:
-            item = QtGui.QListWidgetItem(entry)
-            item.setData(1, myPlaylists[entry])
-            item.setData(3, entry)
-            self.myPlaylistsWidget.addItem(item)
-        self.myPlaylistsWidget.show()
 
 
     def refreshPlaylists(self):

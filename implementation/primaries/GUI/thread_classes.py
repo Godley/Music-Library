@@ -22,7 +22,10 @@ class Async_Handler_Queue(Async_Handler):
         self.kwargs = kwargs
 
     def execute(self):
-        thr = threading.Thread(target=self.function, args=self.data, kwargs=self.kwargs)
+        function = self.function
+        if len(self.data) == 0:
+            function = self.function_without_data
+        thr = threading.Thread(target=function, args=self.data, kwargs=self.kwargs)
         thr.start() # will run "foo"
 
         data = self.queue.get()
@@ -36,4 +39,8 @@ class Async_Handler_Queue(Async_Handler):
             result = self.exec_method(data, **kwargs)
         else:
             result = self.exec_method(data)
+        self.queue.put(result)
+
+    def function_without_data(self):
+        result = self.exec_method()
         self.queue.put(result)

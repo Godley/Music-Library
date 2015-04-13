@@ -69,6 +69,7 @@ class Application(object):
         self.updateDb()
         self.main = MainWindow.MainWindow(self)
         self.main.show()
+        self.main.runLoadingProcedure()
 
     def getPlaylistFileInfo(self, playlist):
         return self.manager.getPlaylistFileInfo(playlist)
@@ -242,17 +243,40 @@ class Application(object):
     def addPlaylist(self, data):
         self.manager.addPlaylist(data)
 
+    def onPiecesLoad(self, summary_strings):
+        self.main.onScorebookLoad(summary_strings)
+
     def loadPieces(self, method="title"):
-        summary_strings = self.manager.getPieceSummaryStrings(method)
-        return summary_strings
+        data_queue = queue.Queue()
+        task = thread_classes.Async_Handler_Queue(self.manager.getPieceSummaryStrings,
+                                                    self.onPiecesLoad,
+                                                    data_queue,
+                                                    (method,)
+                                                    )
+        task.execute()
+
+    def onPlaylistsLoad(self, data):
+        self.main.onPlaylistReady(data)
+
+    def onUserPlaylistsLoad(self, data):
+        self.main.onMyPlaylistsReady(data)
 
     def getPlaylists(self, select_method="all"):
-        results = self.manager.getPlaylists(select_method=select_method)
-        return results
+        data_queue = queue.Queue()
+        task = thread_classes.Async_Handler_Queue(self.manager.getPlaylists,
+                                                  self.onPlaylistsLoad,
+                                                  data_queue,
+                                                (select_method,))
+        task.execute()
 
     def getCreatedPlaylists(self):
-        results = self.manager.getPlaylistsFromPlaylistTable()
-        return results
+        data_queue = queue.Queue()
+        task = thread_classes.Async_Handler_Queue(self.manager.getPlaylistsFromPlaylistTable,
+                                                  self.onUserPlaylistsLoad,
+                                                  data_queue,
+                                                ())
+        task.execute()
+
 
     def PlaylistPopup(self):
         popup = PlaylistDialog.PlaylistDialog(self, self.theme)
