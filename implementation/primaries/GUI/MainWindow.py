@@ -95,7 +95,7 @@ class MainWindow(QtGui.QMainWindow):
             if not self.playlistWidget.isHidden():
                 self.playlistWidget.move(0, 250)
                 if not self.autoPlaylistWidget.isHidden():
-                    self.autoPlaylist.move(0,500)
+                    self.autoPlaylistWidget.move(0,500)
             elif not self.autoPlaylistWidget.isHidden():
                 self.autoPlaylistWidget.move(0,250)
         else:
@@ -640,14 +640,19 @@ class MainWindow(QtGui.QMainWindow):
         text = self.searchInput.text()
         results = self.parent.query(text)
         self.autoCompleteBox.clear()
-        for key in results:
-            item = QtGui.QTreeWidgetItem(key)
-            item.setData(0,0,key)
+        for location_type in results:
+            item = QtGui.QTreeWidgetItem(location_type)
+            item.setData(0,0,location_type)
             self.autoCompleteBox.addTopLevelItem(item)
-            for file in results[key]:
-                fitem = QtGui.QTreeWidgetItem(file[0])
-                fitem.setData(0,0, file[1])
-                item.addChild(fitem)
+            for key in results[location_type]:
+                sub_item = QtGui.QTreeWidgetItem(key)
+                sub_item.setData(0,0,key)
+                item.addChild(sub_item)
+                for file in results[location_type][key]:
+                    fitem = QtGui.QTreeWidgetItem(file[0])
+                    fitem.setData(0, 0, file[0])
+                    fitem.setData(0, 32, file[1])
+                    sub_item.addChild(fitem)
         if len(results) == 0:
             self.noResultsSmiley.show()
             self.noResultsLabel.show()

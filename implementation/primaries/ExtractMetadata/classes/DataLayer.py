@@ -1323,10 +1323,10 @@ class MusicData(object):
                 tempos.append(tempo_string)
         return tempos
 
-    def getAllPieceInfo(self, filenames, archived=0):
+    def getAllPieceInfo(self, filenames, archived=0, online=False):
         file_data = []
         for filename in filenames:
-            piece_tuple = self.getPiece(filename, archived)
+            piece_tuple = self.getPiece(filename, archived, online=online)
             if len(piece_tuple) > 0:
                 piece_tuple = piece_tuple[0]
             else:
@@ -1347,8 +1347,10 @@ class MusicData(object):
                 query = 'SELECT name FROM composers WHERE ROWID=?'
                 cursor.execute(query, (composer,))
                 fetched = cursor.fetchone()
-                if len(fetched) > 0:
+                if fetched is not None and len(fetched) > 0:
                     file["composer"] = fetched[0]
+                else:
+                    file["composer"] = -1
             else:
                 file["composer"] = -1
 
@@ -1357,8 +1359,10 @@ class MusicData(object):
                 query = 'SELECT name FROM lyricists WHERE ROWID=?'
                 cursor.execute(query, (lyricist,))
                 fetched = cursor.fetchone()
-                if len(fetched) > 0:
+                if fetched is not None and len(fetched) > 0:
                     file["lyricist"] = fetched[0]
+                else:
+                    file["lyricist"] = -1
             else:
                 file["lyricist"] = -1
             instruments = self.getInstrumentsByPieceId(index, cursor)

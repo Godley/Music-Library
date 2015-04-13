@@ -68,6 +68,7 @@ class Application(object):
 
     def setupMainWindow(self):
         self.manager = MusicManager.MusicManager(folder=self.folder)
+        self.manager.runApiOperation()
         self.updateDb()
         self.main = MainWindow.MainWindow(self)
         self.main.show()
@@ -126,8 +127,9 @@ class Application(object):
 
     def query(self, input):
         data = SearchProcessor.process(input)
-        results = self.manager.runQueries(data)
-        return results
+        offline_results = self.manager.runQueries(data)
+        online_results = self.manager.runQueries(data, online=True)
+        return {"Offline": offline_results, "Online": online_results}
 
     def startRenderingTask(self, filename):
         errorList = []

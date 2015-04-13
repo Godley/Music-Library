@@ -134,12 +134,12 @@ class MusicManager(object):
         self.setupFolderBrowser()
         self.apiManager = ApiManager.ApiManager(folder=self.folder)
 
-    def unzipApiFiles(self):
+    def unzipApiFiles(self, data_set):
         """
         method to download API files and unzip them as necessary
         :return: dictionary of results indexed by source name
         """
-        file_set = self.apiManager.downloadAllFiles()
+        file_set = self.apiManager.downloadFiles(data_set)
         self.handleZips()
         results = {}
         for source in file_set:
@@ -155,7 +155,13 @@ class MusicManager(object):
         :return: dictionary of data indexed by filename
         """
         cleaned_set = self.apiManager.fetchAllData()
-        file_set = self.unzipApiFiles()
+        filelist = self.getFileList(online=True)
+        for file in filelist:
+            source = self.__data.getPieceSource(file)[0]
+            id = file.split(".")[0]
+            if id in cleaned_set[source]:
+                cleaned_set[source].pop(id)
+        file_set = self.unzipApiFiles(cleaned_set)
         result_set = {}
         for source in file_set:
             result_set[source] = {}
@@ -233,8 +239,8 @@ class MusicManager(object):
         self.handleZips()
         self.handleXMLFiles()
 
-    def getPieceSummary(self, file_list, sort_method="title"):
-        info = self.__data.getAllPieceInfo(file_list)
+    def getPieceSummary(self, file_list, sort_method="title", online=False):
+        info = self.__data.getAllPieceInfo(file_list, online=online)
         summaries = [{"title": i["title"],
                       "composer":i["composer"],
                       "lyricist":i["lyricist"],
@@ -242,9 +248,11 @@ class MusicManager(object):
         results = sorted(summaries, key=lambda k: str(k[sort_method]))
         summary_strings = []
         for result in results:
-            summary = result["title"]
-            if result["title"] == "":
-                summary = "(noTitle)"
+            summary = ""
+            if result["title"] is not None and result["title"] != "":
+                summary += result["title"]
+            else:
+                summary += "(noTitle)"
             if result["composer"] != -1 or result["lyricist"] != -1:
                 summary += " by "
             if result["composer"] != -1:
@@ -353,14 +361,14 @@ class MusicManager(object):
                     all_matched = False
 
         if "tempo" in search_data:
-            tempo_data = self.__data.getPieceByTempo(search_data["tempo"])
+            tempo_data = self.__data.getPieceByTempo(search_data["tempo"], online=online)
             if len(tempo_data) > 0:
                 results["Tempo"] = tempo_data
             else:
                 all_matched = False
 
         if "time" in search_data:
-            time_data = self.__data.getPieceByMeter(search_data["time"])
+            time_data = self.__data.getPieceByMeter(search_data["time"], online=online)
             if len(time_data) > 0:
                 results["Time Signatures"] = time_data
             else:
@@ -460,7 +468,7 @@ class MusicManager(object):
                 if len(intersection) > 0:
                     results["Exact Matches"] = intersection
             for key in results:
-                summaries[key] = self.getPieceSummary(results[key])
+                summaries[key] = self.getPieceSummary(results[key], online=online)
         return summaries
 
     def getPlaylistFileInfo(self, playlist):
