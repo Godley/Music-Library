@@ -129,9 +129,10 @@ class MainWindow(QtGui.QMainWindow):
         pass
 
     def onScorebookLoad(self, pieces):
+        self.scoreListWidget.clear()
         for i in pieces:
             item = QtGui.QListWidgetItem(i[0])
-            item.setData(1, i[1])
+            item.setData(32, i[1])
             self.scoreListWidget.addItem(item)
 
     def darkTheme(self):

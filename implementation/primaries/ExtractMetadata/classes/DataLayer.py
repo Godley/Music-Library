@@ -454,7 +454,7 @@ class MusicData(object):
         self.disconnect(connection)
         return result
 
-    def getPiece(self, filename, archived=0, online=False):
+    def getRoughPiece(self, filename, archived=0, online=False):
         '''
         method to get a piece's table entry according to it's filename
         :param filename: string indicating the file name
@@ -470,6 +470,25 @@ class MusicData(object):
         cursor.execute(query, thing)
 
         result = cursor.fetchall()
+        self.disconnect(connection)
+        return result
+
+    def getExactPiece(self, filename, archived=0, online=False):
+        '''
+        method to get a piece's table entry according to it's filename
+        :param filename: string indicating the file name
+        :return:
+        '''
+        connection, cursor = self.connect()
+        thing = (filename, archived,)
+        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces p WHERE (p.filename=?) AND p.archived=?'
+        if online:
+            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id=p.ROWID)'
+        else:
+            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        cursor.execute(query, thing)
+
+        result = cursor.fetchone()
         self.disconnect(connection)
         return result
 
@@ -1370,11 +1389,7 @@ class MusicData(object):
     def getAllPieceInfo(self, filenames, archived=0, online=False):
         file_data = []
         for filename in filenames:
-            piece_tuple = self.getPiece(filename, archived, online=online)
-            if len(piece_tuple) > 0:
-                piece_tuple = piece_tuple[0]
-            else:
-                break
+            piece_tuple = self.getExactPiece(filename, archived, online=online)
             data = {
                 "id": piece_tuple[0],
                 "filename": piece_tuple[1],
