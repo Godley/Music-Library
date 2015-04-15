@@ -2,16 +2,26 @@ import math
 
 
 def myRowCalculator(columnCount, total, position):
-    rowFl = position/columnCount
-    row = math.floor(rowFl)
+    # bottom left is 0,0. Top right is ColumnCount-1,rowCount-1
+    rowCount = total / columnCount
+    row = 0
+    column = 0
+    flooredVal = math.floor(position/columnCount)
 
-    if position % columnCount == 0 and position > 0 and row > 0:
-        row -= 1
-
-    if position > columnCount-1:
-        column = position-(row*columnCount)
-    else:
+    if position == 0:
+        row = rowCount -1
+        column = 0
+    if position < columnCount-1:
+        row = rowCount-1
         column = position
+    if position % columnCount-1 == 0 or position == columnCount-1:
+        normRow = flooredVal
+        column = position-(columnCount*normRow)
+        row = (rowCount-1)-flooredVal
+    if position > columnCount-1:
+        normRow = flooredVal
+        column = position-(columnCount-1*normRow)
+        row = (rowCount-1)-flooredVal
 
     return row, column
 

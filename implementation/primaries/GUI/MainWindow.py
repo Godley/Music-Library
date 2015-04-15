@@ -472,8 +472,6 @@ class MainWindow(QtGui.QMainWindow):
             self.autoCompleteBox.clear()
             self.autoCompleteFrame.hide()
             self.autoCompleteBox.hide()
-        else:
-            self.updateOptions()
 
     def onAutoCompleteDoubleClicked(self, current_item):
         self.scoreWindow.show()
@@ -493,6 +491,11 @@ class MainWindow(QtGui.QMainWindow):
         self.loadPiece(file_to_load)
 
     def onPieceLoaded(self, filename, split_file):
+        """
+        :param filename: the fully qualified filename location including folder
+        :param split_file: the filename with no folder location
+        :return:
+        """
         file_to_load = split_file.split(".")[0]+".xml"
         self.showToolbarBtns()
         self.loadPieceData(file_to_load)
@@ -674,10 +677,22 @@ class MainWindow(QtGui.QMainWindow):
         print("finding thing")
 
     def onQueryReturned(self, results):
+        root = self.autoCompleteBox.invisibleRootItem()
+        child_count = root.childCount()
+        children = [(i, root.child(i).text(0)) for i in range(child_count)]
+        names = [child[1] for child in children]
         for location_type in results:
             item = QtGui.QTreeWidgetItem(location_type)
             item.setData(0,0,location_type)
-            self.autoCompleteBox.addTopLevelItem(item)
+            if location_type in names:
+                index = [child[0] for child in children if child[1] == location_type]
+                item = root.child(index[0])
+                for i in range(item.childCount()):
+                    child = item.child(i)
+                    item.removeChild(child)
+
+            else:
+                self.autoCompleteBox.addTopLevelItem(item)
             for key in results[location_type]:
                 sub_item = QtGui.QTreeWidgetItem(key)
                 sub_item.setData(0,0,key)

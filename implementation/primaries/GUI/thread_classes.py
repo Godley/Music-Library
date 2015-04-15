@@ -30,18 +30,12 @@ class Async_Handler_Queue(Async_Handler):
         thr = threading.Thread(target=function, args=self.data, kwargs=self.kwargs)
         thr.start() # will run "foo"
 
-        data = self.queue.get()
-        if len(self.kwargs) > 0:
-            self.callback(data, **self.kwargs)
-        else:
-            self.callback(data)
-
     def function(self, data, **kwargs):
         if len(kwargs) > 0:
             result = self.exec_method(data, **kwargs)
         else:
             result = self.exec_method(data)
-        self.queue.put(result)
+        self.callback(result, **self.kwargs)
 
     def function_without_data(self):
         result = self.exec_method()

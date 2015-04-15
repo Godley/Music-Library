@@ -1,14 +1,16 @@
 from PyQt4 import QtCore, QtGui
 import sys, os, pickle, queue
+from threading import Lock
 from xml.sax._exceptions import *
-from implementation.primaries.GUI import StartupWidget, thread_classes, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
+from implementation.primaries.GUI import StartupWidget, qt_threading, thread_classes, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
 
 
-class Application(object):
+class Application(QtCore.QObject):
 
     def __init__(self, app):
+        QtCore.QObject.__init__(self, app)
         self.app = app
         self.previous_collections = []
         self.col_file = ".collections"
@@ -63,18 +65,13 @@ class Application(object):
             self.startup.close()
             self.setupMainWindow()
 
-    def updateDb(self):
-        refresh_operation = thread_classes.Async_Handler((), self.manager.refresh(), None, None)
-        refresh_operation.execute_without_callback()
-
     def setupMainWindow(self):
         self.manager = MusicManager.MusicManager(self, folder=self.folder)
+        self.manager.runApiOperation()
+        self.updateDb()
         self.main = MainWindow.MainWindow(self)
         self.main.show()
         self.main.runLoadingProcedure()
-        operation = thread_classes.Async_Handler((), self.manager.runApiOperation, None, None)
-        operation.execute_without_callback()
-        self.updateDb()
 
     def getPlaylistFileInfo(self, playlist):
         return self.manager.getPlaylistFileInfo(playlist)
@@ -87,6 +84,9 @@ class Application(object):
         data = self.manager.getPlaylistByFilename(filename)
         return data
 
+    def onFileDownload(self, filename):
+        fqd_fname = os.path.join(self.folder, filename)
+        self.main.onPieceLoaded(fqd_fname, filename)
 
     def downloadFile(self, filename):
         """
@@ -95,11 +95,11 @@ class Application(object):
         :param filename: xml file name not including current folder
         :return: None, thread will call a method to pass back the result
         """
-        async = thread_classes.Async_Handler((filename,),
-                                             self.manager.downloadFile,
-                                             self.main.loadPiece,
-                                             filename)
-        async.execute()
+        async = qt_threading.DownloadThread(self, self.manager.downloadFile,
+                                            filename)
+        QtCore.QObject.connect(async, QtCore.SIGNAL("fileReady(PyQt_PyObject)"), self.onFileDownload)
+
+        async.run()
 
     def onRenderTaskFinished(self, errorList, filename=""):
         """
@@ -138,13 +138,10 @@ class Application(object):
                 self.licensePopup.setWindowFlags(QtCore.Qt.Dialog)
                 self.licensePopup.exec()
             else:
-                errorQueue = queue.Queue()
-                async_renderer = thread_classes.Async_Handler_Queue(self.startRenderingTask,
-                                                                    self.onRenderTaskFinished,
-                                                                    errorQueue,
-                                                                    (filename,),
-                                                                    kwargs={"filename" : pdf_version})
-                async_renderer.execute()
+                render_thread = qt_threading.RenderThread(self, self.startRenderingTask,
+                                                            (filename,), pdf_version)
+                QtCore.QObject.connect(render_thread, QtCore.SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
+                render_thread.run()
 
 
     def importPopup(self):
@@ -174,12 +171,15 @@ class Application(object):
         :param online: bool indicator of whether files are online or local
         :return: None, calls the handler inside main window
         """
+        lock = Lock()
+        lock.acquire()
         query_results = {}
         if online:
             query_results["Online"] = data
         else:
             query_results["Offline"] = data
         self.main.onQueryReturned(query_results)
+        lock.release()
 
     def query(self, input):
         """
@@ -191,26 +191,31 @@ class Application(object):
         """
         data = SearchProcessor.process(input)
         data_queue = queue.Queue()
-        offline_handler = thread_classes.Async_Handler_Queue(self.manager.runQueries,
-                                                             self.onQueryComplete,
-                                                             data_queue, (data,))
-        online_handler = thread_classes.Async_Handler_Queue(self.manager.runQueries,
-                                                             self.onQueryComplete,
-                                                             data_queue, (data,),
-                                                             kwargs={"online":True})
-        offline_handler.execute()
-        online_handler.execute()
+        OfflineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
+                                                           self.onQueryComplete,
+            data_queue, (data,))
+        OnlineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
+                                                          self.onQueryComplete,
+            data_queue, (data,), kwargs={"online": True})
+        OfflineThread.execute()
+        OnlineThread.execute()
+        # worker = qt_threading.QueryThread(self, self.manager.runQueries,
+        #                                 (data,), False)
+        # QtCore.QObject.connect(worker, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
+        #
+        # onlineWorker = qt_threading.QueryThread(self, self.manager.runQueries,
+        #                                 (data,), True)
+        # QtCore.QObject.connect(onlineWorker, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
+        # worker.run()
+        # onlineWorker.run()
 
-        self.query_results = {}
 
-
-    def startRenderingTask(self, fname, filename=""):
+    def startRenderingTask(self, fname):
         """
         method which parses a piece, then runs the renderer class on it which takes the lilypond
         output, runs lilypond on it and gets the pdf. This is not generally called directly,
         but rather called by a thread class in thread_classes.py
         :param fname: xml filename
-        :param filename: unused
         :return: list of problems encountered
         """
         errorList = []
@@ -237,6 +242,9 @@ class Application(object):
             except BaseException as e:
                 errorList.append(str(e))
         return errorList
+
+    def updateDb(self):
+        self.manager.refresh()
 
     def makeNewCollection(self):
         self.main.close()
