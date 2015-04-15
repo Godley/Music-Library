@@ -282,29 +282,29 @@ class MainWindow(QtGui.QMainWindow):
         for i in range(len(data)):
             if "composer" in data[i]:
                 item = QtGui.QTableWidgetItem(data[i]["composer"])
-                item.setData(1,data[i]["filename"])
+                item.setData(32,data[i]["filename"])
                 self.playlistList.setItem(i, 1, item)
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(1, data[i]["filename"])
+                item.setData(32, data[i]["filename"])
                 self.playlistList.setItem(i, 1, item)
 
             if "title" in data[i]:
                 item = QtGui.QTableWidgetItem(data[i]["title"])
-                item.setData(1,data[i]["filename"])
+                item.setData(32,data[i]["filename"])
                 self.playlistList.setItem(i, 0, item)
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(1, data[i]["filename"])
+                item.setData(32, data[i]["filename"])
                 self.playlistList.setItem(i, 0, item)
 
             if "filename" in data[i]:
                 item = QtGui.QTableWidgetItem(data[i]["filename"])
-                item.setData(1, data[i]["filename"])
+                item.setData(32, data[i]["filename"])
                 self.playlistList.setItem(i, 2, item)
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(1, data[i]["filename"])
+                item.setData(32, data[i]["filename"])
                 self.playlistList.setItem(i, 2, item)
 
         self.playlistList.selectRow(index_in_playlist)
@@ -488,7 +488,7 @@ class MainWindow(QtGui.QMainWindow):
         #self.progressBarRendering.show()
         #self.progressBarRendering.setRange(0, 100)
         self.editPlaylistTitle.hide()
-        file_to_load = current_item.data(1)
+        file_to_load = current_item.data(32)
         self.loadPiece(file_to_load)
 
     def onPieceLoaded(self, filename, split_file):
