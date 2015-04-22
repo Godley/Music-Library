@@ -34,14 +34,14 @@ copy aim from previous report
 - musicOCR: easiest way to combine digitised collections with offline collections. Will be necessary for a lot of use cases because of the problem discussed with large collections of scores - as we need to know the meta data, not just have a flat file, for the system to work fully it will be necessary for users to either import using this method or recreate the files manually. 
 
 
-#Background
-##Problem context
+# Background
+## Problem context
   - discuss music notation in depth (staff notation, pitches, clefs, meters, tempos): maybe also discuss rhythms and accents to explain the difficulty rating portion of the secondary objectives - sort of depends if this gets implemented in time
   - discuss the area of Music Information Retrieval and the “Multifacetted” problem - i.e that music has a lot of different areas it can be categorised by. Also point out that while a lot of systems (use examples) have tried to do music categorisation, the easiest way to do it with integration to images is simple bibliography, but with this system it should be possible to extract and search by everything. Also explain that meta data models are not often discussed because different researchers need different models and none of them have been published (back this up with references).
   - Potentially also discuss the musicology aspects that could be implemented, but perhaps this could go in the appendix (i.e that music researchers sometimes want to search by a particular melody or chord progression, but that this is difficult to search with current methods because text input is harder to cover the same info) - maybe just briefly mention that area of music software but that the current implementation won’t cover it?
 
 ##Comparison of technologies
-  ### programming language
+### programming language
     - c++
       - cross platform
       - low developer knowledge
@@ -64,7 +64,7 @@ copy aim from previous report
       - python 3 is the Foundation’s preferred and should therefore be adhered to if poss
       - a lot of projects haven’t updated to python 3 due to the lack of backward compatibility: this caused some problems (e.g installing certain graphics libraries, using some elements of lilypond book) and had the developer needed more libs might have caused regression to 2.7
 
-  ### file format
+### file format
     - mention lack of standardisation problems: whilst MusicXML will be selected and is used by most applications, handling for input and output has no set libraries or algorithms because every project has used their own methods (references). 
     Options:
     - discuss own format
@@ -91,7 +91,7 @@ copy aim from previous report
         - designed by a third party (MakeMusic who made Finale) so probably a lot of different design goals oriented toward their software: it would be better if there were a file format which was created by an independent organisation or institute with the goals of all musicians in mind, but musicXML seems to be the closest alternate. (ref)
 
 ## comparison of algorithms for rendering
-  ### XML to memory
+### XML to memory
       - discuss objects: why do we need them? conversion from input to output formats would be O(nsquared) - conversion from a loaded object would be O(n). also discuss coupling of 1 format to another format, which is a bad thing
       - also discuss XSL for rendering the xml file and why it can’t be used
       - discuss parsing options: SAX or DOM
@@ -101,7 +101,7 @@ copy aim from previous report
         - explain why this is an issue: verifying means that the user will always have to be online for the parser to work. 
         - non-verifying on the other hand means that the system might have a problem if the xml file provided isn’t valid XML.
         - verifying also makes it very slow: use non-verifying and cross fingers
-  ### memory to output
+### memory to output
     - mention music rendering by computers has existed for a long time, tho often using just images and that there’s various researchers (lilypond, abc, musitex) who’ve tried to make a good algorithm that covers all bases. With that in mind:
     - create own output algorithm using fonts
       - optimised for own means, rather than someone else’s
@@ -120,7 +120,7 @@ copy aim from previous report
 
 ## Algorithms and structures for meta scanning
 - diagram of system metadata view
-###discuss meta model
+### discuss meta model
   - collect data in a general sense - time sig, meter, clef, key, instruments, transposition, bibliography
     - upsides
       - provides data that’s useful to every type of musician reading
@@ -137,10 +137,10 @@ copy aim from previous report
         - more technical challenge which may adversely affect the development time
         - some pieces spell different instrument names differently, like german pieces will say klarinette etc have to accomodate for that
 
-###XML considerations
+### XML considerations
 non-parsing, sax. discuss why but in 1 paragraph or so
 
-###meta storage
+### meta storage
   - data -> inmemory object <-> serialized file
     - upsides
       - scanner only runs once per file as memory is serialized
@@ -157,7 +157,7 @@ non-parsing, sax. discuss why but in 1 paragraph or so
       - technical challenge learning DB libraries
       - longer design process making the table structure/management object
 
-###Query Processing considerations
+### Query Processing considerations
 in some way will be necessary to take a string input and use it to query a database. this needs some form of structure, but also needs to be simple enough to be easy to learn for non-technical users.
   - option 1: create a new querying syntax and provide instructions
     - upsides
@@ -177,19 +177,21 @@ in some way will be necessary to take a string input and use it to query a datab
       - guesswork might not always be right/might search the wrong field
       
   - querying using a GUI - i.e drawing on a staff
-  
-###Playlist considerations not sure there are any?
+
+### Playlist considerations not sure there are any?
 
 
-##Technologies for importing online sources
+## Technologies for importing online sources
   - system should talk to at least one source, allow the user to browse that source in the same way as they browse their local files, and when they select a file which is online, download the file and add the meta info to the local DB.
-###sources
-  - system should be extendable if new sources are found/want to be included. avoid coupling to 1 or more APIs using a manager class.
+
+### Sources
+  - system should be extendable if new sources are found/want to be included. avoid coupling to 1 or more APIs using 	a manager class.
   - MuseScore Online: music created using MuseScore
     - not all music is public domain - created by other musicians who used the software. Each file on the DB does have this info tho, but it needed to be handled properly
     - all music provided in MXL, XML and PDF format: means the XML format doesn’t have to be rendered to be viewed, will speed up algorithm once downloaded
     - API provides a lot of bibliography info at JSON output level - means system doesn’t have to go to the XML file to extract the info, which again speeds up the connection
-###algorithm for connecting
+
+### algorithm for connecting
   - option 1: search only by bibliography and connect each time the user inputs data
     - upside
       - easy to implement
@@ -204,7 +206,8 @@ in some way will be necessary to take a string input and use it to query a datab
     - downside
       - bigger overhead due to scanning all the files
       - might be a memory consideration if they’re all downloaded in 1 go and the user doesn’t have enough space
-###Licensing
+
+### Licensing
   - MuseScore has a variety of pieces which users have attributed different licenses.
   - option 1: only scan pieces by the most open license (creative commons/no license)
     - upside
@@ -225,7 +228,8 @@ in some way will be necessary to take a string input and use it to query a datab
   - It has been decided that each class in the solution will have a method to produce this output, in the same way as the algorithm described for rendering in section 3.3.4, which will be combined into an output file and played.
 					
   - This creates an extendible architecture, as it would easily be possible to create output methods to other formats in the future. 
-##image input
+
+### image input
   - create own OCR algorithm
     - optimised to own needs
     - organised in way relating to project
@@ -235,68 +239,77 @@ in some way will be necessary to take a string input and use it to query a datab
     - however, OMR/OCR is a huge area and it would be impossible to create my own in a year (give scope using references)
     - use Audiveris instead
   - not implemented: why?
-##Difficulty rating
+
+### Difficulty rating
   - useful to beginners/advanced players so they know how much time/energy will be needed to commit to learnign the piece
   - hard because can be specific to each instrument
   - mention feedback from other musicians
   - easy level: implement rating based on what all musicians consider hard
   - hard: implement rating based on instrument
-##Alternative solutions
+
+## Alternative solutions
   - discuss each of the packages in interim report in more detail
   - perhaps do indepth analysis of the package closest to this project
   - mention that none are cross platform/provide all features for all platforms (depending on whether this project achieves full cross platform compatibility)
 
 
-Technical Development 
-UI design: 
-discuss initial designs: influences
-discuss changes based on user input
-Test design and system testing: 
-discuss TDD implementation
-discuss testcase creation (initial)
-also discuss discovery of Lilypond-provided musicXML testcases 
-decisions made over which to prioritise
-decisions made over when to stop working on particular areas of notation
-mention decision to ensure primary objectives work in small units and then as a whole, and also the intention to perfect the primary objectives before anything else is worked upon
-include a sample testcase in appendix
-System design:
-diagram for each objective’s system design (flow diagram)
-diagram of how they fit together
-class diagrams (tho some may need to be in appendix) particularly relating to each objective as a whole
-discussion of changes made through the course of development, e.g when particular features/problems found what changes had to be made to the design/how designs affected development
-move this to designs: discuss problems that this project uses 2 formats (MXML and Lilypond) and both have their own idea of how to represent music: MXML is visual, Lilypond is like writing actual instructions which output to a visual. This means the object model had to be organised in a way which suits both ecosystems - whilst it’s not coupled to either, this made some elements of dev difficult, and without knowing either format well before the start of the project these elements weren’t known to the developer so caused some restructuring during development. May have been countered by more research, but not enough time. 
-also discuss point that this system is designed around those files, whilst other packages don’t always handle it perfectly.
-Also mention that some elements of music have been left out because this project is not about rendering, and it’s important to have a renderer which does the majority, but due to the time in which to complete the project getting absolutely every symbol in would have been unfeasible.
+# Technical Development 
+## UI design: 
+	- discuss initial designs: influences
+	- discuss changes based on user input
 
-System Implementation: 
-discuss use of github issues and how development process changed over time - i.e no real process to TDD to TDD with issues per feature being implemented
-phrase it as realised scale of implementation and testing affected this, so needed to change process from dev and then testing to testing throughout
-discuss meta data model and lack of standardisation: picked model based on personal preference with some input from other people + research, but no standard so had to create own
-explain why that is - musicians aren’t always software devs
-also highlight music is a big research area but there’s no standard for input->memory->output, so algorithm is sort of new and hopefully being open source will help new standards being created
-mention difficulty rating has not been done in other apps in particular, so research had to be done into how people rank music
+## Test design and system testing: 
+	- discuss TDD implementation
+	- discuss testcase creation (initial)
+	- also discuss discovery of Lilypond-provided musicXML testcases 
+	- decisions made over which to prioritise
+	- decisions made over when to stop working on particular areas of notation
+	- mention decision to ensure primary objectives work in small units and then as a whole, and also the intention to perfect the primary objectives before anything else is worked upon
+	- include a sample testcase in appendix
 
-Evaluation
-Project Achievements:
-identify which objectives have been met and to what level
-Further work: 
-mention issue reporting on improvements to rendering/issue reporting on notation which is completely ignored: explain how decisions were made on to what limit to draw on notation
-discuss problems with not knowing lilypond/musicXML enough to know a precise structure which would suit both
-discuss any objectives which were not met
-Future developments
-porting to more platforms:
-raspberry pi: input from PiPiano, output to SonicPi: both would serve as great educational tools for teaching kids to read music, teaching to code music and about MIDI input etc
-linux/windows? depends on whether this has been achieved already
-musicology analysis
-improve search to allow for searching by a passage of notes
-optional symbols
-ability to select how much notation is rendered, e.g ignore accidentals, accents, dynamics: would again suit educational purposes as a lot of notation can mean a lot more to take in when learning to read sheet music
-Reflection
-personal reflection on project management/process etc
-Conclusion
-discuss project in context of aims
-discuss why aims are important in context of software in existance
-discuss how project will/has improved standards/digitisation of music
+## System design:
+	- diagram for each objective’s system design (flow diagram)
+	- diagram of how they fit together
+	- class diagrams (tho some may need to be in appendix) particularly relating to each objective as a whole
+	discussion of changes made through the course of development, e.g when particular features/problems found 	what changes had to be made to the design/how designs affected development
+	- move this to designs: discuss problems that this project uses 2 formats (MXML and Lilypond) and both have 	their own idea of how to represent music: MXML is visual, Lilypond is like writing actual instructions which 		output to a visual. This means the object model had to be organised in a way which suits both ecosystems - 	whilst it’s not coupled to either, this made some elements of dev difficult, and without knowing either format 	well before the start of the project these elements weren’t known to the developer so caused some restructuring 		during development. May have been countered by more research, but not enough time. 
+	- also discuss point that this system is designed around those files, whilst other packages don’t always 	handle it perfectly.
+	- Also mention that some elements of music have been left out because this project is not about rendering, and it’s important to have a renderer which does the majority, but due to the time in which to complete the project getting absolutely every symbol in would have been unfeasible.
+
+## System Implementation: 
+	- discuss use of github issues and how development process changed over time - i.e no real process to TDD to 	- TDD with issues per feature being implemented
+	- phrase it as realised scale of implementation and testing affected this, so needed to change process from 	dev and then testing to testing throughout
+	- discuss meta data model and lack of standardisation: picked model based on personal preference with some 	input from other people + research, but no standard so had to create own
+	- explain why that is - musicians aren’t always software devs
+	- also highlight music is a big research area but there’s no standard for input->memory->output, so 	algorithm is sort of new and hopefully being open source will help new standards being created
+	- mention difficulty rating has not been done in other apps in particular, so research had to be done into 	how people rank music
+
+# Evaluation
+## Project Achievements:
+	- identify which objectives have been met and to what level
+
+## Further work: 
+	- mention issue reporting on improvements to rendering/issue reporting on notation which is completely 			- ignored: explain how decisions were made on to what limit to draw on notation
+	- discuss problems with not knowing lilypond/musicXML enough to know a precise structure which would suit 	both
+	- discuss any objectives which were not met
+
+## Future developments
+### porting to more platforms:
+	- raspberry pi: input from PiPiano, output to SonicPi: both would serve as great educational tools for teaching kids to read music, teaching to code music and about MIDI input etc
+	- linux/windows? depends on whether this has been achieved already
+
+### musicology analysis
+	- improve search to allow for searching by a passage of notes
+	- optional symbols
+	- ability to select how much notation is rendered, e.g ignore accidentals, accents, dynamics: would again 	suit educational purposes as a lot of notation can mean a lot more to take in when learning to read sheet music
+
+# Reflection
+	- personal reflection on project management/process etc
+
+# Conclusion
+	- discuss project in context of aims
+	- discuss why aims are important in context of software in existance
+	- discuss how project will/has improved standards/digitisation of music
 
 Each appendix should have a title
 
