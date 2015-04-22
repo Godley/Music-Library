@@ -24,17 +24,33 @@ As such, no test design or plan was produced, but rather tests were developed as
 
 Test cases were created using the aforementioned software MuseScore. These were produced by creating a file for every area of notation (e.g. clefs, time signatures, note durations, pitch) and applying each and every symbol possible within that area to the music. It was decided to create test cases in this way to thoroughly ensure that no piece of notation was missed. An example testcase, and a list of all testcases in use and their value in real world testing, are included in the appendices.
 Further to the testcases developed specifically for this application, the system was tested against a larger set of tests called "The Unofficial MusicXML testsuite", which was released by the Lilypond Project to provide a comprehensive test suite for all elements of MusicXML\parencite{LilypondTestcase}. 
-Whilst the project was tested against all 131 files in the suite, around 65\% of these files passed, and the other 35\% which tested more specific notation were ignored in order to make way for other functionality. This decision was taken because the renderer took a long time to produce and continuing to ensure all of the tests passed would take time away from other more important features, and the elements which failed were minor. Despite their output not being perfect, the developer ensured that any failed testcases did not cause a system crash, and documented the problems using an issue tracker.
+Whilst the project was tested against all 131 files in the suite, around 65\% of these files passed, and the other 35\% which tested more specific notation were ignored in order to make way for other functionality. This decision was taken because the renderer took a long time to produce and continuing to ensure all of the tests passed would take time away from other more important features, and the elements which failed were minor. Despite their output not being perfect, the developer ensured that any failed test cases did not cause a system crash, and documented the problems using an issue tracker.
 \subsection{System Design}
-The class diagram in figure \ref{fig:classdiagram} shows an abstract structure of the renderer implementation used in this project. This implements a tree, each node of which holds an item defined at run time. Each item object and node object implements the ToLily method which outputs that node, node item and children's collateral lilypond-formatted string. A tree was chosen as the object structure in order to give an indication of time, and in order that specific elements could be positioned according to sequential instructions from the MusicXML parser. 
+\subsubsection{Overall Architecture}
+In the initial stages of development of the metadata portion of the project, a diagram explaining how each section and objective of the project would fit together was created, as shown in figure \ref{fig:projectstructure}. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{diagrams/overall_design}
+    \caption{Overall system architecture}
+    \label{fig:projectstructure}
+\end{figure}
+\subsubsection{Rendering Architecture}
+The class diagram in figure \ref{fig:classdiagram} shows an abstract structure of the sheet music rendering implementation used in this project. This implements a tree, each node of which holds an item containing the notation specific to that node. Each item object and node object implements the ToLily method which outputs that node, node item and children's collateral lilypond-formatted string. A tree was chosen as the object structure in order to give an indication of time, and in order that specific elements could be positioned according to sequential instructions from the MusicXML parser. 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{diagrams/class_diagram_drawing}
     \caption{Renderer Class Diagram}
     \label{fig:classdiagram}
 \end{figure}
+\subsubsection{Modular Design}
+The classes used in this project are all designed to be self contained, that is to say that they will only deal with their own data and modification, then hand off any data requested from them to child classes or parent classes as necessary. This is more apparent with the class diagram in figure \ref{fig:metadiagram}, where the folder browser only handles scanning and categorising lists of files and the API manager only handles getting data, downloading files and returning what is necessary to the main manager.
 
-The class diagram in figure \ref{fig:metadiagram} shows the structure of the meta and API portions of the system. This implements a layered structure as the MusicManager will be a member of the application layer, which handles input and manipulation of input from the main user interface. The music manager extracts and puts data into the data layer, which handles direct connections to and from the SQLite file where data will be stored.
+This approach was helped by using test driven development as unit test development necessitated creating code in independent blocks, and is beneficial to the project as it means that the code is easier to navigate and more reusable, as for example, the API manager class does not need to handle parsing downloaded files for metadata as the music manager can easily make the interlink between the two.
+
+\subsubsection{MVC design}
+The class diagram in figure \ref{fig:metadiagram} shows the structure of the meta and API portions of the system. 
+
+This implements the popular Model View Controller design pattern, whereby the DataLayer class handles interactions with an SQLite database - this is the model, and this class does nothing but update and query the database. The music manager class which houses this class is the controller, which takes input from the view, in this case the User interface, and interacts with the model.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{diagrams/api_and_meta_data_diagram}
@@ -43,11 +59,19 @@ The class diagram in figure \ref{fig:metadiagram} shows the structure of the met
 \end{figure}
 The music manager class also handles connections to other classes, such as the folder browser, which handles scanning the folder for lists of xml and mxl files and compares them against a given list of files the music manager has in it's database, and the unzipper, which takes a list of mxl files, unzips and copies them into the relevant locations according to filename. 
 
-Further to this, the API manager handles downloads of XML files for scanning, download of PDF files for viewing and collates data from all api sources so that the music manager can then choose what to do with this information, scan each downloaded file for metadata or allow the user to select a file for download. The dictionary stored in this manager can be extended to any number of apis which inherit from the API class, each indexed by the name of the API, which is then stored in the DataLayer when a new piece is downloaded and scanned from that API.
+Further to this, the API manager handles downloads of XML files for scanning, download of PDF files for viewing and collates data from all api sources so that the music manager can then choose what to do with this information, scan each downloaded file for metadata or allow the user to select a file for download. 
+
+\subsubsection{Designing for extendability}
+This project is designed with a particular aim of extendability - that being that the objects in the rendering algorithm could, if necessary each implement a new input or output method which would then call each child's input or output method where necessary. The same is true of the API class used by the API manager, which defines what methods new APIs must implement in order to be operable with the API manager.
+
+The project uses ducktyping to achieve much of this, a feature prevalent in python as python assigns typing rules to objects and variables at run time. A clear example of this is in the rendering algorithm, which does not type check any child classes of the current node but assumes that it has a toLily method and concatenates the results. 
+
+This meant that development was easier as it removed the necessity of defining types for child objects and did not require abstraction of different objects to achieve the goal, neither of which would have been appropriate as in sheet music there are several possibilities of attributes and notations which may or may not be in the piece.
 
 
 \subsection{System Implementation}
-The project was implemented using a developer informed process, whereby the developer would review the project's status for bugs, issues and features which had yet to be implemented, note this using an issue tracker, develop unit tests for the issue and finally, develop the production code. Test Driven development, the portion of unit testing and production code creation, as previously mentioned was chosen as part of this development process in order to improve the quality and precision of the software. 
+\subsubsection{Development Methodology}
+The project was implemented using a developer informed process, whereby the developer would review the project's status for bugs, issues and features which had yet to be implemented, note this using an issue tracker, select an issue based on the priorities of the project, develop tests for this issue and finally, develop the production code. 
 
 
 Issue tracking and reporting was used so that the developer could think and reflect on areas of the system which needed improvement, modification or implementation, and worked well in the context of a year long project in which development was not continuous because it ensured that when development was paused, the developer could see instantly what needed to be doing or what was being worked on before the pause to work on something else. This adds the benefit that in the future, when this project may be worked upon by more than one developer, new developers can see things which have yet to be implemented and choose which features are most relevant or doable by their own standards, as well as discuss or contest previous issues in the system.
@@ -57,5 +81,8 @@ The meta model for this project, which is arguably the focus of the project, was
 
 It should also be noted that whilst the initial objective of this project was to render sheet music from XML, there does not appear to be a standard implementation for how this should be done either, with different projects choosing their own class structures depending on their area\parencite{Music21}. This is potentially due to lack of interest in digitising or automating the process, lack of knowledge of the standard file format for knowledgeable music or for some other reason. Nonetheless, it is hoped that the time spent developing a working renderer at the initial stage of this project, which took longer than expected and required in depth knowledge and understanding of both input and output formats, will help to standardise the rendering process for future research projects when the code is open sourced.
 
+% moved from background
+This adds a further technical challenge as the design aims of MusicXML as explained in an earlier section were found to be very different from the design aims of Lilypond. Designing the system and structure around both objects at the start of the project was difficult, due to the developer's lack of knowledge of both formats and frameworks, and thus changes were made late into the project that set back development time.
 
+Furthermore, as rendering of sheet music is not the main aim of this project, it was decided that specific areas of notation should not be included in order to ensure that other areas of the project, such as metadata extraction, did not have a significantly shorter development time, and to ensure that all implemented objectives were implemented to a high quality, at the expense of rendering all symbols. In most areas, the information is not lost completely as it is imported from the MusicXML file into the object structure, but ignored upon request for render of a given piece.
 mention difficulty rating has not been done in other apps in particular, so research had to be done into how people rank music

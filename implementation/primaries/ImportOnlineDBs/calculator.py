@@ -3,30 +3,31 @@ import math
 
 def myRowCalculator(columnCount, total, position):
     # bottom left is 0,0. Top right is ColumnCount-1,rowCount-1
-    rowCount = total / columnCount
     row = 0
     column = 0
-    flooredVal = math.floor(position/columnCount)
-
-    if position == 0:
-        row = rowCount -1
-        column = 0
-    if position < columnCount-1:
-        row = rowCount-1
-        column = position
-    if position % columnCount-1 == 0 or position == columnCount-1:
-        normRow = flooredVal
-        column = position-(columnCount*normRow)
-        row = (rowCount-1)-flooredVal
-    if position > columnCount-1:
-        normRow = flooredVal
-        column = position-(columnCount-1*normRow)
-        row = (rowCount-1)-flooredVal
-
+    rowCount = total / columnCount
+    newPos = total - position - 1
+    row = int(newPos/columnCount)
+    column = position % columnCount
     return row, column
 
-def reverseCalculation(columnCount, row, column):
+def getPositionsForWord(position, total, columnCount, direction, length):
+    results = [position]
+    if direction == 6:
+        # north
+        for i in range(1, length):
+            newPosition = results[-1]-columnCount
+            results.append(newPosition)
 
-    position = (row*columnCount)+column
+    if direction == 5:
+        # north west
+        for i in range(1, length):
+            newPosition = results[-1]-columnCount-1
+            results.append(newPosition)
 
-    return position
+    if direction == 7:
+        #north east
+        for i in range(1, length):
+            newPosition = results[-1]-columnCount+1
+            results.append(newPosition)
+    return results
