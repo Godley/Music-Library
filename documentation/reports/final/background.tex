@@ -200,15 +200,15 @@ This is easier to work with as functionality can iteratively be built up by crea
 
 
 \subsubsection{Algorithms for display and storage of XML information}
-For the rendering of sheet music, the system must in some way manipulate an XML file to an output format.
+For the rendering of sheet music, the system must in some way manipulate the data extracted from the XML file into a visual output.
 
-The first option for this would be applying an XSL stylesheet, which is commonly the method of choice for rendering XML files in a web browser. This is not an option in MusicXML because the notation is too complicated and requires too many symbols, whilst XSL stylesheets are usually used for images and text representations. Sheet music is somewhere in between the two, and thus this option cannot be selected.
+The usual method of formatting an XML file would be applying an XSL stylesheet, which is commonly the method of choice for rendering XML files in a web browser. This is not an option in MusicXML because the notation is too complicated and requires too many symbols, whilst XSL stylesheets are usually used for images and text representations. Sheet music is somewhere in between the two, and thus this option cannot be selected.
 
-The second option would be to create or reuse a converter script from XML to the output format, meaning the output would be generated at the same time as the input. However, this couples the system with MusicXML and would slow down development if it were required to use a different additional input, or decisions were made to change the output format. Furthermore, the Big O representation of this type of script to any output format is $O(n^2)$, whilst the selected final option using objects would be $O(n)$.
+The second option would be to create or reuse a converter script from XML to the output format, meaning the output would be generated at the same time as the input. However, this couples the system with MusicXML and would slow down development if it were required to use a different additional input, or decisions were made to change the output format. Furthermore, the Big O representation of this type of script to any output format is $O(n^2)$, which is not a highly optimised algorithm.
 
-The final option, which has been chosen for the project, is to create a converter script which would parse the MusicXML and create a hierarchy of objects. This avoids coupling directly to MusicXML as new formats of both input and output would only need a converter script to create object hierarchy or from the hierarchy to the output format, which would then handle input or output to other formats.
+The final option, which has been chosen for the project, is to create a converter script which would parse the MusicXML and create a hierarchy of objects. This avoids coupling directly to MusicXML as new formats of both input and output would only need a converter script to create object hierarchy or from the hierarchy to the output format, which would then handle input or output to other formats. The big O representation of this particular method is $O(n)$, a noticeable improvement on the converter script option.
 
-However, whilst this avoids coupling, a technical challenge is created using this method in that the object structure needs careful planning to cater for the structure of MusicXML and the structure or method of output, which with little knowledge of the input or output format is difficult to achieve.
+However, whilst this avoids coupling, a technical challenge is created using this method in that the object structure needs careful planning to cater for the structure of MusicXML and the structure or method of output, which, with little knowledge of the input or output format, is difficult to achieve.
 
 \subsubsection{Rendering System}
 Given the decision made in section 3.3.3, the system must take the object hierarchy and transform it, in some way, to readable sheet music. The user should be able to pan around the sheet music and zoom in and out of it to view specific details.
