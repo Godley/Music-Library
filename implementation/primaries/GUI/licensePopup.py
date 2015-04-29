@@ -1,4 +1,6 @@
 from PyQt4 import QtCore, QtGui, uic
+import os
+from implementation.primaries.GUI.helpers import get_base_dir
 
 
 class LicensePopup(QtGui.QDialog):
@@ -7,7 +9,8 @@ class LicensePopup(QtGui.QDialog):
         self.theme = theme
         self.parent = parent
         QtGui.QDialog.__init__(self)
-        uic.loadUi('designer_files/licensePopup.ui', self)
+        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "licensePopup.ui")
+        uic.loadUi(path_to_file, self)
         self.license_terms = terms
         self.file = file
         self.loadLicense()
@@ -29,7 +32,8 @@ class LicensePopup(QtGui.QDialog):
         self.parent.downloadFile(self.file)
 
     def setTheme(self):
-        file = open("themes/" + self.theme + ".qss", 'r')
+        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "themes", self.theme+".qss")
+        file = open(path_to_file, 'r')
         fstring = file.readlines()
         self.setStyleSheet("".join(fstring))
         self.repaint()

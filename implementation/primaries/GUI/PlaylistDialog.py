@@ -1,5 +1,7 @@
 from PyQt4 import QtCore, QtGui, uic
 
+import os
+from implementation.primaries.GUI.helpers import get_base_dir
 
 class PlaylistDialog(QtGui.QDialog):
 
@@ -8,7 +10,8 @@ class PlaylistDialog(QtGui.QDialog):
         self.theme = theme
 
         QtGui.QDialog.__init__(self)
-        uic.loadUi('designer_files/NewPlaylist.ui', self)
+        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "NewPlaylist.ui")
+        uic.loadUi(path_to_file, self)
         self.autoCompleteFrame.hide()
         self.buttonBox.accepted.connect(self.newPlaylistOk)
         self.autoCompleteBox.itemDoubleClicked.connect(self.itemClicked)
@@ -18,7 +21,8 @@ class PlaylistDialog(QtGui.QDialog):
         self.setTheme()
 
     def setTheme(self):
-        file = open("themes/" + self.theme + ".qss", 'r')
+        directory = get_base_dir(return_this_dir=True)
+        file = open(os.path.join(directory, "themes/" + self.theme + ".qss"), 'r')
         fstring = file.readlines()
         self.setStyleSheet("".join(fstring))
         self.repaint()

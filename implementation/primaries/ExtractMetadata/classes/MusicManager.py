@@ -1,9 +1,14 @@
 import os
 import shutil
 import zipfile
-from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
-from implementation.primaries.ImportOnlineDBs.classes import ApiManager
+try:
+    from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
+    from implementation.primaries.ImportOnlineDBs.classes import ApiManager
+except:
+    from primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
+    from primaries.ImportOnlineDBs.classes import ApiManager
 from xml.sax._exceptions import *
+import requests.exceptions
 
 
 class Unzipper(object):
@@ -141,14 +146,18 @@ class MusicManager(object):
         method to download API files and unzip them as necessary
         :return: dictionary of results indexed by source name
         """
-        file_set = self.apiManager.downloadFiles(data_set)
-        self.handleZips()
         results = {}
-        for source in file_set:
-            results[source] = []
-            for file in file_set[source]:
-                n_filename = file.split(".")[0] + ".xml"
-                results[source].append(n_filename)
+        try:
+            file_set = self.apiManager.downloadFiles(data_set)
+            self.handleZips()
+            for source in file_set:
+                results[source] = []
+                for file in file_set[source]:
+                    n_filename = file.split(".")[0] + ".xml"
+                    results[source].append(n_filename)
+        except requests.exceptions.ConnectionError as e:
+            print(str(e))
+
         return results
 
     def parseApiFiles(self):
@@ -157,43 +166,46 @@ class MusicManager(object):
         :return: dictionary of data indexed by filename
         """
         parsing_errors = {}
-        cleaned_set = self.apiManager.fetchAllData()
-        filelist = self.getFileList(online=True)
-        for file in filelist:
-            source = self.__data.getPieceSource(file)[0]
-            id = file.split(".")[0]
-            if id in cleaned_set[source]:
-                cleaned_set[source].pop(id)
-        file_set = self.unzipApiFiles(cleaned_set)
         result_set = {}
-        for source in file_set:
-            result_set[source] = {}
-            for file in file_set[source]:
-                ignore_list = self.apiManager.getSourceIgnoreList(source)
-                parser = OnlineMetaParser.OnlineMetaParser(ignored=ignore_list, source=source)
-                data = self.parseXMLFile(file, parser=parser)
-                if type(data) != tuple:
-                    result_set[source][file] = data
-                    file_id = file.split("/")[-1].split(".")[0]
-                    if "title" in cleaned_set[source][file_id]:
-                        result_set[source][file]["title"] = cleaned_set[
-                            source][file_id]["title"]
-                    if "composer" in cleaned_set[source][file_id]:
-                        result_set[source][file]["composer"] = cleaned_set[
-                            source][file_id]["composer"]
+        try:
+            cleaned_set = self.apiManager.fetchAllData()
+            filelist = self.getFileList(online=True)
+            for file in filelist:
+                source = self.__data.getPieceSource(file)[0]
+                id = file.split(".")[0]
+                if id in cleaned_set[source]:
+                    cleaned_set[source].pop(id)
+            file_set = self.unzipApiFiles(cleaned_set)
+            for source in file_set:
+                result_set[source] = {}
+                for file in file_set[source]:
+                    ignore_list = self.apiManager.getSourceIgnoreList(source)
+                    parser = OnlineMetaParser.OnlineMetaParser(ignored=ignore_list, source=source)
+                    data = self.parseXMLFile(file, parser=parser)
+                    if type(data) != tuple:
+                        result_set[source][file] = data
+                        file_id = file.split("/")[-1].split(".")[0]
+                        if "title" in cleaned_set[source][file_id]:
+                            result_set[source][file]["title"] = cleaned_set[
+                                source][file_id]["title"]
+                        if "composer" in cleaned_set[source][file_id]:
+                            result_set[source][file]["composer"] = cleaned_set[
+                                source][file_id]["composer"]
 
-                    if "lyricist" in cleaned_set[source][file_id]:
-                        result_set[source][file]["lyricist"] = cleaned_set[
-                            source][file_id]["lyricist"]
-                    if "secret" in cleaned_set[source][file_id]:
-                        result_set[source][file]["secret"] = cleaned_set[source][file_id]["secret"]
-                    if "license" in cleaned_set[source][file_id]:
-                        result_set[source][file]["license"] = cleaned_set[source][file_id]["license"]
-                else:
-                    parsing_errors[data[1]] = data[0]
-            if len(parsing_errors) > 0:
-                error_string = "".join([error + " : " + parsing_errors[error] for error in parsing_errors])
-                self.parent.errorPopup(error_string)
+                        if "lyricist" in cleaned_set[source][file_id]:
+                            result_set[source][file]["lyricist"] = cleaned_set[
+                                source][file_id]["lyricist"]
+                        if "secret" in cleaned_set[source][file_id]:
+                            result_set[source][file]["secret"] = cleaned_set[source][file_id]["secret"]
+                        if "license" in cleaned_set[source][file_id]:
+                            result_set[source][file]["license"] = cleaned_set[source][file_id]["license"]
+                    else:
+                        parsing_errors[data[1]] = data[0]
+        except requests.exceptions.ConnectionError as e:
+            parsing_errors["Connection"] = "error connecting to the internet. Sources not refreshed."
+        if len(parsing_errors) > 0:
+            error_string = "".join([error + " : " + parsing_errors[error] for error in parsing_errors])
+            self.parent.errorPopup(error_string)
         return result_set
 
     def addApiFiles(self, data):
@@ -218,10 +230,13 @@ class MusicManager(object):
         secret = self.__data.getSecret(filename)
         if secret is not None:
             secret = secret[0]
-        status_code = self.apiManager.downloadFile(source=source, file=fname, secret=secret, extension='pdf')
-        if status_code == 200:
-            self.__data.downloadPiece(filename)
-            return True
+        try:
+            status_code = self.apiManager.downloadFile(source=source, file=fname, secret=secret, extension='pdf')
+            if status_code == 200:
+                self.__data.downloadPiece(filename)
+                return True
+        except requests.exceptions.ConnectionError as e:
+            print("Error downloading file!")
         return False
 
 
@@ -366,7 +381,7 @@ class MusicManager(object):
             # check title, composer, lyricist, instruments for matches
             for value in search_data["text"]:
                 combined = {}
-                file_result = self.__data.getPiece(value, online=online)
+                file_result = self.__data.getRoughPiece(value, online=online)
                 if len(file_result) > 0:
                     combined["filename"] = [result[1]
                                             for result in file_result]

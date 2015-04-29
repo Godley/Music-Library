@@ -1,19 +1,90 @@
 \section{Evaluation}
 \subsection{Project Achievements}
-This project has met all primary objectives, implementing a working renderer, a metadata scanner for a given folder, the ability to search and organise pieces according to this data, and finally, the ability to expand a collection of music by searching online music catalog APIs from within the application. 
+This project has met all four of it's primary objectives, and as such is considered a success. The sub sections below go into each objective in detail, in order to convey any particular technical challenges which had to be overcome to reach each objective.
+\subsubsection{Rendering System}
+This project's renderer is an improvement on previous attempts to render MusicXML sheet music, as the structure is designed around MusicXML input and Lilypond output. This is achieved without coupling to either format, as the system implements an object structure to manage communications of data into or out of the system.
+
+The classes and scripts for input and output avoid tight coupling to other features, meaning that it would be possible for a new developer or new project to take this code and use it in a different context without requiring other objectives and features to make the system work. Using the SAX method of XML parsing means that the renderer can easily be extended and iteratively improved to handle more and more complex XML information.
+
+It is hoped that by creating a working renderer which can be reused by other projects that this project will help to standardise the rendering process, hopefully by taking this objective and producing a standard python library which would be easily adaptable to usage in other projects.
+
+\subsubsection{Metadata scanning}
+This project extracts information that is most common to pieces of sheet music, and uses the information to create an interface which presents this data in a useful way. This is achieved by displaying a general sorted list of pieces as well as automatically generated playlists of related data, so that a user may choose how or whether to filter their music by a particular category.
+
+Further to automated scanning, the system allows users to create their own playlists. The search with suggestions system - the method of querying the database with text input - is modular, so the playlist creator has the same query structure and abilities as the general search function.
+
+The metadata model created for this project, which defines what data is stored about sheet music, was designed so that it would be of the most use to all performers. This design decision was made so that the application would be useful to a cross section of musicians, but also with the intent of defining a standard model for future projects to implement.
+
+\subsubsection{Search operation}
+
+
+\subsubsection{Importing Online APIs}
+The project implements a general API class to handle communications with networked sheet music collections. This will be useful to future applications or extensions as new sheet music collections can easily wrap their own APIs in this class, and implement them without needing too many requests or changes at code level.
+
+Whilst the API initially downloads an XML file in order to extract information for every piece in the source, when a user decides to download a file, the API will request PDF files where available. This means that the renderer does not have to be used, which reduces the processing overhead needed for downloaded files to be displayed.
+
+Furthermore, applying the same model and metadata scanner used on local files to online files makes this feature more useful, as users can search their local collections and online collections using the same queries. This enables users to expand their collections without leaving the application or changing their behaviour.
+
+\subsubsection{Cross Platform Capabilities}
+This project implements 4 features across 2 platforms - Mac OSX and Windows 8.1. This is key to the project as it was highlighted in the alternative solutions section that previous software solutions rarely achieve this with full feature inclusion. 
+
+In order to achieve this aspiration, the developer made decisions on libraries and frameworks based not only on their functionality and usability, but on whether they provided full cross platform features. This was particularly important in developing the graphical user interface and choosing a language, as some languages have limited capabilities on other platforms (e.g C\#) and some user interface libraries are operating system specific (e.g Apple AppKit(ref)).
+
 
 \subsection{Further Work}
-The project does not yet implement specific areas of notation such as drum tablature, guitar tablature, lyrics or chord names. These areas were decided to be of less importance to the overall goal because the expected demographic is classical musicians. However, every aspect of these sections of ignored notation has been documented in the issue tracker, and will be worked upon after assessment.
-Discuss secondary objectives
+\subsubsection{Improved Rendering Capabilities}
+The current renderer has the capability to handle much of the most common symbols used in sheet music. This varies from the notes themselves to dynamics and articulation, and includes all of the symbols mentioned in the problem context.
+
+However, this objective in particular took more time than originally intended or expected, and despite the importance of a working renderer in order for a musician to view their sheet music, it was decided that covering the majority of use cases was enough. As such, some specific areas of notation including guitar tab, drum tablature, lyrics and some notation used in foreign countries and previous generations of western music were ignored. This was due to it becoming obvious that some of these areas would take too much time modifying the current structure, and others were not considered to be important enough to take precedence over the other objectives.
+
+The decision was therefore taken to limit the functionality of the renderer at the advantage of having more time to work on the remaining objectives, but with clear instruction noted for future development on which areas needed to be improved or included in the future. This was achieved using the test cases released by \cite{Lilypond}, with visual checking of the output and reporting issues on which test cases failed, and why they were considered failures. It is important to note that the developer ensured that all of these test cases did not cause a program crash, and that all test cases generated some form of PDF output.
+
+\subsubsection{Secondary Objectives}
+It is unfortunate that the three secondary objectives were not included in the final project outcome. 
+
+The decision was taken to ensure that the three primary objectives were all tested thoroughly, and that the application is a rounded and polished product, with packaging for OSX and Windows taking precedence over features which may or may not be finished to the same quality as the four primary objectives.
+
+\subsubsection{Porting to Linux based operating systems}
+The intention of the developer was to create a packaged version of the application for the three major operating systems - Windows, OSX, and Ubuntu. 
+
+Unfortunately, time constraints meant that the developer had to prioritise based on usefulness and user count, and decided that it was important to produce an installer for Windows, which has the highest user count of any operating system(ref). Mac OSX is considered the second highest by the target demographic, which is important as the project is aimed at musicians, not technologists.
+
+Whilst it is expected that the GNU/Linux installer will be relatively simple to create, the developer chose to leave this process to after the demonstration.
 
 \subsection{Future Developments}
-\subsubsection{Porting to other operating systems}
-This project was intended, though not explicitly, to be cross platform, allowing for users to have the same feature set and interface whether they were using Windows, OSX or a GNU/Linux distribution. This has not been met only because of complications creating installers for other platforms, but is intended to be implemented in the future.
+\subsubsection{Porting to Raspbian}
+It is hoped that a Raspberry Pi compatible version can be created which may involve minimising the code and optimising certain features. 
 
-It is also hoped that a Raspberry Pi compatible version can be created which may involve minimising the code and optimising certain features. With this comes potential for new input mechanisms, such as the PiPiano, an add on board which allows users to input music using buttons arranged in a piano keyboard organisation(ref), and new output mechanisims, such as Sonic Pi, which was created as an educational tool to teach children how to program using music as the inspiration and final output(ref). 
+With this comes potential for new input mechanisms, such as the PiPiano, an add on board which allows users to input music using buttons arranged in a piano keyboard organisation(ref), and new output mechanisms, such as Sonic Pi, which was created as an educational tool to teach children how to program using music as the inspiration and final output(ref). 
 
-\subsubsection{Musicology expansion and more complex searching}
-At present the project only allows users to search data using a english query input, but it is hoped that in future, the model of metadata can be expanded to include particular musical patterns, lyrics, and chord names, and that the querying structure can be expanded to use symbolic input. This would expand the feature set to allow musicologists to use the same system for organising as they do for analysing pieces of music, and for more intuitive input forms by musicians who regularly write music.
+Furthermore, this would make the project and a user's digital music collection more portable, as the user would not have to take a laptop with them or a stack of sheet music in order to browse their collections.
+
+\subsubsection{Symbolic Searching}
+The current project uses text input formatted in a particular manner in order to query the database. It is hoped that in future, a Music Ngram searcher such as \cite{Peachnote} can be used. 
+
+The Peachnote viewer is an engine which presents the user with a staff, and allows for input by drawing or clicking and adding symbols to the staff. It then searches the database it is connected to for any instances of those symbols, or the note pattern the user has selected. This would be an improved version of searching as it would be more intuitive for a composer or musician to use, and would mean that novice musicians would not need to know all of the symbol names in order to query the database.
+
 
 \subsubsection{Advanced rendering and sound output options}
-It is hoped that the project may be expanded so that users can pick and choose what parts and notation are rendered and outputted to sound. This would enable the system to be used as a teaching tool, allowing teachers and students to only display notation they have already learned. It would also allow the sound output generator to be used to create accompaniment parts for practice purposes.
+It is hoped that the project may be expanded so that users can pick and choose what parts and notation are rendered and outputted to sound. 
+
+This would enable the system to be used as a teaching tool, whereby teachers and students could choose to simplify the music by displaying only the symbols they have learned. It would also allow the sound output generator to be used to create accompaniment parts for practice purposes.
+
+\subsubsection{Implementation of paid or subscription APIs}
+A further extension of the online API implementation which would be useful is the implementation of new sources which are not open or free. 
+
+This would be useful as these sources, such as MusicNotes which implements a pay-per-piece business model, generally contain a larger variety of sheet music, and at a higher quality as they are generally published by the original arranger or composer.
+
+\subsubsection{Centralisation of APIs}
+The current project does all processing of online APIs locally. This could be improved by using a centralised API server, which would communicate with other APIs to access information and scan new files for meta data, which would be stored in a database.
+
+The project would then connect to this API alone, sending formatted query input from the application and receiving suggestions and downloads from the APIs.
+
+This would mean the local user's machine would not have to process XML files which may or may not be requested by the user, and that inclusion of new APIs in the eco system would not require users to update. 
+
+\subsubsection{Online Sharing}
+The metadata system currently stores all data to a single SQLite database. This could be expanded in future to offer users the opportunity to upload that data to a centralised online database, in a similar way to the suggested improvement in section 5.3.5.
+
+Users would then be able to browse a larger collection of music from a centralised online point, and request downloads from user created collections. Users who shared their collections would be able to view, accept and reject requests, with an accept resulting in the application uploading the file to the server, sending it to the user requesting the file, and finally, delete the copy on the server.
+
+This functionality would allow users to send files to each other in a more intuitive way than using email or other cloud based services, and wouldn't require much more code or changes to the current system architecture. This may, however, incur problems with licensing which would need to be addressed.

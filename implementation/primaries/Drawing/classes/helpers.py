@@ -1,3 +1,5 @@
+
+
 def SplitString(value):
     """simple method that puts in spaces every 10 characters"""
     string_length = len(value)
