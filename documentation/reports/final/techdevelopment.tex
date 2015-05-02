@@ -31,13 +31,39 @@ All of the frames of the user interface are styled using a CSS stylesheet, so th
     \label{fig:main_light}
 \end{figure}
 \subsection{Test Design and System Testing}
+\subsubsection{Test Driven Development}
 This project was developed using Test Driven Development. This is an Agile software development methodology which utilises the rules that a line of code should not be written unless there is a failing automated test \parencite{TDD}. This methodology has been chosen as the nature of the notation of music means that meticulous attention must be paid to how and with what symbol every element is notated, and Test Driven Development will significantly improve the quality of the software by closely integrating testing with the development process.
 
 As such, no test design or plan was produced, but rather tests were developed as features were introduced, and were designed to be self contained units testing the smallest possible details, such as an accent being added to a measure correctly, or a note's pitch being created with a particular note name or octave number.
 
-Test cases were created using the aforementioned software MuseScore. These were produced by creating a file for every area of notation (e.g. clefs, time signatures, note durations, pitch) and applying each and every symbol possible within that area to the music. Test cases were produced in this way to thoroughly ensure that no piece of notation was missed. An example test case, and a list of all test cases in use and their value in real world testing, are included in the appendices.
+\subsubsection{Unit Testing}
+Unit tests for this project were created on an objective by objective basis using the standard python unit tests testing suite. The developer's IDE of choice, Pycharm, has built in support for this module, with an intuitive interface for running tests in a given file and production of readable output of what happened in each tests.
 
-Further to the test cases developed specifically for this application, the system was tested against a larger set of tests called "The Unofficial MusicXML testsuite", which was released by the Lilypond Project to provide a comprehensive test suite for all elements of MusicXML\parencite{LilypondTestcase}. 
+The interface also includes the ability to create scripts which discover and run tests on folder, file, class and method level. The developer used this feature to create scripts which ran all of the tests for specific areas of each objective, as well as the objective itself. This enabled the developer to quickly check new features had not affected the status of previous features.
+\subsubsection{Unit Testing the rendering system}
+In the initial phase of developing the rendering system, the SAX parser was tested at base functionality level, with checks that new tags, new data and closing tags modified various lists which handler methods used to extract information. As new functions and tags were handled, more and more tests were developed for every tag, termed handler tests. These tests included combinations of tags and combinations of tag attributes, as well as testing tags in exclusion from other tags. When new features were introduced the developer would run the full set of unit tests before committing the code to source control, in order to ensure that new features did not cause regressions or changes in previously developed code.
+
+When the object extraction algorithm portion of the rendering system was completed, the developer created unit tests for the individual symbol classes to confirm their ToLily method worked according to what was expected in the lilypond documentation.
+
+Once the individual symbols were tested, the developer created tests to check the classes containing the symbols concatenated the strings of output in the correct order. As every possible value and change to each symbol had been tested at symbol class level, this portion of testing was not as extensive and only included tests to confirm ordering of notes, directions and expressions were valid where they had any effect on each other. For example, it would be unnecessary to test a note with every possible dynamic marking, but it was necessary to test a dynamic did not occur before a note.
+
+
+\subsubsection{Development of Test cases}
+In order to test the system more extensively, the developer created several MusicXML test cases. A full list of the test cases used is given in the appendix, as well as a sample file. In order to produce the test cases the developer used the composition software MuseScore, and systematically went through each category of symbols provided producing every possible type of symbol for that category. These were saved as individual files, titled by each category of symbol.
+The developer then produced unit tests which checked the object hierarcy when the parser loaded the file. Each test and test method confirmed that the objects were in the right place within the piece, part and measure, and that each object had the appropriate values.
+
+Once the lilypond output section of the objective was completed, the developer reused the test cases to check their lilypond output. Initially, the tests were primitive, only confirming that a pdf file with the same name had been created. Later, the developer produced an expected output lilypond file and checked the output of the test against the expected output.
+
+\subsubsection{Use of External Test cases}
+As there was no official test suite available for MusicXML, the Lilypond project released an unofficial collection of music xml files for testing purposes \parencite{LilypondTestcase}. Each file tests individual elements of music xml, sometimes in collaboration with other areas. In total the test suite contains 131 files and represent the most comprehensive test suite currently available openly.
+
+The developer ran the rendering system against each test case in the suite. Initially, the developer ran them individually, visually checking the output against the images in the documentation for the test suite, and then moving test cases which passed to a separate folder from the remaining test cases. Later, an automated script was created to attempt to speed up the process, though visual checking of the output was still necessary as no lilypond files were provided with the xml files.
+
+Due to time constraints, the developer prioritised failures according to severity, which had three The first level was failure to produce a lilypond output due to an exception in the program, the second level was failure to produce a pdf output due to the lilypond output being invalid, and the third and final level was failure to produce a pdf output which matched the expected output. Each failure in any sense was reported using the issue tracker on Github, with an indication of the filename which failed as well as the reason for the failure, as well as any thoughts the developer had on how to fix the problem.
+ 
+The developer ensured that all test cases were above the first two levels of severity, and then made a decision on how important the symbol was in the context of it's usage in western music, as well as the time remaining to work on the other two primary objectives.
+
+At the point of stopping work on the rendering system, 65$\%$ of the test cases in this suite passed and produced the correct graphical output.
 
 \subsubsection{User Testing}
 In order to understand how well this user interface works with a variety of users, a survey was designed which will be given to a selection of musicians, who will feedback on how easy the UI is to use and any updates which should be made to improve it. This feedback session will be performed after the initial sketches are made into a virtual user interface with no back end connected to the buttons. An example survey is provided in the appendices.
