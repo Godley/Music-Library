@@ -1,6 +1,6 @@
 from PyQt4 import QtCore, QtGui, uic
 from PyQt4.QtGui import QFileDialog
-from implementation.primaries.Drawing.classes.helpers import get_base_dir
+from implementation.primaries.GUI.helpers import get_base_dir
 import os
 
 
@@ -12,7 +12,7 @@ class Startup(QtGui.QMainWindow):
         # somewhere in constructor:
         self.parent = parent
         QtGui.QMainWindow.__init__(self)
-        designer_file = os.path.join(get_base_dir(), 'designer_files', 'Startup.ui')
+        designer_file = os.path.join(get_base_dir(return_this_dir=True), 'designer_files', 'Startup.ui')
         uic.loadUi(designer_file, self)
         previous_items = self.parent.getPreviousCollections()
         for item in previous_items:

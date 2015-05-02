@@ -1,7 +1,7 @@
 from PyQt4 import QtCore, QtGui, uic
 from popplerqt4 import Poppler
 import sys, threading, os
-from implementation.primaries.Drawing.classes.helpers import  get_base_dir
+from implementation.primaries.GUI.helpers import  get_base_dir
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self, parent):
@@ -9,7 +9,7 @@ class MainWindow(QtGui.QMainWindow):
 
         #somewhere in constructor:
         QtGui.QMainWindow.__init__(self)
-        path_to_designer = os.path.join(get_base_dir(), "designer_files", "MainWindow.ui")
+        path_to_designer = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "MainWindow.ui")
         uic.loadUi(path_to_designer, self)
 
         #self.progressBarRendering.hide()
@@ -137,7 +137,7 @@ class MainWindow(QtGui.QMainWindow):
             self.scoreListWidget.addItem(item)
 
     def darkTheme(self):
-        path_to_file = os.path.join(get_base_dir(), "themes", "dark.qss")
+        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "themes", "dark.qss")
         file = open(path_to_file, 'r')
         fstring = file.readlines()
         self.setStyleSheet("".join(fstring))
@@ -147,7 +147,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def lightTheme(self):
 
-        path_to_file = os.path.join(get_base_dir(), "themes", "light.qss")
+        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "themes", "light.qss")
         file = open(path_to_file, 'r')
         fstring = file.readlines()
         self.setStyleSheet("".join(fstring))
@@ -263,6 +263,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def closeEvent(self, event):
         self.parent.startUp()
+
         event.accept()
 
 

@@ -10,27 +10,41 @@ The User interface for this project is designed after looking at the user interf
 \end{figure}
 \subsubsection{Main Display}
 \begin{figure}[H]
-    \includegraphics[width=400pt]{designs/main}
-    \caption{Main User interface of the project}
+\centering
+    \includegraphics[width=500pt]{designs/main}
+    \caption{Main User interface of the project - design}
+    \label{fig:main_handdrawn}
+\end{figure}
+Figure \ref{fig:main_handdrawn} shows the main view of the application. The developer took this design and the other hand drawn designs which are in the appendix and produced a prototype using QtDesigner. The main window produced using this system and linked to the application is shown in figure \ref{fig:main}, updated to show details about the sheet music displayed in the PDF window. 
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=400pt]{designs/main_screenshot.png}
+    \caption{Main User interface of the project - implementation}
     \label{fig:main}
 \end{figure}
-Figure \ref{fig:main} shows the main view of the application. Various panes to the left can be closed using the X button and show different ways the music can be displayed, either as individual units or as playlists. The larger pane next to it shows the area in which sheet music or a list of pieces in a playlist will be displayed, depending on the selection from the left pane. Updates to this and pop up boxes displaying dependent on buttons in the window are displayed and explained in the appendices.
+All of the frames of the user interface are styled using a CSS stylesheet, so that the developer could customise everything with precision. This also meant the developer could easily implement a light theme, as shown in figure \ref{fig:main_light}. The remaining screenshots and explanation of how different windows link together are given in the user guide, which is in the appendix.
 
+\begin{figure}[H]
+	\centering
+    \includegraphics[width=400pt]{designs/main_light.png}
+    \caption{Main User interface of the project - implementation: Light Theme}
+    \label{fig:main_light}
+\end{figure}
 \subsection{Test Design and System Testing}
-This project was developed using Test Driven Development. This is an Agile software development methodology which utilises the rules that a line of code should not be written unless there is a failing automated test \parencite{TDD}. This methodology has been chosen as the nature of the notation of music means that meticulous detail must be payed to how and with what symbol every element is notated, and Test Driven Development will significantly improve the quality of the software by closely integrating testing with the development process.
+This project was developed using Test Driven Development. This is an Agile software development methodology which utilises the rules that a line of code should not be written unless there is a failing automated test \parencite{TDD}. This methodology has been chosen as the nature of the notation of music means that meticulous attention must be paid to how and with what symbol every element is notated, and Test Driven Development will significantly improve the quality of the software by closely integrating testing with the development process.
 
 As such, no test design or plan was produced, but rather tests were developed as features were introduced, and were designed to be self contained units testing the smallest possible details, such as an accent being added to a measure correctly, or a note's pitch being created with a particular note name or octave number.
 
-Test cases were created using the aforementioned software MuseScore. These were produced by creating a file for every area of notation (e.g. clefs, time signatures, note durations, pitch) and applying each and every symbol possible within that area to the music. It was decided to create test cases in this way to thoroughly ensure that no piece of notation was missed. An example testcase, and a list of all testcases in use and their value in real world testing, are included in the appendices.
+Test cases were created using the aforementioned software MuseScore. These were produced by creating a file for every area of notation (e.g. clefs, time signatures, note durations, pitch) and applying each and every symbol possible within that area to the music. Test cases were produced in this way to thoroughly ensure that no piece of notation was missed. An example test case, and a list of all test cases in use and their value in real world testing, are included in the appendices.
 
-Further to the testcases developed specifically for this application, the system was tested against a larger set of tests called "The Unofficial MusicXML testsuite", which was released by the Lilypond Project to provide a comprehensive test suite for all elements of MusicXML\parencite{LilypondTestcase}. 
+Further to the test cases developed specifically for this application, the system was tested against a larger set of tests called "The Unofficial MusicXML testsuite", which was released by the Lilypond Project to provide a comprehensive test suite for all elements of MusicXML\parencite{LilypondTestcase}. 
 
 \subsubsection{User Testing}
 In order to understand how well this user interface works with a variety of users, a survey was designed which will be given to a selection of musicians, who will feedback on how easy the UI is to use and any updates which should be made to improve it. This feedback session will be performed after the initial sketches are made into a virtual user interface with no back end connected to the buttons. An example survey is provided in the appendices.
 
 \subsection{System Design}
 \subsubsection{Overall Architecture}
-The flow chart in figure \ref{fig:flowchart} was designed prior to developing any code, in order to visualise how the objectives would interlink with each other.
+The flow chart in figure \ref{fig:flowchart} was designed in the initial prototype phase in order to visualise how the objectives would interlink with each other.
 \begin{figure}[H]
     \centering
     \includegraphics[width=400pt]{diagrams/overall_system.pdf}
@@ -48,9 +62,9 @@ The flow diagram in \ref{fig:flowchart} refers to applying a metadata scanning s
 \end{figure}
 \subsubsection{Metadata Class Structure}
 The metadata scanning objective implements the popular Model View Controller design pattern, which separates the user interface (view) from the program logic (controller) and any databases or information storage (model). %todo ref
-In this instance as shown in the class diagram in figure \ref{fig:metadiagram}, the music manager class acts as the controller, which takes input from the application interface and request data from the data layer, which interacts with an SQLite file.
+In this instance, as shown in the class diagram in figure \ref{fig:metadiagram}, the music manager class acts as the controller, which takes input from the application interface. The music manager handles the input and turns it into requests for data, which are sent to the data layer. The data layer communicates with an SQLite file containing several tables, and sends collections of requested data back to the music manager, which updates the user interface with the new information.
 
-The decision was taken to use this pattern in order to avoid coupling to any particular database and to ensure that the objective was properly organised according to functionality. This decision was also influenced by considerations about the future of the project.
+The decision was taken to use this pattern in order to avoid coupling to any particular database and to ensure that the objective was properly organised according to functionality. The decision was also influenced by considerations about the future of the project, including expansions to include online data layers or improvements to the UI without affecting program logic.
 
 \begin{figure}[H]
     \centering
@@ -61,6 +75,7 @@ The decision was taken to use this pattern in order to avoid coupling to any par
 
 \subsubsection{Modular Design}
 The MVC design pattern was complemented by the implementation of the  modular design pattern, in which functions and collections of functions are separated into independent blocks or modules. %todo ref
+
 This is shown in the class diagram in figure \ref{fig:metadiagram} as the music manager also interacts with other classes such as the folder browser, which handles all functionality involving scanning the given folder for new, old, or zipped files, and the unzipper, which handles the functionality for manipulating zip files.
 
 It is also present in the rendering system explained in detail in section 4.3.5, as each section of the object hierarchy collects its own Lilypond formatting, and then calls upon its child classes to collect theirs, finally collaborating into one complete Lilypond file. In the context of sheet music this is particularly important, as symbolic notation has many options for symbols which may or may not be present, so in program logic they must all act independently of other symbols occurring in the file.
@@ -71,22 +86,24 @@ This design was influenced by the decision to use test driven development, as th
 This makes the code and overall architecture reusable in different situations. For example, the API manager class sends data collected online back to the Music Manager, which can then communicate with the metadata scanner to extract further information, which avoids code duplication.
 
 \subsubsection{Rendering Architecture}
-The class diagram in figure \ref{fig:classdiagram} shows an abstract structure of the sheet music rendering implementation used in this project. This implements a tree, each node of which holds an item containing the notation specific to that node. Each item object and node object implements the ToLily method which outputs that node, node item and children's collateral lilypond-formatted string. A tree was chosen as the object structure in order to give an indication of time, and in order that specific elements could be positioned according to sequential instructions from the MusicXML parser. 
+The class diagram in figure \ref{fig:classdiagram} shows an abstract structure of the sheet music rendering implementation used in this project. This implements a tree, each node of which holds an item containing the notation specific to that node. Each node object implements the ToLily method, which generates a string of Lilypond formatted output representing itself and then calls each of its child nodes in turn for their outputs, combining them into one string. 
+
+A tree was chosen as the object structure in order to give an indication of time, and in order that specific elements could be positioned according to sequential instructions from the MusicXML parser. 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{diagrams/class_diagram_drawing}
+    \includegraphics[width=250pt]{diagrams/render-tree.png}
     \caption{Renderer Class Diagram}
     \label{fig:classdiagram}
 \end{figure}
 \subsubsection{Duck Typing}
-The rendering system visualised by figure \ref{fig:classdiagram} implements a feature of dynamic typing known colloquially as Duck Typing. %todo ref
+The rendering system visualised by figure \ref{fig:classdiagram} implements a feature of dynamic typing known colloquially as Duck Typing. Duck Typing is a method of type inferance by which the program assumes that an object is of one type according to the behaviours that it has, not the exact type or attributes it may or may not contain. %todo ref
 
-In respect to the rendering system, this means that each class assumes its child classes, if any are present, have the ToLily method, call the method and collaborate the results. Defining classes by their behaviour, not their attributes is important to the project as this avoids assumptions about what the music will or will not contain. 
+In respect to the rendering system, this means that each class assumes any child classes present will have the ToLily method, call the method and collaborate the results. Using this method of type inference is important to the project as this avoids assumptions about what the music will or will not contain, and instead defines that symbol as suitable for inclusion if it has the ToLily method. 
 
-It also means that future feature implementations or symbols which are added to the renderer need only implement a ToLily method and be linked into the input parser scripts in order to be implemented in the rendered output.
+Implementing objects and program functionality using duck typing also means that future feature implementations or symbols which are added to the renderer need only implement a ToLily method and be linked into the input parser scripts in order to be implemented in the rendered output, and can be of any type the developer defines.
 
 \subsubsection{Designing for extensibility}
-This project is designed with a particular aim of extensibility. This affects each area of the system in a different way, but in general, it means that the elements in the system are able to be modified, improved or expanded without requiring changes to the organisation of the system. 
+The project is designed with a particular aim of extensibility. This affects each area of the system in a different way, but in general, it means that the elements in the system are able to be modified, improved or expanded without requiring changes to the organisation of the system. 
 
 An example of this is the API manager, which holds a dictionary of sources, with each index pointing to a class. The API manager will cycle through these sources when its methods are called, meaning that to implement a new API, the developer would simply put a new entry into this dictionary.
 
@@ -95,7 +112,7 @@ Each source implements the API class. To avoid causing problems with classes mis
 
 \subsection{System Implementation}
 \subsubsection{Development Methodology}
-The project was implemented using a developer informed process, whereby the developer would review the project's status for bugs, issues and features which had yet to be implemented, note this using an issue tracker, select an issue based on the priorities of the project, develop tests for this issue and finally, develop the production code. 
+The project was implemented using a developer informed process. In this process, the developer would review the project's status for bugs, issues and features which had yet to be implemented and note this using the Github Issue Tracker. When the developer began working with the code, they would select an issue based on the priorities of the project, develop tests for this issue and finally, develop the production code and close the issue.
 
 
 Issue tracking and reporting was used so that the developer could think and reflect on areas of the system which needed improvement, modification or implementation. The methodology worked well in the context of a year long project in which development was not continuous because it ensured that when development was paused, the developer could see instantly what needed to be doing or what was being worked on before the pause to work on something else. 
@@ -117,7 +134,7 @@ Various other feature inclusions led to the developer redesigning the system aro
 
 Fundamentally, the difference in the design aims for MusicXML and Lilypond is that MusicXML dictates a sheet music file by how it appears, as in the above example, sequentially positioning the elements is how a viewer would see the overall piece. Lilypond, on the other hand, dictates a sheet music file by how it is played - after all, a dynamic without a note would not achieve the desired result as these dictate the volume of a particular element, or elements, of music. 
 
-There are many other examples of this throughout both formats, and all of these affected the development time of the first objective adversely. Redesigns and refactors were made at late stages of development due to it being virtually impossible to know all of the nuances of such complex formats without working with them intensively. It may have been a suggestion to extend the research period before development to accommodate this, but a research period long enough to understand the design aims of the formats in enough detail to design the structure in the initial stages would have taken away valuable development time.
+There are many other examples of this throughout both formats, and all of these affected the development time of the first objective adversely. Redesigns and refactors were made at late stages of development due to it being virtually impossible to know all of the nuances of such complex formats without working with them intensively. It may have been a suggestion to extend the research period before development to accommodate this, but a research period long enough to understand the design aims of the formats in enough detail to fully design the structure from the outset would have reduced the development time by a significant amount.
 
 \subsubsection{Use of external technologies and libraries}
 For this project, external libraries were used for the graphical user interface and for the database layer. Both were necessary to avoid development duplication and will be discussed in the sections below.
@@ -125,39 +142,37 @@ For this project, external libraries were used for the graphical user interface 
 \textbf{User interface libraries} \\
 There are several libraries available for creating a graphical user interface in Python, with the most popular ones summarised in table \ref{table:gui}.
 
-\begin{table}[H]
+\begin{table}[h]
 \centering
-\begin{tabu} to 1.05\textwidth {| l | l | l | l |} \hline
-  {Library} & {Benefits} & {Drawbacks} & {Cross platform} \\ \hline
-  Qt & Has its own designer (QtDesigner) and some other third party designers & Long installation process \\
-   &  popular amongst many languages & no built in PDF viewer\\
-   &  can use CSS to style widgets \\
-  & & & \checkmark \\ \hline
+\begin{tabu} to 1.05\textwidth {| X[c] | X[c] | X[c] | X[c] |} \hline
+  {\textbf{Library}} & {\textbf{Benefits}} & {\textbf{Drawbacks}} & {\textbf{Cross platform}} \\ \hline
+  Qt & Has its own designer program (QtDesigner) and some other third party designer programs & Long installation process & \checkmark \\
+   &  popular amongst many languages & no built in PDF viewer & \\
+   &  can use CSS to style widgets & & \\\hline
   Wx 
   & Built in PDF display & Designers not as powerful as Qt + all are third party & \checkmark \\ 
-  & several designers made for it \\ \hline
-  TKinter & Built into Python itself & No designers\\ 
-  & & No built in PDF/PNG viewers\\
-  & & Binds to an old language which is rarely updated & \checkmark \\ \hline
-  AppKit & Works well on OSX & Not cross platform &  $\times$ \\ \hline
+  & several designers made for it &  & \\ \hline
+  TKinter & Built into Python itself & No designers & \checkmark \\ 
+  & & No built in PDF/PNG viewers & \\
+  & & Binds to an old language which is rarely updated &  \\ \hline
+  AppKit & Works well on OSX & OSX only &  $\times$ \\ \hline
   
 \end{tabu}
 \caption{Table of GUI libraries in python}
 \label{table:gui}
 \end{table}
 
-Python as a language is cross platform, which is one of the reasons for its popularity, and as such there is only one library in popular usage (AppKit) which is locked to one platform, as shown by the table.
+Python as a language is cross platform, which is one of the reasons for its popularity, and as such there is only one library in popular usage (AppKit) which is locked to one platform, as shown by the table. This library was ignored due to it being locked to one platform.s
 
-In the initial phases of GUI prototyping, the developer worked with each of the other options in turn and dismissed each one, apart from Qt which the GUI is written in, for various reasons.
+In the initial phases of GUI prototyping, the developer trialed two of the suggested GUI libraries.
 
 
-The first trial was TKinter, being as it is built into the Python library and did not require any installation. TKinter is a library which provides a python binding to TCL's user interface libraries. %todo ref
- These have not been updated or upgraded for today's image formats, and do not support PDF or PNGs. Any use of either of these formats required installation of other libraries, such as the Python Image Library (PIL). %todo ref
+The first trial was TKinter, being as it is built into the Python library and did not require any further installation. TKinter is a library which provides a python binding to TCL's user interface libraries \parencite{PythonTCL}.
+ The TCL user interface library has not been updated or upgraded for today's image formats, and does not support PDF or PNGs. Any use of either of these formats required installation of other libraries, such as the Python Image Library (PIL) \parencite{PIL}.
  Furthermore, as discussed by \cite{GuiProgramming}, there are very few open, non-commercial options for graphical GUI designers for TKinter, meaning that any interfaces had to be hard coded using python code, rather than creating designed files to be imported.
  
- The second trial was 
  
- The third and final trial was Qt. This library took longer to install, being as PyQt, like TKinter, is only a binding to a lower level C++ library. This means that PyQt cannot be installed in the same way as Wx, using the Python Package Library pip, and for windows meant installing and compiling all sections of PyQt, Qt and SIP which links the two together from source, as no pre compiled installer was available.
+ The second trial was Qt. This library took longer to install, being as PyQt, like TKinter, is only a binding to a lower level C++ library. This means that PyQt cannot be installed in the same way as Wx, using the Python Package Library pip, and for windows meant installing and compiling all sections of PyQt, Qt and SIP which links the two together from source, as no pre compiled installer was available.
  
  In addition to this development time, Qt does not provide a widget for PDF documents, which meant the developer installed a second third party library called Poppler, which is also a C++ library with Python bindings. This library was found to be far easier to use than the Python Image Library used by TKinter.
  
@@ -167,7 +182,9 @@ The first trial was TKinter, being as it is built into the Python library and di
 
 Furthermore, as Qt is a common library to other languages and is reasonably popular, far more support was found for installing, using and extending Qt than the other libraries the developer tried to use, so the developer decided to use Qt.
 
-\textbf{Databases and Database Libraries}
+WX was not trialled because the developer felt comfortable using Qt upon recommendation from other developers, and did not want to reduce development time further by trying a new library when Qt functioned as needed.
+
+\textbf{Databases and Database Libraries}\\
 Table \ref{table:databases} shows the options for databases the developer could have implemented in this project.
 
 \begin{table}[H]
@@ -175,14 +192,21 @@ Table \ref{table:databases} shows the options for databases the developer could 
 \begin{tabular}{| l | l | l |} \hline
   {Database} & {Benefits} & {Drawbacks} \\ \hline
   MySQL & Open source & Installation process long \\
-  & Widely used/supported \\ \hline
-  SQLite & Single file\\
-  & Portable\\
-  & Library built into Python \\ \hline
-  MongoDB & & \\ \hline
+  & Widely used/supported & \\ \hline
+  MongoDB & & Low developer experience with NoSQL \\ \hline
+  SQLite & Single file & \\
+  & Portable & \\
+  & Library built into Python & \\ \hline
+  
   
 \end{tabular}
 \caption{Table of database solutions}
 \label{table:databases}
 \end{table}
+
+The first option, MySQL, was dismissed because this application is not an online solution, and as such, the developer would need to install MySQL and probably have the user install MySQL on their machine when the application was created. MySQL is also a much larger system which is not as suited to a smaller local application.
+
+The second option, MongoDB was dismissed because the developer did not have experience with using this type of database.
+
+The third and final option, SQLite, was selected because of it's portability as it only creates one file upon connection. The library for SQLite comes with Python itself and is fully documented in Python's documentation site \parencite{PythonSQLite}. The developer found the library intuitive to use and as such this helped to reduce development time.
 

@@ -39,4 +39,4 @@ class Async_Handler_Queue(Async_Handler):
 
     def function_without_data(self):
         result = self.exec_method()
-        self.queue.put(result)
+        self.callback(result, **self.kwargs)

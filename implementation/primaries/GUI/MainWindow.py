@@ -22,8 +22,7 @@ class MainWindow(QtGui.QMainWindow):
         self.AutoSortCombo.show()
 
         # button handlers
-        self.refreshScoreBtn.clicked.connect(self.refreshScores)
-        self.refreshAutoBtn.clicked.connect(self.refreshPlaylists)
+        self.actionRefresh_Collection.triggered.connect(self.refresh)
         self.AddPlaylistButton.clicked.connect(self.addPlaylist)
         self.searchInput.textChanged.connect(self.updateOptions)
 
@@ -85,6 +84,10 @@ class MainWindow(QtGui.QMainWindow):
         # functionality for zooming in or out on a loaded piece
         self.zoomInBtn.clicked.connect(self.zoomIn)
         self.zoomOutBtn.clicked.connect(self.zoomOut)
+
+    def refresh(self):
+        self.refreshScores()
+        self.refreshPlaylists()
 
     def runLoadingProcedure(self):
         self.parent.loadPieces()
@@ -334,53 +337,53 @@ class MainWindow(QtGui.QMainWindow):
             file = playlist_data[i]
             row = []
             item = QtGui.QTableWidgetItem(file["title"])
-            item.setData(1, file["filename"])
+            item.setData(32, file["filename"])
             item.setData(3, i)
             item.setData(4, playlist_fnames)
             row.append(item)
             if "composer" in file:
                 item = QtGui.QTableWidgetItem(file["composer"])
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
 
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
 
             if "lyricist" in file:
                 item = QtGui.QTableWidgetItem(file["lyricist"])
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
 
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
 
             if "instruments" in file:
                 item = QtGui.QTableWidgetItem(", ".join([data["name"] for data in file["instruments"]]))
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
 
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
             item = QtGui.QTableWidgetItem(file["filename"])
-            item.setData(1, file["filename"])
+            item.setData(32, file["filename"])
             item.setData(3, i)
             item.setData(4, playlist_fnames)
             row.append(item)
@@ -391,12 +394,12 @@ class MainWindow(QtGui.QMainWindow):
                 item = QtGui.QTableWidgetItem(result)
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 row.append(item)
 
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
@@ -405,42 +408,42 @@ class MainWindow(QtGui.QMainWindow):
                 for instrument in file["keys"]:
                     result += ", ".join(file["keys"][instrument])
                 item = QtGui.QTableWidgetItem(result)
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
 
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
 
             if "tempos" in file:
                 item = QtGui.QTableWidgetItem(", ".join(file["tempos"]))
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
 
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
 
             if "time_signatures" in file:
                 item = QtGui.QTableWidgetItem(", ".join(file["time_signatures"]))
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
 
             else:
                 item = QtGui.QTableWidgetItem("")
-                item.setData(1, file["filename"])
+                item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
                 row.append(item)
@@ -474,9 +477,12 @@ class MainWindow(QtGui.QMainWindow):
     def onInactiveSearchBar(self):
         if self.searchInput.text() == "" or self.searchInput.text() == " " or self.autoCompleteBox.topLevelItemCount() == 0\
                 or self.focusWidget() != self.autoCompleteBox:
-            self.autoCompleteBox.clear()
-            self.autoCompleteFrame.hide()
-            self.autoCompleteBox.hide()
+            try:
+                self.autoCompleteBox.clear()
+                self.autoCompleteFrame.hide()
+                self.autoCompleteBox.hide()
+            except:
+                print("we're done here. gbye")
 
     def onAutoCompleteDoubleClicked(self, current_item):
         self.scoreWindow.show()

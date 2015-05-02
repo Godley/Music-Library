@@ -26,10 +26,10 @@ QMainWindow, QWidget#centralwidget, QDialog {
     }
 
     QWidget QLabel {
-    color:#666666;
+    color:#999;
     text-transform:uppercase;
     font-size:15pt;
-    font-family:avenir
+    font-family:avenir;
     }
 
     QLabel#noResultsLabel, QLabel#musicSearchHint {
@@ -50,7 +50,7 @@ QMainWindow, QWidget#centralwidget, QDialog {
     background:rgba(25, 25, 25, 189);
     text-transform:uppercase;
     border-bottom:1px solid #252525;
-    color:#555;
+    color:#aaa;
     height:50px;
     }
 
@@ -127,11 +127,11 @@ QMainWindow, QWidget#centralwidget, QDialog {
     }
 
     QListWidget:item, QTableWidget:item, QTreeWidget:item {
-    color:#444;
+    color:#ccc;
     }
 
     QTreeWidget:item:item {
-    color:#666;
+    color:#ccc;
     }
 
     QListWidget {

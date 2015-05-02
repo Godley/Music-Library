@@ -1,7 +1,7 @@
 from PyQt4 import QtCore, QtGui, uic
 from PyQt4.QtGui import QFileDialog
 import os
-from implementation.primaries.Drawing.classes.helpers import get_base_dir
+from implementation.primaries.GUI.helpers import get_base_dir
 
 class ImportDialog(QtGui.QDialog):
 
@@ -9,7 +9,7 @@ class ImportDialog(QtGui.QDialog):
         self.parent = parent
         self.theme = theme
         QtGui.QDialog.__init__(self)
-        path_to_file = os.path.join(get_base_dir(), "designer_files", "importDialog.ui")
+        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "importDialog.ui")
         uic.loadUi(path_to_file, self)
         self.browseBtn.clicked.connect(self.findFiles)
         self.buttonBox.accepted.connect(self.updateAndClose)
@@ -30,7 +30,7 @@ class ImportDialog(QtGui.QDialog):
         self.parent.copyFiles(self.fnames)
 
     def setTheme(self):
-        path_to_file = os.path.join(get_base_dir(), "themes", self.theme+".qss")
+        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "themes", self.theme+".qss")
         file = open(path_to_file, 'r')
         fstring = file.readlines()
         self.setStyleSheet("".join(fstring))

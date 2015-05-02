@@ -562,11 +562,13 @@ class MusicData(object):
         :return: int pertaining to row id of composer in database
         '''
         cursor.execute(
-            'SELECT ROWID FROM composers WHERE name=? OR name LIKE ?',
+            'SELECT ROWID FROM composers WHERE name=? OR name LIKE ? OR name LIKE ? OR name LIKE ?',
             (composer,
              "%" +
              composer +
-             "%"))
+             "%",
+             "%" + composer,
+             composer + "%",))
         result = cursor.fetchall()
         composer_ids = [res[0] for res in result]
         return composer_ids
@@ -591,11 +593,13 @@ class MusicData(object):
         :return: int pertaining to row id of composer in database
         '''
         cursor.execute(
-            'SELECT ROWID FROM lyricists WHERE name=? OR name LIKE ?',
+            'SELECT ROWID FROM lyricists WHERE name=? OR name LIKE ? OR name LIKE ? OR name LIKE ?',
             (lyricist,
              "%" +
              lyricist +
-             "%"))
+             "%",
+             lyricist + "%",
+             "%" + lyricist,))
         result = cursor.fetchall()
         lyricist_ids = [res[0] for res in result]
         return lyricist_ids
@@ -764,8 +768,8 @@ class MusicData(object):
         :return: list of tuples
         '''
         connection, cursor = self.connect()
-        thing = (title, "%" + title + "%", archived,)
-        query = 'SELECT * FROM pieces p WHERE (p.title=? OR p.title LIKE ?) AND p.archived=?'
+        thing = (title, "%" + title + "%", title + "%", "%" + title, archived,)
+        query = 'SELECT * FROM pieces p WHERE (p.title=? OR p.title LIKE ? OR p.title LIKE ? OR p.title LIKE ?) AND p.archived=?'
         if online:
             query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
         else:

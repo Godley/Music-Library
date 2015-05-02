@@ -2,9 +2,9 @@ from PyQt4 import QtCore, QtGui
 import sys, os, pickle, queue
 from threading import Lock
 from xml.sax._exceptions import *
-import os
+import os, sip
 from PyQt4 import QtXml
-from implementation.primaries.Drawing.classes.helpers import get_base_dir
+from implementation.primaries.GUI.helpers import get_base_dir
 from implementation.primaries.GUI import StartupWidget, qt_threading, thread_classes, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
@@ -92,6 +92,9 @@ class Application(QtCore.QObject):
         fqd_fname = os.path.join(self.folder, filename)
         self.main.onPieceLoaded(fqd_fname, filename)
 
+    def onFileError(self, error):
+        self.errorPopup(["Problem with internet connection on file download"])
+
     def downloadFile(self, filename):
         """
         method which starts a thread to get a file from an API server, this gets called
@@ -102,7 +105,7 @@ class Application(QtCore.QObject):
         async = qt_threading.DownloadThread(self, self.manager.downloadFile,
                                             filename)
         QtCore.QObject.connect(async, QtCore.SIGNAL("fileReady(PyQt_PyObject)"), self.onFileDownload)
-
+        QtCore.QObject.connect(async, QtCore.SIGNAL("downloadError(bool)"), self.onFileError)
         async.run()
 
     def onRenderTaskFinished(self, errorList, filename=""):
@@ -307,12 +310,9 @@ class Application(QtCore.QObject):
         pass
 
 
-def main():
-
+if __name__ == '__main__':
+    sip.setdestroyonexit(True)
     app = QtGui.QApplication(sys.argv)
     app_obj = Application(app)
+
     sys.exit(app.exec_())
-
-
-if __name__ == '__main__':
-    main()

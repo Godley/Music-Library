@@ -88,13 +88,51 @@ The first of these would be the parts in the piece and their transpositions. A p
 \label{fig:parts}	
 \end{figure}
 
-
-
 Parts would be relevant as a particular group of instrumentalists may need parts that fit their instruments. If this is not the case for a given piece, however, a part written for a different instrument, for example, the Alto Saxophone rather than the Tenor Horn, may be compatible with the instrument anyway, if the transposition matches the instruments together. 
 
 An instrument which has a transposition means that, whilst most instruments would play a note as it is written, a transposing instrument will automatically sound the note in a different key, as described earlier, which may raise or lower the sound of the note. For example, the note C played on an Alto Saxophone will sound as an E$\flat$, because it is in the key of E$\flat$ major. 
 
 Further to this, the user would want to know the piece's title, and names of publishers, composers, arrangers and lyricists of the work, commonly known as the bibliography of a piece\parencite{MIR}. Further to the composer name, it may be useful to know the date of composition as an indication of the era in which the piece was composed, such as Classical/Baroque/Romantic, though this would not always be written on the sheet music so may need to be researched using the Internet.
+
+\subsubsection{Sight Reading and Difficulty Grading}
+This portion of the problem context relates to the difficulty grading secondary objective. It is important to understand why this would be useful to a musician, and as such what follows explains some more specific technical terms which a musician may use to assess pieces of music.
+
+
+Difficulty grading is a subconscious act which takes place during the initial phase of learning a piece of music. This phase is often referred to as "sight reading", a term meaning that the performer has had little to no practice in performing the sheet music. It is referred to as sight reading because the musician can only perform symbols as they occur in the music, or as the reader sees the symbols. They may not be familiar with where and when these symbols occur, how and at what speed to perform certain note patterns are to be played, or what keys are to be applied at specific points in the music. The lack of practice can contribute to the performer playing the piece hesitantly, or with mistakes.
+
+After more practice, a performer will generally gain muscle memory of certain repeated note sequences and be more aware of what changes are coming up without needing to read the music. In some instances a performer may memorise a piece of music through repeated practice, without consciously intending it. This is a common attribute of pianists and sometimes a requirement for paid piano accompaniment job contracts (ref). %todo ref
+
+In order to gauge whether it will be worth sight reading a piece of music, the performer will often visually and subconsciously assess the music for difficulty. This is generally subjective, depending on the level of confidence and ability of the performer, and can change depending on the chosen instrument. However, there are some elements of music which affect this grading for all musicians.
+
+Examples are a note or rest of a very short duration in a fast tempo, particularly in sequence with other short notes. An example is given in figure \ref{fig:notesequence}, wherein the notes are a 16th of the duration of a quarter note or crotchet, and the tempo is 180 quarter notes per minute, indicating 3 quarter notes should be played per second.
+
+\begin{figure}[H]
+\centering
+\includegraphics{quick-notesequence-crop}
+\caption{A rapid sequence of demi semi quavers}
+\label{fig:notesequence}	
+\end{figure}
+
+ This is considered difficult because it is hard to ensure that the duration of each note is precise, and in sequence it can be difficult to ensure that the performer can fit all of the notes into the pattern with precision. Often these sequences can cause a performer to blur the notes together, meaning that one note is indistinguishable from another, and may not even be heard if the performer has not timed the note correctly.
+
+Further examples relating to pitch in a general sense are notes which are at the high or low end of an instrument's range, which for reeded wind instruments can be uncomfortable due to changes to embouchure. Reeded refers to a family of instrument whose sound is produced by vibrating a piece of very thin wood against something whilst blowing air through the vibration. Embouchure means the grip or tightness of the jaw. In combination with the airflow, this pressurised grip against the reed is what causes it to vibrate.
+
+Performers who play reeded instruments control tone and pitch by tightening or loosening their embouchure. In the case of notes at the top of an instrument's range, this can be uncomfortable as it requires tightening the teeth against the lips, a position the performer's mouth may not be accustomed to, and in the case of notes at the bottom of an instrument's pitch range, it can be difficult to achieve due to loosening their jaw being more of a subconscious act which requires practice to achieve the right level of jaw release. In addition to the difficulty of "pitching" the note correctly, it can be hard to jump between notes due to the rapid change needed in embouchure pressure.
+
+For string instruments, particularly those without frets indicating the position of specific pitches, it can be difficult to play the notes on the edges of their instrument's range with precision due to lack of practice, as these notes are not always in common usage. Lack of practice on any instrument can cause the sound to be uncomfortable to listen to due to subtle differences in pitch which the human ear can pick up, meaning that a musician will dislike practicing a lesser used note if it is not completely necessary.
+
+Complex rhythms, a term referring to the different durations of a particular sequence of music, can also cause difficulties, particularly for instruments like the piano in which the player has to play in polyphony. Polyphony means multiple sounds or lines of note sequences. In the case of a piano player, it is common for pieces to present cross rhythms in which the left hand and right hand are not playing the same rhythm, and precise timing is required to get the rhythms synchronised with each other. 
+
+An example of this is figure \label{fig:crossrhythms}. Here the right hand plays two quarter notes, whilst the left hand plays three eighth notes. The three above the eighth notes indicates that the pianist must fit the three notes into the same time sequence as one quarter note, known as a "triplet" because the player must fit three notes into a time space where there would normally only be two.
+
+\begin{figure}[H]
+\centering
+\includegraphics{crossrhythm-crop}
+\caption{A cross rhythm}
+\label{fig:crossrhythms}	
+\end{figure}
+
+The developer has assessed this area with some detail, and results from a survey of other musicians with varying level of ability as well as chosen instruments, with some analysis of other factors are given in the appendix.
 
 \subsection{Comparison of Technologies}
 \subsubsection{Programming Language}
@@ -176,8 +214,9 @@ Figure \ref{fig:flow} shows the flow of data into and out of the system in order
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=80pt]{diagrams/flow-rendering-crop}
-	\label{fig:flow}
+	
 	\caption{A flow diagram describing the process of rendering sheet music from XML}	
+	\label{fig:flow}
 \end{figure}
 
 \subsubsection{XML verification Considerations}
@@ -233,7 +272,8 @@ The chosen option for the rendering system is to output formatted files to Lilyp
 \subsection{Comparison of Technologies for Organising Sheet Music}
 This section discusses the organisation of sheet music. This involves parsing and verifying an XML file as explained in 3.4.1, extracting data according to a metadata model as explained in section 3.4.2, and storing it in order to be searched and manipulated, as explained in section 3.4.3. After this process is completed, the user will want to query the data set which will require some processing of an inputted string, explained in section 3.4.4. The decisions taken over all these areas of organising sheet music will be expanded upon in the sections below.
 \subsubsection{XML data acquisition algorithm}
-The system should take in a selection of XML files and parse them for information. As described previously, this could use either the DOM method of XML parsing, or the SAX method of parsing.
+This objective, like the rendering objective, takes data from XML files in a folder provided by the user. As such, both objectives require decisions on which method of parsing would be most appropriate - DOM or SAX, and verifying or non verifying.
+
 The system will use SAX because there are only a select few tags and collections of information that the database will need to peruse, and SAX means that only these tags will have an effect on the algorithm or memory.
 The file will not be verified before being parsed in order to avoid the need for internet connection, and to speed up the loading and parsing process.
 
@@ -264,11 +304,9 @@ Furthermore, any extensions other developers made to improve or change the datas
 
 The chosen solution therefore is to extract data, then communicate with a database instead of an in memory object. Queries to the database would result in ordered lists of files and tuple data sets which could then be manipulated by the system. 
 
-This is preferable to the earlier suggestion because database systems have been worked on by multiple contributors(ref)%TODO: REF
- and are designed to be faster than many searching and sorting algorithms through the use of a B-Tree file structure \parencite{SQLiteBTree}. For these reasons using a database would most likely have faster access and search times than an in memory object.
+This is preferable to the earlier suggestion because database systems have been worked on by multiple contributors including several well known companies who support open database architectures with funding and developer time \parencite{SQLiteConsortium}. The invested interests of other developers and companies means more time has been spent on optimising the searching and sorting methods, usually through the implementation of a B-Tree file structure \parencite{SQLiteBTree}. For these reasons using a database would most likely have faster access and search times than an in memory object.
 
-Furthermore, using a database avoids coupling any future improvements to Python, as the most common database structures have well designed APIs for the most popular languages. (ref)
-% TODO: REF
+Furthermore, using a database avoids coupling any future improvements to Python, as the most common database structures have well designed APIs for the most popular languages \parencite{MySQLAPI}.
 
 
 \subsubsection{Query Processing Considerations}
@@ -313,13 +351,16 @@ The first option for handling this would be to avoid it by only downloading file
 The second option is to instead make the user accept a list of terms before downloading a piece. This covers the licensing issue and has a larger input set. This is the option that has been chosen for implementation.
 
 \subsection{Comparison of Technologies for Sound Output and Image Input}
-This section details the secondary objectives, which are the ability to create sound from the inputted sheet music, and the ability to extract sheet music files from images. The latter uses Optical Music Recognition to understand the music from an image, which is a combination of Optical Mark Recognition and Optical Character Recognition, and will be further explained in section 3.6.2.
+This section details the input and output secondary objectives which are the ability to create sound from the inputted sheet music, and the ability to extract sheet music information from images.
+
+The extraction of sheet music information from images will require Optical Music Recognition, from here onwards shortened to OMR, to understand the music from an image. This process is a combination of Optical Mark Recognition and Optical Character Recognition, %todo ref
+ and will be further explained in section 3.6.2.
 \subsubsection{Sound output algorithm}
-The sound output algorithm must, for a given part or selection of parts, output the sheet music to a MIDI or MP3 file, which can then be played within the program. 
+The sound output algorithm must, for a given part or selection of parts, output the object structure explained in section 3.3.3 to a MIDI or MP3 file, which can then be played within the program. 
 
 It has been decided that each class in the solution will have a method to produce this output, in the same way as the algorithm described for rendering in section 3.3.4, which will be combined into an output file and played.
 
-This creates an extendible architecture, as it would easily be possible to create output methods to other formats in the future.
+This creates an extensible architecture, as it would easily be possible to create output methods to other formats in the future.
 
 \subsubsection{Optical Music Recognition systems}
 In order to import images or flat files into the chosen file format, it will be necessary for the program to include the ability to apply music optical character recognition to the file, and save the output to MusicXML, which can then be parsed by other parts of the program. This is known as Optical Music Recognition, or OMR.
@@ -333,6 +374,37 @@ As a reference point, Optical Character Recognition for natural languages has ta
 It has therefore been decided that OMR as a topic is too large for this project, and if this goal is included in the project, it will be through communication with other systems, such as Audiveris, an open music scanner \parencite{audiveris}. 
 
 This removes the technical challenge of producing an entirely new system, but adds the challenge of understanding how optical music recognition scanners work, and how they can be integrated with the system, particularly if the third party package is not developed in Python.
+
+\subsection{Comparison of Technologies for Difficulty Grading}
+This section of the report details decisions taken to design and implement a system of grading a piece based on metadata collected, in order to give the user an indication of difficulty and from that deduce how much practice the piece will require to perfect the performance.
+
+\subsubsection{Metadata Model Considerations}
+The first consideration in this objective is expansion of the original metadata model, as defined in section 3.4.2. There are two options for the sort and extent of expansion this would require.
+
+The first option is to expand the metadata model to include symbols which will make the piece more complex at a general level. This would mean that the data would be useful to a cross section of users, and involve collecting information about note sequences and patterns, rhythms used, and places in which notes are raised or lowered by half pitches.
+
+The second option is to expand the metadata model to include information specific to instruments. For example, the first model does not consider pitch against the range of the instrument, which changes per instrument and could potentially make the piece more difficult. 
+
+This problem incurs the same issues of language and spelling as the first metadata model consideration, and for simplicity's sake this objective will use the first more general data option.
+
+\subsubsection{Rating Algorithm}
+The algorithm for grading a piece must read in symbols and assess the symbol against a knowledge database for whether the symbol increases or reduces the difficulty of a particular piece.
+
+This could be done in tandem with scanning for metadata scanner. The algorithm would examine each symbol in the context of what has come before and update the rating based on what it knows about both the symbol and the symbol in context with what has come before it.
+
+It could also be done after the metadata scanner has collected all the data. The metadata scanner would collect certain note patterns and rhythmic sequences according to whether they match a particular element in the knowledge database, such as "4 semi quavers in sequence".
+
+The first option would be better than the second, because symbols would only affect the rating in context with other symbols. It would also avoid bulk collections of data which may or may not be of use, for example the given "4 semi quavers in a sequence" has no indication of the speed, which could mean the semi quavers are 1 note every second or 4 notes in 1 second. This context would be collected from the rest of the data collected, but would be more computationally expensive as this would require a second pass of the data collected, when assessing at metadata scan time would avoid this second iteration of the data.
+
+\subsubsection{Machine Learning considerations}
+Both algorithm options rely upon the system having some level of knowledge about what symbols make a piece easier or harder. This objective therefore crosses into the research area of Machine Learning, the process by which a system can learn and evolve its assessment of data according to new information. %todo refs
+
+In order to achieve a grading based on the context of the data, an entirely new machine learning system could be created by the developer. This would make the system specific to music, but machine learning is an area researched by a cross section of developers who have developed algorithms which work for a wide variety of areas, and it is unlikely that the developer could improve on this.
+
+The alternative is for the developer to implement a system developed by an external source, such as this this and this %todo ref
+Existing research projects into artificial intelligence relating to teaching a computer to compose music could potentially also be adapted or built upon to this purpose, such as the project by \cite{creativeMachines}. 
+The developer has therefore chosen to implement an external source rather than attempt their own algorithm.
+
 
 \subsection{Alternative Solutions}
 This section discusses other software which is currently available for musicians to organise and view sheet music.

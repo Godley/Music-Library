@@ -18,6 +18,7 @@ class PlaylistDialog(QtGui.QDialog):
         self.piecesLineEdit.editingFinished.connect(self.onInactiveSearchBar)
         self.deleteItem.clicked.connect(self.removeItem)
         self.piecesLineEdit.textChanged.connect(self.updateOptions)
+        self.piecesLineEdit.editingFinished.connect(self.onInactiveSearchBar)
         self.setTheme()
 
     def setTheme(self):
@@ -43,9 +44,10 @@ class PlaylistDialog(QtGui.QDialog):
             data["pieces"].append(fname)
         self.parent.addPlaylist(data)
 
+
     def updateOptions(self):
         text = self.piecesLineEdit.text()
-        results = self.parent.query(text)
+        results = self.parent.queryNotThreaded(text)
         self.autoCompleteBox.clear()
         for key in results:
             item = QtGui.QTreeWidgetItem(key)
@@ -57,24 +59,12 @@ class PlaylistDialog(QtGui.QDialog):
                 item.addChild(fitem)
         if len(results) == 0:
             pass
-            # self.noResultsSmiley.show()
-            # self.noResultsLabel.show()
         else:
             pass
-            # self.noResultsSmiley.hide()
-            # self.noResultsLabel.hide()
-            # rows = len(results)
-            # rowSize = self.autoCompleteBox.sizeHintForRow(0)
-            # height = rows * rowSize
-            # frameWidth = self.autoCompleteBox.frameWidth()
-            # fixedHeight = height + frameWidth * 2
-            # if fixedHeight > self.sizeHint().height():
-            #     fixedHeight = self.sizeHint().height() / 1.2
-            # self.autoCompleteBox.setFixedHeight(fixedHeight)
-            # self.autoCompleteFrame.setFixedHeight(fixedHeight+50)
 
         self.autoCompleteBox.show()
         self.autoCompleteFrame.show()
+
 
     def onInactiveSearchBar(self):
         if self.piecesLineEdit.text() == "" or self.piecesLineEdit.text(

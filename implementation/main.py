@@ -71,10 +71,11 @@ class Application(QtCore.QObject):
 
     def setupMainWindow(self):
         self.manager = MusicManager.MusicManager(self, folder=self.folder)
-        self.manager.runApiOperation()
-        self.updateDb()
+
         self.main = MainWindow.MainWindow(self)
         self.main.show()
+        self.manager.runApiOperation()
+        self.updateDb()
         self.main.runLoadingProcedure()
 
     def getPlaylistFileInfo(self, playlist):
@@ -188,7 +189,18 @@ class Application(QtCore.QObject):
         self.main.onQueryReturned(query_results)
         lock.release()
 
-    def query(self, input):
+    def queryNotThreaded(self, input):
+        """
+        Method which does the querying for adding pieces to playlists without using threads.
+        exists because pyqt fell over when threading
+
+        :return:
+        """
+        data = SearchProcessor.process(input)
+        results = self.manager.runQueries(data)
+        return results
+
+    def query(self, input, playlist=False):
         """
         Async method which will process the given input, create thread classes
         for each type of query and then start those thread classes. When done they will call
@@ -206,15 +218,8 @@ class Application(QtCore.QObject):
             data_queue, (data,), kwargs={"online": True})
         OfflineThread.execute()
         OnlineThread.execute()
-        # worker = qt_threading.QueryThread(self, self.manager.runQueries,
-        #                                 (data,), False)
-        # QtCore.QObject.connect(worker, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
-        #
-        # onlineWorker = qt_threading.QueryThread(self, self.manager.runQueries,
-        #                                 (data,), True)
-        # QtCore.QObject.connect(onlineWorker, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
-        # worker.run()
-        # onlineWorker.run()
+
+
 
 
     def startRenderingTask(self, fname):
@@ -296,9 +301,9 @@ class Application(QtCore.QObject):
 
 
     def PlaylistPopup(self):
-        popup = PlaylistDialog.PlaylistDialog(self, self.theme)
-        popup.setWindowFlags(QtCore.Qt.Dialog)
-        popup.exec()
+        self.popup = PlaylistDialog.PlaylistDialog(self, self.theme)
+        self.popup.setWindowFlags(QtCore.Qt.Dialog)
+        self.popup.exec()
 
     def removePlaylists(self, playlists):
         self.manager.deletePlaylists(playlists)
