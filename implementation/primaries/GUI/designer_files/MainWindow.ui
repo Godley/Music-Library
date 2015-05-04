@@ -592,29 +592,6 @@ text-transform:uppercase;
            </rect>
           </property>
          </widget>
-         <widget class="QToolButton" name="featuredListRefresh">
-          <property name="geometry">
-           <rect>
-            <x>269</x>
-            <y>1</y>
-            <width>30</width>
-            <height>30</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>images/glyphicons-82-refresh.png</normaloff>images/glyphicons-82-refresh.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>15</width>
-            <height>15</height>
-           </size>
-          </property>
-         </widget>
         </widget>
         <widget class="QWidget" name="pieceInfoWidget" native="true">
          <property name="geometry">
@@ -653,11 +630,17 @@ text-transform:uppercase;
             <height>215</height>
            </rect>
           </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="horizontalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOff</enum>
           </property>
           <property name="isWrapping" stdset="0">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -690,29 +673,6 @@ text-transform:uppercase;
           </property>
           <property name="text">
            <string>Playlist Browser</string>
-          </property>
-         </widget>
-         <widget class="QToolButton" name="playlistRefresh">
-          <property name="geometry">
-           <rect>
-            <x>269</x>
-            <y>1</y>
-            <width>30</width>
-            <height>30</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>images/glyphicons-82-refresh.png</normaloff>images/glyphicons-82-refresh.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>15</width>
-            <height>15</height>
-           </size>
           </property>
          </widget>
          <widget class="QTableWidget" name="playlistList">
@@ -888,7 +848,7 @@ color:white;
          <widget class="QLabel" name="title">
           <property name="geometry">
            <rect>
-            <x>40</x>
+            <x>5</x>
             <y>10</y>
             <width>121</width>
             <height>21</height>
@@ -1339,6 +1299,7 @@ color:white;
     </property>
     <addaction name="actionLight"/>
     <addaction name="actionDark"/>
+    <addaction name="actionElectric_Blue"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -1427,6 +1388,11 @@ color:white;
   <action name="actionRefresh_Collection">
    <property name="text">
     <string>Refresh Collection</string>
+   </property>
+  </action>
+  <action name="actionElectric_Blue">
+   <property name="text">
+    <string>Electric Blue</string>
    </property>
   </action>
  </widget>

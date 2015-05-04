@@ -14,7 +14,7 @@ shortInstrumentName = \markup {
  } 
  } 
  }{\autoBeamOff % measure 1
-\clef treble \key c \major \time 4/4 \slashedGrace { g'8[  g'8]   g'4} g'4 \grace { g'16 } g'4 \grace { g'32 } g'4 r4  | 
+\clef treble \key c \major \time 4/4 \slashedGrace { g'8[ \grace { g'8] \grace { g'4 g'4 \grace { g'16 g'4 \grace { g'32 g'4 r4  | 
 
  % measure 2
 r4 r4 r2  | 

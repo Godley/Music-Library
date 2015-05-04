@@ -37,9 +37,22 @@ This project was developed using Test Driven Development. This is an Agile softw
 As such, no test design or plan was produced, but rather tests were developed as features were introduced, and were designed to be self contained units testing the smallest possible details, such as an accent being added to a measure correctly, or a note's pitch being created with a particular note name or octave number.
 
 \subsubsection{Unit Testing}
-Unit tests for this project were created on an objective by objective basis using the standard python unit tests testing suite. The developer's IDE of choice, Pycharm, has built in support for this module, with an intuitive interface for running tests in a given file and production of readable output of what happened in each tests.
+Unit tests for this project were created on an objective by objective basis using the standard python unit tests testing suite. The developer's IDE of choice, Pycharm, has built in support for this module, with an intuitive interface for running tests in a given file and production of readable output of what happened in each tests, as shown in figure \ref{fig:testing_interface}.
 
-The interface also includes the ability to create scripts which discover and run tests on folder, file, class and method level. The developer used this feature to create scripts which ran all of the tests for specific areas of each objective, as well as the objective itself. This enabled the developer to quickly check new features had not affected the status of previous features.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{testing_interface}	
+	\caption{An example of testing integration in PyCharm}
+	\label{fig:testing_interface}
+\end{figure}
+
+The interface also includes the ability to create scripts which discover and run tests on folder, file, class and method level, as shown in figure \ref{fig:testscript}. The developer used this feature to create scripts which ran all of the tests for specific areas of each objective, as well as the objective itself. This enabled the developer to quickly check new features had not affected the status of previous features. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{create_test_script}	
+	\caption{An example of script creation in PyCharm}
+	\label{fig:testscript}
+\end{figure}
 \subsubsection{Unit Testing the rendering system}
 In the initial phase of developing the rendering system, the SAX parser was tested at base functionality level, with checks that new tags, new data and closing tags modified various lists which handler methods used to extract information. As new functions and tags were handled, more and more tests were developed for every tag, termed handler tests. These tests included combinations of tags and combinations of tag attributes, as well as testing tags in exclusion from other tags. When new features were introduced the developer would run the full set of unit tests before committing the code to source control, in order to ensure that new features did not cause regressions or changes in previously developed code.
 
@@ -54,19 +67,29 @@ The developer then produced unit tests which checked the object hierarcy when th
 
 Once the lilypond output section of the objective was completed, the developer reused the test cases to check their lilypond output. Initially, the tests were primitive, only confirming that a pdf file with the same name had been created. Later, the developer produced an expected output lilypond file and checked the output of the test against the expected output.
 
-\subsubsection{Use of External Test cases}
-As there was no official test suite available for MusicXML, the Lilypond project released an unofficial collection of music xml files for testing purposes \parencite{LilypondTestcase}. Each file tests individual elements of music xml, sometimes in collaboration with other areas. In total the test suite contains 131 files and represent the most comprehensive test suite currently available openly.
+\subsubsection{Use of Third Party Test cases}
+As there was no official test suite available for MusicXML, the Lilypond project released an unofficial collection of music xml files for testing purposes \parencite{LilypondTestcase}. Each file tests individual elements of music xml, sometimes in collaboration with other areas. In total the test suite contains 131 files and represents the most comprehensive test suite currently available openly.
 
 The developer ran the rendering system against each test case in the suite. Initially, the developer ran them individually, visually checking the output against the images in the documentation for the test suite, and then moving test cases which passed to a separate folder from the remaining test cases. Later, an automated script was created to attempt to speed up the process, though visual checking of the output was still necessary as no lilypond files were provided with the xml files.
 
-Due to time constraints, the developer prioritised failures according to severity, which had three The first level was failure to produce a lilypond output due to an exception in the program, the second level was failure to produce a pdf output due to the lilypond output being invalid, and the third and final level was failure to produce a pdf output which matched the expected output. Each failure in any sense was reported using the issue tracker on Github, with an indication of the filename which failed as well as the reason for the failure, as well as any thoughts the developer had on how to fix the problem.
- 
+Due to time constraints, the developer prioritised failures according to severity, which had three levels. The first level was failure to produce a lilypond output due to an exception in the program. The second level was failure to produce a pdf output due to the lilypond output being invalid. The third and final level was failure to produce a pdf output which matched the expected output. Each failure in any sense was reported using the issue tracker on Github, with an indication of the filename which failed as well as the reason for the failure. An example of such an issue report is given in figure \ref{fig:issue}.
+
 The developer ensured that all test cases were above the first two levels of severity, and then made a decision on how important the symbol was in the context of it's usage in western music, as well as the time remaining to work on the other two primary objectives.
 
-At the point of stopping work on the rendering system, 65$\%$ of the test cases in this suite passed and produced the correct graphical output.
+At the point of stopping work on the rendering system, 65$\%$ of the test cases in this suite passed and produced the correct graphical output. 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=400pt]{issue_report}	
+	\caption{An example issue report}
+	\label{fig:issue}
+\end{figure}
 
-\subsubsection{User Testing}
-In order to understand how well this user interface works with a variety of users, a survey was designed which will be given to a selection of musicians, who will feedback on how easy the UI is to use and any updates which should be made to improve it. This feedback session will be performed after the initial sketches are made into a virtual user interface with no back end connected to the buttons. An example survey is provided in the appendices.
+\subsubsection{Unit testing the metadata and API objectives}
+Unit tests were written for the other two objectives in a similar way to the rendering system.
+
+For the metadata scanning objective, the developer tested each element of the system in exclusion from each other. This divided the process into four classes, the folder browser, the unzipper, the data layer, and the metadata parser, as visualised in the class diagram in figure \ref{fig:metadiagram}. One main class, the music manager, handles the connections between each element. Like the rendering system, this meant that the tests for combining the elements together did not need to be so complicated as the functionality of each element had been tested rigourously.
+
+For the online collections objective, tests were created at source API class level, then API manager level, and finally the API manager was tested when integrated with the music manager class.
 
 \subsection{System Design}
 \subsubsection{Overall Architecture}
@@ -87,8 +110,8 @@ The flow diagram in \ref{fig:flowchart} refers to applying a metadata scanning s
     \label{fig:meta}
 \end{figure}
 \subsubsection{Metadata Class Structure}
-The metadata scanning objective implements the popular Model View Controller design pattern, which separates the user interface (view) from the program logic (controller) and any databases or information storage (model). %todo ref
-In this instance, as shown in the class diagram in figure \ref{fig:metadiagram}, the music manager class acts as the controller, which takes input from the application interface. The music manager handles the input and turns it into requests for data, which are sent to the data layer. The data layer communicates with an SQLite file containing several tables, and sends collections of requested data back to the music manager, which updates the user interface with the new information.
+The metadata scanning objective implements the popular Model View Controller design pattern, which separates the user interface (view) from the program logic (controller) and any databases or information storage (model) \parencite{mvc}.
+In this instance, as shown in the class diagram in figure \ref{fig:metadiagram}, the music manager class acts as the controller, which takes input from the application interface. The music manager processes the input and turns it into requests for data, which are sent to the data layer. The data layer communicates with an SQLite file containing several tables, and sends collections of requested data back to the music manager, which updates the user interface with the new information.
 
 The decision was taken to use this pattern in order to avoid coupling to any particular database and to ensure that the objective was properly organised according to functionality. The decision was also influenced by considerations about the future of the project, including expansions to include online data layers or improvements to the UI without affecting program logic.
 
@@ -100,13 +123,13 @@ The decision was taken to use this pattern in order to avoid coupling to any par
 \end{figure}
 
 \subsubsection{Modular Design}
-The MVC design pattern was complemented by the implementation of the  modular design pattern, in which functions and collections of functions are separated into independent blocks or modules. %todo ref
+The MVC design pattern was complemented by the implementation of the  modular design pattern, in which functions and collections of functions are separated into independent blocks or modules \parencite{modular}.
 
 This is shown in the class diagram in figure \ref{fig:metadiagram} as the music manager also interacts with other classes such as the folder browser, which handles all functionality involving scanning the given folder for new, old, or zipped files, and the unzipper, which handles the functionality for manipulating zip files.
 
 It is also present in the rendering system explained in detail in section 4.3.5, as each section of the object hierarchy collects its own Lilypond formatting, and then calls upon its child classes to collect theirs, finally collaborating into one complete Lilypond file. In the context of sheet music this is particularly important, as symbolic notation has many options for symbols which may or may not be present, so in program logic they must all act independently of other symbols occurring in the file.
 
-This design was influenced by the decision to use test driven development, as this development methodology aims to test small units of program functionality in an isolated environment. %todo ref
+This design was influenced by the decision to use test driven development, as this development methodology aims to test small units of program functionality in an isolated environment \parencite{TDD}.
  As such, this was easier to achieve if each independent class had one role in the system, with management classes handling the collaboration of these roles without needing to test multiple elements of functionality at once. 
 
 This makes the code and overall architecture reusable in different situations. For example, the API manager class sends data collected online back to the Music Manager, which can then communicate with the metadata scanner to extract further information, which avoids code duplication.
@@ -122,7 +145,7 @@ A tree was chosen as the object structure in order to give an indication of time
     \label{fig:classdiagram}
 \end{figure}
 \subsubsection{Duck Typing}
-The rendering system visualised by figure \ref{fig:classdiagram} implements a feature of dynamic typing known colloquially as Duck Typing. Duck Typing is a method of type inferance by which the program assumes that an object is of one type according to the behaviours that it has, not the exact type or attributes it may or may not contain. %todo ref
+The rendering system visualised by figure \ref{fig:classdiagram} implements a feature of dynamic typing known colloquially as Duck Typing. Duck Typing is a method of type inference by which the program assumes that an object is of one type according to the behaviours that it has, not the exact type or attributes it may or may not contain. %todo ref
 
 In respect to the rendering system, this means that each class assumes any child classes present will have the ToLily method, call the method and collaborate the results. Using this method of type inference is important to the project as this avoids assumptions about what the music will or will not contain, and instead defines that symbol as suitable for inclusion if it has the ToLily method. 
 
@@ -134,6 +157,17 @@ The project is designed with a particular aim of extensibility. This affects eac
 An example of this is the API manager, which holds a dictionary of sources, with each index pointing to a class. The API manager will cycle through these sources when its methods are called, meaning that to implement a new API, the developer would simply put a new entry into this dictionary.
 
 Each source implements the API class. To avoid causing problems with classes missing particular methods, the API class will throw a not implemented exception if the sub class does not override the method, in order to indicate to the developer working with a new API that this method is necessary.
+
+\subsubsection{Difficulty Rating input from users}
+When considering the difficulty rating objective for this project, the developer was aware of the subjective nature of sight reading and rating. To assess how this varied from instrument to instrument, the developer produced a survey which was given to a wide range of musicians, as shown in figure \ref{fig:survey_difficulty}. The results of this survey are given in the appendix.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=400pt]{survey_difficulty}
+\caption{An online survey on piece difficulty}
+\label{fig:survey_difficulty}	
+\end{figure}
+
 
 
 \subsection{System Implementation}
@@ -149,12 +183,12 @@ This adds the benefit that in the future, when this project may be worked upon b
 \subsubsection{Challenges in the rendering system}
 The renderer in this project was designed around two open formats - MusicXML and Lilypond. Whilst every effort was made to avoid coupling with either format, designing the system to work seamlessly with both formats was difficult, and many problems were encountered structuring the object format.
 
-Initially, the project used a simpler object structure in which measures contained a list of items contained within that measure. This was due to MusicXML items having no unique identifiers which could be used to indicate at which point they occurred within that measure, so objects had to be loaded and stored sequentially.
+Initially, the project used a simpler object structure in which measures contained a list of items contained within that measure. The decision was taken to use lists of items loaded sequentially becase MusicXML items have no unique identifiers which could be used to indicate at which point they occurred within that measure, so objects had to be loaded and stored sequentially.
 
-It was then discovered that Lilypond dictates that dynamics and some other elements, which are classed as directions in MusicXML, had to occur directly after the note to which they should be assigned %todo ref
-. This meant that the structure had to be redesigned to classify notes as first class objects, for which other elements would be indexed according to which note they occurred after, and that directions and "expressions" as Lilypond refers to them as needed to be split into two lists, in order to ensure that expressions could be put before directions, but not before the note they should be assigned to.
+It was then discovered that Lilypond dictates that dynamics and some other elements, which are classed as directions in MusicXML, had to occur directly after the note to which they should be assigned \parencite{ExpressionLilypond}.
+ The structure had to be redesigned based on this information in order to classify notes as first class objects, for which other elements would be indexed according to which note they occurred after, and that directions and expressions needed to be split into two lists, in order to ensure that expressions could be put before directions, but not before the note they should be assigned to.
 
-Later it was discovered that MusicXML allows for navigation through a measure using two specific tags called "forward" and "backup", which in the original system would require a lot of list manipulation to position elements correctly. 
+Later it was discovered that MusicXML allows for navigation through a measure using two specific tags called "forward" and "backup" \parencite{forward}, which in the original system would require a lot of list manipulation to position elements correctly. 
 
 Various other feature inclusions led to the developer redesigning the system around these factors, finally reaching the tree structure described in the design section. This enabled the developer to move objects around according to the tags which next occurred.
 

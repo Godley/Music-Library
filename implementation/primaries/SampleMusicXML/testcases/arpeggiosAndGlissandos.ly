@@ -14,7 +14,7 @@ shortInstrumentName = \markup {
  } 
  } 
  }{ % measure 1
-\clef "treble^8" \key c \major \time 4/4 \arpeggioNormal b''4 \arpeggioArrowUp b''4 \arpeggioArrowDown b''4 \arpeggioBracket b''4  | 
+\clef "treble^8" \key c \major \time 4/4 b''4 b''4 b''4 b''4  | 
 
  % measure 2
 a''4\glissando f'4 \override Glissando.style = #'zigzag c'''4\glissando d''''4  | 

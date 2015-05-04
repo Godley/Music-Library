@@ -4,13 +4,15 @@ import sys, threading, os
 from implementation.primaries.GUI.helpers import  get_base_dir
 
 class MainWindow(QtGui.QMainWindow):
-    def __init__(self, parent):
+    def __init__(self, parent, theme):
         self.parent = parent
+        self.theme = theme
 
         #somewhere in constructor:
         QtGui.QMainWindow.__init__(self)
         path_to_designer = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "MainWindow.ui")
         uic.loadUi(path_to_designer, self)
+        self.applyTheme()
 
         #self.progressBarRendering.hide()
         options = ["title","composer","lyricist"]
@@ -61,6 +63,7 @@ class MainWindow(QtGui.QMainWindow):
         # theme actions
         self.actionLight.triggered.connect(self.lightTheme)
         self.actionDark.triggered.connect(self.darkTheme)
+        self.actionElectric_Blue.triggered.connect(self.electricTheme)
 
         # on startup hide various widgets that aren't needed
         self.autoCompleteFrame.hide()
@@ -84,6 +87,11 @@ class MainWindow(QtGui.QMainWindow):
         # functionality for zooming in or out on a loaded piece
         self.zoomInBtn.clicked.connect(self.zoomIn)
         self.zoomOutBtn.clicked.connect(self.zoomOut)
+
+    def electricTheme(self):
+        self.theme = "electricblue"
+        self.parent.theme = "electricblue"
+        self.applyTheme()
 
     def refresh(self):
         self.refreshScores()
@@ -140,23 +148,16 @@ class MainWindow(QtGui.QMainWindow):
             self.scoreListWidget.addItem(item)
 
     def darkTheme(self):
-        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "themes", "dark.qss")
-        file = open(path_to_file, 'r')
-        fstring = file.readlines()
-        self.setStyleSheet("".join(fstring))
-        file.close()
-        self.parent.dark = "light"
-        self.repaint()
+
+        self.parent.theme = "dark"
+        self.theme = "dark"
+        self.applyTheme()
+
 
     def lightTheme(self):
-
-        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "themes", "light.qss")
-        file = open(path_to_file, 'r')
-        fstring = file.readlines()
-        self.setStyleSheet("".join(fstring))
-        file.close()
         self.parent.theme = "light"
-        self.repaint()
+        self.theme = "light"
+        self.applyTheme()
 
 
     def onScorebookClicked(self):
@@ -675,6 +676,13 @@ class MainWindow(QtGui.QMainWindow):
         self.parent.updateDb()
         self.onSortMethodChange()
 
+    def applyTheme(self):
+        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "themes", self.theme+".qss")
+        file = open(path_to_file, 'r')
+        fstring = file.readlines()
+        self.setStyleSheet("".join(fstring))
+        file.close()
+        self.repaint()
 
     def refreshPlaylists(self):
         self.parent.updateDb()

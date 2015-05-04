@@ -3,7 +3,7 @@ import unittest
 import os
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 
-manager = MusicManager.MusicManager(folder=os.getcwd())
+manager = MusicManager.MusicManager(None, folder=os.getcwd())
 result_set = manager.parseApiFiles()
 
 class TestMusicManagerWithApiIntegration(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestMusicManagerWithApiIntegration(unittest.TestCase):
     separated from music manager tests because these take longer on a slow internet connection
     """
     def setUp(self):
-        self.manager = MusicManager.MusicManager(folder=os.getcwd())
+        self.manager = MusicManager.MusicManager(None, folder=os.getcwd())
         self.result_set = result_set
         self.file_list = manager.unzipApiFiles()
 

@@ -22,7 +22,7 @@ class Application(QtCore.QObject):
         self.manager = None
         self.main = None
         self.folder = ""
-        self.theme = "dark"
+        self.theme = "light"
         if len(self.previous_collections) == 0:
             self.startUp()
         else:
@@ -72,7 +72,7 @@ class Application(QtCore.QObject):
     def setupMainWindow(self):
         self.manager = MusicManager.MusicManager(self, folder=self.folder)
 
-        self.main = MainWindow.MainWindow(self)
+        self.main = MainWindow.MainWindow(self, self.theme)
         self.main.show()
         self.manager.runApiOperation()
         self.updateDb()
