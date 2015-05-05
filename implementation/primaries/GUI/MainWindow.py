@@ -64,6 +64,8 @@ class MainWindow(QtGui.QMainWindow):
         self.actionLight.triggered.connect(self.lightTheme)
         self.actionDark.triggered.connect(self.darkTheme)
         self.actionElectric_Blue.triggered.connect(self.electricTheme)
+        self.actionTeal.triggered.connect(self.tealTheme)
+        self.actionColours.triggered.connect(self.coloursTheme)
 
         # on startup hide various widgets that aren't needed
         self.autoCompleteFrame.hide()
@@ -91,6 +93,16 @@ class MainWindow(QtGui.QMainWindow):
     def electricTheme(self):
         self.theme = "electricblue"
         self.parent.theme = "electricblue"
+        self.applyTheme()
+
+    def tealTheme(self):
+        self.theme = "teal"
+        self.parent.theme = "teal"
+        self.applyTheme()
+
+    def coloursTheme(self):
+        self.theme = "colours"
+        self.parent.theme = "colours"
         self.applyTheme()
 
     def refresh(self):
