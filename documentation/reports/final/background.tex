@@ -137,7 +137,7 @@ The developer has assessed this area with some detail, and results from a survey
 
 \subsection{Comparison of Technologies}
 \subsubsection{Programming Language}
-This project could be developed with a variety of programming languages, as displayed in table \ref{table:langs}.
+This project could be developed with a variety of programming languages, as displayed in table \ref{table:langs}. These three languages have been selected on a subjective basis due to the developer's programming language experience.
 
 \begin{table}[H]
 \centering
@@ -153,9 +153,9 @@ This project could be developed with a variety of programming languages, as disp
 \end{table}
 The first language in consideration is C\#. C\# is mostly used on Windows due to the main compiler being closed source and developed by Microsoft, but with some platform independence due to the Mono Project, which is feature-complete to C\# 10 \parencite{MonoDev}. There are several other possible tools to create applications for other operating systems using C\#, such as Xamarin Studio, but the developer has not developed any applications with C\# for use on multiple operating systems. 
 
-In terms of speed of development, the developer considers that the language syntax is reasonably intuitive and consistent. However, as C\# is statically typed, this means that rapid prototyping is slower due to more keystrokes and needing to be completely aware of return types for methods at all times.
+In terms of speed of development, the developer considers that the language syntax is reasonably intuitive and consistent. C\# is statically typed, which means the code is less likely to contain bugs at run time, but reduces the flexibility during development.
 
-Finally, due to the language being mostly for Windows and largely being closed, C\# has a lower amount of Open Source projects on the popular Open Source Code Repository Github \parencite{Redmonk}, as shown by the graph in figure \ref{fig:graph}. Whilst this is not necessarily important to development at this stage, the developer intends to Open Source the project and if there is a lower percentage of repositories for this language, that could potentially indicate a lower number of contributors.
+Finally, due to the language being mostly for Windows and largely being closed, C\# has a lower amount of Open Source projects on the popular online source code hosting service Github \parencite{Redmonk}, as shown by the graph in figure \ref{fig:graph}. Whilst this is not necessarily important to development at this stage, the developer intends to Open Source the project and if there is a lower percentage of repositories for this language, that could potentially indicate a lower number of contributors.
 
 \begin{figure}[h]
 \centering
@@ -165,13 +165,11 @@ Finally, due to the language being mostly for Windows and largely being closed, 
 \end{figure}
 The second language in consideration is C++. Whilst C++ is arguably the closest to native code and therefore the language which will be the best for cross platform development, the syntax and memory management issues of C++ mean that development can be slower, particularly when the developer does not feel as competent using this language.
 
-The third language in consideration is Python. Python is cross platform, as it is included by default in OSX and Linux based Operating Systems with the ability to install it on a Windows operating system.
+The third language in consideration is Python. In terms of syntax, Python's syntax is the closest of the three considerations to english or pseudocode, and thus requires the least amount of key strokes. Being closer to english also means that the project is more likely to attract a wealth of less technical contributors, in particular musicians, as the language should be easier to learn how to use.
 
-In terms of development speed and syntax, Python's syntax is the closest of the three considerations to english or pseudocode, and thus requires the least amount of key strokes. Being closer to english also means that the project is more likely to attract a wealth of less technical contributors, in particular musicians, as the language should be easier to learn how to use.
-
- Furthermore, as it is dynamically typed this allows the developer to use a particular advantage of duck typing whilst developing, meaning that so long as a class has a particular behaviour, the program can use the class for it's purposes and ignore differences to other classes without implementing an interface.
+ Furthermore, as it is dynamically typed this allows the developer to use a particular advantage of duck typing whilst developing, meaning that so long as a class has a particular behaviour, the program can use the class for its purposes and ignore differences to other classes without implementing an interface.
  
- As exemplified by the graph in figure \ref{fig:graph}, Python has a higher percentage of new Github repositories. Again, this does not indicate that Python is the best language for Open Source as that hypothesis would be hard to objectively prove, but it does potentially indicate a higher number of available developers with knowledge of Python when the project is open sourced.
+ As exemplified by the graph in figure \ref{fig:graph}, Python has a higher percentage of new Github repositories than the other languages in consideration. Again, this does not indicate that Python is the best language for Open Source as that hypothesis would be hard to objectively prove, but it does potentially indicate a higher number of available developers with knowledge of Python, so a large available community of potential developers for when the project is open sourced.
  
  Lastly, there are many current projects written in Python in the area of music research \parencite{pmus}, which means the project will be easier to integrate and communicate with other projects or build upon the work of others without needing to port software to Python.
 
@@ -433,6 +431,12 @@ In order to achieve a grading based on the context of the data, an entirely new 
 The alternative is for the developer to implement a system developed by an external source.
 Existing research projects into artificial intelligence relating to teaching a computer to compose music could potentially also be adapted or built upon to this purpose, such as the project by \cite{creativeMachines}. Further to this, there already exists an International Conference on Machine Learning and Music, indicating the area would be too large to implement a new system as an objective, rather than an overall project aim.
 The developer has therefore chosen to implement an external source rather than attempt their own algorithm.
+
+\subsection{Summary}
+Table \ref{table:decisions} gives a summary of the decisions laid out in the above subsections.
+
+\include{summarytable}
+
 
 
 \subsection{Alternative Solutions}

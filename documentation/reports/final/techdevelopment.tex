@@ -10,31 +10,25 @@ The User interface for this project is designed after looking at the user interf
 \end{figure}
 \subsubsection{Main Display}
 \begin{figure}[H]
-\centering
-    \includegraphics[width=500pt]{designs/main}
+	\centering
+    \includegraphics[width=500pt]{main_diagram-crop}
     \caption{Main User interface of the project - design}
-    \label{fig:main_handdrawn}
+    \label{fig:main}
 \end{figure}
-Figure \ref{fig:main_handdrawn} shows the main view of the application. The developer took this design and the other hand drawn designs which are in the appendix and produced a prototype using QtDesigner. The main window produced using this system and linked to the application is shown in figure \ref{fig:main}, updated to show details about the sheet music displayed in the PDF window. 
+Figure \ref{fig:main} shows the main view of the application, as mocked up before being developed and implemented. The developer took the this design, and the others which are in the appendix and produced a prototype using QtDesigner. This prototype is shown in figure \ref{fig:annotated}, updated to show details about the sheet music displayed in the PDF window.
 \begin{figure}[H]
 	\centering
     \includegraphics[width=500pt]{annotated_gui}
     \caption{Main User interface of the project - implementation}
-    \label{fig:main}
+    \label{fig:annotated}
 \end{figure}
-All of the frames of the user interface are styled using a CSS stylesheet, so that the developer could customise everything with precision. This also meant the developer could easily implement a dark theme, as shown in figure \ref{fig:main_dark}. The remaining screenshots and explanation of how different windows link together are given in the user guide, which is in the appendix.
+All of the frames of the user interface are styled using a CSS stylesheet, so that the developer could customise everything with precision. The use of CSS also enabled the developer to easily create new themes. The remaining screenshots with an explanation of how different windows link together and screenshots of the additional themes are given in the user guide which is in the appendix.
 
-\begin{figure}[H]
-	\centering
-    \includegraphics[width=400pt]{designs/main_dark.png}
-    \caption{Main User interface of the project - implementation: Light Theme}
-    \label{fig:main_dark}
-\end{figure}
 \subsection{Test Design and System Testing}
 \subsubsection{Test Driven Development}
-This project was developed using Test Driven Development. This is an Agile software development methodology which utilises the rules that a line of code should not be written unless there is a failing automated test \parencite{TDD}. This methodology has been chosen as the nature of the notation of music means that meticulous attention must be paid to how and with what symbol every element is notated, and Test Driven Development will significantly improve the quality of the software by closely integrating testing with the development process.
+The project was developed using Test Driven Development (TDD). Test Driven Development is an Agile software development methodology which utilises the rule that a line of code should not be written unless there is a failing automated test \parencite{TDD}. This methodology has been chosen because the nature of the notation of music means that attention must be paid to how and with what symbol every element is notated, and Test Driven Development will significantly improve the quality of the software by closely integrating testing with the development process.
 
-As such, no test design or plan was produced, but rather tests were developed as features were introduced, and were designed to be self contained units testing the smallest possible details, such as an accent being added to a measure correctly, or a note's pitch being created with a particular note name or octave number.
+As such, the test plan is the same as the feature list provided in the appendix, as tests were developed at the point of introducing each new feature. Each class and file containing tests was designed to be a self contained unit testing the smallest possible details, such as an accent being added to a measure correctly, or a note's pitch being created with a particular note name or octave number.
 
 \subsubsection{Unit Testing}
 Unit tests for this project were created on an objective by objective basis using the standard python unit tests testing suite. The developer's IDE of choice, Pycharm, has built in support for this module, with an intuitive interface for running tests in a given file and production of readable output of what happened in each tests, as shown in figure \ref{fig:testing_interface}.
@@ -49,14 +43,15 @@ Unit tests for this project were created on an objective by objective basis usin
 The interface also includes the ability to create scripts which discover and run tests on folder, file, class and method level, as shown in figure \ref{fig:testscript}. The developer used this feature to create scripts which ran all of the tests for specific areas of each objective, as well as the objective itself. This enabled the developer to quickly check new features had not affected the status of previous features. 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{create_test_script}	
+	\includegraphics[width=400pt]{create_test_script}	
 	\caption{An example of script creation in PyCharm}
 	\label{fig:testscript}
 \end{figure}
 \subsubsection{Unit Testing the rendering system}
 In the initial phase of developing the rendering system, the SAX parser was tested at base functionality level, with checks that new tags, new data and closing tags modified various lists which handler methods used to extract information. As new functions and tags were handled, more and more tests were developed for every tag, termed handler tests. These tests included combinations of tags and combinations of tag attributes, as well as testing tags in exclusion from other tags. When new features were introduced the developer would run the full set of unit tests before committing the code to source control, in order to ensure that new features did not cause regressions or changes in previously developed code.
 
-When the object extraction algorithm portion of the rendering system was completed, the developer created unit tests for the individual symbol classes to confirm their ToLily method worked according to what was expected in the lilypond documentation.
+When the object extraction algorithm portion of the rendering system was completed, the developer created unit tests for the individual symbol classes to confirm their ToLily method worked according to what was expected in the Lilypond documentation. 
+
 
 Once the individual symbols were tested, the developer created tests to check the classes containing the symbols concatenated the strings of output in the correct order. As every possible value and change to each symbol had been tested at symbol class level, this portion of testing was not as extensive and only included tests to confirm ordering of notes, directions and expressions were valid where they had any effect on each other. For example, it would be unnecessary to test a note with every possible dynamic marking, but it was necessary to test a dynamic did not occur before a note.
 
@@ -71,6 +66,7 @@ Once the lilypond output section of the objective was completed, the developer r
 As there was no official test suite available for MusicXML, the Lilypond project released an unofficial collection of music xml files for testing purposes \parencite{LilypondTestcase}. Each file tests individual elements of music xml, sometimes in collaboration with other areas. In total the test suite contains 131 files and represents the most comprehensive test suite currently available openly.
 
 The developer ran the rendering system against each test case in the suite. Initially, the developer ran them individually, visually checking the output against the images in the documentation for the test suite, and then moving test cases which passed to a separate folder from the remaining test cases. Later, an automated script was created to attempt to speed up the process, though visual checking of the output was still necessary as no lilypond files were provided with the xml files.
+
 
 Due to time constraints, the developer prioritised failures according to severity, which had three levels. The first level was failure to produce a lilypond output due to an exception in the program. The second level was failure to produce a pdf output due to the lilypond output being invalid. The third and final level was failure to produce a pdf output which matched the expected output. Each failure in any sense was reported using the issue tracker on Github, with an indication of the filename which failed as well as the reason for the failure. An example of such an issue report is given in figure \ref{fig:issue}.
 
@@ -94,7 +90,7 @@ For the online collections objective, tests were created at source API class lev
 \subsection{System Design}
 \subsubsection{Overall Architecture}
 The flow chart in figure \ref{fig:flowchart} was designed in the initial prototype phase in order to visualise how the objectives would interlink with each other.
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \includegraphics[width=400pt]{diagrams/overall_system.pdf}
     \caption{A flow diagram describing the project}
@@ -138,18 +134,26 @@ This makes the code and overall architecture reusable in different situations. F
 The class diagram in figure \ref{fig:classdiagram} shows an abstract structure of the sheet music rendering implementation used in this project. This implements a tree, each node of which holds an item containing the notation specific to that node. Each node object implements the ToLily method, which generates a string of Lilypond formatted output representing itself and then calls each of its child nodes in turn for their outputs, combining them into one string. 
 
 A tree was chosen as the object structure in order to give an indication of time, and in order that specific elements could be positioned according to sequential instructions from the MusicXML parser. 
+
+Each node in the tree inherits from the Node class. This class gives some generic methods for manipulating and returning its children, which each of the sub classes use in their own specific manipulation methods. Node is different from IndexedNode only in the sense that node contains a list of children, whilst IndexedNode stores them as a dictionary. The indexed node is used in the Staff, Voice, Measure, Part and Piece nodes because each of these classes contains items which have specified keys when they are loaded in using MusicXML, but anything below the voice node does not have an index in MusicXML.
+
+Symbolic classes which add elements to a note or to a measure are added using the methods supplied by measure which contains the logic to decide what to do with the element. The measure handles additions, rather than the note to which the element should be assigned, as some elements must wrap the measure in Lilypond code, some must wrap a note and other more simpler elements add their code to the end of the current measure or note. The logic to decide what to do with the element is easier to achieve at measure level rather than note or direction level so that all options are available.
 \begin{figure}[H]
     \centering
     \includegraphics[width=250pt]{diagrams/render-tree.png}
     \caption{Renderer Class Diagram}
     \label{fig:classdiagram}
 \end{figure}
+
+
+
+
 \subsubsection{Duck Typing}
 The rendering system visualised by figure \ref{fig:classdiagram} implements a feature of dynamic typing known colloquially as Duck Typing. Duck Typing is a method of type inference by which the program assumes that an object is of one type according to the behaviours that it has, not the exact type or attributes it may or may not contain. %todo ref
 
-In respect to the rendering system, this means that each class assumes any child classes present will have the ToLily method, call the method and collaborate the results. Using this method of type inference is important to the project as this avoids assumptions about what the music will or will not contain, and instead defines that symbol as suitable for inclusion if it has the ToLily method. 
+In respect to the rendering system, duck typing is applied in the production of output, whereby each class assumes any child classes present will have the ToLily method, call the method and concatenate the results. Using this method of type inference is important to the project as this avoids assumptions about what the music will or will not contain, and instead defines that symbol as suitable for inclusion if it has the ToLily method. Using type inference means that future symbol classes which are implemented only need to provide a ToLily method and be linked into the MusicXML parser in order to be included in the output.
 
-Implementing objects and program functionality using duck typing also means that future feature implementations or symbols which are added to the renderer need only implement a ToLily method and be linked into the input parser scripts in order to be implemented in the rendered output, and can be of any type the developer defines.
+Duck typing can have some negative effects in system design and development. For example, if a class does not have that method this could cause the program to crash without warning. Static type checking used by other languages such as C\# and Java would avoid this problem and create a more robust program. However, the use of test driven development and the generation of test cases have counteracted this risk sufficiently to make the design decision worth taken, resulting in a fluid, experimental and rapid development environment.
 
 \subsubsection{Designing for extensibility}
 The project is designed with a particular aim of extensibility. This affects each area of the system in a different way, but in general, it means that the elements in the system are able to be modified, improved or expanded without requiring changes to the organisation of the system. 
@@ -183,19 +187,60 @@ This adds the benefit that in the future, when this project may be worked upon b
 \subsubsection{Challenges in the rendering system}
 The renderer in this project was designed around two open formats - MusicXML and Lilypond. Whilst every effort was made to avoid coupling with either format, designing the system to work seamlessly with both formats was difficult, and many problems were encountered structuring the object format.
 
-Initially, the project used a simpler object structure in which measures contained a list of items contained within that measure. The decision was taken to use lists of items loaded sequentially becase MusicXML items have no unique identifiers which could be used to indicate at which point they occurred within that measure, so objects had to be loaded and stored sequentially.
+Initially, the project used a simpler object structure in which measures contained a list of items contained within that measure. The decision was taken to use lists of items loaded sequentially because elements belonging to each measure in MusicXML have no unique identifiers which could be used to indicate at which point they occurred within that measure, so objects had to be loaded and stored sequentially. An example is given in listing \ref{code:example}, with the visual representation given in figure \ref{fig:lilyexample}.
+\lstset{
+    language=xml,
+    tabsize=3,
+    %frame=lines,
+    caption=Note followed by dynamic followed by note followed by dynamic,
+    label=code:example,
+    frame=shadowbox,
+    rulesepcolor=\color{gray},
+    xleftmargin=20pt,
+    framexleftmargin=15pt,
+    keywordstyle=\color{blue}\bf,
+    commentstyle=\color{OliveGreen},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    basicstyle=\footnotesize,
+    emph={food,name,price},emphstyle={\color{magenta}}}
+    \lstinputlisting{example.xml}
+    
+\begin{figure}[H]
+\centering
+\includegraphics{lilyexample-crop}
+\caption{Example as represented in sheet music}
+\label{fig:lilyexample}	
+\end{figure}
 
-It was then discovered that Lilypond dictates that dynamics and some other elements, which are classed as directions in MusicXML, had to occur directly after the note to which they should be assigned \parencite{ExpressionLilypond}.
- The structure had to be redesigned based on this information in order to classify notes as first class objects, for which other elements would be indexed according to which note they occurred after, and that directions and expressions needed to be split into two lists, in order to ensure that expressions could be put before directions, but not before the note they should be assigned to.
+
+It was then discovered that Lilypond dictates that dynamics and some other elements had to occur directly after the note to which they should be assigned \parencite{ExpressionLilypond}.  The above listing would look like figure \ref{code:lily} in Lilypond.
+
+\begin{figure}[H]
+\centering
+\includegraphics{lilyexample-code}
+\caption{MusicXML example written in Lilypond}
+\label{code:lily}	
+\end{figure}
+
+
+ The system was affected because some musicXML files, such as the one given in listing \ref{code:example}, contain directions before a note has occurred within the measure, which would cause the Lilypond output to be invalid. 
+ The structure had to be redesigned based on this information in order to classify notes as first class objects, for which other elements would be indexed according to which note they occurred after. Directions and expressions needed to be split into two lists, in order to ensure that expressions (like dynamics) could be put before directions, but not before the note they should be assigned to.
 
 Later it was discovered that MusicXML allows for navigation through a measure using two specific tags called "forward" and "backup" \parencite{forward}, which in the original system would require a lot of list manipulation to position elements correctly. 
 
 Various other feature inclusions led to the developer redesigning the system around these factors, finally reaching the tree structure described in the design section. This enabled the developer to move objects around according to the tags which next occurred.
 
-Fundamentally, the difference in the design aims for MusicXML and Lilypond is that MusicXML dictates a sheet music file by how it appears, as in the above example, sequentially positioning the elements is how a viewer would see the overall piece. Lilypond, on the other hand, dictates a sheet music file by how it is played - after all, a dynamic without a note would not achieve the desired result as these dictate the volume of a particular element, or elements, of music. 
+Fundamentally, the difference in the design aims for MusicXML and Lilypond is that MusicXML dictates a sheet music file by how it appears, as in the above example, sequentially positioning the elements is how a viewer would see the overall piece. Lilypond, on the other hand, dictates a sheet music file by how it is played - after all, a dynamic without a note would not achieve the desired result as these dictate the volume of a particular element or elements of music. 
 
-There are many other examples of this throughout both formats, and all of these affected the development time of the first objective adversely. Redesigns and refactors were made at late stages of development due to it being virtually impossible to know all of the nuances of such complex formats without working with them intensively. It may have been a suggestion to extend the research period before development to accommodate this, but a research period long enough to understand the design aims of the formats in enough detail to fully design the structure from the outset would have reduced the development time by a significant amount.
-
+ The change in design of the system was caused by the developer analysing a limited subset of cases for both the input file format and the output format. It may have been a suggestion to extend the research period before development to accommodate this, but a research period long enough to understand the design aims of the formats in enough detail to fully design the structure from the outset would have reduced the development time by a significant amount. Redesigns and refactors were made at late stages of development, and new data structures were considered to solve the problem. The options were analysed according to their various merits in recursive sorting and searching, as well as the links which needed to be made between each symbol or element of music. The late redesign and refactor was implemented after a period of experimentation with new data structures, where a generic tree structure was assessed against a linked list. The test harness highlighted areas which the developer needed to change in order to have a working refactored system. This improved the quality of software and reduced the development time needed to find and fix problems.
+ 
+ However, the negative side of having a test harness so extensive was that changes to production code sometimes required changes to test code, depending on the assumptions of the previous system design. Each test which failed had to be reviewed first for whether it failed because of these assumptions, or whether it was a genuine bug in the production code. Despite this negative aspect, the developer regarded the test harness as a benefit which improved the quality of the software and ensured no detail was missed. 
+ 
 \subsubsection{Use of external technologies and libraries}
 For this project, external libraries were used for the graphical user interface and for the database layer. Both were necessary to avoid development duplication and will be discussed in the sections below.
 
@@ -207,7 +252,9 @@ There are several libraries available for creating a graphical user interface in
 \begin{tabu} to 1.05\textwidth {| X[c] | X[c] | X[c] | X[c] |} \hline
   {\textbf{Library}} & {\textbf{Benefits}} & {\textbf{Drawbacks}} & {\textbf{Cross platform}} \\ \hline
   Qt & Has its own designer program (QtDesigner) and some other third party designer programs & Long installation process & \checkmark \\
-   &  popular amongst many languages & no built in PDF viewer & \\
+  & & no built in PDF viewer & \\
+   &  popular amongst many languages &  & \\
+   & & & \\
    &  can use CSS to style widgets & & \\\hline
   Wx 
   & Built in PDF display & Designers not as powerful as Qt + all are third party & \checkmark \\ 
@@ -222,9 +269,9 @@ There are several libraries available for creating a graphical user interface in
 \label{table:gui}
 \end{table}
 
-Python as a language is cross platform, which is one of the reasons for its popularity, and as such there is only one library in popular usage (AppKit) which is locked to one platform, as shown by the table. This library was ignored due to it being locked to one platform.s
+In Python there is only one library in popular usage (AppKit) which is locked to one platform, as shown by the table. This library was ignored due to it being locked to one platform.
 
-In the initial phases of GUI prototyping, the developer trialed two of the suggested GUI libraries.
+In the initial phases of GUI prototyping, the developer trialled two of the suggested GUI libraries.
 
 
 The first trial was TKinter, being as it is built into the Python library and did not require any further installation. TKinter is a library which provides a python binding to TCL's user interface libraries \parencite{PythonTCL}.
@@ -242,10 +289,10 @@ The first trial was TKinter, being as it is built into the Python library and di
 
 Furthermore, as Qt is a common library to other languages and is reasonably popular, far more support was found for installing, using and extending Qt than the other libraries the developer tried to use, so the developer decided to use Qt.
 
-WX was not trialled because the developer felt comfortable using Qt upon recommendation from other developers, and did not want to reduce development time further by trying a new library when Qt functioned as needed.
+Wx was not trialled because the developer felt comfortable using Qt for the reasons given above, and did not want to reduce development time further by trying a new library when Qt functioned as needed.
 
 \textbf{Databases and Database Libraries}\\
-Table \ref{table:databases} shows the options for databases the developer could have implemented in this project.
+Table \ref{table:databases} shows the options for databases the developer could have implemented in this project. These three options were selected because all of them are free and have a reasonable amount of documentation for beginners in each database.
 
 \begin{table}[H]
 \centering
@@ -253,9 +300,10 @@ Table \ref{table:databases} shows the options for databases the developer could 
   {Database} & {Benefits} & {Drawbacks} \\ \hline
   MySQL & Open source & Installation process long \\
   & Widely used/supported & \\ \hline
-  MongoDB & & Low developer experience with NoSQL \\ \hline
-  SQLite & Single file & \\
-  & Portable & \\
+  MongoDB & JSON friendly & Low developer experience with NoSQL \\ 
+  & scalable & \\ \hline
+  SQLite & Single file & some types not supported \\
+  & Portable & not very scalable \\
   & Library built into Python & \\ \hline
   
   
@@ -264,9 +312,9 @@ Table \ref{table:databases} shows the options for databases the developer could 
 \label{table:databases}
 \end{table}
 
-The first option, MySQL, was dismissed because this application is not an online solution, and as such, the developer would need to install MySQL and probably have the user install MySQL on their machine when the application was created. MySQL is also a much larger system which is not as suited to a smaller local application.
+The first option, MySQL, was dismissed because this application is not an online solution, and as such, the developer would need to install MySQL and probably have the user install MySQL on their machine when the application was created \parencite{mysql}. MySQL is also a much larger system which is not as suited to a smaller local application.
 
-The second option, MongoDB was dismissed because the developer did not have experience with using this type of database.
+The second option, MongoDB was dismissed because the developer did not have experience with using NoSQL, the query language used by MongoDB. Furthermore, the recommendations for MongoDB usage are when an application has large amounts of data and needs to scale \parencite{mongod}. It is not expected that there will be a large amount of data when this application is in general usage, or that scalability is a factor unless future extensions use bigger data sets.
 
-The third and final option, SQLite, was selected because of it's portability as it only creates one file upon connection. The library for SQLite comes with Python itself and is fully documented in Python's documentation site \parencite{PythonSQLite}. The developer found the library intuitive to use and as such this helped to reduce development time.
+The third and final option, SQLite, was selected because of it's portability as it only creates one file upon connection. The library for SQLite comes with Python itself and is fully documented in Python's documentation site \parencite{PythonSQLite}. The developer found the library intuitive to use which helped to reduce development time.
 
