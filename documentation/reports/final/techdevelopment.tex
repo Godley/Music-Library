@@ -70,7 +70,7 @@ The developer ran the rendering system against each test case in the suite. Init
 
 Due to time constraints, the developer prioritised failures according to severity, which had three levels. The first level was failure to produce a Lilypond output due to an exception in the program. The second level was failure to produce a pdf output due to the Lilypond output being invalid. The third and final level was failure to produce a pdf output which matched the expected output. Each failure in any sense was reported using the issue tracker on Github, with an indication of the filename which failed as well as the reason for the failure. An example of such an issue report is given in figure \ref{fig:issue}.
 
-The developer ensured that all test cases were above the first two levels of severity, and then made a decision on how important the symbol was in the context of it's usage in western music, as well as the time remaining to work on the other two primary objectives.
+The developer ensured that all test cases were above the first two levels of severity, and then made a decision on how important the symbol was in the context of its usage in western music, as well as the time remaining to work on the other two primary objectives.
 
 At the point of stopping work on the rendering system, 65$\%$ of the test cases in this suite passed and produced the correct graphical output. 
 \begin{figure}[H]
@@ -317,6 +317,6 @@ The first option, MySQL, was dismissed because this application is not an online
 
 The second option, MongoDB was dismissed because the developer did not have experience with using NoSQL, the query language used by MongoDB. Furthermore, the recommendations for MongoDB usage are when an application has large amounts of data and needs to scale \parencite{mongod}. It is not expected that there will be a large amount of data when this application is in general usage, or that scalability is a factor unless future extensions use bigger data sets.
 
-The third and final option, SQLite, was selected because of it's portability as it only creates one file upon connection. The library for SQLite comes with Python itself and is fully documented in Python's documentation site \parencite{PythonSQLite}. The developer found the library intuitive to use which helped to reduce development time. Furthermore, SQLite is used in a lot of other applications such as iTunes, %todo ref
-which means that the sheet music database produced could be more easily integrated and shared with other platforms and environments.
+The third and final option, SQLite, was selected because of its portability as it only creates one file upon connection. The library for SQLite comes with Python itself and is fully documented in Python's documentation site \parencite{PythonSQLite}. The developer found the library intuitive to use which helped to reduce development time. Furthermore, SQLite is used in a lot of other applications such as iTunes \parencite{sqliteusers}, 
+which means that the sheet music database produced  could be more easily integrated and shared with other platforms and environments.
 
