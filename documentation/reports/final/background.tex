@@ -165,9 +165,10 @@ Finally, due to the language being mostly for Windows and largely being closed, 
 \end{figure}
 The second language in consideration is C++. Whilst C++ is arguably the closest to native code and therefore the language which will be the best for cross platform development, the syntax and memory management issues of C++ mean that development can be slower, particularly when the developer does not feel as competent using this language.
 
-The third language in consideration is Python. In terms of syntax, Python's syntax is the closest of the three considerations to english or pseudocode, and thus requires the least amount of key strokes. Being closer to english also means that the project is more likely to attract a wealth of less technical contributors, in particular musicians, as the language should be easier to learn how to use.
+The third language in consideration is Python. In terms of syntax, Python's syntax is the closest of the three considerations to English or pseudocode, and thus requires the least amount of key strokes. Being closer to english also means that the project is more likely to attract a wealth of less technical contributors, in particular musicians, as the language should be easier to learn how to use.
 
- Furthermore, as it is dynamically typed this allows the developer to use a particular advantage of duck typing whilst developing, meaning that so long as a class has a particular behaviour, the program can use the class for its purposes and ignore differences to other classes without implementing an interface.
+ Furthermore, as it is dynamically typed this allows the developer to use a particular advantage of duck typing whilst developing, %todo ref
+  meaning that so long as a class has a particular behaviour, the program can use the class for its purposes and ignore differences to other classes without implementing an interface.
  
  As exemplified by the graph in figure \ref{fig:graph}, Python has a higher percentage of new Github repositories than the other languages in consideration. Again, this does not indicate that Python is the best language for Open Source as that hypothesis would be hard to objectively prove, but it does potentially indicate a higher number of available developers with knowledge of Python, so a large available community of potential developers for when the project is open sourced.
  
@@ -364,11 +365,11 @@ The APIs for the selected source provides a certain amount of bibliographic info
 
 The first option for achieving this would be to search the API using only bibliography information whenever a user enters a query containing requests for bibliography, provide the options to the user then download the file if needed. This would be simple to implement, however it would be slow due to needing repeated connection to the internet. It would also cause an overhead on the server side because of this repeated connection, and users would not be able to search online collections using the advanced methods described in section 3.4.4. 
 
-It has therefore been decided that the system will collect all the data from the server about every piece in the catalog, extract the bibliography information for use later, then download and parse each file for meta data, combine that with the bibliography information and finally, put the data into the database and then delete the XML file. 
+It has therefore been decided that the system will collect all the data from the server about every piece in the catalogue, extract the bibliography information for use later, then download and parse each file for meta data, combine that with the bibliography information and finally, put the data into the database and then delete the XML file. 
 
 This would mean the data collected would be the same quality and quantity as locally stored files, and can be searched using the same level of complexity. It also avoids the issue of repeated connections to the API, as this would only require a connection when the database is refreshed, or when a user wants to download a file permanently.
 
-However, this has a bigger overhead due to the need to scan each and every file, and there might be a memory consideration temporarily if the system has downloaded a large body of files in 1 go and the user's operating system does not have the file storage space.
+However, this has a bigger overhead due to the need to scan each and every file, and there might be a memory consideration temporarily if the system has downloaded a large body of files in one go and the user's operating system does not have the file storage space.
 
 \subsubsection{Licensing Considerations}
 One of the problems with sharing and collecting sheet music is how a piece is licensed. Whilst other catalogs such as the IMSLP (International Music Score Library Project) contain pieces by composers who's music is now in public domain \parencite{imslp}, MuseScore Online has music which is published for a variety of purposes, and therefore the wishes of the composer in terms of sharing and reproducing their music must be taken into consideration.
