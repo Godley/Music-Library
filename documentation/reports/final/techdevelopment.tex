@@ -31,7 +31,7 @@ The project was developed using Test Driven Development (TDD). Test Driven Devel
 As such, the test plan is the same as the feature list provided in the appendix, as tests were developed at the point of introducing each new feature. Each class and file containing tests was designed to be a self contained unit testing the smallest possible details, such as an accent being added to a measure correctly, or a note's pitch being created with a particular note name or octave number.
 
 \subsubsection{Unit Testing}
-Unit tests for this project were created on an objective by objective basis using the standard python unit tests testing suite. The developer's IDE of choice, Pycharm, has built in support for this module, with an intuitive interface for running tests in a given file and production of readable output of what happened in each tests, as shown in figure \ref{fig:testing_interface}.
+Unit tests for this project were created on an objective by objective basis using the standard Python unit tests testing suite. The developer's IDE of choice, Pycharm, has built in support for this module, with an intuitive interface for running tests in a given file and production of readable output of what happened in each tests, as shown in figure \ref{fig:testing_interface}.
 
 \begin{figure}[h]
 	\centering
@@ -60,15 +60,15 @@ Once the individual symbols were tested, the developer created tests to check th
 In order to test the system more extensively, the developer created several MusicXML test cases. A full list of the test cases used is given in the appendix, as well as a sample file. In order to produce the test cases the developer used the composition software MuseScore, and systematically went through each category of symbols provided producing every possible type of symbol for that category. These were saved as individual files, titled by each category of symbol.
 The developer then produced unit tests which checked the object hierarcy when the parser loaded the file. Each test and test method confirmed that the objects were in the right place within the piece, part and measure, and that each object had the appropriate values.
 
-Once the lilypond output section of the objective was completed, the developer reused the test cases to check their lilypond output. Initially, the tests were primitive, only confirming that a pdf file with the same name had been created. Later, the developer produced an expected output lilypond file and checked the output of the test against the expected output.
+Once the Lilypond output section of the objective was completed, the developer reused the test cases to check their Lilypond output. Initially, the tests were primitive, only confirming that a pdf file with the same name had been created. Later, the developer produced an expected output Lilypond file and checked the output of the test against the expected output.
 
 \subsubsection{Use of Third Party Test cases}
 As there was no official test suite available for MusicXML, the Lilypond project released an unofficial collection of music xml files for testing purposes \parencite{LilypondTestcase}. Each file tests individual elements of music xml, sometimes in collaboration with other areas. In total the test suite contains 131 files and represents the most comprehensive test suite currently available openly.
 
-The developer ran the rendering system against each test case in the suite. Initially, the developer ran them individually, visually checking the output against the images in the documentation for the test suite, and then moving test cases which passed to a separate folder from the remaining test cases. Later, an automated script was created to attempt to speed up the process, though visual checking of the output was still necessary as no lilypond files were provided with the xml files.
+The developer ran the rendering system against each test case in the suite. Initially, the developer ran them individually, visually checking the output against the images in the documentation for the test suite, and then moving test cases which passed to a separate folder from the remaining test cases. Later, an automated script was created to attempt to speed up the process, though visual checking of the output was still necessary as no Lilypond files were provided with the xml files.
 
 
-Due to time constraints, the developer prioritised failures according to severity, which had three levels. The first level was failure to produce a lilypond output due to an exception in the program. The second level was failure to produce a pdf output due to the lilypond output being invalid. The third and final level was failure to produce a pdf output which matched the expected output. Each failure in any sense was reported using the issue tracker on Github, with an indication of the filename which failed as well as the reason for the failure. An example of such an issue report is given in figure \ref{fig:issue}.
+Due to time constraints, the developer prioritised failures according to severity, which had three levels. The first level was failure to produce a Lilypond output due to an exception in the program. The second level was failure to produce a pdf output due to the Lilypond output being invalid. The third and final level was failure to produce a pdf output which matched the expected output. Each failure in any sense was reported using the issue tracker on Github, with an indication of the filename which failed as well as the reason for the failure. An example of such an issue report is given in figure \ref{fig:issue}.
 
 The developer ensured that all test cases were above the first two levels of severity, and then made a decision on how important the symbol was in the context of it's usage in western music, as well as the time remaining to work on the other two primary objectives.
 
@@ -265,7 +265,7 @@ There are several libraries available for creating a graphical user interface in
   AppKit & Works well on OSX & OSX only &  $\times$ \\ \hline
   
 \end{tabu}
-\caption{Table of GUI libraries in python}
+\caption{Table of GUI libraries in Python}
 \label{table:gui}
 \end{table}
 
@@ -274,7 +274,7 @@ In Python there is only one library in popular usage (AppKit) which is locked to
 In the initial phases of GUI prototyping, the developer trialled two of the suggested GUI libraries.
 
 
-The first trial was TKinter, being as it is built into the Python library and did not require any further installation. TKinter is a library which provides a python binding to TCL's user interface libraries \parencite{PythonTCL}.
+The first trial was TKinter, being as it is built into the Python library and did not require any further installation. TKinter is a library which provides a Python binding to TCL's user interface libraries \parencite{PythonTCL}.
  The TCL user interface library has not been updated or upgraded for today's image formats, and does not support PDF or PNGs. Any use of either of these formats required installation of other libraries, such as the Python Image Library (PIL) \parencite{PIL}.
  Furthermore, as discussed by \cite{GuiProgramming}, there are very few open, non-commercial options for graphical GUI designers for TKinter, meaning that any interfaces had to be hard coded using python code, rather than creating designed files to be imported.
  
@@ -304,7 +304,8 @@ Table \ref{table:databases} shows the options for databases the developer could 
   & scalable & \\ \hline
   SQLite & Single file & some types not supported \\
   & Portable & not very scalable \\
-  & Library built into Python & \\ \hline
+  & Library built into Python & \\
+  & used by a lot of other applications & \\ \hline
   
   
 \end{tabular}
@@ -316,5 +317,6 @@ The first option, MySQL, was dismissed because this application is not an online
 
 The second option, MongoDB was dismissed because the developer did not have experience with using NoSQL, the query language used by MongoDB. Furthermore, the recommendations for MongoDB usage are when an application has large amounts of data and needs to scale \parencite{mongod}. It is not expected that there will be a large amount of data when this application is in general usage, or that scalability is a factor unless future extensions use bigger data sets.
 
-The third and final option, SQLite, was selected because of it's portability as it only creates one file upon connection. The library for SQLite comes with Python itself and is fully documented in Python's documentation site \parencite{PythonSQLite}. The developer found the library intuitive to use which helped to reduce development time.
+The third and final option, SQLite, was selected because of it's portability as it only creates one file upon connection. The library for SQLite comes with Python itself and is fully documented in Python's documentation site \parencite{PythonSQLite}. The developer found the library intuitive to use which helped to reduce development time. Furthermore, SQLite is used in a lot of other applications such as iTunes, %todo ref
+which means that the sheet music database produced could be more easily integrated and shared with other platforms and environments.
 
