@@ -1,0 +1,95 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Aims and Objectives}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Project Aim}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Primary Objectives}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Secondary Objectives}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Background}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Problem Context}{section.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Clefs}{subsection.3.1}% 8
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Keys}{subsection.3.1}% 9
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Meter}{subsection.3.1}% 10
+\BOOKMARK [3][-]{subsubsection.3.1.4}{Tempo}{subsection.3.1}% 11
+\BOOKMARK [3][-]{subsubsection.3.1.5}{Further metadata}{subsection.3.1}% 12
+\BOOKMARK [3][-]{subsubsection.3.1.6}{Sight Reading and Difficulty Grading}{subsection.3.1}% 13
+\BOOKMARK [2][-]{subsection.3.2}{Comparison of Technologies}{section.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Programming Language}{subsection.3.2}% 15
+\BOOKMARK [3][-]{subsubsection.3.2.2}{File format}{subsection.3.2}% 16
+\BOOKMARK [2][-]{subsection.3.3}{Comparison of Technologies for Rendering Music}{section.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.3.1}{XML verification Considerations}{subsection.3.3}% 18
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Libraries for parsing XML for information}{subsection.3.3}% 19
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Algorithms for display and storage of XML information}{subsection.3.3}% 20
+\BOOKMARK [3][-]{subsubsection.3.3.4}{Rendering System}{subsection.3.3}% 21
+\BOOKMARK [2][-]{subsection.3.4}{Comparison of Technologies for Organising Sheet Music}{section.3}% 22
+\BOOKMARK [3][-]{subsubsection.3.4.1}{XML data acquisition algorithm}{subsection.3.4}% 23
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Metadata Model}{subsection.3.4}% 24
+\BOOKMARK [3][-]{subsubsection.3.4.3}{Memory considerations}{subsection.3.4}% 25
+\BOOKMARK [3][-]{subsubsection.3.4.4}{Query Processing Considerations}{subsection.3.4}% 26
+\BOOKMARK [2][-]{subsection.3.5}{Comparison of Technologies for Importing Online Musical Sources}{section.3}% 27
+\BOOKMARK [3][-]{subsubsection.3.5.1}{Sheet Music Sources}{subsection.3.5}% 28
+\BOOKMARK [3][-]{subsubsection.3.5.2}{Searching Algorithm}{subsection.3.5}% 29
+\BOOKMARK [3][-]{subsubsection.3.5.3}{Licensing Considerations}{subsection.3.5}% 30
+\BOOKMARK [2][-]{subsection.3.6}{Comparison of Technologies for Sound Output and Image Input}{section.3}% 31
+\BOOKMARK [3][-]{subsubsection.3.6.1}{Sound output algorithm}{subsection.3.6}% 32
+\BOOKMARK [3][-]{subsubsection.3.6.2}{Optical Music Recognition systems}{subsection.3.6}% 33
+\BOOKMARK [2][-]{subsection.3.7}{Comparison of Technologies for Difficulty Grading}{section.3}% 34
+\BOOKMARK [3][-]{subsubsection.3.7.1}{Metadata Model Considerations}{subsection.3.7}% 35
+\BOOKMARK [3][-]{subsubsection.3.7.2}{Rating Algorithm}{subsection.3.7}% 36
+\BOOKMARK [3][-]{subsubsection.3.7.3}{Machine Learning considerations}{subsection.3.7}% 37
+\BOOKMARK [2][-]{subsection.3.8}{Summary}{section.3}% 38
+\BOOKMARK [2][-]{subsection.3.9}{Alternative Solutions}{section.3}% 39
+\BOOKMARK [1][-]{section.4}{Technical Development}{}% 40
+\BOOKMARK [2][-]{subsection.4.1}{User Interface Design}{section.4}% 41
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Main Display}{subsection.4.1}% 42
+\BOOKMARK [2][-]{subsection.4.2}{User Testing}{section.4}% 43
+\BOOKMARK [2][-]{subsection.4.3}{Test Design and System Testing}{section.4}% 44
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Test Driven Development}{subsection.4.3}% 45
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Unit Testing}{subsection.4.3}% 46
+\BOOKMARK [3][-]{subsubsection.4.3.3}{Unit Testing the rendering system}{subsection.4.3}% 47
+\BOOKMARK [3][-]{subsubsection.4.3.4}{Development of Test cases}{subsection.4.3}% 48
+\BOOKMARK [3][-]{subsubsection.4.3.5}{Use of Third Party Test cases}{subsection.4.3}% 49
+\BOOKMARK [3][-]{subsubsection.4.3.6}{Unit testing the metadata and API objectives}{subsection.4.3}% 50
+\BOOKMARK [2][-]{subsection.4.4}{System Design}{section.4}% 51
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Overall Architecture}{subsection.4.4}% 52
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Metadata Scanning system}{subsection.4.4}% 53
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Metadata Class Structure}{subsection.4.4}% 54
+\BOOKMARK [3][-]{subsubsection.4.4.4}{Modular Design}{subsection.4.4}% 55
+\BOOKMARK [3][-]{subsubsection.4.4.5}{Rendering Architecture}{subsection.4.4}% 56
+\BOOKMARK [3][-]{subsubsection.4.4.6}{Duck Typing}{subsection.4.4}% 57
+\BOOKMARK [3][-]{subsubsection.4.4.7}{Designing for extensibility}{subsection.4.4}% 58
+\BOOKMARK [3][-]{subsubsection.4.4.8}{Difficulty Rating input from users}{subsection.4.4}% 59
+\BOOKMARK [2][-]{subsection.4.5}{System Implementation}{section.4}% 60
+\BOOKMARK [3][-]{subsubsection.4.5.1}{Development Methodology}{subsection.4.5}% 61
+\BOOKMARK [3][-]{subsubsection.4.5.2}{Challenges in the rendering system}{subsection.4.5}% 62
+\BOOKMARK [3][-]{subsubsection.4.5.3}{Use of external technologies and libraries}{subsection.4.5}% 63
+\BOOKMARK [1][-]{section.5}{Evaluation}{}% 64
+\BOOKMARK [2][-]{subsection.5.1}{Project Achievements}{section.5}% 65
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Rendering System}{subsection.5.1}% 66
+\BOOKMARK [3][-]{subsubsection.5.1.2}{Metadata scanning}{subsection.5.1}% 67
+\BOOKMARK [3][-]{subsubsection.5.1.3}{Search and Playlist operation}{subsection.5.1}% 68
+\BOOKMARK [3][-]{subsubsection.5.1.4}{Importing Online APIs}{subsection.5.1}% 69
+\BOOKMARK [3][-]{subsubsection.5.1.5}{Cross Platform Capabilities}{subsection.5.1}% 70
+\BOOKMARK [3][-]{subsubsection.5.1.6}{Graphical User Interface}{subsection.5.1}% 71
+\BOOKMARK [2][-]{subsection.5.2}{Further Work}{section.5}% 72
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Improved Rendering Capabilities}{subsection.5.2}% 73
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Creation and release of an Open Rendering Library}{subsection.5.2}% 74
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Secondary Objectives}{subsection.5.2}% 75
+\BOOKMARK [3][-]{subsubsection.5.2.4}{Porting to Linux based operating systems}{subsection.5.2}% 76
+\BOOKMARK [2][-]{subsection.5.3}{Future Developments}{section.5}% 77
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Porting to Raspbian}{subsection.5.3}% 78
+\BOOKMARK [3][-]{subsubsection.5.3.2}{Symbolic Searching}{subsection.5.3}% 79
+\BOOKMARK [3][-]{subsubsection.5.3.3}{Advanced rendering and sound output options}{subsection.5.3}% 80
+\BOOKMARK [3][-]{subsubsection.5.3.4}{Implementation of paid or subscription APIs}{subsection.5.3}% 81
+\BOOKMARK [3][-]{subsubsection.5.3.5}{Centralisation of APIs}{subsection.5.3}% 82
+\BOOKMARK [3][-]{subsubsection.5.3.6}{Online Sharing}{subsection.5.3}% 83
+\BOOKMARK [1][-]{section.6}{Conclusion}{}% 84
+\BOOKMARK [1][-]{section*.2}{Appendices}{}% 85
+\BOOKMARK [1][-]{Appendix.a.A}{Initial class diagram}{}% 86
+\BOOKMARK [1][-]{Appendix.a.B}{Initial User Interface Design}{}% 87
+\BOOKMARK [2][-]{subsection.a.B.1}{Startup Window}{Appendix.a.B}% 88
+\BOOKMARK [2][-]{subsection.a.B.2}{Main Window}{Appendix.a.B}% 89
+\BOOKMARK [2][-]{subsection.a.B.3}{Changes to main display when sheet music selected}{Appendix.a.B}% 90
+\BOOKMARK [2][-]{subsection.a.B.4}{Changes to main display when playlist is selected}{Appendix.a.B}% 91
+\BOOKMARK [1][-]{Appendix.a.C}{Difficulty Grading Survey Results}{}% 92
+\BOOKMARK [1][-]{Appendix.a.D}{User guide}{}% 93
+\BOOKMARK [1][-]{Appendix.a.E}{Test cases}{}% 94
+\BOOKMARK [1][-]{section.7}{References}{}% 95

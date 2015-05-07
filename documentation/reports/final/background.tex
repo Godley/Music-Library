@@ -98,7 +98,7 @@ Further to this, the user would want to know the piece's title, and names of pub
 This portion of the problem context relates to the difficulty grading secondary objective. It is important to understand why this would be useful to a musician, and as such what follows explains some more specific technical terms which a musician may use to assess pieces of music.
 
 
-Difficulty grading is a subconscious act which takes place during the initial phase of learning a piece of music. This phase is often referred to as "sight reading", a term meaning that the performer has had little to no practice in performing the sheet music. %todo ref
+Difficulty grading is a subconscious act which takes place during the initial phase of learning a piece of music. This phase is often referred to as "sight reading", a term meaning that the performer has had little to no practice in performing the sheet music \parencite{sightreading}.
  It is referred to as sight reading because the musician can only perform symbols as they occur in the music, or as the reader sees the symbols. They may not be familiar with where and when these symbols occur, how and at what speed to perform certain note patterns are to be played, or what keys are to be applied at specific points in the music. The lack of practice can contribute to the performer playing the piece hesitantly, or with mistakes.
 
 After more practice, a performer will generally gain muscle memory of certain repeated note sequences and be more aware of what changes are coming up without needing to read the music. In some instances a performer may memorise a piece of music through repeated practice without consciously intending it. 
@@ -155,22 +155,16 @@ The first language in consideration is C\#. C\# is mostly used on Windows due to
 
 In terms of speed of development, the developer considers that the language syntax is reasonably intuitive and consistent. C\# is statically typed, which means the code is less likely to contain bugs at run time, but reduces the flexibility during development.
 
-Finally, due to the language being mostly for Windows and largely being closed, C\# has a lower amount of Open Source projects on the popular online source code hosting service Github \parencite{Redmonk}, as shown by the graph in figure \ref{fig:graph}. Whilst this is not necessarily important to development at this stage, the developer intends to Open Source the project and if there is a lower percentage of repositories for this language, that could potentially indicate a lower number of contributors.
+Finally, due to the language being mostly for Windows and largely being closed, C\# has a lower percentage of Open Source projects on the popular online source code hosting service Github \parencite{Redmonk}. Whilst this is not necessarily important to development at this stage, the developer intends to Open Source the project and if there is a lower percentage of repositories for this language, that could potentially indicate a lower number of contributors.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=250pt]{github-repos}
-\caption{A graph showing the percentage of repositories on Github in different languages \parencite{Redmonk}}	
-\label{fig:graph}
-\end{figure}
 The second language in consideration is C++. Whilst C++ is arguably the closest to native code and therefore the language which will be the best for cross platform development, the syntax and memory management issues of C++ mean that development can be slower, particularly when the developer does not feel as competent using this language.
 
 The third language in consideration is Python. In terms of syntax, Python's syntax is the closest of the three considerations to English or pseudocode, and thus requires the least amount of key strokes. Being closer to english also means that the project is more likely to attract a wealth of less technical contributors, in particular musicians, as the language should be easier to learn how to use.
 
- Furthermore, as it is dynamically typed this allows the developer to use a particular advantage of duck typing whilst developing, %todo ref
+ Furthermore, as it is dynamically typed this allows the developer to use a particular advantage of duck typing whilst developing. Duck typing is a form of type inference 
   meaning that so long as a class has a particular behaviour, the program can use the class for its purposes and ignore differences to other classes without implementing an interface.
  
- As exemplified by the graph in figure \ref{fig:graph}, Python has a higher percentage of new Github repositories than the other languages in consideration. Again, this does not indicate that Python is the best language for Open Source as that hypothesis would be hard to objectively prove, but it does potentially indicate a higher number of available developers with knowledge of Python, so a large available community of potential developers for when the project is open sourced.
+ Python also has a higher percentage of new Github repositories than the other languages in consideration \parencite{Redmonk}. Again, this does not indicate that Python is the best language for Open Source as that hypothesis would be hard to objectively prove, but it does potentially indicate a higher number of available developers with knowledge of Python, so a large available community of potential developers for when the project is open sourced.
  
  Lastly, there are many current projects written in Python in the area of music research \parencite{pmus}, which means the project will be easier to integrate and communicate with other projects or build upon the work of others without needing to port software to Python.
 
@@ -433,30 +427,5 @@ The alternative is for the developer to implement a system developed by an exter
 Existing research projects into artificial intelligence relating to teaching a computer to compose music could potentially also be adapted or built upon to this purpose, such as the project by \cite{creativeMachines}. Further to this, there already exists an International Conference on Machine Learning and Music, indicating the area would be too large to implement a new system as an objective, rather than an overall project aim.
 The developer has therefore chosen to implement an external source rather than attempt their own algorithm.
 
-\subsection{Summary}
-Table \ref{table:decisions} gives a summary of the decisions laid out in the above subsections.
-
-\include{summarytable}
 
 
-
-\subsection{Alternative Solutions}
-This section discusses other software which is currently available for musicians to organise and view sheet music.
-
-Table \ref{table:software} shows the alternative options considered in the area of Sheet Music organisation automation. This shows that the closest alternative would be Power Music Pro, though much of the functionality changes slightly according to the platform it has been developed for \parencite{PowerMusic}. Furthermore, Power Music Pro's only improvement on manual organisation is the ability to search by lyric, whilst this project intends to allow for a cross section of other organisation techniques, as explained in the problem context.
-
-Additionally, each of the possible options are released in a commercial environment, with Avid's Photoscore being too expensive for the average user.  Seemingly, this project would constitute the only free and Open Source software released for this problem.
-
-A final point to make is that none of these solutions provide a version for Linux based operating systems, whilst this project should be useable on Mac, PC and Linux based operating systems.
-\begin{table}[H]
-\centering
-\begin{tabu} to 1.05\textwidth {| X[l] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] |} \hline
-{Software} & {Rendering of Sheet Music} & {Manual Organisation} & {Automatic Organisation by complex notation} & {Connection to Online Sources} & {Audio Playback} & {OMR} & {Price} & {Platform} \\ \hline
-Avid Scorch & \checkmark & \checkmark & $\times$ & \checkmark & \checkmark & $\times$ & £1.40 \parencite{AvidScorch} & iOS \\ \hline
-Power Music Pro/Power Music Mac & \checkmark & \checkmark & partial & \checkmark & \checkmark & $\times$ & £49 for PC, £29 for Mac \parencite{PowerMusic} & PC \& Mac  \\ \hline
-Avid Photoscore & \checkmark & $\times$ & $\times$ & $\times$ & $\times$ & \checkmark & £200 \parencite{Pscore} & PC \& Mac \\ \hline
-Scorcerer & \checkmark & \checkmark & $\times$ & $\times$ & \checkmark & \checkmark & £15 for iPad version, £26 for Mac and PC \parencite{Scorcerer} & iPad, Mac \& PC \\ \hline
-\end{tabu}
-\caption{A comparison table of other available software}
-\label{table:software}	
-\end{table}

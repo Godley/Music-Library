@@ -24,6 +24,9 @@ Figure \ref{fig:main} shows the main view of the application, as mocked up befor
 \end{figure}
 All of the frames of the user interface are styled using a CSS stylesheet, so that the developer could customise everything with precision. The use of CSS also enabled the developer to easily create new themes. The remaining screenshots with an explanation of how different windows link together and screenshots of the additional themes are given in the user guide which is in the appendix.
 
+\subsection{User Testing}
+The developer was aware that this user interface was designed by a software developer who is also a musician. This is a problem because it is difficult for the developer to appreciate whether the interface is too technical for the target demographic. It was the intention of the developer to do user testing of this interface to see how musicians interacted with it and whether any changes needed to be made to make it more usable before implementing it. Due to time constraints and platform difficulties this could not be performed, but the developer intends to evaluate the user interface with real users and modify it based on the feedback before releasing the application fully.
+
 \subsection{Test Design and System Testing}
 \subsubsection{Test Driven Development}
 The project was developed using Test Driven Development (TDD). Test Driven Development is an Agile software development methodology which utilises the rule that a line of code should not be written unless there is a failing automated test \parencite{TDD}. This methodology has been chosen because the nature of the notation of music means that attention must be paid to how and with what symbol every element is notated, and Test Driven Development will significantly improve the quality of the software by closely integrating testing with the development process.
@@ -89,14 +92,24 @@ For the online collections objective, tests were created at source API class lev
 
 \subsection{System Design}
 \subsubsection{Overall Architecture}
-The flow chart in figure \ref{fig:flowchart} was designed in the initial prototype phase in order to visualise how the objectives would interlink with each other.
+The flow chart in figure \ref{fig:flowchart} was designed in the initial prototype phase in order to visualise how the objectives would interlink with each other. A UML Use case diagram is also provided in figure \ref{fig:usecase}, though the flow diagram provides a clearer picture of how the system links together.
 \begin{figure}[h]
     \centering
     \includegraphics[width=400pt]{diagrams/overall_system.pdf}
     \caption{A flow diagram describing the project}
     \label{fig:flowchart}
 \end{figure}
+The use case diagram in figure \ref{fig:usecase} shows that the user has the ability to import, search for and select pieces. Search will then send a message to the music manager, which will process the data and query the database. When the data is returned, it will update the results. The user can then select from these results, either offline or online, and view the piece. 
 
+When the user selects an online piece, the use case will request that the music manager find the piece's source and download the file. The music manager will then request that the rendering system display the file. In the case that the file is offline, the system will go straight to the rendering system which will display the file.
+
+In addition to piece features, the user can also create, view and remove playlists. View includes auto generated playlists and the ones that they create themselves using the Create use case.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=400pt]{system_usecase-crop}
+    \caption{A use case diagram describing the project}
+    \label{fig:usecase}
+\end{figure}
 \subsubsection{Metadata Scanning system}
 The flow diagram in \ref{fig:flowchart} refers to applying a metadata scanning system to the folder. This is described in more detail in the flow diagram in figure \ref{fig:meta}. 
 \begin{figure}[H]
@@ -149,7 +162,7 @@ Symbolic classes which add elements to a note or to a measure are added using th
 
 
 \subsubsection{Duck Typing}
-The rendering system visualised by figure \ref{fig:classdiagram} implements a feature of dynamic typing known colloquially as Duck Typing. Duck Typing is a method of type inference by which the program assumes that an object is of one type according to the behaviours that it has, not the exact type or attributes it may or may not contain. %todo ref
+The rendering system visualised by figure \ref{fig:classdiagram} implements a feature of dynamic typing known colloquially as Duck Typing. Duck Typing is a method of type inference by which the program assumes that an object is of one type according to the behaviours that it has, not the exact type or attributes it may or may not contain \parencite{eric}.
 
 In respect to the rendering system, duck typing is applied in the production of output, whereby each class assumes any child classes present will have the ToLily method, call the method and concatenate the results. Using this method of type inference is important to the project as this avoids assumptions about what the music will or will not contain, and instead defines that symbol as suitable for inclusion if it has the ToLily method. Using type inference means that future symbol classes which are implemented only need to provide a ToLily method and be linked into the MusicXML parser in order to be included in the output.
 
@@ -192,7 +205,7 @@ Initially, the project used a simpler object structure in which measures contain
     language=xml,
     tabsize=3,
     %frame=lines,
-    caption=Note followed by dynamic followed by note followed by dynamic,
+    caption=Dynamic followed by note followed by note followed by dynamic,
     label=code:example,
     frame=shadowbox,
     rulesepcolor=\color{gray},
