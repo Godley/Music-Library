@@ -13,7 +13,8 @@ if sys.platform == "win32":
 files = {'implementation.primaries.GUI':["designer_files/*.ui",
          "themes/*.qss", "images/*.png"]}
 zips = ["implementation/primaries/GUI/designer_files",
-         "implementation/primaries/GUI/themes", "implementation/primaries/GUI/images"]
+         "implementation/primaries/GUI/themes", "implementation/primaries/GUI/images",
+         "implementation/primaries/scripts"]
 build_exe_options = {"packages": ["os"], "excludes": ["tkinter"],
                      "include_files":zips}
 

@@ -7,7 +7,7 @@ from PyQt4 import QtXml
 from implementation.primaries.GUI.helpers import get_base_dir
 from implementation.primaries.GUI import StartupWidget, qt_threading, thread_classes, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
-from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
+
 
 class Application(QtCore.QObject):
 
@@ -146,7 +146,7 @@ class Application(QtCore.QObject):
                 self.licensePopup.setWindowFlags(QtCore.Qt.Dialog)
                 self.licensePopup.exec()
             else:
-                render_thread = qt_threading.RenderThread(self, self.startRenderingTask,
+                render_thread = qt_threading.RenderThread(self, self.manager.startRenderingTask,
                                                             (filename,), pdf_version)
                 QtCore.QObject.connect(render_thread, QtCore.SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
                 render_thread.run()
@@ -222,38 +222,7 @@ class Application(QtCore.QObject):
 
 
 
-    def startRenderingTask(self, fname):
-        """
-        method which parses a piece, then runs the renderer class on it which takes the lilypond
-        output, runs lilypond on it and gets the pdf. This is not generally called directly,
-        but rather called by a thread class in thread_classes.py
-        :param fname: xml filename
-        :return: list of problems encountered
-        """
-        errorList = []
-        parser = MxmlParser.MxmlParser()
-        piece_obj = None
-        try:
-            piece_obj = parser.parse(os.path.join(self.folder, fname))
-        except Exceptions.DrumNotImplementedException as e:
-            errorList.append(
-                "Drum tab found in piece: this application does not handle drum tab.")
-        except Exceptions.TabNotImplementedException as e:
-            errorList.append(
-                "Guitar tab found in this piece: this application does not handle guitar tab.")
-        except SAXParseException as e:
-            errorList.append("Sax parser had a problem with this file:"+str(e))
-        if piece_obj is not None:
-            try:
-                loader = LilypondRender.LilypondRender(
-                    piece_obj,
-                    os.path.join(
-                        self.folder,
-                        fname))
-                loader.run()
-            except BaseException as e:
-                errorList.append(str(e))
-        return errorList
+
 
     def updateDb(self):
         self.manager.refresh()

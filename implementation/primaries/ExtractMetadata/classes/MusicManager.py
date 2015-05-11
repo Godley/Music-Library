@@ -1,12 +1,10 @@
 import os
 import shutil
 import zipfile
-try:
-    from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
-    from implementation.primaries.ImportOnlineDBs.classes import ApiManager
-except:
-    from primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
-    from primaries.ImportOnlineDBs.classes import ApiManager
+from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
+from implementation.primaries.ImportOnlineDBs.classes import ApiManager
+from implementation.primaries.GUI.helpers import get_base_dir
+from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
 from xml.sax._exceptions import *
 import requests.exceptions
 
@@ -139,7 +137,43 @@ class MusicManager(object):
                 self.folder,
                 "music.db"))
         self.setupFolderBrowser()
+        self.script = os.path.join(get_base_dir(), "scripts", "lilypond")
         self.apiManager = ApiManager.ApiManager(folder=self.folder)
+
+    def startRenderingTask(self, fname):
+        """
+        method which parses a piece, then runs the renderer class on it which takes the lilypond
+        output, runs lilypond on it and gets the pdf. This is not generally called directly,
+        but rather called by a thread class in thread_classes.py
+        :param fname: xml filename
+        :return: list of problems encountered
+        """
+        errorList = []
+        print(dir(MxmlParser))
+        parser = MxmlParser.MxmlParser()
+        piece_obj = None
+        try:
+            piece_obj = parser.parse(os.path.join(self.folder, fname))
+        except Exceptions.DrumNotImplementedException as e:
+            errorList.append(
+                "Drum tab found in piece: this application does not handle drum tab.")
+        except Exceptions.TabNotImplementedException as e:
+            errorList.append(
+                "Guitar tab found in this piece: this application does not handle guitar tab.")
+        except SAXParseException as e:
+            errorList.append("Sax parser had a problem with this file:"+str(e))
+        if piece_obj is not None:
+            try:
+                loader = LilypondRender.LilypondRender(
+                    piece_obj,
+                    os.path.join(
+                        self.folder,
+                        fname),
+                lyscript=self.script)
+                loader.run()
+            except BaseException as e:
+                errorList.append(str(e))
+        return errorList
 
     def unzipApiFiles(self, data_set):
         """
