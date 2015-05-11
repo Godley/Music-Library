@@ -19,7 +19,7 @@ def setup_lilypond(path=None):
             fob = open(os.path.join(get_base_dir(), "scripts", "lilypond"), 'w')
             fob.writelines(new_lines)
             fob.close()
-            os.system("chmod u+x lilypond")
+            os.system("chmod u+x "+os.path.join(get_base_dir(), "scripts", "lilypond"))
             line = "export PATH=$PATH:"+os.getcwd()
             os.system(line)
         else:

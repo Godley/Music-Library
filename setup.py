@@ -23,7 +23,7 @@ setup(
     name='FYP',
     version='0.1',
     #package_data = files,
-    packages=['implementation', 'implementation.primaries', 'implementation.primaries.GUI',
+    packages=['implementation', 'implementation.primaries', 'implementation.primaries.GUI', 'implementation.primaries.scripts',
               'implementation.primaries.GUI.pyqt_plugins', 'implementation.primaries.Drawing', 'implementation.primaries.Drawing.classes',
               'implementation.primaries.Drawing.classes.tree_cls', 'implementation.primaries.ExtractMetadata',
               'implementation.primaries.ExtractMetadata.classes', 'implementation.primaries.ImportOnlineDBs','implementation.primaries.ImportOnlineDBs.classes'],
