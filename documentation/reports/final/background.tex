@@ -116,13 +116,7 @@ Examples are a note or rest of a very short duration in a fast tempo, particular
 
  This is considered difficult because it is hard to ensure that the duration of each note is precise, and in sequence it can be difficult to ensure that the performer can fit all of the notes into the pattern with precision. Often these sequences can cause a performer to blur the notes together, meaning that one note is indistinguishable from another, and may not even be heard if the performer has not timed the note correctly.
 
-Further examples relating to pitch in a general sense are notes which are at the high or low end of an instrument's range, which for reeded wind instruments can be uncomfortable due to changes to embouchure. Reeded refers to a family of instrument whose sound is produced by vibrating a piece of very thin wood against something whilst blowing air through the vibration. Embouchure means the grip or tightness of the jaw. In combination with the airflow, this pressurised grip against the reed is what causes it to vibrate.
-
-Performers who play reeded instruments control tone and pitch by tightening or loosening their embouchure. In the case of notes at the top of an instrument's range, this can be uncomfortable as it requires tightening the teeth against the lips, a position the performer's mouth may not be accustomed to, and in the case of notes at the bottom of an instrument's pitch range, it can be difficult to achieve due to loosening their jaw being more of a subconscious act which requires practice to achieve the right level of jaw release. In addition to the difficulty of "pitching" the note correctly, it can be hard to jump between notes due to the rapid change needed in embouchure pressure.
-
-For string instruments, particularly those without frets indicating the position of specific pitches, it can be difficult to play the notes on the edges of their instrument's range with precision due to lack of practice, as these notes are not always in common usage. Lack of practice on any instrument can cause the sound to be uncomfortable to listen to due to subtle differences in pitch which the human ear can pick up, meaning that a musician will dislike practicing a lesser used note if it is not completely necessary.
-
-Complex rhythms, a term referring to the different durations of a particular sequence of music, can also cause difficulties, particularly for instruments like the piano in which the player has to play in polyphony. Polyphony means multiple sounds or lines of note sequences. In the case of a piano player, it is common for pieces to present cross rhythms in which the left hand and right hand are not playing the same rhythm, and precise timing is required to get the rhythms synchronised with each other. 
+Complex rhythms, a term referring to the different durations of a particular sequence of music, can also cause difficulties, particularly for instruments like the piano in which the player has to play in polyphony. Polyphony means multiple sounds or lines of note sequences. In the case of a piano player, it is common for pieces to present cross rhythms in which the left hand and right hand are not playing the same rhythm. Precise timing is required to get the rhythms synchronised with each other. 
 
 An example of this is figure \ref{fig:crossrhythms}. Here the right hand plays two quarter notes, whilst the left hand plays three eighth notes. The three above the eighth notes indicates that the pianist must fit the three notes into the same time sequence as one quarter note, known as a "triplet" because the player must fit three notes into a time space where there would normally only be two.
 
@@ -159,10 +153,9 @@ Finally, due to the language being mostly for Windows and largely being closed, 
 
 The second language in consideration is C++. Whilst C++ is arguably the closest to native code and therefore the language which will be the best for cross platform development, the syntax and memory management issues of C++ mean that development can be slower, particularly when the developer does not feel as competent using this language.
 
-The third language in consideration is Python. In terms of syntax, Python's syntax is the closest of the three considerations to English or pseudocode, and thus requires the least amount of key strokes. Being closer to english also means that the project is more likely to attract a wealth of less technical contributors, in particular musicians, as the language should be easier to learn how to use.
+The third language in consideration is Python. Python's syntax is the closest of the three considerations to English or pseudocode, and thus requires the least amount of key strokes and makes the project more likely to attract a wealth of less technical contributors, in particular musicians, as the language should be easier to learn how to use.
 
- Furthermore, as it is dynamically typed this allows the developer to use a particular advantage of duck typing whilst developing. Duck typing is a form of type inference 
-  meaning that so long as a class has a particular behaviour, the program can use the class for its purposes and ignore differences to other classes without implementing an interface.
+Python is dynamically typed, which makes it more flexible to work with but could also introduce more problems at run time if types are not handled properly by the developer.
  
  Python also has a higher percentage of new Github repositories than the other languages in consideration \parencite{Redmonk}. Again, this does not indicate that Python is the best language for Open Source as that hypothesis would be hard to objectively prove, but it does potentially indicate a higher number of available developers with knowledge of Python, so a large available community of potential developers for when the project is open sourced.
  
@@ -188,13 +181,13 @@ The project will require at least one default format for it to process music, wh
 \label{table:formats}
 \end{table}
 The first option is to create an entirely new format. This would mean the file format was designed to the requirements of the project and therefore would be entirely customisable and extensible. However, this would require further design into how the file would be structured, loaded and unloaded.
- It would also not be implemented as standard to software which composes music, and as such would either require manual file creation or require writing a conversion script for files of other formats. This project is created with the intention of organising, not composing music, therefore creating an entirely new format would be considered a drain on the developer's time when other formats which are more standardised could be implemented without conversion scripts.
+ It would also not be implemented as standard to software which composes music, and as such would either require manual file creation or require writing a conversion script to and from other formats. This project is created with the intention of organising, not composing music, therefore creating an entirely new format would be considered a drain on the developer's time when other formats which are more standardised could be implemented without conversion scripts.
 
 The next two options, muscx and SIB files, are formats used by the open source composition software MuseScore \parencite{MuseTour}, and the world's most popular proprietary composition software, Sibelius \parencite{avid}. Using either or both of these files would mean the majority of users would be able to use the application. 
 However, both formats would couple this project with those particular packages, when users could still choose other software to write music with. Furthermore, the formats are specifically designed for those software packages and may have nuances which make development for this project more difficult. Additionally, Sibelius is proprietary so borrowing their file format may cause copyright issues.
 
 
-The fourth and final option is MusicXML, a file format intended for sharing and archiving the world's sheet music \parencite{mxml}. This particular format is used by a wide variety of software packages \parencite{mxml} and is included in the formats usable by both MuseScore \parencite{MuseTour} and Sibelius \parencite{avid}. Using MusicXML would avoid coupling the format with a program and would not require manual creation or import of current music files. 
+The final option is MusicXML, a file format intended for sharing and archiving the world's sheet music \parencite{mxml}. This particular format is used by a wide variety of software packages \parencite{mxml} and is included in the formats usable by both MuseScore \parencite{MuseTour} and Sibelius \parencite{avid}. Using MusicXML would avoid coupling the format with a program and would not require manual creation or import of current music files. 
 
 Aligning the project with an open format like this will make the project a better renderer, as the project will be designed to handle MusicXML more effectively than other packages which are designed to use their own format by default, then import or export to MusicXML. This method of storing and loading data is used by MuseScore, and comes with several issues and problems as well as inconsistencies, as documented in their issue tracker \parencite{mscoreBugTracker}.
 
@@ -202,7 +195,7 @@ However, this particular format was designed by a third party, Make Music, who h
 
 Using MusicXML also means that there will be a technical challenge of learning how to use and understand the format, which may affect the development time adversely if the developer does not pick up enough initial knowledge to design the system effectively.
 
-For reason of inclusion in composition software packages, MusicXML has been selected as the file format for the project. 
+MusicXML has been selected as the file format for the project because it is already included in many of the standard composition software packages. 
 
 \subsection{Comparison of Technologies for Rendering Music}
 Figure \ref{fig:flow} shows the flow of data into and out of the system in order to produce a working renderer. Each stage of this process will be discussed in detail in the following sub sections.
@@ -216,7 +209,7 @@ Figure \ref{fig:flow} shows the flow of data into and out of the system in order
 \end{figure}
 
 \subsubsection{XML verification Considerations}
-Before XML is parsed for information in the flow chart in figure \ref{fig:flow}, the file is by default validated using the DTD defined in the XML file, which can optionally be switched off by the developer. Whilst this confirms that XML is valid before starting to parse a file which could be corrupt, the speed at which files will parse is greatly reduced according to the speed of the user's internet connection.
+Before XML is parsed for information in the flow chart in figure \ref{fig:flow}, the file is by default validated using the DTD defined in the XML file, which can optionally be switched off by the developer. This confirms that XML is valid before starting to parse a file which could be corrupt, but the speed at which files will parse is greatly reduced according to the speed of the user's internet connection.
 
 Furthermore, if the user is browsing their own music collection, it should not be necessary for the user to be connected to the internet.
 
@@ -226,31 +219,31 @@ Due to speed and functionality considerations, the choice has been made that the
 \subsubsection{Libraries for parsing XML for information}
 In order to extract information from each tag in an XML file, there are two potential built in methods to choose from. 
 
-The first, known as DOM or Document Object Model, loads the entire XML file into memory and provides methods to search the loaded file for specified tags \parencite{PythonDom}. The developer has used the Python DOM library before in personal and industrial projects, and believes it is cumbersome to manipulate data in this way. Furthermore, this project is focussing on rendering the information rather than rendering it with precise formatting, and many software packages implant musicXML files with very complex formatting information which may or may not be necessary \parencite{MusicXMLPresentation}.
+The first, known as DOM or Document Object Model, loads the entire XML file into memory and provides methods to search the loaded file for specified tags \parencite{PythonDom}. The developer has used the Python DOM library before in various industrial projects, and believes it is cumbersome to manipulate data in this way. Furthermore, this project is focussing on rendering the information rather than rendering it with precise formatting, and many software packages implant musicXML files with very complex formatting information which may or may not be necessary \parencite{MusicXMLPresentation}.
 
-The second option is using a different api called the Simple API for XML (SAX). In this method, the library will load the XML file tag by tag, and connect to developer-defined call backs when specified things occur in the file, for example a new tag or piece of data inside tags, or the closing of an old tag \parencite{PythonSax}. 
+The second option is using an api called the Simple API for XML (SAX). In this method, the library will load the XML file tag by tag, and connect to developer-defined call backs when specified things occur in the file, for example a new tag or piece of data inside tags, or the closing of an old tag \parencite{PythonSax}. 
 
-This is easier to work with as functionality can iteratively be built up by creating handlers for each tag, and is better for memory management as only tags which are necessary to the project will have any effect on the program or program memory. For these reasons, this method has been selected.
+SAX is easier to work with as functionality can iteratively be built up by creating handlers for each tag, and is better for memory management as only tags which are necessary to the project will have any effect on the program or program memory. For these reasons, this method has been selected.
 
 
 
 \subsubsection{Algorithms for display and storage of XML information}
 For the rendering of sheet music, the system must in some way manipulate the data extracted from the XML file into a visual output.
 
-The usual method of formatting an XML file would be applying an XSL stylesheet, which is commonly the method of choice for rendering XML files in a web browser. This is not an option in MusicXML because the notation is too complicated and requires too many symbols, whilst XSL stylesheets are usually used for images and text representations. Sheet music is somewhere in between the two, and thus this option cannot be selected.
+The usual method of formatting an XML file would be applying an XSL stylesheet, which is usually the method for rendering XML files in a web browser. This is not an option in MusicXML because the notation is too complicated and requires too many symbols, whilst XSL stylesheets are usually used for images and text representations. Sheet music is somewhere in between the two, and thus this option cannot be selected.
 
 The second option would be to create or reuse a converter script from XML to the output format, meaning the output would be generated at the same time as the input. However, this couples the system with MusicXML and would slow down development if it were required to use a different additional input, or decisions were made to change the output format. Furthermore, the Big O representation of this type of script to any output format is $O(n^2)$, which is not a highly optimised algorithm.
 
-The final option is to create a converter script which would parse the MusicXML and create a hierarchy of objects. This avoids coupling directly to MusicXML as new formats of both input and output would only need a converter script to create object hierarchy or from the hierarchy to the output format. The big O representation of this particular method is $O(n)$, a noticeable improvement on the converter script option.
+The final option is to create a converter script which would parse the MusicXML and create a hierarchy of objects. This reduces coupling directly to MusicXML as new formats of both input and output would only need a converter script to create object hierarchy or from the hierarchy to the output format. The big O representation of this particular method is $O(n)$, a noticeable improvement on the converter script option.
 
-However, whilst this avoids coupling, a technical challenge is created using this method in that the object structure needs careful planning to cater for the structure of MusicXML and the structure or method of output, which, with little knowledge of the input or output format, is difficult to achieve.
+However, whilst this reduces coupling, a technical challenge is created using this method in that the object structure needs careful planning to cater for the structure of MusicXML and the structure or method of output, which, with little knowledge of the input or output format, is difficult to achieve.
 
 Parsing to objects has been selected as the method of choice in order to avoid coupling and create an extensible system.
 
 \subsubsection{Rendering System}
 Given the decision made in section 3.3.3, the system must take the object hierarchy and transform it to readable sheet music. The user should be able to pan around the sheet music and zoom in and out of it to view specific details.
 
-This could be achieved using an entirely new system, with the output going directly to the render window using different glyphs and fonts extracted from their relevant classes.
+This could be achieved using a new system, with the output going directly to the render window using different glyphs and fonts extracted from their relevant classes.
 
 However, the functionality of panning and zooming using this system may be difficult to optimise, as both could possibly require running the system each time the user provides input. 
 
@@ -300,7 +293,7 @@ The system will use SAX because there are only a select few tags and collections
 The file will not be verified before being parsed in order to avoid the need for internet connection, and to speed up the loading and parsing process.
 
 \subsubsection{Metadata Model}
-In order for the system to scan a file for data, a model of what data to collect will need to be designed and implemented. In normal circumstances there may be a model already described as standard for the subject area. In the case of music and music research, there are many facets and disciplines which have an interest in collecting data about music \parencite{MIR}. For example, a musicologist may want to study patterns, a sound engineer may want to study instrument timbres and transpositions, or an Artificial Intelligence researcher may want to study the generation of music in a general sense \parencite{creativeMachines}. 
+In order for the system to scan a file for data, a model of what data to collect will need to be designed and implemented. In normal circumstances there may be a model already described as standard for the subject area. In the case of music and music research, there are many facets and disciplines which have an interest in collecting data about music \parencite{MIR}. For example, a musicologist may want to study patterns, a sound engineer may want to study instrument timbres and transpositions, or an artificial intelligence researcher may want to study the generation of music \parencite{creativeMachines}. 
 
 For these reasons, there does not appear to be a standard model, and therefore this project will create a new, general model for music information retrieval.
 There are two options in consideration for the model of data to collect.

@@ -1283,18 +1283,13 @@ class MusicData(object):
         :return: list of files + their instruments
         """
         connection, cursor = self.connect()
-        instrument_names = [entry["name"] for entry in instruments]
+
         instrument_keys = []
-        for name in instrument_names:
+        for name in instruments:
             key = self.getInstrumentId(name, cursor)
             if key is not None:
                 instrument_keys.append((name, key))
-            else:
-                self.addInstruments(
-                    [entry for entry in instruments if entry["name"] == name])
-                key = self.getInstrumentId(name, cursor)
-                instrument_keys.append((name, key))
-        results = self.getPiecesByInstruments(instrument_names)
+        results = self.getPiecesByInstruments(instruments)
         if len(results) == 0:
             alternates = [
                 (item,
