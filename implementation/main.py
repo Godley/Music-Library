@@ -5,7 +5,9 @@ from xml.sax._exceptions import *
 import os, sip
 from PyQt4 import QtXml
 from implementation.primaries.GUI.helpers import get_base_dir
-from implementation.primaries.GUI import StartupWidget, qt_threading, thread_classes, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
+from implementation.primaries.scripts.setup_script import setup_lilypond
+from implementation.primaries.exceptions import LilypondNotInstalledException
+from implementation.primaries.GUI import StartupWidget, qt_threading, thread_classes, MainWindow, SetupWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 
 
@@ -23,11 +25,26 @@ class Application(QtCore.QObject):
         self.main = None
         self.folder = ""
         self.theme = "light"
+        self.script = os.path.join(get_base_dir(), "scripts", "lilypond")
+        if not os.path.exists(self.script):
+            self.setUp()
         if len(self.previous_collections) == 0:
             self.startUp()
         else:
             self.folder = self.previous_collections[-1]
             self.setupMainWindow()
+
+    def setUp(self):
+        """
+        method to set up the bash or bat script for running lilypond, and confirm with the user where this is located
+        :return: None, alters some files
+        """
+        try:
+            setup_lilypond()
+        except LilypondNotInstalledException as e:
+            self.window = SetupWindow.SetupWindow(self)
+            self.window.show()
+
 
     def startUp(self):
         self.folder = ""

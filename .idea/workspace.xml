@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/lilypond_mac.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/lilypond_windows.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/reports/final/.texpadtmp/Final Report.synctex.gz" afterPath="$PROJECT_DIR$/documentation/reports/final/.texpadtmp/Final Report.synctex.gz" />
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="setup popup window&#10;- work on issue #281&#10;- made a new messagebox class which could be used for generic needs&#10;- added a setup window class which handles refresh or browse depending on whether user has a custom install or a basic install of lilypond. This will only show up if the default install is not found, in which case the program will automatically create the new lilypond script in implementation/primaries/scripts">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/designer_files/MessageBox.ui" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/designer_files/SetupWindow.ui" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MessageBox.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/SetupWindow.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/designer_files/MainWindow.ui" afterPath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/designer_files/MainWindow.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/library.zip" afterPath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/library.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/music.db" afterPath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/music.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/reports/final/.texpadtmp/Final Report.blg" afterPath="$PROJECT_DIR$/documentation/reports/final/.texpadtmp/Final Report.blg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/reports/final/.texpadtmp/Final Report.toc" afterPath="$PROJECT_DIR$/documentation/reports/final/.texpadtmp/Final Report.toc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/reports/final/background.tex" afterPath="$PROJECT_DIR$/documentation/reports/final/background.tex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/Application.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/Application.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/DataLayer.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/FYP.iml" afterPath="$PROJECT_DIR$/.idea/FYP.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/MainWindow.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/MainWindow.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/MetaParser.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/MetaParser.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/MusicManager.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/Drawing/classes/MxmlParser.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/Drawing/classes/MxmlParser.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/PlaylistDialog.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/PlaylistDialog.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/themes/dark.qss" afterPath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/themes/dark.qss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/themes/light.qss" afterPath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/themes/light.qss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/scripts/lilypond_windows.bat" afterPath="$PROJECT_DIR$/implementation/primaries/scripts/lilypond_windows.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/main.py" afterPath="$PROJECT_DIR$/build/lib/implementation/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/main.py" afterPath="$PROJECT_DIR$/implementation/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py" afterPath="$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/thread_classes.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/thread_classes.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -130,6 +144,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFolderParser.coverage" NAME="Unittests in testFolderParser Coverage Results" MODIFIED="1419820128744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleMeasures.coverage" NAME="Unittests in testHandleMeasures Coverage Results" MODIFIED="1425838319810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testGraceNotes.coverage" NAME="Unittests in testGraceNotes Coverage Results" MODIFIED="1424820087867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$setup_script.coverage" NAME="setup_script Coverage Results" MODIFIED="1431359988554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/scripts" />
     <SUITE FILE_PATH="coverage/FYP$Unittest_NoteTests_testNoteOctave.coverage" NAME="Unittest NoteTests.testNoteOctave Coverage Results" MODIFIED="1419357422473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeter.coverage" NAME="Unittests in testMeter Coverage Results" MODIFIED="1425741004270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBeams.coverage" NAME="Unittests in testBeams Coverage Results" MODIFIED="1424638607443" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
@@ -141,7 +156,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testActorPreludeSample.coverage" NAME="Unittests in testActorPreludeSample Coverage Results" MODIFIED="1423257573110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$MainWindow__1_.coverage" NAME="MainWindow (1) Coverage Results" MODIFIED="1426355050770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPieceTree.coverage" NAME="Unittests in testPieceTree Coverage Results" MODIFIED="1425837311010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
-    <SUITE FILE_PATH="coverage/FYP$main.coverage" NAME="main Coverage Results" MODIFIED="1431099643676" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation" />
+    <SUITE FILE_PATH="coverage/FYP$main.coverage" NAME="main Coverage Results" MODIFIED="1431366966154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="$PROJECT_DIR$" />
@@ -161,72 +176,68 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="setup_script.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8910891" vertical-offset="240" max-vertical-offset="765">
+              <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3992" max-vertical-offset="4800">
-              <caret line="283" column="0" selection-start-line="283" selection-start-column="0" selection-end-line="283" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lilypond_windows.bat" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/lilypond_windows.bat">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.04524887" vertical-offset="0" max-vertical-offset="663">
-              <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="6527" max-vertical-offset="7155">
-              <caret line="704" column="0" selection-start-line="704" selection-start-column="0" selection-end-line="704" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="311" max-vertical-offset="4725">
+              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding>
-                <element signature="e#6640#7401#0" expanded="false" />
-                <element signature="e#7447#8033#0" expanded="false" />
-                <element signature="e#8081#8423#0" expanded="false" />
-                <element signature="e#8465#9270#0" expanded="false" />
-                <element signature="e#13694#18148#0" expanded="false" />
-                <element signature="e#21092#21484#0" expanded="false" />
-                <element signature="e#21528#22048#0" expanded="false" />
-                <element signature="e#22097#24610#0" expanded="false" />
-                <element signature="e#24642#24751#0" expanded="false" />
-                <element signature="e#24784#24894#0" expanded="false" />
-                <element signature="e#27366#28820#0" expanded="false" />
+                <element signature="e#0#31#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="light.qss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/themes/light.qss">
+      <file leaf-file-name="SetupWindow.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/SetupWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1290" max-vertical-offset="2820">
-              <caret line="102" column="13" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="660">
+              <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StartupWidget.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
+              <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MusicManager.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
+      <file leaf-file-name="exceptions.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/exceptions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5327" max-vertical-offset="8040">
-              <caret line="464" column="0" selection-start-line="464" selection-start-column="0" selection-end-line="464" selection-end-column="0" />
-              <folding>
-                <element signature="e#476#1817#0" expanded="false" />
-                <element signature="e#5037#5648#0" expanded="false" />
-                <element signature="e#8497#8798#0" expanded="false" />
-                <element signature="e#9540#9857#0" expanded="false" />
-                <element signature="e#9908#9944#0" expanded="false" />
-                <element signature="e#10801#11824#0" expanded="false" />
-                <element signature="e#12543#12720#0" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="120">
+              <caret line="1" column="32" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lilypond_windows.bat" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/lilypond_windows.bat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -243,13 +254,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/licenses/cc-by-nc-sa" />
-        <option value="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/testCalculator.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/calculator.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/OnlineMetaParser.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Key.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/LilypondRender.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Clef.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/BaseClass.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Directions.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/PartNode.py" />
@@ -266,7 +270,6 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/MeasureNode.py" />
         <option value="$PROJECT_DIR$/package/manifest.in" />
         <option value="$PROJECT_DIR$/manifest.in" />
-        <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/MScoreApi.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/helpers.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/helpers.py" />
@@ -275,14 +278,12 @@
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/ImportDialog.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/licensePopup.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/ApiManager.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/thread_classes.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManagerApiIntegration.py" />
-        <option value="$PROJECT_DIR$/implementation/main.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/themes/dark_2.qss" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/themes/dark.qss" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/themes/teal.qss" />
@@ -294,6 +295,16 @@
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/lilypond_mac.sh" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/lilypond_windows.bat" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/LilypondRender.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/exceptions.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/scripts/lilypond_mac.sh" />
+        <option value="$PROJECT_DIR$/implementation/primaries/scripts/lilypond_windows.bat" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/MessageBox.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/SetupWindow.py" />
+        <option value="$PROJECT_DIR$/implementation/main.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py" />
       </list>
     </option>
   </component>
@@ -301,9 +312,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="840" />
-    <option name="height" value="809" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -328,7 +338,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -405,7 +414,55 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Drawing" />
+              <option name="myItemId" value="ImportOnlineDBs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="designer_files" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -425,13 +482,14 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/implementation/primaries" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="FullScreen" value="false" />
+    <property name="FullScreen" value="true" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="options.splitter.main.proportions" value="0.3" />
@@ -470,36 +528,14 @@
       <recent name="$PROJECT_DIR$/implementation" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/implementation/primaries" />
+      <recent name="$PROJECT_DIR$/implementation/primaries/GUI" />
+      <recent name="$PROJECT_DIR$/implementation/primaries/Drawing/classes/scripts" />
       <recent name="$PROJECT_DIR$/documentation/reports/final" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/implementation/primaries/GUI/designer_files" />
-      <recent name="$PROJECT_DIR$/implementation/primaries/GUI/pyqt_plugins" />
-      <recent name="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/test_files/unzip_tests" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration default="false" name="Application" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/GUI" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="FYP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <RunnerSettings RunnerId="PyDebugRunner" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
     <configuration default="false" name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -596,6 +632,28 @@
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
       <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="setup_script" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FYP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -1117,19 +1175,19 @@
       <item index="10" class="java.lang.String" itemvalue="Python tests.all ExtractMetadata tests" />
       <item index="11" class="java.lang.String" itemvalue="Python tests.unit tests in testDataOnlineSearching" />
       <item index="12" class="java.lang.String" itemvalue="Python tests.create dmg" />
-      <item index="13" class="java.lang.String" itemvalue="Python.Application" />
-      <item index="14" class="java.lang.String" itemvalue="Python.main" />
-      <item index="15" class="java.lang.String" itemvalue="Python tests.Unittests in testCalculator" />
-      <item index="16" class="java.lang.String" itemvalue="Python tests.Unittests in testArticulation" />
-      <item index="17" class="java.lang.String" itemvalue="Python tests.Unittests in testBarlines" />
+      <item index="13" class="java.lang.String" itemvalue="Python.main" />
+      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in testCalculator" />
+      <item index="15" class="java.lang.String" itemvalue="Python tests.Unittests in testArticulation" />
+      <item index="16" class="java.lang.String" itemvalue="Python tests.Unittests in testBarlines" />
+      <item index="17" class="java.lang.String" itemvalue="Python.setup_script" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.main" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittests in testBarlines" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testArticulation" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in testCalculator" />
-        <item index="4" class="java.lang.String" itemvalue="Python.Application" />
+        <item index="1" class="java.lang.String" itemvalue="Python.setup_script" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in testBarlines" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in testArticulation" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in testCalculator" />
       </list>
     </recent_temporary>
   </component>
@@ -1145,24 +1203,6 @@
       <created>1418346903128</created>
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
-    </task>
-    <task id="LOCAL-00609" summary="edit button, &quot;LIKE&quot; in db queries&#10;&#10;- issue fix #214 : edit playlist title hidden when an auto playlist is clicked&#10;- work toward issue #217: applied LIKE keyword to instrument queries, tho I'll probably change this because the method instrumentID doesn't seem an appropriate place to start using this">
-      <created>1427377365467</created>
-      <option name="number" value="00609" />
-      <option name="project" value="LOCAL" />
-      <updated>1427377365467</updated>
-    </task>
-    <task id="LOCAL-00610" summary="work toward issue #217&#10;&#10;- added 2 more tests to check where searching by part of an instrument name on multiple different instruments&#10;- created new method to handle &quot;LIKE&quot; keyword as well as direct = in instrument name">
-      <created>1427380261784</created>
-      <option name="number" value="00610" />
-      <option name="project" value="LOCAL" />
-      <updated>1427380261784</updated>
-    </task>
-    <task id="LOCAL-00611" summary="work toward issue #217&#10;&#10;- added 2 more tests to check where searching by part of a composer name on multiple different composers&#10;- created new method to handle &quot;LIKE&quot; keyword as well as direct = in composer name">
-      <created>1427381346387</created>
-      <option name="number" value="00611" />
-      <option name="project" value="LOCAL" />
-      <updated>1427381346387</updated>
     </task>
     <task id="LOCAL-00612" summary="work toward issue #217&#10;&#10;- applied to lyricist">
       <created>1427381571274</created>
@@ -1440,7 +1480,25 @@
       <option name="project" value="LOCAL" />
       <updated>1430824643589</updated>
     </task>
-    <option name="localTasksCounter" value="658" />
+    <task id="LOCAL-00658" summary="added some templates&#10;- changes to background.tex are probably minimal final changes I did when I was tired right before handing in fully.&#10;- added a mac bash script template for running lilypond from commandline&#10;- added windows bat script template: work on issue #281">
+      <created>1431347472231</created>
+      <option name="number" value="00658" />
+      <option name="project" value="LOCAL" />
+      <updated>1431347472234</updated>
+    </task>
+    <task id="LOCAL-00659" summary=" work on scripts&#10; &#10;- moved all scripts to the scripts folder inside primaries: setup.py needs updating&#10;- created python script inside this folder which figures out which OS you're using and then renames the relevant file and gives it permissions&#10;- altered main.py so that it gives lilypondrenderer a path to where these scripts lie&#10;">
+      <created>1431358547123</created>
+      <option name="number" value="00659" />
+      <option name="project" value="LOCAL" />
+      <updated>1431358547127</updated>
+    </task>
+    <task id="LOCAL-00660" summary="setup script adjustments&#10;&#10;- adjusted mac setup script so that it creates a whole new file rather than renaming or modifying the old one&#10;- created lilypond not found exception and implemented it">
+      <created>1431359719306</created>
+      <option name="number" value="00660" />
+      <option name="project" value="LOCAL" />
+      <updated>1431359719310</updated>
+    </task>
+    <option name="localTasksCounter" value="661" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1464,31 +1522,31 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="840" height="809" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32406288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.6265664" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32416788" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40520984" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38059703" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32756132" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46401986" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37267524" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44665012" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561505" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46608946" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44877344" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1531,9 +1589,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="work toward issue #239&#10;- changed issue #238: all apis must implement just a search function, and optionally searchForExactMatch. Changed because MuseScore automatically does searchForAnyMatch in it's api so I'm guessing others will too.&#10;- implemented search and searchForExactMatch in museScore API class. Not sure how to get downloadFile working, awaiting response from email." />
-    <MESSAGE value="issue fix #239&#10;- implemented download method and confirmed it works: xml files will have to be unzipped and then parsed at the next stage&#10;- added param to download (type) which allows us to use the same method for downloading PDF files, mp3 files etc. which is useful" />
-    <MESSAGE value="implemented apimanager&#10;- implemented api manager methods and tests&#10;- moved api key for mscore into a separate text file which is not on git: will find a way to handle this properly later&#10;- issue fix #240" />
     <MESSAGE value="implemented ApiManager in musicManager&#10;- work on issue #255&#10;- implemented unzipping on download of all api collected files&#10;- implemented parsing: yet to implement grabbing the ignored tags from the api data&#10;- sub classed MetaParser into OnlineMetaParser, which sets up the source pair and also implements ignoring certain tags - issue fix #243" />
     <MESSAGE value="implemented ApiManager in musicManager&#10;- work on issue #255&#10;- implemented grabbing title/composer/lyricist from api layer rather than in parser&#10;- yet to implement adding the data to the DB, but have implemented extra bool in query methods to make way for this change" />
     <MESSAGE value="implementing online and offline querying&#10;- issue #258&#10;- implemented bool in all methods&#10;- implemented a bunch of tests to confirm online and offline functionality&#10;- reorganised data layer tests into several classes and left a comment at the top of the test file explaining each one" />
@@ -1556,7 +1611,10 @@
     <MESSAGE value="threaded querying and rendering&#10;- using qthread on renderer&#10;- still using regular threads on querying so that it's completely realtime: I still don't think this is the right way to achieve this so before open sourcing should look at this bit again. Creating a temporary table and using a model view might be an idea.&#10;- issue #270" />
     <MESSAGE value="issue fix #268&#10;not entirely sure on the problem but deleting the db and starting over fixed it for some reason" />
     <MESSAGE value="added 2 more themes&#10;- included them in the user guide&#10;- retypesetted the fyp&#10;- added conclusion which is now up for review with helen" />
-    <option name="LAST_COMMIT_MESSAGE" value="added 2 more themes&#10;- included them in the user guide&#10;- retypesetted the fyp&#10;- added conclusion which is now up for review with helen" />
+    <MESSAGE value="added some templates&#10;- changes to background.tex are probably minimal final changes I did when I was tired right before handing in fully.&#10;- added a mac bash script template for running lilypond from commandline&#10;- added windows bat script template: work on issue #281" />
+    <MESSAGE value=" work on scripts&#10; &#10;- moved all scripts to the scripts folder inside primaries: setup.py needs updating&#10;- created python script inside this folder which figures out which OS you're using and then renames the relevant file and gives it permissions&#10;- altered main.py so that it gives lilypondrenderer a path to where these scripts lie&#10;" />
+    <MESSAGE value="setup script adjustments&#10;&#10;- adjusted mac setup script so that it creates a whole new file rather than renaming or modifying the old one&#10;- created lilypond not found exception and implemented it" />
+    <option name="LAST_COMMIT_MESSAGE" value="setup script adjustments&#10;&#10;- adjusted mac setup script so that it creates a whole new file rather than renaming or modifying the old one&#10;- created lilypond not found exception and implemented it" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1673,12 +1731,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py</url>
-          <line>362</line>
-          <option name="timeStamp" value="984" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py</url>
-          <line>188</line>
+          <line>222</line>
           <option name="timeStamp" value="1018" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1688,8 +1741,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py</url>
-          <line>463</line>
+          <line>497</line>
           <option name="timeStamp" value="1036" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/implementation/main.py</url>
+          <line>29</line>
+          <option name="timeStamp" value="1051" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -1699,46 +1757,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1037" />
+      <option name="time" value="1052" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Ornaments.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.032967035" vertical-offset="0" max-vertical-offset="1365">
-          <caret line="1" column="53" selection-start-line="1" selection-start-column="53" selection-end-line="1" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Part.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="453">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Piece.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Format.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="453">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/OtherNodes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/NoteNode.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.16483517" vertical-offset="0" max-vertical-offset="3870">
@@ -1822,16 +1845,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6185567" vertical-offset="0" max-vertical-offset="776">
-          <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/ImportDialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6185567" vertical-offset="0" max-vertical-offset="776">
@@ -1853,13 +1866,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0027856" vertical-offset="0" max-vertical-offset="525">
           <caret line="24" column="69" selection-start-line="24" selection-start-column="69" selection-end-line="24" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="735">
-          <caret line="14" column="70" selection-start-line="14" selection-start-column="70" selection-end-line="14" selection-end-column="70" />
         </state>
       </provider>
     </entry>
@@ -1912,13 +1918,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/qt_threading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="456" max-vertical-offset="870">
-          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/lib/python3.4/posixpath.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="912" max-vertical-offset="6885">
@@ -1961,13 +1960,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="42" max-vertical-offset="1335">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -2038,6 +2030,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1290" max-vertical-offset="2820">
           <caret line="102" column="13" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22322775" vertical-offset="19202" max-vertical-offset="24150">
+          <caret line="1290" column="51" selection-start-line="1290" selection-start-column="51" selection-end-line="1290" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.52238804" vertical-offset="0" max-vertical-offset="615">
+          <caret line="16" column="42" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -2062,192 +2068,141 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydev_monkey_qt.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5327" max-vertical-offset="8040">
-          <caret line="464" column="0" selection-start-line="464" selection-start-column="0" selection-end-line="464" selection-end-column="0" />
-          <folding>
-            <element signature="e#476#1817#0" expanded="false" />
-            <element signature="e#5037#5648#0" expanded="false" />
-            <element signature="e#8497#8798#0" expanded="false" />
-            <element signature="e#9540#9857#0" expanded="false" />
-            <element signature="e#9908#9944#0" expanded="false" />
-            <element signature="e#10801#11824#0" expanded="false" />
-            <element signature="e#12543#12720#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="1991" max-vertical-offset="2475">
+          <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/lilypond_mac.sh">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/qt_threading.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.04524887" vertical-offset="0" max-vertical-offset="663">
-          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="356" max-vertical-offset="840">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/LilypondRender.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="675">
+        <state vertical-scroll-proportion="0.74626863" vertical-offset="0" max-vertical-offset="675">
+          <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.48507464" vertical-offset="315" max-vertical-offset="2085">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#9#0" expanded="false" />
+            <element signature="e#458#1799#0" expanded="false" />
+            <element signature="e#1836#4567#0" expanded="false" />
+            <element signature="e#3020#3429#0" expanded="false" />
+            <element signature="e#3468#3911#0" expanded="false" />
+            <element signature="e#3954#4567#0" expanded="false" />
+            <element signature="e#6593#7204#0" expanded="false" />
+            <element signature="e#7243#9823#0" expanded="false" />
+            <element signature="e#9866#9979#0" expanded="false" />
+            <element signature="e#10053#10354#0" expanded="false" />
+            <element signature="e#10402#11054#0" expanded="false" />
+            <element signature="e#11096#11413#0" expanded="false" />
+            <element signature="e#11464#11500#0" expanded="false" />
+            <element signature="e#11734#11878#0" expanded="false" />
+            <element signature="e#11914#12091#0" expanded="false" />
+            <element signature="e#12124#12270#0" expanded="false" />
+            <element signature="e#12357#13380#0" expanded="false" />
+            <element signature="e#13426#14030#0" expanded="false" />
+            <element signature="e#14099#14276#0" expanded="false" />
+            <element signature="e#14326#14527#0" expanded="false" />
+            <element signature="e#14588#14938#0" expanded="false" />
+            <element signature="e#14986#15056#0" expanded="false" />
+            <element signature="e#15106#15391#0" expanded="false" />
+            <element signature="e#15431#15774#0" expanded="false" />
+            <element signature="e#15837#22708#0" expanded="false" />
+            <element signature="e#22763#22827#0" expanded="false" />
+            <element signature="e#22874#22940#0" expanded="false" />
+            <element signature="e#23007#23143#0" expanded="false" />
+            <element signature="e#23200#23272#0" expanded="false" />
+            <element signature="e#23331#25305#0" expanded="false" />
+            <element signature="e#25351#25706#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/exceptions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+          <caret line="1" column="32" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/lilypond_mac.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+          <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/lilypond_windows.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MessageBox.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22322775" vertical-offset="19202" max-vertical-offset="24150">
-          <caret line="1290" column="51" selection-start-line="1290" selection-start-column="51" selection-end-line="1290" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.44554454" vertical-offset="0" max-vertical-offset="404">
+          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/SetupWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
           <folding>
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..IF..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..IF..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..IF..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT secre..secrets..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..tempos..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..tempo_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..timesigs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..time_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..keys..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..KEYS..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..key_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..playlists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..playlist_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..clefs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..clefs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..clef_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..instruments..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..instruments_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..composers..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="CREATE TABLE..lyricists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..lyricists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..keys..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..clefs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT licen..licenses..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..lyricists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..lyricists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..keys..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..clefs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..instruments_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..key_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..key_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT key_p..keys..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT k.nam..keys..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT NULL ..key_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT clef...clefs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT NULL ..clef_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT time_..timesigs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT null ..time_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT tempo..tempos..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..tempo_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT instr..instruments..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..instruments_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT comp...composers..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT lyric..lyricists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..clef_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..clef_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT key_p..key_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT clef_..clef_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..time_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..time_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT i.pie..tempo_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..tempo_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT instr..instruments_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..instruments..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT i2.RO..instruments..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT clef_..clef_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT clefs..clefs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT key_i..key_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT keys...keys..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT time_..time_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..timesigs..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT tempo..tempo_piece_join..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..tempos..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT name ..composers..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT name ..lyricists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..playlists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT piece..playlists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..playlists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="UPDATE playl..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT playl..playlists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT piece..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..playlists..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="UPDATE piece..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="UPDATE piece..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT sourc..sources..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1431027066000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
+          <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3992" max-vertical-offset="4800">
-          <caret line="283" column="0" selection-start-line="283" selection-start-column="0" selection-end-line="283" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="311" max-vertical-offset="4725">
+          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/lilypond_windows.bat">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.04524887" vertical-offset="0" max-vertical-offset="663">
-          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
-          <folding />
+        <state vertical-scroll-proportion="0.8910891" vertical-offset="240" max-vertical-offset="765">
+          <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

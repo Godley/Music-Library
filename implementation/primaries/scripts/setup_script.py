@@ -1,16 +1,22 @@
 import sys, os
 from implementation.primaries.exceptions import LilypondNotInstalledException
+from implementation.primaries.GUI.helpers import get_base_dir
 
 
+def setup_lilypond(path=None):
+    defaults = ["/Applications/Lilypond.app/Contents/Resources/bin/lilypond", "C:/Program Files/LilyPond/usr/bin"]
 
-def setup_lilypond(path="/Applications/Lilypond.app/Contents/Resources/bin/lilypond"):
     if sys.platform == "darwin":
-        if os.path.exists('/Applications/Lilypond.app/Contents/Resources/bin/lilypond'):
-            fob = open("lilypond_mac.sh", 'r')
+        if path is None:
+            mac_path = defaults[0]
+        else:
+            mac_path = path
+        if os.path.exists(mac_path):
+            fob = open(os.path.join(get_base_dir(), "scripts", "lilypond_mac.sh"), 'r')
             lines = fob.readlines()
-            new_lines = [lines[0], "LILYPOND="+path+"\n", lines[1]]
+            new_lines = [lines[0], "LILYPOND="+mac_path+"\n", lines[1]]
             fob.close()
-            fob = open("lilypond", 'w')
+            fob = open(os.path.join(get_base_dir(), "scripts", "lilypond"), 'w')
             fob.writelines(new_lines)
             fob.close()
             os.system("chmod u+x lilypond")
@@ -20,9 +26,19 @@ def setup_lilypond(path="/Applications/Lilypond.app/Contents/Resources/bin/lilyp
             raise LilypondNotInstalledException('ERROR! Mac edition of Lilypond not in expected folder')
 
     elif sys.platform == "win32" or sys.platform == "win64":
-        if os.path.exists("C:/Program Files/LilyPond/usr/bin"):
-            os.system("icacls lilypond_windows.bat /grant Everyone:F")
-            os.rename("lilypond_windows.bat", "lilypond")
+        if path is None:
+            win_path = defaults[1]
+        else:
+            win_path = path
+        if os.path.exists(win_path):
+            fob = open("lilypond_windows.bat", "r")
+            lines = fob.readlines()
+            new_lines = ["SET FOLD="+win_path, lines[0], lines[1]]
+            fob.close()
+            fob = open("lilypond", "w")
+            fob.writelines(new_lines)
+            fob.close()
+            os.system("icacls lilypond /grant Everyone:F")
         else:
             raise LilypondNotInstalledException('ERROR! Windows edition of Lilypond not in expected folder')
 
