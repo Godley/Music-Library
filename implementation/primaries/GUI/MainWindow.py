@@ -10,12 +10,9 @@ class MainWindow(QtGui.QMainWindow):
     def __init__(self, parent, theme):
         QtGui.QMainWindow.__init__(self)
         self.theme = theme
-        self.parent = parent.parent
-        self.app = parent
+        self.qApp = parent
 
-
-
-    def setupUI(self):
+    def setup(self):
         path_to_designer = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "MainWindow.ui")
         uic.loadUi(path_to_designer, self)
         # self.applyTheme()
@@ -118,7 +115,7 @@ class MainWindow(QtGui.QMainWindow):
         self.refreshPlaylists()
 
     def runLoadingProcedure(self):
-        self.app.loadPieces()
+        self.qApp.loadPieces()
         self.scoreListWidget.show()
         self.loadPlaylists()
         self.loadMyPlaylists()
@@ -145,11 +142,11 @@ class MainWindow(QtGui.QMainWindow):
         self.myPlaylistsWidget.show()
 
     def loadPlaylists(self, select_method="all"):
-        self.app.getPlaylists(select_method=select_method)
+        self.qApp.getPlaylists(select_method=select_method)
 
 
     def loadMyPlaylists(self):
-        self.app.getCreatedPlaylists()
+        self.qApp.getCreatedPlaylists()
 
     def importPopup(self):
         dialog = ImportDialog.ImportDialog(self, self.theme)
@@ -690,11 +687,11 @@ class MainWindow(QtGui.QMainWindow):
 
     def onSortMethodChange(self):
         sort_method = self.scoreSortCombo.currentText()
-        self.app.loadPieces(method=sort_method)
+        self.qApp.loadPieces(method=sort_method)
         self.scoreListWidget.show()
 
     def refreshScores(self):
-        self.app.updateDb()
+        self.qApp.updateDb()
         self.onSortMethodChange()
 
     def applyTheme(self):
@@ -706,7 +703,7 @@ class MainWindow(QtGui.QMainWindow):
         self.repaint()
 
     def refreshPlaylists(self):
-        self.app.updateDb()
+        self.qApp.updateDb()
         self.loadPlaylists()
 
     def addPlaylist(self):
@@ -756,7 +753,7 @@ class MainWindow(QtGui.QMainWindow):
     def updateOptions(self):
         text = self.searchInput.text()
         self.autoCompleteBox.clear()
-        self.app.query(text)
+        self.qApp.query(text)
         self.autoCompleteBox.show()
         self.autoCompleteFrame.show()
 

@@ -19,7 +19,7 @@ options = {
 }
 
 executables = [
-    Executable("implementation/primaries/app.py", base=base)
+    Executable("implementation/main.py", base=base)
 ]
 
 setup(name='MuseLib',

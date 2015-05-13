@@ -9,17 +9,14 @@ import os
 
 
 
-class SetupWindow(QtGui.QMainWindow):
+class SetupWindow(QtGui.QDialog):
 
     def __init__(self, parent):
         self.parent = parent
-        QtGui.QMainWindow.__init__(self)
+        QtGui.QDialog.__init__(self)
         designer_file = os.path.join(get_base_dir(return_this_dir=True), 'designer_files', 'SetupWindow.ui')
         uic.loadUi(designer_file, self)
-        self.folderBtn.clicked.connect(self.openFolderDialog)
-        self.collectionListWidget.itemDoubleClicked.connect(
-            self.onItemDoubleClicked)
-        self.removeCollBtn.clicked.connect(self.deleteCollection)
+
 
     def refresh(self):
         try:

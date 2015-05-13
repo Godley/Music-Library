@@ -12,6 +12,7 @@ from implementation.primaries.ExtractMetadata.classes import MusicManager, Searc
 
 
 class Application(QtCore.QObject):
+    windows = {}
     def __init__(self, parent):
         QtCore.QObject.__init__(self)
         self.parent = parent
@@ -20,25 +21,33 @@ class Application(QtCore.QObject):
         self.getPreviousCollections()
         self.SaveCollections()
         self.manager = None
-        self.main = None
         self.folder = ""
         self.theme = "light"
         self.script = os.path.join(get_base_dir(), "scripts", "lilypond")
-        self.manager = MusicManager.MusicManager(self, folder=self.folder)
+
         self.setup_windows()
 
-    def setup_windows(self):
-        self.startUp()
-        self.setupMainWindow()
-        if len(self.previous_collections) > 0:
-            self.main.show()
-        self.setUp()
+    def start(self):
+        self.windows["startup"].show()
+        self.windows["startup"].load()
+        try:
+            setup_lilypond()
+        except LilypondNotInstalledException as e:
+            self.windows["setup"].show()
+            self.windows["setup"].load()
 
-    def startUp(self):
-        self.folder = ""
-        self.startup = StartupWidget.Startup(self)
-        self.startup.show()
-        self.startup.setupWindow()
+
+    def setup_windows(self):
+        startup = StartupWidget.StartupWindow(self)
+        self.windows["startup"] = startup
+
+        main = MainWindow.MainWindow(self, self.theme)
+        self.windows["main"] = main
+        self.windows["main"].show()
+
+        setup = SetupWindow.SetupWindow(self)
+        self.windows["setup"] = setup
+
 
     def setUp(self):
         try:
@@ -78,14 +87,12 @@ class Application(QtCore.QObject):
         if self.folder != "":
             self.addFolderToCollectionList(foldername)
             self.SaveCollections()
-            self.startup.close()
-            print("closed")
-            self.setupMainWindow()
+            self.manager = MusicManager.MusicManager(self, folder=self.folder)
+            self.windows["main"].setup()
+            self.windows["startup"].hide()
+            self.windows["main"].runLoadingProcedure()
 
-    def setupMainWindow(self):
-        self.main = MainWindow.MainWindow(self, self.theme)
-        #self.main.setupUI()
-        #self.main.runLoadingProcedure()
+
 
     def getPlaylistFileInfo(self, playlist):
         return self.manager.getPlaylistFileInfo(playlist)
@@ -242,7 +249,7 @@ class Application(QtCore.QObject):
         self.manager.addPlaylist(data)
 
     def onPiecesLoad(self, summary_strings):
-        self.main.onScorebookLoad(summary_strings)
+        self.windows["main"].onScorebookLoad(summary_strings)
 
     def loadPieces(self, method="title"):
         data_queue = queue.Queue()
@@ -254,10 +261,10 @@ class Application(QtCore.QObject):
         task.execute()
 
     def onPlaylistsLoad(self, data):
-        self.main.onPlaylistReady(data)
+        self.windows["main"].onPlaylistReady(data)
 
     def onUserPlaylistsLoad(self, data):
-        self.main.onMyPlaylistsReady(data)
+        self.windows["main"].onMyPlaylistsReady(data)
 
     def getPlaylists(self, select_method="all"):
         data_queue = queue.Queue()
@@ -288,4 +295,11 @@ class Application(QtCore.QObject):
 
     def loadPlaylists(self):
         pass
+
+if __name__ == "__main__":
+    app = QtGui.QApplication(sys.argv)
+
+    application = Application(app)
+    application.start()
+    sys.exit(app.exec_())
 
