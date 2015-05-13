@@ -4,10 +4,9 @@ import os
 from implementation.primaries.GUI.helpers import get_base_dir
 
 class PlaylistDialog(QtGui.QDialog):
-
-    def __init__(self, parent, theme):
+    def __init__(self, app, theme):
         QtGui.QDialog.__init__(self)
-        self.parent = parent
+        self.qApp = app
         self.theme = theme
 
     def load(self):
@@ -44,12 +43,12 @@ class PlaylistDialog(QtGui.QDialog):
             item = self.listWidget.item(i)
             fname = item.data(2)
             data["pieces"].append(fname)
-        self.parent.addPlaylist(data)
+        self.qApp.addPlaylist(data)
 
 
     def updateOptions(self):
         text = self.piecesLineEdit.text()
-        results = self.parent.queryNotThreaded(text)
+        results = self.qApp.queryNotThreaded(text)
         self.autoCompleteBox.clear()
         for key in results:
             item = QtGui.QTreeWidgetItem(key)

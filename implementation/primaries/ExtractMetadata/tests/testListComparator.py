@@ -19,6 +19,15 @@ class TestListComparator(unittest.TestCase):
                 "xml": [
                     "file1.xml", "file3.xml"], "mxl": ["file5.mxl"]})
 
+    def testComparatorWithMultipleFolders(self):
+        self.folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/' \
+                      'ExtractMetadata/tests/test_files/folder_tests_2'
+        self.folderBrowser = MusicManager.FolderBrowser(
+            db_files=[],
+            folder=self.folder)
+        self.assertEqual(self.folderBrowser.getFolderFiles(), {"xml": ["test.xml", "folder_2/test2.xml"]})
+
+
     def testGetZipList(self):
         self.assertEqual(self.folderBrowser.getZipFiles(), ["file5.mxl"])
 

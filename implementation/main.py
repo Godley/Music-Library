@@ -28,13 +28,41 @@ class Application(QtCore.QObject):
         self.setup_windows()
 
     def start(self):
+        self.loadAndHideWindows()
+
         self.windows["startup"].show()
-        self.windows["startup"].load()
+        self.windows["startup"].load(self.previous_collections)
+        if len(self.previous_collections) > 0:
+            self.folder = self.previous_collections[-1]
+            self.setupMain()
         try:
             setup_lilypond()
         except LilypondNotInstalledException as e:
             self.windows["setup"].show()
             self.windows["setup"].load()
+
+    def loadAndHideWindows(self):
+        self.windows["playlist"].load()
+        self.windows["playlist"].show()
+        self.windows["playlist"].hide()
+        #self.windows["import"].load()
+        self.windows["import"].show()
+        self.windows["import"].hide()
+        self.windows["error"].load([])
+        self.windows["error"].show()
+        self.windows["error"].hide()
+        self.windows["license"].load("", None)
+        self.windows["license"].show()
+        self.windows["license"].hide()
+
+
+    def show_start(self):
+        self.windows["startup"].show()
+        self.windows["startup"].load(self.previous_collections)
+
+    def show_playlist(self):
+        self.windows["playlist"].show()
+
 
 
     def setup_windows(self):
@@ -47,6 +75,11 @@ class Application(QtCore.QObject):
 
         setup = SetupWindow.SetupWindow(self)
         self.windows["setup"] = setup
+
+        self.windows["playlist"] = PlaylistDialog.PlaylistDialog(self, self.theme)
+        self.windows["import"] = ImportDialog.ImportDialog(self, self.theme)
+        self.windows["error"] = renderingErrorPopup.RenderingErrorPopup(self, self.theme)
+        self.windows["license"] = licensePopup.LicensePopup(self, self.theme)
 
 
     def setUp(self):
@@ -87,10 +120,15 @@ class Application(QtCore.QObject):
         if self.folder != "":
             self.addFolderToCollectionList(foldername)
             self.SaveCollections()
-            self.manager = MusicManager.MusicManager(self, folder=self.folder)
-            self.windows["main"].setup()
-            self.windows["startup"].hide()
-            self.windows["main"].runLoadingProcedure()
+            self.setupMain()
+
+    def setupMain(self):
+        self.manager = MusicManager.MusicManager(self, folder=self.folder)
+        self.manager.refresh()
+        self.windows["main"].setup()
+        self.windows["startup"].hide()
+        self.windows["main"].show()
+        self.windows["main"].runLoadingProcedure()
 
 
 
@@ -107,7 +145,7 @@ class Application(QtCore.QObject):
 
     def onFileDownload(self, filename):
         fqd_fname = os.path.join(self.folder, filename)
-        self.main.onPieceLoaded(fqd_fname, filename)
+        self.windows["main"].onPieceLoaded(fqd_fname, filename)
 
     def onFileError(self, error):
         self.errorPopup(["Problem with internet connection on file download"])
@@ -140,7 +178,7 @@ class Application(QtCore.QObject):
         if len(errorList) > 0:
             self.errorPopup(errorList)
         if os.path.exists(pdf):
-            self.main.onPieceLoaded(pdf, filename)
+            self.windows["main"].onPieceLoaded(pdf, filename)
 
     def loadFile(self, filename):
         """
@@ -158,9 +196,9 @@ class Application(QtCore.QObject):
         else:
             if not os.path.exists(os.path.join(self.folder, filename)):
                 license = self.manager.getLicense(filename)
-                self.licensePopup = licensePopup.LicensePopup(self, license, filename, self.theme)
-                self.licensePopup.setWindowFlags(QtCore.Qt.Dialog)
-                self.licensePopup.exec()
+                self.windows["license"].load(license, filename)
+                self.windows["license"].setWindowFlags(QtCore.Qt.Dialog)
+                self.windows["license"].exec()
             else:
                 render_thread = qt_threading.RenderThread(self, self.manager.startRenderingTask,
                                                             (filename,), pdf_version)
@@ -174,16 +212,12 @@ class Application(QtCore.QObject):
     def copyFiles(self, fnames):
         self.manager.copyFiles(fnames)
         self.updateDb()
-        self.main.onSortMethodChange()
-        self.main.loadPlaylists()
+        self.windows["main"].onSortMethodChange()
+        self.windows["main"].loadPlaylists()
 
     def errorPopup(self, errors):
-        popup = renderingErrorPopup.RenderingErrorPopup(
-            self,
-            errors,
-            self.theme)
-        popup.setWindowFlags(QtCore.Qt.Dialog)
-        popup.exec()
+        self.windows["error"].show()
+        self.windows["error"].load(errors)
 
     def onQueryComplete(self, data, online=False):
         """
@@ -200,7 +234,7 @@ class Application(QtCore.QObject):
             query_results["Online"] = data
         else:
             query_results["Offline"] = data
-        self.main.onQueryReturned(query_results)
+        self.windows["main"].onQueryReturned(query_results)
         lock.release()
 
     def queryNotThreaded(self, input):
@@ -242,7 +276,7 @@ class Application(QtCore.QObject):
         self.manager.refresh()
 
     def makeNewCollection(self):
-        self.main.close()
+        self.windows["main"].close()
         self.startUp()
 
     def addPlaylist(self, data):

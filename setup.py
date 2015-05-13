@@ -15,11 +15,14 @@ options = {
     'build_exe': {
         'includes': 'atexit',
         "include_files":zips
+    },
+    'bdist_mac': {
+        'bundle_name': 'MuseLib'
     }
 }
 
 executables = [
-    Executable("implementation/main.py", base=base)
+    Executable("implementation/main.py", base=base, compress=False)
 ]
 
 setup(name='MuseLib',
@@ -27,6 +30,7 @@ setup(name='MuseLib',
       description='Sample cx_Freeze PyQt4 script',
       options=options,
       executables=executables,
+
       packages=['implementation', 'implementation.primaries', 'implementation.primaries.GUI', 'implementation.primaries.scripts',
               'implementation.primaries.GUI.pyqt_plugins', 'implementation.primaries.Drawing', 'implementation.primaries.Drawing.classes',
               'implementation.primaries.Drawing.classes.tree_cls', 'implementation.primaries.ExtractMetadata',

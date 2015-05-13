@@ -69,15 +69,17 @@ class FolderBrowser(object):
         """
         folder_files = {}
         for root, dirs, files in os.walk(self.folder):
+            index = len(self.folder)
+            substr = root[index+1:]
             for file in files:
                 if file.endswith(".xml"):
                     if "xml" not in folder_files:
                         folder_files["xml"] = []
-                    folder_files["xml"].append(file)
+                    folder_files["xml"].append(os.path.join(substr,file))
                 if file.endswith(".mxl"):
                     if "mxl" not in folder_files:
                         folder_files["mxl"] = []
-                    folder_files["mxl"].append(file)
+                    folder_files["mxl"].append(os.path.join(substr,file))
         return folder_files
 
     def getZipFiles(self):

@@ -440,7 +440,7 @@ class MusicData(object):
             query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
         else:
             query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
-        cursor.execute(query, ())
+        cursor.execute(query)
         results = cursor.fetchall()
         self.disconnect(connection)
         filelist = [result[0] for result in results]

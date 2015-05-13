@@ -15,66 +15,72 @@ class MainWindow(QtGui.QMainWindow):
     def setup(self):
         path_to_designer = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "MainWindow.ui")
         uic.loadUi(path_to_designer, self)
-        # self.applyTheme()
-        # options = ["title","composer","lyricist"]
-        # self.scoreSortCombo.addItems(options)
-        #
-        #
-        # autoSort = ["all", "time signatures","clefs","instruments","keys","tempos"]
-        # self.AutoSortCombo.addItems(autoSort)
-        #
-        #
-        # # button handlers
-        # self.actionRefresh_Collection.triggered.connect(self.refresh)
-        # self.AddPlaylistButton.clicked.connect(self.addPlaylist)
-        # self.searchInput.textChanged.connect(self.updateOptions)
-        #
-        # # search handlers
-        # self.searchInput.returnPressed.connect(self.searchDb)
-        # self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
-        # self.searchBtn.clicked.connect(self.searchDb)
-        #
-        # # sorting of myScorebook and of the auto generated playlists box
-        # self.AutoSortCombo.currentIndexChanged.connect(self.onAutoSortMethodChange)
-        # self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
-        #
-        # # callbacks for loading pieces from autocomplete, from the scorebook or from a loaded playlist
-        # self.autoCompleteBox.itemDoubleClicked.connect(self.onAutoCompleteDoubleClicked)
-        # self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
-        # self.playlistTable.itemDoubleClicked.connect(self.onItemInPlaylistDoubleClicked)
-        #
-        # # playlist callbacks - these load the playlist into the main render window, or else show the delete button
-        # # in the case of my playlists
-        # self.autoPlaylistsView.itemDoubleClicked.connect(self.onAutoPlaylistDoubleClicked)
-        # self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
-        # self.myPlaylistsWidget.itemClicked.connect(self.deletePlaylistBtn.show)
-        # self.deletePlaylistBtn.clicked.connect(self.deletePlaylist)
-        # self.playlistList.itemDoubleClicked.connect(self.onItemDoubleClicked)
-        #
-        # # actions to show and hide various widgets
-        # self.actionMy_Scorebook.triggered.connect(self.onScorebookClicked)
-        # self.actionMy_Playlists.triggered.connect(self.onMyPlaylistsClicked)
-        # self.actionAuto_Playlists.triggered.connect(self.onAutoPlaylistsClicked)
-        # self.actionPiece_Information.triggered.connect(self.PieceInfoClicked)
-        # self.actionFeatured_in.triggered.connect(self.FeaturedInClicked)
-        # self.actionPlaylist_Browser.triggered.connect(self.PlaylistBrowserClicked)
-        # self.actionImport.triggered.connect(self.importPopup)
-        # self.actionNew_Collection.triggered.connect(self.close)
-        #
-        # # theme actions
-        # self.actionLight.triggered.connect(self.lightTheme)
-        # self.actionDark.triggered.connect(self.darkTheme)
-        # self.actionElectric_Blue.triggered.connect(self.electricTheme)
-        # self.actionTeal.triggered.connect(self.tealTheme)
-        # self.actionColours.triggered.connect(self.coloursTheme)
-        #
-        #
-        # self.editPlaylistTitle.clicked.connect(self.onPlaylistEditClicked)
-        # self.playlistTitleLineEdit.returnPressed.connect(self.updatePlaylistTitle)
-        #
-        # # functionality for zooming in or out on a loaded piece
-        # self.zoomInBtn.clicked.connect(self.zoomIn)
-        # self.zoomOutBtn.clicked.connect(self.zoomOut)
+        self.applyTheme()
+        options = ["title","composer","lyricist"]
+        self.scoreSortCombo.addItems(options)
+
+
+        autoSort = ["all", "time signatures","clefs","instruments","keys","tempos"]
+        self.AutoSortCombo.addItems(autoSort)
+
+
+        # button handlers
+        self.actionRefresh_Collection.triggered.connect(self.refresh)
+        self.AddPlaylistButton.clicked.connect(self.addPlaylist)
+        self.searchInput.textChanged.connect(self.updateOptions)
+
+        # search handlers
+        self.searchInput.returnPressed.connect(self.searchDb)
+        self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
+        self.searchBtn.clicked.connect(self.searchDb)
+
+        # sorting of myScorebook and of the auto generated playlists box
+        self.AutoSortCombo.currentIndexChanged.connect(self.onAutoSortMethodChange)
+        self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
+
+        # callbacks for loading pieces from autocomplete, from the scorebook or from a loaded playlist
+        self.autoCompleteBox.itemDoubleClicked.connect(self.onAutoCompleteDoubleClicked)
+        self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
+        self.playlistTable.itemDoubleClicked.connect(self.onItemInPlaylistDoubleClicked)
+
+        # playlist callbacks - these load the playlist into the main render window, or else show the delete button
+        # in the case of my playlists
+        self.autoPlaylistsView.itemDoubleClicked.connect(self.onAutoPlaylistDoubleClicked)
+        self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
+        self.myPlaylistsWidget.itemClicked.connect(self.deletePlaylistBtn.show)
+        self.deletePlaylistBtn.clicked.connect(self.deletePlaylist)
+        self.playlistList.itemDoubleClicked.connect(self.onItemDoubleClicked)
+
+        # actions to show and hide various widgets
+        self.actionMy_Scorebook.triggered.connect(self.onScorebookClicked)
+        self.actionMy_Playlists.triggered.connect(self.onMyPlaylistsClicked)
+        self.actionAuto_Playlists.triggered.connect(self.onAutoPlaylistsClicked)
+        self.actionPiece_Information.triggered.connect(self.PieceInfoClicked)
+        self.actionFeatured_in.triggered.connect(self.FeaturedInClicked)
+        self.actionPlaylist_Browser.triggered.connect(self.PlaylistBrowserClicked)
+        self.actionImport.triggered.connect(self.importPopup)
+        self.actionNew_Collection.triggered.connect(self.close)
+
+        # theme actions
+        self.actionLight.triggered.connect(self.lightTheme)
+        self.actionDark.triggered.connect(self.darkTheme)
+        self.actionElectric_Blue.triggered.connect(self.electricTheme)
+        self.actionTeal.triggered.connect(self.tealTheme)
+        self.actionColours.triggered.connect(self.coloursTheme)
+
+
+        self.editPlaylistTitle.clicked.connect(self.onPlaylistEditClicked)
+        self.playlistTitleLineEdit.returnPressed.connect(self.updatePlaylistTitle)
+
+        # functionality for zooming in or out on a loaded piece
+        self.zoomInBtn.clicked.connect(self.zoomIn)
+        self.zoomOutBtn.clicked.connect(self.zoomOut)
+
+        self.showAndHide()
+
+    def closeEvent(self, event):
+        self.qApp.show_start()
+        event.accept()
 
     def showAndHide(self):
         # on startup hide various widgets that aren't needed
@@ -97,17 +103,17 @@ class MainWindow(QtGui.QMainWindow):
 
     def electricTheme(self):
         self.theme = "electricblue"
-        self.app.theme = "electricblue"
+        self.qApp.theme = "electricblue"
         self.applyTheme()
 
     def tealTheme(self):
         self.theme = "teal"
-        self.app.theme = "teal"
+        self.qApp.theme = "teal"
         self.applyTheme()
 
     def coloursTheme(self):
         self.theme = "colours"
-        self.app.theme = "colours"
+        self.qApp.theme = "colours"
         self.applyTheme()
 
     def refresh(self):
@@ -172,13 +178,13 @@ class MainWindow(QtGui.QMainWindow):
 
     def darkTheme(self):
 
-        self.app.theme = "dark"
+        self.qApp.theme = "dark"
         self.theme = "dark"
         self.applyTheme()
 
 
     def lightTheme(self):
-        self.app.theme = "light"
+        self.qApp.theme = "light"
         self.theme = "light"
         self.applyTheme()
 
@@ -274,14 +280,14 @@ class MainWindow(QtGui.QMainWindow):
     def deletePlaylist(self):
         items = self.myPlaylistsWidget.selectedItems()
         names = [item.data(2) for item in items]
-        self.app.removePlaylists(names)
+        self.qApp.removePlaylists(names)
         [self.myPlaylistsWidget.takeItem(self.myPlaylistsWidget.row(thing)) for thing in items]
         self.myPlaylistsWidget.show()
 
     def updatePlaylistTitle(self):
         text = self.playlistTitleLineEdit.text()
         old_value = self.musicTitle.text()
-        self.app.updatePlaylistTitle(text, old_value)
+        self.qApp.updatePlaylistTitle(text, old_value)
         self.musicTitle.setText(text)
         self.musicTitle.repaint()
         self.playlistTitleLineEdit.hide()
@@ -298,7 +304,7 @@ class MainWindow(QtGui.QMainWindow):
     def onItemInPlaylistDoubleClicked(self, current_item):
         playlist = current_item.data(4)
         index_in_playlist = current_item.data(3)
-        data = self.app.getPlaylistFileInfo(playlist)
+        data = self.qApp.getPlaylistFileInfo(playlist)
         if self.playlistList.rowCount() != 0:
             self.playlistList.clear()
             self.playlistList.setHorizontalHeaderItem(0, QtGui.QTableWidgetItem("Title"))
@@ -480,7 +486,7 @@ class MainWindow(QtGui.QMainWindow):
         length = len(playlist_to_load)
         playlist_title = current_item.data(3)
         self.playlistTable.setRowCount(length)
-        file_data = self.app.getPlaylistFileInfo(playlist_to_load)
+        file_data = self.qApp.getPlaylistFileInfo(playlist_to_load)
         data_items = self.setUpDataItems(playlist_to_load, file_data, 0, len(file_data))
         for i in range(len(data_items)):
             for j in range(len(data_items[i])):
@@ -537,7 +543,7 @@ class MainWindow(QtGui.QMainWindow):
         self.pieceInfoWidget.show()
 
     def loadPiece(self, file_to_load):
-        self.app.loadFile(file_to_load)
+        self.qApp.loadFile(file_to_load)
 
 
     def updateProgressBar(self):
@@ -546,7 +552,7 @@ class MainWindow(QtGui.QMainWindow):
         self.progressBarRendering.repaint()
 
     def loadFeaturedIn(self, filename):
-        data = self.app.loadUserPlaylistsForAGivenFile(filename)
+        data = self.qApp.loadUserPlaylistsForAGivenFile(filename)
         self.featuredListWidget.clear()
         for item in data:
             widget = QtGui.QListWidgetItem(item)
@@ -570,7 +576,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def loadPieceData(self, filename):
         self.pieceInfoView.clear()
-        data = self.app.getFileInfo(filename)[0]
+        data = self.qApp.getFileInfo(filename)[0]
 
         datastring = "title: "+data["title"]
         title = QtGui.QListWidgetItem(datastring)
@@ -707,8 +713,7 @@ class MainWindow(QtGui.QMainWindow):
         self.loadPlaylists()
 
     def addPlaylist(self):
-        playlistpop = PlaylistDialog.PlaylistDialog(self, self.theme)
-        self.addWindow(playlistpop)
+        self.qApp.show_playlist()
         self.loadMyPlaylists()
 
     def searchDb(self):
