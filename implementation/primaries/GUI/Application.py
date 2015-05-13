@@ -2,6 +2,7 @@ from PyQt4 import QtCore, QtGui
 import sys, os, pickle, queue
 from threading import Lock
 from xml.sax._exceptions import *
+from PyQt4 import QtXml
 from implementation.primaries.GUI import StartupWidget, qt_threading, thread_classes, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions

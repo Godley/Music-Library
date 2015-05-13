@@ -12,11 +12,9 @@ from implementation.primaries.ExtractMetadata.classes import MusicManager, Searc
 
 
 class Application(QtCore.QObject):
-
-    def __init__(self, app):
-
-        QtCore.QObject.__init__(self, app)
-        self.app = app
+    def __init__(self, parent):
+        QtCore.QObject.__init__(self)
+        self.parent = parent
         self.previous_collections = []
         self.col_file = os.path.join(get_base_dir(), ".collections")
         self.getPreviousCollections()
@@ -26,30 +24,28 @@ class Application(QtCore.QObject):
         self.folder = ""
         self.theme = "light"
         self.script = os.path.join(get_base_dir(), "scripts", "lilypond")
-        if not os.path.exists(self.script):
-            self.setUp()
-        if len(self.previous_collections) == 0:
-            self.startUp()
-        else:
-            self.folder = self.previous_collections[-1]
-            self.setupMainWindow()
+        self.manager = MusicManager.MusicManager(self, folder=self.folder)
+        self.setup_windows()
 
-    def setUp(self):
-        """
-        method to set up the bash or bat script for running lilypond, and confirm with the user where this is located
-        :return: None, alters some files
-        """
-        try:
-            setup_lilypond()
-        except LilypondNotInstalledException as e:
-            self.window = SetupWindow.SetupWindow(self)
-            self.window.show()
-
+    def setup_windows(self):
+        self.startUp()
+        self.setupMainWindow()
+        if len(self.previous_collections) > 0:
+            self.main.show()
+        self.setUp()
 
     def startUp(self):
         self.folder = ""
         self.startup = StartupWidget.Startup(self)
         self.startup.show()
+        self.startup.setupWindow()
+
+    def setUp(self):
+        try:
+            setup_lilypond()
+        except LilypondNotInstalledException as e:
+            self.setup_win = SetupWindow.SetupWindow(self)
+            self.setup_win.show()
 
     def removeCollection(self, folder):
         if os.path.exists(os.path.join(folder, "music.db")):
@@ -87,13 +83,9 @@ class Application(QtCore.QObject):
             self.setupMainWindow()
 
     def setupMainWindow(self):
-        self.manager = MusicManager.MusicManager(self, folder=self.folder)
-
         self.main = MainWindow.MainWindow(self, self.theme)
-        self.main.show()
-        self.manager.runApiOperation()
-        self.updateDb()
-        self.main.runLoadingProcedure()
+        #self.main.setupUI()
+        #self.main.runLoadingProcedure()
 
     def getPlaylistFileInfo(self, playlist):
         return self.manager.getPlaylistFileInfo(playlist)
@@ -169,10 +161,8 @@ class Application(QtCore.QObject):
                 render_thread.run()
 
 
-    def importPopup(self):
-        dialog = ImportDialog.ImportDialog(self, self.theme)
-        dialog.setWindowFlags(QtCore.Qt.Dialog)
-        dialog.exec()
+
+
 
     def copyFiles(self, fnames):
         self.manager.copyFiles(fnames)
@@ -286,10 +276,9 @@ class Application(QtCore.QObject):
         task.execute()
 
 
-    def PlaylistPopup(self):
-        self.popup = PlaylistDialog.PlaylistDialog(self, self.theme)
-        self.popup.setWindowFlags(QtCore.Qt.Dialog)
-        self.popup.exec()
+
+
+
 
     def removePlaylists(self, playlists):
         self.manager.deletePlaylists(playlists)
@@ -300,10 +289,3 @@ class Application(QtCore.QObject):
     def loadPlaylists(self):
         pass
 
-
-if __name__ == '__main__':
-    sip.setdestroyonexit(True)
-    app = QtGui.QApplication(sys.argv)
-    app_obj = Application(app)
-
-    sys.exit(app.exec_())

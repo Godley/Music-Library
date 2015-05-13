@@ -10,11 +10,14 @@ class Startup(QtGui.QMainWindow):
 
     def __init__(self, parent):
         # somewhere in constructor:
-        self.parent = parent
         QtGui.QMainWindow.__init__(self)
+        self.parent = parent.parent
+        self.app = parent
+
+    def setupWindow(self):
         designer_file = os.path.join(get_base_dir(return_this_dir=True), 'designer_files', 'Startup.ui')
         uic.loadUi(designer_file, self)
-        previous_items = self.parent.getPreviousCollections()
+        previous_items = self.app.getPreviousCollections()
         for item in previous_items:
             l_item = QtGui.QListWidgetItem(item)
             l_item.setData(1, item)
@@ -30,14 +33,14 @@ class Startup(QtGui.QMainWindow):
         if not listItems:
             return
         for item in listItems:
-            self.parent.removeCollection(item.data(1))
+            self.app.removeCollection(item.data(1))
             self.collectionListWidget.takeItem(
                 self.collectionListWidget.row(item))
         self.collectionListWidget.show()
 
     def onItemDoubleClicked(self, item):
-        self.parent.FolderFetched(item.data(1))
+        self.app.FolderFetched(item.data(1))
 
     def openFolderDialog(self):
-        self.parent.FolderFetched(
+        self.app.FolderFetched(
             str(QFileDialog.getExistingDirectory(self, "Select Directory")))

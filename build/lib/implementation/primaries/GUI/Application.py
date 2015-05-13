@@ -2,6 +2,7 @@ from PyQt4 import QtCore, QtGui
 import sys, os, pickle, queue
 from threading import Lock
 from xml.sax._exceptions import *
+from PyQt4 import QtXml
 from implementation.primaries.GUI import StartupWidget, qt_threading, thread_classes, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
@@ -181,7 +182,25 @@ class Application(QtCore.QObject):
         self.main.onQueryReturned(query_results)
         lock.release()
 
-    def query(self, input):
+    def onPlaylistQueryComplete(self, data, online=False):
+        """
+        Async callback which will send the results of a query back to the main window as the user
+        types stuff in
+        :param data: the results of the query
+        :param online: bool indicator of whether files are online or local
+        :return: None, calls the handler inside main window
+        """
+        lock = Lock()
+        lock.acquire()
+        query_results = {}
+        if online:
+            query_results["Online"] = data
+        else:
+            query_results["Offline"] = data
+        self.popup.onQueryComplete(query_results)
+        lock.release()
+
+    def query(self, input, playlist=False):
         """
         Async method which will process the given input, create thread classes
         for each type of query and then start those thread classes. When done they will call
@@ -189,25 +208,25 @@ class Application(QtCore.QObject):
         :param input: text input from the main window
         :return: None, thread classes will call the callback above
         """
-        data = SearchProcessor.process(input)
-        data_queue = queue.Queue()
-        OfflineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
-                                                           self.onQueryComplete,
-            data_queue, (data,))
-        OnlineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
-                                                          self.onQueryComplete,
-            data_queue, (data,), kwargs={"online": True})
-        OfflineThread.execute()
-        OnlineThread.execute()
-        # worker = qt_threading.QueryThread(self, self.manager.runQueries,
-        #                                 (data,), False)
-        # QtCore.QObject.connect(worker, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
-        #
-        # onlineWorker = qt_threading.QueryThread(self, self.manager.runQueries,
-        #                                 (data,), True)
-        # QtCore.QObject.connect(onlineWorker, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
-        # worker.run()
-        # onlineWorker.run()
+        if not playlist:
+            data = SearchProcessor.process(input)
+            data_queue = queue.Queue()
+            OfflineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
+                                                               self.onQueryComplete,
+                data_queue, (data,))
+            OnlineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
+                                                              self.onQueryComplete,
+                data_queue, (data,), kwargs={"online": True})
+            OfflineThread.execute()
+            OnlineThread.execute()
+        else:
+            data = SearchProcessor.process(input)
+            data_queue = queue.Queue()
+            ProcessorThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
+                                                              self.onPlaylistQueryComplete,
+                data_queue, (data,))
+            ProcessorThread.execute()
+
 
 
     def startRenderingTask(self, fname):
@@ -289,9 +308,9 @@ class Application(QtCore.QObject):
 
 
     def PlaylistPopup(self):
-        popup = PlaylistDialog.PlaylistDialog(self, self.theme)
-        popup.setWindowFlags(QtCore.Qt.Dialog)
-        popup.exec()
+        self.popup = PlaylistDialog.PlaylistDialog(self, self.theme)
+        self.popup.setWindowFlags(QtCore.Qt.Dialog)
+        self.popup.exec()
 
     def removePlaylists(self, playlists):
         self.manager.deletePlaylists(playlists)

@@ -6,10 +6,11 @@ from implementation.primaries.GUI.helpers import get_base_dir
 class PlaylistDialog(QtGui.QDialog):
 
     def __init__(self, parent, theme):
+        QtGui.QDialog.__init__(self)
         self.parent = parent
         self.theme = theme
 
-        QtGui.QDialog.__init__(self)
+    def load(self):
         path_to_file = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "NewPlaylist.ui")
         uic.loadUi(path_to_file, self)
         self.autoCompleteFrame.hide()
@@ -20,6 +21,7 @@ class PlaylistDialog(QtGui.QDialog):
         self.piecesLineEdit.textChanged.connect(self.updateOptions)
         self.piecesLineEdit.editingFinished.connect(self.onInactiveSearchBar)
         self.setTheme()
+
 
     def setTheme(self):
         directory = get_base_dir(return_this_dir=True)

@@ -5,6 +5,7 @@ import os
 import sys
 from implementation.primaries.Drawing.classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
 from implementation.primaries.Drawing.classes.tree_cls import PieceTree, BaseTree
+from implementation.primaries.Drawing.classes import helpers
 # these define the current "things" we are handling: these are added on to relevant measures after being processed,
 # because "staff" could be found anywhere whilst it's being processed and
 # we need to know that to add it to the right object

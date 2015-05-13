@@ -86,6 +86,7 @@ background:rgba(0, 0, 0, 20);
 opacity:0.5;
 border-top:1px solid #ccc;
 border-bottom:1px solid #CCC;
+    text-transform:none;
 }
 
 
@@ -99,8 +100,9 @@ background:transparent;
 color:#EEE;
 }
 
-QPushButton#addPlaylist, QToolButton {
+QPushButton#AddPlaylistButton, QToolButton {
 background:transparent;
+    color: #555;
 }
 
 QToolButton#searchBtn, QToolButton#playBtn {

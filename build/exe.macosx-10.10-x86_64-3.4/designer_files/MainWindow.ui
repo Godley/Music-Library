@@ -35,149 +35,87 @@
    <double>1.000000000000000</double>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow, QWidget#centralwidget {
-background:#222
+   <string notr="true">QMainWindow, QWdget#centralwidget, QFrame#frame, QDialog {
+background: #394240;
 }
 
-QWidget#bg, QWidget#bg2 {
-background:#000;
-}
-
-QWidget#scoreWidget, QWidget#playlistWidget, QWidget#autoPlaylistWidget, QWidget#pieceInfoWidget, QWidget#musicWidget, QWidget#featuredInWidget,
-QWidget#playlistBrowserWidget {
-color:white;
+QDialog {
+color:#45AAB8;
 }
 
 
-QFrame#frame {
-background:#222;
+QFrame#second_menu {
+background:#45AAB8;
+border-bottom:1px solid #007E80;
 }
 
-QToolButton#deletePlaylistBtn {
-color:#777;
-font-size:20pt;
+QWidget#bg, QWidget#bg2, QWidget#musicWidget {
+background:#E1D772;
 }
 
-QWidget#playlistViewer, QWidget#playlistViewer QTableWidget {
-background:#111;
+QToolButton, QPushButton {
+background: transparent;
+border:0px;
+color: #FAF4B1;
 }
 
 QWidget QLabel {
-color:#666666;
-text-transform:uppercase;
-font-size:15pt;
-font-family:avenir
+color: #F06B50;
 }
 
-QLabel#noResultsLabel, QLabel#musicSearchHint {
-text-transform:none
-}
-
-QWidget Line {
-background:transparent;
-}
-
-QHeaderView::section {
-background: transparent;
+QListWidget, QTableWidget {
+background:#FAF4B1;
 border:0px;
-text-transform:uppercase;
 }
 
-QHeaderView {
-background:rgba(25, 25, 25, 189);
-text-transform:uppercase;
-border-bottom:1px solid #252525;
-color:#555;
-height:50px;
-}
-
-QLineEdit#searchInput {
-background:white;
-border:1px solid #555;
-border-radius: 10px;
-
+QWidget#playlistViewer, QTableWidget#playlistTable {
+background:transparent;
 }
 
 QGraphicsView#scoreWindow {
-background:transparent
+background: transparent;
+}
+
+QLineEdit {
+border-radius: 10px;
 }
 
 QLabel#musicSearchHint {
-color:rgba(0, 0, 0, 50);
-}
-
-QFrame#second_menu {
-background: #333;
-border:0px;
-border-bottom:1px solid #222;
-}
-
-QWidget#musicWidget{
-border:1px solid #222;
-background:#111;
-}
-
-QWidget#musicWidget QLabel{
-text-transform:none;
-}
-
-
-QListWidget, QTableWidget, QWidget QListWidget, QWidget QTableWidget {
-background:rgba(255, 255, 255, 20);
-opacity:0.5;
-border-top:1px solid;
-border-bottom:1px solid;
-}
-
-
-QTableWidget#playlistTable{
-border:0px;
-}
-
-
-QPushButton{
-background:transparent;
-color:#EEE;
-border-radius:10px;
-}
-
-QPushButton#addPlaylist, QToolButton {
-background:transparent;
-}
-
-QToolButton#searchBtn, QToolButton#playBtn {
-background:transparent;
-border:0px;
-border-radius:0px;
-}
-
-QScrollArea#scoreWindow {
-border:1px solid #999;
-}
-
-QTreeWidget#autoCompleteBox {
-background:#252525;
-border:1px solid #111;
+color: rgba(231, 231, 231, 222);
 }
 
 QFrame#autoCompleteFrame {
 border:0px;
+background:transparent;
 }
 
-QListWidget:item, QTableWidget:item, QTreeWidget:item {
-color:#444;
+QTreeWidget#autoCompleteBox {
+background:rgba(255,255,255,200);
+border:1px solid rgba(200,200,200,200);
 }
 
-QTreeWidget:item:item {
-color:#666;
+QTreeWidget#autoCompleteBox QHeaderView {
+background:rgba(255,255,255,230);
 }
 
-QListWidget {
-font:13pt arial;
-text-transform:uppercase;
-}
 
-</string>
+QHeaderView::section {
+    background: transparent;
+    border:0px;
+    }
+
+QHeaderView {
+    background:rgba(255, 255, 255, 60);
+    border-bottom:1px solid rgba(255, 255, 255, 40);
+    color:#004853;
+font: 15pt &quot;Helvetica Neue&quot;;
+    height:50px;
+    }
+
+QListWidget:item, QTableWidget:item, QTreeWidget:item QTreeWidget:item:item {
+    color:#004853;
+font: 12pt &quot;Helvetica Neue&quot;;
+    }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -338,28 +276,28 @@ text-transform:uppercase;
             <active>
              <colorrole role="Button">
               <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>17</red>
-                <green>17</green>
-                <blue>17</blue>
+               <color alpha="0">
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Base">
-              <brush brushstyle="SolidPattern">
+              <brush brushstyle="NoBrush">
                <color alpha="255">
-                <red>17</red>
-                <green>17</green>
-                <blue>17</blue>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Window">
               <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>17</red>
-                <green>17</green>
-                <blue>17</blue>
+               <color alpha="0">
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
@@ -367,28 +305,28 @@ text-transform:uppercase;
             <inactive>
              <colorrole role="Button">
               <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>17</red>
-                <green>17</green>
-                <blue>17</blue>
+               <color alpha="0">
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Base">
-              <brush brushstyle="SolidPattern">
+              <brush brushstyle="NoBrush">
                <color alpha="255">
-                <red>17</red>
-                <green>17</green>
-                <blue>17</blue>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Window">
               <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>17</red>
-                <green>17</green>
-                <blue>17</blue>
+               <color alpha="0">
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
@@ -396,28 +334,28 @@ text-transform:uppercase;
             <disabled>
              <colorrole role="Button">
               <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>17</red>
-                <green>17</green>
-                <blue>17</blue>
+               <color alpha="0">
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Base">
-              <brush brushstyle="SolidPattern">
+              <brush brushstyle="NoBrush">
                <color alpha="255">
-                <red>17</red>
-                <green>17</green>
-                <blue>17</blue>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Window">
               <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>17</red>
-                <green>17</green>
-                <blue>17</blue>
+               <color alpha="0">
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
                </color>
               </brush>
              </colorrole>
@@ -592,29 +530,6 @@ text-transform:uppercase;
            </rect>
           </property>
          </widget>
-         <widget class="QToolButton" name="featuredListRefresh">
-          <property name="geometry">
-           <rect>
-            <x>269</x>
-            <y>1</y>
-            <width>30</width>
-            <height>30</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>images/glyphicons-82-refresh.png</normaloff>images/glyphicons-82-refresh.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>15</width>
-            <height>15</height>
-           </size>
-          </property>
-         </widget>
         </widget>
         <widget class="QWidget" name="pieceInfoWidget" native="true">
          <property name="geometry">
@@ -653,11 +568,17 @@ text-transform:uppercase;
             <height>215</height>
            </rect>
           </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="horizontalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOff</enum>
           </property>
           <property name="isWrapping" stdset="0">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -690,29 +611,6 @@ text-transform:uppercase;
           </property>
           <property name="text">
            <string>Playlist Browser</string>
-          </property>
-         </widget>
-         <widget class="QToolButton" name="playlistRefresh">
-          <property name="geometry">
-           <rect>
-            <x>269</x>
-            <y>1</y>
-            <width>30</width>
-            <height>30</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>images/glyphicons-82-refresh.png</normaloff>images/glyphicons-82-refresh.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>15</width>
-            <height>15</height>
-           </size>
           </property>
          </widget>
          <widget class="QTableWidget" name="playlistList">
@@ -813,12 +711,10 @@ text-transform:uppercase;
            </rect>
           </property>
           <property name="styleSheet">
-           <string notr="true">QListWidget::item {
-color:white;
-}</string>
+           <string notr="true"/>
           </property>
           <property name="selectionMode">
-           <enum>QAbstractItemView::MultiSelection</enum>
+           <enum>QAbstractItemView::SingleSelection</enum>
           </property>
          </widget>
          <widget class="QPushButton" name="AddPlaylistButton">
@@ -838,7 +734,7 @@ color:white;
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">color:#555;</string>
+           <string notr="true"/>
           </property>
           <property name="text">
            <string>+</string>
@@ -849,8 +745,8 @@ color:white;
            <rect>
             <x>5</x>
             <y>220</y>
-            <width>26</width>
-            <height>26</height>
+            <width>21</width>
+            <height>21</height>
            </rect>
           </property>
           <property name="font">
@@ -888,7 +784,7 @@ color:white;
          <widget class="QLabel" name="title">
           <property name="geometry">
            <rect>
-            <x>40</x>
+            <x>5</x>
             <y>10</y>
             <width>121</width>
             <height>21</height>
@@ -918,28 +814,28 @@ color:white;
             <active>
              <colorrole role="Button">
               <brush brushstyle="SolidPattern">
-               <color alpha="20">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
+               <color alpha="255">
+                <red>250</red>
+                <green>244</green>
+                <blue>177</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Base">
-              <brush brushstyle="NoBrush">
+              <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
+                <red>250</red>
+                <green>244</green>
+                <blue>177</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Window">
               <brush brushstyle="SolidPattern">
-               <color alpha="20">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
+               <color alpha="255">
+                <red>250</red>
+                <green>244</green>
+                <blue>177</blue>
                </color>
               </brush>
              </colorrole>
@@ -947,28 +843,28 @@ color:white;
             <inactive>
              <colorrole role="Button">
               <brush brushstyle="SolidPattern">
-               <color alpha="20">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
+               <color alpha="255">
+                <red>250</red>
+                <green>244</green>
+                <blue>177</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Base">
-              <brush brushstyle="NoBrush">
+              <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
+                <red>250</red>
+                <green>244</green>
+                <blue>177</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Window">
               <brush brushstyle="SolidPattern">
-               <color alpha="20">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
+               <color alpha="255">
+                <red>250</red>
+                <green>244</green>
+                <blue>177</blue>
                </color>
               </brush>
              </colorrole>
@@ -976,28 +872,28 @@ color:white;
             <disabled>
              <colorrole role="Button">
               <brush brushstyle="SolidPattern">
-               <color alpha="20">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
+               <color alpha="255">
+                <red>250</red>
+                <green>244</green>
+                <blue>177</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Base">
-              <brush brushstyle="NoBrush">
+              <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
+                <red>250</red>
+                <green>244</green>
+                <blue>177</blue>
                </color>
               </brush>
              </colorrole>
              <colorrole role="Window">
               <brush brushstyle="SolidPattern">
-               <color alpha="20">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
+               <color alpha="255">
+                <red>250</red>
+                <green>244</green>
+                <blue>177</blue>
                </color>
               </brush>
              </colorrole>
@@ -1034,29 +930,6 @@ color:white;
             <width>281</width>
             <height>21</height>
            </rect>
-          </property>
-         </widget>
-         <widget class="QToolButton" name="refreshScoreBtn">
-          <property name="geometry">
-           <rect>
-            <x>269</x>
-            <y>1</y>
-            <width>30</width>
-            <height>30</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>images/glyphicons-82-refresh.png</normaloff>images/glyphicons-82-refresh.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>15</width>
-            <height>15</height>
-           </size>
           </property>
          </widget>
         </widget>
@@ -1109,29 +982,6 @@ color:white;
             <width>281</width>
             <height>21</height>
            </rect>
-          </property>
-         </widget>
-         <widget class="QToolButton" name="refreshAutoBtn">
-          <property name="geometry">
-           <rect>
-            <x>269</x>
-            <y>1</y>
-            <width>30</width>
-            <height>30</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>images/glyphicons-82-refresh.png</normaloff>images/glyphicons-82-refresh.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>15</width>
-            <height>15</height>
-           </size>
           </property>
          </widget>
         </widget>
@@ -1333,7 +1183,7 @@ color:white;
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>291</width>
+          <width>271</width>
           <height>192</height>
          </rect>
         </property>
@@ -1366,6 +1216,7 @@ color:white;
     </property>
     <addaction name="actionImport"/>
     <addaction name="actionNew_Collection"/>
+    <addaction name="actionRefresh_Collection"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -1384,6 +1235,9 @@ color:white;
     </property>
     <addaction name="actionLight"/>
     <addaction name="actionDark"/>
+    <addaction name="actionElectric_Blue"/>
+    <addaction name="actionTeal"/>
+    <addaction name="actionColours"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -1467,6 +1321,26 @@ color:white;
   <action name="actionDark">
    <property name="text">
     <string>Dark</string>
+   </property>
+  </action>
+  <action name="actionRefresh_Collection">
+   <property name="text">
+    <string>Refresh Collection</string>
+   </property>
+  </action>
+  <action name="actionElectric_Blue">
+   <property name="text">
+    <string>Electric Blue</string>
+   </property>
+  </action>
+  <action name="actionTeal">
+   <property name="text">
+    <string>Teal</string>
+   </property>
+  </action>
+  <action name="actionColours">
+   <property name="text">
+    <string>Colours</string>
    </property>
   </action>
  </widget>

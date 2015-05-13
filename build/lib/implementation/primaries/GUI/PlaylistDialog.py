@@ -6,10 +6,11 @@ from implementation.primaries.GUI.helpers import get_base_dir
 class PlaylistDialog(QtGui.QDialog):
 
     def __init__(self, parent, theme):
+        QtGui.QDialog.__init__(self)
         self.parent = parent
         self.theme = theme
 
-        QtGui.QDialog.__init__(self)
+    def load(self):
         path_to_file = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "NewPlaylist.ui")
         uic.loadUi(path_to_file, self)
         self.autoCompleteFrame.hide()
@@ -18,7 +19,9 @@ class PlaylistDialog(QtGui.QDialog):
         self.piecesLineEdit.editingFinished.connect(self.onInactiveSearchBar)
         self.deleteItem.clicked.connect(self.removeItem)
         self.piecesLineEdit.textChanged.connect(self.updateOptions)
+        self.piecesLineEdit.editingFinished.connect(self.onInactiveSearchBar)
         self.setTheme()
+
 
     def setTheme(self):
         directory = get_base_dir(return_this_dir=True)
@@ -43,9 +46,10 @@ class PlaylistDialog(QtGui.QDialog):
             data["pieces"].append(fname)
         self.parent.addPlaylist(data)
 
+
     def updateOptions(self):
         text = self.piecesLineEdit.text()
-        results = self.parent.query(text)
+        results = self.parent.queryNotThreaded(text)
         self.autoCompleteBox.clear()
         for key in results:
             item = QtGui.QTreeWidgetItem(key)
@@ -57,24 +61,12 @@ class PlaylistDialog(QtGui.QDialog):
                 item.addChild(fitem)
         if len(results) == 0:
             pass
-            # self.noResultsSmiley.show()
-            # self.noResultsLabel.show()
         else:
             pass
-            # self.noResultsSmiley.hide()
-            # self.noResultsLabel.hide()
-            # rows = len(results)
-            # rowSize = self.autoCompleteBox.sizeHintForRow(0)
-            # height = rows * rowSize
-            # frameWidth = self.autoCompleteBox.frameWidth()
-            # fixedHeight = height + frameWidth * 2
-            # if fixedHeight > self.sizeHint().height():
-            #     fixedHeight = self.sizeHint().height() / 1.2
-            # self.autoCompleteBox.setFixedHeight(fixedHeight)
-            # self.autoCompleteFrame.setFixedHeight(fixedHeight+50)
 
         self.autoCompleteBox.show()
         self.autoCompleteFrame.show()
+
 
     def onInactiveSearchBar(self):
         if self.piecesLineEdit.text() == "" or self.piecesLineEdit.text(

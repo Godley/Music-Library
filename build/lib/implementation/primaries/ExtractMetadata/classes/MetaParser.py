@@ -219,7 +219,10 @@ def handleMeter(tags, attrs, chars, parts, data):
                 beat = chars["beats"]
 
             if len(data["time"]) == 0 or "beat" in data["time"][-1]:
-                data["time"].append({"beat": int(beat)})
+                try:
+                    data["time"].append({"beat": int(beat)})
+                except:
+                    data["time"].append({"beat": beat})
             else:
                 data["time"][-1]["beat"] = int(beat)
 

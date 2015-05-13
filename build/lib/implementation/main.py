@@ -5,16 +5,16 @@ from xml.sax._exceptions import *
 import os, sip
 from PyQt4 import QtXml
 from implementation.primaries.GUI.helpers import get_base_dir
-from implementation.primaries.GUI import StartupWidget, qt_threading, thread_classes, MainWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
+from implementation.primaries.scripts.setup_script import setup_lilypond
+from implementation.primaries.exceptions import LilypondNotInstalledException
+from implementation.primaries.GUI import StartupWidget, qt_threading, thread_classes, MainWindow, SetupWindow, PlaylistDialog, licensePopup, renderingErrorPopup, ImportDialog
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
-from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
+
 
 class Application(QtCore.QObject):
-
-    def __init__(self, app):
-
-        QtCore.QObject.__init__(self, app)
-        self.app = app
+    def __init__(self, parent):
+        QtCore.QObject.__init__(self)
+        self.parent = parent
         self.previous_collections = []
         self.col_file = os.path.join(get_base_dir(), ".collections")
         self.getPreviousCollections()
@@ -22,17 +22,30 @@ class Application(QtCore.QObject):
         self.manager = None
         self.main = None
         self.folder = ""
-        self.theme = "dark"
-        if len(self.previous_collections) == 0:
-            self.startUp()
-        else:
-            self.folder = self.previous_collections[-1]
-            self.setupMainWindow()
+        self.theme = "light"
+        self.script = os.path.join(get_base_dir(), "scripts", "lilypond")
+        self.manager = MusicManager.MusicManager(self, folder=self.folder)
+        self.setup_windows()
+
+    def setup_windows(self):
+        self.startUp()
+        self.setupMainWindow()
+        if len(self.previous_collections) > 0:
+            self.main.show()
+        self.setUp()
 
     def startUp(self):
         self.folder = ""
         self.startup = StartupWidget.Startup(self)
         self.startup.show()
+        self.startup.setupWindow()
+
+    def setUp(self):
+        try:
+            setup_lilypond()
+        except LilypondNotInstalledException as e:
+            self.setup_win = SetupWindow.SetupWindow(self)
+            self.setup_win.show()
 
     def removeCollection(self, folder):
         if os.path.exists(os.path.join(folder, "music.db")):
@@ -70,12 +83,9 @@ class Application(QtCore.QObject):
             self.setupMainWindow()
 
     def setupMainWindow(self):
-        self.manager = MusicManager.MusicManager(self, folder=self.folder)
-        self.manager.runApiOperation()
-        self.updateDb()
-        self.main = MainWindow.MainWindow(self)
-        self.main.show()
-        self.main.runLoadingProcedure()
+        self.main = MainWindow.MainWindow(self, self.theme)
+        #self.main.setupUI()
+        #self.main.runLoadingProcedure()
 
     def getPlaylistFileInfo(self, playlist):
         return self.manager.getPlaylistFileInfo(playlist)
@@ -145,16 +155,14 @@ class Application(QtCore.QObject):
                 self.licensePopup.setWindowFlags(QtCore.Qt.Dialog)
                 self.licensePopup.exec()
             else:
-                render_thread = qt_threading.RenderThread(self, self.startRenderingTask,
+                render_thread = qt_threading.RenderThread(self, self.manager.startRenderingTask,
                                                             (filename,), pdf_version)
                 QtCore.QObject.connect(render_thread, QtCore.SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
                 render_thread.run()
 
 
-    def importPopup(self):
-        dialog = ImportDialog.ImportDialog(self, self.theme)
-        dialog.setWindowFlags(QtCore.Qt.Dialog)
-        dialog.exec()
+
+
 
     def copyFiles(self, fnames):
         self.manager.copyFiles(fnames)
@@ -188,7 +196,18 @@ class Application(QtCore.QObject):
         self.main.onQueryReturned(query_results)
         lock.release()
 
-    def query(self, input):
+    def queryNotThreaded(self, input):
+        """
+        Method which does the querying for adding pieces to playlists without using threads.
+        exists because pyqt fell over when threading
+
+        :return:
+        """
+        data = SearchProcessor.process(input)
+        results = self.manager.runQueries(data)
+        return results
+
+    def query(self, input, playlist=False):
         """
         Async method which will process the given input, create thread classes
         for each type of query and then start those thread classes. When done they will call
@@ -206,49 +225,11 @@ class Application(QtCore.QObject):
             data_queue, (data,), kwargs={"online": True})
         OfflineThread.execute()
         OnlineThread.execute()
-        # worker = qt_threading.QueryThread(self, self.manager.runQueries,
-        #                                 (data,), False)
-        # QtCore.QObject.connect(worker, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
-        #
-        # onlineWorker = qt_threading.QueryThread(self, self.manager.runQueries,
-        #                                 (data,), True)
-        # QtCore.QObject.connect(onlineWorker, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
-        # worker.run()
-        # onlineWorker.run()
 
 
-    def startRenderingTask(self, fname):
-        """
-        method which parses a piece, then runs the renderer class on it which takes the lilypond
-        output, runs lilypond on it and gets the pdf. This is not generally called directly,
-        but rather called by a thread class in thread_classes.py
-        :param fname: xml filename
-        :return: list of problems encountered
-        """
-        errorList = []
-        parser = MxmlParser.MxmlParser()
-        piece_obj = None
-        try:
-            piece_obj = parser.parse(os.path.join(self.folder, fname))
-        except Exceptions.DrumNotImplementedException as e:
-            errorList.append(
-                "Drum tab found in piece: this application does not handle drum tab.")
-        except Exceptions.TabNotImplementedException as e:
-            errorList.append(
-                "Guitar tab found in this piece: this application does not handle guitar tab.")
-        except SAXParseException as e:
-            errorList.append("Sax parser had a problem with this file:"+str(e))
-        if piece_obj is not None:
-            try:
-                loader = LilypondRender.LilypondRender(
-                    piece_obj,
-                    os.path.join(
-                        self.folder,
-                        fname))
-                loader.run()
-            except BaseException as e:
-                errorList.append(str(e))
-        return errorList
+
+
+
 
     def updateDb(self):
         self.manager.refresh()
@@ -295,10 +276,9 @@ class Application(QtCore.QObject):
         task.execute()
 
 
-    def PlaylistPopup(self):
-        popup = PlaylistDialog.PlaylistDialog(self, self.theme)
-        popup.setWindowFlags(QtCore.Qt.Dialog)
-        popup.exec()
+
+
+
 
     def removePlaylists(self, playlists):
         self.manager.deletePlaylists(playlists)
@@ -309,10 +289,3 @@ class Application(QtCore.QObject):
     def loadPlaylists(self):
         pass
 
-
-if __name__ == '__main__':
-    sip.setdestroyonexit(True)
-    app = QtGui.QApplication(sys.argv)
-    app_obj = Application(app)
-
-    sys.exit(app.exec_())

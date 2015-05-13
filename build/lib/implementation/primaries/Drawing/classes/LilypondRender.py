@@ -1,4 +1,4 @@
-import os
+import os, subprocess
 
 class LilypondRender(object):
 
@@ -23,12 +23,12 @@ class LilypondRender(object):
             lilystring +
             wrappers[1])
         opened_file.close()
-        os.system(
-            self.lily_script +
-            " --output=" +
-            self.folder +
-            " " +
-            self.lyfile)
+        # subprocess.Popen(['sudo', self.lily_script," --output=" +
+        #     self.folder, self.lyfile])
+        os.system(self.lily_script +
+             " --output=" +
+            self.folder + " " + self.lyfile
+             )
 
     def cleanup(self, pdf=False):
         if os.path.exists(self.lyfile):
