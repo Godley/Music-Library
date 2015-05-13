@@ -33,8 +33,12 @@ class RenderThread(QThread):
         self.filename = filename
 
     def run(self):
-        result = self.method(*self.args)
-        self.emit(SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), result, self.filename)
+        try:
+            result = self.method(*self.args)
+            self.emit(SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), result, self.filename)
+        except BaseException as e:
+            self.emit(SIGNAL("renderingError(PyQt_PyObject)"), e)
+
 
 class DownloadThread(QThread):
     def __init__(self, parent, method, args):

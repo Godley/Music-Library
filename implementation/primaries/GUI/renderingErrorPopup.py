@@ -14,6 +14,7 @@ class RenderingErrorPopup(QtGui.QDialog):
         self.setTheme()
 
     def load(self, errorList):
+        self.listWidget.clear()
         for error in errorList:
             item = QtGui.QListWidgetItem(error)
             self.listWidget.addItem(item)

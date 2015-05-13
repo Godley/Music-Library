@@ -27,11 +27,14 @@ class Unzipper(object):
         for file in self.files:
             path = os.path.join(self.folder, file)
             if os.path.exists(path):
-                zip_file = zipfile.ZipFile(path)
-                zip_file.extractall(path=self.folder)
-                file = [
-                    f.filename for f in zip_file.filelist if "META-INF" not in f.filename]
-                resulting_file_list.append(file[0])
+                try:
+                    zip_file = zipfile.ZipFile(path)
+                    zip_file.extractall(path=self.folder)
+                    file = [
+                        f.filename for f in zip_file.filelist if "META-INF" not in f.filename]
+                    resulting_file_list.append(file[0])
+                except:
+                    print("file "+file+" was skipped: exception occurred when unzipping")
 
         return resulting_file_list
 
@@ -42,9 +45,10 @@ class Unzipper(object):
                 self.folder,
                 file) for file in output_list]
         results = self.unzipInputFiles()
-        for expected, result, path in zip(output_list, results, output_paths):
-            if result != expected:
-                os.rename(os.path.join(self.folder, result), path)
+        result_paths = [os.path.join(self.folder, file) for file in results]
+        for expected, result, path in zip(output_list, result_paths, output_paths):
+            if result != expected and os.path.exists(result):
+                os.rename(result, path)
 
         if os.path.exists(os.path.join(self.folder, 'META-INF')):
             shutil.rmtree(os.path.join(self.folder, 'META-INF'))
@@ -151,7 +155,6 @@ class MusicManager(object):
         :return: list of problems encountered
         """
         errorList = []
-        print(dir(MxmlParser))
         parser = MxmlParser.MxmlParser()
         piece_obj = None
         try:
@@ -287,7 +290,7 @@ class MusicManager(object):
         """
         result_set = self.parseApiFiles()
         self.addApiFiles(result_set)
-        self.cleanupApiFiles(result_set)
+        #self.cleanupApiFiles(result_set)
 
 
     def addPiece(self, filename, data):
@@ -312,6 +315,7 @@ class MusicManager(object):
             unzipper.unzip()
 
     def refresh(self):
+        self.runApiOperation()
         db_files = self.__data.getFileList()
         self.folder_browser.resetDbFileList(db_files)
         self.handleZips()

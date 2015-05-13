@@ -147,6 +147,9 @@ class Application(QtCore.QObject):
         fqd_fname = os.path.join(self.folder, filename)
         self.windows["main"].onPieceLoaded(fqd_fname, filename)
 
+    def onRenderError(self, error):
+        self.errorPopup([str(error)])
+
     def onFileError(self, error):
         self.errorPopup(["Problem with internet connection on file download"])
 
@@ -203,6 +206,7 @@ class Application(QtCore.QObject):
                 render_thread = qt_threading.RenderThread(self, self.manager.startRenderingTask,
                                                             (filename,), pdf_version)
                 QtCore.QObject.connect(render_thread, QtCore.SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
+                QtCore.QObject.connect(render_thread, QtCore.SIGNAL("renderingError(PyQt_PyObject)"), self.onRenderError)
                 render_thread.run()
 
 
@@ -286,13 +290,9 @@ class Application(QtCore.QObject):
         self.windows["main"].onScorebookLoad(summary_strings)
 
     def loadPieces(self, method="title"):
-        data_queue = queue.Queue()
-        task = thread_classes.Async_Handler_Queue(self.manager.getPieceSummaryStrings,
-                                                    self.onPiecesLoad,
-                                                    data_queue,
-                                                    (method,)
-                                                    )
-        task.execute()
+        worker = qt_threading.mythread(self, self.manager.getPieceSummaryStrings, (method,))
+        QtCore.QObject.connect(worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), self.onPiecesLoad)
+        worker.run()
 
     def onPlaylistsLoad(self, data):
         self.windows["main"].onPlaylistReady(data)
@@ -301,22 +301,14 @@ class Application(QtCore.QObject):
         self.windows["main"].onMyPlaylistsReady(data)
 
     def getPlaylists(self, select_method="all"):
-        data_queue = queue.Queue()
-        task = thread_classes.Async_Handler_Queue(self.manager.getPlaylists,
-                                                  self.onPlaylistsLoad,
-                                                  data_queue,
-                                                (select_method,))
-        task.execute()
+        async = qt_threading.mythread(self, self.manager.getPlaylists, (select_method,))
+        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), self.onPlaylistsLoad)
+        async.run()
 
     def getCreatedPlaylists(self):
-        data_queue = queue.Queue()
-        task = thread_classes.Async_Handler_Queue(self.manager.getPlaylistsFromPlaylistTable,
-                                                  self.onUserPlaylistsLoad,
-                                                  data_queue,
-                                                ())
-        task.execute()
-
-
+        async = qt_threading.mythread(self, self.manager.getPlaylistsFromPlaylistTable, ())
+        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), self.onUserPlaylistsLoad)
+        async.run()
 
 
 
