@@ -189,6 +189,7 @@ class MusicManager(object):
             for source in file_set:
                 results[source] = []
                 for file in file_set[source]:
+                    os.remove(os.path.join(self.folder, file))
                     n_filename = file.split(".")[0] + ".xml"
                     results[source].append(n_filename)
         except requests.exceptions.ConnectionError as e:
@@ -218,6 +219,7 @@ class MusicManager(object):
                     ignore_list = self.apiManager.getSourceIgnoreList(source)
                     parser = OnlineMetaParser.OnlineMetaParser(ignored=ignore_list, source=source)
                     data = self.parseXMLFile(file, parser=parser)
+                    os.remove(os.path.join(self.folder, file))
                     if type(data) != tuple:
                         result_set[source][file] = data
                         file_id = file.split("/")[-1].split(".")[0]
