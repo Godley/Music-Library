@@ -14,6 +14,8 @@ class mythread(QThread):
         result = self.method(*self.args, **self.kwargs)
         self.emit(SIGNAL("dataReady(PyQt_PyObject)"), result)
 
+
+
 class QueryThread(QThread):
     def __init__(self, parent, method, args, online):
         QThread.__init__(self,parent)

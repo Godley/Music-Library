@@ -261,15 +261,17 @@ class Application(QtCore.QObject):
         :return: None, thread classes will call the callback above
         """
         data = SearchProcessor.process(input)
-        data_queue = queue.Queue()
-        OfflineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
-                                                           self.onQueryComplete,
-            data_queue, (data,))
-        OnlineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
-                                                          self.onQueryComplete,
-            data_queue, (data,), kwargs={"online": True})
-        OfflineThread.execute()
-        OnlineThread.execute()
+        OfflineThread = qt_threading.QueryThread(self, self.manager.runQueries, (data,), False)
+        QtCore.QObject.connect(OfflineThread, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
+        OfflineThread.run()
+        OnlineThread = qt_threading.QueryThread(self, self.manager.runQueries, (data,), True)
+        QtCore.QObject.connect(OnlineThread, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
+        OnlineThread.run()
+        # data_queue = queue.Queue()
+        # OnlineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
+        #                                                   self.onQueryComplete,
+        #     data_queue, (data,), kwargs={"online": True})
+        # OnlineThread.execute()
 
 
 
