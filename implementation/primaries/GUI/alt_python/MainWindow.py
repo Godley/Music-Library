@@ -2,8 +2,9 @@ from PyQt4 import QtGui, QtCore, uic
 import sip
 from implementation.primaries.GUI.helper import get_base_dir
 import os, time, copy
-from parseStyle import parseStyle
-import Widgets
+from implementation.primaries.GUI.alt_python.parseStyle import parseStyle
+from implementation.primaries.GUI.alt_python import Widgets
+from popplerqt4 import Poppler
 
 class MainWindow(QtGui.QMainWindow):
     widgets = {}
@@ -14,6 +15,27 @@ class MainWindow(QtGui.QMainWindow):
         self.qApp = app
         self.loaded = ""
         self.theme = "ubuntu"
+        self.current_piece = ""
+
+    def resizeEvent(self, QResizeEvent):
+        if hasattr(self, "scoreWindow"):
+            if not self.scoreWindow.isHidden():
+                self.resizeScoreWindow()
+        if hasattr(self, "searchBar"):
+            self.resizeSearchbar()
+        QResizeEvent.accept()
+
+    def resizeScoreWindow(self):
+        score_position = self.scoreWindow.pos()
+        score_width = self.width() - self.buttonFrame.width()
+        score_height = self.height() - self.searchBar.height()
+        self.scoreWindow.setGeometry(score_position.x(), score_position.y(), score_width, score_height)
+
+    def resizeSearchbar(self):
+        search_position = self.searchBar.pos()
+        search_width = self.width()
+        search_height = self.searchBar.height()
+        self.searchBar.setGeometry(search_position.x(), search_position.y(), search_width, search_height)
 
     def applyStyle(self):
         stylesheet = os.path.join(get_base_dir(True), "themes", self.theme+".qss")
@@ -54,6 +76,7 @@ class MainWindow(QtGui.QMainWindow):
         self.actionCandy.triggered.connect(self.candy)
         self.menuBar().addMenu("File")
         self.searchFrame.hide()
+        self.scoreWindow.hide()
 
     def candy(self):
         self.theme = "candy"
@@ -117,7 +140,62 @@ class MainWindow(QtGui.QMainWindow):
     #     pixmap = pixmap.scaled(widWidth, widheight, QtCore.Qt.KeepAspectRatioByExpanding)
     #     paint.drawPixmap(0, 0, pixmap)
 
+    def onPieceLoaded(self, filename, split_file):
+        """
+        :param filename: the fully qualified filename location including folder
+        :param split_file: the filename with no folder location
+        :return:
+        """
+        file_to_load = split_file.split(".")[0]+".xml"
+        self.current_piece = file_to_load
+        #self.showToolbarBtns()
+        #self.loadPieceData(file_to_load)
+        self.pdf_view(filename)
+        self.titleOfPiece.setText(file_to_load)
+        self.titleOfPiece.adjustSize()
+        self.titleOfPiece.repaint()
+        self.resizeScoreWindow()
+        self.scoreWindow.show()
+        self.scoreWindow.lower()
+        #self.loadFeaturedIn(file_to_load)
+        #self.playlistViewer.hide()
+        #self.pieceInfoWidget.show()
 
+    def pdf_view(self, filename):
+        """Return a Scrollarea showing the first page of the specified PDF file."""
+
+        scene = QtGui.QGraphicsScene()
+        scene.setBackgroundBrush(QtGui.QColor('darkGray'))
+        layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Vertical)
+        doc = Poppler.Document.load(filename)
+        doc.setRenderHint(Poppler.Document.Antialiasing)
+        doc.setRenderHint(Poppler.Document.TextAntialiasing)
+
+
+        pageNum = doc.numPages()
+        for number in range(pageNum):
+            page = doc.page(number)
+            image = page.renderToImage(100, 100)
+            pixmap = QtGui.QPixmap.fromImage(image)
+            container = QtGui.QLabel()
+            container.setFixedSize(page.pageSize())
+            container.setStyleSheet("Page { background-color : transparent}")
+            container.setContentsMargins(0, 0, 0, 0)
+            container.setScaledContents(True)
+            container.setPixmap(pixmap)
+            label = scene.addWidget(container)
+            opacity = QtGui.QGraphicsOpacityEffect(self)
+            opacity.setOpacity(0.5)
+            label.setGraphicsEffect(opacity)
+            layout.addItem(label)
+
+        graphicsWidget = QtGui.QGraphicsWidget()
+        graphicsWidget.setLayout(layout)
+        scene.addItem(graphicsWidget)
+        #self.view = View(scene)
+        #self.scoreWindow.scale(1,1)
+        #self.scoreWindow.scale(1.4,1.4)
+        self.scoreWindow.setScene(scene)
 
     def loadFrame(self, child, ypos=72):
         position = self.contentFrame.pos()
@@ -156,6 +234,7 @@ class MainWindow(QtGui.QMainWindow):
         self.contentFrame.setStyleSheet(parseStyle(stylesheet))
         self.contentFrame.show()
         self.contentFrame.lower()
+        self.scoreWindow.lower()
         animation = QtCore.QPropertyAnimation(self.contentFrame, "geometry")
         animation.setDuration(200)
         animation.setStartValue(QtCore.QRect(0, ypos, self.buttonFrame.width(), self.buttonFrame.height()))

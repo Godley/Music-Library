@@ -3,6 +3,7 @@ import StartupWindow, MainWindow
 import pickle, sys
 from implementation.primaries.GUI import qt_threading
 from implementation.primaries.ExtractMetadata.classes import MusicManager
+import os
 
 class Application(QtCore.QObject):
     windows = {}
@@ -25,6 +26,56 @@ class Application(QtCore.QObject):
         worker = qt_threading.mythread(self, self.manager.getPieceSummaryStrings, (method,))
         QtCore.QObject.connect(worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         worker.run()
+
+    def onRenderTaskFinished(self, errorList, filename=""):
+        """
+        asynchronous handler. This gets called when an async task has finished rendering a piece,
+        adn thus comes back and calls the handler for this result in the main window
+        :param errorList: the list of problems encountered
+        :param filename: the filename ending in pdf without the current folder
+        :return: None, calls another method lower down
+        """
+        pdf = os.path.join(self.folder, filename)
+        if not os.path.exists(pdf):
+            errorList.append(
+                "file rendering failed to produce a pdf, check above errors")
+        if len(errorList) > 0:
+            self.errorPopup(errorList)
+        if os.path.exists(pdf):
+            self.windows["main"].onPieceLoaded(pdf, filename)
+
+    def loadFile(self, filename):
+        """
+        Method which will do 3 things;
+        - check a pdf version for given file exists
+        - if not check if an xml version exists
+            - if so, start another thread to load it which will call the async callback above when done
+            - if not, open up a licensing agreement box for the file which will either load the file or close
+        :param filename: xml filename, not including current folder
+        :return: None, calls methods instead
+        """
+        pdf_version = filename.split(".")[0] + ".pdf"
+        if os.path.exists(os.path.join(self.folder, pdf_version)):
+            self.onRenderTaskFinished([], pdf_version)
+        else:
+            if not os.path.exists(os.path.join(self.folder, filename)):
+                license = self.manager.getLicense(filename)
+                self.windows["license"].load(license, filename)
+                self.windows["license"].setWindowFlags(QtCore.Qt.Dialog)
+                self.windows["license"].exec()
+            else:
+                render_thread = qt_threading.RenderThread(self, self.manager.startRenderingTask,
+                                                            (filename,), pdf_version)
+                QtCore.QObject.connect(render_thread, QtCore.SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
+                QtCore.QObject.connect(render_thread, QtCore.SIGNAL("renderingError(PyQt_PyObject)"), self.onRenderError)
+                render_thread.run()
+
+    def onRenderError(self, error):
+        pass
+
+    def getFileInfo(self, filename):
+        file_info = self.manager.getFileInfo(filename)
+        return file_info
 
     def load_windows(self):
         startup = StartupWindow.StartupWindow(self)

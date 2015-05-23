@@ -40,8 +40,10 @@ class Scorebook(Window):
             self.listWidget.addItem(item)
 
 
-    def loadPiece(self):
-        pass
+    def loadPiece(self, current_item):
+        file_to_load = current_item.data(32)
+        self.application.loadFile(file_to_load)
+        self.main_window.unloadFrame("scorebook")
 
 
 class PlaylistWidget(Window):
@@ -102,10 +104,82 @@ class AutoPlaylists(PlaylistWidget):
 class PieceInfo(Window):
     def __init__(self, parent):
         Window.__init__(self, parent, "BasicListWidget.ui", "Piece Information")
+        self.loadInfo()
+    
+    def loadInfo(self):
+        if self.main_window.current_piece != "":
+            self.listWidget.clear()
+            data = self.application.getFileInfo(self.main_window.current_piece)[0]
+
+            datastring = "title: "+data["title"]
+            title = QtGui.QListWidgetItem(datastring)
+            self.listWidget.addItem(title)
+            if "composer" in data and data["composer"] != -1:
+                datastring = "composer: "+data["composer"]
+                composer = QtGui.QListWidgetItem(datastring)
+                self.listWidget.addItem(composer)
+            if "lyricist" in data and data["lyricist"] != -1:
+                datastring = "lyricist: "+data["lyricist"]
+                lyricist = QtGui.QListWidgetItem(datastring)
+                self.listWidget.addItem(lyricist)
+            if "instruments" in data:
+                datastring = "instruments: "+", ".join([d["name"] for d in data["instruments"]])
+                instruments = QtGui.QListWidgetItem(datastring)
+                self.listWidget.addItem(instruments)
+            if "clefs" in data:
+                datastring = "clefs: "
+                clef_list = []
+                for instrument in data["clefs"]:
+                    for clef in data["clefs"][instrument]:
+                        if clef not in clef_list:
+                            clef_list.append(clef)
+                datastring += ", ".join(clef_list)
+                clefs = QtGui.QListWidgetItem(datastring)
+                self.listWidget.addItem(clefs)
+            if "keys" in data:
+                datastring = "keys: "
+                key_list = []
+                for instrument in data["keys"]:
+                    for key in data["keys"][instrument]:
+                        if key_list not in key_list:
+                            key_list.append(key)
+                datastring += ", ".join(key_list)
+                keys = QtGui.QListWidgetItem(datastring)
+                self.listWidget.addItem(keys)
+
+            if "tempos" in data:
+                datastring = "tempos: "
+                tempo_list = []
+                for tempo in data["tempos"]:
+                    datastring += tempo
+                    datastring += ", "
+                tempos = QtGui.QListWidgetItem(datastring)
+                self.listWidget.addItem(tempos)
+
+            if "time_signatures" in data:
+                datastring = "time signatures: "
+                tempo_list = []
+                for tempo in data["time_signatures"]:
+                    datastring += tempo
+                    datastring += ", "
+                tempos = QtGui.QListWidgetItem(datastring)
+                self.listWidget.addItem(tempos)
+
+            self.listWidget.show()
 
 class FeaturedIn(Window):
     def __init__(self, parent):
         Window.__init__(self, parent, "BasicListWidget.ui", "Featured In...")
+    
+    def load(self):
+        if self.main_window.current_piece != "":
+            data = self.application.loadUserPlaylistsForAGivenFile(self.main_window.current_piece)
+            self.listWidget.clear()
+            for item in data:
+                widget = QtGui.QListWidgetItem(item)
+                widget.setData(1, data[item])
+                self.listWidget.addItem(widget)
+            self.listWidget.show()
 
 class PlaylistBrowser(Window):
     def __init__(self, parent):

@@ -293,13 +293,6 @@ background: url(:/png/0190-menu-pink.png) center no-repeat;
       </size>
      </property>
     </widget>
-    <zorder>scorebookBtn</zorder>
-    <zorder>myPlaylistBtn</zorder>
-    <zorder>autoPlaylistBtn</zorder>
-    <zorder>infoBtn</zorder>
-    <zorder>browserBtn</zorder>
-    <zorder>featuredBtn</zorder>
-    <zorder>searchFrame</zorder>
    </widget>
    <widget class="QFrame" name="contentFrame">
     <property name="geometry">
@@ -365,6 +358,19 @@ background: url(:/png/0190-menu-pink.png) center no-repeat;
       </font>
      </property>
     </widget>
+    <widget class="QLabel" name="titleOfPiece">
+     <property name="geometry">
+      <rect>
+       <x>650</x>
+       <y>30</y>
+       <width>59</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="searchFrame">
     <property name="geometry">
@@ -408,9 +414,22 @@ background: url(:/png/0190-menu-pink.png) center no-repeat;
       </property>
      </column>
     </widget>
-    <zorder>frame_2</zorder>
-    <zorder>searchTree</zorder>
    </widget>
+   <widget class="QGraphicsView" name="scoreWindow">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>70</y>
+      <width>1241</width>
+      <height>621</height>
+     </rect>
+    </property>
+   </widget>
+   <zorder>scoreWindow</zorder>
+   <zorder>buttonFrame</zorder>
+   <zorder>contentFrame</zorder>
+   <zorder>searchBar</zorder>
+   <zorder>searchFrame</zorder>
   </widget>
   <widget class="QMenuBar" name="my_menu">
    <property name="geometry">
