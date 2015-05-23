@@ -16,6 +16,7 @@ class Application(QtCore.QObject):
         self.load_windows()
 
 
+
     def start(self):
         self.windows["startup"].show()
         self.windows["startup"].load(self.collections)
@@ -38,17 +39,20 @@ class Application(QtCore.QObject):
 
     def LoadCollections(self):
         try:
-            fob = open(".collections", 'r')
-            pickler = pickle.Unpickler(fob)
-            self.collections = pickler.load()
-            fob.close()
+            col_fob = open(".collections", 'rb')
         except:
             self.SaveCollections()
+            col_fob = open(".collections", 'rb')
+        result_temp = pickle.load(col_fob)
+        if result_temp is not None:
+            self.collections = result_temp
+        return self.collections
 
     def SaveCollections(self):
-        fob = open(".collections", 'wb')
-        pickle.dump(self.collections, fob)
-        fob.close()
+        col_fob = open(".collections", 'wb')
+        pickle_obj = pickle.Pickler(col_fob)
+        pickle_obj.dump(self.collections)
+        col_fob.close()
 
 
 
@@ -57,10 +61,21 @@ class Application(QtCore.QObject):
         if self.folder is not None:
             self.collections.append(self.folder)
             self.SaveCollections()
+            self.LoadCollections()
             self.windows["startup"].hide()
             self.manager = MusicManager.MusicManager(self, folder=self.folder)
             self.windows["main"].show()
             self.windows["main"].load()
+
+    def getCreatedPlaylists(self, slot=None):
+        async = qt_threading.mythread(self, self.manager.getPlaylistsFromPlaylistTable, ())
+        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async.run()
+
+    def getPlaylists(self, select_method="all", slot=None):
+        async = qt_threading.mythread(self, self.manager.getPlaylists, (select_method,))
+        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async.run()
 
 app = QtGui.QApplication(sys.argv)
 application = Application(app)
