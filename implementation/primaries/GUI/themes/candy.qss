@@ -2,6 +2,14 @@ QWidget#centralwidget {
 border-image:url(themes/sheet-music-texture.png) 0 0 stretch stretch;
 }
 
+QGraphicsView#scoreWindow {
+background:transparent;
+}
+
+QLabel, QListWidgetItem {
+    font: 15pt "Open Sans";
+}
+
 QWidget#searchBar {
 background:#22ADC2;
 

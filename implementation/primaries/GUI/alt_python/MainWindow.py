@@ -50,10 +50,10 @@ class MainWindow(QtGui.QMainWindow):
         self.applyStyle()
         self.setGeometry(0, 0, self.width(), self.height())
         self.widgets["scorebook"] = Widgets.Scorebook
-        self.colors["scorebook"] = "rgba(170, 255, 8, 100)"
-        self.colors["myplaylist"] = "rgba(248, 213, 17, 100)"
-        self.colors["autoplaylist"] = "rgba(235, 25, 39, 100)"
-        self.colors["info"] = "rgba(253, 127, 60, 100)"
+        self.colors["scorebook"] = "rgba(170, 255, 8, 255)"
+        self.colors["myplaylist"] = "rgba(248, 213, 17, 255)"
+        self.colors["autoplaylist"] = "rgba(235, 25, 39, 255)"
+        self.colors["info"] = "rgba(253, 127, 60, 255)"
         self.widgets["myplaylist"] = Widgets.MyPlaylists
         self.widgets["autoplaylist"] = Widgets.AutoPlaylists
         self.widgets["info"] = Widgets.PieceInfo
@@ -165,8 +165,9 @@ class MainWindow(QtGui.QMainWindow):
         """Return a Scrollarea showing the first page of the specified PDF file."""
 
         scene = QtGui.QGraphicsScene()
-        scene.setBackgroundBrush(QtGui.QColor('darkGray'))
-        layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Vertical)
+        scene.setBackgroundBrush(QtGui.QColor('transparent'))
+        layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Horizontal)
+        layout.setContentsMargins(0,0,0,0)
         doc = Poppler.Document.load(filename)
         doc.setRenderHint(Poppler.Document.Antialiasing)
         doc.setRenderHint(Poppler.Document.TextAntialiasing)
@@ -178,15 +179,25 @@ class MainWindow(QtGui.QMainWindow):
             image = page.renderToImage(100, 100)
             pixmap = QtGui.QPixmap.fromImage(image)
             container = QtGui.QLabel()
-            container.setFixedSize(page.pageSize())
+            container.setFixedWidth(self.scoreWindow.width()/2)
+            container.setFixedHeight(page.pageSize().height())
+            #container.setFixedSize(page.pageSize())
             container.setStyleSheet("Page { background-color : transparent}")
             container.setContentsMargins(0, 0, 0, 0)
             container.setScaledContents(True)
             container.setPixmap(pixmap)
             label = scene.addWidget(container)
-            opacity = QtGui.QGraphicsOpacityEffect(self)
-            opacity.setOpacity(0.5)
-            label.setGraphicsEffect(opacity)
+            layout.addItem(label)
+
+        if pageNum == 1:
+            container = QtGui.QLabel()
+            container.setFixedSize(page.pageSize())
+            container.setStyleSheet("Page { background-color : transparent}")
+            container.setContentsMargins(0, 0, 0, 0)
+            container.setScaledContents(True)
+            pixmap = QtGui.QPixmap()
+            container.setPixmap(pixmap)
+            label = scene.addWidget(container)
             layout.addItem(label)
 
         graphicsWidget = QtGui.QGraphicsWidget()

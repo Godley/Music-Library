@@ -23,6 +23,10 @@ QComboBox QListView
     border-style: none;
 }
 
+QLabel, QListWidgetItem, QListWidget::item {
+    font: 15pt "Open Sans";
+}
+
 QComboBox::drop-down
 {
     width: 20px;

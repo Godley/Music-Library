@@ -1,5 +1,9 @@
 QWidget#centralwidget {
-border-image:url(:/png/sheet-music-texture.png) 0 0 stretch stretch;
+border-image:url(themes/sheet-music-texture.png) 0 0 stretch stretch;
+}
+
+QGraphicsView#scoreWindow {
+background:transparent;
 }
 
 QWidget#searchBar {
@@ -69,26 +73,42 @@ border:0px;
 color:white;
 }
 
+QFrame QToolButton:pressed {
+    background-color:black;
+}
+
 QFrame QToolButton#autoPlaylistBtn {
-background: url(themes/icons/0041-file-music.png) center no-repeat;
+background-image: url(themes/icons/0041-file-music.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 QFrame QToolButton#myPlaylistBtn {
-background: url(themes/icons/playlist.png) center no-repeat;
+background-image: url(themes/icons/playlist.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 QFrame QToolButton#infoBtn {
-background: url(themes/icons/0005-newspaper.png) center no-repeat;
+background-image: url(themes/icons/0005-newspaper.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 QFrame QToolButton#scorebookBtn {
-background: url(themes/icons/0033-books.png) center no-repeat;
+background-image: url(themes/icons/0033-books.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 QFrame QToolButton#featuredBtn {
-background: url(themes/icons/0216-star-empty.png) center no-repeat;
+background-image: url(themes/icons/0216-star-empty.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 QFrame QToolButton#browserBtn {
-background: url(themes/icons/0190-menu.png) center no-repeat;
+background-image: url(themes/icons/0190-menu.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
