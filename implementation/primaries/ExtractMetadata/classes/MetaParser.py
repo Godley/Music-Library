@@ -80,7 +80,8 @@ class MetaParser(object):
         if len(self.tags) > 0 and self.tags[-1] in self.handlers:
             self.current_handler = self.handlers[self.tags[-1]]
 
-        self.attribs.pop(name)
+        if name in self.attribs:
+            self.attribs.pop(name)
         if name in self.chars:
             self.chars.pop(name)
 
@@ -92,8 +93,12 @@ class MetaParser(object):
         # OFFLINE MODE
         parser.setFeature(handler.feature_external_ges, False)
         fob = open(file, 'r')
-        parser.parse(fob)
-        self.collatePartsIntoData()
+        try:
+            parser.parse(fob)
+            self.collatePartsIntoData()
+        except Exception as e:
+            print("Exception "+str(e)+" encountered in metaparser")
+
         return self.data
 
 

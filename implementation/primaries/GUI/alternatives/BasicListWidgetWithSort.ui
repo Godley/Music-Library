@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>318</width>
+    <height>304</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>400</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Open Sans</family>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QListWidget {
+background:rgba(255, 255, 255, 140);
+border-top:1px solid rgba(0, 0, 0, 50);
+border-bottom:1px solid rgba(0, 0, 0, 20);
+}
+
+QLabel {
+color:rgba(0, 0, 0, 50);
+font: 15pt &quot;Open Sans&quot;;
+}
+
+QComboBox {
+color: white;
+}
+QComboBox
+{
+    color:white;
+    border-width: 1px;
+    border-style: solid;
+	border-color:rgba(0, 0, 0, 50);
+	margin-top:4px;
+	border-radius:5px;
+}
+
+QComboBox QListView
+{
+    border-style: none;
+}
+
+QComboBox::drop-down
+{
+    width: 20px;
+    border: 1px;
+    border-color:rgba(0, 0, 0, 50);
+    border-left-style:solid;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-right-style: none;
+}
+QComboBox::down-arrow {
+    image:url(:/icon/0324-circle-down.png);
+width:16px;
+height:16px;
+}
+</string>
+  </property>
+  <widget class="QLabel" name="title">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>0</y>
+     <width>401</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Title</string>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="listWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>30</y>
+     <width>318</width>
+     <height>241</height>
+    </rect>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="wordWrap">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>270</y>
+     <width>291</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../../../../../../../../combo.qrc"/>
+  <include location="../../../../../../Documents/combo.qrc"/>
+ </resources>
+ <connections/>
+</ui>

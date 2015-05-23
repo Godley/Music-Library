@@ -244,7 +244,7 @@ font: 12pt &quot;Helvetica Neue&quot;;
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>images/glyphicons-151-edit.png</normaloff>images/glyphicons-151-edit.png</iconset>
+           <normaloff>../../../../../MyCrapApp/images/glyphicons-151-edit.png</normaloff>../../../../../MyCrapApp/images/glyphicons-151-edit.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -932,6 +932,82 @@ font: 12pt &quot;Helvetica Neue&quot;;
            </rect>
           </property>
          </widget>
+         <widget class="QFrame" name="autoCompleteFrame">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>0</y>
+            <width>275</width>
+            <height>231</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="lineWidth">
+           <number>0</number>
+          </property>
+          <widget class="QToolButton" name="noResultsSmiley">
+           <property name="geometry">
+            <rect>
+             <x>80</x>
+             <y>30</y>
+             <width>131</width>
+             <height>111</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset>
+             <normaloff>../../../../../../../../../Downloads/RidEyBni9.png</normaloff>../../../../../../../../../Downloads/RidEyBni9.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>100</width>
+             <height>100</height>
+            </size>
+           </property>
+          </widget>
+          <widget class="QLabel" name="noResultsLabel">
+           <property name="geometry">
+            <rect>
+             <x>50</x>
+             <y>140</y>
+             <width>168</width>
+             <height>20</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>We couldn't find anything</string>
+           </property>
+          </widget>
+          <widget class="QTreeWidget" name="autoCompleteBox">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>271</width>
+             <height>192</height>
+            </rect>
+           </property>
+           <column>
+            <property name="text">
+             <string>results</string>
+            </property>
+           </column>
+          </widget>
+          <zorder>autoCompleteBox</zorder>
+          <zorder>noResultsSmiley</zorder>
+          <zorder>noResultsLabel</zorder>
+         </widget>
         </widget>
         <widget class="QWidget" name="autoPlaylistWidget" native="true">
          <property name="geometry">
@@ -1005,35 +1081,6 @@ font: 12pt &quot;Helvetica Neue&quot;;
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
-       <widget class="QLineEdit" name="searchInput">
-        <property name="geometry">
-         <rect>
-          <x>3</x>
-          <y>5</y>
-          <width>288</width>
-          <height>21</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="musicSearchHint">
-        <property name="geometry">
-         <rect>
-          <x>15</x>
-          <y>10</y>
-          <width>171</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>avenir</family>
-          <pointsize>15</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Search music collection...</string>
-        </property>
-       </widget>
        <widget class="QToolButton" name="searchBtn">
         <property name="geometry">
          <rect>
@@ -1048,7 +1095,7 @@ font: 12pt &quot;Helvetica Neue&quot;;
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>images/glyphicons-28-search.png</normaloff>images/glyphicons-28-search.png</iconset>
+          <normaloff>../../../../../MyCrapApp/images/glyphicons-28-search.png</normaloff>../../../../../MyCrapApp/images/glyphicons-28-search.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -1071,7 +1118,7 @@ font: 12pt &quot;Helvetica Neue&quot;;
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../images/glyphicons-174-play.png</normaloff>../images/glyphicons-174-play.png</iconset>
+          <normaloff>../../../../../images/glyphicons-174-play.png</normaloff>../../../../../images/glyphicons-174-play.png</iconset>
         </property>
        </widget>
        <widget class="QToolButton" name="zoomOutBtn">
@@ -1088,7 +1135,7 @@ font: 12pt &quot;Helvetica Neue&quot;;
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../images/glyphicons-238-zoom-out.png</normaloff>../images/glyphicons-238-zoom-out.png</iconset>
+          <normaloff>../../../../../images/glyphicons-238-zoom-out.png</normaloff>../../../../../images/glyphicons-238-zoom-out.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -1111,7 +1158,7 @@ font: 12pt &quot;Helvetica Neue&quot;;
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../images/glyphicons-237-zoom-in.png</normaloff>../images/glyphicons-237-zoom-in.png</iconset>
+          <normaloff>../../../../../images/glyphicons-237-zoom-in.png</normaloff>../../../../../images/glyphicons-237-zoom-in.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -1120,82 +1167,16 @@ font: 12pt &quot;Helvetica Neue&quot;;
          </size>
         </property>
        </widget>
-      </widget>
-      <widget class="QFrame" name="autoCompleteFrame">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>25</y>
-         <width>275</width>
-         <height>231</height>
-        </rect>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Plain</enum>
-       </property>
-       <property name="lineWidth">
-        <number>0</number>
-       </property>
-       <widget class="QToolButton" name="noResultsSmiley">
+       <widget class="QLineEdit" name="searchInput">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>30</y>
-          <width>131</width>
-          <height>111</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>../../../../../Downloads/RidEyBni9.png</normaloff>../../../../../Downloads/RidEyBni9.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>100</width>
-          <height>100</height>
-         </size>
-        </property>
-       </widget>
-       <widget class="QLabel" name="noResultsLabel">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>140</y>
-          <width>168</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>We couldn't find anything</string>
-        </property>
-       </widget>
-       <widget class="QTreeWidget" name="autoCompleteBox">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
+          <x>10</x>
+          <y>5</y>
           <width>271</width>
-          <height>192</height>
+          <height>21</height>
          </rect>
         </property>
-        <column>
-         <property name="text">
-          <string>results</string>
-         </property>
-        </column>
        </widget>
-       <zorder>autoCompleteBox</zorder>
-       <zorder>noResultsSmiley</zorder>
-       <zorder>noResultsLabel</zorder>
       </widget>
      </widget>
     </item>

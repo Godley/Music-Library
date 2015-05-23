@@ -124,7 +124,7 @@ class Application(QtCore.QObject):
 
     def setupMain(self):
         self.manager = MusicManager.MusicManager(self, folder=self.folder)
-        self.manager.refresh()
+        self.updateDb()
         self.windows["main"].setup()
         self.windows["startup"].hide()
         self.windows["main"].show()
@@ -279,7 +279,8 @@ class Application(QtCore.QObject):
 
 
     def updateDb(self):
-        self.manager.refresh()
+        worker = qt_threading.mythread(self, self.manager.refresh, ())
+        worker.run()
 
     def makeNewCollection(self):
         self.windows["main"].close()
@@ -291,9 +292,11 @@ class Application(QtCore.QObject):
     def onPiecesLoad(self, summary_strings):
         self.windows["main"].onScorebookLoad(summary_strings)
 
-    def loadPieces(self, method="title"):
+    def loadPieces(self, method="title", slot=None):
         worker = qt_threading.mythread(self, self.manager.getPieceSummaryStrings, (method,))
-        QtCore.QObject.connect(worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), self.onPiecesLoad)
+        if slot is None:
+            slot = self.onPiecesLoad
+        QtCore.QObject.connect(worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         worker.run()
 
     def onPlaylistsLoad(self, data):
