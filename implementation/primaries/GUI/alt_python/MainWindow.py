@@ -33,23 +33,25 @@ class MainWindow(QtGui.QMainWindow):
         QResizeEvent.accept()
 
     def resizeCenterWidget(self, item):
+        """
+        method which resizes either center widget (should be score viewer or playlist table) according to changes in window size
+        :param item: the item to modify
+        :return:
+        """
         position = item.pos()
         width = self.width() - self.buttonFrame.width()
         height = self.height() - self.searchBar.height()
         item.setGeometry(position.x(), position.y(), width, height)
 
     def resizeSearchbar(self):
+        """
+        method which resizes the search bar at the top of the screen according to window width
+        :return:
+        """
         search_position = self.searchBar.pos()
         search_width = self.width()
         search_height = self.searchBar.height()
         self.searchBar.setGeometry(search_position.x(), search_position.y(), search_width, search_height)
-
-    def applyStyle(self):
-        stylesheet = os.path.join(get_base_dir(True), "themes", self.theme+".qss")
-        fob = open(stylesheet, 'r')
-        lines = fob.readlines()
-        fob.close()
-        self.setStyleSheet(parseStyle(lines))
 
     def load(self):
         file = os.path.join(get_base_dir(True), "alternatives", "MainWindow.ui")
@@ -72,9 +74,9 @@ class MainWindow(QtGui.QMainWindow):
         self.browserBtn.clicked.connect(self.browser)
         self.featuredBtn.clicked.connect(self.featured)
         self.infoBtn.clicked.connect(self.info)
-        self.lineEdit.setCursorPosition(10)
-        self.lineEdit.textChanged.connect(self.searchbox)
-        self.lineEdit.editingFinished.connect(self.finished)
+        self.searchInput.setCursorPosition(10)
+        self.searchInput.textChanged.connect(self.updateOptions)
+        self.searchInput.editingFinished.connect(self.finished)
         self.contentFrame.setGeometry(0, 0, 10, 10)
         self.contentFrame.hide()
         self.searchBar.setGeometry(self.searchBar.pos().x(), self.searchBar.pos().y(), self.width(), self.searchBar.height())
@@ -86,8 +88,104 @@ class MainWindow(QtGui.QMainWindow):
         self.scoreWindow.hide()
         self.playlistTable.hide()
         self.playlistTable.itemDoubleClicked.connect(self.onPlaylistItemClicked)
+        self.searchTree.itemDoubleClicked.connect(self.onSearchItemClicked)
 
+    def candy(self):
+        """
+        callback for the action to change theme to candy
+        :return:
+        """
+        self.theme = "candy"
+        self.applyStyle()
+
+    def ubuntu(self):
+        """
+        callback for the action to change theme to ubuntu
+        :return:
+        """
+        self.theme = "ubuntu"
+        self.applyStyle()
+
+
+    def applyStyle(self):
+        stylesheet = os.path.join(get_base_dir(True), "themes", self.theme+".qss")
+        fob = open(stylesheet, 'r')
+        lines = fob.readlines()
+        fob.close()
+        self.setStyleSheet(parseStyle(lines))
+
+    # methods which handle querying
+    def updateOptions(self):
+        text = self.searchInput.text()
+        self.searchTree.clear()
+        self.qApp.query(text)
+        self.searchTree.show()
+        self.searchFrame.show()
+
+    def onQueryReturned(self, results):
+        """
+        callback which gets called when the query has been handled by the parent application
+        :param results:  nested list of results to put into the tree
+        :return:
+        """
+        root = self.searchTree.invisibleRootItem()
+        child_count = root.childCount()
+        children = [(i, root.child(i).text(0)) for i in range(child_count)]
+        names = [child[1] for child in children]
+        for location_type in results:
+            item = QtGui.QTreeWidgetItem(location_type)
+            item.setData(0,0,location_type)
+            if location_type in names:
+                index = [child[0] for child in children if child[1] == location_type]
+                item = root.child(index[0])
+                for i in range(item.childCount()):
+                    child = item.child(i)
+                    item.removeChild(child)
+
+            else:
+                self.searchTree.addTopLevelItem(item)
+            for key in results[location_type]:
+                sub_item = QtGui.QTreeWidgetItem(key)
+                sub_item.setData(0,0,key)
+                item.addChild(sub_item)
+                for file in results[location_type][key]:
+                    fitem = QtGui.QTreeWidgetItem(file[0])
+                    fitem.setData(0, 0, file[0])
+                    fitem.setData(0, 32, file[1])
+                    sub_item.addChild(fitem)
+
+        self.searchTree.show()
+        self.searchFrame.show()
+
+    def onSearchItemClicked(self, current_item):
+        self.scoreWindow.show()
+        self.searchFrame.hide()
+        file_to_load = current_item.data(0,32)
+        self.qApp.loadFile(file_to_load)
+
+    def finished(self):
+        """
+        callback for when a user has finished entering text in the search bar
+        :return:
+        """
+        if self.searchInput.text() == "" or self.searchInput.text() == " " or self.searchTree.topLevelItemCount() == 0\
+                or self.focusWidget() != self.searchTree:
+            try:
+                self.searchTree.clear()
+                self.searchFrame.hide()
+                self.searchTree.hide()
+            except:
+                print("we're done here. gbye")
+
+    # methods which handle playlists
     def loadPlaylist(self, playlist_title, playlist_to_load, length):
+        """
+        method which gets called by either of the playlist widgets when a user clicks a playlist
+        :param playlist_title: title of the playlist
+        :param playlist_to_load: list of files in the playlist
+        :param length: length of the playlist items
+        :return:
+        """
         self.playlistTable.setRowCount(length)
         file_data = self.qApp.getPlaylistFileInfo(playlist_to_load)
         data_items = self.setUpDataItems(playlist_to_load, file_data, 0, len(file_data))
@@ -221,75 +319,21 @@ class MainWindow(QtGui.QMainWindow):
         return items
 
     def onPlaylistItemClicked(self, current_item):
+        """
+        callback for when an item is double clicked in a playlist table
+        :param current_item: the current QTableItem
+        :return:
+        """
         self.playlist = current_item.data(4)
         self.index = current_item.data(3)
         self.playlistTable.hide()
         self.qApp.loadFile(current_item.data(32))
 
-    def candy(self):
-        self.theme = "candy"
-        self.applyStyle()
 
-    def ubuntu(self):
-        self.theme = "ubuntu"
-        self.applyStyle()
-
-    def searchbox(self, text):
-        self.searchFrame.show()
-
-    def finished(self):
-        self.searchFrame.hide()
-
-
-    def scorebook(self):
-        if self.loaded != "scorebook":
-            self.loadFrame("scorebook")
-        else:
-            self.unloadFrame("scorebook")
-
-    def myplaylist(self):
-        if self.loaded != "myplaylist":
-            self.loadFrame("myplaylist")
-        else:
-            self.unloadFrame("myplaylist")
-
-    def autoplaylist(self):
-        if self.loaded != "autoplaylist":
-            self.loadFrame("autoplaylist")
-        else:
-            self.unloadFrame("autoplaylist")
-
-    def browser(self):
-        if self.loaded != "browser":
-            self.loadFrame("browser")
-        else:
-            self.unloadFrame("browser")
-
-    def info(self):
-        if self.loaded != "info":
-            self.loadFrame("info")
-        else:
-            self.unloadFrame("info")
-
-    def featured(self):
-        if self.loaded != "featured":
-            self.loadFrame("featured")
-        else:
-            self.unloadFrame("featured")
-
-
-    # def paintEvent(self, paint_event):
-    #     QtGui.QMainWindow.paintEvent(self, paint_event)
-    #     pixmap = QtGui.QPixmap()
-    #     pixmap.load("alternatives/sheet-music-texture.png")
-    #     paint = QtGui.QPainter(self)
-    #     widWidth = self.centralWidget().width()
-    #     widheight = self.centralWidget().height()
-    #     pixmap = pixmap.scaled(widWidth, widheight, QtCore.Qt.KeepAspectRatioByExpanding)
-    #     paint.drawPixmap(0, 0, pixmap)
-
+    # methods to handle pieces
     def onPieceLoaded(self, filename, split_file):
         """
+        callback which is called when the parent application has finished working on an xml file
         :param filename: the fully qualified filename location including folder
         :param split_file: the filename with no folder location
         :return:
@@ -310,7 +354,11 @@ class MainWindow(QtGui.QMainWindow):
         #self.pieceInfoWidget.show()
 
     def pdf_view(self, filename):
-        """Return a Scrollarea showing the first pages[number] of the specified PDF file."""
+        """
+        sets up the graphics view with pairs of pages
+        :param filename: pdf file to load
+        :return:
+        """
 
         scene = QtGui.QGraphicsScene()
         scene.setBackgroundBrush(QtGui.QColor('transparent'))
@@ -397,7 +445,54 @@ class MainWindow(QtGui.QMainWindow):
         scene.addItem(graphicsWidget)
         self.scoreWindow.setScene(scene)
 
+
+    # callbacks for the buttons in the side menu
+    def scorebook(self):
+        if self.loaded != "scorebook":
+            self.loadFrame("scorebook")
+        else:
+            self.unloadFrame("scorebook")
+
+    def myplaylist(self):
+        if self.loaded != "myplaylist":
+            self.loadFrame("myplaylist")
+        else:
+            self.unloadFrame("myplaylist")
+
+    def autoplaylist(self):
+        if self.loaded != "autoplaylist":
+            self.loadFrame("autoplaylist")
+        else:
+            self.unloadFrame("autoplaylist")
+
+    def browser(self):
+        if self.loaded != "browser":
+            self.loadFrame("browser")
+        else:
+            self.unloadFrame("browser")
+
+    def info(self):
+        if self.loaded != "info":
+            self.loadFrame("info")
+        else:
+            self.unloadFrame("info")
+
+    def featured(self):
+        if self.loaded != "featured":
+            self.loadFrame("featured")
+        else:
+            self.unloadFrame("featured")
+
+
+
+    # methods to handle loading frames
     def loadFrame(self, child, ypos=72):
+        """
+        method which fetches the appropriate widget, puts it in the content frame and starts an animation to pull the frame out
+        :param child: the name of the widget to load
+        :param ypos: position to place the widget on the y plane
+        :return:
+        """
         position = self.contentFrame.pos()
         widget = self.widgets[child](self)
         endx = self.buttonFrame.width()-1
@@ -445,6 +540,11 @@ class MainWindow(QtGui.QMainWindow):
         self.loaded = child
 
     def unloadFrame(self, child):
+        """
+        method which handles the animation of a frame in terms of putting it back where it started
+        :param child: name of the frame to onload. No longer really used
+        :return:
+        """
         position = self.contentFrame.pos()
         endx = 0
         endy = position.y()

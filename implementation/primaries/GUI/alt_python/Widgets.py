@@ -192,7 +192,7 @@ class PlaylistBrowser(Window):
         Window.__init__(self, parent, "BasicTableWidget.ui", "Playlist Browser")
         self.playlist = self.main_window.playlist
         self.index = self.main_window.index
-        if self.playlist is not None:
+        if self.playlist is not None and self.index is not None:
             self.load()
         self.tableWidget.itemDoubleClicked.connect(self.clicked)
         

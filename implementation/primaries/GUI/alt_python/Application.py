@@ -5,7 +5,8 @@ from implementation.primaries.GUI import SetupWindow
 from implementation.primaries.exceptions import LilypondNotInstalledException
 import pickle, sys
 from implementation.primaries.GUI import qt_threading
-from implementation.primaries.ExtractMetadata.classes import MusicManager
+from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
+from threading import Lock
 import os
 
 class Application(QtCore.QObject):
@@ -113,6 +114,65 @@ class Application(QtCore.QObject):
         self.windows["setup"] = setup
         self.windows["setup"].show()
         self.windows["setup"].hide()
+
+    def onQueryComplete(self, data, online=False):
+        """
+        Async callback which will send the results of a query back to the main window as the user
+        types stuff in
+        :param data: the results of the query
+        :param online: bool indicator of whether files are online or local
+        :return: None, calls the handler inside main window
+        """
+        lock = Lock()
+        lock.acquire()
+        query_results = {}
+        if online:
+            query_results["Online"] = data
+        else:
+            query_results["Offline"] = data
+        self.windows["main"].onQueryReturned(query_results)
+        lock.release()
+
+    def queryNotThreaded(self, input):
+        """
+        Method which does the querying for adding pieces to playlists without using threads.
+        exists because pyqt fell over when threading
+
+        :return:
+        """
+        data = SearchProcessor.process(input)
+        results = self.manager.runQueries(data)
+        return results
+
+    def query(self, input, playlist=False):
+        """
+        Async method which will process the given input, create thread classes
+        for each type of query and then start those thread classes. When done they will call
+        the callback above
+        :param input: text input from the main window
+        :return: None, thread classes will call the callback above
+        """
+        data = SearchProcessor.process(input)
+        OfflineThread = qt_threading.QueryThread(self, self.manager.runQueries, (data,), False)
+        QtCore.QObject.connect(OfflineThread, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
+        OfflineThread.run()
+        OnlineThread = qt_threading.QueryThread(self, self.manager.runQueries, (data,), True)
+        QtCore.QObject.connect(OnlineThread, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
+        OnlineThread.run()
+        # data_queue = queue.Queue()
+        # OnlineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
+        #                                                   self.onQueryComplete,
+        #     data_queue, (data,), kwargs={"online": True})
+        # OnlineThread.execute()
+
+
+
+
+
+
+    def updateDb(self):
+        worker = qt_threading.mythread(self, self.manager.refresh, ())
+        worker.run()
 
 
     def LoadCollections(self):
