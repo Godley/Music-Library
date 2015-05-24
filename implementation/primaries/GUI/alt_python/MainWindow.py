@@ -162,11 +162,11 @@ class MainWindow(QtGui.QMainWindow):
         #self.pieceInfoWidget.show()
 
     def pdf_view(self, filename):
-        """Return a Scrollarea showing the first page of the specified PDF file."""
+        """Return a Scrollarea showing the first pages[number] of the specified PDF file."""
 
         scene = QtGui.QGraphicsScene()
         scene.setBackgroundBrush(QtGui.QColor('transparent'))
-        layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Horizontal)
+        layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Vertical)
         layout.setContentsMargins(0,0,0,0)
         doc = Poppler.Document.load(filename)
         doc.setRenderHint(Poppler.Document.Antialiasing)
@@ -174,38 +174,79 @@ class MainWindow(QtGui.QMainWindow):
 
 
         pageNum = doc.numPages()
-        for number in range(pageNum):
-            page = doc.page(number)
-            image = page.renderToImage(100, 100)
-            pixmap = QtGui.QPixmap.fromImage(image)
-            container = QtGui.QLabel()
-            container.setFixedWidth(self.scoreWindow.width()/2)
-            container.setFixedHeight(page.pageSize().height())
-            #container.setFixedSize(page.pageSize())
-            container.setStyleSheet("Page { background-color : transparent}")
-            container.setContentsMargins(0, 0, 0, 0)
-            container.setScaledContents(True)
-            container.setPixmap(pixmap)
-            label = scene.addWidget(container)
-            layout.addItem(label)
+        number = 0
+        scenes = []
+        pairings = []
+        pages = []
+        images = []
+        pixmaps = []
+        containers = []
+        labels = []
 
-        if pageNum == 1:
-            container = QtGui.QLabel()
-            container.setFixedSize(page.pageSize())
-            container.setStyleSheet("Page { background-color : transparent}")
-            container.setContentsMargins(0, 0, 0, 0)
-            container.setScaledContents(True)
-            pixmap = QtGui.QPixmap()
-            container.setPixmap(pixmap)
-            label = scene.addWidget(container)
-            layout.addItem(label)
+        while number < pageNum:
+            scenes.append(QtGui.QGraphicsScene())
+            pairings.append(QtGui.QGraphicsLinearLayout(QtCore.Qt.Horizontal))
+            pages.append(doc.page(number))
+            images.append(pages[number].renderToImage(100, 100))
+            pixmaps.append(QtGui.QPixmap.fromImage(images[number]))
+            containers.append(QtGui.QLabel())
+            containers[number].setFixedWidth(self.scoreWindow.width()/2)
+            containers[number].setFixedHeight(pages[number].pageSize().height())
+            #containers[number].setFixedSize(pages[number].pageSize())
+            containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+            containers[number].setContentsMargins(0, 0, 0, 0)
+            containers[number].setScaledContents(True)
+            containers[number].setPixmap(pixmaps[number])
+            labels.append(scenes[number].addWidget(containers[number]))
+            pairings[number].addItem(labels[number])
+            number += 1
+            if number < pageNum:
+                pages.append(doc.page(number))
+                images.append(pages[number].renderToImage(100, 100))
+                pixmaps.append(QtGui.QPixmap.fromImage(images[number]))
+                containers.append(QtGui.QLabel())
+                containers[number].setFixedWidth(self.scoreWindow.width()/2)
+                containers[number].setFixedHeight(pages[number].pageSize().height())
+                #containers[number].setFixedSize(pages[number].pageSize())
+                containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+                containers[number].setContentsMargins(0, 0, 0, 0)
+                containers[number].setScaledContents(True)
+                containers[number].setPixmap(pixmaps[number])
+                labels.append(scenes[number-1].addWidget(containers[number]))
+                pairings[number-1].addItem(labels[number])
+
+            else:
+                containers.append(QtGui.QLabel())
+                containers[number].setFixedSize(pages[number-1].pageSize())
+                containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+                containers[number].setContentsMargins(0, 0, 0, 0)
+                containers[number].setScaledContents(True)
+                pixmaps.append(QtGui.QPixmap())
+                containers[number].setPixmap(pixmaps[number])
+                labels.append(scenes[number-1].addWidget(containers[number]))
+                pairings[number-1].addItem(labels[number])
+            layout.addItem(pairings[number-1])
+            number += 1
+
+        # use this to test that the layout works for more than 2 pages
+        # while number < 3:
+        #     scenes.append(QtGui.QGraphicsScene())
+        #     pairings.append(QtGui.QGraphicsLinearLayout(QtCore.Qt.Horizontal))
+        #     containers.append(QtGui.QLabel())
+        #     containers[number].setFixedSize(pages[-1].pageSize())
+        #     containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+        #     containers[number].setContentsMargins(0, 0, 0, 0)
+        #     containers[number].setScaledContents(True)
+        #     pixmaps.append(QtGui.QPixmap())
+        #     containers[number].setPixmap(pixmaps[number])
+        #     labels.append(scenes[-1].addWidget(containers[number]))
+        #     pairings[-1].addItem(labels[number])
+        #     layout.addItem(pairings[-1])
+        #     number += 1
 
         graphicsWidget = QtGui.QGraphicsWidget()
         graphicsWidget.setLayout(layout)
         scene.addItem(graphicsWidget)
-        #self.view = View(scene)
-        #self.scoreWindow.scale(1,1)
-        #self.scoreWindow.scale(1.4,1.4)
         self.scoreWindow.setScene(scene)
 
     def loadFrame(self, child, ypos=72):

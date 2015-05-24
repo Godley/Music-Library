@@ -4,7 +4,7 @@ import sys
 
 zips = ["implementation/primaries/GUI/designer_files",
          "implementation/primaries/GUI/themes", "implementation/primaries/GUI/images",
-         "implementation/primaries/scripts"]
+         "implementation/primaries/scripts", "implementation/primaries/GUI/alternatives"]
 
 
 base = None
@@ -22,7 +22,7 @@ options = {
 }
 
 executables = [
-    Executable("implementation/main.py", base=base, compress=False)
+    Executable("implementation/primaries/GUI/alt_python/Application.py", base=base, compress=False)
 ]
 
 setup(name='MuseLib',
@@ -31,7 +31,7 @@ setup(name='MuseLib',
       options=options,
       executables=executables,
 
-      packages=['implementation', 'implementation.primaries', 'implementation.primaries.GUI', 'implementation.primaries.scripts',
+      packages=['implementation', 'implementation.primaries', 'implementation.primaries.GUI', 'implementation.primaries.GUI.alt_python', 'implementation.primaries.scripts',
               'implementation.primaries.GUI.pyqt_plugins', 'implementation.primaries.Drawing', 'implementation.primaries.Drawing.classes',
               'implementation.primaries.Drawing.classes.tree_cls', 'implementation.primaries.ExtractMetadata',
               'implementation.primaries.ExtractMetadata.classes', 'implementation.primaries.ImportOnlineDBs','implementation.primaries.ImportOnlineDBs.classes']

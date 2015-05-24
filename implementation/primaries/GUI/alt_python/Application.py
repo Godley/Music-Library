@@ -1,5 +1,5 @@
-from PyQt4 import QtGui, QtCore
-import StartupWindow, MainWindow
+from PyQt4 import QtGui, QtCore, QtXml
+from implementation.primaries.GUI.alt_python import StartupWindow, MainWindow
 import pickle, sys
 from implementation.primaries.GUI import qt_threading
 from implementation.primaries.ExtractMetadata.classes import MusicManager
@@ -21,6 +21,9 @@ class Application(QtCore.QObject):
     def start(self):
         self.windows["startup"].show()
         self.windows["startup"].load(self.collections)
+
+        if len(self.collections) > 0:
+            self.loadFolder(self.collections[-1])
 
     def loadPieces(self, method="title", slot=None):
         worker = qt_threading.mythread(self, self.manager.getPieceSummaryStrings, (method,))
@@ -105,18 +108,23 @@ class Application(QtCore.QObject):
         pickle_obj.dump(self.collections)
         col_fob.close()
 
+    def loadFolder(self, folder):
+        self.folder = folder
+        self.windows["startup"].hide()
+        self.manager = MusicManager.MusicManager(self, folder=self.folder)
+        self.windows["main"].show()
+        self.windows["main"].load()
+
+
 
 
     def FolderFetched(self, folder):
-        self.folder = folder
         if self.folder is not None:
-            self.collections.append(self.folder)
+            self.collections.append(folder)
             self.SaveCollections()
             self.LoadCollections()
-            self.windows["startup"].hide()
-            self.manager = MusicManager.MusicManager(self, folder=self.folder)
-            self.windows["main"].show()
-            self.windows["main"].load()
+            self.loadFolder(folder)
+
 
     def getCreatedPlaylists(self, slot=None):
         async = qt_threading.mythread(self, self.manager.getPlaylistsFromPlaylistTable, ())
