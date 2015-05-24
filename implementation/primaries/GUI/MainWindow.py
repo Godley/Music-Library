@@ -116,9 +116,7 @@ class MainWindow(QtGui.QMainWindow):
         self.qApp.theme = "colours"
         self.applyTheme()
 
-    def refresh(self):
-        self.refreshScores()
-        self.refreshPlaylists()
+
 
     def runLoadingProcedure(self):
         self.qApp.loadPieces()
@@ -696,9 +694,7 @@ class MainWindow(QtGui.QMainWindow):
         self.qApp.loadPieces(method=sort_method)
         self.scoreListWidget.show()
 
-    def refreshScores(self):
-        self.qApp.updateDb()
-        self.onSortMethodChange()
+
 
     def applyTheme(self):
         path_to_file = os.path.join(get_base_dir(return_this_dir=True), "themes", self.theme+".qss")
@@ -708,9 +704,7 @@ class MainWindow(QtGui.QMainWindow):
         file.close()
         self.repaint()
 
-    def refreshPlaylists(self):
-        self.qApp.updateDb()
-        self.loadPlaylists()
+
 
     def addPlaylist(self):
         self.qApp.show_playlist()

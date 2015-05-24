@@ -6,6 +6,7 @@ from implementation.primaries.GUI.alt_python.parseStyle import parseStyle
 from implementation.primaries.GUI.alt_python import Widgets
 from popplerqt4 import Poppler
 
+
 class MainWindow(QtGui.QMainWindow):
     widgets = {}
     frames = {}
@@ -53,6 +54,10 @@ class MainWindow(QtGui.QMainWindow):
         search_height = self.searchBar.height()
         self.searchBar.setGeometry(search_position.x(), search_position.y(), search_width, search_height)
 
+    def closeEvent(self, QCloseEvent):
+        self.qApp.setup_startup()
+        QCloseEvent.accept()
+
     def load(self):
         file = os.path.join(get_base_dir(True), "alternatives", "MainWindow.ui")
         uic.loadUi(file, self)
@@ -89,6 +94,8 @@ class MainWindow(QtGui.QMainWindow):
         self.playlistTable.hide()
         self.playlistTable.itemDoubleClicked.connect(self.onPlaylistItemClicked)
         self.searchTree.itemDoubleClicked.connect(self.onSearchItemClicked)
+        self.actionRefresh_Collection.triggered.connect(self.qApp.updateDb)
+        self.actionNew_Collection.triggered.connect(self.newCollection)
 
     def candy(self):
         """
@@ -558,5 +565,13 @@ class MainWindow(QtGui.QMainWindow):
         animation.start()
         self.animation = animation
         self.loaded = ""
+
+    # callbacks for actions
+    def newCollection(self):
+        self.qApp.folder = ""
+        self.qApp.setup_startup()
+        self.close()
+
+
 
 

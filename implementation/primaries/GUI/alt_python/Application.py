@@ -29,9 +29,13 @@ class Application(QtCore.QObject):
         except:
             pass
 
-    def start(self):
+    def setup_startup(self):
         self.windows["startup"].show()
         self.windows["startup"].load(self.collections)
+        
+
+    def start(self):
+        self.setup_startup()
 
         if len(self.collections) > 0:
             self.loadFolder(self.collections[-1])
@@ -219,6 +223,10 @@ class Application(QtCore.QObject):
         async = qt_threading.mythread(self, self.manager.getPlaylists, (select_method,))
         QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         async.run()
+
+    def copyFiles(self, fnames):
+        self.manager.copyFiles(fnames)
+        self.updateDb()
 
 app = QtGui.QApplication(sys.argv)
 application = Application(app)
