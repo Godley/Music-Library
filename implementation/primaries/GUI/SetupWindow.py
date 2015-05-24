@@ -16,11 +16,13 @@ class SetupWindow(QtGui.QDialog):
         QtGui.QDialog.__init__(self)
         designer_file = os.path.join(get_base_dir(return_this_dir=True), 'designer_files', 'SetupWindow.ui')
         uic.loadUi(designer_file, self)
+        self.refreshBtn.clicked.connect(self.refresh)
 
 
     def refresh(self):
         try:
             setup_script.setup_lilypond()
+            self.hide()
         except LilypondNotInstalledException as e:
             messageBox = MessageBox.MessageBox(parent=self, message="Lilypond was not found", title="Lilypond error, default install")
             messageBox.show()

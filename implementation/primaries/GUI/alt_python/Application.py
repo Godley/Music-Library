@@ -1,5 +1,8 @@
 from PyQt4 import QtGui, QtCore, QtXml
 from implementation.primaries.GUI.alt_python import StartupWindow, MainWindow
+from implementation.primaries.scripts.setup_script import setup_lilypond
+from implementation.primaries.GUI import SetupWindow
+from implementation.primaries.exceptions import LilypondNotInstalledException
 import pickle, sys
 from implementation.primaries.GUI import qt_threading
 from implementation.primaries.ExtractMetadata.classes import MusicManager
@@ -24,6 +27,11 @@ class Application(QtCore.QObject):
 
         if len(self.collections) > 0:
             self.loadFolder(self.collections[-1])
+
+        try:
+            setup_lilypond()
+        except LilypondNotInstalledException as e:
+            self.windows["setup"].show()
 
     def loadPieces(self, method="title", slot=None):
         worker = qt_threading.mythread(self, self.manager.getPieceSummaryStrings, (method,))
@@ -89,6 +97,11 @@ class Application(QtCore.QObject):
         self.windows["main"] = main
         self.windows["main"].show()
         self.windows["main"].hide()
+
+        setup = SetupWindow.SetupWindow(self)
+        self.windows["setup"] = setup
+        self.windows["setup"].show()
+        self.windows["setup"].hide()
 
 
     def LoadCollections(self):

@@ -41,5 +41,3 @@ def setup_lilypond(path=None):
             os.system("icacls lilypond /grant Everyone:F")
         else:
             raise LilypondNotInstalledException('ERROR! Windows edition of Lilypond not in expected folder')
-
-setup_lilypond()

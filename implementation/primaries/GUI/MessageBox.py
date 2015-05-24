@@ -2,7 +2,7 @@ from PyQt4 import QtGui,uic
 from implementation.primaries.GUI.helpers import get_base_dir
 import os
 
-class MessageBox(QtGui.QWidget):
+class MessageBox(QtGui.QDialog):
      def __init__(self, parent=None, message="", title="mbox"):
          QtGui.QWidget.__init__(self, parent)
 
