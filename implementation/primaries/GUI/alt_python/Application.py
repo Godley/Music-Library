@@ -46,6 +46,9 @@ class Application(QtCore.QObject):
         QtCore.QObject.connect(worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         worker.run()
 
+    def getPlaylistFileInfo(self, playlist):
+        return self.manager.getPlaylistFileInfo(playlist)
+
     def onRenderTaskFinished(self, errorList, filename=""):
         """
         asynchronous handler. This gets called when an async task has finished rendering a piece,

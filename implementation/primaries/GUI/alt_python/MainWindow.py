@@ -16,20 +16,27 @@ class MainWindow(QtGui.QMainWindow):
         self.loaded = ""
         self.theme = "ubuntu"
         self.current_piece = ""
+        self.playlist = None
+        self.index = None
 
     def resizeEvent(self, QResizeEvent):
         if hasattr(self, "scoreWindow"):
             if not self.scoreWindow.isHidden():
-                self.resizeScoreWindow()
+                self.resizeCenterWidget(self.scoreWindow)
+        if hasattr(self, "playlistTable"):
+            if not self.playlistTable.isHidden():
+                self.resizeCenterWidget(self.playlistTable)
+                for i in range(8):
+                    self.playlistTable.setColumnWidth(i, self.playlistTable.width()/7)
         if hasattr(self, "searchBar"):
             self.resizeSearchbar()
         QResizeEvent.accept()
 
-    def resizeScoreWindow(self):
-        score_position = self.scoreWindow.pos()
-        score_width = self.width() - self.buttonFrame.width()
-        score_height = self.height() - self.searchBar.height()
-        self.scoreWindow.setGeometry(score_position.x(), score_position.y(), score_width, score_height)
+    def resizeCenterWidget(self, item):
+        position = item.pos()
+        width = self.width() - self.buttonFrame.width()
+        height = self.height() - self.searchBar.height()
+        item.setGeometry(position.x(), position.y(), width, height)
 
     def resizeSearchbar(self):
         search_position = self.searchBar.pos()
@@ -77,6 +84,147 @@ class MainWindow(QtGui.QMainWindow):
         self.menuBar().addMenu("File")
         self.searchFrame.hide()
         self.scoreWindow.hide()
+        self.playlistTable.hide()
+        self.playlistTable.itemDoubleClicked.connect(self.onPlaylistItemClicked)
+
+    def loadPlaylist(self, playlist_title, playlist_to_load, length):
+        self.playlistTable.setRowCount(length)
+        file_data = self.qApp.getPlaylistFileInfo(playlist_to_load)
+        data_items = self.setUpDataItems(playlist_to_load, file_data, 0, len(file_data))
+        for i in range(len(data_items)):
+            for j in range(len(data_items[i])):
+                self.playlistTable.setItem(i, j, data_items[i][j])
+        self.titleOfPiece.setText(playlist_title)
+        self.titleOfPiece.adjustSize()
+        self.titleOfPiece.show()
+        self.playlistTable.show()
+        self.playlistTable.lower()
+        self.playlist = playlist_title
+
+    def setUpDataItems(self, playlist_fnames, playlist_data, start_index, end_index):
+        items = []
+        for i in range(start_index, end_index):
+            file = playlist_data[i]
+            row = []
+            item = QtGui.QTableWidgetItem(file["title"])
+            item.setData(32, file["filename"])
+            item.setData(3, i)
+            item.setData(4, playlist_fnames)
+            row.append(item)
+            if "composer" in file:
+                item = QtGui.QTableWidgetItem(file["composer"])
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+
+            if "lyricist" in file:
+                item = QtGui.QTableWidgetItem(file["lyricist"])
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+
+            if "instruments" in file:
+                item = QtGui.QTableWidgetItem(", ".join([data["name"] for data in file["instruments"]]))
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+            item = QtGui.QTableWidgetItem(file["filename"])
+            item.setData(32, file["filename"])
+            item.setData(3, i)
+            item.setData(4, playlist_fnames)
+            row.append(item)
+            if "clefs" in file:
+                result = ""
+                for instrument in file["clefs"]:
+                    result += ", ".join(file["clefs"][instrument])
+                item = QtGui.QTableWidgetItem(result)
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                item.setData(32, file["filename"])
+                row.append(item)
+
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+            if "keys" in file:
+                result = ""
+                for instrument in file["keys"]:
+                    result += ", ".join(file["keys"][instrument])
+                item = QtGui.QTableWidgetItem(result)
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+
+            if "tempos" in file:
+                item = QtGui.QTableWidgetItem(", ".join(file["tempos"]))
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+
+            if "time_signatures" in file:
+                item = QtGui.QTableWidgetItem(", ".join(file["time_signatures"]))
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(32, file["filename"])
+                item.setData(3, i)
+                item.setData(4, playlist_fnames)
+                row.append(item)
+            items.append(row)
+        return items
+
+    def onPlaylistItemClicked(self, current_item):
+        self.playlist = current_item.data(4)
+        self.index = current_item.data(3)
+        self.playlistTable.hide()
+        self.qApp.loadFile(current_item.data(32))
 
     def candy(self):
         self.theme = "candy"
@@ -154,7 +302,7 @@ class MainWindow(QtGui.QMainWindow):
         self.titleOfPiece.setText(file_to_load)
         self.titleOfPiece.adjustSize()
         self.titleOfPiece.repaint()
-        self.resizeScoreWindow()
+        self.resizeCenterWidget(self.scoreWindow)
         self.scoreWindow.show()
         self.scoreWindow.lower()
         #self.loadFeaturedIn(file_to_load)
@@ -287,6 +435,7 @@ class MainWindow(QtGui.QMainWindow):
         self.contentFrame.show()
         self.contentFrame.lower()
         self.scoreWindow.lower()
+        self.playlistTable.lower()
         animation = QtCore.QPropertyAnimation(self.contentFrame, "geometry")
         animation.setDuration(200)
         animation.setStartValue(QtCore.QRect(0, ypos, self.buttonFrame.width(), self.buttonFrame.height()))

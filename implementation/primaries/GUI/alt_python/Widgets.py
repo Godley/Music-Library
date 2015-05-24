@@ -72,20 +72,26 @@ class PlaylistWidget(Window):
     def load_data(self):
         pass
 
-    def loadPlaylist(self):
-        pass
+    def loadPlaylist(self, current_item):
+        #self.scoreWindow.hide()
+        playlist_to_load = current_item.data(1)
+        length = len(playlist_to_load)
+        playlist_title = current_item.data(3)
+        self.main_window.loadPlaylist(playlist_title, playlist_to_load, length)
+        self.main_window.unloadFrame(self.name)
 
 
 class MyPlaylists(PlaylistWidget):
+    name = "myplaylist"
     def __init__(self, parent):
         PlaylistWidget.__init__(self, parent, "MyPlaylists.ui", "My Playlists")
         self.deleteBtn.hide()
         self.listWidget.itemClicked.connect(self.deleteBtn.show)
 
-    def loadPlaylist(self):
-        pass
+
 
 class AutoPlaylists(PlaylistWidget):
+    name = "autoplaylist"
     def __init__(self, parent):
         PlaylistWidget.__init__(self, parent, "MyPlaylists.ui", "Auto Playlists", data_set="auto")
 
@@ -184,6 +190,57 @@ class FeaturedIn(Window):
 class PlaylistBrowser(Window):
     def __init__(self, parent):
         Window.__init__(self, parent, "BasicTableWidget.ui", "Playlist Browser")
+        self.playlist = self.main_window.playlist
+        self.index = self.main_window.index
+        if self.playlist is not None:
+            self.load()
+        self.tableWidget.itemDoubleClicked.connect(self.clicked)
+        
+    
+    def load(self):
+        data = self.application.getPlaylistFileInfo(self.playlist)
+        if self.tableWidget.rowCount() != 0:
+            self.tableWidget.clear()
+        self.tableWidget.setColumnCount(3)
+        self.tableWidget.setHorizontalHeaderLabels(['Title', 'Composer', 'Filename'])
+        for i in range(3):
+            self.tableWidget.setColumnWidth(i, self.tableWidget.width()/3)
+        self.tableWidget.setRowCount(len(data))
+        for i in range(len(data)):
+            if "composer" in data[i]:
+                item = QtGui.QTableWidgetItem(data[i]["composer"])
+                item.setData(32,data[i]["filename"])
+                self.tableWidget.setItem(i, 1, item)
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(32, data[i]["filename"])
+                self.tableWidget.setItem(i, 1, item)
+
+            if "title" in data[i]:
+                item = QtGui.QTableWidgetItem(data[i]["title"])
+                item.setData(32,data[i]["filename"])
+                self.tableWidget.setItem(i, 0, item)
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(32, data[i]["filename"])
+                self.tableWidget.setItem(i, 0, item)
+
+            if "filename" in data[i]:
+                item = QtGui.QTableWidgetItem(data[i]["filename"])
+                item.setData(32, data[i]["filename"])
+                self.tableWidget.setItem(i, 2, item)
+            else:
+                item = QtGui.QTableWidgetItem("")
+                item.setData(32, data[i]["filename"])
+                self.tableWidget.setItem(i, 2, item)
+
+        self.tableWidget.selectRow(self.index)
+        self.tableWidget.show()
+
+    def clicked(self, current_item):
+        file_to_load = current_item.data(32)
+        self.application.loadFile(file_to_load)
+        self.main_window.unloadFrame("browser")
 
 
 

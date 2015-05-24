@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1310</width>
-    <height>732</height>
+    <width>1375</width>
+    <height>751</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -39,6 +39,10 @@ border-image:url(:/png/sheet-music-texture.png) 0 0 stretch stretch;
 QWidget#widget {
 background:#22ADC2;
 
+}
+
+QGraphicsView#scoreWindow {
+background:transparent;
 }
 
 QFrame#contentFrame {
@@ -425,18 +429,67 @@ background: url(:/png/0190-menu-pink.png) center no-repeat;
      </rect>
     </property>
    </widget>
+   <widget class="QTableWidget" name="playlistTable">
+    <property name="geometry">
+     <rect>
+      <x>65</x>
+      <y>71</y>
+      <width>1241</width>
+      <height>621</height>
+     </rect>
+    </property>
+    <property name="showGrid">
+     <bool>false</bool>
+    </property>
+    <column>
+     <property name="text">
+      <string>title</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>composer</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>lyricist</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>clefs</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>keys</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>tempos</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>time signatures</string>
+     </property>
+    </column>
+   </widget>
    <zorder>scoreWindow</zorder>
    <zorder>buttonFrame</zorder>
    <zorder>contentFrame</zorder>
    <zorder>searchBar</zorder>
    <zorder>searchFrame</zorder>
+   <zorder>playlistTable</zorder>
   </widget>
   <widget class="QMenuBar" name="my_menu">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1310</width>
+     <width>1375</width>
      <height>22</height>
     </rect>
    </property>
