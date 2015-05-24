@@ -15,11 +15,18 @@ class Application(QtCore.QObject):
         self.app = app
         self.folder = ""
         self.collections = []
+        self.path = None
         self.manager = None
         self.LoadCollections()
         self.load_windows()
 
-
+    def loadPath(self):
+        try:
+            fob = open(".path", 'r')
+            self.path = fob.read()
+            fob.close()
+        except:
+            pass
 
     def start(self):
         self.windows["startup"].show()
@@ -29,7 +36,8 @@ class Application(QtCore.QObject):
             self.loadFolder(self.collections[-1])
 
         try:
-            setup_lilypond()
+            self.loadPath()
+            setup_lilypond(path=self.path)
         except LilypondNotInstalledException as e:
             self.windows["setup"].show()
 

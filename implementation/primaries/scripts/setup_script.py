@@ -10,7 +10,7 @@ def setup_lilypond(path=None):
         if path is None:
             mac_path = defaults[0]
         else:
-            mac_path = path
+            mac_path = os.path.join(path, "Contents/Resources/bin/lilypond")
         if os.path.exists(mac_path):
             fob = open(os.path.join(get_base_dir(), "scripts", "lilypond_mac.sh"), 'r')
             lines = fob.readlines()

@@ -17,6 +17,7 @@ class SetupWindow(QtGui.QDialog):
         designer_file = os.path.join(get_base_dir(return_this_dir=True), 'designer_files', 'SetupWindow.ui')
         uic.loadUi(designer_file, self)
         self.refreshBtn.clicked.connect(self.refresh)
+        self.browseBtn.clicked.connect(self.browse)
 
 
     def refresh(self):
@@ -29,9 +30,15 @@ class SetupWindow(QtGui.QDialog):
 
 
     def browse(self):
-        path = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
+        path, filter = QFileDialog.getOpenFileNameAndFilter(
+            self, caption="Select files to import", filter="App file (*.app)")
+
         try:
             setup_script.setup_lilypond(path=path)
+            fob = open(".path", 'w')
+            fob.write(path)
+            fob.close()
+            self.hide()
         except LilypondNotInstalledException as e:
              messageBox = MessageBox.MessageBox(parent=self, message="Lilypond was not found", title="Lilypond error, custom install")
              messageBox.show()
