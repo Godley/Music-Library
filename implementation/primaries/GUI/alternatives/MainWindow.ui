@@ -36,13 +36,40 @@
 border-image:url(:/png/sheet-music-texture.png) 0 0 stretch stretch;
 }
 
-QWidget#widget {
-background:#22ADC2;
+QGraphicsView#scoreWindow {
+background:transparent;
+}
+
+QWidget#searchBar {
+background:black;
 
 }
 
-QGraphicsView#scoreWindow {
+QLabel#titleOfPiece {
+    color:white;
+}
+
+QFrame#searchFrame {
+    border:0px;
+}
+
+QTableWidget {
+    border:0px;
+}
+QTreeWidget#searchTree {
+background:#F3F3F3;
+    border:0px;
+}
+
+QTreeWidget QHeaderView {
 background:transparent;
+}
+QHeaderView:section {
+background:rgba(255,255,255,150);
+border:0px;
+padding:5px;
+font: 14pt &quot;Open Sans&quot;;
+color:#736F66;
 }
 
 QFrame#contentFrame {
@@ -68,27 +95,13 @@ border-bottom:1px solid #999;
 padding-top:10px;
 }
 
-QLineEdit#lineEdit {
+QWidget#searchBar QLineEdit {
 border-radius: 10px;
-}
-
-QTreeWidget#searchTree {
-background:#F3F3F3;
-}
-
-QTreeWidget QHeaderView {
-background:transparent;
-}
-QHeaderView:section {
-background:rgba(255,255,255,150);
-border:0px;
-padding:5px;
-font: 14pt &quot;Open Sans&quot;;
-color:#736F66;
+    font:15pt &quot;Open Sans&quot;;
 }
 
 QFrame#buttonFrame {
-background:#F3F3F3;
+background:#3E1C33;
 }
 
 QFrame QToolButton {
@@ -98,28 +111,44 @@ border:0px;
 color:white;
 }
 
+QFrame QToolButton:pressed {
+    background-color:black;
+}
+
 QFrame QToolButton#autoPlaylistBtn {
-background: url(:/png/0041-file-music-pink.png) center no-repeat;
+background-image: url(:/png/themes/icons/0041-file-music.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 QFrame QToolButton#myPlaylistBtn {
-background: url(:/png/playlist-pink.png) center no-repeat;
+background-image: url(:/png/themes/icons/playlist.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 QFrame QToolButton#infoBtn {
-background: url(:/png/0005-newspaper-pink.png) center no-repeat;
+background-image: url(:/png/themes/icons/0005-newspaper.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 QFrame QToolButton#scorebookBtn {
-background: url(:/png/0033-books-pink.png) center no-repeat;
+background-image: url(:/png/themes/icons/0033-books.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 QFrame QToolButton#featuredBtn {
-background: url(:/png/0216-star-empty-pink.png) center no-repeat;
+background-image: url(:/png/themes/icons/0216-star-empty.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 QFrame QToolButton#browserBtn {
-background: url(:/png/0190-menu-pink.png) center no-repeat;
+background-image: url(:/png/themes/icons/0190-menu.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }</string>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
@@ -358,7 +387,11 @@ background: url(:/png/0190-menu-pink.png) center no-repeat;
      </property>
      <property name="font">
       <font>
-       <pointsize>5</pointsize>
+       <family>Open Sans</family>
+       <pointsize>15</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
       </font>
      </property>
     </widget>
@@ -379,22 +412,22 @@ background: url(:/png/0190-menu-pink.png) center no-repeat;
    <widget class="QFrame" name="searchFrame">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1441</width>
-      <height>400</height>
+      <x>91</x>
+      <y>51</y>
+      <width>500</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>1441</width>
-      <height>400</height>
+      <width>0</width>
+      <height>0</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>1441</width>
-      <height>71</height>
+      <width>500</width>
+      <height>300</height>
      </size>
     </property>
     <property name="frameShape">
@@ -403,21 +436,7 @@ background: url(:/png/0190-menu-pink.png) center no-repeat;
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QTreeWidget" name="searchTree">
-     <property name="geometry">
-      <rect>
-       <x>91</x>
-       <y>52</y>
-       <width>250</width>
-       <height>300</height>
-      </rect>
-     </property>
-     <column>
-      <property name="text">
-       <string>Results</string>
-      </property>
-     </column>
-    </widget>
+    <layout class="QVBoxLayout" name="verticalLayout"/>
    </widget>
    <widget class="QGraphicsView" name="scoreWindow">
     <property name="geometry">

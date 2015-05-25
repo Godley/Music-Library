@@ -22,7 +22,7 @@ options = {
 }
 
 executables = [
-    Executable("implementation/primaries/GUI/alt_python/Application.py", base=base, compress=False)
+    Executable("implementation/primaries/GUI/alt_python/minimalist_app.py", base=base, compress=False)
 ]
 
 setup(name='MuseLib',

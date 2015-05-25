@@ -4,7 +4,9 @@ from implementation.primaries.GUI.helper import get_base_dir
 import os, time, copy
 from implementation.primaries.GUI.alt_python.parseStyle import parseStyle
 from implementation.primaries.GUI.alt_python import Widgets
+from implementation.primaries.GUI import qt_threading
 from popplerqt4 import Poppler
+from pprint import pprint
 
 
 class MainWindow(QtGui.QMainWindow):
@@ -24,6 +26,7 @@ class MainWindow(QtGui.QMainWindow):
         if hasattr(self, "scoreWindow"):
             if not self.scoreWindow.isHidden():
                 self.resizeCenterWidget(self.scoreWindow)
+                self.resizePages()
         if hasattr(self, "playlistTable"):
             if not self.playlistTable.isHidden():
                 self.resizeCenterWidget(self.playlistTable)
@@ -44,6 +47,9 @@ class MainWindow(QtGui.QMainWindow):
         height = self.height() - self.searchBar.height()
         item.setGeometry(position.x(), position.y(), width, height)
 
+    def resizePages(self):
+        pass
+
     def resizeSearchbar(self):
         """
         method which resizes the search bar at the top of the screen according to window width
@@ -61,7 +67,6 @@ class MainWindow(QtGui.QMainWindow):
     def load(self):
         file = os.path.join(get_base_dir(True), "alternatives", "MainWindow.ui")
         uic.loadUi(file, self)
-        self.applyStyle()
         self.setGeometry(0, 0, self.width(), self.height())
         self.widgets["scorebook"] = Widgets.Scorebook
         self.colors["scorebook"] = "rgba(170, 255, 8, 255)"
@@ -73,6 +78,10 @@ class MainWindow(QtGui.QMainWindow):
         self.widgets["info"] = Widgets.PieceInfo
         self.widgets["featured"] = Widgets.FeaturedIn
         self.widgets["browser"] = Widgets.PlaylistBrowser
+        self.widgets["search"] = Widgets.SearchTree(self)
+        layout = self.searchFrame.layout()
+        layout.addWidget(self.widgets["search"])
+        self.searchFrame.setGeometry(self.searchFrame.pos().x(), self.searchFrame.pos().y(), self.widgets["search"].width(), self.widgets["search"].height())
         self.scorebookBtn.clicked.connect(self.scorebook)
         self.myPlaylistBtn.clicked.connect(self.myplaylist)
         self.autoPlaylistBtn.clicked.connect(self.autoplaylist)
@@ -93,9 +102,11 @@ class MainWindow(QtGui.QMainWindow):
         self.scoreWindow.hide()
         self.playlistTable.hide()
         self.playlistTable.itemDoubleClicked.connect(self.onPlaylistItemClicked)
-        self.searchTree.itemDoubleClicked.connect(self.onSearchItemClicked)
+
         self.actionRefresh_Collection.triggered.connect(self.qApp.updateDb)
         self.actionNew_Collection.triggered.connect(self.newCollection)
+        self.actionImport.triggered.connect(self.qApp.importWindow)
+
 
     def candy(self):
         """
@@ -103,6 +114,7 @@ class MainWindow(QtGui.QMainWindow):
         :return:
         """
         self.theme = "candy"
+        self.qApp.theme = "candy"
         self.applyStyle()
 
     def ubuntu(self):
@@ -111,6 +123,7 @@ class MainWindow(QtGui.QMainWindow):
         :return:
         """
         self.theme = "ubuntu"
+        self.qApp.theme = "ubuntu"
         self.applyStyle()
 
 
@@ -124,9 +137,8 @@ class MainWindow(QtGui.QMainWindow):
     # methods which handle querying
     def updateOptions(self):
         text = self.searchInput.text()
-        self.searchTree.clear()
+        self.widgets["search"].clear()
         self.qApp.query(text)
-        self.searchTree.show()
         self.searchFrame.show()
 
     def onQueryReturned(self, results):
@@ -135,52 +147,26 @@ class MainWindow(QtGui.QMainWindow):
         :param results:  nested list of results to put into the tree
         :return:
         """
-        root = self.searchTree.invisibleRootItem()
-        child_count = root.childCount()
-        children = [(i, root.child(i).text(0)) for i in range(child_count)]
-        names = [child[1] for child in children]
-        for location_type in results:
-            item = QtGui.QTreeWidgetItem(location_type)
-            item.setData(0,0,location_type)
-            if location_type in names:
-                index = [child[0] for child in children if child[1] == location_type]
-                item = root.child(index[0])
-                for i in range(item.childCount()):
-                    child = item.child(i)
-                    item.removeChild(child)
 
-            else:
-                self.searchTree.addTopLevelItem(item)
-            for key in results[location_type]:
-                sub_item = QtGui.QTreeWidgetItem(key)
-                sub_item.setData(0,0,key)
-                item.addChild(sub_item)
-                for file in results[location_type][key]:
-                    fitem = QtGui.QTreeWidgetItem(file[0])
-                    fitem.setData(0, 0, file[0])
-                    fitem.setData(0, 32, file[1])
-                    sub_item.addChild(fitem)
 
-        self.searchTree.show()
+
+        self.widgets["search"].load(results)
+        self.widgets["search"].show()
         self.searchFrame.show()
 
-    def onSearchItemClicked(self, current_item):
-        self.scoreWindow.show()
-        self.searchFrame.hide()
-        file_to_load = current_item.data(0,32)
-        self.qApp.loadFile(file_to_load)
+
 
     def finished(self):
         """
         callback for when a user has finished entering text in the search bar
         :return:
         """
-        if self.searchInput.text() == "" or self.searchInput.text() == " " or self.searchTree.topLevelItemCount() == 0\
-                or self.focusWidget() != self.searchTree:
+        widget = self.focusWidget()
+        print((self.searchInput.text() == "" or self.searchInput.text() == " "))
+        print(self.widgets["search"].topLevelItemCount() == 0)
+        if (self.searchInput.text() == "" or self.searchInput.text() == " ") or widget.objectName() != "treeWidget":
             try:
-                self.searchTree.clear()
                 self.searchFrame.hide()
-                self.searchTree.hide()
             except:
                 print("we're done here. gbye")
 
@@ -193,6 +179,7 @@ class MainWindow(QtGui.QMainWindow):
         :param length: length of the playlist items
         :return:
         """
+        self.scoreWindow.hide()
         self.playlistTable.setRowCount(length)
         file_data = self.qApp.getPlaylistFileInfo(playlist_to_load)
         data_items = self.setUpDataItems(playlist_to_load, file_data, 0, len(file_data))
@@ -205,6 +192,7 @@ class MainWindow(QtGui.QMainWindow):
         self.playlistTable.show()
         self.playlistTable.lower()
         self.playlist = playlist_title
+        self.resizeCenterWidget(self.playlistTable)
 
     def setUpDataItems(self, playlist_fnames, playlist_data, start_index, end_index):
         items = []
@@ -566,12 +554,24 @@ class MainWindow(QtGui.QMainWindow):
         self.animation = animation
         self.loaded = ""
 
+    def unloadSearch(self):
+        self.searchFrame.hide()
+
     # callbacks for actions
     def newCollection(self):
         self.qApp.folder = ""
         self.qApp.setup_startup()
         self.close()
 
+    def getCreatedPlaylists(self, slot=None):
+        async = qt_threading.mythread(self, self.manager.getPlaylistsFromPlaylistTable, ())
+        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async.run()
+
+    def getPlaylists(self, select_method="all", slot=None):
+        async = qt_threading.mythread(self, self.manager.getPlaylists, (select_method,))
+        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async.run()
 
 
 

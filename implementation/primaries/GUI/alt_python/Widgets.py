@@ -87,13 +87,23 @@ class MyPlaylists(PlaylistWidget):
         PlaylistWidget.__init__(self, parent, "MyPlaylists.ui", "My Playlists")
         self.deleteBtn.hide()
         self.listWidget.itemClicked.connect(self.deleteBtn.show)
+        self.addBtn.clicked.connect(self.addClicked)
+        self.deleteBtn.clicked.connect(self.delete)
+
+    def addClicked(self):
+        self.application.createNewPlaylist()
+        self.main_window.unloadFrame("myplaylist")
+
+    def delete(self):
+        items = self.listWidget.selectedItems()
+        self.application.deletePlaylists([item.data(3) for item in items])
 
 
 
 class AutoPlaylists(PlaylistWidget):
     name = "autoplaylist"
     def __init__(self, parent):
-        PlaylistWidget.__init__(self, parent, "MyPlaylists.ui", "Auto Playlists", data_set="auto")
+        PlaylistWidget.__init__(self, parent, "BasicListWidget.ui", "Auto Playlists", data_set="auto")
 
     def onPlaylistsReady(self, playlist_summaries):
         self.listWidget.clear()
@@ -173,17 +183,19 @@ class PieceInfo(Window):
 
             self.listWidget.show()
 
-class FeaturedIn(Window):
+class FeaturedIn(PlaylistWidget):
+    name = "featured"
     def __init__(self, parent):
-        Window.__init__(self, parent, "BasicListWidget.ui", "Featured In...")
+        PlaylistWidget.__init__(self, parent, "BasicListWidget.ui", "Featured In...", data_set="featured")
     
-    def load(self):
+    def loadPlaylists(self):
         if self.main_window.current_piece != "":
             data = self.application.loadUserPlaylistsForAGivenFile(self.main_window.current_piece)
             self.listWidget.clear()
             for item in data:
                 widget = QtGui.QListWidgetItem(item)
                 widget.setData(1, data[item])
+                widget.setData(3, item)
                 self.listWidget.addItem(widget)
             self.listWidget.show()
 
@@ -242,5 +254,52 @@ class PlaylistBrowser(Window):
         self.application.loadFile(file_to_load)
         self.main_window.unloadFrame("browser")
 
+class SearchTree(QtGui.QTreeWidget):
+    def __init__(self, parent):
+        QtGui.QTreeWidget.__init__(self)
+        self.main_window = parent
+        self.application = self.main_window.qApp
+        design = os.path.join(get_base_dir(return_this_dir=True), "alternatives", "tree_widget.ui")
+        uic.loadUi(design, self)
+        self.treeWidget.itemDoubleClicked.connect(self.clicked)
 
+    def leaveEvent(self, QFocusEvent):
+        if not self.hasFocus():
+            self.main_window.unloadSearch()
+        QFocusEvent.accept()
+
+    def clicked(self, current_item):
+        self.main_window.unloadFrame("searchtree")
+        file_to_load = current_item.data(0,32)
+        self.application.loadFile(file_to_load)
+
+    def load(self, results):
+        root = self.treeWidget.invisibleRootItem()
+        child_count = root.childCount()
+        children = [(i, root.child(i).text(0)) for i in range(child_count)]
+        names = [child[1] for child in children]
+        for location_type in results:
+            item = QtGui.QTreeWidgetItem(location_type)
+            item.setData(0,0,location_type)
+            if location_type in names:
+                index = [child[0] for child in children if child[1] == location_type]
+                item = root.child(index[0])
+                for i in range(item.childCount()):
+                    child = item.child(i)
+                    item.removeChild(child)
+
+            else:
+                self.treeWidget.addTopLevelItem(item)
+            for key in results[location_type]:
+                sub_item = QtGui.QTreeWidgetItem(key)
+                sub_item.setData(0,0,key)
+                item.addChild(sub_item)
+                for file in results[location_type][key]:
+                    fitem = QtGui.QTreeWidgetItem(file[0])
+                    fitem.setData(0, 0, file[0])
+                    fitem.setData(0, 32, file[1])
+                    sub_item.addChild(fitem)
+
+    def quack(self):
+        print("quack")
 
