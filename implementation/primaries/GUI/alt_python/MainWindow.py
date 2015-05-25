@@ -67,6 +67,7 @@ class MainWindow(QtGui.QMainWindow):
     def load(self):
         file = os.path.join(get_base_dir(True), "alternatives", "MainWindow.ui")
         uic.loadUi(file, self)
+        #self.applyStyle()
         self.setGeometry(0, 0, self.width(), self.height())
         self.widgets["scorebook"] = Widgets.Scorebook
         self.colors["scorebook"] = "rgba(170, 255, 8, 255)"
@@ -97,7 +98,6 @@ class MainWindow(QtGui.QMainWindow):
         self.centralWidget().setStyleSheet("QWidget#centralwidget {border-image:url(alternatives/sheet-music-texture.png) 0 0 stretch stretch;}")
         self.actionUbuntu.triggered.connect(self.ubuntu)
         self.actionCandy.triggered.connect(self.candy)
-        self.menuBar().addMenu("File")
         self.searchFrame.hide()
         self.scoreWindow.hide()
         self.playlistTable.hide()

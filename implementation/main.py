@@ -143,15 +143,17 @@ class Application(QtCore.QObject):
         data = self.manager.getPlaylistByFilename(filename)
         return data
 
-    def onFileDownload(self, filename):
-        fqd_fname = os.path.join(self.folder, filename)
-        self.windows["main"].onPieceLoaded(fqd_fname, filename)
+
 
     def onRenderError(self, error):
         self.errorPopup([str(error)])
 
     def onFileError(self, error):
         self.errorPopup(["Problem with internet connection on file download"])
+
+    def onFileDownload(self, filename):
+        fqd_fname = os.path.join(self.folder, filename)
+        self.windows["main"].onPieceLoaded(fqd_fname, filename)
 
     def downloadFile(self, filename):
         """

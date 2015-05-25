@@ -1,6 +1,6 @@
 from PyQt4 import QtGui, QtCore, QtXml
 from implementation.primaries.GUI.alt_python import MainWindow, StartupWindow
-from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, PlaylistDialog, ImportDialog
+from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, PlaylistDialog, ImportDialog, licensePopup
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.scripts.setup_script import setup_lilypond
 from implementation.primaries.exceptions import LilypondNotInstalledException
@@ -106,6 +106,30 @@ class Application(QtCore.QObject):
         self.windows["newplaylist"] = PlaylistDialog.PlaylistDialog(self, self.theme)
         self.windows["newplaylist"].show()
         self.windows["newplaylist"].hide()
+
+        self.windows["license"] = licensePopup.LicensePopup(self, self.theme)
+        self.windows["license"].show()
+        self.windows["license"].hide()
+
+    def onFileDownload(self, filename):
+        fqd_fname = os.path.join(self.folder, filename)
+        self.windows["main"].onPieceLoaded(fqd_fname, filename)
+
+    def onFileError(self, error):
+        self.errorPopup(["Problem with internet connection on file download"])
+
+    def downloadFile(self, filename):
+        """
+        method which starts a thread to get a file from an API server, this gets called
+        by license window when a user presses "ok"
+        :param filename: xml file name not including current folder
+        :return: None, thread will call a method to pass back the result
+        """
+        async = qt_threading.DownloadThread(self, self.manager.downloadFile,
+                                            filename)
+        QtCore.QObject.connect(async, QtCore.SIGNAL("fileReady(PyQt_PyObject)"), self.onFileDownload)
+        QtCore.QObject.connect(async, QtCore.SIGNAL("downloadError(bool)"), self.onFileError)
+        async.run()
 
     def loadPieces(self, method="title", slot=None):
         worker = qt_threading.mythread(self, self.manager.getPieceSummaryStrings, (method,))

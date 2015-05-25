@@ -17,12 +17,13 @@ options = {
         "include_files":zips
     },
     'bdist_mac': {
-        'bundle_name': 'MuseLib'
+        'bundle_name': 'MuseLib',
+        'custom_info_plist' : "info.plist"
     }
 }
 
 executables = [
-    Executable("implementation/primaries/GUI/alt_python/minimalist_app.py", base=base, compress=False)
+    Executable("implementation/primaries/GUI/alt_python/Application.py", base=base, compress=False)
 ]
 
 setup(name='MuseLib',
