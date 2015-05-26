@@ -1,18 +1,19 @@
 from PyQt4 import QtCore, QtGui, uic
 import os
 from implementation.primaries.GUI.helpers import get_base_dir
+from implementation.primaries.GUI import themedWindow
 
 
-class LicensePopup(QtGui.QDialog):
+class LicensePopup(QtGui.QDialog, themedWindow.ThemedWindow):
 
-    def __init__(self, parent, theme):
-        self.theme = theme
+    def __init__(self, parent, theme, theme_folder):
         self.parent = parent
         QtGui.QDialog.__init__(self)
+        themedWindow.ThemedWindow.__init__(self, theme, theme_folder)
         path_to_file = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "licensePopup.ui")
         uic.loadUi(path_to_file, self)
         self.buttonBox.accepted.connect(self.fetchAndClose)
-        self.setTheme()
+        self.applyTheme()
 
     def load(self, terms, file):
         sizeHint = self.licenseScrollArea.size()
@@ -27,11 +28,4 @@ class LicensePopup(QtGui.QDialog):
 
     def fetchAndClose(self):
         self.parent.downloadFile(self.file)
-
-    def setTheme(self):
-        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "themes", self.theme+".qss")
-        file = open(path_to_file, 'r')
-        fstring = file.readlines()
-        self.setStyleSheet("".join(fstring))
-        self.repaint()
 

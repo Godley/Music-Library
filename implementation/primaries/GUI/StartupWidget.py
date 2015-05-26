@@ -1,10 +1,11 @@
 from PyQt4 import uic, QtGui
 from implementation.primaries.GUI.helpers import get_base_dir
 import os
-
-class StartupWindow(QtGui.QMainWindow):
-    def __init__(self, app):
+from implementation.primaries.GUI import themedWindow
+class StartupWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
+    def __init__(self, app, theme, themes):
         QtGui.QMainWindow.__init__(self)
+        themedWindow.ThemedWindow.__init__(self, theme, themes)
         self.qApp = app
 
     def load(self, items):

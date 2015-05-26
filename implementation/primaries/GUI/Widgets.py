@@ -1,5 +1,5 @@
 from PyQt4 import uic, QtCore, QtGui
-from implementation.primaries.GUI.helper import get_base_dir
+from implementation.primaries.GUI.helpers import get_base_dir
 import os
 
 class Window(QtGui.QWidget):
@@ -7,7 +7,7 @@ class Window(QtGui.QWidget):
         QtGui.QWidget.__init__(self)
         self.main_window = parent
         self.application = self.main_window.qApp
-        design = os.path.join(get_base_dir(return_this_dir=True), "alternatives", file)
+        design = os.path.join(get_base_dir(return_this_dir=True), "designer_files", file)
         uic.loadUi(design, self)
         try:
             self.title.setText(title)
@@ -259,7 +259,7 @@ class SearchTree(QtGui.QTreeWidget):
         QtGui.QTreeWidget.__init__(self)
         self.main_window = parent
         self.application = self.main_window.qApp
-        design = os.path.join(get_base_dir(return_this_dir=True), "alternatives", "tree_widget.ui")
+        design = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "tree_widget.ui")
         uic.loadUi(design, self)
         self.treeWidget.itemDoubleClicked.connect(self.clicked)
 

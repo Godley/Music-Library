@@ -5,15 +5,17 @@ from implementation.primaries.GUI import MessageBox
 from implementation.primaries.scripts import setup_script
 from implementation.primaries.exceptions import LilypondNotInstalledException
 import os
+from implementation.primaries.GUI import themedWindow
 
 
 
 
-class SetupWindow(QtGui.QDialog):
+class SetupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
 
-    def __init__(self, parent):
+    def __init__(self, parent, theme, themes):
         self.parent = parent
         QtGui.QDialog.__init__(self)
+        themedWindow.ThemedWindow.__init__(self, theme, themes)
         designer_file = os.path.join(get_base_dir(return_this_dir=True), 'designer_files', 'SetupWindow.ui')
         uic.loadUi(designer_file, self)
         self.refreshBtn.clicked.connect(self.refresh)

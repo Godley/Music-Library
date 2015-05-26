@@ -1,358 +1,199 @@
-from PyQt4 import QtCore, QtGui, uic
+import sip
+import os
 from popplerqt4 import Poppler
-import sys, threading, os
-from PyQt4 import QtXml
-from implementation.primaries.GUI.helpers import  get_base_dir
-from implementation.primaries.GUI import ImportDialog, renderingErrorPopup, PlaylistDialog
 
-class MainWindow(QtGui.QMainWindow):
-    windows = []
-    def __init__(self, parent, theme):
+from PyQt4 import QtGui, QtCore, uic
+
+from implementation.primaries.GUI.helpers import get_base_dir, parseStyle
+from implementation.primaries.GUI import themedWindow, Widgets
+from implementation.primaries.GUI import Widgets
+from implementation.primaries.GUI import qt_threading
+
+
+class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
+    widgets = {}
+    frames = {}
+    colors = {}
+    def __init__(self, app, theme, theme_folder):
         QtGui.QMainWindow.__init__(self)
+        themedWindow.ThemedWindow.__init__(self, theme, theme_folder)
+        self.qApp = app
         self.theme = theme
-        self.qApp = parent
+        self.loaded = ""
+        self.current_piece = ""
+        self.playlist = None
+        self.index = None
+        self.themeSet = False
 
-    def setup(self):
-        path_to_designer = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "MainWindow.ui")
-        uic.loadUi(path_to_designer, self)
-        self.applyTheme()
-        options = ["title","composer","lyricist"]
-        self.scoreSortCombo.addItems(options)
+    def resizeEvent(self, QResizeEvent):
+        if hasattr(self, "scoreWindow"):
+            if not self.scoreWindow.isHidden():
+                self.resizeCenterWidget(self.scoreWindow)
+                self.resizePages()
+        if hasattr(self, "playlistTable"):
+            if not self.playlistTable.isHidden():
+                self.resizeCenterWidget(self.playlistTable)
+                for i in range(8):
+                    self.playlistTable.setColumnWidth(i, self.playlistTable.width()/7)
+        if hasattr(self, "searchBar"):
+            self.resizeSearchbar()
+        QResizeEvent.accept()
 
+    def resizeCenterWidget(self, item):
+        """
+        method which resizes either center widget (should be score viewer or playlist table) according to changes in window size
+        :param item: the item to modify
+        :return:
+        """
+        position = item.pos()
+        width = self.width() - self.buttonFrame.width()
+        height = self.height() - self.searchBar.height()
+        item.setGeometry(position.x(), position.y(), width, height)
 
-        autoSort = ["all", "time signatures","clefs","instruments","keys","tempos"]
-        self.AutoSortCombo.addItems(autoSort)
+    def resizePages(self):
+        pass
 
+    def resizeSearchbar(self):
+        """
+        method which resizes the search bar at the top of the screen according to window width
+        :return:
+        """
+        search_position = self.searchBar.pos()
+        search_width = self.width()
+        search_height = self.searchBar.height()
+        self.searchBar.setGeometry(search_position.x(), search_position.y(), search_width, search_height)
 
-        # button handlers
-        self.actionRefresh_Collection.triggered.connect(self.refresh)
-        self.AddPlaylistButton.clicked.connect(self.addPlaylist)
+    def closeEvent(self, QCloseEvent):
+        self.hide()
+        self.qApp.setup_startup()
+
+    def load(self):
+        file = os.path.join(get_base_dir(True), "designer_files", "MainWindow.ui")
+        uic.loadUi(file, self)
+        self.setGeometry(0, 0, self.width(), self.height())
+        self.widgets["scorebook"] = Widgets.Scorebook
+        self.colors["scorebook"] = "rgba(170, 255, 8, 255)"
+        self.colors["myplaylist"] = "rgba(248, 213, 17, 255)"
+        self.colors["autoplaylist"] = "rgba(235, 25, 39, 255)"
+        self.colors["info"] = "rgba(253, 127, 60, 255)"
+        self.widgets["myplaylist"] = Widgets.MyPlaylists
+        self.widgets["autoplaylist"] = Widgets.AutoPlaylists
+        self.widgets["info"] = Widgets.PieceInfo
+        self.widgets["featured"] = Widgets.FeaturedIn
+        self.widgets["browser"] = Widgets.PlaylistBrowser
+        self.widgets["search"] = Widgets.SearchTree(self)
+        layout = self.searchFrame.layout()
+        layout.addWidget(self.widgets["search"])
+        self.searchFrame.setGeometry(self.searchFrame.pos().x(), self.searchFrame.pos().y(), self.widgets["search"].width(), self.widgets["search"].height())
+        self.scorebookBtn.clicked.connect(self.scorebook)
+        self.myPlaylistBtn.clicked.connect(self.myplaylist)
+        self.autoPlaylistBtn.clicked.connect(self.autoplaylist)
+        self.browserBtn.clicked.connect(self.browser)
+        self.featuredBtn.clicked.connect(self.featured)
+        self.infoBtn.clicked.connect(self.info)
+        self.searchInput.setCursorPosition(10)
         self.searchInput.textChanged.connect(self.updateOptions)
+        self.searchInput.editingFinished.connect(self.finished)
+        self.contentFrame.setGeometry(0, 0, 10, 10)
+        self.contentFrame.hide()
+        self.searchBar.setGeometry(self.searchBar.pos().x(), self.searchBar.pos().y(), self.width(), self.searchBar.height())
+        self.centralWidget().setStyleSheet("QWidget#centralwidget {border-image:url(alternatives/sheet-music-texture.png) 0 0 stretch stretch;}")
+        self.actionUbuntu.triggered.connect(self.ubuntu)
+        self.actionCandy.triggered.connect(self.candy)
+        self.searchFrame.hide()
+        self.scoreWindow.hide()
+        #self.scoreWebView.hide()
+        self.playlistTable.hide()
+        self.playlistTable.itemDoubleClicked.connect(self.onPlaylistItemClicked)
 
-        # search handlers
-        self.searchInput.returnPressed.connect(self.searchDb)
-        self.searchInput.editingFinished.connect(self.onInactiveSearchBar)
-        self.searchBtn.clicked.connect(self.searchDb)
-
-        # sorting of myScorebook and of the auto generated playlists box
-        self.AutoSortCombo.currentIndexChanged.connect(self.onAutoSortMethodChange)
-        self.scoreSortCombo.currentIndexChanged.connect(self.onSortMethodChange)
-
-        # callbacks for loading pieces from autocomplete, from the scorebook or from a loaded playlist
-        self.autoCompleteBox.itemDoubleClicked.connect(self.onAutoCompleteDoubleClicked)
-        self.scoreListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
-        self.playlistTable.itemDoubleClicked.connect(self.onItemInPlaylistDoubleClicked)
-
-        # playlist callbacks - these load the playlist into the main render window, or else show the delete button
-        # in the case of my playlists
-        self.autoPlaylistsView.itemDoubleClicked.connect(self.onAutoPlaylistDoubleClicked)
-        self.myPlaylistsWidget.itemDoubleClicked.connect(self.onPlaylistDoubleClicked)
-        self.myPlaylistsWidget.itemClicked.connect(self.deletePlaylistBtn.show)
-        self.deletePlaylistBtn.clicked.connect(self.deletePlaylist)
-        self.playlistList.itemDoubleClicked.connect(self.onItemDoubleClicked)
-
-        # actions to show and hide various widgets
-        self.actionMy_Scorebook.triggered.connect(self.onScorebookClicked)
-        self.actionMy_Playlists.triggered.connect(self.onMyPlaylistsClicked)
-        self.actionAuto_Playlists.triggered.connect(self.onAutoPlaylistsClicked)
-        self.actionPiece_Information.triggered.connect(self.PieceInfoClicked)
-        self.actionFeatured_in.triggered.connect(self.FeaturedInClicked)
-        self.actionPlaylist_Browser.triggered.connect(self.PlaylistBrowserClicked)
-        self.actionImport.triggered.connect(self.importPopup)
-        self.actionNew_Collection.triggered.connect(self.close)
-
-        # theme actions
-        self.actionLight.triggered.connect(self.lightTheme)
-        self.actionDark.triggered.connect(self.darkTheme)
-        self.actionElectric_Blue.triggered.connect(self.electricTheme)
-        self.actionTeal.triggered.connect(self.tealTheme)
-        self.actionColours.triggered.connect(self.coloursTheme)
+        self.actionRefresh_Collection.triggered.connect(self.qApp.updateDb)
+        self.actionNew_Collection.triggered.connect(self.newCollection)
+        self.actionImport.triggered.connect(self.qApp.importWindow)
 
 
-        self.editPlaylistTitle.clicked.connect(self.onPlaylistEditClicked)
-        self.playlistTitleLineEdit.returnPressed.connect(self.updatePlaylistTitle)
-
-        # functionality for zooming in or out on a loaded piece
-        self.zoomInBtn.clicked.connect(self.zoomIn)
-        self.zoomOutBtn.clicked.connect(self.zoomOut)
-
-        self.showAndHide()
-
-    def closeEvent(self, event):
-        self.qApp.show_start()
-        event.accept()
-
-    def showAndHide(self):
-        # on startup hide various widgets that aren't needed
-        self.AutoSortCombo.show()
-        self.autoCompleteFrame.hide()
-        self.pieceInfoWidget.hide()
-        self.featuredInWidget.hide()
-        self.playlistBrowserWidget.hide()
-        self.playlistViewer.hide()
-        self.noResultsLabel.hide()
-        self.noResultsSmiley.hide()
-        self.playBtn.hide()
-        self.zoomInBtn.hide()
-        self.zoomOutBtn.hide()
-        self.deletePlaylistBtn.hide()
-
-        # functionality for editing user generated playlists
-        self.editPlaylistTitle.hide()
-        self.playlistTitleLineEdit.hide()
-
-    def electricTheme(self):
-        self.theme = "electricblue"
-        self.qApp.theme = "electricblue"
+    def candy(self):
+        """
+        callback for the action to change theme to candy
+        :return:
+        """
+        self.theme = "candy"
+        self.qApp.updateTheme("candy")
         self.applyTheme()
 
-    def tealTheme(self):
-        self.theme = "teal"
-        self.qApp.theme = "teal"
-        self.applyTheme()
-
-    def coloursTheme(self):
-        self.theme = "colours"
-        self.qApp.theme = "colours"
+    def ubuntu(self):
+        """
+        callback for the action to change theme to ubuntu
+        :return:
+        """
+        self.theme = "ubuntu"
+        self.qApp.updateTheme("ubuntu")
         self.applyTheme()
 
 
+    # methods which handle querying
+    def updateOptions(self):
+        text = self.searchInput.text()
+        self.widgets["search"].clear()
+        self.qApp.query(text)
+        self.searchFrame.show()
+        self.searchFrame.raise_()
+        self.scoreWindow.lower()
+        self.playlistTable.lower()
 
-    def runLoadingProcedure(self):
-        self.qApp.loadPieces()
-        self.scoreListWidget.show()
-        self.loadPlaylists()
-        self.loadMyPlaylists()
-
-    def onPlaylistReady(self, playlist_summaries):
-        self.autoPlaylistsView.clear()
-        for i in playlist_summaries:
-            item = QtGui.QListWidgetItem(i)
-            self.autoPlaylistsView.addItem(item)
-            for j in playlist_summaries[i]:
-                item = QtGui.QListWidgetItem(j)
-                item.setData(1, playlist_summaries[i][j])
-                item.setData(3, i+j)
-                self.autoPlaylistsView.addItem(item)
-        self.autoPlaylistsView.show()
-
-    def onMyPlaylistsReady(self, myPlaylists):
-        self.myPlaylistsWidget.clear()
-        for entry in myPlaylists:
-            item = QtGui.QListWidgetItem(entry)
-            item.setData(1, myPlaylists[entry])
-            item.setData(3, entry)
-            self.myPlaylistsWidget.addItem(item)
-        self.myPlaylistsWidget.show()
-
-    def loadPlaylists(self, select_method="all"):
-        self.qApp.getPlaylists(select_method=select_method)
-
-
-    def loadMyPlaylists(self):
-        self.qApp.getCreatedPlaylists()
-
-    def importPopup(self):
-        dialog = ImportDialog.ImportDialog(self, self.theme)
-        dialog.setWindowFlags(QtCore.Qt.Dialog)
-        self.addWindow(dialog)
-        self.show()
+    def onQueryReturned(self, results):
+        """
+        callback which gets called when the query has been handled by the parent application
+        :param results:  nested list of results to put into the tree
+        :return:
+        """
 
 
 
-
-    def onAutoPlaylistLoad(self):
-        pass
-
-    def onMyPlaylistLoad(self):
-        pass
-
-    def onScorebookLoad(self, pieces):
-        self.scoreListWidget.clear()
-        for i in pieces:
-            item = QtGui.QListWidgetItem(i[0])
-            item.setData(32, i[1])
-            self.scoreListWidget.addItem(item)
-
-    def darkTheme(self):
-
-        self.qApp.theme = "dark"
-        self.theme = "dark"
-        self.applyTheme()
+        self.widgets["search"].load(results)
+        self.widgets["search"].show()
+        self.searchFrame.show()
 
 
-    def lightTheme(self):
-        self.qApp.theme = "light"
-        self.theme = "light"
-        self.applyTheme()
 
+    def finished(self):
+        """
+        callback for when a user has finished entering text in the search bar
+        :return:
+        """
+        widget = self.focusWidget()
+        print((self.searchInput.text() == "" or self.searchInput.text() == " "))
+        print(self.widgets["search"].topLevelItemCount() == 0)
+        if (self.searchInput.text() == "" or self.searchInput.text() == " ") or widget.objectName() != "treeWidget":
+            try:
+                self.searchFrame.hide()
+            except:
+                print("we're done here. gbye")
 
-    def onScorebookClicked(self):
-        self.scoreWidget.setHidden(not self.scoreWidget.isHidden())
-        if not self.scoreWidget.isHidden():
-            if not self.playlistWidget.isHidden():
-                self.playlistWidget.move(0, 250)
-                if not self.autoPlaylistWidget.isHidden():
-                    self.autoPlaylistWidget.move(0,500)
-            elif not self.autoPlaylistWidget.isHidden():
-                self.autoPlaylistWidget.move(0,250)
-        else:
-            if not self.playlistWidget.isHidden():
-                self.playlistWidget.move(0, 0)
-                if not self.autoPlaylistWidget.isHidden():
-                    self.autoPlaylistWidget.move(0,250)
-            elif not self.autoPlaylistWidget.isHidden():
-                self.autoPlaylistWidget.move(0,0)
-
-    def onMyPlaylistsClicked(self):
-        self.playlistWidget.setHidden(not self.playlistWidget.isHidden())
-        yval=0
-        if not self.playlistWidget.isHidden():
-            if not self.scoreWidget.isHidden():
-                yval=250
-            self.playlistWidget.move(0, yval)
-            if not self.autoPlaylistWidget.isHidden():
-                self.autoPlaylistWidget.move(0, yval+250)
-        else:
-            if not self.autoPlaylistWidget.isHidden():
-                yval=0
-                if not self.scoreWidget.isHidden():
-                    yval=250
-                self.autoPlaylistWidget.move(0, yval)
-
-    def onAutoPlaylistsClicked(self):
-        self.autoPlaylistWidget.setHidden(not self.autoPlaylistWidget.isHidden())
-        yval=0
-        if not self.autoPlaylistWidget.isHidden():
-            if not self.scoreWidget.isHidden():
-                yval+=250
-            if not self.playlistWidget.isHidden():
-                yval += 250
-            self.autoPlaylistWidget.move(0, yval)
-
-    def PieceInfoClicked(self):
-        self.pieceInfoWidget.setHidden(not self.pieceInfoWidget.isHidden())
-        if not self.pieceInfoWidget.isHidden():
-            if not self.featuredInWidget.isHidden():
-                self.featuredInWidget.move(0, 250)
-                if not self.playlistBrowserWidget.isHidden():
-                    self.playlistBrowserWidget.move(0,500)
-            elif not self.playlistBrowserWidget.isHidden():
-                self.playlistBrowserWidget.move(0,250)
-        else:
-            if not self.featuredInWidget.isHidden():
-                self.featuredInWidget.move(0, 0)
-                if not self.playlistBrowserWidget.isHidden():
-                    self.playlistBrowserWidget.move(0,250)
-            elif not self.playlistBrowserWidget.isHidden():
-                self.playlistBrowserWidget.move(0,0)
-
-
-    def FeaturedInClicked(self):
-        self.featuredInWidget.setHidden(not self.featuredInWidget.isHidden())
-        yval=0
-        if not self.featuredInWidget.isHidden():
-            if not self.pieceInfoWidget.isHidden():
-                yval=250
-            self.featuredInWidget.move(0, yval)
-            if not self.playlistBrowserWidget.isHidden():
-                self.playlistBrowserWidget.move(0, yval+250)
-        else:
-            if not self.playlistBrowserWidget.isHidden():
-                yval=0
-                if not self.pieceInfoWidget.isHidden():
-                    yval=250
-                self.playlistBrowserWidget.move(0, yval)
-
-
-    def PlaylistBrowserClicked(self):
-        self.playlistBrowserWidget.setHidden(not self.playlistBrowserWidget.isHidden())
-        yval=0
-        if not self.playlistBrowserWidget.isHidden():
-            if not self.pieceInfoWidget.isHidden():
-                yval+=250
-            if not self.featuredInWidget.isHidden():
-                yval += 250
-            self.playlistBrowserWidget.move(0, yval)
-
-    def deletePlaylist(self):
-        items = self.myPlaylistsWidget.selectedItems()
-        names = [item.data(2) for item in items]
-        self.qApp.removePlaylists(names)
-        [self.myPlaylistsWidget.takeItem(self.myPlaylistsWidget.row(thing)) for thing in items]
-        self.myPlaylistsWidget.show()
-
-    def updatePlaylistTitle(self):
-        text = self.playlistTitleLineEdit.text()
-        old_value = self.musicTitle.text()
-        self.qApp.updatePlaylistTitle(text, old_value)
-        self.musicTitle.setText(text)
-        self.musicTitle.repaint()
-        self.playlistTitleLineEdit.hide()
-        self.editPlaylistTitle.show()
-        self.loadMyPlaylists()
-
-
-    def onPlaylistEditClicked(self):
-        title = self.musicTitle.text()
-        self.playlistTitleLineEdit.setText(title)
-        self.playlistTitleLineEdit.show()
-        self.editPlaylistTitle.hide()
-
-    def onItemInPlaylistDoubleClicked(self, current_item):
-        playlist = current_item.data(4)
-        index_in_playlist = current_item.data(3)
-        data = self.qApp.getPlaylistFileInfo(playlist)
-        if self.playlistList.rowCount() != 0:
-            self.playlistList.clear()
-            self.playlistList.setHorizontalHeaderItem(0, QtGui.QTableWidgetItem("Title"))
-            self.playlistList.setHorizontalHeaderItem(1, QtGui.QTableWidgetItem("Composer"))
-            self.playlistList.setHorizontalHeaderItem(2, QtGui.QTableWidgetItem("Filename"))
-        self.playlistList.setRowCount(len(data))
-        for i in range(len(data)):
-            if "composer" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["composer"])
-                item.setData(32,data[i]["filename"])
-                self.playlistList.setItem(i, 1, item)
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, data[i]["filename"])
-                self.playlistList.setItem(i, 1, item)
-
-            if "title" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["title"])
-                item.setData(32,data[i]["filename"])
-                self.playlistList.setItem(i, 0, item)
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, data[i]["filename"])
-                self.playlistList.setItem(i, 0, item)
-
-            if "filename" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["filename"])
-                item.setData(32, data[i]["filename"])
-                self.playlistList.setItem(i, 2, item)
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, data[i]["filename"])
-                self.playlistList.setItem(i, 2, item)
-
-        self.playlistList.selectRow(index_in_playlist)
-        self.playlistList.show()
-        self.playlistBrowserWidget.show()
-        self.onItemDoubleClicked(current_item)
-        self.actionPlaylist_Browser.setChecked(True)
-
-
-    def showToolbarBtns(self):
-        self.playBtn.show()
-        self.zoomInBtn.show()
-        self.zoomOutBtn.show()
-
-    def hideToolbarBtns(self):
-        self.playBtn.hide()
-        self.zoomInBtn.hide()
-        self.zoomOutBtn.hide()
+    # methods which handle playlists
+    def loadPlaylist(self, playlist_title, playlist_to_load, length):
+        """
+        method which gets called by either of the playlist widgets when a user clicks a playlist
+        :param playlist_title: title of the playlist
+        :param playlist_to_load: list of files in the playlist
+        :param length: length of the playlist items
+        :return:
+        """
+        self.scoreWindow.hide()
+        self.playlistTable.setRowCount(length)
+        file_data = self.qApp.getPlaylistFileInfo(playlist_to_load)
+        data_items = self.setUpDataItems(playlist_to_load, file_data, 0, len(file_data))
+        for i in range(len(data_items)):
+            for j in range(len(data_items[i])):
+                self.playlistTable.setItem(i, j, data_items[i][j])
+        self.titleOfPiece.setText(playlist_title)
+        self.titleOfPiece.adjustSize()
+        self.titleOfPiece.show()
+        self.playlistTable.show()
+        self.playlistTable.lower()
+        for i in range(8):
+            self.playlistTable.setColumnWidth(i, self.playlistTable.width()/7)
+        self.playlist = playlist_title
+        self.resizeCenterWidget(self.playlistTable)
 
     def setUpDataItems(self, playlist_fnames, playlist_data, start_index, end_index):
         items = []
@@ -473,300 +314,281 @@ class MainWindow(QtGui.QMainWindow):
             items.append(row)
         return items
 
-
-    def onAutoPlaylistDoubleClicked(self, current_item):
-        self.onPlaylistDoubleClicked(current_item)
-        self.editPlaylistTitle.hide()
-
-    def onPlaylistDoubleClicked(self, current_item):
-        self.scoreWindow.hide()
-        playlist_to_load = current_item.data(1)
-        length = len(playlist_to_load)
-        playlist_title = current_item.data(3)
-        self.playlistTable.setRowCount(length)
-        file_data = self.qApp.getPlaylistFileInfo(playlist_to_load)
-        data_items = self.setUpDataItems(playlist_to_load, file_data, 0, len(file_data))
-        for i in range(len(data_items)):
-            for j in range(len(data_items[i])):
-                self.playlistTable.setItem(i, j, data_items[i][j])
-        self.musicTitle.setText(playlist_title)
-        self.editPlaylistTitle.show()
-        self.playlistTable.show()
-        self.playlistViewer.show()
-        self.hideToolbarBtns()
-        self.clearUnusedWidgets()
+    def onPlaylistItemClicked(self, current_item):
+        """
+        callback for when an item is double clicked in a playlist table
+        :param current_item: the current QTableItem
+        :return:
+        """
+        self.playlist = current_item.data(4)
+        self.index = current_item.data(3)
+        self.playlistTable.hide()
+        self.qApp.loadFile(current_item.data(32))
 
 
-    def onInactiveSearchBar(self):
-        if self.searchInput.text() == "" or self.searchInput.text() == " " or self.autoCompleteBox.topLevelItemCount() == 0\
-                or self.focusWidget() != self.autoCompleteBox:
-            try:
-                self.autoCompleteBox.clear()
-                self.autoCompleteFrame.hide()
-                self.autoCompleteBox.hide()
-            except:
-                print("we're done here. gbye")
-
-    def onAutoCompleteDoubleClicked(self, current_item):
-        self.scoreWindow.show()
-        #self.progressBarRendering.show()
-        #self.progressBarRendering.setRange(0, 100)
-        self.autoCompleteFrame.hide()
-        self.editPlaylistTitle.hide()
-        file_to_load = current_item.data(0,32)
-        self.loadPiece(file_to_load)
-
-    def onItemDoubleClicked(self, current_item):
-        self.scoreWindow.show()
-        #self.progressBarRendering.show()
-        #self.progressBarRendering.setRange(0, 100)
-        self.editPlaylistTitle.hide()
-        file_to_load = current_item.data(32)
-        self.loadPiece(file_to_load)
-
+    # methods to handle pieces
     def onPieceLoaded(self, filename, split_file):
         """
+        callback which is called when the parent application has finished working on an xml file
         :param filename: the fully qualified filename location including folder
         :param split_file: the filename with no folder location
         :return:
         """
         file_to_load = split_file.split(".")[0]+".xml"
-        self.showToolbarBtns()
-        self.loadPieceData(file_to_load)
-        self.pdf_view(filename)
-        self.musicTitle.setText(file_to_load)
-        self.musicTitle.repaint()
-        self.loadFeaturedIn(file_to_load)
-        self.playlistViewer.hide()
-        self.pieceInfoWidget.show()
+        self.current_piece = file_to_load
+        #self.showToolbarBtns()
+        #self.loadPieceData(file_to_load)
+        self.loadPdfToGraphicsWidget(filename)
+        #self.loadPdfToWebWidget(filename)
+        self.titleOfPiece.setText(file_to_load)
+        self.titleOfPiece.adjustSize()
+        self.titleOfPiece.repaint()
+        self.resizeCenterWidget(self.scoreWindow)
+        self.scoreWindow.show()
+        self.scoreWindow.lower()
+        #self.loadFeaturedIn(file_to_load)
+        #self.playlistViewer.hide()
+        #self.pieceInfoWidget.show()
 
-    def loadPiece(self, file_to_load):
-        self.qApp.loadFile(file_to_load)
-
-
-    def updateProgressBar(self):
-        bar_value = self.progressBarRendering.value()
-        self.progressBarRendering.setValue(bar_value+1)
-        self.progressBarRendering.repaint()
-
-    def loadFeaturedIn(self, filename):
-        data = self.qApp.loadUserPlaylistsForAGivenFile(filename)
-        self.featuredListWidget.clear()
-        for item in data:
-            widget = QtGui.QListWidgetItem(item)
-            widget.setData(1, data[item])
-            self.featuredListWidget.addItem(widget)
-        self.featuredListWidget.show()
-        self.featuredInWidget.show()
-        self.actionFeatured_in.setChecked(True)
-
-    def clearUnusedWidgets(self):
-        self.featuredListWidget.clear()
-        self.featuredInWidget.hide()
-        self.pieceInfoView.clear()
-        self.pieceInfoWidget.hide()
-        self.playlistList.clear()
-        self.playlistList.setHorizontalHeaderItem(0, QtGui.QTableWidgetItem("Title"))
-        self.playlistList.setHorizontalHeaderItem(1, QtGui.QTableWidgetItem("Composer"))
-        self.playlistList.setHorizontalHeaderItem(2, QtGui.QTableWidgetItem("Filename"))
-        self.playlistList.setRowCount(0)
-        self.playlistBrowserWidget.hide()
-
-    def loadPieceData(self, filename):
-        self.pieceInfoView.clear()
-        data = self.qApp.getFileInfo(filename)[0]
-
-        datastring = "title: "+data["title"]
-        title = QtGui.QListWidgetItem(datastring)
-        self.pieceInfoView.addItem(title)
-        if "composer" in data and data["composer"] != -1:
-            datastring = "composer: "+data["composer"]
-            composer = QtGui.QListWidgetItem(datastring)
-            self.pieceInfoView.addItem(composer)
-        if "lyricist" in data and data["lyricist"] != -1:
-            datastring = "lyricist: "+data["lyricist"]
-            lyricist = QtGui.QListWidgetItem(datastring)
-            self.pieceInfoView.addItem(lyricist)
-        if "instruments" in data:
-            datastring = "instruments: "+", ".join([d["name"] for d in data["instruments"]])
-            instruments = QtGui.QListWidgetItem(datastring)
-            self.pieceInfoView.addItem(instruments)
-        if "clefs" in data:
-            datastring = "clefs: "
-            clef_list = []
-            for instrument in data["clefs"]:
-                for clef in data["clefs"][instrument]:
-                    if clef not in clef_list:
-                        clef_list.append(clef)
-            datastring += ", ".join(clef_list)
-            clefs = QtGui.QListWidgetItem(datastring)
-            self.pieceInfoView.addItem(clefs)
-        if "keys" in data:
-            datastring = "keys: "
-            key_list = []
-            for instrument in data["keys"]:
-                for key in data["keys"][instrument]:
-                    if key_list not in key_list:
-                        key_list.append(key)
-            datastring += ", ".join(key_list)
-            keys = QtGui.QListWidgetItem(datastring)
-            self.pieceInfoView.addItem(keys)
-
-        if "tempos" in data:
-            datastring = "tempos: "
-            tempo_list = []
-            for tempo in data["tempos"]:
-                datastring += tempo
-                datastring += ", "
-            tempos = QtGui.QListWidgetItem(datastring)
-            self.pieceInfoView.addItem(tempos)
-
-        if "time_signatures" in data:
-            datastring = "time signatures: "
-            tempo_list = []
-            for tempo in data["time_signatures"]:
-                datastring += tempo
-                datastring += ", "
-            tempos = QtGui.QListWidgetItem(datastring)
-            self.pieceInfoView.addItem(tempos)
-
-        self.pieceInfoView.show()
-        self.pieceInfoWidget.show()
-        self.actionPiece_Information.setChecked(True)
-
-    def zoomIn(self):
-        '''
-        callback for zoom in button
+    def loadPdfToGraphicsWidget(self, filename):
+        """
+        sets up the graphics view with pairs of pages
+        :param filename: pdf file to load
         :return:
-        '''
-        self.scoreWindow.scale(1.1, 1.1)
-
-    def zoomOut(self):
-        '''
-        callback for zoom out button
-        :return:
-        '''
-        self.scoreWindow.scale(0.9, 0.9)
-
-    def pdf_view(self, filename):
-        """Return a Scrollarea showing the first page of the specified PDF file."""
+        """
 
         scene = QtGui.QGraphicsScene()
-        scene.setBackgroundBrush(QtGui.QColor('darkGray'))
+        scene.setBackgroundBrush(QtGui.QColor('transparent'))
         layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Vertical)
+        layout.setContentsMargins(0,0,0,0)
         doc = Poppler.Document.load(filename)
         doc.setRenderHint(Poppler.Document.Antialiasing)
         doc.setRenderHint(Poppler.Document.TextAntialiasing)
 
 
         pageNum = doc.numPages()
-        for number in range(pageNum):
-            page = doc.page(number)
-            image = page.renderToImage(100, 100)
-            pixmap = QtGui.QPixmap.fromImage(image)
-            container = QtGui.QLabel()
-            container.setFixedSize(page.pageSize())
-            container.setStyleSheet("Page { background-color : transparent}")
-            container.setContentsMargins(0, 0, 0, 0)
-            container.setScaledContents(True)
-            container.setPixmap(pixmap)
-            label = scene.addWidget(container)
-            opacity = QtGui.QGraphicsOpacityEffect(self)
-            opacity.setOpacity(0.5)
-            label.setGraphicsEffect(opacity)
-            layout.addItem(label)
+        number = 0
+        scenes = []
+        pairings = []
+        pages = []
+        images = []
+        pixmaps = []
+        containers = []
+        labels = []
+
+        while number < pageNum:
+            scenes.append(QtGui.QGraphicsScene())
+            pairings.append(QtGui.QGraphicsLinearLayout(QtCore.Qt.Horizontal))
+            pages.append(doc.page(number))
+            images.append(pages[number].renderToImage(100, 100))
+            pixmaps.append(QtGui.QPixmap.fromImage(images[number]))
+            containers.append(QtGui.QLabel())
+            containers[number].setFixedWidth(self.scoreWindow.width()/2)
+            containers[number].setFixedHeight(pages[number].pageSize().height())
+            #containers[number].setFixedSize(pages[number].pageSize())
+            containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+            containers[number].setContentsMargins(0, 0, 0, 0)
+            containers[number].setScaledContents(True)
+            containers[number].setPixmap(pixmaps[number])
+            labels.append(scenes[number].addWidget(containers[number]))
+            pairings[number].addItem(labels[number])
+            number += 1
+            if number < pageNum:
+                pages.append(doc.page(number))
+                images.append(pages[number].renderToImage(100, 100))
+                pixmaps.append(QtGui.QPixmap.fromImage(images[number]))
+                containers.append(QtGui.QLabel())
+                containers[number].setFixedWidth(self.scoreWindow.width()/2)
+                containers[number].setFixedHeight(pages[number].pageSize().height())
+                #containers[number].setFixedSize(pages[number].pageSize())
+                containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+                containers[number].setContentsMargins(0, 0, 0, 0)
+                containers[number].setScaledContents(True)
+                containers[number].setPixmap(pixmaps[number])
+                labels.append(scenes[number-1].addWidget(containers[number]))
+                pairings[number-1].addItem(labels[number])
+
+            else:
+                containers.append(QtGui.QLabel())
+                containers[number].setFixedSize(pages[number-1].pageSize())
+                containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+                containers[number].setContentsMargins(0, 0, 0, 0)
+                containers[number].setScaledContents(True)
+                pixmaps.append(QtGui.QPixmap())
+                containers[number].setPixmap(pixmaps[number])
+                labels.append(scenes[number-1].addWidget(containers[number]))
+                pairings[number-1].addItem(labels[number])
+            layout.addItem(pairings[number-1])
+            number += 1
+
+        # use this to test that the layout works for more than 2 pages
+        # while number < 3:
+        #     scenes.append(QtGui.QGraphicsScene())
+        #     pairings.append(QtGui.QGraphicsLinearLayout(QtCore.Qt.Horizontal))
+        #     containers.append(QtGui.QLabel())
+        #     containers[number].setFixedSize(pages[-1].pageSize())
+        #     containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+        #     containers[number].setContentsMargins(0, 0, 0, 0)
+        #     containers[number].setScaledContents(True)
+        #     pixmaps.append(QtGui.QPixmap())
+        #     containers[number].setPixmap(pixmaps[number])
+        #     labels.append(scenes[-1].addWidget(containers[number]))
+        #     pairings[-1].addItem(labels[number])
+        #     layout.addItem(pairings[-1])
+        #     number += 1
 
         graphicsWidget = QtGui.QGraphicsWidget()
         graphicsWidget.setLayout(layout)
         scene.addItem(graphicsWidget)
-        #self.view = View(scene)
-        #self.scoreWindow.scale(1,1)
-        #self.scoreWindow.scale(1.4,1.4)
         self.scoreWindow.setScene(scene)
 
+    def loadPdfToWebWidget(self, filename):
+        # self.scoreWebView.settings().setAttribute(QtWebKit.QWebSettings.PluginsEnabled, True)
+        # self.scoreWebView.show()
+        # self.scoreWebView.settings().setAttribute(QtWebKit.QWebSettings.PluginsEnabled, True)
+        # self.scoreWebView.settings().setAttribute(QtWebKit.QWebSettings.PrivateBrowsingEnabled, True)
+        # self.scoreWebView.settings().setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
+        # self.scoreWebView.loadFinished.connect(self._loadfinished)
+        f = QtCore.QUrl().fromLocalFile(filename)
+        print(f)
+        # self.scoreWebView.load(QtCore.QUrl("http://www.calvin.edu/~dsc8/documents/Podcasting-in-Education-Winter-2005.pdf"))
 
-    def onAutoSortMethodChange(self):
-        sort_method = self.AutoSortCombo.currentText()
-        self.loadPlaylists(select_method=sort_method)
+    def _loadfinished(self):
+        print("complete")
+        # self.scoreWebView.repaint()
+        pass
 
-    def onSortMethodChange(self):
-        sort_method = self.scoreSortCombo.currentText()
-        self.qApp.loadPieces(method=sort_method)
-        self.scoreListWidget.show()
-
-
-
-    def applyTheme(self):
-        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "themes", self.theme+".qss")
-        file = open(path_to_file, 'r')
-        fstring = file.readlines()
-        self.setStyleSheet("".join(fstring))
-        file.close()
-        self.repaint()
-
-
-
-    def addPlaylist(self):
-        self.qApp.show_playlist()
-        self.loadMyPlaylists()
-
-    def searchDb(self):
-        print("finding thing")
-
-    def onQueryReturned(self, results):
-        root = self.autoCompleteBox.invisibleRootItem()
-        child_count = root.childCount()
-        children = [(i, root.child(i).text(0)) for i in range(child_count)]
-        names = [child[1] for child in children]
-        for location_type in results:
-            item = QtGui.QTreeWidgetItem(location_type)
-            item.setData(0,0,location_type)
-            if location_type in names:
-                index = [child[0] for child in children if child[1] == location_type]
-                item = root.child(index[0])
-                for i in range(item.childCount()):
-                    child = item.child(i)
-                    item.removeChild(child)
-
-            else:
-                self.autoCompleteBox.addTopLevelItem(item)
-            for key in results[location_type]:
-                sub_item = QtGui.QTreeWidgetItem(key)
-                sub_item.setData(0,0,key)
-                item.addChild(sub_item)
-                for file in results[location_type][key]:
-                    fitem = QtGui.QTreeWidgetItem(file[0])
-                    fitem.setData(0, 0, file[0])
-                    fitem.setData(0, 32, file[1])
-                    sub_item.addChild(fitem)
-        if len(results) == 0:
-            self.noResultsSmiley.show()
-            self.noResultsLabel.show()
+    # callbacks for the buttons in the side menu
+    def scorebook(self):
+        if self.loaded != "scorebook":
+            self.loadFrame("scorebook")
         else:
-            self.noResultsSmiley.hide()
-            self.noResultsLabel.hide()
+            self.unloadFrame("scorebook")
 
-        self.autoCompleteBox.show()
-        self.autoCompleteFrame.show()
+    def myplaylist(self):
+        if self.loaded != "myplaylist":
+            self.loadFrame("myplaylist")
+        else:
+            self.unloadFrame("myplaylist")
 
-    def updateOptions(self):
-        text = self.searchInput.text()
-        self.autoCompleteBox.clear()
-        self.qApp.query(text)
-        self.autoCompleteBox.show()
-        self.autoCompleteFrame.show()
+    def autoplaylist(self):
+        if self.loaded != "autoplaylist":
+            self.loadFrame("autoplaylist")
+        else:
+            self.unloadFrame("autoplaylist")
+
+    def browser(self):
+        if self.loaded != "browser":
+            self.loadFrame("browser")
+        else:
+            self.unloadFrame("browser")
+
+    def info(self):
+        if self.loaded != "info":
+            self.loadFrame("info")
+        else:
+            self.unloadFrame("info")
+
+    def featured(self):
+        if self.loaded != "featured":
+            self.loadFrame("featured")
+        else:
+            self.unloadFrame("featured")
 
 
 
-class View(QtGui.QGraphicsView):
+    # methods to handle loading frames
+    def loadFrame(self, child, ypos=72):
+        """
+        method which fetches the appropriate widget, puts it in the content frame and starts an animation to pull the frame out
+        :param child: the name of the widget to load
+        :param ypos: position to place the widget on the y plane
+        :return:
+        """
+        position = self.contentFrame.pos()
+        widget = self.widgets[child](self)
+        endx = self.buttonFrame.width()-1
+        endy = position.y()
+        endwidth = widget.width()
+        layout = self.contentFrame.layout()
 
-    def __init__(self, parent = None):
-        QtGui.QGraphicsView.__init__(self, parent)
+        if layout is not None:
+            while layout.count():
+                item = layout.takeAt(0)
+                widge = item.widget()
+                if widge is not None:
+                    widge.deleteLater()
+                else:
+                    self.deleteLayout(item.layout())
+            sip.delete(layout)
+
+        layout = QtGui.QHBoxLayout()
+        layout.setSpacing(0)
+        layout.setMargin(0)
+        layout.addWidget(widget)
+        fob = open(os.path.join(get_base_dir(True), "themes", "basic_widget.qss"), 'r')
+        lines = fob.readlines()
+        fob.close()
+        stylesheet = []
+        if child in self.colors:
+            background = "QFrame#contentFrame { background:"+self.colors[child]+";}"
+            stylesheet.append(background)
+
+        stylesheet.extend(lines)
+
+        if not self.contentFrame.layout():
+            self.contentFrame.setLayout(layout)
+        self.contentFrame.setStyleSheet(parseStyle(stylesheet))
+        self.contentFrame.show()
+        self.contentFrame.lower()
+        self.scoreWindow.lower()
+        self.playlistTable.lower()
+        animation = QtCore.QPropertyAnimation(self.contentFrame, "geometry")
+        animation.setDuration(200)
+        animation.setStartValue(QtCore.QRect(0, ypos, self.buttonFrame.width(), self.buttonFrame.height()))
+        animation.setEndValue(QtCore.QRect(endx, ypos, endwidth, self.buttonFrame.height()))
+        animation.start()
+        self.animation = animation
+        self.loaded = child
+
+    def unloadFrame(self, child):
+        """
+        method which handles the animation of a frame in terms of putting it back where it started
+        :param child: name of the frame to onload. No longer really used
+        :return:
+        """
+        position = self.contentFrame.pos()
+        endx = 0
+        endy = position.y()
+        endwidth = self.buttonFrame.width()
+        #self.contentFrame.lower()
+
+        animation = QtCore.QPropertyAnimation(self.contentFrame, "geometry")
+        animation.setDuration(200)
+        animation.setStartValue(QtCore.QRect(position.x(), position.y(), self.contentFrame.width(), self.contentFrame.height()))
+        animation.setEndValue(QtCore.QRect(endx, endy, endwidth, self.contentFrame.height()))
+        animation.start()
+        self.animation = animation
+        self.loaded = ""
+
+    def unloadSearch(self):
+        self.searchFrame.hide()
+
+    # callbacks for actions
+    def newCollection(self):
+        self.qApp.folder = ""
+        self.qApp.setup_startup()
+        self.close()
+
+    def getCreatedPlaylists(self, slot=None):
+        async = qt_threading.mythread(self, self.manager.getPlaylistsFromPlaylistTable, ())
+        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async.run()
+
+    def getPlaylists(self, select_method="all", slot=None):
+        async = qt_threading.mythread(self, self.manager.getPlaylists, (select_method,))
+        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async.run()
 
 
-    def zoomIn(self):
-        self.scale(1.1, 1.1)
-
-    def zoomOut(self):
-        self.scale(0.9, 0.9)
 

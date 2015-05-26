@@ -1,33 +1,40 @@
-from PyQt4 import QtGui, QtCore, QtXml
-from implementation.primaries.GUI.alt_python import MainWindow, StartupWindow
-from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, PlaylistDialog, ImportDialog, licensePopup
+from threading import Lock
+import sys
+import os
+import pickle
+
+from PyQt4 import QtGui, QtCore
+
+from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, PlaylistDialog, ImportDialog, licensePopup, \
+    StartupWindow, MainWindow
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.scripts.setup_script import setup_lilypond
 from implementation.primaries.exceptions import LilypondNotInstalledException
-from threading import Lock
-import sys, os, pickle
+from implementation.primaries.GUI.helpers import get_base_dir
+
 
 class Application(QtCore.QObject):
     windows = {}
     def __init__(self, app):
         QtCore.QObject.__init__(self)
-        self.theme = "ubuntu"
-        self.load_windows()
-        self.collections = []
-        self.path = None
-        self.LoadCollections()
+        self.meta = {}
+        self.meta["collections"] = []
+        self.theme_folder = os.path.join(get_base_dir(True), "themes")
+        self.meta["theme"] = "ubuntu"
+        self.meta["path"] = None
+        self.LoadMeta()
         self.folder = None
+        self.load_windows()
 
 
     def start(self):
-        if len(self.collections) > 0:
-             self.loadFolder(self.collections[-1])
+        if len(self.meta["collections"]) > 0:
+             self.loadFolder(self.meta["collections"][-1])
         else:
             self.setup_startup()
 
         try:
-            self.loadPath()
-            setup_lilypond(path=self.path)
+            setup_lilypond(path=self.meta["path"])
         except LilypondNotInstalledException as e:
             self.windows["setup"].show()
 
@@ -35,7 +42,9 @@ class Application(QtCore.QObject):
         self.folder = folder
         self.manager = MusicManager.MusicManager(self, folder=self.folder)
         self.windows["main"].show()
-        self.windows["main"].load()
+        if not hasattr(self.windows["main"], "contentFrame"):
+            self.windows["main"].load()
+            self.windows["main"].themeSet = False
 
     def createNewPlaylist(self):
         self.windows["newplaylist"].load()
@@ -47,69 +56,75 @@ class Application(QtCore.QObject):
     def removePlaylists(self, playlists):
         self.manager.deletePlaylists(playlists)
 
-
-    def loadPath(self):
-        try:
-            fob = open(".path", 'r')
-            self.path = fob.read()
-            fob.close()
-        except:
-            pass
-
     def FolderFetched(self, folder):
         if folder is not None:
-            self.collections.append(folder)
-            self.SaveCollections()
-            self.LoadCollections()
+            if folder not in self.meta["collections"]:
+                self.meta["collections"].append(folder)
+            self.SaveMeta()
+            self.LoadMeta()
             self.loadFolder(folder)
 
-    def LoadCollections(self):
+    def LoadMeta(self):
         try:
-            col_fob = open(".collections", 'rb')
+            col_fob = open(".metadata", 'rb')
         except:
-            self.SaveCollections()
-            col_fob = open(".collections", 'rb')
+            self.SaveMeta()
+            col_fob = open(".metadata", 'rb')
         result_temp = pickle.load(col_fob)
         if result_temp is not None:
-            self.collections = result_temp
-        return self.collections
+            if "collections" in result_temp:
+                for item in result_temp["collections"]:
+                    if item not in self.meta["collections"]:
+                        if os.path.exists(item):
+                            self.meta["collections"].append(item)
+            if "path" in result_temp:
+                self.meta["path"] = result_temp["path"]
+            if "theme" in result_temp:
+                self.meta["theme"] = result_temp["theme"]
+        return self.meta
 
-    def SaveCollections(self):
-        col_fob = open(".collections", 'wb')
+    def SaveMeta(self):
+        col_fob = open(".metadata", 'wb')
         pickle_obj = pickle.Pickler(col_fob)
-        pickle_obj.dump(self.collections)
+        pickle_obj.dump(self.meta)
         col_fob.close()
 
     def load_windows(self):
-        startup = StartupWindow.StartupWindow(self)
+        startup = StartupWindow.StartupWindow(self, self.meta["theme"], self.theme_folder)
         self.windows["startup"] = startup
-        self.windows["startup"].show()
 
-        main = MainWindow.MainWindow(self)
+
+        main = MainWindow.MainWindow(self, self.meta["theme"], self.theme_folder)
         self.windows["main"] = main
         self.windows["main"].show()
         self.windows["main"].hide()
 
-        setup = SetupWindow.SetupWindow(self)
+        setup = SetupWindow.SetupWindow(self, self.meta["theme"], self.theme_folder)
         self.windows["setup"] = setup
         self.windows["setup"].show()
         self.windows["setup"].hide()
 
-        self.windows["error"] = renderingErrorPopup.RenderingErrorPopup(self, self.theme)
+        self.windows["error"] = renderingErrorPopup.RenderingErrorPopup(self, self.meta["theme"], self.theme_folder)
         self.windows["error"].show()
         self.windows["error"].hide()
 
-        self.windows["import"] = ImportDialog.ImportDialog(self, self.theme)
+        self.windows["import"] = ImportDialog.ImportDialog(self, self.meta["theme"], self.theme_folder)
         self.windows["import"].show()
         self.windows["import"].hide()
 
-        self.windows["newplaylist"] = PlaylistDialog.PlaylistDialog(self, self.theme)
+        self.windows["newplaylist"] = PlaylistDialog.PlaylistDialog(self, self.meta["theme"], self.theme_folder)
         self.windows["newplaylist"].show()
         self.windows["newplaylist"].hide()
 
-        self.windows["license"] = licensePopup.LicensePopup(self, self.theme)
+        self.windows["license"] = licensePopup.LicensePopup(self, self.meta["theme"], self.theme_folder)
         self.windows["license"].show()
         self.windows["license"].hide()
+
+    def updateTheme(self, theme):
+        for window in self.windows:
+            self.windows[window].theme = theme
+        self.meta["theme"] = theme
+        self.SaveMeta()
 
     def onFileDownload(self, filename):
         fqd_fname = os.path.join(self.folder, filename)
@@ -137,7 +152,8 @@ class Application(QtCore.QObject):
         worker.run()
 
     def setup_startup(self):
-        self.windows["startup"].load(self.collections)
+        self.windows["startup"].load(self.meta["collections"])
+        self.windows["startup"].show()
 
     def onQueryComplete(self, data, online=False):
         """
@@ -275,10 +291,15 @@ class Application(QtCore.QObject):
         data = self.manager.getPlaylistByFilename(filename)
         return data
 
+    def applyTheme(self):
+        for window in self.windows:
+            self.windows[window].applyTheme()
+
 
 
 
 app = QtGui.QApplication(sys.argv)
 application = Application(app)
 application.start()
+#application.applyTheme()
 sys.exit(app.exec_())

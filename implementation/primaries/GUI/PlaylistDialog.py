@@ -2,10 +2,12 @@ from PyQt4 import QtCore, QtGui, uic
 
 import os
 from implementation.primaries.GUI.helpers import get_base_dir
+from implementation.primaries.GUI import themedWindow
 
-class PlaylistDialog(QtGui.QDialog):
-    def __init__(self, app, theme):
+class PlaylistDialog(QtGui.QDialog, themedWindow.ThemedWindow):
+    def __init__(self, app, theme, themes):
         QtGui.QDialog.__init__(self)
+        themedWindow.ThemedWindow.__init__(self, theme, themes)
         self.qApp = app
         self.theme = theme
 
@@ -19,15 +21,7 @@ class PlaylistDialog(QtGui.QDialog):
         self.deleteItem.clicked.connect(self.removeItem)
         self.piecesLineEdit.textChanged.connect(self.updateOptions)
         self.piecesLineEdit.editingFinished.connect(self.onInactiveSearchBar)
-        self.setTheme()
-
-
-    def setTheme(self):
-        directory = get_base_dir(return_this_dir=True)
-        file = open(os.path.join(directory, "themes/" + self.theme + ".qss"), 'r')
-        fstring = file.readlines()
-        self.setStyleSheet("".join(fstring))
-        self.repaint()
+        self.applyTheme()
 
     def removeItem(self):
         listItems = self.listWidget.selectedItems()
