@@ -3,7 +3,7 @@ import sys
 import os
 import pickle
 
-from PyQt4 import QtGui, QtCore
+from PyQt4 import QtGui, QtCore, QtXml
 
 from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, PlaylistDialog, ImportDialog, licensePopup, \
     StartupWindow, MainWindow
@@ -97,6 +97,7 @@ class Application(QtCore.QObject):
         main = MainWindow.MainWindow(self, self.meta["theme"], self.theme_folder)
         self.windows["main"] = main
         self.windows["main"].show()
+        self.windows["main"].applyTheme()
         self.windows["main"].hide()
 
         setup = SetupWindow.SetupWindow(self, self.meta["theme"], self.theme_folder)
@@ -243,9 +244,10 @@ class Application(QtCore.QObject):
         else:
             if not os.path.exists(os.path.join(self.folder, filename)):
                 license = self.manager.getLicense(filename)
+                self.windows["license"].show()
                 self.windows["license"].load(license, filename)
-                self.windows["license"].setWindowFlags(QtCore.Qt.Dialog)
-                self.windows["license"].exec()
+
+
             else:
                 render_thread = qt_threading.RenderThread(self, self.manager.startRenderingTask,
                                                             (filename,), pdf_version)
@@ -257,8 +259,8 @@ class Application(QtCore.QObject):
         self.errorPopup([error])
 
     def errorPopup(self, errors):
-        self.windows["error"].load(errors)
         self.windows["error"].show()
+        self.windows["error"].load(errors)
 
 
 
@@ -301,5 +303,7 @@ class Application(QtCore.QObject):
 app = QtGui.QApplication(sys.argv)
 application = Application(app)
 application.start()
+# event = QtGui.QMouseEvent(QtCore.QEvent.MouseButtonPress, QtCore.QPoint(0,0), QtCore.Qt.MiddleButton)
+# app.sendEvent(application, event)
 #application.applyTheme()
 sys.exit(app.exec_())

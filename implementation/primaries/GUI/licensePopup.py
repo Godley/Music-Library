@@ -13,7 +13,7 @@ class LicensePopup(QtGui.QDialog, themedWindow.ThemedWindow):
         path_to_file = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "licensePopup.ui")
         uic.loadUi(path_to_file, self)
         self.buttonBox.accepted.connect(self.fetchAndClose)
-        self.applyTheme()
+
 
     def load(self, terms, file):
         sizeHint = self.licenseScrollArea.size()
@@ -25,6 +25,7 @@ class LicensePopup(QtGui.QDialog, themedWindow.ThemedWindow):
         self.licenseScrollArea.setWidget(label)
         self.licenseScrollArea.show()
         self.file = file
+        self.applyTheme()
 
     def fetchAndClose(self):
         self.parent.downloadFile(self.file)

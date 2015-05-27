@@ -1,5 +1,5 @@
 import sip
-import os
+import os, time
 from popplerqt4 import Poppler
 
 from PyQt4 import QtGui, QtCore, uic
@@ -28,8 +28,9 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
     def resizeEvent(self, QResizeEvent):
         if hasattr(self, "scoreWindow"):
             if not self.scoreWindow.isHidden():
+                widgetSize = (self.scoreWindow.width(), self.scoreWindow.height())
                 self.resizeCenterWidget(self.scoreWindow)
-                self.resizePages()
+                self.resizePages(widgetSize)
         if hasattr(self, "playlistTable"):
             if not self.playlistTable.isHidden():
                 self.resizeCenterWidget(self.playlistTable)
@@ -50,8 +51,10 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         height = self.height() - self.searchBar.height()
         item.setGeometry(position.x(), position.y(), width, height)
 
-    def resizePages(self):
-        pass
+    def resizePages(self, size):
+        percentWidth = self.scoreWindow.width()/size[0]
+        percentHeight = self.scoreWindow.height()/size[1]
+        self.scoreWindow.scale(percentWidth, percentHeight)
 
     def resizeSearchbar(self):
         """
@@ -66,6 +69,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
     def closeEvent(self, QCloseEvent):
         self.hide()
         self.qApp.setup_startup()
+        QCloseEvent.accept()
 
     def load(self):
         file = os.path.join(get_base_dir(True), "designer_files", "MainWindow.ui")
@@ -109,6 +113,22 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.actionRefresh_Collection.triggered.connect(self.qApp.updateDb)
         self.actionNew_Collection.triggered.connect(self.newCollection)
         self.actionImport.triggered.connect(self.qApp.importWindow)
+
+        time.sleep(1)
+        self.actionUbuntu.trigger()
+
+
+    def mousePressEvent(self, QMouseEvent):
+        if not self.themeSet:
+            self.applyTheme()
+        QMouseEvent.accept()
+
+    def focusInEvent(self, QFocusEvent):
+        print("hello, world")
+        if not self.themeSet:
+            self.themeSet = True
+            self.applyTheme()
+        QFocusEvent.accept()
 
 
     def candy(self):
