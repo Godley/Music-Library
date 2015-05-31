@@ -2,7 +2,7 @@ from cx_Freeze import setup, Executable
 import sys
 
 
-zips = ["implementation/primaries/GUI/designer_files",
+zips = ["implementation/primaries/GUI/designer_files", "implementation/primaries/Keys",
          "implementation/primaries/GUI/themes", "implementation/primaries/GUI/images",
          "implementation/primaries/scripts", "implementation/primaries/GUI/designer_files/icons.qrc"]
 

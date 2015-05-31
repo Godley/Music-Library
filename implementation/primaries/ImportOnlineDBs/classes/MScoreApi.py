@@ -1,10 +1,8 @@
 '''
 Classes dealing with the MuseScore community api
 '''
-try:
-    from implementation.primaries.ImportOnlineDBs.classes.API import Api
-except:
-    from primaries.ImportOnlineDBs.classes.API import Api
+from implementation.primaries.ImportOnlineDBs.classes.API import Api
+from implementation.primaries.GUI.helpers import get_base_dir
 import requests, os, shutil
 
 class MuseScoreApi(Api):
@@ -22,7 +20,7 @@ class MuseScoreApi(Api):
         method to fetch the API key. SHOULD NOT be just a string, this part is temporary
         :return: api key
         '''
-        file = open(os.path.join('/users/charlottegodley/PycharmProjects/FYP/implementation/primaries/ImportOnlineDBs/classes', 'Keys','mscore'), 'r')
+        file = open(os.path.join(get_base_dir(), 'Keys','mscore'), 'r')
         line = file.readline()
         return line
 
