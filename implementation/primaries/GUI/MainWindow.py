@@ -24,6 +24,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.playlist = None
         self.index = None
         self.themeSet = False
+        self.applyTheme()
 
     def resizeEvent(self, QResizeEvent):
         if hasattr(self, "scoreWindow"):
@@ -34,8 +35,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         if hasattr(self, "playlistTable"):
             if not self.playlistTable.isHidden():
                 self.resizeCenterWidget(self.playlistTable)
-                for i in range(8):
-                    self.playlistTable.setColumnWidth(i, self.playlistTable.width()/7)
+                for i in range(10):
+                    self.playlistTable.setColumnWidth(i, self.playlistTable.width()/9)
         if hasattr(self, "searchBar"):
             self.resizeSearchbar()
         QResizeEvent.accept()
@@ -210,8 +211,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.titleOfPiece.show()
         self.playlistTable.show()
         self.playlistTable.lower()
-        for i in range(8):
-            self.playlistTable.setColumnWidth(i, self.playlistTable.width()/7)
+        for i in range(10):
+            self.playlistTable.setColumnWidth(i, self.playlistTable.width()/9)
         self.playlist = playlist_title
         self.resizeCenterWidget(self.playlistTable)
 

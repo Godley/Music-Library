@@ -26,6 +26,9 @@ class Application(QtCore.QObject):
         self.folder = None
         self.load_windows()
 
+    def meta_file(self):
+        return os.path.join(get_base_dir(), ".metadata")
+
 
     def start(self):
         if len(self.meta["collections"]) > 0:
@@ -66,10 +69,10 @@ class Application(QtCore.QObject):
 
     def LoadMeta(self):
         try:
-            col_fob = open(".metadata", 'rb')
+            col_fob = open(self.meta_file(), 'rb')
         except:
             self.SaveMeta()
-            col_fob = open(".metadata", 'rb')
+            col_fob = open(self.meta_file(), 'rb')
         result_temp = pickle.load(col_fob)
         if result_temp is not None:
             if "collections" in result_temp:
@@ -84,7 +87,7 @@ class Application(QtCore.QObject):
         return self.meta
 
     def SaveMeta(self):
-        col_fob = open(".metadata", 'wb')
+        col_fob = open(self.meta_file(), 'wb')
         pickle_obj = pickle.Pickler(col_fob)
         pickle_obj.dump(self.meta)
         col_fob.close()
