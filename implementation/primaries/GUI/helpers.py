@@ -21,7 +21,9 @@ def parseStyle(stylesheet):
     for line in stylesheet:
         if "themes/" in line:
             result = line.split("themes")
-            result_string = result[0] + os.path.join(get_base_dir(True), "themes") +result[1]
+            result_string = result[0] + os.path.join(get_base_dir(True), "themes") + result[1]
+            result_string = result_string.replace("\\", "/")
+            print(result_string)
             results.append(result_string)
         else:
             results.append(line)

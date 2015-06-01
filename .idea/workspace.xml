@@ -1,91 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="setup popup window&#10;- work on issue #281&#10;- made a new messagebox class which could be used for generic needs&#10;- added a setup window class which handles refresh or browse depending on whether user has a custom install or a basic install of lilypond. This will only show up if the default install is not found, in which case the program will automatically create the new lilypond script in implementation/primaries/scripts">
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="more windows fixes&#10;&#10;- fixed stylesheet parser">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pyqt4topyqt5.py" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qtclass.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/xmlToLilypond.py" />
-      <change type="MOVED" beforePath="C:\Users\charlottegodley\FYP\implementation\primaries\ImportOnlineDBs\classes\Keys\mscore" afterPath="$PROJECT_DIR$/implementation/primaries/Keys/mscore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0005-newspaper.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0005-newspaper.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0005-newspaper.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0005-newspaper.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0033-books.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0033-books.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0033-books.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0033-books.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0041-file-music.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0041-file-music.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0041-file-music.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0041-file-music.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0190-menu.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0190-menu.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0190-menu.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0190-menu.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0216-star-empty.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0216-star-empty.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0216-star-empty.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0216-star-empty.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0324-circle-down.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0324-circle-down.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0324-circle-down.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0324-circle-down.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/Application" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/Application" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/designer_files/MainWindow.ui" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/designer_files/MainWindow.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtCore.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtCore.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtGui.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtGui.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtNetwork.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtNetwork.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtWebKit.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtWebKit.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtXml.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtXml.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/Python" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/Python" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_bisect.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_bisect.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_bz2.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_bz2.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_cn.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_cn.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_hk.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_hk.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_iso2022.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_iso2022.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_jp.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_jp.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_kr.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_kr.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_tw.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_tw.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_ctypes.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_ctypes.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_datetime.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_datetime.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_elementtree.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_elementtree.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_hashlib.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_hashlib.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_heapq.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_heapq.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_json.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_json.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_lzma.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_lzma.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_md5.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_md5.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_multibytecodec.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_multibytecodec.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_opcode.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_opcode.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_pickle.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_pickle.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_posixsubprocess.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_posixsubprocess.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_random.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_random.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_scproxy.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_scproxy.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha1.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha1.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha256.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha256.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha512.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha512.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_socket.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_socket.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sqlite3.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sqlite3.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_ssl.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_ssl.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_struct.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_struct.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/array.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/array.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/binascii.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/binascii.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/grp.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/grp.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/libpoppler-qt4.4.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/libpoppler-qt4.4.dylib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/libpoppler.51.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/libpoppler.51.dylib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqgif.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqgif.dylib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqico.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqico.dylib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqjpeg.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqjpeg.dylib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqmng.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqmng.dylib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqsvg.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqsvg.dylib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqtga.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqtga.dylib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqtiff.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqtiff.dylib" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/library.zip" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/library.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/math.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/math.so" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/music.db" afterPath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/music.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/popplerqt4.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/popplerqt4.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/pyexpat.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/pyexpat.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/readline.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/readline.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/select.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/select.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/sip.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/sip.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/termios.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/termios.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/time.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/time.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/unicodedata.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/unicodedata.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/zlib.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/zlib.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/helpers.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/helpers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/scripts/lilypond" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/scripts/lilypond" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/scripts/lilypond_mac.sh" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/scripts/lilypond_mac.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/scripts/lilypond_mac.sh" afterPath="$PROJECT_DIR$/implementation/primaries/scripts/lilypond_mac.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py" afterPath="$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/helpers.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/helpers.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -137,7 +58,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNoteheads.coverage" NAME="Unittests in testNoteheads Coverage Results" MODIFIED="1424738338243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$findAndLoad.coverage" NAME="findAndLoad Coverage Results" MODIFIED="1418481456915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Drawing_XML_Object_handlers.coverage" NAME="Drawing XML&gt;Object handlers Coverage Results" MODIFIED="1424820275124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1433156190501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1433156808990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testOrnaments__1_.coverage" NAME="Unittests in testOrnaments (1) Coverage Results" MODIFIED="1425477583840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$run_script.coverage" NAME="run script Coverage Results" MODIFIED="1425077255408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPitch.coverage" NAME="Unittests in testPitch Coverage Results" MODIFIED="1420455462974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
@@ -260,24 +181,42 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="setup_script.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="setup_script.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3423913">
+            <state vertical-scroll-proportion="-7.0">
               <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setup.py">
+      <file leaf-file-name="helpers.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/helpers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.222222">
-              <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.73913044">
+              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="candy.qss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/themes/candy.qss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="96" column="23" selection-start-line="96" selection-start-column="23" selection-end-line="96" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ubuntu.qss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/themes/ubuntu.qss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="114" column="29" selection-start-line="114" selection-start-column="29" selection-end-line="114" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -285,8 +224,8 @@
       <file leaf-file-name="Application.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="-7.5555553">
+              <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -316,8 +255,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Measure.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Meter.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Ornaments.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Meta.py" />
@@ -329,7 +266,6 @@
         <option value="$PROJECT_DIR$/manifest.in" />
         <option value="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/MScoreApi.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/helpers.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/GUI/helpers.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/renderingErrorPopup.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/ImportDialog.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/licensePopup.py" />
@@ -357,7 +293,6 @@
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/SetupWindow.py" />
         <option value="$PROJECT_DIR$/implementation/app.json" />
         <option value="$PROJECT_DIR$/implementation/primaries/scripts/__init__.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
         <option value="$PROJECT_DIR$/implementation/Pyqt4App.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py" />
         <option value="$PROJECT_DIR$/implementation/crap.py" />
@@ -367,6 +302,10 @@
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/themes/ubuntu.qss" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/helpers.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/themes/candy.qss" />
       </list>
     </option>
   </component>
@@ -475,6 +414,54 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1172,12 +1159,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00614" summary="more autocomplete + multi page work&#10;- additional work on issue #217: wildcard applied at datalayer level to &quot;filename&quot; where filename is text rather than just label. should also modify the filename portion in the mainManager so it uses the same method. (see to do comment)&#10;- issue fix #228: implemented multiple pages. also implemented zooming using the trackpad/mouse wheel: issue #210">
-      <created>1427479842078</created>
-      <option name="number" value="00614" />
-      <option name="project" value="LOCAL" />
-      <updated>1427479842079</updated>
-    </task>
     <task id="LOCAL-00615" summary="issue fix #210&#10;- removed wheelEvent: this meant it couldn't pan properly on mac.&#10;- implemented button callbacks&#10;- using a graphics view now enables panning, as well, at a certain zoom level.">
       <created>1427480820550</created>
       <option name="number" value="00615" />
@@ -1466,7 +1447,13 @@
       <option name="project" value="LOCAL" />
       <updated>1431382155402</updated>
     </task>
-    <option name="localTasksCounter" value="663" />
+    <task id="LOCAL-00663" summary="windows fixes&#10;&#10;- modified setup lilypond script so that it uses the correct windows dir&#10;- adjusted bat file location so that it's relative&#10;- keys bit has moved and paths for connecting to it are now relative&#10;- added if statement around poppler import: temporary fix for windows not having poppler (it does, I just can't find the binary)">
+      <created>1433156307907</created>
+      <option name="number" value="00663" />
+      <option name="project" value="LOCAL" />
+      <updated>1433156307915</updated>
+    </task>
+    <option name="localTasksCounter" value="664" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1493,22 +1480,22 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2710674" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32416788" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561505" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40520984" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38059703" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32756132" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23261695" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2710674" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44588745" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32406288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561505" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1554,7 +1541,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
-    <MESSAGE value="implementing online and offline querying&#10;- issue #258&#10;- implemented bool in all methods&#10;- implemented a bunch of tests to confirm online and offline functionality&#10;- reorganised data layer tests into several classes and left a comment at the top of the test file explaining each one" />
     <MESSAGE value="further online and offline tests&#10;- issue #258&#10;- some more tests&#10;- ran autopep8 on test files: cleans them all up and makes them fit pep8 standards" />
     <MESSAGE value="further pep8 cleanups&#10;- applied autopep8 to classes in ExtractMetadata" />
     <MESSAGE value="further cleanup&#10;- applied autopep8 to drawing classes&#10;- reorganised gui folder so designer files aren't in the main folder" />
@@ -1579,7 +1565,8 @@
     <MESSAGE value="setup script adjustments&#10;&#10;- adjusted mac setup script so that it creates a whole new file rather than renaming or modifying the old one&#10;- created lilypond not found exception and implemented it" />
     <MESSAGE value="setup popup window&#10;- work on issue #281&#10;- made a new messagebox class which could be used for generic needs&#10;- added a setup window class which handles refresh or browse depending on whether user has a custom install or a basic install of lilypond. This will only show up if the default install is not found, in which case the program will automatically create the new lilypond script in implementation/primaries/scripts (tested and this works fine)" />
     <MESSAGE value="setup popup window&#10;- work on issue #281&#10;- changed paths used in setup to be relative&#10;- added app.json which is for the node appdmg maker, not working currently&#10;- made some changes to setup.py based on new packages. created dmg/app files still crash" />
-    <option name="LAST_COMMIT_MESSAGE" value="setup popup window&#10;- work on issue #281&#10;- changed paths used in setup to be relative&#10;- added app.json which is for the node appdmg maker, not working currently&#10;- made some changes to setup.py based on new packages. created dmg/app files still crash" />
+    <MESSAGE value="windows fixes&#10;&#10;- modified setup lilypond script so that it uses the correct windows dir&#10;- adjusted bat file location so that it's relative&#10;- keys bit has moved and paths for connecting to it are now relative&#10;- added if statement around poppler import: temporary fix for windows not having poppler (it does, I just can't find the binary)" />
+    <option name="LAST_COMMIT_MESSAGE" value="windows fixes&#10;&#10;- modified setup lilypond script so that it uses the correct windows dir&#10;- adjusted bat file location so that it's relative&#10;- keys bit has moved and paths for connecting to it are now relative&#10;- added if statement around poppler import: temporary fix for windows not having poppler (it does, I just can't find the binary)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1716,24 +1703,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="76" selection-start-line="36" selection-start-column="76" selection-end-line="36" selection-end-column="76" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2027,13 +1996,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/helpers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/startup.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -2075,16 +2037,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.8888888">
@@ -2097,8 +2049,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3423913">
+        <state vertical-scroll-proportion="-7.0">
           <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.5555553">
+          <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/themes/ubuntu.qss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="114" column="29" selection-start-line="114" selection-start-column="29" selection-end-line="114" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/themes/candy.qss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="96" column="23" selection-start-line="96" selection-start-column="23" selection-end-line="96" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/helpers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.73913044">
+          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
           <folding />
         </state>
       </provider>

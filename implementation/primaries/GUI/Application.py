@@ -27,7 +27,10 @@ class Application(QtCore.QObject):
         self.load_windows()
 
     def meta_file(self):
-        return os.path.join(get_base_dir(), ".metadata")
+        if sys.platform == "darwin":
+            return os.path.join(get_base_dir(), ".metadata")
+        else:
+            return os.path.join("C:/Users/charlottegodley", ".metadata")
 
 
     def start(self):
