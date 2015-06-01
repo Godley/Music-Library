@@ -2,161 +2,90 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="setup popup window&#10;- work on issue #281&#10;- made a new messagebox class which could be used for generic needs&#10;- added a setup window class which handles refresh or browse depending on whether user has a custom install or a basic install of lilypond. This will only show up if the default install is not found, in which case the program will automatically create the new lilypond script in implementation/primaries/scripts">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/Pyqt4App.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/app.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/Info.plist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/.collections" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/PyQt4.QtCore.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/PyQt4.QtGui.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/PyQt4.QtNetwork.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/PyQt4.QtWebKit.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/PyQt4.QtXml.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/PyQt4.uic.port_v2.load_plugin.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/PyQt4.uic.widget-plugins/phonon.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/PyQt4.uic.widget-plugins/qaxcontainer.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/PyQt4.uic.widget-plugins/qscintilla.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/PyQt4.uic.widget-plugins/qtdeclarative.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/PyQt4.uic.widget-plugins/qtwebkit.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/Python" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/QtCore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/QtGui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/QtNetwork" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/QtWebKit" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/QtXml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_bisect.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_bz2.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_codecs_cn.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_codecs_hk.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_codecs_iso2022.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_codecs_jp.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_codecs_kr.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_codecs_tw.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_ctypes.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_datetime.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_elementtree.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_hashlib.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_heapq.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_json.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_lzma.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_md5.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_multibytecodec.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_opcode.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_pickle.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_posixsubprocess.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_random.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_scproxy.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_sha1.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_sha256.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_sha512.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_socket.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_sqlite3.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_ssl.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/_struct.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/array.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/binascii.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/designer_files/MainWindow.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/designer_files/NewPlaylist.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/designer_files/Startup.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/designer_files/importDialog.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/designer_files/licensePopup.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/designer_files/renderingErrorPopup.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/grp.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/imageformats/libqgif.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/imageformats/libqico.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/imageformats/libqjpeg.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/imageformats/libqmng.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/imageformats/libqsvg.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/imageformats/libqtga.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/imageformats/libqtiff.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/images/delete.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/images/glyphicons-151-edit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/images/glyphicons-174-play.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/images/glyphicons-237-zoom-in.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/images/glyphicons-238-zoom-out.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/images/glyphicons-28-search.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/images/glyphicons-82-refresh.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/images/glyphicons-82-refresh.qrc" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/images/ic_menu_delete.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/images/trash-128.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libcrypto.1.0.0.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libfontconfig.1.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libfreetype.6.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libjpeg.8.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/liblcms2.2.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/liblzma.5.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libopenjpeg.1.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libpng16.16.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libpoppler-qt4.4.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libpoppler.51.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/library.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libreadline.6.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libsqlite3.0.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libssl.1.0.0.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/libtiff.5.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/main" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/math.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/popplerqt4.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/pyexpat.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/readline.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/select.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/sip.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/termios.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/themes/dark.qss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/themes/light.qss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/time.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/unicodedata.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/MacOS/zlib.so" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/Resources/qt.conf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/Resources/qt_menu.nib/classes.nib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/Resources/qt_menu.nib/info.nib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.app/Contents/Resources/qt_menu.nib/keyedobjects.nib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/FYP-0.1.dmg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/.collections" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/libreadline.6.dylib" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/main" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/designer_files/MainWindow.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/designer_files/NewPlaylist.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/designer_files/Startup.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/designer_files/importDialog.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/designer_files/licensePopup.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/designer_files/renderingErrorPopup.ui" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/images/delete.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/images/glyphicons-151-edit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/images/glyphicons-174-play.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/images/glyphicons-237-zoom-in.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/images/glyphicons-238-zoom-out.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/images/glyphicons-28-search.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/images/glyphicons-82-refresh.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/images/ic_menu_delete.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/images/trash-128.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/themes/dark.qss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/themes/light.qss" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/FYP-0.1.macosx-10.10-x86_64.tar.gz" afterPath="$PROJECT_DIR$/dist/FYP-0.1.macosx-10.10-x86_64.tar.gz" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/designer_files/MainWindow.ui" afterPath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/designer_files/MainWindow.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/designer_files/NewPlaylist.ui" afterPath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/designer_files/NewPlaylist.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/designer_files/NewPlaylist.ui" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/designer_files/NewPlaylist.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/library.zip" afterPath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/library.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pyqt4topyqt5.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/qtclass.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/xmlToLilypond.py" />
+      <change type="MOVED" beforePath="C:\Users\charlottegodley\FYP\implementation\primaries\ImportOnlineDBs\classes\Keys\mscore" afterPath="$PROJECT_DIR$/implementation/primaries/Keys/mscore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0005-newspaper.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0005-newspaper.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0005-newspaper.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0005-newspaper.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0033-books.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0033-books.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0033-books.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0033-books.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0041-file-music.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0041-file-music.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0041-file-music.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0041-file-music.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0190-menu.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0190-menu.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0190-menu.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0190-menu.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0216-star-empty.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0216-star-empty.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0216-star-empty.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0216-star-empty.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0324-circle-down.png" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/themes/icons/0324-circle-down.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0324-circle-down.png" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/themes/icons/0324-circle-down.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/Application" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/Application" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/designer_files/MainWindow.ui" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/designer_files/MainWindow.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtCore.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtCore.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtGui.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtGui.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtNetwork.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtNetwork.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtWebKit.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtWebKit.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtXml.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/PyQt4.QtXml.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/Python" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/Python" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_bisect.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_bisect.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_bz2.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_bz2.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_cn.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_cn.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_hk.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_hk.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_iso2022.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_iso2022.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_jp.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_jp.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_kr.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_kr.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_tw.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_codecs_tw.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_ctypes.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_ctypes.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_datetime.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_datetime.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_elementtree.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_elementtree.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_hashlib.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_hashlib.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_heapq.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_heapq.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_json.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_json.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_lzma.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_lzma.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_md5.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_md5.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_multibytecodec.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_multibytecodec.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_opcode.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_opcode.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_pickle.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_pickle.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_posixsubprocess.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_posixsubprocess.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_random.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_random.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_scproxy.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_scproxy.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha1.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha1.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha256.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha256.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha512.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sha512.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_socket.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_socket.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sqlite3.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_sqlite3.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_ssl.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_ssl.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_struct.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/_struct.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/array.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/array.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/binascii.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/binascii.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/grp.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/grp.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/libpoppler-qt4.4.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/libpoppler-qt4.4.dylib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/libpoppler.51.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/libpoppler.51.dylib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqgif.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqgif.dylib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqico.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqico.dylib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqjpeg.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqjpeg.dylib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqmng.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqmng.dylib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqsvg.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqsvg.dylib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqtga.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqtga.dylib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqtiff.dylib" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/imageformats/libqtiff.dylib" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/library.zip" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/library.zip" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/math.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/math.so" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/music.db" afterPath="$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/music.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/readline.so" afterPath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/readline.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/Application.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/Application.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/DataLayer.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/DataLayer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/Drawing/classes/LilypondRender.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/Drawing/classes/LilypondRender.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/MainWindow.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/MainWindow.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/popplerqt4.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/popplerqt4.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/pyexpat.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/pyexpat.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/readline.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/readline.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/select.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/select.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/sip.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/sip.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/termios.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/termios.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/time.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/time.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/unicodedata.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/unicodedata.so" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/zlib.so" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/zlib.so" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/MetaParser.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/MetaParser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/MusicManager.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/Drawing/classes/MxmlParser.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/Drawing/classes/MxmlParser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/PlaylistDialog.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/PlaylistDialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/StartupWidget.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/StartupWidget.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/themes/dark.qss" afterPath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/themes/dark.qss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/themes/light.qss" afterPath="$PROJECT_DIR$/build/exe.macosx-10.10-x86_64-3.4/themes/light.qss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/main.py" afterPath="$PROJECT_DIR$/build/lib/implementation/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/main.py" afterPath="$PROJECT_DIR$/implementation/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/thread_classes.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/thread_classes.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/helpers.py" afterPath="$PROJECT_DIR$/build/lib/implementation/primaries/GUI/helpers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/scripts/lilypond" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/scripts/lilypond" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/scripts/lilypond_mac.sh" afterPath="$PROJECT_DIR$/build/MuseLib.app/Contents/MacOS/scripts/lilypond_mac.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/scripts/lilypond_mac.sh" afterPath="$PROJECT_DIR$/implementation/primaries/scripts/lilypond_mac.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py" afterPath="$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -172,131 +101,128 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMark.coverage" NAME="Unittests in testMark Coverage Results" MODIFIED="1423704678556" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTremolo.coverage" NAME="Unittests in testTremolo Coverage Results" MODIFIED="1425841393935" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTrillsFermataOtherOrnaments.coverage" NAME="Unittests in testTrillsFermataOtherOrnaments Coverage Results" MODIFIED="1424789296446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testRepeatMarks__1_.coverage" NAME="Unittests in testRepeatMarks (1) Coverage Results" MODIFIED="1425861563587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testSearchProcessor.coverage" NAME="Unittests in testSearchProcessor Coverage Results" MODIFIED="1426861477636" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testAccidentals.coverage" NAME="Unittests in testAccidentals Coverage Results" MODIFIED="1424710671100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testtext.coverage" NAME="Unittests in testtext Coverage Results" MODIFIED="1423411041193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTuplets.coverage" NAME="Unittests in testTuplets Coverage Results" MODIFIED="1425841294122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMScoreApi.coverage" NAME="Unittests in testMScoreApi Coverage Results" MODIFIED="1428410842855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/tests" />
-    <SUITE FILE_PATH="coverage/FYP$All_tests.coverage" NAME="All tests Coverage Results" MODIFIED="1430660182405" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$run_passed_tests.coverage" NAME="run_passed_tests Coverage Results" MODIFIED="1425685436353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testClef__1_.coverage" NAME="Unittests in testClef (1) Coverage Results" MODIFIED="1425646586286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testOrnaments.coverage" NAME="Unittests in testOrnaments Coverage Results" MODIFIED="1425477649562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeta.coverage" NAME="Unittests in testMeta Coverage Results" MODIFIED="1424033301783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_run_passed_tests.coverage" NAME="Unittests in run_passed_tests Coverage Results" MODIFIED="1425863398650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches__1_.coverage" NAME="Unittests in testHandleNotesAndPitches (1) Coverage Results" MODIFIED="1424192729501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testListComparator.coverage" NAME="Unittests in testListComparator Coverage Results" MODIFIED="1426174963749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$FYP_test_handler_methods.coverage" NAME="FYP test handler methods Coverage Results" MODIFIED="1424788698258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTimedElementsHolder.coverage" NAME="Unittests in testTimedElementsHolder Coverage Results" MODIFIED="1424200812201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
-    <SUITE FILE_PATH="coverage/FYP$SQLExperiment.coverage" NAME="SQLExperiment Coverage Results" MODIFIED="1425920843485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes" />
-    <SUITE FILE_PATH="coverage/FYP$pil.coverage" NAME="pil Coverage Results" MODIFIED="1426380488649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testChordNoteEnd.coverage" NAME="Unittests in testChordNoteEnd Coverage Results" MODIFIED="1423761728787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Drawing_Lilypond_tests.coverage" NAME="Drawing Lilypond tests Coverage Results" MODIFIED="1424952926494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testCalculator.coverage" NAME="Unittests in testCalculator Coverage Results" MODIFIED="1429621379273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs" />
-    <SUITE FILE_PATH="coverage/FYP$All_FYP_tests.coverage" NAME="All FYP tests Coverage Results" MODIFIED="1424788483117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDataLayer.coverage" NAME="Unittests in testDataLayer Coverage Results" MODIFIED="1428846606753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$MainWindow.coverage" NAME="MainWindow Coverage Results" MODIFIED="1426441418321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
-    <SUITE FILE_PATH="coverage/FYP$All_FYP_extractor_tests.coverage" NAME="All FYP extractor tests Coverage Results" MODIFIED="1421351426779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1418648734071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testText.coverage" NAME="Unittests in testText Coverage Results" MODIFIED="1424969560390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$SearchProcessor.coverage" NAME="SearchProcessor Coverage Results" MODIFIED="1426777259633" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testLilypondRun.coverage" NAME="Unittests in testActorPreludeSample Coverage Results" MODIFIED="1424905826880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$createTestTable.coverage" NAME="createTestTable Coverage Results" MODIFIED="1422209245882" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleDirections.coverage" NAME="Unittests in testHandleDirections Coverage Results" MODIFIED="1425837618017" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testUnzipper.coverage" NAME="Unittests in testUnzipper Coverage Results" MODIFIED="1426176904986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testOrnaments__1_.coverage" NAME="Unittests in testOrnaments (1) Coverage Results" MODIFIED="1425477583840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMultipleParts.coverage" NAME="Unittests in testMultipleParts Coverage Results" MODIFIED="1424737548430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNotehead.coverage" NAME="Unittests in testNotehead Coverage Results" MODIFIED="1419898720944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBarlines__1_.coverage" NAME="Unittests in testBarlines (1) Coverage Results" MODIFIED="1425644235900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFolderExtractor.coverage" NAME="Unittests in testFolderExtractor Coverage Results" MODIFIED="1419720535047" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1429111751822" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_TestListComparator.coverage" NAME="Unittests in TestListComparator Coverage Results" MODIFIED="1428847949486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTwoStavesOnePart.coverage" NAME="Unittests in testTwoStavesOnePart Coverage Results" MODIFIED="1423020501831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testWhatHappensWhenIDoThis.coverage" NAME="Unittests in testWhatHappensWhenIDoThis Coverage Results" MODIFIED="1425652511258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$app.coverage" NAME="app Coverage Results" MODIFIED="1431478523891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArpegGliss.coverage" NAME="Unittests in testArpegGliss Coverage Results" MODIFIED="1425644898006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$create_dmg.coverage" NAME="create dmg Coverage Results" MODIFIED="1430091647344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/FYP$FYP_Lilypond_tests.coverage" NAME="FYP Lilypond tests Coverage Results" MODIFIED="1423763014183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testLines.coverage" NAME="Unittests in testLines Coverage Results" MODIFIED="1425863277366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$FYP_testcases.coverage" NAME="FYP testcases Coverage Results" MODIFIED="1424788691730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDirections.coverage" NAME="Unittests in testDirections Coverage Results" MODIFIED="1425861826938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$FYP_testing.coverage" NAME="FYP testing Coverage Results" MODIFIED="1419355403844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testApiManager.coverage" NAME="Unittests in testApiManager Coverage Results" MODIFIED="1428777269418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testClef.coverage" NAME="Unittests in testClef Coverage Results" MODIFIED="1425861728815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$PieceTree.coverage" NAME="PieceTree Coverage Results" MODIFIED="1425820374524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls" />
-    <SUITE FILE_PATH="coverage/FYP$MainWindow_Pyside.coverage" NAME="MainWindow_Pyside Coverage Results" MODIFIED="1426430789277" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPitch.coverage" NAME="Unittests in testPitch Coverage Results" MODIFIED="1420455462974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPlaylister.coverage" NAME="Unittests in testPlaylister Coverage Results" MODIFIED="1419795804913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$unittests_in_testtwostavesonepart.coverage" NAME="unittests in testtwostavesonepart Coverage Results" MODIFIED="1424873381361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$run_inside_pycharm.coverage" NAME="run inside pycharm Coverage Results" MODIFIED="1425920347917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
-    <SUITE FILE_PATH="coverage/FYP$xmlToObject.coverage" NAME="xmlToObject Coverage Results" MODIFIED="1418666322776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeasure.coverage" NAME="Unittests in testMeasure Coverage Results" MODIFIED="1425917450582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMetaParserUsingXML.coverage" NAME="Unittests in testMetaParserUsingXML Coverage Results" MODIFIED="1426193909544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBarlines.coverage" NAME="Unittests in testBarlines Coverage Results" MODIFIED="1430659793446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testRepeatMarks.coverage" NAME="Unittests in testRepeatMarks Coverage Results" MODIFIED="1425860792000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$run.coverage" NAME="run Coverage Results" MODIFIED="1424967819780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHarmony.coverage" NAME="Unittests in testHarmony Coverage Results" MODIFIED="1420907543732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMusicManager.coverage" NAME="Unittests in testMusicManager Coverage Results" MODIFIED="1428338348418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNoteheads.coverage" NAME="Unittests in testNoteheads Coverage Results" MODIFIED="1424738338243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArticulation.coverage" NAME="Unittests in testArticulation Coverage Results" MODIFIED="1430659779302" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$All_Drawing_tests.coverage" NAME="All Drawing tests Coverage Results" MODIFIED="1425917067919" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPart.coverage" NAME="Unittests in testPart Coverage Results" MODIFIED="1425861081183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandlePartsAndPiece.coverage" NAME="Unittests in testHandlePartsAndPiece Coverage Results" MODIFIED="1425648508165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testKeySignatures.coverage" NAME="Unittests in testKeySignatures Coverage Results" MODIFIED="1425647086306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Playlist.coverage" NAME="Playlist Coverage Results" MODIFIED="1418480483942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/SearchWIthSax" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testAccidentals__1_.coverage" NAME="Unittests in testAccidentals (1) Coverage Results" MODIFIED="1424568099740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches.coverage" NAME="Unittests in testHandleNotesAndPitches Coverage Results" MODIFIED="1425677380244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$findAndLoad.coverage" NAME="findAndLoad Coverage Results" MODIFIED="1418481456915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testKey.coverage" NAME="Unittests in testKey Coverage Results" MODIFIED="1420327826313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$run_script.coverage" NAME="run script Coverage Results" MODIFIED="1425077255408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBreathMarks.coverage" NAME="Unittests in testBreathMarks Coverage Results" MODIFIED="1424639267387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMusicManagerApiIntegration.coverage" NAME="Unittests in testMusicManagerApiIntegration Coverage Results" MODIFIED="1428856252715" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Drawing_testcases.coverage" NAME="Drawing testcases Coverage Results" MODIFIED="1424790337029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Piece.coverage" NAME="Piece Coverage Results" MODIFIED="1422221459924" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/classes" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDynamics.coverage" NAME="Unittests in testDynamics Coverage Results" MODIFIED="1425681689502" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDurationAndStems.coverage" NAME="Unittests in testDurationAndStems Coverage Results" MODIFIED="1424640760636" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTree.coverage" NAME="Unittests in testTree Coverage Results" MODIFIED="1424305552955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
-    <SUITE FILE_PATH="coverage/FYP$run_passing_tests.coverage" NAME="run passing tests Coverage Results" MODIFIED="1425864341764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$DataLayer.coverage" NAME="DataLayer Coverage Results" MODIFIED="1427381072364" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNote.coverage" NAME="Unittests in testNote Coverage Results" MODIFIED="1425748160810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$StartupWidget.coverage" NAME="StartupWidget Coverage Results" MODIFIED="1426441389704" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
-    <SUITE FILE_PATH="coverage/FYP$all_ExtractMetadata_tests.coverage" NAME="all ExtractMetadata tests Coverage Results" MODIFIED="1428849586531" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$unit_tests_in_testDataOnlineSearching.coverage" NAME="unit tests in testDataOnlineSearching Coverage Results" MODIFIED="1428850416784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Drawing_XML_Object_handlers.coverage" NAME="Drawing XML&gt;Object handlers Coverage Results" MODIFIED="1424820275124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$search.coverage" NAME="search Coverage Results" MODIFIED="1419706118449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Extract Metadata" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMetaParser.coverage" NAME="Unittests in testMetaParser Coverage Results" MODIFIED="1426191060308" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPiece.coverage" NAME="Unittests in testPiece Coverage Results" MODIFIED="1424908735948" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testParser.coverage" NAME="Unittests in testParser Coverage Results" MODIFIED="1425920092698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDynamics__1_.coverage" NAME="run script Coverage Results" MODIFIED="1424977937132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$main_application.coverage" NAME="main_application Coverage Results" MODIFIED="1427068905064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Documents/pyqt-testwidget" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFingering.coverage" NAME="Unittests in testFingering Coverage Results" MODIFIED="1424711025926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_run_passed_tests.coverage" NAME="Unittests in run_passed_tests Coverage Results" MODIFIED="1425863398650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
+    <SUITE FILE_PATH="coverage/FYP$FYP_Lilypond_tests.coverage" NAME="FYP Lilypond tests Coverage Results" MODIFIED="1423763014183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$PieceTree.coverage" NAME="PieceTree Coverage Results" MODIFIED="1425820374524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMark.coverage" NAME="Unittests in testMark Coverage Results" MODIFIED="1423704678556" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testCalculator.coverage" NAME="Unittests in testCalculator Coverage Results" MODIFIED="1429621379273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testSaxParser.coverage" NAME="Unittests in testExtractor Coverage Results" MODIFIED="1419713470743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$tinyApp.coverage" NAME="tinyApp Coverage Results" MODIFIED="1429106153058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFolderParser.coverage" NAME="Unittests in testFolderParser Coverage Results" MODIFIED="1419820128744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleMeasures.coverage" NAME="Unittests in testHandleMeasures Coverage Results" MODIFIED="1425838319810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testGraceNotes.coverage" NAME="Unittests in testGraceNotes Coverage Results" MODIFIED="1424820087867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$setup_script.coverage" NAME="setup_script Coverage Results" MODIFIED="1431359988554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/scripts" />
-    <SUITE FILE_PATH="coverage/FYP$Unittest_NoteTests_testNoteOctave.coverage" NAME="Unittest NoteTests.testNoteOctave Coverage Results" MODIFIED="1419357422473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeter.coverage" NAME="Unittests in testMeter Coverage Results" MODIFIED="1425741004270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBeams.coverage" NAME="Unittests in testBeams Coverage Results" MODIFIED="1424638607443" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
-    <SUITE FILE_PATH="coverage/FYP$finder.coverage" NAME="finder Coverage Results" MODIFIED="1418408064598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testAPI.coverage" NAME="Unittests in testAPI Coverage Results" MODIFIED="1428363588895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFolderBrowser.coverage" NAME="Unittests in testFolderBrowser Coverage Results" MODIFIED="1419715766900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
-    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNotations.coverage" NAME="Unittests in testNotations Coverage Results" MODIFIED="1425649280495" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$run_all_lilypond_mxml_testcases.coverage" NAME="run all lilypond mxml testcases Coverage Results" MODIFIED="1425494286937" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testAPI.coverage" NAME="Unittests in testAPI Coverage Results" MODIFIED="1428363588895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_TestListComparator.coverage" NAME="Unittests in TestListComparator Coverage Results" MODIFIED="1428847949486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$xmlToObject.coverage" NAME="xmlToObject Coverage Results" MODIFIED="1418666322776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testListComparator.coverage" NAME="Unittests in testListComparator Coverage Results" MODIFIED="1426174963749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testClef__1_.coverage" NAME="Unittests in testClef (1) Coverage Results" MODIFIED="1425646586286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDurationAndStems.coverage" NAME="Unittests in testDurationAndStems Coverage Results" MODIFIED="1424640760636" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTwoStavesOnePart.coverage" NAME="Unittests in testTwoStavesOnePart Coverage Results" MODIFIED="1423020501831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMetaParser.coverage" NAME="Unittests in testMetaParser Coverage Results" MODIFIED="1426191060308" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testRepeatMarks__1_.coverage" NAME="Unittests in testRepeatMarks (1) Coverage Results" MODIFIED="1425861563587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeta.coverage" NAME="Unittests in testMeta Coverage Results" MODIFIED="1424033301783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMusicManagerApiIntegration.coverage" NAME="Unittests in testMusicManagerApiIntegration Coverage Results" MODIFIED="1428856252715" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$main.coverage" NAME="main Coverage Results" MODIFIED="1431484428154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDynamics__1_.coverage" NAME="run script Coverage Results" MODIFIED="1424977937132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleMeasures.coverage" NAME="Unittests in testHandleMeasures Coverage Results" MODIFIED="1425838319810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTremolo.coverage" NAME="Unittests in testTremolo Coverage Results" MODIFIED="1425841393935" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$All_FYP_tests.coverage" NAME="All FYP tests Coverage Results" MODIFIED="1424788483117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$main_application.coverage" NAME="main_application Coverage Results" MODIFIED="1427068905064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Documents/pyqt-testwidget" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testtext.coverage" NAME="Unittests in testtext Coverage Results" MODIFIED="1423411041193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$search.coverage" NAME="search Coverage Results" MODIFIED="1419706118449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Extract Metadata" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testActorPreludeSample.coverage" NAME="Unittests in testActorPreludeSample Coverage Results" MODIFIED="1423257573110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
-    <SUITE FILE_PATH="coverage/FYP$MainWindow__1_.coverage" NAME="MainWindow (1) Coverage Results" MODIFIED="1426355050770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testSearchProcessor.coverage" NAME="Unittests in testSearchProcessor Coverage Results" MODIFIED="1426861477636" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Drawing_Lilypond_tests.coverage" NAME="Drawing Lilypond tests Coverage Results" MODIFIED="1424952926494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$app.coverage" NAME="app Coverage Results" MODIFIED="1431483720069" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMultipleParts.coverage" NAME="Unittests in testMultipleParts Coverage Results" MODIFIED="1424737548430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNoteheads.coverage" NAME="Unittests in testNoteheads Coverage Results" MODIFIED="1424738338243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$findAndLoad.coverage" NAME="findAndLoad Coverage Results" MODIFIED="1418481456915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Drawing_XML_Object_handlers.coverage" NAME="Drawing XML&gt;Object handlers Coverage Results" MODIFIED="1424820275124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Application.coverage" NAME="Application Coverage Results" MODIFIED="1433156190501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testOrnaments__1_.coverage" NAME="Unittests in testOrnaments (1) Coverage Results" MODIFIED="1425477583840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$run_script.coverage" NAME="run script Coverage Results" MODIFIED="1425077255408" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPitch.coverage" NAME="Unittests in testPitch Coverage Results" MODIFIED="1420455462974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testClef.coverage" NAME="Unittests in testClef Coverage Results" MODIFIED="1425861728815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testGraceNotes.coverage" NAME="Unittests in testGraceNotes Coverage Results" MODIFIED="1424820087867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTree.coverage" NAME="Unittests in testTree Coverage Results" MODIFIED="1424305552955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testParser.coverage" NAME="Unittests in testParser Coverage Results" MODIFIED="1425920092698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testChordNoteEnd.coverage" NAME="Unittests in testChordNoteEnd Coverage Results" MODIFIED="1423761728787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMScoreApi.coverage" NAME="Unittests in testMScoreApi Coverage Results" MODIFIED="1428410842855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBarlines.coverage" NAME="Unittests in testBarlines Coverage Results" MODIFIED="1430659793446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$FYP_testing.coverage" NAME="FYP testing Coverage Results" MODIFIED="1419355403844" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandlePartsAndPiece.coverage" NAME="Unittests in testHandlePartsAndPiece Coverage Results" MODIFIED="1425648508165" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeter.coverage" NAME="Unittests in testMeter Coverage Results" MODIFIED="1425741004270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$FYP_test_handler_methods.coverage" NAME="FYP test handler methods Coverage Results" MODIFIED="1424788698258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$MainWindow_Pyside.coverage" NAME="MainWindow_Pyside Coverage Results" MODIFIED="1426430789277" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArticulation.coverage" NAME="Unittests in testArticulation Coverage Results" MODIFIED="1430659779302" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$Playlist.coverage" NAME="Playlist Coverage Results" MODIFIED="1418480483942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/SearchWIthSax" />
+    <SUITE FILE_PATH="coverage/FYP$unit_tests_in_testDataOnlineSearching.coverage" NAME="unit tests in testDataOnlineSearching Coverage Results" MODIFIED="1428850416784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPiece.coverage" NAME="Unittests in testPiece Coverage Results" MODIFIED="1424908735948" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$All_FYP_extractor_tests.coverage" NAME="All FYP extractor tests Coverage Results" MODIFIED="1421351426779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFingering.coverage" NAME="Unittests in testFingering Coverage Results" MODIFIED="1424711025926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPieceTree.coverage" NAME="Unittests in testPieceTree Coverage Results" MODIFIED="1425837311010" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
-    <SUITE FILE_PATH="coverage/FYP$main.coverage" NAME="main Coverage Results" MODIFIED="1431462008713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBeams.coverage" NAME="Unittests in testBeams Coverage Results" MODIFIED="1424638607443" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMetaParserUsingXML.coverage" NAME="Unittests in testMetaParserUsingXML Coverage Results" MODIFIED="1426193909544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBarlines__1_.coverage" NAME="Unittests in testBarlines (1) Coverage Results" MODIFIED="1425644235900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$run_passed_tests.coverage" NAME="run_passed_tests Coverage Results" MODIFIED="1425685436353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNotations.coverage" NAME="Unittests in testNotations Coverage Results" MODIFIED="1425649280495" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTrillsFermataOtherOrnaments.coverage" NAME="Unittests in testTrillsFermataOtherOrnaments Coverage Results" MODIFIED="1424789296446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDynamics.coverage" NAME="Unittests in testDynamics Coverage Results" MODIFIED="1425681689502" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPart.coverage" NAME="Unittests in testPart Coverage Results" MODIFIED="1425861081183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMusicManager.coverage" NAME="Unittests in testMusicManager Coverage Results" MODIFIED="1428338348418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testArpegGliss.coverage" NAME="Unittests in testArpegGliss Coverage Results" MODIFIED="1425644898006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testAccidentals__1_.coverage" NAME="Unittests in testAccidentals (1) Coverage Results" MODIFIED="1424568099740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$tinyApp.coverage" NAME="tinyApp Coverage Results" MODIFIED="1429106153058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$pil.coverage" NAME="pil Coverage Results" MODIFIED="1426380488649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$run_inside_pycharm.coverage" NAME="run inside pycharm Coverage Results" MODIFIED="1425920347917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFolderExtractor.coverage" NAME="Unittests in testFolderExtractor Coverage Results" MODIFIED="1419720535047" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHarmony.coverage" NAME="Unittests in testHarmony Coverage Results" MODIFIED="1420907543732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTimedElementsHolder.coverage" NAME="Unittests in testTimedElementsHolder Coverage Results" MODIFIED="1424200812201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testWhatHappensWhenIDoThis.coverage" NAME="Unittests in testWhatHappensWhenIDoThis Coverage Results" MODIFIED="1425652511258" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPlaylister.coverage" NAME="Unittests in testPlaylister Coverage Results" MODIFIED="1419795804913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMeasure.coverage" NAME="Unittests in testMeasure Coverage Results" MODIFIED="1425917450582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches.coverage" NAME="Unittests in testHandleNotesAndPitches Coverage Results" MODIFIED="1425677380244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$all_ExtractMetadata_tests.coverage" NAME="all ExtractMetadata tests Coverage Results" MODIFIED="1428849586531" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNotehead.coverage" NAME="Unittests in testNotehead Coverage Results" MODIFIED="1419898720944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testUnzipper.coverage" NAME="Unittests in testUnzipper Coverage Results" MODIFIED="1426176904986" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$SearchProcessor.coverage" NAME="SearchProcessor Coverage Results" MODIFIED="1426777259633" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes" />
+    <SUITE FILE_PATH="coverage/FYP$StartupWidget.coverage" NAME="StartupWidget Coverage Results" MODIFIED="1426441389704" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testLilypondRun.coverage" NAME="Unittests in testActorPreludeSample Coverage Results" MODIFIED="1424905826880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Drawing_testcases.coverage" NAME="Drawing testcases Coverage Results" MODIFIED="1424790337029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testAccidentals.coverage" NAME="Unittests in testAccidentals Coverage Results" MODIFIED="1424710671100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1418648734071" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$MainWindow.coverage" NAME="MainWindow Coverage Results" MODIFIED="1426441418321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testText.coverage" NAME="Unittests in testText Coverage Results" MODIFIED="1424969560390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$SQLExperiment.coverage" NAME="SQLExperiment Coverage Results" MODIFIED="1425920843485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes" />
+    <SUITE FILE_PATH="coverage/FYP$Unittest_NoteTests_testNoteOctave.coverage" NAME="Unittest NoteTests.testNoteOctave Coverage Results" MODIFIED="1419357422473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Loading/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$MainWindow__1_.coverage" NAME="MainWindow (1) Coverage Results" MODIFIED="1426355050770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/GUI" />
+    <SUITE FILE_PATH="coverage/FYP$run_passing_tests.coverage" NAME="run passing tests Coverage Results" MODIFIED="1425864341764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testOrnaments.coverage" NAME="Unittests in testOrnaments Coverage Results" MODIFIED="1425477649562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testKeySignatures.coverage" NAME="Unittests in testKeySignatures Coverage Results" MODIFIED="1425647086306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testNote.coverage" NAME="Unittests in testNote Coverage Results" MODIFIED="1425748160810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Piece.coverage" NAME="Piece Coverage Results" MODIFIED="1422221459924" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/classes" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testApiManager.coverage" NAME="Unittests in testApiManager Coverage Results" MODIFIED="1428777269418" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testBreathMarks.coverage" NAME="Unittests in testBreathMarks Coverage Results" MODIFIED="1424639267387" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$unittests_in_testtwostavesonepart.coverage" NAME="unittests in testtwostavesonepart Coverage Results" MODIFIED="1424873381361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDirections.coverage" NAME="Unittests in testDirections Coverage Results" MODIFIED="1425861826938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFolderBrowser.coverage" NAME="Unittests in testFolderBrowser Coverage Results" MODIFIED="1419715766900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$finder.coverage" NAME="finder Coverage Results" MODIFIED="1418408064598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$createTestTable.coverage" NAME="createTestTable Coverage Results" MODIFIED="1422209245882" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
+    <SUITE FILE_PATH="coverage/FYP$create_dmg.coverage" NAME="create dmg Coverage Results" MODIFIED="1430091647344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testRepeatMarks.coverage" NAME="Unittests in testRepeatMarks Coverage Results" MODIFIED="1425860792000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$setup_script.coverage" NAME="setup_script Coverage Results" MODIFIED="1431359988554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/scripts" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDataLayer.coverage" NAME="Unittests in testDataLayer Coverage Results" MODIFIED="1428846606753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testLines.coverage" NAME="Unittests in testLines Coverage Results" MODIFIED="1425863277366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testFolderParser.coverage" NAME="Unittests in testFolderParser Coverage Results" MODIFIED="1419820128744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleNotesAndPitches__1_.coverage" NAME="Unittests in testHandleNotesAndPitches (1) Coverage Results" MODIFIED="1424192729501" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$All_Drawing_tests.coverage" NAME="All Drawing tests Coverage Results" MODIFIED="1425917067919" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testHandleDirections.coverage" NAME="Unittests in testHandleDirections Coverage Results" MODIFIED="1425837618017" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
+    <SUITE FILE_PATH="coverage/FYP$All_tests.coverage" NAME="All tests Coverage Results" MODIFIED="1430660182405" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$FYP_testcases.coverage" NAME="FYP testcases Coverage Results" MODIFIED="1424788691730" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$run.coverage" NAME="run Coverage Results" MODIFIED="1424967819780" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
+    <SUITE FILE_PATH="coverage/FYP$Unittests_in_testKey.coverage" NAME="Unittests in testKey Coverage Results" MODIFIED="1420327826313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
   </component>
   <component name="DiffToolSettings">
     <option name="WHITESPACES" value="true" />
@@ -313,81 +239,57 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="2100">
-              <caret line="86" column="9" selection-start-line="86" selection-start-column="9" selection-end-line="86" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="79" column="42" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
-                <element signature="e#1613#1790#0" expanded="false" />
-                <element signature="e#1840#2028#0" expanded="false" />
-                <element signature="e#2076#2399#0" expanded="false" />
-                <element signature="e#2440#2571#0" expanded="false" />
-                <element signature="e#2628#2720#0" expanded="false" />
-                <element signature="e#3228#3277#0" expanded="false" />
-                <element signature="e#3324#3395#0" expanded="false" />
-                <element signature="e#3461#3532#0" expanded="false" />
-                <element signature="e#3582#3682#0" expanded="false" />
-                <element signature="e#3726#3796#0" expanded="false" />
-                <element signature="e#3844#4486#0" expanded="false" />
-                <element signature="e#3844#4139#1" expanded="false" />
-                <element signature="e#4556#5294#0" expanded="false" />
-                <element signature="e#4556#4947#1" expanded="false" />
-                <element signature="e#5338#6724#0" expanded="false" />
-                <element signature="e#5338#5819#1" expanded="false" />
-                <element signature="e#6771#6898#0" expanded="false" />
-                <element signature="e#6942#7120#0" expanded="false" />
-                <element signature="e#7181#7762#0" expanded="false" />
-                <element signature="e#7181#7498#1" expanded="false" />
-                <element signature="e#7811#8107#0" expanded="false" />
-                <element signature="e#7811#7990#1" expanded="false" />
-                <element signature="e#8161#9059#0" expanded="false" />
-                <element signature="e#8161#8496#1" expanded="false" />
-                <element signature="e#9098#9120#0" expanded="false" />
-                <element signature="e#9163#9203#0" expanded="false" />
-                <element signature="e#9425#9812#0" expanded="false" />
-                <element signature="e#10034#10360#0" expanded="false" />
-                <element signature="e#10405#10738#0" expanded="false" />
-                <element signature="e#10795#10834#0" expanded="false" />
-                <element signature="e#10901#10955#0" expanded="false" />
-                <element signature="e#10994#10998#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainWindow.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3010949" vertical-offset="0" max-vertical-offset="7710">
-              <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+            <state vertical-scroll-proportion="-1.8888888">
+              <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
               <folding>
-                <element signature="e#0#36#0" expanded="true" />
-                <element signature="e#4095#4709#0" expanded="false" />
-                <element signature="e#4748#4841#0" expanded="false" />
-                <element signature="e#4876#4953#0" expanded="false" />
-                <element signature="e#4991#5074#0" expanded="false" />
-                <element signature="e#5107#5159#0" expanded="false" />
-                <element signature="e#5382#5820#0" expanded="false" />
-                <element signature="e#5877#6159#0" expanded="false" />
-                <element signature="e#7131#7892#0" expanded="false" />
-                <element signature="e#7938#8524#0" expanded="false" />
-                <element signature="e#8572#8914#0" expanded="false" />
-                <element signature="e#8956#9761#0" expanded="false" />
-                <element signature="e#14088#18542#0" expanded="false" />
-                <element signature="e#21913#22433#0" expanded="false" />
-                <element signature="e#25024#25133#0" expanded="false" />
-                <element signature="e#25166#25276#0" expanded="false" />
-                <element signature="e#27809#29263#0" expanded="false" />
+                <element signature="e#0#10#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pyqt4App.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implementation/Pyqt4App.py">
+      <file leaf-file-name="setup_script.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
-              <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.3423913">
+              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-13.222222">
+              <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Application.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -395,8 +297,8 @@
       <file leaf-file-name="StartupWidget.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.357143" vertical-offset="52" max-vertical-offset="735">
-              <caret line="19" column="33" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="36" column="76" selection-start-line="36" selection-start-column="76" selection-end-line="36" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -455,21 +357,25 @@
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/SetupWindow.py" />
         <option value="$PROJECT_DIR$/implementation/app.json" />
         <option value="$PROJECT_DIR$/implementation/primaries/scripts/__init__.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
         <option value="$PROJECT_DIR$/implementation/Pyqt4App.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py" />
         <option value="$PROJECT_DIR$/implementation/crap.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/app.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/app.py" />
         <option value="$PROJECT_DIR$/implementation/main.py" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py" />
       </list>
     </option>
   </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
   </component>
   <component name="ProjectFrameBounds">
     <option name="width" value="1440" />
@@ -498,6 +404,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -505,14 +413,6 @@
               <option name="myItemId" value="FYP" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 3.4.2 (/usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/bin/python3.4) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -574,13 +474,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="GUI" />
+              <option name="myItemId" value="scripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -633,7 +532,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.app">
+  <component name="RunManager" selected="Python.Application">
     <configuration default="false" name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -653,31 +552,6 @@
       <RunnerSettings RunnerId="PyDebugRunner" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Unittests in testArticulation" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="FYP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testArticulation.py" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -750,6 +624,47 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
+    <configuration default="false" name="Application" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Python34\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/implementation/primaries/GUI" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FYP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/implementation/primaries/GUI/Application.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FYP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
     <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -778,6 +693,33 @@
       <option name="ADDITIONAL_ARGS" value="" />
       <method />
     </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FYP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -798,12 +740,10 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+    <configuration default="true" type="tests" factoryName="Doctests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
+      <envs />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
@@ -811,11 +751,13 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="FYP" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="TARGET" value="" />
-      <option name="SETTINGS_FILE" value="" />
-      <option name="CUSTOM_SETTINGS" value="false" />
-      <option name="USE_OPTIONS" value="false" />
-      <option name="OPTIONS" value="" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Nosetests">
@@ -838,44 +780,6 @@
       <option name="USE_PATTERN" value="false" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <pass-parent-envs>true</pass-parent-envs>
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="INTERPRETER_PATH" value="/bin/bash" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="FYP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -924,35 +828,6 @@
       <option name="params" value="" />
       <option name="USE_PARAM" value="false" />
       <option name="USE_KEYWORD" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Doctests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="FYP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="com.intellij.database.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
-      <option name="VM_PARAMETERS" value="" />
-      <option name="USER_CFG_CLASS" />
-      <option name="CONTEXT_PROVIDER" />
       <method />
     </configuration>
     <configuration default="false" name="run passing tests" type="PythonConfigurationType" factoryName="Python">
@@ -1269,18 +1144,18 @@
       <item index="11" class="java.lang.String" itemvalue="Python tests.unit tests in testDataOnlineSearching" />
       <item index="12" class="java.lang.String" itemvalue="Python tests.create dmg" />
       <item index="13" class="java.lang.String" itemvalue="Python.main" />
-      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in testArticulation" />
-      <item index="15" class="java.lang.String" itemvalue="Python tests.Unittests in testBarlines" />
-      <item index="16" class="java.lang.String" itemvalue="Python.setup_script" />
-      <item index="17" class="java.lang.String" itemvalue="Python.app" />
+      <item index="14" class="java.lang.String" itemvalue="Python tests.Unittests in testBarlines" />
+      <item index="15" class="java.lang.String" itemvalue="Python.setup_script" />
+      <item index="16" class="java.lang.String" itemvalue="Python.app" />
+      <item index="17" class="java.lang.String" itemvalue="Python.Application" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.app" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Application" />
         <item index="1" class="java.lang.String" itemvalue="Python.main" />
-        <item index="2" class="java.lang.String" itemvalue="Python.setup_script" />
-        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in testBarlines" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in testArticulation" />
+        <item index="2" class="java.lang.String" itemvalue="Python.app" />
+        <item index="3" class="java.lang.String" itemvalue="Python.setup_script" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in testBarlines" />
       </list>
     </recent_temporary>
   </component>
@@ -1618,20 +1493,20 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32406288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2710674" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32416788" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40520984" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38059703" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32756132" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2158809" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25751072" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23261695" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44588745" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32406288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561505" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1679,9 +1554,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
     <MESSAGE value="implementing online and offline querying&#10;- issue #258&#10;- implemented bool in all methods&#10;- implemented a bunch of tests to confirm online and offline functionality&#10;- reorganised data layer tests into several classes and left a comment at the top of the test file explaining each one" />
     <MESSAGE value="further online and offline tests&#10;- issue #258&#10;- some more tests&#10;- ran autopep8 on test files: cleans them all up and makes them fit pep8 standards" />
     <MESSAGE value="further pep8 cleanups&#10;- applied autopep8 to classes in ExtractMetadata" />
@@ -1818,11 +1690,6 @@
           <option name="timeStamp" value="862" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py</url>
-          <line>310</line>
-          <option name="timeStamp" value="878" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py</url>
           <line>222</line>
           <option name="timeStamp" value="1018" />
@@ -1849,24 +1716,52 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="10" max-vertical-offset="720">
-          <caret line="27" column="65" selection-start-line="27" selection-start-column="65" selection-end-line="27" selection-end-column="65" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="76" selection-start-line="36" selection-start-column="76" selection-end-line="36" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="167" column="0" selection-start-line="167" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Meta.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.032967035" vertical-offset="0" max-vertical-offset="855">
+        <state vertical-scroll-proportion="0.032967035">
           <caret line="1" column="52" selection-start-line="1" selection-start-column="52" selection-end-line="1" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/tree_cls/MeasureNode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.835165" vertical-offset="2835" max-vertical-offset="8640">
+        <state vertical-scroll-proportion="-5.835165">
           <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
           <folding>
             <element signature="e#4257#4899#0" expanded="false" />
@@ -1876,28 +1771,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/manifest.in">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="453">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="32" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/lib/python3.4/xml/etree/ElementTree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="8549" max-vertical-offset="25005">
-          <caret line="586" column="0" selection-start-line="586" selection-start-column="0" selection-end-line="586" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/API.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1185">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/ImportDialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6185567" vertical-offset="0" max-vertical-offset="776">
+        <state vertical-scroll-proportion="0.6185567">
           <caret line="32" column="69" selection-start-line="32" selection-start-column="69" selection-end-line="32" selection-end-column="69" />
           <folding>
             <element signature="e#0#36#0" expanded="false" />
@@ -1907,426 +1795,311 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/licensePopup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6572165" vertical-offset="0" max-vertical-offset="776">
+        <state vertical-scroll-proportion="0.6572165">
           <caret line="34" column="69" selection-start-line="34" selection-start-column="69" selection-end-line="34" selection-end-column="69" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/renderingErrorPopup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0027856" vertical-offset="0" max-vertical-offset="525">
+        <state vertical-scroll-proportion="1.0027856">
           <caret line="24" column="69" selection-start-line="24" selection-start-column="69" selection-end-line="24" selection-end-column="69" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/MScoreApi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="856" max-vertical-offset="1785">
+        <state vertical-scroll-proportion="0.0">
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/ApiManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="123" max-vertical-offset="1260">
+        <state vertical-scroll-proportion="0.0">
           <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="22365">
+        <state vertical-scroll-proportion="0.0">
           <caret line="7" column="60" selection-start-line="7" selection-start-column="60" selection-end-line="7" selection-end-column="60" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/helpers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5960265" vertical-offset="0" max-vertical-offset="1605">
+        <state vertical-scroll-proportion="0.5960265">
           <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Key.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="870">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/Note.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="4403" max-vertical-offset="9615">
+        <state vertical-scroll-proportion="0.33333334">
           <caret line="303" column="28" selection-start-line="303" selection-start-column="22" selection-end-line="303" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/lib/python3.4/posixpath.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="912" max-vertical-offset="6885">
-          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43267107" vertical-offset="3149" max-vertical-offset="4500">
+        <state vertical-scroll-proportion="0.43267107">
           <caret line="224" column="53" selection-start-line="224" selection-start-column="53" selection-end-line="224" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManagerApiIntegration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69536424" vertical-offset="0" max-vertical-offset="1095">
+        <state vertical-scroll-proportion="0.69536424">
           <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/themes/electricblue.qss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2895">
+        <state vertical-scroll-proportion="0.0">
           <caret line="139" column="17" selection-start-line="139" selection-start-column="17" selection-end-line="139" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/themes/colours.qss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66225165" vertical-offset="0" max-vertical-offset="1515">
+        <state vertical-scroll-proportion="0.66225165">
           <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/themes/teal.qss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.005848" vertical-offset="409" max-vertical-offset="1185">
+        <state vertical-scroll-proportion="2.005848">
           <caret line="73" column="5" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/themes/dark.qss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57894737" vertical-offset="1797" max-vertical-offset="2880">
+        <state vertical-scroll-proportion="0.57894737">
           <caret line="133" column="4" selection-start-line="133" selection-start-column="4" selection-end-line="139" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/lilypond-passing-tests/33a-Spanners.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="13755">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/SampleMusicXML/testcases/ignored-lilypond-testcases/31a-Directions.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21929824" vertical-offset="2205" max-vertical-offset="11865">
+        <state vertical-scroll-proportion="0.21929824">
           <caret line="152" column="6" selection-start-line="152" selection-start-column="6" selection-end-line="175" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/documentation/reports/final/example.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65789473" vertical-offset="0" max-vertical-offset="405">
+        <state vertical-scroll-proportion="0.65789473">
           <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/themes/light.qss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1290" max-vertical-offset="2820">
+        <state vertical-scroll-proportion="0.0">
           <caret line="102" column="13" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/DataLayer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22322775" vertical-offset="19202" max-vertical-offset="24150">
+        <state vertical-scroll-proportion="0.22322775">
           <caret line="1290" column="51" selection-start-line="1290" selection-start-column="51" selection-end-line="1290" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydev_monkey_qt.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1991" max-vertical-offset="2475">
+        <state vertical-scroll-proportion="0.0">
           <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/qt_threading.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="356" max-vertical-offset="840">
+        <state vertical-scroll-proportion="0.0">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/LilypondRender.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74626863" vertical-offset="0" max-vertical-offset="675">
+        <state vertical-scroll-proportion="0.74626863">
           <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.48507464" vertical-offset="315" max-vertical-offset="2085">
+        <state vertical-scroll-proportion="-0.48507464">
           <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
           <folding>
             <element signature="e#0#9#0" expanded="false" />
-            <element signature="e#458#1799#0" expanded="false" />
-            <element signature="e#1836#4567#0" expanded="false" />
-            <element signature="e#3020#3429#0" expanded="false" />
-            <element signature="e#3468#3911#0" expanded="false" />
-            <element signature="e#3954#4567#0" expanded="false" />
-            <element signature="e#6593#7204#0" expanded="false" />
-            <element signature="e#7243#9823#0" expanded="false" />
-            <element signature="e#9866#9979#0" expanded="false" />
-            <element signature="e#10053#10354#0" expanded="false" />
-            <element signature="e#10402#11054#0" expanded="false" />
-            <element signature="e#11096#11413#0" expanded="false" />
-            <element signature="e#11464#11500#0" expanded="false" />
-            <element signature="e#11734#11878#0" expanded="false" />
-            <element signature="e#11914#12091#0" expanded="false" />
-            <element signature="e#12124#12270#0" expanded="false" />
-            <element signature="e#12357#13380#0" expanded="false" />
-            <element signature="e#13426#14030#0" expanded="false" />
-            <element signature="e#14099#14276#0" expanded="false" />
-            <element signature="e#14326#14527#0" expanded="false" />
-            <element signature="e#14588#14938#0" expanded="false" />
-            <element signature="e#14986#15056#0" expanded="false" />
-            <element signature="e#15106#15391#0" expanded="false" />
-            <element signature="e#15431#15774#0" expanded="false" />
-            <element signature="e#15837#22708#0" expanded="false" />
-            <element signature="e#22763#22827#0" expanded="false" />
-            <element signature="e#22874#22940#0" expanded="false" />
-            <element signature="e#23007#23143#0" expanded="false" />
-            <element signature="e#23200#23272#0" expanded="false" />
-            <element signature="e#23331#25305#0" expanded="false" />
-            <element signature="e#25351#25706#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/lilypond_mac.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MessageBox.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44554454" vertical-offset="0" max-vertical-offset="404">
+        <state vertical-scroll-proportion="0.44554454">
           <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="311">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/app.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="480">
+        <state vertical-scroll-proportion="0.0">
           <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.85714287" vertical-offset="0" max-vertical-offset="4170">
-          <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-            <element signature="e#3837#4575#0" expanded="false" />
-            <element signature="e#4619#5100#1" expanded="false" />
-            <element signature="e#6035#6157#0" expanded="false" />
-            <element signature="e#6200#6327#0" expanded="false" />
-            <element signature="e#6371#6549#0" expanded="false" />
-            <element signature="e#10751#10791#0" expanded="false" />
-            <element signature="e#10834#10864#0" expanded="false" />
-            <element signature="e#10919#10961#0" expanded="false" />
-            <element signature="e#11013#11400#0" expanded="false" />
-            <element signature="e#11622#11948#0" expanded="false" />
-            <element signature="e#11993#12326#0" expanded="false" />
-            <element signature="e#12556#12595#0" expanded="false" />
-            <element signature="e#12662#12716#0" expanded="false" />
-            <element signature="e#12755#12759#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../PyQt4App/PyQt4app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.067669176" vertical-offset="0" max-vertical-offset="665">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="9" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="765">
-          <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/lilypond_windows.bat">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/exceptions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02255639" vertical-offset="0" max-vertical-offset="665">
+        <state vertical-scroll-proportion="0.02255639">
           <caret line="1" column="32" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5477528" vertical-offset="0" max-vertical-offset="356">
+        <state vertical-scroll-proportion="0.5477528">
           <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26213592" vertical-offset="0" max-vertical-offset="515">
-          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#10#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/PlaylistDialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.78640777" vertical-offset="0" max-vertical-offset="1320">
+        <state vertical-scroll-proportion="0.78640777">
           <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/SetupWindow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.03883495" vertical-offset="55" max-vertical-offset="570">
+        <state vertical-scroll-proportion="0.03883495">
           <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/thread_classes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7744361" vertical-offset="40" max-vertical-offset="705">
+        <state vertical-scroll-proportion="0.7744361">
           <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/helpers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="345">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/startup.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="76" selection-start-line="36" selection-start-column="76" selection-end-line="36" selection-end-column="76" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/Pyqt4App.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
-          <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.038560413">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="2100">
-          <caret line="86" column="9" selection-start-line="86" selection-start-column="9" selection-end-line="86" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="79" column="42" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
-            <element signature="e#1613#1790#0" expanded="false" />
-            <element signature="e#1840#2028#0" expanded="false" />
-            <element signature="e#2076#2399#0" expanded="false" />
-            <element signature="e#2440#2571#0" expanded="false" />
-            <element signature="e#2628#2720#0" expanded="false" />
-            <element signature="e#3228#3277#0" expanded="false" />
-            <element signature="e#3324#3395#0" expanded="false" />
-            <element signature="e#3461#3532#0" expanded="false" />
-            <element signature="e#3582#3682#0" expanded="false" />
-            <element signature="e#3726#3796#0" expanded="false" />
-            <element signature="e#3844#4486#0" expanded="false" />
-            <element signature="e#3844#4139#1" expanded="false" />
-            <element signature="e#4556#5294#0" expanded="false" />
-            <element signature="e#4556#4947#1" expanded="false" />
-            <element signature="e#5338#6724#0" expanded="false" />
-            <element signature="e#5338#5819#1" expanded="false" />
-            <element signature="e#6771#6898#0" expanded="false" />
-            <element signature="e#6942#7120#0" expanded="false" />
-            <element signature="e#7181#7762#0" expanded="false" />
-            <element signature="e#7181#7498#1" expanded="false" />
-            <element signature="e#7811#8107#0" expanded="false" />
-            <element signature="e#7811#7990#1" expanded="false" />
-            <element signature="e#8161#9059#0" expanded="false" />
-            <element signature="e#8161#8496#1" expanded="false" />
-            <element signature="e#9098#9120#0" expanded="false" />
-            <element signature="e#9163#9203#0" expanded="false" />
-            <element signature="e#9425#9812#0" expanded="false" />
-            <element signature="e#10034#10360#0" expanded="false" />
-            <element signature="e#10405#10738#0" expanded="false" />
-            <element signature="e#10795#10834#0" expanded="false" />
-            <element signature="e#10901#10955#0" expanded="false" />
-            <element signature="e#10994#10998#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="585">
-          <caret line="33" column="7" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="7" />
+        <state vertical-scroll-proportion="-13.222222">
+          <caret line="21" column="5" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/StartupWidget.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.357143" vertical-offset="52" max-vertical-offset="735">
-          <caret line="19" column="33" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/MainWindow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3010949" vertical-offset="0" max-vertical-offset="7710">
-          <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+        <state vertical-scroll-proportion="-1.8888888">
+          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#4095#4709#0" expanded="false" />
-            <element signature="e#4748#4841#0" expanded="false" />
-            <element signature="e#4876#4953#0" expanded="false" />
-            <element signature="e#4991#5074#0" expanded="false" />
-            <element signature="e#5107#5159#0" expanded="false" />
-            <element signature="e#5382#5820#0" expanded="false" />
-            <element signature="e#5877#6159#0" expanded="false" />
-            <element signature="e#7131#7892#0" expanded="false" />
-            <element signature="e#7938#8524#0" expanded="false" />
-            <element signature="e#8572#8914#0" expanded="false" />
-            <element signature="e#8956#9761#0" expanded="false" />
-            <element signature="e#14088#18542#0" expanded="false" />
-            <element signature="e#21913#22433#0" expanded="false" />
-            <element signature="e#25024#25133#0" expanded="false" />
-            <element signature="e#25166#25276#0" expanded="false" />
-            <element signature="e#27809#29263#0" expanded="false" />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3423913">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -1,6 +1,8 @@
 import sip
 import os, time
-from popplerqt4 import Poppler
+from sys import platform
+if platform == "darwin":
+    from popplerqt4 import Poppler
 
 from PyQt4 import QtGui, QtCore, uic
 
@@ -24,7 +26,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.playlist = None
         self.index = None
         self.themeSet = False
-        self.applyTheme()
+        # self.applyTheme()
 
     def resizeEvent(self, QResizeEvent):
         if hasattr(self, "scoreWindow"):
