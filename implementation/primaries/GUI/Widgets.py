@@ -103,7 +103,14 @@ class MyPlaylists(PlaylistWidget):
 class AutoPlaylists(PlaylistWidget):
     name = "autoplaylist"
     def __init__(self, parent):
-        PlaylistWidget.__init__(self, parent, "BasicListWidget.ui", "Auto Playlists", data_set="auto")
+        PlaylistWidget.__init__(self, parent, "BasicListWidgetWithSort.ui", "Auto Playlists", data_set="auto")
+        options = ["all", "time signatures","keys","clefs","instruments","tempos"]
+        self.comboBox.addItems(options)
+        self.comboBox.currentIndexChanged.connect(self.sortMethodChanged)
+
+    def sortMethodChanged(self):
+        sortMethod = self.comboBox.currentText()
+        self.loadPlaylists(select_method=sortMethod)
 
     def onPlaylistsReady(self, playlist_summaries):
         self.listWidget.clear()

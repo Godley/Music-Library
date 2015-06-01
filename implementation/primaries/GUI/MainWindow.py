@@ -26,7 +26,6 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.playlist = None
         self.index = None
         self.themeSet = False
-        # self.applyTheme()
 
     def resizeEvent(self, QResizeEvent):
         if hasattr(self, "scoreWindow"):
@@ -116,9 +115,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.actionRefresh_Collection.triggered.connect(self.qApp.updateDb)
         self.actionNew_Collection.triggered.connect(self.newCollection)
         self.actionImport.triggered.connect(self.qApp.importWindow)
-
-        time.sleep(1)
-        self.actionUbuntu.trigger()
+        if platform == "win32":
+            self.applyTheme()
 
 
     def mousePressEvent(self, QMouseEvent):
