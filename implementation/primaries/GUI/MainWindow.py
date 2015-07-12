@@ -111,6 +111,10 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.scoreWindow.hide()
         self.multistndBtn.hide()
         self.popoutBtn.hide()
+        self.zoomOutBtn.hide()
+        self.zoomInBtn.hide()
+        self.zoomInBtn.clicked.connect(self.zoomIn)
+        self.zoomOutBtn.clicked.connect(self.zoomOut)
         self.popoutBtn.clicked.connect(self.onPopoutClicked)
         self.multistndBtn.clicked.connect(self.onMultistandClicked)
         #self.scoreWebView.hide()
@@ -122,6 +126,14 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.actionImport.triggered.connect(self.qApp.importWindow)
         if platform == "win32":
             self.applyTheme()
+
+    def zoomIn(self):
+        self.scoreWindow.scale(1.1, 1.1)
+        pass
+
+    def zoomOut(self):
+        self.scoreWindow.scale(0.9, 0.9)
+        pass
 
 
     def mousePressEvent(self, QMouseEvent):
@@ -211,9 +223,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         for i in range(len(data_items)):
             for j in range(len(data_items[i])):
                 self.playlistTable.setItem(i, j, data_items[i][j])
-        self.titleOfPiece.setText(playlist_title)
-        self.titleOfPiece.adjustSize()
-        self.titleOfPiece.show()
+        self.setWindowTitle("MuseLib | Playlist: "+playlist_title)
         self.playlistTable.show()
         self.playlistTable.lower()
         for i in range(10):
@@ -352,7 +362,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.qApp.loadFile(current_item.data(32))
 
     def onMultistandClicked(self):
-        self.popout = MultistandWidget.MultistandWidget(self.pdf_loaded)
+        self.popout = MultistandWidget.MultistandWidget(self.pdf_loaded, self.folder, self.theme)
+        self.popout.applyTheme()
         self.popout.show()
 
     def onPopoutClicked(self):
@@ -374,14 +385,14 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         #self.loadPieceData(file_to_load)
         self.loadPdfToGraphicsWidget(filename)
         #self.loadPdfToWebWidget(filename)
-        self.titleOfPiece.setText(file_to_load)
-        self.titleOfPiece.adjustSize()
-        self.titleOfPiece.repaint()
+        self.setWindowTitle("MuseLib | Piece: "+file_to_load)
         self.resizeCenterWidget(self.scoreWindow)
         self.scoreWindow.show()
         self.scoreWindow.lower()
         self.multistndBtn.show()
         self.popoutBtn.show()
+        self.zoomInBtn.show()
+        self.zoomOutBtn.show()
         #self.loadFeaturedIn(file_to_load)
         #self.playlistViewer.hide()
         #self.pieceInfoWidget.show()

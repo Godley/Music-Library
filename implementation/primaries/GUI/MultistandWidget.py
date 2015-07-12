@@ -12,8 +12,9 @@ from implementation.primaries.GUI import qt_threading
 
 
 class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
-    def __init__(self, file):
+    def __init__(self, file,theme_folder, theme):
         QtGui.QWidget.__init__(self)
+        themedWindow.ThemedWindow.__init__(self, theme, theme_folder)
         self.pages = 2
         self.file = file
         self.load()
@@ -21,10 +22,18 @@ class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
         self.move(0,0)
 
     def load(self):
-        file = os.path.join(get_base_dir(True), "designer_files", "MultiStandWidget.ui")
-        uic.loadUi(file, self)
-
+        design_file = os.path.join(get_base_dir(True), "designer_files", "MultiStandWidget.ui")
+        uic.loadUi(design_file, self)
+        self.setWindowTitle("MuseLib Multistand View: "+self.file)
         self.pageValue.valueChanged.connect(self.pageValChanged)
+        self.zoomInBtn.clicked.connect(self.zoomIn)
+        self.zoomOutBtn.clicked.connect(self.zoomOut)
+
+    def zoomIn(self):
+        self.scoreWindow.scale(1.1, 1.1)
+
+    def zoomOut(self):
+        self.scoreWindow.scale(0.9, 0.9)
 
     def loadPdfToGraphicsWidget(self, filename):
         """
@@ -32,7 +41,9 @@ class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
         :param filename: pdf file to load
         :return:
         """
-
+        scene = self.scoreWindow.scene()
+        if scene is not None:
+            scene.clear()
         scene = QtGui.QGraphicsScene()
         scene.setBackgroundBrush(QtGui.QColor('transparent'))
         layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Vertical)
@@ -84,10 +95,10 @@ class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
                     containers[i].setFixedWidth(self.scoreWindow.width()/2)
                     containers[i].setFixedHeight(pages[number].pageSize().height())
                     #containers[number].setFixedSize(pages[number].pageSize())
-                    containers[i].setStyleSheet("pages[number] { background-color : transparent}")
+                    containers[i].setStyleSheet("Page { background-color : transparent}")
                     containers[i].setContentsMargins(0, 0, 0, 0)
                     containers[i].setScaledContents(True)
-                    containers[i].setPixmap(pixmaps[number])
+                    containers[i].setPixmap(pixmaps[i])
                     labels.append(scenes[number-1].addWidget(containers[i]))
                     pairings[number-1].addItem(labels[i])
                     if i >= pageNum:
@@ -97,13 +108,13 @@ class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
                 for i in range(number, self.pages):
                     containers.append(QtGui.QLabel())
                     containers[number].setFixedSize(pages[number-1].pageSize())
-                    containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+                    containers[number].setStyleSheet("Page { background-color : transparent}")
                     containers[number].setContentsMargins(0, 0, 0, 0)
                     containers[number].setScaledContents(True)
                     pixmaps.append(QtGui.QPixmap())
-                    containers[number].setPixmap(pixmaps[number])
-                    labels.append(scenes[number-1].addWidget(containers[number]))
-                    pairings[number-1].addItem(labels[number])
+                    containers[number].setPixmap(pixmaps[i])
+                    labels.append(scenes[number-1].addWidget(containers[i]))
+                    pairings[number-1].addItem(labels[i])
             layout.addItem(pairings[number-1])
             number += 1
 
@@ -127,6 +138,7 @@ class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
         graphicsWidget.setLayout(layout)
         scene.addItem(graphicsWidget)
         self.scoreWindow.setScene(scene)
+
 
     def pageValChanged(self, pageVal):
         self.pages = pageVal
