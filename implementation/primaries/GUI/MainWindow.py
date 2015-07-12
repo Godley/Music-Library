@@ -110,6 +110,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.scoreWindow.hide()
         self.multistndBtn.hide()
         self.popoutBtn.hide()
+        self.popoutBtn.clicked.connect(self.onPopoutClicked)
         #self.scoreWebView.hide()
         self.playlistTable.hide()
         self.playlistTable.itemDoubleClicked.connect(self.onPlaylistItemClicked)
@@ -348,6 +349,12 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.playlistTable.hide()
         self.qApp.loadFile(current_item.data(32))
 
+    def onMultistandClicked(self):
+        pass
+
+    def onPopoutClicked(self):
+        os.system("open "+self.pdf_loaded)
+
 
     # methods to handle pieces
     def onPieceLoaded(self, filename, split_file):
@@ -357,6 +364,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         :param split_file: the filename with no folder location
         :return:
         """
+        self.pdf_loaded = filename
         file_to_load = split_file.split(".")[0]+".xml"
         self.current_piece = file_to_load
         #self.showToolbarBtns()
@@ -369,6 +377,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.resizeCenterWidget(self.scoreWindow)
         self.scoreWindow.show()
         self.scoreWindow.lower()
+        self.multistndBtn.show()
+        self.popoutBtn.show()
         #self.loadFeaturedIn(file_to_load)
         #self.playlistViewer.hide()
         #self.pieceInfoWidget.show()
