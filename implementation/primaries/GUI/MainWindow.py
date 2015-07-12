@@ -108,6 +108,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.actionCandy.triggered.connect(self.candy)
         self.searchFrame.hide()
         self.scoreWindow.hide()
+        self.multistndBtn.hide()
+        self.popoutBtn.hide()
         #self.scoreWebView.hide()
         self.playlistTable.hide()
         self.playlistTable.itemDoubleClicked.connect(self.onPlaylistItemClicked)

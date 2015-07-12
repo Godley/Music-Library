@@ -70,7 +70,7 @@ QFrame#buttonFrame {
 background:#3E1C33;
 }
 
-QFrame QToolButton {
+QFrame QToolButton, QWidget QToolButton {
 background:transparent;
 padding:10px;
 border:0px;
@@ -113,6 +113,19 @@ background-image: url(themes/icons/0216-star-empty.png);
 
 QFrame QToolButton#browserBtn {
 background-image: url(themes/icons/0190-menu.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+QWidget QToolButton#multistndBtn {
+    background-image: url(themes/icons/glyphicons-216-resize-full.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+QWidget QToolButton#popoutBtn
+{
+    background-image: url(themes/icons/glyphicons-152-new-window.png);
     background-position: center;
     background-repeat: no-repeat;
 }
