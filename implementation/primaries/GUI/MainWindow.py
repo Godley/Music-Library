@@ -10,6 +10,7 @@ from implementation.primaries.GUI.helpers import get_base_dir, parseStyle
 from implementation.primaries.GUI import themedWindow, Widgets
 from implementation.primaries.GUI import Widgets
 from implementation.primaries.GUI import qt_threading
+from implementation.primaries.GUI import MultistandWidget
 
 
 class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
@@ -111,6 +112,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.multistndBtn.hide()
         self.popoutBtn.hide()
         self.popoutBtn.clicked.connect(self.onPopoutClicked)
+        self.multistndBtn.clicked.connect(self.onMultistandClicked)
         #self.scoreWebView.hide()
         self.playlistTable.hide()
         self.playlistTable.itemDoubleClicked.connect(self.onPlaylistItemClicked)
@@ -350,7 +352,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.qApp.loadFile(current_item.data(32))
 
     def onMultistandClicked(self):
-        pass
+        self.popout = MultistandWidget.MultistandWidget(self.pdf_loaded)
+        self.popout.show()
 
     def onPopoutClicked(self):
         os.system("open "+self.pdf_loaded)
