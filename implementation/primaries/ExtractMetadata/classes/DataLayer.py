@@ -658,9 +658,10 @@ class MusicData(object):
         if len(tuple_ids) > 0:
             query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
             for i in range(len(instrument_ids)):
-                query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND '
+                query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id'
                 for result in instrument_ids[i]:
                     if result == instrument_ids[i][0]:
+                        query += ' AND '
                         query += '('
                     query += 'instrument_id = ?'
                     if result != instrument_ids[i][-1]:
@@ -1286,15 +1287,18 @@ class MusicData(object):
 
         instrument_keys = []
         for name in instruments:
-            key = self.getInstrumentId(name, cursor)
+            if type(name) == str:
+                key = self.getInstrumentId(name, cursor)
+            else:
+                key = self.getInstrumentId(name["name"],cursor)
             if key is not None:
                 instrument_keys.append((name, key))
-        results = self.getPiecesByInstruments(instruments)
+        results = self.getPiecesByInstruments([instrument["name"] for instrument in instruments])
         if len(results) == 0:
             alternates = [
                 (item,
                  self.getInstrumentsBySameTranspositionAs(
-                     item[0])) for item in instrument_keys]
+                     item[0]["name"])) for item in instrument_keys]
             query = '''SELECT piece_id FROM instruments_piece_join i WHERE EXISTS'''
             query_input = []
             for instrument in alternates:
@@ -1389,13 +1393,14 @@ class MusicData(object):
         file_data = []
         for filename in filenames:
             piece_tuple = self.getExactPiece(filename, archived, online=online)
-            data = {
-                "id": piece_tuple[0],
-                "filename": piece_tuple[1],
-                "title": piece_tuple[2],
-                "composer_id": piece_tuple[3],
-                "lyricist_id": piece_tuple[4]}
-            file_data.append(data)
+            if piece_tuple is not None:
+                data = {
+                    "id": piece_tuple[0],
+                    "filename": piece_tuple[1],
+                    "title": piece_tuple[2],
+                    "composer_id": piece_tuple[3],
+                    "lyricist_id": piece_tuple[4]}
+                file_data.append(data)
 
         connection, cursor = self.connect()
         for file in file_data:

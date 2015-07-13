@@ -111,6 +111,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.scoreWindow.hide()
         self.multistndBtn.hide()
         self.popoutBtn.hide()
+        self.popoutBtn.setToolTip("Open in default pdf viewer")
+        self.multistndBtn.setToolTip("Open in multi stand mode")
         self.zoomOutBtn.hide()
         self.zoomInBtn.hide()
         self.zoomInBtn.clicked.connect(self.zoomIn)

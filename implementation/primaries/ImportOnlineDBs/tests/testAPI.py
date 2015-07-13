@@ -7,7 +7,7 @@ class testAPI(unittest.TestCase):
 
     def testDownloadFile(self):
         with self.assertRaises(NotImplementedError):
-            self.api.downloadFile("heh")
+            self.api.downloadFile("heh", "")
 
     def testGetCollection(self):
         with self.assertRaises(NotImplementedError):

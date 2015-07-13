@@ -589,7 +589,7 @@ class TestDataLayerGeneral(unittest.TestCase):
     def testFindPieceByFname(self):
         self.data.addPiece("file.xml", {})
         self.assertEqual(
-            [(1, "file.xml", "", -1, -1)], self.data.getPiece("file.xml"))
+            (1, "file.xml", "", -1, -1), self.data.getExactPiece("file.xml"))
 
     def testFindAllInfoForAPiece(self):
         self.data.addPiece(
@@ -823,15 +823,15 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
         self.data.addPiece(
             "file.xml", {
                 "composer": "blabla", "source": "MuseScore"})
-        result_set = self.data.getPiece("file.xml")
-        self.assertEqual(result_set, [])
+        result_set = self.data.getExactPiece("file.xml")
+        self.assertEqual(result_set, None)
 
     def testGetPieceOnline(self):
         self.data.addPiece(
             "file.xml", {
                 "composer": "blabla", "source": "MuseScore"})
-        result_set = self.data.getPiece("file.xml", online=True)
-        self.assertEqual(result_set, [(1, 'file.xml', '', 1, -1)])
+        result_set = self.data.getExactPiece("file.xml", online=True)
+        self.assertEqual(result_set, (1, 'file.xml', '', 1, -1))
 
     def testGetPieceByInstrumentsOffline(self):
         self.data.addPiece("file.xml",

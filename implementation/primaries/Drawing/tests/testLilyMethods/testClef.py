@@ -104,7 +104,7 @@ class testClefTabInMeasure(Lily):
         self.item = PartNode.PartNode()
         self.item.addEmptyMeasure(1,1)
         self.item.getMeasure(1,1).clef = Clef.Clef(sign="TAB")
-        self.item.CheckIfTabStaff(1)
+        self.item.CheckIfTabStaff()
         self.lilystring = ["zerostaffone = \\new Staff{ % measure 1\n\clef moderntab  | \n\n }\n\n", "\\zerostaffone"]
 
 class testClefTabInMeasureWithMultiClefs(Lily):
@@ -114,5 +114,5 @@ class testClefTabInMeasureWithMultiClefs(Lily):
         self.item.getMeasure(1,1).clef = Clef.Clef(sign="TAB")
         self.item.addEmptyMeasure(2,1)
         self.item.getMeasure(2,1).clef = Clef.Clef(sign="F", line=4)
-        self.item.CheckIfTabStaff(1)
+        self.item.CheckIfTabStaff()
         self.lilystring = ["zerostaffone = \\new Staff{ % measure 1\n\clef moderntab  | \n\n % measure 2\n\clef bass  | \n\n }\n\n", "\\zerostaffone"]
