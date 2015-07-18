@@ -27,8 +27,6 @@ class TestMusicManager(unittest.TestCase):
         self.manager.parseOldFiles.assert_called_once_with(["file.xml"])
 
     def testParseFile(self):
-        self.manager.addPiece("file.xml", {})
-        self.manager.refreshWithoutDownload()
         self.manager.parseNewFiles(["testcase2.xml"])
         result = self.manager.getPieceInfo(["testcase2.xml"])
         expected_result = {'filename': 'testcase2.xml',
@@ -51,7 +49,7 @@ class TestMusicManager(unittest.TestCase):
                 for item in expected_result[index]:
                     self.assertTrue(item in result[0][index])
         self.assertEqual(
-            ["file.xml", "testcase2.xml"], self.manager.getFileList())
+            ["testcase2.xml"], self.manager.getFileList())
 
     def testHandleOldFiles(self):
         self.manager.parseOldFiles(["file.xml"])
@@ -330,9 +328,9 @@ class TestMusicManager(unittest.TestCase):
                                         "Clarinet": ["treble"]}}))
 
     def tearDown(self):
-        files = ["testcase2.xml"]
+        files = ["testcase2.xml", "file5.mxl"]
         val = os.listdir(self.folder)
         for file in val:
-            if val not in files:
+            if file not in files:
                 os.remove(os.path.join(self.folder,file))
 
