@@ -65,7 +65,7 @@ class testTupletType(Lily):
 class testTupletStop(Lily):
     def setUp(self):
         self.item = Note.Tuplet(type="stop")
-        self.lilystring = ["", "}"]
+        self.lilystring = "}"
 
 class testTupletBracket(Lily):
     def setUp(self):

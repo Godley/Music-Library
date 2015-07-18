@@ -9,17 +9,17 @@ class TestMetaParser(unittest.TestCase):
         self.parser = MetaParser.MetaParser()
 
     def testStartTag(self):
-        self.parser.StartTag("part", {})
+        self.parser.startTag("part", {})
         self.assertEqual(self.parser.tags, ["part"])
 
     def testNewData(self):
-        self.parser.StartTag("part", {})
-        self.parser.NewData("hello")
+        self.parser.startTag("part", {})
+        self.parser.newData("hello")
         self.assertEqual(self.parser.chars, {"part": "hello"})
 
     def testEndTag(self):
-        self.parser.StartTag("part", {})
-        self.parser.EndTag("part")
+        self.parser.startTag("part", {})
+        self.parser.endTag("part")
         self.assertEqual(self.parser.tags, [])
 
     def tearDown(self):
@@ -32,15 +32,15 @@ class TestAddPart(TestMetaParser):
         TestMetaParser.setUp(self)
 
     def testPartNameHandler(self):
-        self.parser.StartTag("score-part", {})
-        self.parser.StartTag("part-name", {})
+        self.parser.startTag("score-part", {})
+        self.parser.startTag("part-name", {})
         self.assertEqual(MetaParser.makeNewPart, self.parser.current_handler)
 
     def testPartNameHandlerCall(self):
-        self.parser.StartTag("score-part", {})
-        self.parser.StartTag("part-name", {})
+        self.parser.startTag("score-part", {})
+        self.parser.startTag("part-name", {})
         self.parser.current_handler = MagicMock(name="method")
-        self.parser.NewData("hello")
+        self.parser.newData("hello")
         self.parser.current_handler.assert_called_once_with(
             self.parser.tags,
             self.parser.attribs,
@@ -49,9 +49,9 @@ class TestAddPart(TestMetaParser):
             self.parser.data)
 
     def testPartNameCreation(self):
-        self.parser.StartTag("score-part", {"id": "P1"})
-        self.parser.StartTag("part-name", {})
-        self.parser.NewData("laura")
+        self.parser.startTag("score-part", {"id": "P1"})
+        self.parser.startTag("part-name", {})
+        self.parser.newData("laura")
         self.assertEqual(self.parser.parts, {"P1": {"name": "laura"}})
         self.assertEqual(self.parser.data, {"instruments": ["laura"]})
 
@@ -62,15 +62,15 @@ class TestAddKey(TestMetaParser):
         TestMetaParser.setUp(self)
 
     def testPartNameHandler(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("key", {})
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("key", {})
         self.assertEqual(MetaParser.handleKey, self.parser.current_handler)
 
     def testKeyHandlerCall(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("key", {})
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("key", {})
         self.parser.current_handler = MagicMock(name="method")
-        self.parser.NewData("hello")
+        self.parser.newData("hello")
         self.parser.current_handler.assert_called_once_with(
             self.parser.tags,
             self.parser.attribs,
@@ -79,27 +79,27 @@ class TestAddKey(TestMetaParser):
             self.parser.data)
 
     def testFifthsCreation(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("key", {})
-        self.parser.StartTag("fifths", {})
-        self.parser.NewData("5")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("key", {})
+        self.parser.startTag("fifths", {})
+        self.parser.newData("5")
         self.assertEqual(self.parser.parts, {"P1": {"key": [{"fifths": 5}]}})
 
     def testModeCreation(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("key", {})
-        self.parser.StartTag("mode", {})
-        self.parser.NewData("major")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("key", {})
+        self.parser.startTag("mode", {})
+        self.parser.newData("major")
         self.assertEqual(
             self.parser.parts, {"P1": {"key": [{"mode": "major"}]}})
 
     def testFifthsAndModeCreation(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("key", {})
-        self.parser.StartTag("fifths", {})
-        self.parser.NewData("5")
-        self.parser.StartTag("mode", {})
-        self.parser.NewData("major")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("key", {})
+        self.parser.startTag("fifths", {})
+        self.parser.newData("5")
+        self.parser.startTag("mode", {})
+        self.parser.newData("major")
         self.assertEqual(
             self.parser.parts, {"P1": {"key": [{"fifths": 5, "mode": "major"}]}})
 
@@ -110,15 +110,15 @@ class TestAddClef(TestMetaParser):
         TestMetaParser.setUp(self)
 
     def testClefHandler(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("clef", {})
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("clef", {})
         self.assertEqual(MetaParser.handleClef, self.parser.current_handler)
 
     def testClefHandlerCall(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("clef", {})
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("clef", {})
         self.parser.current_handler = MagicMock(name="method")
-        self.parser.NewData("hello")
+        self.parser.newData("hello")
         self.parser.current_handler.assert_called_once_with(
             self.parser.tags,
             self.parser.attribs,
@@ -127,28 +127,28 @@ class TestAddClef(TestMetaParser):
             self.parser.data)
 
     def testSignCreation(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("clef", {})
-        self.parser.StartTag("sign", {})
-        self.parser.NewData("G")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("clef", {})
+        self.parser.startTag("sign", {})
+        self.parser.newData("G")
         self.assertEqual(self.parser.parts, {"P1": {"clef": [{"sign": "G"}]}})
 
     def testLineCreation(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("clef", {})
-        self.parser.StartTag("line", {})
-        self.parser.NewData("2")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("clef", {})
+        self.parser.startTag("line", {})
+        self.parser.newData("2")
         self.assertEqual(self.parser.parts, {"P1": {"clef": [{"line": 2}]}})
 
     def testSignAndLineCreation(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("clef", {})
-        self.parser.StartTag("sign", {})
-        self.parser.NewData("G")
-        self.parser.EndTag("sign")
-        self.parser.StartTag("line", {})
-        self.parser.NewData("2")
-        self.parser.EndTag("line")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("clef", {})
+        self.parser.startTag("sign", {})
+        self.parser.newData("G")
+        self.parser.endTag("sign")
+        self.parser.startTag("line", {})
+        self.parser.newData("2")
+        self.parser.endTag("line")
         self.assertEqual(
             self.parser.parts, {"P1": {"clef": [{"sign": "G", "line": 2}]}})
 
@@ -159,18 +159,18 @@ class TestAddTransposition(TestMetaParser):
         TestMetaParser.setUp(self)
 
     def testTransHandler(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("transpose", {})
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("transpose", {})
         self.assertEqual(
             self.parser.current_handler,
             MetaParser.handleTransposition)
 
     def testTransCall(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("transpose", {})
-        self.parser.StartTag("diatonic", {})
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("transpose", {})
+        self.parser.startTag("diatonic", {})
         self.parser.current_handler = MagicMock(name="method")
-        self.parser.NewData("0")
+        self.parser.newData("0")
         self.parser.current_handler.assert_called_once_with(
             self.parser.tags,
             self.parser.attribs,
@@ -179,10 +179,10 @@ class TestAddTransposition(TestMetaParser):
             self.parser.data)
 
     def testTransDiatonic(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("transpose", {})
-        self.parser.StartTag("diatonic", {})
-        self.parser.NewData("0")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("transpose", {})
+        self.parser.startTag("diatonic", {})
+        self.parser.newData("0")
         self.assertEqual(
             self.parser.parts, {
                 "P1": {
@@ -190,10 +190,10 @@ class TestAddTransposition(TestMetaParser):
                         "diatonic": 0}}})
 
     def testTransChromatic(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("transpose", {})
-        self.parser.StartTag("chromatic", {})
-        self.parser.NewData("1")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("transpose", {})
+        self.parser.startTag("chromatic", {})
+        self.parser.newData("1")
         self.assertEqual(
             self.parser.parts, {
                 "P1": {
@@ -201,13 +201,13 @@ class TestAddTransposition(TestMetaParser):
                         "chromatic": 1}}})
 
     def testTransChromaticAndDiatonic(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("transpose", {})
-        self.parser.StartTag("diatonic", {})
-        self.parser.NewData("0")
-        self.parser.EndTag("diatonic")
-        self.parser.StartTag("chromatic", {})
-        self.parser.NewData("1")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("transpose", {})
+        self.parser.startTag("diatonic", {})
+        self.parser.newData("0")
+        self.parser.endTag("diatonic")
+        self.parser.startTag("chromatic", {})
+        self.parser.newData("1")
         self.assertEqual(
             self.parser.parts, {
                 "P1": {
@@ -221,16 +221,16 @@ class TestAddMeter(TestMetaParser):
         TestMetaParser.setUp(self)
 
     def testMeterHandler(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("time", {})
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("time", {})
         self.assertEqual(self.parser.current_handler, MetaParser.handleMeter)
 
     def testMeterCall(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("time", {})
-        self.parser.StartTag("beats", {})
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("time", {})
+        self.parser.startTag("beats", {})
         self.parser.current_handler = MagicMock(name="method")
-        self.parser.NewData("4")
+        self.parser.newData("4")
         self.parser.current_handler.assert_called_once_with(
             self.parser.tags,
             self.parser.attribs,
@@ -239,35 +239,35 @@ class TestAddMeter(TestMetaParser):
             self.parser.data)
 
     def testMeterBeat(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("time", {})
-        self.parser.StartTag("beats", {})
-        self.parser.NewData("4")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("time", {})
+        self.parser.startTag("beats", {})
+        self.parser.newData("4")
         self.assertEqual(self.parser.data, {"time": [{"beat": 4}]})
 
     def testMeterBeatType(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("time", {})
-        self.parser.StartTag("beat-type", {})
-        self.parser.NewData("4")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("time", {})
+        self.parser.startTag("beat-type", {})
+        self.parser.newData("4")
         self.assertEqual(self.parser.data, {"time": [{"type": 4}]})
 
     def testMeterBeatAndBeatType(self):
-        self.parser.StartTag("time", {})
-        self.parser.StartTag("beats", {})
-        self.parser.NewData("3")
-        self.parser.EndTag("beats")
-        self.parser.StartTag("beat-type", {})
-        self.parser.NewData("4")
+        self.parser.startTag("time", {})
+        self.parser.startTag("beats", {})
+        self.parser.newData("3")
+        self.parser.endTag("beats")
+        self.parser.startTag("beat-type", {})
+        self.parser.newData("4")
         self.assertEqual(self.parser.data, {"time": [{"beat": 3, "type": 4}]})
 
     def testMeterBeatTypeThenBeat(self):
-        self.parser.StartTag("time", {})
-        self.parser.StartTag("beat-type", {})
-        self.parser.NewData("4")
-        self.parser.EndTag("beat-type")
-        self.parser.StartTag("beats", {})
-        self.parser.NewData("3")
+        self.parser.startTag("time", {})
+        self.parser.startTag("beat-type", {})
+        self.parser.newData("4")
+        self.parser.endTag("beat-type")
+        self.parser.startTag("beats", {})
+        self.parser.newData("3")
 
         self.assertEqual(self.parser.data, {"time": [{"type": 4, "beat": 3}]})
 
@@ -278,16 +278,16 @@ class TestAddTempo(TestMetaParser):
         TestMetaParser.setUp(self)
 
     def testTempoHandler(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("metronome", {})
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("metronome", {})
         self.assertEqual(self.parser.current_handler, MetaParser.handleTempo)
 
     def testTempoCall(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("metronome", {})
-        self.parser.StartTag("beat-unit", {})
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("metronome", {})
+        self.parser.startTag("beat-unit", {})
         self.parser.current_handler = MagicMock(name="method")
-        self.parser.NewData("quarter")
+        self.parser.newData("quarter")
         self.parser.current_handler.assert_called_once_with(
             self.parser.tags,
             self.parser.attribs,
@@ -296,38 +296,38 @@ class TestAddTempo(TestMetaParser):
             self.parser.data)
 
     def testTempoBeat(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("metronome", {})
-        self.parser.StartTag("beat-unit", {})
-        self.parser.NewData("quarter")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("metronome", {})
+        self.parser.startTag("beat-unit", {})
+        self.parser.newData("quarter")
         self.assertEqual(self.parser.data, {"tempo": [{"beat": "quarter"}]})
 
     def testTempoBeatType(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("metronome", {})
-        self.parser.StartTag("per-minute", {})
-        self.parser.NewData("100")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("metronome", {})
+        self.parser.startTag("per-minute", {})
+        self.parser.newData("100")
         self.assertEqual(self.parser.data, {"tempo": [{"minute": 100}]})
 
     def testTempoBeatAndPerMinute(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("metronome", {})
-        self.parser.StartTag("beat-unit", {})
-        self.parser.NewData("quarter")
-        self.parser.EndTag("beat-unit")
-        self.parser.StartTag("per-minute", {})
-        self.parser.NewData("100")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("metronome", {})
+        self.parser.startTag("beat-unit", {})
+        self.parser.newData("quarter")
+        self.parser.endTag("beat-unit")
+        self.parser.startTag("per-minute", {})
+        self.parser.newData("100")
         self.assertEqual(
             self.parser.data, {"tempo": [{"beat": "quarter", "minute": 100}]})
 
     def testTempoBeatAndSecondBeat(self):
-        self.parser.StartTag("part", {"id": "P1"})
-        self.parser.StartTag("metronome", {})
-        self.parser.StartTag("beat-unit", {})
-        self.parser.NewData("quarter")
-        self.parser.EndTag("beat-unit")
-        self.parser.StartTag("beat-unit", {})
-        self.parser.NewData("half")
+        self.parser.startTag("part", {"id": "P1"})
+        self.parser.startTag("metronome", {})
+        self.parser.startTag("beat-unit", {})
+        self.parser.newData("quarter")
+        self.parser.endTag("beat-unit")
+        self.parser.startTag("beat-unit", {})
+        self.parser.newData("half")
         self.assertEqual(
             self.parser.data, {"tempo": [{"beat": "quarter", "beat_2": "half"}]})
 
@@ -338,15 +338,15 @@ class TestAddBibliography(TestMetaParser):
         TestMetaParser.setUp(self)
 
     def testBibHandler(self):
-        self.parser.StartTag("movement-title", {})
+        self.parser.startTag("movement-title", {})
         self.assertEqual(
             self.parser.current_handler,
             MetaParser.handleBibliography)
 
     def testBibCall(self):
-        self.parser.StartTag("movement-title", {})
+        self.parser.startTag("movement-title", {})
         self.parser.current_handler = MagicMock(name="method")
-        self.parser.NewData("hello, world")
+        self.parser.newData("hello, world")
         self.parser.current_handler.assert_called_once_with(
             self.parser.tags,
             self.parser.attribs,
@@ -355,13 +355,13 @@ class TestAddBibliography(TestMetaParser):
             self.parser.data)
 
     def testCreator(self):
-        self.parser.StartTag("creator", {"type": "composer"})
-        self.parser.NewData("quarter")
+        self.parser.startTag("creator", {"type": "composer"})
+        self.parser.newData("quarter")
         self.assertEqual(self.parser.data, {"composer": "quarter"})
 
     def testTitle(self):
-        self.parser.StartTag("movement-title", {})
-        self.parser.NewData("100")
+        self.parser.startTag("movement-title", {})
+        self.parser.newData("100")
         self.assertEqual(self.parser.data, {"title": "100"})
 
 
@@ -373,14 +373,14 @@ class TestPartCollation(unittest.TestCase):
     def testCollationOfTranspositions(self):
         self.parser.parts = {"P1": {"name": "clarinet", "transposition": {}}}
         self.parser.data = {"instruments": ["clarinet"]}
-        self.parser.CollatePartsIntoData()
+        self.parser.collatePartsIntoData()
         self.assertEqual(
             self.parser.data, {"instruments": [{"name": "clarinet", "transposition": {}}]})
 
     def testCollationOfKeys(self):
         self.parser.parts = {"P1": {"name": "clarinet", "key": [{}]}}
         self.parser.data = {"instruments": ["clarinet"]}
-        self.parser.CollatePartsIntoData()
+        self.parser.collatePartsIntoData()
         self.assertEqual(self.parser.data,
                          {"instruments": [{"name": "clarinet"}],
                           "key": {"clarinet": [{}]}})
@@ -388,7 +388,7 @@ class TestPartCollation(unittest.TestCase):
     def testCollationOfClefs(self):
         self.parser.parts = {"P1": {"name": "clarinet", "clef": [{}]}}
         self.parser.data = {"instruments": ["clarinet"]}
-        self.parser.CollatePartsIntoData()
+        self.parser.collatePartsIntoData()
         self.assertEqual(self.parser.data,
                          {"instruments": [{"name": "clarinet"}],
                           "clef": {"clarinet": [{}]}})

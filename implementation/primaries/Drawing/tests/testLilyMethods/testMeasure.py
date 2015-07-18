@@ -49,7 +49,9 @@ class testMeasureNoteWithGrace(MeasureTests):
         self.item = MeasureNode()
         note = Note.Note(type="quarter")
         note.pitch= Note.Pitch()
-        note.addNotation(Note.GraceNote(first=True))
+        grace = Note.GraceNote(first=True)
+        grace.last = True
+        note.addNotation(grace)
         self.item.addNote(note)
         self.item.RunVoiceChecks()
         self.lilystring = "\grace { c'4 }  | "
@@ -276,7 +278,7 @@ class testTwoVoicesMeasureNotePosition(Lily):
         node.pitch = Note.Pitch(octave=4)
         self.item.addNote(node, voice=1)
         self.item.addNote(node, voice=1)
-        self.item.Backup(4)
+        self.item.Backup(1)
         node2 = Note.Note(type="quarter")
         node2.pitch = Note.Pitch(octave=4)
         self.item.addNote(node2, voice=2)

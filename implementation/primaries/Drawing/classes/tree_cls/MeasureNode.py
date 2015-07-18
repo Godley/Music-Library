@@ -577,6 +577,7 @@ class MeasureNode(IndexedNode):
 
     def RunVoiceChecks(self):
         children = self.GetChildrenIndexes()
+
         if len(children) > 1:
             for child in children:
                 voice = self.GetChild(child)
@@ -585,4 +586,8 @@ class MeasureNode(IndexedNode):
                 if result is None or total == 0:
                     voice = self.PopChild(child)
                     self.CopyDirectionsAndExpressions(voice)
+                voice.RunNoteChecks()
+        else:
+            voice = self.GetChild(1)
+            if voice is not None:
                 voice.RunNoteChecks()

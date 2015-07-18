@@ -155,7 +155,7 @@ class testBackupAndForward(unittest.TestCase):
         self.assertEqual(self.measure.index, 2)
         self.parser.StartTag("backup",{})
         self.parser.StartTag("duration",{})
-        self.parser.NewData("16")
+        self.parser.NewData("4")
         self.parser.EndTag("duration")
         self.assertEqual(self.measure.index, 1)
 
@@ -173,7 +173,7 @@ class testBackupAndForward(unittest.TestCase):
         self.assertEqual(m.index, 2)
         self.parser.StartTag("backup",{})
         self.parser.StartTag("duration",{})
-        self.parser.NewData("16")
+        self.parser.NewData("4")
         self.parser.EndTag("duration")
         self.assertEqual(m.index, 1)
 

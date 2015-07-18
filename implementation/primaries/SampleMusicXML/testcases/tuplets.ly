@@ -15,29 +15,29 @@ shortInstrumentName = \markup {
  } 
  }{\autoBeamOff % measure 1
 \clef treble \key c \major \time 4/4 \once \override TupletBracket.bracket-visibility = ##t
-\tuplet 2/2 {c''2 c''2}  | 
+\tuplet 2/2 {c''2 c''2}}  | 
 
  % measure 2
 \once \override TupletBracket.bracket-visibility = ##t
 \tuplet 3/2 {b'4 b'4 a'4} \once \override TupletBracket.bracket-visibility = ##f
 \tuplet 4/4 {b'16[ b'16 b'16 b'16]} \once \override TupletBracket.bracket-visibility = ##f
-\tuplet 5/4 {b'64[ b'64 b'64 b'64 a'64]} r16 r8  | 
+\tuplet 5/4 {b'64[ b'64 b'64 b'64 a'64]}} r16 r8  | 
 
  % measure 3
 \once \override TupletBracket.bracket-visibility = ##t
-\tuplet 6/4 {a'4 c''4 b'4 b'4 b'4 b'4}  | 
+\tuplet 6/4 {a'4 c''4 b'4 b'4 b'4 b'4}}  | 
 
  % measure 4
 \once \override TupletBracket.bracket-visibility = ##t
-\tuplet 7/4 {c''4 g'4 c''4 e''4 c''4 c''4 a'4}  | 
+\tuplet 7/4 {c''4 g'4 c''4 e''4 c''4 c''4 a'4}}  | 
 
  % measure 5
 \once \override TupletBracket.bracket-visibility = ##f
-\tuplet 8/8 {b'8[ b'8 c''8 d''8 e''8 d''8 c''8 b'8]}  | 
+\tuplet 8/8 {b'8[ b'8 c''8 d''8 e''8 d''8 c''8 b'8]}}  | 
 
  % measure 6
 \break \once \override TupletBracket.bracket-visibility = ##f
-\tuplet 9/8 {d''8[ b'8 d''8 c''8 e''8 c''8 b'8 a'8 a'8]}  | 
+\tuplet 9/8 {d''8[ b'8 d''8 c''8 e''8 c''8 b'8 a'8 a'8]}}  | 
 
  % measure 7
 r1  | 

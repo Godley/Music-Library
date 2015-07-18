@@ -210,7 +210,10 @@ class Note(BaseClass.Base):
     def GetClosingNotationLilies(self):
         lstring = ""
         for notation in self.closing_notation:
-            lstring += notation.toLily()
+            result = notation.toLily()
+            if type(result) == list:
+                result = "".join(result)
+            lstring += result
         return lstring
 
     def addNotation(self, obj):

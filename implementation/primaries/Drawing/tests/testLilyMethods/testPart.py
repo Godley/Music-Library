@@ -26,7 +26,8 @@ class testPartMultistafftavesWithName(Lily):
         note2 = Note.Note()
         note2.pitch = Note.Pitch()
         measure2.addNote(note2)
-        self.lilystring = ["zerostaffone = \\new Staff{ % measure 1\nc'  | \n\n }\n\nzerostafftwo = \\new Staff{ % measure 1\nc'  | \n\n }\n\n", "\\new StaffGroup \\with {\ninstrumentName = \markup { \n\r \column { \n\r\r \line { \"Piano\" \n\r\r } \n } \n\r } \n }<<\zerostaffone\n\zerostafftwo>>"]
+        self.lilystring = ["zerostaffone = \\new Staff{ % measure 1\nc'  | \n\n }\n\nzerostafftwo = \\new Staff{ % measure 1\nc'  | \n\n }\n\n", "\\new StaffGroup \\with {\ninstrumentName = \markup { \n\r \column { \n\r\r \line { \"Piano\" \n\r\r } \n\r } \n } \n }<<\zerostaffone\n\zerostafftwo>>"]
+
 
 class testPartMultistafftaves(Lily):
     def setUp(self):
@@ -83,4 +84,7 @@ class testPartWithName(Lily):
         self.item = PartNode()
         self.item.addEmptyMeasure(1,1)
         self.item.GetItem().name = "charlotte"
-        self.lilystring = ["charlottestaffone = \\new Staff \with {\ninstrumentName = #\"charlotte \"\n }{ % measure 1\n | \n\n }\n\n", "\charlottestaffone"]
+        self.lilystring = ["zerostaffone = \\new Staff \with {\ninstrumentName = \\markup { \n\r \\column { \n\r\r \\line { \"charlotte\" \n\r\r } \n\r } \n } \n }{ % measure 1\n | \n\n }\n\n", "\zerostaffone"]
+
+    def tearDown(self):
+        self.item = None

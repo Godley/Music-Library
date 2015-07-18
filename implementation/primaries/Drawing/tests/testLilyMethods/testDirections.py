@@ -163,7 +163,7 @@ class testMetronomeBeat(Lily):
 class testMetronome2Beats(Lily):
     def setUp(self):
         self.item = Directions.Metronome(beat="quarter", secondBeat="half")
-        self.lilystring = " \\tempo \markup {\n\t\concat {\n\t\t(\n\t\t\t\smaller \general-align #Y #DOWN \\note #\"4\" #1\n\t\t\t\t\" = \"\n\t\t\t\t\smaller \general-align #Y #DOWN \\note #\"2\" #1\n\t\t)\n\t}\n}"
+        self.lilystring = " \\tempo \markup {\n\t\concat {\n\t\t\n\t\t\t\smaller \general-align #Y #DOWN \\note #\"4\" #1\n\t\t\t\t\" = \"\n\t\t\t\t\smaller \general-align #Y #DOWN \\note #\"2\" #1\n\t\t\n\t}\n}"
 
 class testMetronomeMin(Lily):
     def setUp(self):

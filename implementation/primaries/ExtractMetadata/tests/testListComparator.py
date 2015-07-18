@@ -1,5 +1,6 @@
 import unittest
 from implementation.primaries.ExtractMetadata.classes import MusicManager
+import os
 
 
 class TestListComparator(unittest.TestCase):
@@ -32,7 +33,7 @@ class TestListComparator(unittest.TestCase):
         self.assertEqual(self.folderBrowser.getZipFiles(), ["file5.mxl"])
 
     def testFilesToBeAdded(self):
-        self.assertEqual(self.folderBrowser.getNewFileList(), ["file3.xml"])
+        self.assertEqual(self.folderBrowser.getNewFileList(), ["file3.xml", "file5.xml"])
 
     def testRecordsToBeArchived(self):
         self.assertEqual(self.folderBrowser.getOldRecords(), ["file2.xml"])
@@ -41,3 +42,7 @@ class TestListComparator(unittest.TestCase):
         self.assertEqual(
             self.folderBrowser.getNewAndOldFiles(), {
                 "old": ["file2.xml"], "new": ["file3.xml"]})
+
+    def tearDown(self):
+        if os.path.exists(os.path.join(self.folder, "file5.xml")):
+            os.remove(os.path.join(self.folder, "file5.xml"))
