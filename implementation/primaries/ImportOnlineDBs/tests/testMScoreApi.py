@@ -7,11 +7,11 @@ class testMScoreApi(unittest.TestCase):
 
     def testDownloadFile(self):
         file_tuple = (770336, '6c3a00d9e0')
-        self.assertEqual(200, self.api.downloadFile(file_tuple))
+        self.assertEqual(200, self.api.downloadFile(file_tuple[0], file_tuple[1]))
 
     def testDownloadFileExists(self):
         file_tuple = (770336, '6c3a00d9e0')
-        self.api.downloadFile(file_tuple)
+        self.api.downloadFile(file_tuple[0], file_tuple[1])
         self.assertTrue(os.path.exists('770336.mxl'))
 
     def testGetCollection(self):

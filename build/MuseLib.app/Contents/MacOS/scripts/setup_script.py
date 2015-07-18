@@ -4,7 +4,7 @@ from implementation.primaries.GUI.helpers import get_base_dir
 
 
 def setup_lilypond(path=None):
-    defaults = ["/Applications/Lilypond.app/Contents/Resources/bin/lilypond", "C:/Program Files/LilyPond/usr/bin"]
+    defaults = ["/Applications/Lilypond.app/Contents/Resources/bin/lilypond", "C:/Program Files (x86)/LilyPond/usr/bin"]
 
     if sys.platform == "darwin":
         if path is None:
@@ -31,7 +31,7 @@ def setup_lilypond(path=None):
         else:
             win_path = path
         if os.path.exists(win_path):
-            fob = open("lilypond_windows.bat", "r")
+            fob = open(os.path.join(get_base_dir(), "scripts", "lilypond_windows.bat"), "r")
             lines = fob.readlines()
             new_lines = ["SET FOLD="+win_path, lines[0], lines[1]]
             fob.close()

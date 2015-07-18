@@ -192,7 +192,9 @@ class MusicManager(object):
             for source in file_set:
                 results[source] = []
                 for file in file_set[source]:
-                    os.remove(os.path.join(self.folder, file))
+                    file_path = os.path.join(self.folder, file)
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
                     n_filename = file.split(".")[0] + ".xml"
                     results[source].append(n_filename)
         except requests.exceptions.ConnectionError as e:
@@ -318,6 +320,10 @@ class MusicManager(object):
 
     def refresh(self):
         self.runApiOperation()
+        self.refreshWithoutDownload()
+
+
+    def refreshWithoutDownload(self):
         db_files = self.__data.getFileList()
         self.folder_browser.resetDbFileList(db_files)
         self.handleZips()

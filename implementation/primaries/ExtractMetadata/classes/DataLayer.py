@@ -443,8 +443,8 @@ class MusicData(object):
         cursor.execute(query)
         results = cursor.fetchall()
         self.disconnect(connection)
-        filelist = [result[0] for result in results]
-        return filelist
+        filelist = set([result[0] for result in results])
+        return list(filelist)
 
     def getLicense(self, filename):
         connection, cursor = self.connect()
@@ -1228,7 +1228,7 @@ class MusicData(object):
     def getInstrumentsByPieceId(self, piece_id, cursor):
         instrument_query = 'SELECT instrument_id FROM instruments_piece_join WHERE piece_id=?'
         cursor.execute(instrument_query, (piece_id,))
-        instrument_ids = cursor.fetchall()
+        instrument_ids = set(cursor.fetchall())
         instruments = []
         for id in instrument_ids:
             data = {}
@@ -1331,7 +1331,7 @@ class MusicData(object):
     def getClefsByPieceId(self, piece_id, cursor):
         clef_query = 'SELECT clef_id, instrument_id FROM clef_piece_join WHERE piece_id=?'
         cursor.execute(clef_query, (piece_id,))
-        clef_ids = cursor.fetchall()
+        clef_ids = set(cursor.fetchall())
         clefs = {}
         for id in clef_ids:
             q = 'SELECT clefs.name, instruments.name FROM clefs, instruments WHERE clefs.ROWID=? AND instruments.ROWID=?'
@@ -1346,7 +1346,7 @@ class MusicData(object):
     def getKeysByPieceId(self, piece_id, cursor):
         key_query = 'SELECT key_id, instrument_id FROM key_piece_join WHERE piece_id=?'
         cursor.execute(key_query, (piece_id,))
-        key_ids = cursor.fetchall()
+        key_ids = set(cursor.fetchall())
         keys = {}
         for id in key_ids:
             q = 'SELECT keys.name, instruments.name FROM keys, instruments WHERE keys.ROWID=? AND instruments.ROWID=?'
@@ -1361,7 +1361,7 @@ class MusicData(object):
     def getTimeSigsByPieceId(self, piece_id, cursor):
         time_query = 'SELECT time_id FROM time_piece_join WHERE piece_id=?'
         cursor.execute(time_query, (piece_id,))
-        time_ids = cursor.fetchall()
+        time_ids = set(cursor.fetchall())
         meters = []
         for id in time_ids:
             q = 'SELECT * FROM timesigs WHERE ROWID=?'
@@ -1374,7 +1374,7 @@ class MusicData(object):
     def getTemposByPieceId(self, piece_id, cursor):
         tempo_query = 'SELECT tempo_id FROM tempo_piece_join WHERE piece_id=?'
         cursor.execute(tempo_query, (piece_id,))
-        tempo_ids = cursor.fetchall()
+        tempo_ids = set(cursor.fetchall())
         tempos = []
         for id in tempo_ids:
             q = 'SELECT * FROM tempos WHERE ROWID=?'

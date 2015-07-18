@@ -9,7 +9,7 @@ class TestMusicManager(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/ExtractMetadata/tests/test_files/manager_tests"
-        self.manager = MusicManager.MusicManager(folder=self.folder)
+        self.manager = MusicManager.MusicManager(None, folder=self.folder)
 
     def testRunUnzipper(self):
         self.manager.handleZips()
@@ -18,7 +18,7 @@ class TestMusicManager(unittest.TestCase):
 
     def testParseXMLFiles(self):
         self.manager.addPiece("file.xml", {})
-        self.manager.refresh()
+        self.manager.refreshWithoutDownload()
         self.manager.parseNewFiles = MagicMock(name='method')
         self.manager.parseOldFiles = MagicMock(name='method')
         self.manager.handleXMLFiles()
@@ -28,23 +28,28 @@ class TestMusicManager(unittest.TestCase):
 
     def testParseFile(self):
         self.manager.addPiece("file.xml", {})
-        self.manager.refresh()
+        self.manager.refreshWithoutDownload()
         self.manager.parseNewFiles(["testcase2.xml"])
+        result = self.manager.getPieceInfo(["testcase2.xml"])
         expected_result = {'filename': 'testcase2.xml',
                            'keys': {'Piano': ['D major']},
                            'tempos': ['half=quarter',
                                       'eighth.=80'],
-                           'clefs': {'Piano': ['treble',
-                                               'bass',
-                                               'alto']},
+                           'clefs': {'Piano': ['bass',
+                                               'alto',
+                                               'treble']},
                            'title': 'my metaparsing testcase',
                            'composer': 'charlotte godley',
+                           'lyricist': 'fran godley',
                            'instruments': [{'name': 'Piano'}],
                            'time_signatures': ['4/4']}
-        self.assertEqual(
-            self.manager.getPieceInfo(
-                ["testcase2.xml"]),
-            [expected_result])
+        for index in expected_result:
+            self.assertTrue(index in result[0])
+            if index != "clefs" and index != "tempos":
+                self.assertEqual(expected_result[index], result[0][index])
+            else:
+                for item in expected_result[index]:
+                    self.assertTrue(item in result[0][index])
         self.assertEqual(
             ["file.xml", "testcase2.xml"], self.manager.getFileList())
 
@@ -54,7 +59,7 @@ class TestMusicManager(unittest.TestCase):
 
     def testRefresh(self):
         self.manager.addPiece("file.xml", {})
-        self.manager.refresh()
+        self.manager.refreshWithoutDownload()
         self.assertEqual(
             self.manager.folder_browser.getNewAndOldFiles()["old"],
             ["file.xml"])
@@ -325,9 +330,9 @@ class TestMusicManager(unittest.TestCase):
                                         "Clarinet": ["treble"]}}))
 
     def tearDown(self):
-        os.remove(os.path.join(self.folder, "music.db"))
-        if os.path.exists(os.path.join(self.folder, "file5.xml")):
-            os.remove(os.path.join(self.folder, "file5.xml"))
+        files = ["testcase2.xml"]
+        val = os.listdir(self.folder)
+        for file in val:
+            if val not in files:
+                os.remove(os.path.join(self.folder,file))
 
-        if os.path.exists(os.path.join(self.folder, "3repeats.xml")):
-            os.remove(os.path.join(self.folder, "3repeats.xml"))

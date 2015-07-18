@@ -4,6 +4,8 @@ try:
     from implementation.primaries.Drawing.classes import helpers
 except:
     from primaries.Drawing.classes import helpers
+
+from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
 class Extractor(xml.sax.ContentHandler):
 
     def __init__(self, parent):
@@ -108,9 +110,12 @@ class MetaParser(object):
         clef_list = {}
         key_list = {}
         for part in self.parts:
+
             data = {}
             if "name" in self.parts[part]:
                 data["name"] = self.parts[part]["name"]
+                if self.parts[part]["name"] == "Piano":
+                    print("yolo")
             else:
                 self.parts[part]["name"] = "hello, world"
                 data["name"] = "hello, world"
@@ -118,15 +123,21 @@ class MetaParser(object):
             if "transposition" in self.parts[part]:
                 data["transposition"] = self.parts[part]["transposition"]
             if "key" in self.parts[part]:
-                key_list[self.parts[part]["name"]] = self.parts[part]["key"]
+                hashdict_list = [hashdict(item) for item in self.parts[part]["key"]]
+                hashdict_set = set(hashdict_list)
+                key_list[self.parts[part]["name"]] = hashdict_set
             if "clef" in self.parts[part]:
-                clef_list[self.parts[part]["name"]] = self.parts[part]["clef"]
+                hashdict_list = [hashdict(item) for item in self.parts[part]["clef"]]
+                hashdict_set = set(hashdict_list)
+                clef_list[self.parts[part]["name"]] = hashdict_set
             instrument_list.append(data)
         self.data["instruments"] = instrument_list
         if key_list != {}:
             self.data["key"] = key_list
         if clef_list != {}:
             self.data["clef"] = clef_list
+
+
 
 # HANDLER METHODS
 
