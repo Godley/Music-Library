@@ -44,7 +44,7 @@ class testSaxParser(unittest.TestCase):
         tag = "type"
         self.parser.handler = mock.MagicMock()
         self.parser.EndTag(tag)
-        self.parser.handler.assert_called_once_with(self.parser.tags,{},{}, self.parser.piece)
+        self.parser.handler.assert_called_once_with(self.parser.tags,{},{}, self.parser.piece, self.parser.data)
 
     # methods testing the newdata method
     def testCharsVal(self):
