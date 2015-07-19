@@ -1,5 +1,6 @@
 import unittest
 from implementation.primaries.ExtractMetadata.classes import MetaParser
+from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
 
 
 class TestCase1(unittest.TestCase):
@@ -15,15 +16,15 @@ class TestCase1(unittest.TestCase):
     def testClefs(self):
         self.assertEqual(
             self.result["clef"], {
-                "Piano": [
-                    {
-                        "sign": "G", "line": 2}, {
-                        "sign": "F", "line": 4}, {
-                        "line": 3, "sign": "C"}]})
+                "Piano": {
+                    hashdict(
+                        sign="G", line=2), hashdict(
+                        sign="F", line=4), hashdict(
+                        line=3, sign="C")}})
 
     def testKeys(self):
         self.assertEqual(
-            self.result["key"], {"Piano": [{"fifths": 2, "mode": "major"}]})
+            self.result["key"], {"Piano": {hashdict(fifths=2, mode="major")}})
 
     def testTempos(self):
         self.assertEqual(self.result["tempo"], [
@@ -52,15 +53,14 @@ class TestCase2(unittest.TestCase):
     def testClefs(self):
         self.assertEqual(
             self.result["clef"], {
-                "Piano": [
-                    {
-                        "sign": "G", "line": 2}, {
-                        "sign": "F", "line": 4}, {
-                        "line": 3, "sign": "C"}]})
+                "Piano": {
+                    hashdict(sign="G", line=2), hashdict(
+                        sign="F", line= 4), hashdict(
+                        line=3, sign="C")}})
 
     def testKeys(self):
         self.assertEqual(
-            self.result["key"], {"Piano": [{"fifths": 2, "mode": "major"}]})
+            self.result["key"], {"Piano": {hashdict(fifths=2, mode="major")}})
 
     def testTempos(self):
         self.assertEqual(self.result["tempo"], [

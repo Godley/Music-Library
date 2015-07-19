@@ -14,7 +14,7 @@ class TestMusicManagerWithApiIntegration(unittest.TestCase):
     def setUp(self):
         self.manager = MusicManager.MusicManager(None, folder=os.getcwd())
         self.result_set = result_set
-        self.file_list = manager.unzipApiFiles()
+        self.file_list = manager.unzipApiFiles(self.result_set)
 
     def testUnzipData(self):
         dir = os.getcwd()

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 from implementation.primaries.ExtractMetadata.classes import MetaParser
-
+from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
 
 class TestMetaParser(unittest.TestCase):
 
@@ -383,7 +383,7 @@ class TestPartCollation(unittest.TestCase):
         self.parser.collatePartsIntoData()
         self.assertEqual(self.parser.data,
                          {"instruments": [{"name": "clarinet"}],
-                          "key": {"clarinet": [{}]}})
+                          "key": {"clarinet": {hashdict()}}})
 
     def testCollationOfClefs(self):
         self.parser.parts = {"P1": {"name": "clarinet", "clef": [{}]}}
@@ -391,4 +391,4 @@ class TestPartCollation(unittest.TestCase):
         self.parser.collatePartsIntoData()
         self.assertEqual(self.parser.data,
                          {"instruments": [{"name": "clarinet"}],
-                          "clef": {"clarinet": [{}]}})
+                          "clef": {"clarinet": {hashdict()}}})
