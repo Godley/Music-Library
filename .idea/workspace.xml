@@ -159,11 +159,9 @@
       <file leaf-file-name="MxmlParser.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33333334" vertical-offset="6745" max-vertical-offset="22200">
-              <caret line="458" column="36" selection-start-line="458" selection-start-column="26" selection-end-line="458" selection-end-column="36" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.06960557" vertical-offset="0" max-vertical-offset="22035">
+              <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1268,12 +1266,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00626" summary="work on sources, test fixes&#10;&#10;- fixed music manager tests &#10;- took a look at why parseFile fails and reported a new issue&#10;- work on issue #241: created table in data layer. Need to add unit tests before it can be implemented properly">
-      <created>1428359522523</created>
-      <option name="number" value="00626" />
-      <option name="project" value="LOCAL" />
-      <updated>1428359522523</updated>
-    </task>
     <task id="LOCAL-00627" summary="implemented sources table&#10;&#10;- issue fix #241: implemented test and production code to put pieces with a &quot;source&quot; key into the relevant join table">
       <created>1428359916024</created>
       <option name="number" value="00627" />
@@ -1562,7 +1554,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437397715606</updated>
     </task>
-    <option name="localTasksCounter" value="675" />
+    <task id="LOCAL-00675" summary="removed handleType global variable&#10;&#10;- issue fix #303 ! all global variables are kaboom from MxmlParser. They are all now stored in a dictionary which is held inside the parser class. Helps with testing because now tests can never affect each other, as each one passes in their own copy of the data dictionary.">
+      <created>1437397989466</created>
+      <option name="number" value="00675" />
+      <option name="project" value="LOCAL" />
+      <updated>1437397989466</updated>
+    </task>
+    <option name="localTasksCounter" value="676" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1597,7 +1595,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38059703" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32648125" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44498187" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44498187" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27083334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1653,7 +1651,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="issue fix #266&#10;- handling querying on a thread: not sure this speeds things up a lot but it looks a lot better now, but need to do a loading gif of some sort potentially" />
     <MESSAGE value="issue fix #203&#10;- rendering now done on a thread and is reasonably quick" />
     <MESSAGE value="more commenting&#10;&#10;commenting to several async methods and handlers to explain what they do and when they're executed." />
     <MESSAGE value="threaded loading proceedure&#10;- threaded the main window's loading procedure for the scorebook, auto playlist and personal playlist widgets&#10;- yet to implement threading for the db refresh and for the api refresh&#10;- work on issue #269" />
@@ -1678,7 +1675,8 @@
     <MESSAGE value="got rid of degree global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove the other ones that are left." />
     <MESSAGE value="got rid of staff_id global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove the other ones that are left." />
     <MESSAGE value="got rid of voice global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove handleType" />
-    <option name="LAST_COMMIT_MESSAGE" value="got rid of voice global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove handleType" />
+    <MESSAGE value="removed handleType global variable&#10;&#10;- issue fix #303 ! all global variables are kaboom from MxmlParser. They are all now stored in a dictionary which is held inside the parser class. Helps with testing because now tests can never affect each other, as each one passes in their own copy of the data dictionary." />
+    <option name="LAST_COMMIT_MESSAGE" value="removed handleType global variable&#10;&#10;- issue fix #303 ! all global variables are kaboom from MxmlParser. They are all now stored in a dictionary which is held inside the parser class. Helps with testing because now tests can never affect each other, as each one passes in their own copy of the data dictionary." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2306,11 +2304,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="6745" max-vertical-offset="22200">
-          <caret line="458" column="36" selection-start-line="458" selection-start-column="26" selection-end-line="458" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.06960557" vertical-offset="0" max-vertical-offset="22035">
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>

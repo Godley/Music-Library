@@ -1,20 +1,9 @@
 import xml.sax
 from xml.sax import make_parser, handler
 import copy
-import os
-import sys
 from implementation.primaries.Drawing.classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
 from implementation.primaries.Drawing.classes.tree_cls import PieceTree, BaseTree
 from implementation.primaries.Drawing.classes import helpers
-# these define the current "things" we are handling: these are added on to relevant measures after being processed,
-# because "staff" could be found anywhere whilst it's being processed and
-# we need to know that to add it to the right object
-
-
-# not sure whether still relevant, but globals for checking which
-# degree/frame_note we are handling within the harmony section
-
-# indicates current staff being loaded
 
 
 def IdAsInt(index):
