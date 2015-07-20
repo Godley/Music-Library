@@ -4,7 +4,7 @@ from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, pa
 from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Mark
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import Search
-from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import NoteNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.NoteNode import NoteNode
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PartNode import PartNode
 
 

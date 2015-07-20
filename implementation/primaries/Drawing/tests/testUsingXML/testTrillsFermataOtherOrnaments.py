@@ -5,7 +5,7 @@ from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PartNode import PartNode
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import Search
-from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import NoteNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.NoteNode import NoteNode
 
 
 partname = "TrillsFermataOrnaments.xml"

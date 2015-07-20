@@ -3,7 +3,7 @@ import os
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Key
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PartNode import PartNode
-from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import MeasureNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
 
 
 partname = "keySignatures.xml"

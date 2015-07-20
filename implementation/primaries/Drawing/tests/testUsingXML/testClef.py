@@ -2,7 +2,8 @@ import os
 
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Clef
-from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import MeasureNode, PartNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PartNode import PartNode
 
 
 partname = "clefs.xml"
@@ -18,7 +19,7 @@ class testClef(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertIsInstance(piece.getPart(self.p_id), PartNode.PartNode)
+        self.assertIsInstance(piece.getPart(self.p_id), PartNode)
         self.assertEqual(self.p_name, piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):

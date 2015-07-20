@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Note
-from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import PartNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PartNode import PartNode
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 
 class testPartMeasureWithNote(Lily):

@@ -3,7 +3,8 @@ import os
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
 from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Directions
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
-from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import NoteNode, PartNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.NoteNode import NoteNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PartNode import PartNode
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import Search
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.OtherNodes import ExpressionNode
 
@@ -22,7 +23,7 @@ class testFile(xmlSet):
 
     def testParts(self):
         global piece
-        self.assertIsInstance(self.piece.getPart(self.p_id), PartNode.PartNode)
+        self.assertIsInstance(self.piece.getPart(self.p_id), PartNode)
         self.assertEqual(self.p_name, self.piece.getPart(self.p_id).GetItem().name)
 
     def testMeasures(self):

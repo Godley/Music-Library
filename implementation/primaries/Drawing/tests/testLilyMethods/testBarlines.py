@@ -3,7 +3,7 @@ import unittest
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 from implementation.primaries.Drawing.tests.testLilyMethods.testMeasure import MeasureTests
 from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Measure, Note
-from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import MeasureNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.StaffNode import StaffNode
 
 

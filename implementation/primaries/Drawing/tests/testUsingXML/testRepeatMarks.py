@@ -6,7 +6,7 @@ from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PartNo
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import Search
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.NoteNode import Placeholder
-from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import NoteNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.NoteNode import NoteNode
 from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.OtherNodes import DirectionNode
 
 

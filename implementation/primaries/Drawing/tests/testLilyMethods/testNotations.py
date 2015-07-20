@@ -1,5 +1,5 @@
 from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Note
-from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import MeasureNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 
 class testTie(Lily):
