@@ -581,7 +581,10 @@ class TestDataLayerGeneral(unittest.TestCase):
     def testGetAllPieces(self):
         self.data.addPiece("file.xml", {})
         self.data.addPiece("file2.xml", {})
-        self.assertEqual(["file.xml", "file2.xml"], self.data.getFileList())
+        expecting = ["file.xml", "file2.xml"]
+        result = self.data.getFileList()
+        for item in expecting:
+            self.assertTrue(item in result)
 
     def testGetAllPiecesWhereNoneExist(self):
         self.assertEqual([], self.data.getFileList())

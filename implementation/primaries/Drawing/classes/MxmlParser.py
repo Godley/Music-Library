@@ -10,7 +10,6 @@ from implementation.primaries.Drawing.classes import helpers
 # because "staff" could be found anywhere whilst it's being processed and
 # we need to know that to add it to the right object
 note = None
-expression = None
 
 # not sure whether still relevant, but globals for checking which
 # degree/frame_note we are handling within the harmony section
@@ -171,7 +170,7 @@ class MxmlParser(object):
                 voice_obj.rest = True
 
     def EndTag(self, name):
-        global note, degree, frame_note, staff_id, expression, voice
+        global note, degree, frame_note, staff_id, voice
         if self.handler is not None and not self.d and name not in self.closed_tags:
             self.handler(self.tags, self.attribs, self.chars, self.piece, self.data)
         if name in self.tags:
@@ -203,7 +202,7 @@ class MxmlParser(object):
                     measure = part.getMeasure(measure_id, staff_id)
                     measure.addDirection(copy.deepcopy(self.data["direction"]), voice)
                 self.data["direction"] = None
-            if expression is not None:
+            if self.data["expression"] is not None:
                 measure_id = IdAsInt(
                     helpers.GetID(
                         self.attribs,
@@ -215,8 +214,8 @@ class MxmlParser(object):
                     if part.getMeasure(measure_id, staff_id) is None:
                         part.addEmptyMeasure(measure_id, staff_id)
                     measure = part.getMeasure(measure_id, staff_id)
-                    measure.addExpression(copy.deepcopy(expression), voice)
-                expression = None
+                    measure.addExpression(copy.deepcopy(self.data["expression"]), voice)
+                self.data["expression"] = None
 
         if name == "part":
             part_id = helpers.GetID(self.attribs, "part", "id")
@@ -604,7 +603,7 @@ def handleOtherNotations(tag, attrs, content, piece, data):
 
 
 def HandleMeasures(tag, attrib, content, piece, data):
-    global items, notes, expressions, staff_id, expression, voice
+    global items, notes, expressions, staff_id, voice
     part_id = helpers.GetID(attrib, "part", "id")
     measure_id = IdAsInt(helpers.GetID(attrib, "measure", "number"))
     part = None
@@ -1209,7 +1208,7 @@ def HandlePitch(tags, attrs, text, piece, data):
 
 
 def HandleDirections(tags, attrs, chars, piece, data):
-    global expressions, items, staff_id, expression, note
+    global expressions, items, staff_id, note
     return_val = None
     if len(tags) == 0:
         return None
@@ -1323,14 +1322,14 @@ def HandleDirections(tags, attrs, chars, piece, data):
             if "wedge" in attrs:
                 if "type" in attrs["wedge"]:
                     w_type = attrs["wedge"]["type"]
-            expression = Directions.Wedge(placement=placement, type=w_type)
+            data["expression"] = Directions.Wedge(placement=placement, type=w_type)
 
         if len(tags) > 1:
             if tags[-2] == "dynamics" and tags[-1] != "other-dynamics":
-                expression = Directions.Dynamic(
+                data["expression"] = Directions.Dynamic(
                     placement=placement, mark=tags[-1])
             if tags[-2] == "dynamics" and tags[-1] == "other-dynamics":
-                expression = Directions.Dynamic(
+                data["expression"] = Directions.Dynamic(
                     placement=placement,
                     text=chars["other-dynamics"])
 

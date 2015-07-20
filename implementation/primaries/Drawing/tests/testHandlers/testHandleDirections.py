@@ -310,22 +310,22 @@ class testMetronome(testHandleDirections):
 
 class testDynamicsAndSound(testHandleDirections):
     def tearDown(self):
-        MxmlParser.expression = None
+        self.data["expression"] = None
 
     def testDynamicTag(self):
         self.tags.append("dynamics")
         self.tags.append("p")
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertIsInstance(MxmlParser.expression, Directions.Dynamic)
-        self.assertEqual("p", MxmlParser.expression.mark)
+        self.assertIsInstance(self.data["expression"], Directions.Dynamic)
+        self.assertEqual("p", self.data["expression"].mark)
 
     def testDynamicTagOther(self):
         self.tags.append("dynamics")
         self.tags.append("other-dynamics")
         self.chars["other-dynamics"] = "other"
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertIsInstance(MxmlParser.expression, Directions.Dynamic)
-        self.assertEqual("other", MxmlParser.expression.text)
+        self.assertIsInstance(self.data["expression"], Directions.Dynamic)
+        self.assertEqual("other", self.data["expression"].text)
 
     def testSoundTag(self):
         self.tags.append("sound")
@@ -361,12 +361,12 @@ class testDynamicsAndSound(testHandleDirections):
         self.tags.append("wedge")
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
         
-        self.assertIsInstance(MxmlParser.expression, Directions.Wedge)
+        self.assertIsInstance(self.data["expression"], Directions.Wedge)
 
     def testWedgeVal(self):
         self.tags.append("wedge")
         self.attrs["wedge"] = {"type": "crescendo"}
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
         
-        self.assertTrue(hasattr(MxmlParser.expression, "type"))
-        self.assertEqual("crescendo", MxmlParser.expression.type)
+        self.assertTrue(hasattr(self.data["expression"], "type"))
+        self.assertEqual("crescendo", self.data["expression"].type)
