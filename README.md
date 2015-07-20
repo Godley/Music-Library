@@ -23,7 +23,7 @@ Once I have a bit of time to do more writing there will be a proper documentatio
 ##Infrastructure
 - Language: Python
 - GUI: PyQt4
-- Rendering: Lilypond
+- Rendering: Lilypond via [MuseParse](http://github.com/godley/MuseParse)
 - Input format: MusicXML
 - Output Format for rendering: PDF via lilypond
 - APIs used: MuseScore
