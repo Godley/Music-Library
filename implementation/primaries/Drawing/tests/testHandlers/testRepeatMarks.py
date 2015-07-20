@@ -13,7 +13,7 @@ class testRepeatSymbols(testclass.TestClass):
         self.measure = self.piece.getPart("P1").getMeasure(1,1)
         self.tags.append("direction")
         self.attrs["direction"] = {"placement": "above"}
-        self.data = {}
+        self.data = {"staff_id" : 1}
 
     def testSegno(self):
         self.tags.append("direction-type")

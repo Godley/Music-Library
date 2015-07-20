@@ -102,7 +102,7 @@ class testSaxParser(unittest.TestCase):
         MxmlParser.note = "whaddup"
         self.parser.tags.append("note")
         self.parser.EndTag("note")
-        self.assertEqual(None, MxmlParser.note, "ERROR: note global val unset incorrectly in testNoteGlobalVal")
+        self.assertEqual(None, self.parser.data["note"], "ERROR: note global val unset incorrectly in testNoteGlobalVal")
 
     def testHasPreviousHandler(self):
         self.parser.tags.append("measure")
@@ -132,7 +132,7 @@ class testBackupAndForward(unittest.TestCase):
         self.parser.NewData("16")
         self.parser.EndTag("duration")
         self.parser.EndTag("note")
-        MxmlParser.staff_id = 2
+        self.parser.data["staff_id"] = 2
         self.parser.StartTag("note", {})
         self.parser.StartTag("divisions", {})
         self.parser.NewData("8")
@@ -147,7 +147,7 @@ class testBackupAndForward(unittest.TestCase):
         self.parser.NewData("16")
         self.parser.EndTag("duration")
         self.parser.EndTag("note")
-        MxmlParser.staff_id = 1
+        self.parser.data["staff_id"] = 1
 
         self.measure = self.parser.piece.getPart("P1").getMeasure(1,1)
 
@@ -187,7 +187,7 @@ class testBackupAndForward(unittest.TestCase):
         self.assertEqual(m.index, 3)
 
     def tearDown(self):
-        MxmlParser.staff_id = 1
+        self.parser.data["staff_id"] = 1
 
 
 class testDrumAndGuitarTabHandling(unittest.TestCase):

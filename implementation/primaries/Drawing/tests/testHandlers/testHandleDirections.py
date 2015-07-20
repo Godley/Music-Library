@@ -13,9 +13,9 @@ class testHandleDirections(testclass.TestClass):
         self.measure = self.piece.getPart("P1").getMeasure(1, 1)
         self.attrs["measure"] = {"number": "1"}
         self.attrs["part"] = {"id": "P1"}
-        MxmlParser.direction = None
-        MxmlParser.staff_id = 1
         self.data = {"note":None, "direction":None, "expression": None}
+        self.data["staff_id"] = 1
+        
 
 
     def testNoTags(self):

@@ -15,7 +15,7 @@ class notes(unittest.TestCase):
         self.piece = PieceTree()
         self.piece.addPart(Part.Part(), index="P1")
         self.piece.getPart("P1").addEmptyMeasure(1,1)
-        self.data = {"note": None, "direction": None, "expression": None}
+        self.data = {"note": None, "direction": None, "expression": None, "staff_id":1}
 
 
     def copy(self):

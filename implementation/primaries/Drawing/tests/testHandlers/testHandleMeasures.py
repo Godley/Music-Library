@@ -18,7 +18,7 @@ class MeasureTesting(unittest.TestCase):
         MxmlParser.direction = None
         MxmlParser.note = None
         MxmlParser.expression = None
-        self.data = {"note": None, "direction": None, "expression": None}
+        self.data = {"note": None, "direction": None, "expression": None, "staff_id":1}
 
     def tearDown(self):
         self.piece = None
@@ -57,7 +57,7 @@ class testHandleMeasures(MeasureTesting):
 
 class testKeySig(MeasureTesting):
     def tearDown(self):
-        MxmlParser.staff_id = 1
+        self.data["staff_id"] = 1
 
     def testModeTag(self):
         self.tags.append("key")
@@ -239,7 +239,7 @@ class testHarmony(MeasureTesting):
         MeasureTesting.setUp(self)
         self.tags.append("harmony")
         self.data["degree"] = None
-        MxmlParser.frame_note = None
+        self.data["frame_note"] = None
 
 
     def testHarmonyTag(self):
@@ -487,9 +487,10 @@ class testBarline(MeasureTesting):
         self.measure = self.part.getMeasure(1,1)
         self.handler = MxmlParser.handleBarline
         self.tags.append("barline")
-        MxmlParser.staff_id = 1
-        MxmlParser.last_barline = None
         self.data = {"note": None, "direction": None, "expression": None}
+        self.data["staff_id"] = 1
+        MxmlParser.last_barline = None
+        
 
     def testBarline(self):
         self.attrs["barline"] = {"location": "left"}
@@ -544,7 +545,7 @@ class testRepeatBarline(MeasureTesting):
         self.measure = self.part.getMeasure(1,1)
         self.handler = MxmlParser.handleBarline
         self.tags.append("barline")
-        MxmlParser.staff_id = 1
+        self.data["staff_id"] = 1
         MxmlParser.last_barline = None
         self.part.addEmptyMeasure(2,1)
         self.attrs["measure"] = {"number":"2"}
