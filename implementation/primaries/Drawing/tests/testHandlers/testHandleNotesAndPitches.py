@@ -12,9 +12,6 @@ class notes(unittest.TestCase):
         self.handler = MxmlParser.CreateNote
         MxmlParser.part_id = "P1"
         MxmlParser.measure_id = 1
-        MxmlParser.note = None
-        MxmlParser.expression = None
-        MxmlParser.direction = None
         self.piece = PieceTree()
         self.piece.addPart(Part.Part(), index="P1")
         self.piece.getPart("P1").addEmptyMeasure(1,1)
@@ -44,13 +41,13 @@ class testCreateNoteHandler(notes):
     def testNoteTag(self):
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
         self.copy()
-        self.assertIsInstance(MxmlParser.note, Note.Note)
+        self.assertIsInstance(self.data["note"], Note.Note)
 
     def testNoteChordTag(self):
         self.tags.append("chord")
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
         self.copy()
-        self.assertTrue(hasattr(MxmlParser.note, "chord"))
+        self.assertTrue(hasattr(self.data["note"], "chord"))
 #deprecated method of handling: not sure how to test this now? it's done at parser level rather than handler level
     # def testNoteChordTagAffectsPreviousNote(self):
     #     self.tags.append("chord")
@@ -62,50 +59,50 @@ class testCreateNoteHandler(notes):
     def testRestTag(self):
         self.tags.append("rest")
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note, "rest"))
-        self.assertEqual(True, MxmlParser.note.rest)
+        self.assertTrue(hasattr(self.data["note"], "rest"))
+        self.assertEqual(True, self.data["note"].rest)
 
     def testRestMeasure(self):
         self.tags.append("rest")
         self.attrs["rest"] = {"measure":"yes"}
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note, "MeasureRest"))
-        self.assertEqual(True, MxmlParser.note.MeasureRest)
+        self.assertTrue(hasattr(self.data["note"], "MeasureRest"))
+        self.assertEqual(True, self.data["note"].MeasureRest)
 
     def testCueTag(self):
         self.tags.append("cue")
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note, "cue"))
+        self.assertTrue(hasattr(self.data["note"], "cue"))
 
     def testGraceTag(self):
         self.tags.append("grace")
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertIsInstance(MxmlParser.note.Search(Note.GraceNote), Note.GraceNote)
+        self.assertIsInstance(self.data["note"].Search(Note.GraceNote), Note.GraceNote)
 
     def testGraceIsFirst(self):
         self.tags.append("grace")
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(MxmlParser.note.Search(Note.GraceNote).first)
+        self.assertTrue(self.data["note"].Search(Note.GraceNote).first)
 
     def testDurationTag(self):
         self.tags.append("duration")
         self.chars["duration"] = "8"
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note,"duration"), "ERROR: note should have duration attrib")
-        self.assertEqual(8, MxmlParser.note.duration, "ERROR: note duration set incorrectly")
+        self.assertTrue(hasattr(self.data["note"],"duration"), "ERROR: note should have duration attrib")
+        self.assertEqual(8, self.data["note"].duration, "ERROR: note duration set incorrectly")
 
     def testTypeTag(self):
         self.tags.append("type")
         self.chars["type"] = "eighth"
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note,"val_type"))
-        self.assertEqual(8, MxmlParser.note.duration)
+        self.assertTrue(hasattr(self.data["note"],"val_type"))
+        self.assertEqual(8, self.data["note"].duration)
 
 
     def testDotTag(self):
         self.tags.append("dot")
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertEqual(MxmlParser.note.dots, 1)
+        self.assertEqual(self.data["note"].dots, 1)
 
 
     def testDoubleDot(self):
@@ -113,21 +110,21 @@ class testCreateNoteHandler(notes):
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
         self.tags.append("dot")
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertEqual(MxmlParser.note.dots, 2)
+        self.assertEqual(self.data["note"].dots, 2)
 
     def testTieTag(self):
         self.tags.append("tie")
         self.attrs["tie"] = {"type": "start"}
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        expected = MxmlParser.note
-        self.assertEqual(1, len(MxmlParser.note.ties))
+        expected = self.data["note"]
+        self.assertEqual(1, len(self.data["note"].ties))
         self.assertEqual("start",expected.ties[-1].type)
 
     def testStemTag(self):
         self.tags.append("stem")
         self.chars["stem"] = "up"
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        note = MxmlParser.note
+        note = self.data["note"]
         self.assertTrue(hasattr(note, "stem"), "ERROR: stem attrib not added to note")
         self.assertEqual(Note.Stem, type(note.stem), "ERROR: stem not of type Stem")
         self.assertEqual("up",note.stem.type, "ERROR: stem type value incorrect")
@@ -135,29 +132,29 @@ class testCreateNoteHandler(notes):
     def testBeamTag(self):
         self.tags.append("beam")
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note, "beams"))
-        self.assertIsInstance(MxmlParser.note.beams[0], Note.Beam)
+        self.assertTrue(hasattr(self.data["note"], "beams"))
+        self.assertIsInstance(self.data["note"].beams[0], Note.Beam)
 
     def testBeamType(self):
         self.tags.append("beam")
         self.chars["beam"] = "begin"
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.beams[0], "type"))
-        self.assertEqual("begin",MxmlParser.note.beams[0].type)
+        self.assertTrue(hasattr(self.data["note"].beams[0], "type"))
+        self.assertEqual("begin",self.data["note"].beams[0].type)
 
     def testBeamAttrs(self):
         self.tags.append("beam")
         self.chars["beam"] = "begin"
         self.attrs["beam"] = {"number": "1"}
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(1 in MxmlParser.note.beams)
+        self.assertTrue(1 in self.data["note"].beams)
 
     def testAccidental(self):
         self.tags.append("accidental")
         self.chars["accidental"] = "sharp"
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note, "pitch"))
-        self.assertTrue(hasattr(MxmlParser.note.pitch, "accidental"))
+        self.assertTrue(hasattr(self.data["note"], "pitch"))
+        self.assertTrue(hasattr(self.data["note"].pitch, "accidental"))
 
 
 class pitchin(unittest.TestCase):
@@ -165,12 +162,13 @@ class pitchin(unittest.TestCase):
         self.tags = ["note","pitch"]
         self.attrs = {}
         self.chars = {}
-        MxmlParser.note = Note.Note()
+
         MxmlParser.part_id = "P1"
         MxmlParser.measure_id = 1
         self.handler = MxmlParser.HandlePitch
         self.piece = Piece.Piece()
         self.data = {"note": None, "direction": None, "expression": None}
+        self.data["note"] = Note.Note()
 
 class testHandlePitch(pitchin):
     def testNoTags(self):
@@ -183,28 +181,28 @@ class testHandlePitch(pitchin):
 
     def testPitchTag(self):
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note, "pitch"), "ERROR: pitch attrib not created")
+        self.assertTrue(hasattr(self.data["note"], "pitch"), "ERROR: pitch attrib not created")
 
     def testStepTag(self):
         self.tags.append("step")
         self.chars["step"] = "E"
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.pitch, "step"), "ERRPR: pitch step attrib not set")
-        self.assertEqual("E",MxmlParser.note.pitch.step,"ERROR: note pitch step value incorrect")
+        self.assertTrue(hasattr(self.data["note"].pitch, "step"), "ERRPR: pitch step attrib not set")
+        self.assertEqual("E",self.data["note"].pitch.step,"ERROR: note pitch step value incorrect")
 
     def testAlterTag(self):
         self.tags.append("alter")
         self.chars["alter"] = "-1"
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.pitch, "alter"))
-        self.assertEqual(-1,MxmlParser.note.pitch.alter)
+        self.assertTrue(hasattr(self.data["note"].pitch, "alter"))
+        self.assertEqual(-1,self.data["note"].pitch.alter)
 
     def testOctaveTag(self):
         self.tags.append("octave")
         self.chars["octave"] = "1"
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.pitch, "octave"))
-        self.assertEqual("1",MxmlParser.note.pitch.octave)
+        self.assertTrue(hasattr(self.data["note"].pitch, "octave"))
+        self.assertEqual("1",self.data["note"].pitch.octave)
 
 class testUnpitched(pitchin):
     def setUp(self):
@@ -214,19 +212,19 @@ class testUnpitched(pitchin):
 
     def testUnpitchedTag(self):
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.pitch, "unpitched"))
+        self.assertTrue(hasattr(self.data["note"].pitch, "unpitched"))
 
     def testDisplayStepTag(self):
         self.tags.append("display-step")
         self.chars["display-step"] = "E"
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.pitch, "step"))
+        self.assertTrue(hasattr(self.data["note"].pitch, "step"))
 
     def testDisplayOctaveTag(self):
         self.tags.append("display-octave")
         self.chars["display-octave"] = "2"
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.pitch, "octave"))
+        self.assertTrue(hasattr(self.data["note"].pitch, "octave"))
 
 class testNotehead(testCreateNoteHandler):
     def setUp(self):
@@ -238,8 +236,8 @@ class testNotehead(testCreateNoteHandler):
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
         self.tags = ["note", "notehead"]
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note, "notehead"))
-        self.assertIsInstance(MxmlParser.note.notehead, Note.Notehead)
+        self.assertTrue(hasattr(self.data["note"], "notehead"))
+        self.assertIsInstance(self.data["note"].notehead, Note.Notehead)
 
     def testNoteheadFilled(self):
         self.tags = ["note"]
@@ -247,8 +245,8 @@ class testNotehead(testCreateNoteHandler):
         self.tags.append("notehead")
         self.attrs["notehead"] = {"filled":"yes"}
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.notehead, "filled"))
-        self.assertTrue(MxmlParser.note.notehead.filled)
+        self.assertTrue(hasattr(self.data["note"].notehead, "filled"))
+        self.assertTrue(self.data["note"].notehead.filled)
 
     def testNoteheadType(self):
         self.tags = ["note"]
@@ -256,44 +254,44 @@ class testNotehead(testCreateNoteHandler):
         self.tags.append("notehead")
         self.chars["notehead"] = "diamond"
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.notehead, "type"))
-        self.assertEqual("diamond",MxmlParser.note.notehead.type)
+        self.assertTrue(hasattr(self.data["note"].notehead, "type"))
+        self.assertEqual("diamond",self.data["note"].notehead.type)
 
 class testTuplets(notes):
     def setUp(self):
         notes.setUp(self)
         self.tags.append("time-modification")
-        MxmlParser.note = Note.Note()
+        self.data["note"] = Note.Note()
         self.handler = MxmlParser.handleTimeMod
 
     def testMod(self):
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note, "timeMod"))
+        self.assertTrue(hasattr(self.data["note"], "timeMod"))
 
     def testModVal(self):
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertIsInstance(MxmlParser.note.timeMod, Note.TimeModifier)
+        self.assertIsInstance(self.data["note"].timeMod, Note.TimeModifier)
 
 
     def testModNormal(self):
         self.tags.append("normal-notes")
         self.chars["normal-notes"] = "2"
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.timeMod, "normal"))
-        self.assertEqual(2, MxmlParser.note.timeMod.normal)
+        self.assertTrue(hasattr(self.data["note"].timeMod, "normal"))
+        self.assertEqual(2, self.data["note"].timeMod.normal)
 
     def testModActual(self):
         self.tags.append("actual-notes")
         self.chars["actual-notes"] = "3"
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.timeMod, "actual"))
-        self.assertEqual(3, MxmlParser.note.timeMod.actual)
+        self.assertTrue(hasattr(self.data["note"].timeMod, "actual"))
+        self.assertEqual(3, self.data["note"].timeMod.actual)
 
     def testTupletTag(self):
         self.tags.append("notations")
         self.tags.append("tuplet")
         self.attrs["tuplet"] = {"type":"stop"}
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        direction = MxmlParser.note.closing_notation[0]
+        direction = self.data["note"].closing_notation[0]
         self.assertIsInstance(direction, Note.Tuplet)
 

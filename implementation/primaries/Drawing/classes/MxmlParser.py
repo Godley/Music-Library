@@ -9,7 +9,7 @@ from implementation.primaries.Drawing.classes import helpers
 # these define the current "things" we are handling: these are added on to relevant measures after being processed,
 # because "staff" could be found anywhere whilst it's being processed and
 # we need to know that to add it to the right object
-note = None
+
 
 # not sure whether still relevant, but globals for checking which
 # degree/frame_note we are handling within the harmony section
@@ -170,7 +170,7 @@ class MxmlParser(object):
                 voice_obj.rest = True
 
     def EndTag(self, name):
-        global note, degree, frame_note, staff_id, voice
+        global degree, frame_note, staff_id, voice
         if self.handler is not None and not self.d and name not in self.closed_tags:
             self.handler(self.tags, self.attribs, self.chars, self.piece, self.data)
         if name in self.tags:
@@ -267,8 +267,8 @@ class MxmlParser(object):
             if part is None:
                 part = self.piece.getLastPart()
             if part is not None:
-                self.CopyNote(part, measure_id, copy.deepcopy(note))
-            note = None
+                self.CopyNote(part, measure_id, copy.deepcopy(self.data["note"]))
+            self.data["note"] = None
         if name == "degree":
             degree = None
         if name == "frame-note":
@@ -503,10 +503,9 @@ def UpdatePart(tag, attrib, content, piece, data):
 
 
 def handleArticulation(tag, attrs, content, piece, data):
-    global note
     if len(tag) > 0:
         if "articulations" in tag:
-            if note is not None:
+            if data["note"] is not None:
                 accent = None
                 if tag[-1] == "accent":
                     accent = Mark.Accent()
@@ -529,8 +528,8 @@ def handleArticulation(tag, attrs, content, piece, data):
                 if tag[-1] == "caesura":
                     accent = Mark.Caesura()
                 if accent is not None:
-                    if note.Search(type(accent)) is None:
-                        note.addNotation(accent)
+                    if data["note"].Search(type(accent)) is None:
+                        data["note"].addNotation(accent)
                     accent = None
             return 1
     return None
@@ -556,7 +555,6 @@ def HandleMovementBetweenDurations(tags, attrs, chars, piece, data):
 
 
 def HandleFermata(tags, attrs, chars, piece, data):
-    global note
     if "fermata" in tags:
         type = None
         symbol = None
@@ -566,12 +564,11 @@ def HandleFermata(tags, attrs, chars, piece, data):
         if "fermata" in chars:
             symbol = chars["fermata"]
         fermata = Mark.Fermata(type=type, symbol=symbol)
-        note.addNotation(fermata)
+        data["note"].addNotation(fermata)
     return None
 
 
 def handleOtherNotations(tag, attrs, content, piece, data):
-    global note
     if len(tag) > 0:
         if "notations" in tag:
             if tag[-1] == "slur":
@@ -582,7 +579,7 @@ def handleOtherNotations(tag, attrs, content, piece, data):
 
                 if "slur" in attrs and "type" in attrs["slur"]:
                     notation.type = attrs["slur"]["type"]
-                note.AddSlur(notation)
+                data["note"].AddSlur(notation)
             if tag[-
                    2] == "technical" and tag[-
                                              1] != "bend" and tag[-
@@ -591,12 +588,12 @@ def handleOtherNotations(tag, attrs, content, piece, data):
                 text = None
                 if tag[-1] in content:
                     text = content[tag[-1]]
-                note.addNotation(Mark.Technique(type=tag[-1], symbol=text))
+                data["note"].addNotation(Mark.Technique(type=tag[-1], symbol=text))
             elif len(tag) >= 3 and tag[-3] == "technical" and tag[-2] == "bend":
                 bend_val = 0
                 if tag[-1] in content:
                     bend_val = content[tag[-1]]
-                note.addNotation(Mark.Bend(value=float(bend_val)))
+                data["note"].addNotation(Mark.Bend(value=float(bend_val)))
 
             return 1
     return None
@@ -1014,50 +1011,50 @@ def CheckID(tag, attrs, string, id_name):
 
 
 def CreateNote(tag, attrs, content, piece, data):
-    global note, staff_id, voice
+    global staff_id, voice
     ret_value = None
 
     if len(tag) > 0 and "note" in tag:
 
         if tag[-1] == "staff":
             staff_id = int(content["staff"])
-        if "note" in tag and note is None:
-            note = Note.Note()
+        if "note" in tag and data["note"] is None:
+            data["note"] = Note.Note()
             ret_value = 1
         if "note" in attrs:
             if "print-object" in attrs["note"]:
                 result = YesNoToBool(attrs["note"]["print-object"])
-                note.print = result
+                data["note"].print = result
         if "rest" in tag:
             measure = helpers.GetID(attrs, "rest", "measure")
             if measure is not None:
                 value = YesNoToBool(measure)
-                note.MeasureRest = value
-            note.rest = True
+                data["note"].MeasureRest = value
+            data["note"].rest = True
         if "cue" in tag:
-            note.cue = True
+            data["note"].cue = True
 
         if tag[-1] == "grace":
             slash = False
             if "grace" in attrs:
                 if "slash" in attrs["grace"]:
                     slash = YesNoToBool(attrs["grace"]["slash"])
-            note.addNotation(Note.GraceNote(slash=slash, first=True))
+            data["note"].addNotation(Note.GraceNote(slash=slash, first=True))
         if tag[-1] == "duration" and "note" in tag:
-            if not hasattr(note, "duration"):
-                note.duration = float(content["duration"])
+            if not hasattr(data["note"], "duration"):
+                data["note"].duration = float(content["duration"])
 
         if tag[-1] == "type":
-            note.SetType(content["type"])
+            data["note"].SetType(content["type"])
 
         if tag[-1] == "dot":
-            note.addDot()
+            data["note"].addDot()
         if tag[-1] == "tie":
-            note.AddTie(attrs["tie"]["type"])
+            data["note"].AddTie(attrs["tie"]["type"])
         if "chord" in tag:
-            note.chord = True
+            data["note"].chord = True
         if tag[-1] == "stem":
-            note.stem = Note.Stem(content["stem"])
+            data["note"].stem = Note.Stem(content["stem"])
         if tag[-1] == "voice":
             voice = int(content["voice"])
 
@@ -1068,21 +1065,21 @@ def CreateNote(tag, attrs, content, piece, data):
             if "beam" in attrs:
                 id = int(attrs["beam"]["number"])
             else:
-                id = len(note.beams)
+                id = len(data["note"].beams)
             part_id = helpers.GetID(attrs, "part", "id")
             part = piece.getPart(part_id)
             part.NewBeam(type, staff_id)
-            note.addBeam(id, Note.Beam(type))
+            data["note"].addBeam(id, Note.Beam(type))
 
         if tag[-1] == "accidental":
-            if not hasattr(note, "pitch"):
-                note.pitch = Note.Pitch()
+            if not hasattr(data["note"], "pitch"):
+                data["note"].pitch = Note.Pitch()
                 if "accidental" in content:
-                    note.pitch.accidental = content["accidental"]
+                    data["note"].pitch.accidental = content["accidental"]
 
             else:
                 if "accidental" in content:
-                    note.pitch.accidental = content["accidental"]
+                    data["note"].pitch.accidental = content["accidental"]
         if tag[-1] == "staff":
             staff_id = int(content["staff"])
     HandleNoteheads(tag, attrs, content, piece, data)
@@ -1098,13 +1095,13 @@ def CreateNote(tag, attrs, content, piece, data):
 def HandleNoteheads(tags, attrs, content, piece, data):
     if "note" in tags:
         if tags[-1] == "notehead":
-            note.notehead = Note.Notehead()
+            data["note"].notehead = Note.Notehead()
             if "notehead" in attrs:
                 if "filled" in attrs["notehead"]:
                     filled = YesNoToBool(attrs["notehead"]["filled"])
-                    note.notehead.filled = filled
+                    data["note"].notehead.filled = filled
             if "notehead" in content:
-                note.notehead.type = content["notehead"]
+                data["note"].notehead.type = content["notehead"]
 
 
 def HandleArpeggiates(tags, attrs, content, piece, data):
@@ -1115,14 +1112,14 @@ def HandleArpeggiates(tags, attrs, content, piece, data):
                 if "direction" in attrs["arpeggiate"]:
                     data["direction"] = attrs["arpeggiate"]["direction"]
             arpegg = Note.Arpeggiate(direction=data["direction"])
-            note.addNotation(arpegg)
+            data["note"].addNotation(arpegg)
         if tags[-1] == "non-arpeggiate":
             type = None
             if "non-arpeggiate" in attrs:
                 if "type" in attrs["non-arpeggiate"]:
                     type = attrs["non-arpeggiate"]["type"]
             narpegg = Note.NonArpeggiate(type=type)
-            note.addNotation(narpegg)
+            data["note"].addNotation(narpegg)
 
 
 def HandleSlidesAndGliss(tags, attrs, content, piece, data):
@@ -1139,21 +1136,20 @@ def HandleSlidesAndGliss(tags, attrs, content, piece, data):
                 number = int(attrs[tags[-1]]["number"])
     if "slide" in tags:
         slide = Note.Slide(type=type, lineType=lineType, number=number)
-        note.addNotation(slide)
+        data["note"].addNotation(slide)
     if "glissando" in tags:
         gliss = Note.Glissando(type=type, lineType=lineType, number=number)
-        note.addNotation(gliss)
+        data["note"].addNotation(gliss)
 
 
 def handleOrnaments(tags, attrs, content, piece, data):
-    global note
     if "ornaments" in tags:
         if tags[-1] == "inverted-mordent":
-            note.addNotation(Ornaments.InvertedMordent())
+            data["note"].addNotation(Ornaments.InvertedMordent())
         if tags[-1] == "mordent":
-            note.addNotation(Ornaments.Mordent())
+            data["note"].addNotation(Ornaments.Mordent())
         if tags[-1] == "trill-mark":
-            note.addNotation(Ornaments.Trill())
+            data["note"].addNotation(Ornaments.Trill())
         if tags[-1] == "wavy-line":
             type = ""
             if "wavy-line" in attrs:
@@ -1161,11 +1157,11 @@ def handleOrnaments(tags, attrs, content, piece, data):
                     type = attrs["wavy-line"]["type"]
                 else:
                     type = True
-            note.addNotation(Ornaments.TrillSpanner(line=type))
+            data["note"].addNotation(Ornaments.TrillSpanner(line=type))
         if tags[-1] == "turn":
-            note.addNotation(Ornaments.Turn())
+            data["note"].addNotation(Ornaments.Turn())
         if tags[-1] == "inverted-turn":
-            note.addNotation(Ornaments.InvertedTurn())
+            data["note"].addNotation(Ornaments.InvertedTurn())
         if tags[-1] == "tremolo":
             type = None
             value = None
@@ -1174,7 +1170,7 @@ def handleOrnaments(tags, attrs, content, piece, data):
                     type = attrs["tremolo"]["type"]
             if "tremolo" in content:
                 value = int(content["tremolo"])
-            note.addNotation(Ornaments.Tremolo(type=type, value=value))
+            data["note"].addNotation(Ornaments.Tremolo(type=type, value=value))
 
 
 def SetupFormat(tags, attrs, text, piece, data):
@@ -1185,30 +1181,30 @@ def HandlePitch(tags, attrs, text, piece, data):
     return_val = None
     if len(tags) > 0:
         if "pitch" or "unpitched" in tags:
-            if not hasattr(note, "pitch") and note is not None:
-                note.pitch = Note.Pitch()
+            if not hasattr(data["note"], "pitch") and data["note"] is not None:
+                data["note"].pitch = Note.Pitch()
             if "unpitched" in tags:
-                note.pitch.unpitched = True
+                data["note"].pitch.unpitched = True
             if "step" in tags[-1]:
                 if "step" not in text:
-                    note.pitch.step = text["display-step"]
+                    data["note"].pitch.step = text["display-step"]
                 else:
-                    note.pitch.step = text["step"]
+                    data["note"].pitch.step = text["step"]
                 return_val = 1
             if tags[-1] == "alter":
-                note.pitch.alter = int(text["alter"])
+                data["note"].pitch.alter = int(text["alter"])
                 return_val = 1
             if "octave" in tags[-1]:
                 if "octave" not in text:
-                    note.pitch.octave = text["display-octave"]
+                    data["note"].pitch.octave = text["display-octave"]
                 else:
-                    note.pitch.octave = text["octave"]
+                    data["note"].pitch.octave = text["octave"]
                 return_val = 1
     return return_val
 
 
 def HandleDirections(tags, attrs, chars, piece, data):
-    global expressions, items, staff_id, note
+    global expressions, items, staff_id
     return_val = None
     if len(tags) == 0:
         return None
@@ -1429,20 +1425,19 @@ def HandleRepeatMarking(tags, attrs, chars, piece, data):
 
 
 def handleLyrics(tags, attrs, chars, piece, data):
-    global note
     if "lyric" in tags:
-        if not hasattr(note, "lyrics"):
-            note.lyrics = {}
-        number = len(note.lyrics)
+        if not hasattr(data["note"], "lyrics"):
+            data["note"].lyrics = {}
+        number = len(data["note"].lyrics)
         if "lyric" in attrs:
             if "number" in attrs["lyric"]:
                 number = int(attrs["lyric"]["number"])
-        if number not in note.lyrics:
-            note.lyrics[number] = Directions.Lyric()
+        if number not in data["note"].lyrics:
+            data["note"].lyrics[number] = Directions.Lyric()
         if tags[-1] == "text":
-            note.lyrics[number].text = chars["text"]
+            data["note"].lyrics[number].text = chars["text"]
         if tags[-1] == "syllabic":
-            note.lyrics[number].syllabic = chars["syllabic"]
+            data["note"].lyrics[number].syllabic = chars["syllabic"]
 
 
 def handleTimeMod(tags, attrs, chars, piece, data):
@@ -1457,14 +1452,14 @@ def handleTimeMod(tags, attrs, chars, piece, data):
                 if "bracket" in attrs["tuplet"]:
                     bracket = YesNoToBool(attrs["tuplet"]["bracket"])
             tuplet = Note.Tuplet(bracket=bracket, type=type)
-            note.addNotation(tuplet)
+            data["note"].addNotation(tuplet)
     if "time-modification" in tags:
-        if not hasattr(note, "timeMod"):
-            note.timeMod = Note.TimeModifier()
+        if not hasattr(data["note"], "timeMod"):
+            data["note"].timeMod = Note.TimeModifier()
         if tags[-1] == "actual-notes":
-            note.timeMod.actual = int(chars["actual-notes"])
+            data["note"].timeMod.actual = int(chars["actual-notes"])
         if tags[-1] == "normal-notes":
-            note.timeMod.normal = int(chars["normal-notes"])
+            data["note"].timeMod.normal = int(chars["normal-notes"])
     return None
 
 

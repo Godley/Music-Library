@@ -9,12 +9,13 @@ class testHandleArticulation(testclass.TestClass):
         self.part = self.piece.getPart("P1")
         self.part.addEmptyMeasure(1, 1)
         measure = self.part.getMeasure(1, 1)
-        MxmlParser.note = Note.Note()
-        self.note = MxmlParser.note
-        measure.addNote(MxmlParser.note)
+        self.data = {}
+        self.data["note"] = Note.Note()
+        self.note = self.data["note"]
+        measure.addNote(self.data["note"])
         self.handler = MxmlParser.handleArticulation
         self.tags.append("articulations")
-        self.data = {}
+
 
 
     def testNoData(self):
@@ -97,53 +98,55 @@ class testLyrics(testclass.TestClass):
         self.tags.append("note")
         self.tags.append("lyric")
         self.handler = MxmlParser.handleLyrics
-        MxmlParser.note = Note.Note()
         self.data = {}
+        self.data["note"] = Note.Note()
+
 
     def testLyricCreation(self):
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note, "lyrics"))
+        self.assertTrue(hasattr(self.data["note"], "lyrics"))
 
     def testLyricNum(self):
         self.attrs["lyric"] = {"number": "1"}
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertTrue(1 in MxmlParser.note.lyrics.keys())
+        self.assertTrue(1 in self.data["note"].lyrics.keys())
 
     def testLyricText(self):
         self.attrs["lyric"] = {"number": "1"}
         self.chars["text"] = "aaah"
         self.tags.append("text")
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertEqual("aaah", MxmlParser.note.lyrics[1].text)
+        self.assertEqual("aaah", self.data["note"].lyrics[1].text)
 
     def testLyricSyllable(self):
         self.attrs["lyric"] = {"number": "1"}
         self.chars["syllabic"] = "single"
         self.tags.append("syllabic")
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertEqual("single", MxmlParser.note.lyrics[1].syllabic)
+        self.assertEqual("single", self.data["note"].lyrics[1].syllabic)
 
 class testFermata(testclass.TestClass):
     def setUp(self):
         testclass.TestClass.setUp(self)
         self.tags.append("fermata")
-        MxmlParser.note = Note.Note()
-        self.handler = MxmlParser.HandleFermata
         self.data = {}
+        self.data["note"] = Note.Note()
+        self.handler = MxmlParser.HandleFermata
+
 
     def testFermata(self):
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertIsInstance(MxmlParser.note.GetNotation(-1, "post"), Mark.Fermata)
+        self.assertIsInstance(self.data["note"].GetNotation(-1, "post"), Mark.Fermata)
 
     def testFermataType(self):
         self.attrs["fermata"] = {"type": "inverted"}
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertEqual("inverted", MxmlParser.note.GetNotation(-1, "post").type)
+        self.assertEqual("inverted", self.data["note"].GetNotation(-1, "post").type)
 
     def testFermataSymbol(self):
         self.chars["fermata"] = "square"
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertEqual("square", MxmlParser.note.GetNotation(-1, "post").symbol)
+        self.assertEqual("square", self.data["note"].GetNotation(-1, "post").symbol)
 
 
 class testSlurs(testclass.TestClass):
@@ -152,8 +155,9 @@ class testSlurs(testclass.TestClass):
         self.tags.append("note")
         self.tags.append("notations")
         self.handler = MxmlParser.handleOtherNotations
-        MxmlParser.note = Note.Note()
         self.data = {}
+        self.data["note"] = Note.Note()
+
 
     def testNoData(self):
         self.tags.remove("note")
@@ -172,22 +176,22 @@ class testSlurs(testclass.TestClass):
     def testSlur(self):
         self.tags.append("slur")
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note, "slurs"))
-        self.assertEqual(Directions.Slur, type(MxmlParser.note.slurs[0]))
+        self.assertTrue(hasattr(self.data["note"], "slurs"))
+        self.assertEqual(Directions.Slur, type(self.data["note"].slurs[0]))
 
 
     def testSlurWithId(self):
         self.tags.append("slur")
         self.attrs = {"slur":{"number":"1"}}
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(len(MxmlParser.note.slurs) == 1)
+        self.assertTrue(len(self.data["note"].slurs) == 1)
 
     def testSlurType(self):
         self.tags.append("slur")
         self.attrs["slur"] = {"type":"start"}
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.slurs[0], "type"))
-        self.assertEqual("start",MxmlParser.note.slurs[0].type)
+        self.assertTrue(hasattr(self.data["note"].slurs[0], "type"))
+        self.assertEqual("start",self.data["note"].slurs[0].type)
 
     def testTwoSlursOfTheSameIndex(self):
         self.tags.append("slur")
@@ -196,8 +200,8 @@ class testSlurs(testclass.TestClass):
         self.tags.append("slur")
         self.attrs["slur"] = {"number":"1","type":"stop"}
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertEqual(MxmlParser.note.slurs[0].type, "start")
-        self.assertEqual("stop",MxmlParser.note.slurs[1].type)
+        self.assertEqual(self.data["note"].slurs[0].type, "start")
+        self.assertEqual("stop",self.data["note"].slurs[1].type)
 
 class t(testclass.TestClass):
     def setUp(self):
@@ -205,9 +209,10 @@ class t(testclass.TestClass):
         self.tags.append("note")
         self.tags.append("notations")
         self.handler = MxmlParser.handleOtherNotations
-        MxmlParser.note = Note.Note()
+        self.data = {"direction": None}
+        self.data["note"] = Note.Note()
         self.tags.append("technical")
-        self.data = {"note": None, "direction": None}
+
 
 class testpostnotation(t):
     def testNoData(self):
@@ -231,13 +236,13 @@ class testClosedTechnique(t):
     def testCreated(self):
         self.tags.append(self.tag)
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertIsInstance(MxmlParser.note.GetNotation(-1, "post"), Mark.Technique)
+        self.assertIsInstance(self.data["note"].GetNotation(-1, "post"), Mark.Technique)
 
     def testTechniqueType(self):
         self.tags.append(self.tag)
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)
-        self.assertTrue(hasattr(MxmlParser.note.GetNotation(-1, "post"), "type"))
-        self.assertEqual(self.tag,MxmlParser.note.GetNotation(-1, "post").type)
+        self.assertTrue(hasattr(self.data["note"].GetNotation(-1, "post"), "type"))
+        self.assertEqual(self.tag,self.data["note"].GetNotation(-1, "post").type)
 
 class testUpBow(testClosedTechnique):
     def setUp(self):
@@ -264,7 +269,7 @@ class testOpenTechnique(testClosedTechnique):
         self.tags.append(self.tag)
         self.chars[self.tag] = self.value
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertEqual(self.value, MxmlParser.note.GetNotation(-1, "post").symbol)
+        self.assertEqual(self.value, self.data["note"].GetNotation(-1, "post").symbol)
 
 class testFingering(testOpenTechnique):
     def setUp(self):
@@ -293,6 +298,6 @@ class testBend(t):
         self.tags.append("bend-alter")
         self.chars["bend-alter"] = "6"
         self.handler(self.tags, self.attrs, self.chars, self.piece, self.data)
-        self.assertEqual(6, MxmlParser.note.GetNotation(-1, "post").value)
+        self.assertEqual(6, self.data["note"].GetNotation(-1, "post").value)
 
 
