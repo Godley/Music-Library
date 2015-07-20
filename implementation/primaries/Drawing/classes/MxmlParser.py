@@ -17,9 +17,6 @@ from implementation.primaries.Drawing.classes import helpers
 # indicates current staff being loaded
 
 
-handleType = ""
-
-
 def IdAsInt(index):
     if index is not None:
         try:
@@ -96,6 +93,7 @@ class MxmlParser(object):
         self.data["frame_note"] = None
         self.data["staff_id"] = 1
         self.data["voice"] = 1
+        self.data["handleType"] = ""
 
     def Flush(self):
         self.tags = []
@@ -328,7 +326,6 @@ def ignore_exception(IgnoreException=Exception, DefaultVal=None):
 
 
 def SetupPiece(tag, attrib, content, piece, data):
-    global handleType
     return_val = None
     if content is not [] and len(tag) > 0:
         title = None
@@ -370,7 +367,7 @@ def SetupPiece(tag, attrib, content, piece, data):
                 if "page" in attrib["credit"]:
                     page = int(attrib["credit"]["page"])
             if tag[-1] == "credit-type":
-                handleType = content["credit-type"]
+                data["handleType"] = content["credit-type"]
             if tag[-1] == "credit-words":
                 x = None
                 y = None
@@ -389,19 +386,19 @@ def SetupPiece(tag, attrib, content, piece, data):
                         size = float(temp["font-size"])
                     if "justify" in temp:
                         justify = temp["justify"]
-                        if justify == "center" and handleType == "":
-                            handleType = "title"
-                        if justify == "right" and handleType == "":
-                            handleType = "composer"
+                        if justify == "center" and data["handleType"] == "":
+                            data["handleType"] = "title"
+                        if justify == "right" and data["handleType"] == "":
+                            data["handleType"] = "composer"
                     if "valign" in temp:
                         valign = temp["valign"]
-                        if valign == "bottom" and handleType == "":
-                            handleType = "rights"
+                        if valign == "bottom" and data["handleType"] == "":
+                            data["handleType"] = "rights"
 
                 if "credit-words" in content:
                     text = content["credit-words"]
 
-                if handleType == "":
+                if data["handleType"] == "":
                     credit = Directions.CreditText(
                         page=page,
                         x=x,
@@ -414,7 +411,7 @@ def SetupPiece(tag, attrib, content, piece, data):
                         piece.GetItem().meta = Meta.Meta()
                     piece.GetItem().meta.AddCredit(credit)
                 else:
-                    if handleType == "composer":
+                    if data["handleType"] == "composer":
                         if not hasattr(piece.GetItem().meta, "composer"):
                             piece.GetItem().meta.composer = text
                         else:
@@ -428,7 +425,7 @@ def SetupPiece(tag, attrib, content, piece, data):
                                 " ",
                                     ""):
                                 piece.GetItem().meta.composer += text
-                    if handleType == "rights":
+                    if data["handleType"] == "rights":
                         if not hasattr(piece.GetItem().meta, "copyright"):
                             piece.GetItem().meta.copyright = text
                         else:
@@ -442,7 +439,7 @@ def SetupPiece(tag, attrib, content, piece, data):
                                 " ",
                                     ""):
                                 piece.GetItem().meta.copyright += text
-                    if handleType == "title":
+                    if data["handleType"] == "title":
                         if not hasattr(piece.GetItem().meta, "title"):
                             piece.GetItem().meta.title = text
                         else:
@@ -456,10 +453,10 @@ def SetupPiece(tag, attrib, content, piece, data):
                                 " ",
                                     ""):
                                 piece.GetItem().meta.title += text
-                    if handleType == "page number":
+                    if data["handleType"] == "page number":
                         if not hasattr(piece.GetItem().meta, "pageNum"):
                             piece.GetItem().meta.pageNum = True
-                    handleType = ""
+                    data["handleType"] = ""
     return return_val
 
 

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="got rid of staff_id global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove the other ones that are left.">
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py" afterPath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -28,7 +27,7 @@
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testtext.coverage" NAME="Unittests in testtext Coverage Results" MODIFIED="1423411041193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testTuplets.coverage" NAME="Unittests in testTuplets Coverage Results" MODIFIED="1425841294122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMScoreApi.coverage" NAME="Unittests in testMScoreApi Coverage Results" MODIFIED="1437220926871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/tests" />
-    <SUITE FILE_PATH="coverage/FYP$All_tests.coverage" NAME="All tests Coverage Results" MODIFIED="1437397608777" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$All_tests.coverage" NAME="All tests Coverage Results" MODIFIED="1437397806587" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testClef__1_.coverage" NAME="Unittests in testClef (1) Coverage Results" MODIFIED="1425646586286" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$run_passed_tests.coverage" NAME="run_passed_tests Coverage Results" MODIFIED="1425685436353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testOrnaments.coverage" NAME="Unittests in testOrnaments Coverage Results" MODIFIED="1437395324407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers" />
@@ -113,7 +112,7 @@
     <SUITE FILE_PATH="coverage/FYP$search.coverage" NAME="search Coverage Results" MODIFIED="1419706118449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Extract Metadata" />
     <SUITE FILE_PATH="coverage/FYP$unit_tests_in_testDataOnlineSearching.coverage" NAME="unit tests in testDataOnlineSearching Coverage Results" MODIFIED="1428850416784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$all_ExtractMetadata_tests.coverage" NAME="all ExtractMetadata tests Coverage Results" MODIFIED="1428849586531" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/FYP$Drawing_XML_Object_handlers.coverage" NAME="Drawing XML&gt;Object handlers Coverage Results" MODIFIED="1437397186699" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/FYP$Drawing_XML_Object_handlers.coverage" NAME="Drawing XML&gt;Object handlers Coverage Results" MODIFIED="1437397911935" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testMetaParser.coverage" NAME="Unittests in testMetaParser Coverage Results" MODIFIED="1437234102057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testPiece.coverage" NAME="Unittests in testPiece Coverage Results" MODIFIED="1424908735948" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods" />
     <SUITE FILE_PATH="coverage/FYP$Unittests_in_testDynamics__1_.coverage" NAME="run script Coverage Results" MODIFIED="1424977937132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML" />
@@ -160,8 +159,8 @@
       <file leaf-file-name="MxmlParser.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="6.12" vertical-offset="0" max-vertical-offset="22245">
-              <caret line="153" column="57" selection-start-line="153" selection-start-column="52" selection-end-line="153" selection-end-column="57" />
+            <state vertical-scroll-proportion="0.33333334" vertical-offset="6745" max-vertical-offset="22200">
+              <caret line="458" column="36" selection-start-line="458" selection-start-column="26" selection-end-line="458" selection-end-column="36" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -240,8 +239,8 @@
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleNotesAndPitches.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testRepeatMarks.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testParser.py" />
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py" />
       </list>
     </option>
   </component>
@@ -598,7 +597,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.All tests">
+  <component name="RunManager" selected="Python tests.Drawing XML&gt;Object handlers">
     <configuration default="false" name="Unittests in testMusicManagerApiIntegration" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -1269,12 +1268,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00625" summary="issue fix #229&#10;&#10;probably needs more testing, but everything's ready I think.">
-      <created>1428338503619</created>
-      <option name="number" value="00625" />
-      <option name="project" value="LOCAL" />
-      <updated>1428338503619</updated>
-    </task>
     <task id="LOCAL-00626" summary="work on sources, test fixes&#10;&#10;- fixed music manager tests &#10;- took a look at why parseFile fails and reported a new issue&#10;- work on issue #241: created table in data layer. Need to add unit tests before it can be implemented properly">
       <created>1428359522523</created>
       <option name="number" value="00626" />
@@ -1563,7 +1556,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437397302185</updated>
     </task>
-    <option name="localTasksCounter" value="674" />
+    <task id="LOCAL-00674" summary="got rid of voice global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove handleType">
+      <created>1437397715606</created>
+      <option name="number" value="00674" />
+      <option name="project" value="LOCAL" />
+      <updated>1437397715606</updated>
+    </task>
+    <option name="localTasksCounter" value="675" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1654,7 +1653,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="work on issue #266 and issue #267&#10;- implemented downloads on a thread: need to implement some kind of loading gif to show whilst this is happening, tho it's relatively quick. issue #267&#10;- implemented querying on a thread: this doesn't quite work yet. Added 2 classes for async tasks, 1 of which uses a queue to pass back data and the other of which doesn't need to. work on issue #266" />
     <MESSAGE value="issue fix #266&#10;- handling querying on a thread: not sure this speeds things up a lot but it looks a lot better now, but need to do a loading gif of some sort potentially" />
     <MESSAGE value="issue fix #203&#10;- rendering now done on a thread and is reasonably quick" />
     <MESSAGE value="more commenting&#10;&#10;commenting to several async methods and handlers to explain what they do and when they're executed." />
@@ -1679,7 +1677,8 @@
     <MESSAGE value="got rid of note global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove the other ones that are left." />
     <MESSAGE value="got rid of degree global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove the other ones that are left." />
     <MESSAGE value="got rid of staff_id global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove the other ones that are left." />
-    <option name="LAST_COMMIT_MESSAGE" value="got rid of staff_id global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove the other ones that are left." />
+    <MESSAGE value="got rid of voice global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove handleType" />
+    <option name="LAST_COMMIT_MESSAGE" value="got rid of voice global variable&#10;&#10;- work on issue #303: cleaning up the mxmlparser. I tried to do this by getting rid of expression, direction and note all at once but it broke a lot of things in very weird ways so I've gone for a staged approach. Next I will remove handleType" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2307,8 +2306,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/Drawing/classes/MxmlParser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.12" vertical-offset="0" max-vertical-offset="22245">
-          <caret line="153" column="57" selection-start-line="153" selection-start-column="52" selection-end-line="153" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="6745" max-vertical-offset="22200">
+          <caret line="458" column="36" selection-start-line="458" selection-start-column="26" selection-end-line="458" selection-end-column="36" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
