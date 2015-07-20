@@ -1,15 +1,18 @@
 try:
-    from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
-    from implementation.primaries.Drawing.classes import Measure, Note, Part, Piece, Directions
-    from implementation.primaries.Drawing.classes.tree_cls.StaffNode import StaffNode
-    from implementation.primaries.Drawing.classes.tree_cls import MeasureNode
-    from implementation.primaries.Drawing.classes import helpers
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Measure, Note, Part, Piece
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Directions, Measure, Piece, Note, \
+        Part
+    from implementation.primaries.Drawing import helpers
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import MeasureNode, StaffNode, VoiceNode
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.StaffNode import StaffNode
+
+    from implementation.primaries.Drawing import helpers
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from classes import Measure, Note, Part, Piece, Directions
     from classes.Directions import OctaveShift
     from classes.Note import GraceNote, Arpeggiate, NonArpeggiate
-import copy
 
 
 class PartNode(IndexedNode):

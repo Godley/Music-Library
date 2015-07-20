@@ -1,5 +1,5 @@
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import BaseClass
 
-from implementation.primaries.Drawing.classes import BaseClass, Note, Directions
 
 class Barline(BaseClass.Base):
 

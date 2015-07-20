@@ -1,4 +1,4 @@
-from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Node
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import Node
 
 """these nodes are generally standalone, hence the grouping"""
 

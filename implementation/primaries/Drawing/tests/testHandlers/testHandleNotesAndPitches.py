@@ -1,7 +1,8 @@
 import unittest
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree
-from implementation.primaries.Drawing.classes.tree_cls.OtherNodes import DirectionNode
-from implementation.primaries.Drawing.classes import MxmlParser, Piece, Measure, Part, Note
+
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PieceTree import PieceTree
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Piece, Note, Part
+from implementation.primaries.Drawing.classes.Input import MxmlParser
 
 
 class notes(unittest.TestCase):

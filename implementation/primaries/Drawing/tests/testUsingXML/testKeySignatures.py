@@ -1,9 +1,10 @@
-from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
-from implementation.primaries.Drawing.classes import Key
-from implementation.primaries.Drawing.classes.tree_cls.PartNode import PartNode
-from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
-
 import os
+
+from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Key
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PartNode import PartNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import MeasureNode
+
 
 partname = "keySignatures.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"

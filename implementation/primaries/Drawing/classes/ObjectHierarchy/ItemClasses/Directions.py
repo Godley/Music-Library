@@ -1,7 +1,7 @@
-from implementation.primaries.Drawing.classes import BaseClass
-
 import string
 import random
+
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import BaseClass
 
 
 class Text(BaseClass.Base):

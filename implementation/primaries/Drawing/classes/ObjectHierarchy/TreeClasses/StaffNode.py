@@ -1,6 +1,6 @@
-from implementation.primaries.Drawing.classes.tree_cls.BaseTree import IndexedNode
-from implementation.primaries.Drawing.classes.tree_cls import MeasureNode
-from implementation.primaries.Drawing.classes import Measure
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import IndexedNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import MeasureNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Measure
 
 
 class StaffNode(IndexedNode):

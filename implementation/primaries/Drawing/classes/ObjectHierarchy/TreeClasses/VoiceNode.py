@@ -1,6 +1,6 @@
-from implementation.primaries.Drawing.classes.tree_cls.BaseTree import IndexedNode, Node
-from implementation.primaries.Drawing.classes.tree_cls import NoteNode
-from implementation.primaries.Drawing.classes.Note import Arpeggiate, NonArpeggiate, GraceNote, Tuplet
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import Node
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import NoteNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses.Note import Arpeggiate, NonArpeggiate, GraceNote, Tuplet
 
 
 class VoiceNode(Node):

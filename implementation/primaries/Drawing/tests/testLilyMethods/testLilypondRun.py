@@ -1,5 +1,9 @@
-from implementation.primaries.Drawing.classes import MxmlParser, LilypondRender
-import unittest, os
+import unittest
+import os
+
+from implementation.primaries.Drawing.classes.Output import LilypondOutput
+from implementation.primaries.Drawing.classes.Input import MxmlParser
+
 script = "/Users/charlottegodley/bin/lilypond"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
 
@@ -7,7 +11,7 @@ folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/Sa
 class testRun(unittest.TestCase):
     def setUp(self):
         if hasattr(self, "item"):
-            self.lp = LilypondRender.LilypondRender(self.item, self.file, script)
+            self.lp = LilypondOutput.LilypondRenderer(self.item, self.file, script)
             self.lp.run()
             self.pdf = self.file.split(".")[0] + ".pdf"
 

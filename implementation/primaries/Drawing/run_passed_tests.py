@@ -3,8 +3,9 @@
 try:
     from classes import MxmlParser, LilypondRender
 except:
-    from implementation.primaries.Drawing.classes import MxmlParser, LilypondRender
-import os, unittest
+    from implementation.primaries.Drawing.classes import LilypondRender
+    from implementation.primaries.Drawing.classes.Input import MxmlParser
+import os
 import unittest
 
 l = [["foo", "a", "a",], ["bar", "a", "b"], ["lee", "b", "b"]]

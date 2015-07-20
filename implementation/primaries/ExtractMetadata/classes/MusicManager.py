@@ -1,12 +1,16 @@
 import os
 import shutil
 import zipfile
+from xml.sax._exceptions import *
+
+import requests.exceptions
+
 from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
 from implementation.primaries.GUI.helpers import get_base_dir
-from implementation.primaries.Drawing.classes import LilypondRender, MxmlParser, Exceptions
-from xml.sax._exceptions import *
-import requests.exceptions
+from implementation.primaries.Drawing.classes.Output import LilypondOutput
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Exceptions
+from implementation.primaries.Drawing.classes.Input import MxmlParser
 
 
 class Unzipper(object):
@@ -169,7 +173,7 @@ class MusicManager(object):
             errorList.append("Sax parser had a problem with this file:"+str(e))
         if piece_obj is not None:
             try:
-                loader = LilypondRender.LilypondRender(
+                loader = LilypondOutput.LilypondRenderer(
                     piece_obj,
                     os.path.join(
                         self.folder,

@@ -1,7 +1,9 @@
 import unittest
 from unittest import mock
 try:
-    from implementation.primaries.Drawing.classes import MxmlParser, Part, Measure, Exceptions
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Part, Exceptions
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Measure, Exceptions, Part
+    from implementation.primaries.Drawing.classes.Input import MxmlParser
 except:
     from classes import MxmlParser, Part, Measure
 

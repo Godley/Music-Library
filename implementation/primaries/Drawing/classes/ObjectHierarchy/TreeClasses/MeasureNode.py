@@ -1,10 +1,12 @@
 try:
-    from implementation.primaries.Drawing.classes.tree_cls.BaseTree import IndexedNode, BackwardSearch, Search
-    from implementation.primaries.Drawing.classes.tree_cls.VoiceNode import VoiceNode
-    from implementation.primaries.Drawing.classes.tree_cls.OtherNodes import DirectionNode, ExpressionNode, KeyNode, ClefNode
-    from implementation.primaries.Drawing.classes.tree_cls import NoteNode
-    from implementation.primaries.Drawing.classes import Directions, helpers
-    from implementation.primaries.Drawing.classes.Directions import OctaveShift
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import IndexedNode, BackwardSearch, Search
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.VoiceNode import VoiceNode
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.OtherNodes import DirectionNode, ExpressionNode, KeyNode, ClefNode
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import NoteNode
+    from implementation.primaries.Drawing import helpers
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Directions
+    from implementation.primaries.Drawing import helpers
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses.Directions import OctaveShift
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from classes import Measure, Note, Part, Piece, Directions

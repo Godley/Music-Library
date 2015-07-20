@@ -1,4 +1,4 @@
-from implementation.primaries.Drawing.classes import Meta, Directions
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Directions, Meta
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
 
 class testMeta(Lily):

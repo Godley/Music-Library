@@ -1,4 +1,5 @@
-from implementation.primaries.Drawing.classes import MxmlParser, Measure, Part, Directions
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Directions, Part
+from implementation.primaries.Drawing.classes.Input import MxmlParser
 from implementation.primaries.Drawing.tests.testHandlers import testclass
 
 

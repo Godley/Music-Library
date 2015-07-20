@@ -1,9 +1,11 @@
 try:
-    from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
-    from implementation.primaries.Drawing.classes.tree_cls import OtherNodes
-    from implementation.primaries.Drawing.classes.Directions import OctaveShift
-    from implementation.primaries.Drawing.classes.Note import Arpeggiate, NonArpeggiate, Note, GraceNote
-    from implementation.primaries.Drawing.classes.tree_cls.OtherNodes import ExpressionNode, DirectionNode
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import OtherNodes
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses.Directions import OctaveShift
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses.Note import Arpeggiate, NonArpeggiate, \
+        GraceNote
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Note
+    from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.OtherNodes import ExpressionNode, DirectionNode
 except:
     from classes.tree_cls.BaseTree import Tree, Node, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
     from classes import Measure, Note, Part, Piece, Directions
@@ -29,7 +31,7 @@ class NoteNode(Node):
                 NoteNode],
             limit=3)
         if self.item is None:
-            self.item = Note()
+            self.item = Note.Note()
 
     def Find(self, node_type, item_type):
         # method for finding specific types of notation from nodes.

@@ -1,8 +1,9 @@
-from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
-from implementation.primaries.Drawing.classes import Clef
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode
-from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
 import os
+
+from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Clef
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import MeasureNode, PartNode
+
 
 partname = "clefs.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"

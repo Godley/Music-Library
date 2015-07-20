@@ -1,7 +1,7 @@
 import xml.sax
 from xml.sax import handler, make_parser
 try:
-    from implementation.primaries.Drawing.classes import helpers
+    from implementation.primaries.Drawing import helpers
 except:
     from primaries.Drawing.classes import helpers
 

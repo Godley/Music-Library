@@ -1,6 +1,3 @@
-
-from implementation.primaries.Drawing.classes import BaseClass
-
 class Meter(object):
 
     def __init__(self, **kwargs):

@@ -1,11 +1,10 @@
-from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
-from implementation.primaries.Drawing.classes import Measure, Part
 import os
-from implementation.primaries.Drawing.classes.tree_cls.PartNode import PartNode
-from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
-from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Search
-from implementation.primaries.Drawing.classes.tree_cls.NoteNode import NoteNode, Placeholder
-from implementation.primaries.Drawing.classes.tree_cls.OtherNodes import ExpressionNode, DirectionNode
+
+from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Part
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PartNode import PartNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
+
 
 partname = "multiple_parts.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"

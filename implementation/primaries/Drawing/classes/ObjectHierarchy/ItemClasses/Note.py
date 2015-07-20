@@ -1,7 +1,6 @@
-
-from implementation.primaries.Drawing.classes import BaseClass, Ornaments, Mark
-
 import math
+
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import BaseClass, Mark, Ornaments
 
 
 class Tie(BaseClass.Base):

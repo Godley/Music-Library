@@ -1,6 +1,8 @@
-from implementation.primaries.Drawing.classes import MxmlParser, Piece, Measure, Part, Note, Directions
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree
 import unittest
+
+from implementation.primaries.Drawing.classes.Input import MxmlParser
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PieceTree import PieceTree
+
 
 class testSetupPiece(unittest.TestCase):
     def setUp(self):
@@ -76,7 +78,7 @@ class testHandlePart(unittest.TestCase):
 
     def testScorePartTag(self):
         MxmlParser.part_id = None
-        self.assertEqual(None,MxmlParser.part_id,"ERROR: part_id not none in testScorePartTag")
+        self.assertEqual(None, MxmlParser.part_id,"ERROR: part_id not none in testScorePartTag")
         self.tags.append("score-part")
         self.attrs["score-part"] = {"id":"P1"}
         self.handler(self.tags,self.attrs,self.chars,self.piece, self.data)

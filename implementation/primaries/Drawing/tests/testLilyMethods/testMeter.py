@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes import Meter
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Meter
+
 
 class testTimeSig(Lily):
     def setUp(self):

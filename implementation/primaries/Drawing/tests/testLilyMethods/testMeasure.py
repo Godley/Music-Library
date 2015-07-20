@@ -1,9 +1,12 @@
-from implementation.primaries.Drawing.classes import Measure, Note, Directions, Meter
-from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes.tree_cls.NoteNode import NoteNode
-from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
-from implementation.primaries.Drawing.classes.tree_cls.StaffNode import StaffNode
 import unittest
+
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Directions, Measure, Meter, Note
+
+from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.NoteNode import NoteNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.StaffNode import StaffNode
+
 
 class MeasureTests(Lily):
 

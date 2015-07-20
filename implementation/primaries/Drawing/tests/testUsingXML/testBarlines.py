@@ -1,7 +1,9 @@
-from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
-from implementation.primaries.Drawing.classes import Measure
-from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
 import os
+
+from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Measure
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import MeasureNode
+
 
 partname = "barlines.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"

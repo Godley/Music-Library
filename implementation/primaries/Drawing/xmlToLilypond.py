@@ -1,5 +1,9 @@
-import sys, os
-from implementation.primaries.Drawing.classes import MxmlParser, LilypondRender
+import sys
+import os
+
+from implementation.primaries.Drawing.classes import LilypondRender
+from implementation.primaries.Drawing.classes.Input import MxmlParser
+
 
 def Run(fname):
     parser = MxmlParser.MxmlParser()

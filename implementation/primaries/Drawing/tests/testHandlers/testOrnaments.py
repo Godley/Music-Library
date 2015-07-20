@@ -1,5 +1,7 @@
 from implementation.primaries.Drawing.tests.testHandlers.testHandleNotesAndPitches import notes
-from implementation.primaries.Drawing.classes import Ornaments, MxmlParser, Note
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Note, Ornaments
+from implementation.primaries.Drawing.classes.Input import MxmlParser
+
 
 class testArpeggiates(notes):
     def setUp(self):

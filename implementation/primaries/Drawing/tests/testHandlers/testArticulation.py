@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.tests.testHandlers import testclass
-from implementation.primaries.Drawing.classes import Mark, MxmlParser, Directions, Part, Measure, Note
-import unittest
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Directions, Note, Mark, Part
+from implementation.primaries.Drawing.classes.Input import MxmlParser
+
 
 class testHandleArticulation(testclass.TestClass):
     def setUp(self):

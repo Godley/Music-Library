@@ -1,6 +1,6 @@
 import unittest
 
-from implementation.primaries.Drawing.classes.tree_cls import BaseTree
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import BaseTree
 
 
 class testTree(unittest.TestCase):

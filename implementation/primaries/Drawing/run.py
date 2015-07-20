@@ -3,8 +3,10 @@
 try:
     from classes import MxmlParser, LilypondRender
 except:
-    from implementation.primaries.Drawing.classes import MxmlParser, LilypondRender
-import os, sys
+    from implementation.primaries.Drawing.classes import LilypondRender
+    from implementation.primaries.Drawing.classes.Input import MxmlParser
+import os
+import sys
 
 
 def Run(fname):

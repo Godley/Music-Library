@@ -1,9 +1,12 @@
+import os
+import unittest
+
 from implementation.primaries.Drawing.tests.testUsingXML.setup import xmlSet, parsePiece
-from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Search, FindByIndex
-from implementation.primaries.Drawing.classes.tree_cls.NoteNode import NoteNode
-from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
-from implementation.primaries.Drawing.classes import Note
-import os, unittest
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import Search, FindByIndex
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.NoteNode import NoteNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Note
+
 
 partname = "arpeggiosAndGlissandos.xml"
 folder = "/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/SampleMusicXML/testcases"
@@ -188,7 +191,7 @@ class Note3Measure2(testBar):
         part = piece.getPart(self.p_id)
         measure = part.getMeasure(measure=2,staff=1)
         self.item = Search(NoteNode, measure, 3).GetItem()
-        self.instance_type=Note.Glissando
+        self.instance_type= Note.Glissando
 
 class Note3Measure2Type(testBar):
     def setUp(self):

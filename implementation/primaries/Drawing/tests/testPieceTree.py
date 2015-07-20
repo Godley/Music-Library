@@ -1,6 +1,8 @@
 import unittest
-from implementation.primaries.Drawing.classes.tree_cls import BaseTree,PieceTree, NoteNode, MeasureNode, StaffNode
-from implementation.primaries.Drawing.classes.tree_cls.PartNode import PartNode
+
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import NoteNode, MeasureNode, StaffNode, \
+    PieceTree, BaseTree
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PartNode import PartNode
 
 
 class testPieceTree(unittest.TestCase):

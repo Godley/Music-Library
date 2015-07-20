@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes import Note
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Note
+
 
 class testPitch(Lily):
     def setUp(self):

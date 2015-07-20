@@ -1,5 +1,7 @@
-from implementation.primaries.Drawing.classes import MxmlParser, Piece, Measure, Part, Note, Directions
 import unittest
+
+from implementation.primaries.Drawing.classes.Input import MxmlParser
+
 
 class testCheckDynamics(unittest.TestCase):
     def setUp(self):

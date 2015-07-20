@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.tests.testHandlers import testclass
-from implementation.primaries.Drawing.classes import MxmlParser, Part, Directions
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Directions, Part
+from implementation.primaries.Drawing.classes.Input import MxmlParser
 
 
 class testRepeatSymbols(testclass.TestClass):

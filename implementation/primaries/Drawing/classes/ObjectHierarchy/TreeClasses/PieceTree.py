@@ -1,8 +1,8 @@
 
 
-from implementation.primaries.Drawing.classes.tree_cls import PartNode
-from implementation.primaries.Drawing.classes.tree_cls.BaseTree import Tree, IndexedNode, Search, BackwardSearch, FindByIndex, FindPosition, toLily
-from implementation.primaries.Drawing.classes import Piece
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import PartNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.BaseTree import Tree, IndexedNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Piece
 
 
 # \markup {

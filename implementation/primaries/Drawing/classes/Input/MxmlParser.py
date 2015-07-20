@@ -1,9 +1,12 @@
 import xml.sax
 from xml.sax import make_parser, handler
 import copy
-from implementation.primaries.Drawing.classes import Exceptions, Mark, Ornaments, Piece, Part, Harmony, Measure, Meta, Key, Meter, Note, Clef, Directions
-from implementation.primaries.Drawing.classes.tree_cls import PieceTree, BaseTree
-from implementation.primaries.Drawing.classes import helpers
+
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Directions, Key, Measure, Clef, Meter, \
+    Exceptions, Meta, Harmony, Note, Mark, Ornaments, Part
+from implementation.primaries.Drawing import helpers
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import PieceTree
+from implementation.primaries.Drawing import helpers
 
 
 def IdAsInt(index):

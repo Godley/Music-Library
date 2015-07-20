@@ -1,7 +1,7 @@
-from implementation.primaries.Drawing.classes import Note, Ornaments, Mark, Directions
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Directions, Note, Mark, Ornaments
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes.tree_cls.StaffNode import StaffNode
-from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import MeasureNode, StaffNode
+
 
 class testNote(Lily):
     def setUp(self):
@@ -185,7 +185,7 @@ class testNoteStop(Lily):
     def setUp(self):
         self.item = Note.Note()
         self.item.pitch = Note.Pitch()
-        self.item.addBeam(1,Note.Beam("end"))
+        self.item.addBeam(1, Note.Beam("end"))
         Lily.setUp(self)
         self.compile = True
         self.wrappers = ["\\new Staff{a [","}"]

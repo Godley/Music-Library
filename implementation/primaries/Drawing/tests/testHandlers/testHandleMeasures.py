@@ -1,8 +1,9 @@
-from implementation.primaries.Drawing.classes import MxmlParser, Harmony, Piece, Measure, Part, Clef, Key
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PieceTree
-from implementation.primaries.Drawing.classes.tree_cls.OtherNodes import ClefNode, KeyNode
-from implementation.primaries.Drawing.classes.tree_cls.MeasureNode import MeasureNode
 import unittest
+
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Key, Measure, Clef, Harmony, Part
+from implementation.primaries.Drawing.classes.Input import MxmlParser
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.PieceTree import PieceTree
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses.MeasureNode import MeasureNode
 
 
 class MeasureTesting(unittest.TestCase):

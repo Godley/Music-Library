@@ -1,5 +1,6 @@
-import unittest, xml.sax, os
-from implementation.primaries.Drawing.classes import MxmlParser
+import unittest
+
+from implementation.primaries.Drawing.classes.Input import MxmlParser
 
 
 def parsePiece(name):

@@ -1,5 +1,6 @@
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes import Harmony
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Harmony
+
 
 class testHarmony(Lily):
     def setUp(self):
@@ -131,12 +132,12 @@ class testFrameFrets(Lily):
 
 class testFrameWithNote(Lily):
     def setUp(self):
-        self.item = Harmony.Frame(strings=6,notes={1:Harmony.FrameNote(fret=3)})
+        self.item = Harmony.Frame(strings=6,notes={1: Harmony.FrameNote(fret=3)})
         self.lilystring = "^\markup {\n\r\\fret-diagram #\"w:6;6-o;5-o;4-o;3-o;2-o;1-3;\"\n}"
 
 class testFrameBarre(Lily):
     def setUp(self):
-        self.item = Harmony.Frame(strings=6,notes={2:Harmony.FrameNote(fret=1)})
+        self.item = Harmony.Frame(strings=6,notes={2: Harmony.FrameNote(fret=1)})
         self.item.notes[2].barre = "stop"
         self.item.notes[3] = Harmony.FrameNote(fret=1)
         self.item.notes[3].barre = "start"

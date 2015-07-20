@@ -1,5 +1,4 @@
-
-from implementation.primaries.Drawing.classes import BaseClass
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import BaseClass
 
 # TODO: probably needs refactoring to 1 ornament class?
 

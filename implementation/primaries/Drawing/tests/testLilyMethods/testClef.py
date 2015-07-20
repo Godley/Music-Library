@@ -1,6 +1,7 @@
 from implementation.primaries.Drawing.tests.testLilyMethods.setup import Lily
-from implementation.primaries.Drawing.classes.tree_cls.PieceTree import PartNode
-from implementation.primaries.Drawing.classes import Clef
+from implementation.primaries.Drawing.classes.ObjectHierarchy.TreeClasses import PartNode
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Clef
+
 
 class testClef(Lily):
     def setUp(self):

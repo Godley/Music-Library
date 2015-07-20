@@ -1,5 +1,4 @@
-
-from implementation.primaries.Drawing.classes import Note, BaseClass
+from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import BaseClass, Note
 
 
 class Harmony(BaseClass.Base):
