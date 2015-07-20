@@ -15,7 +15,6 @@ from implementation.primaries.Drawing.classes import helpers
 # degree/frame_note we are handling within the harmony section
 
 # indicates current staff being loaded
-voice = 1
 
 
 handleType = ""
@@ -89,12 +88,14 @@ class MxmlParser(object):
         self.end_tag = ["tremolo"]
         self.piece = PieceTree.PieceTree()
         self.d = False
+        # a bunch of variables we need to keep track of over time, as different tags affect each one.
         self.data["note"] = None
         self.data["direction"] = None
         self.data["expression"] = None
         self.data["degree"] = None
         self.data["frame_note"] = None
         self.data["staff_id"] = 1
+        self.data["voice"] = 1
 
     def Flush(self):
         self.tags = []
@@ -141,17 +142,16 @@ class MxmlParser(object):
                     self.chars[self.tags[-1]] += text
 
     def CopyNote(self, part, measure_id, new_note):
-        global voice
         # handles copying the latest note into the measure note list.
         # done at end of note loading to make sure staff_id is right as staff id could be encountered
         # any point during the note tag
         if part.getMeasure(measure_id, self.data["staff_id"]) is None:
             part.addEmptyMeasure(measure_id, self.data["staff_id"])
         measure = part.getMeasure(measure_id, self.data["staff_id"])
-        voice_obj = measure.getVoice(voice)
+        voice_obj = measure.getVoice(self.data["voice"])
         if voice_obj is None:
-            measure.addVoice(id=voice)
-            voice_obj = measure.getVoice(voice)
+            measure.addVoice(id=self.data["voice"])
+            voice_obj = measure.getVoice(self.data["voice"])
         add = True
         notes = voice_obj.GetChildrenIndexes()
         for n in notes:
@@ -164,13 +164,12 @@ class MxmlParser(object):
             if hasattr(new_note, "chord"):
                 chord = new_note.chord
 
-            measure.addNote(new_note, voice, chord=chord)
+            measure.addNote(new_note, self.data["voice"], chord=chord)
             if hasattr(new_note, "MeasureRest") and new_note.MeasureRest:
                 measure.rest = True
                 voice_obj.rest = True
 
     def EndTag(self, name):
-        global voice
         if self.handler is not None and not self.d and name not in self.closed_tags:
             self.handler(self.tags, self.attribs, self.chars, self.piece, self.data)
         if name in self.tags:
@@ -200,7 +199,7 @@ class MxmlParser(object):
                     if part.getMeasure(measure_id, self.data["staff_id"]) is None:
                         part.addEmptyMeasure(measure_id, self.data["staff_id"])
                     measure = part.getMeasure(measure_id, self.data["staff_id"])
-                    measure.addDirection(copy.deepcopy(self.data["direction"]), voice)
+                    measure.addDirection(copy.deepcopy(self.data["direction"]), self.data["voice"])
                 self.data["direction"] = None
             if self.data["expression"] is not None:
                 measure_id = IdAsInt(
@@ -214,7 +213,7 @@ class MxmlParser(object):
                     if part.getMeasure(measure_id, self.data["staff_id"]) is None:
                         part.addEmptyMeasure(measure_id, self.data["staff_id"])
                     measure = part.getMeasure(measure_id, self.data["staff_id"])
-                    measure.addExpression(copy.deepcopy(self.data["expression"]), voice)
+                    measure.addExpression(copy.deepcopy(self.data["expression"]), self.data["voice"])
                 self.data["expression"] = None
 
         if name == "part":
@@ -250,7 +249,7 @@ class MxmlParser(object):
             measure = part.getMeasure(measure_id, self.data["staff_id"])
             measure.RunVoiceChecks()
             self.data["staff_id"] = 1
-            voice = 1
+            self.data["voice"] = 1
         if name in self.attribs:
             self.attribs.pop(name)
         if name in self.chars:
@@ -600,7 +599,6 @@ def handleOtherNotations(tag, attrs, content, piece, data):
 
 
 def HandleMeasures(tag, attrib, content, piece, data):
-    global voice
     part_id = helpers.GetID(attrib, "part", "id")
     measure_id = IdAsInt(helpers.GetID(attrib, "measure", "number"))
     part = None
@@ -630,7 +628,7 @@ def HandleMeasures(tag, attrib, content, piece, data):
                 part.addEmptyMeasure(measure_id, data["staff_id"])
                 measure = part.getMeasure(measure_id, data["staff_id"])
             if measure is not None:
-                key = measure.GetLastKey(voice=voice)
+                key = measure.GetLastKey(voice=data["voice"])
                 if key is not None and type(key) is not Key.Key:
                     key = key.GetItem()
         implicit = helpers.GetID(attrib, "measure", "implicit")
@@ -649,23 +647,23 @@ def HandleMeasures(tag, attrib, content, piece, data):
                         part.addEmptyMeasure(measure_id, data["staff_id"])
                         measure = part.getMeasure(measure_id, data["staff_id"])
                     if measure is not None:
-                        key = measure.GetLastKey(voice=voice)
+                        key = measure.GetLastKey(voice=data["voice"])
                         if key is not None and type(key) is not Key.Key:
                             key = key.GetItem()
-                        measure.addKey(Key.Key(), voice)
+                        measure.addKey(Key.Key(), data["voice"])
                 else:
                     part.addKey(Key.Key(), measure_id)
             else:
                 part.addKey(Key.Key(), measure_id)
         if tag[-1] == "mode" and "key" in tag and measure is not None:
-            key = measure.GetLastKey(voice=voice)
+            key = measure.GetLastKey(voice=data["voice"])
             if key is not None and type(key) is not Key.Key:
                 key = key.GetItem()
             if key is not None:
                 key.mode = content["mode"]
             return_val = 1
         if tag[-1] == "fifths" and "key" in tag:
-            key = measure.GetLastKey(voice=voice)
+            key = measure.GetLastKey(voice=data["voice"])
             if key is not None and type(key) is not Key.Key:
                 key = key.GetItem()
             if key is not None:
@@ -778,7 +776,7 @@ def HandleMeasures(tag, attrib, content, piece, data):
                             "kind"]["parenthesis-degrees"]
 
             if tag[-1] == "voice":
-                voice = int(content["voice"])
+                data["voice"] = int(content["voice"])
 
             if "bass" in tag:
                 if not hasattr(data["direction"], "bass"):
@@ -858,9 +856,9 @@ def handleClef(tag, attrib, content, piece, data):
             part.addEmptyMeasure(measure_id, data["staff_id"])
             measureNode = part.getMeasure(measure_id, data["staff_id"])
         if tag[-1] == "clef":
-            part.addClef(Clef.Clef(), measure_id, data["staff_id"], voice)
+            part.addClef(Clef.Clef(), measure_id, data["staff_id"], data["voice"])
         if measureNode is not None:
-            clef = measureNode.GetLastClef(voice=voice)
+            clef = measureNode.GetLastClef(voice=data["voice"])
             if clef is not None and type(clef) is not Clef.Clef:
                 clef = clef.GetItem()
             sign = None
@@ -1008,7 +1006,6 @@ def CheckID(tag, attrs, string, id_name):
 
 
 def CreateNote(tag, attrs, content, piece, data):
-    global voice
     ret_value = None
 
     if len(tag) > 0 and "note" in tag:
@@ -1053,7 +1050,7 @@ def CreateNote(tag, attrs, content, piece, data):
         if tag[-1] == "stem":
             data["note"].stem = Note.Stem(content["stem"])
         if tag[-1] == "voice":
-            voice = int(content["voice"])
+            data["voice"] = int(content["voice"])
 
         if tag[-1] == "beam":
             type = ""
@@ -1246,7 +1243,7 @@ def HandleDirections(tags, attrs, chars, piece, data):
                 size=size,
                 placement=placement)
         if tags[-1] == "voice":
-            voice = int(chars["voice"])
+            data["voice"] = int(chars["voice"])
         if tags[-1] == "rehearsal":
             return_val = 1
 
@@ -1388,7 +1385,7 @@ def HandleRepeatMarking(tags, attrs, chars, piece, data):
     global last_note
     if "direction" in tags or "forward" in tags:
         if tags[-1] == "voice":
-            voice = int(chars["voice"])
+            data["voice"] = int(chars["voice"])
         measure = None
         part_id = helpers.GetID(attrs, "part", "id")
         measure_id = IdAsInt(helpers.GetID(attrs, "measure", "number"))

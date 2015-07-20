@@ -18,7 +18,7 @@ class MeasureTesting(unittest.TestCase):
         MxmlParser.direction = None
         MxmlParser.note = None
         MxmlParser.expression = None
-        self.data = {"note": None, "direction": None, "expression": None, "staff_id":1}
+        self.data = {"note": None, "direction": None, "expression": None, "staff_id":1, "voice":1}
 
     def tearDown(self):
         self.piece = None
