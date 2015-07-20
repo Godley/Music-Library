@@ -8,9 +8,9 @@ import requests.exceptions
 from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
 from implementation.primaries.GUI.helpers import get_base_dir
-from implementation.primaries.Drawing.classes.Output import LilypondOutput
-from implementation.primaries.Drawing.classes.ObjectHierarchy.ItemClasses import Exceptions
-from implementation.primaries.Drawing.classes.Input import MxmlParser
+from MuseParse.classes.Output import LilypondOutput
+from MuseParse.classes.ObjectHierarchy.ItemClasses import Exceptions
+from MuseParse.classes.Input import MxmlParser
 
 
 class Unzipper(object):

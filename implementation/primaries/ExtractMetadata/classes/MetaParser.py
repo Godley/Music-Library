@@ -1,9 +1,6 @@
 import xml.sax
 from xml.sax import handler, make_parser
-try:
-    from implementation.primaries.Drawing import helpers
-except:
-    from primaries.Drawing.classes import helpers
+from MuseParse import helpers
 
 from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
 class Extractor(xml.sax.ContentHandler):
