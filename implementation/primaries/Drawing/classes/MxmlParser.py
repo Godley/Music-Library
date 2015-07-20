@@ -13,7 +13,6 @@ from implementation.primaries.Drawing.classes import helpers
 
 # not sure whether still relevant, but globals for checking which
 # degree/frame_note we are handling within the harmony section
-degree = None
 frame_note = None
 
 # indicates current staff being loaded
@@ -95,6 +94,7 @@ class MxmlParser(object):
         self.data["note"] = None
         self.data["direction"] = None
         self.data["expression"] = None
+        self.data["degree"] = None
 
     def Flush(self):
         self.tags = []
@@ -170,7 +170,7 @@ class MxmlParser(object):
                 voice_obj.rest = True
 
     def EndTag(self, name):
-        global degree, frame_note, staff_id, voice
+        global frame_note, staff_id, voice
         if self.handler is not None and not self.d and name not in self.closed_tags:
             self.handler(self.tags, self.attribs, self.chars, self.piece, self.data)
         if name in self.tags:
@@ -270,7 +270,7 @@ class MxmlParser(object):
                 self.CopyNote(part, measure_id, copy.deepcopy(self.data["note"]))
             self.data["note"] = None
         if name == "degree":
-            degree = None
+            self.data["degree"] = None
         if name == "frame-note":
             frame_note = None
 
@@ -606,7 +606,6 @@ def HandleMeasures(tag, attrib, content, piece, data):
     part = None
     key = None
     return_val = None
-    global degree
     if len(tag) > 0 and "measure" in tag:
 
         if "staff" in tag:
@@ -791,22 +790,22 @@ def HandleMeasures(tag, attrib, content, piece, data):
             frame = None
 
             if "degree" in tag:
-                if degree is None:
-                    degree = Harmony.Degree()
-                    data["direction"].degrees.append(degree)
+                if data["degree"] is None:
+                    data["degree"] = Harmony.Degree()
+                    data["direction"].degrees.append(data["degree"])
 
                 if "degree-value" in tag:
                     if "degree-value" in content:
-                        degree.value = content["degree-value"]
+                        data["degree"].value = content["degree-value"]
                 if "degree-alter" in tag:
                     if "degree-alter" in content:
-                        degree.alter = content["degree-alter"]
+                        data["degree"].alter = content["degree-alter"]
                 if "degree-type" in tag:
                     if "degree-type" in content:
-                        degree.type = content["degree-type"]
+                        data["degree"].type = content["degree-type"]
                     if "degree-type" in attrib:
                         if "text" in attrib["degree-type"]:
-                            degree.display = attrib["degree-type"]["text"]
+                            data["degree"].display = attrib["degree-type"]["text"]
 
             if "frame" in tag:
                 if not hasattr(data["direction"], "frame"):

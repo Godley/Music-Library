@@ -238,7 +238,7 @@ class testHarmony(MeasureTesting):
     def setUp(self):
         MeasureTesting.setUp(self)
         self.tags.append("harmony")
-        MxmlParser.degree = None
+        self.data["degree"] = None
         MxmlParser.frame_note = None
 
 
