@@ -1,8 +1,10 @@
 import sip
 import os, time
 from sys import platform
-if platform == "darwin":
+if platform == "darwin" or platform.startswith("linux"):
     from popplerqt4 import Poppler
+
+
 
 from PyQt4 import QtGui, QtCore, uic
 

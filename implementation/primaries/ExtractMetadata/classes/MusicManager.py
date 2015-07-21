@@ -1,6 +1,4 @@
-import os
-import shutil
-import zipfile
+import os, shutil, sys, zipfile
 from xml.sax._exceptions import *
 
 import requests.exceptions
@@ -148,6 +146,8 @@ class MusicManager(object):
                 "music.db"))
         self.setupFolderBrowser()
         self.script = os.path.join(get_base_dir(), "scripts", "lilypond")
+        if sys.platform.startswith("linux"):
+            self.script = ""
         self.apiManager = ApiManager.ApiManager(folder=self.folder)
 
     def startRenderingTask(self, fname):
