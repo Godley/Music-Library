@@ -18,7 +18,7 @@ document.exitFullscreen = function() {
 	document.fullscreenElement = null;
 	view.showNormal();
 	setTimeout(fullscreenChange, 100);
-}
+};
 
 Element.prototype.requestFullscreen = function() {
 	this.classList.add('fullscreen');

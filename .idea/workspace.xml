@@ -1,109 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="issue fix #305: reorganised and tested drawing obj&#10;&#10;- classes in drawing section are now in 3 diff folders: input, hierarchy, and output as these are the 3 basic sections to the parser.">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/.collections" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classdiagram.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Input/MxmlParser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Input/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/BaseClass.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Clef.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Directions.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Exceptions.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Format.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Harmony.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Key.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Mark.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Measure.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Meta.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Meter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Note.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Ornaments.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Part.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Piece.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/Style.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/ItemClasses/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/TreeClasses/BaseTree.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/TreeClasses/MeasureNode.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/TreeClasses/NoteNode.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/TreeClasses/OtherNodes.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/TreeClasses/PartNode.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/TreeClasses/PieceTree.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/TreeClasses/StaffNode.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/TreeClasses/VoiceNode.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/TreeClasses/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/ObjectHierarchy/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Output/LilypondOutput.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Output/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/classes/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/createTestTable.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/helpers.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/readme.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/run.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/run_inside_pycharm.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/run_passed_tests.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/Testplan.numbers" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testArticulation.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testCheckDynamics.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleDirections.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleMeasures.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandleNotesAndPitches.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testHandlePartsAndPiece.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testOrnaments.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testParser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testRepeatMarks.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testclass.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testlist" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/setup.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testBarlines.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testClef.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testDirections.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testHarmony.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testKey.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testLilypondRun.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMark.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeasure.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeta.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testMeter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testNotations.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testNote.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testOrnaments.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testPart.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testPiece.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testPitch.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testNames.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testPieceTree.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testTree.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/setup.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testAccidentals.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testArpegGliss.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testBarlines.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testBeams.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testBreathMarks.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testClef.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testDurationAndStems.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testDynamics.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testFingering.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testGraceNotes.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testKeySignatures.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testLines.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testMultipleParts.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testNoteheads.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testRepeatMarks.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testText.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testTremolo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testTrillsFermataOtherOrnaments.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testTuplets.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testTwoStavesOnePart.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testUsingXML/testWhatHappensWhenIDoThis.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/implementation/primaries/Drawing/xmlToLilypond.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MusicManager.py" />
+    <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="issue fix #306: moved drawing to another repo&#10;&#10;Drawing objective is now called MuseParse and it's in a whole other repo.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/designer_files/MultiStandWidget.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/GUI/insert_fullscreen.js" afterPath="$PROJECT_DIR$/implementation/primaries/GUI/insert_fullscreen.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -258,20 +158,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MetaParser.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py">
+      <file leaf-file-name="Application.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.034802783" vertical-offset="15" max-vertical-offset="4710">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="4650">
+              <caret line="43" column="44" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="setup_script.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="735">
+              <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="exceptions.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/exceptions.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lilypond_mac.sh" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/lilypond_mac.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.056710776" vertical-offset="0" max-vertical-offset="529">
+              <caret line="2" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
-  </component>
-  <component name="Git.Push.Settings">
-    <option name="myUpdateMethod" value="REBASE" />
   </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
@@ -365,6 +294,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -415,9 +345,78 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="designer_files" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -1130,12 +1129,6 @@
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
     </task>
-    <task id="LOCAL-00630" summary="work toward issue #239&#10;- put in unit tests for MuseScore API class">
-      <created>1428364595437</created>
-      <option name="number" value="00630" />
-      <option name="project" value="LOCAL" />
-      <updated>1428364595437</updated>
-    </task>
     <task id="LOCAL-00631" summary="work toward issue #239&#10;- changed issue #238: all apis must implement just a search function, and optionally searchForExactMatch. Changed because MuseScore automatically does searchForAnyMatch in it's api so I'm guessing others will too.&#10;- implemented search and searchForExactMatch in museScore API class. Not sure how to get downloadFile working, awaiting response from email.">
       <created>1428409018333</created>
       <option name="number" value="00631" />
@@ -1424,7 +1417,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437403629828</updated>
     </task>
-    <option name="localTasksCounter" value="679" />
+    <task id="LOCAL-00679" summary="issue fix #306: moved drawing to another repo&#10;&#10;Drawing objective is now called MuseParse and it's in a whole other repo.">
+      <created>1437408747078</created>
+      <option name="number" value="00679" />
+      <option name="project" value="LOCAL" />
+      <updated>1437408747079</updated>
+    </task>
+    <option name="localTasksCounter" value="680" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1449,30 +1448,30 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32406288" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27083334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32416788" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561505" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40520984" sideWeight="0.115879826" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32648125" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3796856" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32648125" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44498187" sideWeight="0.88412017" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27083334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.58441556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44498187" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32561505" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44498187" sideWeight="0.2638889" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462686" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44498187" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="PlantUML" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297568" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1515,7 +1514,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="threaded loading proceedure&#10;- threading for db procedure and api update&#10;- issue fix #269" />
     <MESSAGE value="threaded querying and rendering&#10;- using qthread on renderer&#10;- still using regular threads on querying so that it's completely realtime: I still don't think this is the right way to achieve this so before open sourcing should look at this bit again. Creating a temporary table and using a model view might be an idea.&#10;- issue #270" />
     <MESSAGE value="issue fix #268&#10;not entirely sure on the problem but deleting the db and starting over fixed it for some reason" />
     <MESSAGE value="added 2 more themes&#10;- included them in the user guide&#10;- retypesetted the fyp&#10;- added conclusion which is now up for review with helen" />
@@ -1540,7 +1538,8 @@
     <MESSAGE value="got rid of a couple of libraries which aren't needed&#10;&#10;and the comment at the top where the globals used to be" />
     <MESSAGE value="work on reorganising drawing objective&#10;&#10;- work on issue #305, need to knock out all the issues with wrong import statements as pycharm didn't catch them all or did them incorrectly in some cases" />
     <MESSAGE value="issue fix #305: reorganised and tested drawing obj&#10;&#10;- classes in drawing section are now in 3 diff folders: input, hierarchy, and output as these are the 3 basic sections to the parser." />
-    <option name="LAST_COMMIT_MESSAGE" value="issue fix #305: reorganised and tested drawing obj&#10;&#10;- classes in drawing section are now in 3 diff folders: input, hierarchy, and output as these are the 3 basic sections to the parser." />
+    <MESSAGE value="issue fix #306: moved drawing to another repo&#10;&#10;Drawing objective is now called MuseParse and it's in a whole other repo." />
+    <option name="LAST_COMMIT_MESSAGE" value="issue fix #306: moved drawing to another repo&#10;&#10;Drawing objective is now called MuseParse and it's in a whole other repo." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1682,11 +1681,69 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="4650">
+          <caret line="43" column="44" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="735">
+          <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/exceptions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/lilypond_mac.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4650">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="206" max-vertical-offset="735">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4710">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file:///usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/lib/python3.4/unittest/mock.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33178654" vertical-offset="11527" max-vertical-offset="34995">
           <caret line="781" column="0" selection-start-line="781" selection-start-column="0" selection-end-line="781" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1694,44 +1751,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26218098" vertical-offset="8557" max-vertical-offset="18915">
           <caret line="581" column="20" selection-start-line="581" selection-start-column="20" selection-end-line="581" selection-end-column="20" />
-          <folding>
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..playlists..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT playl..playlists..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT playl..playlists..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT piece..sources..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..composers..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..lyricists..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..timesigs..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT piece..time_piece_join..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT piece..tempo_piece_join..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..tempos..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT piece..tempo_piece_join..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT sourc..sources..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..instruments..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT piece..instruments_piece_join..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..keys..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT piece..key_piece_join..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..clefs..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT piece..clef_piece_join..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT filen..pieces..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..playlists..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT ROWID..playlists..." />
-            <marker date="1437394478000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..playlist_join..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1739,7 +1759,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33178654" vertical-offset="502" max-vertical-offset="945">
           <caret line="44" column="8" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1751,6 +1770,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6805293" vertical-offset="765" max-vertical-offset="4710">
+          <caret line="75" column="30" selection-start-line="75" selection-start-column="30" selection-end-line="75" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="4650">
+          <caret line="43" column="44" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/setup_script.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="735">
+          <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/exceptions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="431">
@@ -1759,20 +1803,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/Application.py">
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/scripts/lilypond_mac.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48019803" vertical-offset="451" max-vertical-offset="4830">
-          <caret line="43" column="44" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/classes/MetaParser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.034802783" vertical-offset="15" max-vertical-offset="4710">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.056710776" vertical-offset="0" max-vertical-offset="529">
+          <caret line="2" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
