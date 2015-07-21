@@ -1,6 +1,4 @@
-import os
-import shutil
-import zipfile
+import os, shutil, sys, zipfile
 from xml.sax._exceptions import *
 
 import requests.exceptions
@@ -9,7 +7,7 @@ from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaPars
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
 from implementation.primaries.GUI.helpers import get_base_dir
 from MuseParse.classes.Output import LilypondOutput
-from MuseParse.classes.ObjectHierarchy.ItemClasses import Exceptions
+from MuseParse.classes import Exceptions
 from MuseParse.classes.Input import MxmlParser
 
 
@@ -148,6 +146,8 @@ class MusicManager(object):
                 "music.db"))
         self.setupFolderBrowser()
         self.script = os.path.join(get_base_dir(), "scripts", "lilypond")
+        if sys.platform.startswith("linux"):
+            self.script = ""
         self.apiManager = ApiManager.ApiManager(folder=self.folder)
 
     def startRenderingTask(self, fname):

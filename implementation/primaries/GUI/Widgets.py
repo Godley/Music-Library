@@ -266,7 +266,7 @@ class SearchTree(QtGui.QTreeWidget):
         QtGui.QTreeWidget.__init__(self)
         self.main_window = parent
         self.application = self.main_window.qApp
-        design = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "tree_widget.ui")
+        design = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "treeWidget.ui")
         uic.loadUi(design, self)
         self.treeWidget.itemDoubleClicked.connect(self.clicked)
 
