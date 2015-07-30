@@ -4,7 +4,7 @@ from implementation.primaries.GUI.helpers import get_base_dir
 
 
 def setup_lilypond(path=None):
-    defaults = ["/Applications/Lilypond.app/Contents/Resources/bin/lilypond", "C:/Program Files (x86)/LilyPond/usr/bin"]
+    defaults = ["/Applications/Lilypond.app/Contents/Resources/bin/lilypond", os.path.join("C:\\Program Files (x86)", "LilyPond", "usr", "bin")]
 
     if sys.platform == "darwin":
         if path is None:
@@ -30,14 +30,12 @@ def setup_lilypond(path=None):
             win_path = defaults[1]
         else:
             win_path = path
+
         if os.path.exists(win_path):
-            fob = open(os.path.join(get_base_dir(), "scripts", "lilypond_windows.bat"), "r")
-            lines = fob.readlines()
-            new_lines = ["SET FOLD="+win_path, lines[0], lines[1]]
-            fob.close()
-            fob = open("lilypond", "w")
-            fob.writelines(new_lines)
-            fob.close()
-            os.system("icacls lilypond /grant Everyone:F")
+            path_var = os.environ['PATH'].split(";")
+            if win_path not in path_var:
+                path_var.append(win_path)
+                os.environ['PATH'] = ";".join(path_var)
+
         else:
             raise LilypondNotInstalledException('ERROR! Windows edition of Lilypond not in expected folder')

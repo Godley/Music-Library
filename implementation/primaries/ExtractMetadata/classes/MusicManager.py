@@ -148,6 +148,8 @@ class MusicManager(object):
         self.script = os.path.join(get_base_dir(), "scripts", "lilypond")
         if sys.platform.startswith("linux"):
             self.script = ""
+        if sys.platform == "win32":
+            self.script = os.path.join(get_base_dir(), "scripts", "lilypond_windows.bat")
         self.apiManager = ApiManager.ApiManager(folder=self.folder)
 
     def startRenderingTask(self, fname):
@@ -161,8 +163,9 @@ class MusicManager(object):
         errorList = []
         parser = MxmlParser.MxmlParser()
         piece_obj = None
+        path_to_file = os.path.join(self.folder, fname)
         try:
-            piece_obj = parser.parse(os.path.join(self.folder, fname))
+            piece_obj = parser.parse(path_to_file)
         except Exceptions.DrumNotImplementedException as e:
             errorList.append(
                 "Drum tab found in piece: this application does not handle drum tab.")
@@ -173,13 +176,18 @@ class MusicManager(object):
             errorList.append("Sax parser had a problem with this file:"+str(e))
         if piece_obj is not None:
             try:
+                if sys.platform == "win32":
+                    self.script = "lilypond"
                 loader = LilypondOutput.LilypondRenderer(
                     piece_obj,
-                    os.path.join(
-                        self.folder,
-                        fname),
+                    path_to_file,
                 lyscript=self.script)
                 loader.run()
+                pdfpath = fname.split("/")[-1].split(".")[0] + ".pdf"
+                new_path = "/".join(fname.split("/")[:-1])+"/"+pdfpath
+                current = os.path.join(os.getcwd(), pdfpath)
+                if os.path.exists(current):
+                    shutil.copy(current, new_path)
             except BaseException as e:
                 errorList.append(str(e))
         return errorList

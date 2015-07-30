@@ -371,7 +371,10 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.popout.show()
 
     def onPopoutClicked(self):
-        os.system("open "+self.pdf_loaded)
+        if platform != "win32":
+            os.system("open "+self.pdf_loaded)
+        else:
+            os.startfile(self.pdf_loaded)
 
 
     # methods to handle pieces
@@ -387,7 +390,10 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.current_piece = file_to_load
         #self.showToolbarBtns()
         #self.loadPieceData(file_to_load)
-        self.loadPdfToGraphicsWidget(filename)
+        if platform != "win32":
+            self.loadPdfToGraphicsWidget(filename)
+        else:
+            os.startfile(filename)
         #self.loadPdfToWebWidget(filename)
         self.setWindowTitle("MuseLib | Piece: "+file_to_load)
         self.resizeCenterWidget(self.scoreWindow)
