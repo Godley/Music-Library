@@ -12,6 +12,7 @@ class StartupWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         file = os.path.join(get_base_dir(True), "designer_files", "Startup.ui")
         uic.loadUi(file, self)
         self.folderBtn.clicked.connect(self.openFolderDialog)
+        self.removeColBtn.clicked.connect(self.deleteCollection)
         self.collectionListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
         for item in items:
             col_item = QtGui.QListWidgetItem(item)
@@ -21,6 +22,7 @@ class StartupWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
 
     def deleteCollection(self):
         listItems = self.collectionListWidget.selectedItems()
+        print(listItems)
         if not listItems:
             return
         for item in listItems:

@@ -163,7 +163,9 @@ class MusicManager(object):
         errorList = []
         parser = MxmlParser.MxmlParser()
         piece_obj = None
+
         path_to_file = os.path.join(self.folder, fname)
+
         try:
             piece_obj = parser.parse(path_to_file)
         except Exceptions.DrumNotImplementedException as e:
@@ -177,7 +179,8 @@ class MusicManager(object):
         if piece_obj is not None:
             try:
                 if sys.platform == "win32":
-                    self.script = "lilypond"
+                    self.script = ""
+
                 loader = LilypondOutput.LilypondRenderer(
                     piece_obj,
                     path_to_file,
