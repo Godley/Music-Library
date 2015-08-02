@@ -7,27 +7,28 @@ def myRowCalculator(columnCount, total, position):
     column = 0
     rowCount = total / columnCount
     newPos = total - position - 1
-    row = int(newPos/columnCount)
+    row = int(newPos / columnCount)
     column = position % columnCount
     return row, column
+
 
 def getPositionsForWord(position, total, columnCount, direction, length):
     results = [position]
     if direction == 6:
         # north
         for i in range(1, length):
-            newPosition = results[-1]-columnCount
+            newPosition = results[-1] - columnCount
             results.append(newPosition)
 
     if direction == 5:
         # north west
         for i in range(1, length):
-            newPosition = results[-1]-columnCount-1
+            newPosition = results[-1] - columnCount - 1
             results.append(newPosition)
 
     if direction == 7:
-        #north east
+        # north east
         for i in range(1, length):
-            newPosition = results[-1]-columnCount+1
+            newPosition = results[-1] - columnCount + 1
             results.append(newPosition)
     return results

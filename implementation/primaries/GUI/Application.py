@@ -15,6 +15,7 @@ from implementation.primaries.GUI.helpers import get_base_dir
 
 class Application(QtCore.QObject):
     windows = {}
+
     def __init__(self, app):
         QtCore.QObject.__init__(self)
         self.meta = {}
@@ -27,16 +28,16 @@ class Application(QtCore.QObject):
         self.load_windows()
 
     def meta_file(self):
-        options = {"darwin": os.path.join(get_base_dir(), ".metadata"), "win32": "C:/Users/charlottegodley/.metadata",}
+        options = {"darwin": os.path.join(
+            get_base_dir(), ".metadata"), "win32": "C:/Users/charlottegodley/.metadata", }
         if sys.platform.startswith("linux"):
             return os.path.join(get_base_dir(), ".metadata")
         else:
             return options[sys.platform]
 
-
     def start(self):
         if len(self.meta["collections"]) > 0:
-             self.loadFolder(self.meta["collections"][-1])
+            self.loadFolder(self.meta["collections"][-1])
         else:
             self.setup_startup()
 
@@ -97,34 +98,40 @@ class Application(QtCore.QObject):
         col_fob.close()
 
     def load_windows(self):
-        startup = StartupWindow.StartupWindow(self, self.meta["theme"], self.theme_folder)
+        startup = StartupWindow.StartupWindow(
+            self, self.meta["theme"], self.theme_folder)
         self.windows["startup"] = startup
 
-
-        main = MainWindow.MainWindow(self, self.meta["theme"], self.theme_folder)
+        main = MainWindow.MainWindow(
+            self, self.meta["theme"], self.theme_folder)
         self.windows["main"] = main
         self.windows["main"].show()
         self.windows["main"].applyTheme()
         self.windows["main"].hide()
 
-        setup = SetupWindow.SetupWindow(self, self.meta["theme"], self.theme_folder)
+        setup = SetupWindow.SetupWindow(
+            self, self.meta["theme"], self.theme_folder)
         self.windows["setup"] = setup
         self.windows["setup"].show()
         self.windows["setup"].hide()
 
-        self.windows["error"] = renderingErrorPopup.RenderingErrorPopup(self, self.meta["theme"], self.theme_folder)
+        self.windows["error"] = renderingErrorPopup.RenderingErrorPopup(
+            self, self.meta["theme"], self.theme_folder)
         self.windows["error"].show()
         self.windows["error"].hide()
 
-        self.windows["import"] = ImportDialog.ImportDialog(self, self.meta["theme"], self.theme_folder)
+        self.windows["import"] = ImportDialog.ImportDialog(
+            self, self.meta["theme"], self.theme_folder)
         self.windows["import"].show()
         self.windows["import"].hide()
 
-        self.windows["newplaylist"] = PlaylistDialog.PlaylistDialog(self, self.meta["theme"], self.theme_folder)
+        self.windows["newplaylist"] = PlaylistDialog.PlaylistDialog(
+            self, self.meta["theme"], self.theme_folder)
         self.windows["newplaylist"].show()
         self.windows["newplaylist"].hide()
 
-        self.windows["license"] = licensePopup.LicensePopup(self, self.meta["theme"], self.theme_folder)
+        self.windows["license"] = licensePopup.LicensePopup(
+            self, self.meta["theme"], self.theme_folder)
         self.windows["license"].show()
         self.windows["license"].hide()
 
@@ -150,13 +157,17 @@ class Application(QtCore.QObject):
         """
         async = qt_threading.DownloadThread(self, self.manager.downloadFile,
                                             filename)
-        QtCore.QObject.connect(async, QtCore.SIGNAL("fileReady(PyQt_PyObject)"), self.onFileDownload)
-        QtCore.QObject.connect(async, QtCore.SIGNAL("downloadError(bool)"), self.onFileError)
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("fileReady(PyQt_PyObject)"), self.onFileDownload)
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("downloadError(bool)"), self.onFileError)
         async.run()
 
     def loadPieces(self, method="title", slot=None):
-        worker = qt_threading.mythread(self, self.manager.getPieceSummaryStrings, (method,))
-        QtCore.QObject.connect(worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        worker = qt_threading.mythread(
+            self, self.manager.getPieceSummaryStrings, (method,))
+        QtCore.QObject.connect(
+            worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         worker.run()
 
     def setup_startup(self):
@@ -202,11 +213,15 @@ class Application(QtCore.QObject):
         :return: None, thread classes will call the callback above
         """
         data = SearchProcessor.process(input)
-        OfflineThread = qt_threading.QueryThread(self, self.manager.runQueries, (data,), False)
-        QtCore.QObject.connect(OfflineThread, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
+        OfflineThread = qt_threading.QueryThread(
+            self, self.manager.runQueries, (data,), False)
+        QtCore.QObject.connect(OfflineThread, QtCore.SIGNAL(
+            "dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
         OfflineThread.run()
-        OnlineThread = qt_threading.QueryThread(self, self.manager.runQueries, (data,), True)
-        QtCore.QObject.connect(OnlineThread, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
+        OnlineThread = qt_threading.QueryThread(
+            self, self.manager.runQueries, (data,), True)
+        QtCore.QObject.connect(OnlineThread, QtCore.SIGNAL(
+            "dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
         OnlineThread.run()
         # data_queue = queue.Queue()
         # OnlineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
@@ -254,12 +269,13 @@ class Application(QtCore.QObject):
                 self.windows["license"].show()
                 self.windows["license"].load(license, filename)
 
-
             else:
                 render_thread = qt_threading.RenderThread(self, self.manager.startRenderingTask,
-                                                            (filename,), pdf_version)
-                QtCore.QObject.connect(render_thread, QtCore.SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
-                QtCore.QObject.connect(render_thread, QtCore.SIGNAL("renderingError(PyQt_PyObject)"), self.onRenderError)
+                                                          (filename,), pdf_version)
+                QtCore.QObject.connect(render_thread, QtCore.SIGNAL(
+                    "fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
+                QtCore.QObject.connect(render_thread, QtCore.SIGNAL(
+                    "renderingError(PyQt_PyObject)"), self.onRenderError)
                 render_thread.run()
 
     def onRenderError(self, error):
@@ -269,21 +285,22 @@ class Application(QtCore.QObject):
         self.windows["error"].show()
         self.windows["error"].load(errors)
 
-
-
     def getCreatedPlaylists(self, slot=None):
-        async = qt_threading.mythread(self, self.manager.getPlaylistsFromPlaylistTable, ())
-        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async = qt_threading.mythread(
+            self, self.manager.getPlaylistsFromPlaylistTable, ())
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         async.run()
 
     def getPlaylists(self, select_method="all", slot=None):
-        async = qt_threading.mythread(self, self.manager.getPlaylists, (select_method,))
-        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async = qt_threading.mythread(
+            self, self.manager.getPlaylists, (select_method,))
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         async.run()
 
     def getPlaylistFileInfo(self, playlist):
         return self.manager.getPlaylistFileInfo(playlist)
-
 
     def updateDb(self):
         worker = qt_threading.mythread(self, self.manager.refresh, ())
@@ -305,14 +322,12 @@ class Application(QtCore.QObject):
             self.windows[window].applyTheme()
 
 
-
-
 app = QtGui.QApplication(sys.argv)
 application = Application(app)
 application.start()
 # event = QtGui.QMouseEvent(QtCore.QEvent.MouseButtonPress, QtCore.QPoint(0,0), QtCore.Qt.MiddleButton)
 # app.sendEvent(application, event)
-#application.applyTheme()
+# application.applyTheme()
 timer = QtCore.QTimer()
 timer.singleShot(1, application.applyTheme)
 sys.exit(app.exec_())

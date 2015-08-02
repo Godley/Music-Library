@@ -513,7 +513,8 @@ class TestDataLayerUserQueries(unittest.TestCase):
             [{"name": "flute", "transposition": {"diatonic": 0, "chromatic": 0}}])
         self.assertEqual(["file.xml"],
                          self.data.getPieceByInstrumentsOrSimilar([{"name": "flute"},
-                                                                   {"name": "clarinet"},
+                                                                   {"name":
+                                                                       "clarinet"},
                                                                    {"name": "trumpet",
                                                                     "transposition": {"diatonic": 1,
                                                                                       "chromatic": 2,
@@ -1219,7 +1220,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
         self.data.addPiece("file.xml", {
                            "title": "blabla",
                            "source": "MuseScore",
-                           "tempo": [{"beat": "quarter", "minute":100}]})
+                           "tempo": [{"beat": "quarter", "minute": 100}]})
         result_set = self.data.getPieceByTempo(["quarter=100"], online=True)
         self.assertEqual(result_set, ['file.xml'])
 
@@ -1228,7 +1229,8 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                            "title": "blabla",
                            "source": "MuseScore",
                            "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPieceByInstrumentsOrSimilar([{"name": "Clarinet"}])
+        result_set = self.data.getPieceByInstrumentsOrSimilar(
+            [{"name": "Clarinet"}])
         self.assertEqual(result_set, [])
 
     def testGetPieceByInstrumentsOrSimilarOnline(self):
@@ -1236,7 +1238,8 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                            "title": "blabla",
                            "source": "MuseScore",
                            "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPieceByInstrumentsOrSimilar([{"name": "Clarinet"}], online=True)
+        result_set = self.data.getPieceByInstrumentsOrSimilar(
+            [{"name": "Clarinet"}], online=True)
         self.assertEqual(result_set, ['file.xml'])
 
     def testGetPieceSource(self):
@@ -1255,4 +1258,3 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
         self.data.downloadPiece("file.xml")
         result = self.data.getPieceSource("file.xml")
         self.assertEqual(result, None)
-

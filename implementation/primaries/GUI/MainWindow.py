@@ -1,9 +1,9 @@
 import sip
-import os, time
+import os
+import time
 from sys import platform
 if platform == "darwin" or platform.startswith("linux"):
     from popplerqt4 import Poppler
-
 
 
 from PyQt4 import QtGui, QtCore, uic
@@ -19,6 +19,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
     widgets = {}
     frames = {}
     colors = {}
+
     def __init__(self, app, theme, theme_folder):
         QtGui.QMainWindow.__init__(self)
         themedWindow.ThemedWindow.__init__(self, theme, theme_folder)
@@ -33,14 +34,16 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
     def resizeEvent(self, QResizeEvent):
         if hasattr(self, "scoreWindow"):
             if not self.scoreWindow.isHidden():
-                widgetSize = (self.scoreWindow.width(), self.scoreWindow.height())
+                widgetSize = (
+                    self.scoreWindow.width(), self.scoreWindow.height())
                 self.resizeCenterWidget(self.scoreWindow)
                 self.resizePages(widgetSize)
         if hasattr(self, "playlistTable"):
             if not self.playlistTable.isHidden():
                 self.resizeCenterWidget(self.playlistTable)
                 for i in range(10):
-                    self.playlistTable.setColumnWidth(i, self.playlistTable.width()/9)
+                    self.playlistTable.setColumnWidth(
+                        i, self.playlistTable.width() / 9)
         if hasattr(self, "searchBar"):
             self.resizeSearchbar()
         QResizeEvent.accept()
@@ -57,8 +60,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         item.setGeometry(position.x(), position.y(), width, height)
 
     def resizePages(self, size):
-        percentWidth = self.scoreWindow.width()/size[0]
-        percentHeight = self.scoreWindow.height()/size[1]
+        percentWidth = self.scoreWindow.width() / size[0]
+        percentHeight = self.scoreWindow.height() / size[1]
         self.scoreWindow.scale(percentWidth, percentHeight)
 
     def resizeSearchbar(self):
@@ -69,7 +72,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         search_position = self.searchBar.pos()
         search_width = self.width()
         search_height = self.searchBar.height()
-        self.searchBar.setGeometry(search_position.x(), search_position.y(), search_width, search_height)
+        self.searchBar.setGeometry(
+            search_position.x(), search_position.y(), search_width, search_height)
 
     def closeEvent(self, QCloseEvent):
         self.hide()
@@ -77,7 +81,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         QCloseEvent.accept()
 
     def load(self):
-        file = os.path.join(get_base_dir(True), "designer_files", "MainWindow.ui")
+        file = os.path.join(
+            get_base_dir(True), "designer_files", "MainWindow.ui")
         uic.loadUi(file, self)
         self.setGeometry(0, 0, self.width(), self.height())
         self.widgets["scorebook"] = Widgets.Scorebook
@@ -93,7 +98,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.widgets["search"] = Widgets.SearchTree(self)
         layout = self.searchFrame.layout()
         layout.addWidget(self.widgets["search"])
-        self.searchFrame.setGeometry(self.searchFrame.pos().x(), self.searchFrame.pos().y(), self.widgets["search"].width(), self.widgets["search"].height())
+        self.searchFrame.setGeometry(self.searchFrame.pos().x(), self.searchFrame.pos(
+        ).y(), self.widgets["search"].width(), self.widgets["search"].height())
         self.scorebookBtn.clicked.connect(self.scorebook)
         self.myPlaylistBtn.clicked.connect(self.myplaylist)
         self.autoPlaylistBtn.clicked.connect(self.autoplaylist)
@@ -105,8 +111,10 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.searchInput.editingFinished.connect(self.finished)
         self.contentFrame.setGeometry(0, 0, 10, 10)
         self.contentFrame.hide()
-        self.searchBar.setGeometry(self.searchBar.pos().x(), self.searchBar.pos().y(), self.width(), self.searchBar.height())
-        self.centralWidget().setStyleSheet("QWidget#centralwidget {border-image:url(alternatives/sheet-music-texture.png) 0 0 stretch stretch;}")
+        self.searchBar.setGeometry(self.searchBar.pos().x(
+        ), self.searchBar.pos().y(), self.width(), self.searchBar.height())
+        self.centralWidget().setStyleSheet(
+            "QWidget#centralwidget {border-image:url(alternatives/sheet-music-texture.png) 0 0 stretch stretch;}")
         self.actionUbuntu.triggered.connect(self.ubuntu)
         self.actionCandy.triggered.connect(self.candy)
         self.searchFrame.hide()
@@ -121,9 +129,10 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.zoomOutBtn.clicked.connect(self.zoomOut)
         self.popoutBtn.clicked.connect(self.onPopoutClicked)
         self.multistndBtn.clicked.connect(self.onMultistandClicked)
-        #self.scoreWebView.hide()
+        # self.scoreWebView.hide()
         self.playlistTable.hide()
-        self.playlistTable.itemDoubleClicked.connect(self.onPlaylistItemClicked)
+        self.playlistTable.itemDoubleClicked.connect(
+            self.onPlaylistItemClicked)
 
         self.actionRefresh_Collection.triggered.connect(self.qApp.updateDb)
         self.actionNew_Collection.triggered.connect(self.newCollection)
@@ -139,7 +148,6 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.scoreWindow.scale(0.9, 0.9)
         pass
 
-
     def mousePressEvent(self, QMouseEvent):
         if not self.themeSet:
             self.applyTheme()
@@ -151,7 +159,6 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
             self.themeSet = True
             self.applyTheme()
         QFocusEvent.accept()
-
 
     def candy(self):
         """
@@ -171,7 +178,6 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.qApp.updateTheme("ubuntu")
         self.applyTheme()
 
-
     # methods which handle querying
     def updateOptions(self):
         text = self.searchInput.text()
@@ -189,13 +195,9 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         :return:
         """
 
-
-
         self.widgets["search"].load(results)
         self.widgets["search"].show()
         self.searchFrame.show()
-
-
 
     def finished(self):
         """
@@ -203,7 +205,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         :return:
         """
         widget = self.focusWidget()
-        print((self.searchInput.text() == "" or self.searchInput.text() == " "))
+        print(
+            (self.searchInput.text() == "" or self.searchInput.text() == " "))
         print(self.widgets["search"].topLevelItemCount() == 0)
         if (self.searchInput.text() == "" or self.searchInput.text() == " ") or widget.objectName() != "treeWidget":
             try:
@@ -223,15 +226,17 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.scoreWindow.hide()
         self.playlistTable.setRowCount(length)
         file_data = self.qApp.getPlaylistFileInfo(playlist_to_load)
-        data_items = self.setUpDataItems(playlist_to_load, file_data, 0, len(file_data))
+        data_items = self.setUpDataItems(
+            playlist_to_load, file_data, 0, len(file_data))
         for i in range(len(data_items)):
             for j in range(len(data_items[i])):
                 self.playlistTable.setItem(i, j, data_items[i][j])
-        self.setWindowTitle("MuseLib | Playlist: "+playlist_title)
+        self.setWindowTitle("MuseLib | Playlist: " + playlist_title)
         self.playlistTable.show()
         self.playlistTable.lower()
         for i in range(10):
-            self.playlistTable.setColumnWidth(i, self.playlistTable.width()/9)
+            self.playlistTable.setColumnWidth(
+                i, self.playlistTable.width() / 9)
         self.playlist = playlist_title
         self.resizeCenterWidget(self.playlistTable)
 
@@ -274,7 +279,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
                 row.append(item)
 
             if "instruments" in file:
-                item = QtGui.QTableWidgetItem(", ".join([data["name"] for data in file["instruments"]]))
+                item = QtGui.QTableWidgetItem(
+                    ", ".join([data["name"] for data in file["instruments"]]))
                 item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
@@ -339,7 +345,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
                 row.append(item)
 
             if "time_signatures" in file:
-                item = QtGui.QTableWidgetItem(", ".join(file["time_signatures"]))
+                item = QtGui.QTableWidgetItem(
+                    ", ".join(file["time_signatures"]))
                 item.setData(32, file["filename"])
                 item.setData(3, i)
                 item.setData(4, playlist_fnames)
@@ -366,13 +373,13 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.qApp.loadFile(current_item.data(32))
 
     def onMultistandClicked(self):
-        self.popout = MultistandWidget.MultistandWidget(self.pdf_loaded, self.folder, self.theme)
+        self.popout = MultistandWidget.MultistandWidget(
+            self.pdf_loaded, self.folder, self.theme)
         self.popout.applyTheme()
         self.popout.show()
 
     def onPopoutClicked(self):
-        os.system("open "+self.pdf_loaded)
-
+        os.system("open " + self.pdf_loaded)
 
     # methods to handle pieces
     def onPieceLoaded(self, filename, split_file):
@@ -383,13 +390,13 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         :return:
         """
         self.pdf_loaded = filename
-        file_to_load = split_file.split(".")[0]+".xml"
+        file_to_load = split_file.split(".")[0] + ".xml"
         self.current_piece = file_to_load
-        #self.showToolbarBtns()
-        #self.loadPieceData(file_to_load)
+        # self.showToolbarBtns()
+        # self.loadPieceData(file_to_load)
         self.loadPdfToGraphicsWidget(filename)
-        #self.loadPdfToWebWidget(filename)
-        self.setWindowTitle("MuseLib | Piece: "+file_to_load)
+        # self.loadPdfToWebWidget(filename)
+        self.setWindowTitle("MuseLib | Piece: " + file_to_load)
         self.resizeCenterWidget(self.scoreWindow)
         self.scoreWindow.show()
         self.scoreWindow.lower()
@@ -397,9 +404,9 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.popoutBtn.show()
         self.zoomInBtn.show()
         self.zoomOutBtn.show()
-        #self.loadFeaturedIn(file_to_load)
-        #self.playlistViewer.hide()
-        #self.pieceInfoWidget.show()
+        # self.loadFeaturedIn(file_to_load)
+        # self.playlistViewer.hide()
+        # self.pieceInfoWidget.show()
 
     def loadPdfToGraphicsWidget(self, filename):
         """
@@ -411,11 +418,10 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         scene = QtGui.QGraphicsScene()
         scene.setBackgroundBrush(QtGui.QColor('transparent'))
         layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Vertical)
-        layout.setContentsMargins(0,0,0,0)
+        layout.setContentsMargins(0, 0, 0, 0)
         doc = Poppler.Document.load(filename)
         doc.setRenderHint(Poppler.Document.Antialiasing)
         doc.setRenderHint(Poppler.Document.TextAntialiasing)
-
 
         pageNum = doc.numPages()
         number = 0
@@ -434,10 +440,12 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
             images.append(pages[number].renderToImage(100, 100))
             pixmaps.append(QtGui.QPixmap.fromImage(images[number]))
             containers.append(QtGui.QLabel())
-            containers[number].setFixedWidth(self.scoreWindow.width()/2)
-            containers[number].setFixedHeight(pages[number].pageSize().height())
-            #containers[number].setFixedSize(pages[number].pageSize())
-            containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+            containers[number].setFixedWidth(self.scoreWindow.width() / 2)
+            containers[number].setFixedHeight(
+                pages[number].pageSize().height())
+            # containers[number].setFixedSize(pages[number].pageSize())
+            containers[number].setStyleSheet(
+                "pages[number] { background-color : transparent}")
             containers[number].setContentsMargins(0, 0, 0, 0)
             containers[number].setScaledContents(True)
             containers[number].setPixmap(pixmaps[number])
@@ -449,27 +457,30 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
                 images.append(pages[number].renderToImage(100, 100))
                 pixmaps.append(QtGui.QPixmap.fromImage(images[number]))
                 containers.append(QtGui.QLabel())
-                containers[number].setFixedWidth(self.scoreWindow.width()/2)
-                containers[number].setFixedHeight(pages[number].pageSize().height())
-                #containers[number].setFixedSize(pages[number].pageSize())
-                containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+                containers[number].setFixedWidth(self.scoreWindow.width() / 2)
+                containers[number].setFixedHeight(
+                    pages[number].pageSize().height())
+                # containers[number].setFixedSize(pages[number].pageSize())
+                containers[number].setStyleSheet(
+                    "pages[number] { background-color : transparent}")
                 containers[number].setContentsMargins(0, 0, 0, 0)
                 containers[number].setScaledContents(True)
                 containers[number].setPixmap(pixmaps[number])
-                labels.append(scenes[number-1].addWidget(containers[number]))
-                pairings[number-1].addItem(labels[number])
+                labels.append(scenes[number - 1].addWidget(containers[number]))
+                pairings[number - 1].addItem(labels[number])
 
             else:
                 containers.append(QtGui.QLabel())
-                containers[number].setFixedSize(pages[number-1].pageSize())
-                containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+                containers[number].setFixedSize(pages[number - 1].pageSize())
+                containers[number].setStyleSheet(
+                    "pages[number] { background-color : transparent}")
                 containers[number].setContentsMargins(0, 0, 0, 0)
                 containers[number].setScaledContents(True)
                 pixmaps.append(QtGui.QPixmap())
                 containers[number].setPixmap(pixmaps[number])
-                labels.append(scenes[number-1].addWidget(containers[number]))
-                pairings[number-1].addItem(labels[number])
-            layout.addItem(pairings[number-1])
+                labels.append(scenes[number - 1].addWidget(containers[number]))
+                pairings[number - 1].addItem(labels[number])
+            layout.addItem(pairings[number - 1])
             number += 1
 
         # use this to test that the layout works for more than 2 pages
@@ -546,8 +557,6 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         else:
             self.unloadFrame("featured")
 
-
-
     # methods to handle loading frames
     def loadFrame(self, child, ypos=72):
         """
@@ -558,7 +567,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         """
         position = self.contentFrame.pos()
         widget = self.widgets[child](self)
-        endx = self.buttonFrame.width()-1
+        endx = self.buttonFrame.width() - 1
         endy = position.y()
         endwidth = widget.width()
         layout = self.contentFrame.layout()
@@ -577,12 +586,14 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         layout.setSpacing(0)
         layout.setMargin(0)
         layout.addWidget(widget)
-        fob = open(os.path.join(get_base_dir(True), "themes", "basic_widget.qss"), 'r')
+        fob = open(
+            os.path.join(get_base_dir(True), "themes", "basic_widget.qss"), 'r')
         lines = fob.readlines()
         fob.close()
         stylesheet = []
         if child in self.colors:
-            background = "QFrame#contentFrame { background:"+self.colors[child]+";}"
+            background = "QFrame#contentFrame { background:" + \
+                self.colors[child] + ";}"
             stylesheet.append(background)
 
         stylesheet.extend(lines)
@@ -596,8 +607,10 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.playlistTable.lower()
         animation = QtCore.QPropertyAnimation(self.contentFrame, "geometry")
         animation.setDuration(200)
-        animation.setStartValue(QtCore.QRect(0, ypos, self.buttonFrame.width(), self.buttonFrame.height()))
-        animation.setEndValue(QtCore.QRect(endx, ypos, endwidth, self.buttonFrame.height()))
+        animation.setStartValue(
+            QtCore.QRect(0, ypos, self.buttonFrame.width(), self.buttonFrame.height()))
+        animation.setEndValue(
+            QtCore.QRect(endx, ypos, endwidth, self.buttonFrame.height()))
         animation.start()
         self.animation = animation
         self.loaded = child
@@ -612,12 +625,14 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         endx = 0
         endy = position.y()
         endwidth = self.buttonFrame.width()
-        #self.contentFrame.lower()
+        # self.contentFrame.lower()
 
         animation = QtCore.QPropertyAnimation(self.contentFrame, "geometry")
         animation.setDuration(200)
-        animation.setStartValue(QtCore.QRect(position.x(), position.y(), self.contentFrame.width(), self.contentFrame.height()))
-        animation.setEndValue(QtCore.QRect(endx, endy, endwidth, self.contentFrame.height()))
+        animation.setStartValue(QtCore.QRect(
+            position.x(), position.y(), self.contentFrame.width(), self.contentFrame.height()))
+        animation.setEndValue(
+            QtCore.QRect(endx, endy, endwidth, self.contentFrame.height()))
         animation.start()
         self.animation = animation
         self.loaded = ""
@@ -632,14 +647,15 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.close()
 
     def getCreatedPlaylists(self, slot=None):
-        async = qt_threading.mythread(self, self.manager.getPlaylistsFromPlaylistTable, ())
-        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async = qt_threading.mythread(
+            self, self.manager.getPlaylistsFromPlaylistTable, ())
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         async.run()
 
     def getPlaylists(self, select_method="all", slot=None):
-        async = qt_threading.mythread(self, self.manager.getPlaylists, (select_method,))
-        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async = qt_threading.mythread(
+            self, self.manager.getPlaylists, (select_method,))
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         async.run()
-
-
-

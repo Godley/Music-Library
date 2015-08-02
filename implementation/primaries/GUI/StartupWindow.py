@@ -2,7 +2,10 @@ from PyQt4 import uic, QtGui
 from implementation.primaries.GUI.helpers import get_base_dir
 import os
 from implementation.primaries.GUI import themedWindow
+
+
 class StartupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
+
     def __init__(self, app, theme, themes):
         super().__init__()
         self.qApp = app
@@ -13,7 +16,8 @@ class StartupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
         uic.loadUi(file, self)
 
         self.folderBtn.clicked.connect(self.openFolderDialog)
-        self.collectionListWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
+        self.collectionListWidget.itemDoubleClicked.connect(
+            self.onItemDoubleClicked)
         for item in items:
             col_item = QtGui.QListWidgetItem(item)
             col_item.setData(1, item)

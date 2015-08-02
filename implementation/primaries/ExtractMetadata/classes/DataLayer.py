@@ -1290,10 +1290,11 @@ class MusicData(object):
             if type(name) == str:
                 key = self.getInstrumentId(name, cursor)
             else:
-                key = self.getInstrumentId(name["name"],cursor)
+                key = self.getInstrumentId(name["name"], cursor)
             if key is not None:
                 instrument_keys.append((name, key))
-        results = self.getPiecesByInstruments([instrument["name"] for instrument in instruments])
+        results = self.getPiecesByInstruments(
+            [instrument["name"] for instrument in instruments])
         if len(results) == 0:
             alternates = [
                 (item,

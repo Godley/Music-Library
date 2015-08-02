@@ -1,10 +1,13 @@
-import sys, os
+import sys
+import os
 from implementation.primaries.exceptions import LilypondNotInstalledException
 from implementation.primaries.GUI.helpers import get_base_dir
 from MuseParse.helpers import setup_lilypond
 
+
 def do_setup(path=None):
-    defaults = ["/Applications/Lilypond.app/Contents/Resources/bin", "C:/Program Files (x86)/LilyPond/usr/bin"]
+    defaults = ["/Applications/Lilypond.app/Contents/Resources/bin",
+                "C:/Program Files (x86)/LilyPond/usr/bin"]
     filepath = None
     lpond_path = None
     if sys.platform == "darwin":
@@ -23,4 +26,5 @@ def do_setup(path=None):
     if filepath is not None and os.path.exists(filepath):
         setup_lilypond(lpond_path)
     else:
-        raise LilypondNotInstalledException('ERROR! Windows edition of Lilypond not in expected folder')
+        raise LilypondNotInstalledException(
+            'ERROR! Windows edition of Lilypond not in expected folder')

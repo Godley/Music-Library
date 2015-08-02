@@ -3,24 +3,27 @@ Classes dealing with the MuseScore community api
 '''
 from implementation.primaries.ImportOnlineDBs.classes.API import Api
 from implementation.primaries.GUI.helpers import get_base_dir
-import requests, os, shutil
+import requests
+import os
+import shutil
+
 
 class MuseScoreApi(Api):
 
     def __init__(self, folder=""):
         Api.__init__(self, folder=folder)
         self.key = self.getKey()
-        self.params = {'oauth_consumer_key':self.key}
+        self.params = {'oauth_consumer_key': self.key}
         self.endpoint = 'http://api.musescore.com/services/rest/score.json'
         self.download_endpoint = 'http://static.musescore.com/'
-        self.ignored_tags = ["movement-title","work-title","creator"]
+        self.ignored_tags = ["movement-title", "work-title", "creator"]
 
     def getKey(self):
         '''
         method to fetch the API key. SHOULD NOT be just a string, this part is temporary
         :return: api key
         '''
-        file = open(os.path.join(get_base_dir(), 'Keys','mscore'), 'r')
+        file = open(os.path.join(get_base_dir(), 'Keys', 'mscore'), 'r')
         line = file.readline()
         return line
 
@@ -60,14 +63,14 @@ class MuseScoreApi(Api):
         :param type: the file extension to download
         :return: status code of request
         '''
-        endpoint = self.download_endpoint+str(fname)+"/"+str(secret)+"/score."+type
+        endpoint = self.download_endpoint + \
+            str(fname) + "/" + str(secret) + "/score." + type
         request = requests.get(endpoint, stream=True)
         if request.status_code == 200:
-            with open(os.path.join(self.folder, str(fname)+"."+type), 'wb') as f:
+            with open(os.path.join(self.folder, str(fname) + "." + type), 'wb') as f:
                 request.raw.decode_content = True
                 shutil.copyfileobj(request.raw, f)
         return request.status_code
-
 
     def searchForExactMatch(self, filters):
         '''
@@ -81,10 +84,10 @@ class MuseScoreApi(Api):
         for filter in filters:
             params = self.params
             for value in filters[filter]:
-                params.update({filter:value})
+                params.update({filter: value})
                 request = requests.get(self.endpoint, params=params)
                 response = request.json()
-                current_response = {r["id"]:r for r in response}
+                current_response = {r["id"]: r for r in response}
                 data.update(current_response)
                 response_ids = [r["id"] for r in response]
                 collection.append(set(response_ids))
@@ -102,10 +105,9 @@ class MuseScoreApi(Api):
         for filter in filters:
             params = self.params
             for value in filters[filter]:
-                params.update({filter:value})
+                params.update({filter: value})
                 request = requests.get(self.endpoint, params=params)
                 response = request.json()
                 collection[value] = response
 
         return collection
-

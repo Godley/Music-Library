@@ -1,7 +1,9 @@
 import os
 from implementation.primaries.GUI.helpers import parseStyle
 
+
 class ThemedWindow(object):
+
     def __init__(self, theme, themes_folder):
         self.theme = theme
         self.folder = themes_folder

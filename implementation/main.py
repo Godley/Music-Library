@@ -1,8 +1,12 @@
 from PyQt4 import QtCore, QtGui
-import sys, os, pickle, queue
+import sys
+import os
+import pickle
+import queue
 from threading import Lock
 from xml.sax._exceptions import *
-import os, sip
+import os
+import sip
 from PyQt4 import QtXml
 from implementation.primaries.GUI.helpers import get_base_dir
 from implementation.primaries.scripts.setup_script import setup_lilypond
@@ -13,6 +17,7 @@ from implementation.primaries.ExtractMetadata.classes import MusicManager, Searc
 
 class Application(QtCore.QObject):
     windows = {}
+
     def __init__(self, parent):
         QtCore.QObject.__init__(self)
         self.parent = parent
@@ -45,7 +50,7 @@ class Application(QtCore.QObject):
         self.windows["playlist"].load()
         self.windows["playlist"].show()
         self.windows["playlist"].hide()
-        #self.windows["import"].load()
+        # self.windows["import"].load()
         self.windows["import"].show()
         self.windows["import"].hide()
         self.windows["error"].load([])
@@ -55,15 +60,12 @@ class Application(QtCore.QObject):
         self.windows["license"].show()
         self.windows["license"].hide()
 
-
     def show_start(self):
         self.windows["startup"].show()
         self.windows["startup"].load(self.previous_collections)
 
     def show_playlist(self):
         self.windows["playlist"].show()
-
-
 
     def setup_windows(self):
         startup = StartupWidget.StartupWindow(self)
@@ -76,11 +78,12 @@ class Application(QtCore.QObject):
         setup = SetupWindow.SetupWindow(self)
         self.windows["setup"] = setup
 
-        self.windows["playlist"] = PlaylistDialog.PlaylistDialog(self, self.theme)
+        self.windows["playlist"] = PlaylistDialog.PlaylistDialog(
+            self, self.theme)
         self.windows["import"] = ImportDialog.ImportDialog(self, self.theme)
-        self.windows["error"] = renderingErrorPopup.RenderingErrorPopup(self, self.theme)
+        self.windows["error"] = renderingErrorPopup.RenderingErrorPopup(
+            self, self.theme)
         self.windows["license"] = licensePopup.LicensePopup(self, self.theme)
-
 
     def setUp(self):
         try:
@@ -130,8 +133,6 @@ class Application(QtCore.QObject):
         self.windows["main"].show()
         self.windows["main"].runLoadingProcedure()
 
-
-
     def getPlaylistFileInfo(self, playlist):
         return self.manager.getPlaylistFileInfo(playlist)
 
@@ -142,8 +143,6 @@ class Application(QtCore.QObject):
     def loadUserPlaylistsForAGivenFile(self, filename):
         data = self.manager.getPlaylistByFilename(filename)
         return data
-
-
 
     def onRenderError(self, error):
         self.errorPopup([str(error)])
@@ -164,8 +163,10 @@ class Application(QtCore.QObject):
         """
         async = qt_threading.DownloadThread(self, self.manager.downloadFile,
                                             filename)
-        QtCore.QObject.connect(async, QtCore.SIGNAL("fileReady(PyQt_PyObject)"), self.onFileDownload)
-        QtCore.QObject.connect(async, QtCore.SIGNAL("downloadError(bool)"), self.onFileError)
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("fileReady(PyQt_PyObject)"), self.onFileDownload)
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("downloadError(bool)"), self.onFileError)
         async.run()
 
     def onRenderTaskFinished(self, errorList, filename=""):
@@ -206,14 +207,12 @@ class Application(QtCore.QObject):
                 self.windows["license"].exec()
             else:
                 render_thread = qt_threading.RenderThread(self, self.manager.startRenderingTask,
-                                                            (filename,), pdf_version)
-                QtCore.QObject.connect(render_thread, QtCore.SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
-                QtCore.QObject.connect(render_thread, QtCore.SIGNAL("renderingError(PyQt_PyObject)"), self.onRenderError)
+                                                          (filename,), pdf_version)
+                QtCore.QObject.connect(render_thread, QtCore.SIGNAL(
+                    "fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
+                QtCore.QObject.connect(render_thread, QtCore.SIGNAL(
+                    "renderingError(PyQt_PyObject)"), self.onRenderError)
                 render_thread.run()
-
-
-
-
 
     def copyFiles(self, fnames):
         self.manager.copyFiles(fnames)
@@ -263,22 +262,21 @@ class Application(QtCore.QObject):
         :return: None, thread classes will call the callback above
         """
         data = SearchProcessor.process(input)
-        OfflineThread = qt_threading.QueryThread(self, self.manager.runQueries, (data,), False)
-        QtCore.QObject.connect(OfflineThread, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
+        OfflineThread = qt_threading.QueryThread(
+            self, self.manager.runQueries, (data,), False)
+        QtCore.QObject.connect(OfflineThread, QtCore.SIGNAL(
+            "dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
         OfflineThread.run()
-        OnlineThread = qt_threading.QueryThread(self, self.manager.runQueries, (data,), True)
-        QtCore.QObject.connect(OnlineThread, QtCore.SIGNAL("dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
+        OnlineThread = qt_threading.QueryThread(
+            self, self.manager.runQueries, (data,), True)
+        QtCore.QObject.connect(OnlineThread, QtCore.SIGNAL(
+            "dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
         OnlineThread.run()
         # data_queue = queue.Queue()
         # OnlineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
         #                                                   self.onQueryComplete,
         #     data_queue, (data,), kwargs={"online": True})
         # OnlineThread.execute()
-
-
-
-
-
 
     def updateDb(self):
         worker = qt_threading.mythread(self, self.manager.refresh, ())
@@ -295,10 +293,12 @@ class Application(QtCore.QObject):
         self.windows["main"].onScorebookLoad(summary_strings)
 
     def loadPieces(self, method="title", slot=None):
-        worker = qt_threading.mythread(self, self.manager.getPieceSummaryStrings, (method,))
+        worker = qt_threading.mythread(
+            self, self.manager.getPieceSummaryStrings, (method,))
         if slot is None:
             slot = self.onPiecesLoad
-        QtCore.QObject.connect(worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        QtCore.QObject.connect(
+            worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         worker.run()
 
     def onPlaylistsLoad(self, data):
@@ -308,17 +308,18 @@ class Application(QtCore.QObject):
         self.windows["main"].onMyPlaylistsReady(data)
 
     def getPlaylists(self, select_method="all"):
-        async = qt_threading.mythread(self, self.manager.getPlaylists, (select_method,))
-        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), self.onPlaylistsLoad)
+        async = qt_threading.mythread(
+            self, self.manager.getPlaylists, (select_method,))
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), self.onPlaylistsLoad)
         async.run()
 
     def getCreatedPlaylists(self):
-        async = qt_threading.mythread(self, self.manager.getPlaylistsFromPlaylistTable, ())
-        QtCore.QObject.connect(async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), self.onUserPlaylistsLoad)
+        async = qt_threading.mythread(
+            self, self.manager.getPlaylistsFromPlaylistTable, ())
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), self.onUserPlaylistsLoad)
         async.run()
-
-
-
 
     def removePlaylists(self, playlists):
         self.manager.deletePlaylists(playlists)
@@ -335,4 +336,3 @@ if __name__ == "__main__":
     application = Application(app)
     application.start()
     sys.exit(app.exec_())
-

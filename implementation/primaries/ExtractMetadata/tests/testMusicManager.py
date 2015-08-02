@@ -332,5 +332,4 @@ class TestMusicManager(unittest.TestCase):
         val = os.listdir(self.folder)
         for file in val:
             if file not in files:
-                os.remove(os.path.join(self.folder,file))
-
+                os.remove(os.path.join(self.folder, file))

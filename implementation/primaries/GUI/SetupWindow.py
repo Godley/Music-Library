@@ -8,28 +8,26 @@ import os
 from implementation.primaries.GUI import themedWindow
 
 
-
-
 class SetupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
 
     def __init__(self, parent, theme, themes):
         self.parent = parent
         QtGui.QDialog.__init__(self)
         themedWindow.ThemedWindow.__init__(self, theme, themes)
-        designer_file = os.path.join(get_base_dir(return_this_dir=True), 'designer_files', 'SetupWindow.ui')
+        designer_file = os.path.join(
+            get_base_dir(return_this_dir=True), 'designer_files', 'SetupWindow.ui')
         uic.loadUi(designer_file, self)
         self.refreshBtn.clicked.connect(self.refresh)
         self.browseBtn.clicked.connect(self.browse)
-
 
     def refresh(self):
         try:
             setup_script.setup_lilypond()
             self.hide()
         except LilypondNotInstalledException as e:
-            messageBox = MessageBox.MessageBox(parent=self, message="Lilypond was not found", title="Lilypond error, default install")
+            messageBox = MessageBox.MessageBox(
+                parent=self, message="Lilypond was not found", title="Lilypond error, default install")
             messageBox.show()
-
 
     def browse(self):
         path, filter = QFileDialog.getOpenFileNameAndFilter(
@@ -42,5 +40,6 @@ class SetupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
             fob.close()
             self.hide()
         except LilypondNotInstalledException as e:
-             messageBox = MessageBox.MessageBox(parent=self, message="Lilypond was not found", title="Lilypond error, custom install")
-             messageBox.show()
+            messageBox = MessageBox.MessageBox(
+                parent=self, message="Lilypond was not found", title="Lilypond error, custom install")
+            messageBox.show()

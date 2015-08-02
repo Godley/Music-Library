@@ -4,7 +4,9 @@ If methods are not implemented and should be, the dev will know because it tips 
 see the MuseScore api class.
 '''
 
+
 class Api(object):
+
     def __init__(self, folder=""):
         self.folder = folder
 

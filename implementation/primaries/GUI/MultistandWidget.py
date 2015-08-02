@@ -1,4 +1,5 @@
-import sip, os
+import sip
+import os
 from sys import platform
 if platform == "darwin":
     from popplerqt4 import Poppler
@@ -12,19 +13,21 @@ from implementation.primaries.GUI import qt_threading
 
 
 class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
-    def __init__(self, file,theme_folder, theme):
+
+    def __init__(self, file, theme_folder, theme):
         QtGui.QWidget.__init__(self)
         themedWindow.ThemedWindow.__init__(self, theme, theme_folder)
         self.pages = 2
         self.file = file
         self.load()
         self.loadPdfToGraphicsWidget(file)
-        self.move(0,0)
+        self.move(0, 0)
 
     def load(self):
-        design_file = os.path.join(get_base_dir(True), "designer_files", "MultiStandWidget.ui")
+        design_file = os.path.join(
+            get_base_dir(True), "designer_files", "MultiStandWidget.ui")
         uic.loadUi(design_file, self)
-        self.setWindowTitle("MuseLib Multistand View: "+self.file)
+        self.setWindowTitle("MuseLib Multistand View: " + self.file)
         self.pageValue.valueChanged.connect(self.pageValChanged)
         self.zoomInBtn.clicked.connect(self.zoomIn)
         self.zoomOutBtn.clicked.connect(self.zoomOut)
@@ -47,11 +50,10 @@ class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
         scene = QtGui.QGraphicsScene()
         scene.setBackgroundBrush(QtGui.QColor('transparent'))
         layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Vertical)
-        layout.setContentsMargins(0,0,0,0)
+        layout.setContentsMargins(0, 0, 0, 0)
         doc = Poppler.Document.load(filename)
         doc.setRenderHint(Poppler.Document.Antialiasing)
         doc.setRenderHint(Poppler.Document.TextAntialiasing)
-
 
         pageNum = doc.numPages()
         number = 0
@@ -70,16 +72,18 @@ class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
             images.append(pages[number].renderToImage(100, 100))
             width = pages[number].pageSize().width()
             height = pages[number].pageSize().height()
-            self.scoreWindow.setFixedWidth(width*self.pages)
+            self.scoreWindow.setFixedWidth(width * self.pages)
             self.scoreWindow.setFixedHeight(height)
 
-            self.resize(width*self.pages, height+50)
+            self.resize(width * self.pages, height + 50)
             pixmaps.append(QtGui.QPixmap.fromImage(images[number]))
             containers.append(QtGui.QLabel())
             containers[number].setFixedWidth(width)
-            containers[number].setFixedHeight(pages[number].pageSize().height())
-            #containers[number].setFixedSize(pages[number].pageSize())
-            containers[number].setStyleSheet("pages[number] { background-color : transparent}")
+            containers[number].setFixedHeight(
+                pages[number].pageSize().height())
+            # containers[number].setFixedSize(pages[number].pageSize())
+            containers[number].setStyleSheet(
+                "pages[number] { background-color : transparent}")
             containers[number].setContentsMargins(0, 0, 0, 0)
             containers[number].setScaledContents(True)
             containers[number].setPixmap(pixmaps[number])
@@ -92,30 +96,34 @@ class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
                     images.append(pages[i].renderToImage(100, 100))
                     pixmaps.append(QtGui.QPixmap.fromImage(images[i]))
                     containers.append(QtGui.QLabel())
-                    containers[i].setFixedWidth(self.scoreWindow.width()/2)
-                    containers[i].setFixedHeight(pages[number].pageSize().height())
-                    #containers[number].setFixedSize(pages[number].pageSize())
-                    containers[i].setStyleSheet("Page { background-color : transparent}")
+                    containers[i].setFixedWidth(self.scoreWindow.width() / 2)
+                    containers[i].setFixedHeight(
+                        pages[number].pageSize().height())
+                    # containers[number].setFixedSize(pages[number].pageSize())
+                    containers[i].setStyleSheet(
+                        "Page { background-color : transparent}")
                     containers[i].setContentsMargins(0, 0, 0, 0)
                     containers[i].setScaledContents(True)
                     containers[i].setPixmap(pixmaps[i])
-                    labels.append(scenes[number-1].addWidget(containers[i]))
-                    pairings[number-1].addItem(labels[i])
+                    labels.append(scenes[number - 1].addWidget(containers[i]))
+                    pairings[number - 1].addItem(labels[i])
                     if i >= pageNum:
                         break
-                number += self.pages-1
+                number += self.pages - 1
             elif self.pages > 1:
                 for i in range(number, self.pages):
                     containers.append(QtGui.QLabel())
-                    containers[number].setFixedSize(pages[number-1].pageSize())
-                    containers[number].setStyleSheet("Page { background-color : transparent}")
+                    containers[number].setFixedSize(
+                        pages[number - 1].pageSize())
+                    containers[number].setStyleSheet(
+                        "Page { background-color : transparent}")
                     containers[number].setContentsMargins(0, 0, 0, 0)
                     containers[number].setScaledContents(True)
                     pixmaps.append(QtGui.QPixmap())
                     containers[number].setPixmap(pixmaps[i])
-                    labels.append(scenes[number-1].addWidget(containers[i]))
-                    pairings[number-1].addItem(labels[i])
-            layout.addItem(pairings[number-1])
+                    labels.append(scenes[number - 1].addWidget(containers[i]))
+                    pairings[number - 1].addItem(labels[i])
+            layout.addItem(pairings[number - 1])
             number += 1
 
         # use this to test that the layout works for more than 2 pages
@@ -138,7 +146,6 @@ class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
         graphicsWidget.setLayout(layout)
         scene.addItem(graphicsWidget)
         self.scoreWindow.setScene(scene)
-
 
     def pageValChanged(self, pageVal):
         self.pages = pageVal

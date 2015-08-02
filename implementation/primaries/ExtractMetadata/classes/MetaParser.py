@@ -3,6 +3,8 @@ from xml.sax import handler, make_parser
 from MuseParse import helpers
 
 from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
+
+
 class Extractor(xml.sax.ContentHandler):
 
     def __init__(self, parent):
@@ -20,6 +22,7 @@ class Extractor(xml.sax.ContentHandler):
 
     def endElement(self, name):
         self.parent.endTag(name)
+
 
 class MetaParser(object):
 
@@ -87,7 +90,6 @@ class MetaParser(object):
     def parse(self, file):
         parser = make_parser()
 
-
         parser.setContentHandler(Extractor(self))
         # OFFLINE MODE
         parser.setFeature(handler.feature_external_ges, False)
@@ -96,11 +98,9 @@ class MetaParser(object):
             parser.parse(fob)
             self.collatePartsIntoData()
         except Exception as e:
-            print("Exception "+str(e)+" encountered in metaparser")
+            print("Exception " + str(e) + " encountered in metaparser")
 
         return self.data
-
-
 
     def collatePartsIntoData(self):
         instrument_list = []
@@ -120,11 +120,13 @@ class MetaParser(object):
             if "transposition" in self.parts[part]:
                 data["transposition"] = self.parts[part]["transposition"]
             if "key" in self.parts[part]:
-                hashdict_list = [hashdict(item) for item in self.parts[part]["key"]]
+                hashdict_list = [hashdict(item)
+                                 for item in self.parts[part]["key"]]
                 hashdict_set = set(hashdict_list)
                 key_list[self.parts[part]["name"]] = hashdict_set
             if "clef" in self.parts[part]:
-                hashdict_list = [hashdict(item) for item in self.parts[part]["clef"]]
+                hashdict_list = [hashdict(item)
+                                 for item in self.parts[part]["clef"]]
                 hashdict_set = set(hashdict_list)
                 clef_list[self.parts[part]["name"]] = hashdict_set
             instrument_list.append(data)
@@ -133,7 +135,6 @@ class MetaParser(object):
             self.data["key"] = key_list
         if clef_list != {}:
             self.data["clef"] = clef_list
-
 
 
 # HANDLER METHODS

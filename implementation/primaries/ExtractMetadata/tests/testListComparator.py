@@ -26,14 +26,15 @@ class TestListComparator(unittest.TestCase):
         self.folderBrowser = MusicManager.FolderBrowser(
             db_files=[],
             folder=self.folder)
-        self.assertEqual(self.folderBrowser.getFolderFiles(), {"xml": ["test.xml", "folder_2/test2.xml"]})
-
+        self.assertEqual(self.folderBrowser.getFolderFiles(),
+                         {"xml": ["test.xml", "folder_2/test2.xml"]})
 
     def testGetZipList(self):
         self.assertEqual(self.folderBrowser.getZipFiles(), ["file5.mxl"])
 
     def testFilesToBeAdded(self):
-        self.assertEqual(self.folderBrowser.getNewFileList(), ["file3.xml", "file5.xml"])
+        self.assertEqual(
+            self.folderBrowser.getNewFileList(), ["file3.xml", "file5.xml"])
 
     def testRecordsToBeArchived(self):
         self.assertEqual(self.folderBrowser.getOldRecords(), ["file2.xml"])

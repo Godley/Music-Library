@@ -1,6 +1,8 @@
 import threading
 
+
 class Async_Handler(object):
+
     def __init__(self, data, method, callback, callback_data):
         self.data = data
         self.method = method
@@ -13,10 +15,11 @@ class Async_Handler(object):
 
     def execute_without_callback(self):
         thr = threading.Thread(target=self.method, args=self.data, kwargs={})
-        thr.start() # will run "foo"
+        thr.start()  # will run "foo"
 
 
 class Async_Handler_Queue(Async_Handler):
+
     def __init__(self, method, callback, queue, data, kwargs={}):
         self.exec_method = method
         Async_Handler.__init__(self, data, self.function, callback, None)
@@ -27,8 +30,9 @@ class Async_Handler_Queue(Async_Handler):
         function = self.function
         if len(self.data) == 0:
             function = self.function_without_data
-        thr = threading.Thread(target=function, args=self.data, kwargs=self.kwargs)
-        thr.start() # will run "foo"
+        thr = threading.Thread(
+            target=function, args=self.data, kwargs=self.kwargs)
+        thr.start()  # will run "foo"
 
     def function(self, data, **kwargs):
         if len(kwargs) > 0:

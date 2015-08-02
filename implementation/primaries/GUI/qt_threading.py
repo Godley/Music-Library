@@ -4,8 +4,9 @@ from threading import Lock
 
 
 class mythread(QThread):
+
     def __init__(self, parent, method, args, **kwargs):
-        QThread.__init__(self,parent)
+        QThread.__init__(self, parent)
         self.args = args
         self.kwargs = kwargs
         self.method = method
@@ -15,21 +16,24 @@ class mythread(QThread):
         self.emit(SIGNAL("dataReady(PyQt_PyObject)"), result)
 
 
-
 class QueryThread(QThread):
+
     def __init__(self, parent, method, args, online):
-        QThread.__init__(self,parent)
+        QThread.__init__(self, parent)
         self.args = args
         self.method = method
         self.online = online
 
     def run(self):
         result = self.method(*self.args, online=self.online)
-        self.emit(SIGNAL("dataReady(PyQt_PyObject, bool)"), result, self.online)
+        self.emit(
+            SIGNAL("dataReady(PyQt_PyObject, bool)"), result, self.online)
+
 
 class RenderThread(QThread):
+
     def __init__(self, parent, method, args, filename):
-        QThread.__init__(self,parent)
+        QThread.__init__(self, parent)
         self.args = args
         self.method = method
         self.filename = filename
@@ -37,14 +41,16 @@ class RenderThread(QThread):
     def run(self):
         try:
             result = self.method(*self.args)
-            self.emit(SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), result, self.filename)
+            self.emit(
+                SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), result, self.filename)
         except BaseException as e:
             self.emit(SIGNAL("renderingError(PyQt_PyObject)"), e)
 
 
 class DownloadThread(QThread):
+
     def __init__(self, parent, method, args):
-        QThread.__init__(self,parent)
+        QThread.__init__(self, parent)
         self.fname = args
         self.method = method
 
@@ -53,6 +59,5 @@ class DownloadThread(QThread):
         if not result:
             self.emit(SIGNAL("downloadError(bool)"), result)
         else:
-            pdf = self.fname.split(".")[0]+".pdf"
+            pdf = self.fname.split(".")[0] + ".pdf"
             self.emit(SIGNAL("fileReady(PyQt_PyObject)"), pdf)
-

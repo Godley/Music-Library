@@ -1,4 +1,7 @@
-import os, shutil, sys, zipfile
+import os
+import shutil
+import sys
+import zipfile
 from xml.sax._exceptions import *
 
 import requests.exceptions
@@ -36,7 +39,8 @@ class Unzipper(object):
                         f.filename for f in zip_file.filelist if "META-INF" not in f.filename]
                     resulting_file_list.append(file[0])
                 except:
-                    print("file "+file+" was skipped: exception occurred when unzipping")
+                    print(
+                        "file " + file + " was skipped: exception occurred when unzipping")
 
         return resulting_file_list
 
@@ -76,16 +80,16 @@ class FolderBrowser(object):
         folder_files = {}
         for root, dirs, files in os.walk(self.folder):
             index = len(self.folder)
-            substr = root[index+1:]
+            substr = root[index + 1:]
             for file in files:
                 if file.endswith(".xml"):
                     if "xml" not in folder_files:
                         folder_files["xml"] = []
-                    folder_files["xml"].append(os.path.join(substr,file))
+                    folder_files["xml"].append(os.path.join(substr, file))
                 if file.endswith(".mxl"):
                     if "mxl" not in folder_files:
                         folder_files["mxl"] = []
-                    folder_files["mxl"].append(os.path.join(substr,file))
+                    folder_files["mxl"].append(os.path.join(substr, file))
         return folder_files
 
     def getZipFiles(self):
@@ -170,7 +174,8 @@ class MusicManager(object):
             errorList.append(
                 "Guitar tab found in this piece: this application does not handle guitar tab.")
         except SAXParseException as e:
-            errorList.append("Sax parser had a problem with this file:"+str(e))
+            errorList.append(
+                "Sax parser had a problem with this file:" + str(e))
         if piece_obj is not None:
             try:
                 loader = LilypondOutput.LilypondRenderer(
@@ -178,7 +183,7 @@ class MusicManager(object):
                     os.path.join(
                         self.folder,
                         fname),
-                lyscript=self.script)
+                    lyscript=self.script)
                 loader.run()
             except BaseException as e:
                 errorList.append(str(e))
@@ -226,7 +231,8 @@ class MusicManager(object):
                 result_set[source] = {}
                 for file in file_set[source]:
                     ignore_list = self.apiManager.getSourceIgnoreList(source)
-                    parser = OnlineMetaParser.OnlineMetaParser(ignored=ignore_list, source=source)
+                    parser = OnlineMetaParser.OnlineMetaParser(
+                        ignored=ignore_list, source=source)
                     data = self.parseXMLFile(file, parser=parser)
                     path_to_file = os.path.join(self.folder, file)
                     if os.path.exists(path_to_file):
@@ -245,15 +251,19 @@ class MusicManager(object):
                             result_set[source][file]["lyricist"] = cleaned_set[
                                 source][file_id]["lyricist"]
                         if "secret" in cleaned_set[source][file_id]:
-                            result_set[source][file]["secret"] = cleaned_set[source][file_id]["secret"]
+                            result_set[source][file]["secret"] = cleaned_set[
+                                source][file_id]["secret"]
                         if "license" in cleaned_set[source][file_id]:
-                            result_set[source][file]["license"] = cleaned_set[source][file_id]["license"]
+                            result_set[source][file]["license"] = cleaned_set[
+                                source][file_id]["license"]
                     else:
                         parsing_errors[data[1]] = data[0]
         except requests.exceptions.ConnectionError as e:
-            parsing_errors["Connection"] = "error connecting to the internet. Sources not refreshed."
+            parsing_errors[
+                "Connection"] = "error connecting to the internet. Sources not refreshed."
         if len(parsing_errors) > 0:
-            error_string = "".join([error + " : " + parsing_errors[error] for error in parsing_errors])
+            error_string = "".join(
+                [error + " : " + parsing_errors[error] for error in parsing_errors])
             self.parent.errorPopup(error_string)
         return result_set
 
@@ -266,7 +276,7 @@ class MusicManager(object):
         for source in data:
             for file in data[source]:
                 for ext in extensions:
-                    file_ext = file.split(".")[0]+"."+ext
+                    file_ext = file.split(".")[0] + "." + ext
                     if os.path.exists(os.path.join(self.folder, file_ext)):
                         os.remove(os.path.join(self.folder, file_ext))
 
@@ -280,14 +290,14 @@ class MusicManager(object):
         if secret is not None:
             secret = secret[0]
         try:
-            status_code = self.apiManager.downloadFile(source=source, file=fname, secret=secret, extension='pdf')
+            status_code = self.apiManager.downloadFile(
+                source=source, file=fname, secret=secret, extension='pdf')
             if status_code == 200:
                 self.__data.downloadPiece(filename)
                 return True
         except requests.exceptions.ConnectionError as e:
             print("Error downloading file!")
         return False
-
 
     def runApiOperation(self):
         """
@@ -298,8 +308,7 @@ class MusicManager(object):
         """
         result_set = self.parseApiFiles()
         self.addApiFiles(result_set)
-        #self.cleanupApiFiles(result_set)
-
+        # self.cleanupApiFiles(result_set)
 
     def addPiece(self, filename, data):
         self.__data.addPiece(filename, data)
@@ -325,7 +334,6 @@ class MusicManager(object):
     def refresh(self):
         self.runApiOperation()
         self.refreshWithoutDownload()
-
 
     def refreshWithoutDownload(self):
         db_files = self.__data.getFileList()
@@ -401,7 +409,6 @@ class MusicManager(object):
             errorTuple.append(filename)
             return tuple(errorTuple)
 
-
     def parseError(self, exception):
         string_val = str(exception)
         self.parent.errorPopup(string_val)
@@ -440,19 +447,23 @@ class MusicManager(object):
                     combined["filename"] = [result[1]
                                             for result in file_result]
 
-                title_result = self.__data.getPieceByTitle(value, online=online)
+                title_result = self.__data.getPieceByTitle(
+                    value, online=online)
                 if len(title_result) > 0:
                     combined["Title"] = title_result
 
-                composer_result = self.__data.getPiecesByComposer(value, online=online)
+                composer_result = self.__data.getPiecesByComposer(
+                    value, online=online)
                 if len(composer_result) > 0:
                     combined["Composer"] = composer_result
 
-                lyricist_result = self.__data.getPiecesByLyricist(value, online=online)
+                lyricist_result = self.__data.getPiecesByLyricist(
+                    value, online=online)
                 if len(lyricist_result) > 0:
                     combined["Lyricist"] = lyricist_result
 
-                instrument_result = self.__data.getPiecesByInstruments([value], online=online)
+                instrument_result = self.__data.getPiecesByInstruments(
+                    [value], online=online)
                 if len(instrument_result) > 0:
                     combined["Instruments"] = instrument_result
 
@@ -484,14 +495,16 @@ class MusicManager(object):
                     all_matched = False
 
         if "tempo" in search_data:
-            tempo_data = self.__data.getPieceByTempo(search_data["tempo"], online=online)
+            tempo_data = self.__data.getPieceByTempo(
+                search_data["tempo"], online=online)
             if len(tempo_data) > 0:
                 results["Tempo"] = tempo_data
             else:
                 all_matched = False
 
         if "time" in search_data:
-            time_data = self.__data.getPieceByMeter(search_data["time"], online=online)
+            time_data = self.__data.getPieceByMeter(
+                search_data["time"], online=online)
             if len(time_data) > 0:
                 results["Time Signatures"] = time_data
             else:
@@ -564,7 +577,8 @@ class MusicManager(object):
         if "composer" in search_data:
             files = {}
             for title in search_data["composer"]:
-                file_list = self.__data.getPiecesByComposer(title, online=online)
+                file_list = self.__data.getPiecesByComposer(
+                    title, online=online)
                 if len(file_list) > 0:
                     files["Composer: " + title] = file_list
             if len(files) > 0:
@@ -575,7 +589,8 @@ class MusicManager(object):
         if "lyricist" in search_data:
             files = {}
             for title in search_data["lyricist"]:
-                file_list = self.__data.getPiecesByLyricist(title, online=online)
+                file_list = self.__data.getPiecesByLyricist(
+                    title, online=online)
                 if len(file_list) > 0:
                     files["Lyricist: " + title] = file_list
             if len(files) > 0:
@@ -591,7 +606,8 @@ class MusicManager(object):
                 if len(intersection) > 0:
                     results["Exact Matches"] = intersection
             for key in results:
-                summaries[key] = self.getPieceSummary(results[key], online=online)
+                summaries[key] = self.getPieceSummary(
+                    results[key], online=online)
         return summaries
 
     def getPlaylistFileInfo(self, playlist):

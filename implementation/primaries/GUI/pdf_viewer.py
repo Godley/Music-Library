@@ -29,11 +29,13 @@ VIEWER_PATH = here('pdf.js/web/viewer.html')
 
 
 class FullscreenCSSFixer(QNetworkAccessManager):
+
     """
     Fixes loaded CSS for hacked implementation of requestFullscreen:
     1. replace peudoclass with class
     2. add style for fullscreen’d element
     """
+
     def __init__(self, url):
         super().__init__()
         self.url = url
@@ -57,23 +59,24 @@ class FullscreenCSSFixer(QNetworkAccessManager):
 
     def createRequest(self, op, req, outgoingData=None):
         if req.url() == self.url:
-            reply = super().createRequest(QNetworkAccessManager.GetOperation, QNetworkRequest(self.data_uri))
+            reply = super().createRequest(
+                QNetworkAccessManager.GetOperation, QNetworkRequest(self.data_uri))
         else:
             reply = super().createRequest(op, req, outgoingData)
 
         return reply
 
 
-
-
 class PDFView(QWebView):
+
     def __init__(self, url, parent=None):
         super().__init__(parent)
 
         self.access_manager = FullscreenCSSFixer(QUrl('file://' + CSS_PATH))
         self.page().setNetworkAccessManager(self.access_manager)
 
-        self.page().mainFrame().initialLayoutCompleted.connect(self.extend_window)
+        self.page().mainFrame().initialLayoutCompleted.connect(
+            self.extend_window)
         self.titleChanged.connect(self.setWindowTitle)
 
         if urlparse(url).scheme in ('', 'file'):
@@ -109,14 +112,15 @@ class PDFView(QWebView):
             else:
                 js('document.getElementById("viewerContainer").requestFullscreen()')
 
+
 def main():
     app = QApplication(sys.argv)
 
     parser = ArgumentParser()
-    parser.add_argument('-d', '--debug', action='store_true', help='Debug applications')
+    parser.add_argument(
+        '-d', '--debug', action='store_true', help='Debug applications')
     parser.add_argument('file', help='File to open')
     args = parser.parse_args(app.arguments()[1:])
-
 
     if args.debug:
         web_settings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)

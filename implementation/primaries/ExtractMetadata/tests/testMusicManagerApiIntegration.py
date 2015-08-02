@@ -6,11 +6,14 @@ from implementation.primaries.ExtractMetadata.classes import MusicManager
 manager = MusicManager.MusicManager(None, folder=os.getcwd())
 result_set = manager.parseApiFiles()
 
+
 class TestMusicManagerWithApiIntegration(unittest.TestCase):
+
     """
     tests which confirm functionality of API manager inside the musicmanager class
     separated from music manager tests because these take longer on a slow internet connection
     """
+
     def setUp(self):
         self.manager = MusicManager.MusicManager(None, folder=os.getcwd())
         self.result_set = result_set
@@ -55,15 +58,17 @@ class TestMusicManagerWithApiIntegration(unittest.TestCase):
         for source in result_set:
             for file in result_set[source]:
                 for ext in extensions:
-                    file_ext = file.split(".")[0]+"."+ext
-                    self.assertTrue(os.path.exists(os.path.join(dir, file_ext)))
+                    file_ext = file.split(".")[0] + "." + ext
+                    self.assertTrue(
+                        os.path.exists(os.path.join(dir, file_ext)))
 
         self.manager.cleanupApiFiles(result_set, extensions=extensions)
         for source in result_set:
             for file in result_set[source]:
                 for ext in extensions:
-                    file_ext = file.split(".")[0]+"."+ext
-                    self.assertFalse(os.path.exists(os.path.join(dir, file_ext)))
+                    file_ext = file.split(".")[0] + "." + ext
+                    self.assertFalse(
+                        os.path.exists(os.path.join(dir, file_ext)))
 
     def tearDown(self):
         self.manager.cleanupApiFiles(result_set)

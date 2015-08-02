@@ -55,7 +55,7 @@ class TestCase2(unittest.TestCase):
             self.result["clef"], {
                 "Piano": {
                     hashdict(sign="G", line=2), hashdict(
-                        sign="F", line= 4), hashdict(
+                        sign="F", line=4), hashdict(
                         line=3, sign="C")}})
 
     def testKeys(self):

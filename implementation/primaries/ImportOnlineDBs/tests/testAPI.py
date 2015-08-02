@@ -1,7 +1,9 @@
 import unittest
 from implementation.primaries.ImportOnlineDBs.classes import API
 
+
 class testAPI(unittest.TestCase):
+
     def setUp(self):
         self.api = API.Api(folder="")
 
@@ -20,5 +22,3 @@ class testAPI(unittest.TestCase):
     def testSearch(self):
         with self.assertRaises(NotImplementedError):
             self.api.search({})
-
-

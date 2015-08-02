@@ -1,7 +1,10 @@
-import unittest, os
+import unittest
+import os
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
 
+
 class testApiManager(unittest.TestCase):
+
     def setUp(self):
         self.apiMan = ApiManager.ApiManager()
 
@@ -10,7 +13,9 @@ class testApiManager(unittest.TestCase):
         self.assertIsInstance(result, dict)
         self.assertTrue(len(result) > 0)
 
+
 class testFileDownload(unittest.TestCase):
+
     def setUp(self):
         self.apiMan = ApiManager.ApiManager()
         self.result = self.apiMan.downloadAllFiles()
@@ -32,12 +37,16 @@ class testFileDownload(unittest.TestCase):
                 if os.path.exists(file):
                     os.remove(file)
 
+
 class testSingularFileDownload(testFileDownload):
+
     def setUp(self):
         testFileDownload.setUp(self)
-        self.result = self.apiMan.downloadFile(source="MuseScore", file="780706", secret="54953dd4f8")
+        self.result = self.apiMan.downloadFile(
+            source="MuseScore", file="780706", secret="54953dd4f8")
         self.bad_request = self.apiMan.downloadFile(source="notASource")
-        self.evenWorseRequest = self.apiMan.downloadFile(source="MuseScore", file="notAFile", secret="noSecrets")
+        self.evenWorseRequest = self.apiMan.downloadFile(
+            source="MuseScore", file="notAFile", secret="noSecrets")
 
     def testInstance(self):
         self.assertEqual(self.result, 200)

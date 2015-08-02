@@ -4,7 +4,9 @@ import os
 from implementation.primaries.GUI.helpers import get_base_dir
 from implementation.primaries.GUI import themedWindow
 
+
 class PlaylistDialog(QtGui.QDialog, themedWindow.ThemedWindow):
+
     def __init__(self, app, theme, themes):
         QtGui.QDialog.__init__(self)
         themedWindow.ThemedWindow.__init__(self, theme, themes)
@@ -12,7 +14,8 @@ class PlaylistDialog(QtGui.QDialog, themedWindow.ThemedWindow):
         self.theme = theme
 
     def load(self):
-        path_to_file = os.path.join(get_base_dir(return_this_dir=True), "designer_files", "NewPlaylist.ui")
+        path_to_file = os.path.join(
+            get_base_dir(return_this_dir=True), "designer_files", "NewPlaylist.ui")
         uic.loadUi(path_to_file, self)
         self.autoCompleteFrame.hide()
         self.buttonBox.accepted.connect(self.newPlaylistOk)
@@ -39,7 +42,6 @@ class PlaylistDialog(QtGui.QDialog, themedWindow.ThemedWindow):
             data["pieces"].append(fname)
         self.qApp.addPlaylist(data)
 
-
     def updateOptions(self):
         text = self.piecesLineEdit.text()
         results = self.qApp.queryNotThreaded(text)
@@ -59,7 +61,6 @@ class PlaylistDialog(QtGui.QDialog, themedWindow.ThemedWindow):
 
         self.autoCompleteBox.show()
         self.autoCompleteFrame.show()
-
 
     def onInactiveSearchBar(self):
         if self.piecesLineEdit.text() == "" or self.piecesLineEdit.text(

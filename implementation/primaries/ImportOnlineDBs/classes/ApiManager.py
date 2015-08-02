@@ -4,11 +4,14 @@ except:
     from primaries.ImportOnlineDBs.classes import MScoreApi
 import os
 
+
 class ApiManager(object):
+
     def __init__(self, folder=""):
         self.folder = folder
         self.sources = {}
-        self.sources["MuseScore"] = (MScoreApi.MuseScoreApi(folder), ["movement-title","work-title","creator"])
+        self.sources["MuseScore"] = (
+            MScoreApi.MuseScoreApi(folder), ["movement-title", "work-title", "creator"])
 
     def fetchAllData(self):
         '''
@@ -18,7 +21,8 @@ class ApiManager(object):
         results = {}
         for source_id in self.sources:
             result_set = self.sources[source_id][0].cleanCollection()
-            results[source_id] = {result["id"]:result for result in result_set}
+            results[source_id] = {
+                result["id"]: result for result in result_set}
         return results
 
     def downloadAllFiles(self, extension="mxl"):
@@ -33,9 +37,10 @@ class ApiManager(object):
             for file in data_set[source_id]:
                 id = file
                 secret = data_set[source_id][id]["secret"]
-                status = self.sources[source_id][0].downloadFile(id, secret, type=extension)
+                status = self.sources[source_id][
+                    0].downloadFile(id, secret, type=extension)
                 if(status == 200):
-                    location = os.path.join(id + "."+extension)
+                    location = os.path.join(id + "." + extension)
                     data_list.append(location)
             results[source_id] = data_list
         return results
@@ -51,9 +56,10 @@ class ApiManager(object):
             for file in dataset[source_id]:
                 id = file
                 secret = dataset[source_id][id]["secret"]
-                status = self.sources[source_id][0].downloadFile(id, secret, type=extension)
+                status = self.sources[source_id][
+                    0].downloadFile(id, secret, type=extension)
                 if(status == 200):
-                    location = os.path.join(id + "."+extension)
+                    location = os.path.join(id + "." + extension)
                     data_list.append(location)
             results[source_id] = data_list
         return results
@@ -68,7 +74,8 @@ class ApiManager(object):
         '''
         status = 0
         if source in self.sources:
-            status = self.sources[source][0].downloadFile(file, secret, type=extension)
+            status = self.sources[source][0].downloadFile(
+                file, secret, type=extension)
         else:
             status = 4004
         return status
