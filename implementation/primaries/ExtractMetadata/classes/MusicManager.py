@@ -182,8 +182,7 @@ class MusicManager(object):
                     piece_obj,
                     os.path.join(
                         self.folder,
-                        fname),
-                    lyscript=self.script)
+                        fname))
                 loader.run()
             except BaseException as e:
                 errorList.append(str(e))
