@@ -165,6 +165,7 @@ class MusicManager(object):
         piece_obj = None
 
         path_to_file = os.path.join(self.folder, fname)
+        print(path_to_file)
 
         try:
             piece_obj = parser.parse(path_to_file)
@@ -186,11 +187,6 @@ class MusicManager(object):
                     path_to_file,
                 lyscript=self.script)
                 loader.run()
-                pdfpath = fname.split("/")[-1].split(".")[0] + ".pdf"
-                new_path = "/".join(fname.split("/")[:-1])+"/"+pdfpath
-                current = os.path.join(os.getcwd(), pdfpath)
-                if os.path.exists(current):
-                    shutil.copy(current, new_path)
             except BaseException as e:
                 errorList.append(str(e))
         return errorList
