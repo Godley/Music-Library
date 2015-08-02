@@ -152,6 +152,8 @@ class MusicManager(object):
         self.script = os.path.join(get_base_dir(), "scripts", "lilypond")
         if sys.platform.startswith("linux"):
             self.script = ""
+        if sys.platform == "win32":
+            self.script = os.path.join(get_base_dir(), "scripts", "lilypond_windows.bat")
         self.apiManager = ApiManager.ApiManager(folder=self.folder)
 
     def startRenderingTask(self, fname):
@@ -165,8 +167,11 @@ class MusicManager(object):
         errorList = []
         parser = MxmlParser.MxmlParser()
         piece_obj = None
+
+        path_to_file = os.path.join(self.folder, fname)
+
         try:
-            piece_obj = parser.parse(os.path.join(self.folder, fname))
+            piece_obj = parser.parse(path_to_file)
         except Exceptions.DrumNotImplementedException as e:
             errorList.append(
                 "Drum tab found in piece: this application does not handle drum tab.")
@@ -408,6 +413,7 @@ class MusicManager(object):
             errorTuple.append(filename)
             return tuple(errorTuple)
 
+
     def parseError(self, exception):
         string_val = str(exception)
         self.parent.errorPopup(string_val)
@@ -446,23 +452,19 @@ class MusicManager(object):
                     combined["filename"] = [result[1]
                                             for result in file_result]
 
-                title_result = self.__data.getPieceByTitle(
-                    value, online=online)
+                title_result = self.__data.getPieceByTitle(value, online=online)
                 if len(title_result) > 0:
                     combined["Title"] = title_result
 
-                composer_result = self.__data.getPiecesByComposer(
-                    value, online=online)
+                composer_result = self.__data.getPiecesByComposer(value, online=online)
                 if len(composer_result) > 0:
                     combined["Composer"] = composer_result
 
-                lyricist_result = self.__data.getPiecesByLyricist(
-                    value, online=online)
+                lyricist_result = self.__data.getPiecesByLyricist(value, online=online)
                 if len(lyricist_result) > 0:
                     combined["Lyricist"] = lyricist_result
 
-                instrument_result = self.__data.getPiecesByInstruments(
-                    [value], online=online)
+                instrument_result = self.__data.getPiecesByInstruments([value], online=online)
                 if len(instrument_result) > 0:
                     combined["Instruments"] = instrument_result
 

@@ -6,6 +6,7 @@ if platform == "darwin" or platform.startswith("linux"):
     from popplerqt4 import Poppler
 
 
+
 from PyQt4 import QtGui, QtCore, uic
 
 from implementation.primaries.GUI.helpers import get_base_dir, parseStyle
@@ -199,6 +200,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.widgets["search"].show()
         self.searchFrame.show()
 
+
+
     def finished(self):
         """
         callback for when a user has finished entering text in the search bar
@@ -379,7 +382,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.popout.show()
 
     def onPopoutClicked(self):
-        os.system("open " + self.pdf_loaded)
+        os.startfile(self.pdf_loaded)
 
     # methods to handle pieces
     def onPieceLoaded(self, filename, split_file):
@@ -392,11 +395,14 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.pdf_loaded = filename
         file_to_load = split_file.split(".")[0] + ".xml"
         self.current_piece = file_to_load
-        # self.showToolbarBtns()
-        # self.loadPieceData(file_to_load)
-        self.loadPdfToGraphicsWidget(filename)
-        # self.loadPdfToWebWidget(filename)
-        self.setWindowTitle("MuseLib | Piece: " + file_to_load)
+        #self.showToolbarBtns()
+        #self.loadPieceData(file_to_load)
+        if platform != "win32":
+            self.loadPdfToGraphicsWidget(filename)
+        else:
+            os.startfile(filename)
+        #self.loadPdfToWebWidget(filename)
+        self.setWindowTitle("MuseLib | Piece: "+file_to_load)
         self.resizeCenterWidget(self.scoreWindow)
         self.scoreWindow.show()
         self.scoreWindow.lower()
@@ -422,6 +428,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         doc = Poppler.Document.load(filename)
         doc.setRenderHint(Poppler.Document.Antialiasing)
         doc.setRenderHint(Poppler.Document.TextAntialiasing)
+
 
         pageNum = doc.numPages()
         number = 0

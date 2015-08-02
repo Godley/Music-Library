@@ -1,2 +1,2 @@
-SET PATH=%PATH%;%FOLD%
-start lilypond %0
+SET PATH=C:/Program Files (x86)/LilyPond/usr/bin;%PATH%
+lilypond %2

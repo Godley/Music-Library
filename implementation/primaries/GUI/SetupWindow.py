@@ -5,6 +5,7 @@ from implementation.primaries.GUI import MessageBox
 from implementation.primaries.scripts import setup_script
 from implementation.primaries.exceptions import LilypondNotInstalledException
 import os
+from sys import platform
 from implementation.primaries.GUI import themedWindow
 
 
@@ -30,7 +31,11 @@ class SetupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
             messageBox.show()
 
     def browse(self):
-        path, filter = QFileDialog.getOpenFileNameAndFilter(
+        if platform == "win32":
+            path, filter = QFileDialog.getOpenFileNameAndFilter(
+            self, caption="Select files to import", filter="Application (*.exe)")
+        else:
+            path, filter = QFileDialog.getOpenFileNameAndFilter(
             self, caption="Select files to import", filter="App file (*.app)")
 
         try:
