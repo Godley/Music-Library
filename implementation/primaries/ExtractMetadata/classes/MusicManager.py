@@ -15,19 +15,37 @@ from MuseParse.classes.Input import MxmlParser
 
 
 class Unzipper(object):
+    """
+    This class pretty much does what it says on the tin - takes a list of input files and unzips them all.
+    Works only with mxl which is the default zip type for music xml
+    """
 
     def __init__(
             self,
             folder="/Users/charlottegodley/PycharmProjects/FYP",
             files=[]):
         self.folder = folder
+        """path to the folder where the music collection is stored"""
         self.files = files
+        """list of mxl files to unzip"""
 
     def createOutputList(self):
+        """
+        Takes the file list (self.file) and produces their outputs with the xml extension
+
+        Return value: list of xml files
+        """
         result = [file.split('.')[0] + ".xml" for file in self.files]
         return result
 
     def unzipInputFiles(self):
+        '''
+        Method which takes self.files and iterates each one, producing a ZipFile class and extracting the files.
+        It will then remove the unnecessary meta-inf folder and add the file to the result list if it managed to unzip
+        it without issues.
+
+        Return value: list of unzipped xml files
+        '''
         resulting_file_list = []
         for file in self.files:
             path = os.path.join(self.folder, file)
@@ -45,6 +63,12 @@ class Unzipper(object):
         return resulting_file_list
 
     def unzip(self):
+        """
+        Method which pulls together the above two methods and renames each output file to match what it should be
+        on input.
+
+        Return value: None
+        """
         output_list = self.createOutputList()
         output_paths = [
             os.path.join(
@@ -61,13 +85,24 @@ class Unzipper(object):
 
 
 class FolderBrowser(object):
+    """
+    Class which takes a folder and a list of files in the database and produces 3 lists:
+
+    - new files: files which aren't in the database but exist in the folder
+    - old files: files which are in the database but no longer exist in the folder
+    - zip files: files which end in the extension .mxl
+
+    Works only with xml files and mxl files.
+    """
 
     def __init__(
             self,
             db_files=[],
             folder='/Users/charlottegodley/PycharmProjects/FYP'):
         self.db_files = db_files
+        """A list of files in the database"""
         self.folder = folder
+        """the folder in which the collection is stored"""
 
     def resetDbFileList(self, files):
         self.db_files = files
@@ -75,7 +110,8 @@ class FolderBrowser(object):
     def getFolderFiles(self):
         """
         method to search the given folder for all xml and mxl files
-        :return: dictionary containing 2 optional indexes - xml and mxl depending whether any exist of either type
+
+        Return value: dictionary containing 2 optional indexes - xml and mxl depending whether any exist of either type
         """
         folder_files = {}
         for root, dirs, files in os.walk(self.folder):
@@ -93,6 +129,7 @@ class FolderBrowser(object):
         return folder_files
 
     def getZipFiles(self):
+        """Method which takes the result of the above method and returns only the zip files from that method"""
         files = self.getFolderFiles()
         if "mxl" in files:
             return files["mxl"]
@@ -100,7 +137,8 @@ class FolderBrowser(object):
     def getNewFileList(self):
         """
         method to determine from a list of collected xml files from getFolderFiles which ones are new to the DB
-        :return: list of file names which aren't in the db
+
+        Return value: list of file names which aren't in the db
         """
         files = self.getFolderFiles()
         new_files = []
@@ -111,9 +149,10 @@ class FolderBrowser(object):
 
     def getOldRecords(self):
         """
-        method to determine from a list of xml files from getFolderFiles which ones in the DB no
-        longer exist in this folder
-        :return: list of file names which are in the db but don't exist
+        method to determine from a list of xml files from getFolderFiles which ones in the DB no longer exist in this
+        folder.
+
+        Return value: list of file names which are in the db but don't exist
         """
         files = self.getFolderFiles()
         old_files = []
@@ -126,7 +165,8 @@ class FolderBrowser(object):
         """
         method which will do both of the above methods without calling self.getFolderFiles twice
         which is probably inefficient
-        :return: dict containing new and old files separated by relevant indices
+
+        Return value: dict containing new and old files separated by relevant indices
         """
         files = self.getFolderFiles()
         result_set = {}
@@ -140,20 +180,23 @@ class FolderBrowser(object):
 
 
 class MusicManager(object):
+    """
+    Grand master class which pulls together features from every other class. This class is instantiated by the Application
+    class and should provide methods for the application to access everything else, from rendering to info extraction
+    to API access.
+    """
 
     def __init__(self, parent, folder='/Users/charlottegodley/PycharmProjects/FYP'):
         self.parent = parent
+        """the application instance in which this manager resides"""
         self.folder = folder
+        """the folder in which the collection is stored"""
+
         self.__data = DataLayer.MusicData(
             os.path.join(
                 self.folder,
                 "music.db"))
         self.setupFolderBrowser()
-        self.script = os.path.join(get_base_dir(), "scripts", "lilypond")
-        if sys.platform.startswith("linux"):
-            self.script = ""
-        if sys.platform == "win32":
-            self.script = os.path.join(get_base_dir(), "scripts", "lilypond_windows.bat")
         self.apiManager = ApiManager.ApiManager(folder=self.folder)
 
     def startRenderingTask(self, fname):
@@ -161,8 +204,10 @@ class MusicManager(object):
         method which parses a piece, then runs the renderer class on it which takes the lilypond
         output, runs lilypond on it and gets the pdf. This is not generally called directly,
         but rather called by a thread class in thread_classes.py
-        :param fname: xml filename
-        :return: list of problems encountered
+
+        * Parameter fname: xml filename
+
+        * Return value: list of problems encountered
         """
         errorList = []
         parser = MxmlParser.MxmlParser()
@@ -198,6 +243,7 @@ class MusicManager(object):
         method to download API files and unzip them as necessary
         :return: dictionary of results indexed by source name
         """
+
         results = {}
         try:
             file_set = self.apiManager.downloadFiles(data_set)
@@ -452,19 +498,23 @@ class MusicManager(object):
                     combined["filename"] = [result[1]
                                             for result in file_result]
 
-                title_result = self.__data.getPieceByTitle(value, online=online)
+                title_result = self.__data.getPieceByTitle(
+                    value, online=online)
                 if len(title_result) > 0:
                     combined["Title"] = title_result
 
-                composer_result = self.__data.getPiecesByComposer(value, online=online)
+                composer_result = self.__data.getPiecesByComposer(
+                    value, online=online)
                 if len(composer_result) > 0:
                     combined["Composer"] = composer_result
 
-                lyricist_result = self.__data.getPiecesByLyricist(value, online=online)
+                lyricist_result = self.__data.getPiecesByLyricist(
+                    value, online=online)
                 if len(lyricist_result) > 0:
                     combined["Lyricist"] = lyricist_result
 
-                instrument_result = self.__data.getPiecesByInstruments([value], online=online)
+                instrument_result = self.__data.getPiecesByInstruments(
+                    [value], online=online)
                 if len(instrument_result) > 0:
                     combined["Instruments"] = instrument_result
 
