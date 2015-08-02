@@ -600,7 +600,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
 
         if not self.contentFrame.layout():
             self.contentFrame.setLayout(layout)
-        self.contentFrame.setStyleSheet(parseStyle(stylesheet))
+        self.contentFrame.setStyleSheet(parseStyle(stylesheet, self.theme))
         self.contentFrame.show()
         self.contentFrame.lower()
         self.scoreWindow.lower()

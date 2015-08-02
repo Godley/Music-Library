@@ -14,7 +14,7 @@ class ThemedWindow(object):
             file_object = open(file, 'r')
             lines = file_object.readlines()
             file_object.close()
-            self.setStyleSheet(parseStyle(lines))
+            self.setStyleSheet(parseStyle(lines, self.theme))
 
     def setTheme(self, theme):
         self.theme = theme
