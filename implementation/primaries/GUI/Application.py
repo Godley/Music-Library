@@ -8,7 +8,7 @@ from PyQt4 import QtGui, QtCore, QtXml
 from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, PlaylistDialog, ImportDialog, licensePopup, \
     StartupWindow, MainWindow
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
-from implementation.primaries.scripts.setup_script import setup_lilypond
+from implementation.primaries.scripts.setup_script import do_setup
 from implementation.primaries.exceptions import LilypondNotInstalledException
 from implementation.primaries.GUI.helpers import get_base_dir
 
@@ -41,7 +41,7 @@ class Application(QtCore.QObject):
             self.setup_startup()
 
         try:
-            setup_lilypond(path=self.meta["path"])
+            do_setup(path=self.meta["path"])
         except LilypondNotInstalledException as e:
             self.windows["setup"].show()
 
