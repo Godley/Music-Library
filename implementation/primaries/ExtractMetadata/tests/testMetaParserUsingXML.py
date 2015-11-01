@@ -1,12 +1,12 @@
 import unittest
 from implementation.primaries.ExtractMetadata.classes import MetaParser
 from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
-
+import os, inspect
 
 class TestCase1(unittest.TestCase):
 
     def setUp(self):
-        self.file = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/ExtractMetadata/tests/test_files/extractor_test/testcase1.xml'
+        self.file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'test_files/extractor_test/testcase1.xml')
         self.parser = MetaParser.MetaParser()
         self.result = self.parser.parse(self.file)
 
@@ -43,7 +43,7 @@ class TestCase1(unittest.TestCase):
 class TestCase2(unittest.TestCase):
 
     def setUp(self):
-        self.file = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/ExtractMetadata/tests/test_files/extractor_test/testcase2.xml'
+        self.file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'test_files/extractor_test/testcase2.xml')
         self.parser = MetaParser.MetaParser()
         self.result = self.parser.parse(self.file)
 
