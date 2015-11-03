@@ -63,8 +63,12 @@ class TestMusicManager(unittest.TestCase):
             ["file.xml"])
 
     def testCopyFiles(self):
-        path_to_primaries =os.path.split(os.path.dirname(os.path.realpath(__file__)))[:-2]
-        file = os.path.join(path_to_primaries, "testcases/3repeats.xml")
+        path_to_primaries = ['/']
+        path_to_primaries.extend(os.path.dirname(os.path.realpath(__file__)).split('/')[1:-2])
+        path_to_primaries.append("SampleMusicXML")
+        path_to_primaries.append("testcases")
+        path_to_primaries.append("3repeats.xml")
+        file = os.path.join(*path_to_primaries)
         self.manager.copyFiles([file])
         self.assertTrue(
             os.path.exists(
