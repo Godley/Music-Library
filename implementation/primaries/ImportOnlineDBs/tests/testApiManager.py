@@ -43,7 +43,7 @@ class testSingularFileDownload(testFileDownload):
     def setUp(self):
         testFileDownload.setUp(self)
         self.result = self.apiMan.downloadFile(
-            source="MuseScore", file="780706", secret="54953dd4f8")
+            source="MuseScore", file="1365861", secret="423b4c25b8")
         self.bad_request = self.apiMan.downloadFile(source="notASource")
         self.evenWorseRequest = self.apiMan.downloadFile(
             source="MuseScore", file="notAFile", secret="noSecrets")
@@ -52,7 +52,7 @@ class testSingularFileDownload(testFileDownload):
         self.assertEqual(self.result, 200)
 
     def testFileCreation(self):
-        self.assertTrue(os.path.exists("780706.mxl"))
+        self.assertTrue(os.path.exists("1365861.mxl"))
 
     def testErrorRequest(self):
         self.assertEqual(self.bad_request, 4004)
