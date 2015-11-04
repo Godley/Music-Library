@@ -1,5 +1,5 @@
 #A Sheet Music Organisation System
-This project aims to create an application which manages a person's music collection - that is, sheet music, the visual
+  This project aims to create an application which manages a person's music collection - that is, sheet music, the visual
 representation of a composed piece of music.
 ##Design
 The system works by:
