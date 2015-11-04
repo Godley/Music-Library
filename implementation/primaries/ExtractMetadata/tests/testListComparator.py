@@ -6,8 +6,7 @@ import os
 class TestListComparator(unittest.TestCase):
 
     def setUp(self):
-        self.folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/' \
-                      'ExtractMetadata/tests/test_files/folder_tests'
+        self.folder = os.path.join(os.getcwd(), 'test_files/folder_tests')
         self.folderBrowser = MusicManager.FolderBrowser(
             db_files=[
                 'file1.xml',
@@ -21,8 +20,7 @@ class TestListComparator(unittest.TestCase):
                     "file1.xml", "file3.xml"], "mxl": ["file5.mxl"]})
 
     def testComparatorWithMultipleFolders(self):
-        self.folder = '/Users/charlottegodley/PycharmProjects/FYP/implementation/primaries/' \
-                      'ExtractMetadata/tests/test_files/folder_tests_2'
+        self.folder = os.path.join(os.getcwd(), 'test_files/folder_tests_2')
         self.folderBrowser = MusicManager.FolderBrowser(
             db_files=[],
             folder=self.folder)
