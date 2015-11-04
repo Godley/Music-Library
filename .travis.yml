@@ -1,11 +1,12 @@
 language: python
 python:
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev" # 3.5 development branch
-  - "nightly" # currently points to 3.6-dev
-# command to install dependencies
-install: "pip3 install -r requirements.txt"
-# command to run tests
+- '3.3'
+- '3.4'
+- '3.5'
+- 3.5-dev
+- nightly
+install: pip3 install -r requirements.txt
 script: python3 -m "nose"
+env:
+  global:
+    secure: mnSo+n3Z+H9q4Lr8ncGtWI3DxtgLhICDthyWpz6wfGEYPZqqOu40ZDE32RGfBBx4Y89vlaJwqgzk7A7IbHyDyDuvlMU2NyIKhifLlzW1IbEmzeIJx/e0bKo24Y5FyDdregITl24i6je1Gc8H+5h0hULpyDnIF1a5uFCXLJAhRge/V/2xnYEq/VOP2bYWf/kFnpJnMXl7CJvvNBkgDmjHqUSoOpmGSGzXeVC1+9iGbsmOWTE77bZfFeQhJoC2cM2lysiHyfChxfaa9lDB5g6ORPvGLT+lutYzpBzjKlLQ4/tj7Z2yzH8wG2160F20PCm9NOY0v/vrStAZIfHo+3RN47dXLetX/8ZDysV049X8rrAikXwKxT2UjeGLX1hTNdzScIowqcU3GJ5i+EFWEyo8kb4guFJl7k0o4o5uLzUh88F8p4UOmAJCnfnvMDOgORFeq98CnZfYNSSPrV0/rPnP+zTRiskgSh0GOBmu14h725CI4y1ElmNfrmCGUQBZE3krKCfd1XNMdEMuH1lD60HPtuvCzJr6tFH2SBj1agxGYTOsT9ALtujyy8XLx1PkMLFwPMjR5QIfdRhS2SHNAo7+41UNC4laBUgwxgTByGGo0Gfaeq7QwXeQ3Puc7+mNfYh9WC16Rz8f7/Da4EM9uWgig7s3U1KkR51fUNzf+4d6EoE=
