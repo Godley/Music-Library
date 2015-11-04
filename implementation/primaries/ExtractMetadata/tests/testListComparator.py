@@ -6,6 +6,7 @@ import os
 class TestListComparator(unittest.TestCase):
 
     def setUp(self):
+        print(os.getcwd())
         self.folder = os.path.join(os.getcwd(), 'test_files/folder_tests')
         self.folderBrowser = MusicManager.FolderBrowser(
             db_files=[
