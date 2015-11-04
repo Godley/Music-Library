@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66b048a1-9963-4179-9b04-805f07fd0ea7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" afterPath="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="e3a8c572-32e4-416f-ba57-de4cd71f5634" name="Broken" comment="" />
@@ -194,7 +194,7 @@
         <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+              <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="99" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -212,13 +212,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="testMusicManagerApiIntegration.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManagerApiIntegration.py">
+      <file leaf-file-name="testUnzipper.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6085919">
-              <caret line="47" column="31" selection-start-line="47" selection-start-column="31" selection-end-line="47" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.50119334">
+              <caret line="14" column="39" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
               <folding>
-                <element signature="e#1#16#0" expanded="true" />
+                <element signature="e#0#73#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -256,7 +256,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testHandlers/testParser.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/setup.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/tests/testLilyMethods/testLilypondRun.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/Drawing/classes/Input/MxmlParser.py" />
@@ -307,6 +306,7 @@
         <option value="$PROJECT_DIR$/implementation/primaries/exceptions.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/MScoreApi.py" />
         <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py" />
+        <option value="$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py" />
       </list>
     </option>
   </component>
@@ -413,6 +413,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ExtractMetadata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FYP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fyp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="implementation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="primaries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ExtractMetadata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -694,12 +720,6 @@
       <created>1418346903128</created>
       <option name="number" value="Default" />
       <updated>1418346903128</updated>
-    </task>
-    <task id="LOCAL-00641" summary="further cleanup&#10;- applied autopep8 to drawing classes&#10;- reorganised gui folder so designer files aren't in the main folder">
-      <created>1428849315439</created>
-      <option name="number" value="00641" />
-      <option name="project" value="LOCAL" />
-      <updated>1428849315439</updated>
     </task>
     <task id="LOCAL-00642" summary="datalayer integration&#10;- integrated online attrib on all methods where relevant&#10;- cleaned up drawing files so they now all are to pep8 standard (excluding some camel case problems possibly)&#10;- issue fix #258 with 2 new unit tests for every method implementing the online attribute">
       <created>1428850525371</created>
@@ -989,7 +1009,13 @@
       <option name="project" value="LOCAL" />
       <updated>1446672821811</updated>
     </task>
-    <option name="localTasksCounter" value="690" />
+    <task id="LOCAL-00690" summary="more removals of frickin absolute paths">
+      <created>1446675720232</created>
+      <option name="number" value="00690" />
+      <option name="project" value="LOCAL" />
+      <updated>1446675720232</updated>
+    </task>
+    <option name="localTasksCounter" value="691" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1077,7 +1103,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
-    <MESSAGE value="A butt load of test fixes" />
     <MESSAGE value="work on issue #237&#10;&#10;- there is still a duplication issue having checked with sqlitebrowser. I'm not sure why this is happening&#10;- partial temporary fix to the problem by using sets rather than lists: this makes sure that when the query comes back any duplicate entries are ignored" />
     <MESSAGE value="MusicManager test fixes&#10;&#10;- work toward issue #237: tests in music manager now pass, but we should look at the underlying problem which is that when data is added for some reason there are duplicates.&#10;- replaced files which were accidentally removed in the last commit" />
     <MESSAGE value="more test fixes. Not much to report." />
@@ -1102,7 +1127,8 @@
     <MESSAGE value="replaced api key from file with environment variable" />
     <MESSAGE value="removed idiotic absolute path" />
     <MESSAGE value="testing for travis" />
-    <option name="LAST_COMMIT_MESSAGE" value="testing for travis" />
+    <MESSAGE value="more removals of frickin absolute paths" />
+    <option name="LAST_COMMIT_MESSAGE" value="more removals of frickin absolute paths" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1239,13 +1265,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/GUI/qt_threading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydev_monkey_qt.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1576,14 +1595,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/exceptions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="110" selection-start-line="5" selection-start-column="110" selection-end-line="5" selection-end-column="110" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ImportOnlineDBs/classes/ApiManager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1622,16 +1633,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/python3/3.4.2_1/Frameworks/Python.framework/Versions/3.4/lib/python3.4/unittest/case.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1642,10 +1643,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testMusicManagerApiIntegration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6085919">
+        <state vertical-scroll-proportion="1.575179">
           <caret line="47" column="31" selection-start-line="47" selection-start-column="31" selection-end-line="47" selection-end-column="31" />
           <folding>
             <element signature="e#1#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/exceptions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="110" selection-start-line="5" selection-start-column="110" selection-end-line="5" selection-end-column="110" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testListComparator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="99" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implementation/primaries/ExtractMetadata/tests/testUnzipper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.50119334">
+          <caret line="14" column="39" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#73#0" expanded="true" />
           </folding>
         </state>
       </provider>
