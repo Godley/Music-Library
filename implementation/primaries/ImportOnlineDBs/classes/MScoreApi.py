@@ -6,6 +6,7 @@ from implementation.primaries.GUI.helpers import get_base_dir
 import requests
 import os
 import shutil
+from implementation.primaries import exceptions
 
 
 class MuseScoreApi(Api):
@@ -23,9 +24,10 @@ class MuseScoreApi(Api):
         method to fetch the API key. SHOULD NOT be just a string, this part is temporary
         :return: api key
         '''
-        file = open(os.path.join(get_base_dir(), 'Keys', 'mscore'), 'r')
-        line = file.readline()
-        return line
+        if 'MSCORE' in os.environ:
+            return os.environ['MSCORE']
+        else:
+            raise exceptions.APIKeyNotFoundException('Error, MSCORE key not set. Please set to your API key for musescore')
 
     def getCollection(self):
         '''

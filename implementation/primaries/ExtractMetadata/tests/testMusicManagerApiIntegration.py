@@ -53,6 +53,8 @@ class TestMusicManagerWithApiIntegration(unittest.TestCase):
         self.assertEqual(len(results), len(self.result_set["MuseScore"]))
 
     def testCleanup(self):
+        manager = MusicManager.MusicManager(None, folder=os.getcwd())
+        result_set = manager.parseApiFiles()
         dir = os.getcwd()
         extensions = ['mxl', 'xml']
         for source in result_set:

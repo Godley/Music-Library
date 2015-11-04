@@ -284,9 +284,9 @@ class MusicManager(object):
                     parser = OnlineMetaParser.OnlineMetaParser(
                         ignored=ignore_list, source=source)
                     data = self.parseXMLFile(file, parser=parser)
-                    path_to_file = os.path.join(self.folder, file)
-                    if os.path.exists(path_to_file):
-                        os.remove(path_to_file)
+                    # path_to_file = os.path.join(self.folder, file)
+                    # if os.path.exists(path_to_file):
+                    #     os.remove(path_to_file)
                     if type(data) != tuple:
                         result_set[source][file] = data
                         file_id = file.split("/")[-1].split(".")[0]
