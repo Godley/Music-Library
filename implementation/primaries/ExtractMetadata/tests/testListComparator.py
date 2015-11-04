@@ -1,18 +1,20 @@
 import unittest
 from implementation.primaries.ExtractMetadata.classes import MusicManager
+from implementation.primaries import ExtractMetadata
 import os
 
 
 class TestListComparator(unittest.TestCase):
 
     def setUp(self):
-        print(os.getcwd())
-        self.folder = os.path.join(os.getcwd(), 'test_files/folder_tests')
+        self.folder = os.path.join(os.path.dirname(ExtractMetadata.__file__), 'tests', 'test_files')
+        self.current = os.path.join(self.folder, 'folder_tests')
+        print(self.current)
         self.folderBrowser = MusicManager.FolderBrowser(
             db_files=[
                 'file1.xml',
                 'file2.xml'],
-            folder=self.folder)
+            folder=self.current)
 
     def testGetListFromFolder(self):
         self.assertEqual(
@@ -21,10 +23,10 @@ class TestListComparator(unittest.TestCase):
                     "file1.xml", "file3.xml"], "mxl": ["file5.mxl"]})
 
     def testComparatorWithMultipleFolders(self):
-        self.folder = os.path.join(os.getcwd(), 'test_files/folder_tests_2')
+        current = os.path.join(self.folder, 'folder_tests_2')
         self.folderBrowser = MusicManager.FolderBrowser(
             db_files=[],
-            folder=self.folder)
+            folder=current)
         self.assertEqual(self.folderBrowser.getFolderFiles(),
                          {"xml": ["test.xml", "folder_2/test2.xml"]})
 
@@ -33,7 +35,7 @@ class TestListComparator(unittest.TestCase):
 
     def testFilesToBeAdded(self):
         self.assertEqual(
-            self.folderBrowser.getNewFileList(), ["file3.xml", "file5.xml"])
+            self.folderBrowser.getNewFileList(), ["file3.xml"])
 
     def testRecordsToBeArchived(self):
         self.assertEqual(self.folderBrowser.getOldRecords(), ["file2.xml"])
@@ -44,5 +46,5 @@ class TestListComparator(unittest.TestCase):
                 "old": ["file2.xml"], "new": ["file3.xml"]})
 
     def tearDown(self):
-        if os.path.exists(os.path.join(self.folder, "file5.xml")):
-            os.remove(os.path.join(self.folder, "file5.xml"))
+        if os.path.exists(os.path.join(self.current, "file5.xml")):
+            os.remove(os.path.join(self.current, "file5.xml"))
