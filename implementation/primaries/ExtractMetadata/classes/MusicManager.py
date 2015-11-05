@@ -12,7 +12,7 @@ from implementation.primaries.GUI.helpers import get_base_dir
 from MuseParse.classes.Output import LilypondOutput
 from MuseParse.classes import Exceptions
 from MuseParse.classes.Input import MxmlParser
-
+import logging
 
 class Unzipper(object):
     """
@@ -263,7 +263,7 @@ class MusicManager(object):
 
         return results
 
-    def parseApiFiles(self):
+    def parseApiFiles(self, debug=False):
         """
         method to extract data from apis and parse each created file for metadata
         :return: dictionary of data indexed by filename
@@ -316,7 +316,10 @@ class MusicManager(object):
         if len(parsing_errors) > 0:
             error_string = "".join(
                 [error + " : " + parsing_errors[error] for error in parsing_errors])
-            self.parent.errorPopup(error_string)
+            if not debug:
+                self.parent.errorPopup(error_string)
+            for error in parsing_errors:
+                logging.log(logging.ERROR, error+" : "+parsing_errors[error])
         return result_set
 
     def addApiFiles(self, data):
@@ -456,7 +459,7 @@ class MusicManager(object):
         try:
             data_set = parser.parse(os.path.join(self.folder, filename))
             return data_set
-        except SAXException as e:
+        except Exception as e:
             errorTuple.append(str(e))
             errorTuple.append(filename)
             return tuple(errorTuple)

@@ -94,11 +94,8 @@ class MetaParser(object):
         # OFFLINE MODE
         parser.setFeature(handler.feature_external_ges, False)
         fob = open(file, 'r')
-        try:
-            parser.parse(fob)
-            self.collatePartsIntoData()
-        except Exception as e:
-            print("Exception " + str(e) + " encountered in metaparser")
+        parser.parse(fob)
+        self.collatePartsIntoData()
         fob.close()
         return self.data
 

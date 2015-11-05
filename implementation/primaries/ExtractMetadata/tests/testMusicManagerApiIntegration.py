@@ -4,7 +4,7 @@ import os
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 
 manager = MusicManager.MusicManager(None, folder=os.getcwd())
-result_set = manager.parseApiFiles()
+result_set = manager.parseApiFiles(debug=True)
 
 
 class TestMusicManagerWithApiIntegration(unittest.TestCase):
@@ -54,7 +54,8 @@ class TestMusicManagerWithApiIntegration(unittest.TestCase):
 
     def testCleanup(self):
         manager = MusicManager.MusicManager(None, folder=os.getcwd())
-        result_set = manager.parseApiFiles()
+        result_set = manager.parseApiFiles(debug=True)
+        self.file_list = manager.unzipApiFiles(self.result_set)
         dir = os.getcwd()
         extensions = ['mxl', 'xml']
         for source in result_set:
