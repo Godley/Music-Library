@@ -1,7 +1,8 @@
 #A Sheet Music Organisation System
 
-[![Build status](https://ci.appveyor.com/api/projects/status/l0rc9184c6tqe19d?svg=true)](https://ci.appveyor.com/project/Godley/music-library)
-[![Build Status](https://magnum.travis-ci.com/Godley/Music-Library.svg?token=WYronetRoqG7kFrfqyBW)](https://magnum.travis-ci.com/Godley/Music-Library)
+<center>[![Build status](https://ci.appveyor.com/api/projects/status/l0rc9184c6tqe19d?svg=true)](https://ci.appveyor.com/project/Godley/music-library)
+[![Build Status](https://magnum.travis-ci.com/Godley/Music-Library.svg?token=WYronetRoqG7kFrfqyBW)](https://magnum.travis-ci.com/Godley/Music-Library)</center>
+
   This project aims to create an application which manages a person's music collection - that is, sheet music, the visual
 representation of a composed piece of music.
 ##Design
