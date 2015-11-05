@@ -45,9 +45,7 @@ init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
 
 install:
-  - ps: Start-FileDownload 'http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-2.18.2-1.mingw.exe'
-  - "set HOME=%APPVEYOR_BUILD_FOLDER%"
-  - "set PATH=%PATH;C:\Program Files (x86)\LilyPond\usr\bin"
+  - "set HOME=%APPVEYOR_BUILD_FOLDER%""
 
 build: off
 
