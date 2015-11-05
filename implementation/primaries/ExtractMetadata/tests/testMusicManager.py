@@ -1,5 +1,5 @@
 import unittest
-import os
+import os, sys
 from unittest.mock import MagicMock
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 
@@ -9,7 +9,7 @@ class TestMusicManager(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "test_files/manager_tests")
-        self.manager = MusicManager.MusicManager(None, folder=self.folder)
+        self.manager = MusicManager.MusicManager(None, folder=self.folder, apis='all')
 
     def testRunUnzipper(self):
         self.manager.handleZips()
@@ -22,8 +22,8 @@ class TestMusicManager(unittest.TestCase):
         self.manager.parseNewFiles = MagicMock(name='method')
         self.manager.parseOldFiles = MagicMock(name='method')
         self.manager.handleXMLFiles()
-        self.manager.parseNewFiles.assert_called_once_with(
-            ["file5.xml", "testcase2.xml"])
+        expected = sorted(["file5.xml", "testcase2.xml"])
+        self.manager.parseNewFiles.assert_called_once_with(expected)
         self.manager.parseOldFiles.assert_called_once_with(["file.xml"])
 
     def testParseFile(self):
@@ -63,8 +63,14 @@ class TestMusicManager(unittest.TestCase):
             ["file.xml"])
 
     def testCopyFiles(self):
-        path_to_primaries = ['/']
-        path_to_primaries.extend(os.path.dirname(os.path.realpath(__file__)).split('/')[1:-2])
+        path_to_primaries = []
+        value = ''
+        filepath = os.path.dirname(os.path.realpath(__file__))
+        while value != 'ExtractMetadata':
+            pair = os.path.split(filepath)
+            filepath = pair[0]
+            value = pair[1]
+        path_to_primaries.append(filepath)
         path_to_primaries.append("SampleMusicXML")
         path_to_primaries.append("testcases")
         path_to_primaries.append("3repeats.xml")

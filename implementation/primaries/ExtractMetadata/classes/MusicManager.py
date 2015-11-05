@@ -186,7 +186,7 @@ class MusicManager(object):
     to API access.
     """
 
-    def __init__(self, parent, folder='/Users/charlottegodley/PycharmProjects/FYP'):
+    def __init__(self, parent, apis='all', folder='/Users/charlottegodley/PycharmProjects/FYP'):
         self.parent = parent
         """the application instance in which this manager resides"""
         self.folder = folder
@@ -197,7 +197,7 @@ class MusicManager(object):
                 self.folder,
                 "music.db"))
         self.setupFolderBrowser()
-        self.apiManager = ApiManager.ApiManager(folder=self.folder)
+        self.apiManager = ApiManager.ApiManager(folder=self.folder, apis=apis)
 
     def startRenderingTask(self, fname):
         """
@@ -481,9 +481,9 @@ class MusicManager(object):
         """
         files = self.folder_browser.getNewAndOldFiles()
         if "new" in files:
-            self.parseNewFiles(files["new"])
+            self.parseNewFiles(sorted(files["new"]))
         if "old" in files:
-            self.parseOldFiles(files["old"])
+            self.parseOldFiles(sorted(files["old"]))
 
     def runQueries(self, search_data, online=False):
         results = {}
@@ -737,7 +737,7 @@ class MusicManager(object):
         :return: none
         """
         for file in filenames:
-            folder_file_split = file.split("/")
+            folder_file_split = os.path.split(file)
             f = folder_file_split[-1]
             shutil.copyfile(file, os.path.join(self.folder, f))
 

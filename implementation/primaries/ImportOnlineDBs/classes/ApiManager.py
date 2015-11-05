@@ -7,10 +7,11 @@ import os
 
 class ApiManager(object):
 
-    def __init__(self, folder=""):
+    def __init__(self, apis='all', folder=""):
         self.folder = folder
         self.sources = {}
-        self.sources["MuseScore"] = (
+        if apis == 'all':
+            self.sources["MuseScore"] = (
             MScoreApi.MuseScoreApi(folder), ["movement-title", "work-title", "creator"])
 
     def fetchAllData(self):
