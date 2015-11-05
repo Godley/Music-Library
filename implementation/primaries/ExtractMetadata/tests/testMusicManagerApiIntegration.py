@@ -55,9 +55,9 @@ class TestMusicManagerWithApiIntegration(unittest.TestCase):
     def testCleanup(self):
         manager = MusicManager.MusicManager(None, folder=os.getcwd())
         result_set = manager.parseApiFiles(debug=True)
-        self.file_list = manager.unzipApiFiles(self.result_set)
+        self.file_list = manager.unzipApiFiles(result_set)
         dir = os.getcwd()
-        extensions = ['mxl', 'xml']
+        extensions = ['xml']
         for source in result_set:
             for file in result_set[source]:
                 for ext in extensions:

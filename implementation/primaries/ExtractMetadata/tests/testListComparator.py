@@ -9,7 +9,6 @@ class TestListComparator(unittest.TestCase):
     def setUp(self):
         self.folder = os.path.join(os.path.dirname(ExtractMetadata.__file__), 'tests', 'test_files')
         self.current = os.path.join(self.folder, 'folder_tests')
-        print(self.current)
         self.folderBrowser = MusicManager.FolderBrowser(
             db_files=[
                 'file1.xml',
@@ -28,7 +27,7 @@ class TestListComparator(unittest.TestCase):
             db_files=[],
             folder=current)
         self.assertEqual(self.folderBrowser.getFolderFiles(),
-                         {"xml": ["test.xml", "folder_2/test2.xml"]})
+                         {"xml": ["test.xml", os.path.join("folder_2", "test2.xml")]})
 
     def testGetZipList(self):
         self.assertEqual(self.folderBrowser.getZipFiles(), ["file5.mxl"])

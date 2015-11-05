@@ -108,8 +108,6 @@ class MetaParser(object):
             data = {}
             if "name" in self.parts[part]:
                 data["name"] = self.parts[part]["name"]
-                if self.parts[part]["name"] == "Piano":
-                    print("yolo")
             else:
                 self.parts[part]["name"] = "hello, world"
                 data["name"] = "hello, world"

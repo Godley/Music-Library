@@ -1,7 +1,4 @@
-import os
-import shutil
-import sys
-import zipfile
+import os, shutil, zipfile, logging
 from xml.sax._exceptions import *
 
 import requests.exceptions
@@ -12,7 +9,6 @@ from implementation.primaries.GUI.helpers import get_base_dir
 from MuseParse.classes.Output import LilypondOutput
 from MuseParse.classes import Exceptions
 from MuseParse.classes.Input import MxmlParser
-import logging
 
 class Unzipper(object):
     """
@@ -56,9 +52,9 @@ class Unzipper(object):
                     file = [
                         f.filename for f in zip_file.filelist if "META-INF" not in f.filename]
                     resulting_file_list.append(file[0])
-                except:
-                    print(
-                        "file " + file + " was skipped: exception occurred when unzipping")
+                    zip_file.close()
+                except Exception as e:
+                    logging.log(logging.ERROR, "file " + file + " was skipped: "+str(e))
 
         return resulting_file_list
 
@@ -77,10 +73,13 @@ class Unzipper(object):
         results = self.unzipInputFiles()
         result_paths = [os.path.join(self.folder, file) for file in results]
         for expected, result, path in zip(output_list, result_paths, output_paths):
-            if result != expected and os.path.exists(result):
+            if result != expected and os.path.exists(result) and result != path:
                 if os.path.exists(path):
                     os.remove(path)
-                os.rename(result, path)
+                try:
+                    os.rename(result, path)
+                except Exception as e:
+                    logging.log(logging.ERROR, "File %s was skipped from renaming: %s" % (result, str(e)))
 
         if os.path.exists(os.path.join(self.folder, 'META-INF')):
             shutil.rmtree(os.path.join(self.folder, 'META-INF'))
