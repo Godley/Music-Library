@@ -21,12 +21,12 @@ Currently the system is documented using github issues and the reports stored in
 Once I have a bit of time to do more writing there will be a proper documentation site with instructions on setting up
 
 ##Infrastructure
-- Language: Python
-- GUI: PyQt4
-- Rendering: Lilypond via [MuseParse](http://github.com/godley/MuseParse)
+- Language: Python 3.4.
+- GUI: PyQt4, with pdfs done by poppler on Linux and Mac, default pdf viewer on windows.
+- Rendering: [Lilypond](http://lilypond.org) via [MuseParse](http://github.com/godley/MuseParse)
 - Input format: MusicXML
 - Output Format for rendering: PDF via lilypond
-- APIs used: MuseScore
+- APIs used: [MuseScore](http://musescore.com) - keys are individual except for the release build which will use my API key. Please contact the musescore developers for a key if you need to debug anything network related.
 
 ##Installation
-I don't currently have installer scripts written, but for deving this you will need to preinstall Lilypond and set up some scripts and such. I'll get to that when I've done some crossplatform work
+I don't currently have installer scripts written, but for deving this you will need to preinstall Lilypond and run pip3 install -r requirements.txt. I'll get to installers soonish.

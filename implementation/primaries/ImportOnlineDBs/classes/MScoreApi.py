@@ -19,15 +19,19 @@ class MuseScoreApi(Api):
         self.download_endpoint = 'http://static.musescore.com/'
         self.ignored_tags = ["movement-title", "work-title", "creator"]
 
-    def getKey(self):
+    def getKey(self, debug=True):
         '''
         method to fetch the API key. SHOULD NOT be just a string, this part is temporary
         :return: api key
         '''
-        if 'MSCORE' in os.environ:
-            return os.environ['MSCORE']
+        if debug:
+            if 'MSCORE' in os.environ:
+                return os.environ['MSCORE']
+            else:
+                raise exceptions.APIKeyNotFoundException('Error, MSCORE environment variable not set. Please set to your API key for musescore')
         else:
-            raise exceptions.APIKeyNotFoundException('Error, MSCORE key not set. Please set to your API key for musescore')
+            # do some obfisgation
+            raise NotImplementedError('API key not implemented for release build')
 
     def getCollection(self):
         '''
