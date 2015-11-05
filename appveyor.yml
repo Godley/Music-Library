@@ -45,10 +45,7 @@ init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
 
 install:
-  - "$msiPath = '$($env:USERPROFILE)\MultilingualAppToolkit.msi'"
-  - "(New-Object Net.WebClient).DownloadFile('http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-2.18.2-1.mingw.exe', $msiPath)"
-  - "cmd /c start /wait msiexec /i $msiPath /q"
-  - "powershell appveyor\\install.ps1"
+  - ps: Start-FileDownload 'http://download.linuxaudio.org/lilypond/binaries/mingw/lilypond-2.18.2-1.mingw.exe'
   - "set HOME=%APPVEYOR_BUILD_FOLDER%"
   - "set PATH=%PATH;C:\Program Files (x86)\LilyPond\usr\bin"
 
