@@ -78,6 +78,8 @@ class Unzipper(object):
         result_paths = [os.path.join(self.folder, file) for file in results]
         for expected, result, path in zip(output_list, result_paths, output_paths):
             if result != expected and os.path.exists(result):
+                if os.path.exists(path):
+                    os.remove(path)
                 os.rename(result, path)
 
         if os.path.exists(os.path.join(self.folder, 'META-INF')):

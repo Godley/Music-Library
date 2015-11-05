@@ -99,7 +99,7 @@ class MetaParser(object):
             self.collatePartsIntoData()
         except Exception as e:
             print("Exception " + str(e) + " encountered in metaparser")
-
+        fob.close()
         return self.data
 
     def collatePartsIntoData(self):
