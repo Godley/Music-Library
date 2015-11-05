@@ -49,6 +49,6 @@ install:
 build: off
 
 test_script:
-  - "python -m 'nose' --logging-level=WARNING"
+  - "nosetests --logging-level=WARNING"
 
 
