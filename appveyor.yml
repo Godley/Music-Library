@@ -8,11 +8,6 @@ environment:
     secure: vsaSnV7rPDYhBTbxa1yfYcOmmkXU1PzMtOsWXJfHLt15aoc2RXWccZ1wDRr2DyA1
 
   matrix:
-    - PYTHON: "C:\\Python27"
-      PYTHON_VERSION: "2.7.8"
-      PYTHON_ARCH: "32"
-      DISTRIBUTIONS: "sdist bdist_wheel"
-
     - PYTHON: "C:\\Python33"
       PYTHON_VERSION: "3.3.5"
       PYTHON_ARCH: "32"
@@ -50,6 +45,6 @@ install:
 build: off
 
 test_script:
-  - "python3 -m 'nose' --logging-level=WARNING"
+  - "python -m 'nose' --logging-level=WARNING"
 
 
