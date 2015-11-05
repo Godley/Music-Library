@@ -45,7 +45,7 @@ init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
 
 install:
-  - "set HOME=%APPVEYOR_BUILD_FOLDER%""
+  - "set HOME=%APPVEYOR_BUILD_FOLDER%"
 
 build: off
 
