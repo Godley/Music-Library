@@ -37,9 +37,11 @@ environment:
       DISTRIBUTIONS: "bdist_wheel"
 
 init:
+
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
 
 install:
+  - "set PATH=%PATH%;%PYTHON%;%PYTHON%\\Scripts"
   - "pip install nose"
   - "pip install -r requirements.txt"
   - "set HOME=%APPVEYOR_BUILD_FOLDER%"
