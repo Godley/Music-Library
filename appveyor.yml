@@ -40,6 +40,8 @@ init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
 
 install:
+  - "pip install nose"
+  - "pip install -r requirements.txt"
   - "set HOME=%APPVEYOR_BUILD_FOLDER%"
 
 build: off
