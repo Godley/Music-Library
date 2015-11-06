@@ -7,7 +7,7 @@ import requests
 import os
 import shutil
 from implementation.primaries import exceptions
-
+import logging
 
 class MuseScoreApi(Api):
 
@@ -92,6 +92,8 @@ class MuseScoreApi(Api):
             for value in filters[filter]:
                 params.update({filter: value})
                 request = requests.get(self.endpoint, params=params)
+                if request.status_code == 204:
+                    logging.log(logging.ERROR, "No JSON content")
                 response = request.json()
                 current_response = {r["id"]: r for r in response}
                 data.update(current_response)
