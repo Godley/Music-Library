@@ -91,6 +91,7 @@ class MuseScoreApi(Api):
             for value in filters[filter]:
                 params.update({filter: value})
                 request = requests.get(self.endpoint, params=params)
+                raise(Exception(request.encoding))
                 if request.encoding == 'gzip':
                     buf = StringIO(request.content)
                     f = gzip.GzipFile(fileobj=buf)
