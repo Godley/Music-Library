@@ -3,11 +3,10 @@ Classes dealing with the MuseScore community api
 '''
 from implementation.primaries.ImportOnlineDBs.classes.API import Api
 from implementation.primaries.GUI.helpers import get_base_dir
-import requests
-import os
-import shutil
+import requests, os, shutil, gzip
+from io import StringIO
 from implementation.primaries import exceptions
-import logging
+import logging, json
 
 class MuseScoreApi(Api):
 
@@ -92,9 +91,15 @@ class MuseScoreApi(Api):
             for value in filters[filter]:
                 params.update({filter: value})
                 request = requests.get(self.endpoint, params=params)
+                if request.encoding == 'gzip':
+                    buf = StringIO(request.content)
+                    f = gzip.GzipFile(fileobj=buf)
+                    response = json.load(f.read())
+                else:
+                    response = request.json()
                 if request.status_code == 204:
                     logging.log(logging.ERROR, "No JSON content")
-                response = request.json()
+
                 current_response = {r["id"]: r for r in response}
                 data.update(current_response)
                 response_ids = [r["id"] for r in response]
