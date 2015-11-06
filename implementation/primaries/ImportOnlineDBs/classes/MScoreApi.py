@@ -41,7 +41,7 @@ class MuseScoreApi(Api):
         if request.headers['content-encoding'] == 'gzip':
             request.encoding = 'gzip'
         if request.encoding == 'gzip':
-            raise(Exception(str(gzip.decompress(request.content).decode("utf-8"))))
+            raise(Exception(gzip.decompress(request.content).decode("utf-8")+request.headers))
             #response = json.loads()
         else:
             response = request.json()
