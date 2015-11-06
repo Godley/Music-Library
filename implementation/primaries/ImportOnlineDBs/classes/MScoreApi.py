@@ -38,6 +38,16 @@ class MuseScoreApi(Api):
         :return: list of dictionaries containing metadata about all pieces licensed to modify commercially
         '''
         request = requests.get(self.endpoint, params=self.params)
+        raise(Exception(request.encoding))
+        if request.encoding == 'gzip':
+            buf = StringIO(request.content)
+            f = gzip.GzipFile(fileobj=buf)
+            response = json.load(f.read())
+        else:
+            response = request.json()
+        if request.status_code == 204:
+            logging.log(logging.ERROR, "No JSON content")
+
         response = request.json()
         return response
 
@@ -91,7 +101,7 @@ class MuseScoreApi(Api):
             for value in filters[filter]:
                 params.update({filter: value})
                 request = requests.get(self.endpoint, params=params)
-                raise(Exception(request.encoding))
+
                 if request.encoding == 'gzip':
                     buf = StringIO(request.content)
                     f = gzip.GzipFile(fileobj=buf)
