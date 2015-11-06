@@ -38,7 +38,8 @@ class MuseScoreApi(Api):
         :return: list of dictionaries containing metadata about all pieces licensed to modify commercially
         '''
         request = requests.get(self.endpoint, params=self.params)
-        raise(Exception(str(request.headers)))
+        if request.headers['content-encoding'] == 'gzip':
+            request.encoding = 'gzip'
         if request.encoding == 'gzip':
             buf = StringIO(request.content)
             f = gzip.GzipFile(fileobj=buf)
