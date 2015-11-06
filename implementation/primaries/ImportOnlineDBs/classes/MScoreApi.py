@@ -38,15 +38,10 @@ class MuseScoreApi(Api):
         :return: list of dictionaries containing metadata about all pieces licensed to modify commercially
         '''
         request = requests.get(self.endpoint, params=self.params)
-        if request.headers['content-encoding'] == 'gzip':
-            request.encoding = 'gzip'
-        if request.encoding == 'gzip':
-            raise(Exception(gzip.decompress(request.content).decode("utf-8")+str(request.headers)+str(request.status_code)))
-            #response = json.loads()
-        else:
+        if request.status_code == 200:
             response = request.json()
-        if request.status_code == 204:
-            logging.log(logging.ERROR, "No JSON content")
+        else:
+            raise(exceptions.BadAPIRequest('ERROR: API request response code: %i ' % request.status_code))
         return response
 
     def cleanCollection(self):
