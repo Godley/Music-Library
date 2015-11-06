@@ -4,7 +4,7 @@ Classes dealing with the MuseScore community api
 from implementation.primaries.ImportOnlineDBs.classes.API import Api
 from implementation.primaries.GUI.helpers import get_base_dir
 import requests, os, shutil, gzip
-from io import StringIO
+from io import BytesIO
 from implementation.primaries import exceptions
 import logging, json
 
@@ -41,7 +41,7 @@ class MuseScoreApi(Api):
         if request.headers['content-encoding'] == 'gzip':
             request.encoding = 'gzip'
         if request.encoding == 'gzip':
-            buf = StringIO(request.content)
+            buf = BytesIO(request.content)
             f = gzip.GzipFile(fileobj=buf)
             response = json.load(f.read())
         else:
