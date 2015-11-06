@@ -42,8 +42,8 @@ class MuseScoreApi(Api):
             buf = StringIO(request.content)
             f = gzip.GzipFile(fileobj=buf)
             response = json.load(f.read())
-        else:
-            response = request.json()
+        # else:
+        #     response = request.json()
         if request.status_code == 204:
             logging.log(logging.ERROR, "No JSON content")
         return response
