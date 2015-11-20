@@ -1,7 +1,4 @@
-try:
-    from implementation.primaries.ImportOnlineDBs.classes import MScoreApi
-except:
-    from primaries.ImportOnlineDBs.classes import MScoreApi
+from implementation.primaries.ImportOnlineDBs.classes import MScoreApi
 import os
 
 

@@ -2,6 +2,7 @@
 Classes dealing with the MuseScore community api
 '''
 from implementation.primaries.ImportOnlineDBs.classes.API import Api
+
 from implementation.primaries.GUI.helpers import get_base_dir
 import requests, os, shutil, gzip
 from io import BytesIO
@@ -9,7 +10,7 @@ from implementation.primaries import exceptions
 import logging, json
 
 class MuseScoreApi(Api):
-
+    env_key = 'MSCORE'
     def __init__(self, folder=""):
         Api.__init__(self, folder=folder)
         self.key = self.getKey()
@@ -17,20 +18,6 @@ class MuseScoreApi(Api):
         self.endpoint = 'http://api.musescore.com/services/rest/score.json'
         self.download_endpoint = 'http://static.musescore.com/'
         self.ignored_tags = ["movement-title", "work-title", "creator"]
-
-    def getKey(self, debug=True):
-        '''
-        method to fetch the API key. SHOULD NOT be just a string, this part is temporary
-        :return: api key
-        '''
-        if debug:
-            if 'MSCORE' in os.environ:
-                return os.environ['MSCORE']
-            else:
-                raise exceptions.APIKeyNotFoundException('Error, MSCORE environment variable not set. Please set to your API key for musescore')
-        else:
-            # do some obfisgation
-            raise NotImplementedError('API key not implemented for release build')
 
     def getCollection(self):
         '''

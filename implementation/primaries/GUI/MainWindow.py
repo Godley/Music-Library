@@ -10,10 +10,7 @@ if platform == "darwin" or platform.startswith("linux"):
 from PyQt4 import QtGui, QtCore, uic
 
 from implementation.primaries.GUI.helpers import get_base_dir, parseStyle
-from implementation.primaries.GUI import themedWindow, Widgets
-from implementation.primaries.GUI import Widgets
-from implementation.primaries.GUI import qt_threading
-from implementation.primaries.GUI import MultistandWidget
+from implementation.primaries.GUI import themedWindow, Widgets, qt_threading, MultistandWidget
 
 
 class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):

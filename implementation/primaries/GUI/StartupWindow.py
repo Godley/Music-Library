@@ -18,6 +18,7 @@ class StartupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
         self.folderBtn.clicked.connect(self.openFolderDialog)
         self.collectionListWidget.itemDoubleClicked.connect(
             self.onItemDoubleClicked)
+        self.removeColBtn.clicked.connect(self.deleteCollection)
         for item in items:
             col_item = QtGui.QListWidgetItem(item)
             col_item.setData(1, item)
@@ -29,7 +30,7 @@ class StartupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
         if not listItems:
             return
         for item in listItems:
-            self.app.removeCollection(item.data(1))
+            self.qApp.removeCollection(item.data(1))
             self.collectionListWidget.takeItem(
                 self.collectionListWidget.row(item))
         self.collectionListWidget.show()

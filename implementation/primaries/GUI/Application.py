@@ -2,7 +2,7 @@ from threading import Lock
 import sys
 import os
 import pickle
-
+from xml.parsers import expat
 from PyQt4 import QtGui, QtCore, QtXml
 
 from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, PlaylistDialog, ImportDialog, licensePopup, \
@@ -53,6 +53,11 @@ class Application(QtCore.QObject):
         if not hasattr(self.windows["main"], "contentFrame"):
             self.windows["main"].load()
             self.windows["main"].themeSet = False
+
+    def removeCollection(self, folder):
+        if folder in self.meta["collections"]:
+            self.meta["collections"].remove(folder)
+        self.SaveMeta()
 
     def createNewPlaylist(self):
         self.windows["newplaylist"].load()

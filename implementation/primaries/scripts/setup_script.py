@@ -2,7 +2,7 @@ import sys
 import os
 from implementation.primaries.exceptions import LilypondNotInstalledException
 from implementation.primaries.GUI.helpers import get_base_dir
-from MuseParse.helpers import setup_lilypond
+
 
 
 def do_setup(path=None):
@@ -23,8 +23,8 @@ def do_setup(path=None):
         else:
             lpond_path = path
             filepath = os.path.join(lpond_path, "lilypond.exe")
-    if filepath is not None and os.path.exists(filepath):
-        setup_lilypond(lpond_path)
-    else:
-        raise LilypondNotInstalledException(
-            'ERROR! Windows edition of Lilypond not in expected folder')
+    # if filepath is not None and os.path.exists(filepath):
+    #     setup_lilypond(lpond_path)
+    # else:
+    #     raise LilypondNotInstalledException(
+    #         'ERROR! Windows edition of Lilypond not in expected folder')

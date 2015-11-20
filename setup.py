@@ -2,7 +2,7 @@ from cx_Freeze import setup, Executable
 import sys
 
 
-zips = ["implementation/primaries/GUI/designer_files", "implementation/primaries/Keys",
+zips = ["implementation/primaries/GUI/designer_files",
          "implementation/primaries/GUI/themes", "implementation/primaries/GUI/images",
          "implementation/primaries/scripts", "implementation/primaries/GUI/designer_files/icons.qrc"]
 
@@ -33,7 +33,6 @@ setup(name='MuseLib',
       executables=executables,
 
       packages=['implementation', 'implementation.primaries', 'implementation.primaries.GUI', 'implementation.primaries.scripts',
-              'implementation.primaries.GUI.pyqt_plugins', 'implementation.primaries.Drawing', 'implementation.primaries.Drawing.classes',
-              'implementation.primaries.Drawing.classes.tree_cls', 'implementation.primaries.ExtractMetadata',
+              'implementation.primaries.GUI.pyqt_plugins', 'implementation.primaries.ExtractMetadata',
               'implementation.primaries.ExtractMetadata.classes', 'implementation.primaries.ImportOnlineDBs','implementation.primaries.ImportOnlineDBs.classes']
       )

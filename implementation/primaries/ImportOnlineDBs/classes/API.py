@@ -3,9 +3,15 @@ A basic class which defines what methods sub classes must implement using except
 If methods are not implemented and should be, the dev will know because it tips over. For a worked example,
 see the MuseScore api class.
 '''
+from implementation.primaries import exceptions
+from implementation.primaries.GUI import helpers
+from implementation.primaries.ImportOnlineDBs.classes import config
+import sys, os
 
 
 class Api(object):
+    env_key = None
+    api_key = ''
 
     def __init__(self, folder=""):
         self.folder = folder
@@ -31,7 +37,19 @@ class Api(object):
         method to fetch the API key from the store. SHOULD NOT be just hard coded
         :return: string of api key
         '''
-        raise NotImplementedError
+        if not getattr(sys, "frozen", False):
+            # If this is running in the context of a frozen (executable) file,
+            # we return the path of the main application executable
+            if self.env_key in os.environ:
+                return os.environ[self.env_key]
+            else:
+                raise exceptions.APIKeyNotFoundException('Error, MSCORE environment variable not set. Please set to your API key for musescore')
+        else:
+            # If we are running in script or debug mode, we need
+            # to find the obfuscated file where it's located
+            return config.k[self.env_key]
+
+
 
     def getCollection(self):
         '''

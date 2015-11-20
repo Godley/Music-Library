@@ -70,7 +70,7 @@ QFrame#buttonFrame {
 background:#3E1C33;
 }
 
-QFrame QToolButton {
+QFrame QToolButton, QWidget QToolButton {
 background:transparent;
 padding:10px;
 border:0px;
@@ -82,37 +82,58 @@ QFrame QToolButton:pressed {
 }
 
 QFrame QToolButton#autoPlaylistBtn {
-background-image: url(themes/icons/0041-file-music.png);
+background-image: url(themes/icons/autoplaylist.png);
     background-position: center;
     background-repeat: no-repeat;
 }
 
 QFrame QToolButton#myPlaylistBtn {
-background-image: url(themes/icons/playlist.png);
+background-image: url(themes/icons/myplaylist.png);
     background-position: center;
     background-repeat: no-repeat;
 }
 
 QFrame QToolButton#infoBtn {
-background-image: url(themes/icons/0005-newspaper.png);
+background-image: url(themes/icons/info.png);
     background-position: center;
     background-repeat: no-repeat;
 }
 
 QFrame QToolButton#scorebookBtn {
-background-image: url(themes/icons/0033-books.png);
+background-image: url(themes/icons/scorebook.png);
     background-position: center;
     background-repeat: no-repeat;
 }
 
 QFrame QToolButton#featuredBtn {
-background-image: url(themes/icons/0216-star-empty.png);
+background-image: url(themes/icons/featured.png);
     background-position: center;
     background-repeat: no-repeat;
 }
 
 QFrame QToolButton#browserBtn {
-background-image: url(themes/icons/0190-menu.png);
+background-image: url(themes/icons/browser.png);
     background-position: center;
     background-repeat: no-repeat;
+}
+
+QWidget QToolButton#multistndBtn {
+    background-image: url(themes/icons/multistand.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+QWidget QToolButton#popoutBtn
+{
+    background-image: url(themes/icons/popout.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+QToolButton#zoomInBtn {
+    background: url(themes/icons/zoom-in.png) center no-repeat;
+}
+
+QToolButton#zoomOutBtn {
+    background: url(themes/icons/zoom-out.png) center no-repeat;
 }
