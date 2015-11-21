@@ -36,14 +36,16 @@ def parseStyle(stylesheet, theme):
                 section1 = portion[0]
                 postfix = os.path.join(portion[1],postfix)
             result_string = section1+os.path.join(get_base_dir(True), postfix)
+
             if "icons" in result_string:
                 prefix = result_string
-                postfix = "icons"
+                postfix = ""
                 while "icons" in prefix:
                     split_path = result_string.split('icons')
                     prefix = split_path[0]
                     postfix = "".join([postfix, split_path[1]])
                 result_string = os.path.join(prefix, "icons", theme, postfix)
+            print(result_string)
             results.append(result_string)
 
         else:
