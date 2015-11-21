@@ -25,12 +25,16 @@ def parseStyle(stylesheet, theme):
     results = []
     for line in stylesheet:
         if "themes/" in line:
+            print(get_base_dir(True))
             result = line.split("themes")
             result_string = result[
                 0] + os.path.join(get_base_dir(True), "themes") + result[1]
             if "icons" in result_string:
-                split_path = line.split("icons")
+                split_path = result_string.split("icons")
                 result_string = split_path[0] + os.path.join("icons", theme) + split_path[1]
+                print(result_string)
+
+            # TODO: MAKE CROSS PLATFORM!!
             result_string = result_string.replace("\\", "/")
             results.append(result_string)
 

@@ -284,7 +284,7 @@ class Application(QtCore.QObject):
                 render_thread.run()
 
     def onRenderError(self, error):
-        self.errorPopup([error])
+        self.errorPopup([str(error)])
 
     def errorPopup(self, errors):
         self.windows["error"].show()

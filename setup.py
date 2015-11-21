@@ -1,21 +1,37 @@
 from cx_Freeze import setup, Executable
 import sys
+from PyQt4 import QtCore
+import os, shutil, glob
 
+app = QtCore.QCoreApplication(sys.argv)
+qt_library_path = QtCore.QCoreApplication.libraryPaths()
 
 zips = ["implementation/primaries/GUI/designer_files",
          "implementation/primaries/GUI/themes", "implementation/primaries/GUI/images",
-         "implementation/primaries/scripts", "implementation/primaries/GUI/designer_files/icons.qrc"]
+         "implementation/primaries/scripts", "implementation/primaries/GUI/designer_files/icons.qrc",
+        "/usr/local/Cellar/pyqt/4.11.3"]
 
+buildexe_options = {}
+buildexe_options['includes'] = ['PyQt4.QtCore', 'sip', 'atexit']
 
+imageformats_path = None
+for path in qt_library_path:
+    if os.path.exists(os.path.join(path, 'imageformats')):
+        imageformats_path = os.path.join(path, 'imageformats')
+        local_imageformats_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'imageformats')
+
+        buildexe_options['include_files'] = ['imageformats']
+
+        if not os.path.exists(local_imageformats_path):
+            os.mkdir(local_imageformats_path)
+        for file in glob.glob(os.path.join(imageformats_path, '*')):
+            shutil.copy(file, os.path.join(local_imageformats_path, os.path.basename(file)))
 base = None
 if sys.platform == 'win32':
     base = 'Win32GUI'
 
 options = {
-    'build_exe': {
-        'includes': 'atexit',
-        "include_files":zips
-    },
+    'build_exe': buildexe_options,
     'bdist_mac': {
         'bundle_name': 'MuseLib',
         'custom_info_plist' : "info.plist"
