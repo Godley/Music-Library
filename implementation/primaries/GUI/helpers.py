@@ -25,15 +25,25 @@ def parseStyle(stylesheet, theme):
     results = []
     for line in stylesheet:
         if "themes/" in line:
-            result = line.split("themes")
-            result_string = result[
-                0] + os.path.join(get_base_dir(True), "themes") + result[1]
+            if sys.platform == 'win32':
+                line.replace('/', '\\')
+            else:
+                line.replace('\\', '/')
+            section1 = line
+            postfix = ""
+            while "themes" in section1:
+                portion = os.path.split(section1)
+                section1 = portion[0]
+                postfix = os.path.join(portion[1],postfix)
+            result_string = section1+os.path.join(get_base_dir(True), postfix)
             if "icons" in result_string:
-                split_path = result_string.split("icons")
-                result_string = split_path[0] + os.path.join("icons", theme) + split_path[1]
-
-            # TODO: MAKE CROSS PLATFORM!!
-            result_string = result_string.replace("\\", "/")
+                prefix = result_string
+                postfix = "icons"
+                while "icons" in prefix:
+                    split_path = result_string.split('icons')
+                    prefix = split_path[0]
+                    postfix = "".join([postfix, split_path[1]])
+                result_string = os.path.join(prefix, "icons", theme, postfix)
             results.append(result_string)
 
         else:
