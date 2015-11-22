@@ -590,8 +590,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         layout.setSpacing(0)
         layout.setMargin(0)
         layout.addWidget(widget)
-        fob = open(
-            os.path.join(get_base_dir(True), "themes", "basic_widget.qss"), 'r')
+        fob = open(os.path.join(get_base_dir(True), "themes", "basic_widget.qss"), 'r')
         lines = fob.readlines()
         fob.close()
         stylesheet = []
@@ -604,7 +603,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
 
         if not self.contentFrame.layout():
             self.contentFrame.setLayout(layout)
-        self.contentFrame.setStyleSheet(postProcessLines(parseStyle(stylesheet, self.theme)))
+        style = parseStyle(stylesheet, self.theme)
+        self.contentFrame.setStyleSheet(postProcessLines(style))
         self.contentFrame.show()
         self.contentFrame.lower()
         self.scoreWindow.lower()
