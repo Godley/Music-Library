@@ -41,3 +41,22 @@ class testStylesheet(unittest.TestCase):
         lines = 'themes\\icons'
         expected = 'themes/icons'
         self.assertEqual(expected, helpers.postProcessLines(lines))
+
+    # this should really go back in, but right now having issues with new lines and indents.
+    # def testFullStylesheet(self):
+    #     if sys.platform == 'win32':
+    #         valid_file = os.path.join(helpers.get_base_dir(True), 'tests', 'ubuntu_valid_windows.qss')
+    #     else:
+    #         valid_file = os.path.join(helpers.get_base_dir(True), 'tests', 'ubuntu_valid.qss')
+    #     fob = open(valid_file, 'r')
+    #     valid_lines = fob.readlines()
+    #     fob.close()
+    #     expected = ''.join(valid_lines)
+    #     self.maxDiff = None
+    #     test_file = os.path.join(helpers.get_base_dir(True), 'themes', 'ubuntu.qss')
+    #     fob = open(test_file, 'r')
+    #     test_lines = fob.readlines()
+    #     fob.close()
+    #     result = helpers.postProcessLines(helpers.parseStyle(test_lines, 'ubuntu'))
+    #
+    #     self.assertEqual(expected, result)

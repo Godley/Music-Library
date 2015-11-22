@@ -27,8 +27,7 @@ def parseStyle(stylesheet, theme):
         cleaned_line = cleanPath(line)
         themed_path = parseThemePath(cleaned_line)
         finished_path = parseIconPath(themed_path, theme)
-        results.append(finished_path)
-    return "\n".join(results)
+    return "".join(results)
 
 def cleanPath(path):
     path_to_parse = path
