@@ -15,13 +15,21 @@ class testStylesheet(unittest.TestCase):
 
     def testParseThemePath(self):
         path = 'themes/item.png'
-        expected = "'" + os.path.join(helpers.get_base_dir(True), 'themes', 'item.png') + "'"
+        expected_path = os.path.join(helpers.get_base_dir(True), 'themes', 'item.png')
+        if sys.platform != 'win32':
+            expected = expected_path
+        else:
+            expected = "'" + expected_path + "'"
         cleaned_path = helpers.cleanPath(path)
         self.assertEqual(expected, helpers.parseThemePath(cleaned_path))
 
     def testParseThemePathWithCSS(self):
         line = 'background: url(/themes/zoom-out.png) center no-repeat;'
-        expected = "background: url('" + os.path.join(helpers.get_base_dir(True), 'themes', "zoom-out.png")+ '\') center no-repeat;'
+        expected_path = os.path.join(helpers.get_base_dir(True), 'themes', "zoom-out.png")
+        if sys.platform == 'win32':
+            expected = "background: url('" + expected_path + '\') center no-repeat;'
+        else:
+            expected = "background: url(" + expected_path + ') center no-repeat;'
         cleaned_path = helpers.cleanPath(line)
         self.assertEqual(expected, helpers.parseThemePath(cleaned_path))
 

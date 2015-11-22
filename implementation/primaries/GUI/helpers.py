@@ -87,6 +87,5 @@ def parseIconPath(path, theme):
 
 def postProcessLines(lines):
     return_val = lines
-    if sys.platform == 'win32':
-        return_val = lines.replace('\\', '/')
+    return_val = lines.replace('\\', '/')
     return return_val
