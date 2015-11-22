@@ -1,5 +1,5 @@
 import os
-from implementation.primaries.GUI.helpers import parseStyle
+from implementation.primaries.GUI.helpers import parseStyle, postProcessLines
 
 
 class ThemedWindow(object):
@@ -14,7 +14,7 @@ class ThemedWindow(object):
             file_object = open(file, 'r')
             lines = file_object.readlines()
             file_object.close()
-            self.setStyleSheet(parseStyle(lines, self.theme))
+            self.setStyleSheet(postProcessLines(parseStyle(lines, self.theme)))
 
     def setTheme(self, theme):
         self.theme = theme

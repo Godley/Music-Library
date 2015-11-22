@@ -85,3 +85,9 @@ def parseIconPath(path, theme):
             parsing_path = split_path[0]
         parsed_path = os.path.join(prefix, 'icons', theme, postfix)
     return parsed_path
+
+def postProcessLines(lines):
+    return_val = lines
+    if sys.platform == 'win32':
+        return_val = lines.replace('\\', '/')
+    return return_val

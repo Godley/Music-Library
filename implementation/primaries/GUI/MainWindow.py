@@ -2,14 +2,14 @@ import sip
 import os
 import time
 from sys import platform
-if platform == "darwin" or platform.startswith("linux"):
+if platform != 'win32':
     from popplerqt4 import Poppler
 
 
 
 from PyQt4 import QtGui, QtCore, uic
 
-from implementation.primaries.GUI.helpers import get_base_dir, parseStyle
+from implementation.primaries.GUI.helpers import get_base_dir, parseStyle, postProcessLines
 from implementation.primaries.GUI import themedWindow, Widgets, qt_threading, MultistandWidget
 
 
@@ -604,7 +604,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
 
         if not self.contentFrame.layout():
             self.contentFrame.setLayout(layout)
-        self.contentFrame.setStyleSheet(parseStyle(stylesheet, self.theme))
+        self.contentFrame.setStyleSheet(postProcessLines(parseStyle(stylesheet, self.theme)))
         self.contentFrame.show()
         self.contentFrame.lower()
         self.scoreWindow.lower()

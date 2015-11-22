@@ -37,10 +37,7 @@ class testStylesheet(unittest.TestCase):
         themed_path = helpers.parseThemePath(cleaned_path)
         self.assertEqual(expected, helpers.parseIconPath(themed_path, theme))
 
-    def testParseIconPathWithCSS(self):
-        line = 'background: url(/themes/icons/zoom-out.png) center no-repeat;'
-        theme = 'ubuntu'
-        expected = os.path.join('background: url(', helpers.get_base_dir(True), 'themes', 'icons', theme, 'zoom-out.png) center no-repeat;')
-        cleaned_path = helpers.cleanPath(line)
-        themed_path = helpers.parseThemePath(cleaned_path)
-        self.assertEqual(expected, helpers.parseIconPath(themed_path, theme))
+    def testPostProcessor(self):
+        lines = 'themes\\icons'
+        expected = 'themes/icons'
+        self.assertEqual(expected, helpers.postProcessLines(lines))
