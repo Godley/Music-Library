@@ -11,7 +11,7 @@ def do_setup(path=None):
     n_path = path
     if n_path is None:
         n_path = defaults[sys.platform]
-    filename = {'darwin': 'lilypond.sh', 'win32': 'lilypond.exe'}
+    filename = {'darwin': 'LilyPond', 'win32': 'lilypond.exe'}
     filepath = os.path.join(n_path, filename[sys.platform])
     if os.path.exists(filepath):
         setupLilypond(n_path)
