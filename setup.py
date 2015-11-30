@@ -9,7 +9,7 @@ qt_library_path = QtCore.QCoreApplication.libraryPaths()
 zips = ["implementation/primaries/GUI/designer_files",
          "implementation/primaries/GUI/themes", "implementation/primaries/GUI/images",
          "implementation/primaries/scripts", "implementation/primaries/GUI/designer_files/icons.qrc",
-        "/usr/local/Cellar/pyqt/4.11.3"]
+        "/usr/local/Cellar/pyqt/4.11.3", "icon.jpg"]
 
 buildexe_options = {}
 buildexe_options['includes'] = ['PyQt4.QtCore', 'sip', 'atexit']
@@ -34,12 +34,12 @@ options = {
     'build_exe': buildexe_options,
     'bdist_mac': {
         'bundle_name': 'MuseLib',
-        'custom_info_plist' : "info.plist"
+        'iconfile': 'icon.jpg'
     }
 }
 
 executables = [
-    Executable("implementation/primaries/GUI/Application.py", base=base, compress=False)
+    Executable("implementation/primaries/GUI/Application.py", base=base, compress=False, icon="favicon.ico")
 ]
 
 setup(name='MuseLib',
