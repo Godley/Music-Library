@@ -3,6 +3,22 @@ import sys
 from PyQt4 import QtCore
 import os, shutil, glob
 
+shortcut_table = [
+    ("DesktopShortcut",        # Shortcut
+     "DesktopFolder",          # Directory_
+     "DTI Playlist",           # Name
+     "TARGETDIR",              # Component_
+     "[TARGETDIR]playlist.exe",# Target
+     None,                     # Arguments
+     None,                     # Description
+     None,                     # Hotkey
+     None,                     # Icon
+     None,                     # IconIndex
+     None,                     # ShowCmd
+     'TARGETDIR'               # WkDir
+     )
+    ]
+
 app = QtCore.QCoreApplication(sys.argv)
 qt_library_path = QtCore.QCoreApplication.libraryPaths()
 
@@ -27,6 +43,12 @@ for path in qt_library_path:
         for file in glob.glob(os.path.join(imageformats_path, '*')):
             shutil.copy(file, os.path.join(local_imageformats_path, os.path.basename(file)))
 base = None
+
+# Now create the table dictionary
+msi_data = {"Shortcut": shortcut_table}
+
+# Change some default MSI options and specify the use of the above defined tables
+bdist_msi_options = {'data': msi_data}
 if sys.platform == 'win32':
     base = 'Win32GUI'
 
@@ -35,7 +57,8 @@ options = {
     'bdist_mac': {
         'bundle_name': 'MuseLib',
         'iconfile': 'icon.jpg'
-    }
+    },
+    'bdist_msi': bdist_msi_options
 }
 
 executables = [
