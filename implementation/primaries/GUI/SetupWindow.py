@@ -2,7 +2,7 @@ from PyQt4 import QtCore, QtGui, uic
 from PyQt4.QtGui import QFileDialog
 from implementation.primaries.GUI.helpers import get_base_dir
 from implementation.primaries.GUI import MessageBox
-from implementation.primaries.scripts import setup_script
+from implementation.primaries.scripts.setup_script import do_setup
 from implementation.primaries.exceptions import LilypondNotInstalledException
 import os
 from sys import platform
@@ -23,7 +23,7 @@ class SetupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
 
     def refresh(self):
         try:
-            setup_script.setup_lilypond()
+            do_setup()
             self.hide()
         except LilypondNotInstalledException as e:
             messageBox = MessageBox.MessageBox(
@@ -39,7 +39,7 @@ class SetupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
             self, caption="Select files to import", filter="App file (*.app)")
 
         try:
-            setup_script.setup_lilypond(path=path)
+            do_setup(path=path)
             fob = open(".path", 'w')
             fob.write(path)
             fob.close()
