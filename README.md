@@ -19,6 +19,9 @@ The system works by:
 - a user can then click on any of the pieces or search for them. On click the system:
   - loads info about the piece and displays it
   - also checks for whether it's in any user created playlists and displays that
+- if the user is connected to the internet, further stuff happens:
+  - the system polls the MuseScore API for a list of files and compares them against the previous list it fetched from the API. 
+  - If there's any new ones, it downloads them, unzips them, parses them for data, chucks that in the SQL DB and then deletes the XML and MXL files to save space.
 
 ##Documentation
 Currently the system is documented using github issues and the reports stored in Documentation. Most of these were for submission to my degree, but they give a good overview for new users and are pitched at a compsci level so that people without knowledge of music can learn a bit and understand it without prior knowledge of sheet music.
