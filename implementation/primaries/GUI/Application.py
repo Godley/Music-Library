@@ -28,12 +28,7 @@ class Application(QtCore.QObject):
         self.load_windows()
 
     def meta_file(self):
-        options = {"darwin": os.path.join(
-            get_base_dir(), ".metadata"), "win32": "C:/Users/charlottegodley/.metadata", }
-        if sys.platform.startswith("linux"):
-            return os.path.join(get_base_dir(), ".metadata")
-        else:
-            return options[sys.platform]
+        return os.path.join(os.path.expanduser("~"), ".musiclib")
 
     def start(self):
         if len(self.meta["collections"]) > 0:
