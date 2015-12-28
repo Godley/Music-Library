@@ -36,4 +36,4 @@ Once I have a bit of time to do more writing there will be a proper documentatio
 - APIs used: [MuseScore](http://musescore.com) - keys are individual except for the release build which will use my API key. Please contact the musescore developers for a key if you need to debug anything network related.
 
 ##Installation
-I don't currently have installer scripts written, but for deving this you will need to preinstall Lilypond and run pip3 install -r requirements.txt. I'll get to installers soonish.
+You can find the latest installer scripts for each platform by clicking [releases](https://github.com/Godley/Music-Library/releases). You will also need to install [Lilypond](http://lilypond.org).
