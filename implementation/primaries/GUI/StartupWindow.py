@@ -6,13 +6,14 @@ from implementation.primaries.GUI import themedWindow
 
 class StartupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
 
-    def __init__(self, app, theme, themes):
+    def __init__(self, app, theme, themes, design_folder):
         super().__init__()
         self.qApp = app
         themedWindow.ThemedWindow.__init__(self, theme, themes)
+        self.design_folder = design_folder
 
     def load(self, items):
-        file = os.path.join(get_base_dir(True), "designer_files", "Startup.ui")
+        file = os.path.join(self.design_folder, "Startup.ui")
         uic.loadUi(file, self)
 
         self.folderBtn.clicked.connect(self.openFolderDialog)

@@ -5,12 +5,11 @@ import os
 
 class Window(QtGui.QWidget):
 
-    def __init__(self, parent, file, title):
+    def __init__(self, parent, file, title, design_folder):
         QtGui.QWidget.__init__(self)
         self.main_window = parent
         self.application = self.main_window.qApp
-        design = os.path.join(
-            get_base_dir(return_this_dir=True), "designer_files", file)
+        design = os.path.join(design_folder, file)
         uic.loadUi(design, self)
         try:
             self.title.setText(title)
@@ -20,9 +19,9 @@ class Window(QtGui.QWidget):
 
 class Scorebook(Window):
 
-    def __init__(self, parent):
+    def __init__(self, parent, design_folder):
         Window.__init__(
-            self, parent, "BasicListWidgetWithSort.ui", "Scorebook")
+            self, parent, "BasicListWidgetWithSort.ui", "Scorebook", design_folder)
         self.setGeometry(0, 0, self.width(), self.height())
         self.listWidget.itemDoubleClicked.connect(self.loadPiece)
         self.listWidget.setFocusPolicy(QtCore.Qt.NoFocus)
@@ -52,8 +51,8 @@ class Scorebook(Window):
 
 class PlaylistWidget(Window):
 
-    def __init__(self, parent, file, title, data_set="mine"):
-        Window.__init__(self, parent, file, title)
+    def __init__(self, parent, file, title, design_folder, data_set="mine"):
+        Window.__init__(self, parent, file, title, design_folder)
         self.listWidget.itemDoubleClicked.connect(self.loadPlaylist)
         self.data_set = data_set
         self.loadPlaylists()
@@ -89,8 +88,8 @@ class PlaylistWidget(Window):
 class MyPlaylists(PlaylistWidget):
     name = "myplaylist"
 
-    def __init__(self, parent):
-        PlaylistWidget.__init__(self, parent, "MyPlaylists.ui", "My Playlists")
+    def __init__(self, parent, design_folder):
+        PlaylistWidget.__init__(self, parent, "MyPlaylists.ui", "My Playlists", design_folder)
         self.deleteBtn.hide()
         self.listWidget.itemClicked.connect(self.deleteBtn.show)
         self.addBtn.clicked.connect(self.addClicked)
@@ -108,9 +107,9 @@ class MyPlaylists(PlaylistWidget):
 class AutoPlaylists(PlaylistWidget):
     name = "autoplaylist"
 
-    def __init__(self, parent):
+    def __init__(self, parent, design_folder):
         PlaylistWidget.__init__(
-            self, parent, "BasicListWidgetWithSort.ui", "Auto Playlists", data_set="auto")
+            self, parent, "BasicListWidgetWithSort.ui", "Auto Playlists", design_folder, data_set="auto")
         options = ["all", "time signatures", "keys",
                    "clefs", "instruments", "tempos"]
         self.comboBox.addItems(options)
@@ -135,9 +134,9 @@ class AutoPlaylists(PlaylistWidget):
 
 class PieceInfo(Window):
 
-    def __init__(self, parent):
+    def __init__(self, parent, design_folder):
         Window.__init__(
-            self, parent, "BasicListWidget.ui", "Piece Information")
+            self, parent, "BasicListWidget.ui", "Piece Information", design_folder)
         self.loadInfo()
 
     def loadInfo(self):
@@ -207,9 +206,9 @@ class PieceInfo(Window):
 class FeaturedIn(PlaylistWidget):
     name = "featured"
 
-    def __init__(self, parent):
+    def __init__(self, parent, design_folder):
         PlaylistWidget.__init__(
-            self, parent, "BasicListWidget.ui", "Featured In...", data_set="featured")
+            self, parent, "BasicListWidget.ui", "Featured In...", design_folder, data_set="featured")
 
     def loadPlaylists(self):
         if self.main_window.current_piece != "":
@@ -226,9 +225,9 @@ class FeaturedIn(PlaylistWidget):
 
 class PlaylistBrowser(Window):
 
-    def __init__(self, parent):
+    def __init__(self, parent, design_folder):
         Window.__init__(
-            self, parent, "BasicTableWidget.ui", "Playlist Browser")
+            self, parent, "BasicTableWidget.ui", "Playlist Browser", design_folder)
         self.playlist = self.main_window.playlist
         self.index = self.main_window.index
         if self.playlist is not None and self.index is not None:
@@ -284,12 +283,11 @@ class PlaylistBrowser(Window):
 
 class SearchTree(QtGui.QTreeWidget):
 
-    def __init__(self, parent):
+    def __init__(self, parent, design_folder):
         QtGui.QTreeWidget.__init__(self)
         self.main_window = parent
         self.application = self.main_window.qApp
-        design = os.path.join(
-            get_base_dir(return_this_dir=True), "designer_files", "treeWidget.ui")
+        design = os.path.join(design_folder, "treeWidget.ui")
         uic.loadUi(design, self)
         self.treeWidget.itemDoubleClicked.connect(self.clicked)
 

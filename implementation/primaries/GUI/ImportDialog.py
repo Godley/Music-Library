@@ -7,13 +7,12 @@ from implementation.primaries.GUI import themedWindow
 
 class ImportDialog(QtGui.QDialog, themedWindow.ThemedWindow):
 
-    def __init__(self, parent, theme, themes):
+    def __init__(self, parent, theme, themes, design_folder):
         self.parent = parent
         self.theme = theme
         QtGui.QDialog.__init__(self)
         themedWindow.ThemedWindow.__init__(self, theme, themes)
-        path_to_file = os.path.join(
-            get_base_dir(return_this_dir=True), "designer_files", "importDialog.ui")
+        path_to_file = os.path.join(design_folder, "importDialog.ui")
         uic.loadUi(path_to_file, self)
         self.browseBtn.clicked.connect(self.findFiles)
         self.buttonBox.accepted.connect(self.updateAndClose)

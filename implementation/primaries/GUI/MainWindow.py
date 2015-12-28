@@ -18,11 +18,13 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
     frames = {}
     colors = {}
 
-    def __init__(self, app, theme, theme_folder):
+    def __init__(self, app, theme, theme_folder, design_folder):
         QtGui.QMainWindow.__init__(self)
         themedWindow.ThemedWindow.__init__(self, theme, theme_folder)
         self.qApp = app
         self.theme = theme
+        self.theme_folder = theme_folder
+        self.design_folder = design_folder
         self.loaded = ""
         self.current_piece = ""
         self.playlist = None
@@ -79,8 +81,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         QCloseEvent.accept()
 
     def load(self):
-        file = os.path.join(
-            get_base_dir(True), "designer_files", "MainWindow.ui")
+        file = os.path.join(self.design_folder, "MainWindow.ui")
         uic.loadUi(file, self)
         self.setGeometry(0, 0, self.width(), self.height())
         self.widgets["scorebook"] = Widgets.Scorebook
@@ -93,7 +94,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.widgets["info"] = Widgets.PieceInfo
         self.widgets["featured"] = Widgets.FeaturedIn
         self.widgets["browser"] = Widgets.PlaylistBrowser
-        self.widgets["search"] = Widgets.SearchTree(self)
+        self.widgets["search"] = Widgets.SearchTree(self, self.design_folder)
         layout = self.searchFrame.layout()
         layout.addWidget(self.widgets["search"])
         self.searchFrame.setGeometry(self.searchFrame.pos().x(), self.searchFrame.pos(
@@ -186,7 +187,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.scoreWindow.lower()
         self.playlistTable.lower()
 
-    def onQueryReturned(self, results):
+    def onQueryReturned(self, results, query):
         """
         callback which gets called when the query has been handled by the parent application
         :param results:  nested list of results to put into the tree
@@ -570,7 +571,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         :return:
         """
         position = self.contentFrame.pos()
-        widget = self.widgets[child](self)
+        widget = self.widgets[child](self, self.design_folder)
         endx = self.buttonFrame.width() - 1
         endy = position.y()
         endwidth = widget.width()
@@ -590,7 +591,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         layout.setSpacing(0)
         layout.setMargin(0)
         layout.addWidget(widget)
-        fob = open(os.path.join(get_base_dir(True), "themes", "basic_widget.qss"), 'r')
+        fob = open(os.path.join(self.theme_folder, "basic_widget.qss"), 'r')
         lines = fob.readlines()
         fob.close()
         stylesheet = []

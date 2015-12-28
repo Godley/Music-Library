@@ -11,12 +11,12 @@ from implementation.primaries.GUI import themedWindow
 
 class SetupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
 
-    def __init__(self, parent, theme, themes):
+    def __init__(self, parent, theme, themes, design_folder):
         self.parent = parent
         QtGui.QDialog.__init__(self)
         themedWindow.ThemedWindow.__init__(self, theme, themes)
-        designer_file = os.path.join(
-            get_base_dir(return_this_dir=True), 'designer_files', 'SetupWindow.ui')
+        self.design_folder = design_folder
+        designer_file = os.path.join(self.design_folder, 'SetupWindow.ui')
         uic.loadUi(designer_file, self)
         self.refreshBtn.clicked.connect(self.refresh)
         self.browseBtn.clicked.connect(self.browse)

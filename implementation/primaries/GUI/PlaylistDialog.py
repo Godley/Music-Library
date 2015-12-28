@@ -7,15 +7,15 @@ from implementation.primaries.GUI import themedWindow
 
 class PlaylistDialog(QtGui.QDialog, themedWindow.ThemedWindow):
 
-    def __init__(self, app, theme, themes):
+    def __init__(self, app, theme, themes, design_folder):
         QtGui.QDialog.__init__(self)
         themedWindow.ThemedWindow.__init__(self, theme, themes)
         self.qApp = app
         self.theme = theme
+        self.design_folder = design_folder
 
     def load(self):
-        path_to_file = os.path.join(
-            get_base_dir(return_this_dir=True), "designer_files", "NewPlaylist.ui")
+        path_to_file = os.path.join(self.design_folder, "NewPlaylist.ui")
         uic.loadUi(path_to_file, self)
         self.autoCompleteFrame.hide()
         self.buttonBox.accepted.connect(self.newPlaylistOk)

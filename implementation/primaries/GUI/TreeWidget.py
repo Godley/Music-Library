@@ -5,8 +5,7 @@ from helper import get_base_dir
 
 class Searchbox(QtGui.QTreeWidget):
 
-    def __init__(self):
+    def __init__(self, design_folder):
         QtGui.QTreeView.__init__(self)
-        file = os.path.join(
-            get_base_dir(True), "alternatives", "treeWidget.ui")
+        file = os.path.join(design_folder, "treeWidget.ui")
         uic.loadUi(file, self)

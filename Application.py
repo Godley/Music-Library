@@ -17,10 +17,16 @@ class Application(QtCore.QObject):
     windows = {}
 
     def __init__(self, app):
+        self.lastQuery = ""
         QtCore.QObject.__init__(self)
         self.meta = {}
         self.meta["collections"] = []
-        self.theme_folder = os.path.join(get_base_dir(True), "themes")
+        if getattr(sys, "frozen", False):
+            self.gui_folder = os.path.join(get_base_dir(True), "implementation", "primaries", "GUI")
+        else:
+            self.gui_folder = get_base_dir(True)
+        self.theme_folder = os.path.join(self.gui_folder, "themes")
+        self.design_folder = os.path.join(self.gui_folder, "designer_files")
         self.meta["theme"] = "ubuntu"
         self.meta["path"] = None
         self.LoadMeta()
@@ -99,39 +105,39 @@ class Application(QtCore.QObject):
 
     def load_windows(self):
         startup = StartupWindow.StartupWindow(
-            self, self.meta["theme"], self.theme_folder)
+            self, self.meta["theme"], self.theme_folder, self.design_folder)
         self.windows["startup"] = startup
 
         main = MainWindow.MainWindow(
-            self, self.meta["theme"], self.theme_folder)
+            self, self.meta["theme"], self.theme_folder, self.design_folder)
         self.windows["main"] = main
         self.windows["main"].show()
         self.windows["main"].applyTheme()
         self.windows["main"].hide()
 
         setup = SetupWindow.SetupWindow(
-            self, self.meta["theme"], self.theme_folder)
+            self, self.meta["theme"], self.theme_folder, self.design_folder)
         self.windows["setup"] = setup
         self.windows["setup"].show()
         self.windows["setup"].hide()
 
         self.windows["error"] = renderingErrorPopup.RenderingErrorPopup(
-            self, self.meta["theme"], self.theme_folder)
+            self, self.meta["theme"], self.theme_folder, self.design_folder)
         self.windows["error"].show()
         self.windows["error"].hide()
 
         self.windows["import"] = ImportDialog.ImportDialog(
-            self, self.meta["theme"], self.theme_folder)
+            self, self.meta["theme"], self.theme_folder, self.design_folder)
         self.windows["import"].show()
         self.windows["import"].hide()
 
         self.windows["newplaylist"] = PlaylistDialog.PlaylistDialog(
-            self, self.meta["theme"], self.theme_folder)
+            self, self.meta["theme"], self.theme_folder, self.design_folder)
         self.windows["newplaylist"].show()
         self.windows["newplaylist"].hide()
 
         self.windows["license"] = licensePopup.LicensePopup(
-            self, self.meta["theme"], self.theme_folder)
+            self, self.meta["theme"], self.theme_folder, self.design_folder)
         self.windows["license"].show()
         self.windows["license"].hide()
 
@@ -190,7 +196,8 @@ class Application(QtCore.QObject):
         else:
             query_results["Offline"] = data
         if len(data) > 0:
-            self.windows["main"].onQueryReturned(query_results)
+            self.windows["main"].onQueryReturned(query_results, self.latestQuery)
+        self.lastQuery = self.latestQuery
         lock.release()
 
     def queryNotThreaded(self, input):
@@ -212,6 +219,7 @@ class Application(QtCore.QObject):
         :param input: text input from the main window
         :return: None, thread classes will call the callback above
         """
+        self.latestQuery = input
         data = SearchProcessor.process(input)
         OfflineThread = qt_threading.QueryThread(
             self, self.manager.runQueries, (data,), False)
@@ -228,6 +236,7 @@ class Application(QtCore.QObject):
         #                                                   self.onQueryComplete,
         #     data_queue, (data,), kwargs={"online": True})
         # OnlineThread.execute()
+
 
     def getFileInfo(self, filename):
         file_info = self.manager.getFileInfo(filename)
