@@ -1,5 +1,4 @@
-import sip
-import os
+import sip, os, difflib
 import time
 from sys import platform
 if platform != 'win32':
@@ -193,8 +192,10 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         :param results:  nested list of results to put into the tree
         :return:
         """
-
-        self.widgets["search"].load(results)
+        if len(results) > 0:
+            self.widgets["search"].load(results)
+        else:
+            self.widgets["search"].clear()
         self.widgets["search"].show()
         self.searchFrame.show()
 

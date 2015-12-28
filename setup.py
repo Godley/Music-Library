@@ -1,6 +1,6 @@
 
 from cx_Freeze import setup, Executable
-import os, shutil, glob
+import os, shutil, glob, sys
 
 
 zips = ["implementation/primaries/GUI/designer_files",
@@ -24,8 +24,8 @@ buildexe_options['include_files'] = zips
 #         for file in glob.glob(os.path.join(imageformats_path, '*')):
 #             shutil.copy(file, os.path.join(local_imageformats_path, os.path.basename(file)))
 base = None
-#if sys.platform == 'win32':
-   # base = 'Win32GUI'
+if sys.platform == 'win32':
+    base = 'Win32GUI'
 
 options = {
     'build_exe': buildexe_options,
@@ -37,7 +37,7 @@ options = {
 }
 
 executables = [
-    Executable("Application.py", base=base, compress=False)
+    Executable("implementation/primaries/GUI/Application.py", base=base, compress=False)
 ]
 
 setup(name='MuseLib',

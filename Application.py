@@ -195,8 +195,7 @@ class Application(QtCore.QObject):
             query_results["Online"] = data
         else:
             query_results["Offline"] = data
-        if len(data) > 0:
-            self.windows["main"].onQueryReturned(query_results, self.latestQuery)
+        self.windows["main"].onQueryReturned(query_results, self.latestQuery)
         self.lastQuery = self.latestQuery
         lock.release()
 

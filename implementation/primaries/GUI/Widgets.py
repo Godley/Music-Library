@@ -301,6 +301,19 @@ class SearchTree(QtGui.QTreeWidget):
         file_to_load = current_item.data(0, 32)
         self.application.loadFile(file_to_load)
 
+    def clear(self):
+        root = self.treeWidget.invisibleRootItem()
+        child_count = root.childCount()
+        children = [(i, root.child(i).text(0)) for i in range(child_count)]
+        names = [child[1] for child in children]
+        for location_type in names:
+            index = [child[0]
+                     for child in children if child[1] == location_type]
+            item = root.child(index[0])
+            for i in range(item.childCount()):
+                child = item.child(i)
+                item.removeChild(child)
+
     def load(self, results):
         root = self.treeWidget.invisibleRootItem()
         child_count = root.childCount()
