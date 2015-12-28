@@ -362,7 +362,7 @@ class MusicManager(object):
         """
         result_set = self.parseApiFiles()
         self.addApiFiles(result_set)
-        # self.cleanupApiFiles(result_set)
+        self.cleanupApiFiles(result_set)
 
     def addPiece(self, filename, data):
         self.__data.addPiece(filename, data)
