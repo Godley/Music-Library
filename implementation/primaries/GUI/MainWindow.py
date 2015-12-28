@@ -605,7 +605,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
 
         if not self.contentFrame.layout():
             self.contentFrame.setLayout(layout)
-        style = parseStyle(stylesheet, self.theme)
+        style = parseStyle(stylesheet, self.theme, self.theme_folder)
         self.contentFrame.setStyleSheet(postProcessLines(style))
         self.contentFrame.show()
         self.contentFrame.lower()
