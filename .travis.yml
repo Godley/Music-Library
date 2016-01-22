@@ -5,8 +5,11 @@ python:
 - '3.5'
 - 3.5-dev
 - nightly
+
+sudo: required
+
 install: 
-- apt-get install python3-sip-dev
+- sudo apt-get install python3-sip-dev
 - pip3 install -r requirements.txt
 
 script: python3 -m "nose" --logging-level=WARNING
