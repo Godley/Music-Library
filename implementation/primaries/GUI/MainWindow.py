@@ -207,9 +207,6 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         :return:
         """
         widget = self.focusWidget()
-        print(
-            (self.searchInput.text() == "" or self.searchInput.text() == " "))
-        print(self.widgets["search"].topLevelItemCount() == 0)
         if (self.searchInput.text() == "" or self.searchInput.text() == " ") or widget.objectName() != "treeWidget":
             try:
                 self.searchFrame.hide()

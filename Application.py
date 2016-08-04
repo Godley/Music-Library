@@ -14,7 +14,8 @@ from implementation.primaries.GUI.helpers import get_base_dir
 
 import logging
 import logging.handlers
-
+import sys
+from tracer import Tracer
 LOG_FILE = os.path.join(os.getcwd(), "MUSELIB.LOG")
 LOG_NAME = "muselib"
 logger = logging.getLogger(LOG_NAME)
@@ -340,6 +341,8 @@ class Application(QtCore.QObject):
             self.windows[window].applyTheme()
 
 def main():
+    sys.stdout = Tracer(sys.stdout)
+    sys.stderr = Tracer(sys.stderr)
     app = QtGui.QApplication(sys.argv)
     application = Application(app)
     application.start()
