@@ -186,45 +186,45 @@ class FolderBrowser(object):
 class QueryLayer(object):
     def __init__(self, folder):
         self.folder = folder
-        self.__data = DataLayer.MusicData(
+        self._data = DataLayer.MusicData(
             os.path.join(
                 self.folder,
                 "music.db"))
 
     def getPlaylistsFromPlaylistTable(self):
-        data = self.__data.getAllUserPlaylists()
+        data = self._data.getAllUserPlaylists()
         return data
 
     def addPlaylist(self, data):
-        self.__data.addPlaylist(data["name"], data["pieces"])
+        self._data.addPlaylist(data["name"], data["pieces"])
 
     def deletePlaylists(self, names):
-        [self.__data.deletePlaylist(name) for name in names]
+        [self._data.deletePlaylist(name) for name in names]
 
     def handleTextQueries(self, search_data, online=False):
         # check title, composer, lyricist, instruments for matches
         results = {}
         all_matched = True
-        instruments = self.__data.getInstrumentNames()
+        instruments = self._data.getInstrumentNames()
         instrument_list = []
         for value in search_data["text"]:
             combined = {}
-            file_result = self.__data.getRoughPiece(value, online=online)
+            file_result = self._data.getRoughPiece(value, online=online)
             if len(file_result) > 0:
                 combined["filename"] = [result[1]
                                         for result in file_result]
 
-            title_result = self.__data.getPieceByTitle(
+            title_result = self._data.getPieceByTitle(
                 value, online=online)
             if len(title_result) > 0:
                 combined["Title"] = title_result
 
-            composer_result = self.__data.getPiecesByComposer(
+            composer_result = self._data.getPiecesByComposer(
                 value, online=online)
             if len(composer_result) > 0:
                 combined["Composer"] = composer_result
 
-            lyricist_result = self.__data.getPiecesByLyricist(
+            lyricist_result = self._data.getPiecesByLyricist(
                 value, online=online)
             if len(lyricist_result) > 0:
                 combined["Lyricist"] = lyricist_result
@@ -241,7 +241,7 @@ class QueryLayer(object):
         if len(search_data['text']) == len(instrument_list):
             all_matched = True
 
-        instrument_result = self.__data.getPiecesByAnyAndAllInstruments(
+        instrument_result = self._data.getPiecesByAnyAndAllInstruments(
                 instrument_list, online=online)
         if len(instrument_result) > 0:
             results.update(instrument_result)
@@ -266,7 +266,7 @@ class QueryLayer(object):
         elif "key" not in search_data and "clef" not in search_data:
             result_data = search_data["instrument"]
         if len(result_data) > 0:
-            instrument_data = self.__data.getPiecesByInstruments(
+            instrument_data = self._data.getPiecesByInstruments(
                 result_data, online=online)
             if len(instrument_data) > 0:
                 results["Instruments"] = instrument_data
@@ -277,7 +277,7 @@ class QueryLayer(object):
     def handleTempoQueries(self, search_data, online=False):
         results = {}
         all_matched = True
-        tempo_data = self.__data.getPieceByTempo(
+        tempo_data = self._data.getPieceByTempo(
                 search_data["tempo"], online=online)
         if len(tempo_data) > 0:
             results["Meter"] = tempo_data
@@ -288,7 +288,7 @@ class QueryLayer(object):
     def handleTimeQueries(self, search_data, online=False):
         results = {}
         all_matched = True
-        time_data = self.__data.getPieceByMeter(
+        time_data = self._data.getPieceByMeter(
             search_data["time"], online=online)
         if len(time_data) > 0:
             results["Meter"] = time_data
@@ -300,7 +300,7 @@ class QueryLayer(object):
         results = {}
         all_matched = True
         if "other" in search_data["key"]:
-            keydata = self.__data.getPieceByKeys(
+            keydata = self._data.getPieceByKeys(
                 search_data["key"]["other"], online=online)
             if len(keydata) > 0:
                 results["Keys"] = keydata
@@ -308,7 +308,7 @@ class QueryLayer(object):
                 all_matched = False
             search_data["key"].pop("other")
         if len(search_data["key"]) > 0:
-            new_results = self.__data.getPieceByInstrumentInKeys(
+            new_results = self._data.getPieceByInstrumentInKeys(
                 search_data["key"], online=online)
             if len(new_results) > 0:
                 results["Instruments in Keys"] = new_results
@@ -319,7 +319,7 @@ class QueryLayer(object):
     def handleTranspositionQueries(self, search_data, online=False):
         results = {}
         all_matched = True
-        transpos = self.__data.getPieceByInstrumentsOrSimilar(
+        transpos = self._data.getPieceByInstrumentsOrSimilar(
                 search_data["transposition"], online=online)
         if len(transpos) > 0:
             results["Instrument or transposition"] = transpos
@@ -331,7 +331,7 @@ class QueryLayer(object):
         results = {}
         all_matched = True
         if "other" in search_data["clef"]:
-            clefs = self.__data.getPieceByClefs(
+            clefs = self._data.getPieceByClefs(
                 search_data["clef"]["other"], online=online)
             if len(clefs) > 0:
                 results["Clefs"] = clefs
@@ -339,7 +339,7 @@ class QueryLayer(object):
                 all_matched = False
             search_data["clef"].pop("other")
         if len(search_data["clef"]) > 0:
-            instrument_by_clef = self.__data.getPieceByInstrumentInClefs(
+            instrument_by_clef = self._data.getPieceByInstrumentInClefs(
                 search_data["clef"], online=online)
             if len(instrument_by_clef) > 0:
                 results["Instrument in Clefs"] = instrument_by_clef
@@ -350,7 +350,7 @@ class QueryLayer(object):
     def handleFilenameQueries(self, search_data, online=False):
         results = {}
         all_matched = True
-        files = self.__data.getFileList(online=online)
+        files = self._data.getFileList(online=online)
         result_files = [
             filename for filename in search_data["filename"] if filename in files]
         if len(result_files) > 0:
@@ -364,7 +364,7 @@ class QueryLayer(object):
         files = {}
         all_matched = True
         for title in search_data["title"]:
-            file_list = self.__data.getPieceByTitle(title, online=online)
+            file_list = self._data.getPieceByTitle(title, online=online)
             if len(file_list) > 0:
                 files["Title: " + title] = file_list
         if len(files) > 0:
@@ -378,7 +378,7 @@ class QueryLayer(object):
         results = {}
         all_matched = True
         for title in search_data["composer"]:
-            file_list = self.__data.getPiecesByComposer(
+            file_list = self._data.getPiecesByComposer(
                 title, online=online)
             if len(file_list) > 0:
                 files["Composer: " + title] = file_list
@@ -393,7 +393,7 @@ class QueryLayer(object):
         results = {}
         all_matched = True
         for title in search_data["lyricist"]:
-            file_list = self.__data.getPiecesByLyricist(
+            file_list = self._data.getPiecesByLyricist(
                 title, online=online)
             if len(file_list) > 0:
                 files["Lyricist: " + title] = file_list
@@ -432,32 +432,32 @@ class QueryLayer(object):
         return summaries
 
     def getPlaylistFileInfo(self, playlist):
-        data = self.__data.getAllPieceInfo(playlist)
+        data = self._data.getAllPieceInfo(playlist)
         return data
 
     def getFileInfo(self, filename):
-        data = self.__data.getAllPieceInfo([filename])
+        data = self._data.getAllPieceInfo([filename])
         return data
 
     def updatePlaylistTitle(self, new_title, old_title):
-        row_id = self.__data.getUserPlaylist(old_title)
+        row_id = self._data.getUserPlaylist(old_title)
         data = {"title": new_title}
-        self.__data.updateUserPlaylist(row_id, data)
+        self._data.updateUserPlaylist(row_id, data)
 
     def getPlaylistByFilename(self, filename):
-        data = self.__data.getUserPlaylistsForFile(filename)
+        data = self._data.getUserPlaylistsForFile(filename)
         return data
 
     def getPlaylists(self, select_method="all"):
         result_set = {}
         if select_method == "all":
-            clefs = self.__data.getPiecesByAllClefs()
-            keys = self.__data.getPiecesByAllKeys()
-            composers = self.__data.getPiecesByAllComposers()
-            lyricists = self.__data.getPiecesByAllLyricists()
-            instruments = self.__data.getPiecesByAllInstruments()
-            timesigs = self.__data.getPiecesByAllTimeSigs()
-            tempos = self.__data.getPiecesByAllTempos()
+            clefs = self._data.getPiecesByAllClefs()
+            keys = self._data.getPiecesByAllKeys()
+            composers = self._data.getPiecesByAllComposers()
+            lyricists = self._data.getPiecesByAllLyricists()
+            instruments = self._data.getPiecesByAllInstruments()
+            timesigs = self._data.getPiecesByAllTimeSigs()
+            tempos = self._data.getPiecesByAllTempos()
             if len(clefs) > 0:
                 result_set["clefs"] = clefs
             if len(keys) > 0:
@@ -474,27 +474,27 @@ class QueryLayer(object):
                 result_set["tempos"] = tempos
 
         if select_method == "clefs":
-            clefs = self.__data.getPiecesByAllClefs()
+            clefs = self._data.getPiecesByAllClefs()
             if len(clefs) > 0:
                 result_set["clefs"] = clefs
 
         if select_method == "time signatures":
-            timesigs = self.__data.getPiecesByAllTimeSigs()
+            timesigs = self._data.getPiecesByAllTimeSigs()
             if len(timesigs) > 0:
                 result_set["time_signatures"] = timesigs
 
         if select_method == "keys":
-            keys = self.__data.getPiecesByAllKeys()
+            keys = self._data.getPiecesByAllKeys()
             if len(keys) > 0:
                 result_set["keys"] = keys
 
         if select_method == "instruments":
-            instruments = self.__data.getPiecesByAllInstruments()
+            instruments = self._data.getPiecesByAllInstruments()
             if len(instruments) > 0:
                 result_set["instruments"] = instruments
 
         if select_method == "tempos":
-            tempos = self.__data.getPiecesByAllTempos()
+            tempos = self._data.getPiecesByAllTempos()
             if len(tempos) > 0:
                 result_set["tempos"] = tempos
 
@@ -510,14 +510,12 @@ class MusicManager(QueryLayer):
     def __init__(self, parent, apis='all', folder='/Users/charlottegodley/PycharmProjects/FYP'):
         self.parent = parent
         """the application instance in which this manager resides"""
-
-
-        self.setupFolderBrowser()
+        super(MusicManager, self).__init__(folder)
         self.apiManager = ApiManager.ApiManager(folder=self.folder, apis=apis)
-        super(self, MusicManager).__init__(folder)
+        self.setupFolderBrowser()
 
     def addInstruments(self, data):
-        self.__data.addInstruments(data)
+        self._data.addInstruments(data)
 
     def startRenderingTask(self, fname):
         """
@@ -596,7 +594,7 @@ class MusicManager(QueryLayer):
             cleaned_set = self.apiManager.fetchAllData()
             filelist = self.getFileList(online=True)
             for file in filelist:
-                source = self.__data.getPieceSource(file)[0]
+                source = self._data.getPieceSource(file)[0]
                 id = file.split(".")[0]
                 if id in cleaned_set[source]:
                     cleaned_set[source].pop(id)
@@ -660,17 +658,17 @@ class MusicManager(QueryLayer):
     def downloadFile(self, filename):
         file_info = filename.split(".")
         fname = file_info[0]
-        source = self.__data.getPieceSource(filename)
+        source = self._data.getPieceSource(filename)
         if source is not None:
             source = source[0]
-        secret = self.__data.getSecret(filename)
+        secret = self._data.getSecret(filename)
         if secret is not None:
             secret = secret[0]
         try:
             status_code = self.apiManager.downloadFile(
                 source=source, file=fname, secret=secret, extension='pdf')
             if status_code == 200:
-                self.__data.downloadPiece(filename)
+                self._data.downloadPiece(filename)
                 return True
         except requests.exceptions.ConnectionError as e:
             logger.exception("Error downloading file - {} exception {}".format(filename, str(e)))
@@ -688,16 +686,16 @@ class MusicManager(QueryLayer):
         self.cleanupApiFiles(result_set)
 
     def addPiece(self, filename, data):
-        self.__data.addPiece(filename, data)
+        self._data.addPiece(filename, data)
 
     def getPieceInfo(self, filenames):
-        return self.__data.getAllPieceInfo(filenames)
+        return self._data.getAllPieceInfo(filenames)
 
     def getFileList(self, online=False):
-        return self.__data.getFileList(online=online)
+        return self._data.getFileList(online=online)
 
     def setupFolderBrowser(self):
-        db_files = self.__data.getFileList()
+        db_files = self._data.getFileList()
         self.folder_browser = FolderBrowser(
             db_files=db_files,
             folder=self.folder)
@@ -713,13 +711,13 @@ class MusicManager(QueryLayer):
         self.refreshWithoutDownload()
 
     def refreshWithoutDownload(self):
-        db_files = self.__data.getFileList()
+        db_files = self._data.getFileList()
         self.folder_browser.resetDbFileList(db_files)
         self.handleZips()
         self.handleXMLFiles()
 
     def getPieceSummary(self, file_list, sort_method="title", online=False):
-        info = self.__data.getAllPieceInfo(file_list, online=online)
+        info = self._data.getAllPieceInfo(file_list, online=online)
         summaries = [{"title": i["title"],
                       "composer":i["composer"],
                       "lyricist":i["lyricist"],
@@ -743,7 +741,7 @@ class MusicManager(QueryLayer):
         return summary_strings
 
     def getLicense(self, filename):
-        result = self.__data.getLicense(filename)
+        result = self._data.getLicense(filename)
         # eventually we should open up a file and get the text based on the license name,
         # but for now we need to do this
         if result is not None:
@@ -759,7 +757,7 @@ class MusicManager(QueryLayer):
         return result
 
     def getPieceSummaryStrings(self, sort_method="title"):
-        file_list = self.__data.getFileList()
+        file_list = self._data.getFileList()
         summary_strings = self.getPieceSummary(
             file_list,
             sort_method=sort_method)
@@ -772,7 +770,7 @@ class MusicManager(QueryLayer):
         :param file_list: files to archive
         :return: None
         """
-        self.__data.archivePieces(file_list)
+        self._data.archivePieces(file_list)
 
     def parseXMLFile(self, filename, parser=None):
         errorTuple = []
@@ -801,7 +799,7 @@ class MusicManager(QueryLayer):
         """
         for file in file_list:
             data_set = self.parseXMLFile(file)
-            self.__data.addPiece(file, data_set)
+            self._data.addPiece(file, data_set)
 
     def handleXMLFiles(self):
         """
