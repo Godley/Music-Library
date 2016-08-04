@@ -341,6 +341,3 @@ class SearchTree(QtGui.QTreeWidget):
                     fitem.setData(0, 0, file[0])
                     fitem.setData(0, 32, file[1])
                     sub_item.addChild(fitem)
-
-    def quack(self):
-        print("quack")

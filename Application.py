@@ -12,6 +12,16 @@ from implementation.primaries.scripts.setup_script import do_setup
 from implementation.primaries.exceptions import LilypondNotInstalledException
 from implementation.primaries.GUI.helpers import get_base_dir
 
+import logging
+import logging.handlers
+
+LOG_FILE = os.path.join(os.getcwd(), "MUSELIB.LOG")
+LOG_NAME = "muselib"
+logger = logging.getLogger(LOG_NAME)
+# Add the log message handler to the logger
+handler = logging.handlers.RotatingFileHandler(
+              LOG_FILE)
+logger.addHandler(handler)
 
 class Application(QtCore.QObject):
     windows = {}
@@ -329,13 +339,13 @@ class Application(QtCore.QObject):
         for window in self.windows:
             self.windows[window].applyTheme()
 
+def main():
+    app = QtGui.QApplication(sys.argv)
+    application = Application(app)
+    application.start()
+    timer = QtCore.QTimer()
+    timer.singleShot(1, application.applyTheme)
+    sys.exit(app.exec_())
 
-app = QtGui.QApplication(sys.argv)
-application = Application(app)
-application.start()
-# event = QtGui.QMouseEvent(QtCore.QEvent.MouseButtonPress, QtCore.QPoint(0,0), QtCore.Qt.MiddleButton)
-# app.sendEvent(application, event)
-# application.applyTheme()
-timer = QtCore.QTimer()
-timer.singleShot(1, application.applyTheme)
-sys.exit(app.exec_())
+if __name__ == '__main__':
+    main()

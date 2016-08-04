@@ -381,7 +381,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.popout.show()
 
     def onPopoutClicked(self):
-        os.startfile(self.pdf_loaded)
+        os.open(self.pdf_loaded, 0)
 
     # methods to handle pieces
     def onPieceLoaded(self, filename, split_file):

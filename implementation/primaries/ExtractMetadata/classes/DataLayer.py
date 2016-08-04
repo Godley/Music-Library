@@ -229,6 +229,15 @@ class MusicData(object):
         connection.commit()
         self.disconnect(connection)
 
+    def getInstrumentNames(self):
+        connection, cursor = self.connect()
+        query = 'SELECT name FROM instruments'
+        cursor.execute(query)
+        results = cursor.fetchall()
+        self.disconnect(connection)
+        instruments = set([result[0].lower() for result in results])
+        return list(instruments)
+
     def connect(self):
         '''
         method to create new sqlite connection and set up the cursor
@@ -682,6 +691,17 @@ class MusicData(object):
             file_list = self.getPiecesByRowId(results, cursor, archived)
             self.disconnect(connection)
         return file_list
+
+    def getPiecesByAnyAndAllInstruments(self, instruments, archived=0, online=False):
+        all = self.getPiecesByInstruments(instruments, archived=archived, online=online)
+        any = {"Instrument: "+instrument: self.getPiecesByInstruments([instrument], archived=archived, online=online) for instrument in instruments}
+        result = {}
+        if len(all) > 0:
+            result['All Instruments'] = all
+        result.update({key: any[key] for key in any if len(any[key]) > 0})
+        return result
+
+
 
     def getPiecesByRowId(self, rows, cursor, archived=0):
         '''

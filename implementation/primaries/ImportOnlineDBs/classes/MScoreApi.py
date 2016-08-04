@@ -8,7 +8,9 @@ import requests, os, shutil, gzip
 from io import BytesIO
 from implementation.primaries import exceptions
 import logging, json
-
+from Application import LOG_NAME
+import logging
+logger = logging.getLogger(LOG_NAME)
 class MuseScoreApi(Api):
     env_key = 'MSCORE'
     def __init__(self, folder=""):
@@ -28,6 +30,7 @@ class MuseScoreApi(Api):
         if request.status_code == 200:
             response = request.json()
         else:
+            logger.exception("API request response code: {} in getCollection".format(request.status_code))
             raise(exceptions.BadAPIRequest('ERROR: API request response code: %i ' % request.status_code))
         return response
 

@@ -12,6 +12,27 @@ class TestDataLayerUserQueries(unittest.TestCase):
     def tearDown(self):
         os.remove("example.db")
 
+    def testGetInstrumentNames(self):
+        instruments = ["clarinet", "flute"]
+        instrument_query = {"instruments": []}
+        for elem in instruments:
+            instrument_query["instruments"].append({"name":elem})
+        self.data.addPiece("file.xml", instrument_query)
+        results = self.data.getInstrumentNames()
+        self.assertEqual(instruments, results)
+
+    def testGetAnyAndAll(self):
+        instruments = ["clarinet", "flute"]
+        instrument_query = {"instruments": []}
+        for elem in instruments:
+            instrument_query["instruments"].append({"name":elem})
+        self.data.addPiece("file.xml", instrument_query)
+        self.data.addPiece("file1.xml", {"instruments": [{"name":"clarinet"}]})
+        self.data.addPiece("file2.xml", {"instruments": [{"name":"flute"}]})
+        expected = {"All Instruments":["file.xml"], "Instrument: clarinet":["file.xml", "file1.xml"], "Instrument: flute":["file.xml", "file2.xml"]}
+        results = self.data.getPiecesByAnyAndAllInstruments(instruments)
+        self.assertEqual(expected, results)
+
     def testFindPieceByInstruments(self):
         self.data.addPiece("file.xml", {"instruments": [{"name": "clarinet"}]})
         self.assertEqual(

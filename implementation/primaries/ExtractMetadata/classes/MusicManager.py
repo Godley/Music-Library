@@ -9,6 +9,10 @@ from implementation.primaries.GUI.helpers import get_base_dir
 from MuseParse.classes.Output import LilypondOutput
 from MuseParse.classes import Exceptions
 from MuseParse.classes.Input import MxmlParser
+from Application import LOG_NAME
+import logging
+
+logger = logging.getLogger(LOG_NAME)
 
 class Unzipper(object):
     """
@@ -200,6 +204,9 @@ class MusicManager(object):
         self.setupFolderBrowser()
         self.apiManager = ApiManager.ApiManager(folder=self.folder, apis=apis)
 
+    def addInstruments(self, data):
+        self.__data.addInstruments(data)
+
     def startRenderingTask(self, fname):
         """
         method which parses a piece, then runs the renderer class on it which takes the lilypond
@@ -221,12 +228,15 @@ class MusicManager(object):
         except Exceptions.DrumNotImplementedException as e:
             errorList.append(
                 "Drum tab found in piece: this application does not handle drum tab.")
+            logger.exception("Drum tab found in piece:{} - {}".format(fname, str(e)))
         except Exceptions.TabNotImplementedException as e:
             errorList.append(
                 "Guitar tab found in this piece: this application does not handle guitar tab.")
+            logger.exception("Guitar tab found in piece:{} - {}".format(fname, str(e)))
         except SAXParseException as e:
             errorList.append(
                 "Sax parser had a problem with this file:" + str(e))
+            logger.exception("Exception SAX parsing file:{} - {}".format(fname, str(e)))
         if piece_obj is not None:
             try:
                 loader = LilypondOutput.LilypondRenderer(
@@ -237,6 +247,7 @@ class MusicManager(object):
                 loader.run()
             except BaseException as e:
                 errorList.append(str(e))
+                logger.exception("Exception rendering lilypond with file:{} - {}".format(fname, str(e)))
         return errorList
 
     def unzipApiFiles(self, data_set):
@@ -258,7 +269,7 @@ class MusicManager(object):
                     n_filename = file.split(".")[0] + ".xml"
                     results[source].append(n_filename)
         except requests.exceptions.ConnectionError as e:
-            print(str(e))
+            logger.exception("Exception connecting to api to download files:{}".format(str(e)))
 
         return results
 
@@ -350,7 +361,7 @@ class MusicManager(object):
                 self.__data.downloadPiece(filename)
                 return True
         except requests.exceptions.ConnectionError as e:
-            print("Error downloading file!")
+            logger.exception("Error downloading file - {} exception {}".format(filename, str(e)))
         return False
 
     def runApiOperation(self):
@@ -461,7 +472,9 @@ class MusicManager(object):
         except Exception as e:
             errorTuple.append(str(e))
             errorTuple.append(filename)
+            logger.exception("Exception parsing {} - {}".format(filename, str(e)))
             return tuple(errorTuple)
+
 
 
     def parseError(self, exception):
@@ -489,169 +502,223 @@ class MusicManager(object):
         if "old" in files:
             self.parseOldFiles(sorted(files["old"]))
 
+    def handleTextQueries(self, search_data, online=False):
+        # check title, composer, lyricist, instruments for matches
+        results = {}
+        all_matched = True
+        instruments = self.__data.getInstrumentNames()
+        instrument_list = []
+        for value in search_data["text"]:
+            combined = {}
+            file_result = self.__data.getRoughPiece(value, online=online)
+            if len(file_result) > 0:
+                combined["filename"] = [result[1]
+                                        for result in file_result]
+
+            title_result = self.__data.getPieceByTitle(
+                value, online=online)
+            if len(title_result) > 0:
+                combined["Title"] = title_result
+
+            composer_result = self.__data.getPiecesByComposer(
+                value, online=online)
+            if len(composer_result) > 0:
+                combined["Composer"] = composer_result
+
+            lyricist_result = self.__data.getPiecesByLyricist(
+                value, online=online)
+            if len(lyricist_result) > 0:
+                combined["Lyricist"] = lyricist_result
+
+            if value in instruments:
+                instrument_list.append(value)
+
+
+            if len(combined) > 0:
+                results.update(combined)
+            else:
+                all_matched = False
+
+        if len(search_data['text']) == len(instrument_list):
+            all_matched = True
+
+        instrument_result = self.__data.getPiecesByAnyAndAllInstruments(
+                instrument_list, online=online)
+        if len(instrument_result) > 0:
+            results.update(instrument_result)
+            if "All Instruments" not in results:
+                all_matched = False
+        return results, all_matched
+
+    def handleInstrumentQueries(self, search_data, online=False):
+        result_data = {}
+        results = {}
+        all_matched = True
+        if "key" in search_data:
+            for instrument in search_data["instrument"]:
+                if instrument not in search_data["key"]:
+                    result_data[instrument] = search_data[
+                        "instrument"][instrument]
+        if "clef" in search_data:
+            for instrument in search_data["instrument"]:
+                if instrument not in search_data["clef"]:
+                    result_data[instrument] = search_data[
+                        "instrument"][instrument]
+        elif "key" not in search_data and "clef" not in search_data:
+            result_data = search_data["instrument"]
+        if len(result_data) > 0:
+            instrument_data = self.__data.getPiecesByInstruments(
+                result_data, online=online)
+            if len(instrument_data) > 0:
+                results["Instruments"] = instrument_data
+            else:
+                all_matched = False
+        return results, all_matched
+
+    def handleTempoQueries(self, search_data, online=False):
+        results = {}
+        all_matched = True
+        tempo_data = self.__data.getPieceByTempo(
+                search_data["tempo"], online=online)
+        if len(tempo_data) > 0:
+            results["Meter"] = tempo_data
+        else:
+            all_matched = False
+        return results, all_matched
+
+    def handleTimeQueries(self, search_data, online=False):
+        results = {}
+        all_matched = True
+        time_data = self.__data.getPieceByMeter(
+            search_data["time"], online=online)
+        if len(time_data) > 0:
+            results["Meter"] = time_data
+        else:
+            all_matched = False
+        return results, all_matched
+
+    def handleKeyQueries(self, search_data, online=False):
+        results = {}
+        all_matched = True
+        if "other" in search_data["key"]:
+            keydata = self.__data.getPieceByKeys(
+                search_data["key"]["other"], online=online)
+            if len(keydata) > 0:
+                results["Keys"] = keydata
+            else:
+                all_matched = False
+            search_data["key"].pop("other")
+        if len(search_data["key"]) > 0:
+            new_results = self.__data.getPieceByInstrumentInKeys(
+                search_data["key"], online=online)
+            if len(new_results) > 0:
+                results["Instruments in Keys"] = new_results
+            else:
+                all_matched = False
+        return results, all_matched
+
+    def handleTranspositionQueries(self, search_data, online=False):
+        results = {}
+        all_matched = True
+        transpos = self.__data.getPieceByInstrumentsOrSimilar(
+                search_data["transposition"], online=online)
+        if len(transpos) > 0:
+            results["Instrument or transposition"] = transpos
+        else:
+            all_matched = False
+        return results, all_matched
+
+    def handleClefQueries(self, search_data, online=False):
+        results = {}
+        all_matched = True
+        if "other" in search_data["clef"]:
+            clefs = self.__data.getPieceByClefs(
+                search_data["clef"]["other"], online=online)
+            if len(clefs) > 0:
+                results["Clefs"] = clefs
+            else:
+                all_matched = False
+            search_data["clef"].pop("other")
+        if len(search_data["clef"]) > 0:
+            instrument_by_clef = self.__data.getPieceByInstrumentInClefs(
+                search_data["clef"], online=online)
+            if len(instrument_by_clef) > 0:
+                results["Instrument in Clefs"] = instrument_by_clef
+            else:
+                all_matched = False
+        return results, all_matched
+
+    def handleFilenameQueries(self, search_data, online=False):
+        results = {}
+        all_matched = True
+        files = self.__data.getFileList(online=online)
+        result_files = [
+            filename for filename in search_data["filename"] if filename in files]
+        if len(result_files) > 0:
+            results["Filename"] = result_files
+        else:
+            all_matched = False
+        return results, all_matched
+
+    def handleTitleQueries(self, search_data, online=False):
+        results = {}
+        files = {}
+        all_matched = True
+        for title in search_data["title"]:
+            file_list = self.__data.getPieceByTitle(title, online=online)
+            if len(file_list) > 0:
+                files["Title: " + title] = file_list
+        if len(files) > 0:
+            results.update(files)
+        else:
+            all_matched = False
+        return results, all_matched
+
+    def handleComposerQueries(self, search_data, online=False):
+        files = {}
+        results = {}
+        all_matched = True
+        for title in search_data["composer"]:
+            file_list = self.__data.getPiecesByComposer(
+                title, online=online)
+            if len(file_list) > 0:
+                files["Composer: " + title] = file_list
+        if len(files) > 0:
+            results.update(files)
+        else:
+            all_matched = False
+        return results, all_matched
+
+    def handleLyricistQueries(self, search_data, online=False):
+        files = {}
+        results = {}
+        all_matched = True
+        for title in search_data["lyricist"]:
+            file_list = self.__data.getPiecesByLyricist(
+                title, online=online)
+            if len(file_list) > 0:
+                files["Lyricist: " + title] = file_list
+        if len(files) > 0:
+            results.update(files)
+        else:
+            all_matched = False
+        return results, all_matched
+
     def runQueries(self, search_data, online=False):
         results = {}
         all_matched = True
+        method_table = {"text": self.handleTextQueries, "instrument": self.handleInstrumentQueries,
+                        "tempo": self.handleTempoQueries, "time": self.handleTimeQueries,
+                        "key": self.handleKeyQueries, "transposition": self.handleTranspositionQueries,
+                        "clef": self.handleClefQueries, "filename": self.handleFilenameQueries,
+                        "title": self.handleTitleQueries, "composer": self.handleComposerQueries,
+                        "lyricist": self.handleLyricistQueries}
 
-        if "text" in search_data:
-            # check title, composer, lyricist, instruments for matches
-            for value in search_data["text"]:
-                combined = {}
-                file_result = self.__data.getRoughPiece(value, online=online)
-                if len(file_result) > 0:
-                    combined["filename"] = [result[1]
-                                            for result in file_result]
+        for key in search_data:
+            key_result, all_matched = method_table[key](search_data, online=online)
+            results.update(key_result)
 
-                title_result = self.__data.getPieceByTitle(
-                    value, online=online)
-                if len(title_result) > 0:
-                    combined["Title"] = title_result
 
-                composer_result = self.__data.getPiecesByComposer(
-                    value, online=online)
-                if len(composer_result) > 0:
-                    combined["Composer"] = composer_result
-
-                lyricist_result = self.__data.getPiecesByLyricist(
-                    value, online=online)
-                if len(lyricist_result) > 0:
-                    combined["Lyricist"] = lyricist_result
-
-                instrument_result = self.__data.getPiecesByInstruments(
-                    [value], online=online)
-                if len(instrument_result) > 0:
-                    combined["Instruments"] = instrument_result
-
-                if len(combined) > 0:
-                    results.update(combined)
-                else:
-                    all_matched = False
-
-        if "instrument" in search_data:
-            result_data = {}
-            if "key" in search_data:
-                for instrument in search_data["instrument"]:
-                    if instrument not in search_data["key"]:
-                        result_data[instrument] = search_data[
-                            "instrument"][instrument]
-            if "clef" in search_data:
-                for instrument in search_data["instrument"]:
-                    if instrument not in search_data["clef"]:
-                        result_data[instrument] = search_data[
-                            "instrument"][instrument]
-            elif "key" not in search_data and "clef" not in search_data:
-                result_data = search_data["instrument"]
-            if len(result_data) > 0:
-                instrument_data = self.__data.getPiecesByInstruments(
-                    result_data, online=online)
-                if len(instrument_data) > 0:
-                    results["Instruments"] = instrument_data
-                else:
-                    all_matched = False
-
-        if "tempo" in search_data:
-            tempo_data = self.__data.getPieceByTempo(
-                search_data["tempo"], online=online)
-            if len(tempo_data) > 0:
-                results["Tempo"] = tempo_data
-            else:
-                all_matched = False
-
-        if "time" in search_data:
-            time_data = self.__data.getPieceByMeter(
-                search_data["time"], online=online)
-            if len(time_data) > 0:
-                results["Time Signatures"] = time_data
-            else:
-                all_matched = False
-
-        if "key" in search_data:
-            if "other" in search_data["key"]:
-                keydata = self.__data.getPieceByKeys(
-                    search_data["key"]["other"], online=online)
-                if len(keydata) > 0:
-                    results["Keys"] = keydata
-                else:
-                    all_matched = False
-                search_data["key"].pop("other")
-            if len(search_data["key"]) > 0:
-                new_results = self.__data.getPieceByInstrumentInKeys(
-                    search_data["key"], online=online)
-                if len(new_results) > 0:
-                    results["Instruments in Keys"] = new_results
-                else:
-                    all_matched = False
-
-        if "transposition" in search_data:
-            transpos = self.__data.getPieceByInstrumentsOrSimilar(
-                search_data["transposition"], online=online)
-            if len(transpos) > 0:
-                results["Instrument or transposition"] = transpos
-            else:
-                all_matched = False
-
-        if "clef" in search_data:
-            if "other" in search_data["clef"]:
-                clefs = self.__data.getPieceByClefs(
-                    search_data["clef"]["other"], online=online)
-                if len(clefs) > 0:
-                    results["Clefs"] = clefs
-                else:
-                    all_matched = False
-                search_data["clef"].pop("other")
-
-            if len(search_data["clef"]) > 0:
-                instrument_by_clef = self.__data.getPieceByInstrumentInClefs(
-                    search_data["clef"], online=online)
-                if len(instrument_by_clef) > 0:
-                    results["Instrument in Clefs"] = instrument_by_clef
-                else:
-                    all_matched = False
-
-        if "filename" in search_data:
-            # todo: implement wildcard functionality
-            files = self.__data.getFileList(online=online)
-            result_files = [
-                filename for filename in search_data["filename"] if filename in files]
-            if len(result_files) > 0:
-                results["Filename"] = result_files
-            else:
-                all_matched = False
-
-        if "title" in search_data:
-            files = {}
-            for title in search_data["title"]:
-                file_list = self.__data.getPieceByTitle(title, online=online)
-                if len(file_list) > 0:
-                    files["Title: " + title] = file_list
-            if len(files) > 0:
-                results.update(files)
-            else:
-                all_matched = False
-
-        if "composer" in search_data:
-            files = {}
-            for title in search_data["composer"]:
-                file_list = self.__data.getPiecesByComposer(
-                    title, online=online)
-                if len(file_list) > 0:
-                    files["Composer: " + title] = file_list
-            if len(files) > 0:
-                results.update(files)
-            else:
-                all_matched = False
-
-        if "lyricist" in search_data:
-            files = {}
-            for title in search_data["lyricist"]:
-                file_list = self.__data.getPiecesByLyricist(
-                    title, online=online)
-                if len(file_list) > 0:
-                    files["Lyricist: " + title] = file_list
-            if len(files) > 0:
-                results.update(files)
-            else:
-                all_matched = False
 
         summaries = {}
         if len(results) > 0:
