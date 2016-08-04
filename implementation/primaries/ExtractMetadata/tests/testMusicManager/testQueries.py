@@ -261,9 +261,12 @@ class TestMusicManager(unittest.TestCase):
             expected_results, results)
 
     def testFindByTextTitle(self):
-        title = "Hello, world"
-        self.manager.addPiece("file1.xml", {"title": "hello"})
-        self.manager.addPiece("file1.xml", {"title": "Hello, world"})
+        title = "hello, world"
+        self.manager.addPiece("file.xml", {"title": "hello"})
+        self.manager.addPiece("file1.xml", {"title": "hello, world"})
+        result = self.manager.runQueries({"text": title.split(" ")})
+        expected_result = {"Title: "+title : [('(noTitle)(file1.xml', 'file1.xml')]}
+        self.assertEqual(expected_result, result)
 
 
     def testFindByInstrumentsWithNoLabel(self):

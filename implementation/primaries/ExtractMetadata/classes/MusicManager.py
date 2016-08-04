@@ -183,324 +183,23 @@ class FolderBrowser(object):
             result_set["new"] = new_files
         return result_set
 
-
-class MusicManager(object):
-    """
-    Grand master class which pulls together features from every other class. This class is instantiated by the Application
-    class and should provide methods for the application to access everything else, from rendering to info extraction
-    to API access.
-    """
-
-    def __init__(self, parent, apis='all', folder='/Users/charlottegodley/PycharmProjects/FYP'):
-        self.parent = parent
-        """the application instance in which this manager resides"""
+class QueryLayer(object):
+    def __init__(self, folder):
         self.folder = folder
-        """the folder in which the collection is stored"""
-
         self.__data = DataLayer.MusicData(
             os.path.join(
                 self.folder,
                 "music.db"))
-        self.setupFolderBrowser()
-        self.apiManager = ApiManager.ApiManager(folder=self.folder, apis=apis)
 
-    def addInstruments(self, data):
-        self.__data.addInstruments(data)
+    def getPlaylistsFromPlaylistTable(self):
+        data = self.__data.getAllUserPlaylists()
+        return data
 
-    def startRenderingTask(self, fname):
-        """
-        method which parses a piece, then runs the renderer class on it which takes the lilypond
-        output, runs lilypond on it and gets the pdf. This is not generally called directly,
-        but rather called by a thread class in thread_classes.py
+    def addPlaylist(self, data):
+        self.__data.addPlaylist(data["name"], data["pieces"])
 
-        * Parameter fname: xml filename
-
-        * Return value: list of problems encountered
-        """
-        errorList = []
-        parser = MxmlParser.MxmlParser()
-        piece_obj = None
-
-        path_to_file = os.path.join(self.folder, fname)
-
-        try:
-            piece_obj = parser.parse(path_to_file)
-        except Exceptions.DrumNotImplementedException as e:
-            errorList.append(
-                "Drum tab found in piece: this application does not handle drum tab.")
-            logger.exception("Drum tab found in piece:{} - {}".format(fname, str(e)))
-        except Exceptions.TabNotImplementedException as e:
-            errorList.append(
-                "Guitar tab found in this piece: this application does not handle guitar tab.")
-            logger.exception("Guitar tab found in piece:{} - {}".format(fname, str(e)))
-        except SAXParseException as e:
-            errorList.append(
-                "Sax parser had a problem with this file:" + str(e))
-            logger.exception("Exception SAX parsing file:{} - {}".format(fname, str(e)))
-        if piece_obj is not None:
-            try:
-                loader = LilypondOutput.LilypondRenderer(
-                    piece_obj,
-                    os.path.join(
-                        self.folder,
-                        fname))
-                loader.run()
-            except BaseException as e:
-                errorList.append(str(e))
-                logger.exception("Exception rendering lilypond with file:{} - {}".format(fname, str(e)))
-        return errorList
-
-    def unzipApiFiles(self, data_set):
-        """
-        method to download API files and unzip them as necessary
-        :return: dictionary of results indexed by source name
-        """
-
-        results = {}
-        try:
-            file_set = self.apiManager.downloadFiles(data_set)
-            self.handleZips()
-            for source in file_set:
-                results[source] = []
-                for file in file_set[source]:
-                    file_path = os.path.join(self.folder, file)
-                    if os.path.exists(file_path):
-                        os.remove(file_path)
-                    n_filename = file.split(".")[0] + ".xml"
-                    results[source].append(n_filename)
-        except requests.exceptions.ConnectionError as e:
-            logger.exception("Exception connecting to api to download files:{}".format(str(e)))
-
-        return results
-
-    def parseApiFiles(self, debug=False):
-        """
-        method to extract data from apis and parse each created file for metadata
-        :return: dictionary of data indexed by filename
-        """
-        parsing_errors = {}
-        result_set = {}
-        try:
-            cleaned_set = self.apiManager.fetchAllData()
-            filelist = self.getFileList(online=True)
-            for file in filelist:
-                source = self.__data.getPieceSource(file)[0]
-                id = file.split(".")[0]
-                if id in cleaned_set[source]:
-                    cleaned_set[source].pop(id)
-            file_set = self.unzipApiFiles(cleaned_set)
-            for source in file_set:
-                result_set[source] = {}
-                for file in file_set[source]:
-                    ignore_list = self.apiManager.getSourceIgnoreList(source)
-                    parser = OnlineMetaParser.OnlineMetaParser(
-                        ignored=ignore_list, source=source)
-                    data = self.parseXMLFile(file, parser=parser)
-                    # path_to_file = os.path.join(self.folder, file)
-                    # if os.path.exists(path_to_file):
-                    #     os.remove(path_to_file)
-                    if type(data) != tuple:
-                        result_set[source][file] = data
-                        file_id = file.split("/")[-1].split(".")[0]
-                        if "title" in cleaned_set[source][file_id]:
-                            result_set[source][file]["title"] = cleaned_set[
-                                source][file_id]["title"]
-                        if "composer" in cleaned_set[source][file_id]:
-                            result_set[source][file]["composer"] = cleaned_set[
-                                source][file_id]["composer"]
-
-                        if "lyricist" in cleaned_set[source][file_id]:
-                            result_set[source][file]["lyricist"] = cleaned_set[
-                                source][file_id]["lyricist"]
-                        if "secret" in cleaned_set[source][file_id]:
-                            result_set[source][file]["secret"] = cleaned_set[
-                                source][file_id]["secret"]
-                        if "license" in cleaned_set[source][file_id]:
-                            result_set[source][file]["license"] = cleaned_set[
-                                source][file_id]["license"]
-                    else:
-                        parsing_errors[data[1]] = data[0]
-        except requests.exceptions.ConnectionError as e:
-            parsing_errors[
-                "Connection"] = "error connecting to the internet. Sources not refreshed."
-        if len(parsing_errors) > 0:
-            error_string = "".join(
-                [error + " : " + parsing_errors[error] for error in parsing_errors])
-            if not debug:
-                self.parent.errorPopup(error_string)
-            for error in parsing_errors:
-                logging.log(logging.ERROR, error+" : "+parsing_errors[error])
-        return result_set
-
-    def addApiFiles(self, data):
-        for source in data:
-            for file in data[source]:
-                self.addPiece(file, data[source][file])
-
-    def cleanupApiFiles(self, data, extensions=['mxl', 'xml']):
-        for source in data:
-            for file in data[source]:
-                for ext in extensions:
-                    file_ext = file.split(".")[0] + "." + ext
-                    if os.path.exists(os.path.join(self.folder, file_ext)):
-                        os.remove(os.path.join(self.folder, file_ext))
-
-    def downloadFile(self, filename):
-        file_info = filename.split(".")
-        fname = file_info[0]
-        source = self.__data.getPieceSource(filename)
-        if source is not None:
-            source = source[0]
-        secret = self.__data.getSecret(filename)
-        if secret is not None:
-            secret = secret[0]
-        try:
-            status_code = self.apiManager.downloadFile(
-                source=source, file=fname, secret=secret, extension='pdf')
-            if status_code == 200:
-                self.__data.downloadPiece(filename)
-                return True
-        except requests.exceptions.ConnectionError as e:
-            logger.exception("Error downloading file - {} exception {}".format(filename, str(e)))
-        return False
-
-    def runApiOperation(self):
-        """
-        method which gets all the data from the apis, unzips them,
-        parses them for data, puts the data in the database and finally
-        deletes the files
-        :return:
-        """
-        result_set = self.parseApiFiles()
-        self.addApiFiles(result_set)
-        self.cleanupApiFiles(result_set)
-
-    def addPiece(self, filename, data):
-        self.__data.addPiece(filename, data)
-
-    def getPieceInfo(self, filenames):
-        return self.__data.getAllPieceInfo(filenames)
-
-    def getFileList(self, online=False):
-        return self.__data.getFileList(online=online)
-
-    def setupFolderBrowser(self):
-        db_files = self.__data.getFileList()
-        self.folder_browser = FolderBrowser(
-            db_files=db_files,
-            folder=self.folder)
-
-    def handleZips(self):
-        zip_files = self.folder_browser.getZipFiles()
-        if zip_files is not None:
-            unzipper = Unzipper(folder=self.folder, files=zip_files)
-            unzipper.unzip()
-
-    def refresh(self):
-        self.runApiOperation()
-        self.refreshWithoutDownload()
-
-    def refreshWithoutDownload(self):
-        db_files = self.__data.getFileList()
-        self.folder_browser.resetDbFileList(db_files)
-        self.handleZips()
-        self.handleXMLFiles()
-
-    def getPieceSummary(self, file_list, sort_method="title", online=False):
-        info = self.__data.getAllPieceInfo(file_list, online=online)
-        summaries = [{"title": i["title"],
-                      "composer":i["composer"],
-                      "lyricist":i["lyricist"],
-                      "filename":i["filename"]} for i in info]
-        results = sorted(summaries, key=lambda k: str(k[sort_method]))
-        summary_strings = []
-        for result in results:
-            summary = ""
-            if result["title"] is not None and result["title"] != "":
-                summary += result["title"]
-            else:
-                summary += "(noTitle)"
-            if result["composer"] != -1 or result["lyricist"] != -1:
-                summary += " by "
-            if result["composer"] != -1:
-                summary += result["composer"]
-            if result["lyricist"] != -1:
-                summary += ", " + result["lyricist"]
-            summary += "(" + result["filename"] + ")"
-            summary_strings.append((summary, result["filename"]))
-        return summary_strings
-
-    def getLicense(self, filename):
-        result = self.__data.getLicense(filename)
-        # eventually we should open up a file and get the text based on the license name,
-        # but for now we need to do this
-        if result is not None:
-            result = result[0]
-            folder = '/users/charlottegodley/PycharmProjects/FYP/implementation/primaries' \
-                     '/ImportOnlineDBs/licenses'
-            file = os.path.join(folder, result)
-            if os.path.exists(file):
-                fob = open(file, 'r')
-                lines = fob.readlines()
-                result = "\n".join(lines)
-
-        return result
-
-    def getPieceSummaryStrings(self, sort_method="title"):
-        file_list = self.__data.getFileList()
-        summary_strings = self.getPieceSummary(
-            file_list,
-            sort_method=sort_method)
-
-        return summary_strings
-
-    def parseOldFiles(self, file_list):
-        """
-        method to remove or archive all the files in the list within the db
-        :param file_list: files to archive
-        :return: None
-        """
-        self.__data.archivePieces(file_list)
-
-    def parseXMLFile(self, filename, parser=None):
-        errorTuple = []
-        if parser is None:
-            parser = MetaParser.MetaParser()
-        try:
-            data_set = parser.parse(os.path.join(self.folder, filename))
-            return data_set
-        except Exception as e:
-            errorTuple.append(str(e))
-            errorTuple.append(filename)
-            logger.exception("Exception parsing {} - {}".format(filename, str(e)))
-            return tuple(errorTuple)
-
-
-
-    def parseError(self, exception):
-        string_val = str(exception)
-        self.parent.errorPopup(string_val)
-
-    def parseNewFiles(self, file_list):
-        """
-        method to call the sax parser on each of the new files then send the data to the data layer
-        :param file_list:
-        :return:
-        """
-        for file in file_list:
-            data_set = self.parseXMLFile(file)
-            self.__data.addPiece(file, data_set)
-
-    def handleXMLFiles(self):
-        """
-        method to get all the new and old files from the folder browser and call parseNew and parseOld methods
-        :return:
-        """
-        files = self.folder_browser.getNewAndOldFiles()
-        if "new" in files:
-            self.parseNewFiles(sorted(files["new"]))
-        if "old" in files:
-            self.parseOldFiles(sorted(files["old"]))
+    def deletePlaylists(self, names):
+        [self.__data.deletePlaylist(name) for name in names]
 
     def handleTextQueries(self, search_data, online=False):
         # check title, composer, lyricist, instruments for matches
@@ -801,6 +500,322 @@ class MusicManager(object):
 
         return result_set
 
+class MusicManager(QueryLayer):
+    """
+    Grand master class which pulls together features from every other class. This class is instantiated by the Application
+    class and should provide methods for the application to access everything else, from rendering to info extraction
+    to API access.
+    """
+
+    def __init__(self, parent, apis='all', folder='/Users/charlottegodley/PycharmProjects/FYP'):
+        self.parent = parent
+        """the application instance in which this manager resides"""
+
+
+        self.setupFolderBrowser()
+        self.apiManager = ApiManager.ApiManager(folder=self.folder, apis=apis)
+        super(self, MusicManager).__init__(folder)
+
+    def addInstruments(self, data):
+        self.__data.addInstruments(data)
+
+    def startRenderingTask(self, fname):
+        """
+        method which parses a piece, then runs the renderer class on it which takes the lilypond
+        output, runs lilypond on it and gets the pdf. This is not generally called directly,
+        but rather called by a thread class in thread_classes.py
+
+        * Parameter fname: xml filename
+
+        * Return value: list of problems encountered
+        """
+        errorList = []
+        parser = MxmlParser.MxmlParser()
+        piece_obj = None
+
+        path_to_file = os.path.join(self.folder, fname)
+
+        try:
+            piece_obj = parser.parse(path_to_file)
+        except Exceptions.DrumNotImplementedException as e:
+            errorList.append(
+                "Drum tab found in piece: this application does not handle drum tab.")
+            logger.exception("Drum tab found in piece:{} - {}".format(fname, str(e)))
+        except Exceptions.TabNotImplementedException as e:
+            errorList.append(
+                "Guitar tab found in this piece: this application does not handle guitar tab.")
+            logger.exception("Guitar tab found in piece:{} - {}".format(fname, str(e)))
+        except SAXParseException as e:
+            errorList.append(
+                "Sax parser had a problem with this file:" + str(e))
+            logger.exception("Exception SAX parsing file:{} - {}".format(fname, str(e)))
+        if piece_obj is not None:
+            try:
+                loader = LilypondOutput.LilypondRenderer(
+                    piece_obj,
+                    os.path.join(
+                        self.folder,
+                        fname))
+                loader.run()
+            except BaseException as e:
+                errorList.append(str(e))
+                logger.exception("Exception rendering lilypond with file:{} - {}".format(fname, str(e)))
+        return errorList
+
+    def unzipApiFiles(self, data_set):
+        """
+        method to download API files and unzip them as necessary
+        :return: dictionary of results indexed by source name
+        """
+
+        results = {}
+        try:
+            file_set = self.apiManager.downloadFiles(data_set)
+            self.handleZips()
+            for source in file_set:
+                results[source] = []
+                for file in file_set[source]:
+                    file_path = os.path.join(self.folder, file)
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+                    n_filename = file.split(".")[0] + ".xml"
+                    results[source].append(n_filename)
+        except requests.exceptions.ConnectionError as e:
+            logger.exception("Exception connecting to api to download files:{}".format(str(e)))
+
+        return results
+
+    def parseApiFiles(self, debug=False):
+        """
+        method to extract data from apis and parse each created file for metadata
+        :return: dictionary of data indexed by filename
+        """
+        parsing_errors = {}
+        result_set = {}
+        try:
+            cleaned_set = self.apiManager.fetchAllData()
+            filelist = self.getFileList(online=True)
+            for file in filelist:
+                source = self.__data.getPieceSource(file)[0]
+                id = file.split(".")[0]
+                if id in cleaned_set[source]:
+                    cleaned_set[source].pop(id)
+            file_set = self.unzipApiFiles(cleaned_set)
+            for source in file_set:
+                result_set[source] = {}
+                for file in file_set[source]:
+                    ignore_list = self.apiManager.getSourceIgnoreList(source)
+                    parser = OnlineMetaParser.OnlineMetaParser(
+                        ignored=ignore_list, source=source)
+                    data = self.parseXMLFile(file, parser=parser)
+                    # path_to_file = os.path.join(self.folder, file)
+                    # if os.path.exists(path_to_file):
+                    #     os.remove(path_to_file)
+                    if type(data) != tuple:
+                        result_set[source][file] = data
+                        file_id = file.split("/")[-1].split(".")[0]
+                        if "title" in cleaned_set[source][file_id]:
+                            result_set[source][file]["title"] = cleaned_set[
+                                source][file_id]["title"]
+                        if "composer" in cleaned_set[source][file_id]:
+                            result_set[source][file]["composer"] = cleaned_set[
+                                source][file_id]["composer"]
+
+                        if "lyricist" in cleaned_set[source][file_id]:
+                            result_set[source][file]["lyricist"] = cleaned_set[
+                                source][file_id]["lyricist"]
+                        if "secret" in cleaned_set[source][file_id]:
+                            result_set[source][file]["secret"] = cleaned_set[
+                                source][file_id]["secret"]
+                        if "license" in cleaned_set[source][file_id]:
+                            result_set[source][file]["license"] = cleaned_set[
+                                source][file_id]["license"]
+                    else:
+                        parsing_errors[data[1]] = data[0]
+        except requests.exceptions.ConnectionError as e:
+            parsing_errors[
+                "Connection"] = "error connecting to the internet. Sources not refreshed."
+        if len(parsing_errors) > 0:
+            error_string = "".join(
+                [error + " : " + parsing_errors[error] for error in parsing_errors])
+            if not debug:
+                self.parent.errorPopup(error_string)
+            for error in parsing_errors:
+                logging.log(logging.ERROR, error+" : "+parsing_errors[error])
+        return result_set
+
+    def addApiFiles(self, data):
+        for source in data:
+            for file in data[source]:
+                self.addPiece(file, data[source][file])
+
+    def cleanupApiFiles(self, data, extensions=['mxl', 'xml']):
+        for source in data:
+            for file in data[source]:
+                for ext in extensions:
+                    file_ext = file.split(".")[0] + "." + ext
+                    if os.path.exists(os.path.join(self.folder, file_ext)):
+                        os.remove(os.path.join(self.folder, file_ext))
+
+    def downloadFile(self, filename):
+        file_info = filename.split(".")
+        fname = file_info[0]
+        source = self.__data.getPieceSource(filename)
+        if source is not None:
+            source = source[0]
+        secret = self.__data.getSecret(filename)
+        if secret is not None:
+            secret = secret[0]
+        try:
+            status_code = self.apiManager.downloadFile(
+                source=source, file=fname, secret=secret, extension='pdf')
+            if status_code == 200:
+                self.__data.downloadPiece(filename)
+                return True
+        except requests.exceptions.ConnectionError as e:
+            logger.exception("Error downloading file - {} exception {}".format(filename, str(e)))
+        return False
+
+    def runApiOperation(self):
+        """
+        method which gets all the data from the apis, unzips them,
+        parses them for data, puts the data in the database and finally
+        deletes the files
+        :return:
+        """
+        result_set = self.parseApiFiles()
+        self.addApiFiles(result_set)
+        self.cleanupApiFiles(result_set)
+
+    def addPiece(self, filename, data):
+        self.__data.addPiece(filename, data)
+
+    def getPieceInfo(self, filenames):
+        return self.__data.getAllPieceInfo(filenames)
+
+    def getFileList(self, online=False):
+        return self.__data.getFileList(online=online)
+
+    def setupFolderBrowser(self):
+        db_files = self.__data.getFileList()
+        self.folder_browser = FolderBrowser(
+            db_files=db_files,
+            folder=self.folder)
+
+    def handleZips(self):
+        zip_files = self.folder_browser.getZipFiles()
+        if zip_files is not None:
+            unzipper = Unzipper(folder=self.folder, files=zip_files)
+            unzipper.unzip()
+
+    def refresh(self):
+        self.runApiOperation()
+        self.refreshWithoutDownload()
+
+    def refreshWithoutDownload(self):
+        db_files = self.__data.getFileList()
+        self.folder_browser.resetDbFileList(db_files)
+        self.handleZips()
+        self.handleXMLFiles()
+
+    def getPieceSummary(self, file_list, sort_method="title", online=False):
+        info = self.__data.getAllPieceInfo(file_list, online=online)
+        summaries = [{"title": i["title"],
+                      "composer":i["composer"],
+                      "lyricist":i["lyricist"],
+                      "filename":i["filename"]} for i in info]
+        results = sorted(summaries, key=lambda k: str(k[sort_method]))
+        summary_strings = []
+        for result in results:
+            summary = ""
+            if result["title"] is not None and result["title"] != "":
+                summary += result["title"]
+            else:
+                summary += "(noTitle)"
+            if result["composer"] != -1 or result["lyricist"] != -1:
+                summary += " by "
+            if result["composer"] != -1:
+                summary += result["composer"]
+            if result["lyricist"] != -1:
+                summary += ", " + result["lyricist"]
+            summary += "(" + result["filename"] + ")"
+            summary_strings.append((summary, result["filename"]))
+        return summary_strings
+
+    def getLicense(self, filename):
+        result = self.__data.getLicense(filename)
+        # eventually we should open up a file and get the text based on the license name,
+        # but for now we need to do this
+        if result is not None:
+            result = result[0]
+            folder = '/users/charlottegodley/PycharmProjects/FYP/implementation/primaries' \
+                     '/ImportOnlineDBs/licenses'
+            file = os.path.join(folder, result)
+            if os.path.exists(file):
+                fob = open(file, 'r')
+                lines = fob.readlines()
+                result = "\n".join(lines)
+
+        return result
+
+    def getPieceSummaryStrings(self, sort_method="title"):
+        file_list = self.__data.getFileList()
+        summary_strings = self.getPieceSummary(
+            file_list,
+            sort_method=sort_method)
+
+        return summary_strings
+
+    def parseOldFiles(self, file_list):
+        """
+        method to remove or archive all the files in the list within the db
+        :param file_list: files to archive
+        :return: None
+        """
+        self.__data.archivePieces(file_list)
+
+    def parseXMLFile(self, filename, parser=None):
+        errorTuple = []
+        if parser is None:
+            parser = MetaParser.MetaParser()
+        try:
+            data_set = parser.parse(os.path.join(self.folder, filename))
+            return data_set
+        except Exception as e:
+            errorTuple.append(str(e))
+            errorTuple.append(filename)
+            logger.exception("Exception parsing {} - {}".format(filename, str(e)))
+            return tuple(errorTuple)
+
+
+
+    def parseError(self, exception):
+        string_val = str(exception)
+        self.parent.errorPopup(string_val)
+
+    def parseNewFiles(self, file_list):
+        """
+        method to call the sax parser on each of the new files then send the data to the data layer
+        :param file_list:
+        :return:
+        """
+        for file in file_list:
+            data_set = self.parseXMLFile(file)
+            self.__data.addPiece(file, data_set)
+
+    def handleXMLFiles(self):
+        """
+        method to get all the new and old files from the folder browser and call parseNew and parseOld methods
+        :return:
+        """
+        files = self.folder_browser.getNewAndOldFiles()
+        if "new" in files:
+            self.parseNewFiles(sorted(files["new"]))
+        if "old" in files:
+            self.parseOldFiles(sorted(files["old"]))
+
+
+
     def copyFiles(self, filenames):
         """
         method to copy a list of files from one folder to another
@@ -812,12 +827,6 @@ class MusicManager(object):
             f = folder_file_split[-1]
             shutil.copyfile(file, os.path.join(self.folder, f))
 
-    def getPlaylistsFromPlaylistTable(self):
-        data = self.__data.getAllUserPlaylists()
-        return data
 
-    def addPlaylist(self, data):
-        self.__data.addPlaylist(data["name"], data["pieces"])
 
-    def deletePlaylists(self, names):
-        [self.__data.deletePlaylist(name) for name in names]
+
