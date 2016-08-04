@@ -5,6 +5,7 @@ import pickle
 from xml.parsers import expat
 from PyQt4 import QtGui, QtCore, QtXml
 
+
 from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, PlaylistDialog, ImportDialog, licensePopup, \
     StartupWindow, MainWindow
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
@@ -43,6 +44,7 @@ class Application(QtCore.QObject):
         self.LoadMeta()
         self.folder = None
         self.load_windows()
+        self.updateStatusBar("hello, world")
 
     def meta_file(self):
         return os.path.join(os.path.expanduser("~"), ".musiclib")
@@ -335,6 +337,10 @@ class Application(QtCore.QObject):
     def loadUserPlaylistsForAGivenFile(self, filename):
         data = self.manager.getPlaylistByFilename(filename)
         return data
+
+    def updateStatusBar(self, string):
+        statusbar = self.windows["main"].statusBar()
+        statusbar.showMessage(string)
 
     def applyTheme(self):
         for window in self.windows:

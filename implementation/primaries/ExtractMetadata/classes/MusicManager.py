@@ -634,12 +634,9 @@ class MusicManager(QueryLayer):
             parsing_errors[
                 "Connection"] = "error connecting to the internet. Sources not refreshed."
         if len(parsing_errors) > 0:
-            error_string = "".join(
-                [error + " : " + parsing_errors[error] for error in parsing_errors])
-            if not debug:
-                self.parent.errorPopup(error_string)
+            self.parent.updateStatusBar("Errors updating database. Contact developer if problem persists")
             for error in parsing_errors:
-                logging.log(logging.ERROR, error+" : "+parsing_errors[error])
+                logger.error("Error {} : {}".format(error, parsing_errors[error]))
         return result_set
 
     def addApiFiles(self, data):
@@ -705,6 +702,8 @@ class MusicManager(QueryLayer):
         if zip_files is not None:
             unzipper = Unzipper(folder=self.folder, files=zip_files)
             unzipper.unzip()
+
+
 
     def refresh(self):
         self.runApiOperation()
