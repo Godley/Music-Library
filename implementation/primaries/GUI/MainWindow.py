@@ -484,7 +484,6 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
                 labels.append(scenes[number - 1].addWidget(containers[number]))
                 pairings[number - 1].addItem(labels[number])
             layout.addItem(pairings[number - 1])
-            number += 1
 
         # use this to test that the layout works for more than 2 pages
         # while number < 3:
