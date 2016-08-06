@@ -5,6 +5,11 @@ if sys.platform == "darwin":
 import math
 
 class PDFViewer(object):
+    def __init__(self, width=None, pages=None):
+        self.width = width
+        self.pages = pages
+
+
     def setPDF(self, pdf):
         self.pdf_filepath = pdf
         self.doc = Poppler.Document.load(self.pdf_filepath)
@@ -13,6 +18,9 @@ class PDFViewer(object):
 
     def getNumPages(self):
         return self.doc.numPages()
+
+    def getPageWidth(self, number):
+        return self.doc.page(number).pageSize().width()
 
     def getNumGroups(self):
         pages = self.getNumPages()
@@ -25,27 +33,16 @@ class PDFViewer(object):
         if page is not None:
             image = page.renderToImage(100, 100)
             pixmap = QtGui.QPixmap.fromImage(image)
-            pageSize = self.getPageSize(number)
             container = QtGui.QLabel()
-            container.setFixedSize(pageSize)
+            if self.width is None:
+                self.width = pixmap.width()
+            container.setFixedWidth(self.width)
             container.setStyleSheet("pages[number] { background-color : transparent}")
             container.setContentsMargins(0, 0, 0, 0)
             container.setScaledContents(True)
             container.setPixmap(pixmap)
             return container
 
-        return page
-
-
-    def getEmptyPage(self):
-        page = QtGui.QLabel()
-        pageSize = self.getPageSize(0)
-        page.setFixedSize(pageSize)
-        page.setStyleSheet("Page { background-color : transparent}")
-        page.setContentsMargins(0, 0, 0, 0)
-        page.setScaledContents(True)
-        pixmap = QtGui.QPixmap()
-        page.setPixmap(pixmap)
         return page
 
     def getPageSize(self, number):
@@ -59,18 +56,12 @@ class PDFViewer(object):
     def getScene(self):
         scene = QtGui.QGraphicsScene()
         scene.setBackgroundBrush(QtGui.QColor('transparent'))
-        layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Vertical)
+        layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Horizontal)
         layout.setContentsMargins(0, 0, 0, 0)
-        groups = self.getNumGroups()
-        for group in range(groups):
-            pair_scene = QtGui.QGraphicsScene()
-            pair_layout = QtGui.QGraphicsLinearLayout(QtCore.Qt.Horizontal)
-            for i in range(group * 2, group * 2 + 2):
-                page = self.getPageLabel(i)
-                if page is None:
-                    page = self.getEmptyPage()
-                pair_layout.addItem(pair_scene.addWidget(page))
-            layout.addItem(pair_layout)
+        pages = self.getNumPages()
+        for n in range(pages):
+            page = self.getPageLabel(n)
+            layout.addItem(scene.addWidget(page))
 
         graphicsWidget = QtGui.QGraphicsWidget()
         graphicsWidget.setLayout(layout)

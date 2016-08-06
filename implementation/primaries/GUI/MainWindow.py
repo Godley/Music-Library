@@ -29,7 +29,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.playlist = None
         self.index = None
         self.themeSet = False
-        self.viewer = pdfViewer.PDFViewer()
+
 
     def resizeEvent(self, QResizeEvent):
         if hasattr(self, "scoreWindow"):
@@ -136,6 +136,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.actionRefresh_Collection.triggered.connect(self.qApp.updateDb)
         self.actionNew_Collection.triggered.connect(self.newCollection)
         self.actionImport.triggered.connect(self.qApp.importWindow)
+        self.viewer = pdfViewer.PDFViewer(self.scoreWindow.width()/2)
         if platform == "win32":
             self.applyTheme()
 
