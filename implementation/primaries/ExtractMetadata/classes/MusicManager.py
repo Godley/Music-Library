@@ -280,7 +280,7 @@ class QueryLayer(object):
         tempo_data = self._data.getPieceByTempo(
                 search_data["tempo"], online=online)
         if len(tempo_data) > 0:
-            results["Meter"] = tempo_data
+            results["Tempo"] = tempo_data
         else:
             all_matched = False
         return results, all_matched
@@ -291,7 +291,7 @@ class QueryLayer(object):
         time_data = self._data.getPieceByMeter(
             search_data["time"], online=online)
         if len(time_data) > 0:
-            results["Meter"] = time_data
+            results["Meter/Time signature"] = time_data
         else:
             all_matched = False
         return results, all_matched
