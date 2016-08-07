@@ -8,9 +8,15 @@ python:
 
 sudo: required
 
+before_install:
+  - sudo add-apt-repository deb http://us.archive.ubuntu.com/ubuntu wily main universe
+  - sudo apt-get update -q
+  - sudo apt-get install gcc-4.8 -y
+  - sudo apt-get install python3-poppler-qt4
+
 install: 
 - sudo apt-get install python3-sip-dev
-- sudo apt-get install python3-poppler-qt4
+
 - pip3 install -r requirements.txt
 
 script: python3 -m "nose" --logging-level=WARNING
