@@ -10,7 +10,7 @@ sudo: required
 
 install: 
 - sudo apt-get install python3-sip-dev
-- sudo apt-get install python-poppler-qt4
+- sudo apt-get install python3-poppler-qt4
 - pip3 install -r requirements.txt
 
 script: python3 -m "nose" --logging-level=WARNING
