@@ -32,7 +32,8 @@ class Api(object):
         '''
         raise NotImplementedError
 
-    def getKey(self):
+    @staticmethod
+    def getKey():
         '''
         method to fetch the API key from the store. SHOULD NOT be just hard coded
         :return: string of api key
@@ -40,15 +41,15 @@ class Api(object):
         if not getattr(sys, "frozen", False):
             # If this is running in the context of a frozen (executable) file,
             # we return the path of the main application executable
-            if self.env_key in os.environ:
-                return os.environ[self.env_key]
+            if Api.env_key in os.environ:
+                return os.environ[Api.env_key]
             else:
                 raise exceptions.APIKeyNotFoundException('Error, MSCORE environment variable not set. Please set to your API key for musescore')
         else:
             from implementation.primaries.ImportOnlineDBs.classes import config
             # If we are running in script or debug mode, we need
             # to find the obfuscated file where it's located
-            return config.k[self.env_key]
+            return config.k[Api.env_key]
 
 
 

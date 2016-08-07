@@ -509,12 +509,12 @@ class MusicManager(QueryLayer):
     to API access.
     """
 
-    def __init__(self, parent, apis='all', folder='/Users/charlottegodley/PycharmProjects/FYP'):
+    def __init__(self, parent, folder='/Users/charlottegodley/PycharmProjects/FYP'):
         self.parent = parent
         """the application instance in which this manager resides"""
         self.wifi = True
         super(MusicManager, self).__init__(folder)
-        self.apiManager = ApiManager.ApiManager(folder=self.folder, apis=apis)
+        self.apiManager = ApiManager.ApiManager(folder=self.folder)
         self.setupFolderBrowser()
 
     def updateWifi(self, wifi):
