@@ -1,17 +1,36 @@
 import unittest
 import os
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
+import logging
+
+log_name = 'TEST_LOG'
+logger = logging.getLogger('TEST_LOG')
 
 
 class testApiManager(unittest.TestCase):
 
-    def setUp(self):
-        self.apiMan = ApiManager.ApiManager()
-
     def testFetchAllFiles(self):
-        result = self.apiMan.fetchAllData()
+        apiMan = ApiManager.ApiManager(logger=logger)
+        result = apiMan.fetchAllData()
         self.assertIsInstance(result, dict)
         self.assertTrue(len(result) > 0)
+
+    def testMuseScoreEnabledIfApiKeySet(self):
+        if 'MSCORE' not in os.environ:
+            os.environ['MSCORE'] = 'hello'
+        apiMan = ApiManager.ApiManager(logger=logger)
+        self.assertIn('MuseScore', apiMan.sources)
+
+    def testMuseScoreDisabledIfApiKeyUnset(self):
+        copy_of_key = None
+        if 'MSCORE' in os.environ:
+            copy_of_key = os.environ['MSCORE']
+            os.environ.pop('MSCORE')
+        apiMan = ApiManager.ApiManager(logger=logger)
+        self.assertNotIn('MuseScore', apiMan.sources)
+        if copy_of_key is not None:
+            os.environ['MSCORE'] = copy_of_key
+
 
 
 class testFileDownload(unittest.TestCase):

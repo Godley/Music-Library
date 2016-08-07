@@ -8,14 +8,14 @@ import requests, os, shutil, gzip
 from io import BytesIO
 from implementation.primaries import exceptions
 import logging, json
-from Application import LOG_NAME
-import logging
-logger = logging.getLogger(LOG_NAME)
+
+
 class MuseScoreApi(Api):
     env_key = 'MSCORE'
-    def __init__(self, folder=""):
+    def __init__(self, folder="", logger=None):
         Api.__init__(self, folder=folder)
-        self.key = self.getKey()
+        self.logger = logger
+        self.key = self.getKey(self.env_key)
         self.params = {'oauth_consumer_key': self.key}
         self.endpoint = 'http://api.musescore.com/services/rest/score.json'
         self.download_endpoint = 'http://static.musescore.com/'
@@ -30,7 +30,7 @@ class MuseScoreApi(Api):
         if request.status_code == 200:
             response = request.json()
         else:
-            logger.exception("API request response code: {} in getCollection".format(request.status_code))
+            self.logger.exception("API request response code: {} in getCollection".format(request.status_code))
             raise(exceptions.BadAPIRequest('ERROR: API request response code: %i ' % request.status_code))
         return response
 

@@ -1,22 +1,20 @@
 from implementation.primaries.ImportOnlineDBs.classes import MScoreApi
 import os
 from implementation.primaries import exceptions
-from Application import LOG_NAME
-import logging
 
-logger = logging.getLogger(LOG_NAME)
 
 class ApiManager(object):
 
-    def __init__(self, folder=""):
+    def __init__(self, folder="", logger=None):
+        self.logger = logger
         self.folder = folder
         self.sources = {}
         try:
-            MScoreApi.MuseScoreApi.getKey()
+            MScoreApi.MuseScoreApi.getKey(MScoreApi.MuseScoreApi.env_key)
             self.sources["MuseScore"] = (
         MScoreApi.MuseScoreApi(folder), ["movement-title", "work-title", "creator"])
         except exceptions.APIKeyNotFoundException:
-            logger.exception("MuseScore API key not found. MSCORE Api disabled.")
+            self.logger.exception("MuseScore API key not found. MSCORE Api disabled.")
 
     def fetchAllData(self):
         '''
