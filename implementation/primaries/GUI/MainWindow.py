@@ -128,6 +128,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.zoomOutBtn.clicked.connect(self.zoomOut)
         self.popoutBtn.clicked.connect(self.onPopoutClicked)
         self.multistndBtn.clicked.connect(self.onMultistandClicked)
+        self.wifiButton.clicked.connect(self.onWifiClicked)
         # self.scoreWebView.hide()
         self.playlistTable.hide()
         self.playlistTable.itemDoubleClicked.connect(
@@ -139,6 +140,17 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.viewer = pdfViewer.PDFViewer(self.scoreWindow.width()/2)
         if platform == "win32":
             self.applyTheme()
+
+    def onWifiClicked(self):
+        wifiOn = self.qApp.toggleWifi()
+        if wifiOn:
+            self.wifiButton.setStyleSheet("""background: url(/themes/icons/"""
+                                          +self.theme+"""/wifi-on.png) center no-repeat;
+            """)
+        else:
+            self.wifiButton.setStyleSheet("""
+            background: url(/themes/icons/"""+self.theme+"""/wifi-off.png) center no-repeat;
+            """)
 
     def zoomIn(self):
         self.scoreWindow.scale(1.1, 1.1)

@@ -29,6 +29,7 @@ class Application(QtCore.QObject):
     windows = {}
 
     def __init__(self, app):
+        self.wifi = True
         self.lastQuery = ""
         QtCore.QObject.__init__(self)
         self.meta = {}
@@ -238,11 +239,12 @@ class Application(QtCore.QObject):
         QtCore.QObject.connect(OfflineThread, QtCore.SIGNAL(
             "dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
         OfflineThread.run()
-        OnlineThread = qt_threading.QueryThread(
+        if self.wifi:
+            OnlineThread = qt_threading.QueryThread(
             self, self.manager.runQueries, (data,), True)
-        QtCore.QObject.connect(OnlineThread, QtCore.SIGNAL(
+            QtCore.QObject.connect(OnlineThread, QtCore.SIGNAL(
             "dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
-        OnlineThread.run()
+            OnlineThread.run()
         # data_queue = queue.Queue()
         # OnlineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
         #                                                   self.onQueryComplete,
@@ -345,6 +347,16 @@ class Application(QtCore.QObject):
     def applyTheme(self):
         for window in self.windows:
             self.windows[window].applyTheme()
+
+    def toggleWifi(self):
+        if self.wifi:
+            self.wifi = False
+
+        else:
+            self.wifi = True
+
+        self.manager.updateWifi(self.wifi)
+        return self.wifi
 
 def main():
     sys.stdout = Tracer(sys.stdout)

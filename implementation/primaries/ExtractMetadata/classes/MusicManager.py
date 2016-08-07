@@ -201,6 +201,8 @@ class QueryLayer(object):
     def deletePlaylists(self, names):
         [self._data.deletePlaylist(name) for name in names]
 
+
+
     def handleTextQueries(self, search_data, online=False):
         # check title, composer, lyricist, instruments for matches
         results = {}
@@ -510,9 +512,13 @@ class MusicManager(QueryLayer):
     def __init__(self, parent, apis='all', folder='/Users/charlottegodley/PycharmProjects/FYP'):
         self.parent = parent
         """the application instance in which this manager resides"""
+        self.wifi = True
         super(MusicManager, self).__init__(folder)
         self.apiManager = ApiManager.ApiManager(folder=self.folder, apis=apis)
         self.setupFolderBrowser()
+
+    def updateWifi(self, wifi):
+        self.apiManager.wifi = wifi
 
     def addInstruments(self, data):
         self._data.addInstruments(data)
@@ -706,7 +712,8 @@ class MusicManager(QueryLayer):
 
 
     def refresh(self):
-        self.runApiOperation()
+        if self.wifi:
+            self.runApiOperation()
         self.refreshWithoutDownload()
 
     def refreshWithoutDownload(self):

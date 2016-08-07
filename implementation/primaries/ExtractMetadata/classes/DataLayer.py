@@ -1,3 +1,47 @@
+"""
+This class handles very low level queries to the database file, including
+creation of tables when files are first created (will do if not exists so
+there are no clashes), handling connection and disconnection from the DB,
+etc.
+
+There are 17 tables (heh):
+- Instruments: lists all instrument names. Hopefully we should process the
+                instrument names so that there aren't too many duplicates...
+                This can be a little difficult with different languages/choices
+                of how to name your parts.
+- instrument_piece_join: join table between pieces and instruments
+- tempo: lists all tempos. Easier to process than instruments so shouldn't be
+many variants/duplicates
+- tempo_piece_join: ...
+- time: holds meters/time signatures. format is same as the short time sig poem.
+            That may need to change in the case of weird time signatures.
+- time_piece_join: ...
+- key: holds key signatures. These are pre filled.
+- key_piece_join: ...
+- clef: holds clefs. also prefilled.
+- clef_piece_join: ...
+- composers: composers. Even harder than instruments to avoid duplicates here.
+- lyricists: as above. Each piece is currently presumed to have 1 composer, 1 lyricist.
+                Maybe this is too big an assumption, but anyway, piece table contains
+                composer id/lyricist id link.
+- pieces: contains any meta data which is probably unique to that piece, like title
+            and filename.
+- sources: links a piece id with the online source it came from. This is how we check if a
+            piece is local.
+- licenses: links a piece id with a license type. Licenses are actually text files stored in the app,
+            we just store what file name/type to use.
+- secrets: we need to look at this. Links each piece ID with its unique secret for accessing it on the API.
+
+Beyond adding and getting basic information, there are some more complex query methods.
+Explained below.
+
+Any additions to this class should have relevant tests written before working on the feature.
+Any new tables should really be discussed in issues/other comms platforms before doing a big change.
+These can be found in ExtractMetadata/tests/testDataLayer. Please either expand those classes or if
+there's going to be a lot to group, put them in a new test file.
+
+"""
+
 import sqlite3
 
 
@@ -40,6 +84,7 @@ class MusicData(object):
         self.disconnect(connection)
 
     def getSecret(self, filename):
+        # TODO HASH THIS STUFF
         connection, cursor = self.connect()
         query = 'SELECT secret FROM secrets s, pieces p WHERE p.filename=? AND s.piece_id = p.ROWID'
         cursor.execute(query, (filename,))
@@ -464,11 +509,14 @@ class MusicData(object):
         return result
 
     def getRoughPiece(self, filename, archived=0, online=False):
-        '''
-        method to get a piece's table entry according to it's filename
-        :param filename: string indicating the file name
-        :return:
-        '''
+        """
+        method to get a piece's table entry according to it's filename.
+        This is used in cases where the user has started to type a filename
+        but may not have entered the whole filename yet.
+
+        Returns all results found for this string.
+        """
+
         connection, cursor = self.connect()
         thing = (filename, "%" + filename + "%", archived,)
         query = 'SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces p WHERE (p.filename=? OR p.filename LIKE ?) AND p.archived=?'
@@ -483,11 +531,13 @@ class MusicData(object):
         return result
 
     def getExactPiece(self, filename, archived=0, online=False):
-        '''
-        method to get a piece's table entry according to it's filename
-        :param filename: string indicating the file name
-        :return:
-        '''
+        """
+        Method to get piece by exactly the string entered with no wildcards.
+        This is used in cases where user has entered "*.xml" or filename:<this>
+        or for getting a file having found its filename elsewhere.
+
+        Returns 1 metadata collection assuming file names are unique.
+        """
         connection, cursor = self.connect()
         thing = (filename, archived,)
         query = 'SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces p WHERE (p.filename=?) AND p.archived=?'
@@ -503,12 +553,7 @@ class MusicData(object):
 
     # helper methods which go to specific tables looking for a ROWID
     def getTimeId(self, beats, type, cursor):
-        '''
-        method which takes in instrument name and returns the row id of that instrument
-        :param instrument: name of instrument
-        :param cursor: cursor object
-        :return: int pertaining to row id of instrument in database
-        '''
+        """fetch a time signature ID by its beats and type of beats"""
         cursor.execute(
             'SELECT ROWID FROM timesigs WHERE beat=? AND b_type=? ',
             (beats,
@@ -518,12 +563,9 @@ class MusicData(object):
             return result[0][0]
 
     def getTempoId(self, beat, minute, beat_2, cursor):
-        '''
-        method which takes in instrument name and returns the row id of that instrument
-        :param instrument: name of instrument
-        :param cursor: cursor object
-        :return: int pertaining to row id of instrument in database
-        '''
+        """
+        fetch a tempo ID by its beats.
+        """
         cursor.execute(
             'SELECT ROWID FROM tempos WHERE beat=? AND minute=? AND beat_2=? ',
             (beat,
@@ -534,12 +576,12 @@ class MusicData(object):
             return result[0][0]
 
     def getInstrumentIdWhereTextInName(self, instrument, cursor):
-        '''
-        method which takes in partial instrument name and returns the row id of that instrument
-        :param instrument: name of instrument
-        :param cursor: cursor object
-        :return: int pertaining to row id of instrument in database
-        '''
+        """
+        similar to get rough piece. Try and figure out an instrument ID by
+        a partial instrument name
+
+        Returns a list of all IDs matching the string
+        """
         cursor.execute(
             'SELECT ROWID FROM instruments WHERE name=? OR name LIKE ?',
             (instrument,
@@ -551,12 +593,9 @@ class MusicData(object):
         return instrument_ids
 
     def getInstrumentId(self, instrument, cursor):
-        '''
-        method which takes in instrument name and returns the row id of that instrument
-        :param instrument: name of instrument
-        :param cursor: cursor object
-        :return: int pertaining to row id of instrument in database
-        '''
+        """
+        gets exact instrument ID based only on its name with no wildcards
+        """
         cursor.execute(
             'SELECT ROWID FROM instruments WHERE name=?', (instrument,))
         result = cursor.fetchall()
@@ -564,12 +603,12 @@ class MusicData(object):
             return result[0][0]
 
     def getComposerIdWhereTextInName(self, composer, cursor):
-        '''
+        """
         method which takes in composer name and outputs its database id
         :param composer: name of composer
         :param cursor: database cursor object
         :return: int pertaining to row id of composer in database
-        '''
+        """
         cursor.execute(
             'SELECT ROWID FROM composers WHERE name=? OR name LIKE ? OR name LIKE ? OR name LIKE ?',
             (composer,
@@ -583,24 +622,22 @@ class MusicData(object):
         return composer_ids
 
     def getComposerId(self, composer, cursor):
-        '''
+        """
         method which takes in composer name and outputs its database id
         :param composer: name of composer
         :param cursor: database cursor object
         :return: int pertaining to row id of composer in database
-        '''
+        """
         cursor.execute('SELECT ROWID FROM composers WHERE name=?', (composer,))
         result = cursor.fetchall()
         if len(result) > 0:
             return result[0][0]
 
     def getLyricistIdWhereTextInName(self, lyricist, cursor):
-        '''
-        method which takes in composer name and outputs its database id
-        :param composer: name of composer
-        :param cursor: database cursor object
-        :return: int pertaining to row id of composer in database
-        '''
+        """
+        get a list of lyricist IDs containing the lyricist string
+        returns all matching ids
+        """
         cursor.execute(
             'SELECT ROWID FROM lyricists WHERE name=? OR name LIKE ? OR name LIKE ? OR name LIKE ?',
             (lyricist,
@@ -614,36 +651,36 @@ class MusicData(object):
         return lyricist_ids
 
     def getLyricistId(self, lyricist, cursor):
-        '''
-        method which takes in composer name and outputs its database id
-        :param composer: name of composer
-        :param cursor: database cursor object
-        :return: int pertaining to row id of composer in database
-        '''
+        """
+        get an exact lyricist id by its name.
+        Returns 1 id
+        """
         cursor.execute('SELECT ROWID FROM lyricists WHERE name=?', (lyricist,))
         result = cursor.fetchall()
         if len(result) > 0:
             return result[0][0]
 
     def getKeyId(self, key, cursor):
-        '''
+        """
         method which takes in string of key name (e.g C major) and outputs row id
         :param key: string name of the key (e.g C major, A minor)
         :param cursor:  database cursor object
         :return: int pertaining to row id
-        '''
+        """
+
         cursor.execute('SELECT ROWID FROM keys WHERE name=?', (key,))
         result = cursor.fetchall()
         if len(result) > 0:
             return result[0][0]
 
     def getClefId(self, clef, cursor):
-        '''
+        """
         method which takes in string of clef name (e.g treble) and outputs row id
         :param key: string name of the clef (e.g treble, bass)
         :param cursor:  database cursor object
         :return: int pertaining to row id
-        '''
+        """
+
         cursor.execute('SELECT ROWID FROM clefs WHERE name=?', (clef,))
         result = cursor.fetchall()
         if len(result) > 0:
@@ -651,11 +688,11 @@ class MusicData(object):
 
     # methods used in querying by user
     def getPiecesByInstruments(self, instruments, archived=0, online=False):
-        '''
+        """
         method to get all the pieces containing a certain instrument
         :param instrument: name of instrument
         :return: list of files containing that instrumnet
-        '''
+        """
         connection, cursor = self.connect()
         instrument_ids = [
             self.getInstrumentIdWhereTextInName(
@@ -668,6 +705,7 @@ class MusicData(object):
             query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
             for i in range(len(instrument_ids)):
                 query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id'
+                # for every new instrument update the query
                 for result in instrument_ids[i]:
                     if result == instrument_ids[i][0]:
                         query += ' AND '
@@ -685,18 +723,31 @@ class MusicData(object):
             else:
                 query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = i.piece_id)'
             query += ";"
+
             input = tuple(tuple_ids)
             cursor.execute(query, input)
             results = cursor.fetchall()
+
             file_list = self.getPiecesByRowId(results, cursor, archived)
             self.disconnect(connection)
         return file_list
 
     def getPiecesByAnyAndAllInstruments(self, instruments, archived=0, online=False):
-        all = self.getPiecesByInstruments(instruments, archived=archived, online=online)
+        """
+        Runs 2 queries:
+        1. Fetch a piece that contains all of the instruments listed in instruments.
+        2. Iterate through the list asking for the individual pieces containing that instrument,
+        but possibly not all of them.
+
+        Returns a dictionary containing "Instrument: "<each instrument> as keys to which each
+        value is a list of the pieces containing that instrument, and, if there are any,
+        a key "All Instruments" which is matched to a list of all pieces containing every instrument
+        requested.
+        """
+        all_pieces = self.getPiecesByInstruments(instruments, archived=archived, online=online)
         any = {"Instrument: "+instrument: self.getPiecesByInstruments([instrument], archived=archived, online=online) for instrument in instruments}
         result = {}
-        if len(all) > 0:
+        if len(all_pieces) > 0:
             result['All Instruments'] = all
         result.update({key: any[key] for key in any if len(any[key]) > 0})
         return result
@@ -704,12 +755,12 @@ class MusicData(object):
 
 
     def getPiecesByRowId(self, rows, cursor, archived=0):
-        '''
+        """
         method which takes in a list of rows which are ROWIDs in the piece table and returns a list of files
         :param rows: list of tuples pertaining to ROWIDs in pieces table
         :param cursor: connection cursor object
         :return: list of strings pertaining to xml files
-        '''
+        """
         file_list = []
         previous = None
         for element in rows:
@@ -725,11 +776,11 @@ class MusicData(object):
         return file_list
 
     def getPiecesByComposer(self, composer, archived=0, online=False):
-        '''
-        method which takes in string of composer name and outputs list of files written by that guy
+        """
+        method which takes in string of composer name and outputs list of files written by that composer
         :param composer: composer's name
         :return: list of strings (filenames)
-        '''
+        """
         file_list = []
         connection, cursor = self.connect()
         composer_ids = self.getComposerIdWhereTextInName(composer, cursor)
@@ -754,11 +805,11 @@ class MusicData(object):
         return file_list
 
     def getPiecesByLyricist(self, lyricist, archived=0, online=False):
-        '''
-        method which takes in string of lyricist name and outputs list of files written by that guy/woman
+        """
+        method which takes in string of lyricist name and outputs list of files written by that lyricist
         :param composer: lyricist's name
         :return: list of strings (filenames)
-        '''
+        """
         connection, cursor = self.connect()
         lyricist_ids = self.getLyricistIdWhereTextInName(lyricist, cursor)
         file_list = []
@@ -783,11 +834,11 @@ class MusicData(object):
         return file_list
 
     def getPieceByTitle(self, title, archived=0, online=False):
-        '''
+        """
         method which takes in title of piece and outputs list of files named that
         :param title: title of piece
         :return: list of tuples
-        '''
+        """
         connection, cursor = self.connect()
         thing = (title, "%" + title + "%", title + "%", "%" + title, archived,)
         query = 'SELECT * FROM pieces p WHERE (p.title=? OR p.title LIKE ? OR p.title LIKE ? OR p.title LIKE ?) AND p.archived=?'
@@ -802,11 +853,11 @@ class MusicData(object):
         return result
 
     def getPieceByKeys(self, keys, archived=0, online=False):
-        '''
+        """
         method which takes in a key and outputs list of files in that key
         :param key: string name of key (e.g C major)
         :return: list of strings (files)
-        '''
+        """
         connection, cursor = self.connect()
         key_ids = [self.getKeyId(key, cursor) for key in keys]
         query = 'SELECT i.piece_id FROM key_piece_join i WHERE EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
@@ -826,6 +877,13 @@ class MusicData(object):
         return file_list
 
     def getPiecesByModularity(self, modularity, archived=0, online=False):
+        """
+
+        :param modularity:
+        :param archived:
+        :param online:
+        :return:
+        """
         connection, cursor = self.connect()
         query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
         if online:
