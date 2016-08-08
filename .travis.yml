@@ -11,6 +11,8 @@ sudo: required
 before_install:
   - sudo add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu wily main universe"
   - sudo rm /etc/dpkg/dpkg.cfg.d/multiarch
+  - sudo dpkg --configure -a
+  - sudo apt-get install -f
   - sudo apt-get update -q
   - sudo apt-get install python3-poppler-qt4
 
