@@ -291,6 +291,44 @@ class MusicData(object):
         conn = sqlite3.connect(self.database)
         return conn, conn.cursor()
 
+    def getComposer(self, name, cursor):
+        query = 'SELECT ROWID FROM composers WHERE name=?'
+        cursor.execute(query, (name,))
+        composer_id = cursor.fetchone()
+        return composer_id
+
+    def getLyricist(self, name, cursor):
+        query = 'SELECT ROWID FROM lyricists WHERE name=?'
+        cursor.execute(query, (name,))
+        return cursor.fetchone()
+
+    def givePieceComposer(self, data, connection, cursor):
+        query = 'SELECT ROWID FROM composers WHERE name=?'
+        composer_id = self.getComposer(data, cursor)
+        if composer_id is None:
+            cursor.execute(
+                    'INSERT INTO composers VALUES(?)', (data,))
+            connection.commit()
+            cursor.execute(query, (data["composer"],))
+            composer_id = cursor.fetchone()
+        if composer_id is not None:
+            composer_id = composer_id[0]
+        return composer_id
+
+    def givePieceLyricist(self, data, connection, cursor):
+        query = 'SELECT ROWID FROM lyricists WHERE name=?'
+        lyricist_id = None
+        lyric_id = self.getLyricist(data, cursor)
+        if lyric_id is None or len(lyric_id) == 0:
+            cursor.execute(
+                'INSERT INTO lyricists VALUES(?)', (data,))
+            connection.commit()
+            cursor.execute(query, (data["lyricist"],))
+            lyric_id = cursor.fetchone()
+        if lyric_id is not None:
+            lyricist_id = lyric_id[0]
+        return lyricist_id
+
     def addPiece(self, filename, data):
         '''
         method which takes in stuff about a piece and adds it to the relevant tables
@@ -303,36 +341,17 @@ class MusicData(object):
         composer_id = -1
         lyricist_id = -1
         title = ""
+        method_table = {"composer": self.givePieceComposer, "lyricist": self.givePieceLyricist}
         if "title" in data:
             title = data["title"]
 
-        if "composer" in data:
-            query = 'SELECT ROWID FROM composers WHERE name=?'
-            cursor.execute(query, (data["composer"],))
-            composer_id = cursor.fetchone()
-            if composer_id is None or len(composer_id) == 0:
-                cursor.execute(
-                    'INSERT INTO composers VALUES(?)', (data["composer"],))
-                connection.commit()
-                cursor.execute(query, (data["composer"],))
-                composer_id = cursor.fetchone()
-            if composer_id is not None:
-                composer_id = composer_id[0]
+        table_info = {}
+        for key in data:
+            if key in method_table:
+                table_info[key] = method_table[key](data[key], connection, cursor)
 
-        if "lyricist" in data:
-            query = 'SELECT ROWID FROM lyricists WHERE name=?'
-            cursor.execute(query, (data["lyricist"],))
-            lyric_id = cursor.fetchone()
-            if lyric_id is None or len(lyric_id) == 0:
-                cursor.execute(
-                    'INSERT INTO lyricists VALUES(?)', (data["lyricist"],))
-                connection.commit()
-                cursor.execute(query, (data["lyricist"],))
-                lyric_id = cursor.fetchone()
-            if lyric_id is not None:
-                lyricist_id = lyric_id[0]
 
-        input = (filename, title, composer_id, lyricist_id, False)
+        input = (filename, title, table_info['composer'], table_info['lyricist'], False)
         cursor.execute('INSERT INTO pieces VALUES(?,?,?,?,?)', input)
         connection.commit()
         select_input = (filename,)
