@@ -309,7 +309,7 @@ class MusicData(object):
             cursor.execute(
                     'INSERT INTO composers VALUES(?)', (composer,))
             connection.commit()
-            cursor.execute(query, (composer["composer"],))
+            cursor.execute(query, (composer,))
             composer_id = cursor.fetchone()
         if composer_id is not None:
             composer_id = composer_id[0]
@@ -489,6 +489,7 @@ class MusicData(object):
 
         if "title" in data:
             title = data["title"]
+            data.pop("title")
 
         query_input = (filename, title, composer_id, lyricist_id, False)
         cursor.execute('INSERT INTO pieces VALUES(?,?,?,?,?)', query_input)
@@ -498,6 +499,10 @@ class MusicData(object):
             'SELECT ROWID FROM pieces WHERE filename=?',
             select_input)
         piece_id = cursor.fetchone()[0]
+
+        if "instruments" in data:
+            self.createOrGetInstruments(data["instruments"], connection, cursor, piece_id)
+            data.pop("instruments")
 
         table_info = {}
         for key in data:
@@ -767,7 +772,7 @@ class MusicData(object):
         any = {"Instrument: "+instrument: self.getPiecesByInstruments([instrument], archived=archived, online=online) for instrument in instruments}
         result = {}
         if len(all_pieces) > 0:
-            result['All Instruments'] = all
+            result['All Instruments'] = all_pieces
         result.update({key: any[key] for key in any if len(any[key]) > 0})
         return result
 
