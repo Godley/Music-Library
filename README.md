@@ -2,6 +2,9 @@
 
 <center>[![Build status](https://ci.appveyor.com/api/projects/status/l0rc9184c6tqe19d?svg=true)](https://ci.appveyor.com/project/Godley/music-library)
 [![Build Status](https://travis-ci.org/Godley/Music-Library.svg?branch=master)](https://travis-ci.org/Godley/Music-Library)</center>
+[![Code Climate](https://codeclimate.com/github/Godley/Music-Library/badges/gpa.svg)](https://codeclimate.com/github/Godley/Music-Library)
+[![Test Coverage](https://codeclimate.com/github/Godley/Music-Library/badges/coverage.svg)](https://codeclimate.com/github/Godley/Music-Library/coverage)
+[![Issue Count](https://codeclimate.com/github/Godley/Music-Library/badges/issue_count.svg)](https://codeclimate.com/github/Godley/Music-Library)
 
   This project aims to create an application which manages a person's music collection - that is, sheet music, the visual
 representation of a composed piece of music.
