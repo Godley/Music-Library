@@ -8,7 +8,7 @@ class TestMusicManager(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../test_files/manager_tests")
-        self.manager = MusicManager.MusicManager(None, folder=self.folder, apis='all')
+        self.manager = MusicManager.MusicManager(None, folder=self.folder)
 
     def testRunUnzipper(self):
         self.manager.handleZips()

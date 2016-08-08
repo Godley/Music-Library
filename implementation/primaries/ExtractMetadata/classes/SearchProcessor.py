@@ -1,12 +1,4 @@
-def process(query_input):
-    """
-    class which takes in a string input and figures out how to query the database for
-    information, by using a variety of techniques. Using an object rather than a method to
-    keep the system modular and organised.
-    :param query_input: input from UI
-    :return: dictionary of formatted queries to make on the DB
-    """
-    result = {}
+def split_input(query_input):
     with_split = query_input.split("with")
     split_input = [unit.split("\"") for unit in with_split]
     spaced_input = []
@@ -16,6 +8,23 @@ def process(query_input):
             new_unit = value.split(" ")
             data.append(new_unit)
         spaced_input.append(data)
+    return spaced_input
+
+def handleColonsAndSemiColons(entry):
+    pass
+
+def process(query_input):
+    """
+    class which takes in a string input and figures out how to query the database for
+    information, by using a variety of techniques. Using an object rather than a method to
+    keep the system modular and organised.
+    :param query_input: input from UI
+    :return: dictionary of formatted queries to make on the DB
+    """
+    result = {}
+
+    spaced_input = split_input(query_input)
+
     previous = None
     for i in range(len(spaced_input)):
         nxt = None
