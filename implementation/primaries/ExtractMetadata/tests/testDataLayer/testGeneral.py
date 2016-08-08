@@ -9,8 +9,7 @@ testDataLayerOnlineSearching: anything relating to the diff between each method 
                                 This is to confirm that API searching does not get mixed up with local searching
 """
 import unittest
-import sqlite3
-from implementation.primaries.ExtractMetadata.classes.DataLayer import MusicData
+from implementation.primaries.ExtractMetadata.classes.DataLayer.MusicData import MusicData
 import os
 
 class TestDataLayerGeneral(unittest.TestCase):

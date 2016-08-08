@@ -3,7 +3,8 @@ from xml.sax._exceptions import *
 
 import requests.exceptions
 
-from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
+
+from implementation.primaries.ExtractMetadata.classes import MusicData, MetaParser, OnlineMetaParser
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
 from implementation.primaries.GUI.helpers import get_base_dir
 from MuseParse.classes.Output import LilypondOutput
@@ -186,7 +187,7 @@ class FolderBrowser(object):
 class QueryLayer(object):
     def __init__(self, folder):
         self.folder = folder
-        self._data = DataLayer.MusicData(
+        self._data = MusicData(
             os.path.join(
                 self.folder,
                 "music.db"))

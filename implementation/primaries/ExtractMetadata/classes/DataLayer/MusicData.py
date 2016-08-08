@@ -43,9 +43,81 @@ there's going to be a lot to group, put them in a new test file.
 """
 
 import sqlite3
+from implementation.primaries.ExtractMetadata.classes.DataLayer import TableCreator
 
 
-class MusicData(object):
+class TempoParser(object):
+    converter = {"crotchet": "quarter",
+                 "quaver": "eighth",
+                 "minim": "half",
+                 "semibreve": "whole",
+                 "quarter": "quarter",
+                 "eighth": "eighth",
+                 "half": "half",
+                 "whole": "whole"}
+    halvers = ['semi', 'hemi', 'demi']
+    def splitParts(self, tempo):
+        return tempo.split("=")
+
+    def parseHalvers(self, tempo):
+        seg_length = 4
+        index = 0
+        value = 8
+        while tempo[index:index+seg_length] in self.halvers:
+            value *= 2
+            index += seg_length
+        return value
+
+    def parseHalversToString(self, tempo):
+        halver_str = str(self.parseHalvers(tempo))
+        if halver_str[-1] == "2":
+            halver_str += 'nd'
+        else:
+            halver_str += 'th'
+        return halver_str
+
+
+    def convertToAmerican(self, entry):
+        if entry in self.converter:
+            return self.converter[entry]
+
+    def getDots(self, entry):
+        end_of_word = len(entry) - 1
+        dots = ''
+        while end_of_word > -1:
+            if entry[end_of_word] == '.':
+                dots += '.'
+            else:
+                break
+            end_of_word -= 1
+        new_word = entry[:end_of_word+1]
+        return dots, new_word
+
+    def parseWord(self, word):
+        dots, remaining = self.getDots(word)
+        if word[:4] in self.halvers:
+            value = self.parseHalversToString(remaining)
+        else:
+            value = self.convertToAmerican(remaining)
+        return value + dots
+
+    def parse(self, entry):
+        parts = self.splitParts(entry)
+        result = {}
+        minute = -1
+        beat_2 = -1
+        beat = self.parseWord(parts[0])
+        try:
+            minute = int(parts[1])
+        except ValueError:
+            beat_2 = self.parseWord(parts[1])
+        result['beat'] = beat
+        result['minute'] = minute
+        result['beat_2'] = beat_2
+        return result
+
+
+class MusicData(TableCreator.TableCreator):
 
     def __init__(self, database):
         self.database = database
@@ -62,198 +134,7 @@ class MusicData(object):
         self.createLicenseTable()
         self.createSecretsTable()
 
-    def createSourcesTable(self):
-        connection, cursor = self.connect()
-        query = 'CREATE TABLE IF NOT EXISTS sources (piece_id int, source text)'
-        cursor.execute(query)
-        connection.commit()
-        self.disconnect(connection)
 
-    def createLicenseTable(self):
-        connection, cursor = self.connect()
-        query = 'CREATE TABLE IF NOT EXISTS licenses (piece_id int, license text)'
-        cursor.execute(query)
-        connection.commit()
-        self.disconnect(connection)
-
-    def createSecretsTable(self):
-        connection, cursor = self.connect()
-        query = 'CREATE TABLE IF NOT EXISTS secrets (piece_id int, secret text)'
-        cursor.execute(query)
-        connection.commit()
-        self.disconnect(connection)
-
-    def getSecret(self, filename):
-        # TODO HASH THIS STUFF
-        connection, cursor = self.connect()
-        query = 'SELECT secret FROM secrets s, pieces p WHERE p.filename=? AND s.piece_id = p.ROWID'
-        cursor.execute(query, (filename,))
-        result = cursor.fetchone()
-        self.disconnect(connection)
-        return result
-
-    def createTempoTable(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
-        connection, cursor = self.connect()
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS tempos (beat text, minute int, beat_2 text)')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS tempo_piece_join
-             (piece_id int, tempo_id int)''')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createTimeTable(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
-        connection, cursor = self.connect()
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS timesigs (beat int, b_type int)')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS time_piece_join
-             (piece_id int, time_id int)''')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createKeyTable(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS keys
-             (name text, fifths int, mode text)''')
-        keys = [("C flat major", -7, "major"),
-                ("G flat major", -6, "major"),
-                ("D flat major", -5, "major"),
-                ("A flat major", -4, "major"),
-                ("E flat major", -3, "major"),
-                ("B flat major", -2, "major"),
-                ("F major", -1, "major"),
-                ("C major", 0, "major",),
-                ("G major", 1, "major",),
-                ("D major", 2, "major",),
-                ("A major", 3, "major",),
-                ("E major", 4, "major",),
-                ("B major", 5, "major"),
-                ("F# major", 6, "major",),
-                ("C# major", 7, "major",),
-                ("A flat minor", -7, "minor"),
-                ("E flat minor", -6, "minor"),
-                ("B flat minor", -5, "minor"),
-                ("F minor", -4, "minor"),
-                ("C minor", -3, "minor"),
-                ("G minor", -2, "minor"),
-                ("D minor", -1, "minor"),
-                ("A minor", 0, "minor",),
-                ("E minor", 1, "minor"),
-                ("B minor", 2, "minor"),
-                ("F# minor", 3, "minor"),
-                ("C# minor", 4, "minor"),
-                ("G# minor", 5, "minor"),
-                ("D# minor", 6, "minor"),
-                ("A# minor", 7, "minor")]
-        for key in keys:
-            cursor.execute('SELECT * FROM KEYS WHERE name=?', (key[0],))
-            result = cursor.fetchone()
-            if result is None or len(result) == 0:
-                cursor.execute('INSERT INTO keys VALUES(?,?,?)', key)
-
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS key_piece_join (key_id INTEGER, piece_id INTEGER, instrument_id INTEGER)')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createPlaylistTable(self):
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS playlists(name text)''')
-        cursor.execute(
-            '''CREATE TABLE IF NOT EXISTS playlist_join(playlist_id int, piece_id int)''')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createClefsTable(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS clefs
-             (name text, sign text, line int)''')
-        clefs = [("treble", "G", 2,),
-                 ("french", "G", 1),
-                 ("varbaritone", "F", 3,),
-                 ("subbass", "F", 5),
-                 ("bass", "F", 4),
-                 ("alto", "C", 3),
-                 ("percussion", "percussion", -1,),
-                 ("tenor", "C", 4),
-                 ("baritone", "C", 5,),
-                 ("mezzosoprano", "C", 2),
-                 ("soprano", "C", 1),
-                 ("varC", "VARC", -1),
-                 ("alto varC", "VARC", 3),
-                 ("tenor varC", "VARC", 4),
-                 ("baritone varC", "VARC", 5)]
-        for clef in clefs:
-            cursor.execute('SELECT * FROM clefs WHERE name=?', (clef[0],))
-            result = cursor.fetchone()
-            if result is None or len(result) == 0:
-                cursor.execute('INSERT INTO clefs VALUES(?,?,?)', clef)
-
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS clef_piece_join (clef_id INTEGER, piece_id INTEGER, instrument_id INTEGER)')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createMusicTable(self):
-        '''
-        method to create piece table if one does not already exist
-        :return: none
-        '''
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS pieces
-             (filename text, title text, composer_id int, lyricist_id int, archived BOOLEAN)''')
-        self.disconnect(connection)
-
-    def createInstrumentTable(self):
-        '''
-        method to create instrument table if one does not already exist
-        :return: none
-        '''
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS instruments
-                 (name text,diatonic int,chromatic int)''')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS instruments_piece_join
-             (instrument_id INTEGER, piece_id INTEGER)''')
-        self.disconnect(connection)
-
-    def createComposerTable(self):
-        '''
-        method to create composer table if one does not already exist
-        :return:
-        '''
-        connection, cursor = self.connect()
-        # cursor.execute('''CREATE TABLE composers
-        #(name text,birth DATE,death DATE,country text)''')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS composers
-             (name text)''')
-        self.disconnect(connection)
-
-    def createLyricistTable(self):
-        '''
-        method to create composer table if one does not already exist
-        :return:
-        '''
-        connection, cursor = self.connect()
-        # cursor.execute('''CREATE TABLE composers
-        #(name text,birth DATE,death DATE,country text)''')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS lyricists
-             (name text)''')
-        self.disconnect(connection)
 
     def addInstruments(self, data):
         connection, cursor = self.connect()
@@ -283,13 +164,7 @@ class MusicData(object):
         instruments = set([result[0].lower() for result in results])
         return list(instruments)
 
-    def connect(self):
-        '''
-        method to create new sqlite connection and set up the cursor
-        :return: connection object, cursor object
-        '''
-        conn = sqlite3.connect(self.database)
-        return conn, conn.cursor()
+
 
     def getComposer(self, composer, cursor):
         query = 'SELECT ROWID FROM composers WHERE name=?'
@@ -1226,84 +1101,10 @@ class MusicData(object):
             "quaver": "eighth",
             "minim": "half",
             "semibreve": "whole"}
+        parser = TempoParser()
         for tempo in tempos:
-            parts = tempo.split("=")
-            beat_one = parts[0]
-            beat = -1
-            if parts[0][
-                    :4] == "semi" or parts[0][
-                    :4] == "hemi" or parts[0][
-                    :4] == "demi":
-                index = 4
-                last_index = 0
-                number = 8
-                while index < len(parts[0]):
-                    section = parts[0][last_index:index]
-                    if section == "semi" or section == "hemi" or section == "demi":
-                        number *= 2
-                    else:
-                        break
-                    last_index = index
-                    index += 4
-                beat_2_str_digit = str(number)
-                if beat_2_str_digit == "2":
-                    beat_2_str_digit += "nd"
-                else:
-                    beat_2_str_digit += "th"
-                beat = beat_2_str_digit
-
-            if parts[0][-1] == ".":
-                index = len(parts[0]) - 1
-                while index > -1:
-                    if parts[0][index] == ".":
-                        beat_one = beat_one[:-1]
-                        dot_count += 1
-                    else:
-                        break
-                    index -= 1
-            if beat_one in converter and beat == -1:
-                beat = converter[parts[0]]
-
-            elif beat == -1:
-                beat = parts[0]
-
-            beat += "".join(["." for dot in range(dot_count)])
-            beat_2 = -1
-            minute = -1
-            try:
-                minute = int(parts[1])
-            except:
-                if parts[1][
-                        :5] == "semi" or parts[1][
-                        :5] == "hemi" or parts[1][
-                        :5] == "demi":
-                    index = 0
-                    last_index = 0
-                    number = 8
-                    while index < len(parts[1]):
-                        section = parts[1][last_index:index]
-                        if section == "semi" or section == "hemi" or section == "demi":
-                            number *= 2
-                        else:
-                            break
-                        last_index = index
-                        index += 4
-                    beat_2_str_digit = str(number)
-                    if number[-1] == "2":
-                        beat_2_str_digit += "nd"
-                    else:
-                        beat_2_str_digit += "th"
-                    beat_2 = beat_2_str_digit
-
-                if parts[1] in converter:
-                    beat_2 = converter[parts[1]]
-                elif beat_2 == -1:
-                    beat_2 = parts[1]
-            tempo_list.append((beat, minute, beat_2))
-            tempo_tuple_list.append(beat)
-            tempo_tuple_list.append(minute)
-            tempo_tuple_list.append(beat_2)
-
+            result = parser.parse(tempo)
+            tempo_list.append((result['beat'], result['minute'], result['beat_2']))
         connection, cursor = self.connect()
         tempo_ids = [
             self.getTempoId(
@@ -1703,10 +1504,4 @@ class MusicData(object):
         connection.commit()
         self.disconnect(connection)
 
-    def disconnect(self, connection):
-        """
-        method which shuts down db connection
-        :param connection: connection object
-        :return: None
-        """
-        connection.close()
+

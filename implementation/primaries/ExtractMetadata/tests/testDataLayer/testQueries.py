@@ -1,6 +1,5 @@
 import unittest
-import sqlite3
-from implementation.primaries.ExtractMetadata.classes.DataLayer import MusicData
+from implementation.primaries.ExtractMetadata.classes.DataLayer.MusicData import MusicData
 import os
 
 
@@ -19,7 +18,7 @@ class TestDataLayerUserQueries(unittest.TestCase):
             instrument_query["instruments"].append({"name":elem})
         self.data.addPiece("file.xml", instrument_query)
         results = self.data.getInstrumentNames()
-        self.assertEqual(instruments, results)
+        self.assertListEqual(instruments, results)
 
     def testGetAnyAndAll(self):
         instruments = ["clarinet", "flute"]

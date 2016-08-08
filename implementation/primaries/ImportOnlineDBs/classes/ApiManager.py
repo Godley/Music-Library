@@ -14,7 +14,8 @@ class ApiManager(object):
             self.sources["MuseScore"] = (
         MScoreApi.MuseScoreApi(folder), ["movement-title", "work-title", "creator"])
         except exceptions.APIKeyNotFoundException:
-            self.logger.exception("MuseScore API key not found. MSCORE Api disabled.")
+            if self.logger is not None:
+                self.logger.exception("MuseScore API key not found. MSCORE Api disabled.")
 
     def fetchAllData(self):
         '''

@@ -1,6 +1,6 @@
 import unittest
 import sqlite3
-from implementation.primaries.ExtractMetadata.classes.DataLayer import MusicData
+from implementation.primaries.ExtractMetadata.classes.DataLayer.MusicData import MusicData
 import os
 
 class TestDataLayerAdd(unittest.TestCase):
