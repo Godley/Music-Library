@@ -96,13 +96,11 @@ def handleColonsAndSemiColons(entry):
             last_key = kv[0]
             if first_value == None:
                 first_value = kv[1]
-                if last_key not in result:
-                    result[last_key] = {'other': []}
-                result[last_key]['other'].append(kv[1])
+                dict_entry = {last_key: {"other": [kv[1]]}}
+                result = combine_dictionaries(result, dict_entry)
             elif last_key not in result:
-                result[last_key] = {first_value: [kv[1]]}
-            elif last_key in result:
-                result[last_key][first_value].append(kv[1])
+                dict_entry = {last_key: {first_value: [kv[1]]}}
+                result = combine_dictionaries(result, dict_entry)
         else:
             if last_key is not None:
                 result[last_key]["other"].append(kv[0])
