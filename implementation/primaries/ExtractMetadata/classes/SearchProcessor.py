@@ -1,26 +1,30 @@
 def split_tokens(query_input):
     spaced_input = split_input(query_input)
     data = {}
-    remaining_tokens = []
-    last_token = ''
     for with_pair in spaced_input:
         for quote_pair in with_pair:
             if is_key(quote_pair):
                 entry = {"key":{"other":[" ".join(quote_pair)]}}
                 data = combine_dictionaries(data, entry)
                 continue
-            for token in quote_pair:
-                if is_meter(token):
-                    entry = {"meter":{"other":quote_pair}}
-                    data = combine_dictionaries(data, entry)
+            entries = handle_each_token(quote_pair)
+            data = combine_dictionaries(data, entries)
+    return data
 
-                elif is_tempo(token):
-                    entry = {"tempo": {"other": quote_pair}}
-                    data = combine_dictionaries(data, entry)
+def handle_each_token(tokens):
+    data = {}
+    for token in tokens:
+        if is_meter(token):
+            entry = {"meter":{"other":[token]}}
+            data = combine_dictionaries(data, entry)
 
-                else:
-                    result, remaining = handleColonsAndSemiColons(token)
-                    data = combine_dictionaries(result, data)
+        elif is_tempo(token):
+            entry = {"tempo": {"other": [token]}}
+            data = combine_dictionaries(data, entry)
+
+        else:
+            result, remaining = handleColonsAndSemiColons(token)
+            data = combine_dictionaries(result, data)
     return data
 
 def combine_dictionaries(dict1, dict2):
