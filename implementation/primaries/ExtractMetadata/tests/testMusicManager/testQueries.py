@@ -9,7 +9,7 @@ class TestMusicManager(unittest.TestCase):
     def setUp(self):
         self.maxDiff = None
         self.folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../test_files/manager_tests")
-        self.manager = MusicManager.MusicManager(None, folder=self.folder, apis='all')
+        self.manager = MusicManager.MusicManager(None, folder=self.folder)
 
     def testFindPieceByTitleAndComposer(self):
         self.manager.addPiece(
@@ -265,8 +265,9 @@ class TestMusicManager(unittest.TestCase):
         self.manager.addPiece("file.xml", {"title": "hello"})
         self.manager.addPiece("file1.xml", {"title": "hello, world"})
         result = self.manager.runQueries({"text": title.split(" ")})
-        expected_result = {"Title: "+title : [('(noTitle)(file1.xml', 'file1.xml')]}
-        self.assertEqual(expected_result, result)
+        expected_result = {"Title": [('hello, world(file1.xml)', 'file1.xml')],
+                           "Exact Matches": [('hello, world(file1.xml)', 'file1.xml')]}
+        self.assertDictEqual(expected_result, result)
 
 
     def testFindByInstrumentsWithNoLabel(self):

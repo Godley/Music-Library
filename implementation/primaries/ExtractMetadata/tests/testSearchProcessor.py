@@ -5,38 +5,38 @@ from implementation.primaries.ExtractMetadata.classes import SearchProcessor
 class TestSearchProcessor(unittest.TestCase):
     def testSplittingByColon(self):
         token = "instrument:world"
-        result, remaining = SearchProcessor.handleColonsAndSemiColons(token)
-        expected = {"instrument":{"other": ["world"]}}
+        result = SearchProcessor.handle_colons_and_semicolons(token)
+        expected = {"instrument":["world"]}
         self.assertDictEqual(result, expected)
 
     def testSplittingByColonAndSemicolon(self):
         token = "instrument:world;paw"
-        expected = {"instrument": {"other":["world", "paw"]}}
-        result, remaining = SearchProcessor.handleColonsAndSemiColons(token)
+        expected = {"instrument": ["world", "paw"]}
+        result = SearchProcessor.handle_colons_and_semicolons(token)
         self.assertDictEqual(result, expected)
 
     def testSplittingByTwoColonsAndOneSemi(self):
         token = "instrument:clarinet;key:Cmaj"
-        expected = {"instrument": {"other": ["clarinet"]}, "key": {"clarinet": ["Cmaj"]}}
-        result, remaining = SearchProcessor.handleColonsAndSemiColons(token)
+        expected = {"instrument": ["clarinet"], "key": {"clarinet": ["Cmaj"]}}
+        result = SearchProcessor.handle_colons_and_semicolons(token)
         self.assertDictEqual(result, expected)
 
     def testSplittingByTwoColonsAndSpaces(self):
         token = "instrument:clarinet key:Cmaj"
-        expected = {"instrument": {"other": ["clarinet"]}, "key": {"other": ["Cmaj"]}}
-        result = SearchProcessor.split_tokens(token)
+        expected = {"instrument": ["clarinet"], "key": ["Cmaj"]}
+        result = SearchProcessor.process(token)
         self.assertDictEqual(result, expected)
 
     def testSplittingBySpaceNoColons(self):
         token = "C major"
-        expected = {"key": {"other": ["C major"]}}
-        result = SearchProcessor.split_tokens(token)
+        expected = {"key": ["C major"]}
+        result = SearchProcessor.process(token)
         self.assertDictEqual(result, expected)
 
     def testSplittingBySpaceColonTokens(self):
         token = "\"C major\" key:Cmaj"
-        expected = {"key": {"other": ["C major", "Cmaj"]}}
-        result = SearchProcessor.split_tokens(token)
+        expected = {"key": ["C major", "Cmaj"]}
+        result = SearchProcessor.process(token)
         self.assertDictEqual(result, expected)
 
     def testCombineDictionaries(self):
@@ -46,6 +46,13 @@ class TestSearchProcessor(unittest.TestCase):
         self.assertEqual(list(result.keys()), ["key"])
         self.assertEqual(list(result["key"].keys()), ["other"])
         self.assertEqual(result["key"]["other"], ["Hello", "World"])
+
+    def testCombineDictionariesWithMixOfTypes(self):
+        dict1 = {"key": ["hello"]}
+        dict2 = {"key": {"clarinet": ["hello"]}}
+        result = SearchProcessor.combine_dictionaries(dict1, dict2)
+        expected = {"key": {"other": ["hello"], "clarinet": ["hello"]}}
+        self.assertDictEqual(result, expected)
 
     def testIsMeter(self):
         token = "4/4"
@@ -97,22 +104,28 @@ class TestSearchProcessor(unittest.TestCase):
 
     def testCreatesTempo(self):
         token = "quaver=crotchet"
-        result = SearchProcessor.split_tokens(token)
-        self.assertEqual(list(result.keys()), ["tempo"])
-        self.assertEqual(list(result["tempo"].keys()), ["other"])
-        self.assertEqual(result["tempo"]["other"], [token])
+        result = SearchProcessor.process(token)
+        self.assertEqual(result["tempo"], [token])
 
     def testCreatesMeter(self):
         token = "2/4"
-        result = SearchProcessor.split_tokens(token)
-        self.assertEqual(list(result.keys()), ["meter"])
-        self.assertEqual(list(result["meter"].keys()), ["other"])
-        self.assertEqual(result["meter"]["other"], [token])
+        result = SearchProcessor.process(token)
+        self.assertEqual(result["meter"], [token])
+
+    def testCreatesText(self):
+        token = "nothing"
+        result = SearchProcessor.process(token)
+        self.assertEqual(result["text"], [token])
+
+    def testFilenameOnNewMethod(self):
+        token = "hello.xml"
+        result = SearchProcessor.process(token)
+        self.assertEqual(result["filename"], [token])
 
     def testTitleOrComposerOrLyricist(self):
         input = "hello, world"
         self.assertEqual(
-            {"text": ["hello,", "world"]}, SearchProcessor.process(input))
+            {"text": ["world", "hello,"]}, SearchProcessor.process(input))
 
     def testFilename(self):
         input = "lottie.xml"
@@ -120,71 +133,18 @@ class TestSearchProcessor(unittest.TestCase):
 
     def testTimeSig(self):
         input = "4/4"
-        self.assertEqual({"time": ["4/4"]}, SearchProcessor.process(input))
+        self.assertEqual({"meter": ["4/4"]}, SearchProcessor.process(input))
 
     def testTimeSigWithMeterLabel(self):
         input = "meter:4/4"
-        self.assertEqual({"time": ["4/4"]}, SearchProcessor.process(input))
-
-    def testTempo(self):
-        input = "quarter=half"
-        self.assertEqual(
-            {"tempo": ["quarter=half"]}, SearchProcessor.process(input))
-
-    def testInstrument(self):
-        input = "instrument:clarinet"
-        self.assertEqual(
-            {"instrument": ["clarinet"]}, SearchProcessor.process(input))
+        self.assertEqual({"meter": ["4/4"]}, SearchProcessor.process(input))
 
     def testKey(self):
         input = "C major"
         self.assertEqual(
-            {"key": {"other": ["C major"]}}, SearchProcessor.process(input))
+            {"key": ["C major"]}, SearchProcessor.process(input))
 
     def testTransposition(self):
         input = "transposition:clarinet"
         self.assertEqual(
             {"transposition": ["clarinet"]}, SearchProcessor.process(input))
-
-    def testWithKey(self):
-        input = "instrument:clarinet with:key:\"C major\""
-        self.assertEqual({"instrument": ["clarinet"],
-                          "key": {"clarinet": ["C major"]}},
-                         SearchProcessor.process(input))
-
-    def testWithClef(self):
-        input = "instrument:clarinet with:clef:bass"
-        self.assertEqual({"instrument": ["clarinet"],
-                          "clef": {"clarinet": ["bass"]}},
-                         SearchProcessor.process(input))
-
-    def testSemiColon(self):
-        input = "instrument:clarinet with:clef:bass;key:\"C major\""
-        result = SearchProcessor.process(input)
-        self.assertEqual({"clef": {"clarinet": ["bass"]}, "key": {
-                         "clarinet": ["C major"]}, "instrument": ["clarinet"]}, result)
-
-    def testSemiColonKeyThenClef(self):
-        input = "instrument:clarinet with:key:\"C major\";clef:bass"
-        result = SearchProcessor.process(input)
-        self.assertEqual({"instrument": ["clarinet"],
-                          "clef": {"clarinet": ["bass"]},
-                          "key": {"clarinet": ["C major"]}},
-                         result)
-
-    def testSpecificAndGeneralUsingWithKeyword(self):
-        input = "instrument:clarinet with:clef:bass clef:treble"
-        self.assertEqual({"instrument": ["clarinet"], "clef": {
-                         "clarinet": ["bass"], "other": ["treble"]}}, SearchProcessor.process(input))
-
-    def testSpecificKeyAndGeneralUsingWithKeyword(self):
-        input = "instrument:clarinet with:key:\"C major\" key:\"D major\""
-        self.assertEqual({"instrument": ["clarinet"],
-                          "key": {"clarinet": ["C major"],
-                                  "other": ["D major"]}},
-                         SearchProcessor.process(input))
-
-    def testSpecificInstrumentInclSpace(self):
-        input = "instrument:\"MusicXML Part\""
-        self.assertEqual(
-            {"instrument": ["MusicXML Part"]}, SearchProcessor.process(input))

@@ -12,7 +12,7 @@ class TestDataLayerUserQueries(unittest.TestCase):
         os.remove("example.db")
 
     def testGetInstrumentNames(self):
-        instruments = ["clarinet", "flute"]
+        instruments = ["flute", "clarinet"]
         instrument_query = {"instruments": []}
         for elem in instruments:
             instrument_query["instruments"].append({"name":elem})
