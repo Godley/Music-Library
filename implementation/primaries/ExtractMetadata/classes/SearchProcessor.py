@@ -105,7 +105,7 @@ def split_input(query_input):
     for unit in quotes_input:
         new_unit = unit.split(" ")
         if type(new_unit) is list:
-            new_unit = [u for u in new_unit if u != '']
+            new_unit = list(filter(None, new_unit))
             data.append(new_unit)
         elif new_unit != '':
             data.append(new_unit)
