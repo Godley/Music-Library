@@ -35,7 +35,7 @@ class TestSearchProcessor(unittest.TestCase):
 
     def testSplittingBySpaceColonTokens(self):
         token = "\"C major\" key:Cmaj"
-        expected = {"key": {"other": ["Cmaj", "C major"]}}
+        expected = {"key": {"other": ["C major", "Cmaj"]}}
         result = SearchProcessor.split_tokens(token)
         self.assertDictEqual(result, expected)
 
