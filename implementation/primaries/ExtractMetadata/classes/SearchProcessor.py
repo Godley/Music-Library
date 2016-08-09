@@ -11,34 +11,28 @@ def process(query_input):
                 entry = {"key":[" ".join(quote_pair)]}
                 data = combine_dictionaries(data, entry)
                 continue
-
-            entries = handle_meter_tempo_text_kv(quote_pair)
-            data = combine_dictionaries(data, entries)
+            for token in quote_pair:
+                entry = handle_meter_tempo_text_kv(token)
+                data = combine_dictionaries(data, entry)
     return data
 
-def handle_meter_tempo_text_kv(tokens):
-    data = {}
-    for token in tokens:
-        if is_meter(token):
-            entry = {"meter":[token]}
-            combine_dictionaries(data, entry)
+def handle_meter_tempo_text_kv(token):
+    entry = {}
+    if is_meter(token):
+        entry = {"meter":[token]}
 
-        elif is_tempo(token):
-            entry = {"tempo": [token]}
-            combine_dictionaries(data, entry)
+    elif is_tempo(token):
+        entry = {"tempo": [token]}
 
-        elif token.endswith(".xml"):
-            entry = {"filename":[token]}
-            combine_dictionaries(data, entry)
+    elif token.endswith(".xml"):
+        entry = {"filename":[token]}
 
-        elif ":" in token:
-            result = handle_colons_and_semicolons(token)
-            data = combine_dictionaries(result, data)
+    elif ":" in token:
+        entry = handle_colons_and_semicolons(token)
 
-        else:
-            entry = {"text": [token]}
-            data = combine_dictionaries(entry, data)
-    return data
+    else:
+        entry = {"text": [token]}
+    return entry
 
 def combine_dictionaries(dict1, dict2):
     new_dict = dict1
@@ -98,6 +92,7 @@ def is_tempo(token):
 def split_input(query_input):
     quotes_input = []
     values = query_input.split("\"")
+    # filter out empty strings
     quotes_input = filter(None, values)
 
     spaced_input = []
@@ -105,6 +100,7 @@ def split_input(query_input):
     for unit in quotes_input:
         new_unit = unit.split(" ")
         if type(new_unit) is list:
+            # filter out empty strings
             new_unit = list(filter(None, new_unit))
             data.append(new_unit)
         elif new_unit != '':
