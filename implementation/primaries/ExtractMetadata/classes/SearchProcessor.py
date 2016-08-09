@@ -58,11 +58,15 @@ def combine_dictionaries(dict1, dict2):
     return new_dict
 
 def is_key(token_pair):
-    opt = ["major", "minor", "maj", "min"]
     if len(token_pair) == 2:
         if len(token_pair[0]) == 1 or "sharp" in token_pair[0] or "flat" in token_pair[0]:
-            if token_pair[1].lower() in opt:
-                return True
+            return has_mode(token_pair[1])
+    return False
+
+def has_mode(token):
+    opt = ["major", "minor", "maj", "min"]
+    if token.lower() in opt:
+        return True
     return False
 
 def is_meter(token):
