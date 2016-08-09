@@ -9,20 +9,18 @@ def split_tokens(query_input):
                 entry = {"key":{"other":[" ".join(quote_pair)]}}
                 data = combine_dictionaries(data, entry)
                 continue
-
-            if len(quote_pair) == 1:
-                if is_meter(quote_pair[0]):
+            for token in quote_pair:
+                if is_meter(token):
                     entry = {"meter":{"other":quote_pair}}
                     data = combine_dictionaries(data, entry)
 
-                if is_tempo(quote_pair[0]):
+                elif is_tempo(token):
                     entry = {"tempo": {"other": quote_pair}}
                     data = combine_dictionaries(data, entry)
 
-            for token in quote_pair:
-                result, remaining = handleColonsAndSemiColons(token)
-                data = combine_dictionaries(result, data)
-                remaining_tokens.extend(remaining)
+                else:
+                    result, remaining = handleColonsAndSemiColons(token)
+                    data = combine_dictionaries(result, data)
     return data
 
 def combine_dictionaries(dict1, dict2):
