@@ -641,7 +641,8 @@ class MusicManager(QueryLayer):
             parsing_errors[
                 "Connection"] = "error connecting to the internet. Sources not refreshed."
         if len(parsing_errors) > 0:
-            self.parent.updateStatusBar("Errors updating database. Contact developer if problem persists")
+            if self.parent is not None:
+                self.parent.updateStatusBar("Errors updating database. Contact developer if problem persists")
             for error in parsing_errors:
                 logger.error("Error {} : {}".format(error, parsing_errors[error]))
         return result_set

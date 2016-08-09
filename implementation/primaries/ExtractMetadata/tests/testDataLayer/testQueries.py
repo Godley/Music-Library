@@ -18,7 +18,7 @@ class TestDataLayerUserQueries(unittest.TestCase):
             instrument_query["instruments"].append({"name":elem})
         self.data.addPiece("file.xml", instrument_query)
         results = self.data.getInstrumentNames()
-        self.assertListEqual(instruments, results)
+        self.assertEqual(sorted(instruments), sorted(results))
 
     def testGetAnyAndAll(self):
         instruments = ["clarinet", "flute"]
