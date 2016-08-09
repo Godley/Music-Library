@@ -3,6 +3,111 @@ from implementation.primaries.ExtractMetadata.classes import SearchProcessor
 
 
 class TestSearchProcessor(unittest.TestCase):
+    def testSplittingByColon(self):
+        token = "instrument:world"
+        result, remaining = SearchProcessor.handleColonsAndSemiColons(token)
+        expected = {"instrument":{"other": ["world"]}}
+        self.assertDictEqual(result, expected)
+
+    def testSplittingByColonAndSemicolon(self):
+        token = "instrument:world;paw"
+        expected = {"instrument": {"other":["world", "paw"]}}
+        result, remaining = SearchProcessor.handleColonsAndSemiColons(token)
+        self.assertDictEqual(result, expected)
+
+    def testSplittingByTwoColonsAndOneSemi(self):
+        token = "instrument:clarinet;key:Cmaj"
+        expected = {"instrument": {"other": ["clarinet"]}, "key": {"clarinet": ["Cmaj"]}}
+        result, remaining = SearchProcessor.handleColonsAndSemiColons(token)
+        self.assertDictEqual(result, expected)
+
+    def testSplittingByTwoColonsAndSpaces(self):
+        token = "instrument:clarinet key:Cmaj"
+        expected = {"instrument": {"other": ["clarinet"]}, "key": {"other": ["Cmaj"]}}
+        result = SearchProcessor.split_tokens(token)
+        self.assertDictEqual(result, expected)
+
+    def testSplittingBySpaceNoColons(self):
+        token = "C major"
+        expected = {"key": {"other": ["C major"]}}
+        result = SearchProcessor.split_tokens(token)
+        self.assertDictEqual(result, expected)
+
+    def testSplittingBySpaceColonTokens(self):
+        token = "\"C major\" key:Cmaj"
+        expected = {"key": {"other": ["Cmaj", "C major"]}}
+        result = SearchProcessor.split_tokens(token)
+        self.assertDictEqual(result, expected)
+
+    def testCombineDictionaries(self):
+        dict1 = {"key": {"other": ["Hello"]}}
+        dict2 = {"key": {"other": ["World"]}}
+        result = SearchProcessor.combine_dictionaries(dict1, dict2)
+        self.assertEqual(list(result.keys()), ["key"])
+        self.assertEqual(list(result["key"].keys()), ["other"])
+        self.assertEqual(result["key"]["other"], ["Hello", "World"])
+
+    def testIsMeter(self):
+        token = "4/4"
+        self.assertTrue(SearchProcessor.is_meter(token))
+
+    def testIsNotMeterChars(self):
+        token = "h/1"
+        self.assertFalse(SearchProcessor.is_meter(token))
+
+    def testIsNotMeter2Chars(self):
+        token = "h/c"
+        self.assertFalse(SearchProcessor.is_meter(token))
+
+    def testIsNotMeterNoDivide(self):
+        token = "lol"
+        self.assertFalse(SearchProcessor.is_meter(token))
+
+    def testIsKey(self):
+        token = ["C","major"]
+        self.assertTrue(SearchProcessor.is_key(token))
+
+    def testIsKeyMinor(self):
+        token = ["C", "minor"]
+        self.assertTrue(SearchProcessor.is_key(token))
+
+    def testIsKeySharp(self):
+        token = ["Csharp", "minor"]
+        self.assertTrue(SearchProcessor.is_key(token))
+
+    def testIsKeyFlat(self):
+        token = ["Cflat", "minor"]
+        self.assertTrue(SearchProcessor.is_key(token))
+
+    def testIsNotKey(self):
+        token = ["Hello"]
+        self.assertFalse(SearchProcessor.is_key(token))
+
+    def testIsTempoOneWord(self):
+        token = "quaver=80"
+        self.assertTrue(SearchProcessor.is_tempo(token))
+
+    def testIsNotTempo(self):
+        token = "1=2"
+        self.assertFalse(SearchProcessor.is_tempo(token))
+
+    def testIsTempoTwoWords(self):
+        token = "quaver=crotchet"
+        self.assertTrue(SearchProcessor.is_tempo(token))
+
+    def testCreatesTempo(self):
+        token = "quaver=crotchet"
+        result = SearchProcessor.split_tokens(token)
+        self.assertEqual(list(result.keys()), ["tempo"])
+        self.assertEqual(list(result["tempo"].keys()), ["other"])
+        self.assertEqual(result["tempo"]["other"], [token])
+
+    def testCreatesMeter(self):
+        token = "2/4"
+        result = SearchProcessor.split_tokens(token)
+        self.assertEqual(list(result.keys()), ["meter"])
+        self.assertEqual(list(result["meter"].keys()), ["other"])
+        self.assertEqual(result["meter"]["other"], [token])
 
     def testTitleOrComposerOrLyricist(self):
         input = "hello, world"

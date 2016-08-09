@@ -1,3 +1,75 @@
+def split_tokens(query_input):
+    spaced_input = split_input(query_input)
+    data = {}
+    remaining_tokens = []
+    last_token = ''
+    for with_pair in spaced_input:
+        for quote_pair in with_pair:
+            if is_key(quote_pair):
+                entry = {"key":{"other":[" ".join(quote_pair)]}}
+                data = combine_dictionaries(data, entry)
+                continue
+
+            if len(quote_pair) == 1:
+                if is_meter(quote_pair[0]):
+                    entry = {"meter":{"other":quote_pair}}
+                    data = combine_dictionaries(data, entry)
+
+                if is_tempo(quote_pair[0]):
+                    entry = {"tempo": {"other": quote_pair}}
+                    data = combine_dictionaries(data, entry)
+
+            for token in quote_pair:
+                result, remaining = handleColonsAndSemiColons(token)
+                data = combine_dictionaries(result, data)
+                remaining_tokens.extend(remaining)
+    return data
+
+def combine_dictionaries(dict1, dict2):
+    new_dict = dict1
+    for key in dict2:
+        if key not in new_dict:
+            new_dict[key] = {}
+        for elem in dict2[key]:
+            if elem not in new_dict[key]:
+                new_dict[key][elem] = []
+            new_dict[key][elem].extend(dict2[key][elem])
+    return new_dict
+
+def is_key(token_pair):
+    opt = ["major", "minor", "maj", "min"]
+    if len(token_pair) == 2:
+        if len(token_pair[0]) == 1 or "sharp" in token_pair[0] or "flat" in token_pair[0]:
+            if token_pair[1].lower() in opt:
+                return True
+    return False
+
+def is_meter(token):
+    parts = token.split("/")
+    verdict = True
+    if len(parts) > 1:
+        try:
+            int(parts[0])
+            int(parts[1])
+        except:
+            verdict = False
+    else:
+        verdict = False
+    return verdict
+
+def is_tempo(token):
+    parts = token.split("=")
+    if len(parts) > 1:
+        try:
+            int(parts[0])
+            verdict = False
+        except:
+            verdict = True
+    else:
+        verdict = False
+    return verdict
+
+
 def split_input(query_input):
     with_split = query_input.split("with")
     split_input = [unit.split("\"") for unit in with_split]
@@ -11,7 +83,32 @@ def split_input(query_input):
     return spaced_input
 
 def handleColonsAndSemiColons(entry):
-    pass
+    tokens = entry.split(";")
+    result = {}
+    last_key = None
+    first_value = None
+    remaining_tokens = []
+    for token in tokens:
+        kv = token.split(":")
+        if len(kv) > 1:
+            last_key = kv[0]
+            if first_value == None:
+                first_value = kv[1]
+                if last_key not in result:
+                    result[last_key] = {'other': []}
+                result[last_key]['other'].append(kv[1])
+            elif last_key not in result:
+                result[last_key] = {first_value: [kv[1]]}
+            elif last_key in result:
+                result[last_key][first_value].append(kv[1])
+        else:
+            if last_key is not None:
+                result[last_key]["other"].append(kv[0])
+            else:
+                remaining_tokens.append(kv[0])
+
+    return result, remaining_tokens
+
 
 def process(query_input):
     """
