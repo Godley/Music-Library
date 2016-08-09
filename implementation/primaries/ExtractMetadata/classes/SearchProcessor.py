@@ -98,7 +98,7 @@ def is_tempo(token):
 def split_input(query_input):
     quotes_input = []
     values = query_input.split("\"")
-    quotes_input.extend([value for value in values if value != ''])
+    quotes_input = filter(None, values)
 
     spaced_input = []
     data = []
@@ -111,6 +111,8 @@ def split_input(query_input):
             data.append(new_unit)
     spaced_input.append(data)
     return spaced_input
+
+
 
 def handle_colons_and_semicolons(entry):
     tokens = entry.split(";")
