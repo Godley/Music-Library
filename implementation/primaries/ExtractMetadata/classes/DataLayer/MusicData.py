@@ -387,6 +387,9 @@ class MusicData(TableCreator.TableCreator):
             self.createOrGetInstruments(data["instruments"], connection, cursor, piece_id)
             data.pop("instruments")
 
+        if "id" in data:
+            data.pop("id")
+
         table_info = {}
         for key in data:
             table_info[key] = method_table[key](data[key], connection, cursor, piece_id)
