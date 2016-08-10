@@ -623,7 +623,7 @@ class MusicManager(QueryLayer):
                     if type(data) != tuple:
                         result_set[source][file] = data
                         file_id = file.split("/")[-1].split(".")[0]
-                        result_set[source][file].update(file_set[source][file_id])
+                        result_set[source][file].update(new_files[source][file_id])
                     else:
                         parsing_errors[data[1]] = data[0]
         except requests.exceptions.ConnectionError as e:
