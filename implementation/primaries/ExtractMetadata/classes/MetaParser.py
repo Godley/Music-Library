@@ -94,7 +94,7 @@ class MetaParser(object):
         # OFFLINE MODE
         parser.setFeature(handler.feature_external_ges, False)
         fob = open(file, 'r')
-        parser.parse(fob)
+        parser.decode(fob)
         self.collatePartsIntoData()
         fob.close()
         return self.data

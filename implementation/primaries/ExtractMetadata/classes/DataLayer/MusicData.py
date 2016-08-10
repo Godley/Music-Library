@@ -101,7 +101,7 @@ class TempoParser(object):
             value = self.convertToAmerican(remaining)
         return value + dots
 
-    def parse(self, entry):
+    def decode(self, entry):
         parts = self.splitParts(entry)
         result = {}
         minute = -1
@@ -115,6 +115,14 @@ class TempoParser(object):
         result['minute'] = minute
         result['beat_2'] = beat_2
         return result
+
+    def encode(self, entry):
+        tempo_string = str(entry[0]) + "="
+        if entry[1] != -1:
+            tempo_string += str(entry[1])
+        elif entry[2] != -1:
+            tempo_string += str(entry[2])
+        return tempo_string
 
 
 class MusicData(TableCreator.TableCreator):
@@ -1103,7 +1111,7 @@ class MusicData(TableCreator.TableCreator):
             "semibreve": "whole"}
         parser = TempoParser()
         for tempo in tempos:
-            result = parser.parse(tempo)
+            result = parser.decode(tempo)
             tempo_list.append((result['beat'], result['minute'], result['beat_2']))
         connection, cursor = self.connect()
         tempo_ids = [
@@ -1284,13 +1292,9 @@ class MusicData(TableCreator.TableCreator):
             q = 'SELECT * FROM tempos WHERE ROWID=?'
             cursor.execute(q, id)
             tempo = cursor.fetchone()
+            parser = TempoParser()
             if tempo is not None and len(tempo) > 0:
-                tempo_string = str(tempo[0]) + "="
-                if tempo[1] != -1:
-                    tempo_string += str(tempo[1])
-                elif tempo[2] != -1:
-                    tempo_string += str(tempo[2])
-                tempos.append(tempo_string)
+                tempos.append(parser.decode(tempo))
         return tempos
 
     def getAllPieceInfo(self, filenames, archived=0, online=False):

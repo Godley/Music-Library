@@ -101,40 +101,40 @@ class TestTempoParser(unittest.TestCase):
         entry = 'quaver=80'
         expected = {'beat': 'eighth', 'minute': 80,
                     'beat_2': -1}
-        result = self.parser.parse(entry)
+        result = self.parser.decode(entry)
         self.assertDictEqual(expected, result)
 
     def testParseTwoWordTempo(self):
         entry = 'quaver=crotchet'
         expected = {'beat': 'eighth', 'minute': -1,
                     'beat_2': 'quarter'}
-        result = self.parser.parse(entry)
+        result = self.parser.decode(entry)
         self.assertDictEqual(expected, result)
 
     def testParseOneWordDottedTempo(self):
         entry = 'quaver.=80'
         expected = {'beat': 'eighth.', 'minute': 80,
                     'beat_2': -1}
-        result = self.parser.parse(entry)
+        result = self.parser.decode(entry)
         self.assertDictEqual(expected, result)
 
     def testParseTwoWordDottedTempo(self):
         entry = 'quaver.=crotchet.'
         expected = {'beat': 'eighth.', 'minute': -1,
                     'beat_2': 'quarter.'}
-        result = self.parser.parse(entry)
+        result = self.parser.decode(entry)
         self.assertDictEqual(expected, result)
 
     def testParseOneWordHalvedTempo(self):
         entry = 'semiquaver=80'
         expected = {'beat': '16th', 'minute': 80,
                     'beat_2': -1}
-        result = self.parser.parse(entry)
+        result = self.parser.decode(entry)
         self.assertDictEqual(expected, result)
 
     def testParseHalvedDottedTempo(self):
         entry = 'semiquaver.=80'
         expected = {'beat': '16th.', 'minute': 80,
                     'beat_2': -1}
-        result = self.parser.parse(entry)
+        result = self.parser.decode(entry)
         self.assertDictEqual(expected, result)
