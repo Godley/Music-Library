@@ -1085,13 +1085,11 @@ class MusicData(TableCreator.TableCreator):
                 meter[1],
                 cursor) for meter in meter_list]
         query = 'SELECT i.piece_id FROM time_piece_join i WHERE EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
+        query = self.do_online_offline_query(query, online=online)
+
         for i in range(1, len(time_ids)):
             query += ' AND EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+
         query += ";"
         input = tuple(time_ids)
         cursor.execute(query, input)
@@ -1099,6 +1097,15 @@ class MusicData(TableCreator.TableCreator):
         file_list = self.getPiecesByRowId(results, cursor, archived)
         self.disconnect(connection)
         return file_list
+
+    def do_online_offline_query(self, query, online=False):
+        new_query = query
+        if online:
+            new_query += ' AND EXISTS '
+        else:
+            new_query += ' AND NOT EXISTS '
+        new_query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+        return new_query
 
     def getPieceByTempo(self, tempos, archived=0, online=False):
         tempo_list = []
