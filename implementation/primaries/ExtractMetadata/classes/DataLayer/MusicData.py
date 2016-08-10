@@ -1298,7 +1298,7 @@ class MusicData(TableCreator.TableCreator):
                 tempos.append(parser.encode(tempo))
         return tempos
 
-    def getAllPieceInfo(self, filenames, archived=0, online=False):
+    def getFileData(self, filenames, archived=0, online=False):
         file_data = []
         for filename in filenames:
             piece_tuple = self.getExactPiece(filename, archived, online=online)
@@ -1310,6 +1310,12 @@ class MusicData(TableCreator.TableCreator):
                     "composer_id": piece_tuple[3],
                     "lyricist_id": piece_tuple[4]}
                 file_data.append(data)
+
+        return file_data
+
+    def getAllPieceInfo(self, filenames, archived=0, online=False):
+        file_data = self.getFileData(filenames, archived=archived, online=online)
+
 
         connection, cursor = self.connect()
         for file in file_data:
@@ -1337,21 +1343,13 @@ class MusicData(TableCreator.TableCreator):
                     file["lyricist"] = -1
             else:
                 file["lyricist"] = -1
-            instruments = self.getInstrumentsByPieceId(index, cursor)
-            if len(instruments) > 0:
-                file["instruments"] = instruments
-            clefs = self.getClefsByPieceId(index, cursor)
-            if len(clefs) > 0:
-                file["clefs"] = clefs
-            keys = self.getKeysByPieceId(index, cursor)
-            if len(keys) > 0:
-                file["keys"] = keys
-            timesigs = self.getTimeSigsByPieceId(index, cursor)
-            if len(timesigs) > 0:
-                file["time_signatures"] = timesigs
-            tempos = self.getTemposByPieceId(index, cursor)
-            if len(tempos) > 0:
-                file["tempos"] = tempos
+            elem_data = {}
+            elem_data["instruments"] = self.getInstrumentsByPieceId(index, cursor)
+            elem_data["clefs"] = self.getClefsByPieceId(index, cursor)
+            elem_data["keys"] = self.getKeysByPieceId(index, cursor)
+            elem_data["timesigs"] = self.getTimeSigsByPieceId(index, cursor)
+            elem_data["tempos"] = self.getTemposByPieceId(index, cursor)
+            file.update({key:elem_data[key] for key in elem_data if len(elem_data[key]) > 0})
             file.pop("id")
             file.pop("composer_id")
             file.pop("lyricist_id")
