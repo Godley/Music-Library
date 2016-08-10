@@ -243,8 +243,7 @@ class MusicData(TableCreator.TableCreator):
                      chromatic,
                      ))
                 connection.commit()
-                cursor.execute(query, (item["name"], diatonic, chromatic,))
-                inst_id = cursor.fetchall()
+                inst_id = self.getInstrumentId(item, cursor)
             if inst_id is not None and len(inst_id) > 0:
                 cursor.execute(
                     'INSERT INTO instruments_piece_join VALUES(?,?)',
