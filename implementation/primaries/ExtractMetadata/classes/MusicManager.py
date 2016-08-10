@@ -590,6 +590,16 @@ class MusicManager(QueryLayer):
 
         return results
 
+    def getNewFiles(self):
+        cleaned_set = self.apiManager.fetchAllData()
+        filelist = self.getFileList(online=True)
+        for file in filelist:
+            source = self._data.getPieceSource(file)[0]
+            id = file.split(".")[0]
+            if id in cleaned_set[source]:
+                cleaned_set[source].pop(id)
+        return cleaned_set
+
     def parseApiFiles(self, debug=False):
         """
         method to extract data from apis and parse each created file for metadata
@@ -598,14 +608,8 @@ class MusicManager(QueryLayer):
         parsing_errors = {}
         result_set = {}
         try:
-            cleaned_set = self.apiManager.fetchAllData()
-            filelist = self.getFileList(online=True)
-            for file in filelist:
-                source = self._data.getPieceSource(file)[0]
-                id = file.split(".")[0]
-                if id in cleaned_set[source]:
-                    cleaned_set[source].pop(id)
-            file_set = self.unzipApiFiles(cleaned_set)
+            new_files = self.getNewFiles()
+            file_set = self.unzipApiFiles(new_files)
             for source in file_set:
                 result_set[source] = {}
                 for file in file_set[source]:
@@ -619,33 +623,22 @@ class MusicManager(QueryLayer):
                     if type(data) != tuple:
                         result_set[source][file] = data
                         file_id = file.split("/")[-1].split(".")[0]
-                        if "title" in cleaned_set[source][file_id]:
-                            result_set[source][file]["title"] = cleaned_set[
-                                source][file_id]["title"]
-                        if "composer" in cleaned_set[source][file_id]:
-                            result_set[source][file]["composer"] = cleaned_set[
-                                source][file_id]["composer"]
-
-                        if "lyricist" in cleaned_set[source][file_id]:
-                            result_set[source][file]["lyricist"] = cleaned_set[
-                                source][file_id]["lyricist"]
-                        if "secret" in cleaned_set[source][file_id]:
-                            result_set[source][file]["secret"] = cleaned_set[
-                                source][file_id]["secret"]
-                        if "license" in cleaned_set[source][file_id]:
-                            result_set[source][file]["license"] = cleaned_set[
-                                source][file_id]["license"]
+                        record = {key:new_files[source][file_id][key] for key in new_files[source][file_id] if key in ["title","composer","lyricist", "secret", "license"]}
+                        result_set[source][file].update(record)
                     else:
                         parsing_errors[data[1]] = data[0]
         except requests.exceptions.ConnectionError as e:
             parsing_errors[
                 "Connection"] = "error connecting to the internet. Sources not refreshed."
-        if len(parsing_errors) > 0:
-            if self.parent is not None:
-                self.parent.updateStatusBar("Errors updating database. Contact developer if problem persists")
-            for error in parsing_errors:
-                logger.error("Error {} : {}".format(error, parsing_errors[error]))
+        self.log_errors(parsing_errors)
         return result_set
+
+    def log_errors(self, errors):
+        if len(errors) > 0:
+            if self.parent is not None:
+                    self.parent.updateStatusBar("Errors updating database. Contact developer if problem persists")
+            for error in errors:
+                logger.error("Error {} : {}".format(error, errors[error]))
 
     def addApiFiles(self, data):
         for source in data:

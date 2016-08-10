@@ -39,7 +39,7 @@ def combine_dictionaries(dict1, dict2):
     for key in dict2:
         if key not in new_dict:
             new_dict[key] = dict2[key]
-        elif type(new_dict[key]) is dict and type(dict2[key]) is dict:
+        elif type(new_dict[key]) is dict:
             new_dict[key] = combine_dictionaries(new_dict[key], dict2[key])
         elif type(new_dict[key]) is dict:
             new_dict[key]["other"] = dict2[key]
