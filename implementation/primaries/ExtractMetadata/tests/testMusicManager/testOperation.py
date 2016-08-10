@@ -39,7 +39,7 @@ class TestMusicManager(unittest.TestCase):
                            'composer': 'charlotte godley',
                            'lyricist': 'fran godley',
                            'instruments': [{'name': 'Piano'}],
-                           'time_signatures': ['4/4']}
+                           'timesigs': ['4/4']}
         for index in expected_result:
             self.assertTrue(index in result[0])
             if index != "clefs" and index != "tempos":

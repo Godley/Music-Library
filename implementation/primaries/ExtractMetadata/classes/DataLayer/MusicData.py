@@ -216,7 +216,7 @@ class MusicData(TableCreator.TableCreator):
             cursor.execute(query, (lyricist_id, piece_id))
             connection.commit()
 
-    def getInstrumentId(self, instrument, cursor):
+    def getInstrumentIdByNameAndTrans(self, instrument, cursor):
         diatonic = 0
         chromatic = 0
         if "transposition" in instrument:
@@ -228,14 +228,23 @@ class MusicData(TableCreator.TableCreator):
         query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
         cursor.execute(query, (instrument["name"], diatonic, chromatic,))
         inst_id = cursor.fetchall()
-        return inst_id
+        if len(inst_id) > 0:
+            return inst_id
 
     def createOrGetInstruments(self, instrument_list, connection, cursor, piece_id):
         for item in instrument_list:
             diatonic = 0
             chromatic = 0
+            if "transposition" in item:
+                transpos = item["transposition"]
+                if "diatonic" in transpos:
+                    diatonic = transpos["diatonic"]
 
-            if len(inst_id) == 0:
+                if "chromatic" in transpos:
+                    chromatic = transpos["chromatic"]
+
+            inst_id = self.getInstrumentIdByNameAndTrans(item, cursor)
+            if inst_id is None:
                 cursor.execute(
                     'INSERT INTO instruments VALUES(?,?,?)',
                     (item["name"],
@@ -243,8 +252,8 @@ class MusicData(TableCreator.TableCreator):
                      chromatic,
                      ))
                 connection.commit()
-                inst_id = self.getInstrumentId(item, cursor)
-            if inst_id is not None and len(inst_id) > 0:
+                inst_id = self.getInstrumentIdByNameAndTrans(item, cursor)
+            if inst_id is not None:
                 cursor.execute(
                     'INSERT INTO instruments_piece_join VALUES(?,?)',
                     (inst_id[0][0],
@@ -1142,24 +1151,21 @@ class MusicData(TableCreator.TableCreator):
         return file_list
 
     def getInstrumentsByPieceId(self, piece_id, cursor):
-        instrument_query = 'SELECT instrument_id FROM instruments_piece_join WHERE piece_id=?'
+        instrument_query = '''SELECT name, chromatic, diatonic, piece_id FROM instruments AS i JOIN instruments_piece_join
+                              AS ins ON ins.instrument_id = i.rowid WHERE piece_id = ?'''
         cursor.execute(instrument_query, (piece_id,))
-        instrument_ids = set(cursor.fetchall())
-        instruments = []
-        for id in instrument_ids:
-            data = {}
-            q = 'SELECT * FROM instruments WHERE ROWID=?'
-            cursor.execute(q, id)
-            record = cursor.fetchone()
-            if record is not None and len(record) > 0:
-                data["name"] = record[0]
-                if record[1] != 0 or record[2] != 0:
-                    data["transposition"] = {
-                        "diatonic": record[1],
-                        "chromatic": record[2]}
-                instruments.append(data)
-
-        return instruments
+        data = set(cursor.fetchall())
+        sorted_data = []
+        for elem in data:
+            entry = {"name":elem[0]}
+            if elem[1] != 0 or elem[2] != 0:
+                entry["transposition"] = {}
+                if elem[1] != 0:
+                    entry["transposition"]["chromatic"] = elem[1]
+                if elem[2] != 0:
+                    entry["transposition"]["diatonic"] = elem[2]
+            sorted_data.append(entry)
+        return sorted_data
 
     def getInstrumentByTransposition(self, transposition, online=False):
         connection, cursor = self.connect()
