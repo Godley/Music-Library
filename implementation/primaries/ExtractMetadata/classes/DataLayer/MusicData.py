@@ -216,19 +216,25 @@ class MusicData(TableCreator.TableCreator):
             cursor.execute(query, (lyricist_id, piece_id))
             connection.commit()
 
-    def createOrGetInstruments(self, instrument_list, connection, cursor, piece_id):
-        for item in instrument_list:
-            diatonic = 0
-            chromatic = 0
-            if "transposition" in item:
-                transposition = item["transposition"]
+    def getInstrumentId(self, instrument, cursor):
+        diatonic = 0
+        chromatic = 0
+        if "transposition" in instrument:
+                transposition = instrument["transposition"]
                 if "diatonic" in transposition:
                     diatonic = transposition["diatonic"]
                 if "chromatic" in transposition:
                     chromatic = transposition["chromatic"]
-            query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
-            cursor.execute(query, (item["name"], diatonic, chromatic,))
-            inst_id = cursor.fetchall()
+        query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
+        cursor.execute(query, (instrument["name"], diatonic, chromatic,))
+        inst_id = cursor.fetchall()
+        return inst_id
+
+    def createOrGetInstruments(self, instrument_list, connection, cursor, piece_id):
+        for item in instrument_list:
+            diatonic = 0
+            chromatic = 0
+
             if len(inst_id) == 0:
                 cursor.execute(
                     'INSERT INTO instruments VALUES(?,?,?)',
