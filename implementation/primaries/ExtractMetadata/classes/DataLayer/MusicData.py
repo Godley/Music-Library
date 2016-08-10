@@ -427,10 +427,7 @@ class MusicData(TableCreator.TableCreator):
         connection, cursor = self.connect()
         thing = (filename, "%" + filename + "%", archived,)
         query = 'SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces p WHERE (p.filename=? OR p.filename LIKE ?) AND p.archived=?'
-        if online:
-            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id=p.ROWID)'
-        else:
-            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        query = self.do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
 
         result = cursor.fetchall()
@@ -448,10 +445,7 @@ class MusicData(TableCreator.TableCreator):
         connection, cursor = self.connect()
         thing = (filename, archived,)
         query = 'SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces p WHERE (p.filename=?) AND p.archived=?'
-        if online:
-            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id=p.ROWID)'
-        else:
-            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        query = self.do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
 
         result = cursor.fetchone()
@@ -1085,7 +1079,7 @@ class MusicData(TableCreator.TableCreator):
                 meter[1],
                 cursor) for meter in meter_list]
         query = 'SELECT i.piece_id FROM time_piece_join i WHERE EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
-        query = self.do_online_offline_query(query, online=online)
+        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
 
         for i in range(1, len(time_ids)):
             query += ' AND EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
@@ -1098,13 +1092,13 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         return file_list
 
-    def do_online_offline_query(self, query, online=False):
+    def do_online_offline_query(self, query, piece_id_field, online=False):
         new_query = query
         if online:
             new_query += ' AND EXISTS '
         else:
             new_query += ' AND NOT EXISTS '
-        new_query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+        new_query += '(SELECT * FROM sources WHERE piece_id = '+piece_id_field+')'
         return new_query
 
     def getPieceByTempo(self, tempos, archived=0, online=False):
@@ -1130,11 +1124,7 @@ class MusicData(TableCreator.TableCreator):
         query = 'SELECT i.piece_id FROM tempo_piece_join i WHERE EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
         for i in range(1, len(tempo_ids)):
             query += ' AND EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
         query += ";"
         input = tuple(tempo_ids)
         cursor.execute(query, input)
@@ -1230,11 +1220,7 @@ class MusicData(TableCreator.TableCreator):
                 if instrument != alternates[-1]:
                     query += " AND EXISTS"
 
-            if online:
-                query += ' AND EXISTS '
-            else:
-                query += ' AND NOT EXISTS '
-            query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+            query = self.do_online_offline_query(query, 'i.piece_id', online=online)
             query += ";"
             cursor.execute(query, tuple(query_input))
             results = cursor.fetchall()
@@ -1301,7 +1287,7 @@ class MusicData(TableCreator.TableCreator):
             tempo = cursor.fetchone()
             parser = TempoParser()
             if tempo is not None and len(tempo) > 0:
-                tempos.append(parser.decode(tempo))
+                tempos.append(parser.encode(tempo))
         return tempos
 
     def getAllPieceInfo(self, filenames, archived=0, online=False):
