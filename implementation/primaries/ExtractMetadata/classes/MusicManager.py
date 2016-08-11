@@ -657,10 +657,10 @@ class MusicManager(QueryLayer):
         fname = file_info[0]
         source = self._data.getPieceSource(filename)
         if source is not None:
-            source = source[0]
+            source = source['source']
         secret = self._data.getSecret(filename)
         if secret is not None:
-            secret = secret[0]
+            secret = secret['secret']
         try:
             status_code = self.apiManager.downloadFile(
                 source=source, file=fname, secret=secret, extension='pdf')
@@ -719,27 +719,11 @@ class MusicManager(QueryLayer):
     def getPieceSummary(self, file_list, sort_method="title", online=False):
         info = self._data.getAllPieceInfo(file_list, online=online)
         ids = ["title","composer","lyricist","filename"]
-        summaries = []
-        for elem in info:
-            entry = {j:elem[j] for j in ids if j in elem}
-            summaries.append(entry)
-
-        results = sorted(summaries, key=lambda k: str(k[sort_method]))
+        results = sorted(info, key=lambda k: str(k[sort_method]))
         summary_strings = []
-        for result in results:
-            summary = ""
-            if result["title"] is not None and result["title"] != "":
-                summary += result["title"]
-            else:
-                summary += "(noTitle)"
-            if "composer" in result or "lyricist" in result:
-                summary += " by "
-            if "composer" in result:
-                summary += result["composer"]
-            if "lyricist" in result:
-                summary += ", " + result["lyricist"]
-            summary += "(" + result["filename"] + ")"
-            summary_strings.append((summary, result["filename"]))
+        for elem in results:
+            entry = " ".join(["{}: {}".format(key, elem[key]) for key in ids if key in elem and elem[key] != ''])
+            summary_strings.append((entry, elem['filename']))
         return summary_strings
 
     def getLicense(self, filename):
@@ -747,7 +731,7 @@ class MusicManager(QueryLayer):
         # eventually we should open up a file and get the text based on the license name,
         # but for now we need to do this
         if result is not None:
-            result = result[0]
+            result = result['license']
             folder = '/users/charlottegodley/PycharmProjects/FYP/implementation/primaries' \
                      '/ImportOnlineDBs/licenses'
             file = os.path.join(folder, result)
