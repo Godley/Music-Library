@@ -1134,6 +1134,29 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         return instruments
 
+    def getPieceByAlternateInstruments(self, cursor, alternates, archived=0, online=False):
+        query = '''SELECT piece_id FROM instruments_piece_join i WHERE EXISTS'''
+        query_input = []
+        for instrument in alternates:
+            query_input.append(instrument[0][1])
+            query += ''' (SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND instrument_id = ?'''
+            for value in instrument[1]:
+                query_input.append(value['rowid'])
+                query += ''' OR instrument_id =?'''
+            query += ''')'''
+            if instrument != alternates[-1]:
+                query += " AND EXISTS"
+
+        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
+        query += ";"
+        cursor.execute(query, tuple(query_input))
+        results = cursor.fetchall()
+        file_list = self.getPiecesByRowId(
+            results,
+            cursor,
+            archived=archived)
+        return file_list
+
     def getPieceByInstrumentsOrSimilar(
             self,
             instruments,
@@ -1146,15 +1169,12 @@ class MusicData(TableCreator.TableCreator):
         :return: list of files + their instruments
         """
         connection, cursor = self.connect()
-
+        file_list = []
         instrument_keys = []
-        for name in instruments:
-            if type(name) == str:
-                key = self.getInstrumentId(name, cursor)
-            else:
-                key = self.getInstrumentId(name["name"], cursor)
+        for elem in instruments:
+            key = self.getInstrumentId(elem["name"], cursor)
             if key is not None:
-                instrument_keys.append((name, key))
+                instrument_keys.append((elem, key))
         results = self.getPiecesByInstruments(
             [instrument["name"] for instrument in instruments])
         if len(results) == 0:
@@ -1162,26 +1182,8 @@ class MusicData(TableCreator.TableCreator):
                 (item,
                  self.getInstrumentsBySameTranspositionAs(
                      item[0]["name"])) for item in instrument_keys]
-            query = '''SELECT piece_id FROM instruments_piece_join i WHERE EXISTS'''
-            query_input = []
-            for instrument in alternates:
-                query_input.append(instrument[0][1])
-                query += ''' (SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND instrument_id = ?'''
-                for value in instrument[1]:
-                    query_input.append(value['rowid'])
-                    query += ''' OR instrument_id =?'''
-                query += ''')'''
-                if instrument != alternates[-1]:
-                    query += " AND EXISTS"
+            file_list = self.getPieceByAlternateInstruments(cursor, alternates, archived, online)
 
-            query = self.do_online_offline_query(query, 'i.piece_id', online=online)
-            query += ";"
-            cursor.execute(query, tuple(query_input))
-            results = cursor.fetchall()
-            file_list = self.getPiecesByRowId(
-                results,
-                cursor,
-                archived=archived)
         self.disconnect(connection)
         return file_list
 
