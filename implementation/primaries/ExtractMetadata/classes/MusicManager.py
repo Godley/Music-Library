@@ -214,7 +214,7 @@ class QueryLayer(object):
             combined = {}
             file_result = self._data.getRoughPiece(value, online=online)
             if len(file_result) > 0:
-                combined["filename"] = [result[1]
+                combined["filename"] = [result['filename']
                                         for result in file_result]
 
             title_result = self._data.getPieceByTitle(
