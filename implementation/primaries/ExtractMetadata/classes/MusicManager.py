@@ -718,10 +718,12 @@ class MusicManager(QueryLayer):
 
     def getPieceSummary(self, file_list, sort_method="title", online=False):
         info = self._data.getAllPieceInfo(file_list, online=online)
-        summaries = [{"title": i["title"],
-                      "composer":i["composer"],
-                      "lyricist":i["lyricist"],
-                      "filename":i["filename"]} for i in info]
+        ids = ["title","composer","lyricist","filename"]
+        summaries = []
+        for elem in info:
+            entry = {j:elem[j] for j in ids if j in elem}
+            summaries.append(entry)
+
         results = sorted(summaries, key=lambda k: str(k[sort_method]))
         summary_strings = []
         for result in results:
@@ -730,11 +732,11 @@ class MusicManager(QueryLayer):
                 summary += result["title"]
             else:
                 summary += "(noTitle)"
-            if result["composer"] != -1 or result["lyricist"] != -1:
+            if "composer" in result or "lyricist" in result:
                 summary += " by "
-            if result["composer"] != -1:
+            if "composer" in result:
                 summary += result["composer"]
-            if result["lyricist"] != -1:
+            if "lyricist" in result:
                 summary += ", " + result["lyricist"]
             summary += "(" + result["filename"] + ")"
             summary_strings.append((summary, result["filename"]))

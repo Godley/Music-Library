@@ -157,8 +157,8 @@ class TestDataLayerAdd(unittest.TestCase):
     def testAddPieceWithInstrumentsWithTranspositions(self):
         self.data.addPiece("file.xml",
                            {"instruments": [{"name": "Bflat clarinet",
-                                             "transposition": {"diatonic": -1,
-                                                               "chromatic": -2}}]})
+                                             "diatonic": -1,
+                                            "chromatic": -2}]})
         conn = sqlite3.connect('example.db')
         c = conn.cursor()
         t = ('Bflat clarinet',)

@@ -44,6 +44,8 @@ there's going to be a lot to group, put them in a new test file.
 
 import sqlite3
 from implementation.primaries.ExtractMetadata.classes.DataLayer import TableCreator
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
+
 
 
 class TempoParser(object):
@@ -117,11 +119,11 @@ class TempoParser(object):
         return result
 
     def encode(self, entry):
-        tempo_string = str(entry[0]) + "="
-        if entry[1] != -1:
-            tempo_string += str(entry[1])
-        elif entry[2] != -1:
-            tempo_string += str(entry[2])
+        tempo_string = str(entry['beat']) + "="
+        if entry['beat_2'] != -1:
+            tempo_string += str(entry['beat_2'])
+        elif entry['minute'] != -1:
+            tempo_string += str(entry['minute'])
         return tempo_string
 
 
@@ -169,7 +171,7 @@ class MusicData(TableCreator.TableCreator):
         cursor.execute(query)
         results = cursor.fetchall()
         self.disconnect(connection)
-        instruments = set([result[0].lower() for result in results])
+        instruments = set([result['name'].lower() for result in results])
         return list(instruments)
 
 
@@ -195,7 +197,7 @@ class MusicData(TableCreator.TableCreator):
             cursor.execute(query, (composer,))
             composer_id = cursor.fetchone()
         if composer_id is not None:
-            composer_id = composer_id[0]
+            composer_id = composer_id['rowid']
             query = 'UPDATE pieces SET composer_id = ? WHERE ROWID = ?'
             cursor.execute(query, (composer_id, piece_id))
             connection.commit()
@@ -211,37 +213,35 @@ class MusicData(TableCreator.TableCreator):
             cursor.execute(query, (lyricist,))
             lyric_id = cursor.fetchone()
         if lyric_id is not None:
-            lyricist_id = lyric_id[0]
+            lyricist_id = lyric_id['rowid']
             query = 'UPDATE pieces SET lyricist_id = ? WHERE ROWID = ?'
             cursor.execute(query, (lyricist_id, piece_id))
             connection.commit()
 
-    def getInstrumentIdByNameAndTrans(self, instrument, cursor):
+    def getInstrumentIdByNameAndTrans(self, inst, cursor):
         diatonic = 0
         chromatic = 0
-        if "transposition" in instrument:
-                transposition = instrument["transposition"]
-                if "diatonic" in transposition:
-                    diatonic = transposition["diatonic"]
-                if "chromatic" in transposition:
-                    chromatic = transposition["chromatic"]
+        if 'chromatic' in inst:
+            chromatic = inst['chromatic']
+
+        if 'diatonic' in inst:
+            diatonic = inst['diatonic']
+
         query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
-        cursor.execute(query, (instrument["name"], diatonic, chromatic,))
-        inst_id = cursor.fetchall()
-        if len(inst_id) > 0:
-            return inst_id
+        cursor.execute(query, (inst["name"], diatonic, chromatic,))
+        inst_id = cursor.fetchone()
+        if inst_id is not None:
+            return inst_id['rowid']
 
     def createOrGetInstruments(self, instrument_list, connection, cursor, piece_id):
         for item in instrument_list:
             diatonic = 0
             chromatic = 0
-            if "transposition" in item:
-                transpos = item["transposition"]
-                if "diatonic" in transpos:
-                    diatonic = transpos["diatonic"]
+            if "diatonic" in item:
+                diatonic = item["diatonic"]
 
-                if "chromatic" in transpos:
-                    chromatic = transpos["chromatic"]
+            if "chromatic" in item:
+                chromatic = item["chromatic"]
 
             inst_id = self.getInstrumentIdByNameAndTrans(item, cursor)
             if inst_id is None:
@@ -256,7 +256,7 @@ class MusicData(TableCreator.TableCreator):
             if inst_id is not None:
                 cursor.execute(
                     'INSERT INTO instruments_piece_join VALUES(?,?)',
-                    (inst_id[0][0],
+                    (inst_id,
                      piece_id,
                      ))
 
@@ -278,7 +278,7 @@ class MusicData(TableCreator.TableCreator):
                 if key is not None and len(key) > 0:
                     cursor.execute(
                         'INSERT INTO key_piece_join VALUES(?,?,?)',
-                        (key[0],
+                        (key['rowid'],
                          piece_id,
                          instrument_id,
                          ))
@@ -301,7 +301,7 @@ class MusicData(TableCreator.TableCreator):
                 if clef_id is not None and len(clef_id) > 0:
                     cursor.execute(
                         'INSERT INTO clef_piece_join VALUES(?,?,?)',
-                        (clef_id[0],
+                        (clef_id['rowid'],
                          piece_id,
                          instrument_id,
                          ))
@@ -321,7 +321,7 @@ class MusicData(TableCreator.TableCreator):
                     'SELECT ROWID FROM timesigs WHERE beat=? AND b_type=?', (beat, b_type))
                 res = cursor.fetchone()
             cursor.execute(
-                'INSERT INTO time_piece_join VALUES(?,?)', (piece_id, res[0]))
+                'INSERT INTO time_piece_join VALUES(?,?)', (piece_id, res['rowid']))
 
     def createTempoAndLinks(self, tempo_list, connection, cursor, piece_id):
         for tempo in tempo_list:
@@ -352,7 +352,7 @@ class MusicData(TableCreator.TableCreator):
                      minute))
                 res = cursor.fetchone()
             cursor.execute(
-                'INSERT INTO tempo_piece_join VALUES(?,?)', (piece_id, res[0]))
+                'INSERT INTO tempo_piece_join VALUES(?,?)', (piece_id, res['rowid']))
 
     def setSource(self, source, connection, cursor, piece_id):
         query = 'INSERT INTO sources VALUES(?,?)'
@@ -395,7 +395,8 @@ class MusicData(TableCreator.TableCreator):
         cursor.execute(
             'SELECT ROWID FROM pieces WHERE filename=?',
             select_input)
-        piece_id = cursor.fetchone()[0]
+        result = cursor.fetchone()
+        piece_id = result["rowid"]
 
         if "instruments" in data:
             self.createOrGetInstruments(data["instruments"], connection, cursor, piece_id)
@@ -421,7 +422,7 @@ class MusicData(TableCreator.TableCreator):
         cursor.execute(query)
         results = cursor.fetchall()
         self.disconnect(connection)
-        filelist = set([result[0] for result in results])
+        filelist = set([result['filename'] for result in results])
         return list(filelist)
 
     def getLicense(self, filename):
@@ -476,9 +477,9 @@ class MusicData(TableCreator.TableCreator):
             'SELECT ROWID FROM timesigs WHERE beat=? AND b_type=? ',
             (beats,
              type))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     def getTempoId(self, beat, minute, beat_2, cursor):
         """
@@ -489,9 +490,9 @@ class MusicData(TableCreator.TableCreator):
             (beat,
              minute,
              beat_2))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     def getInstrumentIdWhereTextInName(self, instrument, cursor):
         """
@@ -507,7 +508,7 @@ class MusicData(TableCreator.TableCreator):
              instrument +
              "%"))
         result = cursor.fetchall()
-        instrument_ids = [id[0] for id in result]
+        instrument_ids = [id['rowid'] for id in result]
         return instrument_ids
 
     def getInstrumentId(self, instrument, cursor):
@@ -516,9 +517,9 @@ class MusicData(TableCreator.TableCreator):
         """
         cursor.execute(
             'SELECT ROWID FROM instruments WHERE name=?', (instrument,))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     def getComposerIdWhereTextInName(self, composer, cursor):
         """
@@ -536,7 +537,7 @@ class MusicData(TableCreator.TableCreator):
              "%" + composer,
              composer + "%",))
         result = cursor.fetchall()
-        composer_ids = [res[0] for res in result]
+        composer_ids = [res['rowid'] for res in result]
         return composer_ids
 
     def getComposerId(self, composer, cursor):
@@ -565,7 +566,7 @@ class MusicData(TableCreator.TableCreator):
              lyricist + "%",
              "%" + lyricist,))
         result = cursor.fetchall()
-        lyricist_ids = [res[0] for res in result]
+        lyricist_ids = [res['rowid'] for res in result]
         return lyricist_ids
 
     def getLyricistId(self, lyricist, cursor):
@@ -587,9 +588,9 @@ class MusicData(TableCreator.TableCreator):
         """
 
         cursor.execute('SELECT ROWID FROM keys WHERE name=?', (key,))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     def getClefId(self, clef, cursor):
         """
@@ -600,9 +601,9 @@ class MusicData(TableCreator.TableCreator):
         """
 
         cursor.execute('SELECT ROWID FROM clefs WHERE name=?', (clef,))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     # methods used in querying by user
     def getPiecesByInstruments(self, instruments, archived=0, online=False):
@@ -685,11 +686,11 @@ class MusicData(TableCreator.TableCreator):
             if element != previous:
                 cursor.execute(
                     'SELECT filename FROM pieces WHERE ROWID=? AND archived=?',
-                    (element[0],
+                    (element['piece_id'],
                      archived))
                 result = cursor.fetchone()
                 if result is not None:
-                    file_list.append(result[0])
+                    file_list.append(result['filename'])
             previous = element
         return file_list
 
@@ -718,7 +719,7 @@ class MusicData(TableCreator.TableCreator):
             input = tuple(input_list)
             cursor.execute(query, input)
             result = cursor.fetchall()
-            file_list = [r[0] for r in result]
+            file_list = [r['filename'] for r in result]
             self.disconnect(connection)
         return file_list
 
@@ -747,7 +748,7 @@ class MusicData(TableCreator.TableCreator):
             input = tuple(input_list)
             cursor.execute(query, input)
             result = cursor.fetchall()
-            file_list = [r[0] for r in result]
+            file_list = [r['filename'] for r in result]
             self.disconnect(connection)
         return file_list
 
@@ -766,7 +767,7 @@ class MusicData(TableCreator.TableCreator):
             query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
         cursor.execute(query, thing)
         result = cursor.fetchall()
-        result = [r[0] for r in result]
+        result = [r['filename'] for r in result]
         self.disconnect(connection)
         return result
 
@@ -833,9 +834,9 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         key_dict = {}
         for pair in results:
-            if pair[0] not in key_dict:
-                key_dict[pair[0]] = []
-            key_dict[pair[0]].append(pair[1])
+            if pair['name'] not in key_dict:
+                key_dict[pair['name']] = []
+            key_dict[pair['name']].append(pair['filename'])
         return key_dict
 
     def getPiecesByAllClefs(self, archived=0, online=False):
@@ -854,9 +855,9 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         clef_dict = {}
         for pair in results:
-            if pair[0] not in clef_dict:
-                clef_dict[pair[0]] = []
-            clef_dict[pair[0]].append(pair[1])
+            if pair['name'] not in clef_dict:
+                clef_dict[pair['name']] = []
+            clef_dict[pair['name']].append(pair['filename'])
         return clef_dict
 
     def getPiecesByAllTimeSigs(self, archived=0, online=False):
@@ -875,10 +876,10 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         timesig_dict = {}
         for pair in results:
-            result_key = str(pair[0]) + "/" + str(pair[1])
+            result_key = str(pair['beat']) + "/" + str(pair['b_type'])
             if result_key not in timesig_dict:
                 timesig_dict[result_key] = []
-            timesig_dict[result_key].append(pair[2])
+            timesig_dict[result_key].append(pair['filename'])
         return timesig_dict
 
     def getPiecesByAllTempos(self, archived=0, online=False):
@@ -899,14 +900,14 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         tempo_dict = {}
         for pair in results:
-            key_input = pair[0] + "="
-            if pair[1] != "-1":
-                key_input += pair[1]
-            elif pair[2] != -1:
-                key_input += str(pair[2])
+            key_input = pair['beat'] + "="
+            if pair['beat_2'] != "-1":
+                key_input += pair['beat_2']
+            elif pair['minute'] != -1:
+                key_input += str(pair['minute'])
             if key_input not in tempo_dict:
                 tempo_dict[key_input] = []
-            tempo_dict[key_input].append(pair[3])
+            tempo_dict[key_input].append(pair['filename'])
         return tempo_dict
 
     def getPiecesByAllInstruments(self, archived=0, online=False):
@@ -917,29 +918,29 @@ class MusicData(TableCreator.TableCreator):
                     AND EXISTS (SELECT * FROM instruments_piece_join WHERE instrument_id = instrument_piece.instrument_id AND piece_id != instrument_piece.piece_id)
                     AND piece.archived = ?
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         instrument_dict = {}
+
+
         for pair in results:
-            key_input = pair[0]
-            if pair[1] != 0 or pair[2] != 0:
-                key_input += "\n("
-                key_input += "Transposed By "
-            if pair[1] != 0:
-                key_input += str(pair[1]) + " Diatonic \n"
-            if pair[2] != 0:
-                key_input += str(pair[2]) + " Chromatic"
-            if pair[1] != 0 or pair[2] != 0:
-                key_input += ")"
+            key_input = pair['name']
+            pre_string = ""
+            post_string = ""
+            if pair['diatonic'] != 0 or pair['chromatic'] != 0:
+                pre_string = "\n(Transposed By "
+                post_string = ")"
+            key_input += pre_string
+            if pair['diatonic'] != 0:
+                key_input += str(pair['diatonic']) + " Diatonic \n"
+            if pair['chromatic'] != 0:
+                key_input += str(pair['chromatic']) + " Chromatic"
+            key_input += post_string
             if key_input not in instrument_dict:
                 instrument_dict[key_input] = []
-            instrument_dict[key_input].append(pair[3])
+            instrument_dict[key_input].append(pair['filename'])
         return instrument_dict
 
     def getPiecesByAllComposers(self, archived=0, online=False):
@@ -959,9 +960,9 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         composer_dict = {}
         for pair in results:
-            if pair[0] not in composer_dict:
-                composer_dict[pair[0]] = []
-            composer_dict[pair[0]].append(pair[1])
+            if pair['name'] not in composer_dict:
+                composer_dict[pair['name']] = []
+            composer_dict[pair['name']].append(pair['filename'])
         return composer_dict
 
     def getPiecesByAllLyricists(self, archived=0, online=False):
@@ -981,9 +982,9 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         lyricist_dict = {}
         for pair in results:
-            if pair[0] not in lyricist_dict:
-                lyricist_dict[pair[0]] = []
-            lyricist_dict[pair[0]].append(pair[1])
+            if pair['name'] not in lyricist_dict:
+                lyricist_dict[pair['name']] = []
+            lyricist_dict[pair['name']].append(pair['filename'])
         return lyricist_dict
 
     def getPieceByClefs(self, clefs, archived=0, online=False):
@@ -1151,21 +1152,11 @@ class MusicData(TableCreator.TableCreator):
         return file_list
 
     def getInstrumentsByPieceId(self, piece_id, cursor):
-        instrument_query = '''SELECT name, chromatic, diatonic, piece_id FROM instruments AS i JOIN instruments_piece_join
-                              AS ins ON ins.instrument_id = i.rowid WHERE piece_id = ?'''
+        instrument_query = '''SELECT name, diatonic, chromatic FROM instruments AS i JOIN instruments_piece_join
+                              AS ins ON ins.instrument_id = i.rowid WHERE ins.piece_id = ?'''
         cursor.execute(instrument_query, (piece_id,))
         data = set(cursor.fetchall())
-        sorted_data = []
-        for elem in data:
-            entry = {"name":elem[0]}
-            if elem[1] != 0 or elem[2] != 0:
-                entry["transposition"] = {}
-                if elem[1] != 0:
-                    entry["transposition"]["chromatic"] = elem[1]
-                if elem[2] != 0:
-                    entry["transposition"]["diatonic"] = elem[2]
-            sorted_data.append(entry)
-        return sorted_data
+        return data
 
     def getInstrumentByTransposition(self, transposition, online=False):
         connection, cursor = self.connect()
@@ -1253,13 +1244,13 @@ class MusicData(TableCreator.TableCreator):
         clef_ids = set(cursor.fetchall())
         clefs = {}
         for id in clef_ids:
-            q = 'SELECT clefs.name, instruments.name FROM clefs, instruments WHERE clefs.ROWID=? AND instruments.ROWID=?'
-            cursor.execute(q, id)
+            q = 'SELECT clefs.name, instruments.name as instrument FROM clefs, instruments WHERE clefs.ROWID=? AND instruments.ROWID=?'
+            cursor.execute(q, (id['clef_id'],id['instrument_id']))
             name = cursor.fetchone()
-            if name is not None and len(name) > 0:
-                if name[1] not in clefs:
-                    clefs[name[1]] = []
-                clefs[name[1]].append(name[0])
+            if name is not None:
+                if name['instrument'] not in clefs:
+                    clefs[name['instrument']] = []
+                clefs[name['instrument']].append(name['name'])
         return clefs
 
     def getKeysByPieceId(self, piece_id, cursor):
@@ -1268,13 +1259,13 @@ class MusicData(TableCreator.TableCreator):
         key_ids = set(cursor.fetchall())
         keys = {}
         for id in key_ids:
-            q = 'SELECT keys.name, instruments.name FROM keys, instruments WHERE keys.ROWID=? AND instruments.ROWID=?'
-            cursor.execute(q, id)
+            q = 'SELECT keys.name, instruments.name as instrument FROM keys, instruments WHERE keys.ROWID=? AND instruments.ROWID=?'
+            cursor.execute(q, (id['key_id'],id['instrument_id']))
             name = cursor.fetchone()
             if len(name) > 0:
-                if name[1] not in keys:
-                    keys[name[1]] = []
-                keys[name[1]].append(name[0])
+                if name['instrument'] not in keys:
+                    keys[name['instrument']] = []
+                keys[name['instrument']].append(name['name'])
         return keys
 
     def getTimeSigsByPieceId(self, piece_id, cursor):
@@ -1284,10 +1275,10 @@ class MusicData(TableCreator.TableCreator):
         meters = []
         for id in time_ids:
             q = 'SELECT * FROM timesigs WHERE ROWID=?'
-            cursor.execute(q, id)
+            cursor.execute(q, (id['time_id'],))
             timesig = cursor.fetchone()
             if timesig is not None and len(timesig) > 0:
-                meters.append(str(timesig[0]) + "/" + str(timesig[1]))
+                meters.append(str(timesig['beat']) + "/" + str(timesig['beat_type']))
         return meters
 
     def getTemposByPieceId(self, piece_id, cursor):
@@ -1297,7 +1288,7 @@ class MusicData(TableCreator.TableCreator):
         tempos = []
         for id in tempo_ids:
             q = 'SELECT * FROM tempos WHERE ROWID=?'
-            cursor.execute(q, id)
+            cursor.execute(q, (id['tempo_id'],))
             tempo = cursor.fetchone()
             parser = TempoParser()
             if tempo is not None and len(tempo) > 0:
@@ -1309,58 +1300,43 @@ class MusicData(TableCreator.TableCreator):
         for filename in filenames:
             piece_tuple = self.getExactPiece(filename, archived, online=online)
             if piece_tuple is not None:
-                data = {
-                    "id": piece_tuple[0],
-                    "filename": piece_tuple[1],
-                    "title": piece_tuple[2],
-                    "composer_id": piece_tuple[3],
-                    "lyricist_id": piece_tuple[4]}
-                file_data.append(data)
-
+                file_data.append(piece_tuple)
         return file_data
 
     def getAllPieceInfo(self, filenames, archived=0, online=False):
         file_data = self.getFileData(filenames, archived=archived, online=online)
-
-
+        files = []
         connection, cursor = self.connect()
-        for file in file_data:
-            index = file["id"]
-            composer = file["composer_id"]
-            if composer != -1:
-                query = 'SELECT name FROM composers WHERE ROWID=?'
-                cursor.execute(query, (composer,))
-                fetched = cursor.fetchone()
-                if fetched is not None and len(fetched) > 0:
-                    file["composer"] = fetched[0]
-                else:
-                    file["composer"] = -1
-            else:
-                file["composer"] = -1
+        if len(file_data) > 0:
+            files = [dict(f) for f in file_data]
+            for file in files:
+                index = file["rowid"]
+                composer = file["composer_id"]
+                if composer != -1:
+                    query = 'SELECT name as composer FROM composers WHERE ROWID=?'
+                    cursor.execute(query, (composer,))
+                    fetched = cursor.fetchone()
+                    if fetched is not None:
+                        file.update(fetched)
 
-            lyricist = file["lyricist_id"]
-            if lyricist != -1:
-                query = 'SELECT name FROM lyricists WHERE ROWID=?'
-                cursor.execute(query, (lyricist,))
-                fetched = cursor.fetchone()
-                if fetched is not None and len(fetched) > 0:
-                    file["lyricist"] = fetched[0]
-                else:
-                    file["lyricist"] = -1
-            else:
-                file["lyricist"] = -1
-            elem_data = {}
-            elem_data["instruments"] = self.getInstrumentsByPieceId(index, cursor)
-            elem_data["clefs"] = self.getClefsByPieceId(index, cursor)
-            elem_data["keys"] = self.getKeysByPieceId(index, cursor)
-            elem_data["timesigs"] = self.getTimeSigsByPieceId(index, cursor)
-            elem_data["tempos"] = self.getTemposByPieceId(index, cursor)
-            file.update({key:elem_data[key] for key in elem_data if len(elem_data[key]) > 0})
-            file.pop("id")
-            file.pop("composer_id")
-            file.pop("lyricist_id")
+                lyricist = file["lyricist_id"]
+                if lyricist != -1:
+                    query = 'SELECT name as lyricist FROM lyricists WHERE ROWID=?'
+                    cursor.execute(query, (lyricist,))
+                    fetched = cursor.fetchone()
+                    if fetched is not None:
+                        file.update(fetched)
+                elem_data = hashdict({"instruments": self.getInstrumentsByPieceId(index, cursor),
+                "clefs" : self.getClefsByPieceId(index, cursor),
+                "keys": self.getKeysByPieceId(index, cursor),
+                "timesigs": self.getTimeSigsByPieceId(index, cursor),
+                "tempos": self.getTemposByPieceId(index, cursor)})
+                file.update({key:elem_data[key] for key in elem_data if len(elem_data[key]) > 0})
+                file.pop("rowid")
+                file.pop("composer_id")
+                file.pop("lyricist_id")
         self.disconnect(connection)
-        return file_data
+        return files
 
     def addPlaylist(self, pname, files):
         connection, cursor = self.connect()
@@ -1374,8 +1350,8 @@ class MusicData(TableCreator.TableCreator):
             file_id = cursor.fetchone()
             cursor.execute(
                 '''INSERT INTO playlist_join VALUES(?,?)''',
-                (val[0],
-                 file_id[0]))
+                (val['rowid'],
+                 file_id['rowid']))
         connection.commit()
         self.disconnect(connection)
 
@@ -1388,9 +1364,9 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         data = {}
         for item in results:
-            if item[1] not in data:
-                data[item[1]] = []
-            data[item[1]].append(item[0])
+            if item['name'] not in data:
+                data[item['name']] = []
+            data[item['name']].append(item['filename'])
         return data
 
     def getUserPlaylist(self, title):
@@ -1422,10 +1398,10 @@ class MusicData(TableCreator.TableCreator):
         query_2 = '''SELECT piece.filename FROM pieces piece, playlist_join play, playlists playlist
                   WHERE playlist.name = ? AND play.playlist_id = playlist.ROWID AND piece.ROWID = play.piece_id'''
         for i in range(len(results)):
-            cursor.execute(query_2, results[i])
+            cursor.execute(query_2, (results[i]['name'],))
             files = cursor.fetchall()
-            if results[i][0] not in data:
-                data[results[i][0]] = [file[0] for file in files]
+            if results[i]['name'] not in data:
+                data[results[i]['name']] = [file['filename'] for file in files]
         self.disconnect(connection)
         return data
 
@@ -1437,7 +1413,7 @@ class MusicData(TableCreator.TableCreator):
         query = '''DELETE FROM playlists WHERE name = ?'''
         cursor.execute(query, (playlist_name,))
         join_query = '''DELETE FROM playlist_join WHERE playlist_id = ?'''
-        cursor.execute(join_query, res)
+        cursor.execute(join_query, (res['rowid'],))
         connection.commit()
         self.disconnect(connection)
 
@@ -1451,17 +1427,17 @@ class MusicData(TableCreator.TableCreator):
             cursor.execute(id_query, (file,))
             result = cursor.fetchone()
             instrument_query = '''DELETE FROM instruments_piece_join WHERE piece_id =?'''
-            cursor.execute(instrument_query, result)
+            cursor.execute(instrument_query, (result['rowid'],))
             tempo_query = '''DELETE FROM tempo_piece_join WHERE piece_id =?'''
-            cursor.execute(tempo_query, result)
+            cursor.execute(tempo_query, (result['rowid'],))
             key_query = '''DELETE FROM key_piece_join WHERE piece_id =?'''
-            cursor.execute(key_query, result)
+            cursor.execute(key_query, (result['rowid'],))
             clef_query = '''DELETE FROM clef_piece_join WHERE piece_id =?'''
-            cursor.execute(clef_query, result)
+            cursor.execute(clef_query, (result['rowid'],))
             time_query = '''DELETE FROM time_piece_join WHERE piece_id =?'''
-            cursor.execute(time_query, result)
+            cursor.execute(time_query, (result['rowid'],))
             piece_query = '''DELETE FROM pieces WHERE ROWID=?'''
-            cursor.execute(piece_query, result)
+            cursor.execute(piece_query, (result['rowid'],))
         connection.commit()
         self.disconnect(connection)
 
@@ -1486,7 +1462,7 @@ class MusicData(TableCreator.TableCreator):
         query = '''SELECT filename FROM pieces WHERE archived = 1'''
         cursor.execute(query)
         results = cursor.fetchall()
-        file_list = [result[0] for result in results]
+        file_list = [result['filename'] for result in results]
         self.disconnect(connection)
         return file_list
 
@@ -1509,7 +1485,7 @@ class MusicData(TableCreator.TableCreator):
         cursor.execute(query, (filename,))
         result = cursor.fetchone()
         query = 'DELETE FROM sources WHERE piece_id = ?'
-        cursor.execute(query, result)
+        cursor.execute(query, (result['rowid'],))
         connection.commit()
         self.disconnect(connection)
 

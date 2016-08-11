@@ -1,4 +1,11 @@
 import sqlite3
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
+
+def dict_factory(cursor, row):
+    d = {}
+    for idx, col in enumerate(cursor.description):
+        d[col[0]] = row[idx]
+    return hashdict(d)
 
 class TableConnector(object):
     def __init__(self, database):
@@ -10,6 +17,7 @@ class TableConnector(object):
         :return: connection object, cursor object
         '''
         conn = sqlite3.connect(self.database)
+        conn.row_factory = dict_factory
         return conn, conn.cursor()
 
     def disconnect(self, connection):

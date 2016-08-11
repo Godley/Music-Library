@@ -76,12 +76,12 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
             "file.xml", {
                 "instruments": [
                     {
-                        "name": "clarinet", "transposition": {
-                            "diatonic": 1, "chromatic": 2}}, {
+                        "name": "clarinet", "diatonic": 1, "chromatic": 2}, {
                         "name": "flute"}]})
         self.data.addPiece("file1.xml", {"instruments": [
-                           {"name": "clarinet", "transposition": {"diatonic": 1, "chromatic": 2}}]})
+                           {"name": "clarinet", "diatonic": 1, "chromatic": 2}]})
         self.data.addPiece("file2.xml", {"instruments": [{"name": "flute"}]})
+        result = self.data.getPiecesByAllInstruments()
         self.assertEqual(
             {
                 "flute": [
@@ -90,28 +90,28 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
                 "clarinet\n(Transposed By 1 Diatonic \n2 Chromatic)": [
                     "file.xml",
                     "file1.xml"]},
-            self.data.getPiecesByAllInstruments())
+            result)
 
     def testFindAllPiecesByAllInstrumentsWithTranspositions(self):
         self.data.addPiece("file.xml",
                            {"instruments": [{"name": "clarinet"},
                                             {"name": "clarinet",
-                                             "transposition": {"diatonic": 1}}]})
+                                             "diatonic": 1}]})
         self.data.addPiece(
             "file1.xml", {"instruments": [{"name": "clarinet"}]})
         self.data.addPiece("file2.xml",
                            {"instruments": [{"name": "flute"},
                                             {"name": "clarinet",
-                                             "transposition": {"diatonic": 1}}]})
-        self.assertEqual(
-            {
+                                             "diatonic": 1}]})
+        result = self.data.getPiecesByAllInstruments()
+        exp = {
                 "clarinet": [
                     "file.xml",
                     "file1.xml"],
                 "clarinet\n(Transposed By 1 Diatonic \n)": [
                     "file.xml",
-                    "file2.xml"]},
-            self.data.getPiecesByAllInstruments())
+                    "file2.xml"]}
+        self.assertEqual(exp, result)
 
     def testFindAllPiecesByAllComposers(self):
         self.data.addPiece("file.xml", {"composer": "Charlotte"})
@@ -132,7 +132,7 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
                            {"key": {"clari": [{"mode": "major",
                                                "fifths": 0}]},
                             "instruments": [{"name": "clari",
-                                             "transposition": {"diatonic": 1}}]})
+                                             "diatonic": 1}]})
         self.data.addPiece("file1.xml",
                            {"key": {"clarin": [{"mode": "major",
                                                 "fifths": 1}]},
@@ -146,7 +146,7 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
 
     def testArchivePiece(self):
         self.data.addPiece("file.xml", {"instruments": [
-                           {"name": "clarinet", "transposition": {"diatonic": -1, "chromatic": -2}}]})
+                           {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
         self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 1)
         self.data.archivePieces(["file.xml"])
         self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 0)
@@ -154,7 +154,7 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
 
     def testRemovePiece(self):
         self.data.addPiece("file.xml", {"instruments": [
-                           {"name": "clarinet", "transposition": {"diatonic": -1, "chromatic": -2}}]})
+                           {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
         self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 1)
         self.data.removePieces(["file.xml"])
         self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 0)

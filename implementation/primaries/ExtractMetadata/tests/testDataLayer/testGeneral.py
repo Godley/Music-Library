@@ -11,7 +11,7 @@ testDataLayerOnlineSearching: anything relating to the diff between each method 
 import unittest
 from implementation.primaries.ExtractMetadata.classes.DataLayer.MusicData import MusicData
 import os
-
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 class TestDataLayerGeneral(unittest.TestCase):
 
     def setUp(self):
@@ -33,15 +33,13 @@ class TestDataLayerGeneral(unittest.TestCase):
 
     def testFindPieceByFname(self):
         self.data.addPiece("file.xml", {})
-        self.assertEqual(
-            (1, "file.xml", "", -1, -1), self.data.getExactPiece("file.xml"))
+        self.assertDictEqual(
+            {'rowid': 1, 'filename': "file.xml", "title":'', 'composer_id': -1, 'lyricist_id': -1}, self.data.getExactPiece("file.xml"))
 
     def testFindAllInfoForAPiece(self):
         self.data.addPiece(
             "file.xml", {"tempo": [{"beat": "quarter", "beat_2": "half"}]})
         self.assertEqual([{"title": "",
-                           "composer": -1,
-                           "lyricist": -1,
                            "tempos": ["quarter=half"],
                            "filename":"file.xml"}],
                          self.data.getAllPieceInfo(["file.xml"]))
@@ -49,36 +47,35 @@ class TestDataLayerGeneral(unittest.TestCase):
     def testFindAllInfoForAPieceWhereHasKeys(self):
         self.data.addPiece("file.xml", {"instruments": [{"name": "clarinet"}], "key": {
                            "clarinet": [{"mode": "major", "fifths": 2}]}})
-        self.assertEqual([{"title": "",
-                           "composer": -1,
-                           "lyricist": -1,
-                           "instruments": [{"name": "clarinet"}],
+        results = self.data.getAllPieceInfo(["file.xml"])
+        exp = {"title": "",
+                           "instruments": {hashdict(name='clarinet',
+                                                    diatonic=0,
+                                                    chromatic=0)},
                            "keys": {"clarinet": ["D major"]},
-                           "filename":"file.xml"}],
-                         self.data.getAllPieceInfo(["file.xml"]))
+                           "filename":"file.xml"}
+        self.assertDictEqual(results[0], exp)
 
     def testFindAllInfoForAPieceWhereHasClefs(self):
         self.data.addPiece("file.xml", {"instruments": [{"name": "clarinet"}], "clef": {
                            "clarinet": [{"sign": "G", "line": 2}]}})
-        self.assertEqual([{"title": "",
-                           "composer": -1,
-                           "lyricist": -1,
-                           "instruments": [{"name": "clarinet"}],
-                           "clefs": {"clarinet": ["treble"]},
-                           "filename":"file.xml"}],
-                         self.data.getAllPieceInfo(["file.xml"]))
+        exp = {"title": "",
+               "instruments": {hashdict(name="clarinet",chromatic=0,diatonic=0)},
+               "clefs": {"clarinet": ["treble"]},
+               "filename":"file.xml"}
+        result = self.data.getAllPieceInfo(["file.xml"])
+        self.assertDictEqual(result[0], exp)
 
     def testFindAllInfoForAPieceWhereHasTransposedInstruments(self):
         self.data.addPiece("file.xml", {"instruments": [
-                           {"name": "clarinet", "transposition": {"diatonic": -1, "chromatic": -2}}]})
-        self.assertEqual([{"title": "",
-                           "composer": -1,
-                           "lyricist": -1,
-                           "instruments": [{"name": "clarinet",
-                                            "transposition": {"diatonic": -1,
-                                                              "chromatic": -2}}],
-                           "filename": "file.xml"}],
-                         self.data.getAllPieceInfo(["file.xml"]))
+                           {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
+        exp = {"title": "",
+               "instruments": {hashdict(name="clarinet",
+                                        diatonic=-1,
+                                        chromatic=-2)},
+               'filename': 'file.xml'}
+        result = self.data.getAllPieceInfo(["file.xml"])
+        self.assertDictEqual(result[0], exp)
 
 
 
