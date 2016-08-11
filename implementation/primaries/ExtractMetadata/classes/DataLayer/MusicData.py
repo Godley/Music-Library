@@ -550,6 +550,18 @@ class MusicData(TableCreator.TableCreator):
         if result is not None:
             return result['rowid']
 
+    def getComposerName(self, composer_id, cursor):
+        cursor.execute('SELECT name FROM composers WHERE ROWID=?', (composer_id,))
+        result = cursor.fetchone()
+        if result is not None:
+            return result['name']
+
+    def getLyricistName(self, lyric_id, cursor):
+        cursor.execute('SELECT name FROM lyricists WHERE ROWID=?', (lyric_id,))
+        result = cursor.fetchone()
+        if result is not None:
+            return result['name']
+
     def getLyricistIdWhereTextInName(self, lyricist, cursor):
         """
         get a list of lyricist IDs containing the lyricist string
@@ -1259,8 +1271,7 @@ class MusicData(TableCreator.TableCreator):
         files = []
         connection, cursor = self.connect()
         if len(file_data) > 0:
-            files = [dict(f) for f in file_data]
-            for file in files:
+            for file in file_data:
                 index = file["rowid"]
                 composer = file["composer_id"]
                 if composer != -1:
@@ -1268,7 +1279,7 @@ class MusicData(TableCreator.TableCreator):
                     cursor.execute(query, (composer,))
                     fetched = cursor.fetchone()
                     if fetched is not None:
-                        file.update(fetched)
+                        composer = fetched['composer']
 
                 lyricist = file["lyricist_id"]
                 if lyricist != -1:
@@ -1276,16 +1287,15 @@ class MusicData(TableCreator.TableCreator):
                     cursor.execute(query, (lyricist,))
                     fetched = cursor.fetchone()
                     if fetched is not None:
-                        file.update(fetched)
+                        lyricist = fetched['lyricist']
                 elem_data = hashdict({"instruments": self.getInstrumentsByPieceId(index, cursor),
                 "clefs" : self.getClefsByPieceId(index, cursor),
                 "keys": self.getKeysByPieceId(index, cursor),
                 "timesigs": self.getTimeSigsByPieceId(index, cursor),
-                "tempos": self.getTemposByPieceId(index, cursor)})
-                file.update({key:elem_data[key] for key in elem_data if len(elem_data[key]) > 0})
-                file.pop("rowid")
-                file.pop("composer_id")
-                file.pop("lyricist_id")
+                "tempos": self.getTemposByPieceId(index, cursor),
+                "filename": file["filename"], "title": file["title"],
+                'composer': composer, 'lyricist': lyricist})
+                files.append(elem_data)
         self.disconnect(connection)
         return files
 
