@@ -1003,7 +1003,7 @@ class MusicData(TableCreator.TableCreator):
     def getPieceByInstrumentInClefs(self, data, archived=0, online=False):
         connection, cursor = self.connect()
         search_ids = []
-        tuple_data = [instrument for instrument in data]
+        tuple_data = list(data.keys())
         clef_ids = {}
         file_list = []
         for instrument in data:
@@ -1025,11 +1025,7 @@ class MusicData(TableCreator.TableCreator):
                 query += ")"
                 if i != len(tuple_data) - 1:
                     query += ' AND EXISTS '
-            if online:
-                query += ' AND EXISTS '
-            else:
-                query += ' AND NOT EXISTS '
-            query += '(SELECT * FROM sources WHERE piece_id = clef_piece.piece_id)'
+            query = self.do_online_offline_query(query, 'clef_piece.piece_id', online=online)
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
             file_list = self.getPiecesByRowId(results, cursor, archived)
