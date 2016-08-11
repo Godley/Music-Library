@@ -153,12 +153,10 @@ class MusicData(TableCreator.TableCreator):
             octave = 0
             diatonic = 0
             chromatic = 0
-            if "transposition" in item:
-                trans = item["transposition"]
-                if "diatonic" in trans:
-                    diatonic = trans["diatonic"]
-                if "chromatic" in trans:
-                    chromatic = trans["chromatic"]
+            if "diatonic" in item:
+                diatonic = item["diatonic"]
+            if "chromatic" in item:
+                chromatic = item["chromatic"]
             item_data = (item["name"], diatonic, chromatic)
             elements.append(item_data)
         cursor.executemany('INSERT INTO instruments VALUES(?,?,?)', elements)
@@ -275,7 +273,7 @@ class MusicData(TableCreator.TableCreator):
                 cursor.execute(
                     'SELECT ROWID FROM keys WHERE fifths=? AND mode=?', (fifths, mode,))
                 key = cursor.fetchone()
-                if key is not None and len(key) > 0:
+                if key is not None:
                     cursor.execute(
                         'INSERT INTO key_piece_join VALUES(?,?,?)',
                         (key['rowid'],
@@ -298,7 +296,7 @@ class MusicData(TableCreator.TableCreator):
                 cursor.execute(
                     'SELECT ROWID FROM clefs WHERE sign=? AND line=?', (sign, line,))
                 clef_id = cursor.fetchone()
-                if clef_id is not None and len(clef_id) > 0:
+                if clef_id is not None:
                     cursor.execute(
                         'INSERT INTO clef_piece_join VALUES(?,?,?)',
                         (clef_id['rowid'],
@@ -338,7 +336,7 @@ class MusicData(TableCreator.TableCreator):
                  beat_2,
                  minute))
             res = cursor.fetchone()
-            if res is None or len(res) == 0:
+            if res is None:
                 cursor.execute(
                     'INSERT INTO tempos VALUES(?,?,?)',
                     (beat,
@@ -575,9 +573,9 @@ class MusicData(TableCreator.TableCreator):
         Returns 1 id
         """
         cursor.execute('SELECT ROWID FROM lyricists WHERE name=?', (lyricist,))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     def getKeyId(self, key, cursor):
         """
@@ -617,8 +615,7 @@ class MusicData(TableCreator.TableCreator):
             self.getInstrumentIdWhereTextInName(
                 instrument,
                 cursor) for instrument in instruments]
-        tuple_ids = []
-        [tuple_ids.extend(inst_id) for inst_id in instrument_ids]
+        tuple_ids = [inst_id for inst_id in instrument_ids]
         file_list = []
         if len(tuple_ids) > 0:
             query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
@@ -637,10 +634,7 @@ class MusicData(TableCreator.TableCreator):
                 query += ')'
                 if i != len(instrument_ids) - 1:
                     query += ' AND EXISTS '
-            if online:
-                query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = i.piece_id)'
-            else:
-                query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+            query = self.do_online_offline_query(query, 'i.piece_id', online=online)
             query += ";"
 
             input = tuple(tuple_ids)
@@ -664,7 +658,8 @@ class MusicData(TableCreator.TableCreator):
         requested.
         """
         all_pieces = self.getPiecesByInstruments(instruments, archived=archived, online=online)
-        any = {"Instrument: "+instrument: self.getPiecesByInstruments([instrument], archived=archived, online=online) for instrument in instruments}
+        any = {"Instrument: "+instrument: self.getPiecesByInstruments([instrument], archived=archived, online=online)
+               for instrument in instruments}
         result = {}
         if len(all_pieces) > 0:
             result['All Instruments'] = all_pieces
