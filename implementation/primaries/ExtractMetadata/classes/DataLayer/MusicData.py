@@ -615,7 +615,8 @@ class MusicData(TableCreator.TableCreator):
             self.getInstrumentIdWhereTextInName(
                 instrument,
                 cursor) for instrument in instruments]
-        tuple_ids = [inst_id for inst_id in instrument_ids]
+        tuple_ids = []
+        [tuple_ids.extend(inst_id) for inst_id in instrument_ids]
         file_list = []
         if len(tuple_ids) > 0:
             query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
