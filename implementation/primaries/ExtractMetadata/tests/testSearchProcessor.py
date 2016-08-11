@@ -124,8 +124,8 @@ class TestSearchProcessor(unittest.TestCase):
 
     def testTitleOrComposerOrLyricist(self):
         input = "hello, world"
-        self.assertEqual(
-            {"text": ["world", "hello,"]}, SearchProcessor.process(input))
+        self.assertDictEqual(
+            {"text": ["hello,", "world"]}, SearchProcessor.process(input))
 
     def testFilename(self):
         input = "lottie.xml"

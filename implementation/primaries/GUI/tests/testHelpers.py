@@ -3,7 +3,7 @@ from implementation.primaries.GUI import helpers
 
 class testStylesheet(unittest.TestCase):
     def setUp(self):
-        pass
+        self.theme_folder = os.path.join(helpers.get_base_dir(True), 'themes')
 
     def testCleanPath(self):
         path = 'themes/item.png'
@@ -15,13 +15,13 @@ class testStylesheet(unittest.TestCase):
 
     def testParseThemePath(self):
         path = 'themes/item.png'
-        expected_path = os.path.join(helpers.get_base_dir(True), 'themes', 'item.png')
+        expected_path = os.path.join(self.theme_folder, 'item.png')
         if sys.platform != 'win32':
             expected = expected_path
         else:
             expected = "'" + expected_path + "'"
         cleaned_path = helpers.cleanPath(path)
-        self.assertEqual(expected, helpers.parseThemePath(cleaned_path))
+        self.assertEqual(expected, helpers.parseThemePath(cleaned_path, self.theme_folder))
 
     def testParseThemePathWithCSS(self):
         line = 'background: url(/themes/zoom-out.png) center no-repeat;'
@@ -31,18 +31,18 @@ class testStylesheet(unittest.TestCase):
         else:
             expected = "background: url(" + expected_path + ') center no-repeat;'
         cleaned_path = helpers.cleanPath(line)
-        self.assertEqual(expected, helpers.parseThemePath(cleaned_path))
+        self.assertEqual(expected, helpers.parseThemePath(cleaned_path, self.theme_folder))
 
     def testParseIconPath(self):
         path = 'themes/icons/item.png'
         theme = 'ubuntu'
-        new_path = os.path.join(helpers.get_base_dir(True), 'themes', 'icons', 'ubuntu', 'item.png')
+        new_path = os.path.join(self.theme_folder, 'icons', 'ubuntu', 'item.png')
         if sys.platform == 'win32':
             expected = "'" + new_path + "'"
         else:
             expected = new_path
         cleaned_path = helpers.cleanPath(path)
-        themed_path = helpers.parseThemePath(cleaned_path)
+        themed_path = helpers.parseThemePath(cleaned_path, self.theme_folder)
         self.assertEqual(expected, helpers.parseIconPath(themed_path, theme))
 
     def testPostProcessor(self):
