@@ -970,9 +970,9 @@ class MusicData(TableCreator.TableCreator):
     def getPieceByInstrumentInKeys(self, data, archived=0, online=False):
         connection, cursor = self.connect()
         search_ids = []
-        tuple_data = [instrument for instrument in data]
         key_ids = {}
         file_list = []
+        tuple_data = list(data.keys())
         for instrument in data:
             search_ids.append(self.getInstrumentId(instrument, cursor))
             key_ids[instrument] = []
@@ -983,20 +983,17 @@ class MusicData(TableCreator.TableCreator):
                     key_ids[instrument].append(id)
         if len(tuple_data) > 0 and len(key_ids) > 0:
             query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece WHERE EXISTS '
-            for i in range(len(tuple_data)):
+            for i in range(len(data)):
                 query += '(SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ? AND '
                 for j in range(len(key_ids[tuple_data[i]])):
                     query += 'key_id = ?'
                     if j != len(key_ids[tuple_data[i]]) - 1:
                         query += ' AND '
                 query += ")"
-                if i != len(tuple_data) - 1:
+                if i != len(data) - 1:
                     query += ' AND EXISTS '
-            if online:
-                query += ' AND EXISTS '
-            else:
-                query += ' AND NOT EXISTS '
-            query += '(SELECT * FROM sources WHERE piece_id = key_piece.piece_id)'
+            query = self.do_online_offline_query(query, 'key_piece.piece_id', online)
+
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
 
