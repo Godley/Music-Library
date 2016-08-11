@@ -630,32 +630,32 @@ class MusicData(TableCreator.TableCreator):
         tuple_ids = []
         [tuple_ids.extend(inst_id) for inst_id in instrument_ids]
         file_list = []
-        if len(tuple_ids) > 0:
-            query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
-            for i in range(len(instrument_ids)):
-                query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id'
-                # for every new instrument update the query
-                for result in instrument_ids[i]:
-                    if result == instrument_ids[i][0]:
-                        query += ' AND '
-                        query += '('
-                    query += 'instrument_id = ?'
-                    if result != instrument_ids[i][-1]:
-                        query += ' OR '
-                    else:
-                        query += ')'
-                query += ')'
-                if i != len(instrument_ids) - 1:
-                    query += ' AND EXISTS '
-            query = self.do_online_offline_query(query, 'i.piece_id', online=online)
-            query += ";"
+        query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
 
-            input = tuple(tuple_ids)
-            cursor.execute(query, input)
-            results = cursor.fetchall()
+        for i in range(len(instrument_ids)):
+            query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id'
+            # for every new instrument update the query
+            for result in instrument_ids[i]:
+                if result == instrument_ids[i][0]:
+                    query += ' AND '
+                    query += '('
+                query += 'instrument_id = ?'
+                if result != instrument_ids[i][-1]:
+                    query += ' OR '
+                else:
+                    query += ')'
+            query += ')'
+            if i != len(instrument_ids) - 1:
+                query += ' AND EXISTS '
+        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
+        query += ";"
 
-            file_list = self.getPiecesByRowId(results, cursor, archived)
-            self.disconnect(connection)
+        input = tuple(tuple_ids)
+        cursor.execute(query, input)
+        results = cursor.fetchall()
+
+        file_list = self.getPiecesByRowId(results, cursor, archived)
+        self.disconnect(connection)
         return file_list
 
     def getPiecesByAnyAndAllInstruments(self, instruments, archived=0, online=False):
@@ -1270,32 +1270,35 @@ class MusicData(TableCreator.TableCreator):
         file_data = self.getFileData(filenames, archived=archived, online=online)
         files = []
         connection, cursor = self.connect()
-        if len(file_data) > 0:
-            for file in file_data:
-                index = file["rowid"]
-                composer = file["composer_id"]
-                if composer != -1:
-                    query = 'SELECT name as composer FROM composers WHERE ROWID=?'
-                    cursor.execute(query, (composer,))
-                    fetched = cursor.fetchone()
-                    if fetched is not None:
-                        composer = fetched['composer']
 
-                lyricist = file["lyricist_id"]
-                if lyricist != -1:
-                    query = 'SELECT name as lyricist FROM lyricists WHERE ROWID=?'
-                    cursor.execute(query, (lyricist,))
-                    fetched = cursor.fetchone()
-                    if fetched is not None:
-                        lyricist = fetched['lyricist']
-                elem_data = hashdict({"instruments": self.getInstrumentsByPieceId(index, cursor),
-                "clefs" : self.getClefsByPieceId(index, cursor),
-                "keys": self.getKeysByPieceId(index, cursor),
-                "timesigs": self.getTimeSigsByPieceId(index, cursor),
-                "tempos": self.getTemposByPieceId(index, cursor),
-                "filename": file["filename"], "title": file["title"],
-                'composer': composer, 'lyricist': lyricist})
-                files.append(elem_data)
+        for file in file_data:
+            lyricist = ''
+            composer = ''
+            index = file["rowid"]
+            composer_id = file["composer_id"]
+            if composer_id != -1:
+                query = 'SELECT name as composer FROM composers WHERE ROWID=?'
+                cursor.execute(query, (composer_id,))
+                fetched = cursor.fetchone()
+                if fetched is not None:
+                    composer = fetched['composer']
+
+            lyricist_id = file["lyricist_id"]
+            if lyricist != -1:
+                query = 'SELECT name as lyricist FROM lyricists WHERE ROWID=?'
+                cursor.execute(query, (lyricist_id,))
+                fetched = cursor.fetchone()
+                if fetched is not None:
+                    lyricist = fetched['lyricist']
+            elem_data = hashdict({"instruments": self.getInstrumentsByPieceId(index, cursor),
+            "clefs" : self.getClefsByPieceId(index, cursor),
+            "keys": self.getKeysByPieceId(index, cursor),
+            "timesigs": self.getTimeSigsByPieceId(index, cursor),
+            "tempos": self.getTemposByPieceId(index, cursor),
+            "filename": file["filename"], "title": file["title"],
+            'composer': composer, 'lyricist': lyricist})
+            files.append(filter_dict(elem_data))
+
         self.disconnect(connection)
         return files
 
@@ -1450,4 +1453,6 @@ class MusicData(TableCreator.TableCreator):
         connection.commit()
         self.disconnect(connection)
 
+def filter_dict(entry):
+    return {key: entry[key] for key in entry if len(entry[key]) > 0}
 

@@ -244,12 +244,13 @@ class QueryLayer(object):
         if len(search_data['text']) == len(instrument_list):
             all_matched = True
 
-        instrument_result = self._data.getPiecesByAnyAndAllInstruments(
+        if len(instrument_list) > 0:
+            instrument_result = self._data.getPiecesByAnyAndAllInstruments(
                 instrument_list, online=online)
-        if len(instrument_result) > 0:
-            results.update(instrument_result)
-            if "All Instruments" not in results:
-                all_matched = False
+            if len(instrument_result) > 0:
+                results.update(instrument_result)
+                if "All Instruments" not in results:
+                    all_matched = False
         return results, all_matched
 
     def handleInstrumentQueries(self, search_data, online=False):
@@ -719,9 +720,8 @@ class MusicManager(QueryLayer):
     def getPieceSummary(self, file_list, sort_method="title", online=False):
         info = self._data.getAllPieceInfo(file_list, online=online)
         ids = ["title","composer","lyricist","filename"]
-        results = sorted(info, key=lambda k: str(k[sort_method]))
         summary_strings = []
-        for elem in results:
+        for elem in info:
             entry = " ".join(["{}: {}".format(key, elem[key]) for key in ids if key in elem and elem[key] != ''])
             summary_strings.append((entry, elem['filename']))
         return summary_strings

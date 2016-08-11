@@ -39,8 +39,7 @@ class TestDataLayerGeneral(unittest.TestCase):
     def testFindAllInfoForAPiece(self):
         self.data.addPiece(
             "file.xml", {"tempo": [{"beat": "quarter", "beat_2": "half"}]})
-        self.assertEqual([{"title": "",
-                           "tempos": ["quarter=half"],
+        self.assertEqual([{"tempos": ["quarter=half"],
                            "filename":"file.xml"}],
                          self.data.getAllPieceInfo(["file.xml"]))
 
@@ -48,8 +47,7 @@ class TestDataLayerGeneral(unittest.TestCase):
         self.data.addPiece("file.xml", {"instruments": [{"name": "clarinet"}], "key": {
                            "clarinet": [{"mode": "major", "fifths": 2}]}})
         results = self.data.getAllPieceInfo(["file.xml"])
-        exp = {"title": "",
-                           "instruments": {hashdict(name='clarinet',
+        exp = {"instruments": {hashdict(name='clarinet',
                                                     diatonic=0,
                                                     chromatic=0)},
                            "keys": {"clarinet": ["D major"]},
@@ -59,8 +57,7 @@ class TestDataLayerGeneral(unittest.TestCase):
     def testFindAllInfoForAPieceWhereHasClefs(self):
         self.data.addPiece("file.xml", {"instruments": [{"name": "clarinet"}], "clef": {
                            "clarinet": [{"sign": "G", "line": 2}]}})
-        exp = {"title": "",
-               "instruments": {hashdict(name="clarinet",chromatic=0,diatonic=0)},
+        exp = {"instruments": {hashdict(name="clarinet",chromatic=0,diatonic=0)},
                "clefs": {"clarinet": ["treble"]},
                "filename":"file.xml"}
         result = self.data.getAllPieceInfo(["file.xml"])
@@ -69,8 +66,7 @@ class TestDataLayerGeneral(unittest.TestCase):
     def testFindAllInfoForAPieceWhereHasTransposedInstruments(self):
         self.data.addPiece("file.xml", {"instruments": [
                            {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
-        exp = {"title": "",
-               "instruments": {hashdict(name="clarinet",
+        exp = {"instruments": {hashdict(name="clarinet",
                                         diatonic=-1,
                                         chromatic=-2)},
                'filename': 'file.xml'}
