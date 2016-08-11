@@ -120,7 +120,7 @@ class TempoParser(object):
 
     def encode(self, entry):
         tempo_string = str(entry['beat']) + "="
-        if entry['beat_2'] != -1:
+        if entry['beat_2'] != '-1':
             tempo_string += str(entry['beat_2'])
         elif entry['minute'] != -1:
             tempo_string += str(entry['minute'])
@@ -1219,7 +1219,7 @@ class MusicData(TableCreator.TableCreator):
                 query_input.append(instrument[0][1])
                 query += ''' (SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND instrument_id = ?'''
                 for value in instrument[1]:
-                    query_input.append(value[0])
+                    query_input.append(value['rowid'])
                     query += ''' OR instrument_id =?'''
                 query += ''')'''
                 if instrument != alternates[-1]:
@@ -1278,7 +1278,7 @@ class MusicData(TableCreator.TableCreator):
             cursor.execute(q, (id['time_id'],))
             timesig = cursor.fetchone()
             if timesig is not None and len(timesig) > 0:
-                meters.append(str(timesig['beat']) + "/" + str(timesig['beat_type']))
+                meters.append(str(timesig['beat']) + "/" + str(timesig['b_type']))
         return meters
 
     def getTemposByPieceId(self, piece_id, cursor):

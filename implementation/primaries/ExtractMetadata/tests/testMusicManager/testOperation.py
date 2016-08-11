@@ -2,7 +2,7 @@ import unittest
 import os, sys
 from unittest.mock import MagicMock
 from implementation.primaries.ExtractMetadata.classes import MusicManager
-
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 class TestMusicManager(unittest.TestCase):
 
     def setUp(self):
@@ -38,15 +38,9 @@ class TestMusicManager(unittest.TestCase):
                            'title': 'my metaparsing testcase',
                            'composer': 'charlotte godley',
                            'lyricist': 'fran godley',
-                           'instruments': [{'name': 'Piano'}],
+                           'instruments': {hashdict(name='Piano', chromatic=0, diatonic=0)},
                            'timesigs': ['4/4']}
-        for index in expected_result:
-            self.assertTrue(index in result[0])
-            if index != "clefs" and index != "tempos":
-                self.assertEqual(expected_result[index], result[0][index])
-            else:
-                for item in expected_result[index]:
-                    self.assertTrue(item in result[0][index])
+        self.assertDictEqual(result[0], expected_result)
         self.assertEqual(
             ["testcase2.xml"], self.manager.getFileList())
 

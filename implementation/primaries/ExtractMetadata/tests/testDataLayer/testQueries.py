@@ -1,7 +1,7 @@
 import unittest
 from implementation.primaries.ExtractMetadata.classes.DataLayer.MusicData import MusicData
 import os
-
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 
 class TestDataLayerUserQueries(unittest.TestCase):
 
@@ -190,7 +190,8 @@ class TestDataLayerUserQueries(unittest.TestCase):
                                   {"name": "trumpet",
                                    "transposition": {"diatonic": -1,
                                                      "chromatic": -2}}])
-        self.assertEqual([(1, "clarinet"), (2, "trumpet")], self.data.getInstrumentByTransposition(
+        self.assertEqual([hashdict(rowid=1, name='clarinet'),
+                          hashdict(rowid=2, name='trumpet')], self.data.getInstrumentByTransposition(
             {"diatonic": -1, "chromatic": -2}))
 
     def testFindSimilarInstruments(self):
@@ -201,7 +202,7 @@ class TestDataLayerUserQueries(unittest.TestCase):
                                    "transposition": {"diatonic": -1,
                                                      "chromatic": -2}}])
         self.assertEqual(
-            [(2, "trumpet")], self.data.getInstrumentsBySameTranspositionAs("clarinet"))
+            [hashdict(name='trumpet', rowid=2)], self.data.getInstrumentsBySameTranspositionAs("clarinet"))
 
     def testFindSimilarInstrumentsWhereOneIsDiff(self):
         self.data.addInstruments([{"name": "clarinet",
@@ -214,7 +215,7 @@ class TestDataLayerUserQueries(unittest.TestCase):
                                    "transposition": {"diatonic": -1,
                                                      "chromatic": -2}}])
         self.assertEqual(
-            [(3, "trumpet")], self.data.getInstrumentsBySameTranspositionAs("clarinet"))
+            [hashdict(name='trumpet', rowid=3)], self.data.getInstrumentsBySameTranspositionAs("clarinet"))
 
     def testFindPiecesContainingInstrumentsOrSimilar(self):
         self.data.addPiece(
