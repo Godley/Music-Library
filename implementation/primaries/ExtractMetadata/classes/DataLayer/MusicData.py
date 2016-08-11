@@ -311,7 +311,7 @@ class MusicData(TableCreator.TableCreator):
             cursor.execute(
                 'SELECT ROWID FROM timesigs WHERE beat=? AND b_type=?', (beat, b_type))
             res = cursor.fetchone()
-            if res is None or len(res) == 0:
+            if res is None:
                 cursor.execute(
                     'INSERT INTO timesigs VALUES(?,?)', (beat, b_type))
                 connection.commit()
@@ -413,10 +413,7 @@ class MusicData(TableCreator.TableCreator):
     def getFileList(self, online=False):
         connection, cursor = self.connect()
         query = 'SELECT filename FROM pieces p WHERE p.archived=0'
-        if not online:
-            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
-        else:
-            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        query = self.do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query)
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -442,7 +439,8 @@ class MusicData(TableCreator.TableCreator):
 
         connection, cursor = self.connect()
         thing = (filename, "%" + filename + "%", archived,)
-        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces p WHERE (p.filename=? OR p.filename LIKE ?) AND p.archived=?'
+        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id ' \
+                'FROM pieces p WHERE (p.filename=? OR p.filename LIKE ?) AND p.archived=?'
         query = self.do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
 
@@ -460,7 +458,8 @@ class MusicData(TableCreator.TableCreator):
         """
         connection, cursor = self.connect()
         thing = (filename, archived,)
-        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces p WHERE (p.filename=?) AND p.archived=?'
+        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id ' \
+                'FROM pieces p WHERE (p.filename=?) AND p.archived=?'
         query = self.do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
 
@@ -527,7 +526,8 @@ class MusicData(TableCreator.TableCreator):
         :return: int pertaining to row id of composer in database
         """
         cursor.execute(
-            'SELECT ROWID FROM composers WHERE name=? OR name LIKE ? OR name LIKE ? OR name LIKE ?',
+            'SELECT ROWID FROM composers WHERE name=? '
+            'OR name LIKE ? OR name LIKE ? OR name LIKE ?',
             (composer,
              "%" +
              composer +
@@ -546,9 +546,9 @@ class MusicData(TableCreator.TableCreator):
         :return: int pertaining to row id of composer in database
         """
         cursor.execute('SELECT ROWID FROM composers WHERE name=?', (composer,))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     def getLyricistIdWhereTextInName(self, lyricist, cursor):
         """
@@ -658,7 +658,8 @@ class MusicData(TableCreator.TableCreator):
         requested.
         """
         all_pieces = self.getPiecesByInstruments(instruments, archived=archived, online=online)
-        any = {"Instrument: "+instrument: self.getPiecesByInstruments([instrument], archived=archived, online=online)
+        any = {"Instrument: "+instrument:
+                   self.getPiecesByInstruments([instrument], archived=archived, online=online)
                for instrument in instruments}
         result = {}
         if len(all_pieces) > 0:
@@ -705,10 +706,7 @@ class MusicData(TableCreator.TableCreator):
                     query += "OR p.composer_id LIKE ?"
                 if id == composer_ids[-1]:
                     query += ")"
-            if online:
-                query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
-            else:
-                query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+            query = self.do_online_offline_query(query, 'p.ROWID', online=online)
             input_list = [archived]
             input_list.extend(composer_ids)
             input = tuple(input_list)
@@ -734,10 +732,7 @@ class MusicData(TableCreator.TableCreator):
                     query += "OR p.lyricist_id LIKE ?"
                 if id == lyricist_ids[-1]:
                     query += ")"
-            if online:
-                query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
-            else:
-                query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+            query = self.do_online_offline_query(query, 'p.ROWID', online=online)
             input_list = [archived]
             input_list.extend(lyricist_ids)
             input = tuple(input_list)
@@ -755,11 +750,9 @@ class MusicData(TableCreator.TableCreator):
         """
         connection, cursor = self.connect()
         thing = (title, "%" + title + "%", title + "%", "%" + title, archived,)
-        query = 'SELECT * FROM pieces p WHERE (p.title=? OR p.title LIKE ? OR p.title LIKE ? OR p.title LIKE ?) AND p.archived=?'
-        if online:
-            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
-        else:
-            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        query = 'SELECT * FROM pieces p WHERE (p.title=? OR p.title LIKE ?' \
+                ' OR p.title LIKE ? OR p.title LIKE ?) AND p.archived=?'
+        query = self.do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
         result = cursor.fetchall()
         result = [r['filename'] for r in result]
@@ -774,14 +767,11 @@ class MusicData(TableCreator.TableCreator):
         """
         connection, cursor = self.connect()
         key_ids = [self.getKeyId(key, cursor) for key in keys]
-        query = 'SELECT i.piece_id FROM key_piece_join i WHERE EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
+        query = 'SELECT i.piece_id FROM key_piece_join i WHERE EXISTS ' \
+                '(SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
         for i in range(1, len(key_ids)):
             query += ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
         query += ";"
         input = tuple(key_ids)
         cursor.execute(query, input)
@@ -799,12 +789,10 @@ class MusicData(TableCreator.TableCreator):
         :return:
         """
         connection, cursor = self.connect()
-        query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = key_piece.piece_id)'
+        query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join ' \
+                'key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
+
+        query = self.do_online_offline_query(query, 'key_piece.piece_id', online=online)
         cursor.execute(query, (modularity,))
         key_set = cursor.fetchall()
         file_list = self.getPiecesByRowId(key_set, cursor, archived)
@@ -819,11 +807,7 @@ class MusicData(TableCreator.TableCreator):
                     AND i.diatonic = 0 AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
                     AND piece.archived = ? AND EXISTS (SELECT NULL FROM key_piece_join WHERE key_id = k.ROWID AND piece_id != key_piece.piece_id)
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -840,11 +824,7 @@ class MusicData(TableCreator.TableCreator):
                     WHERE clef_piece.clef_id = clef.ROWID AND piece.ROWID = clef_piece.piece_id
                     AND piece.archived = ? AND EXISTS (SELECT NULL FROM clef_piece_join WHERE clef_id = clef_piece.clef_id AND piece_id != clef_piece.piece_id)
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -861,11 +841,7 @@ class MusicData(TableCreator.TableCreator):
                     WHERE time_piece.time_id = time_sig.ROWID AND piece.ROWID = time_piece.piece_id
                     AND piece.archived = ? AND EXISTS(SELECT null FROM time_piece_join WHERE time_id=time_sig.ROWID AND time_piece_join.piece_id != time_piece.piece_id)
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -885,11 +861,7 @@ class MusicData(TableCreator.TableCreator):
                     AND EXISTS (SELECT * FROM tempo_piece_join WHERE tempo_id = tempo_piece.tempo_id AND piece_id != tempo_piece.piece_id)
                     AND piece.archived = ?
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -945,11 +917,7 @@ class MusicData(TableCreator.TableCreator):
                     AND EXISTS (SELECT * FROM pieces WHERE composer_id = comp.ROWID AND ROWID != piece.ROWID)
                     AND piece.archived = ?
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -967,11 +935,7 @@ class MusicData(TableCreator.TableCreator):
                     AND EXISTS (SELECT * FROM pieces WHERE lyricist_id = piece.lyricist_id AND ROWID != piece.ROWID)
                     AND piece.archived = ?
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -993,11 +957,7 @@ class MusicData(TableCreator.TableCreator):
         query = 'SELECT i.piece_id FROM clef_piece_join i WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
         for i in range(1, len(clef_ids)):
             query += ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
         query += ";"
         input = tuple(clef_ids)
         cursor.execute(query, input)
