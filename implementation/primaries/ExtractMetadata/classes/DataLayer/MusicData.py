@@ -233,13 +233,8 @@ class MusicData(TableCreator.TableCreator):
 
     def createOrGetInstruments(self, instrument_list, connection, cursor, piece_id):
         for item in instrument_list:
-            diatonic = 0
-            chromatic = 0
-            if "diatonic" in item:
-                diatonic = item["diatonic"]
-
-            if "chromatic" in item:
-                chromatic = item["chromatic"]
+            diatonic = get_if_exists(item, "diatonic")
+            chromatic = get_if_exists(item, "chromatic")
 
             inst_id = self.getInstrumentIdByNameAndTrans(item, cursor)
             if inst_id is None:
