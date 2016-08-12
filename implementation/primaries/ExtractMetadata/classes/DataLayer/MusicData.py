@@ -696,12 +696,8 @@ class MusicData(TableCreator.TableCreator):
         connection, cursor = self.connect()
         composer_ids = self.getComposerIdWhereTextInName(composer, cursor)
         if len(composer_ids) > 0:
-            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND (p.composer_id=?'
-            for id in composer_ids:
-                if id != composer_ids[-1]:
-                    query += "OR p.composer_id LIKE ?"
-                if id == composer_ids[-1]:
-                    query += ")"
+            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND '
+            query += extendJoinQuery(len(composer_ids), 'p.composer_id LIKE ?', ' OR ', init_string='(')
             query = do_online_offline_query(query, 'p.ROWID', online=online)
             input_list = [archived]
             input_list.extend(composer_ids)
@@ -722,12 +718,8 @@ class MusicData(TableCreator.TableCreator):
         lyricist_ids = self.getLyricistIdWhereTextInName(lyricist, cursor)
         file_list = []
         if len(lyricist_ids) > 0:
-            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND (p.lyricist_id=?'
-            for id in lyricist_ids:
-                if id != lyricist_ids[-1]:
-                    query += "OR p.lyricist_id LIKE ?"
-                if id == lyricist_ids[-1]:
-                    query += ")"
+            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND '
+            query += extendJoinQuery(len(lyricist_ids), 'p.lyricist_id LIKE ?', ' OR ', init_string='(')
             query = do_online_offline_query(query, 'p.ROWID', online=online)
             input_list = [archived]
             input_list.extend(lyricist_ids)
