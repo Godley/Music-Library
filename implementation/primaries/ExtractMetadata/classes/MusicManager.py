@@ -213,29 +213,24 @@ class QueryLayer(object):
         for value in search_data["text"]:
             combined = {}
             file_result = self._data.getRoughPiece(value, online=online)
-            if len(file_result) > 0:
-                combined["filename"] = [result['filename']
-                                        for result in file_result]
+            combined["filename"] = file_result
 
             title_result = self._data.getPieceByTitle(
                 value, online=online)
-            if len(title_result) > 0:
-                combined["Title"] = title_result
+            combined["Title"] = title_result
 
             composer_result = self._data.getPiecesByComposer(
                 value, online=online)
-            if len(composer_result) > 0:
-                combined["Composer"] = composer_result
+            combined["Composer"] = composer_result
 
             lyricist_result = self._data.getPiecesByLyricist(
                 value, online=online)
-            if len(lyricist_result) > 0:
-                combined["Lyricist"] = lyricist_result
+            combined["Lyricist"] = lyricist_result
 
             if value in instruments:
                 instrument_list.append(value)
 
-
+            combined = {key:combined[key] for key in combined if len(combined[key]) > 0}
             if len(combined) > 0:
                 results.update(combined)
             else:

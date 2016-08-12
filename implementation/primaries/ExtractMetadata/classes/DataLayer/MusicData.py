@@ -437,7 +437,7 @@ class MusicData(TableCreator.TableCreator):
 
         result = cursor.fetchall()
         self.disconnect(connection)
-        return result
+        return [r['filename'] for r in result]
 
     def getExactPiece(self, filename, archived=0, online=False):
         """
