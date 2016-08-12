@@ -87,7 +87,7 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
                 "flute": [
                     "file.xml",
                     "file2.xml"],
-                "clarinet\n(Transposed By 1 Diatonic \n2 Chromatic)": [
+                "clarinet transposed 1 diatonic 2 chromatic": [
                     "file.xml",
                     "file1.xml"]},
             result)
@@ -108,7 +108,7 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
                 "clarinet": [
                     "file.xml",
                     "file1.xml"],
-                "clarinet\n(Transposed By 1 Diatonic \n)": [
+                "clarinet transposed 1 diatonic 0 chromatic": [
                     "file.xml",
                     "file2.xml"]}
         self.assertEqual(exp, result)

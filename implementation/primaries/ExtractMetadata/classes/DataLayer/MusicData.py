@@ -45,7 +45,7 @@ there's going to be a lot to group, put them in a new test file.
 import sqlite3
 from implementation.primaries.ExtractMetadata.classes.DataLayer import TableCreator
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
-from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, do_online_offline_query
+from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, do_online_offline_query, get_if_exists
 
 
 class TempoParser(object):
@@ -261,17 +261,17 @@ class MusicData(TableCreator.TableCreator):
     def createKeyLinks(self, keysig_dict, connection, cursor, piece_id):
         for instrument in keysig_dict:
             for key in keysig_dict[instrument]:
-                fifths = 0
-                mode = "major"
-                if "fifths" in key:
-                    fifths = key["fifths"]
-                if "mode" in key:
-                    mode = key["mode"]
+                query = 'SELECT ROWID FROM keys WHERE fifths=? AND mode=?'
+                fifths = get_if_exists(key, "fifths")
+                mode = get_if_exists(key, "mode")
+                values = (fifths, mode,)
+                if type(key) is str:
+                    query = 'SELECT ROWID FROM keys WHERE name = ?'
+                    values = (key,)
                 instrument_id = self.getInstrumentId(instrument, cursor)
                 if instrument_id is None:
                     instrument_id = -1
-                cursor.execute(
-                    'SELECT ROWID FROM keys WHERE fifths=? AND mode=?', (fifths, mode,))
+                cursor.execute(query, values)
                 key = cursor.fetchone()
                 if key is not None:
                     cursor.execute(
@@ -898,9 +898,14 @@ class MusicData(TableCreator.TableCreator):
 
 
         for pair in results:
-            if pair['name'] not in instrument_dict:
-                instrument_dict[pair['name']] = []
-            instrument_dict[pair['name']].append(pair['filename'])
+            if pair['diatonic'] != 0 or pair['chromatic'] != 0:
+                key_val = "{} transposed {} diatonic {} chromatic".format(pair['name'], pair['diatonic'],
+                                                                   pair['chromatic'])
+            else:
+                key_val = pair['name']
+            if key_val not in instrument_dict:
+                instrument_dict[key_val] = []
+            instrument_dict[key_val].append(pair['filename'])
         return instrument_dict
 
     def getPiecesByAllComposers(self, archived=0, online=False):
