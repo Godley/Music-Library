@@ -1231,16 +1231,14 @@ class MusicData(TableCreator.TableCreator):
                 query = 'SELECT name as composer FROM composers WHERE ROWID=?'
                 cursor.execute(query, (composer_id,))
                 fetched = cursor.fetchone()
-                if fetched is not None:
-                    composer = fetched['composer']
+                composer = fetched['composer']
 
             lyricist_id = file["lyricist_id"]
             if lyricist != -1:
                 query = 'SELECT name as lyricist FROM lyricists WHERE ROWID=?'
                 cursor.execute(query, (lyricist_id,))
                 fetched = cursor.fetchone()
-                if fetched is not None:
-                    lyricist = fetched['lyricist']
+                lyricist = fetched['lyricist']
             elem_data = hashdict({"instruments": self.getInstrumentsByPieceId(index, cursor),
             "clefs" : self.getClefsByPieceId(index, cursor),
             "keys": self.getKeysByPieceId(index, cursor),
@@ -1405,5 +1403,5 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
 
 def filter_dict(entry):
-    return {key: entry[key] for key in entry if len(entry[key]) > 0}
+    return {key: entry[key] for key in entry if len(entry[key]) > 0 and entry[key] is not None}
 
