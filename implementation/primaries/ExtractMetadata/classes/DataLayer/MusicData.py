@@ -265,8 +265,6 @@ class MusicData(TableCreator.TableCreator):
                     query = 'SELECT ROWID FROM keys WHERE name = ?'
                     values = (key,)
                 instrument_id = self.getInstrumentId(instrument, cursor)
-                if instrument_id is None:
-                    instrument_id = -1
                 cursor.execute(query, values)
                 key = cursor.fetchone()
                 if key is not None:
@@ -283,8 +281,6 @@ class MusicData(TableCreator.TableCreator):
                 sign = get_if_exists(clef, "sign", default="G")
                 line = get_if_exists(clef, "line", default=2)
                 instrument_id = self.getInstrumentId(instrument, cursor)
-                if instrument_id is None:
-                    instrument_id = -1
                 cursor.execute(
                     'SELECT ROWID FROM clefs WHERE sign=? AND line=?', (sign, line,))
                 clef_id = cursor.fetchone()
@@ -509,6 +505,8 @@ class MusicData(TableCreator.TableCreator):
         result = cursor.fetchone()
         if result is not None:
             return result['rowid']
+        else:
+            return -1
 
     def getComposerIdWhereTextInName(self, composer, cursor):
         """
@@ -1137,7 +1135,7 @@ class MusicData(TableCreator.TableCreator):
         instrument_keys = []
         for elem in instruments:
             key = self.getInstrumentId(elem["name"], cursor)
-            if key is not None:
+            if key is not -1:
                 instrument_keys.append((elem, key))
         results = self.getPiecesByInstruments(
             [instrument["name"] for instrument in instruments])
