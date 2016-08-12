@@ -1229,19 +1229,11 @@ class MusicData(TableCreator.TableCreator):
             index = file["rowid"]
             composer_id = file["composer_id"]
             if composer_id != -1:
-                query = 'SELECT name as composer FROM composers WHERE ROWID=?'
-                cursor.execute(query, (composer_id,))
-                fetched = cursor.fetchone()
-                if fetched is not None:
-                    composer = fetched['composer']
+                composer = self.getComposerName(composer_id, cursor)
 
             lyricist_id = file["lyricist_id"]
-            if lyricist != -1:
-                query = 'SELECT name as lyricist FROM lyricists WHERE ROWID=?'
-                cursor.execute(query, (lyricist_id,))
-                fetched = cursor.fetchone()
-                if fetched is not None:
-                    lyricist = fetched['lyricist']
+            if lyricist_id != -1:
+                lyricist = self.getLyricistName(lyricist_id, cursor)
             elem_data = hashdict({"instruments": self.getInstrumentsByPieceId(index, cursor),
             "clefs" : self.getClefsByPieceId(index, cursor),
             "keys": self.getKeysByPieceId(index, cursor),
