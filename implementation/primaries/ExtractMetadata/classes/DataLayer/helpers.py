@@ -19,7 +19,7 @@ def do_online_offline_query(query, piece_id_field, online=False):
     new_query += '(SELECT * FROM sources WHERE piece_id = '+piece_id_field+')'
     return new_query
 
-def get_if_exists(dict, key):
+def get_if_exists(dict, key, default=0):
     if key in dict:
         return dict[key]
-    return 0
+    return default

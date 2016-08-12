@@ -284,12 +284,8 @@ class MusicData(TableCreator.TableCreator):
     def createClefLinks(self, clef_dict, connection, cursor, piece_id):
         for instrument in clef_dict:
             for clef in clef_dict[instrument]:
-                sign = "G"
-                line = 2
-                if "sign" in clef:
-                    sign = clef["sign"]
-                if "line" in clef:
-                    line = clef["line"]
+                sign = get_if_exists(clef, "sign", default="G")
+                line = get_if_exists(clef, "line", default=2)
                 instrument_id = self.getInstrumentId(instrument, cursor)
                 if instrument_id is None:
                     instrument_id = -1
