@@ -419,15 +419,14 @@ class QueryLayer(object):
 
 
         summaries = {}
-        if len(results) > 0:
-            if all_matched:
-                intersection = set.intersection(
-                    *[set(results[key]) for key in results])
-                if len(intersection) > 0:
-                    results["Exact Matches"] = intersection
-            for key in results:
-                summaries[key] = self.getPieceSummary(
-                    results[key], online=online)
+        if all_matched:
+            intersection = set.intersection(
+                *[set(results[key]) for key in results])
+            if len(intersection) > 0:
+                results["Exact Matches"] = intersection
+        for key in results:
+            summaries[key] = self.getPieceSummary(
+                results[key], online=online)
         return summaries
 
     def getPlaylistFileInfo(self, playlist):
@@ -526,17 +525,17 @@ class MusicManager(QueryLayer):
             errorList.append(
                 "Sax parser had a problem with this file:" + str(e))
             logger.exception("Exception SAX parsing file:{} - {}".format(fname, str(e)))
-        if piece_obj is not None:
-            try:
-                loader = LilypondOutput.LilypondRenderer(
-                    piece_obj,
-                    os.path.join(
-                        self.folder,
-                        fname))
-                loader.run()
-            except BaseException as e:
-                errorList.append(str(e))
-                logger.exception("Exception rendering lilypond with file:{} - {}".format(fname, str(e)))
+
+        try:
+            loader = LilypondOutput.LilypondRenderer(
+                piece_obj,
+                os.path.join(
+                    self.folder,
+                    fname))
+            loader.run()
+        except BaseException as e:
+            errorList.append(str(e))
+            logger.exception("Exception rendering lilypond with file:{} - {}".format(fname, str(e)))
         return errorList
 
     def unzipApiFiles(self, data_set):
