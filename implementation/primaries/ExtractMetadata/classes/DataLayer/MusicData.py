@@ -635,15 +635,7 @@ class MusicData(TableCreator.TableCreator):
         for i in range(len(instrument_ids)):
             query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id'
             # for every new instrument update the query
-            for result in instrument_ids[i]:
-                if result == instrument_ids[i][0]:
-                    query += ' AND '
-                    query += '('
-                query += 'instrument_id = ?'
-                if result != instrument_ids[i][-1]:
-                    query += ' OR '
-                else:
-                    query += ')'
+            query += self.extendJoinQuery(instrument_ids[i], 'instrument_id = ?', ' OR ', init_string=' AND (')
             query += ')'
             if i != len(instrument_ids) - 1:
                 query += ' AND EXISTS '
@@ -1000,8 +992,8 @@ class MusicData(TableCreator.TableCreator):
         if len(tuple_data) > 0 and len(key_ids) > 0:
             query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece WHERE EXISTS '
             for i in range(len(data)):
-                query += '(SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ? AND '
-                query += self.extendJoinQuery(key_ids[tuple_data[i]], 'key_id = ?')
+                query += '(SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ?'
+                query += self.extendJoinQuery(key_ids[tuple_data[i]], 'key_id = ?', ' AND ', init_string=' AND ')
                 if i != len(data) - 1:
                     query += ' AND EXISTS '
             query = self.do_online_offline_query(query, 'key_piece.piece_id', online)
@@ -1022,7 +1014,7 @@ class MusicData(TableCreator.TableCreator):
             query = 'SELECT clef_piece.piece_id FROM clef_piece_join clef_piece WHERE EXISTS '
             for i in range(len(tuple_data)):
                 query += '(SELECT * FROM clef_piece_join WHERE piece_id = clef_piece.piece_id AND instrument_id = ?'
-                query += self.extendJoinQuery(clef_ids[tuple_data[i]], 'clef_id = ?')
+                query += self.extendJoinQuery(clef_ids[tuple_data[i]], 'clef_id = ?', ' AND ', init_string=' AND ')
                 if i != len(tuple_data) - 1:
                     query += ' AND EXISTS '
             query = self.do_online_offline_query(query, 'clef_piece.piece_id', online=online)
@@ -1031,13 +1023,16 @@ class MusicData(TableCreator.TableCreator):
             file_list = self.getPiecesByRowId(results, cursor, archived)
         return file_list
 
-    def extendJoinQuery(self, iterable, extender):
+    def extendJoinQuery(self, iterable, extender, operand, init_string=''):
         query = ''
-        for i in iterable:
-            if i != len(iterable) - 1:
-                query += ' AND '
+        for i in range(len(iterable)):
+            if i == 0:
+                query += init_string
             query += extender
-        query += ')'
+            if i != len(iterable) - 1:
+                query += operand
+        if len(iterable) > 0:
+            query += ')'
         return query
 
     def getPieceByMeter(self, meters, archived=0, online=False):
