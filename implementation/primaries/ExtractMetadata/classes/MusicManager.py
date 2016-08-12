@@ -6,7 +6,7 @@ import requests.exceptions
 
 from implementation.primaries.ExtractMetadata.classes import MusicData, MetaParser, OnlineMetaParser
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
-from implementation.primaries.GUI.helpers import get_base_dir
+from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import filter_dict_for_empties
 from MuseParse.classes.Output import LilypondOutput
 from MuseParse.classes import Exceptions
 from MuseParse.classes.Input import MxmlParser
@@ -449,6 +449,11 @@ class QueryLayer(object):
 
     def getPlaylists(self, select_method="all"):
         result_set = {}
+        playlist_table = {"clefs": self._data.getPiecesByAllClefs,
+                          "time signatures": self._data.getPiecesByAllTimeSigs,
+                          "keys": self._data.getPiecesByAllKeys,
+                          "instruments": self._data.getPiecesByAllInstruments,
+                          "tempos": self._data.getPiecesByAllTempos}
         if select_method == "all":
             clefs = self._data.getPiecesByAllClefs()
             keys = self._data.getPiecesByAllKeys()
@@ -457,47 +462,18 @@ class QueryLayer(object):
             instruments = self._data.getPiecesByAllInstruments()
             timesigs = self._data.getPiecesByAllTimeSigs()
             tempos = self._data.getPiecesByAllTempos()
-            if len(clefs) > 0:
-                result_set["clefs"] = clefs
-            if len(keys) > 0:
-                result_set["keys"] = keys
-            if len(composers) > 0:
-                result_set["composers"] = composers
-            if len(lyricists) > 0:
-                result_set["lyricsts"] = lyricists
-            if len(instruments) > 0:
-                result_set["instruments"] = instruments
-            if len(timesigs) > 0:
-                result_set["time_signatures"] = timesigs
-            if len(tempos) > 0:
-                result_set["tempos"] = tempos
+            result_set["clefs"] = clefs
+            result_set["keys"] = keys
+            result_set["composers"] = composers
+            result_set["lyricsts"] = lyricists
+            result_set["instruments"] = instruments
+            result_set["time_signatures"] = timesigs
+            result_set["tempos"] = tempos
 
-        if select_method == "clefs":
-            clefs = self._data.getPiecesByAllClefs()
-            if len(clefs) > 0:
-                result_set["clefs"] = clefs
+        else:
+            result_set[select_method] = playlist_table[select_method]()
 
-        if select_method == "time signatures":
-            timesigs = self._data.getPiecesByAllTimeSigs()
-            if len(timesigs) > 0:
-                result_set["time_signatures"] = timesigs
-
-        if select_method == "keys":
-            keys = self._data.getPiecesByAllKeys()
-            if len(keys) > 0:
-                result_set["keys"] = keys
-
-        if select_method == "instruments":
-            instruments = self._data.getPiecesByAllInstruments()
-            if len(instruments) > 0:
-                result_set["instruments"] = instruments
-
-        if select_method == "tempos":
-            tempos = self._data.getPiecesByAllTempos()
-            if len(tempos) > 0:
-                result_set["tempos"] = tempos
-
-        return result_set
+        return filter_dict_for_empties(result_set)
 
 class MusicManager(QueryLayer):
     """

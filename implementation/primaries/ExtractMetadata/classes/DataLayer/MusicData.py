@@ -45,7 +45,8 @@ there's going to be a lot to group, put them in a new test file.
 import sqlite3
 from implementation.primaries.ExtractMetadata.classes.DataLayer import TableCreator
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
-from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, do_online_offline_query, get_if_exists
+from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, \
+    do_online_offline_query, get_if_exists, filter_dict_for_empties
 
 
 class TempoParser(object):
@@ -1231,14 +1232,16 @@ class MusicData(TableCreator.TableCreator):
                 query = 'SELECT name as composer FROM composers WHERE ROWID=?'
                 cursor.execute(query, (composer_id,))
                 fetched = cursor.fetchone()
-                composer = fetched['composer']
+                if fetched is not None:
+                    composer = fetched['composer']
 
             lyricist_id = file["lyricist_id"]
             if lyricist != -1:
                 query = 'SELECT name as lyricist FROM lyricists WHERE ROWID=?'
                 cursor.execute(query, (lyricist_id,))
                 fetched = cursor.fetchone()
-                lyricist = fetched['lyricist']
+                if fetched is not None:
+                    lyricist = fetched['lyricist']
             elem_data = hashdict({"instruments": self.getInstrumentsByPieceId(index, cursor),
             "clefs" : self.getClefsByPieceId(index, cursor),
             "keys": self.getKeysByPieceId(index, cursor),
@@ -1246,7 +1249,7 @@ class MusicData(TableCreator.TableCreator):
             "tempos": self.getTemposByPieceId(index, cursor),
             "filename": file["filename"], "title": file["title"],
             'composer': composer, 'lyricist': lyricist})
-            files.append(filter_dict(elem_data))
+            files.append(filter_dict_for_empties(elem_data))
 
         self.disconnect(connection)
         return files
@@ -1402,6 +1405,5 @@ class MusicData(TableCreator.TableCreator):
         connection.commit()
         self.disconnect(connection)
 
-def filter_dict(entry):
-    return {key: entry[key] for key in entry if len(entry[key]) > 0 and entry[key] is not None}
+
 
