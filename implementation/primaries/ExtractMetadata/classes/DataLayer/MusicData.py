@@ -979,20 +979,24 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         return file_list
 
-    def getPieceByInstrumentInKeys(self, data, archived=0, online=False):
-        connection, cursor = self.connect()
-        search_ids = []
-        key_ids = {}
-        file_list = []
-        tuple_data = list(data.keys())
-        for instrument in data:
-            search_ids.append(self.getInstrumentId(instrument, cursor))
-            key_ids[instrument] = []
-            for key in data[instrument]:
+    def createInstrumentDictionaryAndList(self, instruments, cursor):
+        inst_list = []
+        inst_dict = {}
+        for instrument in instruments:
+            inst_list.append(self.getInstrumentId(instrument, cursor))
+            inst_dict[instrument] = []
+            for key in inst_dict[instrument]:
                 id = self.getKeyId(key, cursor)
                 if id is not None:
-                    search_ids.append(id)
-                    key_ids[instrument].append(id)
+                    inst_list.append(id)
+                    inst_dict[instrument].append(id)
+        return inst_list, inst_dict
+
+    def getPieceByInstrumentInKeys(self, data, archived=0, online=False):
+        connection, cursor = self.connect()
+        file_list = []
+        tuple_data = list(data.keys())
+        search_ids, key_ids = self.createInstrumentDictionaryAndList(data, cursor)
         if len(tuple_data) > 0 and len(key_ids) > 0:
             query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece WHERE EXISTS '
             for i in range(len(data)):
@@ -1014,18 +1018,10 @@ class MusicData(TableCreator.TableCreator):
 
     def getPieceByInstrumentInClefs(self, data, archived=0, online=False):
         connection, cursor = self.connect()
-        search_ids = []
         tuple_data = list(data.keys())
-        clef_ids = {}
         file_list = []
-        for instrument in data:
-            search_ids.append(self.getInstrumentId(instrument, cursor))
-            clef_ids[instrument] = []
-            for key in data[instrument]:
-                id = self.getClefId(key, cursor)
-                if id is not None:
-                    search_ids.append(id)
-                    clef_ids[instrument].append(id)
+        search_ids, clef_ids = self.createInstrumentDictionaryAndList(data, cursor)
+
         if len(tuple_data) > 0 and len(clef_ids) > 0:
             query = 'SELECT clef_piece.piece_id FROM clef_piece_join clef_piece WHERE EXISTS '
             for i in range(len(tuple_data)):
