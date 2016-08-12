@@ -1133,17 +1133,15 @@ class MusicData(TableCreator.TableCreator):
         connection, cursor = self.connect()
         file_list = []
         instrument_keys = []
+        alternates = []
         for elem in instruments:
             key = self.getInstrumentId(elem["name"], cursor)
             if key is not -1:
                 instrument_keys.append((elem, key))
+                alternates.append(((elem, key), self.getInstrumentsBySameTranspositionAs(elem['name'])))
         results = self.getPiecesByInstruments(
             [instrument["name"] for instrument in instruments])
         if len(results) == 0:
-            alternates = [
-                (item,
-                 self.getInstrumentsBySameTranspositionAs(
-                     item[0]["name"])) for item in instrument_keys]
             file_list = self.getPieceByAlternateInstruments(cursor, alternates, archived, online)
 
         self.disconnect(connection)
