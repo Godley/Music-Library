@@ -45,7 +45,7 @@ there's going to be a lot to group, put them in a new test file.
 import sqlite3
 from implementation.primaries.ExtractMetadata.classes.DataLayer import TableCreator
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
-
+from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, do_online_offline_query
 
 
 class TempoParser(object):
@@ -413,7 +413,7 @@ class MusicData(TableCreator.TableCreator):
     def getFileList(self, online=False):
         connection, cursor = self.connect()
         query = 'SELECT filename FROM pieces p WHERE p.archived=0'
-        query = self.do_online_offline_query(query, 'p.ROWID', online=online)
+        query = do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query)
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -441,7 +441,7 @@ class MusicData(TableCreator.TableCreator):
         thing = (filename, "%" + filename + "%", archived,)
         query = 'SELECT ROWID, filename, title, composer_id, lyricist_id ' \
                 'FROM pieces p WHERE (p.filename=? OR p.filename LIKE ?) AND p.archived=?'
-        query = self.do_online_offline_query(query, 'p.ROWID', online=online)
+        query = do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
 
         result = cursor.fetchall()
@@ -460,7 +460,7 @@ class MusicData(TableCreator.TableCreator):
         thing = (filename, archived,)
         query = 'SELECT ROWID, filename, title, composer_id, lyricist_id ' \
                 'FROM pieces p WHERE (p.filename=?) AND p.archived=?'
-        query = self.do_online_offline_query(query, 'p.ROWID', online=online)
+        query = do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
 
         result = cursor.fetchone()
@@ -635,11 +635,11 @@ class MusicData(TableCreator.TableCreator):
         for i in range(len(instrument_ids)):
             query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id'
             # for every new instrument update the query
-            query += self.extendJoinQuery(instrument_ids[i], 'instrument_id = ?', ' OR ', init_string=' AND (')
+            query += extendJoinQuery(len(instrument_ids[i]), 'instrument_id = ?', ' OR ', init_string=' AND (')
             query += ')'
             if i != len(instrument_ids) - 1:
                 query += ' AND EXISTS '
-        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
         query += ";"
 
         input = tuple(tuple_ids)
@@ -711,7 +711,7 @@ class MusicData(TableCreator.TableCreator):
                     query += "OR p.composer_id LIKE ?"
                 if id == composer_ids[-1]:
                     query += ")"
-            query = self.do_online_offline_query(query, 'p.ROWID', online=online)
+            query = do_online_offline_query(query, 'p.ROWID', online=online)
             input_list = [archived]
             input_list.extend(composer_ids)
             input = tuple(input_list)
@@ -737,7 +737,7 @@ class MusicData(TableCreator.TableCreator):
                     query += "OR p.lyricist_id LIKE ?"
                 if id == lyricist_ids[-1]:
                     query += ")"
-            query = self.do_online_offline_query(query, 'p.ROWID', online=online)
+            query = do_online_offline_query(query, 'p.ROWID', online=online)
             input_list = [archived]
             input_list.extend(lyricist_ids)
             input = tuple(input_list)
@@ -757,7 +757,7 @@ class MusicData(TableCreator.TableCreator):
         thing = (title, "%" + title + "%", title + "%", "%" + title, archived,)
         query = 'SELECT * FROM pieces p WHERE (p.title=? OR p.title LIKE ?' \
                 ' OR p.title LIKE ? OR p.title LIKE ?) AND p.archived=?'
-        query = self.do_online_offline_query(query, 'p.ROWID', online=online)
+        query = do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
         result = cursor.fetchall()
         result = [r['filename'] for r in result]
@@ -776,7 +776,7 @@ class MusicData(TableCreator.TableCreator):
                 '(SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
         for i in range(1, len(key_ids)):
             query += ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
-        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
         query += ";"
         input = tuple(key_ids)
         cursor.execute(query, input)
@@ -797,7 +797,7 @@ class MusicData(TableCreator.TableCreator):
         query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join ' \
                 'key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
 
-        query = self.do_online_offline_query(query, 'key_piece.piece_id', online=online)
+        query = do_online_offline_query(query, 'key_piece.piece_id', online=online)
         cursor.execute(query, (modularity,))
         key_set = cursor.fetchall()
         file_list = self.getPiecesByRowId(key_set, cursor, archived)
@@ -812,7 +812,7 @@ class MusicData(TableCreator.TableCreator):
                     AND i.diatonic = 0 AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
                     AND piece.archived = ? AND EXISTS (SELECT NULL FROM key_piece_join WHERE key_id = k.ROWID AND piece_id != key_piece.piece_id)
         '''
-        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -829,7 +829,7 @@ class MusicData(TableCreator.TableCreator):
                     WHERE clef_piece.clef_id = clef.ROWID AND piece.ROWID = clef_piece.piece_id
                     AND piece.archived = ? AND EXISTS (SELECT NULL FROM clef_piece_join WHERE clef_id = clef_piece.clef_id AND piece_id != clef_piece.piece_id)
         '''
-        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -846,7 +846,7 @@ class MusicData(TableCreator.TableCreator):
                     WHERE time_piece.time_id = time_sig.ROWID AND piece.ROWID = time_piece.piece_id
                     AND piece.archived = ? AND EXISTS(SELECT null FROM time_piece_join WHERE time_id=time_sig.ROWID AND time_piece_join.piece_id != time_piece.piece_id)
         '''
-        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -866,7 +866,7 @@ class MusicData(TableCreator.TableCreator):
                     AND EXISTS (SELECT * FROM tempo_piece_join WHERE tempo_id = tempo_piece.tempo_id AND piece_id != tempo_piece.piece_id)
                     AND piece.archived = ?
         '''
-        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -890,7 +890,7 @@ class MusicData(TableCreator.TableCreator):
                     AND EXISTS (SELECT * FROM instruments_piece_join WHERE instrument_id = instrument_piece.instrument_id AND piece_id != instrument_piece.piece_id)
                     AND piece.archived = ?
         '''
-        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -898,21 +898,9 @@ class MusicData(TableCreator.TableCreator):
 
 
         for pair in results:
-            key_input = pair['name']
-            pre_string = ""
-            post_string = ""
-            if pair['diatonic'] != 0 or pair['chromatic'] != 0:
-                pre_string = "\n(Transposed By "
-                post_string = ")"
-            key_input += pre_string
-            if pair['diatonic'] != 0:
-                key_input += str(pair['diatonic']) + " Diatonic \n"
-            if pair['chromatic'] != 0:
-                key_input += str(pair['chromatic']) + " Chromatic"
-            key_input += post_string
-            if key_input not in instrument_dict:
-                instrument_dict[key_input] = []
-            instrument_dict[key_input].append(pair['filename'])
+            if pair['name'] not in instrument_dict:
+                instrument_dict[pair['name']] = []
+            instrument_dict[pair['name']].append(pair['filename'])
         return instrument_dict
 
     def getPiecesByAllComposers(self, archived=0, online=False):
@@ -922,7 +910,7 @@ class MusicData(TableCreator.TableCreator):
                     AND EXISTS (SELECT * FROM pieces WHERE composer_id = comp.ROWID AND ROWID != piece.ROWID)
                     AND piece.archived = ?
         '''
-        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -940,7 +928,7 @@ class MusicData(TableCreator.TableCreator):
                     AND EXISTS (SELECT * FROM pieces WHERE lyricist_id = piece.lyricist_id AND ROWID != piece.ROWID)
                     AND piece.archived = ?
         '''
-        query = self.do_online_offline_query(query, 'piece.ROWID', online=online)
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
@@ -962,7 +950,7 @@ class MusicData(TableCreator.TableCreator):
         query = 'SELECT i.piece_id FROM clef_piece_join i WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
         for i in range(1, len(clef_ids)):
             query += ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
-        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
         query += ";"
         input = tuple(clef_ids)
         cursor.execute(query, input)
@@ -993,10 +981,10 @@ class MusicData(TableCreator.TableCreator):
             query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece WHERE EXISTS '
             for i in range(len(data)):
                 query += '(SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ?'
-                query += self.extendJoinQuery(key_ids[tuple_data[i]], 'key_id = ?', ' AND ', init_string=' AND ')
+                query += extendJoinQuery(len(key_ids[tuple_data[i]]), 'key_id = ?', ' AND ', init_string=' AND ')
                 if i != len(data) - 1:
                     query += ' AND EXISTS '
-            query = self.do_online_offline_query(query, 'key_piece.piece_id', online)
+            query = do_online_offline_query(query, 'key_piece.piece_id', online)
 
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
@@ -1014,26 +1002,16 @@ class MusicData(TableCreator.TableCreator):
             query = 'SELECT clef_piece.piece_id FROM clef_piece_join clef_piece WHERE EXISTS '
             for i in range(len(tuple_data)):
                 query += '(SELECT * FROM clef_piece_join WHERE piece_id = clef_piece.piece_id AND instrument_id = ?'
-                query += self.extendJoinQuery(clef_ids[tuple_data[i]], 'clef_id = ?', ' AND ', init_string=' AND ')
+                query += extendJoinQuery(len(clef_ids[tuple_data[i]]), 'clef_id = ?', ' AND ', init_string=' AND ')
                 if i != len(tuple_data) - 1:
                     query += ' AND EXISTS '
-            query = self.do_online_offline_query(query, 'clef_piece.piece_id', online=online)
+            query = do_online_offline_query(query, 'clef_piece.piece_id', online=online)
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
             file_list = self.getPiecesByRowId(results, cursor, archived)
         return file_list
 
-    def extendJoinQuery(self, iterable, extender, operand, init_string=''):
-        query = ''
-        for i in range(len(iterable)):
-            if i == 0:
-                query += init_string
-            query += extender
-            if i != len(iterable) - 1:
-                query += operand
-        if len(iterable) > 0:
-            query += ')'
-        return query
+
 
     def getPieceByMeter(self, meters, archived=0, online=False):
         meter_list = []
@@ -1050,7 +1028,7 @@ class MusicData(TableCreator.TableCreator):
                 meter[1],
                 cursor) for meter in meter_list]
         query = 'SELECT i.piece_id FROM time_piece_join i WHERE EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
-        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
 
         for i in range(1, len(time_ids)):
             query += ' AND EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
@@ -1063,14 +1041,7 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         return file_list
 
-    def do_online_offline_query(self, query, piece_id_field, online=False):
-        new_query = query
-        if online:
-            new_query += ' AND EXISTS '
-        else:
-            new_query += ' AND NOT EXISTS '
-        new_query += '(SELECT * FROM sources WHERE piece_id = '+piece_id_field+')'
-        return new_query
+
 
     def getPieceByTempo(self, tempos, archived=0, online=False):
         tempo_list = []
@@ -1095,7 +1066,7 @@ class MusicData(TableCreator.TableCreator):
         query = 'SELECT i.piece_id FROM tempo_piece_join i WHERE EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
         for i in range(1, len(tempo_ids)):
             query += ' AND EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
-        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
         query += ";"
         input = tuple(tempo_ids)
         cursor.execute(query, input)
@@ -1151,7 +1122,7 @@ class MusicData(TableCreator.TableCreator):
             if instrument != alternates[-1]:
                 query += " AND EXISTS"
 
-        query = self.do_online_offline_query(query, 'i.piece_id', online=online)
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
         query += ";"
         cursor.execute(query, tuple(query_input))
         results = cursor.fetchall()
