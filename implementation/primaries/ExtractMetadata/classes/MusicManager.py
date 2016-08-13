@@ -72,10 +72,10 @@ class Unzipper(object):
         """
         output_list = self.createOutputList()
         results = self.unzipInputFiles()
-        for expected, result, path in zip(output_list, results, output_list):
-            output_path = os.path.join(self.folder, path)
+        for expected, result in zip(output_list, results):
+            output_path = os.path.join(self.folder, expected)
             result_path = os.path.join(self.folder, result)
-            if result_path != output_path and os.path.exists(result_path) and result != path:
+            if result_path != output_path and os.path.exists(result_path):
                 if os.path.exists(output_path):
                     os.remove(output_path)
                 try:
