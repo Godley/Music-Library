@@ -2,7 +2,7 @@ import xml.sax
 from xml.sax import handler, make_parser
 from MuseParse import helpers
 
-from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 from implementation.primaries.ExtractMetadata.classes.helpers import combine_dictionaries
 
 class Extractor(xml.sax.ContentHandler):
@@ -216,11 +216,8 @@ def create_elem(chars, key1, key2, cast1=int, cast2=str):
 def handleTransposition(tags, attrs, chars, parts, data):
     id = helpers.GetID(attrs, "part", "id")
     if id is not None:
-        if id not in parts:
-            parts[id] = {}
-
-        if "transposition" not in parts[id]:
-            parts[id]["transposition"] = {}
+        init_kv(parts, id, init_value={})
+        init_kv(parts[id], "transposition", init_value={})
 
         if tags[-1] == "diatonic" or tags[-1] == "chromatic":
             content = 0
@@ -230,37 +227,28 @@ def handleTransposition(tags, attrs, chars, parts, data):
 
 
 def handleMeter(tags, attrs, chars, parts, data):
-    if "time" not in data:
-        data["time"] = []
+    init_kv(data, "time", init_value=[])
 
     if tags[-1] != "time":
         beat = 0
         b_type = 0
+        elem = create_elem(chars, "beats", "beat-type", cast2=int)
+        tag_type = ''
         if tags[-1] == "beats":
-            if "beats" in chars:
-                beat = chars["beats"]
-
-            if len(data["time"]) == 0 or "beat" in data["time"][-1]:
-                try:
-                    data["time"].append({"beat": int(beat)})
-                except:
-                    data["time"].append({"beat": beat})
-            else:
-                data["time"][-1]["beat"] = int(beat)
+            tag_type = "beat"
 
         if tags[-1] == "beat-type":
-            if "beat-type" in chars:
-                b_type = chars["beat-type"]
+            tag_type = "type"
 
-            if len(data["time"]) == 0 or "type" in data["time"][-1]:
-                data["time"].append({"type": int(b_type)})
-            else:
-                data["time"][-1]["type"] = int(b_type)
+        update_or_append_entry(data["time"], tag_type, elem)
+            # if len(data["time"]) == 0 or "type" in data["time"][-1]:
+            #     data["time"].append({"type": int(b_type)})
+            # else:
+            #     data["time"][-1]["type"] = int(b_type)
 
 
 def handleTempo(tags, attrs, chars, parts, data):
-    if "tempo" not in data:
-        data["tempo"] = []
+    init_kv(data, "tempo", [])
 
     if tags[-1] != "metronome":
         beat = 0
@@ -273,28 +261,32 @@ def handleTempo(tags, attrs, chars, parts, data):
                 elif "beat" in data["tempo"][-1]:
                     data["tempo"][-1]["beat"] += "."
 
+        elem = create_elem(chars, "beat-unit", "per-minute", cast1=str, cast2=int)
         if tags[-1] == "beat-unit":
-            if "beat-unit" in chars:
-                beat = chars["beat-unit"]
 
-            if len(data["tempo"]) == 0 or ("beat" in data["tempo"][-
-                                                                   1] and ("minute" in data["tempo"][-
-                                                                                                     1] or "beat_2" in data["tempo"][-
-                                                                                                                                     1])):
-                data["tempo"].append({"beat": beat})
-            elif "beat" not in data["tempo"][-1]:
-                data["tempo"][-1]["beat"] = beat
-            elif "minute" not in data["tempo"][-1] and "beat_2" not in data["tempo"][-1]:
-                data["tempo"][-1]["beat_2"] = beat
+            # beat could either be a first beat of a tempo,
+            # or a second beat of a tempo. Each tempo can only have either
+            # a minute or a second beat, so we check first if there are no tempos,
+            # then if the first tempo has a beat, then if the first tempo has a second beat
+            # if all above is true, then we append it.
+            if tags[-1] == "beat-unit":
+                if len(data["tempo"]) == 0 or \
+                    ("beat" in data["tempo"][-1] and
+                         ("minute" in data["tempo"][-1] or "beat_2" in data["tempo"][-1])
+                     ):
+                    data["tempo"].append({"beat": elem})
 
-        if tags[-1] == "per-minute":
-            if "per-minute" in chars:
-                minute = chars["per-minute"]
+            # if not, we dump it as the first beat of the first tempo
+                elif "beat" not in data["tempo"][-1]:
+                    data["tempo"][-1]["beat"] = elem
 
-            if len(data["tempo"]) == 0 or "minute" in data["tempo"][-1]:
-                data["tempo"].append({"minute": int(minute)})
-            else:
-                data["tempo"][-1]["minute"] = int(minute)
+                # finally, if the first tempo doesn't have a second beat, or a minute,
+                # we put it as the second beat of the tempo. MusicXML sucks.
+                elif "minute" not in data["tempo"][-1] and "beat_2" not in data["tempo"][-1]:
+                    data["tempo"][-1]["beat_2"] = elem
+
+        elif tags[-1] == "per-minute":
+            update_or_append_entry(data["tempo"], "minute", elem)
 
 
 def handleBibliography(tags, attrs, chars, parts, data):

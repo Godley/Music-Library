@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 from implementation.primaries.ExtractMetadata.classes import MetaParser
-from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 
 
 class TestMetaParser(unittest.TestCase):

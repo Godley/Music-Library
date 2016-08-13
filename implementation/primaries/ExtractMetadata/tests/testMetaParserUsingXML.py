@@ -1,6 +1,6 @@
 import unittest
 from implementation.primaries.ExtractMetadata.classes import MetaParser
-from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 import os, inspect
 
 class TestCase1(unittest.TestCase):
