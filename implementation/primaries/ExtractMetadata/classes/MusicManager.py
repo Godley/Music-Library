@@ -215,7 +215,7 @@ class QueryLayer(object):
             if value in instruments:
                 instrument_list.append(value)
 
-            combined = {key:combined[key] for key in combined if len(combined[key]) > 0}
+            combined = filter_dict(combined)
             if len(combined) > 0:
                 results.update(combined)
             else:
