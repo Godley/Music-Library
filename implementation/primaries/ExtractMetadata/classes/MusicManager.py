@@ -75,17 +75,20 @@ class Unzipper(object):
         for expected, result in zip(output_list, results):
             output_path = os.path.join(self.folder, expected)
             result_path = os.path.join(self.folder, result)
-            if result_path != output_path and os.path.exists(result_path):
-                if os.path.exists(output_path):
-                    os.remove(output_path)
-                try:
-                    os.rename(result_path, output_path)
-                except Exception as e:
-                    logging.log(logging.ERROR, "File %s was skipped from renaming: %s" % (result_path, str(e)))
+            self.rename_output(result_path, output_path)
+
 
         if os.path.exists(os.path.join(self.folder, 'META-INF')):
             shutil.rmtree(os.path.join(self.folder, 'META-INF'))
 
+    def rename_output(self, input_path, output_path):
+        if input_path != output_path and os.path.exists(input_path):
+            if os.path.exists(output_path):
+                os.remove(output_path)
+            try:
+                os.rename(input_path, output_path)
+            except Exception as e:
+                logger.exception("File %s was skipped from renaming: %s" % (input_path, str(e)))
 
 class FolderBrowser(object):
     """
