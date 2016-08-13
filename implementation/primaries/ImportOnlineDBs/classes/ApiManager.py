@@ -36,18 +36,7 @@ class ApiManager(object):
         '''
         results = {}
         data_set = self.fetchAllData()
-        for source_id in data_set:
-            data_list = []
-            for file in data_set[source_id]:
-                id = file
-                secret = data_set[source_id][id]["secret"]
-                status = self.sources[source_id][
-                    0].downloadFile(id, secret, type=extension)
-                if(status == 200):
-                    location = os.path.join(id + "." + extension)
-                    data_list.append(location)
-            results[source_id] = data_list
-        return results
+        return self.downloadFiles(data_set, extension=extension)
 
     def downloadFiles(self, dataset, extension="mxl"):
         '''
