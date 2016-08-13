@@ -229,9 +229,7 @@ def handleTransposition(tags, attrs, chars, parts, data):
 def handleMeter(tags, attrs, chars, parts, data):
     init_kv(data, "time", init_value=[])
 
-    if tags[-1] != "time":
-        beat = 0
-        b_type = 0
+    if tags[-1] != "time" and "time" in tags:
         elem = create_elem(chars, "beats", "beat-type", cast2=int)
         tag_type = ''
         if tags[-1] == "beats":
@@ -251,8 +249,6 @@ def handleTempo(tags, attrs, chars, parts, data):
     init_kv(data, "tempo", [])
 
     if tags[-1] != "metronome":
-        beat = 0
-        minute = 0
 
         if tags[-1] == "beat-unit-dot":
             if len(data["tempo"]) > 0:

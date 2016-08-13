@@ -258,63 +258,46 @@ class QueryLayer(object):
         if len(result_data) > 0:
             instrument_data = self._data.getPiecesByInstruments(
                 result_data, online=online)
-            if len(instrument_data) > 0:
-                results["Instruments"] = instrument_data
-            else:
-                all_matched = False
+            results, all_matched = self.create_results(["Instruments"], [instrument_data])
         return results, all_matched
 
     def handleTempoQueries(self, search_data, online=False):
-        results = {}
-        all_matched = True
         tempo_data = self._data.getPieceByTempo(
                 search_data["tempo"], online=online)
-        if len(tempo_data) > 0:
-            results["Tempo"] = tempo_data
-        else:
-            all_matched = False
-        return results, all_matched
+        return self.create_results(["Tempo"], tempo_data)
 
     def handleTimeQueries(self, search_data, online=False):
-        results = {}
-        all_matched = True
         time_data = self._data.getPieceByMeter(
             search_data["time"], online=online)
-        if len(time_data) > 0:
-            results["Meter/Time signature"] = time_data
-        else:
-            all_matched = False
-        return results, all_matched
+        return self.create_results(["Meter/Time signature"], [time_data])
 
     def handleKeyQueries(self, search_data, online=False):
-        results = {}
-        all_matched = True
+        keydata = {}
+        instrument_data = {}
+        keys = ["Keys", "Instruments in Keys"]
         if "other" in search_data["key"]:
             keydata = self._data.getPieceByKeys(
                 search_data["key"]["other"], online=online)
-            if len(keydata) > 0:
-                results["Keys"] = keydata
-            else:
-                all_matched = False
             search_data["key"].pop("other")
+
         if len(search_data["key"]) > 0:
-            new_results = self._data.getPieceByInstrumentInKeys(
+            instrument_data = self._data.getPieceByInstrumentInKeys(
                 search_data["key"], online=online)
-            if len(new_results) > 0:
-                results["Instruments in Keys"] = new_results
-            else:
-                all_matched = False
-        return results, all_matched
+        return self.create_results(keys, [keydata, instrument_data])
 
     def handleTranspositionQueries(self, search_data, online=False):
-        results = {}
-        all_matched = True
         transpos = self._data.getPieceByInstrumentsOrSimilar(
                 search_data["transposition"], online=online)
-        if len(transpos) > 0:
-            results["Instrument or transposition"] = transpos
-        else:
-            all_matched = False
+        return self.create_results(["Instrument or transposition"], [transpos])
+
+    def create_results(self, keys, values, method=lambda n: len(n) > 0):
+        results = {}
+        all_matched = True
+        for key, value in zip(keys, values):
+            if method(value):
+                results[key] = value
+            else:
+                all_matched = False
         return results, all_matched
 
     def handleClefQueries(self, search_data, online=False):
