@@ -34,14 +34,14 @@ class TestListComparator(unittest.TestCase):
 
     def testFilesToBeAdded(self):
         self.assertEqual(
-            self.folderBrowser.getNewFileList(), ["file3.xml"])
+            self.folderBrowser.getNewFileList(self.folderBrowser.getFolderFiles()), ["file3.xml"])
 
     def testRecordsToBeArchived(self):
-        self.assertEqual(self.folderBrowser.getOldRecords(), ["file2.xml"])
+        self.assertEqual(self.folderBrowser.getOldRecords(self.folderBrowser.getFolderFiles()), ["file2.xml"])
 
     def testOldAndNewFiles(self):
         self.assertEqual(
-            self.folderBrowser.getNewAndOldFiles(), {
+            self.folderBrowser.getNewAndOldFiles(self.folderBrowser.getFolderFiles()), {
                 "old": ["file2.xml"], "new": ["file3.xml"]})
 
     def tearDown(self):

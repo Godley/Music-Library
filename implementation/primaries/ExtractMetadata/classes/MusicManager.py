@@ -113,7 +113,7 @@ class FolderBrowser(object):
     def resetDbFileList(self, files):
         self.db_files = files
 
-    def getFolderFiles(self):
+    def getFolderFiles(self, extensions=['xml', 'mxl']):
         """
         method to search the given folder for all xml and mxl files
 
@@ -124,14 +124,11 @@ class FolderBrowser(object):
             index = len(self.folder)
             substr = root[index + 1:]
             for file in files:
-                if file.endswith(".xml"):
-                    if "xml" not in folder_files:
-                        folder_files["xml"] = []
-                    folder_files["xml"].append(os.path.join(substr, file))
-                if file.endswith(".mxl"):
-                    if "mxl" not in folder_files:
-                        folder_files["mxl"] = []
-                    folder_files["mxl"].append(os.path.join(substr, file))
+                ending = file.split(".")[-1]
+                if ending in extensions:
+                    if ending not in folder_files:
+                        folder_files[ending] = []
+                    folder_files[ending].append(os.path.join(substr, file))
         return folder_files
 
     def getZipFiles(self):
@@ -140,48 +137,39 @@ class FolderBrowser(object):
         if "mxl" in files:
             return files["mxl"]
 
-    def getNewFileList(self):
+    def getNewFileList(self, files):
         """
         method to determine from a list of collected xml files from getFolderFiles which ones are new to the DB
 
         Return value: list of file names which aren't in the db
         """
-        files = self.getFolderFiles()
         new_files = []
         if "xml" in files:
             xml_files = files["xml"]
             new_files = [f for f in xml_files if f not in self.db_files]
         return new_files
 
-    def getOldRecords(self):
+    def getOldRecords(self, files):
         """
         method to determine from a list of xml files from getFolderFiles which ones in the DB no longer exist in this
         folder.
 
         Return value: list of file names which are in the db but don't exist
         """
-        files = self.getFolderFiles()
         old_files = []
         if "xml" in files:
             xml_files = files["xml"]
             old_files = [f for f in self.db_files if f not in xml_files]
         return old_files
 
-    def getNewAndOldFiles(self):
+    def getNewAndOldFiles(self, files):
         """
         method which will do both of the above methods without calling self.getFolderFiles twice
         which is probably inefficient
 
         Return value: dict containing new and old files separated by relevant indices
         """
-        files = self.getFolderFiles()
-        result_set = {}
-        if "xml" in files:
-            xml_files = files["xml"]
-            old_files = [f for f in self.db_files if f not in xml_files]
-            new_files = [f for f in xml_files if f not in self.db_files]
-            result_set["old"] = old_files
-            result_set["new"] = new_files
+        result_set = {"new": self.getNewFileList(files), "old": self.getOldRecords(files)}
         return result_set
 
 class QueryLayer(object):
@@ -762,7 +750,7 @@ class MusicManager(QueryLayer):
         method to get all the new and old files from the folder browser and call parseNew and parseOld methods
         :return:
         """
-        files = self.folder_browser.getNewAndOldFiles()
+        files = self.folder_browser.getNewAndOldFiles(self.folder_browser.getFolderFiles())
         if "new" in files:
             self.parseNewFiles(sorted(files["new"]))
         if "old" in files:

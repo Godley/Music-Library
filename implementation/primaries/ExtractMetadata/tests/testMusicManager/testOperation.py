@@ -52,7 +52,7 @@ class TestMusicManager(unittest.TestCase):
         self.manager.addPiece("file.xml", {})
         self.manager.refreshWithoutDownload()
         self.assertEqual(
-            self.manager.folder_browser.getNewAndOldFiles()["old"],
+            self.manager.folder_browser.getNewAndOldFiles(self.manager.folder_browser.getFolderFiles())["old"],
             ["file.xml"])
 
     def testCopyFiles(self):
