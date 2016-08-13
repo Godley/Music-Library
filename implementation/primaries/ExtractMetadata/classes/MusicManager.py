@@ -6,7 +6,7 @@ import requests.exceptions
 
 from implementation.primaries.ExtractMetadata.classes import MusicData, MetaParser, OnlineMetaParser
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
-from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import filter_dict_for_empties, get_if_exists
+from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import filter_dict, get_if_exists
 from MuseParse.classes.Output import LilypondOutput
 from MuseParse.classes import Exceptions
 from MuseParse.classes.Input import MxmlParser
@@ -54,9 +54,9 @@ class Unzipper(object):
                 try:
                     zip_file = zipfile.ZipFile(path)
                     zip_file.extractall(path=self.folder)
-                    file = [
-                        f.filename for f in zip_file.filelist if "META-INF" not in f.filename]
-                    resulting_file_list.append(file[0])
+                    file = list(filter(lambda k: "META-INF" not in k.filename, zip_file.filelist))
+                    file = file[0].filename
+                    resulting_file_list.append(file)
                     zip_file.close()
                 except Exception as e:
                     logging.log(logging.ERROR, "file " + file + " was skipped: "+str(e))
@@ -459,7 +459,7 @@ class QueryLayer(object):
         else:
             result_set[select_method] = playlist_table[select_method]()
 
-        return filter_dict_for_empties(result_set)
+        return filter_dict(result_set)
 
 class MusicManager(QueryLayer):
     """

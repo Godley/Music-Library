@@ -46,7 +46,7 @@ import sqlite3
 from implementation.primaries.ExtractMetadata.classes.DataLayer import TableCreator
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, \
-    do_online_offline_query, get_if_exists, filter_dict_for_empties
+    do_online_offline_query, get_if_exists, filter_dict
 
 
 class TempoParser(object):
@@ -1237,7 +1237,7 @@ class MusicData(TableCreator.TableCreator):
             "tempos": self.getTemposByPieceId(index, cursor),
             "filename": file["filename"], "title": file["title"],
             'composer': composer, 'lyricist': lyricist})
-            files.append(filter_dict_for_empties(elem_data))
+            files.append(filter_dict(elem_data))
 
         self.disconnect(connection)
         return files

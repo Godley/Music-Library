@@ -25,5 +25,8 @@ def get_if_exists(dict, key, default=0):
             return dict[key]
     return default
 
-def filter_dict_for_empties(entry):
-    return {key: entry[key] for key in entry if len(entry[key]) > 0 and entry[key] is not None}
+def filter_dict(entry, method=lambda k: len(k) > 0 and k is not None):
+    return {key: entry[key] for key in entry if method(entry[key])}
+
+def filter_list(entry, method=lambda k: len(k) > 0 and k is not None):
+    return [key for key in entry if method(key)]
