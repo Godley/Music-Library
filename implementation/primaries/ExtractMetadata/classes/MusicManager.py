@@ -239,16 +239,21 @@ class QueryLayer(object):
     def handleInstrumentQueries(self, search_data, online=False):
         results = {}
         all_matched = True
-        result_data = search_data["instrument"]
+        result_data = {}
 
 
         for instrument in search_data["instrument"]:
             if "key" in search_data:
-                if instrument in search_data["key"]:
-                    result_data.pop(instrument)
+                if instrument not in search_data["key"]:
+                    result_data[instrument] = search_data[
+                        "instrument"][instrument]
             if "clef" in search_data:
-                if instrument in search_data["clef"]:
-                    result_data.pop(instrument)
+                if instrument not in search_data["clef"]:
+                    result_data[instrument] = search_data[
+                        "instrument"][instrument]
+
+        if "key" not in search_data and "clef" not in search_data:
+            result_data = search_data["instrument"]
 
         if len(result_data) > 0:
             instrument_data = self._data.getPiecesByInstruments(
