@@ -409,11 +409,10 @@ class QueryLayer(object):
         if all_matched:
             intersection = set.intersection(
                 *[set(results[key]) for key in results])
-            if len(intersection) > 0:
-                results["Exact Matches"] = intersection
+            results["Exact Matches"] = intersection
         for key in results:
             summaries[key] = self.getPieceSummary(
-                results[key], online=online)
+                filter_dict(results[key]), online=online)
         return summaries
 
     def getPlaylistFileInfo(self, playlist):
