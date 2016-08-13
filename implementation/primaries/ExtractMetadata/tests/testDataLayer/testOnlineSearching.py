@@ -1,8 +1,7 @@
 import unittest
-import sqlite3
-from implementation.primaries.ExtractMetadata.classes.DataLayer import MusicData
+from implementation.primaries.ExtractMetadata.classes.DataLayer.MusicData import MusicData
 import os
-
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 
 class TestDataLayerOnlineSearching(unittest.TestCase):
 
@@ -40,7 +39,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
             "file.xml", {
                 "composer": "blabla", "source": "MuseScore"})
         result_set = self.data.getExactPiece("file.xml", online=True)
-        self.assertEqual(result_set, (1, 'file.xml', '', 1, -1))
+        self.assertEqual(result_set, hashdict(composer_id=1, filename='file.xml', title='', rowid=1, lyricist_id=-1))
 
     def testGetPieceByInstrumentsOffline(self):
         self.data.addPiece("file.xml",
@@ -453,7 +452,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                            "source": "MuseScore",
                            "instruments": [{"name": "Clarinet"}]})
         result = self.data.getPieceSource("file.xml")
-        self.assertEqual(result, ("MuseScore",))
+        self.assertEqual(result['source'], 'MuseScore')
 
     def testDownloadPiece(self):
         self.data.addPiece("file.xml", {

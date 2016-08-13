@@ -3,9 +3,10 @@ from xml.sax._exceptions import *
 
 import requests.exceptions
 
-from implementation.primaries.ExtractMetadata.classes import DataLayer, MetaParser, OnlineMetaParser
+
+from implementation.primaries.ExtractMetadata.classes import MusicData, MetaParser, OnlineMetaParser
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
-from implementation.primaries.GUI.helpers import get_base_dir
+from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import filter_dict, get_if_exists
 from MuseParse.classes.Output import LilypondOutput
 from MuseParse.classes import Exceptions
 from MuseParse.classes.Input import MxmlParser
@@ -53,9 +54,9 @@ class Unzipper(object):
                 try:
                     zip_file = zipfile.ZipFile(path)
                     zip_file.extractall(path=self.folder)
-                    file = [
-                        f.filename for f in zip_file.filelist if "META-INF" not in f.filename]
-                    resulting_file_list.append(file[0])
+                    file = list(filter(lambda k: "META-INF" not in k.filename, zip_file.filelist))
+                    file = file[0].filename
+                    resulting_file_list.append(file)
                     zip_file.close()
                 except Exception as e:
                     logging.log(logging.ERROR, "file " + file + " was skipped: "+str(e))
@@ -70,24 +71,24 @@ class Unzipper(object):
         Return value: None
         """
         output_list = self.createOutputList()
-        output_paths = [
-            os.path.join(
-                self.folder,
-                file) for file in output_list]
         results = self.unzipInputFiles()
-        result_paths = [os.path.join(self.folder, file) for file in results]
-        for expected, result, path in zip(output_list, result_paths, output_paths):
-            if result != expected and os.path.exists(result) and result != path:
-                if os.path.exists(path):
-                    os.remove(path)
-                try:
-                    os.rename(result, path)
-                except Exception as e:
-                    logging.log(logging.ERROR, "File %s was skipped from renaming: %s" % (result, str(e)))
+        for expected, result in zip(output_list, results):
+            output_path = os.path.join(self.folder, expected)
+            result_path = os.path.join(self.folder, result)
+            self.rename_output(result_path, output_path)
+
 
         if os.path.exists(os.path.join(self.folder, 'META-INF')):
             shutil.rmtree(os.path.join(self.folder, 'META-INF'))
 
+    def rename_output(self, input_path, output_path):
+        if input_path != output_path and os.path.exists(input_path):
+            if os.path.exists(output_path):
+                os.remove(output_path)
+            try:
+                os.rename(input_path, output_path)
+            except Exception as e:
+                logger.exception("File %s was skipped from renaming: %s" % (input_path, str(e)))
 
 class FolderBrowser(object):
     """
@@ -112,7 +113,7 @@ class FolderBrowser(object):
     def resetDbFileList(self, files):
         self.db_files = files
 
-    def getFolderFiles(self):
+    def getFolderFiles(self, extensions=['xml', 'mxl']):
         """
         method to search the given folder for all xml and mxl files
 
@@ -123,14 +124,11 @@ class FolderBrowser(object):
             index = len(self.folder)
             substr = root[index + 1:]
             for file in files:
-                if file.endswith(".xml"):
-                    if "xml" not in folder_files:
-                        folder_files["xml"] = []
-                    folder_files["xml"].append(os.path.join(substr, file))
-                if file.endswith(".mxl"):
-                    if "mxl" not in folder_files:
-                        folder_files["mxl"] = []
-                    folder_files["mxl"].append(os.path.join(substr, file))
+                ending = file.split(".")[-1]
+                if ending in extensions:
+                    if ending not in folder_files:
+                        folder_files[ending] = []
+                    folder_files[ending].append(os.path.join(substr, file))
         return folder_files
 
     def getZipFiles(self):
@@ -139,54 +137,45 @@ class FolderBrowser(object):
         if "mxl" in files:
             return files["mxl"]
 
-    def getNewFileList(self):
+    def getNewFileList(self, files):
         """
         method to determine from a list of collected xml files from getFolderFiles which ones are new to the DB
 
         Return value: list of file names which aren't in the db
         """
-        files = self.getFolderFiles()
         new_files = []
         if "xml" in files:
             xml_files = files["xml"]
             new_files = [f for f in xml_files if f not in self.db_files]
         return new_files
 
-    def getOldRecords(self):
+    def getOldRecords(self, files):
         """
         method to determine from a list of xml files from getFolderFiles which ones in the DB no longer exist in this
         folder.
 
         Return value: list of file names which are in the db but don't exist
         """
-        files = self.getFolderFiles()
         old_files = []
         if "xml" in files:
             xml_files = files["xml"]
             old_files = [f for f in self.db_files if f not in xml_files]
         return old_files
 
-    def getNewAndOldFiles(self):
+    def getNewAndOldFiles(self, files):
         """
         method which will do both of the above methods without calling self.getFolderFiles twice
         which is probably inefficient
 
         Return value: dict containing new and old files separated by relevant indices
         """
-        files = self.getFolderFiles()
-        result_set = {}
-        if "xml" in files:
-            xml_files = files["xml"]
-            old_files = [f for f in self.db_files if f not in xml_files]
-            new_files = [f for f in xml_files if f not in self.db_files]
-            result_set["old"] = old_files
-            result_set["new"] = new_files
+        result_set = {"new": self.getNewFileList(files), "old": self.getOldRecords(files)}
         return result_set
 
 class QueryLayer(object):
     def __init__(self, folder):
         self.folder = folder
-        self._data = DataLayer.MusicData(
+        self._data = MusicData(
             os.path.join(
                 self.folder,
                 "music.db"))
@@ -212,29 +201,24 @@ class QueryLayer(object):
         for value in search_data["text"]:
             combined = {}
             file_result = self._data.getRoughPiece(value, online=online)
-            if len(file_result) > 0:
-                combined["filename"] = [result[1]
-                                        for result in file_result]
+            combined["filename"] = file_result
 
             title_result = self._data.getPieceByTitle(
                 value, online=online)
-            if len(title_result) > 0:
-                combined["Title"] = title_result
+            combined["Title"] = title_result
 
             composer_result = self._data.getPiecesByComposer(
                 value, online=online)
-            if len(composer_result) > 0:
-                combined["Composer"] = composer_result
+            combined["Composer"] = composer_result
 
             lyricist_result = self._data.getPiecesByLyricist(
                 value, online=online)
-            if len(lyricist_result) > 0:
-                combined["Lyricist"] = lyricist_result
+            combined["Lyricist"] = lyricist_result
 
             if value in instruments:
                 instrument_list.append(value)
 
-
+            combined = filter_dict(combined)
             if len(combined) > 0:
                 results.update(combined)
             else:
@@ -243,30 +227,34 @@ class QueryLayer(object):
         if len(search_data['text']) == len(instrument_list):
             all_matched = True
 
-        instrument_result = self._data.getPiecesByAnyAndAllInstruments(
+        if len(instrument_list) > 0:
+            instrument_result = self._data.getPiecesByAnyAndAllInstruments(
                 instrument_list, online=online)
-        if len(instrument_result) > 0:
-            results.update(instrument_result)
-            if "All Instruments" not in results:
-                all_matched = False
+            if len(instrument_result) > 0:
+                results.update(instrument_result)
+                if "All Instruments" not in results:
+                    all_matched = False
         return results, all_matched
 
     def handleInstrumentQueries(self, search_data, online=False):
-        result_data = {}
         results = {}
         all_matched = True
-        if "key" in search_data:
-            for instrument in search_data["instrument"]:
+        result_data = {}
+
+
+        for instrument in search_data["instrument"]:
+            if "key" in search_data:
                 if instrument not in search_data["key"]:
                     result_data[instrument] = search_data[
                         "instrument"][instrument]
-        if "clef" in search_data:
-            for instrument in search_data["instrument"]:
+            if "clef" in search_data:
                 if instrument not in search_data["clef"]:
                     result_data[instrument] = search_data[
                         "instrument"][instrument]
-        elif "key" not in search_data and "clef" not in search_data:
+
+        if "key" not in search_data and "clef" not in search_data:
             result_data = search_data["instrument"]
+
         if len(result_data) > 0:
             instrument_data = self._data.getPiecesByInstruments(
                 result_data, online=online)
@@ -422,15 +410,13 @@ class QueryLayer(object):
 
 
         summaries = {}
-        if len(results) > 0:
-            if all_matched:
-                intersection = set.intersection(
-                    *[set(results[key]) for key in results])
-                if len(intersection) > 0:
-                    results["Exact Matches"] = intersection
-            for key in results:
-                summaries[key] = self.getPieceSummary(
-                    results[key], online=online)
+        if all_matched:
+            intersection = set.intersection(
+                *[set(results[key]) for key in results])
+            results["Exact Matches"] = intersection
+        for key in results:
+            summaries[key] = self.getPieceSummary(
+                filter(None, results[key]), online=online)
         return summaries
 
     def getPlaylistFileInfo(self, playlist):
@@ -452,6 +438,11 @@ class QueryLayer(object):
 
     def getPlaylists(self, select_method="all"):
         result_set = {}
+        playlist_table = {"clefs": self._data.getPiecesByAllClefs,
+                          "time signatures": self._data.getPiecesByAllTimeSigs,
+                          "keys": self._data.getPiecesByAllKeys,
+                          "instruments": self._data.getPiecesByAllInstruments,
+                          "tempos": self._data.getPiecesByAllTempos}
         if select_method == "all":
             clefs = self._data.getPiecesByAllClefs()
             keys = self._data.getPiecesByAllKeys()
@@ -460,47 +451,18 @@ class QueryLayer(object):
             instruments = self._data.getPiecesByAllInstruments()
             timesigs = self._data.getPiecesByAllTimeSigs()
             tempos = self._data.getPiecesByAllTempos()
-            if len(clefs) > 0:
-                result_set["clefs"] = clefs
-            if len(keys) > 0:
-                result_set["keys"] = keys
-            if len(composers) > 0:
-                result_set["composers"] = composers
-            if len(lyricists) > 0:
-                result_set["lyricsts"] = lyricists
-            if len(instruments) > 0:
-                result_set["instruments"] = instruments
-            if len(timesigs) > 0:
-                result_set["time_signatures"] = timesigs
-            if len(tempos) > 0:
-                result_set["tempos"] = tempos
+            result_set["clefs"] = clefs
+            result_set["keys"] = keys
+            result_set["composers"] = composers
+            result_set["lyricsts"] = lyricists
+            result_set["instruments"] = instruments
+            result_set["time_signatures"] = timesigs
+            result_set["tempos"] = tempos
 
-        if select_method == "clefs":
-            clefs = self._data.getPiecesByAllClefs()
-            if len(clefs) > 0:
-                result_set["clefs"] = clefs
+        else:
+            result_set[select_method] = playlist_table[select_method]()
 
-        if select_method == "time signatures":
-            timesigs = self._data.getPiecesByAllTimeSigs()
-            if len(timesigs) > 0:
-                result_set["time_signatures"] = timesigs
-
-        if select_method == "keys":
-            keys = self._data.getPiecesByAllKeys()
-            if len(keys) > 0:
-                result_set["keys"] = keys
-
-        if select_method == "instruments":
-            instruments = self._data.getPiecesByAllInstruments()
-            if len(instruments) > 0:
-                result_set["instruments"] = instruments
-
-        if select_method == "tempos":
-            tempos = self._data.getPiecesByAllTempos()
-            if len(tempos) > 0:
-                result_set["tempos"] = tempos
-
-        return result_set
+        return filter_dict(result_set)
 
 class MusicManager(QueryLayer):
     """
@@ -553,17 +515,17 @@ class MusicManager(QueryLayer):
             errorList.append(
                 "Sax parser had a problem with this file:" + str(e))
             logger.exception("Exception SAX parsing file:{} - {}".format(fname, str(e)))
-        if piece_obj is not None:
-            try:
-                loader = LilypondOutput.LilypondRenderer(
-                    piece_obj,
-                    os.path.join(
-                        self.folder,
-                        fname))
-                loader.run()
-            except BaseException as e:
-                errorList.append(str(e))
-                logger.exception("Exception rendering lilypond with file:{} - {}".format(fname, str(e)))
+
+        try:
+            loader = LilypondOutput.LilypondRenderer(
+                piece_obj,
+                os.path.join(
+                    self.folder,
+                    fname))
+            loader.run()
+        except BaseException as e:
+            errorList.append(str(e))
+            logger.exception("Exception rendering lilypond with file:{} - {}".format(fname, str(e)))
         return errorList
 
     def unzipApiFiles(self, data_set):
@@ -589,6 +551,16 @@ class MusicManager(QueryLayer):
 
         return results
 
+    def getNewFiles(self):
+        cleaned_set = self.apiManager.fetchAllData()
+        filelist = self.getFileList(online=True)
+        for file in filelist:
+            source = self._data.getPieceSource(file)[0]
+            id = file.split(".")[0]
+            if id in cleaned_set[source]:
+                cleaned_set[source].pop(id)
+        return cleaned_set
+
     def parseApiFiles(self, debug=False):
         """
         method to extract data from apis and parse each created file for metadata
@@ -597,14 +569,8 @@ class MusicManager(QueryLayer):
         parsing_errors = {}
         result_set = {}
         try:
-            cleaned_set = self.apiManager.fetchAllData()
-            filelist = self.getFileList(online=True)
-            for file in filelist:
-                source = self._data.getPieceSource(file)[0]
-                id = file.split(".")[0]
-                if id in cleaned_set[source]:
-                    cleaned_set[source].pop(id)
-            file_set = self.unzipApiFiles(cleaned_set)
+            new_files = self.getNewFiles()
+            file_set = self.unzipApiFiles(new_files)
             for source in file_set:
                 result_set[source] = {}
                 for file in file_set[source]:
@@ -618,32 +584,21 @@ class MusicManager(QueryLayer):
                     if type(data) != tuple:
                         result_set[source][file] = data
                         file_id = file.split("/")[-1].split(".")[0]
-                        if "title" in cleaned_set[source][file_id]:
-                            result_set[source][file]["title"] = cleaned_set[
-                                source][file_id]["title"]
-                        if "composer" in cleaned_set[source][file_id]:
-                            result_set[source][file]["composer"] = cleaned_set[
-                                source][file_id]["composer"]
-
-                        if "lyricist" in cleaned_set[source][file_id]:
-                            result_set[source][file]["lyricist"] = cleaned_set[
-                                source][file_id]["lyricist"]
-                        if "secret" in cleaned_set[source][file_id]:
-                            result_set[source][file]["secret"] = cleaned_set[
-                                source][file_id]["secret"]
-                        if "license" in cleaned_set[source][file_id]:
-                            result_set[source][file]["license"] = cleaned_set[
-                                source][file_id]["license"]
+                        result_set[source][file].update(new_files[source][file_id])
                     else:
                         parsing_errors[data[1]] = data[0]
         except requests.exceptions.ConnectionError as e:
             parsing_errors[
                 "Connection"] = "error connecting to the internet. Sources not refreshed."
-        if len(parsing_errors) > 0:
-            self.parent.updateStatusBar("Errors updating database. Contact developer if problem persists")
-            for error in parsing_errors:
-                logger.error("Error {} : {}".format(error, parsing_errors[error]))
+        self.log_errors(parsing_errors)
         return result_set
+
+    def log_errors(self, errors):
+        if len(errors) > 0:
+            if self.parent is not None:
+                    self.parent.updateStatusBar("Errors updating database. Contact developer if problem persists")
+            for error in errors:
+                logger.error("Error {} : {}".format(error, errors[error]))
 
     def addApiFiles(self, data):
         for source in data:
@@ -663,10 +618,10 @@ class MusicManager(QueryLayer):
         fname = file_info[0]
         source = self._data.getPieceSource(filename)
         if source is not None:
-            source = source[0]
+            source = source['source']
         secret = self._data.getSecret(filename)
         if secret is not None:
-            secret = secret[0]
+            secret = secret['secret']
         try:
             status_code = self.apiManager.downloadFile(
                 source=source, file=fname, secret=secret, extension='pdf')
@@ -724,26 +679,11 @@ class MusicManager(QueryLayer):
 
     def getPieceSummary(self, file_list, sort_method="title", online=False):
         info = self._data.getAllPieceInfo(file_list, online=online)
-        summaries = [{"title": i["title"],
-                      "composer":i["composer"],
-                      "lyricist":i["lyricist"],
-                      "filename":i["filename"]} for i in info]
-        results = sorted(summaries, key=lambda k: str(k[sort_method]))
+        ids = ["title","composer","lyricist","filename"]
         summary_strings = []
-        for result in results:
-            summary = ""
-            if result["title"] is not None and result["title"] != "":
-                summary += result["title"]
-            else:
-                summary += "(noTitle)"
-            if result["composer"] != -1 or result["lyricist"] != -1:
-                summary += " by "
-            if result["composer"] != -1:
-                summary += result["composer"]
-            if result["lyricist"] != -1:
-                summary += ", " + result["lyricist"]
-            summary += "(" + result["filename"] + ")"
-            summary_strings.append((summary, result["filename"]))
+        for elem in info:
+            entry = " ".join(["{}: {}".format(key, elem[key]) for key in ids if key in elem and elem[key] != ''])
+            summary_strings.append((entry, elem['filename']))
         return summary_strings
 
     def getLicense(self, filename):
@@ -751,7 +691,7 @@ class MusicManager(QueryLayer):
         # eventually we should open up a file and get the text based on the license name,
         # but for now we need to do this
         if result is not None:
-            result = result[0]
+            result = result['license']
             folder = '/users/charlottegodley/PycharmProjects/FYP/implementation/primaries' \
                      '/ImportOnlineDBs/licenses'
             file = os.path.join(folder, result)
@@ -812,7 +752,7 @@ class MusicManager(QueryLayer):
         method to get all the new and old files from the folder browser and call parseNew and parseOld methods
         :return:
         """
-        files = self.folder_browser.getNewAndOldFiles()
+        files = self.folder_browser.getNewAndOldFiles(self.folder_browser.getFolderFiles())
         if "new" in files:
             self.parseNewFiles(sorted(files["new"]))
         if "old" in files:

@@ -2,13 +2,13 @@ import unittest
 import os, sys
 from unittest.mock import MagicMock
 from implementation.primaries.ExtractMetadata.classes import MusicManager
-
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 class TestMusicManager(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None
         self.folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../test_files/manager_tests")
-        self.manager = MusicManager.MusicManager(None, folder=self.folder, apis='all')
+        self.manager = MusicManager.MusicManager(None, folder=self.folder)
 
     def testRunUnzipper(self):
         self.manager.handleZips()
@@ -38,15 +38,9 @@ class TestMusicManager(unittest.TestCase):
                            'title': 'my metaparsing testcase',
                            'composer': 'charlotte godley',
                            'lyricist': 'fran godley',
-                           'instruments': [{'name': 'Piano'}],
-                           'time_signatures': ['4/4']}
-        for index in expected_result:
-            self.assertTrue(index in result[0])
-            if index != "clefs" and index != "tempos":
-                self.assertEqual(expected_result[index], result[0][index])
-            else:
-                for item in expected_result[index]:
-                    self.assertTrue(item in result[0][index])
+                           'instruments': {hashdict(name='Piano', chromatic=0, diatonic=0)},
+                           'timesigs': ['4/4']}
+        self.assertDictEqual(result[0], expected_result)
         self.assertEqual(
             ["testcase2.xml"], self.manager.getFileList())
 
@@ -58,7 +52,7 @@ class TestMusicManager(unittest.TestCase):
         self.manager.addPiece("file.xml", {})
         self.manager.refreshWithoutDownload()
         self.assertEqual(
-            self.manager.folder_browser.getNewAndOldFiles()["old"],
+            self.manager.folder_browser.getNewAndOldFiles(self.manager.folder_browser.getFolderFiles())["old"],
             ["file.xml"])
 
     def testCopyFiles(self):

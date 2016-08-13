@@ -43,9 +43,92 @@ there's going to be a lot to group, put them in a new test file.
 """
 
 import sqlite3
+from implementation.primaries.ExtractMetadata.classes.DataLayer import TableCreator
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
+from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, \
+    do_online_offline_query, get_if_exists, filter_dict
 
 
-class MusicData(object):
+class TempoParser(object):
+    converter = {"crotchet": "quarter",
+                 "quaver": "eighth",
+                 "minim": "half",
+                 "semibreve": "whole",
+                 "quarter": "quarter",
+                 "eighth": "eighth",
+                 "half": "half",
+                 "whole": "whole"}
+    halvers = ['semi', 'hemi', 'demi']
+    def splitParts(self, tempo):
+        return tempo.split("=")
+
+    def parseHalvers(self, tempo):
+        seg_length = 4
+        index = 0
+        value = 8
+        while tempo[index:index+seg_length] in self.halvers:
+            value *= 2
+            index += seg_length
+        return value
+
+    def parseHalversToString(self, tempo):
+        halver_str = str(self.parseHalvers(tempo))
+        if halver_str[-1] == "2":
+            halver_str += 'nd'
+        else:
+            halver_str += 'th'
+        return halver_str
+
+
+    def convertToAmerican(self, entry):
+        if entry in self.converter:
+            return self.converter[entry]
+
+    def getDots(self, entry):
+        end_of_word = len(entry) - 1
+        dots = ''
+        while end_of_word > -1:
+            if entry[end_of_word] == '.':
+                dots += '.'
+            else:
+                break
+            end_of_word -= 1
+        new_word = entry[:end_of_word+1]
+        return dots, new_word
+
+    def parseWord(self, word):
+        dots, remaining = self.getDots(word)
+        if word[:4] in self.halvers:
+            value = self.parseHalversToString(remaining)
+        else:
+            value = self.convertToAmerican(remaining)
+        return value + dots
+
+    def decode(self, entry):
+        parts = self.splitParts(entry)
+        result = {}
+        minute = -1
+        beat_2 = -1
+        beat = self.parseWord(parts[0])
+        try:
+            minute = int(parts[1])
+        except ValueError:
+            beat_2 = self.parseWord(parts[1])
+        result['beat'] = beat
+        result['minute'] = minute
+        result['beat_2'] = beat_2
+        return result
+
+    def encode(self, entry):
+        tempo_string = str(entry['beat']) + "="
+        if entry['beat_2'] != '-1':
+            tempo_string += str(entry['beat_2'])
+        elif entry['minute'] != -1:
+            tempo_string += str(entry['minute'])
+        return tempo_string
+
+
+class MusicData(TableCreator.TableCreator):
 
     def __init__(self, database):
         self.database = database
@@ -62,198 +145,7 @@ class MusicData(object):
         self.createLicenseTable()
         self.createSecretsTable()
 
-    def createSourcesTable(self):
-        connection, cursor = self.connect()
-        query = 'CREATE TABLE IF NOT EXISTS sources (piece_id int, source text)'
-        cursor.execute(query)
-        connection.commit()
-        self.disconnect(connection)
 
-    def createLicenseTable(self):
-        connection, cursor = self.connect()
-        query = 'CREATE TABLE IF NOT EXISTS licenses (piece_id int, license text)'
-        cursor.execute(query)
-        connection.commit()
-        self.disconnect(connection)
-
-    def createSecretsTable(self):
-        connection, cursor = self.connect()
-        query = 'CREATE TABLE IF NOT EXISTS secrets (piece_id int, secret text)'
-        cursor.execute(query)
-        connection.commit()
-        self.disconnect(connection)
-
-    def getSecret(self, filename):
-        # TODO HASH THIS STUFF
-        connection, cursor = self.connect()
-        query = 'SELECT secret FROM secrets s, pieces p WHERE p.filename=? AND s.piece_id = p.ROWID'
-        cursor.execute(query, (filename,))
-        result = cursor.fetchone()
-        self.disconnect(connection)
-        return result
-
-    def createTempoTable(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
-        connection, cursor = self.connect()
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS tempos (beat text, minute int, beat_2 text)')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS tempo_piece_join
-             (piece_id int, tempo_id int)''')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createTimeTable(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
-        connection, cursor = self.connect()
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS timesigs (beat int, b_type int)')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS time_piece_join
-             (piece_id int, time_id int)''')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createKeyTable(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS keys
-             (name text, fifths int, mode text)''')
-        keys = [("C flat major", -7, "major"),
-                ("G flat major", -6, "major"),
-                ("D flat major", -5, "major"),
-                ("A flat major", -4, "major"),
-                ("E flat major", -3, "major"),
-                ("B flat major", -2, "major"),
-                ("F major", -1, "major"),
-                ("C major", 0, "major",),
-                ("G major", 1, "major",),
-                ("D major", 2, "major",),
-                ("A major", 3, "major",),
-                ("E major", 4, "major",),
-                ("B major", 5, "major"),
-                ("F# major", 6, "major",),
-                ("C# major", 7, "major",),
-                ("A flat minor", -7, "minor"),
-                ("E flat minor", -6, "minor"),
-                ("B flat minor", -5, "minor"),
-                ("F minor", -4, "minor"),
-                ("C minor", -3, "minor"),
-                ("G minor", -2, "minor"),
-                ("D minor", -1, "minor"),
-                ("A minor", 0, "minor",),
-                ("E minor", 1, "minor"),
-                ("B minor", 2, "minor"),
-                ("F# minor", 3, "minor"),
-                ("C# minor", 4, "minor"),
-                ("G# minor", 5, "minor"),
-                ("D# minor", 6, "minor"),
-                ("A# minor", 7, "minor")]
-        for key in keys:
-            cursor.execute('SELECT * FROM KEYS WHERE name=?', (key[0],))
-            result = cursor.fetchone()
-            if result is None or len(result) == 0:
-                cursor.execute('INSERT INTO keys VALUES(?,?,?)', key)
-
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS key_piece_join (key_id INTEGER, piece_id INTEGER, instrument_id INTEGER)')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createPlaylistTable(self):
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS playlists(name text)''')
-        cursor.execute(
-            '''CREATE TABLE IF NOT EXISTS playlist_join(playlist_id int, piece_id int)''')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createClefsTable(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS clefs
-             (name text, sign text, line int)''')
-        clefs = [("treble", "G", 2,),
-                 ("french", "G", 1),
-                 ("varbaritone", "F", 3,),
-                 ("subbass", "F", 5),
-                 ("bass", "F", 4),
-                 ("alto", "C", 3),
-                 ("percussion", "percussion", -1,),
-                 ("tenor", "C", 4),
-                 ("baritone", "C", 5,),
-                 ("mezzosoprano", "C", 2),
-                 ("soprano", "C", 1),
-                 ("varC", "VARC", -1),
-                 ("alto varC", "VARC", 3),
-                 ("tenor varC", "VARC", 4),
-                 ("baritone varC", "VARC", 5)]
-        for clef in clefs:
-            cursor.execute('SELECT * FROM clefs WHERE name=?', (clef[0],))
-            result = cursor.fetchone()
-            if result is None or len(result) == 0:
-                cursor.execute('INSERT INTO clefs VALUES(?,?,?)', clef)
-
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS clef_piece_join (clef_id INTEGER, piece_id INTEGER, instrument_id INTEGER)')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createMusicTable(self):
-        '''
-        method to create piece table if one does not already exist
-        :return: none
-        '''
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS pieces
-             (filename text, title text, composer_id int, lyricist_id int, archived BOOLEAN)''')
-        self.disconnect(connection)
-
-    def createInstrumentTable(self):
-        '''
-        method to create instrument table if one does not already exist
-        :return: none
-        '''
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS instruments
-                 (name text,diatonic int,chromatic int)''')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS instruments_piece_join
-             (instrument_id INTEGER, piece_id INTEGER)''')
-        self.disconnect(connection)
-
-    def createComposerTable(self):
-        '''
-        method to create composer table if one does not already exist
-        :return:
-        '''
-        connection, cursor = self.connect()
-        # cursor.execute('''CREATE TABLE composers
-        #(name text,birth DATE,death DATE,country text)''')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS composers
-             (name text)''')
-        self.disconnect(connection)
-
-    def createLyricistTable(self):
-        '''
-        method to create composer table if one does not already exist
-        :return:
-        '''
-        connection, cursor = self.connect()
-        # cursor.execute('''CREATE TABLE composers
-        #(name text,birth DATE,death DATE,country text)''')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS lyricists
-             (name text)''')
-        self.disconnect(connection)
 
     def addInstruments(self, data):
         connection, cursor = self.connect()
@@ -262,12 +154,10 @@ class MusicData(object):
             octave = 0
             diatonic = 0
             chromatic = 0
-            if "transposition" in item:
-                trans = item["transposition"]
-                if "diatonic" in trans:
-                    diatonic = trans["diatonic"]
-                if "chromatic" in trans:
-                    chromatic = trans["chromatic"]
+            if "diatonic" in item:
+                diatonic = item["diatonic"]
+            if "chromatic" in item:
+                chromatic = item["chromatic"]
             item_data = (item["name"], diatonic, chromatic)
             elements.append(item_data)
         cursor.executemany('INSERT INTO instruments VALUES(?,?,?)', elements)
@@ -280,16 +170,10 @@ class MusicData(object):
         cursor.execute(query)
         results = cursor.fetchall()
         self.disconnect(connection)
-        instruments = set([result[0].lower() for result in results])
+        instruments = set([result['name'].lower() for result in results])
         return list(instruments)
 
-    def connect(self):
-        '''
-        method to create new sqlite connection and set up the cursor
-        :return: connection object, cursor object
-        '''
-        conn = sqlite3.connect(self.database)
-        return conn, conn.cursor()
+
 
     def getComposer(self, composer, cursor):
         query = 'SELECT ROWID FROM composers WHERE name=?'
@@ -312,7 +196,7 @@ class MusicData(object):
             cursor.execute(query, (composer,))
             composer_id = cursor.fetchone()
         if composer_id is not None:
-            composer_id = composer_id[0]
+            composer_id = composer_id['rowid']
             query = 'UPDATE pieces SET composer_id = ? WHERE ROWID = ?'
             cursor.execute(query, (composer_id, piece_id))
             connection.commit()
@@ -328,25 +212,33 @@ class MusicData(object):
             cursor.execute(query, (lyricist,))
             lyric_id = cursor.fetchone()
         if lyric_id is not None:
-            lyricist_id = lyric_id[0]
+            lyricist_id = lyric_id['rowid']
             query = 'UPDATE pieces SET lyricist_id = ? WHERE ROWID = ?'
             cursor.execute(query, (lyricist_id, piece_id))
             connection.commit()
 
+    def getInstrumentIdByNameAndTrans(self, inst, cursor):
+        diatonic = 0
+        chromatic = 0
+        if 'chromatic' in inst:
+            chromatic = inst['chromatic']
+
+        if 'diatonic' in inst:
+            diatonic = inst['diatonic']
+
+        query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
+        cursor.execute(query, (inst["name"], diatonic, chromatic,))
+        inst_id = cursor.fetchone()
+        if inst_id is not None:
+            return inst_id['rowid']
+
     def createOrGetInstruments(self, instrument_list, connection, cursor, piece_id):
         for item in instrument_list:
-            diatonic = 0
-            chromatic = 0
-            if "transposition" in item:
-                transposition = item["transposition"]
-                if "diatonic" in transposition:
-                    diatonic = transposition["diatonic"]
-                if "chromatic" in transposition:
-                    chromatic = transposition["chromatic"]
-            query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
-            cursor.execute(query, (item["name"], diatonic, chromatic,))
-            inst_id = cursor.fetchall()
-            if len(inst_id) == 0:
+            diatonic = get_if_exists(item, "diatonic")
+            chromatic = get_if_exists(item, "chromatic")
+
+            inst_id = self.getInstrumentIdByNameAndTrans(item, cursor)
+            if inst_id is None:
                 cursor.execute(
                     'INSERT INTO instruments VALUES(?,?,?)',
                     (item["name"],
@@ -354,34 +246,31 @@ class MusicData(object):
                      chromatic,
                      ))
                 connection.commit()
-                cursor.execute(query, (item["name"], diatonic, chromatic,))
-                inst_id = cursor.fetchall()
-            if inst_id is not None and len(inst_id) > 0:
+                inst_id = self.getInstrumentIdByNameAndTrans(item, cursor)
+            if inst_id is not None:
                 cursor.execute(
                     'INSERT INTO instruments_piece_join VALUES(?,?)',
-                    (inst_id[0][0],
+                    (inst_id,
                      piece_id,
                      ))
 
     def createKeyLinks(self, keysig_dict, connection, cursor, piece_id):
         for instrument in keysig_dict:
             for key in keysig_dict[instrument]:
-                fifths = 0
-                mode = "major"
-                if "fifths" in key:
-                    fifths = key["fifths"]
-                if "mode" in key:
-                    mode = key["mode"]
+                query = 'SELECT ROWID FROM keys WHERE fifths=? AND mode=?'
+                fifths = get_if_exists(key, "fifths")
+                mode = get_if_exists(key, "mode")
+                values = (fifths, mode,)
+                if type(key) is str:
+                    query = 'SELECT ROWID FROM keys WHERE name = ?'
+                    values = (key,)
                 instrument_id = self.getInstrumentId(instrument, cursor)
-                if instrument_id is None:
-                    instrument_id = -1
-                cursor.execute(
-                    'SELECT ROWID FROM keys WHERE fifths=? AND mode=?', (fifths, mode,))
+                cursor.execute(query, values)
                 key = cursor.fetchone()
-                if key is not None and len(key) > 0:
+                if key is not None:
                     cursor.execute(
                         'INSERT INTO key_piece_join VALUES(?,?,?)',
-                        (key[0],
+                        (key['rowid'],
                          piece_id,
                          instrument_id,
                          ))
@@ -389,22 +278,16 @@ class MusicData(object):
     def createClefLinks(self, clef_dict, connection, cursor, piece_id):
         for instrument in clef_dict:
             for clef in clef_dict[instrument]:
-                sign = "G"
-                line = 2
-                if "sign" in clef:
-                    sign = clef["sign"]
-                if "line" in clef:
-                    line = clef["line"]
+                sign = get_if_exists(clef, "sign", default="G")
+                line = get_if_exists(clef, "line", default=2)
                 instrument_id = self.getInstrumentId(instrument, cursor)
-                if instrument_id is None:
-                    instrument_id = -1
                 cursor.execute(
                     'SELECT ROWID FROM clefs WHERE sign=? AND line=?', (sign, line,))
                 clef_id = cursor.fetchone()
-                if clef_id is not None and len(clef_id) > 0:
+                if clef_id is not None:
                     cursor.execute(
                         'INSERT INTO clef_piece_join VALUES(?,?,?)',
-                        (clef_id[0],
+                        (clef_id['rowid'],
                          piece_id,
                          instrument_id,
                          ))
@@ -416,7 +299,7 @@ class MusicData(object):
             cursor.execute(
                 'SELECT ROWID FROM timesigs WHERE beat=? AND b_type=?', (beat, b_type))
             res = cursor.fetchone()
-            if res is None or len(res) == 0:
+            if res is None:
                 cursor.execute(
                     'INSERT INTO timesigs VALUES(?,?)', (beat, b_type))
                 connection.commit()
@@ -424,7 +307,7 @@ class MusicData(object):
                     'SELECT ROWID FROM timesigs WHERE beat=? AND b_type=?', (beat, b_type))
                 res = cursor.fetchone()
             cursor.execute(
-                'INSERT INTO time_piece_join VALUES(?,?)', (piece_id, res[0]))
+                'INSERT INTO time_piece_join VALUES(?,?)', (piece_id, res['rowid']))
 
     def createTempoAndLinks(self, tempo_list, connection, cursor, piece_id):
         for tempo in tempo_list:
@@ -441,7 +324,7 @@ class MusicData(object):
                  beat_2,
                  minute))
             res = cursor.fetchone()
-            if res is None or len(res) == 0:
+            if res is None:
                 cursor.execute(
                     'INSERT INTO tempos VALUES(?,?,?)',
                     (beat,
@@ -455,7 +338,7 @@ class MusicData(object):
                      minute))
                 res = cursor.fetchone()
             cursor.execute(
-                'INSERT INTO tempo_piece_join VALUES(?,?)', (piece_id, res[0]))
+                'INSERT INTO tempo_piece_join VALUES(?,?)', (piece_id, res['rowid']))
 
     def setSource(self, source, connection, cursor, piece_id):
         query = 'INSERT INTO sources VALUES(?,?)'
@@ -498,11 +381,15 @@ class MusicData(object):
         cursor.execute(
             'SELECT ROWID FROM pieces WHERE filename=?',
             select_input)
-        piece_id = cursor.fetchone()[0]
+        result = cursor.fetchone()
+        piece_id = result["rowid"]
 
         if "instruments" in data:
             self.createOrGetInstruments(data["instruments"], connection, cursor, piece_id)
             data.pop("instruments")
+
+        if "id" in data:
+            data.pop("id")
 
         table_info = {}
         for key in data:
@@ -514,14 +401,11 @@ class MusicData(object):
     def getFileList(self, online=False):
         connection, cursor = self.connect()
         query = 'SELECT filename FROM pieces p WHERE p.archived=0'
-        if not online:
-            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
-        else:
-            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        query = do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query)
         results = cursor.fetchall()
         self.disconnect(connection)
-        filelist = set([result[0] for result in results])
+        filelist = set([result['filename'] for result in results])
         return list(filelist)
 
     def getLicense(self, filename):
@@ -543,16 +427,14 @@ class MusicData(object):
 
         connection, cursor = self.connect()
         thing = (filename, "%" + filename + "%", archived,)
-        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces p WHERE (p.filename=? OR p.filename LIKE ?) AND p.archived=?'
-        if online:
-            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id=p.ROWID)'
-        else:
-            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id ' \
+                'FROM pieces p WHERE (p.filename=? OR p.filename LIKE ?) AND p.archived=?'
+        query = do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
 
         result = cursor.fetchall()
         self.disconnect(connection)
-        return result
+        return [r['filename'] for r in result]
 
     def getExactPiece(self, filename, archived=0, online=False):
         """
@@ -564,11 +446,9 @@ class MusicData(object):
         """
         connection, cursor = self.connect()
         thing = (filename, archived,)
-        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id FROM pieces p WHERE (p.filename=?) AND p.archived=?'
-        if online:
-            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id=p.ROWID)'
-        else:
-            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id ' \
+                'FROM pieces p WHERE (p.filename=?) AND p.archived=?'
+        query = do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
 
         result = cursor.fetchone()
@@ -582,9 +462,9 @@ class MusicData(object):
             'SELECT ROWID FROM timesigs WHERE beat=? AND b_type=? ',
             (beats,
              type))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     def getTempoId(self, beat, minute, beat_2, cursor):
         """
@@ -595,9 +475,9 @@ class MusicData(object):
             (beat,
              minute,
              beat_2))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     def getInstrumentIdWhereTextInName(self, instrument, cursor):
         """
@@ -613,7 +493,7 @@ class MusicData(object):
              instrument +
              "%"))
         result = cursor.fetchall()
-        instrument_ids = [id[0] for id in result]
+        instrument_ids = [id['rowid'] for id in result]
         return instrument_ids
 
     def getInstrumentId(self, instrument, cursor):
@@ -622,9 +502,11 @@ class MusicData(object):
         """
         cursor.execute(
             'SELECT ROWID FROM instruments WHERE name=?', (instrument,))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
+        else:
+            return -1
 
     def getComposerIdWhereTextInName(self, composer, cursor):
         """
@@ -634,7 +516,8 @@ class MusicData(object):
         :return: int pertaining to row id of composer in database
         """
         cursor.execute(
-            'SELECT ROWID FROM composers WHERE name=? OR name LIKE ? OR name LIKE ? OR name LIKE ?',
+            'SELECT ROWID FROM composers WHERE name=? '
+            'OR name LIKE ? OR name LIKE ? OR name LIKE ?',
             (composer,
              "%" +
              composer +
@@ -642,7 +525,7 @@ class MusicData(object):
              "%" + composer,
              composer + "%",))
         result = cursor.fetchall()
-        composer_ids = [res[0] for res in result]
+        composer_ids = [res['rowid'] for res in result]
         return composer_ids
 
     def getComposerId(self, composer, cursor):
@@ -653,9 +536,21 @@ class MusicData(object):
         :return: int pertaining to row id of composer in database
         """
         cursor.execute('SELECT ROWID FROM composers WHERE name=?', (composer,))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
+
+    def getComposerName(self, composer_id, cursor):
+        cursor.execute('SELECT name FROM composers WHERE ROWID=?', (composer_id,))
+        result = cursor.fetchone()
+        if result is not None:
+            return result['name']
+
+    def getLyricistName(self, lyric_id, cursor):
+        cursor.execute('SELECT name FROM lyricists WHERE ROWID=?', (lyric_id,))
+        result = cursor.fetchone()
+        if result is not None:
+            return result['name']
 
     def getLyricistIdWhereTextInName(self, lyricist, cursor):
         """
@@ -671,7 +566,7 @@ class MusicData(object):
              lyricist + "%",
              "%" + lyricist,))
         result = cursor.fetchall()
-        lyricist_ids = [res[0] for res in result]
+        lyricist_ids = [res['rowid'] for res in result]
         return lyricist_ids
 
     def getLyricistId(self, lyricist, cursor):
@@ -680,9 +575,9 @@ class MusicData(object):
         Returns 1 id
         """
         cursor.execute('SELECT ROWID FROM lyricists WHERE name=?', (lyricist,))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     def getKeyId(self, key, cursor):
         """
@@ -693,9 +588,9 @@ class MusicData(object):
         """
 
         cursor.execute('SELECT ROWID FROM keys WHERE name=?', (key,))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     def getClefId(self, clef, cursor):
         """
@@ -706,9 +601,9 @@ class MusicData(object):
         """
 
         cursor.execute('SELECT ROWID FROM clefs WHERE name=?', (clef,))
-        result = cursor.fetchall()
-        if len(result) > 0:
-            return result[0][0]
+        result = cursor.fetchone()
+        if result is not None:
+            return result['rowid']
 
     # methods used in querying by user
     def getPiecesByInstruments(self, instruments, archived=0, online=False):
@@ -725,35 +620,24 @@ class MusicData(object):
         tuple_ids = []
         [tuple_ids.extend(inst_id) for inst_id in instrument_ids]
         file_list = []
-        if len(tuple_ids) > 0:
-            query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
-            for i in range(len(instrument_ids)):
-                query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id'
-                # for every new instrument update the query
-                for result in instrument_ids[i]:
-                    if result == instrument_ids[i][0]:
-                        query += ' AND '
-                        query += '('
-                    query += 'instrument_id = ?'
-                    if result != instrument_ids[i][-1]:
-                        query += ' OR '
-                    else:
-                        query += ')'
-                query += ')'
-                if i != len(instrument_ids) - 1:
-                    query += ' AND EXISTS '
-            if online:
-                query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = i.piece_id)'
-            else:
-                query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = i.piece_id)'
-            query += ";"
+        query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
 
-            input = tuple(tuple_ids)
-            cursor.execute(query, input)
-            results = cursor.fetchall()
+        for i in range(len(instrument_ids)):
+            query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id'
+            # for every new instrument update the query
+            query += extendJoinQuery(len(instrument_ids[i]), 'instrument_id = ?', ' OR ', init_string=' AND (')
+            query += ')'
+            if i != len(instrument_ids) - 1:
+                query += ' AND EXISTS '
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
+        query += ";"
 
-            file_list = self.getPiecesByRowId(results, cursor, archived)
-            self.disconnect(connection)
+        input = tuple(tuple_ids)
+        cursor.execute(query, input)
+        results = cursor.fetchall()
+
+        file_list = self.getPiecesByRowId(results, cursor, archived)
+        self.disconnect(connection)
         return file_list
 
     def getPiecesByAnyAndAllInstruments(self, instruments, archived=0, online=False):
@@ -769,7 +653,9 @@ class MusicData(object):
         requested.
         """
         all_pieces = self.getPiecesByInstruments(instruments, archived=archived, online=online)
-        any = {"Instrument: "+instrument: self.getPiecesByInstruments([instrument], archived=archived, online=online) for instrument in instruments}
+        any = {"Instrument: "+instrument:
+                   self.getPiecesByInstruments([instrument], archived=archived, online=online)
+               for instrument in instruments}
         result = {}
         if len(all_pieces) > 0:
             result['All Instruments'] = all_pieces
@@ -791,11 +677,11 @@ class MusicData(object):
             if element != previous:
                 cursor.execute(
                     'SELECT filename FROM pieces WHERE ROWID=? AND archived=?',
-                    (element[0],
+                    (element['piece_id'],
                      archived))
                 result = cursor.fetchone()
                 if result is not None:
-                    file_list.append(result[0])
+                    file_list.append(result['filename'])
             previous = element
         return file_list
 
@@ -809,22 +695,15 @@ class MusicData(object):
         connection, cursor = self.connect()
         composer_ids = self.getComposerIdWhereTextInName(composer, cursor)
         if len(composer_ids) > 0:
-            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND (p.composer_id=?'
-            for id in composer_ids:
-                if id != composer_ids[-1]:
-                    query += "OR p.composer_id LIKE ?"
-                if id == composer_ids[-1]:
-                    query += ")"
-            if online:
-                query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
-            else:
-                query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND '
+            query += extendJoinQuery(len(composer_ids), 'p.composer_id LIKE ?', ' OR ', init_string='(')
+            query = do_online_offline_query(query, 'p.ROWID', online=online)
             input_list = [archived]
             input_list.extend(composer_ids)
             input = tuple(input_list)
             cursor.execute(query, input)
             result = cursor.fetchall()
-            file_list = [r[0] for r in result]
+            file_list = [r['filename'] for r in result]
             self.disconnect(connection)
         return file_list
 
@@ -838,22 +717,15 @@ class MusicData(object):
         lyricist_ids = self.getLyricistIdWhereTextInName(lyricist, cursor)
         file_list = []
         if len(lyricist_ids) > 0:
-            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND (p.lyricist_id=?'
-            for id in lyricist_ids:
-                if id != lyricist_ids[-1]:
-                    query += "OR p.lyricist_id LIKE ?"
-                if id == lyricist_ids[-1]:
-                    query += ")"
-            if online:
-                query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
-            else:
-                query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND '
+            query += extendJoinQuery(len(lyricist_ids), 'p.lyricist_id LIKE ?', ' OR ', init_string='(')
+            query = do_online_offline_query(query, 'p.ROWID', online=online)
             input_list = [archived]
             input_list.extend(lyricist_ids)
             input = tuple(input_list)
             cursor.execute(query, input)
             result = cursor.fetchall()
-            file_list = [r[0] for r in result]
+            file_list = [r['filename'] for r in result]
             self.disconnect(connection)
         return file_list
 
@@ -865,14 +737,12 @@ class MusicData(object):
         """
         connection, cursor = self.connect()
         thing = (title, "%" + title + "%", title + "%", "%" + title, archived,)
-        query = 'SELECT * FROM pieces p WHERE (p.title=? OR p.title LIKE ? OR p.title LIKE ? OR p.title LIKE ?) AND p.archived=?'
-        if online:
-            query += ' AND EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
-        else:
-            query += ' AND NOT EXISTS(SELECT * FROM sources WHERE piece_id = p.ROWID)'
+        query = 'SELECT * FROM pieces p WHERE (p.title=? OR p.title LIKE ?' \
+                ' OR p.title LIKE ? OR p.title LIKE ?) AND p.archived=?'
+        query = do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
         result = cursor.fetchall()
-        result = [r[0] for r in result]
+        result = [r['filename'] for r in result]
         self.disconnect(connection)
         return result
 
@@ -884,14 +754,11 @@ class MusicData(object):
         """
         connection, cursor = self.connect()
         key_ids = [self.getKeyId(key, cursor) for key in keys]
-        query = 'SELECT i.piece_id FROM key_piece_join i WHERE EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
+        query = 'SELECT i.piece_id FROM key_piece_join i WHERE EXISTS ' \
+                '(SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
         for i in range(1, len(key_ids)):
             query += ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
         query += ";"
         input = tuple(key_ids)
         cursor.execute(query, input)
@@ -909,12 +776,10 @@ class MusicData(object):
         :return:
         """
         connection, cursor = self.connect()
-        query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = key_piece.piece_id)'
+        query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join ' \
+                'key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
+
+        query = do_online_offline_query(query, 'key_piece.piece_id', online=online)
         cursor.execute(query, (modularity,))
         key_set = cursor.fetchall()
         file_list = self.getPiecesByRowId(key_set, cursor, archived)
@@ -929,19 +794,15 @@ class MusicData(object):
                     AND i.diatonic = 0 AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
                     AND piece.archived = ? AND EXISTS (SELECT NULL FROM key_piece_join WHERE key_id = k.ROWID AND piece_id != key_piece.piece_id)
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         key_dict = {}
         for pair in results:
-            if pair[0] not in key_dict:
-                key_dict[pair[0]] = []
-            key_dict[pair[0]].append(pair[1])
+            if pair['name'] not in key_dict:
+                key_dict[pair['name']] = []
+            key_dict[pair['name']].append(pair['filename'])
         return key_dict
 
     def getPiecesByAllClefs(self, archived=0, online=False):
@@ -950,19 +811,15 @@ class MusicData(object):
                     WHERE clef_piece.clef_id = clef.ROWID AND piece.ROWID = clef_piece.piece_id
                     AND piece.archived = ? AND EXISTS (SELECT NULL FROM clef_piece_join WHERE clef_id = clef_piece.clef_id AND piece_id != clef_piece.piece_id)
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         clef_dict = {}
         for pair in results:
-            if pair[0] not in clef_dict:
-                clef_dict[pair[0]] = []
-            clef_dict[pair[0]].append(pair[1])
+            if pair['name'] not in clef_dict:
+                clef_dict[pair['name']] = []
+            clef_dict[pair['name']].append(pair['filename'])
         return clef_dict
 
     def getPiecesByAllTimeSigs(self, archived=0, online=False):
@@ -971,20 +828,16 @@ class MusicData(object):
                     WHERE time_piece.time_id = time_sig.ROWID AND piece.ROWID = time_piece.piece_id
                     AND piece.archived = ? AND EXISTS(SELECT null FROM time_piece_join WHERE time_id=time_sig.ROWID AND time_piece_join.piece_id != time_piece.piece_id)
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         timesig_dict = {}
         for pair in results:
-            result_key = str(pair[0]) + "/" + str(pair[1])
+            result_key = str(pair['beat']) + "/" + str(pair['b_type'])
             if result_key not in timesig_dict:
                 timesig_dict[result_key] = []
-            timesig_dict[result_key].append(pair[2])
+            timesig_dict[result_key].append(pair['filename'])
         return timesig_dict
 
     def getPiecesByAllTempos(self, archived=0, online=False):
@@ -995,24 +848,20 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM tempo_piece_join WHERE tempo_id = tempo_piece.tempo_id AND piece_id != tempo_piece.piece_id)
                     AND piece.archived = ?
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         tempo_dict = {}
         for pair in results:
-            key_input = pair[0] + "="
-            if pair[1] != "-1":
-                key_input += pair[1]
-            elif pair[2] != -1:
-                key_input += str(pair[2])
+            key_input = pair['beat'] + "="
+            if pair['beat_2'] != "-1":
+                key_input += pair['beat_2']
+            elif pair['minute'] != -1:
+                key_input += str(pair['minute'])
             if key_input not in tempo_dict:
                 tempo_dict[key_input] = []
-            tempo_dict[key_input].append(pair[3])
+            tempo_dict[key_input].append(pair['filename'])
         return tempo_dict
 
     def getPiecesByAllInstruments(self, archived=0, online=False):
@@ -1023,29 +872,22 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM instruments_piece_join WHERE instrument_id = instrument_piece.instrument_id AND piece_id != instrument_piece.piece_id)
                     AND piece.archived = ?
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         instrument_dict = {}
+
+
         for pair in results:
-            key_input = pair[0]
-            if pair[1] != 0 or pair[2] != 0:
-                key_input += "\n("
-                key_input += "Transposed By "
-            if pair[1] != 0:
-                key_input += str(pair[1]) + " Diatonic \n"
-            if pair[2] != 0:
-                key_input += str(pair[2]) + " Chromatic"
-            if pair[1] != 0 or pair[2] != 0:
-                key_input += ")"
-            if key_input not in instrument_dict:
-                instrument_dict[key_input] = []
-            instrument_dict[key_input].append(pair[3])
+            if pair['diatonic'] != 0 or pair['chromatic'] != 0:
+                key_val = "{} transposed {} diatonic {} chromatic".format(pair['name'], pair['diatonic'],
+                                                                   pair['chromatic'])
+            else:
+                key_val = pair['name']
+            if key_val not in instrument_dict:
+                instrument_dict[key_val] = []
+            instrument_dict[key_val].append(pair['filename'])
         return instrument_dict
 
     def getPiecesByAllComposers(self, archived=0, online=False):
@@ -1055,19 +897,15 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM pieces WHERE composer_id = comp.ROWID AND ROWID != piece.ROWID)
                     AND piece.archived = ?
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         composer_dict = {}
         for pair in results:
-            if pair[0] not in composer_dict:
-                composer_dict[pair[0]] = []
-            composer_dict[pair[0]].append(pair[1])
+            if pair['name'] not in composer_dict:
+                composer_dict[pair['name']] = []
+            composer_dict[pair['name']].append(pair['filename'])
         return composer_dict
 
     def getPiecesByAllLyricists(self, archived=0, online=False):
@@ -1077,19 +915,15 @@ class MusicData(object):
                     AND EXISTS (SELECT * FROM pieces WHERE lyricist_id = piece.lyricist_id AND ROWID != piece.ROWID)
                     AND piece.archived = ?
         '''
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = piece.ROWID)'
+        query = do_online_offline_query(query, 'piece.ROWID', online=online)
         cursor.execute(query, (archived,))
         results = cursor.fetchall()
         self.disconnect(connection)
         lyricist_dict = {}
         for pair in results:
-            if pair[0] not in lyricist_dict:
-                lyricist_dict[pair[0]] = []
-            lyricist_dict[pair[0]].append(pair[1])
+            if pair['name'] not in lyricist_dict:
+                lyricist_dict[pair['name']] = []
+            lyricist_dict[pair['name']].append(pair['filename'])
         return lyricist_dict
 
     def getPieceByClefs(self, clefs, archived=0, online=False):
@@ -1103,11 +937,7 @@ class MusicData(object):
         query = 'SELECT i.piece_id FROM clef_piece_join i WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
         for i in range(1, len(clef_ids)):
             query += ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
         query += ";"
         input = tuple(clef_ids)
         cursor.execute(query, input)
@@ -1116,36 +946,33 @@ class MusicData(object):
         self.disconnect(connection)
         return file_list
 
+    def createInstrumentDictionaryAndList(self, instruments, cursor, action):
+        inst_list = []
+        inst_dict = {}
+        for instrument in instruments:
+            inst_list.append(self.getInstrumentId(instrument, cursor))
+            inst_dict[instrument] = []
+            for key in instruments[instrument]:
+                id = action(key, cursor)
+                if id is not None:
+                    inst_list.append(id)
+                    inst_dict[instrument].append(id)
+        return inst_list, inst_dict
+
     def getPieceByInstrumentInKeys(self, data, archived=0, online=False):
         connection, cursor = self.connect()
-        search_ids = []
-        tuple_data = [instrument for instrument in data]
-        key_ids = {}
         file_list = []
-        for instrument in data:
-            search_ids.append(self.getInstrumentId(instrument, cursor))
-            key_ids[instrument] = []
-            for key in data[instrument]:
-                id = self.getKeyId(key, cursor)
-                if id is not None:
-                    search_ids.append(id)
-                    key_ids[instrument].append(id)
+        tuple_data = list(data.keys())
+        search_ids, key_ids = self.createInstrumentDictionaryAndList(data, cursor, self.getKeyId)
         if len(tuple_data) > 0 and len(key_ids) > 0:
             query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece WHERE EXISTS '
-            for i in range(len(tuple_data)):
-                query += '(SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ? AND '
-                for j in range(len(key_ids[tuple_data[i]])):
-                    query += 'key_id = ?'
-                    if j != len(key_ids[tuple_data[i]]) - 1:
-                        query += ' AND '
-                query += ")"
-                if i != len(tuple_data) - 1:
+            for i in range(len(data)):
+                query += '(SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ?'
+                query += extendJoinQuery(len(key_ids[tuple_data[i]]), 'key_id = ?', ' AND ', init_string=' AND ')
+                if i != len(data) - 1:
                     query += ' AND EXISTS '
-            if online:
-                query += ' AND EXISTS '
-            else:
-                query += ' AND NOT EXISTS '
-            query += '(SELECT * FROM sources WHERE piece_id = key_piece.piece_id)'
+            query = do_online_offline_query(query, 'key_piece.piece_id', online)
+
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
 
@@ -1154,38 +981,24 @@ class MusicData(object):
 
     def getPieceByInstrumentInClefs(self, data, archived=0, online=False):
         connection, cursor = self.connect()
-        search_ids = []
-        tuple_data = [instrument for instrument in data]
-        clef_ids = {}
+        tuple_data = list(data.keys())
         file_list = []
-        for instrument in data:
-            search_ids.append(self.getInstrumentId(instrument, cursor))
-            clef_ids[instrument] = []
-            for key in data[instrument]:
-                id = self.getClefId(key, cursor)
-                if id is not None:
-                    search_ids.append(id)
-                    clef_ids[instrument].append(id)
+        search_ids, clef_ids = self.createInstrumentDictionaryAndList(data, cursor, self.getClefId)
+
         if len(tuple_data) > 0 and len(clef_ids) > 0:
             query = 'SELECT clef_piece.piece_id FROM clef_piece_join clef_piece WHERE EXISTS '
             for i in range(len(tuple_data)):
-                query += '(SELECT * FROM clef_piece_join WHERE piece_id = clef_piece.piece_id AND instrument_id = ? AND '
-                for j in range(len(clef_ids[tuple_data[i]])):
-                    query += 'clef_id = ?'
-                    if j != len(clef_ids[tuple_data[i]]) - 1:
-                        query += ' AND '
-                query += ")"
+                query += '(SELECT * FROM clef_piece_join WHERE piece_id = clef_piece.piece_id AND instrument_id = ?'
+                query += extendJoinQuery(len(clef_ids[tuple_data[i]]), 'clef_id = ?', ' AND ', init_string=' AND ')
                 if i != len(tuple_data) - 1:
                     query += ' AND EXISTS '
-            if online:
-                query += ' AND EXISTS '
-            else:
-                query += ' AND NOT EXISTS '
-            query += '(SELECT * FROM sources WHERE piece_id = clef_piece.piece_id)'
+            query = do_online_offline_query(query, 'clef_piece.piece_id', online=online)
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
             file_list = self.getPiecesByRowId(results, cursor, archived)
         return file_list
+
+
 
     def getPieceByMeter(self, meters, archived=0, online=False):
         meter_list = []
@@ -1202,13 +1015,11 @@ class MusicData(object):
                 meter[1],
                 cursor) for meter in meter_list]
         query = 'SELECT i.piece_id FROM time_piece_join i WHERE EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
+
         for i in range(1, len(time_ids)):
             query += ' AND EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+
         query += ";"
         input = tuple(time_ids)
         cursor.execute(query, input)
@@ -1216,6 +1027,8 @@ class MusicData(object):
         file_list = self.getPiecesByRowId(results, cursor, archived)
         self.disconnect(connection)
         return file_list
+
+
 
     def getPieceByTempo(self, tempos, archived=0, online=False):
         tempo_list = []
@@ -1226,84 +1039,10 @@ class MusicData(object):
             "quaver": "eighth",
             "minim": "half",
             "semibreve": "whole"}
+        parser = TempoParser()
         for tempo in tempos:
-            parts = tempo.split("=")
-            beat_one = parts[0]
-            beat = -1
-            if parts[0][
-                    :4] == "semi" or parts[0][
-                    :4] == "hemi" or parts[0][
-                    :4] == "demi":
-                index = 4
-                last_index = 0
-                number = 8
-                while index < len(parts[0]):
-                    section = parts[0][last_index:index]
-                    if section == "semi" or section == "hemi" or section == "demi":
-                        number *= 2
-                    else:
-                        break
-                    last_index = index
-                    index += 4
-                beat_2_str_digit = str(number)
-                if beat_2_str_digit == "2":
-                    beat_2_str_digit += "nd"
-                else:
-                    beat_2_str_digit += "th"
-                beat = beat_2_str_digit
-
-            if parts[0][-1] == ".":
-                index = len(parts[0]) - 1
-                while index > -1:
-                    if parts[0][index] == ".":
-                        beat_one = beat_one[:-1]
-                        dot_count += 1
-                    else:
-                        break
-                    index -= 1
-            if beat_one in converter and beat == -1:
-                beat = converter[parts[0]]
-
-            elif beat == -1:
-                beat = parts[0]
-
-            beat += "".join(["." for dot in range(dot_count)])
-            beat_2 = -1
-            minute = -1
-            try:
-                minute = int(parts[1])
-            except:
-                if parts[1][
-                        :5] == "semi" or parts[1][
-                        :5] == "hemi" or parts[1][
-                        :5] == "demi":
-                    index = 0
-                    last_index = 0
-                    number = 8
-                    while index < len(parts[1]):
-                        section = parts[1][last_index:index]
-                        if section == "semi" or section == "hemi" or section == "demi":
-                            number *= 2
-                        else:
-                            break
-                        last_index = index
-                        index += 4
-                    beat_2_str_digit = str(number)
-                    if number[-1] == "2":
-                        beat_2_str_digit += "nd"
-                    else:
-                        beat_2_str_digit += "th"
-                    beat_2 = beat_2_str_digit
-
-                if parts[1] in converter:
-                    beat_2 = converter[parts[1]]
-                elif beat_2 == -1:
-                    beat_2 = parts[1]
-            tempo_list.append((beat, minute, beat_2))
-            tempo_tuple_list.append(beat)
-            tempo_tuple_list.append(minute)
-            tempo_tuple_list.append(beat_2)
-
+            result = parser.decode(tempo)
+            tempo_list.append((result['beat'], result['minute'], result['beat_2']))
         connection, cursor = self.connect()
         tempo_ids = [
             self.getTempoId(
@@ -1314,11 +1053,7 @@ class MusicData(object):
         query = 'SELECT i.piece_id FROM tempo_piece_join i WHERE EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
         for i in range(1, len(tempo_ids)):
             query += ' AND EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
-        if online:
-            query += ' AND EXISTS '
-        else:
-            query += ' AND NOT EXISTS '
-        query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
         query += ";"
         input = tuple(tempo_ids)
         cursor.execute(query, input)
@@ -1328,24 +1063,11 @@ class MusicData(object):
         return file_list
 
     def getInstrumentsByPieceId(self, piece_id, cursor):
-        instrument_query = 'SELECT instrument_id FROM instruments_piece_join WHERE piece_id=?'
+        instrument_query = '''SELECT name, diatonic, chromatic FROM instruments AS i JOIN instruments_piece_join
+                              AS ins ON ins.instrument_id = i.rowid WHERE ins.piece_id = ?'''
         cursor.execute(instrument_query, (piece_id,))
-        instrument_ids = set(cursor.fetchall())
-        instruments = []
-        for id in instrument_ids:
-            data = {}
-            q = 'SELECT * FROM instruments WHERE ROWID=?'
-            cursor.execute(q, id)
-            record = cursor.fetchone()
-            if record is not None and len(record) > 0:
-                data["name"] = record[0]
-                if record[1] != 0 or record[2] != 0:
-                    data["transposition"] = {
-                        "diatonic": record[1],
-                        "chromatic": record[2]}
-                instruments.append(data)
-
-        return instruments
+        data = set(cursor.fetchall())
+        return data
 
     def getInstrumentByTransposition(self, transposition, online=False):
         connection, cursor = self.connect()
@@ -1374,6 +1096,29 @@ class MusicData(object):
         self.disconnect(connection)
         return instruments
 
+    def getPieceByAlternateInstruments(self, cursor, alternates, archived=0, online=False):
+        query = '''SELECT piece_id FROM instruments_piece_join i WHERE EXISTS'''
+        query_input = []
+        for instrument in alternates:
+            query_input.append(instrument[0][1])
+            query += ''' (SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND instrument_id = ?'''
+            for value in instrument[1]:
+                query_input.append(value['rowid'])
+                query += ''' OR instrument_id =?'''
+            query += ''')'''
+            if instrument != alternates[-1]:
+                query += " AND EXISTS"
+
+        query = do_online_offline_query(query, 'i.piece_id', online=online)
+        query += ";"
+        cursor.execute(query, tuple(query_input))
+        results = cursor.fetchall()
+        file_list = self.getPiecesByRowId(
+            results,
+            cursor,
+            archived=archived)
+        return file_list
+
     def getPieceByInstrumentsOrSimilar(
             self,
             instruments,
@@ -1386,46 +1131,19 @@ class MusicData(object):
         :return: list of files + their instruments
         """
         connection, cursor = self.connect()
-
+        file_list = []
         instrument_keys = []
-        for name in instruments:
-            if type(name) == str:
-                key = self.getInstrumentId(name, cursor)
-            else:
-                key = self.getInstrumentId(name["name"], cursor)
-            if key is not None:
-                instrument_keys.append((name, key))
+        alternates = []
+        for elem in instruments:
+            key = self.getInstrumentId(elem["name"], cursor)
+            if key is not -1:
+                instrument_keys.append((elem, key))
+                alternates.append(((elem, key), self.getInstrumentsBySameTranspositionAs(elem['name'])))
         results = self.getPiecesByInstruments(
             [instrument["name"] for instrument in instruments])
         if len(results) == 0:
-            alternates = [
-                (item,
-                 self.getInstrumentsBySameTranspositionAs(
-                     item[0]["name"])) for item in instrument_keys]
-            query = '''SELECT piece_id FROM instruments_piece_join i WHERE EXISTS'''
-            query_input = []
-            for instrument in alternates:
-                query_input.append(instrument[0][1])
-                query += ''' (SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND instrument_id = ?'''
-                for value in instrument[1]:
-                    query_input.append(value[0])
-                    query += ''' OR instrument_id =?'''
-                query += ''')'''
-                if instrument != alternates[-1]:
-                    query += " AND EXISTS"
+            file_list = self.getPieceByAlternateInstruments(cursor, alternates, archived, online)
 
-            if online:
-                query += ' AND EXISTS '
-            else:
-                query += ' AND NOT EXISTS '
-            query += '(SELECT * FROM sources WHERE piece_id = i.piece_id)'
-            query += ";"
-            cursor.execute(query, tuple(query_input))
-            results = cursor.fetchall()
-            file_list = self.getPiecesByRowId(
-                results,
-                cursor,
-                archived=archived)
         self.disconnect(connection)
         return file_list
 
@@ -1437,13 +1155,13 @@ class MusicData(object):
         clef_ids = set(cursor.fetchall())
         clefs = {}
         for id in clef_ids:
-            q = 'SELECT clefs.name, instruments.name FROM clefs, instruments WHERE clefs.ROWID=? AND instruments.ROWID=?'
-            cursor.execute(q, id)
+            q = 'SELECT clefs.name, instruments.name as instrument FROM clefs, instruments WHERE clefs.ROWID=? AND instruments.ROWID=?'
+            cursor.execute(q, (id['clef_id'],id['instrument_id']))
             name = cursor.fetchone()
-            if name is not None and len(name) > 0:
-                if name[1] not in clefs:
-                    clefs[name[1]] = []
-                clefs[name[1]].append(name[0])
+            if name is not None:
+                if name['instrument'] not in clefs:
+                    clefs[name['instrument']] = []
+                clefs[name['instrument']].append(name['name'])
         return clefs
 
     def getKeysByPieceId(self, piece_id, cursor):
@@ -1452,13 +1170,13 @@ class MusicData(object):
         key_ids = set(cursor.fetchall())
         keys = {}
         for id in key_ids:
-            q = 'SELECT keys.name, instruments.name FROM keys, instruments WHERE keys.ROWID=? AND instruments.ROWID=?'
-            cursor.execute(q, id)
+            q = 'SELECT keys.name, instruments.name as instrument FROM keys, instruments WHERE keys.ROWID=? AND instruments.ROWID=?'
+            cursor.execute(q, (id['key_id'],id['instrument_id']))
             name = cursor.fetchone()
             if len(name) > 0:
-                if name[1] not in keys:
-                    keys[name[1]] = []
-                keys[name[1]].append(name[0])
+                if name['instrument'] not in keys:
+                    keys[name['instrument']] = []
+                keys[name['instrument']].append(name['name'])
         return keys
 
     def getTimeSigsByPieceId(self, piece_id, cursor):
@@ -1468,10 +1186,10 @@ class MusicData(object):
         meters = []
         for id in time_ids:
             q = 'SELECT * FROM timesigs WHERE ROWID=?'
-            cursor.execute(q, id)
+            cursor.execute(q, (id['time_id'],))
             timesig = cursor.fetchone()
             if timesig is not None and len(timesig) > 0:
-                meters.append(str(timesig[0]) + "/" + str(timesig[1]))
+                meters.append(str(timesig['beat']) + "/" + str(timesig['b_type']))
         return meters
 
     def getTemposByPieceId(self, piece_id, cursor):
@@ -1481,76 +1199,48 @@ class MusicData(object):
         tempos = []
         for id in tempo_ids:
             q = 'SELECT * FROM tempos WHERE ROWID=?'
-            cursor.execute(q, id)
+            cursor.execute(q, (id['tempo_id'],))
             tempo = cursor.fetchone()
+            parser = TempoParser()
             if tempo is not None and len(tempo) > 0:
-                tempo_string = str(tempo[0]) + "="
-                if tempo[1] != -1:
-                    tempo_string += str(tempo[1])
-                elif tempo[2] != -1:
-                    tempo_string += str(tempo[2])
-                tempos.append(tempo_string)
+                tempos.append(parser.encode(tempo))
         return tempos
 
-    def getAllPieceInfo(self, filenames, archived=0, online=False):
+    def getFileData(self, filenames, archived=0, online=False):
         file_data = []
         for filename in filenames:
             piece_tuple = self.getExactPiece(filename, archived, online=online)
             if piece_tuple is not None:
-                data = {
-                    "id": piece_tuple[0],
-                    "filename": piece_tuple[1],
-                    "title": piece_tuple[2],
-                    "composer_id": piece_tuple[3],
-                    "lyricist_id": piece_tuple[4]}
-                file_data.append(data)
-
-        connection, cursor = self.connect()
-        for file in file_data:
-            index = file["id"]
-            composer = file["composer_id"]
-            if composer != -1:
-                query = 'SELECT name FROM composers WHERE ROWID=?'
-                cursor.execute(query, (composer,))
-                fetched = cursor.fetchone()
-                if fetched is not None and len(fetched) > 0:
-                    file["composer"] = fetched[0]
-                else:
-                    file["composer"] = -1
-            else:
-                file["composer"] = -1
-
-            lyricist = file["lyricist_id"]
-            if lyricist != -1:
-                query = 'SELECT name FROM lyricists WHERE ROWID=?'
-                cursor.execute(query, (lyricist,))
-                fetched = cursor.fetchone()
-                if fetched is not None and len(fetched) > 0:
-                    file["lyricist"] = fetched[0]
-                else:
-                    file["lyricist"] = -1
-            else:
-                file["lyricist"] = -1
-            instruments = self.getInstrumentsByPieceId(index, cursor)
-            if len(instruments) > 0:
-                file["instruments"] = instruments
-            clefs = self.getClefsByPieceId(index, cursor)
-            if len(clefs) > 0:
-                file["clefs"] = clefs
-            keys = self.getKeysByPieceId(index, cursor)
-            if len(keys) > 0:
-                file["keys"] = keys
-            timesigs = self.getTimeSigsByPieceId(index, cursor)
-            if len(timesigs) > 0:
-                file["time_signatures"] = timesigs
-            tempos = self.getTemposByPieceId(index, cursor)
-            if len(tempos) > 0:
-                file["tempos"] = tempos
-            file.pop("id")
-            file.pop("composer_id")
-            file.pop("lyricist_id")
-        self.disconnect(connection)
+                file_data.append(piece_tuple)
         return file_data
+
+    def getAllPieceInfo(self, filenames, archived=0, online=False):
+        file_data = self.getFileData(filenames, archived=archived, online=online)
+        files = []
+        connection, cursor = self.connect()
+
+        for file in file_data:
+            lyricist = ''
+            composer = ''
+            index = file["rowid"]
+            composer_id = file["composer_id"]
+            if composer_id != -1:
+                composer = self.getComposerName(composer_id, cursor)
+
+            lyricist_id = file["lyricist_id"]
+            if lyricist_id != -1:
+                lyricist = self.getLyricistName(lyricist_id, cursor)
+            elem_data = hashdict({"instruments": self.getInstrumentsByPieceId(index, cursor),
+            "clefs" : self.getClefsByPieceId(index, cursor),
+            "keys": self.getKeysByPieceId(index, cursor),
+            "timesigs": self.getTimeSigsByPieceId(index, cursor),
+            "tempos": self.getTemposByPieceId(index, cursor),
+            "filename": file["filename"], "title": file["title"],
+            'composer': composer, 'lyricist': lyricist})
+            files.append(filter_dict(elem_data))
+
+        self.disconnect(connection)
+        return files
 
     def addPlaylist(self, pname, files):
         connection, cursor = self.connect()
@@ -1564,8 +1254,8 @@ class MusicData(object):
             file_id = cursor.fetchone()
             cursor.execute(
                 '''INSERT INTO playlist_join VALUES(?,?)''',
-                (val[0],
-                 file_id[0]))
+                (val['rowid'],
+                 file_id['rowid']))
         connection.commit()
         self.disconnect(connection)
 
@@ -1578,9 +1268,9 @@ class MusicData(object):
         self.disconnect(connection)
         data = {}
         for item in results:
-            if item[1] not in data:
-                data[item[1]] = []
-            data[item[1]].append(item[0])
+            if item['name'] not in data:
+                data[item['name']] = []
+            data[item['name']].append(item['filename'])
         return data
 
     def getUserPlaylist(self, title):
@@ -1612,10 +1302,10 @@ class MusicData(object):
         query_2 = '''SELECT piece.filename FROM pieces piece, playlist_join play, playlists playlist
                   WHERE playlist.name = ? AND play.playlist_id = playlist.ROWID AND piece.ROWID = play.piece_id'''
         for i in range(len(results)):
-            cursor.execute(query_2, results[i])
+            cursor.execute(query_2, (results[i]['name'],))
             files = cursor.fetchall()
-            if results[i][0] not in data:
-                data[results[i][0]] = [file[0] for file in files]
+            if results[i]['name'] not in data:
+                data[results[i]['name']] = [file['filename'] for file in files]
         self.disconnect(connection)
         return data
 
@@ -1627,7 +1317,7 @@ class MusicData(object):
         query = '''DELETE FROM playlists WHERE name = ?'''
         cursor.execute(query, (playlist_name,))
         join_query = '''DELETE FROM playlist_join WHERE playlist_id = ?'''
-        cursor.execute(join_query, res)
+        cursor.execute(join_query, (res['rowid'],))
         connection.commit()
         self.disconnect(connection)
 
@@ -1641,17 +1331,17 @@ class MusicData(object):
             cursor.execute(id_query, (file,))
             result = cursor.fetchone()
             instrument_query = '''DELETE FROM instruments_piece_join WHERE piece_id =?'''
-            cursor.execute(instrument_query, result)
+            cursor.execute(instrument_query, (result['rowid'],))
             tempo_query = '''DELETE FROM tempo_piece_join WHERE piece_id =?'''
-            cursor.execute(tempo_query, result)
+            cursor.execute(tempo_query, (result['rowid'],))
             key_query = '''DELETE FROM key_piece_join WHERE piece_id =?'''
-            cursor.execute(key_query, result)
+            cursor.execute(key_query, (result['rowid'],))
             clef_query = '''DELETE FROM clef_piece_join WHERE piece_id =?'''
-            cursor.execute(clef_query, result)
+            cursor.execute(clef_query, (result['rowid'],))
             time_query = '''DELETE FROM time_piece_join WHERE piece_id =?'''
-            cursor.execute(time_query, result)
+            cursor.execute(time_query, (result['rowid'],))
             piece_query = '''DELETE FROM pieces WHERE ROWID=?'''
-            cursor.execute(piece_query, result)
+            cursor.execute(piece_query, (result['rowid'],))
         connection.commit()
         self.disconnect(connection)
 
@@ -1676,7 +1366,7 @@ class MusicData(object):
         query = '''SELECT filename FROM pieces WHERE archived = 1'''
         cursor.execute(query)
         results = cursor.fetchall()
-        file_list = [result[0] for result in results]
+        file_list = [result['filename'] for result in results]
         self.disconnect(connection)
         return file_list
 
@@ -1699,14 +1389,9 @@ class MusicData(object):
         cursor.execute(query, (filename,))
         result = cursor.fetchone()
         query = 'DELETE FROM sources WHERE piece_id = ?'
-        cursor.execute(query, result)
+        cursor.execute(query, (result['rowid'],))
         connection.commit()
         self.disconnect(connection)
 
-    def disconnect(self, connection):
-        """
-        method which shuts down db connection
-        :param connection: connection object
-        :return: None
-        """
-        connection.close()
+
+
