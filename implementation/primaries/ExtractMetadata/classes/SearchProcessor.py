@@ -17,7 +17,6 @@ def process(query_input):
     return data
 
 def handle_meter_tempo_text_kv(token):
-    entry = {}
     if is_meter(token):
         entry = {"meter":[token]}
 
