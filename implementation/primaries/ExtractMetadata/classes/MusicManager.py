@@ -71,20 +71,17 @@ class Unzipper(object):
         Return value: None
         """
         output_list = self.createOutputList()
-        output_paths = [
-            os.path.join(
-                self.folder,
-                file) for file in output_list]
         results = self.unzipInputFiles()
-        result_paths = [os.path.join(self.folder, file) for file in results]
-        for expected, result, path in zip(output_list, result_paths, output_paths):
-            if result != expected and os.path.exists(result) and result != path:
-                if os.path.exists(path):
-                    os.remove(path)
+        for expected, result, path in zip(output_list, results, output_list):
+            output_path = os.path.join(self.folder, path)
+            result_path = os.path.join(self.folder, result)
+            if result_path != output_path and os.path.exists(result_path) and result != path:
+                if os.path.exists(output_path):
+                    os.remove(output_path)
                 try:
-                    os.rename(result, path)
+                    os.rename(result_path, output_path)
                 except Exception as e:
-                    logging.log(logging.ERROR, "File %s was skipped from renaming: %s" % (result, str(e)))
+                    logging.log(logging.ERROR, "File %s was skipped from renaming: %s" % (result_path, str(e)))
 
         if os.path.exists(os.path.join(self.folder, 'META-INF')):
             shutil.rmtree(os.path.join(self.folder, 'META-INF'))
