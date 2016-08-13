@@ -65,7 +65,7 @@ class TestAddKey(TestMetaParser):
     def testPartNameHandler(self):
         self.parser.startTag("part", {"id": "P1"})
         self.parser.startTag("key", {})
-        self.assertEqual(MetaParser.handleKey, self.parser.current_handler)
+        self.assertEqual(MetaParser.handle_clef_or_key, self.parser.current_handler)
 
     def testKeyHandlerCall(self):
         self.parser.startTag("part", {"id": "P1"})
@@ -113,7 +113,7 @@ class TestAddClef(TestMetaParser):
     def testClefHandler(self):
         self.parser.startTag("part", {"id": "P1"})
         self.parser.startTag("clef", {})
-        self.assertEqual(MetaParser.handleClef, self.parser.current_handler)
+        self.assertEqual(MetaParser.handle_clef_or_key, self.parser.current_handler)
 
     def testClefHandlerCall(self):
         self.parser.startTag("part", {"id": "P1"})

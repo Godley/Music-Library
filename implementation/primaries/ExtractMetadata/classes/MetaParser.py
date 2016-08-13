@@ -3,7 +3,7 @@ from xml.sax import handler, make_parser
 from MuseParse import helpers
 
 from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
-
+from implementation.primaries.ExtractMetadata.classes.helpers import combine_dictionaries
 
 class Extractor(xml.sax.ContentHandler):
 
@@ -32,8 +32,8 @@ class MetaParser(object):
         self.chars = {}
         self.handlers = {
             "part-name": makeNewPart,
-            "key": handleKey,
-            "clef": handleClef,
+            "key": handle_clef_or_key,
+            "clef": handle_clef_or_key,
             "transpose": handleTransposition,
             "time": handleMeter,
             "metronome": handleTempo,
@@ -156,48 +156,61 @@ def makeNewPart(tags, attrs, chars, parts, data):
             data["instruments"].append(name)
 
 
-def handleKey(tags, attrs, chars, parts, data):
+def handle_clef_or_key(tags, attrs, chars, parts, data):
+    """
+    Since clefs and keys are very similar, handle them in the same method
+    """
     id = helpers.GetID(attrs, "part", "id")
     if id is not None:
-        if id not in parts:
-            parts[id] = {}
+        init_kv(parts, id, init_value={})
 
-        if "key" not in parts[id]:
-            parts[id]["key"] = []
-
-        if tags[-1] == "fifths" or tags[-1] == "mode":
-            thing = 0
-            if "fifths" in chars:
-                thing = int(chars["fifths"])
-            if "mode" in chars:
-                thing = chars["mode"]
-            if len(parts[id]["key"]) == 0 or tags[-1] in parts[id]["key"][-1]:
-                parts[id]["key"].append({tags[-1]: thing})
-            elif tags[-1] not in parts[id]["key"][-1]:
-                parts[id]["key"][-1][tags[-1]] = thing
+        if "clef" in tags:
+            init_kv(parts[id], "clef", init_value=[])
+            elem_to_add = create_elem(chars, "line", "sign")
+            tag_type = "clef"
+            if tags[-1] != "clef":
+                update_or_append_entry(parts[id][tag_type], tags[-1], elem_to_add)
 
 
-def handleClef(tags, attrs, chars, parts, data):
-    id = helpers.GetID(attrs, "part", "id")
-    if id is not None:
-        if id not in parts:
-            parts[id] = {}
+        elif "key" in tags:
+            init_kv(parts[id], "key", init_value=[])
+            elem_to_add = create_elem(chars, "fifths", "mode")
+            tag_type = "key"
+            if tags[-1] != "key":
+                update_or_append_entry(parts[id][tag_type], tags[-1], elem_to_add)
 
-        if "clef" not in parts[id]:
-            parts[id]["clef"] = []
 
-        if tags[-1] == "line" or tags[-1] == "sign":
-            thing = 0
-            if "line" in chars:
-                thing = int(chars["line"])
-            if "sign" in chars:
-                thing = chars["sign"]
-            if len(parts[id]["clef"]) == 0 or tags[-
-                                                   1] in parts[id]["clef"][-
-                                                                           1]:
-                parts[id]["clef"].append({tags[-1]: thing})
-            elif tags[-1] not in parts[id]["clef"][-1]:
-                parts[id]["clef"][-1][tags[-1]] = thing
+def update_or_append_entry(dictionary, tag, entry):
+    """
+    Method to check if a dictionary is empty, or if it's last entry contains the tag
+    being added. If yes, create a new entry. If it doesn't contain the tag,
+    add it. Used by clef and key creation queries, might be used by other handlers in future
+    """
+    if len(dictionary) == 0 or tag in dictionary[-1]:
+        dictionary.append({tag: entry})
+    elif tag not in dictionary[-1]:
+        dictionary[-1][tag] = entry
+
+def init_kv(elem, key, init_value=list()):
+    """
+    Initialise a key in a dictionary with a default value if it doesn't exist already
+    """
+    if key not in elem:
+        elem[key] = init_value
+
+def create_elem(chars, key1, key2, cast1=int, cast2=str):
+    """
+    select a return value from chars dictionary. Priority given to key 2 over key 1,
+    both are cast to whatever value we need. Used by clef and key handlers as both
+    need the first element, then the second, and both happen to be format int then str.
+    Made generic as poss incase this is useful elsewhere.
+    """
+    return_value = 0
+    if key1 in chars:
+        return_value = cast1(chars[key1])
+    if key2 in chars:
+        return_value = cast2(chars[key2])
+    return return_value
 
 
 def handleTransposition(tags, attrs, chars, parts, data):
