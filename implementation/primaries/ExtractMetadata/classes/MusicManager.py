@@ -6,7 +6,7 @@ import requests.exceptions
 
 from implementation.primaries.ExtractMetadata.classes import MusicData, MetaParser, OnlineMetaParser
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
-from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import filter_dict_for_empties
+from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import filter_dict_for_empties, get_if_exists
 from MuseParse.classes.Output import LilypondOutput
 from MuseParse.classes import Exceptions
 from MuseParse.classes.Input import MxmlParser
@@ -237,20 +237,22 @@ class QueryLayer(object):
         return results, all_matched
 
     def handleInstrumentQueries(self, search_data, online=False):
-        result_data = {}
         results = {}
         all_matched = True
-        if "key" in search_data:
-            for instrument in search_data["instrument"]:
+        result_data = {}
+
+
+        for instrument in search_data["instrument"]:
+            if "key" in search_data:
                 if instrument not in search_data["key"]:
                     result_data[instrument] = search_data[
                         "instrument"][instrument]
-        if "clef" in search_data:
-            for instrument in search_data["instrument"]:
+            if "clef" in search_data:
                 if instrument not in search_data["clef"]:
                     result_data[instrument] = search_data[
                         "instrument"][instrument]
-        elif "key" not in search_data and "clef" not in search_data:
+
+        if "key" not in search_data and "clef" not in search_data:
             result_data = search_data["instrument"]
         if len(result_data) > 0:
             instrument_data = self._data.getPiecesByInstruments(

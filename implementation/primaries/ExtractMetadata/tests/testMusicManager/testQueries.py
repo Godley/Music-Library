@@ -187,7 +187,7 @@ class TestMusicManager(unittest.TestCase):
         results = self.manager.runQueries(
                         {
                             "title": ["Blabla"], "key": {
-                                "Clarinet": ["D major"]}, "instrument": ["Clarinet"]})
+                                "Clarinet": ["D major"]}, "instrument": {"Clarinet": {}}})
         self.assertEqual(
             expected_results, results)
 

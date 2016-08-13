@@ -20,8 +20,9 @@ def do_online_offline_query(query, piece_id_field, online=False):
     return new_query
 
 def get_if_exists(dict, key, default=0):
-    if key in dict:
-        return dict[key]
+    if dict is not None:
+        if key in dict:
+            return dict[key]
     return default
 
 def filter_dict_for_empties(entry):
