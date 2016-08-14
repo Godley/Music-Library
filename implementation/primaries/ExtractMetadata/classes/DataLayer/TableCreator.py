@@ -3,26 +3,40 @@ import sqlite3
 from implementation.primaries.ExtractMetadata.classes.DataLayer import TableConnector
 
 class TableCreator(TableConnector.TableConnector):
-    def createSourcesTable(self):
+    tables = ["sources (piece_id int, source text)",
+              "licenses (piece_id int, license text)",
+              "secrets (piece_id int, secret text)",
+              "tempos (beat text, minute int, beat_2 text)",
+              "tempo_piece_join(piece_id int, tempo_id int)",
+              "timesigs (beat int, b_type int)",
+              "time_piece_join(piece_id int, time_id int)",
+              "keys(name text, fifths int, mode text)",
+              "key_piece_join (key_id INTEGER, piece_id INTEGER, instrument_id INTEGER)",
+              "playlists (name text)",
+              "playlist_join(playlist_id int, piece_id int)",
+              "clefs(name text, sign text, line int)",
+              "clef_piece_join (clef_id INTEGER, piece_id INTEGER, instrument_id INTEGER)",
+              "instruments(name text,diatonic int,chromatic int)",
+              "instruments_piece_join(instrument_id INTEGER, piece_id INTEGER)",
+              "lyricists(name text)",
+              "composers(name text)",
+              "pieces(filename text, title text, composer_id int, lyricist_id int, archived BOOLEAN)"]
+    def __init__(self, db):
+        super(TableCreator, self).__init__(db)
+        for table in self.tables:
+            self.create_if_not_exists(table)
+        self.createKeyData()
+        self.createClefsData()
+
+
+    def create_if_not_exists(self, table_and_columns):
         connection, cursor = self.connect()
-        query = 'CREATE TABLE IF NOT EXISTS sources (piece_id int, source text)'
+        query = 'CREATE TABLE IF NOT EXISTS '+table_and_columns
         cursor.execute(query)
         connection.commit()
         self.disconnect(connection)
 
-    def createLicenseTable(self):
-        connection, cursor = self.connect()
-        query = 'CREATE TABLE IF NOT EXISTS licenses (piece_id int, license text)'
-        cursor.execute(query)
-        connection.commit()
-        self.disconnect(connection)
 
-    def createSecretsTable(self):
-        connection, cursor = self.connect()
-        query = 'CREATE TABLE IF NOT EXISTS secrets (piece_id int, secret text)'
-        cursor.execute(query)
-        connection.commit()
-        self.disconnect(connection)
 
     def getSecret(self, filename):
         # TODO HASH THIS STUFF
@@ -33,40 +47,12 @@ class TableCreator(TableConnector.TableConnector):
         self.disconnect(connection)
         return result
 
-    def createTempoTable(self):
+    def createKeyData(self):
         '''
         method to create a new key table if one does not already exist
         :return: None
         '''
         connection, cursor = self.connect()
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS tempos (beat text, minute int, beat_2 text)')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS tempo_piece_join
-             (piece_id int, tempo_id int)''')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createTimeTable(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
-        connection, cursor = self.connect()
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS timesigs (beat int, b_type int)')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS time_piece_join
-             (piece_id int, time_id int)''')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createKeyTable(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS keys
-             (name text, fifths int, mode text)''')
         keys = [("C flat major", -7, "major"),
                 ("G flat major", -6, "major"),
                 ("D flat major", -5, "major"),
@@ -102,28 +88,15 @@ class TableCreator(TableConnector.TableConnector):
             result = cursor.fetchone()
             if result is None or len(result) == 0:
                 cursor.execute('INSERT INTO keys VALUES(?,?,?)', key)
-
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS key_piece_join (key_id INTEGER, piece_id INTEGER, instrument_id INTEGER)')
         connection.commit()
         self.disconnect(connection)
 
-    def createPlaylistTable(self):
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS playlists(name text)''')
-        cursor.execute(
-            '''CREATE TABLE IF NOT EXISTS playlist_join(playlist_id int, piece_id int)''')
-        connection.commit()
-        self.disconnect(connection)
-
-    def createClefsTable(self):
+    def createClefsData(self):
         '''
         method to create a new key table if one does not already exist
         :return: None
         '''
         connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS clefs
-             (name text, sign text, line int)''')
         clefs = [("treble", "G", 2,),
                  ("french", "G", 1),
                  ("varbaritone", "F", 3,),
@@ -145,53 +118,5 @@ class TableCreator(TableConnector.TableConnector):
             if result is None or len(result) == 0:
                 cursor.execute('INSERT INTO clefs VALUES(?,?,?)', clef)
 
-        cursor.execute(
-            'CREATE TABLE IF NOT EXISTS clef_piece_join (clef_id INTEGER, piece_id INTEGER, instrument_id INTEGER)')
         connection.commit()
-        self.disconnect(connection)
-
-    def createMusicTable(self):
-        '''
-        method to create piece table if one does not already exist
-        :return: none
-        '''
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS pieces
-             (filename text, title text, composer_id int, lyricist_id int, archived BOOLEAN)''')
-        self.disconnect(connection)
-
-    def createInstrumentTable(self):
-        '''
-        method to create instrument table if one does not already exist
-        :return: none
-        '''
-        connection, cursor = self.connect()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS instruments
-                 (name text,diatonic int,chromatic int)''')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS instruments_piece_join
-             (instrument_id INTEGER, piece_id INTEGER)''')
-        self.disconnect(connection)
-
-    def createComposerTable(self):
-        '''
-        method to create composer table if one does not already exist
-        :return:
-        '''
-        connection, cursor = self.connect()
-        # cursor.execute('''CREATE TABLE composers
-        #(name text,birth DATE,death DATE,country text)''')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS composers
-             (name text)''')
-        self.disconnect(connection)
-
-    def createLyricistTable(self):
-        '''
-        method to create composer table if one does not already exist
-        :return:
-        '''
-        connection, cursor = self.connect()
-        # cursor.execute('''CREATE TABLE composers
-        #(name text,birth DATE,death DATE,country text)''')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS lyricists
-             (name text)''')
         self.disconnect(connection)

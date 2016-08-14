@@ -131,19 +131,7 @@ class TempoParser(object):
 class MusicData(TableCreator.TableCreator):
 
     def __init__(self, database):
-        self.database = database
-        self.createMusicTable()
-        self.createInstrumentTable()
-        self.createComposerTable()
-        self.createLyricistTable()
-        self.createKeyTable()
-        self.createClefsTable()
-        self.createTimeTable()
-        self.createTempoTable()
-        self.createPlaylistTable()
-        self.createSourcesTable()
-        self.createLicenseTable()
-        self.createSecretsTable()
+        super(MusicData, self).__init__(database)
 
 
 
