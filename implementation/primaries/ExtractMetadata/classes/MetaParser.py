@@ -295,7 +295,10 @@ def handleBibliography(tags, attrs, chars, parts, data):
             if "creator" in chars:
                 data[creator_type] += chars["creator"].lower()
 
-    if tags[-1] == "movement-title" or tags[-1] == "work-title":
+    handle_title(tags[-1], chars, data)
+
+def handle_title(tag, chars, data):
+    if tag == "movement-title" or tag == "work-title":
         title = create_elem(chars, "movement-title", "work-title", cast1=str, cast2=str)
         init_kv(data, "title", init_value="")
         data["title"] += title.lower()
