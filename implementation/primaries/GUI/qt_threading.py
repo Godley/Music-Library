@@ -2,26 +2,27 @@ from PyQt4.QtCore import QObject, QThread, pyqtSignal, SIGNAL
 
 from threading import Lock
 
-
-class mythread(QThread):
-
+class AppThread(QThread):
     def __init__(self, parent, method, args, **kwargs):
         QThread.__init__(self, parent)
         self.args = args
-        self.kwargs = kwargs
         self.method = method
+
+class mythread(AppThread):
+
+    def __init__(self, parent, method, args, **kwargs):
+        super().__init__(parent, method, args)
+        self.kwargs = kwargs
 
     def run(self):
         result = self.method(*self.args, **self.kwargs)
         self.emit(SIGNAL("dataReady(PyQt_PyObject)"), result)
 
 
-class QueryThread(QThread):
+class QueryThread(AppThread):
 
     def __init__(self, parent, method, args, online):
-        QThread.__init__(self, parent)
-        self.args = args
-        self.method = method
+        super().__init__(parent, method, args)
         self.online = online
 
     def run(self):
@@ -30,12 +31,10 @@ class QueryThread(QThread):
             SIGNAL("dataReady(PyQt_PyObject, bool)"), result, self.online)
 
 
-class RenderThread(QThread):
+class RenderThread(AppThread):
 
     def __init__(self, parent, method, args, filename):
-        QThread.__init__(self, parent)
-        self.args = args
-        self.method = method
+        super().__init__(parent, method, args)
         self.filename = filename
 
     def run(self):
@@ -47,12 +46,11 @@ class RenderThread(QThread):
             self.emit(SIGNAL("renderingError(PyQt_PyObject)"), e)
 
 
-class DownloadThread(QThread):
+class DownloadThread(AppThread):
 
     def __init__(self, parent, method, args):
-        QThread.__init__(self, parent)
+        super().__init__(parent, method, args)
         self.fname = args
-        self.method = method
 
     def run(self):
         result = self.method(self.fname)
