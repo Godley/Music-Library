@@ -102,8 +102,6 @@ class MetaParser(object):
 
     def collatePartsIntoData(self):
         instrument_list = []
-        clef_list = {}
-        key_list = {}
         keys = ["key", "clef"]
         for part in self.parts:
 
@@ -291,19 +289,13 @@ def handleBibliography(tags, attrs, chars, parts, data):
     if tags[-1] == "creator":
         creator_type = helpers.GetID(attrs, "creator", "type")
         if creator_type is not None:
-            if creator_type not in data:
-                data[creator_type] = ""
+            init_kv(data, creator_type, init_value="")
             if "creator" in chars:
                 data[creator_type] += chars["creator"].lower()
 
     if tags[-1] == "movement-title" or tags[-1] == "work-title":
-        title = ""
-        if "movement-title" in chars:
-            title = chars["movement-title"]
-        if "work-title" in chars:
-            title = chars["work-title"]
-        if "title" not in data:
-            data["title"] = ""
+        title = create_elem(chars, "movement-title", "work-title", cast1=str, cast2=str)
+        init_kv(data, "title", init_value="")
         data["title"] += title.lower()
 
 def convert_to_hashdict_set(list_of_dicts):
