@@ -13,4 +13,5 @@ engines:
 ratings:
   paths:
    - "**.py"
-exclude_paths: []
+exclude_paths: 
+  - "implementation/primaries/*/tests/"
