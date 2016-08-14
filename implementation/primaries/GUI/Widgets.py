@@ -243,33 +243,17 @@ class PlaylistBrowser(Window):
         for i in range(3):
             self.tableWidget.setColumnWidth(i, self.tableWidget.width() / 3)
         self.tableWidget.setRowCount(len(data))
+        columns = ("title", "composer", "filename")
         for i in range(len(data)):
-            if "composer" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["composer"])
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 1, item)
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 1, item)
-
-            if "title" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["title"])
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 0, item)
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 0, item)
-
-            if "filename" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["filename"])
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 2, item)
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 2, item)
+            for j, column in zip(range(len(columns)), columns):
+                if column in data[i]:
+                    item = QtGui.QTableWidgetItem(data[i][column])
+                    item.setData(32, data[i]["filename"])
+                    self.tableWidget.setItem(i, j, item)
+                else:
+                    item = QtGui.QTableWidgetItem("")
+                    item.setData(32, data[i]["filename"])
+                    self.tableWidget.setItem(i, j, item)
 
         self.tableWidget.selectRow(self.index)
         self.tableWidget.show()
