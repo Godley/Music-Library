@@ -156,24 +156,14 @@ def handle_clef_or_key(tags, attrs, chars, parts, data):
     Since clefs and keys are very similar, handle them in the same method
     """
     id = helpers.GetID(attrs, "part", "id")
+    tag_dict = {"clef": ("line", "sign"), "key": ("fifths", "mode")}
     if id is not None:
         init_kv(parts, id, init_value={})
-
-        if "clef" in tags:
-            init_kv(parts[id], "clef", init_value=[])
-            elem_to_add = create_elem(chars, "line", "sign")
-            tag_type = "clef"
-            if tags[-1] != "clef":
-                update_or_append_entry(parts[id][tag_type], tags[-1], elem_to_add)
-
-
-        elif "key" in tags:
-            init_kv(parts[id], "key", init_value=[])
-            elem_to_add = create_elem(chars, "fifths", "mode")
-            tag_type = "key"
-            if tags[-1] != "key":
-                update_or_append_entry(parts[id][tag_type], tags[-1], elem_to_add)
-
+        if tags[-2] in tag_dict:
+            init_kv(parts[id], tags[-2], init_value=[])
+            elem_to_add = create_elem(chars, tag_dict[tags[-2]][0], tag_dict[tags[-2]][1])
+            tag_type = tags[-2]
+            update_or_append_entry(parts[id][tag_type], tags[-1], elem_to_add)
 
 def update_or_append_entry(dictionary, tag, entry):
     """

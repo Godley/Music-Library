@@ -99,6 +99,7 @@ class TestAddKey(TestMetaParser):
         self.parser.startTag("key", {})
         self.parser.startTag("fifths", {})
         self.parser.newData("5")
+        self.parser.endTag("fifths")
         self.parser.startTag("mode", {})
         self.parser.newData("major")
         self.assertEqual(
