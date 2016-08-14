@@ -104,6 +104,7 @@ class MetaParser(object):
         instrument_list = []
         clef_list = {}
         key_list = {}
+        keys = ["key", "clef"]
         for part in self.parts:
 
             data = {}
@@ -115,16 +116,14 @@ class MetaParser(object):
 
             if "transposition" in self.parts[part]:
                 data["transposition"] = self.parts[part]["transposition"]
-            if "key" in self.parts[part]:
-                key_list[self.parts[part]["name"]] = convert_to_hashdict_set(self.parts[part]["key"])
-            if "clef" in self.parts[part]:
-                clef_list[self.parts[part]["name"]] = convert_to_hashdict_set(self.parts[part]["clef"])
+
+            for key in keys:
+                if key in self.parts[part]:
+                    init_kv(self.data, key, init_value={})
+                    self.data[key][self.parts[part]["name"]] = convert_to_hashdict_set(self.parts[part][key])
+
             instrument_list.append(data)
         self.data["instruments"] = instrument_list
-        if key_list != {}:
-            self.data["key"] = key_list
-        if clef_list != {}:
-            self.data["clef"] = clef_list
 
 
 # HANDLER METHODS
