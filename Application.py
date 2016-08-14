@@ -191,9 +191,8 @@ class Application(QtCore.QObject):
             async, QtCore.SIGNAL("downloadError(bool)"), self.onFileError)
         async.run()
 
-    def loadPieces(self, method="title", slot=None):
-        worker = qt_threading.mythread(
-            self, self.manager.getPieceSummaryStrings, (method,))
+    def start_basic_thread(self, args, method, slot=None):
+        worker = qt_threading.mythread(self, method, args)
         QtCore.QObject.connect(
             worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         worker.run()
@@ -315,20 +314,6 @@ class Application(QtCore.QObject):
     def errorPopup(self, errors):
         self.windows["error"].show()
         self.windows["error"].load(errors)
-
-    def getCreatedPlaylists(self, slot=None):
-        async = qt_threading.mythread(
-            self, self.manager.getPlaylistsFromPlaylistTable, ())
-        QtCore.QObject.connect(
-            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
-        async.run()
-
-    def getPlaylists(self, select_method="all", slot=None):
-        async = qt_threading.mythread(
-            self, self.manager.getPlaylists, (select_method,))
-        QtCore.QObject.connect(
-            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
-        async.run()
 
     def getPlaylistFileInfo(self, playlist):
         return self.manager.getPlaylistFileInfo(playlist)

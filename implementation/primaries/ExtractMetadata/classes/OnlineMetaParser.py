@@ -20,7 +20,7 @@ class OnlineMetaParser(MetaParser.MetaParser):
         [self.handlers.pop(i) for i in self.ignored]
         self.source = source
 
-    def collatePartsIntoData(self):
+    def collate_parts(self):
         self.data["source"] = self.source
-        MetaParser.MetaParser.collatePartsIntoData(self)
+        MetaParser.MetaParser.collate_parts(self)
 

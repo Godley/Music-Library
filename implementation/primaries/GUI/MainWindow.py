@@ -255,7 +255,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
 
     def setup_data_items(self, playlist_fnames, playlist_data, start_index, end_index):
         items = []
-        keys = ("composer", "lyricist", "instruments", "filename", "clefs", "keys",
+        keys = ("title", "composer", "lyricist", "instruments", "filename", "clefs", "keys",
                 "tempos", "time_signatures")
         alternate_method = {"instruments": merge_instruments,
                             "clefs": merge_clefs_and_keys,
@@ -263,11 +263,6 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         for i in range(start_index, end_index):
             file = playlist_data[i]
             row = []
-            item = QtGui.QTableWidgetItem(file["title"])
-            item.setData(32, file["filename"])
-            item.setData(3, i)
-            item.setData(4, playlist_fnames)
-            row.append(item)
             for key in keys:
                 if key in file:
                     if key in alternate_method:

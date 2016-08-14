@@ -375,14 +375,14 @@ class TestPartCollation(unittest.TestCase):
     def testCollationOfTranspositions(self):
         self.parser.parts = {"P1": {"name": "clarinet", "transposition": {}}}
         self.parser.data = {"instruments": ["clarinet"]}
-        self.parser.collatePartsIntoData()
+        self.parser.collate_parts()
         self.assertEqual(
             self.parser.data, {"instruments": [{"name": "clarinet", "transposition": {}}]})
 
     def testCollationOfKeys(self):
         self.parser.parts = {"P1": {"name": "clarinet", "key": [{}]}}
         self.parser.data = {"instruments": ["clarinet"]}
-        self.parser.collatePartsIntoData()
+        self.parser.collate_parts()
         self.assertEqual(self.parser.data,
                          {"instruments": [{"name": "clarinet"}],
                           "key": {"clarinet": {hashdict()}}})
@@ -390,7 +390,7 @@ class TestPartCollation(unittest.TestCase):
     def testCollationOfClefs(self):
         self.parser.parts = {"P1": {"name": "clarinet", "clef": [{}]}}
         self.parser.data = {"instruments": ["clarinet"]}
-        self.parser.collatePartsIntoData()
+        self.parser.collate_parts()
         self.assertEqual(self.parser.data,
                          {"instruments": [{"name": "clarinet"}],
                           "clef": {"clarinet": {hashdict()}}})

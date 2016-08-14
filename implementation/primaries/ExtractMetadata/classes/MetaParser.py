@@ -99,15 +99,14 @@ class MetaParser(object):
         parser.setFeature(handler.feature_external_ges, False)
         fob = open(file, 'r')
         parser.parse(fob)
-        self.collatePartsIntoData()
+        self.collate_parts()
         fob.close()
         return self.data
 
-    def collatePartsIntoData(self):
+    def collate_parts(self):
         instrument_list = []
         keys = ["key", "clef"]
         for part in self.parts:
-
             data = {}
             if "name" in self.parts[part]:
                 data["name"] = self.parts[part]["name"]
