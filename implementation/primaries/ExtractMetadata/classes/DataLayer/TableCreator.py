@@ -21,44 +21,24 @@ class TableCreator(TableConnector.TableConnector):
               "lyricists(name text)",
               "composers(name text)",
               "pieces(filename text, title text, composer_id int, lyricist_id int, archived BOOLEAN)"]
-    def __init__(self, db):
-        super(TableCreator, self).__init__(db)
-        for table in self.tables:
-            self.create_if_not_exists(table)
-        self.createKeyData()
-        self.createClefsData()
 
+    clefs = [("treble", "G", 2,),
+                 ("french", "G", 1),
+                 ("varbaritone", "F", 3,),
+                 ("subbass", "F", 5),
+                 ("bass", "F", 4),
+                 ("alto", "C", 3),
+                 ("percussion", "percussion", -1,),
+                 ("tenor", "C", 4),
+                 ("baritone", "C", 5,),
+                 ("mezzosoprano", "C", 2),
+                 ("soprano", "C", 1),
+                 ("varC", "VARC", -1),
+                 ("alto varC", "VARC", 3),
+                 ("tenor varC", "VARC", 4),
+                 ("baritone varC", "VARC", 5)]
 
-    def create_if_not_exists(self, table_and_columns):
-        connection, cursor = self.connect()
-        query = 'CREATE TABLE IF NOT EXISTS '+table_and_columns
-        cursor.execute(query)
-        connection.commit()
-        self.disconnect(connection)
-
-    def get_value_for_filename(self, filename, value):
-        """
-        Method for doing a simple search where the table contains x value linked
-        to x piece id. Used for license, source, or secret
-        :param filename:
-        :param value:
-        :return:
-        """
-        connection, cursor = self.connect()
-        query = 'SELECT {} FROM {}s {}, pieces p WHERE p.filename=? AND {}.piece_id = p.ROWID'.format(value, value, value[0],
-                                                                                                      value[0])
-        cursor.execute(query, (filename,))
-        result = cursor.fetchone()
-        self.disconnect(connection)
-        return result
-
-    def createKeyData(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
-        connection, cursor = self.connect()
-        keys = [("C flat major", -7, "major"),
+    keys = [("C flat major", -7, "major"),
                 ("G flat major", -6, "major"),
                 ("D flat major", -5, "major"),
                 ("A flat major", -4, "major"),
@@ -88,40 +68,45 @@ class TableCreator(TableConnector.TableConnector):
                 ("G# minor", 5, "minor"),
                 ("D# minor", 6, "minor"),
                 ("A# minor", 7, "minor")]
-        for key in keys:
-            cursor.execute('SELECT * FROM KEYS WHERE name=?', (key[0],))
-            result = cursor.fetchone()
-            if result is None or len(result) == 0:
-                cursor.execute('INSERT INTO keys VALUES(?,?,?)', key)
+
+    def __init__(self, db):
+        super(TableCreator, self).__init__(db)
+        for table in self.tables:
+            self.create_if_not_exists(table)
+        self.insert_if_not_exists('clefs', 'name', self.clefs)
+        self.insert_if_not_exists('keys', 'name', self.keys)
+
+
+    def create_if_not_exists(self, table_and_columns):
+        connection, cursor = self.connect()
+        query = 'CREATE TABLE IF NOT EXISTS '+table_and_columns
+        cursor.execute(query)
         connection.commit()
         self.disconnect(connection)
 
-    def createClefsData(self):
-        '''
-        method to create a new key table if one does not already exist
-        :return: None
-        '''
+    def get_value_for_filename(self, filename, value):
+        """
+        Method for doing a simple search where the table contains x value linked
+        to x piece id. Used for license, source, or secret
+        :param filename:
+        :param value:
+        :return:
+        """
         connection, cursor = self.connect()
-        clefs = [("treble", "G", 2,),
-                 ("french", "G", 1),
-                 ("varbaritone", "F", 3,),
-                 ("subbass", "F", 5),
-                 ("bass", "F", 4),
-                 ("alto", "C", 3),
-                 ("percussion", "percussion", -1,),
-                 ("tenor", "C", 4),
-                 ("baritone", "C", 5,),
-                 ("mezzosoprano", "C", 2),
-                 ("soprano", "C", 1),
-                 ("varC", "VARC", -1),
-                 ("alto varC", "VARC", 3),
-                 ("tenor varC", "VARC", 4),
-                 ("baritone varC", "VARC", 5)]
-        for clef in clefs:
-            cursor.execute('SELECT * FROM clefs WHERE name=?', (clef[0],))
+        query = 'SELECT {} FROM {}s {}, pieces p WHERE p.filename=? AND {}.piece_id = p.ROWID'.format(value, value, value[0],
+                                                                                                      value[0])
+        cursor.execute(query, (filename,))
+        result = cursor.fetchone()
+        self.disconnect(connection)
+        return result
+
+    def insert_if_not_exists(self, table, column_0, data):
+        connection, cursor = self.connect()
+        for elem in data:
+            cursor.execute('SELECT * FROM {} WHERE {}=?'.format(table, column_0), (elem[0],))
             result = cursor.fetchone()
             if result is None or len(result) == 0:
-                cursor.execute('INSERT INTO clefs VALUES(?,?,?)', clef)
-
+                query = 'INSERT INTO {} VALUES({})'.format(table, ",".join(['?' for i in range(len(data[0]))]))
+                cursor.execute(query, elem)
         connection.commit()
         self.disconnect(connection)
