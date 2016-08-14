@@ -239,7 +239,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.scoreWindow.hide()
         self.playlistTable.setRowCount(length)
         file_data = self.qApp.getPlaylistFileInfo(playlist_to_load)
-        data_items = self.setUpDataItems(
+        data_items = self.setup_data_items(
             playlist_to_load, file_data, 0, len(file_data))
         for i in range(len(data_items)):
             for j in range(len(data_items[i])):
@@ -253,8 +253,13 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.playlist = playlist_title
         self.resizeCenterWidget(self.playlistTable)
 
-    def setUpDataItems(self, playlist_fnames, playlist_data, start_index, end_index):
+    def setup_data_items(self, playlist_fnames, playlist_data, start_index, end_index):
         items = []
+        keys = ("composer", "lyricist", "instruments", "filename", "clefs", "keys",
+                "tempos", "time_signatures")
+        alternate_method = {"instruments": self.merge_instruments,
+                            "clefs": self.merge_clefs_and_keys,
+                            "keys": self.merge_clefs_and_keys}
         for i in range(start_index, end_index):
             file = playlist_data[i]
             row = []
@@ -263,116 +268,37 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
             item.setData(3, i)
             item.setData(4, playlist_fnames)
             row.append(item)
-            if "composer" in file:
-                item = QtGui.QTableWidgetItem(file["composer"])
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
+            for key in keys:
+                if key in file:
+                    if key in alternate_method:
+                        value = alternate_method[key](file[key])
+                    else:
+                        value = file[key]
+                        if type(value) is list:
+                            value = ", ".join(file[key])
+                    item = QtGui.QTableWidgetItem(value)
+                    item.setData(32, file["filename"])
+                    item.setData(3, i)
+                    item.setData(4, playlist_fnames)
+                    row.append(item)
 
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            if "lyricist" in file:
-                item = QtGui.QTableWidgetItem(file["lyricist"])
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            if "instruments" in file:
-                item = QtGui.QTableWidgetItem(
-                    ", ".join([data["name"] for data in file["instruments"]]))
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-            item = QtGui.QTableWidgetItem(file["filename"])
-            item.setData(32, file["filename"])
-            item.setData(3, i)
-            item.setData(4, playlist_fnames)
-            row.append(item)
-            if "clefs" in file:
-                result = ""
-                for instrument in file["clefs"]:
-                    result += ", ".join(file["clefs"][instrument])
-                item = QtGui.QTableWidgetItem(result)
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                item.setData(32, file["filename"])
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-            if "keys" in file:
-                result = ""
-                for instrument in file["keys"]:
-                    result += ", ".join(file["keys"][instrument])
-                item = QtGui.QTableWidgetItem(result)
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            if "tempos" in file:
-                item = QtGui.QTableWidgetItem(", ".join(file["tempos"]))
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            if "time_signatures" in file:
-                item = QtGui.QTableWidgetItem(
-                    ", ".join(file["time_signatures"]))
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
+                else:
+                    item = QtGui.QTableWidgetItem("")
+                    item.setData(32, file["filename"])
+                    item.setData(3, i)
+                    item.setData(4, playlist_fnames)
+                    row.append(item)
             items.append(row)
         return items
+
+    def merge_instruments(self, instrument_list):
+        return ", ".join([instrument["name"] for instrument in instrument_list])
+
+    def merge_clefs_and_keys(self, clef_or_key_dict):
+        result = ''
+        for instrument in clef_or_key_dict:
+            result += ", ".join(clef_or_key_dict[instrument])
+        return result
 
     def onPlaylistItemClicked(self, current_item):
         """
