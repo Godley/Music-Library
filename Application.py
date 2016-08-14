@@ -6,7 +6,8 @@ from xml.parsers import expat
 from PyQt4 import QtGui, QtCore, QtXml
 
 
-from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, PlaylistDialog, ImportDialog, licensePopup, \
+from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, \
+    PlaylistDialog, ImportDialog, licensePopup, \
     StartupWindow, MainWindow
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.scripts.setup_script import do_setup
