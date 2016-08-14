@@ -115,15 +115,9 @@ class MetaParser(object):
             if "transposition" in self.parts[part]:
                 data["transposition"] = self.parts[part]["transposition"]
             if "key" in self.parts[part]:
-                hashdict_list = [hashdict(item)
-                                 for item in self.parts[part]["key"]]
-                hashdict_set = set(hashdict_list)
-                key_list[self.parts[part]["name"]] = hashdict_set
+                key_list[self.parts[part]["name"]] = convert_to_hashdict_set(self.parts[part]["key"])
             if "clef" in self.parts[part]:
-                hashdict_list = [hashdict(item)
-                                 for item in self.parts[part]["clef"]]
-                hashdict_set = set(hashdict_list)
-                clef_list[self.parts[part]["name"]] = hashdict_set
+                clef_list[self.parts[part]["name"]] = convert_to_hashdict_set(self.parts[part]["clef"])
             instrument_list.append(data)
         self.data["instruments"] = instrument_list
         if key_list != {}:
@@ -303,3 +297,8 @@ def handleBibliography(tags, attrs, chars, parts, data):
         if "title" not in data:
             data["title"] = ""
         data["title"] += title.lower()
+
+def convert_to_hashdict_set(list_of_dicts):
+    hashdict_list = [hashdict(item) for item in list_of_dicts]
+    hashdict_set = set(hashdict_list)
+    return hashdict_set

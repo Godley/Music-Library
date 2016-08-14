@@ -101,6 +101,11 @@ class TableCreator(TableConnector.TableConnector):
         return result
 
     def insert_if_not_exists(self, table, column_0, data):
+        """
+        method for querying a table based on first column. If an entry with the appropriate
+        value doesn't exist, will insert a new entry with the given number of columns calculated
+        from first entry in data list
+        """
         connection, cursor = self.connect()
         for elem in data:
             cursor.execute('SELECT * FROM {} WHERE {}=?'.format(table, column_0), (elem[0],))
