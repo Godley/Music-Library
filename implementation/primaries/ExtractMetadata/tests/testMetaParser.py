@@ -281,7 +281,7 @@ class TestAddTempo(TestMetaParser):
     def testTempoHandler(self):
         self.parser.startTag("part", {"id": "P1"})
         self.parser.startTag("metronome", {})
-        self.assertEqual(self.parser.current_handler, MetaParser.handleTempo)
+        self.assertEqual(self.parser.current_handler, MetaParser.handle_tempo)
 
     def testTempoCall(self):
         self.parser.startTag("part", {"id": "P1"})

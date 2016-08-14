@@ -1,4 +1,5 @@
 import xml.sax
+import copy
 from xml.sax import handler, make_parser
 from MuseParse import helpers
 
@@ -36,7 +37,7 @@ class MetaParser(object):
             "clef": handle_clef_or_key,
             "transpose": handleTransposition,
             "time": handleMeter,
-            "metronome": handleTempo,
+            "metronome": handle_tempo,
             "movement-title": handleBibliography,
             "work-title": handleBibliography,
             "creator": handleBibliography,
@@ -239,44 +240,62 @@ def handleMeter(tags, attrs, chars, parts, data):
             #     data["time"][-1]["type"] = int(b_type)
 
 
-def handleTempo(tags, attrs, chars, parts, data):
+def handle_tempo(tags, attrs, chars, parts, data):
     init_kv(data, "tempo", [])
 
     if tags[-1] != "metronome":
-
-        if tags[-1] == "beat-unit-dot":
-            if len(data["tempo"]) > 0:
-                if "beat_2" in data["tempo"][-1]:
-                    data["tempo"][-1]["beat_2"] += "."
-                elif "beat" in data["tempo"][-1]:
-                    data["tempo"][-1]["beat"] += "."
-
         elem = create_elem(chars, "beat-unit", "per-minute", cast1=str, cast2=int)
-        if tags[-1] == "beat-unit":
+        data["tempo"] = handle_beat_unit(elem, data["tempo"], tags[-1])
+        data["tempo"] = handle_beat_unit_dot(data["tempo"], tags[-1])
 
-            # beat could either be a first beat of a tempo,
-            # or a second beat of a tempo. Each tempo can only have either
-            # a minute or a second beat, so we check first if there are no tempos,
-            # then if the first tempo has a beat, then if the first tempo has a second beat
-            # if all above is true, then we append it.
-            if tags[-1] == "beat-unit":
-                if len(data["tempo"]) == 0 or \
-                    ("beat" in data["tempo"][-1] and
-                         ("minute" in data["tempo"][-1] or "beat_2" in data["tempo"][-1])
-                     ):
-                    data["tempo"].append({"beat": elem})
-
-            # if not, we dump it as the first beat of the first tempo
-                elif "beat" not in data["tempo"][-1]:
-                    data["tempo"][-1]["beat"] = elem
-
-                # finally, if the first tempo doesn't have a second beat, or a minute,
-                # we put it as the second beat of the tempo. MusicXML sucks.
-                elif "minute" not in data["tempo"][-1] and "beat_2" not in data["tempo"][-1]:
-                    data["tempo"][-1]["beat_2"] = elem
-
-        elif tags[-1] == "per-minute":
+        if tags[-1] == "per-minute":
             update_or_append_entry(data["tempo"], "minute", elem)
+
+def handle_beat_unit_dot(list_of_dicts, tag):
+    if tag == "beat-unit-dot":
+        copy_of_dict = copy.deepcopy(list_of_dicts)
+        if len(copy_of_dict) > 0:
+            if "beat_2" in copy_of_dict[-1]:
+                copy_of_dict[-1]["beat_2"] += "."
+            elif "beat" in copy_of_dict[-1]:
+                copy_of_dict[-1]["beat"] += "."
+        return copy_of_dict
+    return list_of_dicts
+
+def handle_beat_unit(elem, list_of_dicts, tag):
+
+    if tag == 'beat-unit':
+        copy_of_dict = copy.deepcopy(list_of_dicts)
+
+        if beat1_and_minute_or_beat2_exists(copy_of_dict):
+            copy_of_dict.append({"beat": elem})
+
+        # if not, we dump it as the first beat of the first tempo
+        elif "beat" not in copy_of_dict[-1]:
+            copy_of_dict[-1]["beat"] = elem
+
+        # finally, if the first tempo doesn't have a second beat, or a minute,
+        # we put it as the second beat of the tempo. MusicXML sucks.
+        elif not minute_or_beat2_exists(copy_of_dict):
+            copy_of_dict[-1]["beat_2"] = elem
+        return copy_of_dict
+    return list_of_dicts
+
+def beat1_and_minute_or_beat2_exists(list_of_dicts):
+    answer = False
+    if len(list_of_dicts) == 0:
+        answer = True
+    elif "beat" in list_of_dicts[-1] and minute_or_beat2_exists(list_of_dicts):
+        answer = True
+    return answer
+
+def minute_or_beat2_exists(list_of_dicts):
+    answer = False
+    if len(list_of_dicts) == 0:
+        answer = True
+    elif "minute" in list_of_dicts[-1] or "beat_2" in list_of_dicts[-1]:
+        answer = True
+    return answer
 
 
 def handleBibliography(tags, attrs, chars, parts, data):
