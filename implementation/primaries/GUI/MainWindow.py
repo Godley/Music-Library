@@ -8,7 +8,7 @@ if platform != 'win32':
 
 from PyQt4 import QtGui, QtCore, uic
 
-from implementation.primaries.GUI.helpers import get_base_dir, parseStyle, postProcessLines, merge_instruments, merge_clefs_and_keys
+from implementation.primaries.GUI.helpers import get_base_dir, parseStyle, postProcessLines, merge_instruments, merge_clefs_and_keys, fit_columns_to_widget
 from implementation.primaries.GUI import themedWindow, Widgets, qt_threading, MultistandWidget, pdfViewer
 
 
@@ -41,12 +41,15 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         if hasattr(self, "playlistTable"):
             if not self.playlistTable.isHidden():
                 self.resizeCenterWidget(self.playlistTable)
+                fit_columns_to_widget(self.playlistTable, 10)
                 for i in range(10):
                     self.playlistTable.setColumnWidth(
                         i, self.playlistTable.width() / 9)
         if hasattr(self, "searchBar"):
             self.resizeSearchbar()
         QResizeEvent.accept()
+
+
 
     def resizeCenterWidget(self, item):
         """
@@ -236,9 +239,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.setWindowTitle("MuseLib | Playlist: " + playlist_title)
         self.playlistTable.show()
         self.playlistTable.lower()
-        for i in range(10):
-            self.playlistTable.setColumnWidth(
-                i, self.playlistTable.width() / 9)
+        fit_columns_to_widget(self.playlistTable, 10)
         self.playlist = playlist_title
         self.resizeCenterWidget(self.playlistTable)
 

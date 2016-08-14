@@ -1,5 +1,5 @@
 from PyQt4 import uic, QtCore, QtGui
-from implementation.primaries.GUI.helpers import get_base_dir, merge_clefs_and_keys, merge_instruments
+from implementation.primaries.GUI.helpers import get_base_dir, merge_clefs_and_keys, merge_instruments, fit_columns_to_widget
 import os
 
 
@@ -205,8 +205,7 @@ class PlaylistBrowser(Window):
         self.tableWidget.setColumnCount(3)
         self.tableWidget.setHorizontalHeaderLabels(
             ['Title', 'Composer', 'Filename'])
-        for i in range(3):
-            self.tableWidget.setColumnWidth(i, self.tableWidget.width() / 3)
+        fit_columns_to_widget(self.tableWidget, 3)
         self.tableWidget.setRowCount(len(data))
         columns = ("title", "composer", "filename")
         for i in range(len(data)):
