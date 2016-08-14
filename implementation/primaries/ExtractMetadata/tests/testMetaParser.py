@@ -35,7 +35,7 @@ class TestAddPart(TestMetaParser):
     def testPartNameHandler(self):
         self.parser.startTag("score-part", {})
         self.parser.startTag("part-name", {})
-        self.assertEqual(MetaParser.makeNewPart, self.parser.current_handler)
+        self.assertEqual(MetaParser.make_new_part, self.parser.current_handler)
 
     def testPartNameHandlerCall(self):
         self.parser.startTag("score-part", {})

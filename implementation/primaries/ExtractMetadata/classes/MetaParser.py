@@ -32,7 +32,7 @@ class MetaParser(object):
         self.attribs = {}
         self.chars = {}
         self.handlers = {
-            "part-name": makeNewPart,
+            "part-name": make_new_part,
             "key": handle_clef_or_key,
             "clef": handle_clef_or_key,
             "transpose": handleTransposition,
@@ -78,11 +78,14 @@ class MetaParser(object):
                     self.chars,
                     self.parts,
                     self.data)
-        self.tags.remove(name)
+        self.pop_name(name)
 
         if len(self.tags) > 0 and self.tags[-1] in self.handlers:
             self.current_handler = self.handlers[self.tags[-1]]
 
+    def pop_name(self, name):
+        if name in self.tags:
+            self.tags.remove(name)
         if name in self.attribs:
             self.attribs.pop(name)
         if name in self.chars:
@@ -127,7 +130,7 @@ class MetaParser(object):
 # HANDLER METHODS
 
 
-def makeNewPart(tags, attrs, chars, parts, data):
+def make_new_part(tags, attrs, chars, parts, data):
     """
     handler which works with anything inside the score-part tag, which creates a new part inside the data dict
     :param tags: current list of xml tags
@@ -137,8 +140,7 @@ def makeNewPart(tags, attrs, chars, parts, data):
     """
     id = helpers.GetID(attrs, "score-part", "id")
     if id is not None:
-        if id not in parts:
-            parts[id] = {}
+        init_kv(parts, id, init_value={})
     if tags[-1] == "part-name":
         if "part-name" in chars:
             name = chars["part-name"]
