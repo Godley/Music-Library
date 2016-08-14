@@ -8,7 +8,7 @@ if platform != 'win32':
 
 from PyQt4 import QtGui, QtCore, uic
 
-from implementation.primaries.GUI.helpers import get_base_dir, parseStyle, postProcessLines
+from implementation.primaries.GUI.helpers import get_base_dir, parseStyle, postProcessLines, merge_instruments, merge_clefs_and_keys
 from implementation.primaries.GUI import themedWindow, Widgets, qt_threading, MultistandWidget, pdfViewer
 
 
@@ -257,9 +257,9 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         items = []
         keys = ("composer", "lyricist", "instruments", "filename", "clefs", "keys",
                 "tempos", "time_signatures")
-        alternate_method = {"instruments": self.merge_instruments,
-                            "clefs": self.merge_clefs_and_keys,
-                            "keys": self.merge_clefs_and_keys}
+        alternate_method = {"instruments": merge_instruments,
+                            "clefs": merge_clefs_and_keys,
+                            "keys": merge_clefs_and_keys}
         for i in range(start_index, end_index):
             file = playlist_data[i]
             row = []
@@ -291,14 +291,9 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
             items.append(row)
         return items
 
-    def merge_instruments(self, instrument_list):
-        return ", ".join([instrument["name"] for instrument in instrument_list])
 
-    def merge_clefs_and_keys(self, clef_or_key_dict):
-        result = ''
-        for instrument in clef_or_key_dict:
-            result += ", ".join(clef_or_key_dict[instrument])
-        return result
+
+
 
     def onPlaylistItemClicked(self, current_item):
         """

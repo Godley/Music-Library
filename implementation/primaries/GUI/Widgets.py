@@ -1,5 +1,5 @@
 from PyQt4 import uic, QtCore, QtGui
-from implementation.primaries.GUI.helpers import get_base_dir
+from implementation.primaries.GUI.helpers import get_base_dir, merge_clefs_and_keys, merge_instruments
 import os
 
 
@@ -147,57 +147,22 @@ class PieceInfo(Window):
             datastring = "title: " + data["title"]
             title = QtGui.QListWidgetItem(datastring)
             self.listWidget.addItem(title)
-            if "composer" in data and data["composer"] != -1:
-                datastring = "composer: " + data["composer"]
-                composer = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(composer)
-            if "lyricist" in data and data["lyricist"] != -1:
-                datastring = "lyricist: " + data["lyricist"]
-                lyricist = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(lyricist)
-            if "instruments" in data:
-                datastring = "instruments: " + \
-                    ", ".join([d["name"] for d in data["instruments"]])
-                instruments = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(instruments)
-            if "clefs" in data:
-                datastring = "clefs: "
-                clef_list = []
-                for instrument in data["clefs"]:
-                    for clef in data["clefs"][instrument]:
-                        if clef not in clef_list:
-                            clef_list.append(clef)
-                datastring += ", ".join(clef_list)
-                clefs = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(clefs)
-            if "keys" in data:
-                datastring = "keys: "
-                key_list = []
-                for instrument in data["keys"]:
-                    for key in data["keys"][instrument]:
-                        if key_list not in key_list:
-                            key_list.append(key)
-                datastring += ", ".join(key_list)
-                keys = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(keys)
+            keys = ("composer", "lyricist", "instruments", "clefs", "keys", "tempos",
+                    "time_signatures")
 
-            if "tempos" in data:
-                datastring = "tempos: "
-                tempo_list = []
-                for tempo in data["tempos"]:
-                    datastring += tempo
-                    datastring += ", "
-                tempos = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(tempos)
+            alternate_methods = {"instruments": merge_instruments,
+                                 "clefs": merge_clefs_and_keys,
+                                 "keys": merge_clefs_and_keys,
+                                 "tempos": lambda k: ", ".join(k),
+                                 "time_signatures": lambda k: ", ".join(k)}
 
-            if "time_signatures" in data:
-                datastring = "time signatures: "
-                tempo_list = []
-                for tempo in data["time_signatures"]:
-                    datastring += tempo
-                    datastring += ", "
-                tempos = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(tempos)
+            for key in keys:
+                if key in data:
+                    datastring = "{}: {}".format(key, data[key])
+                    if key in alternate_methods:
+                        datastring = alternate_methods[key](data[key])
+                    elem = QtGui.QListWidgetItem(datastring)
+                    self.listWidget.addItem(elem)
 
             self.listWidget.show()
 

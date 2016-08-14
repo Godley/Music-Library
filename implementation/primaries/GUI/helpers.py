@@ -89,3 +89,12 @@ def parseIconPath(path, theme):
 def postProcessLines(lines):
     return_val = lines.replace('\\', '/')
     return return_val
+
+def merge_instruments(instrument_list):
+    return ", ".join([instrument["name"] for instrument in instrument_list])
+
+def merge_clefs_and_keys(clef_or_key_dict):
+    result = ''
+    for instrument in clef_or_key_dict:
+        result += ", ".join(clef_or_key_dict[instrument])
+    return result
