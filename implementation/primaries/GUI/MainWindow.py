@@ -99,12 +99,12 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         layout.addWidget(self.widgets["search"])
         self.searchFrame.setGeometry(self.searchFrame.pos().x(), self.searchFrame.pos(
         ).y(), self.widgets["search"].width(), self.widgets["search"].height())
-        self.scorebookBtn.clicked.connect(self.scorebook)
-        self.myPlaylistBtn.clicked.connect(self.myplaylist)
-        self.autoPlaylistBtn.clicked.connect(self.autoplaylist)
-        self.browserBtn.clicked.connect(self.browser)
-        self.featuredBtn.clicked.connect(self.featured)
-        self.infoBtn.clicked.connect(self.info)
+        self.scorebookBtn.clicked.connect(self.sidemenu_callback)
+        self.myPlaylistBtn.clicked.connect(self.sidemenu_callback)
+        self.autoPlaylistBtn.clicked.connect(self.sidemenu_callback)
+        self.browserBtn.clicked.connect(self.sidemenu_callback)
+        self.featuredBtn.clicked.connect(self.sidemenu_callback)
+        self.infoBtn.clicked.connect(self.sidemenu_callback)
         self.searchInput.setCursorPosition(10)
         self.searchInput.textChanged.connect(self.updateOptions)
         self.searchInput.editingFinished.connect(self.finished)
@@ -372,41 +372,13 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         pass
 
     # callbacks for the buttons in the side menu
-    def scorebook(self):
-        if self.loaded != "scorebook":
-            self.loadFrame("scorebook")
+    def sidemenu_callback(self):
+        sender = self.sender()
+        frame_name = sender.objectName().lower()[:-3]
+        if self.loaded != frame_name:
+            self.loadFrame(frame_name)
         else:
-            self.unloadFrame("scorebook")
-
-    def myplaylist(self):
-        if self.loaded != "myplaylist":
-            self.loadFrame("myplaylist")
-        else:
-            self.unloadFrame("myplaylist")
-
-    def autoplaylist(self):
-        if self.loaded != "autoplaylist":
-            self.loadFrame("autoplaylist")
-        else:
-            self.unloadFrame("autoplaylist")
-
-    def browser(self):
-        if self.loaded != "browser":
-            self.loadFrame("browser")
-        else:
-            self.unloadFrame("browser")
-
-    def info(self):
-        if self.loaded != "info":
-            self.loadFrame("info")
-        else:
-            self.unloadFrame("info")
-
-    def featured(self):
-        if self.loaded != "featured":
-            self.loadFrame("featured")
-        else:
-            self.unloadFrame("featured")
+            self.unloadFrame(frame_name)
 
     # methods to handle loading frames
     def loadFrame(self, child, ypos=72):
@@ -497,9 +469,3 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.qApp.setup_startup()
         self.close()
 
-    def start_playlist_thread(self, args=tuple(), slot=None):
-        async = qt_threading.mythread(
-            self, self.manager.getPlaylists, args)
-        QtCore.QObject.connect(
-            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
-        async.run()

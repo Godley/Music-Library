@@ -48,6 +48,13 @@ class Application(QtCore.QObject):
         self.load_windows()
         self.updateStatusBar("hello, world")
 
+    def start_playlist_thread(self, args=tuple(), slot=None):
+        async = qt_threading.mythread(
+            self, self.manager.getPlaylists, args)
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async.run()
+
     def meta_file(self):
         return os.path.join(os.path.expanduser("~"), ".musiclib")
 
