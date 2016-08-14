@@ -114,8 +114,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         ), self.searchBar.pos().y(), self.width(), self.searchBar.height())
         self.centralWidget().setStyleSheet(
             "QWidget#centralwidget {border-image:url(alternatives/sheet-music-texture.png) 0 0 stretch stretch;}")
-        self.actionUbuntu.triggered.connect(self.ubuntu)
-        self.actionCandy.triggered.connect(self.candy)
+        self.actionUbuntu.triggered.connect(self.change_theme)
+        self.actionCandy.triggered.connect(self.change_theme)
         self.searchFrame.hide()
         self.scoreWindow.hide()
         self.multistndBtn.hide()
@@ -172,22 +172,11 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
             self.applyTheme()
         QFocusEvent.accept()
 
-    def candy(self):
-        """
-        callback for the action to change theme to candy
-        :return:
-        """
-        self.theme = "candy"
-        self.qApp.updateTheme("candy")
-        self.applyTheme()
-
-    def ubuntu(self):
-        """
-        callback for the action to change theme to ubuntu
-        :return:
-        """
-        self.theme = "ubuntu"
-        self.qApp.updateTheme("ubuntu")
+    def change_theme(self):
+        sender = self.sender()
+        name = sender.objectName()[6:].lower()
+        self.theme = name
+        self.qApp.updateTheme(self.theme)
         self.applyTheme()
 
     # methods which handle querying
