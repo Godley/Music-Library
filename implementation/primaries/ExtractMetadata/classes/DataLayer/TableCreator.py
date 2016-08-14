@@ -36,12 +36,17 @@ class TableCreator(TableConnector.TableConnector):
         connection.commit()
         self.disconnect(connection)
 
-
-
-    def getSecret(self, filename):
-        # TODO HASH THIS STUFF
+    def get_value_for_filename(self, filename, value):
+        """
+        Method for doing a simple search where the table contains x value linked
+        to x piece id. Used for license, source, or secret
+        :param filename:
+        :param value:
+        :return:
+        """
         connection, cursor = self.connect()
-        query = 'SELECT secret FROM secrets s, pieces p WHERE p.filename=? AND s.piece_id = p.ROWID'
+        query = 'SELECT {} FROM {}s {}, pieces p WHERE p.filename=? AND {}.piece_id = p.ROWID'.format(value, value, value[0],
+                                                                                                      value[0])
         cursor.execute(query, (filename,))
         result = cursor.fetchone()
         self.disconnect(connection)

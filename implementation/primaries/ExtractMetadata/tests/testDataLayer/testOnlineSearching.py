@@ -451,7 +451,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                            "title": "blabla",
                            "source": "MuseScore",
                            "instruments": [{"name": "Clarinet"}]})
-        result = self.data.getPieceSource("file.xml")
+        result = self.data.get_value_for_filename("file.xml", 'source')
         self.assertEqual(result['source'], 'MuseScore')
 
     def testDownloadPiece(self):
@@ -460,5 +460,5 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                            "source": "MuseScore",
                            "instruments": [{"name": "Clarinet"}]})
         self.data.downloadPiece("file.xml")
-        result = self.data.getPieceSource("file.xml")
+        result = self.data.get_value_for_filename("file.xml", 'source')
         self.assertEqual(result, None)

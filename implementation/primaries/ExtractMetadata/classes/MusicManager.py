@@ -577,10 +577,10 @@ class MusicManager(QueryLayer):
     def downloadFile(self, filename):
         file_info = filename.split(".")
         fname = file_info[0]
-        source = self._data.getPieceSource(filename)
+        source = self._data.get_value_for_filename(filename, 'source')
         if source is not None:
             source = source['source']
-        secret = self._data.getSecret(filename)
+        secret = self._data.get_value_for_filename(filename, 'secret')
         if secret is not None:
             secret = secret['secret']
         try:
@@ -648,7 +648,7 @@ class MusicManager(QueryLayer):
         return summary_strings
 
     def getLicense(self, filename):
-        result = self._data.getLicense(filename)
+        result = self._data.get_value_for_filename(filename, 'license')
         # eventually we should open up a file and get the text based on the license name,
         # but for now we need to do this
         if result is not None:

@@ -396,14 +396,6 @@ class MusicData(TableCreator.TableCreator):
         filelist = set([result['filename'] for result in results])
         return list(filelist)
 
-    def getLicense(self, filename):
-        connection, cursor = self.connect()
-        query = 'SELECT license FROM licenses l, pieces p WHERE p.filename = ? AND l.piece_id = p.ROWID'
-        cursor.execute(query, (filename,))
-        result = cursor.fetchone()
-        self.disconnect(connection)
-        return result
-
     def getRoughPiece(self, filename, archived=0, online=False):
         """
         method to get a piece's table entry according to it's filename.
@@ -1357,14 +1349,6 @@ class MusicData(TableCreator.TableCreator):
         file_list = [result['filename'] for result in results]
         self.disconnect(connection)
         return file_list
-
-    def getPieceSource(self, filename):
-        connection, cursor = self.connect()
-        query = 'SELECT source FROM sources, pieces p WHERE p.filename =? AND p.ROWID = sources.piece_id'
-        cursor.execute(query, (filename,))
-        result = cursor.fetchone()
-        self.disconnect(connection)
-        return result
 
     def downloadPiece(self, filename):
         """
