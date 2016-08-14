@@ -59,12 +59,15 @@ class PlaylistWidget(Window):
 
     def onPlaylistsReady(self, myPlaylists):
         self.listWidget.clear()
-        for entry in myPlaylists:
+        self.create_widgets(myPlaylists)
+        self.listWidget.show()
+
+    def create_widgets(self, data):
+        for entry in data:
             item = QtGui.QListWidgetItem(entry)
-            item.setData(1, myPlaylists[entry])
+            item.setData(1, data[entry])
             item.setData(3, entry)
             self.listWidget.addItem(item)
-        self.listWidget.show()
 
     def loadPlaylists(self, select_method="all"):
         if self.data_set == "auto":
@@ -179,11 +182,7 @@ class FeaturedIn(PlaylistWidget):
             data = self.application.loadUserPlaylistsForAGivenFile(
                 self.main_window.current_piece)
             self.listWidget.clear()
-            for item in data:
-                widget = QtGui.QListWidgetItem(item)
-                widget.setData(1, data[item])
-                widget.setData(3, item)
-                self.listWidget.addItem(widget)
+            self.create_widgets(data)
             self.listWidget.show()
 
 
