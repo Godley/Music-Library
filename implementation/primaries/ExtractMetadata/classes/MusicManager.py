@@ -286,9 +286,9 @@ class QueryLayer(object):
         return self.create_results(keys, [keydata, instrument_data])
 
     def handleTranspositionQueries(self, search_data, online=False):
-        transpos = self._data.getPieceByInstrumentsOrSimilar(
-                search_data["transposition"], online=online)
-        return self.create_results(["Instrument or transposition"], [transpos])
+        results = self.fetch_results(search_data["transposition"], "Instrument or transposition",
+                                           self._data.getPieceByInstrumentsOrSimilar, online=online)
+        return self.create_results(results.keys(), results.items())
 
     def create_results(self, keys, values, method=lambda n: len(n) > 0):
         results = {}
@@ -314,10 +314,7 @@ class QueryLayer(object):
         if len(search_data["clef"]) > 0:
             instrument_by_clef = self._data.getPieceByInstrumentInClefs(
                 search_data["clef"], online=online)
-            if len(instrument_by_clef) > 0:
-                results["Instrument in Clefs"] = instrument_by_clef
-            else:
-                all_matched = False
+            results, all_matched = self.create_results(["Instrument in Clefs"], [instrument_by_clef])
         return results, all_matched
 
     def handleFilenameQueries(self, search_data, online=False):
@@ -332,49 +329,29 @@ class QueryLayer(object):
             all_matched = False
         return results, all_matched
 
-    def handleTitleQueries(self, search_data, online=False):
+    def fetch_results(self, data, key, method, online=False):
         results = {}
-        files = {}
-        all_matched = True
-        for title in search_data["title"]:
-            file_list = self._data.getPieceByTitle(title, online=online)
-            if len(file_list) > 0:
-                files["Title: " + title] = file_list
-        if len(files) > 0:
-            results.update(files)
-        else:
-            all_matched = False
-        return results, all_matched
+        for elem in data:
+            files = method(elem, online=online)
+            if len(files) > 0:
+                results["{}: {}".format(key, elem)] = files
+        return results
+
+    def fetch_and_form_results(self, data, key, method, online=False):
+        files = self.fetch_results(data, key, method, online=online)
+        return self.create_results(files.keys(), files.values())
+
+    def handleTitleQueries(self, search_data, online=False):
+        return self.fetch_and_form_results(search_data["title"], "Title",
+                                           self._data.getPieceByTitle, online=online)
 
     def handleComposerQueries(self, search_data, online=False):
-        files = {}
-        results = {}
-        all_matched = True
-        for title in search_data["composer"]:
-            file_list = self._data.getPiecesByComposer(
-                title, online=online)
-            if len(file_list) > 0:
-                files["Composer: " + title] = file_list
-        if len(files) > 0:
-            results.update(files)
-        else:
-            all_matched = False
-        return results, all_matched
+        return self.fetch_and_form_results(search_data["composer"], "Composer",
+                                           self._data.getPiecesByComposer, online=online)
 
     def handleLyricistQueries(self, search_data, online=False):
-        files = {}
-        results = {}
-        all_matched = True
-        for title in search_data["lyricist"]:
-            file_list = self._data.getPiecesByLyricist(
-                title, online=online)
-            if len(file_list) > 0:
-                files["Lyricist: " + title] = file_list
-        if len(files) > 0:
-            results.update(files)
-        else:
-            all_matched = False
-        return results, all_matched
+        return self.fetch_and_form_results(search_data["lyricist"], "Lyricist",
+                                           self._data.getPiecesByLyricist, online=online)
 
     def runQueries(self, search_data, online=False):
         results = {}
