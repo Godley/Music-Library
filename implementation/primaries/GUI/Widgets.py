@@ -68,10 +68,9 @@ class PlaylistWidget(Window):
 
     def loadPlaylists(self, select_method="all"):
         if self.data_set == "auto":
-            self.application.getPlaylists(
-                select_method=select_method, slot=self.onPlaylistsReady)
+            self.application.start_playlist_thread(args=(select_method,), slot=self.onPlaylistsReady)
         else:
-            self.application.getCreatedPlaylists(slot=self.onPlaylistsReady)
+            self.application.start_playlist_thread(slot=self.onPlaylistsReady)
 
     def load_data(self):
         pass

@@ -502,16 +502,9 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.qApp.setup_startup()
         self.close()
 
-    def getCreatedPlaylists(self, slot=None):
+    def start_playlist_thread(self, args=tuple(), slot=None):
         async = qt_threading.mythread(
-            self, self.manager.getPlaylistsFromPlaylistTable, ())
-        QtCore.QObject.connect(
-            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
-        async.run()
-
-    def getPlaylists(self, select_method="all", slot=None):
-        async = qt_threading.mythread(
-            self, self.manager.getPlaylists, (select_method,))
+            self, self.manager.getPlaylists, args)
         QtCore.QObject.connect(
             async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         async.run()
