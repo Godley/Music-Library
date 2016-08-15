@@ -33,7 +33,7 @@ class Scorebook(Window):
     def onSortChange(self):
         sort_method = self.comboBox.currentText()
         self.application.start_basic_thread((sort_method,),
-                                            self.manager.getPieceSummaryStrings,
+                                            self.application.manager.getPieceSummaryStrings,
                                             slot=self.onScoresReady)
         self.comboBox.show()
 

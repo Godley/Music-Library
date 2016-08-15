@@ -126,42 +126,22 @@ class Application(QtCore.QObject):
         col_fob.close()
 
     def load_windows(self):
-        startup = StartupWindow.StartupWindow(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["startup"] = startup
+        self.windows = {"startup": StartupWindow.StartupWindow,
+                   "main": MainWindow.MainWindow,
+                   "setup": SetupWindow.SetupWindow,
+                   "error": renderingErrorPopup.RenderingErrorPopup,
+                   "import": ImportDialog.ImportDialog,
+                   "newplaylist": PlaylistDialog.PlaylistDialog,
+                   "license": licensePopup.LicensePopup}
+        for window in self.windows:
+            self.windows[window] = self.windows[window](self, self.meta["theme"],
+                                          self.theme_folder, self.design_folder)
+            self.windows[window].show()
+            self.windows[window].hide()
 
-        main = MainWindow.MainWindow(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["main"] = main
         self.windows["main"].show()
         self.windows["main"].applyTheme()
         self.windows["main"].hide()
-
-        setup = SetupWindow.SetupWindow(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["setup"] = setup
-        self.windows["setup"].show()
-        self.windows["setup"].hide()
-
-        self.windows["error"] = renderingErrorPopup.RenderingErrorPopup(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["error"].show()
-        self.windows["error"].hide()
-
-        self.windows["import"] = ImportDialog.ImportDialog(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["import"].show()
-        self.windows["import"].hide()
-
-        self.windows["newplaylist"] = PlaylistDialog.PlaylistDialog(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["newplaylist"].show()
-        self.windows["newplaylist"].hide()
-
-        self.windows["license"] = licensePopup.LicensePopup(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["license"].show()
-        self.windows["license"].hide()
 
     def updateTheme(self, theme):
         for window in self.windows:
