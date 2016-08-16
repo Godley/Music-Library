@@ -163,3 +163,12 @@ class TableManager(object):
             self.write(write_query, data)
             rowid = self.read_one(select_query, data)
         return rowid
+
+    def get_by_all_elems(self, query, archived):
+        results = self.read_all(query, (archived,))
+        result_dict = {}
+        for pair in results:
+            if pair['name'] not in result_dict:
+                result_dict[pair['name']] = []
+            result_dict[pair['name']].append(pair['filename'])
+        return result_dict
