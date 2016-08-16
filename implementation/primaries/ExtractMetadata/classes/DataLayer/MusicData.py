@@ -158,7 +158,7 @@ class MusicData(TableManager.TableManager):
         instruments = set([result['name'].lower() for result in results])
         return list(instruments)
 
-    def get_creator(self, name, creator='composer'):
+    def get_creator_id(self, name, creator='composer'):
         query = 'SELECT ROWID FROM {}s WHERE name=?'.format(creator)
         creator_id = self.read_one(query, (name,))
         return creator_id
@@ -430,15 +430,9 @@ class MusicData(TableManager.TableManager):
         composer_ids = [res['rowid'] for res in result]
         return composer_ids
 
-    def getComposerName(self, composer_id, cursor):
-        cursor.execute('SELECT name FROM composers WHERE ROWID=?', (composer_id,))
-        result = cursor.fetchone()
-        if result is not None:
-            return result['name']
-
-    def getLyricistName(self, lyric_id, cursor):
-        cursor.execute('SELECT name FROM lyricists WHERE ROWID=?', (lyric_id,))
-        result = cursor.fetchone()
+    def get_creator_name(self, creator_id, creator_type='composer'):
+        query = 'SELECT name FROM {}s WHERE ROWID = ?'.format(creator_type)
+        result = self.read_one(query, (creator_id,))
         if result is not None:
             return result['name']
 
@@ -1088,11 +1082,11 @@ class MusicData(TableManager.TableManager):
             index = file["rowid"]
             composer_id = file["composer_id"]
             if composer_id != -1:
-                composer = self.getComposerName(composer_id, cursor)
+                composer = self.get_creator_name(composer_id)
 
             lyricist_id = file["lyricist_id"]
             if lyricist_id != -1:
-                lyricist = self.getLyricistName(lyricist_id, cursor)
+                lyricist = self.get_creator_name(lyricist_id, creator_type='lyricist')
             elem_data = hashdict({"instruments": self.getInstrumentsByPieceId(index, cursor),
             "clefs" : self.getClefsByPieceId(index, cursor),
             "keys": self.getKeysByPieceId(index, cursor),
