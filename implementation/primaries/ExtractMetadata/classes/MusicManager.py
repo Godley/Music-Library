@@ -276,8 +276,8 @@ class QueryLayer(object):
         instrument_data = {}
         keys = ["Keys", "Instruments in Keys"]
         if "other" in search_data["key"]:
-            keydata = self._data.getPieceByKeys(
-                search_data["key"]["other"], online=online)
+            keydata = self._data.get_piece_by_join(search_data["key"]["other"], "key")
+
             search_data["key"].pop("other")
 
         if len(search_data["key"]) > 0:
@@ -304,8 +304,7 @@ class QueryLayer(object):
         results = {}
         all_matched = True
         if "other" in search_data["clef"]:
-            clefs = self._data.getPieceByClefs(
-                search_data["clef"]["other"], online=online)
+            clefs = self._data.get_piece_by_join(search_data["clef"]["other"], "clef")
             if len(clefs) > 0:
                 results["Clefs"] = clefs
             else:

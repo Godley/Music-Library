@@ -726,21 +726,24 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
         return result
 
-    def getPieceByKeys(self, keys, archived=0, online=False):
-        """
-        method which takes in a key and outputs list of files in that key
-        :param key: string name of key (e.g C major)
-        :return: list of strings (files)
-        """
+    def get_piece_by_join(self, data, query_type, p_id='i.piece_id', archived=0, online=False):
+        options = {"key": {"init_query":'SELECT i.piece_id FROM key_piece_join i WHERE EXISTS ' \
+                '(SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)',
+                           "extender": ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
+                        , "p_id": 'i.piece_id',
+                           "method":self.getKeyId},
+                   "clef": {"init_query": 'SELECT i.piece_id FROM clef_piece_join i WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)',
+                            "extender": ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)',
+                            "p_id": "i.piece_id",
+                            "method":self.getClefId}}
         connection, cursor = self.connect()
-        key_ids = [self.getKeyId(key, cursor) for key in keys]
-        query = 'SELECT i.piece_id FROM key_piece_join i WHERE EXISTS ' \
-                '(SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
-        for i in range(1, len(key_ids)):
-            query += ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
-        query = do_online_offline_query(query, 'i.piece_id', online=online)
+        data = [options[query_type]["method"](elem, cursor) for elem in data]
+        query = options[query_type]["init_query"]
+        for i in range(1, len(data)):
+            query += options[query_type]["extender"]
+        query = do_online_offline_query(query, options[query_type]["p_id"], online=online)
         query += ";"
-        input = tuple(key_ids)
+        input = tuple(data)
         cursor.execute(query, input)
         results = cursor.fetchall()
         file_list = self.getPiecesByRowId(results, cursor, archived)
@@ -905,26 +908,6 @@ class MusicData(TableCreator.TableCreator):
                 lyricist_dict[pair['name']] = []
             lyricist_dict[pair['name']].append(pair['filename'])
         return lyricist_dict
-
-    def getPieceByClefs(self, clefs, archived=0, online=False):
-        '''
-        method which takes in a key and outputs list of files in that key
-        :param key: string name of key (e.g C major)
-        :return: list of strings (files)
-        '''
-        connection, cursor = self.connect()
-        clef_ids = [self.getClefId(clef, cursor) for clef in clefs]
-        query = 'SELECT i.piece_id FROM clef_piece_join i WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
-        for i in range(1, len(clef_ids)):
-            query += ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)'
-        query = do_online_offline_query(query, 'i.piece_id', online=online)
-        query += ";"
-        input = tuple(clef_ids)
-        cursor.execute(query, input)
-        results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor, archived)
-        self.disconnect(connection)
-        return file_list
 
     def createInstrumentDictionaryAndList(self, instruments, cursor, action):
         inst_list = []
