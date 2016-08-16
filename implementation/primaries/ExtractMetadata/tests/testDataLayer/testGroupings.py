@@ -23,7 +23,7 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
                                       "file2.xml"],
                           "G major": ["file1.xml",
                                       "file3.xml"]},
-                         self.data.getPiecesByAllKeys())
+                         self.data.get_piece_by_all_elem(elem='keys'))
 
     def testFindAllPiecesByAllClefs(self):
         self.data.addPiece("file.xml", {"clef": {
@@ -38,7 +38,7 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
                                      "file3.xml"],
                           "bass": ["file1.xml",
                                    "file2.xml"]},
-                         self.data.getPiecesByAllClefs())
+                         self.data.get_piece_by_all_elem(elem='clefs'))
 
     def testFindAllPiecesByAllTimeSigs(self):
         self.data.addPiece("file.xml", {"time": [{"beat": 4, "type": 4}]})
@@ -118,14 +118,14 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
         self.data.addPiece("file1.xml", {"composer": "Charlie"})
         self.data.addPiece("file2.xml", {"composer": "Charlie"})
         self.assertEqual(
-            {"Charlie": ["file1.xml", "file2.xml"]}, self.data.getPiecesByAllComposers())
+            {"Charlie": ["file1.xml", "file2.xml"]}, self.data.get_piece_by_all_elem(elem='composers'))
 
     def testFindAllPiecesByAllLyricists(self):
         self.data.addPiece("file.xml", {"lyricist": "Charlotte"})
         self.data.addPiece("file1.xml", {"lyricist": "Charlie"})
         self.data.addPiece("file2.xml", {"lyricist": "Charlie"})
         self.assertEqual(
-            {"Charlie": ["file1.xml", "file2.xml"]}, self.data.getPiecesByAllLyricists())
+            {"Charlie": ["file1.xml", "file2.xml"]}, self.data.get_piece_by_all_elem(elem='lyricists'))
 
     def testFindAllPiecesByAllKeysWithTransposedInstruments(self):
         self.data.addPiece("file.xml",
@@ -142,7 +142,7 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
                                                 "fifths": 1}]},
                             "instruments": [{"name": "clarin"}]})
         self.assertEqual(
-            {"G major": ["file1.xml", "file2.xml"]}, self.data.getPiecesByAllKeys())
+            {"G major": ["file1.xml", "file2.xml"]}, self.data.get_piece_by_all_elem(elem='keys'))
 
     def testArchivePiece(self):
         self.data.addPiece("file.xml", {"instruments": [

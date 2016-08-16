@@ -627,24 +627,30 @@ class MusicData(TableManager.TableManager):
         return file_list
 
     # playlist queries
-    def get_piece_by_all_elem(self, query, archived=0, online=False):
-        query = do_online_offline_query(query, 'piece.ROWID', online=online)
-        return self.get_by_all_elems(query, archived)
-
-    def getPiecesByAllKeys(self, archived=0, online=False):
-        query = '''SELECT k.name, piece.filename FROM keys k, pieces piece, key_piece_join key_piece, instruments i
+    def get_piece_by_all_elem(self, archived=0, online=False, elem='key'):
+        query_table = {
+            'keys': '''SELECT k.name, piece.filename FROM keys k, pieces piece, key_piece_join key_piece, instruments i
                     WHERE key_piece.key_id = k.ROWID AND i.ROWID = key_piece.instrument_id
                     AND i.diatonic = 0 AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
                     AND piece.archived = ? AND EXISTS (SELECT NULL FROM key_piece_join WHERE key_id = k.ROWID AND piece_id != key_piece.piece_id)
-        '''
-        return self.get_piece_by_all_elem(query, archived=archived, online=online)
-
-    def getPiecesByAllClefs(self, archived=0, online=False):
-        query = '''SELECT clef.name, piece.filename FROM clefs clef, pieces piece, clef_piece_join clef_piece
+        ''',
+            'clefs': '''SELECT clef.name, piece.filename FROM clefs clef, pieces piece, clef_piece_join clef_piece
                     WHERE clef_piece.clef_id = clef.ROWID AND piece.ROWID = clef_piece.piece_id
                     AND piece.archived = ? AND EXISTS (SELECT NULL FROM clef_piece_join WHERE clef_id = clef_piece.clef_id AND piece_id != clef_piece.piece_id)
+        ''',
+            'composers': '''SELECT comp.name, piece.filename FROM composers comp, pieces piece
+                    WHERE piece.composer_id = comp.ROWID
+                    AND EXISTS (SELECT * FROM pieces WHERE composer_id = comp.ROWID AND ROWID != piece.ROWID)
+                    AND piece.archived = ?
+        ''',
+            'lyricists': '''SELECT lyric.name, piece.filename FROM lyricists lyric, pieces piece
+                    WHERE lyric.ROWID = piece.lyricist_id
+                    AND EXISTS (SELECT * FROM pieces WHERE lyricist_id = piece.lyricist_id AND ROWID != piece.ROWID)
+                    AND piece.archived = ?
         '''
-        return self.get_piece_by_all_elem(query, archived=archived, online=online)
+        }
+        query = do_online_offline_query(query_table[elem], 'piece.ROWID', online=online)
+        return self.get_by_all_elems(query, archived)
 
     def getPiecesByAllTimeSigs(self, archived=0, online=False):
         query = '''SELECT time_sig.beat, time_sig.b_type, piece.filename FROM timesigs time_sig, pieces piece, time_piece_join time_piece
@@ -707,22 +713,6 @@ class MusicData(TableManager.TableManager):
                 instrument_dict[key_val] = []
             instrument_dict[key_val].append(pair['filename'])
         return instrument_dict
-
-    def getPiecesByAllComposers(self, archived=0, online=False):
-        query = '''SELECT comp.name, piece.filename FROM composers comp, pieces piece
-                    WHERE piece.composer_id = comp.ROWID
-                    AND EXISTS (SELECT * FROM pieces WHERE composer_id = comp.ROWID AND ROWID != piece.ROWID)
-                    AND piece.archived = ?
-        '''
-        return self.get_piece_by_all_elem(query, archived=archived, online=online)
-
-    def getPiecesByAllLyricists(self, archived=0, online=False):
-        query = '''SELECT lyric.name, piece.filename FROM lyricists lyric, pieces piece
-                    WHERE lyric.ROWID = piece.lyricist_id
-                    AND EXISTS (SELECT * FROM pieces WHERE lyricist_id = piece.lyricist_id AND ROWID != piece.ROWID)
-                    AND piece.archived = ?
-        '''
-        return self.get_piece_by_all_elem(query, archived=archived, online=online)
 
     def createInstrumentDictionaryAndList(self, instruments, action, elem_type='clef'):
         inst_list = []

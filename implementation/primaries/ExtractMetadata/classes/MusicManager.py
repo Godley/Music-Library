@@ -397,29 +397,31 @@ class QueryLayer(object):
 
     def getPlaylists(self, select_method="all"):
         result_set = {}
-        playlist_table = {"clefs": self._data.getPiecesByAllClefs,
-                          "time signatures": self._data.getPiecesByAllTimeSigs,
-                          "keys": self._data.getPiecesByAllKeys,
+        elem_ids = ["clefs", "keys", "composers", "lyricists"]
+        playlist_table = {"time signatures": self._data.getPiecesByAllTimeSigs,
                           "instruments": self._data.getPiecesByAllInstruments,
                           "tempos": self._data.getPiecesByAllTempos}
         if select_method == "all":
-            clefs = self._data.getPiecesByAllClefs()
-            keys = self._data.getPiecesByAllKeys()
-            composers = self._data.getPiecesByAllComposers()
-            lyricists = self._data.getPiecesByAllLyricists()
+            clefs = self._data.get_piece_by_all_elem(elem='clefs')
+            keys = self._data.get_piece_by_all_elem(elem='keys')
+            composers = self._data.get_piece_by_all_elem(elem='composers')
+            lyricists = self._data.get_piece_by_all_elem(elem='lyricists')
             instruments = self._data.getPiecesByAllInstruments()
             timesigs = self._data.getPiecesByAllTimeSigs()
             tempos = self._data.getPiecesByAllTempos()
             result_set["clefs"] = clefs
             result_set["keys"] = keys
             result_set["composers"] = composers
-            result_set["lyricsts"] = lyricists
+            result_set["lyricists"] = lyricists
             result_set["instruments"] = instruments
             result_set["time_signatures"] = timesigs
             result_set["tempos"] = tempos
 
         else:
-            result_set[select_method] = playlist_table[select_method]()
+            if select_method not in elem_ids:
+                result_set[select_method] = playlist_table[select_method]()
+            else:
+                result_set[select_method] = self._data.get_piece_by_all_elem(elem=select_method)
 
         return filter_dict(result_set)
 

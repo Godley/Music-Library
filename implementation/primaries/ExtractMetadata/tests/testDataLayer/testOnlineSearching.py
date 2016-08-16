@@ -154,7 +154,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                             "key": {"Clarinet": [{"mode": "major",
                                                   "fifths": 2}]},
                                "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPiecesByAllKeys()
+        result_set = self.data.get_piece_by_all_elem(elem='keys')
         self.assertEqual(result_set, {})
 
     def testGetPieceByAllKeysOnline(self):
@@ -170,7 +170,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                             "key": {"Clarinet": [{"mode": "major",
                                                   "fifths": 2}]},
                                "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPiecesByAllKeys(online=True)
+        result_set = self.data.get_piece_by_all_elem(elem='keys', online=True)
         self.assertEqual(result_set, {'D major': ['file.xml', 'file1.xml']})
 
     def testGetPieceByAllClefsOffline(self):
@@ -186,7 +186,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                             "clef": {"Clarinet": [{"sign": "G",
                                                    "line": 2}]},
                                "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPiecesByAllClefs()
+        result_set = self.data.get_piece_by_all_elem(elem='clefs')
         self.assertEqual(result_set, {})
 
     def testGetPieceByAllClefsOnline(self):
@@ -202,7 +202,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                             "clef": {"Clarinet": [{"sign": "G",
                                                    "line": 2}]},
                                "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPiecesByAllClefs(online=True)
+        result_set = self.data.get_piece_by_all_elem(elem='clefs', online=True)
         self.assertEqual(result_set, {"treble": ['file.xml', 'file1.xml']})
 
     def testGetPieceByAllTimeSigsOffline(self):
@@ -291,7 +291,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
         self.data.addPiece(
             "file1.xml", {
                 "title": "blabla", "source": "MuseScore", "composer": "Bark"})
-        result_set = self.data.getPiecesByAllComposers()
+        result_set = self.data.get_piece_by_all_elem(elem='composers')
         self.assertEqual(result_set, {})
 
     def testGetPieceByAllComposersOnline(self):
@@ -301,7 +301,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
         self.data.addPiece(
             "file1.xml", {
                 "title": "blabla", "source": "MuseScore", "composer": "Motsart"})
-        result_set = self.data.getPiecesByAllComposers(online=True)
+        result_set = self.data.get_piece_by_all_elem(elem='composers', online=True)
         self.assertEqual(result_set, {'Motsart': ['file.xml', 'file1.xml']})
 
     def testGetPieceByAllLyricistsOffline(self):
@@ -311,7 +311,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
         self.data.addPiece(
             "file1.xml", {
                 "title": "blabla", "source": "MuseScore", "lyricist": "Bark"})
-        result_set = self.data.getPiecesByAllLyricists()
+        result_set = self.data.get_piece_by_all_elem(elem='composers')
         self.assertEqual(result_set, {})
 
     def testGetPieceByAllLyricistsOnline(self):
@@ -321,7 +321,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
         self.data.addPiece(
             "file1.xml", {
                 "title": "blabla", "source": "MuseScore", "lyricist": "Motsart"})
-        result_set = self.data.getPiecesByAllLyricists(online=True)
+        result_set = self.data.get_piece_by_all_elem(elem='lyricists', online=True)
         self.assertEqual(result_set, {'Motsart': ['file.xml', 'file1.xml']})
 
     def testGetPieceByClefsOffline(self):
