@@ -158,10 +158,12 @@ class MusicData(TableManager.TableManager):
         instruments = set([result['name'].lower() for result in results])
         return list(instruments)
 
-    def get_creator_id(self, name, creator='composer'):
-        query = 'SELECT ROWID FROM {}s WHERE name=?'.format(creator)
-        creator_id = self.read_one(query, (name,))
-        return creator_id
+    def get_elem_id(self, name, elem='composer'):
+        query = 'SELECT ROWID FROM {}s WHERE name=?'.format(elem)
+        elem_id = self.read_one(query, (name,))
+        if elem_id is not None:
+            elem_id = elem_id['rowid']
+        return elem_id
 
     def link_creator_to_piece(self, name, piece_id, creator='composer'):
         s_query = 'SELECT ROWID FROM {}s WHERE name=?'.format(creator)
@@ -453,32 +455,6 @@ class MusicData(TableManager.TableManager):
         lyricist_ids = [res['rowid'] for res in result]
         return lyricist_ids
 
-    def getKeyId(self, key, cursor):
-        """
-        method which takes in string of key name (e.g C major) and outputs row id
-        :param key: string name of the key (e.g C major, A minor)
-        :param cursor:  database cursor object
-        :return: int pertaining to row id
-        """
-
-        cursor.execute('SELECT ROWID FROM keys WHERE name=?', (key,))
-        result = cursor.fetchone()
-        if result is not None:
-            return result['rowid']
-
-    def getClefId(self, clef, cursor):
-        """
-        method which takes in string of clef name (e.g treble) and outputs row id
-        :param key: string name of the clef (e.g treble, bass)
-        :param cursor:  database cursor object
-        :return: int pertaining to row id
-        """
-
-        cursor.execute('SELECT ROWID FROM clefs WHERE name=?', (clef,))
-        result = cursor.fetchone()
-        if result is not None:
-            return result['rowid']
-
     # methods used in querying by user
     def getPiecesByInstruments(self, instruments, archived=0, online=False):
         """
@@ -625,13 +601,13 @@ class MusicData(TableManager.TableManager):
                 '(SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)',
                            "extender": ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
                         , "p_id": 'i.piece_id',
-                           "method":self.getKeyId},
+                           "method":self.get_elem_id},
                    "clef": {"init_query": 'SELECT i.piece_id FROM clef_piece_join i WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)',
                             "extender": ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)',
                             "p_id": "i.piece_id",
-                            "method":self.getClefId}}
+                            "method":self.get_elem_id}}
         connection, cursor = self.connect()
-        data = [options[query_type]["method"](elem, cursor) for elem in data]
+        data = [options[query_type]["method"](elem, query_type) for elem in data]
         query = options[query_type]["init_query"]
         for i in range(1, len(data)):
             query += options[query_type]["extender"]
@@ -803,14 +779,14 @@ class MusicData(TableManager.TableManager):
             lyricist_dict[pair['name']].append(pair['filename'])
         return lyricist_dict
 
-    def createInstrumentDictionaryAndList(self, instruments, cursor, action):
+    def createInstrumentDictionaryAndList(self, instruments, action, elem_type='clef'):
         inst_list = []
         inst_dict = {}
         for instrument in instruments:
             inst_list.append(self.getInstrumentId(instrument))
             inst_dict[instrument] = []
             for key in instruments[instrument]:
-                id = action(key, cursor)
+                id = action(key, elem_type)
                 if id is not None:
                     inst_list.append(id)
                     inst_dict[instrument].append(id)
@@ -820,12 +796,13 @@ class MusicData(TableManager.TableManager):
         connection, cursor = self.connect()
         file_list = []
         tuple_data = list(data.keys())
-        search_ids, key_ids = self.createInstrumentDictionaryAndList(data, cursor, self.getKeyId)
+        search_ids, key_ids = self.createInstrumentDictionaryAndList(data, self.get_elem_id, elem_type='clef')
         if len(tuple_data) > 0 and len(key_ids) > 0:
             query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece WHERE EXISTS '
             for i in range(len(data)):
                 query += '(SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ?'
                 query += extendJoinQuery(len(key_ids[tuple_data[i]]), 'key_id = ?', ' AND ', init_string=' AND ')
+                query += ')'
                 if i != len(data) - 1:
                     query += ' AND EXISTS '
             query = do_online_offline_query(query, 'key_piece.piece_id', online)
@@ -840,7 +817,7 @@ class MusicData(TableManager.TableManager):
         connection, cursor = self.connect()
         tuple_data = list(data.keys())
         file_list = []
-        search_ids, clef_ids = self.createInstrumentDictionaryAndList(data, cursor, self.getClefId)
+        search_ids, clef_ids = self.createInstrumentDictionaryAndList(data, self.get_elem_id, elem_type='clef')
 
         if len(tuple_data) > 0 and len(clef_ids) > 0:
             query = 'SELECT clef_piece.piece_id FROM clef_piece_join clef_piece WHERE EXISTS '
