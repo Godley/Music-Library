@@ -406,24 +406,17 @@ class MusicData(TableManager.TableManager):
         instrument_ids = [id['rowid'] for id in result]
         return instrument_ids
 
-    def getComposerIdWhereTextInName(self, composer, cursor):
+    def get_creator_id_where_text_in_name(self, name, creator_type='composer'):
         """
         method which takes in composer name and outputs its database id
         :param composer: name of composer
         :param cursor: database cursor object
         :return: int pertaining to row id of composer in database
         """
-        cursor.execute(
-            'SELECT ROWID FROM composers WHERE name=? '
-            'OR name LIKE ? OR name LIKE ? OR name LIKE ?',
-            (composer,
-             "%" +
-             composer +
-             "%",
-             "%" + composer,
-             composer + "%",))
-        result = cursor.fetchall()
-        composer_ids = [res['rowid'] for res in result]
+        query = 'SELECT ROWID FROM {}s WHERE name=? OR name LIKE ? OR name LIKE ? OR name LIKE ?'.format(creator_type)
+        input_vars = (name, "%{}%".format(name), "%{}".format(name), "{}%".format(name))
+        results = self.read_all(query, input_vars)
+        composer_ids = [res['rowid'] for res in results]
         return composer_ids
 
     def get_creator_name(self, creator_id, creator_type='composer'):
@@ -431,23 +424,6 @@ class MusicData(TableManager.TableManager):
         result = self.read_one(query, (creator_id,))
         if result is not None:
             return result['name']
-
-    def getLyricistIdWhereTextInName(self, lyricist, cursor):
-        """
-        get a list of lyricist IDs containing the lyricist string
-        returns all matching ids
-        """
-        cursor.execute(
-            'SELECT ROWID FROM lyricists WHERE name=? OR name LIKE ? OR name LIKE ? OR name LIKE ?',
-            (lyricist,
-             "%" +
-             lyricist +
-             "%",
-             lyricist + "%",
-             "%" + lyricist,))
-        result = cursor.fetchall()
-        lyricist_ids = [res['rowid'] for res in result]
-        return lyricist_ids
 
     # methods used in querying by user
     def getPiecesByInstruments(self, instruments, archived=0, online=False):
@@ -522,48 +498,18 @@ class MusicData(TableManager.TableManager):
             previous = element
         return file_list
 
-    def getPiecesByComposer(self, composer, archived=0, online=False):
-        """
-        method which takes in string of composer name and outputs list of files written by that composer
-        :param composer: composer's name
-        :return: list of strings (filenames)
-        """
+    def get_pieces_by_creator(self, creator, archived=0, online=False, creator_type='composer'):
+        creator_ids = self.get_creator_id_where_text_in_name(creator, creator_type)
         file_list = []
-        connection, cursor = self.connect()
-        composer_ids = self.getComposerIdWhereTextInName(composer, cursor)
-        if len(composer_ids) > 0:
+        if len(creator_ids) > 0:
             query = 'SELECT filename FROM pieces p WHERE p.archived=? AND '
-            query += extendJoinQuery(len(composer_ids), 'p.composer_id LIKE ?', ' OR ', init_string='(')
+            query += extendJoinQuery(len(creator_ids), 'p.{}_id LIKE ?'.format(creator_type), ' OR ', init_string='(')
             query = do_online_offline_query(query, 'p.ROWID', online=online)
             input_list = [archived]
-            input_list.extend(composer_ids)
+            input_list.extend(creator_ids)
             input = tuple(input_list)
-            cursor.execute(query, input)
-            result = cursor.fetchall()
-            file_list = [r['filename'] for r in result]
-            self.disconnect(connection)
-        return file_list
-
-    def getPiecesByLyricist(self, lyricist, archived=0, online=False):
-        """
-        method which takes in string of lyricist name and outputs list of files written by that lyricist
-        :param composer: lyricist's name
-        :return: list of strings (filenames)
-        """
-        connection, cursor = self.connect()
-        lyricist_ids = self.getLyricistIdWhereTextInName(lyricist, cursor)
-        file_list = []
-        if len(lyricist_ids) > 0:
-            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND '
-            query += extendJoinQuery(len(lyricist_ids), 'p.lyricist_id LIKE ?', ' OR ', init_string='(')
-            query = do_online_offline_query(query, 'p.ROWID', online=online)
-            input_list = [archived]
-            input_list.extend(lyricist_ids)
-            input = tuple(input_list)
-            cursor.execute(query, input)
-            result = cursor.fetchall()
-            file_list = [r['filename'] for r in result]
-            self.disconnect(connection)
+            results = self.read_all(query, input)
+            file_list = [r['filename'] for r in results]
         return file_list
 
     def getPieceByTitle(self, title, archived=0, online=False):
