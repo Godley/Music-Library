@@ -430,18 +430,6 @@ class MusicData(TableManager.TableManager):
         composer_ids = [res['rowid'] for res in result]
         return composer_ids
 
-    def getComposerId(self, composer, cursor):
-        """
-        method which takes in composer name and outputs its database id
-        :param composer: name of composer
-        :param cursor: database cursor object
-        :return: int pertaining to row id of composer in database
-        """
-        cursor.execute('SELECT ROWID FROM composers WHERE name=?', (composer,))
-        result = cursor.fetchone()
-        if result is not None:
-            return result['rowid']
-
     def getComposerName(self, composer_id, cursor):
         cursor.execute('SELECT name FROM composers WHERE ROWID=?', (composer_id,))
         result = cursor.fetchone()
@@ -470,16 +458,6 @@ class MusicData(TableManager.TableManager):
         result = cursor.fetchall()
         lyricist_ids = [res['rowid'] for res in result]
         return lyricist_ids
-
-    def getLyricistId(self, lyricist, cursor):
-        """
-        get an exact lyricist id by its name.
-        Returns 1 id
-        """
-        cursor.execute('SELECT ROWID FROM lyricists WHERE name=?', (lyricist,))
-        result = cursor.fetchone()
-        if result is not None:
-            return result['rowid']
 
     def getKeyId(self, key, cursor):
         """
