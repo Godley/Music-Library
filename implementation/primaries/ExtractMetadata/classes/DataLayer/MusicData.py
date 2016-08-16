@@ -43,7 +43,7 @@ there's going to be a lot to group, put them in a new test file.
 """
 
 import sqlite3
-from implementation.primaries.ExtractMetadata.classes.DataLayer import TableCreator
+from implementation.primaries.ExtractMetadata.classes.DataLayer import TableManager
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, \
     do_online_offline_query, get_if_exists, filter_dict
@@ -128,7 +128,7 @@ class TempoParser(object):
         return tempo_string
 
 
-class MusicData(TableCreator.TableCreator):
+class MusicData(TableManager.TableManager):
 
     def __init__(self, database):
         super(MusicData, self).__init__(database)
@@ -153,192 +153,132 @@ class MusicData(TableCreator.TableCreator):
         self.disconnect(connection)
 
     def getInstrumentNames(self):
-        connection, cursor = self.connect()
         query = 'SELECT name FROM instruments'
-        cursor.execute(query)
-        results = cursor.fetchall()
-        self.disconnect(connection)
+        results = self.read_all(query)
         instruments = set([result['name'].lower() for result in results])
         return list(instruments)
 
+    def get_creator(self, name, creator='composer'):
+        query = 'SELECT ROWID FROM {}s WHERE name=?'.format(creator)
+        creator_id = self.read_one(query, (name,))
+        return creator_id
 
+    def link_creator_to_piece(self, name, piece_id, creator='composer'):
+        s_query = 'SELECT ROWID FROM {}s WHERE name=?'.format(creator)
+        w_query = 'INSERT INTO {}s VALUES(?)'.format(creator)
+        rowid = self.get_or_create_one(s_query, w_query, (name,))
+        if rowid is not None:
+            rowid = rowid['rowid']
+            self.write('UPDATE pieces SET {}_id = ? WHERE ROWID = ?'.format(creator), (rowid, piece_id))
 
-    def getComposer(self, composer, cursor):
-        query = 'SELECT ROWID FROM composers WHERE name=?'
-        cursor.execute(query, (composer,))
-        composer_id = cursor.fetchone()
-        return composer_id
+    def get_or_create_instrument(self, instrument):
+        diatonic = get_if_exists(instrument, 'diatonic', default=0)
+        chromatic = get_if_exists(instrument, 'chromatic', default=0)
+        s_query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
+        w_query = 'INSERT INTO instruments VALUES(?,?,?)'
+        name = instrument['name']
+        rowid = self.get_or_create_one(s_query, w_query, (name, diatonic, chromatic))
+        return rowid
 
-    def getLyricist(self, lyricist, cursor):
-        query = 'SELECT ROWID FROM lyricists WHERE name=?'
-        cursor.execute(query, (lyricist,))
-        return cursor.fetchone()
+    def getInstrumentId(self, name):
+        data = self.read_one('SELECT ROWID FROM instruments WHERE name=?', (name,))
+        if data is not None:
+            data = data['rowid']
+        return data
 
-    def createOrGetComposer(self, composer, connection, cursor, piece_id):
-        query = 'SELECT ROWID FROM composers WHERE name=?'
-        composer_id = self.getComposer(composer, cursor)
-        if composer_id is None:
-            cursor.execute(
-                    'INSERT INTO composers VALUES(?)', (composer,))
-            connection.commit()
-            cursor.execute(query, (composer,))
-            composer_id = cursor.fetchone()
-        if composer_id is not None:
-            composer_id = composer_id['rowid']
-            query = 'UPDATE pieces SET composer_id = ? WHERE ROWID = ?'
-            cursor.execute(query, (composer_id, piece_id))
-            connection.commit()
-
-    def createOrGetLyricist(self, lyricist, connection, cursor, piece_id):
-        query = 'SELECT ROWID FROM lyricists WHERE name=?'
-        lyricist_id = None
-        lyric_id = self.getLyricist(lyricist, cursor)
-        if lyric_id is None or len(lyric_id) == 0:
-            cursor.execute(
-                'INSERT INTO lyricists VALUES(?)', (lyricist,))
-            connection.commit()
-            cursor.execute(query, (lyricist,))
-            lyric_id = cursor.fetchone()
-        if lyric_id is not None:
-            lyricist_id = lyric_id['rowid']
-            query = 'UPDATE pieces SET lyricist_id = ? WHERE ROWID = ?'
-            cursor.execute(query, (lyricist_id, piece_id))
-            connection.commit()
-
-    def getInstrumentIdByNameAndTrans(self, inst, cursor):
-        diatonic = 0
-        chromatic = 0
-        if 'chromatic' in inst:
-            chromatic = inst['chromatic']
-
-        if 'diatonic' in inst:
-            diatonic = inst['diatonic']
+    def getInstrumentIdByNameAndTrans(self, instrument):
+        diatonic = get_if_exists(instrument, 'diatonic', default=0)
+        chromatic = get_if_exists(instrument, 'chromatic', default=0)
 
         query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
-        cursor.execute(query, (inst["name"], diatonic, chromatic,))
-        inst_id = cursor.fetchone()
-        if inst_id is not None:
-            return inst_id['rowid']
+        return self.read_one(query, (instrument['name'], diatonic, chromatic))
 
-    def createOrGetInstruments(self, instrument_list, connection, cursor, piece_id):
+    def createOrGetInstruments(self, instrument_list, piece_id):
         for item in instrument_list:
-            diatonic = get_if_exists(item, "diatonic")
-            chromatic = get_if_exists(item, "chromatic")
+            rowid = self.get_or_create_instrument(item)
+            if rowid is not None:
+                self.write('INSERT INTO instruments_piece_join VALUES(?,?)', (rowid['rowid'], piece_id))
 
-            inst_id = self.getInstrumentIdByNameAndTrans(item, cursor)
-            if inst_id is None:
-                cursor.execute(
-                    'INSERT INTO instruments VALUES(?,?,?)',
-                    (item["name"],
-                     diatonic,
-                     chromatic,
-                     ))
-                connection.commit()
-                inst_id = self.getInstrumentIdByNameAndTrans(item, cursor)
-            if inst_id is not None:
-                cursor.execute(
-                    'INSERT INTO instruments_piece_join VALUES(?,?)',
-                    (inst_id,
-                     piece_id,
-                     ))
-
-    def createKeyLinks(self, keysig_dict, connection, cursor, piece_id):
+    def create_key_links(self, keysig_dict, piece_id):
         for instrument in keysig_dict:
             for key in keysig_dict[instrument]:
-                query = 'SELECT ROWID FROM keys WHERE fifths=? AND mode=?'
-                fifths = get_if_exists(key, "fifths")
-                mode = get_if_exists(key, "mode")
-                values = (fifths, mode,)
                 if type(key) is str:
                     query = 'SELECT ROWID FROM keys WHERE name = ?'
                     values = (key,)
-                instrument_id = self.getInstrumentId(instrument, cursor)
-                cursor.execute(query, values)
-                key = cursor.fetchone()
+                else:
+                    query = 'SELECT ROWID FROM keys WHERE fifths=? AND mode=?'
+                    fifths = get_if_exists(key, "fifths")
+                    mode = get_if_exists(key, "mode")
+                    values = (fifths, mode,)
+
+                instrument_id = self.getInstrumentId(instrument)
+                key = self.read_one(query, values)
                 if key is not None:
-                    cursor.execute(
-                        'INSERT INTO key_piece_join VALUES(?,?,?)',
-                        (key['rowid'],
+                    query = 'INSERT INTO key_piece_join VALUES(?,?,?)'
+                    self.write(query, (key['rowid'],
                          piece_id,
                          instrument_id,
                          ))
 
-    def createClefLinks(self, clef_dict, connection, cursor, piece_id):
+    def create_clef_links(self, clef_dict, piece_id):
         for instrument in clef_dict:
             for clef in clef_dict[instrument]:
                 sign = get_if_exists(clef, "sign", default="G")
                 line = get_if_exists(clef, "line", default=2)
-                instrument_id = self.getInstrumentId(instrument, cursor)
-                cursor.execute(
+                instrument_id = self.getInstrumentId(instrument)
+                clef_id = self.read_one(
                     'SELECT ROWID FROM clefs WHERE sign=? AND line=?', (sign, line,))
-                clef_id = cursor.fetchone()
                 if clef_id is not None:
-                    cursor.execute(
+                    self.write(
                         'INSERT INTO clef_piece_join VALUES(?,?,?)',
                         (clef_id['rowid'],
                          piece_id,
                          instrument_id,
                          ))
 
-    def createTimeSigsAndLinks(self, timesig_list, connection, cursor, piece_id):
+    def get_or_create_timesig(self, data):
+        select_query = 'SELECT ROWID FROM timesigs WHERE beat=? AND b_type=?'
+        write_query = 'INSERT INTO timesigs VALUES(?,?)'
+        timesig = self.get_or_create_one(select_query, write_query, data)
+        return timesig
+
+    def create_timesig_links(self, timesig_list, piece_id):
         for meter in timesig_list:
             beat = meter["beat"]
             b_type = meter["type"]
-            cursor.execute(
-                'SELECT ROWID FROM timesigs WHERE beat=? AND b_type=?', (beat, b_type))
-            res = cursor.fetchone()
-            if res is None:
-                cursor.execute(
-                    'INSERT INTO timesigs VALUES(?,?)', (beat, b_type))
-                connection.commit()
-                cursor.execute(
-                    'SELECT ROWID FROM timesigs WHERE beat=? AND b_type=?', (beat, b_type))
-                res = cursor.fetchone()
-            cursor.execute(
-                'INSERT INTO time_piece_join VALUES(?,?)', (piece_id, res['rowid']))
+            rowid = self.get_or_create_timesig((beat, b_type))
+            if rowid is not None:
+                self.write('INSERT INTO time_piece_join VALUES(?,?)', (piece_id, rowid['rowid']))
 
-    def createTempoAndLinks(self, tempo_list, connection, cursor, piece_id):
+    def get_or_create_tempo(self, tempo):
+        select = 'SELECT ROWID FROM tempos WHERE beat=? AND minute=? AND beat_2=?'
+        write = 'INSERT INTO tempos VALUES(?,?,?)'
+        rowid = self.get_or_create_one(select, write, tempo)
+        return rowid
+
+    def create_tempo_links(self, tempo_list, piece_id):
         for tempo in tempo_list:
             beat = tempo["beat"]
-            beat_2 = -1
-            minute = -1
-            if "beat_2" in tempo:
-                beat_2 = tempo["beat_2"]
-            if "minute" in tempo:
-                minute = tempo["minute"]
-            cursor.execute(
-                'SELECT ROWID FROM tempos WHERE beat=? AND beat_2=? AND minute=?',
-                (beat,
-                 beat_2,
-                 minute))
-            res = cursor.fetchone()
-            if res is None:
-                cursor.execute(
-                    'INSERT INTO tempos VALUES(?,?,?)',
-                    (beat,
-                     minute,
-                     beat_2))
-                connection.commit()
-                cursor.execute(
-                    'SELECT ROWID FROM tempos WHERE beat=? AND beat_2=? AND minute=?',
-                    (beat,
-                     beat_2,
-                     minute))
-                res = cursor.fetchone()
-            cursor.execute(
-                'INSERT INTO tempo_piece_join VALUES(?,?)', (piece_id, res['rowid']))
+            beat_2 = get_if_exists(tempo, "beat_2", -1)
+            minute = get_if_exists(tempo, "minute", -1)
+            rowid = self.get_or_create_tempo((beat, minute, beat_2))
+            if rowid is not None:
+                self.write(
+                'INSERT INTO tempo_piece_join VALUES(?,?)', (piece_id, rowid['rowid']))
 
-    def setSource(self, source, connection, cursor, piece_id):
+
+
+    def setSource(self, source, piece_id):
         query = 'INSERT INTO sources VALUES(?,?)'
-        cursor.execute(query, (piece_id, source,))
+        self.write(query, (piece_id, source,))
 
-    def setSecret(self, secret, connection, cursor, piece_id):
+    def setSecret(self, secret, piece_id):
         query = 'INSERT INTO secrets VALUES(?,?)'
-        cursor.execute(query, (piece_id, secret,))
+        self.write(query, (piece_id, secret,))
 
-    def setLicense(self, license, connection, cursor, piece_id):
+    def setLicense(self, license, piece_id):
         query = 'INSERT INTO licenses VALUES(?,?)'
-        cursor.execute(query, (piece_id, license,))
+        self.write(query, (piece_id, license,))
 
     def addPiece(self, filename, data):
         '''
@@ -348,14 +288,12 @@ class MusicData(TableCreator.TableCreator):
         (same as keys), "tempo", "instruments"
         :return: None
         '''
-        connection, cursor = self.connect()
         composer_id = -1
         lyricist_id = -1
         title = ""
-        method_table = {"composer": self.createOrGetComposer, "lyricist": self.createOrGetLyricist,
-                        "instruments": self.createOrGetInstruments, "key": self.createKeyLinks,
-                        "clef": self.createClefLinks, "time": self.createTimeSigsAndLinks,
-                        "tempo": self.createTempoAndLinks, "source": self.setSource,
+        method_table = {"key": self.create_key_links,
+                        "clef": self.create_clef_links, "time": self.create_timesig_links,
+                        "tempo": self.create_tempo_links, "source": self.setSource,
                         "secret": self.setSecret, "license": self.setLicense}
 
         if "title" in data:
@@ -363,17 +301,13 @@ class MusicData(TableCreator.TableCreator):
             data.pop("title")
 
         query_input = (filename, title, composer_id, lyricist_id, False)
-        cursor.execute('INSERT INTO pieces VALUES(?,?,?,?,?)', query_input)
-        connection.commit()
+        self.write('INSERT INTO pieces VALUES(?,?,?,?,?)', query_input)
         select_input = (filename,)
-        cursor.execute(
-            'SELECT ROWID FROM pieces WHERE filename=?',
-            select_input)
-        result = cursor.fetchone()
-        piece_id = result["rowid"]
+        rowid = self.read_one('SELECT ROWID FROM pieces WHERE filename=?', select_input)
+        piece_id = rowid["rowid"]
 
         if "instruments" in data:
-            self.createOrGetInstruments(data["instruments"], connection, cursor, piece_id)
+            self.createOrGetInstruments(data["instruments"], piece_id)
             data.pop("instruments")
 
         if "id" in data:
@@ -381,10 +315,10 @@ class MusicData(TableCreator.TableCreator):
 
         table_info = {}
         for key in data:
-            table_info[key] = method_table[key](data[key], connection, cursor, piece_id)
-
-        connection.commit()
-        self.disconnect(connection)
+            if key in ['lyricist', 'composer']:
+                self.link_creator_to_piece(data[key], piece_id, creator=key)
+            else:
+                table_info[key] = method_table[key](data[key], piece_id)
 
     def getFileList(self, online=False):
         connection, cursor = self.connect()
@@ -475,18 +409,6 @@ class MusicData(TableCreator.TableCreator):
         result = cursor.fetchall()
         instrument_ids = [id['rowid'] for id in result]
         return instrument_ids
-
-    def getInstrumentId(self, instrument, cursor):
-        """
-        gets exact instrument ID based only on its name with no wildcards
-        """
-        cursor.execute(
-            'SELECT ROWID FROM instruments WHERE name=?', (instrument,))
-        result = cursor.fetchone()
-        if result is not None:
-            return result['rowid']
-        else:
-            return -1
 
     def getComposerIdWhereTextInName(self, composer, cursor):
         """
@@ -913,7 +835,7 @@ class MusicData(TableCreator.TableCreator):
         inst_list = []
         inst_dict = {}
         for instrument in instruments:
-            inst_list.append(self.getInstrumentId(instrument, cursor))
+            inst_list.append(self.getInstrumentId(instrument))
             inst_dict[instrument] = []
             for key in instruments[instrument]:
                 id = action(key, cursor)
@@ -1098,7 +1020,7 @@ class MusicData(TableCreator.TableCreator):
         instrument_keys = []
         alternates = []
         for elem in instruments:
-            key = self.getInstrumentId(elem["name"], cursor)
+            key = self.getInstrumentId(elem["name"])
             if key is not -1:
                 instrument_keys.append((elem, key))
                 alternates.append(((elem, key), self.getInstrumentsBySameTranspositionAs(elem['name'])))

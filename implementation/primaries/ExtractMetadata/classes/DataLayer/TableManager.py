@@ -1,8 +1,13 @@
 import sqlite3
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 
-from implementation.primaries.ExtractMetadata.classes.DataLayer import TableConnector
+def dict_factory(cursor, row):
+    d = {}
+    for idx, col in enumerate(cursor.description):
+        d[col[0]] = row[idx]
+    return hashdict(d)
 
-class TableCreator(TableConnector.TableConnector):
+class TableManager(object):
     tables = ["sources (piece_id int, source text)",
               "licenses (piece_id int, license text)",
               "secrets (piece_id int, secret text)",
@@ -70,12 +75,28 @@ class TableCreator(TableConnector.TableConnector):
                 ("A# minor", 7, "minor")]
 
     def __init__(self, db):
-        super(TableCreator, self).__init__(db)
+        self.database = db
         for table in self.tables:
             self.create_if_not_exists(table)
         self.insert_if_not_exists('clefs', 'name', self.clefs)
         self.insert_if_not_exists('keys', 'name', self.keys)
 
+    def connect(self):
+        '''
+        method to create new sqlite connection and set up the cursor
+        :return: connection object, cursor object
+        '''
+        conn = sqlite3.connect(self.database)
+        conn.row_factory = dict_factory
+        return conn, conn.cursor()
+
+    def disconnect(self, connection):
+        """
+        method which shuts down db connection
+        :param connection: connection object
+        :return: None
+        """
+        connection.close()
 
     def create_if_not_exists(self, table_and_columns):
         connection, cursor = self.connect()
@@ -115,3 +136,30 @@ class TableCreator(TableConnector.TableConnector):
                 cursor.execute(query, elem)
         connection.commit()
         self.disconnect(connection)
+
+    def read_all(self, query, params=()):
+        connection, cursor = self.connect()
+        cursor.execute(query, params)
+        result = cursor.fetchall()
+        self.disconnect(connection)
+        return result
+
+    def read_one(self, query, params=()):
+        connection, cursor = self.connect()
+        cursor.execute(query, params)
+        result = cursor.fetchone()
+        self.disconnect(connection)
+        return result
+
+    def write(self, query, params=()):
+        connection, cursor = self.connect()
+        cursor.execute(query, params)
+        connection.commit()
+        self.disconnect(connection)
+
+    def get_or_create_one(self, select_query, write_query, data):
+        rowid = self.read_one(select_query, data)
+        if rowid is None:
+            self.write(write_query, data)
+            rowid = self.read_one(select_query, data)
+        return rowid

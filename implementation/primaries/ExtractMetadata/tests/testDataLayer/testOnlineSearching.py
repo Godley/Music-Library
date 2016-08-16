@@ -108,7 +108,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                             "key": {"Clarinet": [{"mode": "major",
                                                   "fifths": 2}]},
                                "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPieceByKeys(["D major"])
+        result_set = self.data.get_piece_by_join(["D major"], "key")
         self.assertEqual(result_set, [])
 
     def testGetPieceByKeysOnline(self):
@@ -118,7 +118,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                             "key": {"Clarinet": [{"mode": "major",
                                                   "fifths": 2}]},
                                "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPieceByKeys(["D major"], online=True)
+        result_set = self.data.get_piece_by_join(["D major"], "key", online=True)
         self.assertEqual(result_set, ['file.xml'])
 
     def testGetPieceByModularityOffline(self):
@@ -337,7 +337,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                             "clef": {"Clarinet": [{"sign": "G",
                                                    "line": 2}]},
                                "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPieceByClefs(["treble"])
+        result_set = self.data.get_piece_by_join(["treble"], "clef")
         self.assertEqual(result_set, [])
 
     def testGetPieceByClefsOnline(self):
@@ -353,7 +353,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                             "clef": {"Clarinet": [{"sign": "G",
                                                    "line": 2}]},
                                "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPieceByClefs(["treble"], online=True)
+        result_set = self.data.get_piece_by_join(["treble"], "clef", online=True)
         self.assertEqual(result_set, ['file.xml', 'file1.xml'])
 
     def testGetPieceByInstrumentInKeysOffline(self):

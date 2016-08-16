@@ -114,7 +114,7 @@ class TestDataLayerUserQueries(unittest.TestCase):
     def testFindPieceByKey(self):
         self.data.addPiece(
             "file.xml", {"key": {"clarinet": [{"fifths": 2, "mode": "major"}]}})
-        self.assertEqual("file.xml", self.data.getPieceByKeys(["D major"])[0])
+        self.assertEqual("file.xml", self.data.get_piece_by_join(["D major"], "key")[0])
 
     def testFindPieceByInstrumentInKey(self):
         self.data.addPiece("file.xml", {"instruments": [{"name": "clarinet"}], "key": {
@@ -144,7 +144,7 @@ class TestDataLayerUserQueries(unittest.TestCase):
     def testFindPieceByClef(self):
         self.data.addPiece("file", {"instruments": [{"name": "clarinet"}], "clef": {
                            "clarinet": [{"sign": "G", "line": 2}]}})
-        self.assertEqual(["file"], self.data.getPieceByClefs(["treble"]))
+        self.assertEqual(["file"], self.data.get_piece_by_join(["treble"], "clef"))
 
     def testFindPieceByInstrumentInClef(self):
         self.data.addPiece("file.xml", {"instruments": [{"name": "clarinet"}], "clef": {
