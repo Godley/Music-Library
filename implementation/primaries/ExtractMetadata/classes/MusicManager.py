@@ -201,19 +201,19 @@ class QueryLayer(object):
         for value in search_data["text"]:
             combined = {}
             file_result = self._data.getRoughPiece(value, online=online)
-            combined["filename"] = file_result
+            combined["filename"] = set(file_result)
 
             title_result = self._data.getPieceByTitle(
                 value, online=online)
-            combined["Title"] = title_result
+            combined["Title"] = set(title_result)
 
             composer_result = self._data.get_pieces_by_creator(
                 value, online=online)
-            combined["Composer"] = composer_result
+            combined["Composer"] = set(composer_result)
 
             lyricist_result = self._data.get_pieces_by_creator(
                 value, online=online, creator_type='lyricist')
-            combined["Lyricist"] = lyricist_result
+            combined["Lyricist"] = set(lyricist_result)
 
             if value in instruments:
                 instrument_list.append(value)
@@ -302,7 +302,7 @@ class QueryLayer(object):
         all_matched = True
         for key, value in zip(keys, values):
             if method(value):
-                results[key] = value
+                results[key] = set(value)
             else:
                 all_matched = False
         return results, all_matched
@@ -316,7 +316,7 @@ class QueryLayer(object):
         result_files = [
             filename for filename in search_data["filename"] if filename in files]
         if len(result_files) > 0:
-            results["Filename"] = result_files
+            results["Filename"] = set(result_files)
         else:
             all_matched = False
         return results, all_matched
@@ -370,8 +370,7 @@ class QueryLayer(object):
 
         summaries = {}
         if all_matched:
-            intersection = set.intersection(
-                *[set(results[key]) for key in results])
+            intersection = set.intersection(set(results.values()))
             results["Exact Matches"] = intersection
         for key in results:
             summaries[key] = self.getPieceSummary(
