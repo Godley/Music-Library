@@ -366,7 +366,7 @@ class QueryLayer(object):
 
         for key in search_data:
             if key in simpler_method_table:
-                key_result, all_matched = self.handle_bibliography_queries(search_data, query=key, online=online)
+                key_result, all_matched = simpler_method_table[key](search_data, query=key, online=online)
             else:
                 key_result, all_matched = method_table[key](search_data, online=online)
             results.update(key_result)
