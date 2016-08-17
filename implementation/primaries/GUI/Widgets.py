@@ -1,5 +1,5 @@
 from PyQt4 import uic, QtCore, QtGui
-from implementation.primaries.GUI.helpers import get_base_dir
+from implementation.primaries.GUI.helpers import get_base_dir, merge_clefs_and_keys, merge_instruments, fit_columns_to_widget
 import os
 
 
@@ -32,8 +32,9 @@ class Scorebook(Window):
 
     def onSortChange(self):
         sort_method = self.comboBox.currentText()
-        self.application.loadPieces(
-            method=sort_method, slot=self.onScoresReady)
+        self.application.start_basic_thread((sort_method,),
+                                            self.application.manager.getPieceSummaryStrings,
+                                            slot=self.onScoresReady)
         self.comboBox.show()
 
     def onScoresReady(self, pieces):
@@ -59,19 +60,21 @@ class PlaylistWidget(Window):
 
     def onPlaylistsReady(self, myPlaylists):
         self.listWidget.clear()
-        for entry in myPlaylists:
+        self.create_widgets(myPlaylists)
+        self.listWidget.show()
+
+    def create_widgets(self, data):
+        for entry in data:
             item = QtGui.QListWidgetItem(entry)
-            item.setData(1, myPlaylists[entry])
+            item.setData(1, data[entry])
             item.setData(3, entry)
             self.listWidget.addItem(item)
-        self.listWidget.show()
 
     def loadPlaylists(self, select_method="all"):
         if self.data_set == "auto":
-            self.application.getPlaylists(
-                select_method=select_method, slot=self.onPlaylistsReady)
+            self.application.start_playlist_thread(args=(select_method,), slot=self.onPlaylistsReady)
         else:
-            self.application.getCreatedPlaylists(slot=self.onPlaylistsReady)
+            self.application.start_playlist_thread(slot=self.onPlaylistsReady)
 
     def load_data(self):
         pass
@@ -148,57 +151,22 @@ class PieceInfo(Window):
             datastring = "title: " + data["title"]
             title = QtGui.QListWidgetItem(datastring)
             self.listWidget.addItem(title)
-            if "composer" in data and data["composer"] != -1:
-                datastring = "composer: " + data["composer"]
-                composer = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(composer)
-            if "lyricist" in data and data["lyricist"] != -1:
-                datastring = "lyricist: " + data["lyricist"]
-                lyricist = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(lyricist)
-            if "instruments" in data:
-                datastring = "instruments: " + \
-                    ", ".join([d["name"] for d in data["instruments"]])
-                instruments = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(instruments)
-            if "clefs" in data:
-                datastring = "clefs: "
-                clef_list = []
-                for instrument in data["clefs"]:
-                    for clef in data["clefs"][instrument]:
-                        if clef not in clef_list:
-                            clef_list.append(clef)
-                datastring += ", ".join(clef_list)
-                clefs = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(clefs)
-            if "keys" in data:
-                datastring = "keys: "
-                key_list = []
-                for instrument in data["keys"]:
-                    for key in data["keys"][instrument]:
-                        if key_list not in key_list:
-                            key_list.append(key)
-                datastring += ", ".join(key_list)
-                keys = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(keys)
+            keys = ("composer", "lyricist", "instruments", "clefs", "keys", "tempos",
+                    "time_signatures")
 
-            if "tempos" in data:
-                datastring = "tempos: "
-                tempo_list = []
-                for tempo in data["tempos"]:
-                    datastring += tempo
-                    datastring += ", "
-                tempos = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(tempos)
+            alternate_methods = {"instruments": merge_instruments,
+                                 "clefs": merge_clefs_and_keys,
+                                 "keys": merge_clefs_and_keys,
+                                 "tempos": lambda k: ", ".join(k),
+                                 "time_signatures": lambda k: ", ".join(k)}
 
-            if "time_signatures" in data:
-                datastring = "time signatures: "
-                tempo_list = []
-                for tempo in data["time_signatures"]:
-                    datastring += tempo
-                    datastring += ", "
-                tempos = QtGui.QListWidgetItem(datastring)
-                self.listWidget.addItem(tempos)
+            for key in keys:
+                if key in data:
+                    datastring = "{}: {}".format(key, data[key])
+                    if key in alternate_methods:
+                        datastring = alternate_methods[key](data[key])
+                    elem = QtGui.QListWidgetItem(datastring)
+                    self.listWidget.addItem(elem)
 
             self.listWidget.show()
 
@@ -215,11 +183,7 @@ class FeaturedIn(PlaylistWidget):
             data = self.application.loadUserPlaylistsForAGivenFile(
                 self.main_window.current_piece)
             self.listWidget.clear()
-            for item in data:
-                widget = QtGui.QListWidgetItem(item)
-                widget.setData(1, data[item])
-                widget.setData(3, item)
-                self.listWidget.addItem(widget)
+            self.create_widgets(data)
             self.listWidget.show()
 
 
@@ -241,36 +205,19 @@ class PlaylistBrowser(Window):
         self.tableWidget.setColumnCount(3)
         self.tableWidget.setHorizontalHeaderLabels(
             ['Title', 'Composer', 'Filename'])
-        for i in range(3):
-            self.tableWidget.setColumnWidth(i, self.tableWidget.width() / 3)
+        fit_columns_to_widget(self.tableWidget, 3)
         self.tableWidget.setRowCount(len(data))
+        columns = ("title", "composer", "filename")
         for i in range(len(data)):
-            if "composer" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["composer"])
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 1, item)
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 1, item)
-
-            if "title" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["title"])
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 0, item)
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 0, item)
-
-            if "filename" in data[i]:
-                item = QtGui.QTableWidgetItem(data[i]["filename"])
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 2, item)
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, data[i]["filename"])
-                self.tableWidget.setItem(i, 2, item)
+            for j, column in zip(range(len(columns)), columns):
+                if column in data[i]:
+                    item = QtGui.QTableWidgetItem(data[i][column])
+                    item.setData(32, data[i]["filename"])
+                    self.tableWidget.setItem(i, j, item)
+                else:
+                    item = QtGui.QTableWidgetItem("")
+                    item.setData(32, data[i]["filename"])
+                    self.tableWidget.setItem(i, j, item)
 
         self.tableWidget.selectRow(self.index)
         self.tableWidget.show()
@@ -303,32 +250,33 @@ class SearchTree(QtGui.QTreeWidget):
 
     def clear(self):
         root = self.treeWidget.invisibleRootItem()
-        child_count = root.childCount()
-        children = [(i, root.child(i).text(0)) for i in range(child_count)]
+        children = self.group_children(root)
         names = [child[1] for child in children]
         for location_type in names:
-            index = [child[0]
+            self.remove_children(location_type, children, root)
+
+    def group_children(self, root):
+        child_count = root.childCount()
+        children = [(i, root.child(i).text(0)) for i in range(child_count)]
+        return children
+
+    def remove_children(self, location_type, children, root):
+        index = [child[0]
                      for child in children if child[1] == location_type]
-            item = root.child(index[0])
-            for i in range(item.childCount()):
-                child = item.child(i)
-                item.removeChild(child)
+        item = root.child(index[0])
+        for i in range(item.childCount()):
+            child = item.child(i)
+            item.removeChild(child)
 
     def load(self, results):
         root = self.treeWidget.invisibleRootItem()
-        child_count = root.childCount()
-        children = [(i, root.child(i).text(0)) for i in range(child_count)]
+        children = self.group_children(root)
         names = [child[1] for child in children]
         for location_type in results:
             item = QtGui.QTreeWidgetItem(location_type)
             item.setData(0, 0, location_type)
             if location_type in names:
-                index = [child[0]
-                         for child in children if child[1] == location_type]
-                item = root.child(index[0])
-                for i in range(item.childCount()):
-                    child = item.child(i)
-                    item.removeChild(child)
+                self.remove_children(location_type, children, root)
 
             else:
                 self.treeWidget.addTopLevelItem(item)

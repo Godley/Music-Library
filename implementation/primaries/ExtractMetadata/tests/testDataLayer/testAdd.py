@@ -1,6 +1,6 @@
 import unittest
 import sqlite3
-from implementation.primaries.ExtractMetadata.classes.DataLayer import MusicData
+from implementation.primaries.ExtractMetadata.classes.DataLayer.MusicData import MusicData
 import os
 
 class TestDataLayerAdd(unittest.TestCase):
@@ -131,10 +131,12 @@ class TestDataLayerAdd(unittest.TestCase):
         t = ("quarter", 60)
         c.execute('SELECT ROWID FROM tempos WHERE beat=? and minute=?', t)
         result = c.fetchone()
+        self.assertIsNotNone(result)
         c.execute(
             'SELECT piece_id FROM tempo_piece_join WHERE tempo_id=?',
             result)
         piece_id = c.fetchone()
+        self.assertIsNotNone(piece_id)
         c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
         self.assertEqual([("file.xml", "", -1, -1, 0)], c.fetchall())
         conn.close()
@@ -146,10 +148,12 @@ class TestDataLayerAdd(unittest.TestCase):
         t = (4, 4)
         c.execute('SELECT ROWID FROM tempos WHERE beat=? and beat_2=?', t)
         result = c.fetchone()
+        self.assertIsNotNone(result)
         c.execute(
             'SELECT piece_id FROM tempo_piece_join WHERE tempo_id=?',
             result)
         piece_id = c.fetchone()
+        self.assertIsNotNone(piece_id)
         c.execute('SELECT * FROM pieces WHERE ROWID=?', piece_id)
         self.assertEqual([("file.xml", "", -1, -1, 0)], c.fetchall())
         conn.close()
@@ -157,8 +161,8 @@ class TestDataLayerAdd(unittest.TestCase):
     def testAddPieceWithInstrumentsWithTranspositions(self):
         self.data.addPiece("file.xml",
                            {"instruments": [{"name": "Bflat clarinet",
-                                             "transposition": {"diatonic": -1,
-                                                               "chromatic": -2}}]})
+                                             "diatonic": -1,
+                                            "chromatic": -2}]})
         conn = sqlite3.connect('example.db')
         c = conn.cursor()
         t = ('Bflat clarinet',)

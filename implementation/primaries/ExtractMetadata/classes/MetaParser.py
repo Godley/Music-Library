@@ -1,9 +1,11 @@
 import xml.sax
+import copy
 from xml.sax import handler, make_parser
 from MuseParse import helpers
 
-from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
-
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
+from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import get_if_exists
+from implementation.primaries.ExtractMetadata.classes.helpers import combine_dictionaries, init_kv
 
 class Extractor(xml.sax.ContentHandler):
 
@@ -31,12 +33,12 @@ class MetaParser(object):
         self.attribs = {}
         self.chars = {}
         self.handlers = {
-            "part-name": makeNewPart,
-            "key": handleKey,
-            "clef": handleClef,
+            "part-name": make_new_part,
+            "key": handle_clef_or_key,
+            "clef": handle_clef_or_key,
             "transpose": handleTransposition,
             "time": handleMeter,
-            "metronome": handleTempo,
+            "metronome": handle_tempo,
             "movement-title": handleBibliography,
             "work-title": handleBibliography,
             "creator": handleBibliography,
@@ -77,11 +79,14 @@ class MetaParser(object):
                     self.chars,
                     self.parts,
                     self.data)
-        self.tags.remove(name)
+        self.pop_name(name)
 
         if len(self.tags) > 0 and self.tags[-1] in self.handlers:
             self.current_handler = self.handlers[self.tags[-1]]
 
+    def pop_name(self, name):
+        if name in self.tags:
+            self.tags.remove(name)
         if name in self.attribs:
             self.attribs.pop(name)
         if name in self.chars:
@@ -95,47 +100,33 @@ class MetaParser(object):
         parser.setFeature(handler.feature_external_ges, False)
         fob = open(file, 'r')
         parser.parse(fob)
-        self.collatePartsIntoData()
+        self.collate_parts()
         fob.close()
         return self.data
 
-    def collatePartsIntoData(self):
+    def collate_parts(self):
         instrument_list = []
-        clef_list = {}
-        key_list = {}
+        keys = ["key", "clef"]
         for part in self.parts:
-
             data = {}
-            if "name" in self.parts[part]:
-                data["name"] = self.parts[part]["name"]
-            else:
-                self.parts[part]["name"] = "hello, world"
-                data["name"] = "hello, world"
+            data["name"] = get_if_exists(self.parts[part], "name", "hello, world")
 
             if "transposition" in self.parts[part]:
                 data["transposition"] = self.parts[part]["transposition"]
-            if "key" in self.parts[part]:
-                hashdict_list = [hashdict(item)
-                                 for item in self.parts[part]["key"]]
-                hashdict_set = set(hashdict_list)
-                key_list[self.parts[part]["name"]] = hashdict_set
-            if "clef" in self.parts[part]:
-                hashdict_list = [hashdict(item)
-                                 for item in self.parts[part]["clef"]]
-                hashdict_set = set(hashdict_list)
-                clef_list[self.parts[part]["name"]] = hashdict_set
+
+            for key in keys:
+                if key in self.parts[part]:
+                    init_kv(self.data, key, init_value={})
+                    self.data[key][data["name"]] = convert_to_hashdict_set(self.parts[part][key])
+
             instrument_list.append(data)
         self.data["instruments"] = instrument_list
-        if key_list != {}:
-            self.data["key"] = key_list
-        if clef_list != {}:
-            self.data["clef"] = clef_list
 
 
 # HANDLER METHODS
 
 
-def makeNewPart(tags, attrs, chars, parts, data):
+def make_new_part(tags, attrs, chars, parts, data):
     """
     handler which works with anything inside the score-part tag, which creates a new part inside the data dict
     :param tags: current list of xml tags
@@ -145,8 +136,7 @@ def makeNewPart(tags, attrs, chars, parts, data):
     """
     id = helpers.GetID(attrs, "score-part", "id")
     if id is not None:
-        if id not in parts:
-            parts[id] = {}
+        init_kv(parts, id, init_value={})
     if tags[-1] == "part-name":
         if "part-name" in chars:
             name = chars["part-name"]
@@ -156,58 +146,53 @@ def makeNewPart(tags, attrs, chars, parts, data):
             data["instruments"].append(name)
 
 
-def handleKey(tags, attrs, chars, parts, data):
+def handle_clef_or_key(tags, attrs, chars, parts, data):
+    """
+    Since clefs and keys are very similar, handle them in the same method
+    """
     id = helpers.GetID(attrs, "part", "id")
+    tag_dict = {"clef": ("line", "sign"), "key": ("fifths", "mode")}
     if id is not None:
-        if id not in parts:
-            parts[id] = {}
+        init_kv(parts, id, init_value={})
+        if tags[-2] in tag_dict:
+            init_kv(parts[id], tags[-2], init_value=[])
+            elem_to_add = create_elem(chars, tag_dict[tags[-2]][0], tag_dict[tags[-2]][1])
+            tag_type = tags[-2]
+            update_or_append_entry(parts[id][tag_type], tags[-1], elem_to_add)
 
-        if "key" not in parts[id]:
-            parts[id]["key"] = []
-
-        if tags[-1] == "fifths" or tags[-1] == "mode":
-            thing = 0
-            if "fifths" in chars:
-                thing = int(chars["fifths"])
-            if "mode" in chars:
-                thing = chars["mode"]
-            if len(parts[id]["key"]) == 0 or tags[-1] in parts[id]["key"][-1]:
-                parts[id]["key"].append({tags[-1]: thing})
-            elif tags[-1] not in parts[id]["key"][-1]:
-                parts[id]["key"][-1][tags[-1]] = thing
+def update_or_append_entry(dictionary, tag, entry):
+    """
+    Method to check if a dictionary is empty, or if it's last entry contains the tag
+    being added. If yes, create a new entry. If it doesn't contain the tag,
+    add it. Used by clef and key creation queries, might be used by other handlers in future
+    """
+    if len(dictionary) == 0 or tag in dictionary[-1]:
+        dictionary.append({tag: entry})
+    elif tag not in dictionary[-1]:
+        dictionary[-1][tag] = entry
 
 
-def handleClef(tags, attrs, chars, parts, data):
-    id = helpers.GetID(attrs, "part", "id")
-    if id is not None:
-        if id not in parts:
-            parts[id] = {}
 
-        if "clef" not in parts[id]:
-            parts[id]["clef"] = []
-
-        if tags[-1] == "line" or tags[-1] == "sign":
-            thing = 0
-            if "line" in chars:
-                thing = int(chars["line"])
-            if "sign" in chars:
-                thing = chars["sign"]
-            if len(parts[id]["clef"]) == 0 or tags[-
-                                                   1] in parts[id]["clef"][-
-                                                                           1]:
-                parts[id]["clef"].append({tags[-1]: thing})
-            elif tags[-1] not in parts[id]["clef"][-1]:
-                parts[id]["clef"][-1][tags[-1]] = thing
+def create_elem(chars, key1, key2, cast1=int, cast2=str):
+    """
+    select a return value from chars dictionary. Priority given to key 2 over key 1,
+    both are cast to whatever value we need. Used by clef and key handlers as both
+    need the first element, then the second, and both happen to be format int then str.
+    Made generic as poss incase this is useful elsewhere.
+    """
+    return_value = 0
+    if key1 in chars:
+        return_value = cast1(chars[key1])
+    if key2 in chars:
+        return_value = cast2(chars[key2])
+    return return_value
 
 
 def handleTransposition(tags, attrs, chars, parts, data):
     id = helpers.GetID(attrs, "part", "id")
     if id is not None:
-        if id not in parts:
-            parts[id] = {}
-
-        if "transposition" not in parts[id]:
-            parts[id]["transposition"] = {}
+        init_kv(parts, id, init_value={})
+        init_kv(parts[id], "transposition", init_value={})
 
         if tags[-1] == "diatonic" or tags[-1] == "chromatic":
             content = 0
@@ -217,88 +202,99 @@ def handleTransposition(tags, attrs, chars, parts, data):
 
 
 def handleMeter(tags, attrs, chars, parts, data):
-    if "time" not in data:
-        data["time"] = []
+    init_kv(data, "time", init_value=[])
 
-    if tags[-1] != "time":
-        beat = 0
-        b_type = 0
+    if tags[-1] != "time" and "time" in tags:
+        elem = create_elem(chars, "beats", "beat-type", cast2=int)
+        tag_type = ''
         if tags[-1] == "beats":
-            if "beats" in chars:
-                beat = chars["beats"]
-
-            if len(data["time"]) == 0 or "beat" in data["time"][-1]:
-                try:
-                    data["time"].append({"beat": int(beat)})
-                except:
-                    data["time"].append({"beat": beat})
-            else:
-                data["time"][-1]["beat"] = int(beat)
+            tag_type = "beat"
 
         if tags[-1] == "beat-type":
-            if "beat-type" in chars:
-                b_type = chars["beat-type"]
+            tag_type = "type"
 
-            if len(data["time"]) == 0 or "type" in data["time"][-1]:
-                data["time"].append({"type": int(b_type)})
-            else:
-                data["time"][-1]["type"] = int(b_type)
+        update_or_append_entry(data["time"], tag_type, elem)
+            # if len(data["time"]) == 0 or "type" in data["time"][-1]:
+            #     data["time"].append({"type": int(b_type)})
+            # else:
+            #     data["time"][-1]["type"] = int(b_type)
 
 
-def handleTempo(tags, attrs, chars, parts, data):
-    if "tempo" not in data:
-        data["tempo"] = []
+def handle_tempo(tags, attrs, chars, parts, data):
+    init_kv(data, "tempo", [])
 
     if tags[-1] != "metronome":
-        beat = 0
-        minute = 0
-
-        if tags[-1] == "beat-unit-dot":
-            if len(data["tempo"]) > 0:
-                if "beat_2" in data["tempo"][-1]:
-                    data["tempo"][-1]["beat_2"] += "."
-                elif "beat" in data["tempo"][-1]:
-                    data["tempo"][-1]["beat"] += "."
-
-        if tags[-1] == "beat-unit":
-            if "beat-unit" in chars:
-                beat = chars["beat-unit"]
-
-            if len(data["tempo"]) == 0 or ("beat" in data["tempo"][-
-                                                                   1] and ("minute" in data["tempo"][-
-                                                                                                     1] or "beat_2" in data["tempo"][-
-                                                                                                                                     1])):
-                data["tempo"].append({"beat": beat})
-            elif "beat" not in data["tempo"][-1]:
-                data["tempo"][-1]["beat"] = beat
-            elif "minute" not in data["tempo"][-1] and "beat_2" not in data["tempo"][-1]:
-                data["tempo"][-1]["beat_2"] = beat
+        elem = create_elem(chars, "beat-unit", "per-minute", cast1=str, cast2=int)
+        data["tempo"] = handle_beat_unit(elem, data["tempo"], tags[-1])
+        data["tempo"] = handle_beat_unit_dot(data["tempo"], tags[-1])
 
         if tags[-1] == "per-minute":
-            if "per-minute" in chars:
-                minute = chars["per-minute"]
+            update_or_append_entry(data["tempo"], "minute", elem)
 
-            if len(data["tempo"]) == 0 or "minute" in data["tempo"][-1]:
-                data["tempo"].append({"minute": int(minute)})
-            else:
-                data["tempo"][-1]["minute"] = int(minute)
+def handle_beat_unit_dot(list_of_dicts, tag):
+    if tag == "beat-unit-dot":
+        copy_of_dict = copy.deepcopy(list_of_dicts)
+        if len(copy_of_dict) > 0:
+            if "beat_2" in copy_of_dict[-1]:
+                copy_of_dict[-1]["beat_2"] += "."
+            elif "beat" in copy_of_dict[-1]:
+                copy_of_dict[-1]["beat"] += "."
+        return copy_of_dict
+    return list_of_dicts
+
+def handle_beat_unit(elem, list_of_dicts, tag):
+
+    if tag == 'beat-unit':
+        copy_of_dict = copy.deepcopy(list_of_dicts)
+
+        if beat1_and_minute_or_beat2_exists(copy_of_dict):
+            copy_of_dict.append({"beat": elem})
+
+        # if not, we dump it as the first beat of the first tempo
+        elif "beat" not in copy_of_dict[-1]:
+            copy_of_dict[-1]["beat"] = elem
+
+        # finally, if the first tempo doesn't have a second beat, or a minute,
+        # we put it as the second beat of the tempo. MusicXML sucks.
+        elif not minute_or_beat2_exists(copy_of_dict):
+            copy_of_dict[-1]["beat_2"] = elem
+        return copy_of_dict
+    return list_of_dicts
+
+def beat1_and_minute_or_beat2_exists(list_of_dicts):
+    answer = False
+    if len(list_of_dicts) == 0:
+        answer = True
+    elif "beat" in list_of_dicts[-1] and minute_or_beat2_exists(list_of_dicts):
+        answer = True
+    return answer
+
+def minute_or_beat2_exists(list_of_dicts):
+    answer = False
+    if len(list_of_dicts) == 0:
+        answer = True
+    elif "minute" in list_of_dicts[-1] or "beat_2" in list_of_dicts[-1]:
+        answer = True
+    return answer
 
 
 def handleBibliography(tags, attrs, chars, parts, data):
     if tags[-1] == "creator":
         creator_type = helpers.GetID(attrs, "creator", "type")
         if creator_type is not None:
-            if creator_type not in data:
-                data[creator_type] = ""
+            init_kv(data, creator_type, init_value="")
             if "creator" in chars:
                 data[creator_type] += chars["creator"].lower()
 
-    if tags[-1] == "movement-title" or tags[-1] == "work-title":
-        title = ""
-        if "movement-title" in chars:
-            title = chars["movement-title"]
-        if "work-title" in chars:
-            title = chars["work-title"]
-        if "title" not in data:
-            data["title"] = ""
+    handle_title(tags[-1], chars, data)
+
+def handle_title(tag, chars, data):
+    if tag == "movement-title" or tag == "work-title":
+        title = create_elem(chars, "movement-title", "work-title", cast1=str, cast2=str)
+        init_kv(data, "title", init_value="")
         data["title"] += title.lower()
+
+def convert_to_hashdict_set(list_of_dicts):
+    hashdict_list = [hashdict(item) for item in list_of_dicts]
+    hashdict_set = set(hashdict_list)
+    return hashdict_set

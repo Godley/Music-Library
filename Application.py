@@ -6,7 +6,8 @@ from xml.parsers import expat
 from PyQt4 import QtGui, QtCore, QtXml
 
 
-from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, PlaylistDialog, ImportDialog, licensePopup, \
+from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, \
+    PlaylistDialog, ImportDialog, licensePopup, \
     StartupWindow, MainWindow
 from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
 from implementation.primaries.scripts.setup_script import do_setup
@@ -46,6 +47,13 @@ class Application(QtCore.QObject):
         self.folder = None
         self.load_windows()
         self.updateStatusBar("hello, world")
+
+    def start_playlist_thread(self, args=tuple(), slot=None):
+        async = qt_threading.mythread(
+            self, self.manager.getPlaylists, args)
+        QtCore.QObject.connect(
+            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        async.run()
 
     def meta_file(self):
         return os.path.join(os.path.expanduser("~"), ".musiclib")
@@ -118,42 +126,22 @@ class Application(QtCore.QObject):
         col_fob.close()
 
     def load_windows(self):
-        startup = StartupWindow.StartupWindow(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["startup"] = startup
+        self.windows = {"startup": StartupWindow.StartupWindow,
+                   "main": MainWindow.MainWindow,
+                   "setup": SetupWindow.SetupWindow,
+                   "error": renderingErrorPopup.RenderingErrorPopup,
+                   "import": ImportDialog.ImportDialog,
+                   "newplaylist": PlaylistDialog.PlaylistDialog,
+                   "license": licensePopup.LicensePopup}
+        for window in self.windows:
+            self.windows[window] = self.windows[window](self, self.meta["theme"],
+                                          self.theme_folder, self.design_folder)
+            self.windows[window].show()
+            self.windows[window].hide()
 
-        main = MainWindow.MainWindow(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["main"] = main
         self.windows["main"].show()
         self.windows["main"].applyTheme()
         self.windows["main"].hide()
-
-        setup = SetupWindow.SetupWindow(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["setup"] = setup
-        self.windows["setup"].show()
-        self.windows["setup"].hide()
-
-        self.windows["error"] = renderingErrorPopup.RenderingErrorPopup(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["error"].show()
-        self.windows["error"].hide()
-
-        self.windows["import"] = ImportDialog.ImportDialog(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["import"].show()
-        self.windows["import"].hide()
-
-        self.windows["newplaylist"] = PlaylistDialog.PlaylistDialog(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["newplaylist"].show()
-        self.windows["newplaylist"].hide()
-
-        self.windows["license"] = licensePopup.LicensePopup(
-            self, self.meta["theme"], self.theme_folder, self.design_folder)
-        self.windows["license"].show()
-        self.windows["license"].hide()
 
     def updateTheme(self, theme):
         for window in self.windows:
@@ -183,9 +171,8 @@ class Application(QtCore.QObject):
             async, QtCore.SIGNAL("downloadError(bool)"), self.onFileError)
         async.run()
 
-    def loadPieces(self, method="title", slot=None):
-        worker = qt_threading.mythread(
-            self, self.manager.getPieceSummaryStrings, (method,))
+    def start_basic_thread(self, args, method, slot=None):
+        worker = qt_threading.mythread(self, method, args)
         QtCore.QObject.connect(
             worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
         worker.run()
@@ -307,20 +294,6 @@ class Application(QtCore.QObject):
     def errorPopup(self, errors):
         self.windows["error"].show()
         self.windows["error"].load(errors)
-
-    def getCreatedPlaylists(self, slot=None):
-        async = qt_threading.mythread(
-            self, self.manager.getPlaylistsFromPlaylistTable, ())
-        QtCore.QObject.connect(
-            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
-        async.run()
-
-    def getPlaylists(self, select_method="all", slot=None):
-        async = qt_threading.mythread(
-            self, self.manager.getPlaylists, (select_method,))
-        QtCore.QObject.connect(
-            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
-        async.run()
 
     def getPlaylistFileInfo(self, playlist):
         return self.manager.getPlaylistFileInfo(playlist)

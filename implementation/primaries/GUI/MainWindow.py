@@ -8,7 +8,7 @@ if platform != 'win32':
 
 from PyQt4 import QtGui, QtCore, uic
 
-from implementation.primaries.GUI.helpers import get_base_dir, parseStyle, postProcessLines
+from implementation.primaries.GUI.helpers import get_base_dir, parseStyle, postProcessLines, merge_instruments, merge_clefs_and_keys, fit_columns_to_widget
 from implementation.primaries.GUI import themedWindow, Widgets, qt_threading, MultistandWidget, pdfViewer
 
 
@@ -41,12 +41,15 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         if hasattr(self, "playlistTable"):
             if not self.playlistTable.isHidden():
                 self.resizeCenterWidget(self.playlistTable)
+                fit_columns_to_widget(self.playlistTable, 10)
                 for i in range(10):
                     self.playlistTable.setColumnWidth(
                         i, self.playlistTable.width() / 9)
         if hasattr(self, "searchBar"):
             self.resizeSearchbar()
         QResizeEvent.accept()
+
+
 
     def resizeCenterWidget(self, item):
         """
@@ -99,12 +102,12 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         layout.addWidget(self.widgets["search"])
         self.searchFrame.setGeometry(self.searchFrame.pos().x(), self.searchFrame.pos(
         ).y(), self.widgets["search"].width(), self.widgets["search"].height())
-        self.scorebookBtn.clicked.connect(self.scorebook)
-        self.myPlaylistBtn.clicked.connect(self.myplaylist)
-        self.autoPlaylistBtn.clicked.connect(self.autoplaylist)
-        self.browserBtn.clicked.connect(self.browser)
-        self.featuredBtn.clicked.connect(self.featured)
-        self.infoBtn.clicked.connect(self.info)
+        self.scorebookBtn.clicked.connect(self.sidemenu_callback)
+        self.myPlaylistBtn.clicked.connect(self.sidemenu_callback)
+        self.autoPlaylistBtn.clicked.connect(self.sidemenu_callback)
+        self.browserBtn.clicked.connect(self.sidemenu_callback)
+        self.featuredBtn.clicked.connect(self.sidemenu_callback)
+        self.infoBtn.clicked.connect(self.sidemenu_callback)
         self.searchInput.setCursorPosition(10)
         self.searchInput.textChanged.connect(self.updateOptions)
         self.searchInput.editingFinished.connect(self.finished)
@@ -114,8 +117,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         ), self.searchBar.pos().y(), self.width(), self.searchBar.height())
         self.centralWidget().setStyleSheet(
             "QWidget#centralwidget {border-image:url(alternatives/sheet-music-texture.png) 0 0 stretch stretch;}")
-        self.actionUbuntu.triggered.connect(self.ubuntu)
-        self.actionCandy.triggered.connect(self.candy)
+        self.actionUbuntu.triggered.connect(self.change_theme)
+        self.actionCandy.triggered.connect(self.change_theme)
         self.searchFrame.hide()
         self.scoreWindow.hide()
         self.multistndBtn.hide()
@@ -172,22 +175,11 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
             self.applyTheme()
         QFocusEvent.accept()
 
-    def candy(self):
-        """
-        callback for the action to change theme to candy
-        :return:
-        """
-        self.theme = "candy"
-        self.qApp.updateTheme("candy")
-        self.applyTheme()
-
-    def ubuntu(self):
-        """
-        callback for the action to change theme to ubuntu
-        :return:
-        """
-        self.theme = "ubuntu"
-        self.qApp.updateTheme("ubuntu")
+    def change_theme(self):
+        sender = self.sender()
+        name = sender.objectName()[6:].lower()
+        self.theme = name
+        self.qApp.updateTheme(self.theme)
         self.applyTheme()
 
     # methods which handle querying
@@ -239,7 +231,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.scoreWindow.hide()
         self.playlistTable.setRowCount(length)
         file_data = self.qApp.getPlaylistFileInfo(playlist_to_load)
-        data_items = self.setUpDataItems(
+        data_items = self.setup_data_items(
             playlist_to_load, file_data, 0, len(file_data))
         for i in range(len(data_items)):
             for j in range(len(data_items[i])):
@@ -247,132 +239,46 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.setWindowTitle("MuseLib | Playlist: " + playlist_title)
         self.playlistTable.show()
         self.playlistTable.lower()
-        for i in range(10):
-            self.playlistTable.setColumnWidth(
-                i, self.playlistTable.width() / 9)
+        fit_columns_to_widget(self.playlistTable, 10)
         self.playlist = playlist_title
         self.resizeCenterWidget(self.playlistTable)
 
-    def setUpDataItems(self, playlist_fnames, playlist_data, start_index, end_index):
+    def setup_data_items(self, playlist_fnames, playlist_data, start_index, end_index):
         items = []
+        keys = ("title", "composer", "lyricist", "instruments", "filename", "clefs", "keys",
+                "tempos", "time_signatures")
+        alternate_method = {"instruments": merge_instruments,
+                            "clefs": merge_clefs_and_keys,
+                            "keys": merge_clefs_and_keys}
         for i in range(start_index, end_index):
             file = playlist_data[i]
             row = []
-            item = QtGui.QTableWidgetItem(file["title"])
-            item.setData(32, file["filename"])
-            item.setData(3, i)
-            item.setData(4, playlist_fnames)
-            row.append(item)
-            if "composer" in file:
-                item = QtGui.QTableWidgetItem(file["composer"])
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
+            for key in keys:
+                if key in file:
+                    if key in alternate_method:
+                        value = alternate_method[key](file[key])
+                    else:
+                        value = file[key]
+                        if type(value) is list:
+                            value = ", ".join(file[key])
+                    item = QtGui.QTableWidgetItem(value)
+                    item.setData(32, file["filename"])
+                    item.setData(3, i)
+                    item.setData(4, playlist_fnames)
+                    row.append(item)
 
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            if "lyricist" in file:
-                item = QtGui.QTableWidgetItem(file["lyricist"])
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            if "instruments" in file:
-                item = QtGui.QTableWidgetItem(
-                    ", ".join([data["name"] for data in file["instruments"]]))
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-            item = QtGui.QTableWidgetItem(file["filename"])
-            item.setData(32, file["filename"])
-            item.setData(3, i)
-            item.setData(4, playlist_fnames)
-            row.append(item)
-            if "clefs" in file:
-                result = ""
-                for instrument in file["clefs"]:
-                    result += ", ".join(file["clefs"][instrument])
-                item = QtGui.QTableWidgetItem(result)
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                item.setData(32, file["filename"])
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-            if "keys" in file:
-                result = ""
-                for instrument in file["keys"]:
-                    result += ", ".join(file["keys"][instrument])
-                item = QtGui.QTableWidgetItem(result)
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            if "tempos" in file:
-                item = QtGui.QTableWidgetItem(", ".join(file["tempos"]))
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            if "time_signatures" in file:
-                item = QtGui.QTableWidgetItem(
-                    ", ".join(file["time_signatures"]))
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
-
-            else:
-                item = QtGui.QTableWidgetItem("")
-                item.setData(32, file["filename"])
-                item.setData(3, i)
-                item.setData(4, playlist_fnames)
-                row.append(item)
+                else:
+                    item = QtGui.QTableWidgetItem("")
+                    item.setData(32, file["filename"])
+                    item.setData(3, i)
+                    item.setData(4, playlist_fnames)
+                    row.append(item)
             items.append(row)
         return items
+
+
+
+
 
     def onPlaylistItemClicked(self, current_item):
         """
@@ -451,41 +357,13 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         pass
 
     # callbacks for the buttons in the side menu
-    def scorebook(self):
-        if self.loaded != "scorebook":
-            self.loadFrame("scorebook")
+    def sidemenu_callback(self):
+        sender = self.sender()
+        frame_name = sender.objectName().lower()[:-3]
+        if self.loaded != frame_name:
+            self.loadFrame(frame_name)
         else:
-            self.unloadFrame("scorebook")
-
-    def myplaylist(self):
-        if self.loaded != "myplaylist":
-            self.loadFrame("myplaylist")
-        else:
-            self.unloadFrame("myplaylist")
-
-    def autoplaylist(self):
-        if self.loaded != "autoplaylist":
-            self.loadFrame("autoplaylist")
-        else:
-            self.unloadFrame("autoplaylist")
-
-    def browser(self):
-        if self.loaded != "browser":
-            self.loadFrame("browser")
-        else:
-            self.unloadFrame("browser")
-
-    def info(self):
-        if self.loaded != "info":
-            self.loadFrame("info")
-        else:
-            self.unloadFrame("info")
-
-    def featured(self):
-        if self.loaded != "featured":
-            self.loadFrame("featured")
-        else:
-            self.unloadFrame("featured")
+            self.unloadFrame(frame_name)
 
     # methods to handle loading frames
     def loadFrame(self, child, ypos=72):
@@ -576,16 +454,3 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.qApp.setup_startup()
         self.close()
 
-    def getCreatedPlaylists(self, slot=None):
-        async = qt_threading.mythread(
-            self, self.manager.getPlaylistsFromPlaylistTable, ())
-        QtCore.QObject.connect(
-            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
-        async.run()
-
-    def getPlaylists(self, select_method="all", slot=None):
-        async = qt_threading.mythread(
-            self, self.manager.getPlaylists, (select_method,))
-        QtCore.QObject.connect(
-            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
-        async.run()

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 from implementation.primaries.ExtractMetadata.classes import MetaParser
-from implementation.primaries.ExtractMetadata.classes.HashableDictionary import hashdict
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 
 
 class TestMetaParser(unittest.TestCase):
@@ -35,7 +35,7 @@ class TestAddPart(TestMetaParser):
     def testPartNameHandler(self):
         self.parser.startTag("score-part", {})
         self.parser.startTag("part-name", {})
-        self.assertEqual(MetaParser.makeNewPart, self.parser.current_handler)
+        self.assertEqual(MetaParser.make_new_part, self.parser.current_handler)
 
     def testPartNameHandlerCall(self):
         self.parser.startTag("score-part", {})
@@ -65,7 +65,7 @@ class TestAddKey(TestMetaParser):
     def testPartNameHandler(self):
         self.parser.startTag("part", {"id": "P1"})
         self.parser.startTag("key", {})
-        self.assertEqual(MetaParser.handleKey, self.parser.current_handler)
+        self.assertEqual(MetaParser.handle_clef_or_key, self.parser.current_handler)
 
     def testKeyHandlerCall(self):
         self.parser.startTag("part", {"id": "P1"})
@@ -99,6 +99,7 @@ class TestAddKey(TestMetaParser):
         self.parser.startTag("key", {})
         self.parser.startTag("fifths", {})
         self.parser.newData("5")
+        self.parser.endTag("fifths")
         self.parser.startTag("mode", {})
         self.parser.newData("major")
         self.assertEqual(
@@ -113,7 +114,7 @@ class TestAddClef(TestMetaParser):
     def testClefHandler(self):
         self.parser.startTag("part", {"id": "P1"})
         self.parser.startTag("clef", {})
-        self.assertEqual(MetaParser.handleClef, self.parser.current_handler)
+        self.assertEqual(MetaParser.handle_clef_or_key, self.parser.current_handler)
 
     def testClefHandlerCall(self):
         self.parser.startTag("part", {"id": "P1"})
@@ -281,7 +282,7 @@ class TestAddTempo(TestMetaParser):
     def testTempoHandler(self):
         self.parser.startTag("part", {"id": "P1"})
         self.parser.startTag("metronome", {})
-        self.assertEqual(self.parser.current_handler, MetaParser.handleTempo)
+        self.assertEqual(self.parser.current_handler, MetaParser.handle_tempo)
 
     def testTempoCall(self):
         self.parser.startTag("part", {"id": "P1"})
@@ -374,14 +375,14 @@ class TestPartCollation(unittest.TestCase):
     def testCollationOfTranspositions(self):
         self.parser.parts = {"P1": {"name": "clarinet", "transposition": {}}}
         self.parser.data = {"instruments": ["clarinet"]}
-        self.parser.collatePartsIntoData()
+        self.parser.collate_parts()
         self.assertEqual(
             self.parser.data, {"instruments": [{"name": "clarinet", "transposition": {}}]})
 
     def testCollationOfKeys(self):
         self.parser.parts = {"P1": {"name": "clarinet", "key": [{}]}}
         self.parser.data = {"instruments": ["clarinet"]}
-        self.parser.collatePartsIntoData()
+        self.parser.collate_parts()
         self.assertEqual(self.parser.data,
                          {"instruments": [{"name": "clarinet"}],
                           "key": {"clarinet": {hashdict()}}})
@@ -389,7 +390,7 @@ class TestPartCollation(unittest.TestCase):
     def testCollationOfClefs(self):
         self.parser.parts = {"P1": {"name": "clarinet", "clef": [{}]}}
         self.parser.data = {"instruments": ["clarinet"]}
-        self.parser.collatePartsIntoData()
+        self.parser.collate_parts()
         self.assertEqual(self.parser.data,
                          {"instruments": [{"name": "clarinet"}],
                           "clef": {"clarinet": {hashdict()}}})
