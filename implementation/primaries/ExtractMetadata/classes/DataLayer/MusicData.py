@@ -238,32 +238,27 @@ class MusicData(TableManager.TableManager):
                          instrument_id,
                          ))
 
-    def get_or_create_timesig(self, data):
-        select_query = 'SELECT ROWID FROM timesigs WHERE beat=? AND b_type=?'
-        write_query = 'INSERT INTO timesigs VALUES(?,?)'
-        timesig = self.get_or_create_one(select_query, write_query, data)
-        return timesig
+    def get_or_create_tempo_or_timesig(self, data, elem='timesig'):
+        queries = {"timesig": ('SELECT ROWID FROM timesigs WHERE beat=? AND b_type=?',
+                               'INSERT INTO timesigs VALUES(?,?)'),
+                   "tempo": ('SELECT ROWID FROM tempos WHERE beat=? AND minute=? AND beat_2=?',
+                             'INSERT INTO tempos VALUES(?,?,?)')}
+        return self.get_or_create_one(queries[elem][0], queries[elem][1], data)
 
     def create_timesig_links(self, timesig_list, piece_id):
         for meter in timesig_list:
             beat = meter["beat"]
             b_type = meter["type"]
-            rowid = self.get_or_create_timesig((beat, b_type))
+            rowid = self.get_or_create_tempo_or_timesig((beat, b_type))
             if rowid is not None:
                 self.write('INSERT INTO time_piece_join VALUES(?,?)', (piece_id, rowid['rowid']))
-
-    def get_or_create_tempo(self, tempo):
-        select = 'SELECT ROWID FROM tempos WHERE beat=? AND minute=? AND beat_2=?'
-        write = 'INSERT INTO tempos VALUES(?,?,?)'
-        rowid = self.get_or_create_one(select, write, tempo)
-        return rowid
 
     def create_tempo_links(self, tempo_list, piece_id):
         for tempo in tempo_list:
             beat = tempo["beat"]
             beat_2 = get_if_exists(tempo, "beat_2", -1)
             minute = get_if_exists(tempo, "minute", -1)
-            rowid = self.get_or_create_tempo((beat, minute, beat_2))
+            rowid = self.get_or_create_tempo_or_timesig((beat, minute, beat_2), elem='tempo')
             if rowid is not None:
                 self.write(
                 'INSERT INTO tempo_piece_join VALUES(?,?)', (piece_id, rowid['rowid']))
