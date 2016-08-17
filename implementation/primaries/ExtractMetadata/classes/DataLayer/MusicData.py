@@ -46,7 +46,7 @@ import sqlite3
 from implementation.primaries.ExtractMetadata.classes.DataLayer import TableManager
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, \
-    do_online_offline_query, get_if_exists, filter_dict, form_string
+    do_online_offline_query, get_if_exists, filter_dict
 from implementation.primaries.ExtractMetadata.classes.helpers import init_kv
 
 class TempoParser(object):
