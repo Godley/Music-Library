@@ -164,8 +164,8 @@ class TableManager(object):
             rowid = self.read_one(select_query, data)
         return rowid
 
-    def get_by_all_elems(self, query, archived):
-        results = self.read_all(query, (archived,))
+    def get_by_all_elems(self, query, params):
+        results = self.read_all(query, params)
         result_dict = {}
         for pair in results:
             if pair['name'] not in result_dict:

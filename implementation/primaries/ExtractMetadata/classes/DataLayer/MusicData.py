@@ -596,7 +596,7 @@ class MusicData(TableManager.TableManager):
         '''
         }
         query = do_online_offline_query(query_table[elem], 'piece.ROWID', online=online)
-        return self.get_by_all_elems(query, archived)
+        return self.get_by_all_elems(query, (archived,))
 
     def getPiecesByAllTimeSigs(self, archived=0, online=False):
         query = '''SELECT time_sig.beat, time_sig.b_type, piece.filename FROM timesigs time_sig, pieces piece, time_piece_join time_piece
@@ -974,17 +974,9 @@ class MusicData(TableManager.TableManager):
         self.disconnect(connection)
 
     def getAllUserPlaylists(self):
-        connection, cursor = self.connect()
-        cursor.execute(
-            '''SELECT piece.filename, play.name, play.ROWID FROM playlists play, playlist_join playjoin, pieces piece
-                          WHERE playjoin.playlist_id = play.ROWID and piece.ROWID = playjoin.piece_id''')
-        results = cursor.fetchall()
-        self.disconnect(connection)
-        data = {}
-        for item in results:
-            if item['name'] not in data:
-                data[item['name']] = []
-            data[item['name']].append(item['filename'])
+        query = '''SELECT piece.filename, play.name, play.ROWID FROM playlists play, playlist_join playjoin, pieces piece
+                          WHERE playjoin.playlist_id = play.ROWID and piece.ROWID = playjoin.piece_id'''
+        data = self.get_by_all_elems(query, ())
         return data
 
     def getUserPlaylist(self, title):
