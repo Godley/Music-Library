@@ -63,28 +63,28 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
         self.data.addPiece(
             "file.xml", {
                 "composer": "blabla", "source": "MuseScore"})
-        result_set = self.data.getPiecesByComposer("blabla")
+        result_set = self.data.get_pieces_by_creator("blabla")
         self.assertEqual(result_set, [])
 
     def testGetPieceByComposerOnline(self):
         self.data.addPiece(
             "file.xml", {
                 "composer": "blabla", "source": "MuseScore"})
-        result_set = self.data.getPiecesByComposer("blabla", online=True)
+        result_set = self.data.get_pieces_by_creator("blabla", online=True)
         self.assertEqual(result_set, ['file.xml'])
 
     def testGetPieceByLyricistOffline(self):
         self.data.addPiece(
             "file.xml", {
                 "lyricist": "blabla", "source": "MuseScore"})
-        result_set = self.data.getPiecesByLyricist("blabla")
+        result_set = self.data.get_pieces_by_creator("blabla", creator_type='lyricist')
         self.assertEqual(result_set, [])
 
     def testGetPieceByLyricistOnline(self):
         self.data.addPiece(
             "file.xml", {
                 "lyricist": "blabla", "source": "MuseScore"})
-        result_set = self.data.getPiecesByLyricist("blabla", online=True)
+        result_set = self.data.get_pieces_by_creator("blabla", online=True, creator_type='lyricist')
         self.assertEqual(result_set, ['file.xml'])
 
     def testGetPieceByTitleOffline(self):

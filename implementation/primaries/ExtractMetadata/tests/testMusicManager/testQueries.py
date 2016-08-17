@@ -109,7 +109,7 @@ class TestMusicManager(unittest.TestCase):
                                                {"name": "Clarinet"}],
                                   "clef": {"Sax": ["treble"]}})
         expected_results = {
-                'Instrument in Clefs': [
+                'Instruments in Clefs': [
                     ('title: Blabla filename: file.xml', 'file.xml')], 'Exact Matches': [
                     ('title: Blabla filename: file.xml', 'file.xml')], 'Instruments': [
                     ('title: Blabla filename: file.xml', 'file.xml'), ('title: Blabla filename: file1.xml', 'file1.xml')], 'Keys': [
@@ -122,8 +122,9 @@ class TestMusicManager(unittest.TestCase):
                                         "other": ["C major"]}, "clef": {
                                             "Clarinet": ["treble"]}, "instrument": {
                                                 "Clarinet": {}}})
-        self.assertEqual(
-            expected_results, results)
+        for key in expected_results:
+            self.assertIn(key, results)
+            self.assertAlmostEqual(results[key], expected_results[key])
 
     def testFindPieceByTitleAndInstrumentWithClefAndOther(self):
         self.manager.addPiece("file.xml",
@@ -144,7 +145,7 @@ class TestMusicManager(unittest.TestCase):
         expected_results = {
                 'Exact Matches': [
                     ('title: Blabla filename: file.xml', 'file.xml')], 'Title: Blabla': [
-                    ('title: Blabla filename: file.xml', 'file.xml'), ('title: Blabla filename: file1.xml', 'file1.xml')], 'Instrument in Clefs': [
+                    ('title: Blabla filename: file.xml', 'file.xml'), ('title: Blabla filename: file1.xml', 'file1.xml')], 'Instruments in Clefs': [
                     ('title: Blabla filename: file.xml', 'file.xml')], 'Keys': [
                         ('title: Blabla filename: file.xml', 'file.xml')], 'Instruments': [
                             ('title: Blabla filename: file.xml', 'file.xml'), ('title: Blabla filename: file1.xml', 'file1.xml')], 'Clefs': [
@@ -249,7 +250,7 @@ class TestMusicManager(unittest.TestCase):
         expected_results = {
                 "Title: Blabla": [
                     ('title: Blabla filename: file.xml', 'file.xml'), ('title: Blabla filename: file1.xml', 'file1.xml')], "Exact Matches": [
-                    ('title: Blabla filename: file.xml', 'file.xml')], "Instrument in Clefs": [
+                    ('title: Blabla filename: file.xml', 'file.xml')], "Instruments in Clefs": [
                     ('title: Blabla filename: file.xml', 'file.xml')], "Instruments in Keys": [
                         ('title: Blabla filename: file.xml', 'file.xml'), ('title: Blabla filename: file1.xml', 'file1.xml')]}
         results = self.manager.runQueries(

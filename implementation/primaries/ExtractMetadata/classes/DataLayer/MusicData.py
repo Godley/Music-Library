@@ -448,7 +448,7 @@ class MusicData(TableManager.TableManager):
         input = tuple(tuple_ids)
         results = self.read_all(query, input)
 
-        file_list = self.getPiecesByRowId(results, archived)
+        file_list = self.getPiecesByRowId(results)
         return file_list
 
     def getPiecesByAnyAndAllInstruments(self, instruments, archived=0, online=False):
@@ -475,11 +475,10 @@ class MusicData(TableManager.TableManager):
 
 
 
-    def getPiecesByRowId(self, rows, cursor, archived=0):
+    def getPiecesByRowId(self, rows, archived=0):
         """
         method which takes in a list of rows which are ROWIDs in the piece table and returns a list of files
         :param rows: list of tuples pertaining to ROWIDs in pieces table
-        :param cursor: connection cursor object
         :return: list of strings pertaining to xml files
         """
         file_list = []
@@ -507,7 +506,7 @@ class MusicData(TableManager.TableManager):
             file_list = [r['filename'] for r in results]
         return file_list
 
-    def getPieceByTitle(self, title, archived=0, online=False):
+    def getPieceByTitle(self, title, *args, archived=0, online=False, creator_type=None):
         """
         method which takes in title of piece and outputs list of files named that
         :param title: title of piece
@@ -544,7 +543,7 @@ class MusicData(TableManager.TableManager):
         input = tuple(data)
         cursor.execute(query, input)
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor, archived)
+        file_list = self.getPiecesByRowId(results)
         self.disconnect(connection)
         return file_list
 
@@ -556,15 +555,12 @@ class MusicData(TableManager.TableManager):
         :param online:
         :return:
         """
-        connection, cursor = self.connect()
         query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join ' \
                 'key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
 
         query = do_online_offline_query(query, 'key_piece.piece_id', online=online)
-        cursor.execute(query, (modularity,))
-        key_set = cursor.fetchall()
-        file_list = self.getPiecesByRowId(key_set, cursor, archived)
-        self.disconnect(connection)
+        key_set = self.read_all(query, (modularity,))
+        file_list = self.getPiecesByRowId(key_set)
         return file_list
 
     # playlist queries
@@ -669,13 +665,12 @@ class MusicData(TableManager.TableManager):
         connection, cursor = self.connect()
         file_list = []
         tuple_data = list(data.keys())
-        search_ids, key_ids = self.createInstrumentDictionaryAndList(data, self.get_elem_id, elem_type='clef')
+        search_ids, key_ids = self.createInstrumentDictionaryAndList(data, self.get_elem_id, elem_type='key')
         if len(tuple_data) > 0 and len(key_ids) > 0:
             query = 'SELECT key_piece.piece_id FROM key_piece_join key_piece WHERE EXISTS '
             for i in range(len(data)):
                 query += '(SELECT * FROM key_piece_join WHERE piece_id = key_piece.piece_id AND instrument_id = ?'
                 query += extendJoinQuery(len(key_ids[tuple_data[i]]), 'key_id = ?', ' AND ', init_string=' AND ')
-                query += ')'
                 if i != len(data) - 1:
                     query += ' AND EXISTS '
             query = do_online_offline_query(query, 'key_piece.piece_id', online)
@@ -683,7 +678,7 @@ class MusicData(TableManager.TableManager):
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
 
-            file_list = self.getPiecesByRowId(results, cursor, archived)
+            file_list = self.getPiecesByRowId(results, archived)
         return file_list
 
     def getPieceByInstrumentInClefs(self, data, archived=0, online=False):
@@ -702,7 +697,7 @@ class MusicData(TableManager.TableManager):
             query = do_online_offline_query(query, 'clef_piece.piece_id', online=online)
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
-            file_list = self.getPiecesByRowId(results, cursor, archived)
+            file_list = self.getPiecesByRowId(results, archived)
         return file_list
 
 
@@ -731,7 +726,7 @@ class MusicData(TableManager.TableManager):
         input = tuple(time_ids)
         cursor.execute(query, input)
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor, archived)
+        file_list = self.getPiecesByRowId(results, archived)
         self.disconnect(connection)
         return file_list
 
@@ -764,7 +759,7 @@ class MusicData(TableManager.TableManager):
         input = tuple(tempo_ids)
         cursor.execute(query, input)
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, cursor, archived)
+        file_list = self.getPiecesByRowId(results)
         self.disconnect(connection)
         return file_list
 
@@ -819,10 +814,7 @@ class MusicData(TableManager.TableManager):
         query += ";"
         cursor.execute(query, tuple(query_input))
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(
-            results,
-            cursor,
-            archived=archived)
+        file_list = self.getPiecesByRowId(results, archived=archived)
         return file_list
 
     def getPieceByInstrumentsOrSimilar(

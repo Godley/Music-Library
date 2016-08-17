@@ -69,37 +69,37 @@ class TestDataLayerUserQueries(unittest.TestCase):
         self.data.addPiece("file.xml", {"composer": "Bartok"})
         self.assertEqual(
             "file.xml",
-            self.data.getPiecesByComposer("Bartok")[0])
+            self.data.get_pieces_by_creator("Bartok")[0])
 
     def testFindPieceByPartialComposer(self):
         self.data.addPiece("file.xml", {"composer": "Bella Bartok"})
         self.data.addPiece("file2.xml", {"composer": "Bella Bartok"})
         self.assertEqual(
-            ["file.xml", "file2.xml"], self.data.getPiecesByComposer("Bartok"))
+            ["file.xml", "file2.xml"], self.data.get_pieces_by_creator("Bartok"))
 
     def testFindPieceByPartialComposerWhereTwoExist(self):
         self.data.addPiece("file.xml", {"composer": "Bella Bartok"})
         self.data.addPiece("file2.xml", {"composer": "Tina Bartok"})
         self.assertEqual(
-            ["file.xml", "file2.xml"], self.data.getPiecesByComposer("Bartok"))
+            ["file.xml", "file2.xml"], self.data.get_pieces_by_creator("Bartok"))
 
     def testFindPieceByLyricist(self):
         self.data.addPiece("file.xml", {"lyricist": "Bartok"})
         self.assertEqual(
             "file.xml",
-            self.data.getPiecesByLyricist("Bartok")[0])
+            self.data.get_pieces_by_creator("Bartok", creator_type='lyricist')[0])
 
     def testFindPieceByPartialLyricist(self):
         self.data.addPiece("file.xml", {"lyricist": "Bella Bartok"})
         self.data.addPiece("file2.xml", {"lyricist": "Bella Bartok"})
         self.assertEqual(
-            ["file.xml", "file2.xml"], self.data.getPiecesByLyricist("Bartok"))
+            ["file.xml", "file2.xml"], self.data.get_pieces_by_creator("Bartok", creator_type='lyricist'))
 
     def testFindPieceByPartialLyricistWhereTwoExist(self):
         self.data.addPiece("file.xml", {"lyricist": "Bella Bartok"})
         self.data.addPiece("file2.xml", {"lyricist": "Tina Bartok"})
         self.assertEqual(
-            ["file.xml", "file2.xml"], self.data.getPiecesByLyricist("Bartok"))
+            ["file.xml", "file2.xml"], self.data.get_pieces_by_creator("Bartok", creator_type='lyricist'))
 
     def testFindPieceByTitle(self):
         self.data.addPiece("file.xml", {"title": "Blabla"})
