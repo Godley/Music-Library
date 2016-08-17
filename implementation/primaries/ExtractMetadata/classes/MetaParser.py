@@ -4,6 +4,7 @@ from xml.sax import handler, make_parser
 from MuseParse import helpers
 
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
+from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import get_if_exists
 from implementation.primaries.ExtractMetadata.classes.helpers import combine_dictionaries, init_kv
 
 class Extractor(xml.sax.ContentHandler):
@@ -108,11 +109,7 @@ class MetaParser(object):
         keys = ["key", "clef"]
         for part in self.parts:
             data = {}
-            if "name" in self.parts[part]:
-                data["name"] = self.parts[part]["name"]
-            else:
-                self.parts[part]["name"] = "hello, world"
-                data["name"] = "hello, world"
+            data["name"] = get_if_exists(self.parts[part], "name", "hello, world")
 
             if "transposition" in self.parts[part]:
                 data["transposition"] = self.parts[part]["transposition"]
@@ -120,7 +117,7 @@ class MetaParser(object):
             for key in keys:
                 if key in self.parts[part]:
                     init_kv(self.data, key, init_value={})
-                    self.data[key][self.parts[part]["name"]] = convert_to_hashdict_set(self.parts[part][key])
+                    self.data[key][data["name"]] = convert_to_hashdict_set(self.parts[part][key])
 
             instrument_list.append(data)
         self.data["instruments"] = instrument_list
