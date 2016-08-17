@@ -207,12 +207,12 @@ class QueryLayer(object):
                 value, online=online)
             combined["Title"] = title_result
 
-            composer_result = self._data.getPiecesByComposer(
+            composer_result = self._data.get_pieces_by_creator(
                 value, online=online)
             combined["Composer"] = composer_result
 
-            lyricist_result = self._data.getPiecesByLyricist(
-                value, online=online)
+            lyricist_result = self._data.get_pieces_by_creator(
+                value, online=online, creator_type='lyricist')
             combined["Lyricist"] = lyricist_result
 
             if value in instruments:
@@ -230,10 +230,9 @@ class QueryLayer(object):
         if len(instrument_list) > 0:
             instrument_result = self._data.getPiecesByAnyAndAllInstruments(
                 instrument_list, online=online)
-            if len(instrument_result) > 0:
-                results.update(instrument_result)
-                if "All Instruments" not in results:
-                    all_matched = False
+            results.update(instrument_result)
+            if "All Instruments" not in results:
+                all_matched = False
         return results, all_matched
 
     def handleInstrumentQueries(self, search_data, online=False):
