@@ -270,23 +270,26 @@ class QueryLayer(object):
             search_data["time"], online=online)
         return self.create_results(["Meter/Time signature"], [time_data])
 
-    def handleKeyQueries(self, search_data, online=False):
-        keydata = {}
-        instrument_data = {}
+    def handle_clef_or_key_queries(self, search_data, online=False, query='key'):
         keys = []
         data = []
-        if "other" in search_data["key"]:
-            keydata = self._data.get_piece_by_join(search_data["key"]["other"], "key")
+        if "other" in search_data[query]:
+            keydata = self._data.get_piece_by_join(search_data[query]["other"], query)
 
-            search_data["key"].pop("other")
+            search_data[query].pop("other")
             data.append(keydata)
-            keys.append("Keys")
+            keys.append("{}s".format(query.capitalize()))
 
-        if len(search_data["key"]) > 0:
-            instrument_data = self._data.getPieceByInstrumentInKeys(
-                search_data["key"], online=online)
+        if len(search_data[query]) > 0:
+            instrument_data = []
+            if query == 'clef':
+                instrument_data = self._data.getPieceByInstrumentInClefs(
+                search_data[query], online=online)
+            elif query == 'key':
+                instrument_data = self._data.getPieceByInstrumentInKeys(
+                search_data[query], online=online)
             data.append(instrument_data)
-            keys.append("Instruments in Keys")
+            keys.append("Instruments in {}s".format(query.capitalize()))
         return self.create_results(keys, data)
 
     def handleTranspositionQueries(self, search_data, online=False):
@@ -304,22 +307,7 @@ class QueryLayer(object):
                 all_matched = False
         return results, all_matched
 
-    def handleClefQueries(self, search_data, online=False):
-        keys = []
-        data = []
-        if "other" in search_data["clef"]:
-            keydata = self._data.get_piece_by_join(search_data["clef"]["other"], "clef")
 
-            search_data["clef"].pop("other")
-            data.append(keydata)
-            keys.append("Clefs")
-
-        if len(search_data["clef"]) > 0:
-            instrument_data = self._data.getPieceByInstrumentInClefs(
-                search_data["clef"], online=online)
-            data.append(instrument_data)
-            keys.append("Instruments in Clefs")
-        return self.create_results(keys, data)
 
     def handleFilenameQueries(self, search_data, online=False):
         results = {}
@@ -366,13 +354,16 @@ class QueryLayer(object):
         all_matched = True
         method_table = {"text": self.handleTextQueries, "instrument": self.handleInstrumentQueries,
                         "tempo": self.handleTempoQueries, "time": self.handleTimeQueries,
-                        "key": self.handleKeyQueries, "transposition": self.handleTranspositionQueries,
-                        "clef": self.handleClefQueries, "filename": self.handleFilenameQueries}
+                        "transposition": self.handleTranspositionQueries,
+                        "filename": self.handleFilenameQueries}
         bib = ["title", "composer", "lyricist"]
+        clefkey = ["clef", "key"]
 
         for key in search_data:
             if key in bib:
                 key_result, all_matched = self.handle_bibliography_queries(search_data, elem=key, online=online)
+            elif key in clefkey:
+                key_result, all_matched = self.handle_clef_or_key_queries(search_data, query=key, online=online)
             else:
                 key_result, all_matched = method_table[key](search_data, online=online)
             results.update(key_result)
