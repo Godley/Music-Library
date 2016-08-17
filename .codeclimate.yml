@@ -3,7 +3,8 @@ engines:
     enabled: true
     config:
       languages:
-      - python
+        python:
+          mass_threshold: 34
   eslint:
     enabled: true
   fixme:
