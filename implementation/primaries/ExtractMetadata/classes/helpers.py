@@ -14,3 +14,10 @@ def combine_dictionaries(dict1, dict2):
         else:
             new_dict[key].extend(dict2[key])
     return new_dict
+
+def init_kv(elem, key, init_value=list()):
+    """
+    Initialise a key in a dictionary with a default value if it doesn't exist already
+    """
+    if key not in elem:
+        elem[key] = init_value

@@ -4,7 +4,7 @@ from xml.sax import handler, make_parser
 from MuseParse import helpers
 
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
-from implementation.primaries.ExtractMetadata.classes.helpers import combine_dictionaries
+from implementation.primaries.ExtractMetadata.classes.helpers import combine_dictionaries, init_kv
 
 class Extractor(xml.sax.ContentHandler):
 
@@ -174,12 +174,7 @@ def update_or_append_entry(dictionary, tag, entry):
     elif tag not in dictionary[-1]:
         dictionary[-1][tag] = entry
 
-def init_kv(elem, key, init_value=list()):
-    """
-    Initialise a key in a dictionary with a default value if it doesn't exist already
-    """
-    if key not in elem:
-        elem[key] = init_value
+
 
 def create_elem(chars, key1, key2, cast1=int, cast2=str):
     """

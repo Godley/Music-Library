@@ -47,7 +47,7 @@ from implementation.primaries.ExtractMetadata.classes.DataLayer import TableMana
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, \
     do_online_offline_query, get_if_exists, filter_dict
-
+from implementation.primaries.ExtractMetadata.classes.helpers import init_kv
 
 class TempoParser(object):
     converter = {"crotchet": "quarter",
@@ -863,35 +863,21 @@ class MusicData(TableManager.TableManager):
 
     # again, helper methods for other methods which just go off and find the
     # joins for specific pieces
-    def getClefsByPieceId(self, piece_id, cursor):
-        clef_query = 'SELECT clef_id, instrument_id FROM clef_piece_join WHERE piece_id=?'
-        cursor.execute(clef_query, (piece_id,))
-        clef_ids = set(cursor.fetchall())
-        clefs = {}
-        for id in clef_ids:
-            q = 'SELECT clefs.name, instruments.name as instrument FROM clefs, instruments WHERE clefs.ROWID=? AND instruments.ROWID=?'
-            cursor.execute(q, (id['clef_id'],id['instrument_id']))
-            name = cursor.fetchone()
+    def get_clefs_or_keys_by_piece_id(self, piece_id, elem='key'):
+        table = {"key": ('SELECT key_id, instrument_id FROM key_piece_join WHERE piece_id=?',
+                        'SELECT keys.name, instruments.name as instrument FROM keys, ' \
+                'instruments WHERE keys.ROWID=? AND instruments.ROWID=?'),
+                 "clef": ('SELECT clef_id, instrument_id FROM clef_piece_join WHERE piece_id=?',
+                            'SELECT clefs.name, instruments.name as instrument FROM clefs, ' \
+                'instruments WHERE clefs.ROWID=? AND instruments.ROWID=?')}
+        elem_ids = set(self.read_all(table[elem][0], (piece_id,)))
+        data = {}
+        for id in elem_ids:
+            name = self.read_one(table[elem][1], (id['{}_id'.format(elem)], id['instrument_id']))
             if name is not None:
-                if name['instrument'] not in clefs:
-                    clefs[name['instrument']] = []
-                clefs[name['instrument']].append(name['name'])
-        return clefs
-
-    def getKeysByPieceId(self, piece_id, cursor):
-        key_query = 'SELECT key_id, instrument_id FROM key_piece_join WHERE piece_id=?'
-        cursor.execute(key_query, (piece_id,))
-        key_ids = set(cursor.fetchall())
-        keys = {}
-        for id in key_ids:
-            q = 'SELECT keys.name, instruments.name as instrument FROM keys, instruments WHERE keys.ROWID=? AND instruments.ROWID=?'
-            cursor.execute(q, (id['key_id'],id['instrument_id']))
-            name = cursor.fetchone()
-            if len(name) > 0:
-                if name['instrument'] not in keys:
-                    keys[name['instrument']] = []
-                keys[name['instrument']].append(name['name'])
-        return keys
+                init_kv(data, name['instrument'], init_value=[])
+                data[name['instrument']].append(name['name'])
+        return data
 
     def getTimeSigsByPieceId(self, piece_id, cursor):
         time_query = 'SELECT time_id FROM time_piece_join WHERE piece_id=?'
@@ -945,8 +931,8 @@ class MusicData(TableManager.TableManager):
             if lyricist_id != -1:
                 lyricist = self.get_creator_name(lyricist_id, creator_type='lyricist')
             elem_data = hashdict({"instruments": self.getInstrumentsByPieceId(index, cursor),
-            "clefs" : self.getClefsByPieceId(index, cursor),
-            "keys": self.getKeysByPieceId(index, cursor),
+            "clefs" : self.get_clefs_or_keys_by_piece_id(index, elem='clef'),
+            "keys": self.get_clefs_or_keys_by_piece_id(index),
             "timesigs": self.getTimeSigsByPieceId(index, cursor),
             "tempos": self.getTemposByPieceId(index, cursor),
             "filename": file["filename"], "title": file["title"],
