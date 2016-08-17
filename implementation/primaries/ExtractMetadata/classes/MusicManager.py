@@ -327,29 +327,33 @@ class QueryLayer(object):
             all_matched = False
         return results, all_matched
 
-    def fetch_results(self, data, key, method, online=False):
+    def fetch_results(self, data, key, method, *args, **kwargs):
         results = {}
         for elem in data:
-            files = method(elem, online=online)
+            files = method(elem, *args, **kwargs)
             if len(files) > 0:
                 results["{}: {}".format(key, elem)] = files
         return results
 
-    def fetch_and_form_results(self, data, key, method, online=False):
-        files = self.fetch_results(data, key, method, online=online)
+    def fetch_and_form_results(self, data, key, method, *args, **kwargs):
+        files = self.fetch_results(data, key, method, *args, **kwargs)
         return self.create_results(files.keys(), files.values())
 
-    def handleTitleQueries(self, search_data, online=False):
-        return self.fetch_and_form_results(search_data["title"], "Title",
-                                           self._data.getPieceByTitle, online=online)
+    def handle_bibliography_queries(self, data, elem='creator', online=False):
+        method = self._data.get_pieces_by_creator
+        if elem == 'title':
+            method = self._data.getPieceByTitle
+        return self.fetch_and_form_results(data[elem], elem.capitalize(),
+                                           method, elem=elem, online=False)
 
-    def handleComposerQueries(self, search_data, online=False):
-        return self.fetch_and_form_results(search_data["composer"], "Composer",
-                                           self._data.getPiecesByComposer, online=online)
-
-    def handleLyricistQueries(self, search_data, online=False):
-        return self.fetch_and_form_results(search_data["lyricist"], "Lyricist",
-                                           self._data.getPiecesByLyricist, online=online)
+    def getPieceSummary(self, file_list, sort_method="title", online=False):
+        info = self._data.getAllPieceInfo(file_list, online=online)
+        ids = ["title","composer","lyricist","filename"]
+        summary_strings = []
+        for elem in info:
+            entry = " ".join(["{}: {}".format(key, elem[key]) for key in ids if key in elem and elem[key] != ''])
+            summary_strings.append((entry, elem['filename']))
+        return summary_strings
 
     def runQueries(self, search_data, online=False):
         results = {}
@@ -357,15 +361,15 @@ class QueryLayer(object):
         method_table = {"text": self.handleTextQueries, "instrument": self.handleInstrumentQueries,
                         "tempo": self.handleTempoQueries, "time": self.handleTimeQueries,
                         "key": self.handleKeyQueries, "transposition": self.handleTranspositionQueries,
-                        "clef": self.handleClefQueries, "filename": self.handleFilenameQueries,
-                        "title": self.handleTitleQueries, "composer": self.handleComposerQueries,
-                        "lyricist": self.handleLyricistQueries}
+                        "clef": self.handleClefQueries, "filename": self.handleFilenameQueries}
+        bib = ["title", "composer", "lyricist"]
 
         for key in search_data:
-            key_result, all_matched = method_table[key](search_data, online=online)
+            if key in bib:
+                key_result, all_matched = self.handle_bibliography_queries(search_data, elem=key, online=online)
+            else:
+                key_result, all_matched = method_table[key](search_data, online=online)
             results.update(key_result)
-
-
 
         summaries = {}
         if all_matched:
@@ -638,14 +642,7 @@ class MusicManager(QueryLayer):
         self.handleZips()
         self.handleXMLFiles()
 
-    def getPieceSummary(self, file_list, sort_method="title", online=False):
-        info = self._data.getAllPieceInfo(file_list, online=online)
-        ids = ["title","composer","lyricist","filename"]
-        summary_strings = []
-        for elem in info:
-            entry = " ".join(["{}: {}".format(key, elem[key]) for key in ids if key in elem and elem[key] != ''])
-            summary_strings.append((entry, elem['filename']))
-        return summary_strings
+
 
     def getLicense(self, filename):
         result = self._data.get_value_for_filename(filename, 'license')
