@@ -1,6 +1,6 @@
 #A Sheet Music Organisation System
 
-<center>[![Build status](https://ci.appveyor.com/api/projects/status/l0rc9184c6tqe19d?svg=true)](https://ci.appveyor.com/project/Godley/music-library)
+<center>[![Build status](https://ci.appveyor.com/api/projects/status/rsbqltbvo57povqh?svg=true)](https://ci.appveyor.com/project/Godley/music-library)
 [![Build Status](https://travis-ci.org/Godley/Music-Library.svg?branch=master)](https://travis-ci.org/Godley/Music-Library)</center>
 [![Code Climate](https://codeclimate.com/github/Godley/Music-Library/badges/gpa.svg)](https://codeclimate.com/github/Godley/Music-Library)
 [![Test Coverage](https://codeclimate.com/github/Godley/Music-Library/badges/coverage.svg)](https://codeclimate.com/github/Godley/Music-Library/coverage)
