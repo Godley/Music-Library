@@ -7,6 +7,7 @@ import requests.exceptions
 from implementation.primaries.ExtractMetadata.classes import MusicData, MetaParser, OnlineMetaParser
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
 from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import filter_dict, get_if_exists
+from implementation.primaries.ExtractMetadata.classes.helpers import get_set_of_dict_values
 from MuseParse.classes.Output import LilypondOutput
 from MuseParse.classes import Exceptions
 from MuseParse.classes.Input import MxmlParser
@@ -201,19 +202,19 @@ class QueryLayer(object):
         for value in search_data["text"]:
             combined = {}
             file_result = self._data.getRoughPiece(value, online=online)
-            combined["filename"] = set(file_result)
+            combined["filename"] = file_result
 
             title_result = self._data.getPieceByTitle(
                 value, online=online)
-            combined["Title"] = set(title_result)
+            combined["Title"] = title_result
 
             composer_result = self._data.get_pieces_by_creator(
                 value, online=online)
-            combined["Composer"] = set(composer_result)
+            combined["Composer"] = composer_result
 
             lyricist_result = self._data.get_pieces_by_creator(
                 value, online=online, creator_type='lyricist')
-            combined["Lyricist"] = set(lyricist_result)
+            combined["Lyricist"] = lyricist_result
 
             if value in instruments:
                 instrument_list.append(value)
@@ -302,7 +303,7 @@ class QueryLayer(object):
         all_matched = True
         for key, value in zip(keys, values):
             if method(value):
-                results[key] = set(value)
+                results[key] = value
             else:
                 all_matched = False
         return results, all_matched
@@ -316,7 +317,7 @@ class QueryLayer(object):
         result_files = [
             filename for filename in search_data["filename"] if filename in files]
         if len(result_files) > 0:
-            results["Filename"] = set(result_files)
+            results["Filename"] = result_files
         else:
             all_matched = False
         return results, all_matched
@@ -333,12 +334,12 @@ class QueryLayer(object):
         files = self.fetch_results(data, key, method, *args, **kwargs)
         return self.create_results(files.keys(), files.values())
 
-    def handle_bibliography_queries(self, data, elem='creator', online=False):
+    def handle_bibliography_queries(self, data, query='creator', online=False):
         method = self._data.get_pieces_by_creator
-        if elem == 'title':
+        if query == 'title':
             method = self._data.getPieceByTitle
-        return self.fetch_and_form_results(data[elem], elem.capitalize(),
-                                           method, creator_type=elem, online=False)
+        return self.fetch_and_form_results(data[query], query.capitalize(),
+                                           method, creator_type=query, online=False)
 
     def getPieceSummary(self, file_list, sort_method="title", online=False):
         info = self._data.getAllPieceInfo(file_list, online=online)
@@ -356,21 +357,24 @@ class QueryLayer(object):
                         "tempo": self.handleTempoQueries, "time": self.handleTimeQueries,
                         "transposition": self.handleTranspositionQueries,
                         "filename": self.handleFilenameQueries}
-        bib = ["title", "composer", "lyricist"]
-        clefkey = ["clef", "key"]
+
+        simpler_method_table = {"title": self.handle_bibliography_queries,
+                                "lyricist": self.handle_bibliography_queries,
+                                "composer": self.handle_bibliography_queries,
+                                "clef": self.handle_clef_or_key_queries,
+                                "key": self.handle_clef_or_key_queries}
 
         for key in search_data:
-            if key in bib:
-                key_result, all_matched = self.handle_bibliography_queries(search_data, elem=key, online=online)
-            elif key in clefkey:
-                key_result, all_matched = self.handle_clef_or_key_queries(search_data, query=key, online=online)
+            if key in simpler_method_table:
+                key_result, all_matched = self.handle_bibliography_queries(search_data, query=key, online=online)
             else:
                 key_result, all_matched = method_table[key](search_data, online=online)
             results.update(key_result)
 
         summaries = {}
         if all_matched:
-            intersection = set.intersection(set(results.values()))
+            intersection = set.intersection(
+                *get_set_of_dict_values(results))
             results["Exact Matches"] = intersection
         for key in results:
             summaries[key] = self.getPieceSummary(

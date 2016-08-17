@@ -11,6 +11,11 @@ class TestMusicManager(unittest.TestCase):
         self.folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../test_files/manager_tests")
         self.manager = MusicManager.MusicManager(None, folder=self.folder)
 
+    def assert_dict(self, data, expected):
+        for key in expected:
+            self.assertIn(key, data)
+            self.assertAlmostEqual(data[key], expected[key])
+
     def testFindPieceByTitleAndComposer(self):
         self.manager.addPiece(
             "file.xml", {
@@ -20,7 +25,7 @@ class TestMusicManager(unittest.TestCase):
         expected_results = {'Composer: Bartok': [('title: Blabla composer: Bartok filename: file.xml', 'file.xml')],
                 'Exact Matches': [('title: Blabla composer: Bartok filename: file.xml', 'file.xml')],
                 'Title: Blabla': [('title: Blabla composer: Bartok filename: file.xml', 'file.xml'), ('title: Blabla filename: file1.xml', 'file1.xml')]}
-        self.assertEqual(
+        self.assert_dict(
             expected_results,
             results)
 
@@ -33,7 +38,7 @@ class TestMusicManager(unittest.TestCase):
                 "Title: Blabla": [('title: Blabla lyricist: Bartok filename: file.xml', 'file.xml'), ('title: Blabla filename: file1.xml', 'file1.xml')],
                 "Lyricist: Bartok": [('title: Blabla lyricist: Bartok filename: file.xml', 'file.xml')]}
         results = self.manager.runQueries({"title": ["Blabla"], "lyricist": ["Bartok"]})
-        self.assertEqual(
+        self.assert_dict(
             expected_results,
             results)
 
@@ -48,7 +53,7 @@ class TestMusicManager(unittest.TestCase):
                         {
                             "title": ["Blabla"], "key": {
                                 "other": ["C major"]}})
-        self.assertEqual(
+        self.assert_dict(
             expected_results, results)
 
     def testFindPieceByTitleAndKeyAndClef(self):
@@ -69,7 +74,7 @@ class TestMusicManager(unittest.TestCase):
                                 "title": ["Blabla"], "key": {
                                     "other": ["C major"]}, "clef": {
                                         "other": ["treble"]}})
-        self.assertEqual(
+        self.assert_dict(
             expected_results, results)
 
     def testFindPieceByTitleAndKeyAndClefAndInstrument(self):
@@ -95,7 +100,7 @@ class TestMusicManager(unittest.TestCase):
                                         "other": ["C major"]}, "clef": {
                                             "other": ["treble"]}, "instrument": {
                                                 "Clarinet": {}}})
-        self.assertEqual(expected_results, results)
+        self.assert_dict(results, expected_results)
 
     def testFindPieceByTitleAndInstrumentWithClef(self):
         self.manager.addPiece("file.xml",
@@ -122,9 +127,7 @@ class TestMusicManager(unittest.TestCase):
                                         "other": ["C major"]}, "clef": {
                                             "Clarinet": ["treble"]}, "instrument": {
                                                 "Clarinet": {}}})
-        for key in expected_results:
-            self.assertIn(key, results)
-            self.assertAlmostEqual(results[key], expected_results[key])
+        self.assert_dict(results, expected_results)
 
     def testFindPieceByTitleAndInstrumentWithClefAndOther(self):
         self.manager.addPiece("file.xml",
@@ -157,8 +160,7 @@ class TestMusicManager(unittest.TestCase):
                                             "other": ["C major"]}, "clef": {
                                                 "Clarinet": ["treble"], "other": ["bass"]}, "instrument": {
                                                     "Clarinet": {}}})
-        self.assertEqual(
-            expected_results, results)
+        self.assert_dict(results, expected_results)
 
     def testFindPieceByTitleAndInstrumentWithKey(self):
         self.manager.addPiece("file.xml",
@@ -189,8 +191,7 @@ class TestMusicManager(unittest.TestCase):
                         {
                             "title": ["Blabla"], "key": {
                                 "Clarinet": ["D major"]}, "instrument": {"Clarinet": {}}})
-        self.assertEqual(
-            expected_results, results)
+        self.assert_dict(results, expected_results)
 
     def testFindPieceByTitleAndInstrumentWithKeyAndOther(self):
         self.manager.addPiece("file.xml",
@@ -225,8 +226,7 @@ class TestMusicManager(unittest.TestCase):
                             {
                                 "title": ["Blabla"], "key": {
                                     "Clarinet": ["D major"], "other": ["C major"]}, "instrument": ["Clarinet"]})
-        self.assertEqual(
-            expected_results, results)
+        self.assert_dict(results, expected_results)
 
     def testFindPieceByTitleAndInstrumentWithKeyAndClef(self):
         self.manager.addPiece("file.xml",
@@ -258,8 +258,7 @@ class TestMusicManager(unittest.TestCase):
                                 "title": ["Blabla"], "key": {
                                     "Clarinet": ["D major"]}, "instrument": ["Clarinet"], "clef": {
                                         "Clarinet": ["treble"]}})
-        self.assertEqual(
-            expected_results, results)
+        self.assert_dict(results, expected_results)
 
     def testFindByTextTitle(self):
         title = "hello, world"
@@ -278,7 +277,7 @@ class TestMusicManager(unittest.TestCase):
         expected_results = {
                         "Instrument: clarinet": [('filename: file1.xml', 'file1.xml')]}
         results = self.manager.runQueries(query)
-        self.assertEqual(expected_results, results)
+        self.assert_dict(results, expected_results)
 
     def testFindByInstrumentsWithNoLabel2Entries(self):
         query = {"text": ["clarinet", "flute"]}
@@ -289,7 +288,7 @@ class TestMusicManager(unittest.TestCase):
                         "Instrument: clarinet": [('filename: file1.xml', 'file1.xml'), ('filename: file2.xml', 'file2.xml')],
                         "Instrument: flute": [('filename: file2.xml', 'file2.xml')]}
         results = self.manager.runQueries(query)
-        self.assertEqual(expected_results, results)
+        self.assert_dict(results, expected_results)
 
 
     def tearDown(self):

@@ -21,3 +21,6 @@ def init_kv(elem, key, init_value=list()):
     """
     if key not in elem:
         elem[key] = init_value
+
+def get_set_of_dict_values(data):
+    return [set(data[key]) for key in data]
