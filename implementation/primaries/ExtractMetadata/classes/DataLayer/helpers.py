@@ -30,3 +30,13 @@ def filter_dict(entry, method=lambda k: len(k) > 0 and k is not None):
 
 def filter_list(entry, method=lambda k: len(k) > 0 and k is not None):
     return [key for key in entry if method(key)]
+
+def form_string(data_dict, option_1, option_2):
+    result = ''
+    if option_1[0] in data_dict:
+        if str(data_dict[option_1[0]]) != option_1[1]:
+            result += str(data_dict[option_1[0]])
+    elif option_2[0] in data_dict:
+        if str(data_dict[option_2[0]]) != option_2[1]:
+            result += str(data_dict[option_2[0]])
+    return result

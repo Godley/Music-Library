@@ -46,7 +46,7 @@ import sqlite3
 from implementation.primaries.ExtractMetadata.classes.DataLayer import TableManager
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, \
-    do_online_offline_query, get_if_exists, filter_dict
+    do_online_offline_query, get_if_exists, filter_dict, form_string
 from implementation.primaries.ExtractMetadata.classes.helpers import init_kv
 
 class TempoParser(object):
@@ -619,11 +619,8 @@ class MusicData(TableManager.TableManager):
         results = self.read_all(query, (archived,))
         tempo_dict = {}
         for pair in results:
-            key_input = pair['beat'] + "="
-            if pair['beat_2'] != "-1":
-                key_input += pair['beat_2']
-            elif pair['minute'] != -1:
-                key_input += str(pair['minute'])
+            parser = TempoParser()
+            key_input = parser.encode(pair)
             if key_input not in tempo_dict:
                 tempo_dict[key_input] = []
             tempo_dict[key_input].append(pair['filename'])
