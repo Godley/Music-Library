@@ -13,32 +13,35 @@ There are 17 tables (heh):
 - tempo: lists all tempos. Easier to process than instruments so shouldn't be
 many variants/duplicates
 - tempo_piece_join: ...
-- time: holds meters/time signatures. format is same as the short time sig poem.
-            That may need to change in the case of weird time signatures.
+- time: holds meters/time signatures.
+        format is same as the short time sig poem.
+        That may need to change in the case of weird time signatures.
 - time_piece_join: ...
 - key: holds key signatures. These are pre filled.
 - key_piece_join: ...
 - clef: holds clefs. also prefilled.
 - clef_piece_join: ...
 - composers: composers. Even harder than instruments to avoid duplicates here.
-- lyricists: as above. Each piece is currently presumed to have 1 composer, 1 lyricist.
-                Maybe this is too big an assumption, but anyway, piece table contains
-                composer id/lyricist id link.
-- pieces: contains any meta data which is probably unique to that piece, like title
-            and filename.
-- sources: links a piece id with the online source it came from. This is how we check if a
-            piece is local.
-- licenses: links a piece id with a license type. Licenses are actually text files stored in the app,
-            we just store what file name/type to use.
-- secrets: we need to look at this. Links each piece ID with its unique secret for accessing it on the API.
+- lyricists: as above. Each piece is currently presumed to have 1 composer,
+            1 lyricist. Maybe this is too big an assumption, but anyway,
+            piece table contains composer id/lyricist id link.
+- pieces: contains any meta data which is probably unique to that piece,
+            like title and filename.
+- sources: links a piece id with the online source it came from.
+            This is how we check if a piece is local.
+- licenses: links a piece id with a license type. Licenses are actually text
+            files stored in the app, we just store what file name/type to use.
+- secrets: we need to look at this. Links each piece ID with its unique secret
+            for accessing it on the API.
 
-Beyond adding and getting basic information, there are some more complex query methods.
-Explained below.
+Beyond adding and getting basic information, there are some more complex
+query methods. Explained below.
 
-Any additions to this class should have relevant tests written before working on the feature.
-Any new tables should really be discussed in issues/other comms platforms before doing a big change.
-These can be found in ExtractMetadata/tests/testDataLayer. Please either expand those classes or if
-there's going to be a lot to group, put them in a new test file.
+Any additions to this class should have relevant tests written before working on
+the feature. Any new tables should really be discussed in issues/other comms
+platforms before doing a big change. These can be found in ExtractMetadata/tests/testDataLayer.
+Please either expand those classes or if there's going to be a lot to group,
+put them in a new test file.
 
 """
 
