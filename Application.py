@@ -1,15 +1,14 @@
 from threading import Lock
-import sys
 import os
 import pickle
-from xml.parsers import expat
 from PyQt4 import QtGui, QtCore, QtXml
-
-
-from implementation.primaries.GUI import renderingErrorPopup, SetupWindow, qt_threading, \
-    PlaylistDialog, ImportDialog, licensePopup, \
+from implementation.primaries.GUI import renderingErrorPopup, SetupWindow
+from implementation.primaries.GUI import qt_threading, PlaylistDialog, \
+    ImportDialog, licensePopup, \
     StartupWindow, MainWindow
-from implementation.primaries.ExtractMetadata.classes import MusicManager, SearchProcessor
+from implementation.primaries.GUI.qt_threading import RenderThread
+from implementation.primaries.ExtractMetadata.classes import MusicManager, \
+    SearchProcessor
 from implementation.primaries.scripts.setup_script import do_setup
 from implementation.primaries.exceptions import LilypondNotInstalledException
 from implementation.primaries.GUI.helpers import get_base_dir
@@ -26,6 +25,7 @@ handler = logging.handlers.RotatingFileHandler(
               LOG_FILE)
 logger.addHandler(handler)
 
+
 class Application(QtCore.QObject):
     windows = {}
 
@@ -36,7 +36,10 @@ class Application(QtCore.QObject):
         self.meta = {}
         self.meta["collections"] = []
         if getattr(sys, "frozen", False):
-            self.gui_folder = os.path.join(get_base_dir(True), "implementation", "primaries", "GUI")
+            self.gui_folder = os.path.join(get_base_dir(True),
+                                           "implementation",
+                                           "primaries",
+                                           "GUI")
         else:
             self.gui_folder = get_base_dir(True)
         self.theme_folder = os.path.join(self.gui_folder, "themes")
@@ -127,15 +130,17 @@ class Application(QtCore.QObject):
 
     def load_windows(self):
         self.windows = {"startup": StartupWindow.StartupWindow,
-                   "main": MainWindow.MainWindow,
-                   "setup": SetupWindow.SetupWindow,
-                   "error": renderingErrorPopup.RenderingErrorPopup,
-                   "import": ImportDialog.ImportDialog,
-                   "newplaylist": PlaylistDialog.PlaylistDialog,
-                   "license": licensePopup.LicensePopup}
+                        "main": MainWindow.MainWindow,
+                        "setup": SetupWindow.SetupWindow,
+                        "error": renderingErrorPopup.RenderingErrorPopup,
+                        "import": ImportDialog.ImportDialog,
+                        "newplaylist": PlaylistDialog.PlaylistDialog,
+                        "license": licensePopup.LicensePopup}
         for window in self.windows:
-            self.windows[window] = self.windows[window](self, self.meta["theme"],
-                                          self.theme_folder, self.design_folder)
+            self.windows[window] = self.windows[window](self,
+                                                        self.meta["theme"],
+                                                        self.theme_folder,
+                                                        self.design_folder)
             self.windows[window].show()
             self.windows[window].hide()
 
@@ -156,25 +161,28 @@ class Application(QtCore.QObject):
     def onFileError(self, error):
         self.errorPopup(["Problem with internet connection on file download"])
 
-    def downloadFile(self, filename):
+    def download_file(self, filename):
         """
-        method which starts a thread to get a file from an API server, this gets called
-        by license window when a user presses "ok"
+        method which starts a thread to get a file from an API server,
+        this gets called by license window when a user presses "ok"
+
         :param filename: xml file name not including current folder
-        :return: None, thread will call a method to pass back the result
         """
         async = qt_threading.DownloadThread(self, self.manager.downloadFile,
                                             filename)
-        QtCore.QObject.connect(
-            async, QtCore.SIGNAL("fileReady(PyQt_PyObject)"), self.onFileDownload)
-        QtCore.QObject.connect(
-            async, QtCore.SIGNAL("downloadError(bool)"), self.onFileError)
+        QtCore.QObject.connect(async,
+                               QtCore.SIGNAL("fileReady(PyQt_PyObject)"),
+                               self.onFileDownload)
+        QtCore.QObject.connect(async,
+                               QtCore.SIGNAL("downloadError(bool)"),
+                               self.onFileError)
         async.run()
 
     def start_basic_thread(self, args, method, slot=None):
         worker = qt_threading.mythread(self, method, args)
-        QtCore.QObject.connect(
-            worker, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
+        QtCore.QObject.connect(worker,
+                               QtCore.SIGNAL("dataReady(PyQt_PyObject)"),
+                               slot)
         worker.run()
 
     def setup_startup(self):
@@ -183,10 +191,11 @@ class Application(QtCore.QObject):
 
     def onQueryComplete(self, data, online=False):
         """
-        Async callback which will send the results of a query back to the main window as the user
-        types stuff in
+        Async callback which will send the results of a query
+        back to the main window as the user types stuff in
         :param data: the results of the query
-        :param online: bool indicator of whether files are online or local
+        :param online: bool indicator of whether files are online
+        or local
         :return: None, calls the handler inside main window
         """
         lock = Lock()
@@ -202,7 +211,8 @@ class Application(QtCore.QObject):
 
     def queryNotThreaded(self, input):
         """
-        Method which does the querying for adding pieces to playlists without using threads.
+        Method which does the querying for adding pieces
+        to playlists without using threads.
         exists because pyqt fell over when threading
 
         :return:
@@ -213,9 +223,10 @@ class Application(QtCore.QObject):
 
     def query(self, input, playlist=False):
         """
-        Async method which will process the given input, create thread classes
-        for each type of query and then start those thread classes. When done they will call
-        the callback above
+        Async method which will process the given input,
+        create thread classes for each type of query
+        and then start those thread classes.
+        When done they will call the callback above
         :param input: text input from the main window
         :return: None, thread classes will call the callback above
         """
@@ -232,11 +243,6 @@ class Application(QtCore.QObject):
             QtCore.QObject.connect(OnlineThread, QtCore.SIGNAL(
             "dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
             OnlineThread.run()
-        # data_queue = queue.Queue()
-        # OnlineThread = thread_classes.Async_Handler_Queue(self.manager.runQueries,
-        #                                                   self.onQueryComplete,
-        #     data_queue, (data,), kwargs={"online": True})
-        # OnlineThread.execute()
 
 
     def getFileInfo(self, filename):
@@ -245,8 +251,9 @@ class Application(QtCore.QObject):
 
     def onRenderTaskFinished(self, errorList, filename=""):
         """
-        asynchronous handler. This gets called when an async task has finished rendering a piece,
-        adn thus comes back and calls the handler for this result in the main window
+        asynchronous handler. This gets called when an async
+        task has finished rendering a piece, and thus comes
+        back and calls the handler for this result in the main window
         :param errorList: the list of problems encountered
         :param filename: the filename ending in pdf without the current folder
         :return: None, calls another method lower down
@@ -265,8 +272,10 @@ class Application(QtCore.QObject):
         Method which will do 3 things;
         - check a pdf version for given file exists
         - if not check if an xml version exists
-            - if so, start another thread to load it which will call the async callback above when done
-            - if not, open up a licensing agreement box for the file which will either load the file or close
+            - if so, start another thread to load it which will
+            call the async callback above when done
+            - if not, open up a licensing agreement box for the
+            file which will either load the file or close
         :param filename: xml filename, not including current folder
         :return: None, calls methods instead
         """
@@ -280,8 +289,11 @@ class Application(QtCore.QObject):
                 self.windows["license"].load(license, filename)
 
             else:
-                render_thread = qt_threading.RenderThread(self, self.manager.startRenderingTask,
-                                                          (filename,), pdf_version)
+                render_thread = RenderThread(self,
+                                             self.manager.startRenderingTask,
+                                             (filename,),
+                                             pdf_version)
+
                 QtCore.QObject.connect(render_thread, QtCore.SIGNAL(
                     "fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
                 QtCore.QObject.connect(render_thread, QtCore.SIGNAL(

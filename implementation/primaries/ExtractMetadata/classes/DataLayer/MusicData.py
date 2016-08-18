@@ -13,41 +13,45 @@ There are 17 tables (heh):
 - tempo: lists all tempos. Easier to process than instruments so shouldn't be
 many variants/duplicates
 - tempo_piece_join: ...
-- time: holds meters/time signatures. format is same as the short time sig poem.
-            That may need to change in the case of weird time signatures.
+- time: holds meters/time signatures.
+        format is same as the short time sig poem.
+        That may need to change in the case of weird time signatures.
 - time_piece_join: ...
 - key: holds key signatures. These are pre filled.
 - key_piece_join: ...
 - clef: holds clefs. also prefilled.
 - clef_piece_join: ...
 - composers: composers. Even harder than instruments to avoid duplicates here.
-- lyricists: as above. Each piece is currently presumed to have 1 composer, 1 lyricist.
-                Maybe this is too big an assumption, but anyway, piece table contains
-                composer id/lyricist id link.
-- pieces: contains any meta data which is probably unique to that piece, like title
-            and filename.
-- sources: links a piece id with the online source it came from. This is how we check if a
-            piece is local.
-- licenses: links a piece id with a license type. Licenses are actually text files stored in the app,
-            we just store what file name/type to use.
-- secrets: we need to look at this. Links each piece ID with its unique secret for accessing it on the API.
+- lyricists: as above. Each piece is currently presumed to have 1 composer,
+            1 lyricist. Maybe this is too big an assumption, but anyway,
+            piece table contains composer id/lyricist id link.
+- pieces: contains any meta data which is probably unique to that piece,
+            like title and filename.
+- sources: links a piece id with the online source it came from.
+            This is how we check if a piece is local.
+- licenses: links a piece id with a license type. Licenses are actually text
+            files stored in the app, we just store what file name/type to use.
+- secrets: we need to look at this. Links each piece ID with its unique secret
+            for accessing it on the API.
 
-Beyond adding and getting basic information, there are some more complex query methods.
-Explained below.
+Beyond adding and getting basic information, there are some more complex
+query methods. Explained below.
 
-Any additions to this class should have relevant tests written before working on the feature.
-Any new tables should really be discussed in issues/other comms platforms before doing a big change.
-These can be found in ExtractMetadata/tests/testDataLayer. Please either expand those classes or if
-there's going to be a lot to group, put them in a new test file.
+Any additions to this class should have relevant tests written before
+working on the feature. Any new tables should really be discussed in
+issues/other comms platforms before doing a big change. These can be
+found in ExtractMetadata/tests/testDataLayer. Please either expand
+those classes or if there's going to be a lot to group, put them
+in a new test file.
 
 """
 
-import sqlite3
-from implementation.primaries.ExtractMetadata.classes.DataLayer import TableManager
-from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
-from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, \
-    do_online_offline_query, get_if_exists, filter_dict
-from implementation.primaries.ExtractMetadata.classes.helpers import init_kv
+from . import TableManager
+from .helpers import extendJoinQuery, do_online_offline_query, get_if_exists, \
+    filter_dict
+from ..hashdict import hashdict
+from ..helpers import init_kv
+
 
 class TempoParser(object):
     converter = {"crotchet": "quarter",
@@ -59,6 +63,7 @@ class TempoParser(object):
                  "half": "half",
                  "whole": "whole"}
     halvers = ['semi', 'hemi', 'demi']
+
     def splitParts(self, tempo):
         return tempo.split("=")
 
@@ -78,7 +83,6 @@ class TempoParser(object):
         else:
             halver_str += 'th'
         return halver_str
-
 
     def convertToAmerican(self, entry):
         if entry in self.converter:
@@ -133,8 +137,6 @@ class MusicData(TableManager.TableManager):
     def __init__(self, database):
         super(MusicData, self).__init__(database)
 
-
-
     def addInstruments(self, data):
         connection, cursor = self.connect()
         elements = []
@@ -171,19 +173,27 @@ class MusicData(TableManager.TableManager):
         rowid = self.get_or_create_one(s_query, w_query, (name,))
         if rowid is not None:
             rowid = rowid['rowid']
-            self.write('UPDATE pieces SET {}_id = ? WHERE ROWID = ?'.format(creator), (rowid, piece_id))
+            self.write('UPDATE pieces SET {}_id = ? WHERE ROWID = ?'.
+                       format(creator),
+                       (rowid, piece_id))
 
     def get_or_create_instrument(self, instrument):
         diatonic = get_if_exists(instrument, 'diatonic', default=0)
         chromatic = get_if_exists(instrument, 'chromatic', default=0)
-        s_query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
+        s_query = 'SELECT ROWID FROM instruments WHERE name=? ' \
+                  'AND diatonic=? AND chromatic=?'
         w_query = 'INSERT INTO instruments VALUES(?,?,?)'
         name = instrument['name']
-        rowid = self.get_or_create_one(s_query, w_query, (name, diatonic, chromatic))
+        rowid = self.get_or_create_one(s_query,
+                                       w_query,
+                                       (name, diatonic, chromatic))
         return rowid
 
     def getInstrumentId(self, name):
-        data = self.read_one('SELECT ROWID FROM instruments WHERE name=?', (name,))
+        data = self.read_one(
+                            'SELECT ROWID FROM instruments '
+                            'WHERE name=?',
+                            (name,))
         if data is not None:
             data = data['rowid']
         return data
@@ -191,15 +201,16 @@ class MusicData(TableManager.TableManager):
     def getInstrumentIdByNameAndTrans(self, instrument):
         diatonic = get_if_exists(instrument, 'diatonic', default=0)
         chromatic = get_if_exists(instrument, 'chromatic', default=0)
-
-        query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
+        query = 'SELECT ROWID FROM instruments WHERE name=? ' \
+                'AND diatonic=? AND chromatic=?'
         return self.read_one(query, (instrument['name'], diatonic, chromatic))
 
     def get_or_create_instruments(self, instrument_list, piece_id):
         for item in instrument_list:
             rowid = self.get_or_create_instrument(item)
             if rowid is not None:
-                self.write('INSERT INTO instruments_piece_join VALUES(?,?)', (rowid['rowid'], piece_id))
+                self.write('INSERT INTO instruments_piece_join VALUES(?,?)',
+                           (rowid['rowid'], piece_id))
 
     def create_key_links(self, keysig_dict, piece_id):
         for instrument in keysig_dict:
@@ -218,9 +229,8 @@ class MusicData(TableManager.TableManager):
                 if key is not None:
                     query = 'INSERT INTO key_piece_join VALUES(?,?,?)'
                     self.write(query, (key['rowid'],
-                         piece_id,
-                         instrument_id,
-                         ))
+                               piece_id,
+                               instrument_id))
 
     def create_clef_links(self, clef_dict, piece_id):
         for instrument in clef_dict:
@@ -229,7 +239,9 @@ class MusicData(TableManager.TableManager):
                 line = get_if_exists(clef, "line", default=2)
                 instrument_id = self.getInstrumentId(instrument)
                 clef_id = self.read_one(
-                    'SELECT ROWID FROM clefs WHERE sign=? AND line=?', (sign, line,))
+                                        'SELECT ROWID FROM clefs '
+                                        'WHERE sign=? AND line=?',
+                                        (sign, line,))
                 if clef_id is not None:
                     self.write(
                         'INSERT INTO clef_piece_join VALUES(?,?,?)',
@@ -239,9 +251,11 @@ class MusicData(TableManager.TableManager):
                          ))
 
     def get_or_create_tempo_or_timesig(self, data, elem='timesig'):
-        queries = {"timesig": ('SELECT ROWID FROM timesigs WHERE beat=? AND b_type=?',
+        queries = {"timesig": ('SELECT ROWID FROM timesigs WHERE '
+                               'beat=? AND b_type=?',
                                'INSERT INTO timesigs VALUES(?,?)'),
-                   "tempo": ('SELECT ROWID FROM tempos WHERE beat=? AND minute=? AND beat_2=?',
+                   "tempo": ('SELECT ROWID FROM tempos WHERE beat=? '
+                             'AND minute=? AND beat_2=?',
                              'INSERT INTO tempos VALUES(?,?,?)')}
         return self.get_or_create_one(queries[elem][0], queries[elem][1], data)
 
@@ -251,25 +265,27 @@ class MusicData(TableManager.TableManager):
             b_type = meter["type"]
             rowid = self.get_or_create_tempo_or_timesig((beat, b_type))
             if rowid is not None:
-                self.write('INSERT INTO time_piece_join VALUES(?,?)', (piece_id, rowid['rowid']))
+                self.write('INSERT INTO time_piece_join VALUES(?,?)',
+                           (piece_id, rowid['rowid']))
 
     def create_tempo_links(self, tempo_list, piece_id):
         for tempo in tempo_list:
             beat = tempo["beat"]
             beat_2 = get_if_exists(tempo, "beat_2", -1)
             minute = get_if_exists(tempo, "minute", -1)
-            rowid = self.get_or_create_tempo_or_timesig((beat, minute, beat_2), elem='tempo')
+            rowid = self.get_or_create_tempo_or_timesig((beat, minute, beat_2),
+                                                        elem='tempo')
             if rowid is not None:
-                self.write(
-                'INSERT INTO tempo_piece_join VALUES(?,?)', (piece_id, rowid['rowid']))
+                self.write('INSERT INTO tempo_piece_join '
+                           'VALUES(?,?)',
+                           (piece_id,
+                            rowid['rowid']))
 
-
-
-    def setSource(self, source, piece_id):
+    def set_source(self, source, piece_id):
         query = 'INSERT INTO sources VALUES(?,?)'
         self.write(query, (piece_id, source,))
 
-    def setSecret(self, secret, piece_id):
+    def set_secret(self, secret, piece_id):
         query = 'INSERT INTO secrets VALUES(?,?)'
         self.write(query, (piece_id, secret,))
 
@@ -279,19 +295,25 @@ class MusicData(TableManager.TableManager):
 
     def addPiece(self, filename, data):
         '''
-        method which takes in stuff about a piece and adds it to the relevant tables
+        method which takes in stuff about a piece and adds it
+         to the relevant tables
         :param filename: filename the piece is talking about
-        :param data: dictionary containing information - ids can be "composer", "title", "key" (which contains a dict of mode and fifths attached to instruments), "clef"
-        (same as keys), "tempo", "instruments"
+        :param data: dictionary containing information -
+        ids can be "composer", "title", "key"
+        (which contains a dict of mode and fifths attached to instruments),
+        "clef" (same as keys), "tempo", "instruments"
         :return: None
         '''
         composer_id = -1
         lyricist_id = -1
         title = ""
         method_table = {"key": self.create_key_links,
-                        "clef": self.create_clef_links, "time": self.create_timesig_links,
-                        "tempo": self.create_tempo_links, "source": self.setSource,
-                        "secret": self.setSecret, "license": self.setLicense}
+                        "clef": self.create_clef_links,
+                        "time": self.create_timesig_links,
+                        "tempo": self.create_tempo_links,
+                        "source": self.set_source,
+                        "secret": self.set_secret,
+                        "license": self.setLicense}
 
         if "title" in data:
             title = data["title"]
@@ -300,7 +322,8 @@ class MusicData(TableManager.TableManager):
         query_input = (filename, title, composer_id, lyricist_id, False)
         self.write('INSERT INTO pieces VALUES(?,?,?,?,?)', query_input)
         select_input = (filename,)
-        rowid = self.read_one('SELECT ROWID FROM pieces WHERE filename=?', select_input)
+        rowid = self.read_one('SELECT ROWID FROM pieces WHERE filename=?',
+                              select_input)
         piece_id = rowid["rowid"]
 
         if "instruments" in data:
@@ -338,8 +361,9 @@ class MusicData(TableManager.TableManager):
 
         connection, cursor = self.connect()
         thing = (filename, "%" + filename + "%", archived,)
-        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id ' \
-                'FROM pieces p WHERE (p.filename=? OR p.filename LIKE ?) AND p.archived=?'
+        query = 'SELECT ROWID, filename, title, composer_id, ' \
+                'lyricist_id FROM pieces p WHERE (p.filename=?' \
+                ' OR p.filename LIKE ?) AND p.archived=?'
         query = do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
 
@@ -396,7 +420,8 @@ class MusicData(TableManager.TableManager):
 
         Returns a list of all IDs matching the string
         """
-        result = self.read_all('SELECT ROWID FROM instruments WHERE name=? OR name LIKE ?',
+        result = self.read_all('SELECT ROWID FROM instruments '
+                               'WHERE name=? OR name LIKE ?',
                                (instrument, "%{}%".format(instrument)))
         instrument_ids = [id['rowid'] for id in result]
         return instrument_ids
@@ -408,8 +433,10 @@ class MusicData(TableManager.TableManager):
         :param cursor: database cursor object
         :return: int pertaining to row id of composer in database
         """
-        query = 'SELECT ROWID FROM {}s WHERE name=? OR name LIKE ? OR name LIKE ? OR name LIKE ?'.format(creator_type)
-        input_vars = (name, "%{}%".format(name), "%{}".format(name), "{}%".format(name))
+        query = 'SELECT ROWID FROM {}s WHERE name=? OR name LIKE ? ' \
+                'OR name LIKE ? OR name LIKE ?'.format(creator_type)
+        input_vars = (name, "%{}%".format(name), "%{}".format(name),
+                      "{}%".format(name))
         results = self.read_all(query, input_vars)
         composer_ids = [res['rowid'] for res in results]
         return composer_ids
@@ -436,9 +463,13 @@ class MusicData(TableManager.TableManager):
         query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
 
         for i in range(len(instrument_ids)):
-            query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id'
+            query += '(SELECT * FROM instruments_piece_join ' \
+                     'WHERE piece_id = i.piece_id'
             # for every new instrument update the query
-            query += extendJoinQuery(len(instrument_ids[i]), 'instrument_id = ?', ' OR ', init_string=' AND (')
+            query += extendJoinQuery(len(instrument_ids[i]),
+                                     'instrument_id = ?',
+                                     ' OR ',
+                                     init_string=' AND (')
             query += ')'
             if i != len(instrument_ids) - 1:
                 query += ' AND EXISTS '
@@ -448,24 +479,34 @@ class MusicData(TableManager.TableManager):
         input = tuple(tuple_ids)
         results = self.read_all(query, input)
 
-        file_list = self.getPiecesByRowId(results)
+        file_list = self.get_pieces_by_row_id(results)
         return file_list
 
-    def getPiecesByAnyAndAllInstruments(self, instruments, archived=0, online=False):
+    def get_pieces_by_any_all_instruments(self,
+                                          instruments,
+                                          archived=0,
+                                          online=False):
         """
         Runs 2 queries:
-        1. Fetch a piece that contains all of the instruments listed in instruments.
-        2. Iterate through the list asking for the individual pieces containing that instrument,
+        1. Fetch a piece that contains all of the instruments
+        listed in instruments.
+        2. Iterate through the list asking for the individual
+        pieces containing that instrument,
         but possibly not all of them.
 
-        Returns a dictionary containing "Instrument: "<each instrument> as keys to which each
-        value is a list of the pieces containing that instrument, and, if there are any,
-        a key "All Instruments" which is matched to a list of all pieces containing every instrument
+        Returns a dictionary containing "Instrument: "<each instrument>
+        as keys to which each value is a list of the pieces containing
+        that instrument, and, if there are any, a key "All Instruments"
+         which is matched to a list of all pieces containing every instrument
         requested.
         """
-        all_pieces = self.getPiecesByInstruments(instruments, archived=archived, online=online)
+        all_pieces = self.getPiecesByInstruments(instruments,
+                                                 archived=archived,
+                                                 online=online)
         any = {"Instrument: "+instrument:
-                   self.getPiecesByInstruments([instrument], archived=archived, online=online)
+               self.getPiecesByInstruments([instrument],
+                                           archived=archived,
+                                           online=online)
                for instrument in instruments}
         result = {}
         if len(all_pieces) > 0:
@@ -473,11 +514,10 @@ class MusicData(TableManager.TableManager):
         result.update({key: any[key] for key in any if len(any[key]) > 0})
         return result
 
-
-
-    def getPiecesByRowId(self, rows, archived=0):
+    def get_pieces_by_row_id(self, rows, archived=0):
         """
-        method which takes in a list of rows which are ROWIDs in the piece table and returns a list of files
+        method which takes in a list of rows which are ROWIDs in the
+        piece table and returns a list of files
         :param rows: list of tuples pertaining to ROWIDs in pieces table
         :return: list of strings pertaining to xml files
         """
@@ -485,20 +525,28 @@ class MusicData(TableManager.TableManager):
         previous = None
         for element in rows:
             if element != previous:
-                result = self.read_one('SELECT filename FROM pieces WHERE ROWID=? AND archived=?',
+                result = self.read_one('SELECT filename FROM pieces '
+                                       'WHERE ROWID=? AND archived=?',
                                        (element['piece_id'], archived))
                 if result is not None:
                     file_list.append(result['filename'])
             previous = element
         return file_list
 
-    def get_pieces_by_creator(self, creator, archived=0, online=False, creator_type='composer'):
-        creator_ids = self.get_creator_id_where_text_in_name(creator, creator_type)
+    def get_pieces_by_creator(self, creator, archived=0,
+                              online=False, creator_type='composer'):
+        creator_ids = self.get_creator_id_where_text_in_name(creator,
+                                                             creator_type)
         file_list = []
         if len(creator_ids) > 0:
             query = 'SELECT filename FROM pieces p WHERE p.archived=? AND '
-            query += extendJoinQuery(len(creator_ids), 'p.{}_id LIKE ?'.format(creator_type), ' OR ', init_string='(')
-            query = do_online_offline_query(query, 'p.ROWID', online=online)
+            query += extendJoinQuery(len(creator_ids),
+                                     'p.{}_id LIKE ?'.format(creator_type),
+                                     ' OR ',
+                                     init_string='(')
+            query = do_online_offline_query(query,
+                                            'p.ROWID',
+                                            online=online)
             input_list = [archived]
             input_list.extend(creator_ids)
             input = tuple(input_list)
@@ -506,9 +554,11 @@ class MusicData(TableManager.TableManager):
             file_list = [r['filename'] for r in results]
         return file_list
 
-    def getPieceByTitle(self, title, *args, archived=0, online=False, creator_type=None):
+    def getPieceByTitle(self, title, *args,
+                        archived=0, online=False, creator_type=None):
         """
-        method which takes in title of piece and outputs list of files named that
+        method which takes in title of piece and outputs list of
+        files named that
         :param title: title of piece
         :return: list of tuples
         """
@@ -523,27 +573,37 @@ class MusicData(TableManager.TableManager):
         self.disconnect(connection)
         return result
 
-    def get_piece_by_join(self, data, query_type, p_id='i.piece_id', archived=0, online=False):
-        options = {"key": {"init_query":'SELECT i.piece_id FROM key_piece_join i WHERE EXISTS ' \
-                '(SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)',
-                           "extender": ' AND EXISTS (SELECT * FROM key_piece_join WHERE piece_id = i.piece_id AND key_id = ?)'
+    def get_piece_by_join(self, data, query_type,
+                          p_id='i.piece_id', archived=0, online=False):
+        options = {"key": {"init_query": 'SELECT i.piece_id FROM key_piece_join '
+                                        'i WHERE EXISTS ' \
+                                        '(SELECT * FROM key_piece_join WHERE '
+                                        'piece_id = i.piece_id AND key_id = ?)',
+                           "extender": ' AND EXISTS (SELECT * FROM key_piece_join '
+                                       'WHERE piece_id = i.piece_id AND key_id = ?)'
                         , "p_id": 'i.piece_id',
                            "method":self.get_elem_id},
-                   "clef": {"init_query": 'SELECT i.piece_id FROM clef_piece_join i WHERE EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)',
-                            "extender": ' AND EXISTS (SELECT * FROM clef_piece_join WHERE piece_id = i.piece_id AND clef_id = ?)',
+                   "clef": {"init_query": 'SELECT i.piece_id FROM clef_piece_join '
+                                          'i WHERE EXISTS (SELECT * FROM clef_piece_join '
+                                          'WHERE piece_id = i.piece_id AND clef_id = ?)',
+                            "extender": ' AND EXISTS (SELECT * FROM clef_piece_join '
+                                        'WHERE piece_id = i.piece_id AND clef_id = ?)',
                             "p_id": "i.piece_id",
-                            "method":self.get_elem_id}}
+                            "method": self.get_elem_id}}
         connection, cursor = self.connect()
-        data = [options[query_type]["method"](elem, query_type) for elem in data]
+        data = [options[query_type]["method"](elem, query_type)
+                for elem in data]
         query = options[query_type]["init_query"]
         for i in range(1, len(data)):
             query += options[query_type]["extender"]
-        query = do_online_offline_query(query, options[query_type]["p_id"], online=online)
+        query = do_online_offline_query(query,
+                                        options[query_type]["p_id"],
+                                        online=online)
         query += ";"
         input = tuple(data)
         cursor.execute(query, input)
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results)
+        file_list = self.get_pieces_by_row_id(results)
         self.disconnect(connection)
         return file_list
 
@@ -558,42 +618,58 @@ class MusicData(TableManager.TableManager):
         query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join ' \
                 'key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
 
-        query = do_online_offline_query(query, 'key_piece.piece_id', online=online)
+        query = do_online_offline_query(query,
+                                        'key_piece.piece_id',
+                                        online=online)
         key_set = self.read_all(query, (modularity,))
-        file_list = self.getPiecesByRowId(key_set)
+        file_list = self.get_pieces_by_row_id(key_set)
         return file_list
 
     # playlist queries
     def get_piece_by_all_elem(self, archived=0, online=False, elem='key'):
         query_table = {
-            'keys': '''SELECT k.name, piece.filename FROM keys k, pieces piece, key_piece_join key_piece, instruments i
-                    WHERE key_piece.key_id = k.ROWID AND i.ROWID = key_piece.instrument_id
-                    AND i.diatonic = 0 AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
-                    AND piece.archived = ? AND EXISTS (SELECT NULL FROM key_piece_join WHERE key_id = k.ROWID AND piece_id != key_piece.piece_id)
-        ''',
-            'clefs': '''SELECT clef.name, piece.filename FROM clefs clef, pieces piece, clef_piece_join clef_piece
-                    WHERE clef_piece.clef_id = clef.ROWID AND piece.ROWID = clef_piece.piece_id
-                    AND piece.archived = ? AND EXISTS (SELECT NULL FROM clef_piece_join WHERE clef_id = clef_piece.clef_id AND piece_id != clef_piece.piece_id)
-        ''',
-            'composers': '''SELECT comp.name, piece.filename FROM composers comp, pieces piece
-                    WHERE piece.composer_id = comp.ROWID
-                    AND EXISTS (SELECT * FROM pieces WHERE composer_id = comp.ROWID AND ROWID != piece.ROWID)
-                    AND piece.archived = ?
-        ''',
-            'lyricists': '''SELECT lyric.name, piece.filename FROM lyricists lyric, pieces piece
-                    WHERE lyric.ROWID = piece.lyricist_id
-                    AND EXISTS (SELECT * FROM pieces WHERE lyricist_id = piece.lyricist_id AND ROWID != piece.ROWID)
-                    AND piece.archived = ?
-        '''
+            'keys': '''SELECT k.name, piece.filename FROM keys k, pieces piece,
+                       key_piece_join key_piece, instruments i
+                       WHERE key_piece.key_id = k.ROWID AND
+                       i.ROWID = key_piece.instrument_id AND i.diatonic = 0
+                       AND i.chromatic = 0 AND piece.ROWID = key_piece.piece_id
+                       AND piece.archived = ? AND EXISTS (SELECT NULL FROM
+                       key_piece_join WHERE key_id = k.ROWID AND
+                       piece_id != key_piece.piece_id)''',
+            'clefs': '''SELECT clef.name, piece.filename FROM clefs clef,
+                        pieces piece, clef_piece_join clef_piece
+                        WHERE clef_piece.clef_id = clef.ROWID AND
+                        piece.ROWID = clef_piece.piece_id AND
+                        piece.archived = ? AND EXISTS
+                        (SELECT NULL FROM clef_piece_join WHERE
+                        clef_id = clef_piece.clef_id AND
+                        piece_id != clef_piece.piece_id)''',
+            'composers': '''SELECT comp.name, piece.filename
+                            FROM composers comp, pieces piece
+                            WHERE piece.composer_id = comp.ROWID
+                            AND EXISTS (SELECT * FROM pieces
+                            WHERE composer_id = comp.ROWID
+                            AND ROWID != piece.ROWID)
+                            AND piece.archived = ?''',
+            'lyricists': '''SELECT lyric.name, piece.filename
+                            FROM lyricists lyric, pieces piece
+                            WHERE lyric.ROWID = piece.lyricist_id
+                            AND EXISTS (SELECT * FROM pieces WHERE
+                            lyricist_id = piece.lyricist_id AND
+                            ROWID != piece.ROWID)
+                            AND piece.archived = ?'''
         }
         query = do_online_offline_query(query_table[elem], 'piece.ROWID', online=online)
         return self.get_by_all_elems(query, (archived,))
 
     def getPiecesByAllTimeSigs(self, archived=0, online=False):
-        query = '''SELECT time_sig.beat, time_sig.b_type, piece.filename FROM timesigs time_sig, pieces piece, time_piece_join time_piece
-                    WHERE time_piece.time_id = time_sig.ROWID AND piece.ROWID = time_piece.piece_id
-                    AND piece.archived = ? AND EXISTS(SELECT null FROM time_piece_join WHERE time_id=time_sig.ROWID AND time_piece_join.piece_id != time_piece.piece_id)
-        '''
+        query = '''SELECT time_sig.beat, time_sig.b_type, piece.filename
+                   FROM timesigs time_sig, pieces piece, time_piece_join
+                   time_piece WHERE time_piece.time_id = time_sig.ROWID
+                   AND piece.ROWID = time_piece.piece_id AND
+                   piece.archived = ? AND EXISTS(SELECT null FROM
+                   time_piece_join WHERE time_id=time_sig.ROWID AND
+                   time_piece_join.piece_id != time_piece.piece_id)'''
         query = do_online_offline_query(query, 'piece.ROWID', online=online)
         results = self.read_all(query, (archived,))
         sig_dict = {}
@@ -678,7 +754,7 @@ class MusicData(TableManager.TableManager):
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
 
-            file_list = self.getPiecesByRowId(results, archived)
+            file_list = self.get_pieces_by_row_id(results, archived)
         return file_list
 
     def getPieceByInstrumentInClefs(self, data, archived=0, online=False):
@@ -697,7 +773,7 @@ class MusicData(TableManager.TableManager):
             query = do_online_offline_query(query, 'clef_piece.piece_id', online=online)
             cursor.execute(query, tuple(search_ids))
             results = cursor.fetchall()
-            file_list = self.getPiecesByRowId(results, archived)
+            file_list = self.get_pieces_by_row_id(results, archived)
         return file_list
 
 
@@ -726,7 +802,7 @@ class MusicData(TableManager.TableManager):
         input = tuple(time_ids)
         cursor.execute(query, input)
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, archived)
+        file_list = self.get_pieces_by_row_id(results, archived)
         self.disconnect(connection)
         return file_list
 
@@ -759,7 +835,7 @@ class MusicData(TableManager.TableManager):
         input = tuple(tempo_ids)
         cursor.execute(query, input)
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results)
+        file_list = self.get_pieces_by_row_id(results)
         self.disconnect(connection)
         return file_list
 
@@ -814,7 +890,7 @@ class MusicData(TableManager.TableManager):
         query += ";"
         cursor.execute(query, tuple(query_input))
         results = cursor.fetchall()
-        file_list = self.getPiecesByRowId(results, archived=archived)
+        file_list = self.get_pieces_by_row_id(results, archived=archived)
         return file_list
 
     def getPieceByInstrumentsOrSimilar(

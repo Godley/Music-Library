@@ -229,7 +229,7 @@ class QueryLayer(object):
             all_matched = True
 
         if len(instrument_list) > 0:
-            instrument_result = self._data.getPiecesByAnyAndAllInstruments(
+            instrument_result = self._data.get_pieces_by_any_all_instruments(
                 instrument_list, online=online)
             results.update(instrument_result)
             if "All Instruments" not in results:
