@@ -278,7 +278,8 @@ class MusicData(TableManager.TableManager):
             if rowid is not None:
                 self.write(
                 'INSERT INTO tempo_piece_join VALUES(?,?)',
-                (piece_id, rowid['rowid']))
+                (piece_id,
+                 rowid['rowid']))
 
     def setSource(self, source, piece_id):
         query = 'INSERT INTO sources VALUES(?,?)'
