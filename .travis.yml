@@ -20,9 +20,8 @@ install:
 - sudo apt-get install python3-sip-dev
 
 - pip3 install -r requirements.txt
-- coverage run $TRAVIS_BUILD_DIR/Application.py
 
-script: python3 -m "nose" --logging-level=WARNING
+script: python3 -m "nose" --logging-level=WARNING --with-coverage
 
 os:
 - linux
