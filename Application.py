@@ -290,8 +290,9 @@ class Application(QtCore.QObject):
 
             else:
                 render_thread = RenderThread(self,
-                                self.manager.startRenderingTask, (filename,),
-                                pdf_version)
+                                             self.manager.startRenderingTask,
+                                             (filename,),
+                                             pdf_version)
 
                 QtCore.QObject.connect(render_thread, QtCore.SIGNAL(
                     "fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
