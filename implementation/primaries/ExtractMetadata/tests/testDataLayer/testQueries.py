@@ -29,7 +29,7 @@ class TestDataLayerUserQueries(unittest.TestCase):
         self.data.addPiece("file1.xml", {"instruments": [{"name":"clarinet"}]})
         self.data.addPiece("file2.xml", {"instruments": [{"name":"flute"}]})
         expected = {"All Instruments":["file.xml"], "Instrument: clarinet":["file.xml", "file1.xml"], "Instrument: flute":["file.xml", "file2.xml"]}
-        results = self.data.getPiecesByAnyAndAllInstruments(instruments)
+        results = self.data.get_pieces_by_any_all_instruments(instruments)
         self.assertEqual(expected, results)
 
     def testFindPieceByInstruments(self):

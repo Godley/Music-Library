@@ -463,9 +463,13 @@ class MusicData(TableManager.TableManager):
         query = 'SELECT i.piece_id FROM instruments_piece_join i WHERE EXISTS '
 
         for i in range(len(instrument_ids)):
-            query += '(SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id'
+            query += '(SELECT * FROM instruments_piece_join ' \
+                     'WHERE piece_id = i.piece_id'
             # for every new instrument update the query
-            query += extendJoinQuery(len(instrument_ids[i]), 'instrument_id = ?', ' OR ', init_string=' AND (')
+            query += extendJoinQuery(len(instrument_ids[i]),
+                                     'instrument_id = ?',
+                                     ' OR ',
+                                     init_string=' AND (')
             query += ')'
             if i != len(instrument_ids) - 1:
                 query += ' AND EXISTS '
@@ -478,21 +482,31 @@ class MusicData(TableManager.TableManager):
         file_list = self.getPiecesByRowId(results)
         return file_list
 
-    def getPiecesByAnyAndAllInstruments(self, instruments, archived=0, online=False):
+    def get_pieces_by_any_all_instruments(self,
+                                          instruments,
+                                          archived=0,
+                                          online=False):
         """
         Runs 2 queries:
-        1. Fetch a piece that contains all of the instruments listed in instruments.
-        2. Iterate through the list asking for the individual pieces containing that instrument,
+        1. Fetch a piece that contains all of the instruments
+        listed in instruments.
+        2. Iterate through the list asking for the individual
+        pieces containing that instrument,
         but possibly not all of them.
 
-        Returns a dictionary containing "Instrument: "<each instrument> as keys to which each
-        value is a list of the pieces containing that instrument, and, if there are any,
-        a key "All Instruments" which is matched to a list of all pieces containing every instrument
+        Returns a dictionary containing "Instrument: "<each instrument>
+        as keys to which each value is a list of the pieces containing
+        that instrument, and, if there are any, a key "All Instruments"
+         which is matched to a list of all pieces containing every instrument
         requested.
         """
-        all_pieces = self.getPiecesByInstruments(instruments, archived=archived, online=online)
+        all_pieces = self.getPiecesByInstruments(instruments,
+                                                 archived=archived,
+                                                 online=online)
         any = {"Instrument: "+instrument:
-                   self.getPiecesByInstruments([instrument], archived=archived, online=online)
+                   self.getPiecesByInstruments([instrument],
+                                               archived=archived,
+                                               online=online)
                for instrument in instruments}
         result = {}
         if len(all_pieces) > 0:
