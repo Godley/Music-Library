@@ -6,6 +6,7 @@ from implementation.primaries.GUI import renderingErrorPopup, SetupWindow
 from implementation.primaries.GUI import qt_threading, PlaylistDialog, \
     ImportDialog, licensePopup, \
     StartupWindow, MainWindow
+from implementation.primaries.GUI.qt_threading import RenderThread
 from implementation.primaries.ExtractMetadata.classes import MusicManager, \
     SearchProcessor
 from implementation.primaries.scripts.setup_script import do_setup
@@ -288,10 +289,10 @@ class Application(QtCore.QObject):
                 self.windows["license"].load(license, filename)
 
             else:
-                render_thread = qt_threading.RenderThread(self,
-                                                          self.manager.startRenderingTask,
-                                                          (filename,),
-                                                          pdf_version)
+                render_thread = RenderThread(self,
+                                self.manager.startRenderingTask,
+                                (filename,),
+                                pdf_version)
 
                 QtCore.QObject.connect(render_thread, QtCore.SIGNAL(
                     "fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
