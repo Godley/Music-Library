@@ -172,19 +172,27 @@ class MusicData(TableManager.TableManager):
         rowid = self.get_or_create_one(s_query, w_query, (name,))
         if rowid is not None:
             rowid = rowid['rowid']
-            self.write('UPDATE pieces SET {}_id = ? WHERE ROWID = ?'.format(creator), (rowid, piece_id))
+            self.write('UPDATE pieces SET {}_id = ? WHERE ROWID = ?'.
+                       format(creator),
+                       (rowid, piece_id))
 
     def get_or_create_instrument(self, instrument):
         diatonic = get_if_exists(instrument, 'diatonic', default=0)
         chromatic = get_if_exists(instrument, 'chromatic', default=0)
-        s_query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
+        s_query = 'SELECT ROWID FROM instruments WHERE name=? ' \
+                  'AND diatonic=? AND chromatic=?'
         w_query = 'INSERT INTO instruments VALUES(?,?,?)'
         name = instrument['name']
-        rowid = self.get_or_create_one(s_query, w_query, (name, diatonic, chromatic))
+        rowid = self.get_or_create_one(s_query,
+                                       w_query,
+                                       (name, diatonic, chromatic))
         return rowid
 
     def getInstrumentId(self, name):
-        data = self.read_one('SELECT ROWID FROM instruments WHERE name=?', (name,))
+        data = self.read_one(
+                            'SELECT ROWID FROM instruments '
+                            'WHERE name=?',
+                            (name,))
         if data is not None:
             data = data['rowid']
         return data
@@ -231,7 +239,9 @@ class MusicData(TableManager.TableManager):
                 line = get_if_exists(clef, "line", default=2)
                 instrument_id = self.getInstrumentId(instrument)
                 clef_id = self.read_one(
-                    'SELECT ROWID FROM clefs WHERE sign=? AND line=?', (sign, line,))
+                                        'SELECT ROWID FROM clefs '
+                                        'WHERE sign=? AND line=?',
+                                        (sign, line,))
                 if clef_id is not None:
                     self.write(
                         'INSERT INTO clef_piece_join VALUES(?,?,?)',
@@ -241,9 +251,11 @@ class MusicData(TableManager.TableManager):
                          ))
 
     def get_or_create_tempo_or_timesig(self, data, elem='timesig'):
-        queries = {"timesig": ('SELECT ROWID FROM timesigs WHERE beat=? AND b_type=?',
+        queries = {"timesig": ('SELECT ROWID FROM timesigs WHERE '
+                               'beat=? AND b_type=?',
                                'INSERT INTO timesigs VALUES(?,?)'),
-                   "tempo": ('SELECT ROWID FROM tempos WHERE beat=? AND minute=? AND beat_2=?',
+                   "tempo": ('SELECT ROWID FROM tempos WHERE beat=? '
+                             'AND minute=? AND beat_2=?',
                              'INSERT INTO tempos VALUES(?,?,?)')}
         return self.get_or_create_one(queries[elem][0], queries[elem][1], data)
 
@@ -253,19 +265,20 @@ class MusicData(TableManager.TableManager):
             b_type = meter["type"]
             rowid = self.get_or_create_tempo_or_timesig((beat, b_type))
             if rowid is not None:
-                self.write('INSERT INTO time_piece_join VALUES(?,?)', (piece_id, rowid['rowid']))
+                self.write('INSERT INTO time_piece_join VALUES(?,?)',
+                           (piece_id, rowid['rowid']))
 
     def create_tempo_links(self, tempo_list, piece_id):
         for tempo in tempo_list:
             beat = tempo["beat"]
             beat_2 = get_if_exists(tempo, "beat_2", -1)
             minute = get_if_exists(tempo, "minute", -1)
-            rowid = self.get_or_create_tempo_or_timesig((beat, minute, beat_2), elem='tempo')
+            rowid = self.get_or_create_tempo_or_timesig((beat, minute, beat_2),
+                                                        elem='tempo')
             if rowid is not None:
                 self.write(
-                'INSERT INTO tempo_piece_join VALUES(?,?)', (piece_id, rowid['rowid']))
-
-
+                'INSERT INTO tempo_piece_join VALUES(?,?)',
+                (piece_id, rowid['rowid']))
 
     def setSource(self, source, piece_id):
         query = 'INSERT INTO sources VALUES(?,?)'
