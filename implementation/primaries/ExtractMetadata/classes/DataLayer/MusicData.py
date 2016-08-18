@@ -322,7 +322,8 @@ class MusicData(TableManager.TableManager):
         query_input = (filename, title, composer_id, lyricist_id, False)
         self.write('INSERT INTO pieces VALUES(?,?,?,?,?)', query_input)
         select_input = (filename,)
-        rowid = self.read_one('SELECT ROWID FROM pieces WHERE filename=?', select_input)
+        rowid = self.read_one('SELECT ROWID FROM pieces WHERE filename=?',
+                              select_input)
         piece_id = rowid["rowid"]
 
         if "instruments" in data:
@@ -360,8 +361,9 @@ class MusicData(TableManager.TableManager):
 
         connection, cursor = self.connect()
         thing = (filename, "%" + filename + "%", archived,)
-        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id ' \
-                'FROM pieces p WHERE (p.filename=? OR p.filename LIKE ?) AND p.archived=?'
+        query = 'SELECT ROWID, filename, title, composer_id, ' \
+                'lyricist_id FROM pieces p WHERE (p.filename=?' \
+                ' OR p.filename LIKE ?) AND p.archived=?'
         query = do_online_offline_query(query, 'p.ROWID', online=online)
         cursor.execute(query, thing)
 
