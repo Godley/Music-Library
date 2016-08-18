@@ -420,7 +420,8 @@ class MusicData(TableManager.TableManager):
 
         Returns a list of all IDs matching the string
         """
-        result = self.read_all('SELECT ROWID FROM instruments WHERE name=? OR name LIKE ?',
+        result = self.read_all('SELECT ROWID FROM instruments '
+                               'WHERE name=? OR name LIKE ?',
                                (instrument, "%{}%".format(instrument)))
         instrument_ids = [id['rowid'] for id in result]
         return instrument_ids
@@ -432,8 +433,10 @@ class MusicData(TableManager.TableManager):
         :param cursor: database cursor object
         :return: int pertaining to row id of composer in database
         """
-        query = 'SELECT ROWID FROM {}s WHERE name=? OR name LIKE ? OR name LIKE ? OR name LIKE ?'.format(creator_type)
-        input_vars = (name, "%{}%".format(name), "%{}".format(name), "{}%".format(name))
+        query = 'SELECT ROWID FROM {}s WHERE name=? OR name LIKE ? ' \
+                'OR name LIKE ? OR name LIKE ?'.format(creator_type)
+        input_vars = (name, "%{}%".format(name), "%{}".format(name),
+                      "{}%".format(name))
         results = self.read_all(query, input_vars)
         composer_ids = [res['rowid'] for res in results]
         return composer_ids
