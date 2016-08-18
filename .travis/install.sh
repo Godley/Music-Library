@@ -28,6 +28,12 @@ if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
             ;;
     esac
 else
+    sudo add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu wily main universe"
+    sudo rm /etc/dpkg/dpkg.cfg.d/multiarch
+    sudo dpkg --configure -a
+    sudo apt-get install -f
+    sudo apt-get update -q
+    sudo apt-get install python3-poppler-pyqt4
     # Install some custom requirements on Linux
     sudo apt-get install python3-sip-dev
 fi
