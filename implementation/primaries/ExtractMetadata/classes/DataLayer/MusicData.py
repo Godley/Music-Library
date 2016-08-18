@@ -45,12 +45,12 @@ put them in a new test file.
 
 """
 
-import sqlite3
-from implementation.primaries.ExtractMetadata.classes.DataLayer import TableManager
-from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
-from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import extendJoinQuery, \
-    do_online_offline_query, get_if_exists, filter_dict
-from implementation.primaries.ExtractMetadata.classes.helpers import init_kv
+from . import TableManager
+from .helpers import extendJoinQuery, do_online_offline_query, get_if_exists, \
+    filter_dict
+from ..hashdict import hashdict
+from ..helpers import init_kv
+
 
 class TempoParser(object):
     converter = {"crotchet": "quarter",
@@ -62,6 +62,7 @@ class TempoParser(object):
                  "half": "half",
                  "whole": "whole"}
     halvers = ['semi', 'hemi', 'demi']
+
     def splitParts(self, tempo):
         return tempo.split("=")
 
@@ -81,7 +82,6 @@ class TempoParser(object):
         else:
             halver_str += 'th'
         return halver_str
-
 
     def convertToAmerican(self, entry):
         if entry in self.converter:
@@ -135,8 +135,6 @@ class MusicData(TableManager.TableManager):
 
     def __init__(self, database):
         super(MusicData, self).__init__(database)
-
-
 
     def addInstruments(self, data):
         connection, cursor = self.connect()
@@ -202,7 +200,8 @@ class MusicData(TableManager.TableManager):
         for item in instrument_list:
             rowid = self.get_or_create_instrument(item)
             if rowid is not None:
-                self.write('INSERT INTO instruments_piece_join VALUES(?,?)', (rowid['rowid'], piece_id))
+                self.write('INSERT INTO instruments_piece_join VALUES(?,?)',
+                           (rowid['rowid'], piece_id))
 
     def create_key_links(self, keysig_dict, piece_id):
         for instrument in keysig_dict:
