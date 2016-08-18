@@ -306,9 +306,12 @@ class MusicData(TableManager.TableManager):
         lyricist_id = -1
         title = ""
         method_table = {"key": self.create_key_links,
-                        "clef": self.create_clef_links, "time": self.create_timesig_links,
-                        "tempo": self.create_tempo_links, "source": self.set_source,
-                        "secret": self.set_secret, "license": self.setLicense}
+                        "clef": self.create_clef_links,
+                        "time": self.create_timesig_links,
+                        "tempo": self.create_tempo_links,
+                        "source": self.set_source,
+                        "secret": self.set_secret,
+                        "license": self.setLicense}
 
         if "title" in data:
             title = data["title"]
