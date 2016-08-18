@@ -618,7 +618,9 @@ class MusicData(TableManager.TableManager):
         query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join ' \
                 'key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
 
-        query = do_online_offline_query(query, 'key_piece.piece_id', online=online)
+        query = do_online_offline_query(query,
+                                        'key_piece.piece_id',
+                                        online=online)
         key_set = self.read_all(query, (modularity,))
         file_list = self.get_pieces_by_row_id(key_set)
         return file_list
