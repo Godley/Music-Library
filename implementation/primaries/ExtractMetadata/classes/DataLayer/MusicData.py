@@ -514,8 +514,6 @@ class MusicData(TableManager.TableManager):
         result.update({key: any[key] for key in any if len(any[key]) > 0})
         return result
 
-
-
     def get_pieces_by_row_id(self, rows, archived=0):
         """
         method which takes in a list of rows which are ROWIDs in the
@@ -559,7 +557,8 @@ class MusicData(TableManager.TableManager):
     def getPieceByTitle(self, title, *args,
                         archived=0, online=False, creator_type=None):
         """
-        method which takes in title of piece and outputs list of files named that
+        method which takes in title of piece and outputs list of
+        files named that
         :param title: title of piece
         :return: list of tuples
         """
