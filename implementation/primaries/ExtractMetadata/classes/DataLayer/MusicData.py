@@ -37,11 +37,12 @@ many variants/duplicates
 Beyond adding and getting basic information, there are some more complex
 query methods. Explained below.
 
-Any additions to this class should have relevant tests written before working on
-the feature. Any new tables should really be discussed in issues/other comms
-platforms before doing a big change. These can be found in ExtractMetadata/tests/testDataLayer.
-Please either expand those classes or if there's going to be a lot to group,
-put them in a new test file.
+Any additions to this class should have relevant tests written before
+working on the feature. Any new tables should really be discussed in
+issues/other comms platforms before doing a big change. These can be
+found in ExtractMetadata/tests/testDataLayer. Please either expand
+those classes or if there's going to be a lot to group, put them
+in a new test file.
 
 """
 
@@ -200,8 +201,8 @@ class MusicData(TableManager.TableManager):
     def getInstrumentIdByNameAndTrans(self, instrument):
         diatonic = get_if_exists(instrument, 'diatonic', default=0)
         chromatic = get_if_exists(instrument, 'chromatic', default=0)
-
-        query = 'SELECT ROWID FROM instruments WHERE name=? AND diatonic=? AND chromatic=?'
+        query = 'SELECT ROWID FROM instruments WHERE name=? ' \
+                'AND diatonic=? AND chromatic=?'
         return self.read_one(query, (instrument['name'], diatonic, chromatic))
 
     def get_or_create_instruments(self, instrument_list, piece_id):
@@ -228,9 +229,8 @@ class MusicData(TableManager.TableManager):
                 if key is not None:
                     query = 'INSERT INTO key_piece_join VALUES(?,?,?)'
                     self.write(query, (key['rowid'],
-                         piece_id,
-                         instrument_id,
-                         ))
+                               piece_id,
+                               instrument_id))
 
     def create_clef_links(self, clef_dict, piece_id):
         for instrument in clef_dict:
@@ -281,11 +281,11 @@ class MusicData(TableManager.TableManager):
                 (piece_id,
                  rowid['rowid']))
 
-    def setSource(self, source, piece_id):
+    def set_source(self, source, piece_id):
         query = 'INSERT INTO sources VALUES(?,?)'
         self.write(query, (piece_id, source,))
 
-    def setSecret(self, secret, piece_id):
+    def set_secret(self, secret, piece_id):
         query = 'INSERT INTO secrets VALUES(?,?)'
         self.write(query, (piece_id, secret,))
 
@@ -297,8 +297,9 @@ class MusicData(TableManager.TableManager):
         '''
         method which takes in stuff about a piece and adds it to the relevant tables
         :param filename: filename the piece is talking about
-        :param data: dictionary containing information - ids can be "composer", "title", "key" (which contains a dict of mode and fifths attached to instruments), "clef"
-        (same as keys), "tempo", "instruments"
+        :param data: dictionary containing information - ids can be "composer",
+        "title", "key" (which contains a dict of mode and fifths attached to instruments),
+        "clef" (same as keys), "tempo", "instruments"
         :return: None
         '''
         composer_id = -1
@@ -306,8 +307,8 @@ class MusicData(TableManager.TableManager):
         title = ""
         method_table = {"key": self.create_key_links,
                         "clef": self.create_clef_links, "time": self.create_timesig_links,
-                        "tempo": self.create_tempo_links, "source": self.setSource,
-                        "secret": self.setSecret, "license": self.setLicense}
+                        "tempo": self.create_tempo_links, "source": self.set_source,
+                        "secret": self.set_secret, "license": self.setLicense}
 
         if "title" in data:
             title = data["title"]
