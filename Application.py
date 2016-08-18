@@ -290,8 +290,7 @@ class Application(QtCore.QObject):
 
             else:
                 render_thread = RenderThread(self,
-                                self.manager.startRenderingTask,
-                                (filename,),
+                                self.manager.startRenderingTask, (filename,),
                                 pdf_version)
 
                 QtCore.QObject.connect(render_thread, QtCore.SIGNAL(
