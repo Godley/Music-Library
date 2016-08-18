@@ -20,6 +20,7 @@ install:
 - sudo apt-get install python3-sip-dev
 
 - pip3 install -r requirements.txt
+- coverage run
 
 script: python3 -m "nose" --logging-level=WARNING
 
