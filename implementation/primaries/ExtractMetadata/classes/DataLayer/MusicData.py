@@ -636,29 +636,40 @@ class MusicData(TableManager.TableManager):
                        AND piece.archived = ? AND EXISTS (SELECT NULL FROM
                        key_piece_join WHERE key_id = k.ROWID AND
                        piece_id != key_piece.piece_id)''',
-            'clefs': '''SELECT clef.name, piece.filename FROM clefs clef, pieces piece, clef_piece_join clef_piece
-                    WHERE clef_piece.clef_id = clef.ROWID AND piece.ROWID = clef_piece.piece_id
-                    AND piece.archived = ? AND EXISTS (SELECT NULL FROM clef_piece_join WHERE clef_id = clef_piece.clef_id AND piece_id != clef_piece.piece_id)
-        ''',
-            'composers': '''SELECT comp.name, piece.filename FROM composers comp, pieces piece
-                    WHERE piece.composer_id = comp.ROWID
-                    AND EXISTS (SELECT * FROM pieces WHERE composer_id = comp.ROWID AND ROWID != piece.ROWID)
-                    AND piece.archived = ?
-        ''',
-            'lyricists': '''SELECT lyric.name, piece.filename FROM lyricists lyric, pieces piece
-                    WHERE lyric.ROWID = piece.lyricist_id
-                    AND EXISTS (SELECT * FROM pieces WHERE lyricist_id = piece.lyricist_id AND ROWID != piece.ROWID)
-                    AND piece.archived = ?
-        '''
+            'clefs': '''SELECT clef.name, piece.filename FROM clefs clef,
+                        pieces piece, clef_piece_join clef_piece
+                        WHERE clef_piece.clef_id = clef.ROWID AND
+                        piece.ROWID = clef_piece.piece_id AND
+                        piece.archived = ? AND EXISTS
+                        (SELECT NULL FROM clef_piece_join WHERE
+                        clef_id = clef_piece.clef_id AND
+                        piece_id != clef_piece.piece_id)''',
+            'composers': '''SELECT comp.name, piece.filename
+                            FROM composers comp, pieces piece
+                            WHERE piece.composer_id = comp.ROWID
+                            AND EXISTS (SELECT * FROM pieces
+                            WHERE composer_id = comp.ROWID
+                            AND ROWID != piece.ROWID)
+                            AND piece.archived = ?''',
+            'lyricists': '''SELECT lyric.name, piece.filename
+                            FROM lyricists lyric, pieces piece
+                            WHERE lyric.ROWID = piece.lyricist_id
+                            AND EXISTS (SELECT * FROM pieces WHERE
+                            lyricist_id = piece.lyricist_id AND
+                            ROWID != piece.ROWID)
+                            AND piece.archived = ?'''
         }
         query = do_online_offline_query(query_table[elem], 'piece.ROWID', online=online)
         return self.get_by_all_elems(query, (archived,))
 
     def getPiecesByAllTimeSigs(self, archived=0, online=False):
-        query = '''SELECT time_sig.beat, time_sig.b_type, piece.filename FROM timesigs time_sig, pieces piece, time_piece_join time_piece
-                    WHERE time_piece.time_id = time_sig.ROWID AND piece.ROWID = time_piece.piece_id
-                    AND piece.archived = ? AND EXISTS(SELECT null FROM time_piece_join WHERE time_id=time_sig.ROWID AND time_piece_join.piece_id != time_piece.piece_id)
-        '''
+        query = '''SELECT time_sig.beat, time_sig.b_type, piece.filename
+                   FROM timesigs time_sig, pieces piece, time_piece_join
+                   time_piece WHERE time_piece.time_id = time_sig.ROWID
+                   AND piece.ROWID = time_piece.piece_id AND
+                   piece.archived = ? AND EXISTS(SELECT null FROM
+                   time_piece_join WHERE time_id=time_sig.ROWID AND
+                   time_piece_join.piece_id != time_piece.piece_id)'''
         query = do_online_offline_query(query, 'piece.ROWID', online=online)
         results = self.read_all(query, (archived,))
         sig_dict = {}
