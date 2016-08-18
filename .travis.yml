@@ -14,18 +14,18 @@ before_install:
   - sudo dpkg --configure -a
   - sudo apt-get install -f
   - sudo apt-get update -q
+  - sudo apt-get install python3-poppler-qt4
 
-install: 
-- sudo apt-get install python3-pyqt4
-- sudo apt-get install python3-sip-dev
+install:
+    - ./.travis/install.sh
+    - pip3 install -r requirements.txt
 
-- pip3 install -r requirements.txt
 
-script: python3 -m "nose" --logging-level=WARNING --with-coverage
+script: python3 -m "nose" --logging-level=WARNING
 
 os:
 - linux
-# - osx
+- osx
 
 notifications:
   email:
