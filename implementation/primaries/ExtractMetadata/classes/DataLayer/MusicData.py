@@ -276,10 +276,10 @@ class MusicData(TableManager.TableManager):
             rowid = self.get_or_create_tempo_or_timesig((beat, minute, beat_2),
                                                         elem='tempo')
             if rowid is not None:
-                self.write(
-                'INSERT INTO tempo_piece_join VALUES(?,?)',
-                (piece_id,
-                 rowid['rowid']))
+                self.write('INSERT INTO tempo_piece_join '
+                           'VALUES(?,?)',
+                           (piece_id,
+                            rowid['rowid']))
 
     def set_source(self, source, piece_id):
         query = 'INSERT INTO sources VALUES(?,?)'
