@@ -575,7 +575,7 @@ class MusicData(TableManager.TableManager):
 
     def get_piece_by_join(self, data, query_type,
                           p_id='i.piece_id', archived=0, online=False):
-        options = {"key": {"init_query":'SELECT i.piece_id FROM key_piece_join '
+        options = {"key": {"init_query": 'SELECT i.piece_id FROM key_piece_join '
                                         'i WHERE EXISTS ' \
                                         '(SELECT * FROM key_piece_join WHERE '
                                         'piece_id = i.piece_id AND key_id = ?)',
@@ -589,9 +589,10 @@ class MusicData(TableManager.TableManager):
                             "extender": ' AND EXISTS (SELECT * FROM clef_piece_join '
                                         'WHERE piece_id = i.piece_id AND clef_id = ?)',
                             "p_id": "i.piece_id",
-                            "method":self.get_elem_id}}
+                            "method": self.get_elem_id}}
         connection, cursor = self.connect()
-        data = [options[query_type]["method"](elem, query_type) for elem in data]
+        data = [options[query_type]["method"](elem, query_type)
+                for elem in data]
         query = options[query_type]["init_query"]
         for i in range(1, len(data)):
             query += options[query_type]["extender"]
