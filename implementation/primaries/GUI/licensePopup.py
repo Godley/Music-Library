@@ -27,4 +27,4 @@ class LicensePopup(QtGui.QDialog, themedWindow.ThemedWindow):
         self.applyTheme()
 
     def fetchAndClose(self):
-        self.parent.downloadFile(self.file)
+        self.parent.download_file(self.file)

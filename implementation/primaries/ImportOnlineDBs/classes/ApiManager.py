@@ -50,7 +50,7 @@ class ApiManager(object):
                 id = file
                 secret = dataset[source_id][id]["secret"]
                 status = self.sources[source_id][
-                    0].downloadFile(id, secret, type=extension)
+                    0].download_file(id, secret, type=extension)
                 if(status == 200):
                     location = os.path.join(id + "." + extension)
                     data_list.append(location)
@@ -67,7 +67,7 @@ class ApiManager(object):
         '''
         status = 0
         if source in self.sources:
-            status = self.sources[source][0].downloadFile(
+            status = self.sources[source][0].download_file(
                 file, secret, type=extension)
         else:
             status = 4004

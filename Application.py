@@ -160,7 +160,7 @@ class Application(QtCore.QObject):
     def onFileError(self, error):
         self.errorPopup(["Problem with internet connection on file download"])
 
-    def downloadFile(self, filename):
+    def download_file(self, filename):
         """
         method which starts a thread to get a file from an API server,
         this gets called by license window when a user presses "ok"
@@ -170,11 +170,11 @@ class Application(QtCore.QObject):
         async = qt_threading.DownloadThread(self, self.manager.downloadFile,
                                             filename)
         QtCore.QObject.connect(async,
-                                QtCore.SIGNAL("fileReady(PyQt_PyObject)"),
-                                self.onFileDownload)
+                               QtCore.SIGNAL("fileReady(PyQt_PyObject)"),
+                               self.onFileDownload)
         QtCore.QObject.connect(async,
-                                QtCore.SIGNAL("downloadError(bool)"),
-                                self.onFileError)
+                               QtCore.SIGNAL("downloadError(bool)"),
+                               self.onFileError)
         async.run()
 
     def start_basic_thread(self, args, method, slot=None):
