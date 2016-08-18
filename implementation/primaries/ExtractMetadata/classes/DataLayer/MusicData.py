@@ -504,9 +504,9 @@ class MusicData(TableManager.TableManager):
                                                  archived=archived,
                                                  online=online)
         any = {"Instrument: "+instrument:
-                   self.getPiecesByInstruments([instrument],
-                                               archived=archived,
-                                               online=online)
+               self.getPiecesByInstruments([instrument],
+                                           archived=archived,
+                                           online=online)
                for instrument in instruments}
         result = {}
         if len(all_pieces) > 0:
