@@ -295,10 +295,12 @@ class MusicData(TableManager.TableManager):
 
     def addPiece(self, filename, data):
         '''
-        method which takes in stuff about a piece and adds it to the relevant tables
+        method which takes in stuff about a piece and adds it
+         to the relevant tables
         :param filename: filename the piece is talking about
-        :param data: dictionary containing information - ids can be "composer",
-        "title", "key" (which contains a dict of mode and fifths attached to instruments),
+        :param data: dictionary containing information -
+        ids can be "composer", "title", "key"
+        (which contains a dict of mode and fifths attached to instruments),
         "clef" (same as keys), "tempo", "instruments"
         :return: None
         '''
