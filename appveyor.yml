@@ -35,6 +35,9 @@ init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
 
 install:
+  - Start-FileDownload 'http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/PyQt4-4.11.4-gpl-Py3.4-Qt4.8.7-x64.exe'
+  - "PyQt4-4.11.4-gpl-Py3.4-Qt4.8.7-x64.exe"
+  
   - "set PATH=%PATH%;%PYTHON%;%PYTHON%\\Scripts"
   - "pip install nose"
   - "pip install -r requirements.txt"
