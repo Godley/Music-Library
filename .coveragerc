@@ -1,0 +1,6 @@
+# .coveragerc to control coverage.py
+[run]
+omit = "sqlite3, unittest, xml, requests, MuseParse, cgi, encodings"
+
+[html]
+directory = coverage_html_report
