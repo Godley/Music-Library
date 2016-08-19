@@ -31,7 +31,9 @@ install:
   - pip3 install -r requirements.txt
 
 
-script: python3 -m "nose" --logging-level=WARNING --exclude-dir=implementation/primaries/ImportOnlineDBs/tests
+script:
+    - python3 -m "nose" --logging-level=WARNING --exclude-dir=implementation/primaries/ImportOnlineDBs/tests
+    - codeclimate-test-reporter
 
 os:
 - linux
