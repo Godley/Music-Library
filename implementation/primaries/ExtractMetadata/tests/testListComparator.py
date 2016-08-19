@@ -16,10 +16,14 @@ class TestListComparator(unittest.TestCase):
             folder=self.current)
 
     def testGetListFromFolder(self):
-        self.assertEqual(
-            self.folderBrowser.getFolderFiles(), {
+        expected = {
                 "xml": [
-                    "file1.xml", "file3.xml"], "mxl": ["file5.mxl"]})
+                    "file1.xml", "file3.xml"], "mxl": ["file5.mxl"]}
+        results = self.folderBrowser.getFolderFiles()
+        for key in expected:
+            self.assertIn(key, results)
+            for elem in expected[key]:
+                self.assertIn(elem, results[key])
 
     def testComparatorWithMultipleFolders(self):
         current = os.path.join(self.folder, 'folder_tests_2')
