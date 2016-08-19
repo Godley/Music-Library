@@ -11,7 +11,7 @@ from implementation.primaries.ExtractMetadata.classes.helpers import get_set_of_
 from MuseParse.classes.Output import LilypondOutput
 from MuseParse.classes import Exceptions
 from MuseParse.classes.Input import MxmlParser
-from Application import LOG_NAME
+from implementation.primaries.globals import LOG_NAME
 import logging
 
 logger = logging.getLogger(LOG_NAME)
