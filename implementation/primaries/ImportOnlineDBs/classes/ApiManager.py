@@ -67,7 +67,7 @@ class ApiManager(object):
         '''
         status = 0
         if source in self.sources:
-            status = self.sources[source][0].download_file(
+            status = self.sources[source][0].downloadFile(
                 file, secret, type=extension)
         else:
             status = 4004
