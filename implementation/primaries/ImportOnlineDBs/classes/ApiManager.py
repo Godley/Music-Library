@@ -50,7 +50,7 @@ class ApiManager(object):
                 id = file
                 secret = dataset[source_id][id]["secret"]
                 status = self.sources[source_id][
-                    0].download_file(id, secret, type=extension)
+                    0].downloadFile(id, secret, type=extension)
                 if(status == 200):
                     location = os.path.join(id + "." + extension)
                     data_list.append(location)
