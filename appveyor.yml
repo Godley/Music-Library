@@ -37,7 +37,7 @@ install:
   - REG ADD HKCU\Software\Python\PythonCore\3.4\InstallPath /f /ve /t REG_SZ /d C:\Python34
 
   # Download PyQt5 with 10min timeout, rename to pyqt5_installer.exe, and install
-  - ps: Start-FileDownload 'http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/PyQt4-4.11.4-gpl-Py3.4-Qt4.8.7-x64.exe' -FileName pyqt4_installer.exe -Timeout 600000
+  - ps: Start-FileDownload 'http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/PyQt4-4.11.4-gpl-Py3.4-Qt4.8.7-x32.exe' -FileName pyqt4_installer.exe -Timeout 600000
   - cmd: pyqt4_installer.exe /S
   - cmd: python -c "import PyQt4"
   
