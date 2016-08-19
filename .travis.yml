@@ -25,7 +25,7 @@ matrix:
           env: TOXENV=py35
 sudo: required
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo bash ./.travis/install.sh         ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo bash ./.travis/osx.sh         ; fi
 install:
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo bash ./.travis/install.sh         ; fi
   - pip3 install -r requirements.txt
