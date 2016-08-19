@@ -49,6 +49,7 @@ install:
 build: off
 
 test_script:
-  - "nosetests --logging-level=WARNING"
+# temporary measure: disable online tests because the results vary
+  - "nosetests --logging-level=WARNING --exclude-dir=implementation/primaries/ImportOnlineDBs/tests"
 
 
