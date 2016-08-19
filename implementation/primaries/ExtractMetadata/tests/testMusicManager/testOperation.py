@@ -27,7 +27,7 @@ class TestMusicManager(unittest.TestCase):
 
     def testParseFile(self):
         self.manager.parseNewFiles(["testcase2.xml"])
-        result = self.manager.getPieceInfo(["testcase2.xml"])
+        result = self.manager.getPieceInfo(["testcase2.xml"])[0]
         expected_result = {'filename': 'testcase2.xml',
                            'keys': {'Piano': ['D major']},
                            'tempos': ['half=quarter',
@@ -40,7 +40,29 @@ class TestMusicManager(unittest.TestCase):
                            'lyricist': 'fran godley',
                            'instruments': {hashdict(name='Piano', chromatic=0, diatonic=0)},
                            'timesigs': ['4/4']}
-        self.assertDictEqual(result[0], expected_result)
+
+        for key in expected_result:
+            self.assertIn(key, result)
+            self.assertEqual(type(result[key]), type(expected_result[key]))
+            if type(expected_result[key]) == dict:
+                for elem in expected_result[key]:
+                    self.assertIn(elem, result[key])
+                    self.assertEqual(type(result[key]), type(expected_result[key]))
+
+                    if type(expected_result[key][elem]) == list:
+                        for member in expected_result[key][elem]:
+                            self.assertIn(member, result[key][elem])
+
+                    else:
+                        self.assertEqual(result[key][elem], expected_result[key][elem])
+
+            elif type(expected_result[key]) is list:
+                for elem in expected_result[key]:
+                    self.assertIn(elem, result[key])
+
+            else:
+                self.assertEqual(result[key], expected_result[key])
+
         self.assertEqual(
             ["testcase2.xml"], self.manager.getFileList())
 
