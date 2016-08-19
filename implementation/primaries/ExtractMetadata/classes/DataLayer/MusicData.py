@@ -51,7 +51,7 @@ from .helpers import extendJoinQuery, do_online_offline_query, get_if_exists, \
     filter_dict
 from ..hashdict import hashdict
 from ..helpers import init_kv
-
+import copy
 
 class TempoParser(object):
     converter = {"crotchet": "quarter",
@@ -846,16 +846,21 @@ class MusicData(TableManager.TableManager):
         data = set(cursor.fetchall())
         return data
 
-    def getInstrumentByTransposition(self, transposition, online=False):
+    def getInstrumentsByTransposition(self, transposition, online=False):
         connection, cursor = self.connect()
         data = []
+        trans_copy = copy.deepcopy(transposition)
         instrument_query = 'SELECT ROWID, name FROM instruments WHERE'
-        keys = list(transposition.keys())
+        if "name" in trans_copy:
+            trans_copy.pop("name")
+        if "octave" in trans_copy:
+            trans_copy.pop("octave")
+        keys = list(trans_copy.keys())
         for index in range(len(keys)):
             instrument_query += ' ' + keys[index] + "=?"
             if index != len(keys) - 1:
                 instrument_query += ' AND'
-            data.append(transposition[keys[index]])
+            data.append(trans_copy[keys[index]])
 
         cursor.execute(instrument_query, tuple(data))
         instruments = cursor.fetchall()
@@ -881,7 +886,7 @@ class MusicData(TableManager.TableManager):
             query += ''' (SELECT * FROM instruments_piece_join WHERE piece_id = i.piece_id AND instrument_id = ?'''
             for value in instrument[1]:
                 query_input.append(value['rowid'])
-                query += ''' OR instrument_id =?'''
+                query += ''' OR instrument_id = ?'''
             query += ''')'''
             if instrument != alternates[-1]:
                 query += " AND EXISTS"
@@ -912,7 +917,10 @@ class MusicData(TableManager.TableManager):
             key = self.getInstrumentId(elem["name"])
             if key is not -1:
                 instrument_keys.append((elem, key))
-                alternates.append(((elem, key), self.getInstrumentsBySameTranspositionAs(elem['name'])))
+                if key is not None:
+                    alternates.append(((elem, key), self.getInstrumentsBySameTranspositionAs(elem['name'])))
+                else:
+                    alternates.append(((elem, key), self.getInstrumentsByTransposition(elem)))
         results = self.getPiecesByInstruments(
             [instrument["name"] for instrument in instruments])
         if len(results) == 0:

@@ -191,7 +191,7 @@ class TestDataLayerUserQueries(unittest.TestCase):
                                    "diatonic": -1,
                                  "chromatic": -2}])
         self.assertEqual([hashdict(rowid=1, name='clarinet'),
-                          hashdict(rowid=2, name='trumpet')], self.data.getInstrumentByTransposition(
+                          hashdict(rowid=2, name='trumpet')], self.data.getInstrumentsByTransposition(
             {"diatonic": -1, "chromatic": -2}))
 
     def testFindSimilarInstruments(self):
@@ -239,14 +239,15 @@ class TestDataLayerUserQueries(unittest.TestCase):
                         "name": "violin", "diatonic": 0, "chromatic": 0}]})
         self.data.addInstruments(
             [{"name": "flute", "diatonic": 0, "chromatic": 0}])
-        self.assertEqual(["file.xml"],
-                         self.data.getPieceByInstrumentsOrSimilar([{"name": "flute"},
+        result = self.data.getPieceByInstrumentsOrSimilar([{"name": "flute"},
                                                                    {"name":
                                                                        "clarinet"},
                                                                    {"name": "trumpet",
                                                                     "diatonic": 1,
                                                                     "chromatic": 2,
-                                                                    "octave": 0}]))
+                                                                    "octave": 0}])
+        self.assertEqual(["file.xml"],
+                         result)
 
     def testFindByModularity(self):
         self.data.addPiece("file.xml", {"instruments": [{"name": "clarinet"}], "key": {
