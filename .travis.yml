@@ -32,7 +32,7 @@ install:
 
 
 script:
-    - python3 -m "nose" --logging-level=WARNING --exclude-dir=implementation/primaries/ImportOnlineDBs/tests
+    - python3 -m "nose" --logging-level=WARNING --with-coverage --cover-xml --exclude-dir=implementation/primaries/ImportOnlineDBs/tests
     - codeclimate-test-reporter
 
 os:
