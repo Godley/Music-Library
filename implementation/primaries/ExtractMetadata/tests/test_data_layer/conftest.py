@@ -6,7 +6,7 @@ def db():
     return "sqlite:///:memory:"
 
 @pytest.fixture()
-def querylayer(db):
+def qlayer(db):
     elem = QueryLayer(db)
     elem.setup()
     return elem

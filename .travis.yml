@@ -21,7 +21,7 @@ install:
 
 
 script:
-    - py.test --cov-report xml
+    - py.test --cov-report xml:.coverage
     - codeclimate-test-reporter
 
 os:
