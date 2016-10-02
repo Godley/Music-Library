@@ -9,69 +9,75 @@ testDataLayerOnlineSearching: anything relating to the diff between each method 
                                 This is to confirm that API searching does not get mixed up with local searching
 """
 import unittest
-from implementation.primaries.ExtractMetadata.classes.DataLayer.MusicData import MusicData
+from implementation.primaries.ExtractMetadata.classes.DataLayer.musicdata import MusicData
 import os
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
-class TestDataLayerGeneral(unittest.TestCase):
+import pytest
 
-    def setUp(self):
-        self.data = MusicData("example.db")
 
-    def tearDown(self):
-        os.remove("example.db")
-
-    def testGetAllPieces(self):
-        self.data.addPiece("file.xml", {})
-        self.data.addPiece("file2.xml", {})
+class TestSuiteDataLayerGeneral(object):
+    def test_get_all_pieces(self, mlayer, dummy):
+        mlayer.add_piece("file.xml", dummy)
+        mlayer.add_piece("file2.xml", dummy)
         expecting = ["file.xml", "file2.xml"]
-        result = self.data.getFileList()
+        result = mlayer.get_file_list()
         for item in expecting:
-            self.assertTrue(item in result)
+            assert item in result
 
-    def testGetAllPiecesWhereNoneExist(self):
-        self.assertEqual([], self.data.getFileList())
+    def test_get_all_pieces_where_none_exists(self, mlayer):
+        assert mlayer.get_file_list() == []
 
-    def testFindPieceByFname(self):
-        self.data.addPiece("file.xml", {})
-        self.assertDictEqual(
-            {'rowid': 1, 'filename': "file.xml", "title":'', 'composer_id': -1, 'lyricist_id': -1}, self.data.getExactPiece("file.xml"))
+    def testFindAllInfoForAPiece(self, mlayer, dummy, dummy_res):
+        data = {"tempos": [{"beat": "quarter", "beat_2": "half"}]}
+        data.update(dummy)
+        mlayer.add_piece("file.xml", data)
+        entry = {"tempos": ["quarter=half"],
+                 "filename":"file.xml",
+                 }
+        entry.update(dummy_res)
+        result = mlayer.get_all_piece_info(["file.xml"])
+        assert entry == result[0]
 
-    def testFindAllInfoForAPiece(self):
-        self.data.addPiece(
-            "file.xml", {"tempo": [{"beat": "quarter", "beat_2": "half"}]})
-        self.assertEqual([{"tempos": ["quarter=half"],
-                           "filename":"file.xml"}],
-                         self.data.getAllPieceInfo(["file.xml"]))
+    def testFindAllInfoForAPieceWhereHasKeys(self, mlayer, dummy, dummy_res):
+        data = {"instruments": [{"name": "wibble"}], "keys": {
+                           "wibble": [{"mode": "major", "fifths": 2, "name": 'D major'}]}}
+        data['clefs'] = dummy['clefs']
+        mlayer.add_piece("file.xml", data)
 
-    def testFindAllInfoForAPieceWhereHasKeys(self):
-        self.data.addPiece("file.xml", {"instruments": [{"name": "clarinet"}], "key": {
-                           "clarinet": [{"mode": "major", "fifths": 2}]}})
-        results = self.data.getAllPieceInfo(["file.xml"])
-        exp = {"instruments": {hashdict(name='clarinet',
-                                                    diatonic=0,
-                                                    chromatic=0)},
-                           "keys": {"clarinet": ["D major"]},
+        results = mlayer.get_all_piece_info(["file.xml"])
+        exp = {"instruments": dummy_res['instruments'],
+                           "keys": {"wibble": ["D major"]},
                            "filename":"file.xml"}
-        self.assertDictEqual(results[0], exp)
+        exp['clefs'] = dummy_res['clefs']
+        assert results[0] == exp
 
-    def testFindAllInfoForAPieceWhereHasClefs(self):
-        self.data.addPiece("file.xml", {"instruments": [{"name": "clarinet"}], "clef": {
-                           "clarinet": [{"sign": "G", "line": 2}]}})
-        exp = {"instruments": {hashdict(name="clarinet",chromatic=0,diatonic=0)},
-               "clefs": {"clarinet": ["treble"]},
+    def testFindAllInfoForAPieceWhereHasClefs(self, mlayer, dummy, dummy_res):
+        data = {"instruments": [{"name": "wibble"}], "clefs": {
+                           "wibble": [{"sign": "G", "line": 2}]}}
+        data['keys'] = dummy['keys']
+        mlayer.add_piece("file.xml", data)
+
+        exp = {"instruments": dummy_res['instruments'],
+               "clefs": {"wibble": ["treble"]},
                "filename":"file.xml"}
-        result = self.data.getAllPieceInfo(["file.xml"])
-        self.assertDictEqual(result[0], exp)
+        exp['keys'] = dummy_res['keys']
+        result = mlayer.get_all_piece_info(["file.xml"])
+        assert exp == result[0]
 
-    def testFindAllInfoForAPieceWhereHasTransposedInstruments(self):
-        self.data.addPiece("file.xml", {"instruments": [
-                           {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
-        exp = {"instruments": {hashdict(name="clarinet",
+    def testFindAllInfoForAPieceWhereHasTransposedInstruments(self, mlayer, dummy, dummy_res):
+        data = {"instruments": [
+                           {"name": "wibble", "diatonic": -1, "chromatic": -2}]}
+        data['keys'] = dummy['keys']
+        data['clefs'] = dummy['clefs']
+        mlayer.add_piece("file.xml", data)
+        exp = {"instruments": [hashdict(name="wibble",
                                         diatonic=-1,
-                                        chromatic=-2)},
+                                        chromatic=-2)],
                'filename': 'file.xml'}
-        result = self.data.getAllPieceInfo(["file.xml"])
-        self.assertDictEqual(result[0], exp)
+        exp['keys'] = dummy_res['keys']
+        exp['clefs'] = dummy_res['clefs']
+        result = mlayer.get_all_piece_info(["file.xml"])
+        assert result[0] == exp
 
 
 

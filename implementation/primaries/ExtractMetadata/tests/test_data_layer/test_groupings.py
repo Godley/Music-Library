@@ -1,109 +1,101 @@
 import unittest
-from implementation.primaries.ExtractMetadata.classes.DataLayer.MusicData import MusicData
+from implementation.primaries.ExtractMetadata.classes.DataLayer.musicdata import MusicData
 import os
 
-class TestDataLayerGeneratePlaylists(unittest.TestCase):
-
-    def setUp(self):
-        self.data = MusicData("example.db")
-
-    def tearDown(self):
-        os.remove("example.db")
-
-    def testFindAllPiecesByAllKeys(self):
-        self.data.addPiece("file.xml", {"key": {
+class TestSuiteDataLayerGeneratePlaylists(unittest.TestCase):
+    def testFindAllPiecesByAllKeys(self, mlayer):
+        mlayer.add_piece("file.xml", {"key": {
                            "clari": [{"mode": "major", "fifths": 0}]}, "instruments": [{"name": "clari"}]})
-        self.data.addPiece("file2.xml", {"key": {
+        mlayer.add_piece("file2.xml", {"key": {
                            "clari": [{"mode": "major", "fifths": 0}]}, "instruments": [{"name": "clari"}]})
-        self.data.addPiece("file1.xml", {"key": {
+        mlayer.add_piece("file1.xml", {"key": {
                            "clari": [{"mode": "major", "fifths": 1}]}, "instruments": [{"name": "clari"}]})
-        self.data.addPiece("file3.xml", {"key": {
+        mlayer.add_piece("file3.xml", {"key": {
                            "clari": [{"mode": "major", "fifths": 1}]}, "instruments": [{"name": "clari"}]})
-        self.assertEqual({"C major": ["file.xml",
+        expected = {"C major": ["file.xml",
                                       "file2.xml"],
                           "G major": ["file1.xml",
-                                      "file3.xml"]},
-                         self.data.get_piece_by_all_elem(elem='keys'))
+                                      "file3.xml"]}
+        assert mlayer.get_piece_by_all_elem(elem='keys') == expected
 
-    def testFindAllPiecesByAllClefs(self):
-        self.data.addPiece("file.xml", {"clef": {
+    def testFindAllPiecesByAllClefs(self, mlayer):
+        mlayer.add_piece("file.xml", {"clef": {
                            "clari": [{"sign": "G", "line": 2}]}, "instruments": [{"name": "clari"}]})
-        self.data.addPiece("file3.xml", {"clef": {
+        mlayer.add_piece("file3.xml", {"clef": {
                            "clari": [{"sign": "G", "line": 2}]}, "instruments": [{"name": "clari"}]})
-        self.data.addPiece("file1.xml", {"clef": {
+        mlayer.add_piece("file1.xml", {"clef": {
                            "clari": [{"sign": "F", "line": 4}]}, "instruments": [{"name": "clari"}]})
-        self.data.addPiece("file2.xml", {"clef": {
+        mlayer.add_piece("file2.xml", {"clef": {
                            "clari": [{"sign": "F", "line": 4}]}, "instruments": [{"name": "clari"}]})
-        self.assertEqual({"treble": ["file.xml",
+        expected = {"treble": ["file.xml",
                                      "file3.xml"],
                           "bass": ["file1.xml",
-                                   "file2.xml"]},
-                         self.data.get_piece_by_all_elem(elem='clefs'))
+                                   "file2.xml"]}
+        assert mlayer.get_piece_by_all_elem(elem='clefs') == expected
 
-    def testFindAllPiecesByAllTimeSigs(self):
-        self.data.addPiece("file.xml", {"time": [{"beat": 4, "type": 4}]})
-        self.data.addPiece("file1.xml", {"time": [{"beat": 4, "type": 4}]})
-        self.assertEqual(
-            {"4/4": ["file.xml", "file1.xml"]}, self.data.getPiecesByAllTimeSigs())
+    def testFindAllPiecesByAllTimeSigs(self, mlayer):
+        mlayer.add_piece("file.xml", {"time": [{"beat": 4, "type": 4}]})
+        mlayer.add_piece("file1.xml", {"time": [{"beat": 4, "type": 4}]})
+        expected = {"4/4": ["file.xml", "file1.xml"]}
+        assert expected == mlayer.getPiecesByAllTimeSigs()
 
-    def testFindAllPiecesByAllTempos(self):
-        self.data.addPiece(
+    def testFindAllPiecesByAllTempos(self, mlayer):
+        mlayer.add_piece(
             "file.xml", {"tempo": [{"beat": "quarter", "minute": 100}]})
-        self.data.addPiece(
+        mlayer.add_piece(
             "file3.xml", {"tempo": [{"beat": "quarter", "minute": 100}]})
-        self.data.addPiece(
+        mlayer.add_piece(
             "file1.xml", {"tempo": [{"beat": "quarter", "beat_2": "eighth"}]})
-        self.data.addPiece(
+        mlayer.add_piece(
             "file2.xml", {"tempo": [{"beat": "quarter", "beat_2": "eighth"}]})
-        self.assertEqual({"quarter=eighth": ["file1.xml", "file2.xml"], "quarter=100": [
-                         "file.xml", "file3.xml"]}, self.data.getPiecesByAllTempos())
+        expected = {"quarter=eighth": ["file1.xml", "file2.xml"], "quarter=100": [
+                         "file.xml", "file3.xml"]}
+        assert expected == mlayer.getPiecesByAllTempos()
 
-    def testFindAllPiecesByAllInstruments(self):
-        self.data.addPiece(
+    def testFindAllPiecesByAllInstruments(self, mlayer):
+        mlayer.add_piece(
             "file.xml", {"instruments": [{"name": "clarinet"}, {"name": "flute"}]})
-        self.data.addPiece(
+        mlayer.add_piece(
             "file1.xml", {"instruments": [{"name": "clarinet"}]})
-        self.data.addPiece("file2.xml", {"instruments": [{"name": "flute"}]})
-        self.assertEqual({"flute": ["file.xml",
+        mlayer.add_piece("file2.xml", {"instruments": [{"name": "flute"}]})
+        expected = {"flute": ["file.xml",
                                     "file2.xml"],
                           "clarinet": ["file.xml",
-                                       "file1.xml"]},
-                         self.data.getPiecesByAllInstruments())
+                                       "file1.xml"]}
+        assert expected == mlayer.getPiecesByAllInstruments()
 
-    def testFindAllPiecesByAllInstrumentsWithTranspositionsAndUniqueNames(
-            self):
-        self.data.addPiece(
+    def testFindAllPiecesByAllInstrumentsWithTranspositionsAndUniqueNames(self, mlayer):
+        mlayer.add_piece(
             "file.xml", {
                 "instruments": [
                     {
                         "name": "clarinet", "diatonic": 1, "chromatic": 2}, {
                         "name": "flute"}]})
-        self.data.addPiece("file1.xml", {"instruments": [
+        mlayer.add_piece("file1.xml", {"instruments": [
                            {"name": "clarinet", "diatonic": 1, "chromatic": 2}]})
-        self.data.addPiece("file2.xml", {"instruments": [{"name": "flute"}]})
-        result = self.data.getPiecesByAllInstruments()
-        self.assertEqual(
-            {
+        mlayer.add_piece("file2.xml", {"instruments": [{"name": "flute"}]})
+        result = mlayer.getPiecesByAllInstruments()
+        expected = {
                 "flute": [
                     "file.xml",
                     "file2.xml"],
                 "clarinet transposed 1 diatonic 2 chromatic": [
                     "file.xml",
-                    "file1.xml"]},
-            result)
+                    "file1.xml"]}
+        assert result == expected
 
-    def testFindAllPiecesByAllInstrumentsWithTranspositions(self):
-        self.data.addPiece("file.xml",
+    def testFindAllPiecesByAllInstrumentsWithTranspositions(self, mlayer):
+        mlayer.add_piece("file.xml",
                            {"instruments": [{"name": "clarinet"},
                                             {"name": "clarinet",
                                              "diatonic": 1}]})
-        self.data.addPiece(
+        mlayer.add_piece(
             "file1.xml", {"instruments": [{"name": "clarinet"}]})
-        self.data.addPiece("file2.xml",
+        mlayer.add_piece("file2.xml",
                            {"instruments": [{"name": "flute"},
                                             {"name": "clarinet",
                                              "diatonic": 1}]})
-        result = self.data.getPiecesByAllInstruments()
+        result = mlayer.getPiecesByAllInstruments()
         exp = {
                 "clarinet": [
                     "file.xml",
@@ -111,51 +103,51 @@ class TestDataLayerGeneratePlaylists(unittest.TestCase):
                 "clarinet transposed 1 diatonic 0 chromatic": [
                     "file.xml",
                     "file2.xml"]}
-        self.assertEqual(exp, result)
+        assert result == exp
 
-    def testFindAllPiecesByAllComposers(self):
-        self.data.addPiece("file.xml", {"composer": "Charlotte"})
-        self.data.addPiece("file1.xml", {"composer": "Charlie"})
-        self.data.addPiece("file2.xml", {"composer": "Charlie"})
-        self.assertEqual(
-            {"Charlie": ["file1.xml", "file2.xml"]}, self.data.get_piece_by_all_elem(elem='composers'))
+    def testFindAllPiecesByAllComposers(self, mlayer):
+        mlayer.add_piece("file.xml", {"composer": "Charlotte"})
+        mlayer.add_piece("file1.xml", {"composer": "Charlie"})
+        mlayer.add_piece("file2.xml", {"composer": "Charlie"})
+        expected = {"Charlie": ["file1.xml", "file2.xml"]}
+        assert mlayer.get_piece_by_all_elem(elem='composers') == expected
 
-    def testFindAllPiecesByAllLyricists(self):
-        self.data.addPiece("file.xml", {"lyricist": "Charlotte"})
-        self.data.addPiece("file1.xml", {"lyricist": "Charlie"})
-        self.data.addPiece("file2.xml", {"lyricist": "Charlie"})
-        self.assertEqual(
-            {"Charlie": ["file1.xml", "file2.xml"]}, self.data.get_piece_by_all_elem(elem='lyricists'))
+    def testFindAllPiecesByAllLyricists(self, mlayer):
+        mlayer.add_piece("file.xml", {"lyricist": "Charlotte"})
+        mlayer.add_piece("file1.xml", {"lyricist": "Charlie"})
+        mlayer.add_piece("file2.xml", {"lyricist": "Charlie"})
+        exp = {"Charlie": ["file1.xml", "file2.xml"]}
+        assert mlayer.get_piece_by_all_elem(elem='lyricists') == exp
 
-    def testFindAllPiecesByAllKeysWithTransposedInstruments(self):
-        self.data.addPiece("file.xml",
+    def testFindAllPiecesByAllKeysWithTransposedInstruments(self, mlayer):
+        mlayer.add_piece("file.xml",
                            {"key": {"clari": [{"mode": "major",
                                                "fifths": 0}]},
                             "instruments": [{"name": "clari",
                                              "diatonic": 1}]})
-        self.data.addPiece("file1.xml",
+        mlayer.add_piece("file1.xml",
                            {"key": {"clarin": [{"mode": "major",
                                                 "fifths": 1}]},
                             "instruments": [{"name": "clarin"}]})
-        self.data.addPiece("file2.xml",
+        mlayer.add_piece("file2.xml",
                            {"key": {"clarin": [{"mode": "major",
                                                 "fifths": 1}]},
                             "instruments": [{"name": "clarin"}]})
-        self.assertEqual(
-            {"G major": ["file1.xml", "file2.xml"]}, self.data.get_piece_by_all_elem(elem='keys'))
+        exp = {"G major": ["file1.xml", "file2.xml"]}
+        assert mlayer.get_piece_by_all_elem(elem='keys') == exp
 
-    def testArchivePiece(self):
-        self.data.addPiece("file.xml", {"instruments": [
+    def test_archive_piece(self, mlayer):
+        mlayer.add_piece("file.xml", {"instruments": [
                            {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
-        self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 1)
-        self.data.archivePieces(["file.xml"])
-        self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 0)
-        self.assertEqual(len(self.data.getArchivedPieces()), 1)
+        self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 1)
+        mlayer.archivePieces(["file.xml"])
+        self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 0)
+        self.assertEqual(len(mlayer.getArchivedPieces()), 1)
 
-    def testRemovePiece(self):
-        self.data.addPiece("file.xml", {"instruments": [
+    def testRemovePiece(self, mlayer):
+        mlayer.add_piece("file.xml", {"instruments": [
                            {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
-        self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 1)
-        self.data.removePieces(["file.xml"])
-        self.assertEqual(len(self.data.getAllPieceInfo(["file.xml"])), 0)
-        self.assertEqual(len(self.data.getArchivedPieces()), 0)
+        self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 1)
+        mlayer.removePieces(["file.xml"])
+        self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 0)
+        self.assertEqual(len(mlayer.getArchivedPieces()), 0)

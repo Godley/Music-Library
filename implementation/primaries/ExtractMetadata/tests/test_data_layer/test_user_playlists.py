@@ -1,6 +1,6 @@
 import unittest
 import sqlite3
-from implementation.primaries.ExtractMetadata.classes.DataLayer.MusicData import MusicData
+from implementation.primaries.ExtractMetadata.classes.DataLayer.musicdata import MusicData
 import os
 
 
@@ -14,26 +14,26 @@ class TestDataLayerUserPlaylists(unittest.TestCase):
         os.remove("example.db")
 
     def testFetchPlaylist(self):
-        self.data.addPiece("file.xml", {"title": "blabla"})
+        self.data.add_piece("file.xml", {"title": "blabla"})
         self.data.addPlaylist("play", ["file.xml"])
         result = self.data.getAllUserPlaylists()
         self.assertEqual({"play": ["file.xml"]}, result)
 
     def testFetchPlaylistByPiece(self):
-        self.data.addPiece("file.xml", {"title": "blabla"})
+        self.data.add_piece("file.xml", {"title": "blabla"})
         self.data.addPlaylist("play", ["file.xml"])
         result = self.data.getUserPlaylistsForFile("file.xml")
         self.assertEqual({"play": ["file.xml"]}, result)
 
     def testFetchPlaylistByPieceWithMultiplePlaylists(self):
-        self.data.addPiece("file.xml", {"title": "blabla"})
+        self.data.add_piece("file.xml", {"title": "blabla"})
         self.data.addPlaylist("play", ["file.xml"])
         self.data.addPlaylist("play1", ["file.xml"])
         result = self.data.getUserPlaylistsForFile("file.xml")
         self.assertEqual({"play": ["file.xml"], "play1": ["file.xml"]}, result)
 
     def testDeletePlaylistFromTable(self):
-        self.data.addPiece("file.xml", {"title": "blabla"})
+        self.data.add_piece("file.xml", {"title": "blabla"})
         self.data.addPlaylist("play", ["file.xml"])
         self.data.deletePlaylist("play")
         conn = sqlite3.connect('example.db')
@@ -45,7 +45,7 @@ class TestDataLayerUserPlaylists(unittest.TestCase):
         self.assertEqual(result, [])
 
     def testDeletePlaylistFromJoinTable(self):
-        self.data.addPiece("file.xml", {"title": "blabla"})
+        self.data.add_piece("file.xml", {"title": "blabla"})
         self.data.addPlaylist("play", ["file.xml"])
         query = 'SELECT ROWID FROM playlists WHERE name = ?'
         conn = sqlite3.connect('example.db')

@@ -46,12 +46,12 @@ in a new test file.
 
 """
 
-from . import TableManager
+from . import querylayer
 from .helpers import extendJoinQuery, do_online_offline_query, get_if_exists, \
     filter_dict
 from ..hashdict import hashdict
-from ..helpers import init_kv
 import copy
+from .exceptions import BadPieceException
 
 class TempoParser(object):
     converter = {"crotchet": "quarter",
@@ -132,31 +132,16 @@ class TempoParser(object):
         return tempo_string
 
 
-class MusicData(TableManager.TableManager):
+class MusicData(querylayer.QueryLayer):
 
     def __init__(self, database):
         super(MusicData, self).__init__(database)
+        self.setup()
+        self.init_clefs()
+        self.init_keys()
 
-    def addInstruments(self, data):
-        connection, cursor = self.connect()
-        elements = []
-        for item in data:
-            octave = 0
-            diatonic = 0
-            chromatic = 0
-            if "diatonic" in item:
-                diatonic = item["diatonic"]
-            if "chromatic" in item:
-                chromatic = item["chromatic"]
-            item_data = (item["name"], diatonic, chromatic)
-            elements.append(item_data)
-        cursor.executemany('INSERT INTO instruments VALUES(?,?,?)', elements)
-        connection.commit()
-        self.disconnect(connection)
-
-    def getInstrumentNames(self):
-        query = 'SELECT name FROM instruments'
-        results = self.read_all(query)
+    def get_instrument_names(self):
+        results = self.get_all(table="instruments")
         instruments = set([result['name'].lower() for result in results])
         return list(instruments)
 
@@ -293,7 +278,7 @@ class MusicData(TableManager.TableManager):
         query = 'INSERT INTO licenses VALUES(?,?)'
         self.write(query, (piece_id, license,))
 
-    def addPiece(self, filename, data):
+    def add_piece(self, filename, data):
         '''
         method which takes in stuff about a piece and adds it
          to the relevant tables
@@ -307,28 +292,24 @@ class MusicData(TableManager.TableManager):
         composer_id = -1
         lyricist_id = -1
         title = ""
-        method_table = {"key": self.create_key_links,
-                        "clef": self.create_clef_links,
-                        "time": self.create_timesig_links,
-                        "tempo": self.create_tempo_links,
-                        "source": self.set_source,
-                        "secret": self.set_secret,
-                        "license": self.setLicense}
 
         if "title" in data:
             title = data["title"]
             data.pop("title")
 
-        query_input = (filename, title, composer_id, lyricist_id, False)
-        self.write('INSERT INTO pieces VALUES(?,?,?,?,?)', query_input)
-        select_input = (filename,)
-        rowid = self.read_one('SELECT ROWID FROM pieces WHERE filename=?',
-                              select_input)
-        piece_id = rowid["rowid"]
+        query_input = {"filename": filename,
+                       "name": title,
+                       "composer.id": composer_id,
+                       "lyricist.id": lyricist_id,
+                       "archived": False}
+        piece_id = self.add(query_input)[0]
 
+        instruments = None
         if "instruments" in data:
-            self.get_or_create_instruments(data["instruments"], piece_id)
-            data.pop("instruments")
+            data = self.add_instruments_to_piece(data, piece_id)
+
+        else:
+            raise BadPieceException("All pieces must have at least one instrument")
 
         if "id" in data:
             data.pop("id")
@@ -338,15 +319,48 @@ class MusicData(TableManager.TableManager):
             if key in ['lyricist', 'composer']:
                 self.link_creator_to_piece(data[key], piece_id, creator=key)
             else:
-                table_info[key] = method_table[key](data[key], piece_id)
+                for value in data[key]:
+                    self.add_and_link(value, piece_id, table=key)
 
-    def getFileList(self, online=False):
-        connection, cursor = self.connect()
-        query = 'SELECT filename FROM pieces p WHERE p.archived=0'
-        query = do_online_offline_query(query, 'p.ROWID', online=online)
-        cursor.execute(query)
-        results = cursor.fetchall()
-        self.disconnect(connection)
+    def add_instruments_to_piece(self, data, piece_id):
+        result_data = copy.deepcopy(data)
+        for instrument in result_data["instruments"]:
+            name = instrument['name']
+            clef_data = None
+            key_data = None
+            kwargs = {}
+            if "clefs" in data:
+                if name in data["clefs"]:
+                    clef_data = result_data["clefs"][name]
+                    kwargs['clefs'] = clef_data
+                    result_data["clefs"].pop(name)
+                else:
+                    raise BadPieceException("each instrument should have atleast one clef")
+
+            if "keys" in data:
+                if name in data["keys"]:
+                    key_data = result_data["keys"][name]
+                    kwargs['keys'] = key_data
+                    result_data["keys"].pop(name)
+                else:
+                    raise BadPieceException("each instrument should have atleast one key")
+
+            self.add_instrument_to_piece(instrument, piece_id, **kwargs)
+        result_data.pop("instruments")
+        return result_data
+
+    def add_instrument_to_piece(self, data, piece_id, clefs={}, keys={}):
+        ins = self.get_or_add(data, table='instruments')[0]
+        for clef_data in clefs:
+            clef = self.get_or_add(clef_data, table='clefs')[0]
+            self.add({'instruments.id':ins['id'], 'clefs.id': clef['id'], 'piece.id': piece_id}, table='clefs_ins_piece')
+
+        for key_data in keys:
+            key  = self.get_or_add(key_data, table='keys')[0]
+            self.add({'instruments.id':ins['id'], 'keys.id': key['id'], 'piece.id': piece_id}, table='keys_ins_piece')
+
+    def get_file_list(self, online=False):
+        results = self.get_all(table="pieces")
         filelist = set([result['filename'] for result in results])
         return list(filelist)
 
@@ -370,25 +384,6 @@ class MusicData(TableManager.TableManager):
         result = cursor.fetchall()
         self.disconnect(connection)
         return [r['filename'] for r in result]
-
-    def getExactPiece(self, filename, archived=0, online=False):
-        """
-        Method to get piece by exactly the string entered with no wildcards.
-        This is used in cases where user has entered "*.xml" or filename:<this>
-        or for getting a file having found its filename elsewhere.
-
-        Returns 1 metadata collection assuming file names are unique.
-        """
-        connection, cursor = self.connect()
-        thing = (filename, archived,)
-        query = 'SELECT ROWID, filename, title, composer_id, lyricist_id ' \
-                'FROM pieces p WHERE (p.filename=?) AND p.archived=?'
-        query = do_online_offline_query(query, 'p.ROWID', online=online)
-        cursor.execute(query, thing)
-
-        result = cursor.fetchone()
-        self.disconnect(connection)
-        return result
 
     # helper methods which go to specific tables looking for a ROWID
     def getTimeId(self, beats, type, cursor):
@@ -839,12 +834,17 @@ class MusicData(TableManager.TableManager):
         self.disconnect(connection)
         return file_list
 
-    def getInstrumentsByPieceId(self, piece_id, cursor):
-        instrument_query = '''SELECT name, diatonic, chromatic FROM instruments AS i JOIN instruments_piece_join
-                              AS ins ON ins.instrument_id = i.rowid WHERE ins.piece_id = ?'''
-        cursor.execute(instrument_query, (piece_id,))
-        data = set(cursor.fetchall())
-        return data
+    def get_instruments_by_piece_id(self, piece_id):
+        query_one = self.mk_query({'piece.id': piece_id}, table='keys_ins_piece')
+        data = query_one.all()
+        instruments = []
+        for elem in data:
+            results = self.query({"id": elem[0]}, table="instruments")[0]
+            results.pop("id")
+            hashed = hashdict(results)
+            instruments.append(hashed)
+
+        return instruments
 
     def getInstrumentsByTransposition(self, transposition, online=False):
         connection, cursor = self.connect()
@@ -931,23 +931,17 @@ class MusicData(TableManager.TableManager):
 
     # again, helper methods for other methods which just go off and find the
     # joins for specific pieces
-    def get_clefs_or_keys_by_piece_id(self, piece_id, elem='key'):
-        table = {"key": ('SELECT key_id, instrument_id FROM key_piece_join WHERE piece_id=?',
-                        'SELECT keys.name, instruments.name as instrument FROM keys, ' \
-                'instruments WHERE keys.ROWID=? AND instruments.ROWID=?'),
-                 "clef": ('SELECT clef_id, instrument_id FROM clef_piece_join WHERE piece_id=?',
-                            'SELECT clefs.name, instruments.name as instrument FROM clefs, ' \
-                'instruments WHERE clefs.ROWID=? AND instruments.ROWID=?')}
-        elem_ids = set(self.read_all(table[elem][0], (piece_id,)))
+    def get_clefs_or_keys_by_piece_id(self, piece_id, elem='keys'):
+        elem_ids = self.query({'piece.id':piece_id}, table=elem+"_ins_piece")
         data = {}
-        for id in elem_ids:
-            name = self.read_one(table[elem][1], (id['{}_id'.format(elem)], id['instrument_id']))
-            if name is not None:
-                init_kv(data, name['instrument'], init_value=[])
-                data[name['instrument']].append(name['name'])
+        for value in elem_ids:
+            ins = self.query({'id': value['instruments.id']}, table='instruments')[0]
+            res = self.query({'id': value[elem+'.id']}, table=elem)[0]
+            if ins is not None:
+                data.setdefault(ins['name'], []).append(res['name'])
         return data
 
-    def getTimeSigsByPieceId(self, piece_id, cursor):
+    def get_time_sigs_by_piece_id(self, piece_id):
         time_query = 'SELECT time_id FROM time_piece_join WHERE piece_id=?'
         cursor.execute(time_query, (piece_id,))
         time_ids = set(cursor.fetchall())
@@ -974,41 +968,54 @@ class MusicData(TableManager.TableManager):
                 tempos.append(parser.encode(tempo))
         return tempos
 
-    def getFileData(self, filenames, archived=0, online=False):
+    def getFileData(self, filenames, archived=False, online=False):
         file_data = []
         for filename in filenames:
-            piece_tuple = self.getExactPiece(filename, archived, online=online)
+            piece_tuple = self.query({"filename": filename, "archived": archived})[0]
             if piece_tuple is not None:
                 file_data.append(piece_tuple)
         return file_data
 
-    def getAllPieceInfo(self, filenames, archived=0, online=False):
+    def get_all_piece_info(self, filenames, archived=False, online=False):
         file_data = self.getFileData(filenames, archived=archived, online=online)
         files = []
-        connection, cursor = self.connect()
 
         for file in file_data:
             lyricist = ''
             composer = ''
-            index = file["rowid"]
-            composer_id = file["composer_id"]
+            index = file["id"]
+            composer_id = file["composer.id"]
             if composer_id != -1:
-                composer = self.get_creator_name(composer_id)
+                composer = self.query({'creators.id':composer_id}, table='creators')
 
-            lyricist_id = file["lyricist_id"]
+            lyricist_id = file["lyricist.id"]
             if lyricist_id != -1:
-                lyricist = self.get_creator_name(lyricist_id, creator_type='lyricist')
-            elem_data = hashdict({"instruments": self.getInstrumentsByPieceId(index, cursor),
-            "clefs" : self.get_clefs_or_keys_by_piece_id(index, elem='clef'),
+                lyricist = self.query({'creators.id':lyricist_id}, table='creators')
+
+            elem_data = hashdict({"instruments": self.get_instruments_by_piece_id(index),
+            "clefs" : self.get_clefs_or_keys_by_piece_id(index, elem='clefs'),
             "keys": self.get_clefs_or_keys_by_piece_id(index),
-            "timesigs": self.getTimeSigsByPieceId(index, cursor),
-            "tempos": self.getTemposByPieceId(index, cursor),
-            "filename": file["filename"], "title": file["title"],
+            "timesigs": self.get_elem_by_piece_id(index, elem='time_signatures'),
+            "tempos": self.get_elem_by_piece_id(index, elem='tempos'),
+            "filename": file["filename"], "title": file["name"],
             'composer': composer, 'lyricist': lyricist})
             files.append(filter_dict(elem_data))
 
-        self.disconnect(connection)
         return files
+
+    def get_elem_by_piece_id(self, piece_id, elem='tempos'):
+        join_query = self.query({'piece.id': piece_id}, table=elem+'_piece')
+        results = []
+        if elem == 'tempos':
+            parser = TempoParser()
+        else:
+            parser = None
+        for vals in join_query:
+            data = self.query({'id':vals['tempos.id']}, table=elem)[0]
+            result = parser.encode(data)
+            results.append(result)
+        return results
+
 
     def addPlaylist(self, pname, files):
         connection, cursor = self.connect()

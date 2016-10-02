@@ -1,5 +1,5 @@
 import unittest
-from implementation.primaries.ExtractMetadata.classes.DataLayer.MusicData import TempoParser
+from implementation.primaries.ExtractMetadata.classes.DataLayer.musicdata import TempoParser
 
 class TestTempoParser(unittest.TestCase):
     def setUp(self):

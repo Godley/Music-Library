@@ -15,7 +15,7 @@ class Extractor(xml.sax.ContentHandler):
     def startElement(self, name, attrs):
         attribs = {}
         for attrname in attrs.getNames():
-            attrvalue = attrs.get(attrname)
+            attrvalue = attrs.get_all(attrname)
             attribs[attrname] = attrvalue
         self.parent.startTag(name, attribs)
 

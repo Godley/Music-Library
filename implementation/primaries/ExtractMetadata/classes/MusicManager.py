@@ -197,7 +197,7 @@ class QueryLayer(object):
         # check title, composer, lyricist, instruments for matches
         results = {}
         all_matched = True
-        instruments = self._data.getInstrumentNames()
+        instruments = self._data.get_instrument_names()
         instrument_list = []
         for value in search_data["text"]:
             combined = {}
@@ -342,7 +342,7 @@ class QueryLayer(object):
                                            method, creator_type=query, online=False)
 
     def getPieceSummary(self, file_list, sort_method="title", online=False):
-        info = self._data.getAllPieceInfo(file_list, online=online)
+        info = self._data.get_all_piece_info(file_list, online=online)
         ids = ["title","composer","lyricist","filename"]
         summary_strings = []
         for elem in info:
@@ -382,11 +382,11 @@ class QueryLayer(object):
         return summaries
 
     def getPlaylistFileInfo(self, playlist):
-        data = self._data.getAllPieceInfo(playlist)
+        data = self._data.get_all_piece_info(playlist)
         return data
 
     def getFileInfo(self, filename):
-        data = self._data.getAllPieceInfo([filename])
+        data = self._data.get_all_piece_info([filename])
         return data
 
     def updatePlaylistTitle(self, new_title, old_title):
@@ -609,10 +609,10 @@ class MusicManager(QueryLayer):
         self.cleanupApiFiles(result_set)
 
     def addPiece(self, filename, data):
-        self._data.addPiece(filename, data)
+        self._data.add_piece(filename, data)
 
     def getPieceInfo(self, filenames):
-        return self._data.getAllPieceInfo(filenames)
+        return self._data.get_all_piece_info(filenames)
 
     def getFileList(self, online=False):
         return self._data.getFileList(online=online)
@@ -703,7 +703,7 @@ class MusicManager(QueryLayer):
         """
         for file in file_list:
             data_set = self.parseXMLFile(file)
-            self._data.addPiece(file, data_set)
+            self._data.add_piece(file, data_set)
 
     def handleXMLFiles(self):
         """

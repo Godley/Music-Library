@@ -1,3 +1,7 @@
+import pytest
+from implementation.primaries.ExtractMetadata.classes.DataLayer.exceptions import BadTableException
+
+
 class TestSuiteQuerylayer(object):
     def test_insert_piece(self, qlayer):
         data = [{"name": "hello", "filename": "file.xml"}]
@@ -23,21 +27,30 @@ class TestSuiteQuerylayer(object):
         data = [{"name": "C major", "fifths": 0, "mode": "major"}]
         self.result_against_dict(data, qlayer, table="keys")
 
+    def test_add_playlist(self, qlayer):
+        data = [{"name": "gig set", "piece_ids": [0,1,2]}]
+        self.result_against_dict(data, qlayer, table="playlists")
+
+    def test_bad_table(self, qlayer):
+        data = [{"name": "wibble"}]
+        with pytest.raises(BadTableException):
+            qlayer.add(data, table="wibble")
+
     def test_update_piece(self, qlayer):
         data = [{"name": "hello", "archived": False}]
         self.result_against_dict(data, qlayer)
         update_set = data
         update_set[0]["archived"] = True
-        results = list(qlayer.get())
+        results = list(qlayer.get_all())
         qlayer.update(results[0][0], update_set[0])
-        data = qlayer.get()
+        data = qlayer.get_all()
         val = list(data)
         assert val[0]["archived"] == True
 
     def result_against_dict(self, data, qlayer, table="pieces"):
         for entry in data:
             qlayer.add(entry, table=table)
-            results = qlayer.get(table=table)
+            results = qlayer.get_all(table=table)
             listed_res = list(results)
             assert len(listed_res) == len(data)
 
