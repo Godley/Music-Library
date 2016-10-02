@@ -256,13 +256,13 @@ class QueryLayer(object):
             result_data = search_data["instrument"]
 
         if len(result_data) > 0:
-            instrument_data = self._data.getPiecesByInstruments(
+            instrument_data = self._data.get_pieces_by_instruments(
                 result_data, online=online)
             results, all_matched = self.create_results(["Instruments"], [instrument_data])
         return results, all_matched
 
     def handleTempoQueries(self, search_data, online=False):
-        tempo_data = self._data.getPieceByTempo(
+        tempo_data = self._data.get_piece_by_tempo(
                 search_data["tempo"], online=online)
         return self.create_results(["Tempo"], tempo_data)
 
@@ -284,7 +284,7 @@ class QueryLayer(object):
         if len(search_data[query]) > 0:
             instrument_data = []
             if query == 'clef':
-                instrument_data = self._data.getPieceByInstrumentInClefs(
+                instrument_data = self._data.get_piece_by_instrument_in_clefs(
                 search_data[query], online=online)
             elif query == 'key':
                 instrument_data = self._data.getPieceByInstrumentInKeys(

@@ -20,6 +20,29 @@ def mlayer(db):
     return elem
 
 @pytest.fixture()
+def insname():
+    count = 0
+    while True:
+        yield "ins_{}".format(count)
+        count += 1
+
+@pytest.fixture()
+def clef_in(clef_out):
+    return {"name": clef_out}
+
+@pytest.fixture()
+def clef_out():
+    return "treble"
+
+@pytest.fixture()
+def key_in(key_out):
+    return {"name": key_out}
+
+@pytest.fixture()
+def key_out():
+    return "C major"
+
+@pytest.fixture()
 def dummy():
     data = {"instruments": [{"name": "wibble"}], "clefs":{"wibble": [{"name": "treble"}]},
             "keys": {"wibble": [{"name": "C major"}]}}

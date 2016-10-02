@@ -154,6 +154,11 @@ class QueryLayer(object):
         elem = self.get_or_add(data, table=table)[0]
         self.add({table+".id": elem['id'], "piece.id": piece_id}, table=table+"_piece")
 
+    def add_multiple(self, data_list, table="pieces"):
+        ids = []
+        for elem in data_list:
+            ids.append(self.add(elem, table=table))
+
     def add(self, data_dict, table="pieces"):
         if self.validate_table(table):
             query = self.tables[table].insert().values(**data_dict)
@@ -176,6 +181,9 @@ class QueryLayer(object):
             return query
         else:
             raise BadTableException("table {} not in {}".format(table, self.tables.keys()))
+
+    def mk_like_query(self, data, table="pieces"):
+        pass
 
     def get_all(self, table="pieces"):
         if self.validate_table(table):

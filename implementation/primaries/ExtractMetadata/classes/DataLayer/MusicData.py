@@ -111,8 +111,8 @@ class TempoParser(object):
     def decode(self, entry):
         parts = self.splitParts(entry)
         result = {}
-        minute = -1
-        beat_2 = -1
+        minute = None
+        beat_2 = None
         beat = self.parseWord(parts[0])
         try:
             minute = int(parts[1])
@@ -153,14 +153,10 @@ class MusicData(querylayer.QueryLayer):
         return elem_id
 
     def link_creator_to_piece(self, name, piece_id, creator='composer'):
-        s_query = 'SELECT ROWID FROM {}s WHERE name=?'.format(creator)
-        w_query = 'INSERT INTO {}s VALUES(?)'.format(creator)
-        rowid = self.get_or_create_one(s_query, w_query, (name,))
-        if rowid is not None:
-            rowid = rowid['rowid']
-            self.write('UPDATE pieces SET {}_id = ? WHERE ROWID = ?'.
-                       format(creator),
-                       (rowid, piece_id))
+        row = self.get_or_add({"name": name}, table="creators")[0]
+
+        if row is not None:
+            self.update(piece_id, {"{}.id".format(creator): row['id']}, table="pieces")
 
     def get_or_create_instrument(self, instrument):
         diatonic = get_if_exists(instrument, 'diatonic', default=0)
@@ -443,7 +439,7 @@ class MusicData(querylayer.QueryLayer):
             return result['name']
 
     # methods used in querying by user
-    def getPiecesByInstruments(self, instruments, archived=0, online=False):
+    def get_pieces_by_instruments(self, instruments, archived=0, online=False):
         """
         method to get all the pieces containing a certain instrument
         :param instrument: name of instrument
@@ -495,11 +491,11 @@ class MusicData(querylayer.QueryLayer):
          which is matched to a list of all pieces containing every instrument
         requested.
         """
-        all_pieces = self.getPiecesByInstruments(instruments,
+        all_pieces = self.get_pieces_by_instruments(instruments,
                                                  archived=archived,
                                                  online=online)
         any = {"Instrument: "+instrument:
-               self.getPiecesByInstruments([instrument],
+               self.get_pieces_by_instruments([instrument],
                                            archived=archived,
                                            online=online)
                for instrument in instruments}
@@ -509,7 +505,7 @@ class MusicData(querylayer.QueryLayer):
         result.update({key: any[key] for key in any if len(any[key]) > 0})
         return result
 
-    def get_pieces_by_row_id(self, rows, archived=0):
+    def get_pieces_by_row_id(self, rows, archived=False):
         """
         method which takes in a list of rows which are ROWIDs in the
         piece table and returns a list of files
@@ -520,86 +516,40 @@ class MusicData(querylayer.QueryLayer):
         previous = None
         for element in rows:
             if element != previous:
-                result = self.read_one('SELECT filename FROM pieces '
-                                       'WHERE ROWID=? AND archived=?',
-                                       (element['piece_id'], archived))
+                result = self.query({'id': element, 'archived': archived}, table='pieces')[0]
                 if result is not None:
                     file_list.append(result['filename'])
             previous = element
         return file_list
 
-    def get_pieces_by_creator(self, creator, archived=0,
-                              online=False, creator_type='composer'):
-        creator_ids = self.get_creator_id_where_text_in_name(creator,
-                                                             creator_type)
-        file_list = []
-        if len(creator_ids) > 0:
-            query = 'SELECT filename FROM pieces p WHERE p.archived=? AND '
-            query += extendJoinQuery(len(creator_ids),
-                                     'p.{}_id LIKE ?'.format(creator_type),
-                                     ' OR ',
-                                     init_string='(')
-            query = do_online_offline_query(query,
-                                            'p.ROWID',
-                                            online=online)
-            input_list = [archived]
-            input_list.extend(creator_ids)
-            input = tuple(input_list)
-            results = self.read_all(query, input)
-            file_list = [r['filename'] for r in results]
+    def get_pieces_by_creator(self, creator, creator_type='composer', archived=False, online=False):
+        creator_id = self.query({"name": creator}, table="creators")[0]
+        piece_ids = self.query({creator_type+".id": creator_id['id']}, table="pieces")
+        piece_ids = [elem['id'] for elem in piece_ids]
+        file_list = self.get_pieces_by_row_id(piece_ids, archived=archived)
         return file_list
 
     def getPieceByTitle(self, title, *args,
-                        archived=0, online=False, creator_type=None):
+                        archived=False, online=False, creator_type=None):
         """
         method which takes in title of piece and outputs list of
         files named that
         :param title: title of piece
         :return: list of tuples
         """
-        connection, cursor = self.connect()
-        thing = (title, "%" + title + "%", title + "%", "%" + title, archived,)
-        query = 'SELECT * FROM pieces p WHERE (p.title=? OR p.title LIKE ?' \
-                ' OR p.title LIKE ? OR p.title LIKE ?) AND p.archived=?'
-        query = do_online_offline_query(query, 'p.ROWID', online=online)
-        cursor.execute(query, thing)
-        result = cursor.fetchall()
-        result = [r['filename'] for r in result]
-        self.disconnect(connection)
-        return result
+        pieces = self.query({"name": title, "archived": archived}, table="pieces")
+        files = [piece['filename'] for piece in pieces]
+        return files
 
-    def get_piece_by_join(self, data, query_type,
-                          p_id='i.piece_id', archived=0, online=False):
-        options = {"key": {"init_query": 'SELECT i.piece_id FROM key_piece_join '
-                                        'i WHERE EXISTS ' \
-                                        '(SELECT * FROM key_piece_join WHERE '
-                                        'piece_id = i.piece_id AND key_id = ?)',
-                           "extender": ' AND EXISTS (SELECT * FROM key_piece_join '
-                                       'WHERE piece_id = i.piece_id AND key_id = ?)'
-                        , "p_id": 'i.piece_id',
-                           "method":self.get_elem_id},
-                   "clef": {"init_query": 'SELECT i.piece_id FROM clef_piece_join '
-                                          'i WHERE EXISTS (SELECT * FROM clef_piece_join '
-                                          'WHERE piece_id = i.piece_id AND clef_id = ?)',
-                            "extender": ' AND EXISTS (SELECT * FROM clef_piece_join '
-                                        'WHERE piece_id = i.piece_id AND clef_id = ?)',
-                            "p_id": "i.piece_id",
-                            "method": self.get_elem_id}}
-        connection, cursor = self.connect()
-        data = [options[query_type]["method"](elem, query_type)
-                for elem in data]
-        query = options[query_type]["init_query"]
-        for i in range(1, len(data)):
-            query += options[query_type]["extender"]
-        query = do_online_offline_query(query,
-                                        options[query_type]["p_id"],
-                                        online=online)
-        query += ";"
-        input = tuple(data)
-        cursor.execute(query, input)
-        results = cursor.fetchall()
-        file_list = self.get_pieces_by_row_id(results)
-        self.disconnect(connection)
+    def get_piece_by_join(self, data, table, archived=False, online=False):
+        results = []
+        for value in data:
+            key = self.query(value, table=table)[0]
+            piece_ids = self.query({table+'.id': key['id']}, table=table+"_ins_piece")
+            piece_ids = [elem['piece.id'] for elem in piece_ids]
+            results.extend(piece_ids)
+        results = set(results)
+        file_list = self.get_pieces_by_row_id(results, archived=archived)
         return file_list
 
     def getPiecesByModularity(self, modularity, archived=0, online=False):
@@ -610,14 +560,14 @@ class MusicData(querylayer.QueryLayer):
         :param online:
         :return:
         """
-        query = 'SELECT key_piece.piece_id FROM keys k, key_piece_join ' \
-                'key_piece WHERE k.mode = ? AND key_piece.key_id = k.ROWID'
-
-        query = do_online_offline_query(query,
-                                        'key_piece.piece_id',
-                                        online=online)
-        key_set = self.read_all(query, (modularity,))
-        file_list = self.get_pieces_by_row_id(key_set)
+        keys = self.query({"mode": modularity}, table="keys")
+        pieces = []
+        for key in keys:
+            piece_ids = self.query({"keys.id":key['id']}, table="keys_ins_piece")
+            piece_ids = [elem['piece.id'] for elem in piece_ids]
+            pieces.extend(piece_ids)
+        pieces = set(pieces)
+        file_list = self.get_pieces_by_row_id(pieces)
         return file_list
 
     # playlist queries
@@ -752,7 +702,7 @@ class MusicData(querylayer.QueryLayer):
             file_list = self.get_pieces_by_row_id(results, archived)
         return file_list
 
-    def getPieceByInstrumentInClefs(self, data, archived=0, online=False):
+    def get_piece_by_instrument_in_clefs(self, data, archived=0, online=False):
         connection, cursor = self.connect()
         tuple_data = list(data.keys())
         file_list = []
@@ -773,65 +723,41 @@ class MusicData(querylayer.QueryLayer):
 
 
 
-    def getPieceByMeter(self, meters, archived=0, online=False):
-        meter_list = []
+    def getPieceByMeter(self, meters, archived=False, online=False):
+        results = set()
         for meter in meters:
             if "/" in meter:
                 values = meter.split("/")
                 beat = int(values[0])
                 b_type = int(values[1])
-                meter_list.append((beat, b_type))
-        connection, cursor = self.connect()
-        time_ids = [
-            self.getTimeId(
-                meter[0],
-                meter[1],
-                cursor) for meter in meter_list]
-        query = 'SELECT i.piece_id FROM time_piece_join i WHERE EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
-        query = do_online_offline_query(query, 'i.piece_id', online=online)
-
-        for i in range(1, len(time_ids)):
-            query += ' AND EXISTS (SELECT * FROM time_piece_join WHERE piece_id = i.piece_id AND time_id = ?)'
-
-        query += ";"
-        input = tuple(time_ids)
-        cursor.execute(query, input)
-        results = cursor.fetchall()
+                result = self.query({"beat":beat, "beat_type":b_type}, table="time_signatures")[0]['id']
+                # TODO bounds check
+                join = self.query({"time_signatures.id":result}, table="time_signatures_piece")
+                data = {elem['piece.id'] for elem in join}
+                if len(results) > 0:
+                    results = set.intersection(results, data)
+                else:
+                    results = set(data)
         file_list = self.get_pieces_by_row_id(results, archived)
-        self.disconnect(connection)
         return file_list
 
 
 
-    def getPieceByTempo(self, tempos, archived=0, online=False):
+    def get_piece_by_tempo(self, tempos, archived=False, online=False):
+        pieces = []
         tempo_list = []
-        tempo_tuple_list = []
-        dot_count = 0
-        converter = {
-            "crotchet": "quarter",
-            "quaver": "eighth",
-            "minim": "half",
-            "semibreve": "whole"}
         parser = TempoParser()
         for tempo in tempos:
             result = parser.decode(tempo)
-            tempo_list.append((result['beat'], result['minute'], result['beat_2']))
-        connection, cursor = self.connect()
-        tempo_ids = [
-            self.getTempoId(
-                tempo[0],
-                tempo[1],
-                tempo[2]) for tempo in tempo_list]
-        query = 'SELECT i.piece_id FROM tempo_piece_join i WHERE EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
-        for i in range(1, len(tempo_ids)):
-            query += ' AND EXISTS (SELECT * FROM tempo_piece_join WHERE piece_id = i.piece_id AND tempo_id = ?)'
-        query = do_online_offline_query(query, 'i.piece_id', online=online)
-        query += ";"
-        input = tuple(tempo_ids)
-        cursor.execute(query, input)
-        results = cursor.fetchall()
-        file_list = self.get_pieces_by_row_id(results)
-        self.disconnect(connection)
+            tempo_list.append(result)
+        tempo_ids = [self.query(tempo, table="tempos")[0] for tempo in tempo_list]
+        for elem in tempo_ids:
+            res = self.query({'tempos.id':elem['id']}, table='tempos_piece')
+            res = [elem['piece.id'] for elem in res]
+            pieces.append(res)
+        pieces = set(*pieces)
+        pieces = set.intersection(pieces)
+        file_list = self.get_pieces_by_row_id(pieces)
         return file_list
 
     def get_instruments_by_piece_id(self, piece_id):
@@ -847,25 +773,8 @@ class MusicData(querylayer.QueryLayer):
         return instruments
 
     def getInstrumentsByTransposition(self, transposition, online=False):
-        connection, cursor = self.connect()
-        data = []
-        trans_copy = copy.deepcopy(transposition)
-        instrument_query = 'SELECT ROWID, name FROM instruments WHERE'
-        if "name" in trans_copy:
-            trans_copy.pop("name")
-        if "octave" in trans_copy:
-            trans_copy.pop("octave")
-        keys = list(trans_copy.keys())
-        for index in range(len(keys)):
-            instrument_query += ' ' + keys[index] + "=?"
-            if index != len(keys) - 1:
-                instrument_query += ' AND'
-            data.append(trans_copy[keys[index]])
-
-        cursor.execute(instrument_query, tuple(data))
-        instruments = cursor.fetchall()
-        self.disconnect(connection)
-        return instruments
+        result = self.query(transposition, table="instruments")
+        return result
 
     def getInstrumentsBySameTranspositionAs(self, instrument):
         connection, cursor = self.connect()
@@ -921,7 +830,7 @@ class MusicData(querylayer.QueryLayer):
                     alternates.append(((elem, key), self.getInstrumentsBySameTranspositionAs(elem['name'])))
                 else:
                     alternates.append(((elem, key), self.getInstrumentsByTransposition(elem)))
-        results = self.getPiecesByInstruments(
+        results = self.get_pieces_by_instruments(
             [instrument["name"] for instrument in instruments])
         if len(results) == 0:
             file_list = self.getPieceByAlternateInstruments(cursor, alternates, archived, online)

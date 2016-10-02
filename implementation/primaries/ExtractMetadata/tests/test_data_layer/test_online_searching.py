@@ -46,7 +46,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                            {"composer": "blabla",
                             "source": "MuseScore",
                             "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPiecesByInstruments(["Clarinet"])
+        result_set = self.data.get_pieces_by_instruments(["Clarinet"])
         self.assertEqual(result_set, [])
 
     def testGetPieceByInstrumentsOnline(self):
@@ -54,7 +54,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                            {"composer": "blabla",
                             "source": "MuseScore",
                             "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPiecesByInstruments(
+        result_set = self.data.get_pieces_by_instruments(
             ["Clarinet"],
             online=True)
         self.assertEqual(result_set, ['file.xml'])
@@ -385,7 +385,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                             "clef": {"Clarinet": [{"sign": "G",
                                                    "line": 2}]},
                                "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPieceByInstrumentInClefs(
+        result_set = self.data.get_piece_by_instrument_in_clefs(
             {"Clarinet": ["treble"]})
         self.assertEqual(result_set, [])
 
@@ -396,7 +396,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                             "clef": {"Clarinet": [{"sign": "G",
                                                    "line": 2}]},
                                "instruments": [{"name": "Clarinet"}]})
-        result_set = self.data.getPieceByInstrumentInClefs(
+        result_set = self.data.get_piece_by_instrument_in_clefs(
             {"Clarinet": ["treble"]}, online=True)
         self.assertEqual(result_set, ['file.xml'])
 
@@ -417,7 +417,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                            "title": "blabla",
                            "source": "MuseScore",
                            "tempo": [{"beat": "quarter", "minute": 100}]})
-        result_set = self.data.getPieceByTempo(["quarter=100"])
+        result_set = self.data.get_piece_by_tempo(["quarter=100"])
         self.assertEqual(result_set, [])
 
     def testGetPieceByTempoOnline(self):
@@ -425,7 +425,7 @@ class TestDataLayerOnlineSearching(unittest.TestCase):
                            "title": "blabla",
                            "source": "MuseScore",
                            "tempo": [{"beat": "quarter", "minute": 100}]})
-        result_set = self.data.getPieceByTempo(["quarter=100"], online=True)
+        result_set = self.data.get_piece_by_tempo(["quarter=100"], online=True)
         self.assertEqual(result_set, ['file.xml'])
 
     def testGetPieceByInstrumentsOrSimilarOffline(self):
