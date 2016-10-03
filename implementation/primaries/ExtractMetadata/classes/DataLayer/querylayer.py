@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, update
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.sql.expression import exists, alias, select
+from sqlalchemy.sql.expression import exists, alias, select, or_
 
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, Boolean
 from .exceptions import BadTableException
@@ -190,21 +190,31 @@ class QueryLayer(object):
             first = True
             for elem in data:
                 query = _table.select()
-                for key in elem:
-                    col = getattr(_table.columns, key)
-                    expr = (col == elem[key])
-                    query = query.where(expr)
-                if first:
-                    first = False
-                else:
-                    alias_filter = getattr(nxtalias.columns, filter_col)
-                    query = query.where(alias_filter == _filter_col)
-                q = q.where(exists(query))
                 nxtalias = alias(_table)
+                for key in elem:
+                    col = getattr(nxtalias.columns, key)
+
+                    if type(elem[key]) is not list:
+                        expr = (col == elem[key])
+                    else:
+                        expr = col == elem[key][0]
+                        for val in elem[key][1:]:
+                            expr = or_(expr, (col==val))
+                    query = query.where(expr)
+
+                alias_filter = getattr(nxtalias.columns, filter_col)
+                query = query.where(alias_filter == _filter_col)
+                q = q.where(exists(query))
+
             result_prox = self.execute(q)
-            return [elem[0] for elem in result_prox]
+            return set([elem[0] for elem in result_prox])
         else:
             raise BadTableException("table {} not in {}".format(table, self.tables.keys()))
+
+    def get_ids_for_like(self, data, table="pieces"):
+        result = self.like(data, table="instruments")
+        ids = [elem['id'] for elem in result]
+        return ids
 
     def query(self, data, table="pieces"):
         if self.validate_table(table):

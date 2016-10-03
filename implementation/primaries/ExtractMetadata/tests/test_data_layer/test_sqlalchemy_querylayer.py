@@ -55,7 +55,7 @@ class TestSuiteQuerylayer(object):
         yes2.update(base)
         qlayer.add({"name": "world, hello"}, table="pieces")
         qlayer.add({"name": "hello"}, table="pieces")
-        data = {"name": "hello"}
+        data = {"name": "%hello"}
         result = qlayer.like(data, table="pieces")
         assert len(result) == 2
         assert yes in result
@@ -87,6 +87,27 @@ class TestSuiteQuerylayer(object):
         assert len(result) == 1
         assert result[0] == piece_id
 
+    def test_multiple_options(self, qlayer):
+        piece = {"name": "lol"}
+        piece2 = {"name":"heh"}
+        instrument = {"name": "cl"}
+        ins2 = {"name": "bass cl"}
+        clef1 = {"name": "treble"}
+        clef2 = {"name": "bass"}
+        piece_id = qlayer.add(piece, table="pieces")[0]
+        piece2_id = qlayer.add(piece2, table="pieces")[0]
+        ins2_id = qlayer.add(ins2, table="instruments")[0]
+        ins1_id = qlayer.add(instrument, table="instruments")[0]
+        clef1_id = qlayer.add(clef1, table="clefs")[0]
+        qlayer.add({"piece.id": piece_id,
+                    "instruments.id": ins1_id,
+                    "clefs.id": clef1_id}, table="clefs_ins_piece")
+        qlayer.add({"piece.id": piece2_id,
+                    "instruments.id": ins2_id,
+                    "clefs.id": clef1_id}, table="clefs_ins_piece")
+        query = [{"instruments.id": [ins1_id, ins2_id]}]
+        result = qlayer.query_multiple(query, table="clefs_ins_piece")
+        assert len(result) == 2
 
 
 

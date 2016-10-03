@@ -34,12 +34,16 @@ class TestSuiteDataLayerUserQueries(object):
         mlayer.add_piece("file.xml", data)
         assert ["file.xml"] == mlayer.get_pieces_by_instruments(["wibble"])
 
-    def testFindPieceByMultipleInstruments(self, mlayer, dummy, dummy_res):
-        mlayer.add_piece(
-            "file.xml", {"instruments": [{"name": "clarinet"}, {"name": "flute"}]})
-        mlayer.add_piece("file2.xml", {"instruments": [{"name": "flute"}]})
-        self.assertEqual(
-            ["file.xml"], mlayer.get_pieces_by_instruments(["clarinet", "flute"]))
+    def testFindPieceByMultipleInstruments(self, mlayer, dummy, dummy_res, clef_in, key_in):
+        data = {"instruments": [{"name": "clarinet"}, {"name": "flute"}],
+                "clefs": {"clarinet": [clef_in], "flute": [clef_in]},
+                "keys": {"clarinet": [key_in], "flute": [key_in]}}
+        data2 = {"instruments": [{"name": "flute"}],
+                "clefs": {"flute": [clef_in]},
+                "keys": {"flute": [key_in]}}
+        mlayer.add_piece("file.xml", data)
+        mlayer.add_piece("file2.xml", data2)
+        assert ["file.xml"] == mlayer.get_pieces_by_instruments(["clarinet", "flute"])
 
     def testFindPieceByInstrumentWhereTwoItemsExist(self, mlayer, dummy, dummy_res):
         mlayer.add_piece("file.xml", {"instruments": [{"name": "flute"}]})
