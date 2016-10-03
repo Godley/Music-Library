@@ -47,6 +47,21 @@ class TestSuiteQuerylayer(object):
         val = list(data)
         assert val[0]["archived"] == True
 
+    def test_like_query(self, qlayer):
+        base = {"archived": None, "composer.id": None, "lyricist.id": None, "filename": None}
+        yes = {"name": "world, hello", "id": 1}
+        yes.update(base)
+        yes2 = {"name": "hello", "id": 2}
+        yes2.update(base)
+        qlayer.add({"name": "world, hello"}, table="pieces")
+        qlayer.add({"name": "hello"}, table="pieces")
+        data = {"name": "hello"}
+        result = qlayer.like(data, table="pieces")
+        assert len(result) == 2
+        assert yes in result
+        assert yes2 in result
+
+
     def result_against_dict(self, data, qlayer, table="pieces"):
         for entry in data:
             qlayer.add(entry, table=table)

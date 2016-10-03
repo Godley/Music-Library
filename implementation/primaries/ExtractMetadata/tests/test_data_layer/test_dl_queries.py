@@ -87,8 +87,7 @@ class TestSuiteDataLayerUserQueries(object):
     def testFindPieceByPartialLyricist(self, mlayer, dummy, dummy_res):
         mlayer.add_piece("file.xml", {"lyricist": "Bella Bartok"})
         mlayer.add_piece("file2.xml", {"lyricist": "Bella Bartok"})
-        self.assertEqual(
-            ["file.xml", "file2.xml"], mlayer.get_pieces_by_creator("Bartok", creator_type='lyricist'))
+        assert ["file.xml", "file2.xml"] == mlayer.get_pieces_by_creator("Bartok", creator_type='lyricist')
 
     def testFindPieceByPartialLyricistWhereTwoExist(self, mlayer, dummy, dummy_res):
         mlayer.add_piece("file.xml", {"lyricist": "Bella Bartok"})
@@ -119,16 +118,15 @@ class TestSuiteDataLayerUserQueries(object):
                            "clarinet": [{"fifths": 2, "mode": "major"}]}})
         mlayer.add_piece(
             "file2.xml", {"key": {"flute": [{"fifths": 2, "mode": "major"}]}})
-        self.assertEqual(
-            "file.xml", mlayer.getPieceByInstrumentInKeys({"clarinet": ["D major"]})[0])
+        assert "file.xml" == mlayer.getPieceByInstrumentInKeys({"clarinet": ["D major"]})[0]
 
     def testFindPieceByInstrumentInKeyWithTwoEntries(self, mlayer, dummy, dummy_res):
         mlayer.add_piece("file.xml", {"instruments": [{"name": "clarinet"}], "key": {
                            "clarinet": [{"fifths": 2, "mode": "major"}]}})
         mlayer.add_piece("file2.xml", {"instruments": [{"name": "clarinet"}], "key": {
                            "clarinet": [{"fifths": 2, "mode": "major"}]}})
-        self.assertEqual(["file.xml", "file2.xml"], mlayer.getPieceByInstrumentInKeys(
-            {"clarinet": ["D major"]}))
+        assert ["file.xml", "file2.xml"] == mlayer.getPieceByInstrumentInKeys(
+            {"clarinet": ["D major"]})
 
     def testFindPieceByInstrumentInKeyWithTwoEntriesWhichHaveDifferentKeys(
             self, mlayer):

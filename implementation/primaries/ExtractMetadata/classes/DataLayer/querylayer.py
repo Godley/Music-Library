@@ -166,6 +166,21 @@ class QueryLayer(object):
         else:
             raise BadTableException("table {} not in {}".format(table, self.tables.keys()))
 
+    def like(self, data, table="pieces"):
+        if self.validate_table(table):
+
+            _table = self.tables[table]
+            session = self.get_session()
+            query = session.query(_table)
+            keys = [col.name for col in _table.columns]
+            for key in data:
+                attr = getattr(_table.columns, key)
+                print(attr)
+                query = query.filter(attr.like(data[key]))
+            return [{key:value for key, value in zip(keys, entry)} for entry in query.all()]
+        else:
+            raise BadTableException("table {} not in {}".format(table, self.tables.keys()))
+
     def query(self, data, table="pieces"):
         if self.validate_table(table):
             query = self.mk_query(data, table=table)
