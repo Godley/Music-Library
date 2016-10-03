@@ -188,20 +188,31 @@ class TestSuiteDataLayerUserQueries(object):
         assert "file.xml" == mlayer.getPieceByInstrumentIn_({"clarinet": [{"name": "treble"}]})[0]
 
     def testFindPieceByInstrumentInClefWithTwoEntries(self, mlayer, dummy, dummy_res):
-        mlayer.add_piece("file.xml", {"instruments": [{"name": "clarinet"}], "clef": {
-                           "clarinet": [{"line": 2, "sign": "G"}]}})
-        mlayer.add_piece("file2.xml", {"instruments": [
-                           {"name": "clarinet"}], "clef": {"clarinet": [{"line": 2, "sign": "G"}]}})
+        data = {"instruments": [{"name": "clarinet"}], "clefs": {
+                           "clarinet": [{"line": 2, "sign": "G"}]}}
+        data2 = {"instruments": [
+                           {"name": "clarinet"}], "clefs": {"clarinet": [{"line": 2, "sign": "G"}]}}
+
+        key = {"keys":{"clarinet": [{"name": "C major"}]}}
+        data.update(key)
+        data2.update(key)
+        mlayer.add_piece("file.xml", data)
+        mlayer.add_piece("file2.xml", data2)
         assert ["file.xml", "file2.xml"] == mlayer.getPieceByInstrumentIn_(
-            {"clarinet": ["treble"]}, table="clefs")
+            {"clarinet": [{"name": "treble"}]}, table="clefs")
 
     def testFindPieceByInstrumentInClefWithTwoEntriesWhichHaveDifferentKeys(
             self, mlayer):
-        mlayer.add_piece("file.xml", {"instruments": [{"name": "clarinet"}], "clef": {
-                           "clarinet": [{"line": 2, "sign": "G"}]}})
-        mlayer.add_piece("file2.xml", {"instruments": [
-                           {"name": "clarinet"}], "clef": {"clarinet": [{"line": 1, "sign": "G"}]}})
-        assert ["file.xml"] == mlayer.get_piece_by_instrument_in_clefs({"clarinet": ["treble"]})
+        data = {"instruments": [{"name": "clarinet"}], "clef": {
+                           "clarinet": [{"line": 2, "sign": "G"}]}}
+        data2 = {"instruments": [
+                           {"name": "clarinet"}], "clef": {"clarinet": [{"line": 1, "sign": "G"}]}}
+        key = {"keys": {"clarinet": [{"name": "C major"}]}}
+        data.update(key)
+        data2.update(key)
+        mlayer.add_piece("file.xml", data)
+        mlayer.add_piece("file2.xml", data2)
+        assert ["file.xml"] == mlayer.getPieceByInstrumentIn_({"clarinet": [{"name":"treble"}]}, table="clefs")
 
     def testFindPieceByMeter(self, mlayer, dummy, dummy_res):
         data = {"time_signatures": [{"beat": 4, "beat_type": 4}]}
@@ -210,8 +221,10 @@ class TestSuiteDataLayerUserQueries(object):
         assert ["file.xml"] == mlayer.getPieceByMeter(["4/4"])
 
     def testFindPieceByTempo(self, mlayer, dummy, dummy_res):
+        data = {"tempos": [{"beat": "quarter", "minute": 60}]}
+        data.update(dummy)
         mlayer.add_piece(
-            "file.xml", {"tempo": [{"beat": "quarter", "minute": 60}]})
+            "file.xml", data)
         assert ["file.xml"] == mlayer.get_piece_by_tempo(
                 ["crotchet=60"])
 
@@ -298,8 +311,10 @@ class TestSuiteDataLayerUserQueries(object):
         assert mlayer.get_piece_by_tempo(["crotchet=minim"]) == ["file.xml"]
 
     def testFindPieceByTempoLessThanAQuaver(self, mlayer, dummy, dummy_res):
+        data = {"tempos": [{"beat": "16th", "minute": 60}]}
+        data.update(dummy)
         mlayer.add_piece(
-            "file.xml", {"tempo": [{"beat": "16th", "minute": 60}]})
+            "file.xml", data)
         assert mlayer.get_piece_by_tempo(["semiquaver=60"]) == ["file.xml"]
 
     def testFindPieceByDottedTempo(self, mlayer, dummy, dummy_res):
@@ -310,12 +325,14 @@ class TestSuiteDataLayerUserQueries(object):
         assert result == ["file.xml"]
 
     def testFindPieceByTempoInAmerican(self, mlayer, dummy, dummy_res):
-        mlayer.add_piece(
-            "file.xml", {"tempo": [{"beat": "quarter", "minute": 60}]})
+        data = {"tempos": [{"beat": "quarter", "minute": 60}]}
+        data.update(dummy)
+        mlayer.add_piece("file.xml", data)
         assert ["file.xml"] == mlayer.get_piece_by_tempo(["quarter=60"])
 
     def testFindPieceByTempoWhereTempoIsTwoBeatsInAmerican(self, mlayer, dummy, dummy_res):
-        mlayer.add_piece(
-            "file.xml", {"tempo": [{"beat": "quarter", "beat_2": "half"}]})
+        data = {"tempos": [{"beat": "quarter", "beat_2": "half"}]}
+        data.update(dummy)
+        mlayer.add_piece("file.xml", data)
         assert ["file.xml"] == mlayer.get_piece_by_tempo(["quarter=half"])
 
