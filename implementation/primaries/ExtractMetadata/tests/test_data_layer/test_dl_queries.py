@@ -18,12 +18,19 @@ class TestSuiteDataLayerUserQueries(object):
 
     def testGetAnyAndAll(self, mlayer, dummy, dummy_res):
         instruments = ["clarinet", "flute"]
-        instrument_query = {"instruments": []}
+        instrument_query = {"instruments": [], "clefs": {}, "keys": {}}
         for elem in instruments:
             instrument_query["instruments"].append({"name":elem})
+            instrument_query["clefs"][elem] = [{"name": "treble"}]
+            instrument_query["keys"][elem] = [{"name": "C major"}]
+
         mlayer.add_piece("file.xml", instrument_query)
-        mlayer.add_piece("file1.xml", {"instruments": [{"name":"clarinet"}]})
-        mlayer.add_piece("file2.xml", {"instruments": [{"name":"flute"}]})
+        mlayer.add_piece("file1.xml", {"instruments": [{"name": "clarinet"}],
+                                       "clefs": {"clarinet": [{"name": "treble"}]},
+                                       "keys": {"clarinet": [{"name": "C major"}]}})
+        mlayer.add_piece("file2.xml", {"instruments": [{"name": "flute"}],
+                                       "clefs": {"flute": [{"name": "treble"}]},
+                                       "keys": {"flute": [{"name": "C major"}]}})
         expected = {"All Instruments":["file.xml"], "Instrument: clarinet":["file.xml", "file1.xml"], "Instrument: flute":["file.xml", "file2.xml"]}
         results = mlayer.get_pieces_by_any_all_instruments(instruments)
         assert results == expected
@@ -203,10 +210,10 @@ class TestSuiteDataLayerUserQueries(object):
 
     def testFindPieceByInstrumentInClefWithTwoEntriesWhichHaveDifferentKeys(
             self, mlayer):
-        data = {"instruments": [{"name": "clarinet"}], "clef": {
+        data = {"instruments": [{"name": "clarinet"}], "clefs": {
                            "clarinet": [{"line": 2, "sign": "G"}]}}
         data2 = {"instruments": [
-                           {"name": "clarinet"}], "clef": {"clarinet": [{"line": 1, "sign": "G"}]}}
+                           {"name": "clarinet"}], "clefs": {"clarinet": [{"line": 1, "sign": "G"}]}}
         key = {"keys": {"clarinet": [{"name": "C major"}]}}
         data.update(key)
         data2.update(key)

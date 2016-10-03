@@ -330,6 +330,8 @@ class MusicData(querylayer.QueryLayer):
                     clef_data = result_data["clefs"][name]
                     kwargs['clefs'] = clef_data
                     result_data["clefs"].pop(name)
+                else:
+                    raise BadPieceException("each instrument should have atleast one key")
             else:
                 raise BadPieceException("each instrument should have atleast one clef")
 
@@ -338,6 +340,9 @@ class MusicData(querylayer.QueryLayer):
                     key_data = result_data["keys"][name]
                     kwargs['keys'] = key_data
                     result_data["keys"].pop(name)
+                else:
+                    raise BadPieceException("each instrument should have atleast one key")
+
             else:
                 raise BadPieceException("each instrument should have atleast one key")
 
