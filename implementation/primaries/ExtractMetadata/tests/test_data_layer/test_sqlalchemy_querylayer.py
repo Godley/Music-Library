@@ -61,6 +61,35 @@ class TestSuiteQuerylayer(object):
         assert yes in result
         assert yes2 in result
 
+    def test_all_exist(self, qlayer):
+        piece = {"name": "lol"}
+        piece2 = {"name":"heh"}
+        instrument = {"name": "cl"}
+        clef1 = {"name": "treble"}
+        clef2 = {"name": "bass"}
+        piece_id = qlayer.add(piece, table="pieces")[0]
+        piece2_id = qlayer.add(piece2, table="pieces")[0]
+        ins1_id = qlayer.add(instrument, table="instruments")[0]
+        clef1_id = qlayer.add(clef1, table="clefs")[0]
+        clef2_id = qlayer.add(clef2, table="clefs")[0]
+        qlayer.add({"piece.id": piece_id,
+                    "instruments.id": ins1_id,
+                    "clefs.id": clef1_id}, table="clefs_ins_piece")
+        qlayer.add({"piece.id": piece_id,
+                    "instruments.id": ins1_id,
+                    "clefs.id": clef2_id}, table="clefs_ins_piece")
+        qlayer.add({"piece.id": piece2_id,
+                    "instruments.id": ins1_id,
+                    "clefs.id": clef1_id}, table="clefs_ins_piece")
+        query = [{"instruments.id": ins1_id, "clefs.id": clef1_id},
+            {"instruments.id": ins1_id, "clefs.id": clef2_id}]
+        result = qlayer.query_multiple(query, table="clefs_ins_piece")
+        assert len(result) == 1
+        assert result[0] == piece_id
+
+
+
+
 
     def result_against_dict(self, data, qlayer, table="pieces"):
         for entry in data:

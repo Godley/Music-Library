@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, update
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql.expression import exists, alias, select
 
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, Boolean
 from .exceptions import BadTableException
@@ -168,7 +169,6 @@ class QueryLayer(object):
 
     def like(self, data, table="pieces"):
         if self.validate_table(table):
-
             _table = self.tables[table]
             session = self.get_session()
             query = session.query(_table)
@@ -178,6 +178,31 @@ class QueryLayer(object):
                 print(attr)
                 query = query.filter(attr.like(data[key]))
             return [{key:value for key, value in zip(keys, entry)} for entry in query.all()]
+        else:
+            raise BadTableException("table {} not in {}".format(table, self.tables.keys()))
+
+    def query_multiple(self, data, filter_col="piece.id", table="clefs_ins_piece"):
+        if self.validate_table(table):
+            _table = self.tables[table]
+            _filter_col = getattr(_table.columns, filter_col)
+            q = select([_filter_col])
+            nxtalias = None
+            first = True
+            for elem in data:
+                query = _table.select()
+                for key in elem:
+                    col = getattr(_table.columns, key)
+                    expr = (col == elem[key])
+                    query = query.where(expr)
+                if first:
+                    first = False
+                else:
+                    alias_filter = getattr(nxtalias.columns, filter_col)
+                    query = query.where(alias_filter == _filter_col)
+                q = q.where(exists(query))
+                nxtalias = alias(_table)
+            result_prox = self.execute(q)
+            return [elem[0] for elem in result_prox]
         else:
             raise BadTableException("table {} not in {}".format(table, self.tables.keys()))
 
