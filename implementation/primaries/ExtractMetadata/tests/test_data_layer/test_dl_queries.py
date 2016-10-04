@@ -316,12 +316,16 @@ class TestSuiteDataLayerUserQueries(object):
 
     def testFindPiecesContainingInstrumentsOrSimilar(
             self, mlayer, dummy, dummy_res):
-        mlayer.add_piece(
-            "file.xml", {
+        data = {
                 "instruments": [
                     {
                         "name": "clarinet", "diatonic": 1, "chromatic": 2}, {
-                        "name": "violin", "diatonic": 0, "chromatic": 0}]})
+                        "name": "violin", "diatonic": 0, "chromatic": 0}],
+                "clefs": {"clarinet": [{"name": "treble"}],
+                          "violin": [{"name": "treble"}]},
+                "keys": {"clarinet": [{"name": "C major"}],
+                         "violin": [{"name": "C major"}]}}
+        mlayer.add_piece("file.xml", data)
         mlayer.add({"name": "flute", "diatonic": 0, "chromatic": 0},
                    table="instruments")
         res = mlayer.getPieceByInstrumentsOrSimilar(
@@ -330,21 +334,25 @@ class TestSuiteDataLayerUserQueries(object):
 
     def testFindPiecesContainingInstrumentsOrSimilarWhereInstrumentNotInTable(
             self, mlayer):
-        mlayer.add_piece(
-            "file.xml", {
+        data = {
                 "instruments": [
                     {
                         "name": "clarinet", "diatonic": 1, "chromatic": 2}, {
-                        "name": "violin", "diatonic": 0, "chromatic": 0}]})
-        mlayer.addInstruments(
-            [{"name": "flute", "diatonic": 0, "chromatic": 0}])
+                        "name": "violin", "diatonic": 0, "chromatic": 0}],
+                "clefs": {"clarinet": [{"name": "treble"}],
+                          "violin": [{"name": "treble"}]},
+                "keys": {"clarinet": [{"name": "C major"}],
+                         "violin": [{"name": "C major"}]}}
+        mlayer.add_piece(
+            "file.xml", data)
+        mlayer.add({"name": "flute", "diatonic": 0, "chromatic": 0},
+                            table="instruments")
         result = mlayer.getPieceByInstrumentsOrSimilar([{"name": "flute"},
                                                         {"name":
                                                          "clarinet"},
                                                         {"name": "trumpet",
                                                          "diatonic": 1,
-                                                         "chromatic": 2,
-                                                         "octave": 0}])
+                                                         "chromatic": 2}])
         assert ["file.xml"] == result
 
     def testFindByModularity(

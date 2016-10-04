@@ -233,6 +233,15 @@ class QueryLayer(object):
         ids = [elem['id'] for elem in result]
         return ids
 
+    def get_row_id(self, data, table="pieces"):
+        result = self.query(data, table=table)
+        if len(result) > 0:
+            row = result[0]
+            row = row['id']
+        else:
+            row = None
+        return row
+
     def query_similar_rows(self, data, match_cols=[], excl_cols=[], table='pieces'):
         '''SELECT i2.ROWID, i2.name FROM instruments i1, instruments i2
                               WHERE i1.name = ? AND i2.diatonic = i1.diatonic
