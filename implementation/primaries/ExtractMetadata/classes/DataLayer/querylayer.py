@@ -8,53 +8,54 @@ from .exceptions import BadTableException
 
 class QueryLayer(object):
     tables = {}
+    fixtures = {
+    "clefs": [{"name": "treble", "sign": "G", "line": 2},
+             {"name": "french", "sign": "G", "line": 1},
+             {"name": "varbaritone", "sign": "F", "line": 1},
+             {"name": "subbass", "sign": "F","line": 5},
+             {"name": "bass", "sign": "F", "line": 4},
+             {"name": "alto", "sign": "C", "line": 3},
+             {"name": "percussion", "sign": "percussion", "line": -1},
+             {"name": "tenor", "sign": "C", "line": 4},
+             {"name": "baritone", "sign": "C", "line": 5},
+             {"name": "mezzosoprano", "sign": "C", "line": 2},
+             {"name": "soprano", "sign": "C", "line": 1},
+             {"name": "varC", "sign": "VARC", "line": -1},
+             {"name": "alto varC", "sign": "VARC", "line": 3},
+             {"name": "tenor varC", "sign": "VARC", "line": 4},
+             {"name": "baritone varC", "sign": "VARC", "line": 5}],
 
-    clefs = [("treble", "G", 2,),
-             ("french", "G", 1),
-             ("varbaritone", "F", 3,),
-             ("subbass", "F", 5),
-             ("bass", "F", 4),
-             ("alto", "C", 3),
-             ("percussion", "percussion", -1,),
-             ("tenor", "C", 4),
-             ("baritone", "C", 5,),
-             ("mezzosoprano", "C", 2),
-             ("soprano", "C", 1),
-             ("varC", "VARC", -1),
-             ("alto varC", "VARC", 3),
-             ("tenor varC", "VARC", 4),
-             ("baritone varC", "VARC", 5)]
-
-    keys = [("C flat major", -7, "major"),
-            ("G flat major", -6, "major"),
-            ("D flat major", -5, "major"),
-            ("A flat major", -4, "major"),
-            ("E flat major", -3, "major"),
-            ("B flat major", -2, "major"),
-            ("F major", -1, "major"),
-            ("C major", 0, "major",),
-            ("G major", 1, "major",),
-            ("D major", 2, "major",),
-            ("A major", 3, "major",),
-            ("E major", 4, "major",),
-            ("B major", 5, "major"),
-            ("F# major", 6, "major",),
-            ("C# major", 7, "major",),
-            ("A flat minor", -7, "minor"),
-            ("E flat minor", -6, "minor"),
-            ("B flat minor", -5, "minor"),
-            ("F minor", -4, "minor"),
-            ("C minor", -3, "minor"),
-            ("G minor", -2, "minor"),
-            ("D minor", -1, "minor"),
-            ("A minor", 0, "minor",),
-            ("E minor", 1, "minor"),
-            ("B minor", 2, "minor"),
-            ("F# minor", 3, "minor"),
-            ("C# minor", 4, "minor"),
-            ("G# minor", 5, "minor"),
-            ("D# minor", 6, "minor"),
-            ("A# minor", 7, "minor")]
+    "keys": [{"name": "C flat major", "fifths": -7, "mode": "major"},
+            {"name": "G flat major", "fifths": -6, "mode": "major"},
+            {"name": "D flat major", "fifths": -5, "mode": "major"},
+            {"name": "A flat major", "fifths": -4, "mode": "major"},
+            {"name": "E flat major", "fifths": -3, "mode": "major"},
+            {"name": "B flat major", "fifths": -2, "mode": "major"},
+            {"name": "F major", "fifths": -1, "mode": "major"},
+            {"name": "C major", "fifths": 0, "mode": "major"},
+            {"name": "G major", "fifths": 1, "mode": "major"},
+            {"name": "D major", "fifhts": 2, "mode": "major"},
+            {"name": "A major", "fifths": 3, "mode": "major"},
+            {"name": "E major", "fifths": 4, "mode": "major"},
+            {"name": "B major", "fifths": 5, "mode": "major"},
+            {"name": "F# major", "fifths": 6, "mode": "major"},
+            {"name": "C# major", "fifths": 7, "mode": "major"},
+            {"name": "A flat minor", "fifths": -7, "mode": "minor"},
+            {"name": "E flat minor", "fifths": -6, "mode": "minor"},
+            {"name": "B flat minor", "fifths": -5, "mode": "minor"},
+            {"name": "F minor", "fifths": -4, "mode": "minor"},
+            {"name": "C minor", "fifths": -3, "mode": "minor"},
+            {"name": "G minor", "fifths": -2, "mode": "minor"},
+            {"name": "D minor", "fifths": -1, "mode": "minor"},
+            {"name": "A minor", "fifths": 0, "mode": "minor"},
+            {"name": "E minor", "fifths": 1, "mode": "minor"},
+            {"name": "B minor", "fifths": 2, "mode": "minor"},
+            {"name": "F# minor", "fifths": 3, "mode": "minor"},
+            {"name": "C# minor", "fifths": 4, "mode": "minor"},
+            {"name": "G# minor", "fifths": 5, "mode": "minor"},
+            {"name": "D# minor", "fifths": 6, "mode": "minor"},
+            {"name": "A# minor", "fifths": 7, "mode": "minor"}]
+    }
 
     def __init__(self, db_path):
         self.engine = create_engine(db_path, echo=True)
@@ -287,12 +288,7 @@ class QueryLayer(object):
         conn = self.engine.connect()
         return conn.execute(query)
 
-    def init_clefs(self):
-        for clef in self.clefs:
-            self.get_or_add({'name': clef[0], 'sign': clef[
-                            1], 'line': clef[2]}, table='clefs')
-
-    def init_keys(self):
-        for key in self.keys:
-            self.get_or_add({'name': key[0], 'fifths': key[
-                            1], 'mode': key[2]}, table='keys')
+    def add_fixtures(self):
+        for table in self.fixtures:
+            for elem in self.fixtures[table]:
+                self.get_or_add(elem, table=table)

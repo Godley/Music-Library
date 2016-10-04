@@ -138,8 +138,7 @@ class MusicData(querylayer.QueryLayer):
     def __init__(self, database):
         super(MusicData, self).__init__(database)
         self.setup()
-        self.init_clefs()
-        self.init_keys()
+        self.add_fixtures()
 
     def get_instrument_names(self):
         results = self.get_all(table="instruments")
