@@ -103,13 +103,14 @@ class QueryLayer(object):
                 'beat_type', Integer))
 
         self.tables["pieces"] = Table(
-            'pieces', metadata, Column(
-                'id', Integer, primary_key=True), Column(
-                'name', String), Column(
-                'filename', String, unique=True), Column(
-                    'archived', Boolean), Column(
-                        'composer.id', None, ForeignKey('creators.id')), Column(
-                            'lyricist.id', None, ForeignKey('creators.id')))
+            'pieces', metadata,
+            Column('id', Integer, primary_key=True),
+            Column('name', String),
+            Column('filename', String, unique=True),
+            Column('archived', Boolean),
+            Column('composer.id', None, ForeignKey('creators.id')),
+            Column('lyricist.id', None, ForeignKey('creators.id')),
+            Column('source', String))
 
         self.tables["playlists"] = Table(
             'playlists', metadata, Column(
@@ -119,15 +120,6 @@ class QueryLayer(object):
             'playlist_join', metadata, Column(
                 'playlists.id', Integer, ForeignKey('playlists.id')), Column(
                 'pieces.id', Integer, ForeignKey('pieces.id')))
-
-        self.tables["sources"] = Table('sources', metadata,
-                                       Column('id', Integer, primary_key=True),
-                                       Column('name', String))
-
-        self.tables["sources_piece"] = Table(
-            'source_join', metadata, Column(
-                'piece.id', Integer, ForeignKey('pieces.id')), Column(
-                'source.id', Integer, ForeignKey('sources.id')))
 
         self.tables["keys_ins_piece"] = Table(
             'key_ins_piece_join', metadata, Column(
