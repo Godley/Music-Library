@@ -692,7 +692,7 @@ class MusicData(querylayer.QueryLayer):
             for e in data[instrument]:
                 elem_id = self.query(e, table=table)
                 if len(elem_id) > 0:
-                    elem_id = elem_id[0]['id']
+                    elem_id = [elem_id[0]['id']]
                 else:
                     raise InvalidQueryException(
                         "{} query invalid, no results found".format(table))
@@ -762,15 +762,12 @@ class MusicData(querylayer.QueryLayer):
         return result
 
     def getInstrumentsBySameTranspositionAs(self, instrument):
-        connection, cursor = self.connect()
-        instrument_query = '''SELECT i2.ROWID, i2.name FROM instruments i1, instruments i2
-                              WHERE i1.name = ? AND i2.diatonic = i1.diatonic
-                              AND i2.chromatic = i1.chromatic
-                              AND i2.name != i1.name'''
-        cursor.execute(instrument_query, (instrument,))
-        instruments = cursor.fetchall()
-        self.disconnect(connection)
-        return instruments
+        result = self.query_similar_rows({"name": instrument},
+                                         match_cols=["chromatic",
+                                                     "diatonic"],
+                                         excl_cols=["name", "id"],
+                                         table="instruments")
+        return result
 
     def getPieceByAlternateInstruments(
             self,

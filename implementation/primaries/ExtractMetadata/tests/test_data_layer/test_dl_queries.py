@@ -282,20 +282,22 @@ class TestSuiteDataLayerUserQueries(object):
                                                                             2})
 
     def testFindSimilarInstruments(self, mlayer, dummy, dummy_res):
-        mlayer.addInstruments([{"name": "clarinet",
+        mlayer.add_multiple([{"name": "clarinet",
                                 "diatonic": -1,
                                 "chromatic": -2},
                                {"name": "trumpet",
                                    "diatonic": -1,
-                                   "chromatic": -2}])
-        assert [
-            hashdict(
-                name='trumpet',
-                rowid=2)] == mlayer.getInstrumentsBySameTranspositionAs("clarinet")
+                                   "chromatic": -2}], table="instruments")
+        expected = [{"chromatic": -2, "diatonic": -1, "id": 2, "name": "trumpet"}]
+        res = mlayer.getInstrumentsBySameTranspositionAs("clarinet")
+        for elem, r in zip(expected, res):
+            for key in elem:
+                assert key in r
+                assert elem[key] == r[key]
 
     def testFindSimilarInstrumentsWhereOneIsDiff(
             self, mlayer, dummy, dummy_res):
-        mlayer.addInstruments([{"name": "clarinet",
+        mlayer.add_multiple([{"name": "clarinet",
                                 "diatonic": -1,
                                 "chromatic": -2},
                                {"name": "lute",
@@ -303,11 +305,14 @@ class TestSuiteDataLayerUserQueries(object):
                                    "chromatic": -2},
                                {"name": "trumpet",
                                    "diatonic": -1,
-                                   "chromatic": -2}])
-        assert [
-            hashdict(
-                name='trumpet',
-                rowid=3)] == mlayer.getInstrumentsBySameTranspositionAs("clarinet")
+                                   "chromatic": -2}],
+                            table="instruments")
+        expected = [{"name": "trumpet", "diatonic": -1, "chromatic": -2}]
+        res = mlayer.getInstrumentsBySameTranspositionAs("clarinet")
+        for elem, r in zip(expected, res):
+            for key in elem:
+                assert key in r
+                assert elem[key] == r[key]
 
     def testFindPiecesContainingInstrumentsOrSimilar(
             self, mlayer, dummy, dummy_res):
@@ -317,10 +322,11 @@ class TestSuiteDataLayerUserQueries(object):
                     {
                         "name": "clarinet", "diatonic": 1, "chromatic": 2}, {
                         "name": "violin", "diatonic": 0, "chromatic": 0}]})
-        mlayer.addInstruments(
-            [{"name": "flute", "diatonic": 0, "chromatic": 0}])
-        assert ["file.xml"] == mlayer.getPieceByInstrumentsOrSimilar(
+        mlayer.add({"name": "flute", "diatonic": 0, "chromatic": 0},
+                   table="instruments")
+        res = mlayer.getPieceByInstrumentsOrSimilar(
             [{"name": "flute"}, {"name": "clarinet"}])
+        assert ["file.xml"] == res
 
     def testFindPiecesContainingInstrumentsOrSimilarWhereInstrumentNotInTable(
             self, mlayer):

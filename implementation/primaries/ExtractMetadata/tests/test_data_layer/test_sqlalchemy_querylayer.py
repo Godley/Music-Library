@@ -58,13 +58,16 @@ class TestSuiteQuerylayer(object):
         yes.update(base)
         yes2 = {"name": "hello", "id": 2}
         yes2.update(base)
+        expected = [yes, yes2]
         qlayer.add({"name": "world, hello"}, table="pieces")
         qlayer.add({"name": "hello"}, table="pieces")
         data = {"name": "%hello"}
         result = qlayer.like(data, table="pieces")
-        assert len(result) == 2
-        assert yes in result
-        assert yes2 in result
+        assert len(result) == len(expected)
+        for elem, res in zip(expected, result):
+            for key in elem:
+                assert key in res
+                assert elem[key] == res[key]
 
     def test_all_exist(self, qlayer):
         piece = {"name": "lol"}
@@ -86,11 +89,11 @@ class TestSuiteQuerylayer(object):
         qlayer.add({"piece.id": piece2_id,
                     "instruments.id": ins1_id,
                     "clefs.id": clef1_id}, table="clefs_ins_piece")
-        query = [{"instruments.id": ins1_id, "clefs.id": clef1_id},
-                 {"instruments.id": ins1_id, "clefs.id": clef2_id}]
+        query = [{"instruments.id": [ins1_id], "clefs.id": [clef1_id]},
+                 {"instruments.id": [ins1_id], "clefs.id": [clef2_id]}]
         result = qlayer.query_multiple(query, table="clefs_ins_piece")
         assert len(result) == 1
-        assert result[0] == piece_id
+        assert result.pop() == piece_id
 
     def test_multiple_options(self, qlayer):
         piece = {"name": "lol"}
@@ -113,6 +116,18 @@ class TestSuiteQuerylayer(object):
         query = [{"instruments.id": [ins1_id, ins2_id]}]
         result = qlayer.query_multiple(query, table="clefs_ins_piece")
         assert len(result) == 2
+
+    def test_similar_query(self, qlayer):
+        matching = ["chromatic", "diatonic"]
+        excl = ["id", "name"]
+        name = {"name": "cl"}
+        data = {"chromatic": 1, "diatonic": 2}
+        data.update(name)
+        data2 = {"name": "tr", "chromatic": 1, "diatonic": 2}
+        qlayer.add(data, table="instruments")
+        qlayer.add(data2, table="instruments")
+        result = qlayer.query_similar_rows(name, match_cols=matching, excl_cols=excl, table="instruments")
+        assert len(result) == 1
 
     def result_against_dict(self, data, qlayer, table="pieces"):
         for entry in data:

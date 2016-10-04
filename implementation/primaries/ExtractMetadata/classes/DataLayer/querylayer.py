@@ -34,7 +34,7 @@ class QueryLayer(object):
                  {"name": "F major", "fifths": -1, "mode": "major"},
                  {"name": "C major", "fifths": 0, "mode": "major"},
                  {"name": "G major", "fifths": 1, "mode": "major"},
-                 {"name": "D major", "fifhts": 2, "mode": "major"},
+                 {"name": "D major", "fifths": 2, "mode": "major"},
                  {"name": "A major", "fifths": 3, "mode": "major"},
                  {"name": "E major", "fifths": 4, "mode": "major"},
                  {"name": "B major", "fifths": 5, "mode": "major"},
@@ -182,7 +182,7 @@ class QueryLayer(object):
             query = session.query(_table)
             for key in data:
                 attr = getattr(_table.columns, key)
-                query = query.filter(attr.like(data[key]))
+                query = query.filter(attr.like(data[key])).all()
             return self.to_dict(_table, query)
         else:
             raise BadTableException(
@@ -192,7 +192,7 @@ class QueryLayer(object):
     def to_dict(self, table, query):
         columns = [col.name for col in table.columns]
         return [{key: value for key, value in zip(columns, entry)}
-                for entry in query.all()]
+                for entry in query]
 
     def mk_or_expr(self, elems, column):
         expr = column == elems[0]
@@ -233,12 +233,45 @@ class QueryLayer(object):
         ids = [elem['id'] for elem in result]
         return ids
 
+    def query_similar_rows(self, data, match_cols=[], excl_cols=[], table='pieces'):
+        '''SELECT i2.ROWID, i2.name FROM instruments i1, instruments i2
+                              WHERE i1.name = ? AND i2.diatonic = i1.diatonic
+                              AND i2.chromatic = i1.chromatic
+                              AND i2.name != i1.name'''
+        if self.validate_table(table):
+            _table = self.tables[table]
+            query = _table.select()
+            tbl_alias = alias(_table)
+            for key in data:
+                col = getattr(_table.columns, key)
+                col2 = getattr(tbl_alias.columns, key)
+                expr2 = col != col2
+                expr = col2 == data[key]
+                query = query.where((expr) & (expr2))
+            for col in match_cols:
+                column = getattr(_table.columns, col)
+                col2 = getattr(tbl_alias.columns, col)
+                expr = column == col2
+                query = query.where(expr)
+            for exc in excl_cols:
+                column = getattr(_table.columns, exc)
+                col2 = getattr(tbl_alias.columns, exc)
+                expr = column != col2
+                query = query.where(expr)
+            res = list(self.execute(query))
+            res = self.to_dict(_table, res)
+            return res
+        else:
+            raise BadTableException(
+                "table {} not in {}".format(
+                    table, self.tables.keys()))
+
+
     def query(self, data, table="pieces"):
         if self.validate_table(table):
             query = self.mk_query(data, table=table)
-            keys = [col.name for col in self.tables[table].columns]
-            return [{key: value for key, value in zip(
-                keys, entry)} for entry in query.all()]
+            res = query.all()
+            return self.to_dict(self.tables[table], res)
         else:
             raise BadTableException(
                 "table {} not in {}".format(
