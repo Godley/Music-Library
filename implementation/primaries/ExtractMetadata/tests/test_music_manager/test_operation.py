@@ -1,13 +1,19 @@
 import unittest
-import os, sys
+import os
+import sys
 from unittest.mock import MagicMock
 from implementation.primaries.ExtractMetadata.classes import MusicManager
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
+
+
 class TestMusicManager(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None
-        self.folder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../test_files/manager_tests")
+        self.folder = os.path.join(
+            os.path.dirname(
+                os.path.realpath(__file__)),
+            "../test_files/manager_tests")
         self.manager = MusicManager.MusicManager(None, folder=self.folder)
 
     def testRunUnzipper(self):
@@ -28,35 +34,48 @@ class TestMusicManager(unittest.TestCase):
     def testParseFile(self):
         self.manager.parseNewFiles(["testcase2.xml"])
         result = self.manager.getPieceInfo(["testcase2.xml"])[0]
-        expected_result = {'filename': 'testcase2.xml',
-                           'keys': {'Piano': ['D major']},
-                           'tempos': ['half=quarter',
-                                      'eighth.=80'],
-                           'clefs': {'Piano': ['bass',
-                                               'alto',
-                                               'treble']},
-                           'title': 'my metaparsing testcase',
-                           'composer': 'charlotte godley',
-                           'lyricist': 'fran godley',
-                           'instruments': {hashdict(name='Piano', chromatic=0, diatonic=0)},
-                           'timesigs': ['4/4']}
+        expected_result = {
+            'filename': 'testcase2.xml',
+            'keys': {
+                'Piano': ['D major']},
+            'tempos': [
+                'half=quarter',
+                'eighth.=80'],
+            'clefs': {
+                'Piano': [
+                    'bass',
+                    'alto',
+                    'treble']},
+            'title': 'my metaparsing testcase',
+            'composer': 'charlotte godley',
+            'lyricist': 'fran godley',
+            'instruments': {
+                        hashdict(
+                            name='Piano',
+                            chromatic=0,
+                            diatonic=0)},
+            'timesigs': ['4/4']}
 
         for key in expected_result:
             self.assertIn(key, result)
             self.assertEqual(type(result[key]), type(expected_result[key]))
-            if type(expected_result[key]) == dict:
+            if isinstance(expected_result[key], dict):
                 for elem in expected_result[key]:
                     self.assertIn(elem, result[key])
-                    self.assertEqual(type(result[key]), type(expected_result[key]))
+                    self.assertEqual(
+                        type(
+                            result[key]), type(
+                            expected_result[key]))
 
-                    if type(expected_result[key][elem]) == list:
+                    if isinstance(expected_result[key][elem], list):
                         for member in expected_result[key][elem]:
                             self.assertIn(member, result[key][elem])
 
                     else:
-                        self.assertEqual(result[key][elem], expected_result[key][elem])
+                        self.assertEqual(
+                            result[key][elem], expected_result[key][elem])
 
-            elif type(expected_result[key]) is list:
+            elif isinstance(expected_result[key], list):
                 for elem in expected_result[key]:
                     self.assertIn(elem, result[key])
 
@@ -73,9 +92,8 @@ class TestMusicManager(unittest.TestCase):
     def testRefresh(self):
         self.manager.addPiece("file.xml", {})
         self.manager.refreshWithoutDownload()
-        self.assertEqual(
-            self.manager.folder_browser.getNewAndOldFiles(self.manager.folder_browser.getFolderFiles())["old"],
-            ["file.xml"])
+        self.assertEqual(self.manager.folder_browser.getNewAndOldFiles(
+            self.manager.folder_browser.getFolderFiles())["old"], ["file.xml"])
 
     def testCopyFiles(self):
         path_to_primaries = []

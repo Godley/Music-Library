@@ -16,5 +16,7 @@ def do_setup(path=None):
     if os.path.exists(filepath):
         setupLilypond(n_path)
     else:
-        raise LilypondNotInstalledException('ERROR! Lilypond not installed or filepath incorrect. Please provide the folder which contains '+filename[sys.platform])
-
+        raise LilypondNotInstalledException(
+            'ERROR! Lilypond not installed or filepath incorrect. Please provide the folder which contains ' +
+            filename[
+                sys.platform])

@@ -3,7 +3,6 @@ import os
 from implementation.primaries.ImportOnlineDBs.classes import MScoreApi
 
 
-
 class testMScoreApi(unittest.TestCase):
 
     def setUp(self):
@@ -35,8 +34,8 @@ class testMScoreApi(unittest.TestCase):
     def testSearchKeys(self):
         results = self.api.search(
             {'text': ['"Natural (di Vassily B.)-Album:Life(completd Song)"']})
-        self.assertEqual(
-            list(results.keys()), ['"Natural (di Vassily B.)-Album:Life(completd Song)"'])
+        self.assertEqual(list(results.keys()),
+                         ['"Natural (di Vassily B.)-Album:Life(completd Song)"'])
 
     def testSearchForExactMatchTitleLength(self):
         self.assertTrue(len(self.api.search(

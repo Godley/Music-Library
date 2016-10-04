@@ -1,4 +1,7 @@
-import os, shutil, zipfile, logging
+import os
+import shutil
+import zipfile
+import logging
 from xml.sax._exceptions import *
 
 import requests.exceptions
@@ -15,6 +18,7 @@ from implementation.primaries.globals import LOG_NAME
 import logging
 
 logger = logging.getLogger(LOG_NAME)
+
 
 class Unzipper(object):
     """
@@ -55,12 +59,20 @@ class Unzipper(object):
                 try:
                     zip_file = zipfile.ZipFile(path)
                     zip_file.extractall(path=self.folder)
-                    file = list(filter(lambda k: "META-INF" not in k.filename, zip_file.filelist))
+                    file = list(
+                        filter(
+                            lambda k: "META-INF" not in k.filename,
+                            zip_file.filelist))
                     file = file[0].filename
                     resulting_file_list.append(file)
                     zip_file.close()
                 except Exception as e:
-                    logging.log(logging.ERROR, "file " + file + " was skipped: "+str(e))
+                    logging.log(
+                        logging.ERROR,
+                        "file " +
+                        file +
+                        " was skipped: " +
+                        str(e))
 
         return resulting_file_list
 
@@ -78,7 +90,6 @@ class Unzipper(object):
             result_path = os.path.join(self.folder, result)
             self.rename_output(result_path, output_path)
 
-
         if os.path.exists(os.path.join(self.folder, 'META-INF')):
             shutil.rmtree(os.path.join(self.folder, 'META-INF'))
 
@@ -89,7 +100,10 @@ class Unzipper(object):
             try:
                 os.rename(input_path, output_path)
             except Exception as e:
-                logger.exception("File %s was skipped from renaming: %s" % (input_path, str(e)))
+                logger.exception(
+                    "File %s was skipped from renaming: %s" %
+                    (input_path, str(e)))
+
 
 class FolderBrowser(object):
     """
@@ -170,10 +184,14 @@ class FolderBrowser(object):
 
         Return value: dict containing new and old files separated by relevant indices
         """
-        result_set = {"new": self.getNewFileList(files), "old": self.getOldRecords(files)}
+        result_set = {
+            "new": self.getNewFileList(files),
+            "old": self.getOldRecords(files)}
         return result_set
 
+
 class QueryLayer(object):
+
     def __init__(self, folder):
         self.folder = folder
         self._data = MusicData(
@@ -190,8 +208,6 @@ class QueryLayer(object):
 
     def deletePlaylists(self, names):
         [self._data.deletePlaylist(name) for name in names]
-
-
 
     def handleTextQueries(self, search_data, online=False):
         # check title, composer, lyricist, instruments for matches
@@ -241,7 +257,6 @@ class QueryLayer(object):
         all_matched = True
         result_data = {}
 
-
         for instrument in search_data["instrument"]:
             if "key" in search_data:
                 if instrument not in search_data["key"]:
@@ -258,12 +273,13 @@ class QueryLayer(object):
         if len(result_data) > 0:
             instrument_data = self._data.get_pieces_by_instruments(
                 result_data, online=online)
-            results, all_matched = self.create_results(["Instruments"], [instrument_data])
+            results, all_matched = self.create_results(
+                ["Instruments"], [instrument_data])
         return results, all_matched
 
     def handleTempoQueries(self, search_data, online=False):
         tempo_data = self._data.get_piece_by_tempo(
-                search_data["tempo"], online=online)
+            search_data["tempo"], online=online)
         return self.create_results(["Tempo"], tempo_data)
 
     def handleTimeQueries(self, search_data, online=False):
@@ -271,11 +287,16 @@ class QueryLayer(object):
             search_data["time"], online=online)
         return self.create_results(["Meter/Time signature"], [time_data])
 
-    def handle_clef_or_key_queries(self, search_data, online=False, query='key'):
+    def handle_clef_or_key_queries(
+            self,
+            search_data,
+            online=False,
+            query='key'):
         keys = []
         data = []
         if "other" in search_data[query]:
-            keydata = self._data.get_piece_by_join(search_data[query]["other"], query)
+            keydata = self._data.get_piece_by_join(
+                search_data[query]["other"], query)
 
             search_data[query].pop("other")
             data.append(keydata)
@@ -285,17 +306,20 @@ class QueryLayer(object):
             instrument_data = []
             if query == 'clef':
                 instrument_data = self._data.get_piece_by_instrument_in_clefs(
-                search_data[query], online=online)
+                    search_data[query], online=online)
             elif query == 'key':
                 instrument_data = self._data.getPieceByInstrumentInKeys(
-                search_data[query], online=online)
+                    search_data[query], online=online)
             data.append(instrument_data)
             keys.append("Instruments in {}s".format(query.capitalize()))
         return self.create_results(keys, data)
 
     def handleTranspositionQueries(self, search_data, online=False):
-        results = self.fetch_results(search_data["transposition"], "Instrument or transposition",
-                                           self._data.getPieceByInstrumentsOrSimilar, online=online)
+        results = self.fetch_results(
+            search_data["transposition"],
+            "Instrument or transposition",
+            self._data.getPieceByInstrumentsOrSimilar,
+            online=online)
         return self.create_results(results.keys(), results.items())
 
     def create_results(self, keys, values, method=lambda n: len(n) > 0):
@@ -308,14 +332,12 @@ class QueryLayer(object):
                 all_matched = False
         return results, all_matched
 
-
-
     def handleFilenameQueries(self, search_data, online=False):
         results = {}
         all_matched = True
         files = self._data.getFileList(online=online)
-        result_files = [
-            filename for filename in search_data["filename"] if filename in files]
+        result_files = [filename for filename in search_data[
+            "filename"] if filename in files]
         if len(result_files) > 0:
             results["Filename"] = result_files
         else:
@@ -338,25 +360,33 @@ class QueryLayer(object):
         method = self._data.get_pieces_by_creator
         if query == 'title':
             method = self._data.getPieceByTitle
-        return self.fetch_and_form_results(data[query], query.capitalize(),
-                                           method, creator_type=query, online=False)
+        return self.fetch_and_form_results(
+            data[query],
+            query.capitalize(),
+            method,
+            creator_type=query,
+            online=False)
 
     def getPieceSummary(self, file_list, sort_method="title", online=False):
         info = self._data.get_all_piece_info(file_list, online=online)
-        ids = ["title","composer","lyricist","filename"]
+        ids = ["title", "composer", "lyricist", "filename"]
         summary_strings = []
         for elem in info:
-            entry = " ".join(["{}: {}".format(key, elem[key]) for key in ids if key in elem and elem[key] != ''])
+            entry = " ".join(["{}: {}".format(key, elem[key])
+                              for key in ids if key in elem and elem[key] != ''])
             summary_strings.append((entry, elem['filename']))
         return summary_strings
 
     def runQueries(self, search_data, online=False):
         results = {}
         all_matched = True
-        method_table = {"text": self.handleTextQueries, "instrument": self.handleInstrumentQueries,
-                        "tempo": self.handleTempoQueries, "time": self.handleTimeQueries,
-                        "transposition": self.handleTranspositionQueries,
-                        "filename": self.handleFilenameQueries}
+        method_table = {
+            "text": self.handleTextQueries,
+            "instrument": self.handleInstrumentQueries,
+            "tempo": self.handleTempoQueries,
+            "time": self.handleTimeQueries,
+            "transposition": self.handleTranspositionQueries,
+            "filename": self.handleFilenameQueries}
 
         simpler_method_table = {"title": self.handle_bibliography_queries,
                                 "lyricist": self.handle_bibliography_queries,
@@ -366,9 +396,11 @@ class QueryLayer(object):
 
         for key in search_data:
             if key in simpler_method_table:
-                key_result, all_matched = simpler_method_table[key](search_data, query=key, online=online)
+                key_result, all_matched = simpler_method_table[
+                    key](search_data, query=key, online=online)
             else:
-                key_result, all_matched = method_table[key](search_data, online=online)
+                key_result, all_matched = method_table[
+                    key](search_data, online=online)
             results.update(key_result)
 
         summaries = {}
@@ -424,9 +456,11 @@ class QueryLayer(object):
             if select_method not in elem_ids:
                 result_set[select_method] = playlist_table[select_method]()
             else:
-                result_set[select_method] = self._data.get_piece_by_all_elem(elem=select_method)
+                result_set[select_method] = self._data.get_piece_by_all_elem(
+                    elem=select_method)
 
         return filter_dict(result_set)
+
 
 class MusicManager(QueryLayer):
     """
@@ -435,7 +469,10 @@ class MusicManager(QueryLayer):
     to API access.
     """
 
-    def __init__(self, parent, folder='/Users/charlottegodley/PycharmProjects/FYP'):
+    def __init__(
+            self,
+            parent,
+            folder='/Users/charlottegodley/PycharmProjects/FYP'):
         super(MusicManager, self).__init__(folder)
         self.parent = parent
         """the application instance in which this manager resides"""
@@ -471,15 +508,18 @@ class MusicManager(QueryLayer):
         except Exceptions.DrumNotImplementedException as e:
             errorList.append(
                 "Drum tab found in piece: this application does not handle drum tab.")
-            logger.exception("Drum tab found in piece:{} - {}".format(fname, str(e)))
+            logger.exception(
+                "Drum tab found in piece:{} - {}".format(fname, str(e)))
         except Exceptions.TabNotImplementedException as e:
             errorList.append(
                 "Guitar tab found in this piece: this application does not handle guitar tab.")
-            logger.exception("Guitar tab found in piece:{} - {}".format(fname, str(e)))
+            logger.exception(
+                "Guitar tab found in piece:{} - {}".format(fname, str(e)))
         except SAXParseException as e:
             errorList.append(
                 "Sax parser had a problem with this file:" + str(e))
-            logger.exception("Exception SAX parsing file:{} - {}".format(fname, str(e)))
+            logger.exception(
+                "Exception SAX parsing file:{} - {}".format(fname, str(e)))
 
         try:
             loader = LilypondOutput.LilypondRenderer(
@@ -490,7 +530,8 @@ class MusicManager(QueryLayer):
             loader.run()
         except BaseException as e:
             errorList.append(str(e))
-            logger.exception("Exception rendering lilypond with file:{} - {}".format(fname, str(e)))
+            logger.exception(
+                "Exception rendering lilypond with file:{} - {}".format(fname, str(e)))
         return errorList
 
     def unzipApiFiles(self, data_set):
@@ -512,7 +553,9 @@ class MusicManager(QueryLayer):
                     n_filename = file.split(".")[0] + ".xml"
                     results[source].append(n_filename)
         except requests.exceptions.ConnectionError as e:
-            logger.exception("Exception connecting to api to download files:{}".format(str(e)))
+            logger.exception(
+                "Exception connecting to api to download files:{}".format(
+                    str(e)))
 
         return results
 
@@ -546,10 +589,11 @@ class MusicManager(QueryLayer):
                     # path_to_file = os.path.join(self.folder, file)
                     # if os.path.exists(path_to_file):
                     #     os.remove(path_to_file)
-                    if type(data) != tuple:
+                    if not isinstance(data, tuple):
                         result_set[source][file] = data
                         file_id = file.split("/")[-1].split(".")[0]
-                        result_set[source][file].update(new_files[source][file_id])
+                        result_set[source][file].update(
+                            new_files[source][file_id])
                     else:
                         parsing_errors[data[1]] = data[0]
         except requests.exceptions.ConnectionError as e:
@@ -561,7 +605,8 @@ class MusicManager(QueryLayer):
     def log_errors(self, errors):
         if len(errors) > 0:
             if self.parent is not None:
-                    self.parent.updateStatusBar("Errors updating database. Contact developer if problem persists")
+                self.parent.updateStatusBar(
+                    "Errors updating database. Contact developer if problem persists")
             for error in errors:
                 logger.error("Error {} : {}".format(error, errors[error]))
 
@@ -594,7 +639,8 @@ class MusicManager(QueryLayer):
                 self._data.downloadPiece(filename)
                 return True
         except requests.exceptions.ConnectionError as e:
-            logger.exception("Error downloading file - {} exception {}".format(filename, str(e)))
+            logger.exception(
+                "Error downloading file - {} exception {}".format(filename, str(e)))
         return False
 
     def runApiOperation(self):
@@ -629,8 +675,6 @@ class MusicManager(QueryLayer):
             unzipper = Unzipper(folder=self.folder, files=zip_files)
             unzipper.unzip()
 
-
-
     def refresh(self):
         if self.wifi:
             self.runApiOperation()
@@ -641,8 +685,6 @@ class MusicManager(QueryLayer):
         self.folder_browser.resetDbFileList(db_files)
         self.handleZips()
         self.handleXMLFiles()
-
-
 
     def getLicense(self, filename):
         result = self._data.get_value_for_filename(filename, 'license')
@@ -686,10 +728,9 @@ class MusicManager(QueryLayer):
         except Exception as e:
             errorTuple.append(str(e))
             errorTuple.append(filename)
-            logger.exception("Exception parsing {} - {}".format(filename, str(e)))
+            logger.exception(
+                "Exception parsing {} - {}".format(filename, str(e)))
             return tuple(errorTuple)
-
-
 
     def parseError(self, exception):
         string_val = str(exception)
@@ -710,13 +751,12 @@ class MusicManager(QueryLayer):
         method to get all the new and old files from the folder browser and call parseNew and parseOld methods
         :return:
         """
-        files = self.folder_browser.getNewAndOldFiles(self.folder_browser.getFolderFiles())
+        files = self.folder_browser.getNewAndOldFiles(
+            self.folder_browser.getFolderFiles())
         if "new" in files:
             self.parseNewFiles(sorted(files["new"]))
         if "old" in files:
             self.parseOldFiles(sorted(files["old"]))
-
-
 
     def copyFiles(self, filenames):
         """
@@ -728,7 +768,3 @@ class MusicManager(QueryLayer):
             folder_file_split = os.path.split(file)
             f = folder_file_split[-1]
             shutil.copyfile(file, os.path.join(self.folder, f))
-
-
-
-

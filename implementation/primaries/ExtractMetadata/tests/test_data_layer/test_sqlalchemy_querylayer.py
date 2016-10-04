@@ -3,6 +3,7 @@ from implementation.primaries.ExtractMetadata.classes.DataLayer.exceptions impor
 
 
 class TestSuiteQuerylayer(object):
+
     def test_insert_piece(self, qlayer):
         data = [{"name": "hello", "filename": "file.xml"}]
         self.result_against_dict(data, qlayer, table="pieces")
@@ -28,7 +29,7 @@ class TestSuiteQuerylayer(object):
         self.result_against_dict(data, qlayer, table="keys")
 
     def test_add_playlist(self, qlayer):
-        data = [{"name": "gig set", "piece_ids": [0,1,2]}]
+        data = [{"name": "gig set", "piece_ids": [0, 1, 2]}]
         self.result_against_dict(data, qlayer, table="playlists")
 
     def test_bad_table(self, qlayer):
@@ -45,10 +46,14 @@ class TestSuiteQuerylayer(object):
         qlayer.update(results[0][0], update_set[0])
         data = qlayer.get_all()
         val = list(data)
-        assert val[0]["archived"] == True
+        assert val[0]["archived"]
 
     def test_like_query(self, qlayer):
-        base = {"archived": None, "composer.id": None, "lyricist.id": None, "filename": None}
+        base = {
+            "archived": None,
+            "composer.id": None,
+            "lyricist.id": None,
+            "filename": None}
         yes = {"name": "world, hello", "id": 1}
         yes.update(base)
         yes2 = {"name": "hello", "id": 2}
@@ -63,7 +68,7 @@ class TestSuiteQuerylayer(object):
 
     def test_all_exist(self, qlayer):
         piece = {"name": "lol"}
-        piece2 = {"name":"heh"}
+        piece2 = {"name": "heh"}
         instrument = {"name": "cl"}
         clef1 = {"name": "treble"}
         clef2 = {"name": "bass"}
@@ -82,14 +87,14 @@ class TestSuiteQuerylayer(object):
                     "instruments.id": ins1_id,
                     "clefs.id": clef1_id}, table="clefs_ins_piece")
         query = [{"instruments.id": ins1_id, "clefs.id": clef1_id},
-            {"instruments.id": ins1_id, "clefs.id": clef2_id}]
+                 {"instruments.id": ins1_id, "clefs.id": clef2_id}]
         result = qlayer.query_multiple(query, table="clefs_ins_piece")
         assert len(result) == 1
         assert result[0] == piece_id
 
     def test_multiple_options(self, qlayer):
         piece = {"name": "lol"}
-        piece2 = {"name":"heh"}
+        piece2 = {"name": "heh"}
         instrument = {"name": "cl"}
         ins2 = {"name": "bass cl"}
         clef1 = {"name": "treble"}
@@ -109,9 +114,6 @@ class TestSuiteQuerylayer(object):
         result = qlayer.query_multiple(query, table="clefs_ins_piece")
         assert len(result) == 2
 
-
-
-
     def result_against_dict(self, data, qlayer, table="pieces"):
         for entry in data:
             qlayer.add(entry, table=table)
@@ -123,4 +125,3 @@ class TestSuiteQuerylayer(object):
                 for key in entry:
                     assert key in result
                     assert result[key] == entry[key]
-

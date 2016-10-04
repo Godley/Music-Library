@@ -7,6 +7,7 @@ from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import get_if_exists
 from implementation.primaries.ExtractMetadata.classes.helpers import combine_dictionaries, init_kv
 
+
 class Extractor(xml.sax.ContentHandler):
 
     def __init__(self, parent):
@@ -109,7 +110,8 @@ class MetaParser(object):
         keys = ["key", "clef"]
         for part in self.parts:
             data = {}
-            data["name"] = get_if_exists(self.parts[part], "name", "hello, world")
+            data["name"] = get_if_exists(
+                self.parts[part], "name", "hello, world")
 
             if "transposition" in self.parts[part]:
                 data["transposition"] = self.parts[part]["transposition"]
@@ -117,7 +119,9 @@ class MetaParser(object):
             for key in keys:
                 if key in self.parts[part]:
                     init_kv(self.data, key, init_value={})
-                    self.data[key][data["name"]] = convert_to_hashdict_set(self.parts[part][key])
+                    self.data[key][
+                        data["name"]] = convert_to_hashdict_set(
+                        self.parts[part][key])
 
             instrument_list.append(data)
         self.data["instruments"] = instrument_list
@@ -156,9 +160,11 @@ def handle_clef_or_key(tags, attrs, chars, parts, data):
         init_kv(parts, id, init_value={})
         if tags[-2] in tag_dict:
             init_kv(parts[id], tags[-2], init_value=[])
-            elem_to_add = create_elem(chars, tag_dict[tags[-2]][0], tag_dict[tags[-2]][1])
+            elem_to_add = create_elem(
+                chars, tag_dict[tags[-2]][0], tag_dict[tags[-2]][1])
             tag_type = tags[-2]
             update_or_append_entry(parts[id][tag_type], tags[-1], elem_to_add)
+
 
 def update_or_append_entry(dictionary, tag, entry):
     """
@@ -170,7 +176,6 @@ def update_or_append_entry(dictionary, tag, entry):
         dictionary.append({tag: entry})
     elif tag not in dictionary[-1]:
         dictionary[-1][tag] = entry
-
 
 
 def create_elem(chars, key1, key2, cast1=int, cast2=str):
@@ -214,22 +219,28 @@ def handleMeter(tags, attrs, chars, parts, data):
             tag_type = "type"
 
         update_or_append_entry(data["time"], tag_type, elem)
-            # if len(data["time"]) == 0 or "type" in data["time"][-1]:
-            #     data["time"].append({"type": int(b_type)})
-            # else:
-            #     data["time"][-1]["type"] = int(b_type)
+        # if len(data["time"]) == 0 or "type" in data["time"][-1]:
+        #     data["time"].append({"type": int(b_type)})
+        # else:
+        #     data["time"][-1]["type"] = int(b_type)
 
 
 def handle_tempo(tags, attrs, chars, parts, data):
     init_kv(data, "tempo", [])
 
     if tags[-1] != "metronome":
-        elem = create_elem(chars, "beat-unit", "per-minute", cast1=str, cast2=int)
+        elem = create_elem(
+            chars,
+            "beat-unit",
+            "per-minute",
+            cast1=str,
+            cast2=int)
         data["tempo"] = handle_beat_unit(elem, data["tempo"], tags[-1])
         data["tempo"] = handle_beat_unit_dot(data["tempo"], tags[-1])
 
         if tags[-1] == "per-minute":
             update_or_append_entry(data["tempo"], "minute", elem)
+
 
 def handle_beat_unit_dot(list_of_dicts, tag):
     if tag == "beat-unit-dot":
@@ -241,6 +252,7 @@ def handle_beat_unit_dot(list_of_dicts, tag):
                 copy_of_dict[-1]["beat"] += "."
         return copy_of_dict
     return list_of_dicts
+
 
 def handle_beat_unit(elem, list_of_dicts, tag):
 
@@ -261,6 +273,7 @@ def handle_beat_unit(elem, list_of_dicts, tag):
         return copy_of_dict
     return list_of_dicts
 
+
 def beat1_and_minute_or_beat2_exists(list_of_dicts):
     answer = False
     if len(list_of_dicts) == 0:
@@ -268,6 +281,7 @@ def beat1_and_minute_or_beat2_exists(list_of_dicts):
     elif "beat" in list_of_dicts[-1] and minute_or_beat2_exists(list_of_dicts):
         answer = True
     return answer
+
 
 def minute_or_beat2_exists(list_of_dicts):
     answer = False
@@ -288,11 +302,18 @@ def handleBibliography(tags, attrs, chars, parts, data):
 
     handle_title(tags[-1], chars, data)
 
+
 def handle_title(tag, chars, data):
     if tag == "movement-title" or tag == "work-title":
-        title = create_elem(chars, "movement-title", "work-title", cast1=str, cast2=str)
+        title = create_elem(
+            chars,
+            "movement-title",
+            "work-title",
+            cast1=str,
+            cast2=str)
         init_kv(data, "title", init_value="")
         data["title"] += title.lower()
+
 
 def convert_to_hashdict_set(list_of_dicts):
     hashdict_list = [hashdict(item) for item in list_of_dicts]

@@ -6,7 +6,8 @@ see the MuseScore api class.
 from implementation.primaries import exceptions
 from implementation.primaries.GUI import helpers
 
-import sys, os
+import sys
+import os
 
 
 class Api(object):
@@ -44,14 +45,13 @@ class Api(object):
             if key in os.environ:
                 return os.environ[key]
             else:
-                raise exceptions.APIKeyNotFoundException('Error, MSCORE environment variable not set. Please set to your API key for musescore')
+                raise exceptions.APIKeyNotFoundException(
+                    'Error, MSCORE environment variable not set. Please set to your API key for musescore')
         else:
             from implementation.primaries.ImportOnlineDBs.classes import config
             # If we are running in script or debug mode, we need
             # to find the obfuscated file where it's located
             return config.k[key]
-
-
 
     def getCollection(self):
         '''

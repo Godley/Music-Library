@@ -21,7 +21,11 @@ class Scorebook(Window):
 
     def __init__(self, parent, design_folder):
         Window.__init__(
-            self, parent, "BasicListWidgetWithSort.ui", "Scorebook", design_folder)
+            self,
+            parent,
+            "BasicListWidgetWithSort.ui",
+            "Scorebook",
+            design_folder)
         self.setGeometry(0, 0, self.width(), self.height())
         self.listWidget.itemDoubleClicked.connect(self.loadPiece)
         self.listWidget.setFocusPolicy(QtCore.Qt.NoFocus)
@@ -32,9 +36,11 @@ class Scorebook(Window):
 
     def onSortChange(self):
         sort_method = self.comboBox.currentText()
-        self.application.start_basic_thread((sort_method,),
-                                            self.application.manager.getPieceSummaryStrings,
-                                            slot=self.onScoresReady)
+        self.application.start_basic_thread(
+            (sort_method,
+             ),
+            self.application.manager.getPieceSummaryStrings,
+            slot=self.onScoresReady)
         self.comboBox.show()
 
     def onScoresReady(self, pieces):
@@ -72,7 +78,8 @@ class PlaylistWidget(Window):
 
     def loadPlaylists(self, select_method="all"):
         if self.data_set == "auto":
-            self.application.start_playlist_thread(args=(select_method,), slot=self.onPlaylistsReady)
+            self.application.start_playlist_thread(
+                args=(select_method,), slot=self.onPlaylistsReady)
         else:
             self.application.start_playlist_thread(slot=self.onPlaylistsReady)
 
@@ -92,7 +99,12 @@ class MyPlaylists(PlaylistWidget):
     name = "myplaylist"
 
     def __init__(self, parent, design_folder):
-        PlaylistWidget.__init__(self, parent, "MyPlaylists.ui", "My Playlists", design_folder)
+        PlaylistWidget.__init__(
+            self,
+            parent,
+            "MyPlaylists.ui",
+            "My Playlists",
+            design_folder)
         self.deleteBtn.hide()
         self.listWidget.itemClicked.connect(self.deleteBtn.show)
         self.addBtn.clicked.connect(self.addClicked)
@@ -112,7 +124,12 @@ class AutoPlaylists(PlaylistWidget):
 
     def __init__(self, parent, design_folder):
         PlaylistWidget.__init__(
-            self, parent, "BasicListWidgetWithSort.ui", "Auto Playlists", design_folder, data_set="auto")
+            self,
+            parent,
+            "BasicListWidgetWithSort.ui",
+            "Auto Playlists",
+            design_folder,
+            data_set="auto")
         options = ["all", "time signatures", "keys",
                    "clefs", "instruments", "tempos"]
         self.comboBox.addItems(options)
@@ -139,7 +156,11 @@ class PieceInfo(Window):
 
     def __init__(self, parent, design_folder):
         Window.__init__(
-            self, parent, "BasicListWidget.ui", "Piece Information", design_folder)
+            self,
+            parent,
+            "BasicListWidget.ui",
+            "Piece Information",
+            design_folder)
         self.loadInfo()
 
     def loadInfo(self):
@@ -151,8 +172,14 @@ class PieceInfo(Window):
             datastring = "title: " + data["title"]
             title = QtGui.QListWidgetItem(datastring)
             self.listWidget.addItem(title)
-            keys = ("composer", "lyricist", "instruments", "clefs", "keys", "tempos",
-                    "time_signatures")
+            keys = (
+                "composer",
+                "lyricist",
+                "instruments",
+                "clefs",
+                "keys",
+                "tempos",
+                "time_signatures")
 
             alternate_methods = {"instruments": merge_instruments,
                                  "clefs": merge_clefs_and_keys,
@@ -176,7 +203,12 @@ class FeaturedIn(PlaylistWidget):
 
     def __init__(self, parent, design_folder):
         PlaylistWidget.__init__(
-            self, parent, "BasicListWidget.ui", "Featured In...", design_folder, data_set="featured")
+            self,
+            parent,
+            "BasicListWidget.ui",
+            "Featured In...",
+            design_folder,
+            data_set="featured")
 
     def loadPlaylists(self):
         if self.main_window.current_piece != "":
@@ -191,7 +223,11 @@ class PlaylistBrowser(Window):
 
     def __init__(self, parent, design_folder):
         Window.__init__(
-            self, parent, "BasicTableWidget.ui", "Playlist Browser", design_folder)
+            self,
+            parent,
+            "BasicTableWidget.ui",
+            "Playlist Browser",
+            design_folder)
         self.playlist = self.main_window.playlist
         self.index = self.main_window.index
         if self.playlist is not None and self.index is not None:
@@ -262,7 +298,7 @@ class SearchTree(QtGui.QTreeWidget):
 
     def remove_children(self, location_type, children, root):
         index = [child[0]
-                     for child in children if child[1] == location_type]
+                 for child in children if child[1] == location_type]
         item = root.child(index[0])
         for i in range(item.childCount()):
             child = item.child(i)

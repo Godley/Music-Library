@@ -4,14 +4,19 @@ Classes dealing with the MuseScore community api
 from implementation.primaries.ImportOnlineDBs.classes.API import Api
 
 from implementation.primaries.GUI.helpers import get_base_dir
-import requests, os, shutil, gzip
+import requests
+import os
+import shutil
+import gzip
 from io import BytesIO
 from implementation.primaries import exceptions
-import logging, json
+import logging
+import json
 
 
 class MuseScoreApi(Api):
     env_key = 'MSCORE'
+
     def __init__(self, folder="", logger=None):
         Api.__init__(self, folder=folder)
         self.logger = logger
@@ -30,8 +35,10 @@ class MuseScoreApi(Api):
         if request.status_code == 200:
             response = request.json()
         else:
-            self.logger.exception("API request response code: {} in getCollection".format(request.status_code))
-            raise(exceptions.BadAPIRequest('ERROR: API request response code: %i ' % request.status_code))
+            self.logger.exception(
+                "API request response code: {} in getCollection".format(
+                    request.status_code))
+            raise exceptions
         return response
 
     def cleanCollection(self):

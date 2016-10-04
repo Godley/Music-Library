@@ -1,7 +1,11 @@
-import unittest, sys, os
+import unittest
+import sys
+import os
 from implementation.primaries.GUI import helpers
 
+
 class testStylesheet(unittest.TestCase):
+
     def setUp(self):
         self.theme_folder = os.path.join(helpers.get_base_dir(True), 'themes')
 
@@ -21,22 +25,37 @@ class testStylesheet(unittest.TestCase):
         else:
             expected = "'" + expected_path + "'"
         cleaned_path = helpers.cleanPath(path)
-        self.assertEqual(expected, helpers.parseThemePath(cleaned_path, self.theme_folder))
+        self.assertEqual(
+            expected,
+            helpers.parseThemePath(
+                cleaned_path,
+                self.theme_folder))
 
     def testParseThemePathWithCSS(self):
         line = 'background: url(/themes/zoom-out.png) center no-repeat;'
-        expected_path = os.path.join(helpers.get_base_dir(True), 'themes', "zoom-out.png")
+        expected_path = os.path.join(
+            helpers.get_base_dir(True), 'themes', "zoom-out.png")
         if sys.platform == 'win32':
-            expected = "background: url('" + expected_path + '\') center no-repeat;'
+            expected = "background: url('" + \
+                expected_path + '\') center no-repeat;'
         else:
-            expected = "background: url(" + expected_path + ') center no-repeat;'
+            expected = "background: url(" + \
+                expected_path + ') center no-repeat;'
         cleaned_path = helpers.cleanPath(line)
-        self.assertEqual(expected, helpers.parseThemePath(cleaned_path, self.theme_folder))
+        self.assertEqual(
+            expected,
+            helpers.parseThemePath(
+                cleaned_path,
+                self.theme_folder))
 
     def testParseIconPath(self):
         path = 'themes/icons/item.png'
         theme = 'ubuntu'
-        new_path = os.path.join(self.theme_folder, 'icons', 'ubuntu', 'item.png')
+        new_path = os.path.join(
+            self.theme_folder,
+            'icons',
+            'ubuntu',
+            'item.png')
         if sys.platform == 'win32':
             expected = "'" + new_path + "'"
         else:

@@ -22,7 +22,7 @@ LOG_NAME = "muselib"
 logger = logging.getLogger(LOG_NAME)
 # Add the log message handler to the logger
 handler = logging.handlers.RotatingFileHandler(
-              LOG_FILE)
+    LOG_FILE)
 logger.addHandler(handler)
 
 
@@ -239,11 +239,10 @@ class Application(QtCore.QObject):
         OfflineThread.run()
         if self.wifi:
             OnlineThread = qt_threading.QueryThread(
-            self, self.manager.runQueries, (data,), True)
+                self, self.manager.runQueries, (data,), True)
             QtCore.QObject.connect(OnlineThread, QtCore.SIGNAL(
-            "dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
+                "dataReady(PyQt_PyObject, bool)"), self.onQueryComplete)
             OnlineThread.run()
-
 
     def getFileInfo(self, filename):
         file_info = self.manager.getFileInfo(filename)
@@ -294,8 +293,10 @@ class Application(QtCore.QObject):
                                              (filename,),
                                              pdf_version)
 
-                QtCore.QObject.connect(render_thread, QtCore.SIGNAL(
-                    "fileReady(PyQt_PyObject, PyQt_PyObject)"), self.onRenderTaskFinished)
+                QtCore.QObject.connect(
+                    render_thread,
+                    QtCore.SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"),
+                    self.onRenderTaskFinished)
                 QtCore.QObject.connect(render_thread, QtCore.SIGNAL(
                     "renderingError(PyQt_PyObject)"), self.onRenderError)
                 render_thread.run()
@@ -342,6 +343,7 @@ class Application(QtCore.QObject):
 
         self.manager.updateWifi(self.wifi)
         return self.wifi
+
 
 def main():
     sys.stdout = Tracer(sys.stdout)

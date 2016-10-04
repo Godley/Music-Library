@@ -2,35 +2,37 @@ import unittest
 from implementation.primaries.ExtractMetadata.classes.DataLayer.musicdata import MusicData
 import os
 
+
 class TestSuiteDataLayerGeneratePlaylists(unittest.TestCase):
+
     def testFindAllPiecesByAllKeys(self, mlayer):
         mlayer.add_piece("file.xml", {"key": {
-                           "clari": [{"mode": "major", "fifths": 0}]}, "instruments": [{"name": "clari"}]})
+            "clari": [{"mode": "major", "fifths": 0}]}, "instruments": [{"name": "clari"}]})
         mlayer.add_piece("file2.xml", {"key": {
-                           "clari": [{"mode": "major", "fifths": 0}]}, "instruments": [{"name": "clari"}]})
+            "clari": [{"mode": "major", "fifths": 0}]}, "instruments": [{"name": "clari"}]})
         mlayer.add_piece("file1.xml", {"key": {
-                           "clari": [{"mode": "major", "fifths": 1}]}, "instruments": [{"name": "clari"}]})
+            "clari": [{"mode": "major", "fifths": 1}]}, "instruments": [{"name": "clari"}]})
         mlayer.add_piece("file3.xml", {"key": {
-                           "clari": [{"mode": "major", "fifths": 1}]}, "instruments": [{"name": "clari"}]})
+            "clari": [{"mode": "major", "fifths": 1}]}, "instruments": [{"name": "clari"}]})
         expected = {"C major": ["file.xml",
-                                      "file2.xml"],
-                          "G major": ["file1.xml",
-                                      "file3.xml"]}
+                                "file2.xml"],
+                    "G major": ["file1.xml",
+                                "file3.xml"]}
         assert mlayer.get_piece_by_all_elem(elem='keys') == expected
 
     def testFindAllPiecesByAllClefs(self, mlayer):
         mlayer.add_piece("file.xml", {"clef": {
-                           "clari": [{"sign": "G", "line": 2}]}, "instruments": [{"name": "clari"}]})
+            "clari": [{"sign": "G", "line": 2}]}, "instruments": [{"name": "clari"}]})
         mlayer.add_piece("file3.xml", {"clef": {
-                           "clari": [{"sign": "G", "line": 2}]}, "instruments": [{"name": "clari"}]})
+            "clari": [{"sign": "G", "line": 2}]}, "instruments": [{"name": "clari"}]})
         mlayer.add_piece("file1.xml", {"clef": {
-                           "clari": [{"sign": "F", "line": 4}]}, "instruments": [{"name": "clari"}]})
+            "clari": [{"sign": "F", "line": 4}]}, "instruments": [{"name": "clari"}]})
         mlayer.add_piece("file2.xml", {"clef": {
-                           "clari": [{"sign": "F", "line": 4}]}, "instruments": [{"name": "clari"}]})
+            "clari": [{"sign": "F", "line": 4}]}, "instruments": [{"name": "clari"}]})
         expected = {"treble": ["file.xml",
-                                     "file3.xml"],
-                          "bass": ["file1.xml",
-                                   "file2.xml"]}
+                               "file3.xml"],
+                    "bass": ["file1.xml",
+                             "file2.xml"]}
         assert mlayer.get_piece_by_all_elem(elem='clefs') == expected
 
     def testFindAllPiecesByAllTimeSigs(self, mlayer):
@@ -48,23 +50,27 @@ class TestSuiteDataLayerGeneratePlaylists(unittest.TestCase):
             "file1.xml", {"tempo": [{"beat": "quarter", "beat_2": "eighth"}]})
         mlayer.add_piece(
             "file2.xml", {"tempo": [{"beat": "quarter", "beat_2": "eighth"}]})
-        expected = {"quarter=eighth": ["file1.xml", "file2.xml"], "quarter=100": [
-                         "file.xml", "file3.xml"]}
+        expected = {
+            "quarter=eighth": [
+                "file1.xml", "file2.xml"], "quarter=100": [
+                "file.xml", "file3.xml"]}
         assert expected == mlayer.getPiecesByAllTempos()
 
     def testFindAllPiecesByAllInstruments(self, mlayer):
-        mlayer.add_piece(
-            "file.xml", {"instruments": [{"name": "clarinet"}, {"name": "flute"}]})
+        mlayer.add_piece("file.xml", {"instruments": [
+            {"name": "clarinet"}, {"name": "flute"}]})
         mlayer.add_piece(
             "file1.xml", {"instruments": [{"name": "clarinet"}]})
         mlayer.add_piece("file2.xml", {"instruments": [{"name": "flute"}]})
         expected = {"flute": ["file.xml",
-                                    "file2.xml"],
-                          "clarinet": ["file.xml",
-                                       "file1.xml"]}
+                              "file2.xml"],
+                    "clarinet": ["file.xml",
+                                 "file1.xml"]}
         assert expected == mlayer.getPiecesByAllInstruments()
 
-    def testFindAllPiecesByAllInstrumentsWithTranspositionsAndUniqueNames(self, mlayer):
+    def testFindAllPiecesByAllInstrumentsWithTranspositionsAndUniqueNames(
+            self,
+            mlayer):
         mlayer.add_piece(
             "file.xml", {
                 "instruments": [
@@ -72,37 +78,37 @@ class TestSuiteDataLayerGeneratePlaylists(unittest.TestCase):
                         "name": "clarinet", "diatonic": 1, "chromatic": 2}, {
                         "name": "flute"}]})
         mlayer.add_piece("file1.xml", {"instruments": [
-                           {"name": "clarinet", "diatonic": 1, "chromatic": 2}]})
+            {"name": "clarinet", "diatonic": 1, "chromatic": 2}]})
         mlayer.add_piece("file2.xml", {"instruments": [{"name": "flute"}]})
         result = mlayer.getPiecesByAllInstruments()
         expected = {
-                "flute": [
-                    "file.xml",
-                    "file2.xml"],
-                "clarinet transposed 1 diatonic 2 chromatic": [
-                    "file.xml",
-                    "file1.xml"]}
+            "flute": [
+                "file.xml",
+                "file2.xml"],
+            "clarinet transposed 1 diatonic 2 chromatic": [
+                "file.xml",
+                "file1.xml"]}
         assert result == expected
 
     def testFindAllPiecesByAllInstrumentsWithTranspositions(self, mlayer):
         mlayer.add_piece("file.xml",
-                           {"instruments": [{"name": "clarinet"},
-                                            {"name": "clarinet",
-                                             "diatonic": 1}]})
+                         {"instruments": [{"name": "clarinet"},
+                                          {"name": "clarinet",
+                                           "diatonic": 1}]})
         mlayer.add_piece(
             "file1.xml", {"instruments": [{"name": "clarinet"}]})
         mlayer.add_piece("file2.xml",
-                           {"instruments": [{"name": "flute"},
-                                            {"name": "clarinet",
-                                             "diatonic": 1}]})
+                         {"instruments": [{"name": "flute"},
+                                          {"name": "clarinet",
+                                           "diatonic": 1}]})
         result = mlayer.getPiecesByAllInstruments()
         exp = {
-                "clarinet": [
-                    "file.xml",
-                    "file1.xml"],
-                "clarinet transposed 1 diatonic 0 chromatic": [
-                    "file.xml",
-                    "file2.xml"]}
+            "clarinet": [
+                "file.xml",
+                "file1.xml"],
+            "clarinet transposed 1 diatonic 0 chromatic": [
+                "file.xml",
+                "file2.xml"]}
         assert result == exp
 
     def testFindAllPiecesByAllComposers(self, mlayer):
@@ -121,24 +127,24 @@ class TestSuiteDataLayerGeneratePlaylists(unittest.TestCase):
 
     def testFindAllPiecesByAllKeysWithTransposedInstruments(self, mlayer):
         mlayer.add_piece("file.xml",
-                           {"key": {"clari": [{"mode": "major",
-                                               "fifths": 0}]},
-                            "instruments": [{"name": "clari",
-                                             "diatonic": 1}]})
+                         {"key": {"clari": [{"mode": "major",
+                                             "fifths": 0}]},
+                          "instruments": [{"name": "clari",
+                                           "diatonic": 1}]})
         mlayer.add_piece("file1.xml",
-                           {"key": {"clarin": [{"mode": "major",
-                                                "fifths": 1}]},
-                            "instruments": [{"name": "clarin"}]})
+                         {"key": {"clarin": [{"mode": "major",
+                                              "fifths": 1}]},
+                          "instruments": [{"name": "clarin"}]})
         mlayer.add_piece("file2.xml",
-                           {"key": {"clarin": [{"mode": "major",
-                                                "fifths": 1}]},
-                            "instruments": [{"name": "clarin"}]})
+                         {"key": {"clarin": [{"mode": "major",
+                                              "fifths": 1}]},
+                          "instruments": [{"name": "clarin"}]})
         exp = {"G major": ["file1.xml", "file2.xml"]}
         assert mlayer.get_piece_by_all_elem(elem='keys') == exp
 
     def test_archive_piece(self, mlayer):
         mlayer.add_piece("file.xml", {"instruments": [
-                           {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
+            {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
         self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 1)
         mlayer.archivePieces(["file.xml"])
         self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 0)
@@ -146,7 +152,7 @@ class TestSuiteDataLayerGeneratePlaylists(unittest.TestCase):
 
     def testRemovePiece(self, mlayer):
         mlayer.add_piece("file.xml", {"instruments": [
-                           {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
+            {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
         self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 1)
         mlayer.removePieces(["file.xml"])
         self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 0)

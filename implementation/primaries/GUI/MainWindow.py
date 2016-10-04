@@ -1,9 +1,10 @@
-import sip, os, difflib
+import sip
+import os
+import difflib
 import time
 from sys import platform
 if platform != 'win32':
     from popplerqt4 import Poppler
-
 
 
 from PyQt4 import QtGui, QtCore, uic
@@ -30,7 +31,6 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.index = None
         self.themeSet = False
 
-
     def resizeEvent(self, QResizeEvent):
         if hasattr(self, "scoreWindow"):
             if not self.scoreWindow.isHidden():
@@ -48,8 +48,6 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         if hasattr(self, "searchBar"):
             self.resizeSearchbar()
         QResizeEvent.accept()
-
-
 
     def resizeCenterWidget(self, item):
         """
@@ -76,7 +74,10 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         search_width = self.width()
         search_height = self.searchBar.height()
         self.searchBar.setGeometry(
-            search_position.x(), search_position.y(), search_width, search_height)
+            search_position.x(),
+            search_position.y(),
+            search_width,
+            search_height)
 
     def closeEvent(self, QCloseEvent):
         self.hide()
@@ -100,8 +101,11 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.widgets["search"] = Widgets.SearchTree(self, self.design_folder)
         layout = self.searchFrame.layout()
         layout.addWidget(self.widgets["search"])
-        self.searchFrame.setGeometry(self.searchFrame.pos().x(), self.searchFrame.pos(
-        ).y(), self.widgets["search"].width(), self.widgets["search"].height())
+        self.searchFrame.setGeometry(
+            self.searchFrame.pos().x(),
+            self.searchFrame.pos().y(),
+            self.widgets["search"].width(),
+            self.widgets["search"].height())
         self.scorebookBtn.clicked.connect(self.sidemenu_callback)
         self.myPlaylistBtn.clicked.connect(self.sidemenu_callback)
         self.autoPlaylistBtn.clicked.connect(self.sidemenu_callback)
@@ -140,7 +144,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.actionRefresh_Collection.triggered.connect(self.qApp.updateDb)
         self.actionNew_Collection.triggered.connect(self.newCollection)
         self.actionImport.triggered.connect(self.qApp.importWindow)
-        self.viewer = pdfViewer.PDFViewer(self.scoreWindow.width()/2)
+        self.viewer = pdfViewer.PDFViewer(self.scoreWindow.width() / 2)
         if platform == "win32":
             self.applyTheme()
 
@@ -148,11 +152,11 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         wifiOn = self.qApp.toggleWifi()
         if wifiOn:
             self.wifiButton.setStyleSheet("""background: url(/themes/icons/"""
-                                          +self.theme+"""/wifi-on.png) center no-repeat;
+                                          + self.theme + """/wifi-on.png) center no-repeat;
             """)
         else:
             self.wifiButton.setStyleSheet("""
-            background: url(/themes/icons/"""+self.theme+"""/wifi-off.png) center no-repeat;
+            background: url(/themes/icons/""" + self.theme + """/wifi-off.png) center no-repeat;
             """)
 
     def zoomIn(self):
@@ -205,15 +209,14 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.widgets["search"].show()
         self.searchFrame.show()
 
-
-
     def finished(self):
         """
         callback for when a user has finished entering text in the search bar
         :return:
         """
         widget = self.focusWidget()
-        if (self.searchInput.text() == "" or self.searchInput.text() == " ") or widget.objectName() != "treeWidget":
+        if (self.searchInput.text() == "" or self.searchInput.text()
+                == " ") or widget.objectName() != "treeWidget":
             try:
                 self.searchFrame.hide()
             except:
@@ -243,10 +246,23 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.playlist = playlist_title
         self.resizeCenterWidget(self.playlistTable)
 
-    def setup_data_items(self, playlist_fnames, playlist_data, start_index, end_index):
+    def setup_data_items(
+            self,
+            playlist_fnames,
+            playlist_data,
+            start_index,
+            end_index):
         items = []
-        keys = ("title", "composer", "lyricist", "instruments", "filename", "clefs", "keys",
-                "tempos", "time_signatures")
+        keys = (
+            "title",
+            "composer",
+            "lyricist",
+            "instruments",
+            "filename",
+            "clefs",
+            "keys",
+            "tempos",
+            "time_signatures")
         alternate_method = {"instruments": merge_instruments,
                             "clefs": merge_clefs_and_keys,
                             "keys": merge_clefs_and_keys}
@@ -259,7 +275,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
                         value = alternate_method[key](file[key])
                     else:
                         value = file[key]
-                        if type(value) is list:
+                        if isinstance(value, list):
                             value = ", ".join(file[key])
                     item = QtGui.QTableWidgetItem(value)
                     item.setData(32, file["filename"])
@@ -275,10 +291,6 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
                     row.append(item)
             items.append(row)
         return items
-
-
-
-
 
     def onPlaylistItemClicked(self, current_item):
         """
@@ -311,14 +323,14 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.pdf_loaded = filename
         file_to_load = split_file.split(".")[0] + ".xml"
         self.current_piece = file_to_load
-        #self.showToolbarBtns()
-        #self.loadPieceData(file_to_load)
+        # self.showToolbarBtns()
+        # self.loadPieceData(file_to_load)
         if platform != "win32":
             self.loadPdfToGraphicsWidget(filename)
         else:
             os.startfile(filename)
-        #self.loadPdfToWebWidget(filename)
-        self.setWindowTitle("MuseLib | Piece: "+file_to_load)
+        # self.loadPdfToWebWidget(filename)
+        self.setWindowTitle("MuseLib | Piece: " + file_to_load)
         self.resizeCenterWidget(self.scoreWindow)
         self.scoreWindow.show()
         self.scoreWindow.lower()
@@ -416,7 +428,11 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         animation = QtCore.QPropertyAnimation(self.contentFrame, "geometry")
         animation.setDuration(200)
         animation.setStartValue(
-            QtCore.QRect(0, ypos, self.buttonFrame.width(), self.buttonFrame.height()))
+            QtCore.QRect(
+                0,
+                ypos,
+                self.buttonFrame.width(),
+                self.buttonFrame.height()))
         animation.setEndValue(
             QtCore.QRect(endx, ypos, endwidth, self.buttonFrame.height()))
         animation.start()
@@ -437,8 +453,12 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
 
         animation = QtCore.QPropertyAnimation(self.contentFrame, "geometry")
         animation.setDuration(200)
-        animation.setStartValue(QtCore.QRect(
-            position.x(), position.y(), self.contentFrame.width(), self.contentFrame.height()))
+        animation.setStartValue(
+            QtCore.QRect(
+                position.x(),
+                position.y(),
+                self.contentFrame.width(),
+                self.contentFrame.height()))
         animation.setEndValue(
             QtCore.QRect(endx, endy, endwidth, self.contentFrame.height()))
         animation.start()
@@ -453,4 +473,3 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.qApp.folder = ""
         self.qApp.setup_startup()
         self.close()
-

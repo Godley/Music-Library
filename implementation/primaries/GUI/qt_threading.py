@@ -2,11 +2,14 @@ from PyQt4.QtCore import QObject, QThread, pyqtSignal, SIGNAL
 
 from threading import Lock
 
+
 class AppThread(QThread):
+
     def __init__(self, parent, method, args, **kwargs):
         QThread.__init__(self, parent)
         self.args = args
         self.method = method
+
 
 class mythread(AppThread):
 
@@ -41,7 +44,9 @@ class RenderThread(AppThread):
         try:
             result = self.method(*self.args)
             self.emit(
-                SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), result, self.filename)
+                SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"),
+                result,
+                self.filename)
         except BaseException as e:
             self.emit(SIGNAL("renderingError(PyQt_PyObject)"), e)
 

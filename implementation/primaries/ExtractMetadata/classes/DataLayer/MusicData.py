@@ -53,6 +53,7 @@ from ..hashdict import hashdict
 import copy
 from .exceptions import BadPieceException, InvalidQueryException
 
+
 class TempoParser(object):
     converter = {"crotchet": "quarter",
                  "quaver": "eighth",
@@ -71,7 +72,7 @@ class TempoParser(object):
         seg_length = 4
         index = 0
         value = 8
-        while tempo[index:index+seg_length] in self.halvers:
+        while tempo[index:index + seg_length] in self.halvers:
             value *= 2
             index += seg_length
         return value
@@ -97,7 +98,7 @@ class TempoParser(object):
             else:
                 break
             end_of_word -= 1
-        new_word = entry[:end_of_word+1]
+        new_word = entry[:end_of_word + 1]
         return dots, new_word
 
     def parseWord(self, word):
@@ -156,7 +157,9 @@ class MusicData(querylayer.QueryLayer):
         row = self.get_or_add({"name": name}, table="creators")[0]
 
         if row is not None:
-            self.update(piece_id, {"{}.id".format(creator): row['id']}, table="pieces")
+            self.update(piece_id,
+                        {"{}.id".format(creator): row['id']},
+                        table="pieces")
 
     def get_or_create_instrument(self, instrument):
         diatonic = get_if_exists(instrument, 'diatonic', default=0)
@@ -172,8 +175,8 @@ class MusicData(querylayer.QueryLayer):
 
     def getInstrumentId(self, name):
         data = self.read_one(
-                            'SELECT ROWID FROM instruments '
-                            'WHERE name=?',
+            'SELECT ROWID FROM instruments '
+            'WHERE name=?',
                             (name,))
         if data is not None:
             data = data['rowid']
@@ -196,7 +199,7 @@ class MusicData(querylayer.QueryLayer):
     def create_key_links(self, keysig_dict, piece_id):
         for instrument in keysig_dict:
             for key in keysig_dict[instrument]:
-                if type(key) is str:
+                if isinstance(key, str):
                     query = 'SELECT ROWID FROM keys WHERE name = ?'
                     values = (key,)
                 else:
@@ -210,8 +213,8 @@ class MusicData(querylayer.QueryLayer):
                 if key is not None:
                     query = 'INSERT INTO key_piece_join VALUES(?,?,?)'
                     self.write(query, (key['rowid'],
-                               piece_id,
-                               instrument_id))
+                                       piece_id,
+                                       instrument_id))
 
     def create_clef_links(self, clef_dict, piece_id):
         for instrument in clef_dict:
@@ -220,9 +223,9 @@ class MusicData(querylayer.QueryLayer):
                 line = get_if_exists(clef, "line", default=2)
                 instrument_id = self.getInstrumentId(instrument)
                 clef_id = self.read_one(
-                                        'SELECT ROWID FROM clefs '
-                                        'WHERE sign=? AND line=?',
-                                        (sign, line,))
+                    'SELECT ROWID FROM clefs '
+                    'WHERE sign=? AND line=?',
+                    (sign, line,))
                 if clef_id is not None:
                     self.write(
                         'INSERT INTO clef_piece_join VALUES(?,?,?)',
@@ -305,7 +308,8 @@ class MusicData(querylayer.QueryLayer):
             data = self.add_instruments_to_piece(data, piece_id)
 
         else:
-            raise BadPieceException("All pieces must have at least one instrument")
+            raise BadPieceException(
+                "All pieces must have at least one instrument")
 
         if "id" in data:
             data.pop("id")
@@ -331,9 +335,11 @@ class MusicData(querylayer.QueryLayer):
                     kwargs['clefs'] = clef_data
                     result_data["clefs"].pop(name)
                 else:
-                    raise BadPieceException("each instrument should have atleast one key")
+                    raise BadPieceException(
+                        "each instrument should have atleast one key")
             else:
-                raise BadPieceException("each instrument should have atleast one clef")
+                raise BadPieceException(
+                    "each instrument should have atleast one clef")
 
             if "keys" in data:
                 if name in data["keys"]:
@@ -341,10 +347,12 @@ class MusicData(querylayer.QueryLayer):
                     kwargs['keys'] = key_data
                     result_data["keys"].pop(name)
                 else:
-                    raise BadPieceException("each instrument should have atleast one key")
+                    raise BadPieceException(
+                        "each instrument should have atleast one key")
 
             else:
-                raise BadPieceException("each instrument should have atleast one key")
+                raise BadPieceException(
+                    "each instrument should have atleast one key")
 
             self.add_instrument_to_piece(instrument, piece_id, **kwargs)
         result_data.pop("instruments")
@@ -354,11 +362,13 @@ class MusicData(querylayer.QueryLayer):
         ins = self.get_or_add(data, table='instruments')[0]
         for clef_data in clefs:
             clef = self.get_or_add(clef_data, table='clefs')[0]
-            self.add({'instruments.id':ins['id'], 'clefs.id': clef['id'], 'piece.id': piece_id}, table='clefs_ins_piece')
+            self.add({'instruments.id': ins['id'], 'clefs.id': clef[
+                     'id'], 'piece.id': piece_id}, table='clefs_ins_piece')
 
         for key_data in keys:
-            key  = self.get_or_add(key_data, table='keys')[0]
-            self.add({'instruments.id':ins['id'], 'keys.id': key['id'], 'piece.id': piece_id}, table='keys_ins_piece')
+            key = self.get_or_add(key_data, table='keys')[0]
+            self.add({'instruments.id': ins['id'], 'keys.id': key[
+                     'id'], 'piece.id': piece_id}, table='keys_ins_piece')
 
     def get_file_list(self, online=False):
         results = self.get_all(table="pieces")
@@ -437,7 +447,8 @@ class MusicData(querylayer.QueryLayer):
         :param instrument: name of instrument
         :return: list of files containing that instrumnet
         """
-        instrument_ids = [self.get_ids_for_like({"name": "%{}%".format(instrument)}) for instrument in instruments]
+        instrument_ids = [self.get_ids_for_like(
+            {"name": "%{}%".format(instrument)}) for instrument in instruments]
         tuple_ids = []
         [tuple_ids.extend(inst_id) for inst_id in instrument_ids]
         query = []
@@ -468,12 +479,12 @@ class MusicData(querylayer.QueryLayer):
         requested.
         """
         all_pieces = self.get_pieces_by_instruments(instruments,
-                                                 archived=archived,
-                                                 online=online)
-        any = {"Instrument: "+instrument:
+                                                    archived=archived,
+                                                    online=online)
+        any = {"Instrument: " + instrument:
                self.get_pieces_by_instruments([instrument],
-                                           archived=archived,
-                                           online=online)
+                                              archived=archived,
+                                              online=online)
                for instrument in instruments}
         result = {}
         if len(all_pieces) > 0:
@@ -492,15 +503,23 @@ class MusicData(querylayer.QueryLayer):
         previous = None
         for element in rows:
             if element != previous:
-                result = self.query({'id': element, 'archived': archived}, table='pieces')[0]
+                result = self.query(
+                    {'id': element, 'archived': archived}, table='pieces')[0]
                 if result is not None:
                     file_list.append(result['filename'])
             previous = element
         return file_list
 
-    def get_pieces_by_creator(self, creator, creator_type='composer', archived=False, online=False):
-        creator_id = self.like({"name": "%{}%".format(creator)}, table="creators")[0]
-        piece_ids = self.query({creator_type+".id": creator_id['id']}, table="pieces")
+    def get_pieces_by_creator(
+            self,
+            creator,
+            creator_type='composer',
+            archived=False,
+            online=False):
+        creator_id = self.like(
+            {"name": "%{}%".format(creator)}, table="creators")[0]
+        piece_ids = self.query(
+            {creator_type + ".id": creator_id['id']}, table="pieces")
         piece_ids = [elem['id'] for elem in piece_ids]
         file_list = self.get_pieces_by_row_id(piece_ids, archived=archived)
         return file_list
@@ -521,7 +540,8 @@ class MusicData(querylayer.QueryLayer):
         results = []
         for value in data:
             key = self.query(value, table=table)[0]
-            piece_ids = self.query({table+'.id': key['id']}, table=table+"_ins_piece")
+            piece_ids = self.query(
+                {table + '.id': key['id']}, table=table + "_ins_piece")
             piece_ids = [elem['piece.id'] for elem in piece_ids]
             results.extend(piece_ids)
         results = set(results)
@@ -539,7 +559,8 @@ class MusicData(querylayer.QueryLayer):
         keys = self.query({"mode": modularity}, table="keys")
         pieces = []
         for key in keys:
-            piece_ids = self.query({"keys.id":key['id']}, table="keys_ins_piece")
+            piece_ids = self.query(
+                {"keys.id": key['id']}, table="keys_ins_piece")
             piece_ids = [elem['piece.id'] for elem in piece_ids]
             pieces.extend(piece_ids)
         pieces = set(pieces)
@@ -580,7 +601,8 @@ class MusicData(querylayer.QueryLayer):
                             ROWID != piece.ROWID)
                             AND piece.archived = ?'''
         }
-        query = do_online_offline_query(query_table[elem], 'piece.ROWID', online=online)
+        query = do_online_offline_query(
+            query_table[elem], 'piece.ROWID', online=online)
         return self.get_by_all_elems(query, (archived,))
 
     def getPiecesByAllTimeSigs(self, archived=0, online=False):
@@ -633,11 +655,10 @@ class MusicData(querylayer.QueryLayer):
         self.disconnect(connection)
         instrument_dict = {}
 
-
         for pair in results:
             if pair['diatonic'] != 0 or pair['chromatic'] != 0:
-                key_val = "{} transposed {} diatonic {} chromatic".format(pair['name'], pair['diatonic'],
-                                                                   pair['chromatic'])
+                key_val = "{} transposed {} diatonic {} chromatic".format(
+                    pair['name'], pair['diatonic'], pair['chromatic'])
             else:
                 key_val = pair['name']
             if key_val not in instrument_dict:
@@ -645,7 +666,8 @@ class MusicData(querylayer.QueryLayer):
             instrument_dict[key_val].append(pair['filename'])
         return instrument_dict
 
-    def createInstrumentDictionaryAndList(self, instruments, action, elem_type='clef'):
+    def createInstrumentDictionaryAndList(
+            self, instruments, action, elem_type='clef'):
         inst_list = []
         inst_dict = {}
         for instrument in instruments:
@@ -658,7 +680,12 @@ class MusicData(querylayer.QueryLayer):
                     inst_dict[instrument].append(id)
         return inst_list, inst_dict
 
-    def getPieceByInstrumentIn_(self, data, table="clefs", archived=False, online=False):
+    def getPieceByInstrumentIn_(
+            self,
+            data,
+            table="clefs",
+            archived=False,
+            online=False):
         query = []
         for instrument in data:
             ins_id = self.query({"name": instrument}, table="instruments")
@@ -668,14 +695,17 @@ class MusicData(querylayer.QueryLayer):
                 if len(elem_id) > 0:
                     elem_id = elem_id[0]['id']
                 else:
-                    raise InvalidQueryException("{} query invalid, no results found".format(table))
-                new_q = {"instruments.id":ins_id, "{}.id".format(table): elem_id}
+                    raise InvalidQueryException(
+                        "{} query invalid, no results found".format(table))
+                new_q = {
+                    "instruments.id": ins_id,
+                    "{}.id".format(table): elem_id}
                 query.append(new_q)
 
-        results = self.query_multiple(query, table="{}_ins_piece".format(table))
+        results = self.query_multiple(
+            query, table="{}_ins_piece".format(table))
         file_list = self.get_pieces_by_row_id(results, archived)
         return file_list
-
 
     def getPieceByMeter(self, meters, archived=False, online=False):
         results = set()
@@ -684,9 +714,11 @@ class MusicData(querylayer.QueryLayer):
                 values = meter.split("/")
                 beat = int(values[0])
                 b_type = int(values[1])
-                result = self.query({"beat":beat, "beat_type":b_type}, table="time_signatures")[0]['id']
+                result = self.query(
+                    {"beat": beat, "beat_type": b_type}, table="time_signatures")[0]['id']
                 # TODO bounds check
-                join = self.query({"time_signatures.id":result}, table="time_signatures_piece")
+                join = self.query({"time_signatures.id": result},
+                                  table="time_signatures_piece")
                 data = {elem['piece.id'] for elem in join}
                 if len(results) > 0:
                     results = set.intersection(results, data)
@@ -695,8 +727,6 @@ class MusicData(querylayer.QueryLayer):
         file_list = self.get_pieces_by_row_id(results, archived)
         return file_list
 
-
-
     def get_piece_by_tempo(self, tempos, archived=False, online=False):
         pieces = []
         tempo_list = []
@@ -704,9 +734,10 @@ class MusicData(querylayer.QueryLayer):
         for tempo in tempos:
             result = parser.decode(tempo)
             tempo_list.append(result)
-        tempo_ids = [self.query(tempo, table="tempos")[0] for tempo in tempo_list]
+        tempo_ids = [self.query(tempo, table="tempos")[0]
+                     for tempo in tempo_list]
         for elem in tempo_ids:
-            res = self.query({'tempos.id':elem['id']}, table='tempos_piece')
+            res = self.query({'tempos.id': elem['id']}, table='tempos_piece')
             res = [elem['piece.id'] for elem in res]
             pieces.append(res)
         pieces = set(*pieces)
@@ -715,7 +746,8 @@ class MusicData(querylayer.QueryLayer):
         return file_list
 
     def get_instruments_by_piece_id(self, piece_id):
-        query_one = self.mk_query({'piece.id': piece_id}, table='keys_ins_piece')
+        query_one = self.mk_query(
+            {'piece.id': piece_id}, table='keys_ins_piece')
         data = query_one.all()
         instruments = []
         for elem in data:
@@ -741,7 +773,12 @@ class MusicData(querylayer.QueryLayer):
         self.disconnect(connection)
         return instruments
 
-    def getPieceByAlternateInstruments(self, cursor, alternates, archived=0, online=False):
+    def getPieceByAlternateInstruments(
+            self,
+            cursor,
+            alternates,
+            archived=0,
+            online=False):
         query = '''SELECT piece_id FROM instruments_piece_join i WHERE EXISTS'''
         query_input = []
         for instrument in alternates:
@@ -781,13 +818,17 @@ class MusicData(querylayer.QueryLayer):
             if key is not -1:
                 instrument_keys.append((elem, key))
                 if key is not None:
-                    alternates.append(((elem, key), self.getInstrumentsBySameTranspositionAs(elem['name'])))
+                    alternates.append(
+                        ((elem, key), self.getInstrumentsBySameTranspositionAs(
+                            elem['name'])))
                 else:
-                    alternates.append(((elem, key), self.getInstrumentsByTransposition(elem)))
+                    alternates.append(
+                        ((elem, key), self.getInstrumentsByTransposition(elem)))
         results = self.get_pieces_by_instruments(
             [instrument["name"] for instrument in instruments])
         if len(results) == 0:
-            file_list = self.getPieceByAlternateInstruments(cursor, alternates, archived, online)
+            file_list = self.getPieceByAlternateInstruments(
+                cursor, alternates, archived, online)
 
         self.disconnect(connection)
         return file_list
@@ -795,11 +836,13 @@ class MusicData(querylayer.QueryLayer):
     # again, helper methods for other methods which just go off and find the
     # joins for specific pieces
     def get_clefs_or_keys_by_piece_id(self, piece_id, elem='keys'):
-        elem_ids = self.query({'piece.id':piece_id}, table=elem+"_ins_piece")
+        elem_ids = self.query({'piece.id': piece_id},
+                              table=elem + "_ins_piece")
         data = {}
         for value in elem_ids:
-            ins = self.query({'id': value['instruments.id']}, table='instruments')[0]
-            res = self.query({'id': value[elem+'.id']}, table=elem)[0]
+            ins = self.query(
+                {'id': value['instruments.id']}, table='instruments')[0]
+            res = self.query({'id': value[elem + '.id']}, table=elem)[0]
             if ins is not None:
                 data.setdefault(ins['name'], []).append(res['name'])
         return data
@@ -814,7 +857,8 @@ class MusicData(querylayer.QueryLayer):
             cursor.execute(q, (id['time_id'],))
             timesig = cursor.fetchone()
             if timesig is not None and len(timesig) > 0:
-                meters.append(str(timesig['beat']) + "/" + str(timesig['b_type']))
+                meters.append(str(timesig['beat']) +
+                              "/" + str(timesig['b_type']))
         return meters
 
     def getTemposByPieceId(self, piece_id, cursor):
@@ -834,13 +878,15 @@ class MusicData(querylayer.QueryLayer):
     def getFileData(self, filenames, archived=False, online=False):
         file_data = []
         for filename in filenames:
-            piece_tuple = self.query({"filename": filename, "archived": archived})[0]
+            piece_tuple = self.query(
+                {"filename": filename, "archived": archived})[0]
             if piece_tuple is not None:
                 file_data.append(piece_tuple)
         return file_data
 
     def get_all_piece_info(self, filenames, archived=False, online=False):
-        file_data = self.getFileData(filenames, archived=archived, online=online)
+        file_data = self.getFileData(
+            filenames, archived=archived, online=online)
         files = []
 
         for file in file_data:
@@ -849,36 +895,47 @@ class MusicData(querylayer.QueryLayer):
             index = file["id"]
             composer_id = file["composer.id"]
             if composer_id != -1:
-                composer = self.query({'creators.id':composer_id}, table='creators')
+                composer = self.query(
+                    {'creators.id': composer_id}, table='creators')
 
             lyricist_id = file["lyricist.id"]
             if lyricist_id != -1:
-                lyricist = self.query({'creators.id':lyricist_id}, table='creators')
+                lyricist = self.query(
+                    {'creators.id': lyricist_id}, table='creators')
 
-            elem_data = hashdict({"instruments": self.get_instruments_by_piece_id(index),
-            "clefs" : self.get_clefs_or_keys_by_piece_id(index, elem='clefs'),
-            "keys": self.get_clefs_or_keys_by_piece_id(index),
-            "timesigs": self.get_elem_by_piece_id(index, elem='time_signatures'),
-            "tempos": self.get_elem_by_piece_id(index, elem='tempos'),
-            "filename": file["filename"], "title": file["name"],
-            'composer': composer, 'lyricist': lyricist})
+            elem_data = hashdict(
+                {
+                    "instruments": self.get_instruments_by_piece_id(index),
+                    "clefs": self.get_clefs_or_keys_by_piece_id(
+                        index,
+                        elem='clefs'),
+                    "keys": self.get_clefs_or_keys_by_piece_id(index),
+                    "timesigs": self.get_elem_by_piece_id(
+                        index,
+                        elem='time_signatures'),
+                    "tempos": self.get_elem_by_piece_id(
+                        index,
+                        elem='tempos'),
+                    "filename": file["filename"],
+                    "title": file["name"],
+                    'composer': composer,
+                    'lyricist': lyricist})
             files.append(filter_dict(elem_data))
 
         return files
 
     def get_elem_by_piece_id(self, piece_id, elem='tempos'):
-        join_query = self.query({'piece.id': piece_id}, table=elem+'_piece')
+        join_query = self.query({'piece.id': piece_id}, table=elem + '_piece')
         results = []
         if elem == 'tempos':
             parser = TempoParser()
         else:
             parser = None
         for vals in join_query:
-            data = self.query({'id':vals['tempos.id']}, table=elem)[0]
+            data = self.query({'id': vals['tempos.id']}, table=elem)[0]
             result = parser.encode(data)
             results.append(result)
         return results
-
 
     def addPlaylist(self, pname, files):
         connection, cursor = self.connect()
@@ -1014,6 +1071,3 @@ class MusicData(querylayer.QueryLayer):
         cursor.execute(query, (result['rowid'],))
         connection.commit()
         self.disconnect(connection)
-
-
-

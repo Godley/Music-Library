@@ -4,7 +4,6 @@ from implementation.primaries.ExtractMetadata.classes.DataLayer.musicdata import
 import os
 
 
-
 class TestDataLayerUserPlaylists(unittest.TestCase):
 
     def setUp(self):

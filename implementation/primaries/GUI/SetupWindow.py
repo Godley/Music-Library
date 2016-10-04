@@ -27,16 +27,18 @@ class SetupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
             self.hide()
         except LilypondNotInstalledException as e:
             messageBox = MessageBox.MessageBox(
-                parent=self, message="Lilypond was not found", title="Lilypond error, default install")
+                parent=self,
+                message="Lilypond was not found",
+                title="Lilypond error, default install")
             messageBox.show()
 
     def browse(self):
         if platform == "win32":
             path, filter = QFileDialog.getOpenFileNameAndFilter(
-            self, caption="Select files to import", filter="Application (*.exe)")
+                self, caption="Select files to import", filter="Application (*.exe)")
         else:
             path, filter = QFileDialog.getOpenFileNameAndFilter(
-            self, caption="Select files to import", filter="App file (*.app)")
+                self, caption="Select files to import", filter="App file (*.app)")
 
         try:
             do_setup(path=path)
@@ -46,5 +48,7 @@ class SetupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
             self.hide()
         except LilypondNotInstalledException as e:
             messageBox = MessageBox.MessageBox(
-                parent=self, message="Lilypond was not found", title="Lilypond error, custom install")
+                parent=self,
+                message="Lilypond was not found",
+                title="Lilypond error, custom install")
             messageBox.show()

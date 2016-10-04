@@ -16,6 +16,7 @@ import pytest
 
 
 class TestSuiteDataLayerGeneral(object):
+
     def test_get_all_pieces(self, mlayer, dummy):
         mlayer.add_piece("file.xml", dummy)
         mlayer.add_piece("file2.xml", dummy)
@@ -32,7 +33,7 @@ class TestSuiteDataLayerGeneral(object):
         data.update(dummy)
         mlayer.add_piece("file.xml", data)
         entry = {"tempos": ["quarter=half"],
-                 "filename":"file.xml",
+                 "filename": "file.xml",
                  }
         entry.update(dummy_res)
         result = mlayer.get_all_piece_info(["file.xml"])
@@ -40,33 +41,34 @@ class TestSuiteDataLayerGeneral(object):
 
     def testFindAllInfoForAPieceWhereHasKeys(self, mlayer, dummy, dummy_res):
         data = {"instruments": [{"name": "wibble"}], "keys": {
-                           "wibble": [{"mode": "major", "fifths": 2, "name": 'D major'}]}}
+            "wibble": [{"mode": "major", "fifths": 2, "name": 'D major'}]}}
         data['clefs'] = dummy['clefs']
         mlayer.add_piece("file.xml", data)
 
         results = mlayer.get_all_piece_info(["file.xml"])
         exp = {"instruments": dummy_res['instruments'],
-                           "keys": {"wibble": ["D major"]},
-                           "filename":"file.xml"}
+               "keys": {"wibble": ["D major"]},
+               "filename": "file.xml"}
         exp['clefs'] = dummy_res['clefs']
         assert results[0] == exp
 
     def testFindAllInfoForAPieceWhereHasClefs(self, mlayer, dummy, dummy_res):
         data = {"instruments": [{"name": "wibble"}], "clefs": {
-                           "wibble": [{"sign": "G", "line": 2}]}}
+            "wibble": [{"sign": "G", "line": 2}]}}
         data['keys'] = dummy['keys']
         mlayer.add_piece("file.xml", data)
 
         exp = {"instruments": dummy_res['instruments'],
                "clefs": {"wibble": ["treble"]},
-               "filename":"file.xml"}
+               "filename": "file.xml"}
         exp['keys'] = dummy_res['keys']
         result = mlayer.get_all_piece_info(["file.xml"])
         assert exp == result[0]
 
-    def testFindAllInfoForAPieceWhereHasTransposedInstruments(self, mlayer, dummy, dummy_res):
+    def testFindAllInfoForAPieceWhereHasTransposedInstruments(
+            self, mlayer, dummy, dummy_res):
         data = {"instruments": [
-                           {"name": "wibble", "diatonic": -1, "chromatic": -2}]}
+            {"name": "wibble", "diatonic": -1, "chromatic": -2}]}
         data['keys'] = dummy['keys']
         data['clefs'] = dummy['clefs']
         mlayer.add_piece("file.xml", data)
@@ -78,7 +80,3 @@ class TestSuiteDataLayerGeneral(object):
         exp['clefs'] = dummy_res['clefs']
         result = mlayer.get_all_piece_info(["file.xml"])
         assert result[0] == exp
-
-
-
-

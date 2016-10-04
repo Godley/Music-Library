@@ -23,4 +23,3 @@ class OnlineMetaParser(MetaParser.MetaParser):
     def collate_parts(self):
         self.data["source"] = self.source
         MetaParser.MetaParser.collate_parts(self)
-
