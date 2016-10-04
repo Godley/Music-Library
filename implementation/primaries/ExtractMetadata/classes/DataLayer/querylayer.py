@@ -188,17 +188,19 @@ class QueryLayer(object):
             _table = self.tables[table]
             session = self.get_session()
             query = session.query(_table)
-            keys = [col.name for col in _table.columns]
             for key in data:
                 attr = getattr(_table.columns, key)
-                print(attr)
                 query = query.filter(attr.like(data[key]))
-            return [{key: value for key, value in zip(
-                keys, entry)} for entry in query.all()]
+            return self.to_dict(_table, query)
         else:
             raise BadTableException(
                 "table {} not in {}".format(
                     table, self.tables.keys()))
+
+    def to_dict(self, table, query):
+        columns = [col.name for col in table.columns]
+        return [{key: value for key, value in zip(columns, entry)}
+                for entry in query.all()]
 
     def mk_or_expr(self, elems, column):
         expr = column == elems[0]
