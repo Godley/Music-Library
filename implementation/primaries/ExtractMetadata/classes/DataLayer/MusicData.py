@@ -52,12 +52,13 @@ from .helpers import extendJoinQuery, do_online_offline_query, get_if_exists, \
 from ..hashdict import hashdict
 import copy
 from .exceptions import BadPieceException, InvalidQueryException
-from .parsers import TempoParser, MeterParser
+from .parsers import TempoParser, MeterParser, InstrumentParser
 
 
 class MusicData(querylayer.QueryLayer):
     parsers = {"tempos": TempoParser(),
-               "time_signatures": MeterParser()}
+               "time_signatures": MeterParser(),
+               "instruments": InstrumentParser()}
 
     def __init__(self, database):
         super(MusicData, self).__init__(database)

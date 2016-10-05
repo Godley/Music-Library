@@ -81,3 +81,14 @@ class MeterParser(object):
 
     def encode(self, entry):
         return "{}/{}".format(entry['beat'], entry['beat_type'])
+
+class InstrumentParser(object):
+    def encode(self, entry):
+        ent = entry["name"]
+        if entry["chromatic"] is not None or entry["diatonic"] is not None:
+            ent += " transposed"
+            if entry["chromatic"] is not None:
+                ent += " {} chromatic".format(entry["chromatic"])
+            if entry["diatonic"] is not None:
+                ent += " {} diatonic".format(entry["diatonic"])
+        return ent

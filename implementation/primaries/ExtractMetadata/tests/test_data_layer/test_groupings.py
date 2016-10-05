@@ -109,7 +109,7 @@ class TestSuiteDataLayerGeneratePlaylists(object):
             "flute": [
                 "file.xml",
                 "file2.xml"],
-            "clarinet transposed 1 diatonic 2 chromatic": [
+            "clarinet transposed 2 chromatic 1 diatonic": [
                 "file.xml",
                 "file1.xml"]}
         assert result == expected
@@ -120,8 +120,7 @@ class TestSuiteDataLayerGeneratePlaylists(object):
                                      {"name": "clarinet",
                                       "diatonic": 1}]},
                     {"instruments": [{"name": "clarinet"}]},
-                    {"instruments": [{"name": "flute"},
-                                     {"name": "clarinet",
+                    {"instruments": [{"name": "clarinet",
                                       "diatonic": 1}]}]
         fixtures = self.mk_clef_key(fixtures, clef_in, key_in)
         mlayer.add_piece("file.xml", fixtures[0])
@@ -129,12 +128,12 @@ class TestSuiteDataLayerGeneratePlaylists(object):
             "file1.xml", fixtures[1])
         mlayer.add_piece("file2.xml",
                          fixtures[2])
-        result = mlayer.getPiecesByAllInstruments()
+        result = mlayer.get_piece_by_all_("instruments")
         exp = {
             "clarinet": [
                 "file.xml",
                 "file1.xml"],
-            "clarinet transposed 1 diatonic 0 chromatic": [
+            "clarinet transposed 1 diatonic": [
                 "file.xml",
                 "file2.xml"]}
         assert result == exp
@@ -161,10 +160,7 @@ class TestSuiteDataLayerGeneratePlaylists(object):
 
     def testFindAllPiecesByAllKeysWithTransposedInstruments(
             self, mlayer, clef_in):
-        fixtures = [{"keys": {"clari": [{"mode": "major",
-                                         "fifths": 0}]},
-                     "instruments": [{"name": "clari",
-                                      "diatonic": 1}]},
+        fixtures = [
                     {"keys": {"clarin": [{"mode": "major",
                                           "fifths": 1}]},
                      "instruments": [{"name": "clarin"}]},
@@ -172,12 +168,10 @@ class TestSuiteDataLayerGeneratePlaylists(object):
                                           "fifths": 1}]},
                      "instruments": [{"name": "clarin"}]}]
         fixtures = self.mk_clef_key(fixtures, clef_in)
-        mlayer.add_piece("file.xml",
-                         fixtures[0])
         mlayer.add_piece("file1.xml",
-                         fixtures[1])
+                         fixtures[0])
         mlayer.add_piece("file2.xml",
-                         fixtures[2])
+                         fixtures[1])
         exp = {"G major": ["file1.xml", "file2.xml"]}
         assert mlayer.get_piece_by_all_(elem='keys') == exp
 
