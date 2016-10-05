@@ -50,52 +50,61 @@ class TestSuiteDataLayerGeneratePlaylists(object):
                              "file2.xml"]}
         assert mlayer.get_piece_by_all_(elem='clefs') == expected
 
-    def testFindAllPiecesByAllTimeSigs(self, mlayer):
-        mlayer.add_piece("file.xml", {"time": [{"beat": 4, "type": 4}]})
-        mlayer.add_piece("file1.xml", {"time": [{"beat": 4, "type": 4}]})
+    def testFindAllPiecesByAllTimeSigs(self, mlayer, dummy):
+        data = {"time_signatures": [{"beat": 4, "beat_type": 4}]}
+        data.update(dummy)
+        mlayer.add_piece("file.xml", data)
+        mlayer.add_piece("file1.xml", data)
         expected = {"4/4": ["file.xml", "file1.xml"]}
-        assert expected == mlayer.getPiecesByAllTimeSigs()
+        assert expected == mlayer.get_piece_by_all_(elem="time_signatures")
 
-    def testFindAllPiecesByAllTempos(self, mlayer):
-        mlayer.add_piece(
-            "file.xml", {"tempo": [{"beat": "quarter", "minute": 100}]})
-        mlayer.add_piece(
-            "file3.xml", {"tempo": [{"beat": "quarter", "minute": 100}]})
-        mlayer.add_piece(
-            "file1.xml", {"tempo": [{"beat": "quarter", "beat_2": "eighth"}]})
-        mlayer.add_piece(
-            "file2.xml", {"tempo": [{"beat": "quarter", "beat_2": "eighth"}]})
+    def testFindAllPiecesByAllTempos(self, mlayer, dummy):
+        data1 = {"tempos": [{"beat": "quarter", "minute": 100}]}
+        data2 = {"tempos": [{"beat": "quarter", "beat_2": "eighth"}]}
+        data1.update(dummy)
+        data2.update(dummy)
+        mlayer.add_piece("file.xml", data1)
+        mlayer.add_piece("file3.xml", data1)
+        mlayer.add_piece("file1.xml", data2)
+        mlayer.add_piece("file2.xml", data2)
         expected = {
             "quarter=eighth": [
                 "file1.xml", "file2.xml"], "quarter=100": [
                 "file.xml", "file3.xml"]}
-        assert expected == mlayer.getPiecesByAllTempos()
+        assert expected == mlayer.get_piece_by_all_(elem="tempos")
 
-    def testFindAllPiecesByAllInstruments(self, mlayer):
-        mlayer.add_piece("file.xml", {"instruments": [
-            {"name": "clarinet"}, {"name": "flute"}]})
-        mlayer.add_piece(
-            "file1.xml", {"instruments": [{"name": "clarinet"}]})
-        mlayer.add_piece("file2.xml", {"instruments": [{"name": "flute"}]})
+    def testFindAllPiecesByAllInstruments(self, mlayer, clef_in, key_in):
+        fixtures = [{"instruments": [
+            {"name": "clarinet"}, {"name": "flute"}]},
+                    {"instruments": [{"name": "clarinet"}]},
+                    {"instruments": [{"name": "flute"}]}]
+        fixtures = self.mk_clef_key(fixtures, clef_in, key_in)
+        mlayer.add_piece("file.xml", fixtures[0])
+        mlayer.add_piece("file1.xml", fixtures[1])
+        mlayer.add_piece("file2.xml", fixtures[2])
         expected = {"flute": ["file.xml",
                               "file2.xml"],
                     "clarinet": ["file.xml",
                                  "file1.xml"]}
-        assert expected == mlayer.getPiecesByAllInstruments()
+        assert expected == mlayer.get_piece_by_all_(elem="instruments")
 
     def testFindAllPiecesByAllInstrumentsWithTranspositionsAndUniqueNames(
             self,
-            mlayer):
-        mlayer.add_piece(
-            "file.xml", {
+            mlayer, clef_in, key_in):
+        fixtures = [{
                 "instruments": [
                     {
                         "name": "clarinet", "diatonic": 1, "chromatic": 2}, {
-                        "name": "flute"}]})
-        mlayer.add_piece("file1.xml", {"instruments": [
-            {"name": "clarinet", "diatonic": 1, "chromatic": 2}]})
-        mlayer.add_piece("file2.xml", {"instruments": [{"name": "flute"}]})
-        result = mlayer.getPiecesByAllInstruments()
+                        "name": "flute"}]},
+                    {"instruments": [
+            {"name": "clarinet", "diatonic": 1, "chromatic": 2}]},
+                    {"instruments": [{"name": "flute"}]}]
+        fixtures = self.mk_clef_key(fixtures, clef_in, key_in)
+        mlayer.add_piece(
+            "file.xml", fixtures[0])
+        mlayer.add_piece("file1.xml", fixtures[1])
+        mlayer.add_piece("file2.xml", fixtures[2])
+        result = mlayer.get_piece_by_all_(elem="instruments")
         expected = {
             "flute": [
                 "file.xml",
@@ -105,17 +114,20 @@ class TestSuiteDataLayerGeneratePlaylists(object):
                 "file1.xml"]}
         assert result == expected
 
-    def testFindAllPiecesByAllInstrumentsWithTranspositions(self, mlayer):
-        mlayer.add_piece("file.xml",
-                         {"instruments": [{"name": "clarinet"},
+    def testFindAllPiecesByAllInstrumentsWithTranspositions(self, mlayer, clef_in, key_in):
+        fixtures = [{"instruments": [{"name": "clarinet"},
                                           {"name": "clarinet",
-                                           "diatonic": 1}]})
+                                           "diatonic": 1}]},
+                    {"instruments": [{"name": "clarinet"}]},
+                    {"instruments": [{"name": "flute"},
+                                          {"name": "clarinet",
+                                           "diatonic": 1}]}]
+        fixtures = self.mk_clef_key(fixtures, clef_in, key_in)
+        mlayer.add_piece("file.xml", fixtures[0])
         mlayer.add_piece(
-            "file1.xml", {"instruments": [{"name": "clarinet"}]})
+            "file1.xml", fixtures[1])
         mlayer.add_piece("file2.xml",
-                         {"instruments": [{"name": "flute"},
-                                          {"name": "clarinet",
-                                           "diatonic": 1}]})
+                         fixtures[2])
         result = mlayer.getPiecesByAllInstruments()
         exp = {
             "clarinet": [
@@ -126,36 +138,46 @@ class TestSuiteDataLayerGeneratePlaylists(object):
                 "file2.xml"]}
         assert result == exp
 
-    def testFindAllPiecesByAllComposers(self, mlayer):
-        mlayer.add_piece("file.xml", {"composer": "Charlotte"})
-        mlayer.add_piece("file1.xml", {"composer": "Charlie"})
-        mlayer.add_piece("file2.xml", {"composer": "Charlie"})
+    def testFindAllPiecesByAllComposers(self, mlayer, clef_in, key_in):
+        fixtures = [
+                    {"composer": "Charlie", "instruments": [{"name": "clarinet"}]},
+                    {"composer": "Charlie", "instruments": [{"name": "clarinet"}]}]
+        fixtures = self.mk_clef_key(fixtures, clef_in, key_in)
+        mlayer.add_piece("file1.xml", fixtures[0])
+        mlayer.add_piece("file2.xml", fixtures[1])
         expected = {"Charlie": ["file1.xml", "file2.xml"]}
-        assert mlayer.get_piece_by_all_elem(elem='composers') == expected
+        assert mlayer.get_piece_by_all_creators(elem='composer') == expected
 
-    def testFindAllPiecesByAllLyricists(self, mlayer):
-        mlayer.add_piece("file.xml", {"lyricist": "Charlotte"})
-        mlayer.add_piece("file1.xml", {"lyricist": "Charlie"})
-        mlayer.add_piece("file2.xml", {"lyricist": "Charlie"})
+    def testFindAllPiecesByAllLyricists(self, mlayer, clef_in, key_in):
+        fixtures = [
+            {"lyricist": "Charlie", "instruments": [{"name": "clarinet"}]},
+            {"lyricist": "Charlie", "instruments": [{"name": "clarinet"}]}]
+        fixtures = self.mk_clef_key(fixtures, clef_in, key_in)
+        mlayer.add_piece("file1.xml", fixtures[0])
+        mlayer.add_piece("file2.xml", fixtures[1])
         exp = {"Charlie": ["file1.xml", "file2.xml"]}
-        assert mlayer.get_piece_by_all_elem(elem='lyricists') == exp
+        assert mlayer.get_piece_by_all_creators(elem='lyricist') == exp
 
-    def testFindAllPiecesByAllKeysWithTransposedInstruments(self, mlayer):
-        mlayer.add_piece("file.xml",
-                         {"key": {"clari": [{"mode": "major",
+    def testFindAllPiecesByAllKeysWithTransposedInstruments(self, mlayer, clef_in):
+        fixtures = [{"keys": {"clari": [{"mode": "major",
                                              "fifths": 0}]},
                           "instruments": [{"name": "clari",
-                                           "diatonic": 1}]})
+                                           "diatonic": 1}]},
+                    {"keys": {"clarin": [{"mode": "major",
+                                              "fifths": 1}]},
+                          "instruments": [{"name": "clarin"}]},
+                    {"keys": {"clarin": [{"mode": "major",
+                                              "fifths": 1}]},
+                          "instruments": [{"name": "clarin"}]}]
+        fixtures = self.mk_clef_key(fixtures, clef_in)
+        mlayer.add_piece("file.xml",
+                         fixtures[0])
         mlayer.add_piece("file1.xml",
-                         {"key": {"clarin": [{"mode": "major",
-                                              "fifths": 1}]},
-                          "instruments": [{"name": "clarin"}]})
+                         fixtures[1])
         mlayer.add_piece("file2.xml",
-                         {"key": {"clarin": [{"mode": "major",
-                                              "fifths": 1}]},
-                          "instruments": [{"name": "clarin"}]})
+                         fixtures[2])
         exp = {"G major": ["file1.xml", "file2.xml"]}
-        assert mlayer.get_piece_by_all_elem(elem='keys') == exp
+        assert mlayer.get_piece_by_all_(elem='keys') == exp
 
     def test_archive_piece(self, mlayer):
         mlayer.add_piece("file.xml", {"instruments": [
@@ -172,3 +194,16 @@ class TestSuiteDataLayerGeneratePlaylists(object):
         mlayer.removePieces(["file.xml"])
         self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 0)
         self.assertEqual(len(mlayer.getArchivedPieces()), 0)
+
+    def mk_clef_key(self, fixtures, clef_in = None, key_in = None):
+        for fix in fixtures:
+            if "clefs" not in fix:
+                fix["clefs"] = {}
+            if "keys" not in fix:
+                fix["keys"] = {}
+            for ins in fix["instruments"]:
+                if clef_in is not None:
+                    fix["clefs"][ins["name"]] = [clef_in]
+                if key_in is not None:
+                    fix["keys"][ins["name"]] = [key_in]
+        return fixtures

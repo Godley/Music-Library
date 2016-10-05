@@ -8,6 +8,12 @@ from .exceptions import BadTableException
 
 class QueryLayer(object):
     tables = {}
+    join_tables = {"keys": "keys_ins_piece",
+                   "clefs": "clefs_ins_piece",
+                   "instruments": "clefs_ins_piece",
+                   "tempos": "tempos_piece",
+                   "time_signatures": "time_signatures_piece",
+                   "playlists": "playlist_join"}
     fixtures = {
         "clefs": [{"name": "treble", "sign": "G", "line": 2},
                   {"name": "french", "sign": "G", "line": 1},
@@ -339,3 +345,6 @@ class QueryLayer(object):
             else:
                 result[elem[column]].append(elem[store_val])
         return result
+
+    def get_join(self, table):
+        return self.join_tables[table]
