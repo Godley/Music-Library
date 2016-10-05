@@ -78,6 +78,16 @@ class MusicData(querylayer.QueryLayer):
                         {"{}.id".format(creator): row['id']},
                         table="pieces")
 
+    def archive(self, filenames):
+        for filename in filenames:
+            id = self.get_ids_for_like({"filename": filename})[0]
+            self.update(id, {"archived": True}, table="pieces")
+
+    def delete(self, filenames):
+        for filename in filenames:
+            id = self.get_ids_for_like({"filename": filename})[0]
+            self.remove(id, table="pieces")
+
     def add_piece(self, filename, data):
         '''
         method which takes in stuff about a piece and adds it
@@ -462,9 +472,9 @@ class MusicData(querylayer.QueryLayer):
         file_data = []
         for filename in filenames:
             piece_tuple = self.query(
-                {"filename": filename, "archived": archived})[0]
-            if piece_tuple is not None:
-                file_data.append(piece_tuple)
+                {"filename": filename, "archived": archived})
+            if len(piece_tuple) > 0:
+                file_data.append(piece_tuple[0])
         return file_data
 
     def get_all_piece_info(self, filenames, archived=False, online=False):

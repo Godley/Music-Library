@@ -235,7 +235,7 @@ class QueryLayer(object):
                     table, self.tables.keys()))
 
     def get_ids_for_like(self, data, table="pieces"):
-        result = self.like(data, table="instruments")
+        result = self.like(data, table=table)
         ids = [elem['id'] for elem in result]
         return ids
 
@@ -352,3 +352,7 @@ class QueryLayer(object):
 
     def get_join(self, table):
         return self.join_tables[table]
+
+    def remove(self, id, table="pieces"):
+        query = self.tables[table].delete().where(self.tables[table].c.id == id)
+        self.execute(query)

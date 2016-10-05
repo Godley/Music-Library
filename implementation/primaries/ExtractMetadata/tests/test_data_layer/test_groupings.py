@@ -175,21 +175,25 @@ class TestSuiteDataLayerGeneratePlaylists(object):
         exp = {"G major": ["file1.xml", "file2.xml"]}
         assert mlayer.get_piece_by_all_(elem='keys') == exp
 
-    def test_archive_piece(self, mlayer):
-        mlayer.add_piece("file.xml", {"instruments": [
-            {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
-        self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 1)
-        mlayer.archivePieces(["file.xml"])
-        self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 0)
-        self.assertEqual(len(mlayer.getArchivedPieces()), 1)
+    def test_archive_piece(self, mlayer, clef_in, key_in):
+        data = [{"instruments": [
+            {"name": "clarinet", "diatonic": -1, "chromatic": -2}]}]
+        data = self.mk_clef_key(data, clef_in, key_in)
+        mlayer.add_piece("file.xml", data[0])
+        assert len(mlayer.get_all_piece_info(["file.xml"])) == 1
+        mlayer.archive(["file.xml"])
+        assert len(mlayer.get_all_piece_info(["file.xml"])) == 0
+        assert len(mlayer.get_all_piece_info(["file.xml"], archived=True)) == 1
 
-    def testRemovePiece(self, mlayer):
-        mlayer.add_piece("file.xml", {"instruments": [
-            {"name": "clarinet", "diatonic": -1, "chromatic": -2}]})
-        self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 1)
-        mlayer.removePieces(["file.xml"])
-        self.assertEqual(len(mlayer.get_all_piece_info(["file.xml"])), 0)
-        self.assertEqual(len(mlayer.getArchivedPieces()), 0)
+    def testRemovePiece(self, mlayer, clef_in, key_in):
+        data = [{"instruments": [
+            {"name": "clarinet", "diatonic": -1, "chromatic": -2}]}]
+        data = self.mk_clef_key(data, clef_in, key_in)
+        mlayer.add_piece("file.xml", data[0])
+        assert len(mlayer.get_all_piece_info(["file.xml"])) == 1
+        mlayer.delete(["file.xml"])
+        assert len(mlayer.get_all_piece_info(["file.xml"])) == 0
+        assert len(mlayer.get_all_piece_info(["file.xml"], archived=True)) == 0
 
     def mk_clef_key(self, fixtures, clef_in=None, key_in=None):
         for fix in fixtures:
