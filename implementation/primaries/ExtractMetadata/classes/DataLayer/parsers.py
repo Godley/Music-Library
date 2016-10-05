@@ -70,12 +70,14 @@ class TempoParser(object):
 
     def encode(self, entry):
         tempo_string = str(entry['beat']) + "="
-        if entry['beat_2'] != None:
+        if entry['beat_2'] is not None:
             tempo_string += str(entry['beat_2'])
-        elif entry['minute'] != None:
+        elif entry['minute'] is not None:
             tempo_string += str(entry['minute'])
         return tempo_string
 
+
 class MeterParser(object):
+
     def encode(self, entry):
         return "{}/{}".format(entry['beat'], entry['beat_type'])

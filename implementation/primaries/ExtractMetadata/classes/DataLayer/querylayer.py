@@ -248,7 +248,12 @@ class QueryLayer(object):
             row = None
         return row
 
-    def query_similar_rows(self, data, match_cols=[], excl_cols=[], table='pieces'):
+    def query_similar_rows(
+            self,
+            data,
+            match_cols=[],
+            excl_cols=[],
+            table='pieces'):
         '''SELECT i2.ROWID, i2.name FROM instruments i1, instruments i2
                               WHERE i1.name = ? AND i2.diatonic = i1.diatonic
                               AND i2.chromatic = i1.chromatic
@@ -280,7 +285,6 @@ class QueryLayer(object):
             raise BadTableException(
                 "table {} not in {}".format(
                     table, self.tables.keys()))
-
 
     def query(self, data, table="pieces"):
         if self.validate_table(table):
@@ -335,7 +339,7 @@ class QueryLayer(object):
             for elem in self.fixtures[table]:
                 self.get_or_add(elem, table=table)
 
-    def order_by(self, data, store_val = None, column="piece.id"):
+    def order_by(self, data, store_val=None, column="piece.id"):
         result = {}
         for elem in data:
             if elem[column] not in result:

@@ -283,12 +283,13 @@ class TestSuiteDataLayerUserQueries(object):
 
     def testFindSimilarInstruments(self, mlayer, dummy, dummy_res):
         mlayer.add_multiple([{"name": "clarinet",
-                                "diatonic": -1,
-                                "chromatic": -2},
-                               {"name": "trumpet",
-                                   "diatonic": -1,
-                                   "chromatic": -2}], table="instruments")
-        expected = [{"chromatic": -2, "diatonic": -1, "id": 2, "name": "trumpet"}]
+                              "diatonic": -1,
+                              "chromatic": -2},
+                             {"name": "trumpet",
+                              "diatonic": -1,
+                              "chromatic": -2}], table="instruments")
+        expected = [{"chromatic": -2, "diatonic": -
+                     1, "id": 2, "name": "trumpet"}]
         res = mlayer.getInstrumentsBySameTranspositionAs("clarinet")
         for elem, r in zip(expected, res):
             for key in elem:
@@ -298,14 +299,14 @@ class TestSuiteDataLayerUserQueries(object):
     def testFindSimilarInstrumentsWhereOneIsDiff(
             self, mlayer, dummy, dummy_res):
         mlayer.add_multiple([{"name": "clarinet",
-                                "diatonic": -1,
-                                "chromatic": -2},
-                               {"name": "lute",
-                                   "diatonic": 0,
-                                   "chromatic": -2},
-                               {"name": "trumpet",
-                                   "diatonic": -1,
-                                   "chromatic": -2}],
+                              "diatonic": -1,
+                              "chromatic": -2},
+                             {"name": "lute",
+                              "diatonic": 0,
+                              "chromatic": -2},
+                             {"name": "trumpet",
+                              "diatonic": -1,
+                              "chromatic": -2}],
                             table="instruments")
         expected = [{"name": "trumpet", "diatonic": -1, "chromatic": -2}]
         res = mlayer.getInstrumentsBySameTranspositionAs("clarinet")
@@ -317,14 +318,14 @@ class TestSuiteDataLayerUserQueries(object):
     def testFindPiecesContainingInstrumentsOrSimilar(
             self, mlayer, dummy, dummy_res):
         data = {
-                "instruments": [
-                    {
-                        "name": "clarinet", "diatonic": 1, "chromatic": 2}, {
-                        "name": "violin", "diatonic": 0, "chromatic": 0}],
-                "clefs": {"clarinet": [{"name": "treble"}],
-                          "violin": [{"name": "treble"}]},
-                "keys": {"clarinet": [{"name": "C major"}],
-                         "violin": [{"name": "C major"}]}}
+            "instruments": [
+                {
+                    "name": "clarinet", "diatonic": 1, "chromatic": 2}, {
+                    "name": "violin", "diatonic": 0, "chromatic": 0}],
+            "clefs": {"clarinet": [{"name": "treble"}],
+                      "violin": [{"name": "treble"}]},
+            "keys": {"clarinet": [{"name": "C major"}],
+                     "violin": [{"name": "C major"}]}}
         mlayer.add_piece("file.xml", data)
         mlayer.add({"name": "flute", "diatonic": 0, "chromatic": 0},
                    table="instruments")
@@ -335,18 +336,18 @@ class TestSuiteDataLayerUserQueries(object):
     def testFindPiecesContainingInstrumentsOrSimilarWhereInstrumentNotInTable(
             self, mlayer):
         data = {
-                "instruments": [
-                    {
-                        "name": "clarinet", "diatonic": 1, "chromatic": 2}, {
-                        "name": "violin", "diatonic": 0, "chromatic": 0}],
-                "clefs": {"clarinet": [{"name": "treble"}],
-                          "violin": [{"name": "treble"}]},
-                "keys": {"clarinet": [{"name": "C major"}],
-                         "violin": [{"name": "C major"}]}}
+            "instruments": [
+                {
+                    "name": "clarinet", "diatonic": 1, "chromatic": 2}, {
+                    "name": "violin", "diatonic": 0, "chromatic": 0}],
+            "clefs": {"clarinet": [{"name": "treble"}],
+                      "violin": [{"name": "treble"}]},
+            "keys": {"clarinet": [{"name": "C major"}],
+                     "violin": [{"name": "C major"}]}}
         mlayer.add_piece(
             "file.xml", data)
         mlayer.add({"name": "flute", "diatonic": 0, "chromatic": 0},
-                            table="instruments")
+                   table="instruments")
         result = mlayer.getPieceByInstrumentsOrSimilar([{"name": "flute"},
                                                         {"name":
                                                          "clarinet"},

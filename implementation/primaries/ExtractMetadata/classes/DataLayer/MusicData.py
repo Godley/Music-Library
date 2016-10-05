@@ -55,11 +55,10 @@ from .exceptions import BadPieceException, InvalidQueryException
 from .parsers import TempoParser, MeterParser
 
 
-
-
 class MusicData(querylayer.QueryLayer):
     parsers = {"tempos": TempoParser(),
                "time_signatures": MeterParser()}
+
     def __init__(self, database):
         super(MusicData, self).__init__(database)
         self.setup()
@@ -425,7 +424,7 @@ class MusicData(querylayer.QueryLayer):
         instrument_keys = []
         alternates = []
         for elem in instruments:
-            key = self.get_row_id({"name":elem["name"]}, table="instruments")
+            key = self.get_row_id({"name": elem["name"]}, table="instruments")
             if key is not -1:
                 instrument_keys.append((elem, key))
                 if key is not None:
@@ -440,7 +439,8 @@ class MusicData(querylayer.QueryLayer):
         results = self.get_pieces_by_instruments(
             [instrument["name"] for instrument in instruments])
         if len(results) == 0:
-            file_list = self.getPieceByAlternateInstruments(alternates, archived, online)
+            file_list = self.getPieceByAlternateInstruments(
+                alternates, archived, online)
         return file_list
 
     # again, helper methods for other methods which just go off and find the
@@ -526,7 +526,10 @@ class MusicData(querylayer.QueryLayer):
     def get_piece_by_all_(self, elem='keys'):
         table = self.get_join(elem)
         elems = self.to_dict(self.tables[table], self.get_all(table=table))
-        sorted = self.order_by(elems, store_val="piece.id", column="{}.id".format(elem))
+        sorted = self.order_by(
+            elems,
+            store_val="piece.id",
+            column="{}.id".format(elem))
         result = {}
         for key in sorted:
             query = self.query({"id": key}, table=elem)[0]
@@ -541,7 +544,10 @@ class MusicData(querylayer.QueryLayer):
         return result
 
     def get_piece_by_all_creators(self, elem="composer"):
-        elems = self.to_dict(self.tables["creators"], self.get_all(table="creators"))
+        elems = self.to_dict(
+            self.tables["creators"],
+            self.get_all(
+                table="creators"))
         result = {}
         for e in elems:
             query = self.query({"{}.id".format(elem): e["id"]}, table="pieces")

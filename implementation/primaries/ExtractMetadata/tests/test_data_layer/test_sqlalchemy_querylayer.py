@@ -126,7 +126,8 @@ class TestSuiteQuerylayer(object):
         data2 = {"name": "tr", "chromatic": 1, "diatonic": 2}
         qlayer.add(data, table="instruments")
         qlayer.add(data2, table="instruments")
-        result = qlayer.query_similar_rows(name, match_cols=matching, excl_cols=excl, table="instruments")
+        result = qlayer.query_similar_rows(
+            name, match_cols=matching, excl_cols=excl, table="instruments")
         assert len(result) == 1
 
     def result_against_dict(self, data, qlayer, table="pieces"):
