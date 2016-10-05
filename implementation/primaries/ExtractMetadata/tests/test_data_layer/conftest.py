@@ -1,7 +1,7 @@
 import pytest
-from ...classes.DataLayer.querylayer import QueryLayer
-from ...classes.DataLayer.musicdata import MusicData
-from ...classes.hashdict import hashdict
+from implementation.primaries.ExtractMetadata.classes.DataLayer.querylayer import QueryLayer
+from implementation.primaries.ExtractMetadata.classes.DataLayer.musicdata import MusicData
+from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 
 
 @pytest.fixture()
