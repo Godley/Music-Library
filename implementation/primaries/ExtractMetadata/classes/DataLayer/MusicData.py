@@ -531,34 +531,6 @@ class MusicData(querylayer.QueryLayer):
                 data.setdefault(ins['name'], []).append(res['name'])
         return data
 
-    def get_time_sigs_by_piece_id(self, piece_id):
-        time_query = 'SELECT time_id FROM time_piece_join WHERE piece_id=?'
-        cursor.execute(time_query, (piece_id,))
-        time_ids = set(cursor.fetchall())
-        meters = []
-        for id in time_ids:
-            q = 'SELECT * FROM timesigs WHERE ROWID=?'
-            cursor.execute(q, (id['time_id'],))
-            timesig = cursor.fetchone()
-            if timesig is not None and len(timesig) > 0:
-                meters.append(str(timesig['beat']) +
-                              "/" + str(timesig['b_type']))
-        return meters
-
-    def getTemposByPieceId(self, piece_id, cursor):
-        tempo_query = 'SELECT tempo_id FROM tempo_piece_join WHERE piece_id=?'
-        cursor.execute(tempo_query, (piece_id,))
-        tempo_ids = set(cursor.fetchall())
-        tempos = []
-        for id in tempo_ids:
-            q = 'SELECT * FROM tempos WHERE ROWID=?'
-            cursor.execute(q, (id['tempo_id'],))
-            tempo = cursor.fetchone()
-            parser = TempoParser()
-            if tempo is not None and len(tempo) > 0:
-                tempos.append(parser.encode(tempo))
-        return tempos
-
     def getFileData(self, filenames, archived=False, online=False):
         file_data = []
         for filename in filenames:
@@ -621,137 +593,18 @@ class MusicData(querylayer.QueryLayer):
             results.append(result)
         return results
 
-    def addPlaylist(self, pname, files):
-        connection, cursor = self.connect()
-        cursor.execute('''INSERT INTO playlists VALUES(?)''', (pname,))
-        cursor.execute(
-            '''SELECT ROWID from playlists WHERE name = ?''', (pname,))
-        val = cursor.fetchone()
-        for name in files:
-            cursor.execute(
-                '''SELECT ROWID FROM pieces WHERE filename = ?''', (name,))
-            file_id = cursor.fetchone()
-            cursor.execute(
-                '''INSERT INTO playlist_join VALUES(?,?)''',
-                (val['rowid'],
-                 file_id['rowid']))
-        connection.commit()
-        self.disconnect(connection)
-
-    def getAllUserPlaylists(self):
-        query = '''SELECT piece.filename, play.name, play.ROWID FROM playlists play, playlist_join playjoin, pieces piece
-                          WHERE playjoin.playlist_id = play.ROWID and piece.ROWID = playjoin.piece_id'''
-        data = self.get_by_all_elems(query, ())
-        return data
-
-    def getUserPlaylist(self, title):
-        connection, cursor = self.connect()
-        cursor.execute(
-            '''SELECT ROWID from playlists WHERE name=?''', (title,))
-        result = cursor.fetchone()
-        self.disconnect(connection)
-        return result[0]
-
-    def updateUserPlaylist(self, rowid, data):
-        connection, cursor = self.connect()
-        if "title" in data:
-            query = '''UPDATE playlists SET name = ? WHERE ROWID = ?'''
-            cursor.execute(query, (data["title"], rowid,))
-
-        if "pieces" in data:
-            pass
-        connection.commit()
-        self.disconnect(connection)
-
-    def getUserPlaylistsForFile(self, filename):
-        data = {}
-        connection, cursor = self.connect()
-        query = '''SELECT playlist.name from playlists playlist, playlist_join play, pieces piece
-                    WHERE piece.filename = ? AND piece.ROWID = play.piece_id'''
-        cursor.execute(query, (filename,))
-        results = cursor.fetchall()
-        query_2 = '''SELECT piece.filename FROM pieces piece, playlist_join play, playlists playlist
-                  WHERE playlist.name = ? AND play.playlist_id = playlist.ROWID AND piece.ROWID = play.piece_id'''
-        for i in range(len(results)):
-            cursor.execute(query_2, (results[i]['name'],))
-            files = cursor.fetchall()
-            if results[i]['name'] not in data:
-                data[results[i]['name']] = [file['filename'] for file in files]
-        self.disconnect(connection)
-        return data
-
-    def deletePlaylist(self, playlist_name):
-        connection, cursor = self.connect()
-        id_query = '''SELECT ROWID FROM playlists WHERE name = ?'''
-        cursor.execute(id_query, (playlist_name,))
-        res = cursor.fetchone()
-        query = '''DELETE FROM playlists WHERE name = ?'''
-        cursor.execute(query, (playlist_name,))
-        join_query = '''DELETE FROM playlist_join WHERE playlist_id = ?'''
-        cursor.execute(join_query, (res['rowid'],))
-        connection.commit()
-        self.disconnect(connection)
-
     # methods to clear out old records. In general we just archive them on the off chance the piece comes back -
     # if it does give the user the option to un-archive or else remove all old
     # data
-    def removePieces(self, filenames):
-        connection, cursor = self.connect()
-        for file in filenames:
-            id_query = '''SELECT ROWID from pieces WHERE filename=?'''
-            cursor.execute(id_query, (file,))
-            result = cursor.fetchone()
-            instrument_query = '''DELETE FROM instruments_piece_join WHERE piece_id =?'''
-            cursor.execute(instrument_query, (result['rowid'],))
-            tempo_query = '''DELETE FROM tempo_piece_join WHERE piece_id =?'''
-            cursor.execute(tempo_query, (result['rowid'],))
-            key_query = '''DELETE FROM key_piece_join WHERE piece_id =?'''
-            cursor.execute(key_query, (result['rowid'],))
-            clef_query = '''DELETE FROM clef_piece_join WHERE piece_id =?'''
-            cursor.execute(clef_query, (result['rowid'],))
-            time_query = '''DELETE FROM time_piece_join WHERE piece_id =?'''
-            cursor.execute(time_query, (result['rowid'],))
-            piece_query = '''DELETE FROM pieces WHERE ROWID=?'''
-            cursor.execute(piece_query, (result['rowid'],))
-        connection.commit()
-        self.disconnect(connection)
 
-    def archivePieces(self, filenames):
-        connection, cursor = self.connect()
-        for file in filenames:
-            id_query = '''UPDATE pieces SET archived = 1 WHERE filename=?'''
-            cursor.execute(id_query, (file,))
-        connection.commit()
-        self.disconnect(connection)
-
-    def unarchivePieces(self, filenames):
-        connection, cursor = self.connect()
-        for file in filenames:
-            query = '''UPDATE pieces SET archived=0 WHERE filename=?'''
-            cursor.execute(query, (file))
-        connection.commit()
-        self.disconnect(connection)
-
-    def getArchivedPieces(self):
-        connection, cursor = self.connect()
-        query = '''SELECT filename FROM pieces WHERE archived = 1'''
-        cursor.execute(query)
-        results = cursor.fetchall()
-        file_list = [result['filename'] for result in results]
-        self.disconnect(connection)
-        return file_list
-
-    def downloadPiece(self, filename):
-        """
-        method to get rid of the source entry for a given filename
-        :param filename:
-        :return:
-        """
-        connection, cursor = self.connect()
-        query = 'SELECT ROWID FROM pieces WHERE filename =?'
-        cursor.execute(query, (filename,))
-        result = cursor.fetchone()
-        query = 'DELETE FROM sources WHERE piece_id = ?'
-        cursor.execute(query, (result['rowid'],))
-        connection.commit()
-        self.disconnect(connection)
+    def get_piece_by_all_(self, elem='keys'):
+        table = "{}_ins_piece".format(elem)
+        elems = self.to_dict(self.tables[table], self.get_all(table=table))
+        sorted = self.order_by(elems, store_val="piece.id", column="{}.id".format(elem))
+        result = {}
+        for key in sorted:
+            query = self.query({"id": key}, table=elem)[0]
+            if len(query) > 0:
+                files = self.get_pieces_by_row_id(sorted[key])
+                result[query["name"]] = files
+        return result

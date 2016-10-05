@@ -328,3 +328,14 @@ class QueryLayer(object):
         for table in self.fixtures:
             for elem in self.fixtures[table]:
                 self.get_or_add(elem, table=table)
+
+    def order_by(self, data, store_val = None, column="piece.id"):
+        result = {}
+        for elem in data:
+            if elem[column] not in result:
+                result[elem[column]] = []
+            if store_val is None:
+                result[elem[column]].append(elem)
+            else:
+                result[elem[column]].append(elem[store_val])
+        return result

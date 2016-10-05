@@ -1,39 +1,54 @@
 import unittest
-from implementation.primaries.ExtractMetadata.classes.DataLayer.musicdata import MusicData
 import os
 
 
-class TestSuiteDataLayerGeneratePlaylists(unittest.TestCase):
+class TestSuiteDataLayerGeneratePlaylists(object):
 
-    def testFindAllPiecesByAllKeys(self, mlayer):
-        mlayer.add_piece("file.xml", {"key": {
-            "clari": [{"mode": "major", "fifths": 0}]}, "instruments": [{"name": "clari"}]})
-        mlayer.add_piece("file2.xml", {"key": {
-            "clari": [{"mode": "major", "fifths": 0}]}, "instruments": [{"name": "clari"}]})
-        mlayer.add_piece("file1.xml", {"key": {
-            "clari": [{"mode": "major", "fifths": 1}]}, "instruments": [{"name": "clari"}]})
-        mlayer.add_piece("file3.xml", {"key": {
-            "clari": [{"mode": "major", "fifths": 1}]}, "instruments": [{"name": "clari"}]})
+    def testFindAllPiecesByAllKeys(self, mlayer, clef_in):
+        mlayer.add_piece("file.xml", {"keys": {
+            "clari": [{"mode": "major", "fifths": 0}]}, "instruments": [{"name": "clari"}],
+                                      "clefs": {"clari": [clef_in]}})
+        mlayer.add_piece("file2.xml", {"keys": {
+            "clari": [{"mode": "major", "fifths": 0}]}, "instruments": [{"name": "clari"}],
+                                       "clefs": {"clari": [clef_in]}})
+        mlayer.add_piece("file1.xml", {"keys": {
+            "clari": [{"mode": "major", "fifths": 1}]}, "instruments": [{"name": "clari"}],
+                                       "clefs": {"clari": [clef_in]}})
+        mlayer.add_piece("file3.xml", {"keys": {
+            "clari": [{"mode": "major", "fifths": 1}]}, "instruments": [{"name": "clari"}],
+                                       "clefs": {"clari": [clef_in]}})
         expected = {"C major": ["file.xml",
                                 "file2.xml"],
                     "G major": ["file1.xml",
                                 "file3.xml"]}
-        assert mlayer.get_piece_by_all_elem(elem='keys') == expected
+        assert mlayer.get_piece_by_all_(elem='keys') == expected
 
     def testFindAllPiecesByAllClefs(self, mlayer):
-        mlayer.add_piece("file.xml", {"clef": {
-            "clari": [{"sign": "G", "line": 2}]}, "instruments": [{"name": "clari"}]})
-        mlayer.add_piece("file3.xml", {"clef": {
-            "clari": [{"sign": "G", "line": 2}]}, "instruments": [{"name": "clari"}]})
-        mlayer.add_piece("file1.xml", {"clef": {
-            "clari": [{"sign": "F", "line": 4}]}, "instruments": [{"name": "clari"}]})
-        mlayer.add_piece("file2.xml", {"clef": {
-            "clari": [{"sign": "F", "line": 4}]}, "instruments": [{"name": "clari"}]})
+        mlayer.add_piece("file.xml", {"clefs": {
+            "clari": [{"sign": "G", "line": 2}]},
+                                      "keys": {
+            "clari": [{"mode": "major", "fifths": 0}]},
+                                      "instruments": [{"name": "clari"}]})
+        mlayer.add_piece("file3.xml", {"clefs": {
+            "clari": [{"sign": "G", "line": 2}]},
+                                       "keys": {
+            "clari": [{"mode": "major", "fifths": 0}]},
+                                       "instruments": [{"name": "clari"}]})
+        mlayer.add_piece("file1.xml", {"clefs": {
+            "clari": [{"sign": "F", "line": 4}]},
+                                       "keys": {
+            "clari": [{"mode": "major", "fifths": 0}]},
+                                       "instruments": [{"name": "clari"}]})
+        mlayer.add_piece("file2.xml", {"clefs": {
+            "clari": [{"sign": "F", "line": 4}]},
+                                       "keys": {
+            "clari": [{"mode": "major", "fifths": 0}]},
+                                       "instruments": [{"name": "clari"}]})
         expected = {"treble": ["file.xml",
                                "file3.xml"],
                     "bass": ["file1.xml",
                              "file2.xml"]}
-        assert mlayer.get_piece_by_all_elem(elem='clefs') == expected
+        assert mlayer.get_piece_by_all_(elem='clefs') == expected
 
     def testFindAllPiecesByAllTimeSigs(self, mlayer):
         mlayer.add_piece("file.xml", {"time": [{"beat": 4, "type": 4}]})
