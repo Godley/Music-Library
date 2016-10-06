@@ -45,11 +45,13 @@ install:
 
   # Check installed packages again
   - cmd: pip freeze
+  - cmd: cd music-library
 
 build: off
 
 test_script:
 # temporary measure: disable online tests because the results vary
-  - "nosetests --logging-level=WARNING --exclude-dir=implementation/primaries/ImportOnlineDBs/tests"
+  - py.test --cov-report xml:.coverage
+  - codeclimate-test-reporter
 
 

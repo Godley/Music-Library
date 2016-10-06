@@ -21,6 +21,7 @@ install:
 
 
 script:
+    - cd music-library
     - py.test --cov-report xml:.coverage
     - codeclimate-test-reporter
 
