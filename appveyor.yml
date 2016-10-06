@@ -45,6 +45,7 @@ install:
 
   # Check installed packages again
   - cmd: pip freeze
+  - cmd: set PYTHONPATH=%PATH%;%PYTHONPATH%;%APPVEYOR_BUILD_FOLDER%
   - cmd: python pypath.py
 
 build: off
