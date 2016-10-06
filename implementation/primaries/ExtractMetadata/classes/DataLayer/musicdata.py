@@ -191,7 +191,7 @@ class MusicData(querylayer.QueryLayer):
         :return: list of files containing that instrumnet
         """
         instrument_ids = [self.get_ids_for_like(
-            {"name": "%{}%".format(instrument)}) for instrument in instruments]
+            {"name": "%{}%".format(instrument)}, table="instruments") for instrument in instruments]
         res = list(filter(None, instrument_ids))
         if len(res) != len(instrument_ids):
             return []
