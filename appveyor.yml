@@ -23,6 +23,7 @@ init:
   # Set the relevant python and pip location to the path
   - cmd: set PATH=%PYTHON%;%PYTHON%\scripts;%PATH%
   - cmd: ECHO Path - %PATH%
+  - cmd: ECHO PyPath - %PYTHONPATH%
 
   # Verify the new default python
   - cmd: python --version
