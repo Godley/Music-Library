@@ -1,6 +1,7 @@
-import pytest
+import pytest, os
 from implementation.primaries.ExtractMetadata.classes.DataLayer.querylayer import QueryLayer
 from implementation.primaries.ExtractMetadata.classes.DataLayer.musicdata import MusicData
+from implementation.primaries.ExtractMetadata.classes.MusicManager import MusicManager
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 
 
@@ -19,6 +20,19 @@ def qlayer(db):
 @pytest.fixture()
 def mlayer(db):
     elem = MusicData(db)
+    elem.setup()
+    return elem
+
+@pytest.fixture()
+def manager_folder():
+    return os.path.join(
+            os.path.dirname(
+                os.path.realpath(__file__)),
+            "../test_files/manager_tests")
+
+@pytest.fixture()
+def manager(db, manager_folder):
+    elem = MusicManager(None, folder=manager_folder, db=db)
     elem.setup()
     return elem
 

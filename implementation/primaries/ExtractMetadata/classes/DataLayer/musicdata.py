@@ -54,6 +54,14 @@ import copy
 from .exceptions import BadPieceException, InvalidQueryException
 from .parsers import TempoParser, MeterParser, InstrumentParser
 
+def none_or_name(elem):
+    val = None
+    if len(elem) > 0:
+        if type(elem) == list:
+            val = elem[0]['name']
+        if type(elem) == dict:
+            val = elem['name']
+    return val
 
 class MusicData(querylayer.QueryLayer):
     parsers = {"tempos": TempoParser(),
@@ -263,12 +271,15 @@ class MusicData(querylayer.QueryLayer):
             creator_type='composer',
             archived=False,
             online=False):
+        file_list = []
         creator_id = self.like(
-            {"name": "%{}%".format(creator)}, table="creators")[0]
-        piece_ids = self.query(
+            {"name": "%{}%".format(creator)}, table="creators")
+        if len(creator_id) > 0:
+            creator_id = creator_id[0]
+            piece_ids = self.query(
             {creator_type + ".id": creator_id['id']}, table="pieces")
-        piece_ids = [elem['id'] for elem in piece_ids]
-        file_list = self.get_pieces_by_row_id(piece_ids, archived=archived)
+            piece_ids = [elem['id'] for elem in piece_ids]
+            file_list = self.get_pieces_by_row_id(piece_ids, archived=archived)
         return file_list
 
     def getPieceByTitle(self, title, *args,
@@ -380,12 +391,10 @@ class MusicData(querylayer.QueryLayer):
         return file_list
 
     def get_instruments_by_piece_id(self, piece_id):
-        query_one = self.mk_query(
-            {'piece.id': piece_id}, table='keys_ins_piece')
-        data = query_one.all()
+        results = self.query({'piece.id': piece_id}, table=self.get_join("instruments"))
         instruments = []
-        for elem in data:
-            results = self.query({"id": elem[0]}, table="instruments")[0]
+        for elem in results:
+            results = self.query({"id": elem['instruments.id']}, table="instruments")[0]
             results.pop("id")
             hashed = hashdict(results)
             instruments.append(hashed)
@@ -489,12 +498,14 @@ class MusicData(querylayer.QueryLayer):
             composer_id = file["composer.id"]
             if composer_id != -1:
                 composer = self.query(
-                    {'creators.id': composer_id}, table='creators')
+                    {'id': composer_id}, table='creators')
+                composer = none_or_name(composer)
 
             lyricist_id = file["lyricist.id"]
             if lyricist_id != -1:
                 lyricist = self.query(
-                    {'creators.id': lyricist_id}, table='creators')
+                    {'id': lyricist_id}, table='creators')
+                lyricist = none_or_name(lyricist)
 
             elem_data = hashdict(
                 {
@@ -536,7 +547,7 @@ class MusicData(querylayer.QueryLayer):
 
     def get_piece_by_all_(self, elem='keys'):
         table = self.get_join(elem)
-        elems = self.to_dict(self.tables[table], self.get_all(table=table))
+        elems = self.to_dict(table, self.get_all(table=table))
         sorted = self.order_by(
             elems,
             store_val="piece.id",
@@ -556,7 +567,7 @@ class MusicData(querylayer.QueryLayer):
 
     def get_piece_by_all_creators(self, elem="composer"):
         elems = self.to_dict(
-            self.tables["creators"],
+            "creators",
             self.get_all(
                 table="creators"))
         result = {}

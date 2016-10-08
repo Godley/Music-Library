@@ -189,16 +189,20 @@ class QueryLayer(object):
             for key in data:
                 attr = getattr(_table.columns, key)
                 query = query.filter(attr.like(data[key])).all()
-            return self.to_dict(_table, query)
+            return self.to_dict(table, query)
         else:
             raise BadTableException(
                 "table {} not in {}".format(
                     table, self.tables.keys()))
 
     def to_dict(self, table, query):
-        columns = [col.name for col in table.columns]
-        return [{key: value for key, value in zip(columns, entry)}
-                for entry in query]
+        if self.validate_table(table):
+            _table = self.tables[table]
+            columns = [col.name for col in _table.columns]
+            return [{key: value for key, value in zip(columns, entry)}
+                    for entry in query]
+        else:
+            raise BadTableException("Table {} not in {}".format(table, self.tables.keys()))
 
     def mk_or_expr(self, elems, column):
         expr = column == elems[0]
@@ -279,7 +283,7 @@ class QueryLayer(object):
                 expr = column != col2
                 query = query.where(expr)
             res = list(self.execute(query))
-            res = self.to_dict(_table, res)
+            res = self.to_dict(table, res)
             return res
         else:
             raise BadTableException(
@@ -290,7 +294,7 @@ class QueryLayer(object):
         if self.validate_table(table):
             query = self.mk_query(data, table=table)
             res = query.all()
-            return self.to_dict(self.tables[table], res)
+            return self.to_dict(table, res)
         else:
             raise BadTableException(
                 "table {} not in {}".format(
