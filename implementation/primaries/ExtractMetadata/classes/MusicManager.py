@@ -1,7 +1,6 @@
 import os
 import shutil
 import zipfile
-import logging
 from xml.sax._exceptions import *
 
 import requests.exceptions
@@ -19,9 +18,11 @@ import logging
 
 logger = logging.getLogger(LOG_NAME)
 
+
 def col_or_none(data, col):
     if len(data) > 0:
         return data[0][col]
+
 
 class Unzipper(object):
     """
@@ -217,7 +218,10 @@ class SearchLayer(MusicData):
         instrument_list = []
         for value in search_data["text"]:
             combined = {}
-            file_result = self.query(likedata={'filename': '%{}%'.format(value)}, table='pieces')
+            file_result = self.query(
+                likedata={
+                    'filename': '%{}%'.format(value)},
+                table='pieces')
             combined["filename"] = file_result
 
             title_result = self.getPieceByTitle(
@@ -303,7 +307,8 @@ class SearchLayer(MusicData):
             keys.append(query.capitalize())
 
         if len(search_data[query]) > 0:
-            instrument_data = self.piece_by_ins_in_(search_data[query], table=query)
+            instrument_data = self.piece_by_ins_in_(
+                search_data[query], table=query)
             data.append(instrument_data)
             keys.append("Instruments in {}".format(query.capitalize()))
         return self.create_results(keys, data)
@@ -318,7 +323,8 @@ class SearchLayer(MusicData):
                 elem_id = col_or_none(elem_id_row, 'id')
                 queries.append({'instruments.id': [ins_id],
                                 '{}.id'.format(table): [elem_id]})
-        row_ids = self.query_multiple(queries, table="{}_ins_piece".format(table))
+        row_ids = self.query_multiple(
+            queries, table="{}_ins_piece".format(table))
         fnames = self.get_pieces_by_row_id(row_ids)
         return fnames
 
@@ -722,7 +728,8 @@ class MusicManager(SearchLayer):
         :param file_list: files to archive
         :return: None
         """
-        self.archivePieces(file_list)
+        for elem in file_list:
+            self.update_piece(elem, {'archived': True})
 
     def parseXMLFile(self, filename, parser=None):
         errorTuple = []

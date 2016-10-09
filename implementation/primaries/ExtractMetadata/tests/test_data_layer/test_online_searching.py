@@ -6,9 +6,10 @@ import copy
 
 
 class TestDataLayerOnlineSearching(object):
+
     def testGetPieceListOffline(self, mlayer, dummy):
         data = {
-                "composer": "blabla", "source": "MuseScore"}
+            "composer": "blabla", "source": "MuseScore"}
         data2 = {"composer": "blabla"}
         data2.update(dummy)
         data.update(dummy)
@@ -37,38 +38,38 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceOnline(self, mlayer, dummy):
         data = {
-                "composer": "blabla", "source": "MuseScore"}
+            "composer": "blabla", "source": "MuseScore"}
         data.update(dummy)
         mlayer.add_piece(
             "file.xml", data)
         result_set = mlayer.getFileData(["file.xml"], online=True)
         assert result_set == [{'composer.id': 1, 'filename': 'file.xml',
-                                    'name': '',
-                                    'id': 1,
-                                    'lyricist.id': -1,
-                                    'archived': False,
-                                    'source': 'MuseScore'}]
+                               'name': '',
+                               'id': 1,
+                               'lyricist.id': -1,
+                               'archived': False,
+                               'source': 'MuseScore'}]
 
     def testGetPieceByInstrumentsOffline(self, mlayer, dummy):
         data = {"composer": "blabla",
-                             "source": "MuseScore",
-                             "instruments": [{"name": "Clarinet"}],
-                             "clefs": {"Clarinet": [{"name": "treble"}]},
-                             "keys": {"Clarinet": [{"name": "C major"}]}
-                             }
+                "source": "MuseScore",
+                "instruments": [{"name": "Clarinet"}],
+                "clefs": {"Clarinet": [{"name": "treble"}]},
+                "keys": {"Clarinet": [{"name": "C major"}]}
+                }
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         result_set = mlayer.get_pieces_by_instruments(["Clarinet"])
         assert result_set == []
 
     def testGetPieceByInstrumentsOnline(self, mlayer, dummy):
         data = {"composer": "blabla",
-                             "source": "MuseScore",
-                             "instruments": [{"name": "Clarinet"}]}
+                "source": "MuseScore",
+                "instruments": [{"name": "Clarinet"}]}
         data['clefs'] = {'Clarinet': [{'name': 'treble'}]}
         data['keys'] = {'Clarinet': [{'name': 'C major'}]}
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         result_set = mlayer.get_pieces_by_instruments(
             ["Clarinet"],
             online=True)
@@ -76,7 +77,7 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByComposerOffline(self, mlayer, dummy):
         data = {
-                "composer": "blabla", "source": "MuseScore"}
+            "composer": "blabla", "source": "MuseScore"}
         data.update(dummy)
         mlayer.add_piece(
             "file.xml", data)
@@ -85,7 +86,7 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByComposerOnline(self, mlayer, dummy):
         data = {
-                "composer": "blabla", "source": "MuseScore"}
+            "composer": "blabla", "source": "MuseScore"}
         data.update(dummy)
         mlayer.add_piece(
             "file.xml", data)
@@ -94,7 +95,7 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByLyricistOffline(self, mlayer, dummy):
         data = {
-                "lyricist": "blabla", "source": "MuseScore"}
+            "lyricist": "blabla", "source": "MuseScore"}
         data.update(dummy)
         mlayer.add_piece(
             "file.xml", data)
@@ -114,7 +115,7 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByTitleOffline(self, mlayer, dummy):
         data = {
-                "title": "blabla", "source": "MuseScore"}
+            "title": "blabla", "source": "MuseScore"}
         data.update(dummy)
         mlayer.add_piece(
             "file.xml", data)
@@ -124,7 +125,7 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByTitleOnline(self, mlayer, dummy):
         data = {
-                "title": "blabla", "source": "MuseScore"}
+            "title": "blabla", "source": "MuseScore"}
         data.update(dummy)
         mlayer.add_piece(
             "file.xml", data)
@@ -134,26 +135,26 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByKeysOffline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "keys": {"Clarinet": [{"mode": "major",
-                                                   "fifths": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "clefs": {"Clarinet": [{"name": "C major"}]}}
+                "source": "MuseScore",
+                "keys": {"Clarinet": [{"mode": "major",
+                                       "fifths": 2}]},
+                "instruments": [{"name": "Clarinet"}],
+                "clefs": {"Clarinet": [{"name": "C major"}]}}
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         result_set = mlayer.get_piece_by_join([{"name": "D major"}], "keys")
         expected = []
         assert result_set == expected
 
     def testGetPieceByKeysOnline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "keys": {"Clarinet": [{"mode": "major",
-                                                   "fifths": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "clefs": {"Clarinet": [{"name": "treble"}]}}
+                "source": "MuseScore",
+                "keys": {"Clarinet": [{"mode": "major",
+                                       "fifths": 2}]},
+                "instruments": [{"name": "Clarinet"}],
+                "clefs": {"Clarinet": [{"name": "treble"}]}}
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         result_set = mlayer.get_piece_by_join(
             [{"name": "D major"}], "keys", online=True)
         expected = ['file.xml']
@@ -161,64 +162,64 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByModularityOffline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "keys": {"Clarinet": [{"mode": "major",
-                                                   "fifths": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "clefs": {"Clarinet": [{"name": "treble"}]}}
+                "source": "MuseScore",
+                "keys": {"Clarinet": [{"mode": "major",
+                                       "fifths": 2}]},
+                "instruments": [{"name": "Clarinet"}],
+                "clefs": {"Clarinet": [{"name": "treble"}]}}
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         result_set = mlayer.getPiecesByModularity("major")
         expected = []
         assert result_set == expected
 
     def testGetPieceByModularityOnline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "keys": {"Clarinet": [{"mode": "major",
-                                                   "fifths": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "clefs": {"Clarinet": [{"name": "treble"}]}}
+                "source": "MuseScore",
+                "keys": {"Clarinet": [{"mode": "major",
+                                       "fifths": 2}]},
+                "instruments": [{"name": "Clarinet"}],
+                "clefs": {"Clarinet": [{"name": "treble"}]}}
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         result_set = mlayer.getPiecesByModularity("major", online=True)
         expected = ['file.xml']
         assert result_set == expected
 
     def testGetPiecesByAllKeysOffline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "keys": {"Clarinet": [{"mode": "major",
-                                                   "fifths": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "clefs": {"Clarinet": [{"name": "treble"}]}}
+                "source": "MuseScore",
+                "keys": {"Clarinet": [{"mode": "major",
+                                       "fifths": 2}]},
+                "instruments": [{"name": "Clarinet"}],
+                "clefs": {"Clarinet": [{"name": "treble"}]}}
         data2 = {"title": "blabla",
-                             "source": "MuseScore",
-                             "keys": {"Clarinet": [{"mode": "major",
-                                                   "fifths": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "clefs": {"Clarinet": [{"name": "treble"}]}}
+                 "source": "MuseScore",
+                 "keys": {"Clarinet": [{"mode": "major",
+                                        "fifths": 2}]},
+                 "instruments": [{"name": "Clarinet"}],
+                 "clefs": {"Clarinet": [{"name": "treble"}]}}
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         mlayer.add_piece("file1.xml",
-                            data2)
+                         data2)
         result_set = mlayer.get_piece_by_all_(elem='keys')
         expected = {}
         assert result_set == expected
 
     def testGetPieceByAllKeysOnline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "keys": {"Clarinet": [{"mode": "major",
-                                                   "fifths": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "clefs": {"Clarinet": [{"name": "treble"}]}}
+                "source": "MuseScore",
+                "keys": {"Clarinet": [{"mode": "major",
+                                       "fifths": 2}]},
+                "instruments": [{"name": "Clarinet"}],
+                "clefs": {"Clarinet": [{"name": "treble"}]}}
         data2 = {"title": "blabla",
-                             "source": "MuseScore",
-                             "keys": {"Clarinet": [{"mode": "major",
-                                                   "fifths": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "clefs": {"Clarinet": [{"name": "treble"}]}}
+                 "source": "MuseScore",
+                 "keys": {"Clarinet": [{"mode": "major",
+                                        "fifths": 2}]},
+                 "instruments": [{"name": "Clarinet"}],
+                 "clefs": {"Clarinet": [{"name": "treble"}]}}
         mlayer.add_piece("file.xml", data)
         mlayer.add_piece("file1.xml", data2)
         result_set = mlayer.get_piece_by_all_(elem='keys', online=True)
@@ -227,38 +228,38 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByAllClefsOffline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "clefs": {"Clarinet": [{"sign": "G",
-                                                    "line": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "keys": {"Clarinet": [{"name": "C major"}]}}
+                "source": "MuseScore",
+                "clefs": {"Clarinet": [{"sign": "G",
+                                        "line": 2}]},
+                "instruments": [{"name": "Clarinet"}],
+                "keys": {"Clarinet": [{"name": "C major"}]}}
         data2 = {"title": "blabla",
-                             "source": "MuseScore",
-                             "clefs": {"Clarinet": [{"sign": "G",
-                                                    "line": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "keys": {"Clarinet": [{"name": "C major"}]}}
+                 "source": "MuseScore",
+                 "clefs": {"Clarinet": [{"sign": "G",
+                                         "line": 2}]},
+                 "instruments": [{"name": "Clarinet"}],
+                 "keys": {"Clarinet": [{"name": "C major"}]}}
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         mlayer.add_piece("file1.xml",
-                            data2)
+                         data2)
         result_set = mlayer.get_piece_by_all_(elem='clefs')
         expected = {}
         assert result_set == expected
 
     def testGetPieceByAllClefsOnline(self, mlayer, dummy):
         mlayer.add_piece("file.xml",
-                            {"title": "blabla",
+                         {"title": "blabla",
                              "source": "MuseScore",
                              "clefs": {"Clarinet": [{"sign": "G",
-                                                    "line": 2}]},
+                                                     "line": 2}]},
                              "instruments": [{"name": "Clarinet"}],
                              "keys": {"Clarinet": [{"name": "C major"}]}})
         mlayer.add_piece("file1.xml",
-                            {"title": "blabla",
+                         {"title": "blabla",
                              "source": "MuseScore",
                              "clefs": {"Clarinet": [{"sign": "G",
-                                                    "line": 2}]},
+                                                     "line": 2}]},
                              "instruments": [{"name": "Clarinet"}],
                              "keys": {"Clarinet": [{"name": "C major"}]}})
         result_set = mlayer.get_piece_by_all_(elem='clefs', online=True)
@@ -267,17 +268,17 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByAllTimeSigsOffline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "clefs": {"Clarinet": [{"sign": "G",
-                                                    "line": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "keys": {"Clarinet": [{"name": "C major"}]}}
+                "source": "MuseScore",
+                "clefs": {"Clarinet": [{"sign": "G",
+                                        "line": 2}]},
+                "instruments": [{"name": "Clarinet"}],
+                "keys": {"Clarinet": [{"name": "C major"}]}}
         data2 = {"title": "blabla",
-                             "source": "MuseScore",
-                             "clefs": {"Clarinet": [{"sign": "G",
-                                                    "line": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "keys": {"Clarinet": [{"name": "C major"}]}}
+                 "source": "MuseScore",
+                 "clefs": {"Clarinet": [{"sign": "G",
+                                         "line": 2}]},
+                 "instruments": [{"name": "Clarinet"}],
+                 "keys": {"Clarinet": [{"name": "C major"}]}}
         mlayer.add_piece("file.xml", data)
         mlayer.add_piece("file1.xml", data2)
         result_set = mlayer.get_piece_by_all_(elem='time_signatures')
@@ -285,85 +286,86 @@ class TestDataLayerOnlineSearching(object):
         assert result_set == exp
 
     def testGetPieceByAllTimeSigsOnline(self, mlayer, dummy):
-        data = {
-            "title": "blabla", "source": "MuseScore", "time_signatures": [{"beat": 4, "beat_type": 4}]}
+        data = {"title": "blabla", "source": "MuseScore",
+                "time_signatures": [{"beat": 4, "beat_type": 4}]}
         data.update(dummy)
-        data2 = {
-            "title": "blabla", "source": "MuseScore", "time_signatures": [{"beat": 4, "beat_type": 4}]}
+        data2 = {"title": "blabla", "source": "MuseScore",
+                 "time_signatures": [{"beat": 4, "beat_type": 4}]}
         data2.update(dummy)
         mlayer.add_piece("file.xml", data)
         mlayer.add_piece("file1.xml", data2)
-        result_set = mlayer.get_piece_by_all_(elem='time_signatures', online=True)
+        result_set = mlayer.get_piece_by_all_(
+            elem='time_signatures', online=True)
         exp = {"4/4": ['file.xml', 'file1.xml']}
         assert result_set == exp
 
     def testGetPieceByAllTemposOffline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "tempos": [{"beat": "quarter",
-                                        "minute": 100}]}
+                "source": "MuseScore",
+                "tempos": [{"beat": "quarter",
+                            "minute": 100}]}
         data.update(dummy)
         data2 = {"title": "blabla",
-                             "source": "MuseScore",
-                             "tempos": [{"beat": "quarter",
-                                        "minute": 100}]}
+                 "source": "MuseScore",
+                 "tempos": [{"beat": "quarter",
+                             "minute": 100}]}
         data2.update(dummy)
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         mlayer.add_piece("file1.xml",
-                            data2)
+                         data2)
         result_set = mlayer.get_piece_by_all_(elem='tempos')
         exp = {}
         assert result_set == exp
 
     def testGetPieceByAllTemposOnline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "tempos": [{"beat": "quarter",
-                                        "minute": 100}]}
+                "source": "MuseScore",
+                "tempos": [{"beat": "quarter",
+                            "minute": 100}]}
         data.update(dummy)
         data2 = copy.deepcopy(data)
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         mlayer.add_piece("file1.xml",
-                            data2)
+                         data2)
         result_set = mlayer.get_piece_by_all_(elem='tempos', online=True)
         exp = {'quarter=100': ['file.xml', 'file1.xml']}
         assert result_set == exp
 
     def testGetPieceByAllInstrumentsOffline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "instruments": [{"name": "Clarinet"}]}
+                "source": "MuseScore",
+                "instruments": [{"name": "Clarinet"}]}
         data['clefs'] = {"Clarinet": [{"name": "treble"}]}
         data['keys'] = {"Clarinet": [{"name": "C major"}]}
         data2 = copy.deepcopy(data)
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         mlayer.add_piece("file1.xml",
-                            data2)
+                         data2)
         result_set = mlayer.get_piece_by_all_(elem="instruments")
         exp = {}
         assert result_set == exp
 
     def testGetPieceByAllInstrumentsOnline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "instruments": [{"name": "Clarinet"}],
-                             "clefs": {'Clarinet': [{"name": "treble"}]},
-                             "keys": {'Clarinet': [{"name": "C major"}]}}
+                "source": "MuseScore",
+                "instruments": [{"name": "Clarinet"}],
+                "clefs": {'Clarinet': [{"name": "treble"}]},
+                "keys": {'Clarinet': [{"name": "C major"}]}}
         data2 = copy.deepcopy(data)
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         mlayer.add_piece("file1.xml",
-                            data2)
+                         data2)
         result_set = mlayer.get_piece_by_all_(elem='instruments', online=True)
         exp = {'Clarinet': ['file.xml', 'file1.xml']}
         assert result_set == exp
 
     def testGetPieceByAllComposersOffline(self, mlayer, dummy):
         data = {
-                "title": "blabla", "source": "MuseScore", "composer": "Bark"}
+            "title": "blabla", "source": "MuseScore", "composer": "Bark"}
         data.update(dummy)
         data2 = copy.deepcopy(data)
         mlayer.add_piece(
@@ -375,7 +377,7 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByAllComposersOnline(self, mlayer, dummy):
         data = {
-                "title": "blabla", "source": "MuseScore", "composer": "Motsart"}
+            "title": "blabla", "source": "MuseScore", "composer": "Motsart"}
         data.update(dummy)
         data2 = copy.deepcopy(data)
         mlayer.add_piece("file.xml", data)
@@ -386,7 +388,7 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByAllLyricistsOffline(self, mlayer, dummy):
         data = {
-                "title": "blabla", "source": "MuseScore", "lyricist": "Bark"}
+            "title": "blabla", "source": "MuseScore", "lyricist": "Bark"}
         data.update(dummy)
         data2 = copy.deepcopy(data)
         mlayer.add_piece(
@@ -399,7 +401,7 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByAllLyricistsOnline(self, mlayer, dummy):
         data = {
-                "title": "blabla", "source": "MuseScore", "lyricist": "Motsart"}
+            "title": "blabla", "source": "MuseScore", "lyricist": "Motsart"}
         data.update(dummy)
         data2 = copy.deepcopy(data)
         mlayer.add_piece(
@@ -412,68 +414,68 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByClefsOffline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "clefs": {"Clarinet": [{"sign": "G",
-                                                    "line": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "keys": {"Clarinet": [{"name": "C major"}]}}
+                "source": "MuseScore",
+                "clefs": {"Clarinet": [{"sign": "G",
+                                        "line": 2}]},
+                "instruments": [{"name": "Clarinet"}],
+                "keys": {"Clarinet": [{"name": "C major"}]}}
         data2 = copy.deepcopy(data)
         mlayer.add_piece("file.xml",
-                            data)
+                         data)
         mlayer.add_piece("file1.xml",
-                            data2)
-        result_set = mlayer.get_piece_by_join([{"name":"treble"}], "clefs")
+                         data2)
+        result_set = mlayer.get_piece_by_join([{"name": "treble"}], "clefs")
         expected = []
         assert result_set == expected
 
     def testGetPieceByClefsOnline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "clefs": {"Clarinet": [{"sign": "G",
-                                                    "line": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "keys": {"Clarinet": [{"name": "C major"}]}}
+                "source": "MuseScore",
+                "clefs": {"Clarinet": [{"sign": "G",
+                                        "line": 2}]},
+                "instruments": [{"name": "Clarinet"}],
+                "keys": {"Clarinet": [{"name": "C major"}]}}
         data2 = copy.deepcopy(data)
         mlayer.add_piece("file.xml", data)
         mlayer.add_piece("file1.xml", data2)
-        result_set = mlayer.get_piece_by_join([{"name": "treble"}], table="clefs", online=True)
+        result_set = mlayer.get_piece_by_join(
+            [{"name": "treble"}], table="clefs", online=True)
         exp = ['file.xml', 'file1.xml']
         assert result_set == exp
 
     def testGetPieceByInstrumentInKeysOffline(self, mlayer, dummy):
         data = {"title": "blabla",
-                             "source": "MuseScore",
-                             "keys": {"Clarinet": [{"mode": "major",
-                                                   "fifths": 2}]},
-                             "instruments": [{"name": "Clarinet"}],
-                             "clefs": {"Clarinet": [{"name": "treble"}]}}
+                "source": "MuseScore",
+                "keys": {"Clarinet": [{"mode": "major",
+                                       "fifths": 2}]},
+                "instruments": [{"name": "Clarinet"}],
+                "clefs": {"Clarinet": [{"name": "treble"}]}}
         mlayer.add_piece("file.xml", data)
-        result_set = mlayer.getPieceByInstrumentIn_({"Clarinet": [{"name": "D major"}]},
-                                              table="keys")
+        result_set = mlayer.getPieceByInstrumentIn_(
+            {"Clarinet": [{"name": "D major"}]}, table="keys")
         expected = []
         assert result_set == expected
 
     def testGetPieceByInstrumentInKeysOnline(self, mlayer, dummy):
         data = {"title": "blabla",
-                 "source": "MuseScore",
-                 "keys": {"Clarinet": [{"mode": "major",
+                "source": "MuseScore",
+                "keys": {"Clarinet": [{"mode": "major",
                                        "fifths": 2}]},
-                 "instruments": [{"name": "Clarinet"}],
-                 "clefs": {"Clarinet": [{"name": "treble"}]}}
+                "instruments": [{"name": "Clarinet"}],
+                "clefs": {"Clarinet": [{"name": "treble"}]}}
         mlayer.add_piece("file.xml",
-                            data)
-        result_set = mlayer.getPieceByInstrumentIn_({"Clarinet": [{"name": "D major"}]},
-                                                    table="keys",
-                                                    online=True)
+                         data)
+        result_set = mlayer.getPieceByInstrumentIn_(
+            {"Clarinet": [{"name": "D major"}]}, table="keys", online=True)
         expected = ['file.xml']
         assert result_set == expected
 
     def testGetPieceByInstrumentInClefsOffline(self, mlayer, dummy):
         mlayer.add_piece("file.xml",
-                            {"title": "blabla",
+                         {"title": "blabla",
                              "source": "MuseScore",
                              "clefs": {"Clarinet": [{"sign": "G",
-                                                    "line": 2}]},
+                                                     "line": 2}]},
                              "instruments": [{"name": "Clarinet"}],
                              "keys": {"Clarinet": [{"name": "C major"}]}})
         result_set = mlayer.getPieceByInstrumentIn_(
@@ -483,10 +485,10 @@ class TestDataLayerOnlineSearching(object):
 
     def testGetPieceByInstrumentInClefsOnline(self, mlayer, dummy):
         mlayer.add_piece("file.xml",
-                            {"title": "blabla",
+                         {"title": "blabla",
                              "source": "MuseScore",
                              "clefs": {"Clarinet": [{"sign": "G",
-                                                    "line": 2}]},
+                                                     "line": 2}]},
                              "instruments": [{"name": "Clarinet"}],
                              "keys": {"Clarinet": [{"name": "C major"}]}})
         result_set = mlayer.getPieceByInstrumentIn_(
@@ -495,8 +497,8 @@ class TestDataLayerOnlineSearching(object):
         assert result_set == expected
 
     def testGetPieceByMetersOffline(self, mlayer, dummy):
-        data = {
-            "title": "blabla", "source": "MuseScore", "time_signatures": [{"beat": 4, "beat_type": 4}]}
+        data = {"title": "blabla", "source": "MuseScore",
+                "time_signatures": [{"beat": 4, "beat_type": 4}]}
         data.update(dummy)
         mlayer.add_piece("file.xml", data)
         result_set = mlayer.getPieceByMeter(["4/4"])
@@ -504,8 +506,8 @@ class TestDataLayerOnlineSearching(object):
         assert result_set == expected
 
     def testGetPieceByMetersOnline(self, mlayer, dummy):
-        data = {
-            "title": "blabla", "source": "MuseScore", "time_signatures": [{"beat": 4, "beat_type": 4}]}
+        data = {"title": "blabla", "source": "MuseScore",
+                "time_signatures": [{"beat": 4, "beat_type": 4}]}
         data.update(dummy)
         mlayer.add_piece("file.xml", data)
         result_set = mlayer.getPieceByMeter(["4/4"], online=True)

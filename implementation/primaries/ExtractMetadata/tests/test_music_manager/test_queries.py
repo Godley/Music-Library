@@ -14,7 +14,7 @@ class TestMusicManager(object):
 
     def testFindPieceByTitleAndComposer(self, manager, dummy):
         data = {
-                "title": "Blabla", "composer": "Bartok"}
+            "title": "Blabla", "composer": "Bartok"}
         data.update(dummy)
         data2 = {"title": "Blabla"}
         data2.update(dummy)
@@ -41,7 +41,7 @@ class TestMusicManager(object):
 
     def testFindPieceByTitleAndLyricist(self, manager, dummy):
         data = {
-                "title": "Blabla", "lyricist": "Bartok"}
+            "title": "Blabla", "lyricist": "Bartok"}
         data.update(dummy)
         data2 = {"title": "Blabla"}
         data2.update(dummy)
@@ -67,8 +67,8 @@ class TestMusicManager(object):
 
     def testFindPieceByTitleAndKey(self, manager, clef_in, dummy):
         data = {"title": "Blabla", "instruments": [
-                              {"name": "Clarinet"}], "keys": {"Clarinet": [{"fifths": 1, "mode": "major"}]},
-                                                             "clefs": {"Clarinet": [clef_in]}}
+            {"name": "Clarinet"}], "keys": {"Clarinet": [{"fifths": 1, "mode": "major"}]},
+            "clefs": {"Clarinet": [clef_in]}}
         data2 = {"title": "Blabla"}
         data2.update(dummy)
         manager.add_piece("file.xml", data)
@@ -93,15 +93,15 @@ class TestMusicManager(object):
 
     def testFindPieceByTitleAndKeyAndClef(self, manager):
         manager.add_piece("file.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Clarinet"}],
-                                  "clefs": {"Clarinet": [{"name": "treble"}]},
-                                  "keys": {"Clarinet": [{"name": "C major"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Clarinet"}],
+                           "clefs": {"Clarinet": [{"name": "treble"}]},
+                           "keys": {"Clarinet": [{"name": "C major"}]}})
         manager.add_piece("file1.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Clarinet"}],
-                                  "keys": {"Clarinet": [{"name": "C major"}]},
-                               "clefs": {"Clarinet": [{"name": "bass"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Clarinet"}],
+                           "keys": {"Clarinet": [{"name": "C major"}]},
+                           "clefs": {"Clarinet": [{"name": "bass"}]}})
         expected_results = {
             "Title: Blabla": [
                 ('title: Blabla filename: file.xml',
@@ -122,24 +122,24 @@ class TestMusicManager(object):
         results = manager.runQueries(
             {
                 "title": ["Blabla"], "keys": {
-                    "other": [{"name":"C major"}]}, "clefs": {
-                    "other": [{"name":"treble"}]}})
+                    "other": [{"name": "C major"}]}, "clefs": {
+                    "other": [{"name": "treble"}]}})
         self.assert_dict(
             expected_results, results)
 
     def testFindPieceByTitleAndKeyAndClefAndInstrument(self, manager):
         manager.add_piece("file.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Clarinet"}],
-                                  "clefs": {"Clarinet": [{"name": "treble"}]},
-                                  "keys": {"Clarinet": [{"name":"C major"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Clarinet"}],
+                           "clefs": {"Clarinet": [{"name": "treble"}]},
+                           "keys": {"Clarinet": [{"name": "C major"}]}})
         data = {"title": "Blabla",
-                               "instruments": [{"name": "Sax"}],
-                                  "keys": {"Sax": [{"name":"C major"}]},
-                               "clefs": {"Sax": [{"name": "bass"}]}}
+                "instruments": [{"name": "Sax"}],
+                "keys": {"Sax": [{"name": "C major"}]},
+                "clefs": {"Sax": [{"name": "bass"}]}}
 
         manager.add_piece("file1.xml",
-                              data)
+                          data)
         expected_results = {
             "Title: Blabla": [
                 ('title: Blabla filename: file.xml', 'file.xml'), ('title: Blabla filename: file1.xml', 'file1.xml')], "Clefs": [
@@ -150,25 +150,25 @@ class TestMusicManager(object):
         results = manager.runQueries(
             {
                 "title": ["Blabla"], "keys": {
-                    "other": [{"name":"C major"}]}, "clefs": {
-                    "other": [{"name":"treble"}]}, "instrument": {
+                    "other": [{"name": "C major"}]}, "clefs": {
+                    "other": [{"name": "treble"}]}, "instrument": {
                     "Clarinet": {}}})
         self.assert_dict(results, expected_results)
 
     def testFindPieceByTitleAndInstrumentWithClef(self, manager):
         manager.add_piece("file.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Clarinet"}],
-                                  "clefs": {"Clarinet": [{"name": "treble"}]},
-                                  "keys": {"Clarinet": [{"name": "C major"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Clarinet"}],
+                           "clefs": {"Clarinet": [{"name": "treble"}]},
+                           "keys": {"Clarinet": [{"name": "C major"}]}})
         manager.add_piece("file1.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Sax"},
-                                               {"name": "Clarinet"}],
-                                  "clefs": {"Sax": [{"name":"treble"}],
-                                            "Clarinet": [{"name": "bass"}]},
-                               "keys": {"Sax": [{"name": "D major"}],
-                                        "Clarinet": [{"name": "E major"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Sax"},
+                                           {"name": "Clarinet"}],
+                           "clefs": {"Sax": [{"name": "treble"}],
+                                     "Clarinet": [{"name": "bass"}]},
+                           "keys": {"Sax": [{"name": "D major"}],
+                                    "Clarinet": [{"name": "E major"}]}})
         expected_results = {
             'Instruments in Clefs': [
                 ('title: Blabla filename: file.xml', 'file.xml')], 'Exact Matches': [
@@ -187,24 +187,24 @@ class TestMusicManager(object):
 
     def testFindPieceByTitleAndInstrumentWithClefAndOther(self, manager):
         manager.add_piece("file.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Clarinet"},
-                                               {"name": "Sax"}],
-                                  "clefs": {"Clarinet": [{"sign": "G",
-                                                         "line": 2}],
-                                           "Sax": [{"line": 4,
-                                                    "sign": "F"}]},
-                                  "keys": {"Clarinet": [{"name": "C major"}],
-                                           "Sax": [{"name": "A major"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Clarinet"},
+                                           {"name": "Sax"}],
+                           "clefs": {"Clarinet": [{"sign": "G",
+                                                   "line": 2}],
+                                     "Sax": [{"line": 4,
+                                              "sign": "F"}]},
+                           "keys": {"Clarinet": [{"name": "C major"}],
+                                    "Sax": [{"name": "A major"}]}})
         manager.add_piece("file1.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Sax"},
-                                               {"name": "Clarinet"}],
-                                  "clefs": {"Sax": [{"line": 4,
-                                                    "sign": "F"}],
-                                            "Clarinet": [{"name": "alto"}]},
-                               "keys": {"Sax": [{"name": "A major"}],
-                                        "Clarinet": [{"name": "A major"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Sax"},
+                                           {"name": "Clarinet"}],
+                           "clefs": {"Sax": [{"line": 4,
+                                              "sign": "F"}],
+                                     "Clarinet": [{"name": "alto"}]},
+                           "keys": {"Sax": [{"name": "A major"}],
+                                    "Clarinet": [{"name": "A major"}]}})
         expected_results = {
             'Exact Matches': [
                 ('title: Blabla filename: file.xml', 'file.xml')], 'Title: Blabla': [
@@ -224,26 +224,26 @@ class TestMusicManager(object):
 
     def testFindPieceByTitleAndInstrumentWithKey(self, manager):
         manager.add_piece("file.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Clarinet"},
-                                               {"name": "Sax"}],
-                                  "clefs": {"Clarinet": [{"sign": "G",
-                                                         "line": 2}],
-                                           "Sax": [{"line": 4,
-                                                    "sign": "F"}]},
-                                  "keys": {"Clarinet": [{"fifths": 2,
-                                                        "mode": "major"}],
-                                           "Sax": [{"name": "C major"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Clarinet"},
+                                           {"name": "Sax"}],
+                           "clefs": {"Clarinet": [{"sign": "G",
+                                                   "line": 2}],
+                                     "Sax": [{"line": 4,
+                                              "sign": "F"}]},
+                           "keys": {"Clarinet": [{"fifths": 2,
+                                                  "mode": "major"}],
+                                    "Sax": [{"name": "C major"}]}})
         manager.add_piece("file1.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Sax"},
-                                               {"name": "Clarinet"}],
-                                  "keys": {"Sax": [{"fifths": 2,
-                                                   "mode": "major"}],
-                                           "Clarinet": [{"name": "A major"}]},
-                                  "clefs": {"Sax": [{"line": 4,
-                                                    "sign": "F"}],
-                                           "Clarinet": [{"name": "treble"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Sax"},
+                                           {"name": "Clarinet"}],
+                           "keys": {"Sax": [{"fifths": 2,
+                                             "mode": "major"}],
+                                    "Clarinet": [{"name": "A major"}]},
+                           "clefs": {"Sax": [{"line": 4,
+                                              "sign": "F"}],
+                                     "Clarinet": [{"name": "treble"}]}})
         expected_results = {
             "Title: Blabla": [
                 ('title: Blabla filename: file.xml',
@@ -265,29 +265,29 @@ class TestMusicManager(object):
 
     def testFindPieceByTitleAndInstrumentWithKeyAndOther(self, manager):
         manager.add_piece("file.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Clarinet"},
-                                               {"name": "Sax"}],
-                                  "clefs": {"Clarinet": [{"sign": "G",
-                                                         "line": 2}],
-                                           "Sax": [{"line": 4,
-                                                    "sign": "F"}]},
-                                  "keys": {"Clarinet": [{"fifths": 2,
-                                                        "mode": "major"}],
-                                          "Sax": [{"fifths": 0,
-                                                   "mode": "major"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Clarinet"},
+                                           {"name": "Sax"}],
+                           "clefs": {"Clarinet": [{"sign": "G",
+                                                   "line": 2}],
+                                     "Sax": [{"line": 4,
+                                              "sign": "F"}]},
+                           "keys": {"Clarinet": [{"fifths": 2,
+                                                  "mode": "major"}],
+                                    "Sax": [{"fifths": 0,
+                                             "mode": "major"}]}})
         manager.add_piece("file1.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Sax"},
-                                               {"name": "Clarinet"}],
-                                  "keys": {"Sax": [{"fifths": 0,
-                                                   "mode": "major"},
-                                                  {"fifths": 2,
-                                                   "mode": "major"}],
-                                           "Clarinet": [{"name": "A major"}]},
-                                  "clefs": {"Sax": [{"line": 4,
-                                                    "sign": "F"}],
-                                            "Clarinet": [{"name": "treble"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Sax"},
+                                           {"name": "Clarinet"}],
+                           "keys": {"Sax": [{"fifths": 0,
+                                             "mode": "major"},
+                                            {"fifths": 2,
+                                             "mode": "major"}],
+                                    "Clarinet": [{"name": "A major"}]},
+                           "clefs": {"Sax": [{"line": 4,
+                                              "sign": "F"}],
+                                     "Clarinet": [{"name": "treble"}]}})
         expected_results = {
             "Title: Blabla": [
                 ('title: Blabla filename: file.xml',
@@ -315,26 +315,26 @@ class TestMusicManager(object):
 
     def testFindPieceByTitleAndInstrumentWithKeyAndClef(self, manager):
         manager.add_piece("file.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Clarinet"},
-                                               {"name": "Sax"}],
-                                  "clefs": {"Clarinet": [{"sign": "G",
-                                                         "line": 2}],
-                                           "Sax": [{"line": 4,
-                                                    "sign": "F"}]},
-                                  "keys": {"Clarinet": [{"fifths": 2,
-                                                        "mode": "major"}],
-                                           "Sax": [{"name": "D major"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Clarinet"},
+                                           {"name": "Sax"}],
+                           "clefs": {"Clarinet": [{"sign": "G",
+                                                   "line": 2}],
+                                     "Sax": [{"line": 4,
+                                              "sign": "F"}]},
+                           "keys": {"Clarinet": [{"fifths": 2,
+                                                  "mode": "major"}],
+                                    "Sax": [{"name": "D major"}]}})
         manager.add_piece("file1.xml",
-                              {"title": "Blabla",
-                               "instruments": [{"name": "Sax"},
-                                               {"name": "Clarinet"}],
-                                  "keys": {"Clarinet": [{"fifths": 2,
-                                                        "mode": "major"}],
-                                           "Sax": [{"name": "A major"}]},
-                                  "clefs": {"Sax": [{"line": 4,
-                                                    "sign": "F"}],
-                                            "Clarinet": [{"name": "E major"}]}})
+                          {"title": "Blabla",
+                           "instruments": [{"name": "Sax"},
+                                           {"name": "Clarinet"}],
+                           "keys": {"Clarinet": [{"fifths": 2,
+                                                  "mode": "major"}],
+                                    "Sax": [{"name": "A major"}]},
+                           "clefs": {"Sax": [{"line": 4,
+                                              "sign": "F"}],
+                                     "Clarinet": [{"name": "E major"}]}})
         expected_results = {
             "Title: Blabla": [
                 ('title: Blabla filename: file.xml',
@@ -389,10 +389,18 @@ class TestMusicManager(object):
 
     def testFindByInstrumentsWithNoLabel2Entries(self, manager):
         query = {"text": ["clarinet", "flute"]}
+        data = {"instruments": [{"name": "clarinet"}],
+                "clefs": {"clarinet": [{"name": "treble"}]},
+                "keys": {"clarinet": [{"name": "C major"}]}}
+        data2 = {"instruments": [
+            {"name": "clarinet"}, {"name": "flute"}],
+            "clefs": {"clarinet": [{"name": "treble"}],
+                      "flute": [{"name": "treble"}]},
+            "keys": {"clarinet": [{"name": "C major"}],
+                     "flute": [{"name": "C major"}]}}
         manager.add_piece("file1.xml",
-                              {"instruments": [{"name": "clarinet"}]})
-        manager.add_piece("file2.xml", {"instruments": [
-                              {"name": "clarinet"}, {"name": "flute"}]})
+                          data)
+        manager.add_piece("file2.xml", data2)
         expected_results = {
             "All Instruments": [
                 ('filename: file2.xml', 'file2.xml')], "Exact Matches": [

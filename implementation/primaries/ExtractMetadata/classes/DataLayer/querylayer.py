@@ -5,9 +5,11 @@ from sqlalchemy.sql.expression import exists, alias, select, or_
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, Boolean
 from .exceptions import BadTableException
 
+
 def col_or_none(data, col):
     if len(data) > 0:
         return data[0][col]
+
 
 class QueryLayer(object):
     tables = {}
@@ -198,7 +200,9 @@ class QueryLayer(object):
             return [{key: value for key, value in zip(columns, entry)}
                     for entry in query]
         else:
-            raise BadTableException("Table {} not in {}".format(table, self.tables.keys()))
+            raise BadTableException(
+                "Table {} not in {}".format(
+                    table, self.tables.keys()))
 
     def mk_or_expr(self, elems, column):
         expr = column == elems[0]
@@ -356,7 +360,8 @@ class QueryLayer(object):
         return self.join_tables[table]
 
     def remove(self, id, table="pieces"):
-        query = self.tables[table].delete().where(self.tables[table].c.id == id)
+        query = self.tables[table].delete().where(
+            self.tables[table].c.id == id)
         self.execute(query)
 
     def not_query(self, data, columns, query):

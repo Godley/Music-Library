@@ -1,4 +1,5 @@
-import pytest, os
+import pytest
+import os
 from implementation.primaries.ExtractMetadata.classes.DataLayer.querylayer import QueryLayer
 from implementation.primaries.ExtractMetadata.classes.DataLayer.musicdata import MusicData
 from implementation.primaries.ExtractMetadata.classes.MusicManager import MusicManager
@@ -23,12 +24,14 @@ def mlayer(db):
     elem.setup()
     return elem
 
+
 @pytest.fixture()
 def manager_folder():
     return os.path.join(
-            os.path.dirname(
-                os.path.realpath(__file__)),
-            "../test_files/manager_tests")
+        os.path.dirname(
+            os.path.realpath(__file__)),
+        "../test_files/manager_tests")
+
 
 @pytest.fixture()
 def manager(db, manager_folder):

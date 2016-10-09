@@ -185,7 +185,11 @@ class MusicData(querylayer.QueryLayer):
             self.add({'instruments.id': ins['id'], 'keys.id': key[
                      'id'], 'piece.id': piece_id}, table='keys_ins_piece')
 
-    def query_pieces_archived_online(self, online=False, archived=False, data=None):
+    def query_pieces_archived_online(
+            self,
+            online=False,
+            archived=False,
+            data=None):
         source = {'source': 'local'}
         not_data = {}
         if data is None:
@@ -199,19 +203,24 @@ class MusicData(querylayer.QueryLayer):
         return results
 
     def get_file_list(self, online=False, archived=False):
-        results = self.query_pieces_archived_online(online=online, archived=archived)
+        results = self.query_pieces_archived_online(
+            online=online, archived=archived)
         filelist = set([result['filename'] for result in results])
         return list(filelist)
 
     # methods used in querying by user
-    def get_pieces_by_instruments(self, instruments, archived=False, online=False):
+    def get_pieces_by_instruments(
+            self,
+            instruments,
+            archived=False,
+            online=False):
         """
         method to get all the pieces containing a certain instrument
         :param instrument: name of instrument
         :return: list of files containing that instrumnet
         """
-        instrument_ids = [self.get_ids_for_like(
-            {"name": "%{}%".format(instrument)}, table="instruments") for instrument in instruments]
+        instrument_ids = [self.get_ids_for_like({"name": "%{}%".format(
+            instrument)}, table="instruments") for instrument in instruments]
         res = list(filter(None, instrument_ids))
         if len(res) != len(instrument_ids):
             return []
@@ -224,7 +233,8 @@ class MusicData(querylayer.QueryLayer):
             data = {"instruments.id": instrument_ids[i]}
             query.append(data)
         results = self.query_multiple(query)
-        file_list = self.get_pieces_by_row_id(results, archived=archived, online=online)
+        file_list = self.get_pieces_by_row_id(
+            results, archived=archived, online=online)
         return file_list
 
     def get_pieces_by_any_all_instruments(self,
@@ -270,8 +280,13 @@ class MusicData(querylayer.QueryLayer):
         previous = None
         for element in rows:
             if element != previous:
-                result = querylayer.col_or_none(self.query_pieces_archived_online(
-                    data={'id': element}, online=online, archived=archived), 'filename')
+                result = querylayer.col_or_none(
+                    self.query_pieces_archived_online(
+                        data={
+                            'id': element},
+                        online=online,
+                        archived=archived),
+                    'filename')
                 if result is not None:
                     file_list.append(result)
             previous = element
@@ -284,13 +299,17 @@ class MusicData(querylayer.QueryLayer):
             archived=False,
             online=False):
         file_list = []
-        creator_id = self.query(likedata={"name": "%{}%".format(creator)}, table="creators")
+        creator_id = self.query(
+            likedata={
+                "name": "%{}%".format(creator)},
+            table="creators")
         if len(creator_id) > 0:
             creator_id = creator_id[0]
             piece_ids = self.query(
-            {creator_type + ".id": creator_id['id']}, table="pieces")
+                {creator_type + ".id": creator_id['id']}, table="pieces")
             piece_ids = [elem['id'] for elem in piece_ids]
-            file_list = self.get_pieces_by_row_id(piece_ids, archived=archived, online=online)
+            file_list = self.get_pieces_by_row_id(
+                piece_ids, archived=archived, online=online)
         return file_list
 
     def getPieceByTitle(self, title, *args,
@@ -324,7 +343,8 @@ class MusicData(querylayer.QueryLayer):
             piece_ids = [elem['piece.id'] for elem in piece_ids]
             results.extend(piece_ids)
         results = set(results)
-        file_list = self.get_pieces_by_row_id(results, archived=archived, online=online)
+        file_list = self.get_pieces_by_row_id(
+            results, archived=archived, online=online)
         return file_list
 
     def getPiecesByModularity(self, modularity, archived=False, online=False):
@@ -343,7 +363,8 @@ class MusicData(querylayer.QueryLayer):
             piece_ids = [elem['piece.id'] for elem in piece_ids]
             pieces.extend(piece_ids)
         pieces = set(pieces)
-        file_list = self.get_pieces_by_row_id(pieces, archived=archived, online=online)
+        file_list = self.get_pieces_by_row_id(
+            pieces, archived=archived, online=online)
         return file_list
 
     def getPieceByInstrumentIn_(
@@ -370,7 +391,8 @@ class MusicData(querylayer.QueryLayer):
 
         results = self.query_multiple(
             query, table="{}_ins_piece".format(table))
-        file_list = self.get_pieces_by_row_id(results, archived=archived, online=online)
+        file_list = self.get_pieces_by_row_id(
+            results, archived=archived, online=online)
         return file_list
 
     def getPieceByMeter(self, meters, archived=False, online=False):
@@ -390,7 +412,8 @@ class MusicData(querylayer.QueryLayer):
                     results = set.intersection(results, data)
                 else:
                     results = set(data)
-        file_list = self.get_pieces_by_row_id(results, archived=archived, online=online)
+        file_list = self.get_pieces_by_row_id(
+            results, archived=archived, online=online)
         return file_list
 
     def get_piece_by_tempo(self, tempos, archived=False, online=False):
@@ -408,14 +431,17 @@ class MusicData(querylayer.QueryLayer):
             pieces.append(res)
         pieces = set(*pieces)
         pieces = set.intersection(pieces)
-        file_list = self.get_pieces_by_row_id(pieces, archived=archived, online=online)
+        file_list = self.get_pieces_by_row_id(
+            pieces, archived=archived, online=online)
         return file_list
 
     def get_instruments_by_piece_id(self, piece_id):
-        results = self.query({'piece.id': piece_id}, table=self.get_join("instruments"))
+        results = self.query({'piece.id': piece_id},
+                             table=self.get_join("instruments"))
         instruments = []
         for elem in results:
-            results = self.query({"id": elem['instruments.id']}, table="instruments")[0]
+            results = self.query(
+                {"id": elem['instruments.id']}, table="instruments")[0]
             results.pop("id")
             hashed = hashdict(results)
             instruments.append(hashed)
@@ -447,7 +473,8 @@ class MusicData(querylayer.QueryLayer):
             query.append(data)
 
         results = self.query_multiple(query, table="clefs_ins_piece")
-        file_list = self.get_pieces_by_row_id(results, archived=archived, online=online)
+        file_list = self.get_pieces_by_row_id(
+            results, archived=archived, online=online)
         return file_list
 
     def getPieceByInstrumentsOrSimilar(
@@ -520,13 +547,13 @@ class MusicData(querylayer.QueryLayer):
             if composer_id != -1:
                 composer = self.query(
                     {'id': composer_id}, table='creators')
-                composer = none_or_name(composer)
+                composer = querylayer.col_or_none(composer, 'name')
 
             lyricist_id = file["lyricist.id"]
             if lyricist_id != -1:
                 lyricist = self.query(
                     {'id': lyricist_id}, table='creators')
-                lyricist = none_or_name(lyricist)
+                lyricist = querylayer.col_or_none(lyricist, 'name')
 
             elem_data = hashdict(
                 {
@@ -577,7 +604,8 @@ class MusicData(querylayer.QueryLayer):
         for key in sorted:
             query = self.query({"id": key}, table=elem)[0]
             if len(query) > 0:
-                files = self.get_pieces_by_row_id(sorted[key], online=online, archived=archived)
+                files = self.get_pieces_by_row_id(
+                    sorted[key], online=online, archived=archived)
                 if elem in self.parsers:
                     entry = self.parsers[elem].encode(query)
                 else:
@@ -588,7 +616,11 @@ class MusicData(querylayer.QueryLayer):
 
         return result
 
-    def get_piece_by_all_creators(self, elem="composer", online=False, archived=False):
+    def get_piece_by_all_creators(
+            self,
+            elem="composer",
+            online=False,
+            archived=False):
         elems = self.to_dict(
             "creators",
             self.get_all(

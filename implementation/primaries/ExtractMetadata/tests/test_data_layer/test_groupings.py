@@ -161,12 +161,12 @@ class TestSuiteDataLayerGeneratePlaylists(object):
     def testFindAllPiecesByAllKeysWithTransposedInstruments(
             self, mlayer, clef_in):
         fixtures = [
-                    {"keys": {"clarin": [{"mode": "major",
+            {"keys": {"clarin": [{"mode": "major",
                                           "fifths": 1}]},
-                     "instruments": [{"name": "clarin"}]},
-                    {"keys": {"clarin": [{"mode": "major",
+             "instruments": [{"name": "clarin"}]},
+            {"keys": {"clarin": [{"mode": "major",
                                           "fifths": 1}]},
-                     "instruments": [{"name": "clarin"}]}]
+             "instruments": [{"name": "clarin"}]}]
         fixtures = self.mk_clef_key(fixtures, clef_in)
         mlayer.add_piece("file1.xml",
                          fixtures[0])
