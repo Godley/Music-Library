@@ -9,7 +9,7 @@ import requests.exceptions
 
 from implementation.primaries.ExtractMetadata.classes import MusicData, MetaParser, OnlineMetaParser
 from implementation.primaries.ImportOnlineDBs.classes import ApiManager
-from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import filter_dict, get_if_exists
+from implementation.primaries.ExtractMetadata.classes.DataLayer.helpers import filter_dict
 from implementation.primaries.ExtractMetadata.classes.helpers import get_set_of_dict_values
 from MuseParse.classes.Output import LilypondOutput
 from MuseParse.classes import Exceptions
@@ -217,7 +217,7 @@ class SearchLayer(MusicData):
         instrument_list = []
         for value in search_data["text"]:
             combined = {}
-            file_result = self.like({'filename': '%{}%'.format(value)})
+            file_result = self.query(likedata={'filename': '%{}%'.format(value)}, table='pieces')
             combined["filename"] = file_result
 
             title_result = self.getPieceByTitle(

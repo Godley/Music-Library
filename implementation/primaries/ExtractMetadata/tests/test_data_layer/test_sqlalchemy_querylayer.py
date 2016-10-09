@@ -62,7 +62,7 @@ class TestSuiteQuerylayer(object):
         qlayer.add({"name": "world, hello"}, table="pieces")
         qlayer.add({"name": "hello"}, table="pieces")
         data = {"name": "%hello"}
-        result = qlayer.like(data, table="pieces")
+        result = qlayer.like_query(data, columns="pieces", query=None)
         assert len(result) == len(expected)
         for elem, res in zip(expected, result):
             for key in elem:

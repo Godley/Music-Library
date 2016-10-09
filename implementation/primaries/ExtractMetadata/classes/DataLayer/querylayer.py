@@ -5,6 +5,9 @@ from sqlalchemy.sql.expression import exists, alias, select, or_
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, Boolean
 from .exceptions import BadTableException
 
+def col_or_none(data, col):
+    if len(data) > 0:
+        return data[0][col]
 
 class QueryLayer(object):
     tables = {}
@@ -181,19 +184,12 @@ class QueryLayer(object):
                 "table {} not in {}".format(
                     table, self.tables.keys()))
 
-    def like(self, data, table="pieces"):
-        if self.validate_table(table):
-            _table = self.tables[table]
-            session = self.get_session()
-            query = session.query(_table)
+    def like_query(self, data, columns, query):
+        if data is not None:
             for key in data:
-                attr = getattr(_table.columns, key)
-                query = query.filter(attr.like(data[key])).all()
-            return self.to_dict(table, query)
-        else:
-            raise BadTableException(
-                "table {} not in {}".format(
-                    table, self.tables.keys()))
+                col = getattr(columns, key)
+                query = query.filter(col.like(data[key]))
+        return query
 
     def to_dict(self, table, query):
         if self.validate_table(table):
@@ -239,7 +235,7 @@ class QueryLayer(object):
                     table, self.tables.keys()))
 
     def get_ids_for_like(self, data, table="pieces"):
-        result = self.like(data, table=table)
+        result = self.query(likedata=data, table=table)
         ids = [elem['id'] for elem in result]
         return ids
 
@@ -290,11 +286,12 @@ class QueryLayer(object):
                 "table {} not in {}".format(
                     table, self.tables.keys()))
 
-    def query(self, data, notdata={}, table="pieces"):
+    def query(self, data=None, notdata=None, likedata=None, table="pieces"):
         if self.validate_table(table):
             columns = self.tables[table].columns
             query = self.mk_query(data, table=table)
             query = self.not_query(notdata, columns, query)
+            query = self.like_query(likedata, columns, query)
             res = query.all()
             return self.to_dict(table, res)
         else:
@@ -305,15 +302,14 @@ class QueryLayer(object):
     def mk_query(self, data, table="pieces"):
         if self.validate_table(table):
             session = self.get_session()
-            query = session.query(self.tables[table]).filter_by(**data)
+            query = session.query(self.tables[table])
+            if data is not None:
+                query = query.filter_by(**data)
             return query
         else:
             raise BadTableException(
                 "table {} not in {}".format(
                     table, self.tables.keys()))
-
-    def mk_like_query(self, data, table="pieces"):
-        pass
 
     def get_all(self, table="pieces"):
         if self.validate_table(table):
@@ -364,7 +360,8 @@ class QueryLayer(object):
         self.execute(query)
 
     def not_query(self, data, columns, query):
-        for key in data:
-            col = getattr(columns, key)
-            query = query.filter(col != data[key])
+        if data is not None:
+            for key in data:
+                col = getattr(columns, key)
+                query = query.filter(col != data[key])
         return query

@@ -54,14 +54,6 @@ import copy
 from .exceptions import BadPieceException, InvalidQueryException
 from .parsers import TempoParser, MeterParser, InstrumentParser
 
-def none_or_name(elem):
-    val = None
-    if len(elem) > 0:
-        if type(elem) == list:
-            val = elem[0]['name']
-        if type(elem) == dict:
-            val = elem['name']
-    return val
 
 class MusicData(querylayer.QueryLayer):
     parsers = {"tempos": TempoParser(),
@@ -193,20 +185,26 @@ class MusicData(querylayer.QueryLayer):
             self.add({'instruments.id': ins['id'], 'keys.id': key[
                      'id'], 'piece.id': piece_id}, table='keys_ins_piece')
 
-    def get_file_list(self, online=False):
+    def query_pieces_archived_online(self, online=False, archived=False, data=None):
         source = {'source': 'local'}
         not_data = {}
-        data = {}
+        if data is None:
+            data = {}
         if online:
             not_data = source
         else:
-            data = source
+            data.update(source)
+        data['archived'] = archived
         results = self.query(data, not_data, table="pieces")
+        return results
+
+    def get_file_list(self, online=False, archived=False):
+        results = self.query_pieces_archived_online(online=online, archived=archived)
         filelist = set([result['filename'] for result in results])
         return list(filelist)
 
     # methods used in querying by user
-    def get_pieces_by_instruments(self, instruments, archived=0, online=False):
+    def get_pieces_by_instruments(self, instruments, archived=False, online=False):
         """
         method to get all the pieces containing a certain instrument
         :param instrument: name of instrument
@@ -226,7 +224,7 @@ class MusicData(querylayer.QueryLayer):
             data = {"instruments.id": instrument_ids[i]}
             query.append(data)
         results = self.query_multiple(query)
-        file_list = self.get_pieces_by_row_id(results)
+        file_list = self.get_pieces_by_row_id(results, archived=archived, online=online)
         return file_list
 
     def get_pieces_by_any_all_instruments(self,
@@ -261,7 +259,7 @@ class MusicData(querylayer.QueryLayer):
         result.update({key: any[key] for key in any if len(any[key]) > 0})
         return result
 
-    def get_pieces_by_row_id(self, rows, archived=False):
+    def get_pieces_by_row_id(self, rows, archived=False, online=False):
         """
         method which takes in a list of rows which are ROWIDs in the
         piece table and returns a list of files
@@ -272,10 +270,10 @@ class MusicData(querylayer.QueryLayer):
         previous = None
         for element in rows:
             if element != previous:
-                result = self.query(
-                    {'id': element, 'archived': archived}, table='pieces')[0]
+                result = querylayer.col_or_none(self.query_pieces_archived_online(
+                    data={'id': element}, online=online, archived=archived), 'filename')
                 if result is not None:
-                    file_list.append(result['filename'])
+                    file_list.append(result)
             previous = element
         return file_list
 
@@ -286,14 +284,13 @@ class MusicData(querylayer.QueryLayer):
             archived=False,
             online=False):
         file_list = []
-        creator_id = self.like(
-            {"name": "%{}%".format(creator)}, table="creators")
+        creator_id = self.query(likedata={"name": "%{}%".format(creator)}, table="creators")
         if len(creator_id) > 0:
             creator_id = creator_id[0]
             piece_ids = self.query(
             {creator_type + ".id": creator_id['id']}, table="pieces")
             piece_ids = [elem['id'] for elem in piece_ids]
-            file_list = self.get_pieces_by_row_id(piece_ids, archived=archived)
+            file_list = self.get_pieces_by_row_id(piece_ids, archived=archived, online=online)
         return file_list
 
     def getPieceByTitle(self, title, *args,
@@ -304,7 +301,17 @@ class MusicData(querylayer.QueryLayer):
         :param title: title of piece
         :return: list of tuples
         """
-        pieces = self.like({"name": "%{}%".format(title)}, table="pieces")
+        notdata = {}
+        data = {}
+        if online:
+            notdata['source'] = 'local'
+        else:
+            data['source'] = 'local'
+        data['archived'] = archived
+        pieces = self.query(notdata=notdata,
+                            data=data,
+                            likedata={"name": "%{}%".format(title)},
+                            table='pieces')
         files = [piece['filename'] for piece in pieces]
         return files
 
@@ -317,10 +324,10 @@ class MusicData(querylayer.QueryLayer):
             piece_ids = [elem['piece.id'] for elem in piece_ids]
             results.extend(piece_ids)
         results = set(results)
-        file_list = self.get_pieces_by_row_id(results, archived=archived)
+        file_list = self.get_pieces_by_row_id(results, archived=archived, online=online)
         return file_list
 
-    def getPiecesByModularity(self, modularity, archived=0, online=False):
+    def getPiecesByModularity(self, modularity, archived=False, online=False):
         """
 
         :param modularity:
@@ -336,7 +343,7 @@ class MusicData(querylayer.QueryLayer):
             piece_ids = [elem['piece.id'] for elem in piece_ids]
             pieces.extend(piece_ids)
         pieces = set(pieces)
-        file_list = self.get_pieces_by_row_id(pieces)
+        file_list = self.get_pieces_by_row_id(pieces, archived=archived, online=online)
         return file_list
 
     def getPieceByInstrumentIn_(
@@ -363,7 +370,7 @@ class MusicData(querylayer.QueryLayer):
 
         results = self.query_multiple(
             query, table="{}_ins_piece".format(table))
-        file_list = self.get_pieces_by_row_id(results, archived)
+        file_list = self.get_pieces_by_row_id(results, archived=archived, online=online)
         return file_list
 
     def getPieceByMeter(self, meters, archived=False, online=False):
@@ -383,7 +390,7 @@ class MusicData(querylayer.QueryLayer):
                     results = set.intersection(results, data)
                 else:
                     results = set(data)
-        file_list = self.get_pieces_by_row_id(results, archived)
+        file_list = self.get_pieces_by_row_id(results, archived=archived, online=online)
         return file_list
 
     def get_piece_by_tempo(self, tempos, archived=False, online=False):
@@ -401,7 +408,7 @@ class MusicData(querylayer.QueryLayer):
             pieces.append(res)
         pieces = set(*pieces)
         pieces = set.intersection(pieces)
-        file_list = self.get_pieces_by_row_id(pieces)
+        file_list = self.get_pieces_by_row_id(pieces, archived=archived, online=online)
         return file_list
 
     def get_instruments_by_piece_id(self, piece_id):
@@ -440,7 +447,7 @@ class MusicData(querylayer.QueryLayer):
             query.append(data)
 
         results = self.query_multiple(query, table="clefs_ins_piece")
-        file_list = self.get_pieces_by_row_id(results, archived=archived)
+        file_list = self.get_pieces_by_row_id(results, archived=archived, online=online)
         return file_list
 
     def getPieceByInstrumentsOrSimilar(
@@ -494,8 +501,8 @@ class MusicData(querylayer.QueryLayer):
     def getFileData(self, filenames, archived=False, online=False):
         file_data = []
         for filename in filenames:
-            piece_tuple = self.query(
-                {"filename": filename, "archived": archived})
+            piece_tuple = self.query_pieces_archived_online(
+                archived=archived, online=online, data={"filename": filename})
             if len(piece_tuple) > 0:
                 file_data.append(piece_tuple[0])
         return file_data
@@ -559,7 +566,7 @@ class MusicData(querylayer.QueryLayer):
     # if it does give the user the option to un-archive or else remove all old
     # data
 
-    def get_piece_by_all_(self, elem='keys'):
+    def get_piece_by_all_(self, elem='keys', online=False, archived=False):
         table = self.get_join(elem)
         elems = self.to_dict(table, self.get_all(table=table))
         sorted = self.order_by(
@@ -570,22 +577,45 @@ class MusicData(querylayer.QueryLayer):
         for key in sorted:
             query = self.query({"id": key}, table=elem)[0]
             if len(query) > 0:
-                files = self.get_pieces_by_row_id(sorted[key])
+                files = self.get_pieces_by_row_id(sorted[key], online=online, archived=archived)
                 if elem in self.parsers:
                     entry = self.parsers[elem].encode(query)
                 else:
                     entry = query["name"]
-                result[entry] = files
+
+                if len(files) > 0:
+                    result[entry] = files
 
         return result
 
-    def get_piece_by_all_creators(self, elem="composer"):
+    def get_piece_by_all_creators(self, elem="composer", online=False, archived=False):
         elems = self.to_dict(
             "creators",
             self.get_all(
                 table="creators"))
         result = {}
         for e in elems:
-            query = self.query({"{}.id".format(elem): e["id"]}, table="pieces")
-            result[e["name"]] = [q["filename"] for q in query]
+            data = {"{}.id".format(elem): e["id"]}
+            data['archived'] = archived
+            notdata = {}
+            if online:
+                notdata['source'] = 'local'
+            else:
+                data['source'] = 'local'
+            query = self.query(data=data, notdata=notdata, table="pieces")
+            if len(query) > 0:
+                result[e["name"]] = [q["filename"] for q in query]
         return result
+
+    def get_value_for_filename(self, filename, column):
+        res = self.query(data={'filename': filename})
+        return_val = None
+        if len(res) > 0:
+            res = res[0]
+            if column in res:
+                return_val = res[column]
+        return return_val
+
+    def update_piece(self, filename, data):
+        piece_id = self.get_value_for_filename(filename, 'id')
+        self.update(piece_id, data)
