@@ -110,16 +110,23 @@ class MusicData(querylayer.QueryLayer):
         composer_id = -1
         lyricist_id = -1
         title = ""
+        source = "local"
 
         if "title" in data:
             title = data["title"]
             data.pop("title")
 
+        if "source" in data:
+            source = data["source"]
+            data.pop("source")
+
         query_input = {"filename": filename,
                        "name": title,
                        "composer.id": composer_id,
                        "lyricist.id": lyricist_id,
-                       "archived": False}
+                       "archived": False,
+                       "source": source}
+
         piece_id = self.add(query_input)[0]
 
         if "instruments" in data:
@@ -187,7 +194,14 @@ class MusicData(querylayer.QueryLayer):
                      'id'], 'piece.id': piece_id}, table='keys_ins_piece')
 
     def get_file_list(self, online=False):
-        results = self.get_all(table="pieces")
+        source = {'source': 'local'}
+        not_data = {}
+        data = {}
+        if online:
+            not_data = source
+        else:
+            data = source
+        results = self.query(data, not_data, table="pieces")
         filelist = set([result['filename'] for result in results])
         return list(filelist)
 

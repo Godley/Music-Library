@@ -290,9 +290,11 @@ class QueryLayer(object):
                 "table {} not in {}".format(
                     table, self.tables.keys()))
 
-    def query(self, data, table="pieces"):
+    def query(self, data, notdata={}, table="pieces"):
         if self.validate_table(table):
+            columns = self.tables[table].columns
             query = self.mk_query(data, table=table)
+            query = self.not_query(notdata, columns, query)
             res = query.all()
             return self.to_dict(table, res)
         else:
@@ -360,3 +362,9 @@ class QueryLayer(object):
     def remove(self, id, table="pieces"):
         query = self.tables[table].delete().where(self.tables[table].c.id == id)
         self.execute(query)
+
+    def not_query(self, data, columns, query):
+        for key in data:
+            col = getattr(columns, key)
+            query = query.filter(col != data[key])
+        return query
