@@ -28,10 +28,6 @@ class TestSuiteQuerylayer(object):
         data = [{"name": "C major", "fifths": 0, "mode": "major"}]
         self.result_against_dict(data, qlayer, table="keys")
 
-    def test_add_playlist(self, qlayer):
-        data = [{"name": "gig set", "piece_ids": [0, 1, 2]}]
-        self.result_against_dict(data, qlayer, table="playlists")
-
     def test_bad_table(self, qlayer):
         data = [{"name": "wibble"}]
         with pytest.raises(BadTableException):
