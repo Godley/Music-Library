@@ -651,3 +651,52 @@ class MusicData(querylayer.QueryLayer):
     def update_piece(self, filename, data):
         piece_id = self.get_value_for_filename(filename, 'id')
         self.update(piece_id, data)
+
+    def add_playlist(self, name, files):
+        id = self.add({"name": name}, table='playlists')
+        if len(id) > 0:
+            id = id[0]
+            for file in files:
+                q = self.query({'filename': file})
+                p_id = querylayer.col_or_none(q, 'id')
+                if p_id is not None:
+                    self.add({'piece.id':p_id, 'playlist.id': id}, table=self.get_join('playlists'))
+
+    def get_all_user_playlists(self):
+        playlists = self.get_all('playlists')
+        data = {}
+        for elem in playlists:
+            file_join = self.query({'playlist.id': elem['id']}, table=self.get_join('playlists'))
+            file_join = [f['piece.id'] for f in file_join]
+            filenames = self.get_pieces_by_row_id(file_join)
+            if len(filenames) > 0:
+                data[elem['name']] = filenames
+        return data
+
+    def get_user_playlists_by_filename(self, filename):
+        data = self.query({'filename': filename})
+        result = {}
+        if len(data) > 0:
+            data = data[0]
+            playlists = self.query({'piece.id': data['id']}, table=self.get_join('playlists'))
+            for elem in playlists:
+                play_data = self.query({'id': elem['playlist.id']}, table='playlists')
+                if len(play_data) > 0:
+                    play_data = play_data[0]
+                    joins = self.query({'playlist.id': play_data['id']}, table=self.get_join('playlists'))
+                    joins = [f['piece.id'] for f in joins]
+                    filenames = self.get_pieces_by_row_id(joins)
+                    if len(filenames) > 0:
+                        result[play_data['name']] = filenames
+        return result
+
+    def delete_playlist(self, name):
+        p_id = self.query({'name': name}, table='playlists')
+        p_id = querylayer.col_or_none(p_id, 'id')
+        if p_id is not None:
+            self.remove(p_id, 'playlists')
+            self.remove(p_id, self.get_join('playlists'), column='playlist.id')
+
+    def get_playlist(self, name):
+        elem = self.query({'name': name}, table='playlists')
+        return elem

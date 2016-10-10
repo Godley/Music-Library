@@ -129,8 +129,8 @@ class QueryLayer(object):
                 'name', String))
         self.tables["playlist_join"] = Table(
             'playlist_join', metadata, Column(
-                'playlists.id', Integer, ForeignKey('playlists.id')), Column(
-                'pieces.id', Integer, ForeignKey('pieces.id')))
+                'playlist.id', Integer, ForeignKey('playlists.id')), Column(
+                'piece.id', Integer, ForeignKey('pieces.id')))
 
         self.tables["keys_ins_piece"] = Table(
             'key_ins_piece_join', metadata, Column(
@@ -359,9 +359,10 @@ class QueryLayer(object):
     def get_join(self, table):
         return self.join_tables[table]
 
-    def remove(self, id, table="pieces"):
+    def remove(self, id, table="pieces", column='id'):
+        col = getattr(self.tables[table].columns, column)
         query = self.tables[table].delete().where(
-            self.tables[table].c.id == id)
+            col == id)
         self.execute(query)
 
     def not_query(self, data, columns, query):
