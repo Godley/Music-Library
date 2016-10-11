@@ -19,19 +19,22 @@ class TestCase1(unittest.TestCase):
         self.assertEqual(self.result["instruments"], [{"name": "Piano"}])
 
     def testClefs(self):
-        self.assertEqual(
-            self.result["clefs"], {
+        expected = {
                 "Piano": [
                     {'sign': "G", 'line': 2},
                     {'sign':"F", 'line':4},
-                    {'line':3, 'sign': "C"}]})
+                    {'line':3, 'sign': "C"}]}
+        for instrument in expected:
+            assert instrument in self.result["clefs"]
+            for elem in expected[instrument]:
+                assert elem in self.result["clefs"][instrument]
 
     def testKeys(self):
         self.assertEqual(
-            self.result["keys"], {"Piano": {hashdict(fifths=2, mode="major")}})
+            self.result["keys"], {"Piano": [{'fifths': 2,'mode': "major"}]})
 
     def testTempos(self):
-        self.assertEqual(self.result["tempo"], [{"beat": "half", "minute": 80}, {
+        self.assertEqual(self.result["tempos"], [{"beat": "half", "minute": 80}, {
                          "minute": 80, "beat": "eighth."}])
 
     def testTitle(self):
@@ -58,16 +61,17 @@ class TestCase2(unittest.TestCase):
         self.assertEqual(self.result["instruments"], [{"name": "Piano"}])
 
     def testClefs(self):
-        self.assertEqual(
-            self.result["clefs"], {
-                "Piano": {
-                    hashdict(sign="G", line=2), hashdict(
-                        sign="F", line=4), hashdict(
-                        line=3, sign="C")}})
+        expected = {
+                "Piano": [{'sign': "G", 'line': 2}, {'line': 3, 'sign':"C"}, {'sign': "F", 'line': 4}
+                            ]}
+        for instrument in expected:
+            assert instrument in self.result["clefs"]
+            for elem in expected[instrument]:
+                assert elem in self.result["clefs"][instrument]
 
     def testKeys(self):
         self.assertEqual(
-            self.result["key"], {"Piano": {hashdict(fifths=2, mode="major")}})
+            self.result["keys"], {"Piano": [{'fifths': 2, 'mode': "major"}]})
 
     def testTempos(self):
         self.assertEqual(self.result["tempos"], [

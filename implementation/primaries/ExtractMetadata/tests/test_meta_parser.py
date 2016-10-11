@@ -249,14 +249,14 @@ class TestAddMeter(TestMetaParser):
         self.parser.startTag("time", {})
         self.parser.startTag("beats", {})
         self.parser.newData("4")
-        self.assertEqual(self.parser.data, {"time": [{"beat": 4}]})
+        self.assertEqual(self.parser.data, {"time_signatures": [{"beat": 4}]})
 
     def testMeterBeatType(self):
         self.parser.startTag("part", {"id": "P1"})
         self.parser.startTag("time", {})
         self.parser.startTag("beat-type", {})
         self.parser.newData("4")
-        self.assertEqual(self.parser.data, {"time": [{"type": 4}]})
+        self.assertEqual(self.parser.data, {"time_signatures": [{"beat_type": 4}]})
 
     def testMeterBeatAndBeatType(self):
         self.parser.startTag("time", {})
@@ -265,7 +265,7 @@ class TestAddMeter(TestMetaParser):
         self.parser.endTag("beats")
         self.parser.startTag("beat-type", {})
         self.parser.newData("4")
-        self.assertEqual(self.parser.data, {"time": [{"beat": 3, "type": 4}]})
+        self.assertEqual(self.parser.data, {"time_signatures": [{"beat": 3, "beat_type": 4}]})
 
     def testMeterBeatTypeThenBeat(self):
         self.parser.startTag("time", {})
@@ -275,7 +275,7 @@ class TestAddMeter(TestMetaParser):
         self.parser.startTag("beats", {})
         self.parser.newData("3")
 
-        self.assertEqual(self.parser.data, {"time": [{"type": 4, "beat": 3}]})
+        self.assertEqual(self.parser.data, {"time_signatures": [{"beat_type": 4, "beat": 3}]})
 
 
 class TestAddTempo(TestMetaParser):
@@ -306,14 +306,14 @@ class TestAddTempo(TestMetaParser):
         self.parser.startTag("metronome", {})
         self.parser.startTag("beat-unit", {})
         self.parser.newData("quarter")
-        self.assertEqual(self.parser.data, {"tempo": [{"beat": "quarter"}]})
+        self.assertEqual(self.parser.data, {"tempos": [{"beat": "quarter"}]})
 
     def testTempoBeatType(self):
         self.parser.startTag("part", {"id": "P1"})
         self.parser.startTag("metronome", {})
         self.parser.startTag("per-minute", {})
         self.parser.newData("100")
-        self.assertEqual(self.parser.data, {"tempo": [{"minute": 100}]})
+        self.assertEqual(self.parser.data, {"tempos": [{"minute": 100}]})
 
     def testTempoBeatAndPerMinute(self):
         self.parser.startTag("part", {"id": "P1"})
@@ -324,7 +324,7 @@ class TestAddTempo(TestMetaParser):
         self.parser.startTag("per-minute", {})
         self.parser.newData("100")
         self.assertEqual(
-            self.parser.data, {"tempo": [{"beat": "quarter", "minute": 100}]})
+            self.parser.data, {"tempos": [{"beat": "quarter", "minute": 100}]})
 
     def testTempoBeatAndSecondBeat(self):
         self.parser.startTag("part", {"id": "P1"})
@@ -335,7 +335,7 @@ class TestAddTempo(TestMetaParser):
         self.parser.startTag("beat-unit", {})
         self.parser.newData("half")
         self.assertEqual(self.parser.data, {
-            "tempo": [{"beat": "quarter", "beat_2": "half"}]})
+            "tempos": [{"beat": "quarter", "beat_2": "half"}]})
 
 
 class TestAddBibliography(TestMetaParser):
@@ -381,7 +381,7 @@ class TestPartCollation(unittest.TestCase):
         self.parser.data = {"instruments": ["clarinet"]}
         self.parser.collate_parts()
         self.assertEqual(self.parser.data, {"instruments": [
-            {"name": "clarinet", "transposition": {}}]})
+            {"name": "clarinet"}]})
 
     def testCollationOfKeys(self):
         self.parser.parts = {"P1": {"name": "clarinet", "key": [{}]}}
@@ -389,7 +389,7 @@ class TestPartCollation(unittest.TestCase):
         self.parser.collate_parts()
         self.assertEqual(self.parser.data,
                          {"instruments": [{"name": "clarinet"}],
-                          "key": {"clarinet": {hashdict()}}})
+                          "keys": {"clarinet": [{}]}})
 
     def testCollationOfClefs(self):
         self.parser.parts = {"P1": {"name": "clarinet", "clef": [{}]}}
@@ -397,4 +397,4 @@ class TestPartCollation(unittest.TestCase):
         self.parser.collate_parts()
         self.assertEqual(self.parser.data,
                          {"instruments": [{"name": "clarinet"}],
-                          "clef": {"clarinet": {hashdict()}}})
+                          "clefs": {"clarinet": [{}]}})
