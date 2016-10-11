@@ -20,16 +20,15 @@ class TestCase1(unittest.TestCase):
 
     def testClefs(self):
         self.assertEqual(
-            self.result["clef"], {
-                "Piano": {
-                    hashdict(
-                        sign="G", line=2), hashdict(
-                        sign="F", line=4), hashdict(
-                        line=3, sign="C")}})
+            self.result["clefs"], {
+                "Piano": [
+                    {'sign': "G", 'line': 2},
+                    {'sign':"F", 'line':4},
+                    {'line':3, 'sign': "C"}]})
 
     def testKeys(self):
         self.assertEqual(
-            self.result["key"], {"Piano": {hashdict(fifths=2, mode="major")}})
+            self.result["keys"], {"Piano": {hashdict(fifths=2, mode="major")}})
 
     def testTempos(self):
         self.assertEqual(self.result["tempo"], [{"beat": "half", "minute": 80}, {
@@ -60,7 +59,7 @@ class TestCase2(unittest.TestCase):
 
     def testClefs(self):
         self.assertEqual(
-            self.result["clef"], {
+            self.result["clefs"], {
                 "Piano": {
                     hashdict(sign="G", line=2), hashdict(
                         sign="F", line=4), hashdict(
@@ -71,7 +70,7 @@ class TestCase2(unittest.TestCase):
             self.result["key"], {"Piano": {hashdict(fifths=2, mode="major")}})
 
     def testTempos(self):
-        self.assertEqual(self.result["tempo"], [
+        self.assertEqual(self.result["tempos"], [
                          {"beat": "half", "beat_2": "quarter"}, {"minute": 80, "beat": "eighth."}])
 
     def testTitle(self):

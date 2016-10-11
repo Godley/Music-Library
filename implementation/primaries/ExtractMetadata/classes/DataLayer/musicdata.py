@@ -579,12 +579,12 @@ class MusicData(querylayer.QueryLayer):
     def get_elem_by_piece_id(self, piece_id, elem='tempos'):
         join_query = self.query({'piece.id': piece_id}, table=elem + '_piece')
         results = []
-        if elem == 'tempos':
-            parser = TempoParser()
+        if elem in self.parsers:
+            parser = self.parsers[elem]
         else:
             parser = None
         for vals in join_query:
-            data = self.query({'id': vals['tempos.id']}, table=elem)[0]
+            data = self.query({'id': vals['{}.id'.format(elem)]}, table=elem)[0]
             result = parser.encode(data)
             results.append(result)
         return results

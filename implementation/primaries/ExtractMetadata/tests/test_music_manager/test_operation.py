@@ -6,34 +6,26 @@ from implementation.primaries.ExtractMetadata.classes import MusicManager
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
 
 
-class TestMusicManager(unittest.TestCase):
+class TestMusicManager(object):
 
-    def setUp(self):
-        self.maxDiff = None
-        self.folder = os.path.join(
-            os.path.dirname(
-                os.path.realpath(__file__)),
-            "../test_files/manager_tests")
-        self.manager = MusicManager.MusicManager(None, folder=self.folder)
+    def testRunUnzipper(self, manager, manager_folder):
+        manager.handleZips()
+        assert os.path.exists(os.path.join(manager_folder, "file5.xml"))
+        assert not os.path.exists(os.path.join(manager_folder, 'META-INF'))
 
-    def testRunUnzipper(self):
-        self.manager.handleZips()
-        self.assertTrue(os.path.exists(os.path.join(self.folder, "file5.xml")))
-        self.assertFalse(os.path.exists(os.path.join(self.folder, 'META-INF')))
-
-    def testParseXMLFiles(self):
-        self.manager.addPiece("file.xml", {})
-        self.manager.refreshWithoutDownload()
-        self.manager.parseNewFiles = MagicMock(name='method')
-        self.manager.parseOldFiles = MagicMock(name='method')
-        self.manager.handleXMLFiles()
+    def testParseXMLFiles(self, manager, dummy):
+        manager.addPiece("file.xml", dummy)
+        manager.refreshWithoutDownload()
+        manager.parseNewFiles = MagicMock(name='method')
+        manager.parseOldFiles = MagicMock(name='method')
+        manager.handleXMLFiles()
         expected = sorted(["file5.xml", "testcase2.xml"])
-        self.manager.parseNewFiles.assert_called_once_with(expected)
-        self.manager.parseOldFiles.assert_called_once_with(["file.xml"])
+        manager.parseNewFiles.assert_called_once_with(expected)
+        manager.parseOldFiles.assert_called_once_with(["file.xml"])
 
-    def testParseFile(self):
-        self.manager.parseNewFiles(["testcase2.xml"])
-        result = self.manager.getPieceInfo(["testcase2.xml"])[0]
+    def testParseFile(self, manager):
+        manager.parseNewFiles(["testcase2.xml"])
+        result = manager.getPieceInfo(["testcase2.xml"])[0]
         expected_result = {
             'filename': 'testcase2.xml',
             'keys': {
@@ -49,53 +41,49 @@ class TestMusicManager(unittest.TestCase):
             'title': 'my metaparsing testcase',
             'composer': 'charlotte godley',
             'lyricist': 'fran godley',
-            'instruments': {
-                        hashdict(
-                            name='Piano',
-                            chromatic=0,
-                            diatonic=0)},
+            'instruments': [
+                            {'name': 'Piano',
+                            'chromatic': None,
+                            'diatonic': None}],
             'timesigs': ['4/4']}
 
         for key in expected_result:
-            self.assertIn(key, result)
-            self.assertEqual(type(result[key]), type(expected_result[key]))
+            assert key in result
+            assert type(result[key]) == type(expected_result[key])
             if isinstance(expected_result[key], dict):
                 for elem in expected_result[key]:
-                    self.assertIn(elem, result[key])
-                    self.assertEqual(
-                        type(
-                            result[key]), type(
-                            expected_result[key]))
+                    assert elem in result[key]
+                    assert type(
+                            result[key]) == type(
+                            expected_result[key])
 
                     if isinstance(expected_result[key][elem], list):
                         for member in expected_result[key][elem]:
-                            self.assertIn(member, result[key][elem])
+                            assert member in result[key][elem]
 
                     else:
-                        self.assertEqual(
-                            result[key][elem], expected_result[key][elem])
+                        assert result[key][elem] == expected_result[key][elem]
 
             elif isinstance(expected_result[key], list):
                 for elem in expected_result[key]:
-                    self.assertIn(elem, result[key])
+                    assert elem in result[key]
 
             else:
-                self.assertEqual(result[key], expected_result[key])
+                assert result[key] == expected_result[key]
 
-        self.assertEqual(
-            ["testcase2.xml"], self.manager.getFileList())
+        assert ["testcase2.xml"] == manager.get_file_list()
 
-    def testHandleOldFiles(self):
-        self.manager.parseOldFiles(["file.xml"])
-        self.assertEqual(self.manager.getPieceInfo(["file.xml"]), [])
+    def testHandleOldFiles(self, manager):
+        manager.parseOldFiles(["file.xml"])
+        assert manager.getPieceInfo(["file.xml"]) == []
 
-    def testRefresh(self):
-        self.manager.addPiece("file.xml", {})
-        self.manager.refreshWithoutDownload()
-        self.assertEqual(self.manager.folder_browser.getNewAndOldFiles(
-            self.manager.folder_browser.getFolderFiles())["old"], ["file.xml"])
+    def testRefresh(self, manager, dummy):
+        manager.addPiece("file.xml", dummy)
+        manager.refreshWithoutDownload()
+        assert manager.folder_browser.getNewAndOldFiles(
+            manager.folder_browser.getFolderFiles())["old"] == ["file.xml"]
 
-    def testCopyFiles(self):
+    def testCopyFiles(self, manager, manager_folder):
         path_to_primaries = []
         value = ''
         filepath = os.path.dirname(os.path.realpath(__file__))
@@ -108,16 +96,8 @@ class TestMusicManager(unittest.TestCase):
         path_to_primaries.append("testcases")
         path_to_primaries.append("3repeats.xml")
         file = os.path.join(*path_to_primaries)
-        self.manager.copyFiles([file])
-        self.assertTrue(
-            os.path.exists(
+        manager.copyFiles([file])
+        assert os.path.exists(
                 os.path.join(
-                    self.folder,
-                    "3repeats.xml")))
-
-    def tearDown(self):
-        files = ["testcase2.xml", "file5.mxl"]
-        val = os.listdir(self.folder)
-        for file in val:
-            if file not in files:
-                os.remove(os.path.join(self.folder, file))
+                    manager_folder,
+                    "3repeats.xml"))

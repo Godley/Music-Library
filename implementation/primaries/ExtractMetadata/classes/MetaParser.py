@@ -114,13 +114,14 @@ class MetaParser(object):
                 self.parts[part], "name", "hello, world")
 
             if "transposition" in self.parts[part]:
-                data["transposition"] = self.parts[part]["transposition"]
+                data.update(self.parts[part]["transposition"])
+                # data["transposition"] = self.parts[part]["transposition"]
 
             for key in keys:
                 if key in self.parts[part]:
-                    init_kv(self.data, key, init_value={})
-                    self.data[key][
-                        data["name"]] = convert_to_hashdict_set(
+                    init_kv(self.data, "{}s".format(key), init_value={})
+                    self.data["{}s".format(key)][
+                        data["name"]] = remove_duplicates(
                         self.parts[part][key])
 
             instrument_list.append(data)
@@ -207,7 +208,7 @@ def handleTransposition(tags, attrs, chars, parts, data):
 
 
 def handleMeter(tags, attrs, chars, parts, data):
-    init_kv(data, "time", init_value=[])
+    data.setdefault("time_signatures", [])
 
     if tags[-1] != "time" and "time" in tags:
         elem = create_elem(chars, "beats", "beat-type", cast2=int)
@@ -216,9 +217,9 @@ def handleMeter(tags, attrs, chars, parts, data):
             tag_type = "beat"
 
         if tags[-1] == "beat-type":
-            tag_type = "type"
+            tag_type = "beat_type"
 
-        update_or_append_entry(data["time"], tag_type, elem)
+        update_or_append_entry(data["time_signatures"], tag_type, elem)
         # if len(data["time"]) == 0 or "type" in data["time"][-1]:
         #     data["time"].append({"type": int(b_type)})
         # else:
@@ -226,7 +227,7 @@ def handleMeter(tags, attrs, chars, parts, data):
 
 
 def handle_tempo(tags, attrs, chars, parts, data):
-    init_kv(data, "tempo", [])
+    data.setdefault("tempos", [])
 
     if tags[-1] != "metronome":
         elem = create_elem(
@@ -235,11 +236,11 @@ def handle_tempo(tags, attrs, chars, parts, data):
             "per-minute",
             cast1=str,
             cast2=int)
-        data["tempo"] = handle_beat_unit(elem, data["tempo"], tags[-1])
-        data["tempo"] = handle_beat_unit_dot(data["tempo"], tags[-1])
+        data["tempos"] = handle_beat_unit(elem, data["tempos"], tags[-1])
+        data["tempos"] = handle_beat_unit_dot(data["tempos"], tags[-1])
 
         if tags[-1] == "per-minute":
-            update_or_append_entry(data["tempo"], "minute", elem)
+            update_or_append_entry(data["tempos"], "minute", elem)
 
 
 def handle_beat_unit_dot(list_of_dicts, tag):
@@ -315,7 +316,8 @@ def handle_title(tag, chars, data):
         data["title"] += title.lower()
 
 
-def convert_to_hashdict_set(list_of_dicts):
+def remove_duplicates(list_of_dicts):
     hashdict_list = [hashdict(item) for item in list_of_dicts]
     hashdict_set = set(hashdict_list)
-    return hashdict_set
+    hslist = [dict(item) for item in hashdict_set]
+    return hslist

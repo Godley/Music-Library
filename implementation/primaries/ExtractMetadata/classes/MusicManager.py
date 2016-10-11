@@ -693,7 +693,7 @@ class MusicManager(SearchLayer):
         self.refreshWithoutDownload()
 
     def refreshWithoutDownload(self):
-        db_files = self.getFileList()
+        db_files = self.get_file_list()
         self.folder_browser.resetDbFileList(db_files)
         self.handleZips()
         self.handleXMLFiles()

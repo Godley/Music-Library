@@ -27,10 +27,15 @@ def mlayer(db):
 
 @pytest.fixture()
 def manager_folder():
-    return os.path.join(
+    path = os.path.join(
         os.path.dirname(
             os.path.realpath(__file__)),
-        "../test_files/manager_tests")
+        "primaries/ExtractMetadata/tests/test_files/manager_tests")
+    yield path
+    if os.path.exists(os.path.join(path, '3repeats.xml')):
+        os.remove(os.path.join(path, '3repeats.xml'))
+    if os.path.exists(os.path.join(path, 'file5.xml')):
+        os.remove(os.path.join(path, 'file5.xml'))
 
 
 @pytest.fixture()

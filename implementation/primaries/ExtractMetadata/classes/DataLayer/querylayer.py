@@ -99,7 +99,8 @@ class QueryLayer(object):
                                      Column('id', Integer, primary_key=True),
                                      Column('name', String, unique=True),
                                      Column('sign', String),
-                                     Column('line', Integer))
+                                     Column('line', Integer),
+                                     Column('clef-octave-change', Integer))
 
         self.tables["tempos"] = Table('tempos', metadata,
                                       Column('id', Integer, primary_key=True),
