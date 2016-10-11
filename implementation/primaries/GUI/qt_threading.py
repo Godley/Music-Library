@@ -1,12 +1,16 @@
 from PyQt4.QtCore import QObject, QThread, pyqtSignal, SIGNAL
-
+from ..ExtractMetadata.classes.DataLayer.exceptions import BadTableException, \
+    BadPieceException
 from threading import Lock
 
+
 class AppThread(QThread):
+
     def __init__(self, parent, method, args, **kwargs):
         QThread.__init__(self, parent)
         self.args = args
         self.method = method
+
 
 class mythread(AppThread):
 
@@ -15,8 +19,12 @@ class mythread(AppThread):
         self.kwargs = kwargs
 
     def run(self):
-        result = self.method(*self.args, **self.kwargs)
-        self.emit(SIGNAL("dataReady(PyQt_PyObject)"), result)
+        try:
+            result = self.method(*self.args, **self.kwargs)
+            self.emit(SIGNAL("dataReady(PyQt_PyObject)"), result)
+        except BaseException as e:
+            self.emit(SIGNAL("threadError(PyQt_PyObject)"), str(e))
+
 
 
 class QueryThread(AppThread):
@@ -41,7 +49,9 @@ class RenderThread(AppThread):
         try:
             result = self.method(*self.args)
             self.emit(
-                SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"), result, self.filename)
+                SIGNAL("fileReady(PyQt_PyObject, PyQt_PyObject)"),
+                result,
+                self.filename)
         except BaseException as e:
             self.emit(SIGNAL("renderingError(PyQt_PyObject)"), e)
 

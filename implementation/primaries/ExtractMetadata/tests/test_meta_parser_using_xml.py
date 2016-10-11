@@ -1,12 +1,17 @@
 import unittest
 from implementation.primaries.ExtractMetadata.classes import MetaParser
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
-import os, inspect
+import os
+import inspect
+
 
 class TestCase1(unittest.TestCase):
 
     def setUp(self):
-        self.file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'test_files/extractor_test/testcase1.xml')
+        self.file = os.path.join(
+            os.path.dirname(
+                os.path.realpath(__file__)),
+            'test_files/extractor_test/testcase1.xml')
         self.parser = MetaParser.MetaParser()
         self.result = self.parser.parse(self.file)
 
@@ -14,21 +19,23 @@ class TestCase1(unittest.TestCase):
         self.assertEqual(self.result["instruments"], [{"name": "Piano"}])
 
     def testClefs(self):
-        self.assertEqual(
-            self.result["clef"], {
-                "Piano": {
-                    hashdict(
-                        sign="G", line=2), hashdict(
-                        sign="F", line=4), hashdict(
-                        line=3, sign="C")}})
+        expected = {
+            "Piano": [
+                {'sign': "G", 'line': 2},
+                {'sign': "F", 'line': 4},
+                {'line': 3, 'sign': "C"}]}
+        for instrument in expected:
+            assert instrument in self.result["clefs"]
+            for elem in expected[instrument]:
+                assert elem in self.result["clefs"][instrument]
 
     def testKeys(self):
         self.assertEqual(
-            self.result["key"], {"Piano": {hashdict(fifths=2, mode="major")}})
+            self.result["keys"], {"Piano": [{'fifths': 2, 'mode': "major"}]})
 
     def testTempos(self):
-        self.assertEqual(self.result["tempo"], [
-                         {"beat": "half", "minute": 80}, {"minute": 80, "beat": "eighth."}])
+        self.assertEqual(self.result["tempos"], [{"beat": "half", "minute": 80}, {
+                         "minute": 80, "beat": "eighth."}])
 
     def testTitle(self):
         self.assertEqual(self.result["title"], "my metaparsing testcase")
@@ -43,7 +50,10 @@ class TestCase1(unittest.TestCase):
 class TestCase2(unittest.TestCase):
 
     def setUp(self):
-        self.file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'test_files/extractor_test/testcase2.xml')
+        self.file = os.path.join(
+            os.path.dirname(
+                os.path.realpath(__file__)),
+            'test_files/extractor_test/testcase2.xml')
         self.parser = MetaParser.MetaParser()
         self.result = self.parser.parse(self.file)
 
@@ -51,19 +61,19 @@ class TestCase2(unittest.TestCase):
         self.assertEqual(self.result["instruments"], [{"name": "Piano"}])
 
     def testClefs(self):
-        self.assertEqual(
-            self.result["clef"], {
-                "Piano": {
-                    hashdict(sign="G", line=2), hashdict(
-                        sign="F", line=4), hashdict(
-                        line=3, sign="C")}})
+        expected = {"Piano": [{'sign': "G", 'line': 2}, {
+            'line': 3, 'sign': "C"}, {'sign': "F", 'line': 4}]}
+        for instrument in expected:
+            assert instrument in self.result["clefs"]
+            for elem in expected[instrument]:
+                assert elem in self.result["clefs"][instrument]
 
     def testKeys(self):
         self.assertEqual(
-            self.result["key"], {"Piano": {hashdict(fifths=2, mode="major")}})
+            self.result["keys"], {"Piano": [{'fifths': 2, 'mode': "major"}]})
 
     def testTempos(self):
-        self.assertEqual(self.result["tempo"], [
+        self.assertEqual(self.result["tempos"], [
                          {"beat": "half", "beat_2": "quarter"}, {"minute": 80, "beat": "eighth."}])
 
     def testTitle(self):

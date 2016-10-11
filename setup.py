@@ -1,11 +1,17 @@
 
 from cx_Freeze import setup, Executable
-import os, shutil, glob, sys
+import os
+import shutil
+import glob
+import sys
 
 
-zips = ["implementation/primaries/GUI/designer_files",
-         "implementation/primaries/GUI/themes", "implementation/primaries/GUI/images",
-         "implementation/primaries/scripts", "implementation/primaries/GUI/designer_files/icons.qrc"]
+zips = [
+    "implementation/primaries/GUI/designer_files",
+    "implementation/primaries/GUI/themes",
+    "implementation/primaries/GUI/images",
+    "implementation/primaries/scripts",
+    "implementation/primaries/GUI/designer_files/icons.qrc"]
 
 buildexe_options = {}
 buildexe_options['includes'] = ['sip', 'atexit']
@@ -37,16 +43,24 @@ options = {
 }
 
 executables = [
-    Executable("implementation/primaries/GUI/Application.py", base=base, compress=False)
-]
+    Executable(
+        "implementation/primaries/GUI/Application.py",
+        base=base,
+        compress=False)]
 
-setup(name='MuseLib',
-      version='0.1',
-      description='Sample cx_Freeze PyQt4 script',
-      options=options,
-      executables=executables,
-
-      packages=['implementation', 'implementation.primaries', 'implementation.primaries.GUI', 'implementation.primaries.scripts',
-              'implementation.primaries.GUI.pyqt_plugins', 'implementation.primaries.ExtractMetadata',
-              'implementation.primaries.ExtractMetadata.classes', 'implementation.primaries.ImportOnlineDBs','implementation.primaries.ImportOnlineDBs.classes']
-      )
+setup(
+    name='MuseLib',
+    version='0.1',
+    description='Sample cx_Freeze PyQt4 script',
+    options=options,
+    executables=executables,
+    packages=[
+        'implementation',
+        'implementation.primaries',
+        'implementation.primaries.GUI',
+        'implementation.primaries.scripts',
+        'implementation.primaries.GUI.pyqt_plugins',
+        'implementation.primaries.ExtractMetadata',
+        'implementation.primaries.ExtractMetadata.classes',
+        'implementation.primaries.ImportOnlineDBs',
+         'implementation.primaries.ImportOnlineDBs.classes'])

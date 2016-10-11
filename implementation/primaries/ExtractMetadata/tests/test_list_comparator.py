@@ -7,7 +7,11 @@ import os
 class TestListComparator(unittest.TestCase):
 
     def setUp(self):
-        self.folder = os.path.join(os.path.dirname(ExtractMetadata.__file__), 'tests', 'test_files')
+        self.folder = os.path.join(
+            os.path.dirname(
+                ExtractMetadata.__file__),
+            'tests',
+            'test_files')
         self.current = os.path.join(self.folder, 'folder_tests')
         self.folderBrowser = MusicManager.FolderBrowser(
             db_files=[
@@ -17,8 +21,8 @@ class TestListComparator(unittest.TestCase):
 
     def testGetListFromFolder(self):
         expected = {
-                "xml": [
-                    "file1.xml", "file3.xml"], "mxl": ["file5.mxl"]}
+            "xml": [
+                "file1.xml", "file3.xml"], "mxl": ["file5.mxl"]}
         results = self.folderBrowser.getFolderFiles()
         for key in expected:
             self.assertIn(key, results)
@@ -30,22 +34,31 @@ class TestListComparator(unittest.TestCase):
         self.folderBrowser = MusicManager.FolderBrowser(
             db_files=[],
             folder=current)
-        self.assertEqual(self.folderBrowser.getFolderFiles(),
-                         {"xml": ["test.xml", os.path.join("folder_2", "test2.xml")]})
+        self.assertEqual(
+            self.folderBrowser.getFolderFiles(), {
+                "xml": [
+                    "test.xml", os.path.join(
+                        "folder_2", "test2.xml")]})
 
     def testGetZipList(self):
         self.assertEqual(self.folderBrowser.getZipFiles(), ["file5.mxl"])
 
     def testFilesToBeAdded(self):
         self.assertEqual(
-            self.folderBrowser.getNewFileList(self.folderBrowser.getFolderFiles()), ["file3.xml"])
+            self.folderBrowser.getNewFileList(
+                self.folderBrowser.getFolderFiles()),
+            ["file3.xml"])
 
     def testRecordsToBeArchived(self):
-        self.assertEqual(self.folderBrowser.getOldRecords(self.folderBrowser.getFolderFiles()), ["file2.xml"])
+        self.assertEqual(
+            self.folderBrowser.getOldRecords(
+                self.folderBrowser.getFolderFiles()),
+            ["file2.xml"])
 
     def testOldAndNewFiles(self):
         self.assertEqual(
-            self.folderBrowser.getNewAndOldFiles(self.folderBrowser.getFolderFiles()), {
+            self.folderBrowser.getNewAndOldFiles(
+                self.folderBrowser.getFolderFiles()), {
                 "old": ["file2.xml"], "new": ["file3.xml"]})
 
     def tearDown(self):

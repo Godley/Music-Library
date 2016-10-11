@@ -3,10 +3,11 @@ from implementation.primaries.ExtractMetadata.classes import SearchProcessor
 
 
 class TestSearchProcessor(unittest.TestCase):
+
     def testSplittingByColon(self):
         token = "instrument:world"
         result = SearchProcessor.handle_colons_and_semicolons(token)
-        expected = {"instrument":["world"]}
+        expected = {"instrument": ["world"]}
         self.assertDictEqual(result, expected)
 
     def testSplittingByColonAndSemicolon(self):
@@ -71,7 +72,7 @@ class TestSearchProcessor(unittest.TestCase):
         self.assertFalse(SearchProcessor.is_meter(token))
 
     def testIsKey(self):
-        token = ["C","major"]
+        token = ["C", "major"]
         self.assertTrue(SearchProcessor.is_key(token))
 
     def testIsKeyMinor(self):

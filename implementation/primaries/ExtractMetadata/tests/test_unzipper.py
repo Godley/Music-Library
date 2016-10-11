@@ -3,10 +3,16 @@ import unittest
 import os
 from implementation.primaries import ExtractMetadata
 
+
 class TestUnzipper(unittest.TestCase):
 
     def setUp(self):
-        self.folder = os.path.join(os.path.dirname(ExtractMetadata.__file__), 'tests', 'test_files', 'unzip_tests')
+        self.folder = os.path.join(
+            os.path.dirname(
+                ExtractMetadata.__file__),
+            'tests',
+            'test_files',
+            'unzip_tests')
         files = ['zip_test_1.mxl', 'zip_test_2.mxl']
         self.unzipper = MusicManager.Unzipper(folder=self.folder, files=files)
 

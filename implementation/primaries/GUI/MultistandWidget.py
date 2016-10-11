@@ -23,7 +23,6 @@ class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
         self.loadPdfToGraphicsWidget(file)
         self.move(0, 0)
 
-
     def load(self):
         design_file = os.path.join(
             get_base_dir(True), "designer_files", "MultiStandWidget.ui")
@@ -57,5 +56,3 @@ class MultistandWidget(QtGui.QWidget, themedWindow.ThemedWindow):
         width = self.viewer.getPageWidth(0) * self.pages
         self.scoreWindow.setFixedWidth(width)
         self.setFixedWidth(width)
-
-

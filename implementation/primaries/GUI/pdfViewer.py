@@ -4,11 +4,12 @@ if sys.platform == "darwin":
     from popplerqt4 import Poppler
 import math
 
+
 class PDFViewer(object):
+
     def __init__(self, width=None, pages=None):
         self.width = width
         self.pages = pages
-
 
     def setPDF(self, pdf):
         self.pdf_filepath = pdf
@@ -37,7 +38,8 @@ class PDFViewer(object):
             if self.width is None:
                 self.width = pixmap.width()
             container.setFixedWidth(self.width)
-            container.setStyleSheet("pages[number] { background-color : transparent}")
+            container.setStyleSheet(
+                "pages[number] { background-color : transparent}")
             container.setContentsMargins(0, 0, 0, 0)
             container.setScaledContents(True)
             container.setPixmap(pixmap)
@@ -67,4 +69,3 @@ class PDFViewer(object):
         graphicsWidget.setLayout(layout)
         scene.addItem(graphicsWidget)
         return scene
-

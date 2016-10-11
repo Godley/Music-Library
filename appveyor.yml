@@ -23,6 +23,7 @@ init:
   # Set the relevant python and pip location to the path
   - cmd: set PATH=%PYTHON%;%PYTHON%\scripts;%PATH%
   - cmd: ECHO Path - %PATH%
+  - cmd: ECHO PyPath - %PYTHONPATH%
 
   # Verify the new default python
   - cmd: python --version
@@ -45,11 +46,14 @@ install:
 
   # Check installed packages again
   - cmd: pip freeze
+  - cmd: set PYTHONPATH=%APPVEYOR_BUILD_FOLDER%
+  - cmd: python pypath.py
 
 build: off
 
 test_script:
 # temporary measure: disable online tests because the results vary
-  - "nosetests --logging-level=WARNING --exclude-dir=implementation/primaries/ImportOnlineDBs/tests"
+  - coverage run --source=. -m py.test
+  - codeclimate-test-reporter
 
 
