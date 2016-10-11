@@ -11,7 +11,10 @@ class MessageBox(QtGui.QDialog):
         self.setGeometry(300, 300, 250, 150)
         self.setWindowTitle(title)
         designer_file = os.path.join(
-            get_base_dir(return_this_dir=True), 'designer_files', 'MessageBox.ui')
+            get_base_dir(
+                return_this_dir=True),
+            'designer_files',
+            'MessageBox.ui')
         uic.loadUi(designer_file, self)
         self.errorLabel.setText(message)
         self.okBtn.clicked.connect(self.close)

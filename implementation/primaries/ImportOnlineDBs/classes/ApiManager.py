@@ -12,10 +12,12 @@ class ApiManager(object):
         try:
             MScoreApi.MuseScoreApi.getKey(MScoreApi.MuseScoreApi.env_key)
             self.sources["MuseScore"] = (
-        MScoreApi.MuseScoreApi(folder), ["movement-title", "work-title", "creator"])
+                MScoreApi.MuseScoreApi(folder), [
+                    "movement-title", "work-title", "creator"])
         except exceptions.APIKeyNotFoundException:
             if self.logger is not None:
-                self.logger.exception("MuseScore API key not found. MSCORE Api disabled.")
+                self.logger.exception(
+                    "MuseScore API key not found. MSCORE Api disabled.")
 
     def fetchAllData(self):
         '''
@@ -57,7 +59,12 @@ class ApiManager(object):
             results[source_id] = data_list
         return results
 
-    def downloadFile(self, source="MuseScore", file="", secret="", extension="mxl"):
+    def downloadFile(
+            self,
+            source="MuseScore",
+            file="",
+            secret="",
+            extension="mxl"):
         '''
         method to fetch 1 single file from a selected source
         :param source: the api source where it's located

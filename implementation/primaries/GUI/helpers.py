@@ -30,11 +30,13 @@ def parseStyle(stylesheet, theme, theme_folder):
         results.append(finished_path)
     return "".join(results)
 
+
 def cleanPath(path):
     path_to_parse = path
     if sys.platform == 'win32':
         path_to_parse = path.replace('/', '\\')
     return path_to_parse
+
 
 def parseThemePath(path, theme_folder):
     path_to_parse = path
@@ -61,12 +63,14 @@ def parseThemePath(path, theme_folder):
         if sys.platform == 'win32':
             end_path = postfix.split(')')
             if len(end_path) > 1:
-                parsed_path = os.path.join(parsed_path, end_path[0]) + "')" + end_path[1]
+                parsed_path = os.path.join(
+                    parsed_path, end_path[0]) + "')" + end_path[1]
             else:
                 parsed_path = os.path.join(parsed_path, postfix) + "'"
         else:
             parsed_path = os.path.join(parsed_path, postfix)
     return parsed_path
+
 
 def parseIconPath(path, theme):
     prefix = ''
@@ -86,18 +90,22 @@ def parseIconPath(path, theme):
         parsed_path = os.path.join(prefix, 'icons', theme, postfix)
     return parsed_path
 
+
 def postProcessLines(lines):
     return_val = lines.replace('\\', '/')
     return return_val
 
+
 def merge_instruments(instrument_list):
     return ", ".join([instrument["name"] for instrument in instrument_list])
+
 
 def merge_clefs_and_keys(clef_or_key_dict):
     result = ''
     for instrument in clef_or_key_dict:
         result += ", ".join(clef_or_key_dict[instrument])
     return result
+
 
 def fit_columns_to_widget(widget, columns):
     for column in range(columns):

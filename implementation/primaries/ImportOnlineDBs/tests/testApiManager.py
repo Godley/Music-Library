@@ -32,7 +32,6 @@ class testApiManager(unittest.TestCase):
             os.environ['MSCORE'] = copy_of_key
 
 
-
 class testFileDownload(unittest.TestCase):
 
     def setUp(self):

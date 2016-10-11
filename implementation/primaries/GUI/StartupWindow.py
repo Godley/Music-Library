@@ -41,8 +41,8 @@ class StartupWindow(QtGui.QDialog, themedWindow.ThemedWindow):
         self.hide()
 
     def openFolderDialog(self):
-        folder = QtGui.QFileDialog.getExistingDirectory(self, "Select Directory")
+        folder = QtGui.QFileDialog.getExistingDirectory(
+            self, "Select Directory")
         if folder is not None and folder != "":
             self.qApp.FolderFetched(str(folder))
             self.hide()
-
