@@ -4,7 +4,7 @@ from implementation.primaries.ExtractMetadata.classes.DataLayer.querylayer impor
 from implementation.primaries.ExtractMetadata.classes.DataLayer.musicdata import MusicData
 from implementation.primaries.ExtractMetadata.classes.MusicManager import MusicManager
 from implementation.primaries.ExtractMetadata.classes.hashdict import hashdict
-
+from implementation.primaries.ExtractMetadata.classes import MetaParser
 
 @pytest.fixture()
 def db():
@@ -17,6 +17,9 @@ def qlayer(db):
     elem.setup()
     return elem
 
+@pytest.fixture()
+def parser():
+    return MetaParser.MetaParser()
 
 @pytest.fixture()
 def mlayer(db):
