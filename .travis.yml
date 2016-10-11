@@ -22,7 +22,7 @@ install:
 
 script:
     - python pypath.py
-    - py.test --cov-report xml:./.coverage
+    - py.test --cov=. --cov-report xml:./.coverage
     - ls
     - codeclimate-test-reporter
 
