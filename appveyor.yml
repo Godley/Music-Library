@@ -53,7 +53,7 @@ build: off
 
 test_script:
 # temporary measure: disable online tests because the results vary
-  - py.test --cov-report xml:.coverage
+  - coverage run --source=. -m py.test
   - codeclimate-test-reporter
 
 
