@@ -584,7 +584,8 @@ class MusicData(querylayer.QueryLayer):
         else:
             parser = None
         for vals in join_query:
-            data = self.query({'id': vals['{}.id'.format(elem)]}, table=elem)[0]
+            data = self.query(
+                {'id': vals['{}.id'.format(elem)]}, table=elem)[0]
             result = parser.encode(data)
             results.append(result)
         return results
@@ -660,13 +661,15 @@ class MusicData(querylayer.QueryLayer):
                 q = self.query({'filename': file})
                 p_id = querylayer.col_or_none(q, 'id')
                 if p_id is not None:
-                    self.add({'piece.id':p_id, 'playlist.id': id}, table=self.get_join('playlists'))
+                    self.add({'piece.id': p_id, 'playlist.id': id},
+                             table=self.get_join('playlists'))
 
     def get_all_user_playlists(self):
         playlists = self.get_all('playlists')
         data = {}
         for elem in playlists:
-            file_join = self.query({'playlist.id': elem['id']}, table=self.get_join('playlists'))
+            file_join = self.query(
+                {'playlist.id': elem['id']}, table=self.get_join('playlists'))
             file_join = [f['piece.id'] for f in file_join]
             filenames = self.get_pieces_by_row_id(file_join)
             if len(filenames) > 0:
@@ -678,12 +681,15 @@ class MusicData(querylayer.QueryLayer):
         result = {}
         if len(data) > 0:
             data = data[0]
-            playlists = self.query({'piece.id': data['id']}, table=self.get_join('playlists'))
+            playlists = self.query(
+                {'piece.id': data['id']}, table=self.get_join('playlists'))
             for elem in playlists:
-                play_data = self.query({'id': elem['playlist.id']}, table='playlists')
+                play_data = self.query(
+                    {'id': elem['playlist.id']}, table='playlists')
                 if len(play_data) > 0:
                     play_data = play_data[0]
-                    joins = self.query({'playlist.id': play_data['id']}, table=self.get_join('playlists'))
+                    joins = self.query(
+                        {'playlist.id': play_data['id']}, table=self.get_join('playlists'))
                     joins = [f['piece.id'] for f in joins]
                     filenames = self.get_pieces_by_row_id(joins)
                     if len(filenames) > 0:

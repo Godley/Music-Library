@@ -20,10 +20,10 @@ class TestCase1(unittest.TestCase):
 
     def testClefs(self):
         expected = {
-                "Piano": [
-                    {'sign': "G", 'line': 2},
-                    {'sign':"F", 'line':4},
-                    {'line':3, 'sign': "C"}]}
+            "Piano": [
+                {'sign': "G", 'line': 2},
+                {'sign': "F", 'line': 4},
+                {'line': 3, 'sign': "C"}]}
         for instrument in expected:
             assert instrument in self.result["clefs"]
             for elem in expected[instrument]:
@@ -31,7 +31,7 @@ class TestCase1(unittest.TestCase):
 
     def testKeys(self):
         self.assertEqual(
-            self.result["keys"], {"Piano": [{'fifths': 2,'mode': "major"}]})
+            self.result["keys"], {"Piano": [{'fifths': 2, 'mode': "major"}]})
 
     def testTempos(self):
         self.assertEqual(self.result["tempos"], [{"beat": "half", "minute": 80}, {
@@ -61,9 +61,8 @@ class TestCase2(unittest.TestCase):
         self.assertEqual(self.result["instruments"], [{"name": "Piano"}])
 
     def testClefs(self):
-        expected = {
-                "Piano": [{'sign': "G", 'line': 2}, {'line': 3, 'sign':"C"}, {'sign': "F", 'line': 4}
-                            ]}
+        expected = {"Piano": [{'sign': "G", 'line': 2}, {
+            'line': 3, 'sign': "C"}, {'sign': "F", 'line': 4}]}
         for instrument in expected:
             assert instrument in self.result["clefs"]
             for elem in expected[instrument]:

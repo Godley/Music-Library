@@ -4,6 +4,7 @@ from implementation.primaries.ExtractMetadata.classes import MetaParser
 
 
 class TestMetaParser(object):
+
     def testStartTag(self, parser):
         parser.startTag("part", {})
         assert parser.tags == ["part"]
@@ -20,6 +21,7 @@ class TestMetaParser(object):
 
 
 class TestAddPart(TestMetaParser):
+
     def testPartNameHandler(self, parser):
         parser.startTag("score-part", {})
         parser.startTag("part-name", {})
@@ -167,9 +169,9 @@ class TestAddTransposition(TestMetaParser):
         parser.startTag("diatonic", {})
         parser.newData("0")
         assert parser.parts == {
-                "P1": {
-                    "transposition": {
-                        "diatonic": 0}}}
+            "P1": {
+                "transposition": {
+                    "diatonic": 0}}}
 
     def testTransChromatic(self, parser):
         parser.startTag("part", {"id": "P1"})
@@ -177,9 +179,9 @@ class TestAddTransposition(TestMetaParser):
         parser.startTag("chromatic", {})
         parser.newData("1")
         assert parser.parts == {
-                "P1": {
-                    "transposition": {
-                        "chromatic": 1}}}
+            "P1": {
+                "transposition": {
+                    "chromatic": 1}}}
 
     def testTransChromaticAndDiatonic(self, parser):
         parser.startTag("part", {"id": "P1"})
@@ -190,9 +192,9 @@ class TestAddTransposition(TestMetaParser):
         parser.startTag("chromatic", {})
         parser.newData("1")
         assert parser.parts == {
-                "P1": {
-                    "transposition": {
-                        "diatonic": 0, "chromatic": 1}}}
+            "P1": {
+                "transposition": {
+                    "diatonic": 0, "chromatic": 1}}}
 
 
 class TestAddMeter(TestMetaParser):
@@ -236,7 +238,8 @@ class TestAddMeter(TestMetaParser):
         parser.endTag("beats")
         parser.startTag("beat-type", {})
         parser.newData("4")
-        assert parser.data == {"time_signatures": [{"beat": 3, "beat_type": 4}]}
+        assert parser.data == {
+            "time_signatures": [{"beat": 3, "beat_type": 4}]}
 
     def testMeterBeatTypeThenBeat(self, parser):
         parser.startTag("time", {})
@@ -246,7 +249,8 @@ class TestAddMeter(TestMetaParser):
         parser.startTag("beats", {})
         parser.newData("3")
 
-        assert parser.data == {"time_signatures": [{"beat_type": 4, "beat": 3}]}
+        assert parser.data == {
+            "time_signatures": [{"beat_type": 4, "beat": 3}]}
 
 
 class TestAddTempo(TestMetaParser):
@@ -301,7 +305,8 @@ class TestAddTempo(TestMetaParser):
         parser.endTag("beat-unit")
         parser.startTag("beat-unit", {})
         parser.newData("half")
-        assert parser.data == {"tempos": [{"beat": "quarter", "beat_2": "half"}]}
+        assert parser.data == {"tempos": [
+            {"beat": "quarter", "beat_2": "half"}]}
 
 
 class TestAddBibliography(TestMetaParser):
@@ -345,11 +350,11 @@ class TestPartCollation(object):
         parser.data = {"instruments": ["clarinet"]}
         parser.collate_parts()
         assert parser.data == {"instruments": [{"name": "clarinet"}],
-                          "keys": {"clarinet": [{}]}}
+                               "keys": {"clarinet": [{}]}}
 
     def testCollationOfClefs(self, parser):
         parser.parts = {"P1": {"name": "clarinet", "clef": [{}]}}
         parser.data = {"instruments": ["clarinet"]}
         parser.collate_parts()
         assert parser.data == {"instruments": [{"name": "clarinet"}],
-                          "clefs": {"clarinet": [{}]}}
+                               "clefs": {"clarinet": [{}]}}

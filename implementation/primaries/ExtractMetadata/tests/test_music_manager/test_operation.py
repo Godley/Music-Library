@@ -42,20 +42,19 @@ class TestMusicManager(object):
             'composer': 'charlotte godley',
             'lyricist': 'fran godley',
             'instruments': [
-                            {'name': 'Piano',
-                            'chromatic': None,
-                            'diatonic': None}],
+                {'name': 'Piano',
+                 'chromatic': None,
+                 'diatonic': None}],
             'timesigs': ['4/4']}
 
         for key in expected_result:
             assert key in result
-            assert type(result[key]) == type(expected_result[key])
+            assert isinstance(result[key], type(expected_result[key]))
             if isinstance(expected_result[key], dict):
                 for elem in expected_result[key]:
                     assert elem in result[key]
-                    assert type(
-                            result[key]) == type(
-                            expected_result[key])
+                    assert isinstance(result[key], type(
+                        expected_result[key]))
 
                     if isinstance(expected_result[key][elem], list):
                         for member in expected_result[key][elem]:
@@ -98,6 +97,6 @@ class TestMusicManager(object):
         file = os.path.join(*path_to_primaries)
         manager.copyFiles([file])
         assert os.path.exists(
-                os.path.join(
-                    manager_folder,
-                    "3repeats.xml"))
+            os.path.join(
+                manager_folder,
+                "3repeats.xml"))
