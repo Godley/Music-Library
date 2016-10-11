@@ -47,8 +47,7 @@ in a new test file.
 """
 
 from . import querylayer
-from .helpers import extendJoinQuery, do_online_offline_query, get_if_exists, \
-    filter_dict
+from .helpers import filter_dict
 from ..hashdict import hashdict
 import copy
 from .exceptions import BadPieceException, InvalidQueryException
