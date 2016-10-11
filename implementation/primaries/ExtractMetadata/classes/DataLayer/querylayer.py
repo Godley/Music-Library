@@ -2,7 +2,8 @@ from sqlalchemy import create_engine, update
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql.expression import exists, alias, select, or_
 
-from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, Boolean
+from sqlalchemy import Table, Column, Integer, String, MetaData, \
+    ForeignKey, Boolean
 from .exceptions import BadTableException
 
 
@@ -152,8 +153,9 @@ class QueryLayer(object):
 
         self.tables["time_signatures_piece"] = Table(
             'time_piece_join', metadata, Column(
-                'piece.id', Integer, ForeignKey('pieces.id')), Column(
-                'time_signatures.id', Integer, ForeignKey('time_signatures.id')))
+            'piece.id', Integer, ForeignKey('pieces.id')),
+            Column('time_signatures.id', Integer,
+                   ForeignKey('time_signatures.id')))
 
         metadata.create_all(self.engine)
 

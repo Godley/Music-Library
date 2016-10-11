@@ -483,8 +483,9 @@ class MusicData(querylayer.QueryLayer):
             archived=False,
             online=False):
         """
-        method which searches first for any pieces containing the exact instrument, then by the name in dict,
-        then by the transposition of the name if it isn't in the instruments table.
+        method which searches first for any pieces containing the exact instrument,
+        then by the name in dict, then by the transposition of the name if it
+        isn't in the instruments table.
         :param instruments: list of instruments to search by
         :return: list of files + their instruments
         """
@@ -502,8 +503,8 @@ class MusicData(querylayer.QueryLayer):
                 else:
                     transpos = copy.deepcopy(elem)
                     transpos.pop("name")
-                    alternates.append(
-                        ((elem, key), self.getInstrumentsByTransposition(transpos)))
+                    alternates.append(((elem, key),
+                                       self.getInstrumentsByTransposition(transpos)))
         results = self.get_pieces_by_instruments(
             [instrument["name"] for instrument in instruments])
         if len(results) == 0:
@@ -589,10 +590,6 @@ class MusicData(querylayer.QueryLayer):
             result = parser.encode(data)
             results.append(result)
         return results
-
-    # methods to clear out old records. In general we just archive them on the off chance the piece comes back -
-    # if it does give the user the option to un-archive or else remove all old
-    # data
 
     def get_piece_by_all_(self, elem='keys', online=False, archived=False):
         table = self.get_join(elem)
@@ -689,7 +686,8 @@ class MusicData(querylayer.QueryLayer):
                 if len(play_data) > 0:
                     play_data = play_data[0]
                     joins = self.query(
-                        {'playlist.id': play_data['id']}, table=self.get_join('playlists'))
+                        {'playlist.id': play_data['id']},
+                        table=self.get_join('playlists'))
                     joins = [f['piece.id'] for f in joins]
                     filenames = self.get_pieces_by_row_id(joins)
                     if len(filenames) > 0:
