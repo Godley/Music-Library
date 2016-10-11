@@ -123,7 +123,8 @@ class QueryLayer(object):
             Column('archived', Boolean),
             Column('composer.id', None, ForeignKey('creators.id')),
             Column('lyricist.id', None, ForeignKey('creators.id')),
-            Column('source', String))
+            Column('source', String),
+            Column('secret', String))
 
         self.tables["playlists"] = Table(
             'playlists', metadata, Column(

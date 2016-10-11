@@ -103,6 +103,7 @@ class MusicData(querylayer.QueryLayer):
         lyricist_id = -1
         title = ""
         source = "local"
+        secret = None
 
         if "title" in data:
             title = data["title"]
@@ -112,12 +113,17 @@ class MusicData(querylayer.QueryLayer):
             source = data["source"]
             data.pop("source")
 
+        if "secret" in data:
+            secret = data["secret"]
+            data.pop("secret")
+
         query_input = {"filename": filename,
                        "name": title,
                        "composer.id": composer_id,
                        "lyricist.id": lyricist_id,
                        "archived": False,
-                       "source": source}
+                       "source": source,
+                       "secret": secret}
 
         piece_id = self.add(query_input)[0]
 
