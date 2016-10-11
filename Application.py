@@ -74,7 +74,9 @@ class Application(QtCore.QObject):
 
     def loadFolder(self, folder):
         self.folder = folder
-        self.manager = MusicManager.MusicManager(self, folder=self.folder)
+        db = "sqlite:///{}/music.db".format(self.folder)
+        self.manager = MusicManager.MusicManager(self, folder=self.folder,
+                                                 db=db)
         self.windows["main"].show()
         if not hasattr(self.windows["main"], "contentFrame"):
             self.windows["main"].load()

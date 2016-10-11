@@ -101,21 +101,21 @@ class MusicData(querylayer.QueryLayer):
         '''
         composer_id = -1
         lyricist_id = -1
-        title = ""
-        source = "local"
-        secret = None
-        license = None
 
         query_input = {"filename": filename,
                        "composer.id": composer_id,
                        "lyricist.id": lyricist_id,
                        "archived": False}
-
+        defaults = {"source": "local",
+                    "license": None,
+                    "secret": None}
         values = ["source", "license", "secret"]
         for value in values:
             if value in data:
                 query_input[value] = data[value]
                 data.pop(value)
+            else:
+                query_input[value] = defaults[value]
 
         if "title" in data:
             query_input["name"] = data["title"]

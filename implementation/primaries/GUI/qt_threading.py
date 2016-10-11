@@ -1,5 +1,6 @@
 from PyQt4.QtCore import QObject, QThread, pyqtSignal, SIGNAL
-
+from ..ExtractMetadata.classes.DataLayer.exceptions import BadTableException, \
+    BadPieceException
 from threading import Lock
 
 
@@ -18,8 +19,12 @@ class mythread(AppThread):
         self.kwargs = kwargs
 
     def run(self):
-        result = self.method(*self.args, **self.kwargs)
-        self.emit(SIGNAL("dataReady(PyQt_PyObject)"), result)
+        try:
+            result = self.method(*self.args, **self.kwargs)
+            self.emit(SIGNAL("dataReady(PyQt_PyObject)"), result)
+        except BaseException as e:
+            self.emit(SIGNAL("threadError(PyQt_PyObject)"), str(e))
+
 
 
 class QueryThread(AppThread):

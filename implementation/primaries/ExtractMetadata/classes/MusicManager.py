@@ -15,6 +15,7 @@ from MuseParse.classes import Exceptions
 from MuseParse.classes.Input import MxmlParser
 from implementation.primaries.globals import LOG_NAME
 import logging
+from .DataLayer.exceptions import BadPieceException, BadTableException
 
 logger = logging.getLogger(LOG_NAME)
 
@@ -446,18 +447,15 @@ class SearchLayer(MusicData):
 
     def getPlaylists(self, select_method="all"):
         result_set = {}
-        elem_ids = ["clefs", "keys", "composers", "lyricists"]
-        playlist_table = {"time signatures": self.getPiecesByAllTimeSigs,
-                          "instruments": self.getPiecesByAllInstruments,
-                          "tempos": self.getPiecesByAllTempos}
+        elem_ids = ["composers", "lyricists"]
         if select_method == "all":
-            clefs = self.get_piece_by_all_elem(elem='clefs')
-            keys = self.get_piece_by_all_elem(elem='keys')
-            composers = self.get_piece_by_all_elem(elem='composers')
-            lyricists = self.get_piece_by_all_elem(elem='lyricists')
-            instruments = self.getPiecesByAllInstruments()
-            timesigs = self.getPiecesByAllTimeSigs()
-            tempos = self.getPiecesByAllTempos()
+            clefs = self.get_piece_by_all_(elem='clefs')
+            keys = self.get_piece_by_all_(elem='keys')
+            composers = self.get_piece_by_all_creators(elem='composers')
+            lyricists = self.get_piece_by_all_creators(elem='lyricists')
+            instruments = self.get_piece_by_all_('instruments')
+            timesigs = self.get_piece_by_all_('time_signatures')
+            tempos = self.get_piece_by_all_('tempos')
             result_set["clefs"] = clefs
             result_set["keys"] = keys
             result_set["composers"] = composers
@@ -468,9 +466,9 @@ class SearchLayer(MusicData):
 
         else:
             if select_method not in elem_ids:
-                result_set[select_method] = playlist_table[select_method]()
+                result_set[select_method] = self.get_piece_by_all_(elem=select_method)
             else:
-                result_set[select_method] = self.get_piece_by_all_elem(
+                result_set[select_method] = self.get_piece_by_all_creators(
                     elem=select_method)
 
         return filter_dict(result_set)
@@ -576,9 +574,9 @@ class MusicManager(SearchLayer):
 
     def getNewFiles(self):
         cleaned_set = self.apiManager.fetchAllData()
-        filelist = self.getFileList(online=True)
+        filelist = self.get_file_list(online=True)
         for file in filelist:
-            source = self.getPieceSource(file)[0]
+            source = self.get_value_for_filename(file, "source")[0]
             id = file.split(".")[0]
             if id in cleaned_set[source]:
                 cleaned_set[source].pop(id)
@@ -651,7 +649,7 @@ class MusicManager(SearchLayer):
             status_code = self.apiManager.downloadFile(
                 source=source, file=fname, secret=secret, extension='pdf')
             if status_code == 200:
-                self.downloadPiece(filename)
+                self.update_piece(filename, {'source': 'local'})
                 return True
         except requests.exceptions.ConnectionError as e:
             logger.exception(
@@ -668,9 +666,6 @@ class MusicManager(SearchLayer):
         result_set = self.parseApiFiles()
         self.addApiFiles(result_set)
         self.cleanupApiFiles(result_set)
-
-    def addPiece(self, filename, data):
-        self.add_piece(filename, data)
 
     def getPieceInfo(self, filenames):
         return self.get_all_piece_info(filenames)
@@ -690,13 +685,15 @@ class MusicManager(SearchLayer):
     def refresh(self):
         if self.wifi:
             self.runApiOperation()
-        self.refreshWithoutDownload()
+        errors = self.refreshWithoutDownload()
+        return errors
 
     def refreshWithoutDownload(self):
         db_files = self.get_file_list()
         self.folder_browser.resetDbFileList(db_files)
         self.handleZips()
-        self.handleXMLFiles()
+        errors = self.handleXMLFiles()
+        return errors
 
     def getLicense(self, filename):
         result = self.get_value_for_filename(filename, 'license')
@@ -715,7 +712,7 @@ class MusicManager(SearchLayer):
         return result
 
     def getPieceSummaryStrings(self, sort_method="title"):
-        file_list = self.getFileList()
+        file_list = self.get_file_list()
         summary_strings = self.getPieceSummary(
             file_list,
             sort_method=sort_method)
@@ -755,9 +752,21 @@ class MusicManager(SearchLayer):
         :param file_list:
         :return:
         """
+        errors = {'bad_piece': [], 'bad_table': [], 'other': []}
         for file in file_list:
             data_set = self.parseXMLFile(file)
-            self.add_piece(file, data_set)
+            try:
+                self.add_piece(file, data_set)
+            except BadPieceException as e:
+                errors['bad_piece'].append((file, str(e)))
+                continue
+            except BadTableException as e:
+                errors['bad_table'].append((file, str(e)))
+                continue
+            except BaseException as e:
+                errors['other'].append((file, str(e)))
+                continue
+        return errors
 
     def handleXMLFiles(self):
         """
@@ -766,10 +775,12 @@ class MusicManager(SearchLayer):
         """
         files = self.folder_browser.getNewAndOldFiles(
             self.folder_browser.getFolderFiles())
+        errors = None
         if "new" in files:
-            self.parseNewFiles(sorted(files["new"]))
+            errors = self.parseNewFiles(sorted(files["new"]))
         if "old" in files:
             self.parseOldFiles(sorted(files["old"]))
+        return errors
 
     def copyFiles(self, filenames):
         """
