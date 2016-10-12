@@ -87,6 +87,20 @@ class MusicData(querylayer.QueryLayer):
             id = self.get_ids_for_like({"filename": filename})[0]
             self.remove(id, table="pieces")
 
+    def add_piece_links(self, piece_id, data):
+        if "instruments" in data:
+            data = self.add_instruments_to_piece(data, piece_id)
+        else:
+            raise BadPieceException(
+                "All pieces must have at least one instrument")
+
+        for key in data:
+            if key in ['lyricist', 'composer']:
+                self.link_creator_to_piece(data[key], piece_id, creator=key)
+            else:
+                for value in data[key]:
+                    self.add_and_link(value, piece_id, table=key)
+
     def add_piece(self, filename, data):
         '''
         method which takes in stuff about a piece and adds it
@@ -119,25 +133,12 @@ class MusicData(querylayer.QueryLayer):
         if "title" in data:
             query_input["name"] = data["title"]
             data.pop("title")
-
-        piece_id = self.add(query_input)[0]
-
-        if "instruments" in data:
-            data = self.add_instruments_to_piece(data, piece_id)
-
-        else:
-            raise BadPieceException(
-                "All pieces must have at least one instrument")
-
         if "id" in data:
             data.pop("id")
+        piece_id = self.add(query_input)[0]
+        self.add_piece_links(piece_id, data)
 
-        for key in data:
-            if key in ['lyricist', 'composer']:
-                self.link_creator_to_piece(data[key], piece_id, creator=key)
-            else:
-                for value in data[key]:
-                    self.add_and_link(value, piece_id, table=key)
+
 
     def add_instruments_to_piece(self, data, piece_id):
         result_data = copy.deepcopy(data)
