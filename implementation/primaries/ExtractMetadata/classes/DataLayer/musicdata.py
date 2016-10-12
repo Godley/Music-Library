@@ -177,14 +177,20 @@ class MusicData(querylayer.QueryLayer):
     def add_instrument_to_piece(self, data, piece_id, clefs={}, keys={}):
         ins = self.get_or_add(data, table='instruments')[0]
         for clef_data in clefs:
-            clef = self.get_or_add(clef_data, table='clefs')[0]
-            self.add({'instruments.id': ins['id'], 'clefs.id': clef[
-                     'id'], 'piece.id': piece_id}, table='clefs_ins_piece')
+            clef = self.query(clef_data, table='clefs')
+            if len(clef) > 0:
+                self.add({'instruments.id': ins['id'], 'clefs.id': clef[0][
+                        'id'], 'piece.id': piece_id}, table='clefs_ins_piece')
+            else:
+                raise BadPieceException("invalid clef - data {}".format(clef_data))
 
         for key_data in keys:
-            key = self.get_or_add(key_data, table='keys')[0]
-            self.add({'instruments.id': ins['id'], 'keys.id': key[
+            key = self.query(key_data, table='keys')
+            if len(key) > 0:
+                self.add({'instruments.id': ins['id'], 'keys.id': key[0][
                      'id'], 'piece.id': piece_id}, table='keys_ins_piece')
+            else:
+                raise BadPieceException("invalid key - data {}".format(key_data))
 
     def query_pieces_archived_online(
             self,
@@ -523,7 +529,7 @@ class MusicData(querylayer.QueryLayer):
             ins = self.query(
                 {'id': value['instruments.id']}, table='instruments')[0]
             res = self.query({'id': value[elem + '.id']}, table=elem)[0]
-            if ins is not None:
+            if ins is not None and res['name'] is not None:
                 data.setdefault(ins['name'], []).append(res['name'])
         return data
 

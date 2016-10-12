@@ -11,11 +11,16 @@ class Window(QtGui.QWidget):
         self.application = self.main_window.qApp
         design = os.path.join(design_folder, file)
         uic.loadUi(design, self)
+        self.title_str = title
         try:
             self.title.setText(title)
         except:
             pass
 
+    def loadPiece(self, current_item):
+        file_to_load = current_item.data(32)
+        self.application.loadFile(file_to_load)
+        self.main_window.unloadFrame(self.title_str.lower())
 
 class Scorebook(Window):
 
@@ -50,10 +55,7 @@ class Scorebook(Window):
             item.setData(32, i[1])
             self.listWidget.addItem(item)
 
-    def loadPiece(self, current_item):
-        file_to_load = current_item.data(32)
-        self.application.loadFile(file_to_load)
-        self.main_window.unloadFrame("scorebook")
+
 
 
 class PlaylistWidget(Window):
@@ -226,13 +228,13 @@ class PlaylistBrowser(Window):
             self,
             parent,
             "BasicTableWidget.ui",
-            "Playlist Browser",
+            "Browser",
             design_folder)
         self.playlist = self.main_window.playlist
         self.index = self.main_window.index
         if self.playlist is not None and self.index is not None:
             self.load()
-        self.tableWidget.itemDoubleClicked.connect(self.clicked)
+        self.tableWidget.itemDoubleClicked.connect(self.loadPiece)
 
     def load(self):
         data = self.application.getPlaylistFileInfo(self.playlist)
@@ -257,11 +259,6 @@ class PlaylistBrowser(Window):
 
         self.tableWidget.selectRow(self.index)
         self.tableWidget.show()
-
-    def clicked(self, current_item):
-        file_to_load = current_item.data(32)
-        self.application.loadFile(file_to_load)
-        self.main_window.unloadFrame("browser")
 
 
 class SearchTree(QtGui.QTreeWidget):

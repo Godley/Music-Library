@@ -37,7 +37,10 @@ class QueryLayer(object):
                   {"name": "tenor varC", "sign": "VARC", "line": 4},
                   {"name": "baritone varC", "sign": "VARC", "line": 5}],
 
-        "keys": [{"name": "C flat major", "fifths": -7, "mode": "major"},
+        "keys": [{"name": "E double flat major", "fifths": -10, "mode": "major"},
+                {"name": "B double flat major", "fifths": -9, "mode": "major"},
+                 {"name": "F flat major", "fifths": -8, "mode": "major"},
+                 {"name": "C flat major", "fifths": -7, "mode": "major"},
                  {"name": "G flat major", "fifths": -6, "mode": "major"},
                  {"name": "D flat major", "fifths": -5, "mode": "major"},
                  {"name": "A flat major", "fifths": -4, "mode": "major"},
@@ -52,6 +55,13 @@ class QueryLayer(object):
                  {"name": "B major", "fifths": 5, "mode": "major"},
                  {"name": "F# major", "fifths": 6, "mode": "major"},
                  {"name": "C# major", "fifths": 7, "mode": "major"},
+                {"name": "G# major", "fifths": 8, "mode": "major"},
+                 {"name": "D# major", "fifths": 9, "mode": "major"},
+                 {"name": "A# major", "fifths": 10, "mode": "major"},
+
+                 {"name": "C flat minor", "fifths": -10, "mode": "minor"},
+                 {"name": "G flat minor", "fifths": -9, "mode": "minor"},
+                 {"name": "D flat minor", "fifths": -8, "mode": "minor"},
                  {"name": "A flat minor", "fifths": -7, "mode": "minor"},
                  {"name": "E flat minor", "fifths": -6, "mode": "minor"},
                  {"name": "B flat minor", "fifths": -5, "mode": "minor"},
@@ -66,7 +76,10 @@ class QueryLayer(object):
                  {"name": "C# minor", "fifths": 4, "mode": "minor"},
                  {"name": "G# minor", "fifths": 5, "mode": "minor"},
                  {"name": "D# minor", "fifths": 6, "mode": "minor"},
-                 {"name": "A# minor", "fifths": 7, "mode": "minor"}]
+                 {"name": "A# minor", "fifths": 7, "mode": "minor"},
+                {"name": "E# minor", "fifths": 8, "mode": "minor"},
+                 {"name": "B# major", "fifths": 9, "mode": "minor"},
+                 {"name": "F double# major", "fifths": 10, "mode": "minor"}]
     }
 
     def __init__(self, db_path):
@@ -160,6 +173,7 @@ class QueryLayer(object):
                    ForeignKey('time_signatures.id')))
 
         metadata.create_all(self.engine)
+        self.add_fixtures()
 
     def validate_table(self, table):
         return table in self.tables

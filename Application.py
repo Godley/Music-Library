@@ -77,6 +77,7 @@ class Application(QtCore.QObject):
         db = "sqlite:///{}/music.db".format(self.folder)
         self.manager = MusicManager.MusicManager(self, folder=self.folder,
                                                  db=db)
+        self.manager.setup()
         self.windows["main"].show()
         if not hasattr(self.windows["main"], "contentFrame"):
             self.windows["main"].load()
