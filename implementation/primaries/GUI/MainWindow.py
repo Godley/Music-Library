@@ -1,3 +1,4 @@
+from PyQt4 import QtGui, QtCore, uic
 import sip
 import os
 import difflib
@@ -5,10 +6,6 @@ import time
 from sys import platform
 if platform != 'win32':
     from popplerqt4 import Poppler
-
-
-from PyQt4 import QtGui, QtCore, uic
-
 from implementation.primaries.GUI.helpers import get_base_dir, parseStyle, postProcessLines, merge_instruments, merge_clefs_and_keys, fit_columns_to_widget
 from implementation.primaries.GUI import themedWindow, Widgets, qt_threading, MultistandWidget, pdfViewer
 
@@ -33,25 +30,33 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
 
     def resizeEvent(self, QResizeEvent):
         if hasattr(self, "scoreWindow"):
-            if not self.scoreWindow.isHidden():
-                widgetSize = (
-                    self.scoreWindow.width(), self.scoreWindow.height())
-                self.resizeCenterWidget(self.scoreWindow)
-                self.resizePages(widgetSize)
+            self.resizeScoreWindow()
         if hasattr(self, "playlistTable"):
-            if not self.playlistTable.isHidden():
-                self.resizeCenterWidget(self.playlistTable)
-                fit_columns_to_widget(self.playlistTable, 10)
-                for i in range(10):
-                    self.playlistTable.setColumnWidth(
-                        i, self.playlistTable.width() / 9)
+            self.resizePlaylistTable()
         if hasattr(self, "searchBar"):
             self.resizeSearchbar()
         QResizeEvent.accept()
 
+    def resizeScoreWindow(self):
+        if not self.scoreWindow.isHidden():
+            widgetSize = (
+                self.scoreWindow.width(), self.scoreWindow.height())
+            self.resizeCenterWidget(self.scoreWindow)
+            self.resizePages(widgetSize)
+
+    def resizePlaylistTable(self):
+        if not self.playlistTable.isHidden():
+            self.resizeCenterWidget(self.playlistTable)
+            fit_columns_to_widget(self.playlistTable, 10)
+            for i in range(10):
+                self.playlistTable.setColumnWidth(
+                    i, self.playlistTable.width() / 9)
+
     def resizeCenterWidget(self, item):
         """
-        method which resizes either center widget (should be score viewer or playlist table) according to changes in window size
+        method which resizes either center widget
+        (should be score viewer or playlist table)
+        according to changes in window size
         :param item: the item to modify
         :return:
         """
@@ -67,7 +72,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
 
     def resizeSearchbar(self):
         """
-        method which resizes the search bar at the top of the screen according to window width
+        method which resizes the search bar at the top
+        of the screen according to window width
         :return:
         """
         search_position = self.searchBar.pos()
@@ -120,7 +126,9 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.searchBar.setGeometry(self.searchBar.pos().x(
         ), self.searchBar.pos().y(), self.width(), self.searchBar.height())
         self.centralWidget().setStyleSheet(
-            "QWidget#centralwidget {border-image:url(alternatives/sheet-music-texture.png) 0 0 stretch stretch;}")
+            "QWidget#centralwidget {border-image:url("
+            "alternatives/sheet-music-texture.png) "
+            "0 0 stretch stretch;}")
         self.actionUbuntu.triggered.connect(self.change_theme)
         self.actionCandy.triggered.connect(self.change_theme)
         self.searchFrame.hide()
@@ -151,13 +159,14 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
     def onWifiClicked(self):
         wifiOn = self.qApp.toggleWifi()
         if wifiOn:
-            self.wifiButton.setStyleSheet("""background: url(/themes/icons/"""
-                                          + self.theme + """/wifi-on.png) center no-repeat;
-            """)
+            self.wifiButton.setStyleSheet("""background:
+            url(/themes/icons/{}/wifi-on.png) center no-repeat;
+            """.format(self.theme))
         else:
             self.wifiButton.setStyleSheet("""
-            background: url(/themes/icons/""" + self.theme + """/wifi-off.png) center no-repeat;
-            """)
+            background: url(/themes/icons/{}/wifi-off.png)
+            center no-repeat;
+            """.format(self.theme))
 
     def zoomIn(self):
         self.scoreWindow.scale(1.1, 1.1)
@@ -198,7 +207,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
 
     def onQueryReturned(self, results, query):
         """
-        callback which gets called when the query has been handled by the parent application
+        callback which gets called when the query
+        has been handled by the parent application
         :param results:  nested list of results to put into the tree
         :return:
         """
@@ -215,8 +225,9 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         :return:
         """
         widget = self.focusWidget()
-        if (self.searchInput.text() == "" or self.searchInput.text()
-                == " ") or widget.objectName() != "treeWidget":
+        if (self.searchInput.text() == ""
+            or self.searchInput.text() == " ") \
+                or widget.objectName() != "treeWidget":
             try:
                 self.searchFrame.hide()
             except:
@@ -225,7 +236,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
     # methods which handle playlists
     def loadPlaylist(self, playlist_title, playlist_to_load, length):
         """
-        method which gets called by either of the playlist widgets when a user clicks a playlist
+        method which gets called by either of the playlist
+         widgets when a user clicks a playlist
         :param playlist_title: title of the playlist
         :param playlist_to_load: list of files in the playlist
         :param length: length of the playlist items
@@ -353,15 +365,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.scoreWindow.setScene(scene)
 
     def loadPdfToWebWidget(self, filename):
-        # self.scoreWebView.settings().setAttribute(QtWebKit.QWebSettings.PluginsEnabled, True)
-        # self.scoreWebView.show()
-        # self.scoreWebView.settings().setAttribute(QtWebKit.QWebSettings.PluginsEnabled, True)
-        # self.scoreWebView.settings().setAttribute(QtWebKit.QWebSettings.PrivateBrowsingEnabled, True)
-        # self.scoreWebView.settings().setAttribute(QtWebKit.QWebSettings.LocalContentCanAccessRemoteUrls, True)
-        # self.scoreWebView.loadFinished.connect(self._loadfinished)
         f = QtCore.QUrl().fromLocalFile(filename)
         print(f)
-        # self.scoreWebView.load(QtCore.QUrl("http://www.calvin.edu/~dsc8/documents/Podcasting-in-Education-Winter-2005.pdf"))
 
     def _loadfinished(self):
         print("complete")
@@ -377,10 +382,22 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         else:
             self.unloadFrame(frame_name)
 
+    def cleanupContentLayout(self, layout):
+        if layout is not None:
+            while layout.count():
+                item = layout.takeAt(0)
+                widge = item.widget()
+                if widge is not None:
+                    widge.deleteLater()
+                else:
+                    self.deleteLayout(item.layout())
+            sip.delete(layout)
+
     # methods to handle loading frames
     def loadFrame(self, child, ypos=72):
         """
-        method which fetches the appropriate widget, puts it in the content frame and starts an animation to pull the frame out
+        method which fetches the appropriate widget, puts it in the
+        content frame and starts an animation to pull the frame out
         :param child: the name of the widget to load
         :param ypos: position to place the widget on the y plane
         :return:
@@ -391,16 +408,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         endy = position.y()
         endwidth = widget.width()
         layout = self.contentFrame.layout()
-
-        if layout is not None:
-            while layout.count():
-                item = layout.takeAt(0)
-                widge = item.widget()
-                if widge is not None:
-                    widge.deleteLater()
-                else:
-                    self.deleteLayout(item.layout())
-            sip.delete(layout)
+        self.cleanupContentLayout(layout)
 
         layout = QtGui.QHBoxLayout()
         layout.setSpacing(0)
@@ -441,7 +449,8 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
 
     def unloadFrame(self, child):
         """
-        method which handles the animation of a frame in terms of putting it back where it started
+        method which handles the animation of a frame in
+        terms of putting it back where it started
         :param child: name of the frame to onload. No longer really used
         :return:
         """
