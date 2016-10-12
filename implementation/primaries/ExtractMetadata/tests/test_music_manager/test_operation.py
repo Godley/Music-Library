@@ -14,7 +14,7 @@ class TestMusicManager(object):
         assert not os.path.exists(os.path.join(manager_folder, 'META-INF'))
 
     def testParseXMLFiles(self, manager, dummy):
-        manager.addPiece("file.xml", dummy)
+        manager.add_piece("file.xml", dummy)
         manager.refreshWithoutDownload()
         manager.parseNewFiles = MagicMock(name='method')
         manager.parseOldFiles = MagicMock(name='method')
@@ -77,7 +77,7 @@ class TestMusicManager(object):
         assert manager.getPieceInfo(["file.xml"]) == []
 
     def testRefresh(self, manager, dummy):
-        manager.addPiece("file.xml", dummy)
+        manager.add_piece("file.xml", dummy)
         manager.refreshWithoutDownload()
         assert manager.folder_browser.getNewAndOldFiles(
             manager.folder_browser.getFolderFiles())["old"] == ["file.xml"]

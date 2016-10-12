@@ -44,7 +44,9 @@ class TestDataLayerOnlineSearching(object):
             "file.xml", data)
         result_set = mlayer.getFileData(["file.xml"], online=True)
         assert result_set == [{'composer.id': 1, 'filename': 'file.xml',
-                               'name': '',
+                               'name': None,
+                               'license': None,
+                               'secret': None,
                                'id': 1,
                                'lyricist.id': -1,
                                'archived': False,
