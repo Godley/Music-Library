@@ -22,6 +22,7 @@ class Window(QtGui.QWidget):
         self.application.loadFile(file_to_load)
         self.main_window.unloadFrame(self.title_str.lower())
 
+
 class Scorebook(Window):
 
     def __init__(self, parent, design_folder):
@@ -54,8 +55,6 @@ class Scorebook(Window):
             item = QtGui.QListWidgetItem(i[0])
             item.setData(32, i[1])
             self.listWidget.addItem(item)
-
-
 
 
 class PlaylistWidget(Window):

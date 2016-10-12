@@ -87,6 +87,20 @@ class MusicData(querylayer.QueryLayer):
             id = self.get_ids_for_like({"filename": filename})[0]
             self.remove(id, table="pieces")
 
+    def add_piece_links(self, piece_id, data):
+        if "instruments" in data:
+            data = self.add_instruments_to_piece(data, piece_id)
+        else:
+            raise BadPieceException(
+                "All pieces must have at least one instrument")
+
+        for key in data:
+            if key in ['lyricist', 'composer']:
+                self.link_creator_to_piece(data[key], piece_id, creator=key)
+            else:
+                for value in data[key]:
+                    self.add_and_link(value, piece_id, table=key)
+
     def add_piece(self, filename, data):
         '''
         method which takes in stuff about a piece and adds it
@@ -119,54 +133,28 @@ class MusicData(querylayer.QueryLayer):
         if "title" in data:
             query_input["name"] = data["title"]
             data.pop("title")
-
-        piece_id = self.add(query_input)[0]
-
-        if "instruments" in data:
-            data = self.add_instruments_to_piece(data, piece_id)
-
-        else:
-            raise BadPieceException(
-                "All pieces must have at least one instrument")
-
         if "id" in data:
             data.pop("id")
-
-        for key in data:
-            if key in ['lyricist', 'composer']:
-                self.link_creator_to_piece(data[key], piece_id, creator=key)
-            else:
-                for value in data[key]:
-                    self.add_and_link(value, piece_id, table=key)
+        piece_id = self.add(query_input)[0]
+        self.add_piece_links(piece_id, data)
 
     def add_instruments_to_piece(self, data, piece_id):
         result_data = copy.deepcopy(data)
+        data_keys = ['keys', 'clefs']
         for instrument in result_data["instruments"]:
             name = instrument['name']
             kwargs = {}
-            if "clefs" in data:
-                if name in data["clefs"]:
-                    clef_data = result_data["clefs"][name]
-                    kwargs['clefs'] = clef_data
-                else:
-                    raise BadPieceException(
-                        "each instrument should have atleast one key")
-            else:
-                raise BadPieceException(
-                    "each instrument should have atleast one clef")
-
-            if "keys" in data:
-                if name in data["keys"]:
-                    key_data = result_data["keys"][name]
-                    kwargs['keys'] = key_data
+            for key in data_keys:
+                if key in data:
+                    if name in data[key]:
+                        kwargs[key] = result_data[key][name]
+                    else:
+                        raise BadPieceException(
+                            "each instrument should have atleast one {}".format(key[:-1]))
 
                 else:
                     raise BadPieceException(
-                        "each instrument should have atleast one key")
-
-            else:
-                raise BadPieceException(
-                    "each instrument should have atleast one key")
+                        "each instrument should have atleast one {}".format(key[:-1]))
 
             self.add_instrument_to_piece(instrument, piece_id, **kwargs)
         result_data["clefs"] = {}
@@ -180,17 +168,19 @@ class MusicData(querylayer.QueryLayer):
             clef = self.query(clef_data, table='clefs')
             if len(clef) > 0:
                 self.add({'instruments.id': ins['id'], 'clefs.id': clef[0][
-                        'id'], 'piece.id': piece_id}, table='clefs_ins_piece')
+                    'id'], 'piece.id': piece_id}, table='clefs_ins_piece')
             else:
-                raise BadPieceException("invalid clef - data {}".format(clef_data))
+                raise BadPieceException(
+                    "invalid clef - data {}".format(clef_data))
 
         for key_data in keys:
             key = self.query(key_data, table='keys')
             if len(key) > 0:
                 self.add({'instruments.id': ins['id'], 'keys.id': key[0][
-                     'id'], 'piece.id': piece_id}, table='keys_ins_piece')
+                    'id'], 'piece.id': piece_id}, table='keys_ins_piece')
             else:
-                raise BadPieceException("invalid key - data {}".format(key_data))
+                raise BadPieceException(
+                    "invalid key - data {}".format(key_data))
 
     def query_pieces_archived_online(
             self,
@@ -510,8 +500,8 @@ class MusicData(querylayer.QueryLayer):
                 else:
                     transpos = copy.deepcopy(elem)
                     transpos.pop("name")
-                    alternates.append(((elem, key),
-                                       self.getInstrumentsByTransposition(transpos)))
+                    alternates.append(
+                        ((elem, key), self.getInstrumentsByTransposition(transpos)))
         results = self.get_pieces_by_instruments(
             [instrument["name"] for instrument in instruments])
         if len(results) == 0:

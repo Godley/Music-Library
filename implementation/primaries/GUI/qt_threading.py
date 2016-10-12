@@ -26,7 +26,6 @@ class mythread(AppThread):
             self.emit(SIGNAL("threadError(PyQt_PyObject)"), str(e))
 
 
-
 class QueryThread(AppThread):
 
     def __init__(self, parent, method, args, online):
