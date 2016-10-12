@@ -21,7 +21,7 @@ install:
 
 
 script:
-    - coverage run --source=. -m py.test
+    - coverage run --source=implementation/primaries --omit==implemetation/primaries/*/tests -m py.test
     - codeclimate-test-reporter
 
 os:
