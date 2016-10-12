@@ -168,17 +168,19 @@ class MusicData(querylayer.QueryLayer):
             clef = self.query(clef_data, table='clefs')
             if len(clef) > 0:
                 self.add({'instruments.id': ins['id'], 'clefs.id': clef[0][
-                        'id'], 'piece.id': piece_id}, table='clefs_ins_piece')
+                    'id'], 'piece.id': piece_id}, table='clefs_ins_piece')
             else:
-                raise BadPieceException("invalid clef - data {}".format(clef_data))
+                raise BadPieceException(
+                    "invalid clef - data {}".format(clef_data))
 
         for key_data in keys:
             key = self.query(key_data, table='keys')
             if len(key) > 0:
                 self.add({'instruments.id': ins['id'], 'keys.id': key[0][
-                     'id'], 'piece.id': piece_id}, table='keys_ins_piece')
+                    'id'], 'piece.id': piece_id}, table='keys_ins_piece')
             else:
-                raise BadPieceException("invalid key - data {}".format(key_data))
+                raise BadPieceException(
+                    "invalid key - data {}".format(key_data))
 
     def query_pieces_archived_online(
             self,
@@ -498,8 +500,8 @@ class MusicData(querylayer.QueryLayer):
                 else:
                     transpos = copy.deepcopy(elem)
                     transpos.pop("name")
-                    alternates.append(((elem, key),
-                                       self.getInstrumentsByTransposition(transpos)))
+                    alternates.append(
+                        ((elem, key), self.getInstrumentsByTransposition(transpos)))
         results = self.get_pieces_by_instruments(
             [instrument["name"] for instrument in instruments])
         if len(results) == 0:

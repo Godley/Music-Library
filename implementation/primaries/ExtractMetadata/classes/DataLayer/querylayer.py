@@ -38,7 +38,7 @@ class QueryLayer(object):
                   {"name": "baritone varC", "sign": "VARC", "line": 5}],
 
         "keys": [{"name": "E double flat major", "fifths": -10, "mode": "major"},
-                {"name": "B double flat major", "fifths": -9, "mode": "major"},
+                 {"name": "B double flat major", "fifths": -9, "mode": "major"},
                  {"name": "F flat major", "fifths": -8, "mode": "major"},
                  {"name": "C flat major", "fifths": -7, "mode": "major"},
                  {"name": "G flat major", "fifths": -6, "mode": "major"},
@@ -55,7 +55,7 @@ class QueryLayer(object):
                  {"name": "B major", "fifths": 5, "mode": "major"},
                  {"name": "F# major", "fifths": 6, "mode": "major"},
                  {"name": "C# major", "fifths": 7, "mode": "major"},
-                {"name": "G# major", "fifths": 8, "mode": "major"},
+                 {"name": "G# major", "fifths": 8, "mode": "major"},
                  {"name": "D# major", "fifths": 9, "mode": "major"},
                  {"name": "A# major", "fifths": 10, "mode": "major"},
 
@@ -77,7 +77,7 @@ class QueryLayer(object):
                  {"name": "G# minor", "fifths": 5, "mode": "minor"},
                  {"name": "D# minor", "fifths": 6, "mode": "minor"},
                  {"name": "A# minor", "fifths": 7, "mode": "minor"},
-                {"name": "E# minor", "fifths": 8, "mode": "minor"},
+                 {"name": "E# minor", "fifths": 8, "mode": "minor"},
                  {"name": "B# major", "fifths": 9, "mode": "minor"},
                  {"name": "F double# major", "fifths": 10, "mode": "minor"}]
     }
@@ -168,7 +168,7 @@ class QueryLayer(object):
 
         self.tables["time_signatures_piece"] = Table(
             'time_piece_join', metadata, Column(
-            'piece.id', Integer, ForeignKey('pieces.id')),
+                'piece.id', Integer, ForeignKey('pieces.id')),
             Column('time_signatures.id', Integer,
                    ForeignKey('time_signatures.id')))
 

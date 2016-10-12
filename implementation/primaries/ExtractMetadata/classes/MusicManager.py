@@ -466,7 +466,8 @@ class SearchLayer(MusicData):
 
         else:
             if select_method not in elem_ids:
-                result_set[select_method] = self.get_piece_by_all_(elem=select_method)
+                result_set[select_method] = self.get_piece_by_all_(
+                    elem=select_method)
             else:
                 result_set[select_method] = self.get_piece_by_all_creators(
                     elem=select_method)
