@@ -138,8 +138,6 @@ class MusicData(querylayer.QueryLayer):
         piece_id = self.add(query_input)[0]
         self.add_piece_links(piece_id, data)
 
-
-
     def add_instruments_to_piece(self, data, piece_id):
         result_data = copy.deepcopy(data)
         data_keys = ['keys', 'clefs']
