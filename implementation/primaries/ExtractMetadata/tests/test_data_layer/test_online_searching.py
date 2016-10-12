@@ -141,7 +141,7 @@ class TestDataLayerOnlineSearching(object):
                 "keys": {"Clarinet": [{"mode": "major",
                                        "fifths": 2}]},
                 "instruments": [{"name": "Clarinet"}],
-                "clefs": {"Clarinet": [{"name": "C major"}]}}
+                "clefs": {"Clarinet": [{"name": "treble"}]}}
         mlayer.add_piece("file.xml",
                          data)
         result_set = mlayer.get_piece_by_join([{"name": "D major"}], "keys")

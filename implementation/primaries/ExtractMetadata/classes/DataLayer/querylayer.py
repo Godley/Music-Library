@@ -89,7 +89,7 @@ class QueryLayer(object):
         Session = sessionmaker(bind=self.engine)
         return Session()
 
-    def setup(self):
+    def init_tables(self):
         metadata = MetaData()
         self.tables["creators"] = Table(
             'creators', metadata, Column(
@@ -173,6 +173,9 @@ class QueryLayer(object):
                    ForeignKey('time_signatures.id')))
 
         metadata.create_all(self.engine)
+
+    def setup(self):
+        self.init_tables()
         self.add_fixtures()
 
     def validate_table(self, table):

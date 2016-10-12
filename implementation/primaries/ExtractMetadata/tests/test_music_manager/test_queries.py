@@ -334,7 +334,7 @@ class TestMusicManager(object):
                                     "Sax": [{"name": "A major"}]},
                            "clefs": {"Sax": [{"line": 4,
                                               "sign": "F"}],
-                                     "Clarinet": [{"name": "E major"}]}})
+                                     "Clarinet": [{"name": "treble"}]}})
         expected_results = {
             "Title: Blabla": [
                 ('title: Blabla filename: file.xml',

@@ -15,7 +15,7 @@ def db():
 @pytest.fixture()
 def qlayer(db):
     elem = QueryLayer(db)
-    elem.setup()
+    elem.init_tables()
     return elem
 
 

@@ -142,32 +142,21 @@ class MusicData(querylayer.QueryLayer):
 
     def add_instruments_to_piece(self, data, piece_id):
         result_data = copy.deepcopy(data)
+        data_keys = ['keys', 'clefs']
         for instrument in result_data["instruments"]:
             name = instrument['name']
             kwargs = {}
-            if "clefs" in data:
-                if name in data["clefs"]:
-                    clef_data = result_data["clefs"][name]
-                    kwargs['clefs'] = clef_data
-                else:
-                    raise BadPieceException(
-                        "each instrument should have atleast one key")
-            else:
-                raise BadPieceException(
-                    "each instrument should have atleast one clef")
-
-            if "keys" in data:
-                if name in data["keys"]:
-                    key_data = result_data["keys"][name]
-                    kwargs['keys'] = key_data
+            for key in data_keys:
+                if key in data:
+                    if name in data[key]:
+                        kwargs[key] = result_data[key][name]
+                    else:
+                        raise BadPieceException(
+                            "each instrument should have atleast one {}".format(key[:-1]))
 
                 else:
                     raise BadPieceException(
-                        "each instrument should have atleast one key")
-
-            else:
-                raise BadPieceException(
-                    "each instrument should have atleast one key")
+                        "each instrument should have atleast one {}".format(key[:-1]))
 
             self.add_instrument_to_piece(instrument, piece_id, **kwargs)
         result_data["clefs"] = {}
