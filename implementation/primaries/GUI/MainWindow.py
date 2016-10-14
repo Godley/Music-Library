@@ -1,4 +1,5 @@
 from PyQt4 import QtGui, QtCore, uic
+from PyQt4.QtCore import SIGNAL
 import sip
 import os
 import difflib
@@ -404,6 +405,9 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         """
         position = self.contentFrame.pos()
         widget = self.widgets[child](self, self.design_folder)
+        self.connect(widget,
+                     SIGNAL("widget_signal(PyQt_PyObject, PyQt_PyObject, PyQt_PyObject)"),
+        self.qApp.on_WidgetSignal)
         endx = self.buttonFrame.width() - 1
         endy = position.y()
         endwidth = widget.width()

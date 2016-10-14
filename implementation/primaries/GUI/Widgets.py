@@ -1,4 +1,5 @@
 from PyQt4 import uic, QtCore, QtGui
+from PyQt4.QtCore import QObject, QThread, pyqtSignal, SIGNAL
 from implementation.primaries.GUI.helpers import get_base_dir, merge_clefs_and_keys, merge_instruments, fit_columns_to_widget
 import os
 
@@ -22,6 +23,10 @@ class Window(QtGui.QWidget):
         self.application.loadFile(file_to_load)
         self.main_window.unloadFrame(self.title_str.lower())
 
+    def emit_signal(self, data, slot):
+        self.emit(SIGNAL("widget_signal(PyQt_PyObject, PyQt_PyObject,PyQt_PyObject)"),
+                         data, slot, self.objectName())
+
 
 class Scorebook(Window):
 
@@ -42,11 +47,7 @@ class Scorebook(Window):
 
     def onSortChange(self):
         sort_method = self.comboBox.currentText()
-        self.application.start_basic_thread(
-            (sort_method,
-             ),
-            self.application.manager.getPieceSummaryStrings,
-            slot=self.onScoresReady)
+        self.emit_signal(sort_method, self.onScoresReady)
         self.comboBox.show()
 
     def onScoresReady(self, pieces):
@@ -78,11 +79,7 @@ class PlaylistWidget(Window):
             self.listWidget.addItem(item)
 
     def loadPlaylists(self, select_method="all"):
-        if self.data_set == "auto":
-            self.application.start_playlist_thread(
-                args=(select_method,), slot=self.onPlaylistsReady)
-        else:
-            self.application.start_playlist_thread(slot=self.onPlaylistsReady)
+        self.emit_signal(select_method, self.onPlaylistsReady)
 
     def load_data(self):
         pass
@@ -104,7 +101,7 @@ class MyPlaylists(PlaylistWidget):
             self,
             parent,
             "MyPlaylists.ui",
-            "My Playlists",
+            self.name,
             design_folder)
         self.deleteBtn.hide()
         self.listWidget.itemClicked.connect(self.deleteBtn.show)
@@ -128,7 +125,7 @@ class AutoPlaylists(PlaylistWidget):
             self,
             parent,
             "BasicListWidgetWithSort.ui",
-            "Auto Playlists",
+            self.name,
             design_folder,
             data_set="auto")
         options = ["all", "time signatures", "keys",
@@ -160,7 +157,7 @@ class PieceInfo(Window):
             self,
             parent,
             "BasicListWidget.ui",
-            "Piece Information",
+            "info",
             design_folder)
         self.loadInfo()
 
@@ -207,11 +204,11 @@ class FeaturedIn(PlaylistWidget):
             self,
             parent,
             "BasicListWidget.ui",
-            "Featured In...",
+            self.name,
             design_folder,
             data_set="featured")
 
-    def loadPlaylists(self):
+    def loadPlaylists(self, sort_method='all'):
         if self.main_window.current_piece != "":
             data = self.application.loadUserPlaylistsForAGivenFile(
                 self.main_window.current_piece)

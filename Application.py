@@ -28,7 +28,7 @@ logger.addHandler(handler)
 
 class Application(QtCore.QObject):
     windows = {}
-
+    threads = {}
     def __init__(self, app):
         self.wifi = True
         self.lastQuery = ""
@@ -50,6 +50,14 @@ class Application(QtCore.QObject):
         self.folder = None
         self.load_windows()
         self.updateStatusBar("hello, world")
+
+
+    def on_WidgetSignal(self, args, slot, sender):
+        methods = {"scorebook": self.manager.getPieceSummaryStrings,
+                   "playlistwidget": self.manager.getPlaylists}
+        self.start_basic_thread(args,
+            methods[sender],
+            slot=slot)
 
     def start_playlist_thread(self, args=tuple(), slot=None):
         async = qt_threading.mythread(
@@ -181,10 +189,10 @@ class Application(QtCore.QObject):
                                self.onFileError)
         async.run()
 
-    def start_basic_thread(self, args, method, slot=None):
+    def start_basic_thread(self, args, method, method_name="dataReady", slot=None):
         worker = qt_threading.mythread(self, method, args)
         QtCore.QObject.connect(worker,
-                               QtCore.SIGNAL("dataReady(PyQt_PyObject)"),
+                               QtCore.SIGNAL("{}(PyQt_PyObject)".format(method_name)),
                                slot)
         worker.run()
 
