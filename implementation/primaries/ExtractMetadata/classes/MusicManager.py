@@ -451,8 +451,8 @@ class SearchLayer(MusicData):
         if select_method == "all":
             clefs = self.get_piece_by_all_(elem='clefs')
             keys = self.get_piece_by_all_(elem='keys')
-            composers = self.get_piece_by_all_creators(elem='composers')
-            lyricists = self.get_piece_by_all_creators(elem='lyricists')
+            composers = self.get_piece_by_all_creators(elem='composer')
+            lyricists = self.get_piece_by_all_creators(elem='lyricist')
             instruments = self.get_piece_by_all_('instruments')
             timesigs = self.get_piece_by_all_('time_signatures')
             tempos = self.get_piece_by_all_('tempos')

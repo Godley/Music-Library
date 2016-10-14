@@ -54,17 +54,10 @@ class Application(QtCore.QObject):
 
     def on_WidgetSignal(self, args, slot, sender):
         methods = {"scorebook": self.manager.getPieceSummaryStrings,
-                   "playlistwidget": self.manager.getPlaylists}
+                   "autoplaylist": self.manager.getPlaylists}
         self.start_basic_thread(args,
-            methods[sender],
+            methods[sender.lower()],
             slot=slot)
-
-    def start_playlist_thread(self, args=tuple(), slot=None):
-        async = qt_threading.mythread(
-            self, self.manager.getPlaylists, args)
-        QtCore.QObject.connect(
-            async, QtCore.SIGNAL("dataReady(PyQt_PyObject)"), slot)
-        async.run()
 
     def meta_file(self):
         return os.path.join(os.path.expanduser("~"), ".musiclib")
@@ -190,6 +183,8 @@ class Application(QtCore.QObject):
         async.run()
 
     def start_basic_thread(self, args, method, method_name="dataReady", slot=None):
+        if type(args) != tuple:
+            args = (args,)
         worker = qt_threading.mythread(self, method, args)
         QtCore.QObject.connect(worker,
                                QtCore.SIGNAL("{}(PyQt_PyObject)".format(method_name)),
@@ -357,7 +352,6 @@ class Application(QtCore.QObject):
 
 
 def main():
-    sys.stdout = Tracer(sys.stdout)
     sys.stderr = Tracer(sys.stderr)
     app = QtGui.QApplication(sys.argv)
     application = Application(app)

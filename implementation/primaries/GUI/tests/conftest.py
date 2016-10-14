@@ -6,16 +6,16 @@ from PyQt4 import QtGui
 import sys
 
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def app():
     app = QtGui.QApplication(sys.argv)
     return app
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def application(app):
     return Application(app)
 
-@pytest.fixture()
+@pytest.fixture(scope="session")
 def main_window(application):
     application.windows["main"].load()
     return application.windows["main"]

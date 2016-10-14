@@ -18,6 +18,9 @@ class Window(QtGui.QWidget):
         except:
             pass
 
+    def onWidgetReady(self):
+        pass
+
     def loadPiece(self, current_item):
         file_to_load = current_item.data(32)
         self.application.loadFile(file_to_load)
@@ -25,7 +28,7 @@ class Window(QtGui.QWidget):
 
     def emit_signal(self, data, slot):
         self.emit(SIGNAL("widget_signal(PyQt_PyObject, PyQt_PyObject,PyQt_PyObject)"),
-                         data, slot, self.objectName())
+                         data, slot, self.title_str)
 
 
 class Scorebook(Window):
@@ -43,6 +46,8 @@ class Scorebook(Window):
         self.comboBox.currentIndexChanged.connect(self.onSortChange)
         options = ["title", "composer", "lyricist"]
         self.comboBox.addItems(options)
+
+    def onWidgetReady(self):
         self.onSortChange()
 
     def onSortChange(self):
@@ -64,6 +69,8 @@ class PlaylistWidget(Window):
         Window.__init__(self, parent, file, title, design_folder)
         self.listWidget.itemDoubleClicked.connect(self.loadPlaylist)
         self.data_set = data_set
+
+    def onWidgetReady(self):
         self.loadPlaylists()
 
     def onPlaylistsReady(self, myPlaylists):

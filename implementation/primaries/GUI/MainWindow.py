@@ -408,6 +408,9 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.connect(widget,
                      SIGNAL("widget_signal(PyQt_PyObject, PyQt_PyObject, PyQt_PyObject)"),
         self.qApp.on_WidgetSignal)
+        self.connect(self,
+                     SIGNAL("onWidgetReady()"),
+                     widget.onWidgetReady)
         endx = self.buttonFrame.width() - 1
         endy = position.y()
         endwidth = widget.width()
@@ -450,6 +453,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         animation.start()
         self.animation = animation
         self.loaded = child
+        self.emit(SIGNAL("onWidgetReady()"))
 
     def unloadFrame(self, child):
         """
@@ -476,7 +480,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
             QtCore.QRect(endx, endy, endwidth, self.contentFrame.height()))
         animation.start()
         self.animation = animation
-        self.loaded = ""
+        self.loaded = None
 
     def unloadSearch(self):
         self.searchFrame.hide()
