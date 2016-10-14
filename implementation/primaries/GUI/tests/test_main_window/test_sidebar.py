@@ -1,8 +1,9 @@
 from PyQt4.QtTest import QTest
 from PyQt4.QtCore import Qt
+from unittest.mock import MagicMock
 
 
-class TestSuiteSidebar(object):
+class SidebarTests(object):
     def assert_widget_loaded(self, widget, main_window, value=None):
         QTest.mouseClick(widget, Qt.LeftButton)
         assert main_window.loaded == value
@@ -10,7 +11,10 @@ class TestSuiteSidebar(object):
             layout = main_window.contentFrame.layout()
             widget = layout.itemAt(0).widget()
             assert widget.title_str.lower() == value.lower()
+            return widget
 
+
+class TestSuiteSidebarClicks(SidebarTests):
     def test_btn1(self, main_window, scorebook):
         widget = main_window.scorebookBtn
         self.assert_widget_loaded(widget, main_window, value=scorebook)
@@ -65,3 +69,20 @@ class TestSuiteSidebar(object):
         widget = main_window.browserBtn
         self.assert_widget_loaded(widget, main_window, value=browser)
         self.assert_widget_loaded(widget, main_window)
+
+
+class TestSuiteSidebarSignals(SidebarTests):
+    def assert_signal_connected(self, app_method, widget_slot):
+        pass
+
+    def test_scorebook_data_request(self, main_window, scorebook):
+        widget = main_window.scorebookBtn
+        main_window.qApp.on_WidgetSignal = MagicMock()
+        widget = self.assert_widget_loaded(widget, main_window, scorebook)
+        main_window.qApp.on_WidgetSignal.assert_called_once_with("title", widget.onScoresReady, "Scorebook")
+
+    def test_autoplaylist_data_request(self, main_window, auto_playlist):
+        widget = main_window.autoPlaylistBtn
+        main_window.qApp.on_WidgetSignal = MagicMock()
+        widget = self.assert_widget_loaded(widget, main_window, auto_playlist)
+        main_window.qApp.on_WidgetSignal.assert_called_once_with("all", widget.onPlaylistsReady, "autoplaylist")

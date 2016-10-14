@@ -166,6 +166,8 @@ class PieceInfo(Window):
             "BasicListWidget.ui",
             "info",
             design_folder)
+
+    def onWidgetReady(self):
         self.loadInfo()
 
     def loadInfo(self):
