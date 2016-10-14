@@ -54,6 +54,6 @@ build: off
 test_script:
 # temporary measure: disable online tests because the results vary
   - coverage run --source=implementation/primaries --omit=implementation/primaries/*/tests -m py.test
-  - codeclimate-test-reporter
+  - CODECLIMATE_REPO_TOKEN=312e88b86ff275d8fd5963ff84862297920aa781fd931d7c51ce9a9de6e4eb62 codeclimate-test-reporter
 
 
