@@ -95,16 +95,16 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         file = os.path.join(self.design_folder, "MainWindow.ui")
         uic.loadUi(file, self)
         self.setGeometry(0, 0, self.width(), self.height())
-        self.widgets["scorebook"] = Widgets.Scorebook
+        self.widgets["scorebook"] = Widgets.Scorebook(self, self.design_folder)
         self.colors["scorebook"] = "rgba(170, 255, 8, 255)"
         self.colors["myplaylist"] = "rgba(248, 213, 17, 255)"
         self.colors["autoplaylist"] = "rgba(235, 25, 39, 255)"
         self.colors["info"] = "rgba(253, 127, 60, 255)"
-        self.widgets["myplaylist"] = Widgets.MyPlaylists
-        self.widgets["autoplaylist"] = Widgets.AutoPlaylists
-        self.widgets["info"] = Widgets.PieceInfo
-        self.widgets["featured"] = Widgets.FeaturedIn
-        self.widgets["browser"] = Widgets.PlaylistBrowser
+        self.widgets["myplaylist"] = Widgets.MyPlaylists(self, self.design_folder)
+        self.widgets["autoplaylist"] = Widgets.AutoPlaylists(self, self.design_folder)
+        self.widgets["info"] = Widgets.PieceInfo(self, self.design_folder)
+        self.widgets["featured"] = Widgets.FeaturedIn(self, self.design_folder)
+        self.widgets["browser"] = Widgets.PlaylistBrowser(self, self.design_folder)
         self.widgets["search"] = Widgets.SearchTree(self, self.design_folder)
         layout = self.searchFrame.layout()
         layout.addWidget(self.widgets["search"])
@@ -404,7 +404,7 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         :return:
         """
         position = self.contentFrame.pos()
-        widget = self.widgets[child](self, self.design_folder)
+        widget = self.widgets[child]
         self.connect(widget,
                      SIGNAL("widget_signal(PyQt_PyObject, PyQt_PyObject, PyQt_PyObject)"),
         self.qApp.on_WidgetSignal)

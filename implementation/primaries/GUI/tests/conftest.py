@@ -3,8 +3,15 @@ from Application import Application
 import pytest
 from ..Widgets import Scorebook, PlaylistWidget
 from PyQt4 import QtGui
-import sys
+import sys, os
 
+
+@pytest.fixture(scope="session")
+def folder():
+    return os.path.join(
+        os.path.dirname(
+            os.path.realpath(__file__)),
+        "test_files")
 
 @pytest.fixture(scope="session")
 def app():
@@ -12,13 +19,16 @@ def app():
     return app
 
 @pytest.fixture(scope="session")
-def application(app):
-    return Application(app)
+def application(app, folder):
+    appl = Application(app)
+    appl.loadFolder(folder)
+    return appl
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def main_window(application):
     application.windows["main"].load()
-    return application.windows["main"]
+    yield application.windows["main"]
+    application.windows["main"].unloadFrame("scorebook")
 
 @pytest.fixture()
 def scorebook():
