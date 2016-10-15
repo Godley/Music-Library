@@ -175,8 +175,11 @@ class PieceInfo(Window):
             self.listWidget.clear()
             data = self.application.getFileInfo(
                 self.main_window.current_piece)[0]
-
-            datastring = "title: " + data["title"]
+            datastring = "title: "
+            if "title" in data:
+                datastring += data["title"]
+            else:
+                datastring += "(None)"
             title = QtGui.QListWidgetItem(datastring)
             self.listWidget.addItem(title)
             keys = (
