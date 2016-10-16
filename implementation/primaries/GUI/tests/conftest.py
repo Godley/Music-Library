@@ -36,6 +36,15 @@ def main_window(application):
 
 
 @pytest.fixture()
+def startup_window(application):
+    application.windows["startup"].load([])
+    yield application.windows["startup"]
+
+@pytest.fixture()
+def import_window(application):
+    yield application.windows["import"]
+
+@pytest.fixture()
 def scorebook():
     return "scorebook"
 
