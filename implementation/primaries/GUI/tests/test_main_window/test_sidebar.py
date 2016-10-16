@@ -2,7 +2,9 @@ from PyQt4.QtTest import QTest
 from PyQt4.QtCore import Qt
 from unittest.mock import MagicMock, Mock
 
+
 class SidebarTests(object):
+
     def click(self, widget, btn=Qt.LeftButton):
         QTest.mouseClick(widget, Qt.LeftButton)
 
@@ -17,10 +19,10 @@ class SidebarTests(object):
 
 
 class TestSuiteSidebarClicks(SidebarTests):
+
     def test_btn1(self, main_window, scorebook):
         widget = main_window.scorebookBtn
         self.assert_widget_loaded(widget, main_window, value=scorebook)
-
 
     def test_btn2(self, main_window, playlist):
         widget = main_window.myPlaylistBtn
@@ -74,6 +76,7 @@ class TestSuiteSidebarClicks(SidebarTests):
 
 
 class TestSuiteSidebarSignals(SidebarTests):
+
     def assert_signal_connected(self, app_method, widget_slot):
         pass
 
@@ -91,7 +94,8 @@ class TestSuiteSidebarSignals(SidebarTests):
         main_window.qApp.on_WidgetSignal = MagicMock()
         self.click(widget)
         box = main_window.widgets[scorebook]
-        main_window.qApp.on_WidgetSignal.assert_called_once_with("title", box.onScoresReady, "Scorebook")
+        main_window.qApp.on_WidgetSignal.assert_called_once_with(
+            "title", box.onScoresReady, "Scorebook")
         main_window.qApp.on_WidgetSignal = self.widg_signal
 
     def test_autoplaylist_data_request(self, main_window, auto_playlist):
@@ -100,7 +104,8 @@ class TestSuiteSidebarSignals(SidebarTests):
         main_window.qApp.on_WidgetSignal = MagicMock()
         self.click(widget)
         box = main_window.widgets[auto_playlist]
-        main_window.qApp.on_WidgetSignal.assert_called_once_with("all", box.onPlaylistsReady, "autoplaylist")
+        main_window.qApp.on_WidgetSignal.assert_called_once_with(
+            "all", box.onPlaylistsReady, "autoplaylist")
         main_window.qApp.on_WidgetSignal = self.widg_signal
 
     def test_autoplaylist_data_receive(self, main_window, auto_playlist):
@@ -118,7 +123,8 @@ class TestSuiteSidebarSignals(SidebarTests):
         main_window.qApp.on_WidgetSignal = MagicMock()
         self.click(widget)
         box = main_window.widgets[playlist]
-        main_window.qApp.on_WidgetSignal.assert_called_once_with("all", box.onPlaylistsReady, "myplaylist")
+        main_window.qApp.on_WidgetSignal.assert_called_once_with(
+            "all", box.onPlaylistsReady, "myplaylist")
         main_window.qApp.on_WidgetSignal = self.widg_signal
 
     def test_myplaylist_data_receive(self, main_window, playlist):

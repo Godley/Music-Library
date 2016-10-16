@@ -29,6 +29,7 @@ logger.addHandler(handler)
 class Application(QtCore.QObject):
     windows = {}
     threads = {}
+
     def __init__(self, app):
         self.wifi = True
         self.lastQuery = ""
@@ -51,14 +52,13 @@ class Application(QtCore.QObject):
         self.load_windows()
         self.updateStatusBar("hello, world")
 
-
     def on_WidgetSignal(self, args, slot, sender):
         methods = {"scorebook": self.manager.getPieceSummaryStrings,
                    "autoplaylist": self.manager.getPlaylists,
                    "myplaylist": self.manager.get_all_user_playlists}
         self.start_basic_thread(args,
-            methods[sender.lower()],
-            slot=slot)
+                                methods[sender.lower()],
+                                slot=slot)
 
     def meta_file(self):
         return os.path.join(os.path.expanduser("~"), ".musiclib")
@@ -183,13 +183,17 @@ class Application(QtCore.QObject):
                                self.onFileError)
         async.run()
 
-    def start_basic_thread(self, args, method, method_name="dataReady", slot=None):
-        if type(args) != tuple:
+    def start_basic_thread(
+            self,
+            args,
+            method,
+            method_name="dataReady",
+            slot=None):
+        if not isinstance(args, tuple):
             args = (args,)
         worker = qt_threading.mythread(self, method, args)
-        QtCore.QObject.connect(worker,
-                               QtCore.SIGNAL("{}(PyQt_PyObject)".format(method_name)),
-                               slot)
+        QtCore.QObject.connect(worker, QtCore.SIGNAL(
+            "{}(PyQt_PyObject)".format(method_name)), slot)
         worker.run()
 
     def setup_startup(self):

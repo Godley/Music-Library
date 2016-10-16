@@ -313,7 +313,6 @@ class TestMusicManager(object):
                 "instrument": [{"name": "Clarinet"}]})
         self.assert_dict(results, expected_results)
 
-
     def xtestFindPieceByTitleAndInstrumentWithKeyAndClef(self, manager):
         manager.add_piece("file.xml",
                           {"title": "Blabla",

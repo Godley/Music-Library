@@ -27,8 +27,11 @@ class Window(QtGui.QWidget):
         self.main_window.unloadFrame(self.title_str.lower())
 
     def emit_signal(self, data, slot):
-        self.emit(SIGNAL("widget_signal(PyQt_PyObject, PyQt_PyObject,PyQt_PyObject)"),
-                         data, slot, self.title_str)
+        self.emit(
+            SIGNAL("widget_signal(PyQt_PyObject, PyQt_PyObject,PyQt_PyObject)"),
+            data,
+            slot,
+            self.title_str)
 
 
 class Scorebook(Window):

@@ -100,11 +100,14 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         self.colors["myplaylist"] = "rgba(248, 213, 17, 255)"
         self.colors["autoplaylist"] = "rgba(235, 25, 39, 255)"
         self.colors["info"] = "rgba(253, 127, 60, 255)"
-        self.widgets["myplaylist"] = Widgets.MyPlaylists(self, self.design_folder)
-        self.widgets["autoplaylist"] = Widgets.AutoPlaylists(self, self.design_folder)
+        self.widgets["myplaylist"] = Widgets.MyPlaylists(
+            self, self.design_folder)
+        self.widgets["autoplaylist"] = Widgets.AutoPlaylists(
+            self, self.design_folder)
         self.widgets["info"] = Widgets.PieceInfo(self, self.design_folder)
         self.widgets["featured"] = Widgets.FeaturedIn(self, self.design_folder)
-        self.widgets["browser"] = Widgets.PlaylistBrowser(self, self.design_folder)
+        self.widgets["browser"] = Widgets.PlaylistBrowser(
+            self, self.design_folder)
         self.widgets["search"] = Widgets.SearchTree(self, self.design_folder)
         layout = self.searchFrame.layout()
         layout.addWidget(self.widgets["search"])
@@ -405,9 +408,10 @@ class MainWindow(QtGui.QMainWindow, themedWindow.ThemedWindow):
         """
         position = self.contentFrame.pos()
         widget = self.widgets[child]
-        self.connect(widget,
-                     SIGNAL("widget_signal(PyQt_PyObject, PyQt_PyObject, PyQt_PyObject)"),
-        self.qApp.on_WidgetSignal)
+        self.connect(
+            widget,
+            SIGNAL("widget_signal(PyQt_PyObject, PyQt_PyObject, PyQt_PyObject)"),
+            self.qApp.on_WidgetSignal)
         self.connect(self,
                      SIGNAL("onWidgetReady()"),
                      widget.onWidgetReady)
