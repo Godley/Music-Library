@@ -658,7 +658,7 @@ class MusicData(querylayer.QueryLayer):
                     self.add({'piece.id': p_id, 'playlist.id': id},
                              table=self.get_join('playlists'))
 
-    def get_all_user_playlists(self):
+    def get_all_user_playlists(self, sort_method):
         playlists = self.get_all('playlists')
         data = {}
         for elem in playlists:

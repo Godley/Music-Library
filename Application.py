@@ -54,7 +54,8 @@ class Application(QtCore.QObject):
 
     def on_WidgetSignal(self, args, slot, sender):
         methods = {"scorebook": self.manager.getPieceSummaryStrings,
-                   "autoplaylist": self.manager.getPlaylists}
+                   "autoplaylist": self.manager.getPlaylists,
+                   "myplaylist": self.manager.get_all_user_playlists}
         self.start_basic_thread(args,
             methods[sender.lower()],
             slot=slot)
