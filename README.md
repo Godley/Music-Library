@@ -1,14 +1,13 @@
-#A Sheet Music Organisation System
+# A Sheet Music Organisation System
 
-<center>[![Build status](https://ci.appveyor.com/api/projects/status/rsbqltbvo57povqh?svg=true)](https://ci.appveyor.com/project/Godley/music-library)
-[![Build Status](https://travis-ci.org/Godley/Music-Library.svg?branch=master)](https://travis-ci.org/Godley/Music-Library)</center>
-[![Code Climate](https://codeclimate.com/github/Godley/Music-Library/badges/gpa.svg)](https://codeclimate.com/github/Godley/Music-Library)
-[![Test Coverage](https://codeclimate.com/github/Godley/Music-Library/badges/coverage.svg)](https://codeclimate.com/github/Godley/Music-Library/coverage)
-[![Issue Count](https://codeclimate.com/github/Godley/Music-Library/badges/issue_count.svg)](https://codeclimate.com/github/Godley/Music-Library)
+<center>
 
-  This project aims to create an application which manages a person's music collection - that is, sheet music, the visual
+[![Build status](https://ci.appveyor.com/api/projects/status/rsbqltbvo57povqh?svg=true)](https://ci.appveyor.com/project/Godley/music-library) [![Build Status](https://travis-ci.org/Godley/Music-Library.svg?branch=master)](https://travis-ci.org/Godley/Music-Library) 
+[![Code Climate](https://codeclimate.com/github/Godley/Music-Library/badges/gpa.svg)](https://codeclimate.com/github/Godley/Music-Library) [![Test Coverage](https://codeclimate.com/github/Godley/Music-Library/badges/coverage.svg)](https://codeclimate.com/github/Godley/Music-Library/coverage) [![Issue Count](https://codeclimate.com/github/Godley/Music-Library/badges/issue_count.svg)](https://codeclimate.com/github/Godley/Music-Library)
+
+This project aims to create an application which manages a person's music collection - that is, sheet music, the visual
 representation of a composed piece of music.
-##Design
+## Design
 The system works by:
 - taking a folder
 - finding all the musicXML (.xml) files in that folder, and all the zipped musicXMl files in the folder (.mxl)
@@ -26,11 +25,11 @@ The system works by:
   - the system polls the MuseScore API for a list of files and compares them against the previous list it fetched from the API. 
   - If there's any new ones, it downloads them, unzips them, parses them for data, chucks that in the SQL DB and then deletes the XML and MXL files to save space.
 
-##Documentation
+## Documentation
 Currently the system is documented using github issues and the reports stored in Documentation. Most of these were for submission to my degree, but they give a good overview for new users and are pitched at a compsci level so that people without knowledge of music can learn a bit and understand it without prior knowledge of sheet music.
 Once I have a bit of time to do more writing there will be a proper documentation site with instructions on setting up
 
-##Infrastructure
+## Infrastructure
 - Language: Python 3.4.
 - GUI: PyQt4, with pdfs done by poppler on Linux and Mac, default pdf viewer on windows.
 - Rendering: [Lilypond](http://lilypond.org) via [MuseParse](http://github.com/godley/MuseParse)
@@ -38,5 +37,5 @@ Once I have a bit of time to do more writing there will be a proper documentatio
 - Output Format for rendering: PDF via lilypond
 - APIs used: [MuseScore](http://musescore.com) - keys are individual except for the release build which will use my API key. Please contact the musescore developers for a key if you need to debug anything network related.
 
-##Installation
+## Installation
 You can find the latest installer scripts for each platform by clicking [releases](https://github.com/Godley/Music-Library/releases). You will also need to install [Lilypond](http://lilypond.org).
